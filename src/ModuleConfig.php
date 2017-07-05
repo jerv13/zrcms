@@ -1,6 +1,6 @@
 <?php
 
-namespace Rcms;
+namespace Rcms\Core;
 
 /**
  * @author James Jervis - https://github.com/jerv13
