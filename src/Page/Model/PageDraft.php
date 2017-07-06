@@ -2,11 +2,13 @@
 
 namespace Rcms\Core\Page\Model;
 
-use Rcms\Core\Container\Model\Container;
-
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-interface Page extends Container
+interface PageDraft extends Page
 {
+    /**
+     * @return mixed
+     */
+    public function getId();
 }

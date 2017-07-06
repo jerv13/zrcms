@@ -2,8 +2,8 @@ NOTES
 =====
 
 
-published
-history
+X
+Xhistory
 drafts
 deleted
 template

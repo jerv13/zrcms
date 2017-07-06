@@ -13,17 +13,22 @@ abstract class SiteAbstract
     protected $id;
 
     /**
-     * @var string domain name
+     * @var string host name or domain name
      */
-    protected $domain;
+    protected $host;
 
     /**
      * @var string
      */
-    protected $local;
+    protected $country;
+
+    /**
+     * @var string
+     */
+    protected $language;
 
     /**
      * @var array
      */
-    protected $data = [];
+    protected $properties = [];
 }

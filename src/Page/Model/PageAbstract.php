@@ -3,29 +3,19 @@
 namespace Rcms\Core\Page\Model;
 
 use Rcms\Core\BlockInstance\Model\BlockInstance;
-use Rcms\Core\Tracking\Model\TrackingTrait;
+use Rcms\Core\Tracking\Model\TrackableTrait;
 
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-abstract class PageAbstract
+abstract class PageAbstract implements Page
 {
-    use TrackingTrait;
-
-    /**
-     * @var int
-     */
-    protected $id;
-
-    /**
-     * @var int
-     */
-    protected $siteId;
+    use TrackableTrait;
 
     /**
      * @var string
      */
-    protected $name;
+    protected $url;
 
     /**
      * @var array
@@ -38,27 +28,42 @@ abstract class PageAbstract
     protected $blockInstances = [];
 
     /**
-     * @return int
+     * @param string $url
+     * @param array  $properties
+     * @param array  $blockInstances
+     * @param string $createdByUserId
+     * @param string $createdReason
+     * @param string $trackingId
      */
-    public function getId()
-    {
-        return $this->id;
-    }
+    public function __construct(
+        string $url,
+        array $properties,
+        array $blockInstances,
+        string $createdByUserId,
+        string $createdReason,
+        string $trackingId
+    ) {
+        // if has id it is immutable
+        if (!empty($this->url)) {
+            return;
+        }
 
-    /**
-     * @return int
-     */
-    public function getSiteId()
-    {
-        return $this->siteId;
+        $this->url = $url;
+        $this->properties = $properties;
+        $this->blockInstances = $blockInstances;
+        $this->setCreatedData(
+            $createdByUserId,
+            $createdReason,
+            $trackingId
+        );
     }
 
     /**
      * @return mixed
      */
-    public function getName()
+    public function getUrl(): string
     {
-        return $this->name;
+        return $this->url;
     }
 
     /**
@@ -77,7 +82,11 @@ abstract class PageAbstract
      */
     public function getProperty(string $name, $default = null)
     {
-        return $this->properties;
+        if (array_key_exists($name, $this->properties)) {
+            return $this->properties[$name];
+        }
+
+        return $default;
     }
 
     /**
@@ -94,7 +103,7 @@ abstract class PageAbstract
      *
      * @return BlockInstance
      */
-    public function getBlockInstance(int $id, $default = null)
+    public function getBlockInstance(int $id, $default = null): BlockInstance
     {
         if (array_key_exists($id, $this->blockInstances)) {
             return $this->blockInstances[$id];
