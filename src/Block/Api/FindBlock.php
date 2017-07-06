@@ -1,21 +1,20 @@
 <?php
 
-namespace Rcms\Core\Language\Api;
+namespace Rcms\Core\Block\Api;
 
-use Rcms\Core\Language\Model\LanguagePublished;
+use Rcms\Core\Block\Model\Block;
 
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-interface FindLanguagePublished
+interface FindBlock
 {
     /**
      * @param          $id
      * @param null|int $lockMode
      * @param null|int $lockVersion
-     * @param array $options
      *
-     * @return LanguagePublished|null
+     * @return Block|null
      */
     public function __invoke(
         $id,

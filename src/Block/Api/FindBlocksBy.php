@@ -1,11 +1,11 @@
 <?php
 
-namespace Rcms\Core\Language\Api;
+namespace Rcms\Core\Block\Api;
 
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-interface FindLanguagesPublishedBy
+interface FindBlocksBy
 {
     /**
      * @param array      $criteria
@@ -14,7 +14,7 @@ interface FindLanguagesPublishedBy
      * @param null|int   $offset
      * @param array      $options
      *
-     * @return array [LanguagePublished]
+     * @return mixed
      */
     public function __invoke(
         array $criteria,
