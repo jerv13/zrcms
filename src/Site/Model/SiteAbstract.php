@@ -5,7 +5,7 @@ namespace Rcms\Core\Site\Model;
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-abstract class SiteAbstract
+abstract class SiteAbstract implements Site
 {
     /**
      * @var int

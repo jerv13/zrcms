@@ -14,12 +14,14 @@ interface DeletePagePublished
      * @param PagePublished $page
      * @param string        $modifiedByUserId
      * @param string        $modifiedReason
+     * @param array         $options
      *
      * @return PageDeleted
      */
     public function __invoke(
         PagePublished $page,
         string $modifiedByUserId,
-        string $modifiedReason
+        string $modifiedReason,
+        array $options = []
     ): PageDeleted;
 }

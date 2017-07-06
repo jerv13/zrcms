@@ -2,21 +2,21 @@
 
 namespace Rcms\Core\Container\Api;
 
-use Rcms\Core\Container\Model\Container;
+use Rcms\Core\Page\Model\Page;
 
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-interface RenderContainer
+interface RenderPage
 {
     /**
-     * @param Container $container
-     * @param array     $options
+     * @param Page  $page
+     * @param array $options
      *
      * @return string
      */
     public function __invoke(
-        Container $container,
+        Page $page,
         array $options = []
     ): string;
 }

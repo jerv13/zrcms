@@ -10,10 +10,17 @@ interface FindCountriesPublishedBy
     /**
      * @param array      $criteria
      * @param array|null $orderBy
-     * @param null       $limit
-     * @param null       $offset
+     * @param null|int   $limit
+     * @param null|int   $offset
+     * @param array      $options
      *
      * @return array [CountryPublished]
      */
-    public function __invoke(array $criteria, array $orderBy = null, $limit = null, $offset = null);
+    public function __invoke(
+        array $criteria,
+        array $orderBy = null,
+        $limit = null,
+        $offset = null,
+        array $options = []
+    );
 }

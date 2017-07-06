@@ -30,16 +30,20 @@ class PublishPageDraftEntity implements PublishPageDraft
      * @param PageDraft $page
      * @param string    $modifiedByUserId
      * @param string    $modifiedReason
+     * @param array     $options
      *
      * @return PagePublished
      */
     public function __invoke(
         PageDraft $page,
         string $modifiedByUserId,
-        string $modifiedReason
+        string $modifiedReason,
+        array $options = []
     ): PagePublished
     {
-        $pagePublishedRepository = $this->entityManager->getRepository(PagePublished::class);
+        $pagePublishedRepository = $this->entityManager->getRepository(
+            PagePublished::class
+        );
 
         /** @var PagePublished $existingPage */
         $existingPage = $pagePublishedRepository->find($page->getUrl());

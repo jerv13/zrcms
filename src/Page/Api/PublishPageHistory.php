@@ -14,12 +14,14 @@ interface PublishPageHistory
      * @param PageHistory $page
      * @param string      $modifiedByUserId
      * @param string      $modifiedReason
+     * @param array       $options
      *
      * @return PagePublished
      */
     public function __invoke(
         PageHistory $page,
         string $modifiedByUserId,
-        string $modifiedReason
+        string $modifiedReason,
+        array $options = []
     ): PagePublished;
 }

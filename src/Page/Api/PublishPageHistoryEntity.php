@@ -29,16 +29,20 @@ class PublishPageHistoryEntity implements PublishPageHistory
      * @param PageHistory $page
      * @param string      $modifiedByUserId
      * @param string      $modifiedReason
+     * @param array       $options
      *
      * @return PagePublished
      */
     public function __invoke(
         PageHistory $page,
         string $modifiedByUserId,
-        string $modifiedReason
+        string $modifiedReason,
+        array $options = []
     ): PagePublished
     {
-        $pagePublishedRepository = $this->entityManager->getRepository(PagePublished::class);
+        $pagePublishedRepository = $this->entityManager->getRepository(
+            PagePublished::class
+        );
 
         /** @var PagePublished $existingPage */
         $existingPage = $pagePublishedRepository->find($page->getUrl());
