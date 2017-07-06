@@ -2,6 +2,7 @@
 
 namespace Rcms\Core\Page\Entity;
 
+use Doctrine\ORM\Mapping as ORM;
 use Rcms\Core\Page\Model\PageAbstract;
 
 /**

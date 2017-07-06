@@ -1,11 +1,11 @@
 <?php
 
-namespace Rcms\Core\Page\Api;
+namespace Rcms\Core\Language\Api;
 
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-interface FindPagesPublishedBy
+interface FindLanguagesPublishedBy
 {
     /**
      * @param array      $criteria
@@ -13,7 +13,7 @@ interface FindPagesPublishedBy
      * @param null       $limit
      * @param null       $offset
      *
-     * @return array [PagePublished]
+     * @return array [LanguagePublished]
      */
     public function __invoke(array $criteria, array $orderBy = null, $limit = null, $offset = null);
 }

@@ -2,12 +2,12 @@
 
 namespace Rcms\Core\Language\Model;
 
-use Rcms\Core\Tracking\Model\Tracking;
+use Rcms\Core\Tracking\Model\Trackable;
 
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-interface Language extends Tracking
+interface Language extends Trackable
 {
     /**
      * @return mixed

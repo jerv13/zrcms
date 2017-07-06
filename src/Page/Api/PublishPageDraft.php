@@ -2,7 +2,7 @@
 
 namespace Rcms\Core\Page\Api;
 
-use Rcms\Core\Page\Entity\PagePublished;
+use Rcms\Core\Page\Model\PagePublished;
 use Rcms\Core\Page\Model\PageDraft;
 
 /**

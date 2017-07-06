@@ -18,6 +18,7 @@ abstract class SiteAbstract
     protected $host;
 
     /**
+     * ISO3 Country code
      * @var string
      */
     protected $country;

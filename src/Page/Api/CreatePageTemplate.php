@@ -13,7 +13,6 @@ interface CreatePageTemplate
      * @param string $url
      * @param string $createdByUserId
      * @param string $createdReason
-     * @param string $trackingId
      * @param array  $properties
      * @param array  $blockInstances
      * @param array  $options
@@ -24,7 +23,6 @@ interface CreatePageTemplate
         string $url,
         string $createdByUserId,
         string $createdReason,
-        string $trackingId,
         array $properties,
         array $blockInstances,
         array $options = []
