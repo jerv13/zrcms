@@ -1,6 +1,6 @@
 <?php
 
-namespace Zrcms\Core\Tracking\Exception;
+namespace Zrcms\Tracking\Exception;
 
 /**
  * @author James Jervis - https://github.com/jerv13

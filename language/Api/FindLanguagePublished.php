@@ -1,21 +1,21 @@
 <?php
 
-namespace Zrcms\Core\Country\Api;
+namespace Zrcms\Language\Api;
 
-use Zrcms\Core\Country\Model\CountryPublished;
+use Zrcms\Language\Model\LanguagePublished;
 
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-interface FindCountryPublished
+interface FindLanguagePublished
 {
     /**
      * @param          $id
      * @param null|int $lockMode
      * @param null|int $lockVersion
-     * @param array    $options
+     * @param array $options
      *
-     * @return CountryPublished|null
+     * @return LanguagePublished|null
      */
     public function __invoke(
         $id,

@@ -1,8 +1,8 @@
 <?php
 
-namespace Zrcms\Core\Country\Model;
+namespace Zrcms\Country\Model;
 
-use Zrcms\Core\Tracking\Model\Trackable;
+use Zrcms\Tracking\Model\Trackable;
 
 /**
  * @author James Jervis - https://github.com/jerv13

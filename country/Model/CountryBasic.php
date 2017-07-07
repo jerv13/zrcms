@@ -1,6 +1,6 @@
 <?php
 
-namespace Zrcms\Core\Country\Model;
+namespace Zrcms\Country\Model;
 
 /**
  * @author James Jervis - https://github.com/jerv13

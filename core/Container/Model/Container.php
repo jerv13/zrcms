@@ -3,7 +3,7 @@
 namespace Zrcms\Core\Container\Model;
 
 use Zrcms\Core\BlockInstance\Model\BlockInstance;
-use Zrcms\Core\Tracking\Model\Trackable;
+use Zrcms\Tracking\Model\Trackable;
 
 /**
  * @author James Jervis - https://github.com/jerv13

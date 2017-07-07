@@ -1,6 +1,6 @@
 <?php
 
-namespace Zrcms\Core\Language\Model;
+namespace Zrcms\Language\Model;
 
 /**
  * @author James Jervis - https://github.com/jerv13

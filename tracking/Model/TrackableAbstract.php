@@ -1,8 +1,6 @@
 <?php
 
-namespace Zrcms\Core\Tracking\Model;
-
-use Zrcms\Core\Tracking\Exception\TrackingException;
+namespace Zrcms\Tracking\Model;
 
 /**
  * @author James Jervis - https://github.com/jerv13

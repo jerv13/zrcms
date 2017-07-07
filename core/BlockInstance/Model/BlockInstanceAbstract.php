@@ -2,7 +2,7 @@
 
 namespace Zrcms\Core\BlockInstance\Model;
 
-use Zrcms\Core\Tracking\Model\TrackableTrait;
+use Zrcms\Tracking\Model\TrackableTrait;
 
 /**
  * @author James Jervis - https://github.com/jerv13
