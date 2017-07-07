@@ -1,13 +1,13 @@
 <?php
 
-namespace Zrcms\Core\Site\Api;
+namespace Zrcms\CoreDoctrine\Site\Api;
 
 use Zrcms\Core\Site\Model\SitePublished;
 
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-interface UpdateSitePublished
+class UpdateSitePublished implements \Zrcms\Core\Site\Api\UpdateSitePublished
 {
     /**
      * @param SitePublished $sitePublished
@@ -28,5 +28,8 @@ interface UpdateSitePublished
         $theme = null,
         $properties = null,
         array $options = []
-    ): SitePublished;
+    ): SitePublished
+    {
+
+    }
 }

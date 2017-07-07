@@ -1,6 +1,6 @@
 <?php
 
-namespace Zrcms\Core\Site\Api;
+namespace Zrcms\CoreDoctrine\Site\Api;
 
 use Zrcms\Core\Site\Model\SitePublished;
 use Zrcms\Core\Site\Model\SiteUnpublished;
@@ -8,7 +8,7 @@ use Zrcms\Core\Site\Model\SiteUnpublished;
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-interface UnpublishSitePublished
+class UnpublishSitePublished implements \Zrcms\Core\Site\Api\UnpublishSitePublished
 {
     /**
      * @param SitePublished $sitePublished
@@ -19,5 +19,8 @@ interface UnpublishSitePublished
     public function __invoke(
         SitePublished $sitePublished,
         array $options = []
-    ): SiteUnpublished;
+    ): SiteUnpublished
+    {
+
+    }
 }

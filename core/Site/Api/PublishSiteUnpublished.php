@@ -8,7 +8,7 @@ use Zrcms\Core\Site\Model\SiteUnpublished;
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-interface UnpublishSitePublished
+interface PublishSiteUnpublished
 {
     /**
      * @param SiteUnpublished $siteUnpublished

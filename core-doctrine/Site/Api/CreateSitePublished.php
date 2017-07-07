@@ -1,13 +1,13 @@
 <?php
 
-namespace Zrcms\Core\Site\Api;
+namespace Zrcms\CoreDoctrine\Site\Api;
 
 use Zrcms\Core\Site\Model\SitePublished;
 
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-interface CreateSitePublished
+class CreateSitePublished implements \Zrcms\Core\Site\Api\CreateSitePublished
 {
     /**
      * @param string $host
@@ -28,5 +28,8 @@ interface CreateSitePublished
         string $createdReason,
         $id = null,
         array $options = []
-    ): SitePublished;
+    ): SitePublished
+    {
+
+    }
 }

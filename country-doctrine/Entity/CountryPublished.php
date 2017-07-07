@@ -1,13 +1,13 @@
 <?php
 
-namespace Zrcms\CoreDoctrine\Language\Entity;
+namespace Zrcms\CountryDoctrine\Country\Entity;
 
-use Zrcms\Core\Language\Model\LanguageAbstract;
+use Zrcms\Country\Model\CountryAbstract;
 
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class LanguagePublished extends LanguageAbstract implements \Zrcms\Core\Language\Model\LanguagePublished
+class CountryPublished extends CountryAbstract implements \Zrcms\Country\Model\CountryPublished
 {
     /**
      * @var string
@@ -15,27 +15,14 @@ class LanguagePublished extends LanguageAbstract implements \Zrcms\Core\Language
     protected $name;
 
     /**
-     * *Preferred*
-     *
-     * @var string Three digit ISO "terminological" language code.
-     *
-     * @link http://en.wikipedia.org/wiki/List_of_ISO_639-2_codes ISO Standard
+     * @var string
      */
-    protected $iso639_2t;
+    protected $iso3;
 
     /**
-     * @var string Three digit ISO "bibliographic" language code.
-     *
-     * @link http://en.wikipedia.org/wiki/List_of_ISO_639-2_codes ISO Standard
+     * @var string
      */
-    protected $iso639_2b;
-
-    /**
-     * @var string Two digit language code.
-     *
-     * @link http://en.wikipedia.org/wiki/List_of_ISO_639-2_codes ISO Standard
-     */
-    protected $iso639_1;
+    protected $iso2;
 
     /**
      * Date object was first created
