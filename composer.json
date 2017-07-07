@@ -1,5 +1,5 @@
 {
-  "name": "rcm/zrcms",
+  "name": "zrcms/core",
   "description": "Reliv Content Management System 2",
   "type": "library",
   "license": "BSD-3-Clause",
@@ -7,8 +7,10 @@
     "reliv",
     "content",
     "manager",
-    "module",
-    "zf2"
+    "zend",
+    "expressive",
+    "middleware",
+    "module"
   ],
   "homepage": "http://www.reliv.com/",
   "authors": [
@@ -25,14 +27,9 @@
   ],
   "require": {
     "php": ">=7",
-    "container-interop/container-interop": "^1",
-    "doctrine/doctrine-orm-module": "1.*",
-    "psr/http-message": "^1.0",
-    "rcm/user": "1.*",
-    "rcm/api-lib": "0.*",
-    "reliv/pipe-rat": "0.*",
-    "reliv/zf-config-factories": "3.* || 4.*",
-    "rwoverdijk/assetmanager": "1.*",
+    "psr/container": "^1",
+    "psr/http-message": "^1",
+    "reliv/zf-config-factories": "^4",
     "zendframework/zend-expressive": "^1.1.1"
   },
   "require-dev": {
@@ -46,6 +43,8 @@
     }
   },
   "suggest": {
+    "dasprid/container-interop-doctrine": "^0.2.2",
+    "rwoverdijk/assetmanager": "1.*"
   },
   "extra": {
     "asset-pattern-skip-version": "(-patch*)",
