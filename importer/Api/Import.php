@@ -27,11 +27,10 @@ class Import
      *
      * @param $json The full json data string from a previous Zrcms export
      */
-    function __invoke($json)
+    function __invoke($json, $currentUserId)
     {
         $data = json_decode($json);
 
-        $createdByUser = 'import-script';//@TODO get current logged in user
         $createdByReason = 'Import script ' . get_class($this);
 
         foreach ($data['sites'] as $site) {
@@ -39,7 +38,7 @@ class Import
                 $site['host'],
                 $site['theme'],
                 $site['properties'],
-                $createdByUser,
+                $currentUserId,
                 $createdByReason,
                 $site['id']
             );
@@ -48,7 +47,7 @@ class Import
         foreach ($data['pages'] as $page) {
             $this->createPagePublished->__invoke(
                 $page['uri'],
-                $createdByUser,
+                $currentUserId,
                 $createdByReason,
                 $page['properties'],
                 $page['blockInstances']
@@ -58,7 +57,7 @@ class Import
         foreach ($data['containers'] as $container) {
             $this->createContainerPublished->__invoke(
                 $container['uri'],
-                $createdByUser,
+                $currentUserId,
                 $createdByReason,
                 $container['properties'],
                 $container['blockInstances']
