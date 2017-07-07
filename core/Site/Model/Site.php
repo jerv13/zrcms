@@ -25,16 +25,6 @@ interface Site
     /**
      * @return string
      */
-    public function getCountry(): string;
-
-    /**
-     * @return string
-     */
-    public function getLanguage(): string;
-
-    /**
-     * @return string
-     */
     public function getLocale(): string;
 
     /**

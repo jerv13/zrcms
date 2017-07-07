@@ -27,20 +27,6 @@ abstract class SiteAbstract implements Site
     protected $title;
 
     /**
-     * ISO3 Country code
-     *
-     * @var string
-     */
-    protected $country;
-
-    /**
-     * ISO 639-2/T Language Code
-     *
-     * @var string
-     */
-    protected $language;
-
-    /**
      * Locale used for translations and formating
      *
      * @var string
@@ -53,7 +39,11 @@ abstract class SiteAbstract implements Site
      */
     protected $properties
         = [
+            // ISO3 Country code
+            'countryIso3' => 'USA',
             'favicon' => '/images/favicon.ico',
+            // ISO 639-2/T Language Code
+            'languageIso9392t' => 'eng',
             'loginPage' => '/login',
             // default theme
             'theme' => 'GuestResponsive',
@@ -84,22 +74,6 @@ abstract class SiteAbstract implements Site
     public function getTitle(): string
     {
         return $this->title;
-    }
-
-    /**
-     * @return string
-     */
-    public function getCountry(): string
-    {
-        return $this->country;
-    }
-
-    /**
-     * @return string
-     */
-    public function getLanguage(): string
-    {
-        return $this->language;
     }
 
     /**
