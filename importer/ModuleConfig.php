@@ -8,9 +8,6 @@ use Zrcms\Core\Site\Api\CreateSitePublished;
 use Zrcms\Importer\Api\Import;
 use Zrcms\Importer\Middleware\ImportController;
 
-/**
- * @author James Jervis - https://github.com/jerv13
- */
 class ModuleConfig
 {
     /**
