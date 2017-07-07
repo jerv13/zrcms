@@ -20,11 +20,11 @@ abstract class SiteAbstract implements Site
     protected $host;
 
     /**
-     * Friendly title
+     * Theme name
      *
      * @var string
      */
-    protected $title;
+    protected $theme;
 
     /**
      * Locale used for translations and formating
@@ -47,9 +47,10 @@ abstract class SiteAbstract implements Site
             'loginPage' => '/login',
             // default theme
             'theme' => 'GuestResponsive',
-            // replaced by themeInstance 'siteLayout' => 'GuestSitePage'
+            // replaced by layout 'siteLayout' => 'GuestSitePage'
             'notAuthorizedPage' => '/not-authorized',
-            'notFoundPage' => 'not-found'
+            'notFoundPage' => 'not-found',
+            'title' => ''
         ];
 
     /**
@@ -71,9 +72,9 @@ abstract class SiteAbstract implements Site
     /**
      * @return string
      */
-    public function getTitle(): string
+    public function getTheme(): string
     {
-        return $this->title;
+        return $this->theme;
     }
 
     /**

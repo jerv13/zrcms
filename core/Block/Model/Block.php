@@ -94,7 +94,7 @@ interface Block
     /**
      * @return array
      */
-    public function getOptions(): array;
+    public function getProperties(): array;
 
     /**
      * @param string $name
@@ -102,12 +102,5 @@ interface Block
      *
      * @return mixed
      */
-    public function getOption(string $name, $default = null);
-
-    /**
-     * toArray
-     *
-     * @return array
-     */
-    public function toArray(): array;
+    public function getProperty(string $name, $default = null);
 }

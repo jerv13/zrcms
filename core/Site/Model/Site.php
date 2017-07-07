@@ -20,7 +20,7 @@ interface Site
     /**
      * @return string
      */
-    public function getTitle(): string;
+    public function getTheme(): string;
 
     /**
      * @return string

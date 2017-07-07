@@ -1,11 +1,11 @@
 <?php
 
-namespace Zrcms\Core\TemplateInstance\Model;
+namespace Zrcms\Core\Layout\Model;
 
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-interface TemplateInstance
+interface Layout
 {
     /**
      * @return string
