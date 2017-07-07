@@ -1,6 +1,6 @@
 <?php
 
-namespace Zrcms\CoreDoctrine\Site\Model;
+namespace Zrcms\CoreDoctrine\Site\Entity;
 
 use Zrcms\Core\Site\Model\SiteAbstract;
 
