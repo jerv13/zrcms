@@ -8,7 +8,7 @@ use Zrcms\Core\BlockInstance\Model\BlockInstance;
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class GetMergedConfigEntity implements GetMergedConfig
+class GetMergedConfigBasic implements GetMergedConfig
 {
     protected $findBlock;
 
@@ -35,9 +35,17 @@ class GetMergedConfigEntity implements GetMergedConfig
         $bock = $this->findBlock->__invoke(
             $blockInstance->getName()
         );
+
+        return $this->merge($bock->getDefaultConfig(), $blockInstance->getConfig());
     }
 
-    protected function merge($default, $changes)
+    /**
+     * @param array $default
+     * @param array $changes
+     *
+     * @return array
+     */
+    protected function merge(array $default, array $changes)
     {
         if (empty($default)) {
             return $changes;

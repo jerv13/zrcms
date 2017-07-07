@@ -17,25 +17,31 @@ abstract class LanguageAbstract implements Language
     protected $name;
 
     /**
-     * *Preferred*
+     * ***Preferred Code***
      *
-     * @var string Three digit ISO "terminological" language code.
+     * Three digit ISO 639-2/T "terminological" language code.
      *
-     * @link http://en.wikipedia.org/wiki/List_of_ISO_639-2_codes ISO Standard
+     * @link http://en.wikipedia.org/wiki/List_of_ISO_639-2_codes
+     *
+     * @var string
      */
     protected $iso639_2t;
 
     /**
-     * @var string Three digit ISO "bibliographic" language code.
+     * Three digit ISO 639-2/B "bibliographic" language code.
      *
-     * @link http://en.wikipedia.org/wiki/List_of_ISO_639-2_codes ISO Standard
+     * @link http://en.wikipedia.org/wiki/List_of_ISO_639-2_codes
+     *
+     * @var string
      */
     protected $iso639_2b;
 
     /**
-     * @var string Two digit language code.
+     * Two digit iso639_1 language code.
      *
-     * @link http://en.wikipedia.org/wiki/List_of_ISO_639-2_codes ISO Standard
+     * @link http://en.wikipedia.org/wiki/List_of_ISO_639-2_codes
+     *
+     * @var string
      */
     protected $iso639_1;
 

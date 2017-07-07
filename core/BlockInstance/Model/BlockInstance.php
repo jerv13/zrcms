@@ -45,4 +45,17 @@ interface BlockInstance extends Trackable
      * @return mixed
      */
     public function getDataValue(string $name, $default = null);
+
+    /**
+     * @return array
+     */
+    public function getLayoutData(): array;
+
+    /**
+     * @param string $name
+     * @param null   $default
+     *
+     * @return mixed
+     */
+    public function getLayoutDataValue(string $name, $default = null);
 }

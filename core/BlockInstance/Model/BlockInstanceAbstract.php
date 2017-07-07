@@ -29,23 +29,31 @@ abstract class BlockInstanceAbstract implements BlockInstance
     /**
      * @var array
      */
+    protected $layoutData = [];
+
+    /**
+     * @var array
+     */
     protected $data = [];
 
     /**
      * @param        $id
      * @param string $name
      * @param array  $config
+     * @param array  $layoutData
      * @param array  $data
      */
     public function __construct(
         $id,
         string $name,
         array $config,
+        array $layoutData,
         array $data
     ) {
         $this->id = $id;
         $this->name = $name;
         $this->config = $config;
+        $this->layoutData = $layoutData;
         $this->data = $data;
     }
 
@@ -107,6 +115,29 @@ abstract class BlockInstanceAbstract implements BlockInstance
     {
         if (array_key_exists($name, $this->data)) {
             return $this->data[$name];
+        }
+
+        return $default;
+    }
+
+    /**
+     * @return array
+     */
+    public function getLayoutData(): array
+    {
+        return $this->layoutData;
+    }
+
+    /**
+     * @param string $name
+     * @param null   $default
+     *
+     * @return mixed
+     */
+    public function getLayoutDataValue(string $name, $default = null)
+    {
+        if (array_key_exists($name, $this->layoutData)) {
+            return $this->layoutData[$name];
         }
 
         return $default;

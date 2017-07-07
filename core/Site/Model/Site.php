@@ -7,5 +7,46 @@ namespace Zrcms\Core\Site\Model;
  */
 interface Site
 {
+    /**
+     * @return int
+     */
+    public function getId(): int;
 
+    /**
+     * @return string
+     */
+    public function getHost(): string;
+
+    /**
+     * @return string
+     */
+    public function getTitle(): string;
+
+    /**
+     * @return string
+     */
+    public function getCountry(): string;
+
+    /**
+     * @return string
+     */
+    public function getLanguage(): string;
+
+    /**
+     * @return string
+     */
+    public function getLocale(): string;
+
+    /**
+     * @return array
+     */
+    public function getProperties(): array;
+
+    /**
+     * @param string $name
+     * @param null   $default
+     *
+     * @return mixed
+     */
+    public function getProperty(string $name, $default = null);
 }
