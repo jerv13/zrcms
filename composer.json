@@ -1,5 +1,5 @@
 {
-  "name": "rcm/rcms",
+  "name": "rcm/zrcms",
   "description": "Reliv Content Management System 2",
   "type": "library",
   "license": "BSD-3-Clause",
@@ -41,7 +41,8 @@
   },
   "autoload": {
     "psr-4": {
-      "Rcms\\Core\\": "src/"
+      "Zrcms\\Core\\": "core/",
+      "Zrcms\\CoreDoctrine\\": "core-doctrine/"
     }
   },
   "suggest": {
