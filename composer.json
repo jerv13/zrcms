@@ -10,7 +10,7 @@
     "zend",
     "expressive",
     "middleware",
-    "module",
+    "module"
   ],
   "homepage": "http://www.reliv.com/",
   "authors": [
