@@ -6,36 +6,43 @@ use Zrcms\Language\Model\LanguageAbstract;
 
 /**
  * @author James Jervis - https://github.com/jerv13
+ *
+ * @ORM\Entity()
+ * @ORM\HasLifecycleCallbacks()
+ * @ORM\Table(
+ *     name="zrcms_language_published",
+ * )
  */
 class LanguagePublished extends LanguageAbstract implements \Zrcms\Language\Model\LanguagePublished
 {
     /**
      * @var string
-     */
-    protected $name;
-
-    /**
-     * *Preferred*
      *
-     * @var string Three digit ISO "terminological" language code.
-     *
-     * @link http://en.wikipedia.org/wiki/List_of_ISO_639-2_codes ISO Standard
+     * @ORM\Id
+     * @ORM\Column(type="string", length=3)
      */
     protected $iso639_2t;
 
     /**
-     * @var string Three digit ISO "bibliographic" language code.
+     * @var string
      *
-     * @link http://en.wikipedia.org/wiki/List_of_ISO_639-2_codes ISO Standard
+     * @ORM\Column(type="string", length=3)
      */
     protected $iso639_2b;
 
     /**
-     * @var string Two digit language code.
+     * @var string
      *
-     * @link http://en.wikipedia.org/wiki/List_of_ISO_639-2_codes ISO Standard
+     * @ORM\Column(type="string", length=2)
      */
     protected $iso639_1;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(type="string")
+     */
+    protected $name;
 
     /**
      * Date object was first created
@@ -75,4 +82,14 @@ class LanguagePublished extends LanguageAbstract implements \Zrcms\Language\Mode
      * @ORM\Column(type="string")
      */
     protected $trackingId;
+
+    /**
+     * @return void
+     *
+     * @ORM\PrePersist
+     */
+    public function assertHasTrackingData()
+    {
+        parent::assertHasTrackingData();
+    }
 }

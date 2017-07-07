@@ -95,4 +95,14 @@ class PageDeleted extends PageAbstract implements \Zrcms\Core\Page\Model\PageDel
     {
         return $this->id;
     }
+
+    /**
+     * @return void
+     *
+     * @ORM\PrePersist
+     */
+    public function assertHasTrackingData()
+    {
+        parent::assertHasTrackingData();
+    }
 }

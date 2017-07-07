@@ -21,7 +21,7 @@ class ModuleConfig
     public function __invoke()
     {
         return [
-            'dependancies' => [
+            'dependencies' => [
                 'config_factories' => [
                     Import::class => [
                         'arguments' => [

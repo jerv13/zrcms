@@ -2,6 +2,7 @@
 
 namespace Zrcms\CoreDoctrine\Site\Entity;
 
+use Doctrine\ORM\Mapping as ORM;
 use Zrcms\Core\Site\Model\SiteAbstract;
 
 /**
@@ -9,5 +10,13 @@ use Zrcms\Core\Site\Model\SiteAbstract;
  */
 class SitePublished extends SiteAbstract implements \Zrcms\Core\Site\Model\SitePublished
 {
-
+    /**
+     * @return void
+     *
+     * @ORM\PrePersist
+     */
+    public function assertHasTrackingData()
+    {
+        parent::assertHasTrackingData();
+    }
 }

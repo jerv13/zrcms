@@ -22,5 +22,5 @@ interface FindCountriesPublishedBy
         $limit = null,
         $offset = null,
         array $options = []
-    );
+    ): array;
 }

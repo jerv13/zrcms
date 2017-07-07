@@ -95,4 +95,14 @@ class PageDraft extends PageAbstract implements \Zrcms\Core\Page\Model\PageDraft
     {
         return $this->id;
     }
+
+    /**
+     * @return void
+     *
+     * @ORM\PrePersist
+     */
+    public function assertHasTrackingData()
+    {
+        parent::assertHasTrackingData();
+    }
 }

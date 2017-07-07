@@ -95,4 +95,14 @@ class PageHistory extends PageAbstract implements \Zrcms\Core\Page\Model\PageHis
     {
         return $this->id;
     }
+
+    /**
+     * @return void
+     *
+     * @ORM\PrePersist
+     */
+    public function assertHasTrackingData()
+    {
+        parent::assertHasTrackingData();
+    }
 }

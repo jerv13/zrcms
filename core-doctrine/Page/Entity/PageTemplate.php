@@ -79,4 +79,14 @@ class PageTemplate extends PageAbstract implements \Zrcms\Core\Page\Model\PageTe
      * @ORM\Column(type="string")
      */
     protected $trackingId;
+
+    /**
+     * @return void
+     *
+     * @ORM\PrePersist
+     */
+    public function assertHasTrackingData()
+    {
+        parent::assertHasTrackingData();
+    }
 }

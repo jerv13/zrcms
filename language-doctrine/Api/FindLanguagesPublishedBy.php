@@ -1,14 +1,13 @@
 <?php
 
-namespace Zrcms\CoreDoctrine\Page\Api;
+namespace Zrcms\LanguageDoctrine\Api;
 
 use Doctrine\ORM\EntityManager;
-use Zrcms\CoreDoctrine\Page\Entity\PagePublished;
 
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class FindPagesPublishedBy implements \Zrcms\Core\Page\Api\FindPagesPublishedBy
+class FindLanguagesPublishedBy implements \Zrcms\Language\Api\FindLanguagesPublishedBy
 {
     /**
      * @var EntityManager
@@ -31,7 +30,7 @@ class FindPagesPublishedBy implements \Zrcms\Core\Page\Api\FindPagesPublishedBy
      * @param null|int   $offset
      * @param array      $options
      *
-     * @return array [PagePublished]
+     * @return array [LanguagePublished]
      */
     public function __invoke(
         array $criteria,
@@ -39,9 +38,17 @@ class FindPagesPublishedBy implements \Zrcms\Core\Page\Api\FindPagesPublishedBy
         $limit = null,
         $offset = null,
         array $options = []
-    ) {
-        $repository = $this->entityManager->getRepository(PagePublished::class);
+    ):array
+    {
+        $repository = $this->entityManager->getRepository(
+            \Zrcms\LanguageDoctrine\Language\Entity\LanguagePublished::class
+        );
 
-        return $repository->findBy($criteria, $orderBy, $limit, $offset);
+        return $repository->findBy(
+            $criteria,
+            $orderBy,
+            $limit,
+            $offset
+        );
     }
 }

@@ -1,15 +1,14 @@
 <?php
 
-namespace Zrcms\CoreDoctrine\Site\Api;
+namespace Zrcms\CountryDoctrine\Api;
 
 use Doctrine\ORM\EntityManager;
-use Psr\Http\Message\ServerRequestInterface;
-use Zrcms\Core\Site\Model\SitePublished;
+use Zrcms\Country\Model\CountryPublished;
 
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class GetSitePublishedFromRequest implements \Zrcms\Core\Site\Api\GetSitePublishedFromRequest
+class FindCountryPublished implements \Zrcms\Country\Api\FindCountryPublished
 {
     /**
      * @var EntityManager
@@ -26,23 +25,21 @@ class GetSitePublishedFromRequest implements \Zrcms\Core\Site\Api\GetSitePublish
     }
 
     /**
-     * @param ServerRequestInterface $request
-     * @param array                  $options
+     * @param          $iso3
+     * @param array    $options
      *
-     * @return SitePublished|null
+     * @return CountryPublished|null
      */
     public function __invoke(
-        ServerRequestInterface $request,
+        $iso3,
         array $options = []
     ) {
         $repository = $this->entityManager->getRepository(
-            \Zrcms\CoreDoctrine\Site\Entity\SitePublished::class
+            \Zrcms\CountryDoctrine\Country\Entity\CountryPublished::class
         );
 
-        $host = $request->getUri()->getHost();
-
         return $repository->find(
-            $host
+            $iso3
         );
     }
 }

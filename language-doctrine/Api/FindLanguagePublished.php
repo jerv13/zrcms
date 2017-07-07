@@ -1,15 +1,14 @@
 <?php
 
-namespace Zrcms\CoreDoctrine\Site\Api;
+namespace Zrcms\LanguageDoctrine\Api;
 
 use Doctrine\ORM\EntityManager;
-use Psr\Http\Message\ServerRequestInterface;
-use Zrcms\Core\Site\Model\SitePublished;
+use Zrcms\Language\Model\LanguagePublished;
 
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class GetSitePublishedFromRequest implements \Zrcms\Core\Site\Api\GetSitePublishedFromRequest
+class FindLanguagePublished implements \Zrcms\Language\Api\FindLanguagePublished
 {
     /**
      * @var EntityManager
@@ -26,23 +25,21 @@ class GetSitePublishedFromRequest implements \Zrcms\Core\Site\Api\GetSitePublish
     }
 
     /**
-     * @param ServerRequestInterface $request
-     * @param array                  $options
+     * @param string $iso639_2t
+     * @param array  $options
      *
-     * @return SitePublished|null
+     * @return LanguagePublished|null
      */
     public function __invoke(
-        ServerRequestInterface $request,
+        string $iso639_2t,
         array $options = []
     ) {
         $repository = $this->entityManager->getRepository(
-            \Zrcms\CoreDoctrine\Site\Entity\SitePublished::class
+            \Zrcms\LanguageDoctrine\Language\Entity\LanguagePublished::class
         );
 
-        $host = $request->getUri()->getHost();
-
         return $repository->find(
-            $host
+            $iso639_2t
         );
     }
 }

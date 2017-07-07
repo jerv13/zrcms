@@ -79,4 +79,14 @@ class PagePublished extends PageAbstract implements \Zrcms\Core\Page\Model\PageP
      * @ORM\Column(type="string")
      */
     protected $trackingId;
+
+    /**
+     * @return void
+     *
+     * @ORM\PrePersist
+     */
+    public function assertHasTrackingData()
+    {
+        parent::assertHasTrackingData();
+    }
 }

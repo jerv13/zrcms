@@ -12,12 +12,7 @@ abstract class LanguageAbstract implements Language
     use TrackableTrait;
 
     /**
-     * @var string
-     */
-    protected $name;
-
-    /**
-     * ***Preferred Code***
+     * ***ID***
      *
      * Three digit ISO 639-2/T "terminological" language code.
      *
@@ -44,6 +39,11 @@ abstract class LanguageAbstract implements Language
      * @var string
      */
     protected $iso639_1;
+
+    /**
+     * @var string
+     */
+    protected $name;
 
     /**
      * @param string $name

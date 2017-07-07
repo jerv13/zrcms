@@ -10,17 +10,13 @@ use Zrcms\Country\Model\CountryPublished;
 interface FindCountryPublished
 {
     /**
-     * @param          $id
-     * @param null|int $lockMode
-     * @param null|int $lockVersion
+     * @param          $iso3
      * @param array    $options
      *
      * @return CountryPublished|null
      */
     public function __invoke(
-        $id,
-        $lockMode = null,
-        $lockVersion = null,
+        $iso3,
         array $options = []
     );
 }

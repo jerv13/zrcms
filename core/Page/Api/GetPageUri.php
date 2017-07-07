@@ -1,24 +1,22 @@
 <?php
 
-namespace Zrcms\Core\Block\Api;
-
-use Zrcms\Core\Block\Model\Block;
+namespace Zrcms\Core\Page\Api;
 
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-interface RenderBlockInstance
+interface GetPageUri
 {
     /**
-     * @param Block  $block
-     * @param string $tempId
+     * @param int    $siteId
+     * @param string $path
      * @param array  $options
      *
      * @return string
      */
     public function __invoke(
-        Block $block,
-        string $tempId,
+        int $siteId,
+        string $path,
         array $options = []
     ): string;
 }

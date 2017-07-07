@@ -14,17 +14,17 @@ abstract class CountryAbstract implements Country
     /**
      * @var string
      */
-    protected $name;
-
-    /**
-     * @var string
-     */
     protected $iso3;
 
     /**
      * @var string
      */
     protected $iso2;
+
+    /**
+     * @var string
+     */
+    protected $name;
 
     /**
      * @param string $name

@@ -10,12 +10,7 @@ use Zrcms\Tracking\Model\Trackable;
 interface Language extends Trackable
 {
     /**
-     * @return mixed
-     */
-    public function getName(): string;
-
-    /**
-     * ***Preferred Code***
+     * Use as ID
      *
      * Three digit iso639_2t "terminological" language code.
      *
@@ -42,4 +37,10 @@ interface Language extends Trackable
      * @return string
      */
     public function getIso6391(): string;
+
+    /**
+     * @return mixed
+     */
+    public function getName(): string;
+
 }

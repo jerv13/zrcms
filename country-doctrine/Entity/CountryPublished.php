@@ -6,6 +6,12 @@ use Zrcms\Country\Model\CountryAbstract;
 
 /**
  * @author James Jervis - https://github.com/jerv13
+ *
+ * @ORM\Entity()
+ * @ORM\HasLifecycleCallbacks()
+ * @ORM\Table(
+ *     name="zrcms_country_published",
+ * )
  */
 class CountryPublished extends CountryAbstract implements \Zrcms\Country\Model\CountryPublished
 {
@@ -62,4 +68,14 @@ class CountryPublished extends CountryAbstract implements \Zrcms\Country\Model\C
      * @ORM\Column(type="string")
      */
     protected $trackingId;
+
+    /**
+     * @return void
+     *
+     * @ORM\PrePersist
+     */
+    public function assertHasTrackingData()
+    {
+        parent::assertHasTrackingData();
+    }
 }

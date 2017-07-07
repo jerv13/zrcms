@@ -22,5 +22,5 @@ interface FindLanguagesPublishedBy
         $limit = null,
         $offset = null,
         array $options = []
-    );
+    ):array ;
 }
