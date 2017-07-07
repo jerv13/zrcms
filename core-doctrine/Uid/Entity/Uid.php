@@ -10,11 +10,11 @@ use Doctrine\ORM\Mapping as ORM;
 class Uid implements \Zrcms\Core\Uid\Model\Uid
 {
     /**
-     * @var int Auto-Incremented Primary Key
+     * @var int
      *
-     * @ORM\Column(type="guid")
      * @ORM\Id
-     * @ORM\GeneratedValue(strategy="UUID")
+     * @ORM\Column(type="integer")
+     * @ORM\GeneratedValue
      */
     protected $uid;
 
@@ -23,6 +23,6 @@ class Uid implements \Zrcms\Core\Uid\Model\Uid
      */
     public function __toString()
     {
-        return $this->uid;
+        return (string)$this->uid;
     }
 }

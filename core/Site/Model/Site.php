@@ -2,10 +2,12 @@
 
 namespace Zrcms\Core\Site\Model;
 
+use Zrcms\Tracking\Model\Trackable;
+
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-interface Site
+interface Site extends Trackable
 {
     /**
      * @return int

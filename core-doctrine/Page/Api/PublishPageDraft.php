@@ -3,14 +3,14 @@
 namespace Zrcms\CoreDoctrine\Page\Api;
 
 use Doctrine\ORM\EntityManager;
-use Zrcms\Core\Page\Api\PublishPageHistory;
-use Zrcms\Core\Page\Model\PageHistory;
+use Zrcms\Core\Page\Model\PageDraft;
 use Zrcms\Core\Page\Model\PagePublished;
+use Zrcms\CoreDoctrine\Page\Entity\PageHistory;
 
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class PublishPageHistoryEntity implements PublishPageHistory
+class PublishPageDraft implements \Zrcms\Core\Page\Api\PublishPageDraft
 {
     /**
      * @var EntityManager
@@ -27,15 +27,15 @@ class PublishPageHistoryEntity implements PublishPageHistory
     }
 
     /**
-     * @param PageHistory $page
-     * @param string      $modifiedByUserId
-     * @param string      $modifiedReason
-     * @param array       $options
+     * @param PageDraft $page
+     * @param string    $modifiedByUserId
+     * @param string    $modifiedReason
+     * @param array     $options
      *
      * @return PagePublished
      */
     public function __invoke(
-        PageHistory $page,
+        PageDraft $page,
         string $modifiedByUserId,
         string $modifiedReason,
         array $options = []
@@ -49,7 +49,7 @@ class PublishPageHistoryEntity implements PublishPageHistory
         $existingPage = $pagePublishedRepository->find($page->getUri());
 
         if ($existingPage) {
-            $pageHistory = new \Zrcms\CoreDoctrine\Page\Entity\PageHistory(
+            $pageHistory = new PageHistory(
                 $existingPage->getUri(),
                 $existingPage->getProperties(),
                 $existingPage->getBlockInstances(),
@@ -70,7 +70,7 @@ class PublishPageHistoryEntity implements PublishPageHistory
             $page->getProperties(),
             $page->getBlockInstances(),
             $modifiedByUserId,
-            $modifiedByUserId,
+            $modifiedReason,
             $page->getTrackingId()
         );
 

@@ -3,13 +3,12 @@
 namespace Zrcms\CoreDoctrine\Page\Api;
 
 use Doctrine\ORM\EntityManager;
-use Zrcms\Core\Page\Api\FindPagesPublishedBy;
 use Zrcms\CoreDoctrine\Page\Entity\PagePublished;
 
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class FindPagesPublishedEntityBy implements FindPagesPublishedBy
+class FindPagesPublishedBy implements \Zrcms\Core\Page\Api\FindPagesPublishedBy
 {
     /**
      * @var EntityManager

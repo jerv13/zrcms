@@ -1,13 +1,14 @@
 <?php
 
-namespace Zrcms\Core\Page\Api;
+namespace Zrcms\Core\Container\Api;
 
-use Zrcms\Core\Page\Model\PagePublished;
+use Zrcms\Core\Container\Model\ContainerDraft;
+use Zrcms\Core\Container\Model\ContainerPublished;
 
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-interface CreatePagePublished
+interface CreateContainerPublished
 {
     /**
      * @param string $uri
@@ -17,7 +18,7 @@ interface CreatePagePublished
      * @param array  $blockInstances
      * @param array  $options
      *
-     * @return PagePublished
+     * @return ContainerPublished
      */
     public function __invoke(
         string $uri,
@@ -26,5 +27,5 @@ interface CreatePagePublished
         array $properties,
         array $blockInstances,
         array $options = []
-    ): PagePublished;
+    ): ContainerPublished;
 }

@@ -2,11 +2,14 @@
 
 namespace Zrcms\Core\Site\Model;
 
+use Zrcms\Tracking\Model\TrackableTrait;
+
 /**
  * @author James Jervis - https://github.com/jerv13
  */
 abstract class SiteAbstract implements Site
 {
+    use TrackableTrait;
     /**
      * @var int
      */
@@ -52,6 +55,33 @@ abstract class SiteAbstract implements Site
             'notFoundPage' => 'not-found',
             'title' => ''
         ];
+
+    /**
+     * @param string $host
+     * @param string $theme
+     * @param array  $properties
+     * @param string $createdByUserId
+     * @param string $createdReason
+     * @param string $trackingId
+     * @param null   $id
+     */
+    public function __construct(
+        string $host,
+        string $theme,
+        array $properties,
+        string $createdByUserId,
+        string $createdReason,
+        string $trackingId,
+        $id = null
+    ) {
+        $this->host = $host;
+        $this->theme = $theme;
+        $this->properties = $properties;
+        $this->createdByUserId = $createdByUserId;
+        $this->createdReason = $createdReason;
+        $this->trackingId = $trackingId;
+        $this->id = $id;
+    }
 
     /**
      * @return int

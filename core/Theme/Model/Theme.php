@@ -1,13 +1,13 @@
 <?php
 
-namespace Zrcms\Core\Template\Model;
+namespace Zrcms\Core\Theme\Model;
 
 use Zrcms\Core\Layout\Model\Layout;
 
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-interface Template
+interface Theme
 {
     /**
      * Unique Name

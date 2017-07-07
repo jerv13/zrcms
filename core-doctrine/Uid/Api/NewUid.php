@@ -3,13 +3,12 @@
 namespace Zrcms\CoreDoctrine\Uid\Api;
 
 use Doctrine\ORM\EntityManager;
-use Zrcms\Core\Uid\Api\NewUid;
 use Zrcms\CoreDoctrine\Uid\Entity\Uid;
 
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class NewUidEntity implements NewUid
+class NewUid implements \Zrcms\Core\Uid\Api\NewUid
 {
     /**
      * @var EntityManager

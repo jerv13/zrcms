@@ -3,14 +3,13 @@
 namespace Zrcms\CoreDoctrine\Page\Api;
 
 use Doctrine\ORM\EntityManager;
-use Zrcms\Core\Page\Api\CreatePageTemplate;
-use Zrcms\Core\Page\Model\PageTemplate;
+use Zrcms\Core\Page\Model\PageDraft;
 use Zrcms\Core\Uid\Api\NewUid;
 
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class CreatePageTemplateEntity implements CreatePageTemplate
+class CreatePageDraft implements \Zrcms\Core\Page\Api\CreatePageDraft
 {
     /**
      * @var EntityManager
@@ -42,7 +41,7 @@ class CreatePageTemplateEntity implements CreatePageTemplate
      * @param array  $blockInstances
      * @param array  $options
      *
-     * @return PageTemplate
+     * @return PageDraft
      */
     public function __invoke(
         string $uri,
@@ -51,9 +50,9 @@ class CreatePageTemplateEntity implements CreatePageTemplate
         array $properties,
         array $blockInstances,
         array $options = []
-    ): PageTemplate
+    ): PageDraft
     {
-        $page = new \Zrcms\CoreDoctrine\Page\Entity\PageTemplate(
+        $page = new \Zrcms\CoreDoctrine\Page\Entity\PageDraft(
             $uri,
             $properties,
             $blockInstances,

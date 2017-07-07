@@ -1,0 +1,12 @@
+{
+  "name": "MyBock",
+  "category": "MyCategory",
+  "label": "My Block",
+  "description": "My Block does cool stuff",
+  "renderer": "mustache",
+  "icon": "/path/to/my/icon.png",
+  "cache": false,
+  "editor": "",
+  "fields": [
+  ]
+}
