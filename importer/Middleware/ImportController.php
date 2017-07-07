@@ -31,7 +31,10 @@ class ImportController
     ) {
         $importData = $request->getBody()->getContents();
 
-        $this->import->__invoke($importData);
+        $this->import->__invoke(
+            $importData,
+            $createdByUser = 'import-script'//@TODO get current logged in user
+        );
 
         return new \Zend\Diactoros\Response\JsonResponse('Imported successfully');
     }
