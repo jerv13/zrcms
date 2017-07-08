@@ -61,7 +61,7 @@ class SiteUnpublished extends SiteAbstract implements \Zrcms\Core\Site\Model\Sit
      * @ORM\Column(type="json_array")
      */
     protected $properties = [];
-    
+
     /**
      * @return void
      *
