@@ -10,8 +10,16 @@ use Zrcms\Core\Page\Model\Page;
  */
 interface RenderLayout
 {
+    /**
+     * @param Layout $layout
+     * @param Page   $page
+     * @param array  $options
+     *
+     * @return string
+     */
     public function __invoke(
         Layout $layout,
-        Page $page
-    );
+        Page $page,
+        array $options = []
+    ):string;
 }
