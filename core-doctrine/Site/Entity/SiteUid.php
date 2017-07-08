@@ -1,13 +1,19 @@
 <?php
 
-namespace Zrcms\CoreDoctrine\Uid\Entity;
+namespace Zrcms\CoreDoctrine\Site\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
+use Zrcms\Uid\Model\Uid;
 
 /**
  * @author James Jervis - https://github.com/jerv13
+ *
+ * @ORM\Entity()
+ * @ORM\HasLifecycleCallbacks()
+ * @ORM\Table(
+ *     name="zrcms_core_site_uid"
+ * )
  */
-class Uid implements \Zrcms\Core\Uid\Model\Uid
+class SiteUid implements Uid
 {
     /**
      * @var int

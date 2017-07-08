@@ -12,6 +12,11 @@ interface Country extends Trackable
     /**
      * @return string
      */
+    public function getUid(): string;
+
+    /**
+     * @return string
+     */
     public function getIso3(): string;
 
     /**

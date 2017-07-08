@@ -1,6 +1,6 @@
 <?php
 
-namespace Zrcms\Core\Uid\Api;
+namespace Zrcms\Uid\Api;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -14,5 +14,5 @@ interface NewUid
      *
      * @return string
      */
-    public function __invoke(array $options = []);
+    public function __invoke(array $options = []): string;
 }

@@ -13,13 +13,16 @@ use Zrcms\Core\Page\Model\PageAbstract;
  * @ORM\Table(
  *     name="zrcms_core_page_history",
  *     indexes={
- *         @ORM\Index(name="uri_index", columns={"uri"})
+ *         @ORM\Index(name="uri_index", columns={"uri"}),
+ *         @ORM\Index(name="uid_index", columns={"uid"})
  *     }
  * )
  */
 class PageHistory extends PageAbstract implements \Zrcms\Core\Page\Model\PageHistory
 {
     /**
+     * <identifier>
+     *
      * @var int Auto-Incremented Primary Key
      *
      * @ORM\Id
@@ -27,6 +30,13 @@ class PageHistory extends PageAbstract implements \Zrcms\Core\Page\Model\PageHis
      * @ORM\GeneratedValue
      */
     protected $id;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(type="string")
+     */
+    protected $uid;
 
     /**
      * @var string
@@ -75,18 +85,6 @@ class PageHistory extends PageAbstract implements \Zrcms\Core\Page\Model\PageHis
      * @ORM\Column(type="string")
      */
     protected $createdReason;
-
-    /**
-     * Globally unique tracking ID
-     *
-     * Tracking id for tracking changes to content when data is build from existing source
-     * For example, if you are building a new  object
-     *
-     * @var string
-     *
-     * @ORM\Column(type="string")
-     */
-    protected $trackingId;
 
     /**
      * @return int

@@ -7,8 +7,4 @@ namespace Zrcms\Core\Page\Model;
  */
 interface PageDeleted extends Page
 {
-    /**
-     * @return mixed
-     */
-    public function getId();
 }

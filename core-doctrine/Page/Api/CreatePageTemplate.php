@@ -3,8 +3,8 @@
 namespace Zrcms\CoreDoctrine\Page\Api;
 
 use Doctrine\ORM\EntityManager;
+use Zrcms\Core\Page\Api\NewPageUid;
 use Zrcms\Core\Page\Model\PageTemplate;
-use Zrcms\Core\Uid\Api\NewUid;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -17,20 +17,20 @@ class CreatePageTemplate implements \Zrcms\Core\Page\Api\CreatePageTemplate
     protected $entityManager;
 
     /**
-     * @var NewUid
+     * @var NewPageUid
      */
-    protected $newUid;
+    protected $newPageUid;
 
     /**
      * @param EntityManager $entityManager
-     * @param NewUid        $newUid
+     * @param NewPageUid        $newPageUid
      */
     public function __construct(
         EntityManager $entityManager,
-        NewUid $newUid
+        NewPageUid $newPageUid
     ) {
         $this->entityManager = $entityManager;
-        $this->newUid = $newUid;
+        $this->newPageUid = $newPageUid;
     }
 
     /**
@@ -53,12 +53,12 @@ class CreatePageTemplate implements \Zrcms\Core\Page\Api\CreatePageTemplate
     ): PageTemplate
     {
         $page = new \Zrcms\CoreDoctrine\Page\Entity\PageTemplate(
+            $this->newPageUid->__invoke(),
             $uri,
             $properties,
             $blockInstances,
             $createdByUserId,
-            $createdReason,
-            $this->newUid->__invoke()
+            $createdReason
         );
 
         $this->entityManager->persist($page);

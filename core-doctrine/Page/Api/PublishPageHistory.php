@@ -49,12 +49,12 @@ class PublishPageHistory implements \Zrcms\Core\Page\Api\PublishPageHistory
 
         if ($existingPage) {
             $pageHistory = new \Zrcms\CoreDoctrine\Page\Entity\PageHistory(
+                $existingPage->getUid(),
                 $existingPage->getUri(),
                 $existingPage->getProperties(),
                 $existingPage->getBlockInstances(),
                 $modifiedByUserId,
-                $modifiedReason,
-                $existingPage->getTrackingId()
+                $modifiedReason
             );
 
             $this->entityManager->persist($pageHistory);
@@ -65,12 +65,12 @@ class PublishPageHistory implements \Zrcms\Core\Page\Api\PublishPageHistory
         }
 
         $newPage = new \Zrcms\CoreDoctrine\Page\Entity\PagePublished(
+            $page->getUid(),
             $page->getUri(),
             $page->getProperties(),
             $page->getBlockInstances(),
             $modifiedByUserId,
-            $modifiedByUserId,
-            $page->getTrackingId()
+            $modifiedByUserId
         );
 
         $this->entityManager->persist($newPage);

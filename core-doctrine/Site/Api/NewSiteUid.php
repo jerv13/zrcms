@@ -1,14 +1,14 @@
 <?php
 
-namespace Zrcms\CoreDoctrine\Uid\Api;
+namespace Zrcms\CoreDoctrine\Site\Api;
 
 use Doctrine\ORM\EntityManager;
-use Zrcms\CoreDoctrine\Uid\Entity\Uid;
+use Zrcms\CoreDoctrine\Site\Entity\SiteUid;
 
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class NewUid implements \Zrcms\Core\Uid\Api\NewUid
+class NewSiteUid implements \Zrcms\Core\Site\Api\NewSiteUid
 {
     /**
      * @var EntityManager
@@ -31,9 +31,9 @@ class NewUid implements \Zrcms\Core\Uid\Api\NewUid
      *
      * @return string
      */
-    public function __invoke(array $options = [])
+    public function __invoke(array $options = []): string
     {
-        $uid = new Uid();
+        $uid = new SiteUid();
 
         $this->entityManager->persist($uid);
         $this->entityManager->flush($uid);

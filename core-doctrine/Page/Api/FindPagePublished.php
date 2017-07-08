@@ -2,6 +2,7 @@
 
 namespace Zrcms\CoreDoctrine\Page\Api;
 
+use Doctrine\ORM\EntityManager;
 use Zrcms\Core\Page\Model\PagePublished;
 
 /**
@@ -9,6 +10,20 @@ use Zrcms\Core\Page\Model\PagePublished;
  */
 class FindPagePublished implements \Zrcms\Core\Page\Api\FindPagePublished
 {
+    /**
+     * @var EntityManager
+     */
+    protected $entityManager;
+
+    /**
+     * @param EntityManager $entityManager
+     */
+    public function __construct(
+        EntityManager $entityManager
+    ) {
+        $this->entityManager = $entityManager;
+    }
+
     /**
      * @param string $uri
      * @param array  $options
@@ -19,6 +34,10 @@ class FindPagePublished implements \Zrcms\Core\Page\Api\FindPagePublished
         string $uri,
         array $options = []
     ) {
+        $repository = $this->entityManager->getRepository(
+            \Zrcms\CoreDoctrine\Page\Entity\PagePublished::class
+        );
 
+        return $repository->find($uri);
     }
 }

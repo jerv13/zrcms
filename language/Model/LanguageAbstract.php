@@ -12,6 +12,11 @@ abstract class LanguageAbstract implements Language
     use TrackableTrait;
 
     /**
+     * @var string
+     */
+    protected $uid;
+
+    /**
      * ***ID***
      *
      * Three digit ISO 639-2/T "terminological" language code.
@@ -46,46 +51,46 @@ abstract class LanguageAbstract implements Language
     protected $name;
 
     /**
+     * @param string $uid
      * @param string $name
      * @param string $iso639_2t
      * @param string $iso639_2b
      * @param string $iso639_1
      * @param string $createdByUserId
      * @param string $createdReason
-     * @param string $trackingId
      */
     public function __construct(
-        string $name,
+        string $uid,
         string $iso639_2t,
         string $iso639_2b,
         string $iso639_1,
+        string $name,
         string $createdByUserId,
-        string $createdReason,
-        string $trackingId
+        string $createdReason
     ) {
         // if has id it is immutable
-        if (!empty($this->iso639_2t)) {
+        if (!empty($this->uid)) {
             return;
         }
 
-        $this->name = $name;
         $this->iso639_2t = $iso639_2t;
         $this->iso639_2b = $iso639_2b;
         $this->iso639_1 = $iso639_1;
+        $this->name = $name;
         $this->setCreatedData(
             $createdByUserId,
-            $createdReason,
-            $trackingId
+            $createdReason
         );
     }
 
     /**
-     * @return mixed
+     * @return string
      */
-    public function getName(): string
+    public function getUid(): string
     {
-        return $this->name;
+        return $this->uid;
     }
+
 
     /**
      * @return string
@@ -109,5 +114,13 @@ abstract class LanguageAbstract implements Language
     public function getIso6391(): string
     {
         return $this->iso639_1;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getName(): string
+    {
+        return $this->name;
     }
 }

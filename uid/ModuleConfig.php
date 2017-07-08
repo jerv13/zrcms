@@ -1,6 +1,6 @@
 <?php
 
-namespace Zrcms\Country;
+namespace Zrcms\Uid;
 
 /**
  * @author James Jervis - https://github.com/jerv13

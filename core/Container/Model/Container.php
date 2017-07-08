@@ -11,8 +11,14 @@ use Zrcms\Tracking\Model\Trackable;
 interface Container extends Trackable
 {
     /**
-     * Example:
-     * @return mixed
+     * @return string
+     */
+    public function getUid(): string;
+
+    /**
+     * <identifier>
+     *
+     * @return string
      */
     public function getUri(): string;
 

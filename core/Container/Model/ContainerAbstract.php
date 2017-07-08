@@ -15,6 +15,13 @@ abstract class ContainerAbstract
     /**
      * @var string
      */
+    protected $uid;
+
+    /**
+     * <Unique ID>
+     *
+     * @var string
+     */
     protected $uri;
 
     /**
@@ -28,38 +35,46 @@ abstract class ContainerAbstract
     protected $blockInstances = [];
 
     /**
+     * @param string $uid
      * @param string $uri
      * @param array  $properties
      * @param array  $blockInstances
      * @param string $createdByUserId
      * @param string $createdReason
-     * @param string $trackingId
      */
     public function __construct(
+        string $uid,
         string $uri,
         array $properties,
         array $blockInstances,
         string $createdByUserId,
-        string $createdReason,
-        string $trackingId
+        string $createdReason
     ) {
         // if has id it is immutable
-        if (!empty($this->uri)) {
+        if (!empty($this->uid)) {
             return;
         }
 
+        $this->uid = $uid;
         $this->uri = $uri;
         $this->properties = $properties;
         $this->blockInstances = $blockInstances;
         $this->setCreatedData(
             $createdByUserId,
-            $createdReason,
-            $trackingId
+            $createdReason
         );
     }
 
     /**
-     * @return mixed
+     * @return string
+     */
+    public function getUid(): string
+    {
+        return $this->uid;
+    }
+
+    /**
+     * @return string
      */
     public function getUri(): string
     {

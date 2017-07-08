@@ -10,12 +10,15 @@ use Zrcms\Tracking\Model\TrackableTrait;
 abstract class SiteAbstract implements Site
 {
     use TrackableTrait;
-    /**
-     * @var int
-     */
-    protected $id;
 
     /**
+     * @var string
+     */
+    protected $uid;
+
+    /**
+     * <identifier>
+     *
      * Host name or domain name
      *
      * @var string
@@ -57,38 +60,36 @@ abstract class SiteAbstract implements Site
         ];
 
     /**
+     * @param string $uid
      * @param string $host
      * @param string $theme
      * @param array  $properties
      * @param string $createdByUserId
      * @param string $createdReason
-     * @param string $trackingId
-     * @param null   $id
      */
     public function __construct(
+        string $uid,
         string $host,
         string $theme,
         array $properties,
         string $createdByUserId,
-        string $createdReason,
-        string $trackingId,
-        $id = null
+        string $createdReason
     ) {
         $this->host = $host;
         $this->theme = $theme;
         $this->properties = $properties;
-        $this->createdByUserId = $createdByUserId;
-        $this->createdReason = $createdReason;
-        $this->trackingId = $trackingId;
-        $this->id = $id;
+        $this->setCreatedData(
+            $createdByUserId,
+            $createdReason
+        );
     }
 
     /**
-     * @return int
+     * @return string
      */
-    public function getId(): int
+    public function getUid(): string
     {
-        return $this->id;
+        return $this->uid;
     }
 
     /**

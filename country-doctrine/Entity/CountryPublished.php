@@ -17,18 +17,32 @@ class CountryPublished extends CountryAbstract implements \Zrcms\Country\Model\C
 {
     /**
      * @var string
+     *
+     * @ORM\Column(type="string", unique=true, nullable=false)
      */
-    protected $name;
+    protected $uid;
 
     /**
      * @var string
+     *
+     * @ORM\Id
+     * @ORM\Column(type="string", length=3)
      */
     protected $iso3;
 
     /**
      * @var string
+     *
+     * @ORM\Column(type="string", length=2)
      */
     protected $iso2;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(type="string")
+     */
+    protected $name;
 
     /**
      * Date object was first created
@@ -56,18 +70,6 @@ class CountryPublished extends CountryAbstract implements \Zrcms\Country\Model\C
      * @ORM\Column(type="string")
      */
     protected $createdReason;
-
-    /**
-     * Globally unique tracking ID
-     *
-     * Tracking id for tracking changes to content when data is build from existing source
-     * For example, if you are building a new  object
-     *
-     * @var string
-     *
-     * @ORM\Column(type="string")
-     */
-    protected $trackingId;
 
     /**
      * @return void

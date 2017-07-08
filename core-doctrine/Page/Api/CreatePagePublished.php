@@ -4,13 +4,13 @@ namespace Zrcms\CoreDoctrine\Page\Api;
 
 use Doctrine\ORM\EntityManager;
 use Zrcms\Core\Page\Api\NewPageUid;
-use Zrcms\Core\Page\Model\PageDraft;
-use Zrcms\Uid\Api\NewUid;
+use Zrcms\Core\Page\Model\PagePublished;
+use Zrcms\Core\Page\Model\PageTemplate;
 
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class CreatePageDraft implements \Zrcms\Core\Page\Api\CreatePageDraft
+class CreatePagePublished implements \Zrcms\Core\Page\Api\CreatePagePublished
 {
     /**
      * @var EntityManager
@@ -24,7 +24,7 @@ class CreatePageDraft implements \Zrcms\Core\Page\Api\CreatePageDraft
 
     /**
      * @param EntityManager $entityManager
-     * @param NewPageUid    $newPageUid
+     * @param NewPageUid        $newPageUid
      */
     public function __construct(
         EntityManager $entityManager,
@@ -42,7 +42,7 @@ class CreatePageDraft implements \Zrcms\Core\Page\Api\CreatePageDraft
      * @param array  $blockInstances
      * @param array  $options
      *
-     * @return PageDraft
+     * @return PagePublished
      */
     public function __invoke(
         string $uri,
@@ -51,9 +51,9 @@ class CreatePageDraft implements \Zrcms\Core\Page\Api\CreatePageDraft
         array $properties,
         array $blockInstances,
         array $options = []
-    ): PageDraft
+    ): PagePublished
     {
-        $page = new \Zrcms\CoreDoctrine\Page\Entity\PageDraft(
+        $page = new \Zrcms\CoreDoctrine\Page\Entity\PagePublished(
             $this->newPageUid->__invoke(),
             $uri,
             $properties,

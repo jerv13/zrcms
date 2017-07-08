@@ -2,22 +2,21 @@
 
 namespace Zrcms\Core\Site\Api;
 
-use Psr\Http\Message\ServerRequestInterface;
 use Zrcms\Core\Site\Model\SitePublished;
 
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-interface GetSitePublishedFromRequest
+interface FindSitePublished
 {
     /**
-     * @param ServerRequestInterface $request
-     * @param array                  $options
+     * @param string $host
+     * @param array  $options
      *
      * @return SitePublished|null
      */
     public function __invoke(
-        ServerRequestInterface $request,
+        string $host,
         array $options = []
     );
 }

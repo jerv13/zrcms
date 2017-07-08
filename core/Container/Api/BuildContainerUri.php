@@ -5,7 +5,7 @@ namespace Zrcms\Core\Container\Api;
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-interface GetContainerUri
+interface BuildContainerUri
 {
     /**
      * @param int    $siteId

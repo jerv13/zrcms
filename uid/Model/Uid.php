@@ -1,6 +1,6 @@
 <?php
 
-namespace Zrcms\Core\Uid\Model;
+namespace Zrcms\Uid\Model;
 
 /**
  * @author James Jervis - https://github.com/jerv13

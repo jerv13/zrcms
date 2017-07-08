@@ -5,7 +5,7 @@ namespace Zrcms\Core\Page\Api;
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-interface GetPageUri
+interface BuildPageUri
 {
     /**
      * @param int    $siteId

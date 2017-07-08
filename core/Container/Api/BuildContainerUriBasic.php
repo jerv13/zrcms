@@ -7,8 +7,11 @@ use Zrcms\Core\Uri\Api\BuildCmsUri;
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class GetContainerUriBasic implements GetContainerUri
+class BuildContainerUriBasic implements BuildContainerUri
 {
+    /**
+     * @var BuildCmsUri
+     */
     protected $buildCmsUri;
 
     /**

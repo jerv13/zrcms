@@ -4,32 +4,30 @@ namespace Zrcms\Core\Page\Middleware;
 
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
-use Zrcms\Core\Container\Api\GetContainerUri;
-use Zrcms\Core\Container\Api\RenderPage;
+use Zrcms\Core\Container\Api\BuildContainerUri;
+use Zrcms\Core\Page\Api\BuildPageUri;
 use Zrcms\Core\Page\Api\FindPagePublished;
-use Zrcms\Core\Page\Api\GetPageUri;
-use Zrcms\Core\Site\Api\GetSitePublishedFromRequest;
-use Zrcms\Core\Uri\Api\BuildCmsUri;
+use Zrcms\Core\Site\Api\FindSitePublished;
 
 /**
  * @author James Jervis - https://github.com/jerv13
  */
 class PageController
 {
-    protected $getSitePublishedFromRequest;
+    protected $findSitePublished;
 
     protected $buildCmsUri;
 
     public function __construct(
-        GetSitePublishedFromRequest $getSitePublishedFromRequest,
+        FindSitePublished $findSitePublished,
         FindPagePublished $findPagePublished,
-        GetPageUri $getPageUri,
-        GetContainerUri $getContainerUri
+        BuildPageUri $buildPageUri,
+        BuildContainerUri $buildContainerUri
     ) {
-        $this->getSitePublishedFromRequest = $getSitePublishedFromRequest;
+        $this->findSitePublished = $findSitePublished;
         $this->findPagePublished = $findPagePublished;
-        $this->getPageUri = $getPageUri;
-        $this->getContainerUri = $getContainerUri;
+        $this->buildPageUri = $buildPageUri;
+        $this->buildContainerUri = $buildContainerUri;
     }
 
     /**
@@ -46,19 +44,19 @@ class PageController
         ResponseInterface $response,
         callable $next = null
     ) {
-        $site = $this->getSitePublishedFromRequest->__invoke(
-            $request
+        $uri = $request->getUri();
+
+        $site = $this->findSitePublished->__invoke(
+            $uri->getHost()
         );
 
         if (empty($site)) {
             return $response->withStatus(404);
         }
 
-        $path = $request->getUri()->getPath();
-
-        $pageUri = $this->getPageUri->__invoke(
+        $pageUri = $this->buildPageUri->__invoke(
             $site->getId(),
-            $path
+            $uri->getPath()
         );
 
         $page = $this->findPagePublished->__invoke($pageUri);
@@ -66,7 +64,6 @@ class PageController
         if (empty($page)) {
             return $response->withStatus(404);
         }
-
 
     }
 }

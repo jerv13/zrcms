@@ -18,6 +18,13 @@ class LanguagePublished extends LanguageAbstract implements \Zrcms\Language\Mode
     /**
      * @var string
      *
+     * @ORM\Column(type="string", unique=true, nullable=false)
+     */
+    protected $uid;
+
+    /**
+     * @var string
+     *
      * @ORM\Id
      * @ORM\Column(type="string", length=3)
      */
@@ -70,18 +77,6 @@ class LanguagePublished extends LanguageAbstract implements \Zrcms\Language\Mode
      * @ORM\Column(type="string")
      */
     protected $createdReason;
-
-    /**
-     * Globally unique tracking ID
-     *
-     * Tracking id for tracking changes to content when data is build from existing source
-     * For example, if you are building a new  object
-     *
-     * @var string
-     *
-     * @ORM\Column(type="string")
-     */
-    protected $trackingId;
 
     /**
      * @return void

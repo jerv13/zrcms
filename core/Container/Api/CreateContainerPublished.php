@@ -2,7 +2,6 @@
 
 namespace Zrcms\Core\Container\Api;
 
-use Zrcms\Core\Container\Model\ContainerDraft;
 use Zrcms\Core\Container\Model\ContainerPublished;
 
 /**

@@ -15,13 +15,11 @@ abstract class TrackableAbstract implements Trackable
      */
     public function __construct(
         string $createdByUserId,
-        string $createdReason,
-        string $trackingId
+        string $createdReason
     ) {
         $this->setCreatedData(
             $createdByUserId,
-            $createdReason,
-            $trackingId
+            $createdReason
         );
     }
 }

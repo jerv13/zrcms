@@ -10,6 +10,13 @@ interface Layout
     /**
      * @return string
      */
+    public function getUid(): string;
+
+    /**
+     * <identifier>
+     *
+     * @return string
+     */
     public function getUri(): string;
 
     /**

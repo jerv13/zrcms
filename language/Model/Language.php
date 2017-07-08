@@ -10,6 +10,11 @@ use Zrcms\Tracking\Model\Trackable;
 interface Language extends Trackable
 {
     /**
+     * @return string
+     */
+    public function getUid(): string;
+
+    /**
      * Use as ID
      *
      * Three digit iso639_2t "terminological" language code.
