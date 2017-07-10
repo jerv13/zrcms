@@ -44,7 +44,6 @@ class DeletePagePublished implements \Zrcms\Core\Page\Api\DeletePagePublished
             $page->getUid(),
             $page->getUri(),
             $page->getProperties(),
-            $page->getBlockInstances(),
             $modifiedByUserId,
             $modifiedByUserId
         );

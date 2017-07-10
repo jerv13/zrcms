@@ -39,7 +39,6 @@ class CreatePagePublished implements \Zrcms\Core\Page\Api\CreatePagePublished
      * @param string $createdByUserId
      * @param string $createdReason
      * @param array  $properties
-     * @param array  $blockInstances
      * @param array  $options
      *
      * @return PagePublished
@@ -49,7 +48,6 @@ class CreatePagePublished implements \Zrcms\Core\Page\Api\CreatePagePublished
         string $createdByUserId,
         string $createdReason,
         array $properties,
-        array $blockInstances,
         array $options = []
     ): PagePublished
     {
@@ -57,7 +55,6 @@ class CreatePagePublished implements \Zrcms\Core\Page\Api\CreatePagePublished
             $this->newPageUid->__invoke(),
             $uri,
             $properties,
-            $blockInstances,
             $createdByUserId,
             $createdReason
         );

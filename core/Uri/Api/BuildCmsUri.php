@@ -2,7 +2,7 @@
 
 namespace Zrcms\Core\Uri\Api;
 
-use Zrcms\Core\Uri\Model\Schema;
+use Zrcms\Core\Uri\Model\Uri;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -23,6 +23,6 @@ interface BuildCmsUri
         string $type,
         string $path,
         array $options = [],
-        $format = Schema::FORMAT
+        $format = Uri::SCHEMA
     ): string;
 }

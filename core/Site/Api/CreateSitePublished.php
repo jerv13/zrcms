@@ -15,7 +15,6 @@ interface CreateSitePublished
      * @param array  $properties
      * @param string $createdByUserId
      * @param string $createdReason
-     * @param null   $id
      * @param array  $options
      *
      * @return SitePublished
@@ -26,7 +25,6 @@ interface CreateSitePublished
         array $properties,
         string $createdByUserId,
         string $createdReason,
-        $id = null,
         array $options = []
     ): SitePublished;
 }

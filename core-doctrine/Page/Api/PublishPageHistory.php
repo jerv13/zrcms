@@ -52,7 +52,6 @@ class PublishPageHistory implements \Zrcms\Core\Page\Api\PublishPageHistory
                 $existingPage->getUid(),
                 $existingPage->getUri(),
                 $existingPage->getProperties(),
-                $existingPage->getBlockInstances(),
                 $modifiedByUserId,
                 $modifiedReason
             );
@@ -68,7 +67,6 @@ class PublishPageHistory implements \Zrcms\Core\Page\Api\PublishPageHistory
             $page->getUid(),
             $page->getUri(),
             $page->getProperties(),
-            $page->getBlockInstances(),
             $modifiedByUserId,
             $modifiedByUserId
         );

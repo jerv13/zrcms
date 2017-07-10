@@ -39,7 +39,6 @@ class CreatePageDraft implements \Zrcms\Core\Page\Api\CreatePageDraft
      * @param string $createdByUserId
      * @param string $createdReason
      * @param array  $properties
-     * @param array  $blockInstances
      * @param array  $options
      *
      * @return PageDraft
@@ -49,7 +48,6 @@ class CreatePageDraft implements \Zrcms\Core\Page\Api\CreatePageDraft
         string $createdByUserId,
         string $createdReason,
         array $properties,
-        array $blockInstances,
         array $options = []
     ): PageDraft
     {
@@ -57,7 +55,6 @@ class CreatePageDraft implements \Zrcms\Core\Page\Api\CreatePageDraft
             $this->newPageUid->__invoke(),
             $uri,
             $properties,
-            $blockInstances,
             $createdByUserId,
             $createdReason
         );

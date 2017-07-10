@@ -38,7 +38,6 @@ class CreatePageTemplate implements \Zrcms\Core\Page\Api\CreatePageTemplate
      * @param string $createdByUserId
      * @param string $createdReason
      * @param array  $properties
-     * @param array  $blockInstances
      * @param array  $options
      *
      * @return PageTemplate
@@ -48,7 +47,6 @@ class CreatePageTemplate implements \Zrcms\Core\Page\Api\CreatePageTemplate
         string $createdByUserId,
         string $createdReason,
         array $properties,
-        array $blockInstances,
         array $options = []
     ): PageTemplate
     {
@@ -56,7 +54,6 @@ class CreatePageTemplate implements \Zrcms\Core\Page\Api\CreatePageTemplate
             $this->newPageUid->__invoke(),
             $uri,
             $properties,
-            $blockInstances,
             $createdByUserId,
             $createdReason
         );

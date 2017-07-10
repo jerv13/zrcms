@@ -8,7 +8,6 @@ use Zrcms\Uid\Model\Uid;
  * @author James Jervis - https://github.com/jerv13
  *
  * @ORM\Entity()
- * @ORM\HasLifecycleCallbacks()
  * @ORM\Table(
  *     name="zrcms_core_page_uid"
  * )

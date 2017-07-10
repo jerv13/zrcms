@@ -14,7 +14,6 @@ interface CreateContainerPublished
      * @param string $createdByUserId
      * @param string $createdReason
      * @param array  $properties
-     * @param array  $blockInstances
      * @param array  $options
      *
      * @return ContainerPublished
@@ -24,7 +23,6 @@ interface CreateContainerPublished
         string $createdByUserId,
         string $createdReason,
         array $properties,
-        array $blockInstances,
         array $options = []
     ): ContainerPublished;
 }

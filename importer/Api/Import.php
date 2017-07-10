@@ -25,7 +25,7 @@ class Import
     /**
      * This imports sites, pages, and containers from an exported JSON array into the database.
      *
-     * @param $json The full json data string from a previous Zrcms export
+     * @param $json string The full json data string from a previous Zrcms export
      */
     function __invoke($json, $currentUserId)
     {
@@ -39,8 +39,7 @@ class Import
                 $site['theme'],
                 $site['properties'],
                 $currentUserId,
-                $createdByReason,
-                $site['id']
+                $createdByReason
             );
         }
 
@@ -49,8 +48,7 @@ class Import
                 $page['uri'],
                 $currentUserId,
                 $createdByReason,
-                $page['properties'],
-                $page['blockInstances']
+                $page['properties']
             );
         }
 
@@ -59,8 +57,7 @@ class Import
                 $container['uri'],
                 $currentUserId,
                 $createdByReason,
-                $container['properties'],
-                $container['blockInstances']
+                $container['properties']
             );
         }
     }

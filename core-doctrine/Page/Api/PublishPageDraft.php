@@ -53,7 +53,6 @@ class PublishPageDraft implements \Zrcms\Core\Page\Api\PublishPageDraft
                 $existingPage->getUid(),
                 $existingPage->getUri(),
                 $existingPage->getProperties(),
-                $existingPage->getBlockInstances(),
                 $modifiedByUserId,
                 $modifiedReason
             );
@@ -69,7 +68,6 @@ class PublishPageDraft implements \Zrcms\Core\Page\Api\PublishPageDraft
             $page->getUid(),
             $page->getUri(),
             $page->getProperties(),
-            $page->getBlockInstances(),
             $modifiedByUserId,
             $modifiedReason
         );
