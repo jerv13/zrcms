@@ -24,7 +24,7 @@ interface BlockInstance extends Trackable
     /**
      * @return string
      */
-    public function getName(): string;
+    public function getBlockName(): string;
 
     /**
      * @return array The instance config for this block instance.
@@ -56,7 +56,7 @@ interface BlockInstance extends Trackable
     /**
      * @return array
      */
-    public function getLayoutData(): array;
+    public function getSystemProperties(): array;
 
     /**
      * @param string $name
@@ -64,5 +64,5 @@ interface BlockInstance extends Trackable
      *
      * @return mixed
      */
-    public function getLayoutDataValue(string $name, $default = null);
+    public function getSystemProperty(string $name, $default = null);
 }

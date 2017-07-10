@@ -45,18 +45,7 @@ abstract class SiteAbstract implements Site
      */
     protected $properties
         = [
-            // ISO3 Country code
-            'countryIso3' => 'USA',
-            'favicon' => '/images/favicon.ico',
-            // ISO 639-2/T Language Code
-            'languageIso9392t' => 'eng',
-            'loginPage' => '/login',
-            // default theme
-            'theme' => 'GuestResponsive',
-            // replaced by layout 'siteLayout' => 'GuestSitePage'
-            'notAuthorizedPage' => '/not-authorized',
-            'notFoundPage' => 'not-found',
-            'title' => ''
+
         ];
 
     /**

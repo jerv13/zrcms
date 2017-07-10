@@ -8,4 +8,5 @@ namespace Zrcms\Core\Layout\Model;
 class LayoutProperties
 {
     const KEY_RENDER = 'renderer';
+    const KEY_CONTAINER_PATHS_SERVICE= 'containerPathsFinder';
 }

@@ -26,7 +26,7 @@ abstract class BlockInstanceAbstract implements BlockInstance
     /**
      * @var string
      */
-    protected $name;
+    protected $blockName;
 
     /**
      * @var array
@@ -36,7 +36,7 @@ abstract class BlockInstanceAbstract implements BlockInstance
     /**
      * @var array
      */
-    protected $layoutData = [];
+    protected $properties = [];
 
     /**
      * @var array
@@ -46,24 +46,24 @@ abstract class BlockInstanceAbstract implements BlockInstance
     /**
      * @param string $uid
      * @param string $uri
-     * @param string $name
+     * @param string $blockName
      * @param array  $config
-     * @param array  $layoutData
+     * @param array  $properties
      * @param array  $data
      */
     public function __construct(
         string $uid,
         string $uri,
-        string $name,
+        string $blockName,
         array $config,
-        array $layoutData,
+        array $properties,
         array $data
     ) {
         $this->uid = $uid;
         $this->uri = $uri;
-        $this->name = $name;
+        $this->blockName = $blockName;
         $this->config = $config;
-        $this->layoutData = $layoutData;
+        $this->properties = $properties;
         $this->data = $data;
     }
 
@@ -86,9 +86,9 @@ abstract class BlockInstanceAbstract implements BlockInstance
     /**
      * @return mixed
      */
-    public function getName(): string
+    public function getBlockName(): string
     {
-        return $this->name;
+        return $this->blockName;
     }
 
     /**
@@ -101,15 +101,15 @@ abstract class BlockInstanceAbstract implements BlockInstance
     }
 
     /**
-     * @param string $name
+     * @param string $blockName
      * @param null   $default
      *
      * @return mixed
      */
-    public function getConfigValue(string $name, $default = null)
+    public function getConfigValue(string $blockName, $default = null)
     {
-        if (array_key_exists($name, $this->config)) {
-            return $this->config[$name];
+        if (array_key_exists($blockName, $this->config)) {
+            return $this->config[$blockName];
         }
 
         return $default;
@@ -124,15 +124,15 @@ abstract class BlockInstanceAbstract implements BlockInstance
     }
 
     /**
-     * @param string $name
+     * @param string $blockName
      * @param null   $default
      *
      * @return mixed
      */
-    public function getDataValue(string $name, $default = null)
+    public function getDataValue(string $blockName, $default = null)
     {
-        if (array_key_exists($name, $this->data)) {
-            return $this->data[$name];
+        if (array_key_exists($blockName, $this->data)) {
+            return $this->data[$blockName];
         }
 
         return $default;
@@ -141,21 +141,21 @@ abstract class BlockInstanceAbstract implements BlockInstance
     /**
      * @return array
      */
-    public function getLayoutData(): array
+    public function getSystemProperties(): array
     {
-        return $this->layoutData;
+        return $this->properties;
     }
 
     /**
-     * @param string $name
+     * @param string $blockName
      * @param null   $default
      *
      * @return mixed
      */
-    public function getLayoutDataValue(string $name, $default = null)
+    public function getSystemPropertiy(string $blockName, $default = null)
     {
-        if (array_key_exists($name, $this->layoutData)) {
-            return $this->layoutData[$name];
+        if (array_key_exists($blockName, $this->properties)) {
+            return $this->properties[$blockName];
         }
 
         return $default;

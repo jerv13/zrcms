@@ -1,7 +1,6 @@
 <?php
 
-namespace Zrcms\Core\Layout\Api;
-
+namespace Zrcms\Core\Container\Api;
 /**
  * @author James Jervis - https://github.com/jerv13
  */

@@ -3,10 +3,12 @@
 namespace Zrcms\Core\Layout\Api;
 
 use Psr\Container\ContainerInterface;
+use Zrcms\Core\Container\Api\FindContainerPathsByHtml;
 use Zrcms\Core\Container\Api\FindContainers;
 use Zrcms\Core\Container\Api\RenderContainer;
 use Zrcms\Core\Container\Model\Container;
 use Zrcms\Core\Layout\Model\Layout;
+use Zrcms\Core\Layout\Model\LayoutProperties;
 use Zrcms\Core\Page\Model\Page;
 
 /**
@@ -50,7 +52,7 @@ class RenderLayoutMustache implements RenderLayout
     ):string
     {
         $findContainerPathsByLayoutServiceName = $layout->getProperty(
-            'findContainerPathsByHtmlServiceName',
+            LayoutProperties::KEY_CONTAINER_PATHS_SERVICE,
             FindContainerPathsByHtml::class
         );
 
@@ -68,7 +70,7 @@ class RenderLayoutMustache implements RenderLayout
         /** @var Container $container */
         foreach ($containers as $container) {
             $renderContainerServiceName = $container->getProperty(
-                'renderContainerServiceName',
+                LayoutProperties::KEY_RENDER,
                 RenderContainer::class
             );
 
@@ -83,7 +85,7 @@ class RenderLayoutMustache implements RenderLayout
         }
 
         $renderContainerServiceName = $page->getProperty(
-            'renderContainerServiceName',
+            LayoutProperties::KEY_RENDER,
             RenderContainer::class
         );
 

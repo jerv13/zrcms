@@ -22,27 +22,6 @@ interface Block
     public function getDirectory(): string;
 
     /**
-     * getCategory
-     *
-     * @return string
-     */
-    public function getCategory(): string;
-
-    /**
-     * getLabel
-     *
-     * @return string
-     */
-    public function getLabel(): string;
-
-    /**
-     * getDescription
-     *
-     * @return string
-     */
-    public function getDescription(): string;
-
-    /**
      * getRenderer
      *
      * @return string
@@ -57,25 +36,11 @@ interface Block
     public function getDataProvider(): string;
 
     /**
-     * getIcon (URI)
-     *
-     * @return string
-     */
-    public function getIcon(): string;
-
-    /**
-     * getEditor
-     *
-     * @return string
-     */
-    public function getEditor(): string;
-
-    /**
-     * getCache
+     * isCacheable
      *
      * @return bool
      */
-    public function getCache(): bool;
+    public function isCacheable(): bool;
 
     /**
      * getFields
