@@ -17,7 +17,7 @@ use Zrcms\Core\Uri\Api\ParseCmsUri;
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-abstract class RenderLayoutBasic implements RenderLayout
+abstract class RenderLayoutAbstract implements RenderLayout
 {
     /**
      * @var ContainerInterface
@@ -107,73 +107,6 @@ abstract class RenderLayoutBasic implements RenderLayout
         array $options = []
     ): array
     {
-        $findContainerPathsByHtmlServiceName = $layout->getProperty(
-            LayoutProperties::KEY_CONTAINER_PATHS_SERVICE,
-            FindContainerPathsByHtml::class
-        );
 
-        /** @var FindContainerPathsByHtml $findContainerPathsByLayout */
-        $findContainerPathsByHtml = $this->serviceContainer->get(
-            $findContainerPathsByHtmlServiceName
-        );
-
-        $containerPaths = $findContainerPathsByHtml->__invoke(
-            $layout->getHtml()
-        );
-
-        $pageUri = $this->parseCmsUri->__invoke(
-            $page->getUri()
-        );
-
-        $containerUris = [];
-
-        foreach ($containerPaths as $containerPath) {
-            $containerUris[] = $this->buildContainerUri->__invoke(
-                $pageUri->getSiteId(),
-                $containerPath
-            );
-        }
-
-        $containers = $this->findContainers->__invoke(
-            $containerUris
-        );
-
-        $containerHtml = [];
-
-        /** @var Container $container */
-        foreach ($containers as $container) {
-
-            $renderContainerServiceName = $container->getProperty(
-                LayoutProperties::KEY_RENDER,
-                RenderContainer::class
-            );
-
-            /** @var RenderContainer $renderContainer */
-            $renderContainer = $this->serviceContainer->get(
-                $renderContainerServiceName
-            );
-
-            $containerUri = $this->parseCmsUri->__invoke(
-                $container->getUri()
-            );
-
-            $containerHtml['container:' . $containerUri->getPath()] = $renderContainer->__invoke(
-                $container
-            );
-        }
-
-        $renderContainerServiceName = $page->getProperty(
-            LayoutProperties::KEY_RENDER,
-            RenderContainer::class
-        );
-
-        /** @var RenderContainer $renderContainer */
-        $renderContainer = $this->serviceContainer->get(
-            $renderContainerServiceName
-        );
-
-        $containerHtml['page:' . $pageUri->getPath()] = $renderContainer->__invoke(
-            $page
-        );
     }
 }

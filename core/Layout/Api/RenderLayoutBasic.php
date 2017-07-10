@@ -3,47 +3,39 @@
 namespace Zrcms\Core\Layout\Api;
 
 use Psr\Container\ContainerInterface;
+use Zrcms\Core\Container\Api\BuildContainerUri;
 use Zrcms\Core\Container\Api\FindContainers;
 use Zrcms\Core\Layout\Model\Layout;
 use Zrcms\Core\Layout\Model\LayoutProperties;
 use Zrcms\Core\Page\Model\Page;
-use Zrcms\Core\Uri\Api\BuildCmsUri;
+use Zrcms\Core\Uri\Api\ParseCmsUri;
 
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class RenderLayoutBasic implements RenderLayout
+class RenderLayoutBasic extends RenderLayoutAbstract implements RenderLayout
 {
     /**
-     * @var ContainerInterface
-     */
-    protected $serviceContainer;
-
-    /**
-     * @var FindContainers
-     */
-    protected $findContainers;
-
-    /**
-     * @var BuildCmsUri
-     */
-    protected $buildContainerUri;
-
-    /**
-     * @var RenderLayout
-     */
-    protected $defaultRenderServiceName;
-
-    /**
      * @param ContainerInterface $serviceContainer
+     * @param FindContainers     $findContainers
+     * @param BuildContainerUri  $buildContainerUri
+     * @param ParseCmsUri        $parseCmsUri
      * @param RenderLayout       $defaultRenderServiceName
      */
     public function __construct(
-        $serviceContainer,
-        RenderLayout $defaultRenderServiceName = RenderLayoutMustache::class
+        ContainerInterface $serviceContainer,
+        FindContainers $findContainers,
+        BuildContainerUri $buildContainerUri,
+        ParseCmsUri $parseCmsUri,
+        RenderLayout $defaultRenderServiceName
     ) {
-        $this->serviceContainer = $serviceContainer;
-        $this->defaultRenderServiceName = $defaultRenderServiceName;
+        parent::__construct(
+            $serviceContainer,
+            $findContainers,
+            $buildContainerUri,
+            $parseCmsUri,
+            $defaultRenderServiceName
+        );
     }
 
     /**
