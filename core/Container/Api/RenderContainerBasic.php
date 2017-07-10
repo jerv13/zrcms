@@ -6,6 +6,7 @@ use Psr\Container\ContainerInterface;
 use Zrcms\Core\BlockInstance\Api\FindBlockInstancesByContainer;
 use Zrcms\Core\BlockInstance\Api\RenderBlockInstance;
 use Zrcms\Core\BlockInstance\Api\WrapRenderedBlockInstance;
+use Zrcms\Core\BlockInstance\Api\WrapRenderedContainer;
 use Zrcms\Core\BlockInstance\Model\BlockInstance;
 use Zrcms\Core\BlockInstance\Model\BlockInstanceProperties;
 use Zrcms\Core\Container\Model\Container;
@@ -22,6 +23,8 @@ class RenderContainerBasic implements RenderContainer
 
     protected $wrapRenderedBlockInstance;
 
+    protected $wrapRenderedContainer;
+
     /**
      * @param ContainerInterface $serviceContainer
      * @param FindBlockInstancesByContainer $findBlockInstancesByContainer
@@ -29,25 +32,24 @@ class RenderContainerBasic implements RenderContainer
     public function __construct(
         FindBlockInstancesByContainer $findBlockInstancesByContainer,
         RenderBlockInstance $renderBlockInstance,
-        WrapRenderedBlockInstance $wrapRenderedBlockInstance
+        WrapRenderedBlockInstance $wrapRenderedBlockInstance,
+        WrapRenderedContainer $wrapRenderedContainer
     ) {
         $this->findBlockInstancesByContainer = $findBlockInstancesByContainer;
         $this->renderBlockInstance = $renderBlockInstance;
         $this->wrapRenderedBlockInstance = $wrapRenderedBlockInstance;
+        $this->wrapRenderedContainer = $wrapRenderedContainer;
     }
 
-    /**
-     * @param Container $container
-     * @param BlockInstances $blockInstances
-     * @param array $options
-     * @return string
-     * @throws \Exception
-     */
     public function __invoke(
         Container $container,
-        BlockInstances $blockInstances,
         array $options = []
-    ): string {
+
+//        Container $container,
+//        BlockInstances $blockInstances,
+//        array $options = []
+    ): string
+    {
 //        $blockInstancesWithoutData = $this->findBlockInstancesByContainer->__invoke($container);
 //
 //        $blockInstances = $blockInstanceDataProviderCaller->__invoke($request, $blockInstancesWithoutData);//@TODO I take request
@@ -85,15 +87,6 @@ class RenderContainerBasic implements RenderContainer
             $containerInnerHtml .= '</div>';
         }
 
-        $isPageContainer = $container instanceof Page;
-
-        return '<div class="container-fluid rcmContainer" '
-            . 'data-containerid="' . $container->getUid() . '" '
-            . ($isPageContainer ? 'data-ispagecontainer="Y" ' : '')
-//            . 'data-containerrevision="????" '
-//            . 'id="' . $container->getUid()
-            . '">'
-            . $containerInnerHtml
-            . '</div>';
+        return $this->wrapRenderedContainer->__invoke($containerInnerHtml, $container);
     }
 }
