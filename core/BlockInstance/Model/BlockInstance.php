@@ -56,7 +56,7 @@ interface BlockInstance extends Trackable
     /**
      * @return array
      */
-    public function getSystemProperties(): array;
+    public function getLayoutProperties(): array;
 
     /**
      * @param string $name
@@ -64,5 +64,5 @@ interface BlockInstance extends Trackable
      *
      * @return mixed
      */
-    public function getSystemProperty(string $name, $default = null);
+    public function getLayoutProperty(string $name, $default = null);
 }

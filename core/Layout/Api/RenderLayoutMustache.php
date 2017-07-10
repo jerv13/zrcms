@@ -51,24 +51,27 @@ class RenderLayoutMustache implements RenderLayout
         array $options = []
     ):string
     {
-        $findContainerPathsByLayoutServiceName = $layout->getProperty(
+        $findContainerPathsByHtmlServiceName = $layout->getProperty(
             LayoutProperties::KEY_CONTAINER_PATHS_SERVICE,
             FindContainerPathsByHtml::class
         );
 
         /** @var FindContainerPathsByHtml $findContainerPathsByLayout */
-        $findContainerPathsByLayout = $this->serviceContainer->get(
-            $findContainerPathsByLayoutServiceName
+        $findContainerPathsByHtml = $this->serviceContainer->get(
+            $findContainerPathsByHtmlServiceName
         );
 
-        $containers = $findContainerPathsByLayout->__invoke(
+         $containerPaths = $findContainerPathsByHtml->__invoke(
             $layout->getHtml()
         );
 
         $containerHtml = [];
 
         /** @var Container $container */
-        foreach ($containers as $container) {
+        foreach ($containerPaths as $containerPath) {
+
+            $container= '';
+
             $renderContainerServiceName = $container->getProperty(
                 LayoutProperties::KEY_RENDER,
                 RenderContainer::class
@@ -79,7 +82,7 @@ class RenderLayoutMustache implements RenderLayout
                 $renderContainerServiceName
             );
 
-            $containerHtml[$container->getUri()] = $renderContainer->__invoke(
+            $containerHtml[$containerPath] = $renderContainer->__invoke(
                 $container
             );
         }
@@ -94,7 +97,7 @@ class RenderLayoutMustache implements RenderLayout
             $renderContainerServiceName
         );
 
-        $containerHtml[$page->getUri()] = $renderContainer->__invoke(
+        $containerHtml[PATH] = $renderContainer->__invoke(
             $page
         );
 

@@ -10,7 +10,7 @@ interface FindContainerPathsByHtml
      * @param string $html
      * @param array  $options
      *
-     * @return array ['{container-name}']
+     * @return array ['{container-path}']
      */
     public function __invoke(string $html, array $options = []);
 }

@@ -36,7 +36,7 @@ abstract class BlockInstanceAbstract implements BlockInstance
     /**
      * @var array
      */
-    protected $properties = [];
+    protected $layoutProperties = [];
 
     /**
      * @var array
@@ -48,7 +48,7 @@ abstract class BlockInstanceAbstract implements BlockInstance
      * @param string $uri
      * @param string $blockName
      * @param array  $config
-     * @param array  $properties
+     * @param array  $layoutProperties
      * @param array  $data
      */
     public function __construct(
@@ -56,14 +56,14 @@ abstract class BlockInstanceAbstract implements BlockInstance
         string $uri,
         string $blockName,
         array $config,
-        array $properties,
+        array $layoutProperties,
         array $data
     ) {
         $this->uid = $uid;
         $this->uri = $uri;
         $this->blockName = $blockName;
         $this->config = $config;
-        $this->properties = $properties;
+        $this->layoutProperties = $layoutProperties;
         $this->data = $data;
     }
 
@@ -141,9 +141,9 @@ abstract class BlockInstanceAbstract implements BlockInstance
     /**
      * @return array
      */
-    public function getSystemProperties(): array
+    public function getLayoutProperties(): array
     {
-        return $this->properties;
+        return $this->layoutProperties;
     }
 
     /**
@@ -152,10 +152,10 @@ abstract class BlockInstanceAbstract implements BlockInstance
      *
      * @return mixed
      */
-    public function getSystemPropertiy(string $blockName, $default = null)
+    public function getLayoutProperty(string $blockName, $default = null)
     {
-        if (array_key_exists($blockName, $this->properties)) {
-            return $this->properties[$blockName];
+        if (array_key_exists($blockName, $this->layoutProperties)) {
+            return $this->layoutProperties[$blockName];
         }
 
         return $default;
