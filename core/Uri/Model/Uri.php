@@ -7,8 +7,6 @@ namespace Zrcms\Core\Uri\Model;
  */
 interface Uri
 {
-    const SCHEMA = 'zrcms:site:{{siteId}}:{{type}}/{{path}}';
-
     /**
      * @return string
      */

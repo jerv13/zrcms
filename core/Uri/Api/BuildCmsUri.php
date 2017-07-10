@@ -15,8 +15,10 @@ interface BuildCmsUri
      *
      * @return string
      */
-    public static function __invoke(
-        Uri $uri,
+    public function __invoke(
+        string $siteId,
+        string $type,
+        string $path,
         array $options = []
     ): string;
 }

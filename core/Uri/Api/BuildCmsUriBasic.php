@@ -3,6 +3,8 @@
 namespace Zrcms\Core\Uri\Api;
 
 use Zrcms\Core\Uri\Model\Uri;
+use Zrcms\Core\Uri\Model\UriBasic;
+use Zrcms\Core\Uri\Schema\UriSchemaBasic;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -15,24 +17,21 @@ class BuildCmsUriBasic implements BuildCmsUri
      *
      * @return string
      */
-    public static function __invoke(
-        Uri $uri,
+    public function __invoke(
+        string $siteId,
+        string $type,
+        string $path,
         array $options = []
     ): string
     {
-        $merged = array_merge(
-            $options,
-            [
-                'siteId' => $uri->getSiteId(),
-                'type' => $uri->getType(),
-                'path' => $uri->getPath()
-            ]
-        );
+        $values = [
+            'siteId' => $uri->getSiteId(),
+            'type' => $uri->getType(),
+            'path' => $uri->getPath()
+        ];
 
-        $schema = $uri->getSchema();
-
-        foreach ($merged as $key => $value) {
-            $schema = str_replace('{{' . $key . '}}', '{{' . $value . '}}', $schema);
+        foreach ($values as $key => $value) {
+            $schema = str_replace('{{' . $key . '}}', '{{' . $value . '}}', UriSchemaBasic::SCHEMA);
         }
 
         return $schema;
