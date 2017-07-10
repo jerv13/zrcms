@@ -5,6 +5,8 @@ namespace Zrcms\Importer;
 use Zrcms\Core\Container\Api\CreateContainerPublished;
 use Zrcms\Core\Page\Api\CreatePagePublished;
 use Zrcms\Core\Site\Api\CreateSitePublished;
+use Zrcms\Core\Uri\Api\BuildCmsUri;
+use Zrcms\Core\Uri\Api\ParseCmsUri;
 use Zrcms\Importer\Api\Import;
 use Zrcms\Importer\Middleware\ImportController;
 
@@ -24,7 +26,9 @@ class ModuleConfig
                         'arguments' => [
                             CreateSitePublished::class,
                             CreatePagePublished::class,
-                            CreateContainerPublished::class
+                            CreateContainerPublished::class,
+                            BuildCmsUri::class,
+                            ParseCmsUri::class
                         ]
                     ],
                     ImportController::class => [
