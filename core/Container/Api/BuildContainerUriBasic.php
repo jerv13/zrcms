@@ -25,21 +25,21 @@ class BuildContainerUriBasic implements BuildContainerUri
 
     /**
      * @param int    $siteId
-     * @param string $containerName
+     * @param string $containerPath
      * @param array  $options
      *
      * @return string
      */
     public function __invoke(
         int $siteId,
-        string $containerName,
+        string $containerPath,
         array $options = []
     ): string
     {
         return $this->buildCmsUri->__invoke(
             $siteId,
             'container',
-            $containerName,
+            $containerPath,
             $options
         );
     }

@@ -9,14 +9,14 @@ interface BuildPageUri
 {
     /**
      * @param int    $siteId
-     * @param string $path
+     * @param string $pagePath
      * @param array  $options
      *
      * @return string
      */
     public function __invoke(
         int $siteId,
-        string $path,
+        string $pagePath,
         array $options = []
     ): string;
 }

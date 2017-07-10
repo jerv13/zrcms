@@ -3,21 +3,16 @@
 namespace Zrcms\Core\Layout\Api;
 
 use Psr\Container\ContainerInterface;
-use Zrcms\Core\Container\Api\BuildContainerUri;
-use Zrcms\Core\Container\Api\FindContainerPathsByHtml;
 use Zrcms\Core\Container\Api\FindContainers;
-use Zrcms\Core\Container\Api\RenderContainer;
-use Zrcms\Core\Container\Model\Container;
 use Zrcms\Core\Layout\Model\Layout;
 use Zrcms\Core\Layout\Model\LayoutProperties;
 use Zrcms\Core\Page\Model\Page;
 use Zrcms\Core\Uri\Api\BuildCmsUri;
-use Zrcms\Core\Uri\Api\ParseCmsUri;
 
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class RenderLayoutMustache implements RenderLayout
+class RenderLayoutBasic implements RenderLayout
 {
     /**
      * @var ContainerInterface
@@ -35,26 +30,20 @@ class RenderLayoutMustache implements RenderLayout
     protected $buildContainerUri;
 
     /**
-     * @var ParseCmsUri
+     * @var RenderLayout
      */
-    protected $parseCmsUri;
+    protected $defaultRenderServiceName;
 
     /**
      * @param ContainerInterface $serviceContainer
-     * @param FindContainers     $findContainers
-     * @param BuildContainerUri  $buildContainerUri
-     * @param ParseCmsUri        $parseCmsUri
+     * @param RenderLayout       $defaultRenderServiceName
      */
     public function __construct(
         $serviceContainer,
-        FindContainers $findContainers,
-        BuildContainerUri $buildContainerUri,
-        ParseCmsUri $parseCmsUri
+        RenderLayout $defaultRenderServiceName = RenderLayoutMustache::class
     ) {
         $this->serviceContainer = $serviceContainer;
-        $this->findContainers = $findContainers;
-        $this->buildContainerUri = $buildContainerUri;
-        $this->parseCmsUri = $parseCmsUri;
+        $this->defaultRenderServiceName = $defaultRenderServiceName;
     }
 
     /**
@@ -70,10 +59,19 @@ class RenderLayoutMustache implements RenderLayout
         array $options = []
     ):string
     {
+        $renderServiceName = $layout->getProperty(
+            LayoutProperties::KEY_RENDER,
+            $this->defaultRenderServiceName
+        );
 
+        /** @var RenderLayout $render */
+        $render = $this->serviceContainer->get(
+            $renderServiceName
+        );
 
-        // @todo RENDER
-
-        return '';
+        return $render->__invoke(
+            $layout,
+            $page
+        );
     }
 }
