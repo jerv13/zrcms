@@ -10,35 +10,31 @@ use Zrcms\Core\Uri\Model\Uri;
 class BuildCmsUriBasic implements BuildCmsUri
 {
     /**
-     * @param string $siteId
-     * @param string $type
-     * @param string $path
-     * @param array  $options
-     * @param string $format
+     * @param Uri   $uri
+     * @param array $options
      *
-     * @return mixed|string
+     * @return string
      */
     public static function __invoke(
-        string $siteId,
-        string $type,
-        string $path,
-        array $options = [],
-        $format = Uri::SCHEMA
+        Uri $uri,
+        array $options = []
     ): string
     {
         $merged = array_merge(
             $options,
             [
-                'siteId' => $siteId,
-                'type' => $type,
-                'path' => $path
+                'siteId' => $uri->getSiteId(),
+                'type' => $uri->getType(),
+                'path' => $uri->getPath()
             ]
         );
 
+        $schema = $uri->getSchema();
+
         foreach ($merged as $key => $value) {
-            $format = str_replace('{{' . $key . '}}', '{{' . $value . '}}', $format);
+            $schema = str_replace('{{' . $key . '}}', '{{' . $value . '}}', $schema);
         }
 
-        return $format;
+        return $schema;
     }
 }

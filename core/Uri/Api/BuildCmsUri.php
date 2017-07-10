@@ -10,19 +10,13 @@ use Zrcms\Core\Uri\Model\Uri;
 interface BuildCmsUri
 {
     /**
-     * @param string $siteId
-     * @param string $type
-     * @param string $path
-     * @param array  $options
-     * @param string $format
+     * @param Uri   $uri
+     * @param array $options
      *
-     * @return mixed|string
+     * @return string
      */
     public static function __invoke(
-        string $siteId,
-        string $type,
-        string $path,
-        array $options = [],
-        $format = Uri::SCHEMA
+        Uri $uri,
+        array $options = []
     ): string;
 }

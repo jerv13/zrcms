@@ -10,15 +10,13 @@ use Zrcms\Core\Uri\Model\Uri;
 interface ParseCmsUri
 {
     /**
-     * @param string $uri
-     * @param array  $options
-     * @param string $format
+     * @param Uri   $uri
+     * @param array $options
      *
      * @return Uri
      */
     public static function __invoke(
-        string $uri,
-        array $options = [],
-        $format = Uri::SCHEMA
+        Uri $uri,
+        array $options = []
     ): Uri;
 }
