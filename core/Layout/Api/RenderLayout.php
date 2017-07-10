@@ -1,6 +1,6 @@
 <?php
 
-namespace Zrcms\Core\Block\Api;
+namespace Zrcms\Core\Layout\Api;
 
 use Zrcms\Core\Layout\Model\Layout;
 use Zrcms\Core\Page\Model\Page;
