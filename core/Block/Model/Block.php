@@ -29,13 +29,6 @@ interface Block
     public function getRenderer(): string;
 
     /**
-     * getDataProvider
-     *
-     * @return string
-     */
-    public function getDataProvider(): string;
-
-    /**
      * isCacheable
      *
      * @return bool

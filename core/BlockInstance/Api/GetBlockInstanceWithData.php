@@ -1,6 +1,6 @@
 <?php
 
-namespace Zrcms\Core\Container\Api;
+namespace Zrcms\Core\BlockInstance\Api;
 
 use Psr\Http\Message\ServerRequestInterface;
 use Zrcms\Core\BlockInstance\Model\BlockInstance;

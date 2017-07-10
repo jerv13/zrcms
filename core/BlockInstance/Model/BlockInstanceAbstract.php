@@ -39,17 +39,13 @@ abstract class BlockInstanceAbstract implements BlockInstance
     protected $layoutProperties = [];
 
     /**
-     * @var array
-     */
-    protected $data = [];
-
-    /**
      * @param string $uid
      * @param string $uri
      * @param string $blockName
      * @param array  $config
      * @param array  $layoutProperties
-     * @param array  $data
+     * @param string $createdByUserId
+     * @param string $createdReason
      */
     public function __construct(
         string $uid,
@@ -57,14 +53,23 @@ abstract class BlockInstanceAbstract implements BlockInstance
         string $blockName,
         array $config,
         array $layoutProperties,
-        array $data
+        string $createdByUserId,
+        string $createdReason
     ) {
+        // if has id it is immutable
+        if (!empty($this->uid)) {
+            return;
+        }
         $this->uid = $uid;
         $this->uri = $uri;
         $this->blockName = $blockName;
         $this->config = $config;
         $this->layoutProperties = $layoutProperties;
-        $this->data = $data;
+
+        $this->setCreatedData(
+            $createdByUserId,
+            $createdReason
+        );
     }
 
     /**
@@ -110,29 +115,6 @@ abstract class BlockInstanceAbstract implements BlockInstance
     {
         if (array_key_exists($blockName, $this->config)) {
             return $this->config[$blockName];
-        }
-
-        return $default;
-    }
-
-    /**
-     * @return array
-     */
-    public function getData(): array
-    {
-        return $this->data;
-    }
-
-    /**
-     * @param string $blockName
-     * @param null   $default
-     *
-     * @return mixed
-     */
-    public function getDataValue(string $blockName, $default = null)
-    {
-        if (array_key_exists($blockName, $this->data)) {
-            return $this->data[$blockName];
         }
 
         return $default;

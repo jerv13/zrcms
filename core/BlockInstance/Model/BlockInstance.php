@@ -41,11 +41,6 @@ interface BlockInstance extends Trackable
     public function getConfigValue(string $name, $default = null);
 
     /**
-     * @return array
-     */
-    public function getData(): array;
-
-    /**
      * @param string $name
      * @param null   $default
      *

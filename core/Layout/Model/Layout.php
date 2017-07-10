@@ -2,10 +2,12 @@
 
 namespace Zrcms\Core\Layout\Model;
 
+use Zrcms\Tracking\Model\Trackable;
+
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-interface Layout
+interface Layout extends Trackable
 {
     /**
      * @return string

@@ -12,4 +12,5 @@ interface BlockProperties
     const KEY_CATEGORY = 'category';
     const KEY_LABEL = 'label';
     const KEY_DESCRIPTION = 'description';
+    const KEY_DATA_PROVIDER = 'data-provider';
 }

@@ -7,10 +7,17 @@ namespace Zrcms\Core\BlockInstance\Model;
  */
 interface BlockInstanceData extends BlockInstance
 {
+
     /**
-     * @param array $data
-     *
-     * @return void
+     * @return array
      */
-    public function setData(array $data);
+    public function getData(): array;
+
+    /**
+     * @param string $blockName
+     * @param null   $default
+     *
+     * @return mixed
+     */
+    public function getDataValue(string $blockName, $default = null);
 }
