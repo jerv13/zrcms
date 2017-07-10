@@ -5,21 +5,30 @@ namespace Zrcms\Importer\Api;
 use Zrcms\Core\Container\Api\CreateContainerPublished;
 use Zrcms\Core\Page\Api\CreatePagePublished;
 use Zrcms\Core\Site\Api\CreateSitePublished;
+use Zrcms\Core\Uri\Api\BuildCmsUri;
+use Zrcms\Core\Uri\Api\ParseCmsUri;
+use Zrcms\Core\Uri\Model\Uri;
 
 class Import
 {
     protected $createSitePublished;
     protected $createPagePublished;
     protected $createContainerPublished;
+    protected $buildCmsUri;
+    protected $parseCmsUri;
 
     public function __construct(
         CreateSitePublished $createSitePublished,
         CreatePagePublished $createPagePublished,
-        CreateContainerPublished $createContainerPublished
+        CreateContainerPublished $createContainerPublished,
+        BuildCmsUri $buildCmsUri,
+        ParseCmsUri $parseCmsUri
     ) {
         $this->createPagePublished = $createPagePublished;
         $this->createContainerPublished = $createContainerPublished;
         $this->createSitePublished = $createSitePublished;
+        $this->buildCmsUri = $buildCmsUri;
+        $this->parseCmsUri = $parseCmsUri;
     }
 
     /**
@@ -33,19 +42,22 @@ class Import
 
         $createdByReason = 'Import script ' . get_class($this);
 
+        $siteIdOldToNewMap = [];
+
         foreach ($data['sites'] as $site) {
-            $this->createSitePublished->__invoke(
+            $newSite = $this->createSitePublished->__invoke(
                 $site['host'],
                 $site['theme'],
                 $site['properties'],
                 $currentUserId,
                 $createdByReason
             );
+            $siteIdOldToNewMap[$site['id']] = $newSite->getId();
         }
 
         foreach ($data['pages'] as $page) {
             $this->createPagePublished->__invoke(
-                $page['uri'],
+                $this->replaceSiteIdInUri($page['uri'], $siteIdOldToNewMap),
                 $currentUserId,
                 $createdByReason,
                 $page['properties']
@@ -54,11 +66,25 @@ class Import
 
         foreach ($data['containers'] as $container) {
             $this->createContainerPublished->__invoke(
-                $container['uri'],
+                $this->replaceSiteIdInUri($container['uri'], $siteIdOldToNewMap),
                 $currentUserId,
                 $createdByReason,
                 $container['properties']
             );
         }
+    }
+
+    protected function replaceSiteIdInUri(string $oldUri, array $siteIdOldToNewMap)
+    {
+        /**
+         * @var Uri $oldParsedUri
+         */
+        $oldParsedUri = $this->parseCmsUri->__invoke($oldUri);
+
+        return $this->buildCmsUri->__invoke(
+            $siteIdOldToNewMap[$oldParsedUri->getSiteId()],
+            $oldParsedUri->getType(),
+            $oldParsedUri->getPath()
+        );
     }
 }

@@ -3,6 +3,8 @@
 namespace Zrcms\Core\Uri\Api;
 
 use Zrcms\Core\Uri\Model\Uri;
+use Zrcms\Core\Uri\Model\UriBasic;
+use Zrcms\Core\Uri\Schema\UriSchemaBasic;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -10,16 +12,19 @@ use Zrcms\Core\Uri\Model\Uri;
 class ParseCmsUriBasic implements ParseCmsUri
 {
     /**
-     * @param Uri   $uri
+     * @param string $uri
      * @param array $options
      *
      * @return Uri
      */
-    public static function __invoke(
-        Uri $uri,
+    public function __invoke(
+        string $uri,
         array $options = []
-    ): Uri
-    {
-        // @todo
+    ): Uri {
+        if (!preg_match(UriSchemaBasic::SCHEMA_REGEX, $uri, $matches)) {
+            throw new \Exception('Invalid URI');
+        }
+
+        return new UriBasic($matches['siteId'], $matches['type'], $matches['path']);
     }
 }

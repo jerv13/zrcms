@@ -2,6 +2,9 @@
 
 namespace Zrcms\Core\Uri\Model;
 
+use Zrcms\Core\Uri\Schema\UriFormatBasic;
+use Zrcms\Core\Uri\Schema\UriSchemaBasic;
+
 /**
  * @author James Jervis - https://github.com/jerv13
  */
@@ -10,7 +13,6 @@ class UriBasic implements Uri
     protected $siteId;
     protected $type;
     protected $path;
-    protected $schema = Uri::SCHEMA;
 
     /**
      * @param string $siteId
@@ -21,13 +23,11 @@ class UriBasic implements Uri
     public function __construct(
         string $siteId,
         string $type,
-        string $path,
-        string $schema = Uri::SCHEMA
+        string $path
     ) {
         $this->siteId = $siteId;
         $this->type = $type;
         $this->path = $path;
-        $this->schema = $schema;
     }
 
     /**
@@ -59,6 +59,6 @@ class UriBasic implements Uri
      */
     public function getSchema(): string
     {
-        return $this->schema;
+        return UriSchemaBasic::SCHEMA;
     }
 }
