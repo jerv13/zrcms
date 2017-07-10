@@ -1,62 +1,35 @@
 <?php
 
-namespace Zrcms\Core\Container\Model;
-
-use Zrcms\Core\BlockInstance\Model\BlockInstance;
-use Zrcms\Tracking\Model\TrackableTrait;
+namespace Zrcms\Core\Layout\Model;
 
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-abstract class ContainerAbstract
+abstract class LayoutAbstract implements Layout
 {
-    use TrackableTrait;
-
-    /**
-     * @var string
-     */
     protected $uid;
-
-    /**
-     * <Unique ID>
-     *
-     * @var string
-     */
     protected $uri;
-
-    /**
-     * @var array
-     */
+    protected $html;
     protected $properties = [
-        // 'renderContainerServiceName' => '{RenderContainerServiceName}'
+        // 'findContainerPathsByHtmlServiceName' => '{FindContainerPathsByHtmlServiceName}'
     ];
 
     /**
      * @param string $uid
      * @param string $uri
+     * @param string $html
      * @param array  $properties
-     * @param string $createdByUserId
-     * @param string $createdReason
      */
     public function __construct(
         string $uid,
         string $uri,
-        array $properties,
-        string $createdByUserId,
-        string $createdReason
+        string $html,
+        array $properties
     ) {
-        // if has id it is immutable
-        if (!empty($this->uid)) {
-            return;
-        }
-
         $this->uid = $uid;
         $this->uri = $uri;
+        $this->html = $html;
         $this->properties = $properties;
-        $this->setCreatedData(
-            $createdByUserId,
-            $createdReason
-        );
     }
 
     /**
@@ -68,11 +41,21 @@ abstract class ContainerAbstract
     }
 
     /**
+     * <identifier>
+     *
      * @return string
      */
     public function getUri(): string
     {
         return $this->uri;
+    }
+
+    /**
+     * @return string
+     */
+    public function getHtml(): string
+    {
+        return $this->html;
     }
 
     /**

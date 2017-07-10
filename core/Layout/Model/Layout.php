@@ -25,16 +25,6 @@ interface Layout
     public function getHtml(): string;
 
     /**
-     * @return array [Containers]
-     */
-    public function getContainers(): array;
-
-    /**
-     * @return array [Containers]
-     */
-    public function getContainer(): array;
-
-    /**
      * @return array
      */
     public function getProperties(): array;

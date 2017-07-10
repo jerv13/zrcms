@@ -1,6 +1,6 @@
 <?php
 
-namespace Zrcms\Core\Block\Api;
+namespace Zrcms\Core\Layout\Api;
 
 use Zrcms\Uid\Api\NewUid;
 
