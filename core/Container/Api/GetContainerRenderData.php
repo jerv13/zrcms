@@ -4,6 +4,7 @@ namespace Zrcms\Core\Container\Api;
 
 use Psr\Http\Message\ServerRequestInterface;
 use Zrcms\Core\BlockInstance\Api\FindBlockInstancesByContainer;
+use Zrcms\Core\BlockInstance\Api\GetBlockInstancesWithData;
 use Zrcms\Core\BlockInstance\Api\RenderBlockInstance;
 use Zrcms\Core\BlockInstance\Api\WrapRenderedBlockInstance;
 use Zrcms\Core\BlockInstance\Model\BlockInstance;
@@ -20,32 +21,55 @@ class GetContainerRenderData
      */
     protected $findBlockInstancesByContainer;
 
+    /**
+     * @var RenderBlockInstance
+     */
     protected $renderBlockInstance;
 
+    /**
+     * @var WrapRenderedBlockInstance
+     */
     protected $wrapRenderedBlockInstance;
 
+    /**
+     * @var WrapRenderedContainer
+     */
     protected $wrapRenderedContainer;
+
+    /**
+     * @var GetBlockInstancesWithData
+     */
+    protected $getBlockInstancesWithData;
 
     /**
      * @param FindBlockInstancesByContainer $findBlockInstancesByContainer
      * @param RenderBlockInstance           $renderBlockInstance
      * @param WrapRenderedBlockInstance     $wrapRenderedBlockInstance
      * @param WrapRenderedContainer         $wrapRenderedContainer
+     * @param GetBlockInstancesWithData     $getBlockInstancesWithData
      */
     public function __construct(
         FindBlockInstancesByContainer $findBlockInstancesByContainer,
         RenderBlockInstance $renderBlockInstance,
         WrapRenderedBlockInstance $wrapRenderedBlockInstance,
         WrapRenderedContainer $wrapRenderedContainer,
-        GetBlockInstanceWithData $getBlockInstanceWithData
+        GetBlockInstancesWithData $getBlockInstancesWithData
     ) {
         $this->findBlockInstancesByContainer = $findBlockInstancesByContainer;
         $this->renderBlockInstance = $renderBlockInstance;
         $this->wrapRenderedBlockInstance = $wrapRenderedBlockInstance;
         $this->wrapRenderedContainer = $wrapRenderedContainer;
-        $this->getBlockInstanceWithData = $getBlockInstanceWithData;
+        $this->getBlockInstancesWithData = $getBlockInstancesWithData;
     }
 
+    /**
+     * @param Container              $container
+     * @param ServerRequestInterface $request
+     * @param array                  $options
+     *
+     * @return string
+     * @throws \Exception
+     */
     public function __invoke(
         Container $container,
         ServerRequestInterface $request,
@@ -54,7 +78,7 @@ class GetContainerRenderData
     {
         $blockInstancesWithoutData = $this->findBlockInstancesByContainer->__invoke($container);
 
-        $blockInstances = $this->getBlockInstanceWithData->__invoke(
+        $blockInstances = $this->getBlockInstancesWithData->__invoke(
             $blockInstancesWithoutData,
             $request
         );
