@@ -11,12 +11,14 @@ interface RenderContainer
 {
     /**
      * @param Container $container
+     * @param array     $containerRenderData
      * @param array     $options
      *
      * @return string
      */
     public function __invoke(
         Container $container,
+        array $containerRenderData,
         array $options = []
     ): string;
 }
