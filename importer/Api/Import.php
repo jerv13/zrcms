@@ -11,15 +11,21 @@ class Import
     protected $createSitePublished;
     protected $createPagePublished;
     protected $createContainerPublished;
+    protected $buildCmsUri;
+    protected $parseCmsUri;
 
     public function __construct(
         CreateSitePublished $createSitePublished,
         CreatePagePublished $createPagePublished,
-        CreateContainerPublished $createContainerPublished
+        CreateContainerPublished $createContainerPublished,
+        BuildCmsUri $buildCmsUri,
+        ParseCmsUri $parseCmsUri
     ) {
         $this->createPagePublished = $createPagePublished;
         $this->createContainerPublished = $createContainerPublished;
         $this->createSitePublished = $createSitePublished;
+        $this->buildCmsUri = $buildCmsUri;
+        $this->parseCmsUri = $parseCmsUri;
     }
 
     /**
@@ -33,8 +39,16 @@ class Import
 
         $createdByReason = 'Import script ' . get_class($this);
 
+        $siteIdOldToNewMap = [];
+
+        $convertUri = function ($oldUri) use ($siteIdOldToNewMap) {
+            $parsedUri = $this->parseCmsUri($oldUri);
+            
+            return $this->buildCmsUri->_invoke();
+        };
+
         foreach ($data['sites'] as $site) {
-            $this->createSitePublished->__invoke(
+            $newSite = $this->createSitePublished->__invoke(
                 $site['host'],
                 $site['theme'],
                 $site['properties'],
@@ -42,6 +56,7 @@ class Import
                 $createdByReason,
                 $site['id']
             );
+            $siteIdOldToNewMap[$site['id']] = $newSite->getId();
         }
 
         foreach ($data['pages'] as $page) {
