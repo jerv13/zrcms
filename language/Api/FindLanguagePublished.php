@@ -10,17 +10,13 @@ use Zrcms\Language\Model\LanguagePublished;
 interface FindLanguagePublished
 {
     /**
-     * @param          $id
-     * @param null|int $lockMode
-     * @param null|int $lockVersion
-     * @param array $options
+     * @param string $iso639_2t
+     * @param array  $options
      *
      * @return LanguagePublished|null
      */
     public function __invoke(
-        $id,
-        $lockMode = null,
-        $lockVersion = null,
+        string $iso639_2t,
         array $options = []
     );
 }

@@ -50,12 +50,11 @@ class PublishPageDraft implements \Zrcms\Core\Page\Api\PublishPageDraft
 
         if ($existingPage) {
             $pageHistory = new PageHistory(
+                $existingPage->getUid(),
                 $existingPage->getUri(),
                 $existingPage->getProperties(),
-                $existingPage->getBlockInstances(),
                 $modifiedByUserId,
-                $modifiedReason,
-                $existingPage->getTrackingId()
+                $modifiedReason
             );
 
             $this->entityManager->persist($pageHistory);
@@ -66,12 +65,11 @@ class PublishPageDraft implements \Zrcms\Core\Page\Api\PublishPageDraft
         }
 
         $newPage = new \Zrcms\CoreDoctrine\Page\Entity\PagePublished(
+            $page->getUid(),
             $page->getUri(),
             $page->getProperties(),
-            $page->getBlockInstances(),
             $modifiedByUserId,
-            $modifiedReason,
-            $page->getTrackingId()
+            $modifiedReason
         );
 
         $this->entityManager->persist($newPage);

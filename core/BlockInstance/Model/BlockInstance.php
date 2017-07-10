@@ -10,9 +10,16 @@ use Zrcms\Tracking\Model\Trackable;
 interface BlockInstance extends Trackable
 {
     /**
-     * @return int|null
+     * @return string
      */
-    public function getId();
+    public function getUid(): string;
+
+    /**
+     * <identifier>
+     *
+     * @return string
+     */
+    public function getUri(): string;
 
     /**
      * @return string

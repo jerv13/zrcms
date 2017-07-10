@@ -3,7 +3,6 @@
 namespace Zrcms\CoreDoctrine\Page\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Zrcms\Core\Page\Model\PageAbstract;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -13,13 +12,22 @@ use Zrcms\Core\Page\Model\PageAbstract;
  * @ORM\Table(
  *     name="zrcms_core_page_published",
  *     indexes={
- *         @ORM\Index(name="uri_index", columns={"uri"})
+ *         @ORM\Index(name="uid_index", columns={"uid"})
  *     }
  * )
  */
 class PagePublished extends PageAbstract implements \Zrcms\Core\Page\Model\PagePublished
 {
     /**
+     * @var string
+     *
+     * @ORM\Column(type="string", unique=true, nullable=false)
+     */
+    protected $uid;
+
+    /**
+     * <identifier>
+     *
      * @var string
      *
      * @ORM\Id
@@ -69,14 +77,12 @@ class PagePublished extends PageAbstract implements \Zrcms\Core\Page\Model\PageP
     protected $createdReason;
 
     /**
-     * Globally unique tracking ID
+     * @return void
      *
-     * Tracking id for tracking changes to content when data is build from existing source
-     * For example, if you are building a new  object
-     *
-     * @var string
-     *
-     * @ORM\Column(type="string")
+     * @ORM\PrePersist
      */
-    protected $trackingId;
+    public function assertHasTrackingData()
+    {
+        parent::assertHasTrackingData();
+    }
 }

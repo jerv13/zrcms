@@ -41,12 +41,11 @@ class DeletePagePublished implements \Zrcms\Core\Page\Api\DeletePagePublished
     ): PageDeleted
     {
         $newPage = new \Zrcms\CoreDoctrine\Page\Entity\PageDeleted(
+            $page->getUid(),
             $page->getUri(),
             $page->getProperties(),
-            $page->getBlockInstances(),
             $modifiedByUserId,
-            $modifiedByUserId,
-            $page->getTrackingId()
+            $modifiedByUserId
         );
 
         $this->entityManager->persist($newPage);

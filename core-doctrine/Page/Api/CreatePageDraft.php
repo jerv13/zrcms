@@ -3,8 +3,9 @@
 namespace Zrcms\CoreDoctrine\Page\Api;
 
 use Doctrine\ORM\EntityManager;
+use Zrcms\Core\Page\Api\NewPageUid;
 use Zrcms\Core\Page\Model\PageDraft;
-use Zrcms\Core\Uid\Api\NewUid;
+use Zrcms\Uid\Api\NewUid;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -17,20 +18,20 @@ class CreatePageDraft implements \Zrcms\Core\Page\Api\CreatePageDraft
     protected $entityManager;
 
     /**
-     * @var NewUid
+     * @var NewPageUid
      */
-    protected $newUid;
+    protected $newPageUid;
 
     /**
      * @param EntityManager $entityManager
-     * @param NewUid        $newUid
+     * @param NewPageUid    $newPageUid
      */
     public function __construct(
         EntityManager $entityManager,
-        NewUid $newUid
+        NewPageUid $newPageUid
     ) {
         $this->entityManager = $entityManager;
-        $this->newUid = $newUid;
+        $this->newPageUid = $newPageUid;
     }
 
     /**
@@ -38,7 +39,6 @@ class CreatePageDraft implements \Zrcms\Core\Page\Api\CreatePageDraft
      * @param string $createdByUserId
      * @param string $createdReason
      * @param array  $properties
-     * @param array  $blockInstances
      * @param array  $options
      *
      * @return PageDraft
@@ -48,17 +48,15 @@ class CreatePageDraft implements \Zrcms\Core\Page\Api\CreatePageDraft
         string $createdByUserId,
         string $createdReason,
         array $properties,
-        array $blockInstances,
         array $options = []
     ): PageDraft
     {
         $page = new \Zrcms\CoreDoctrine\Page\Entity\PageDraft(
+            $this->newPageUid->__invoke(),
             $uri,
             $properties,
-            $blockInstances,
             $createdByUserId,
-            $createdReason,
-            $this->newUid->__invoke()
+            $createdReason
         );
 
         $this->entityManager->persist($page);

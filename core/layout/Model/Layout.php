@@ -10,12 +10,29 @@ interface Layout
     /**
      * @return string
      */
+    public function getUid(): string;
+
+    /**
+     * <identifier>
+     *
+     * @return string
+     */
     public function getUri(): string;
 
     /**
      * @return string
      */
     public function getHtml(): string;
+
+    /**
+     * @return array [Containers]
+     */
+    public function getContainers(): array;
+
+    /**
+     * @return array [Containers]
+     */
+    public function getContainer(): array;
 
     /**
      * @return array

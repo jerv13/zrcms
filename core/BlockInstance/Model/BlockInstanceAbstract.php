@@ -12,9 +12,16 @@ abstract class BlockInstanceAbstract implements BlockInstance
     use TrackableTrait;
 
     /**
-     * @var
+     * @var string
      */
-    protected $id;
+    protected $uid;
+
+    /**
+     * <identifier>
+     *
+     * @var string
+     */
+    protected $uri;
 
     /**
      * @var string
@@ -37,20 +44,23 @@ abstract class BlockInstanceAbstract implements BlockInstance
     protected $data = [];
 
     /**
-     * @param        $id
+     * @param string $uid
+     * @param string $uri
      * @param string $name
      * @param array  $config
      * @param array  $layoutData
      * @param array  $data
      */
     public function __construct(
-        $id,
+        string $uid,
+        string $uri,
         string $name,
         array $config,
         array $layoutData,
         array $data
     ) {
-        $this->id = $id;
+        $this->uid = $uid;
+        $this->uri = $uri;
         $this->name = $name;
         $this->config = $config;
         $this->layoutData = $layoutData;
@@ -58,11 +68,19 @@ abstract class BlockInstanceAbstract implements BlockInstance
     }
 
     /**
-     * @return int|null
+     * @return string
      */
-    public function getId()
+    public function getUid(): string
     {
-        return $this->id;
+        return $this->uid;
+    }
+
+    /**
+     * @return string
+     */
+    public function getUri(): string
+    {
+        return $this->uid;
     }
 
     /**

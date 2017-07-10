@@ -10,9 +10,9 @@ use Zrcms\Tracking\Model\Trackable;
 interface Country extends Trackable
 {
     /**
-     * @return mixed
+     * @return string
      */
-    public function getName(): string;
+    public function getUid(): string;
 
     /**
      * @return string
@@ -23,4 +23,9 @@ interface Country extends Trackable
      * @return string
      */
     public function getIso2(): string;
+
+    /**
+     * @return mixed
+     */
+    public function getName(): string;
 }

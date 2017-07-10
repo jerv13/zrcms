@@ -3,7 +3,6 @@
 namespace Zrcms\CoreDoctrine\Page\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Zrcms\Core\Page\Model\PageAbstract;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -13,25 +12,27 @@ use Zrcms\Core\Page\Model\PageAbstract;
  * @ORM\Table(
  *     name="zrcms_core_page_deleted",
  *     indexes={
- *         @ORM\Index(name="uri_index", columns={"uri"})
+ *         @ORM\Index(name="uri_index", columns={"uri"}),
+ *         @ORM\Index(name="uid_index", columns={"uid"})
  *     }
  * )
  */
 class PageDeleted extends PageAbstract implements \Zrcms\Core\Page\Model\PageDeleted
 {
     /**
-     * @var int Auto-Incremented Primary Key
-     *
-     * @ORM\Id
-     * @ORM\Column(type="integer")
-     * @ORM\GeneratedValue
-     */
-    protected $id;
-
-    /**
      * @var string
      *
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", unique=true, nullable=false)
+     */
+    protected $uid;
+
+    /**
+     * <identifier>
+     *
+     * @var string
+     *
+     * @ORM\Id
+     * @ORM\Column(type="string", nullable=false)
      */
     protected $uri;
 
@@ -77,22 +78,20 @@ class PageDeleted extends PageAbstract implements \Zrcms\Core\Page\Model\PageDel
     protected $createdReason;
 
     /**
-     * Globally unique tracking ID
-     *
-     * Tracking id for tracking changes to content when data is build from existing source
-     * For example, if you are building a new  object
-     *
-     * @var string
-     *
-     * @ORM\Column(type="string")
-     */
-    protected $trackingId;
-
-    /**
      * @return int
      */
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * @return void
+     *
+     * @ORM\PrePersist
+     */
+    public function assertHasTrackingData()
+    {
+        parent::assertHasTrackingData();
     }
 }

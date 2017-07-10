@@ -31,16 +31,6 @@ trait TrackableTrait
     protected $createdReason;
 
     /**
-     * Globally unique tracking ID
-     *
-     * Tracking id for tracking changes to content when data is build from existing source
-     * For example, if you are building a new  object
-     *
-     * @var string
-     */
-    protected $trackingId;
-
-    /**
      * @return \DateTime
      * @throws TrackingException
      */
@@ -86,21 +76,6 @@ trait TrackableTrait
     }
 
     /**
-     * @return string
-     * @throws TrackingException
-     */
-    public function getTrackingId(): string
-    {
-        if (empty($this->trackingId)) {
-            throw new TrackingException(
-                'Value not set for trackingId in ' . get_class($this)
-            );
-        }
-
-        return $this->trackingId;
-    }
-
-    /**
      * @return void
      * @throws TrackingException
      */
@@ -123,12 +98,6 @@ trait TrackableTrait
                 'Value not set for createdReason in ' . get_class($this)
             );
         }
-
-        if (empty($this->trackingId)) {
-            throw new TrackingException(
-                'Value not set for trackingId in ' . get_class($this)
-            );
-        }
     }
 
     /**
@@ -145,15 +114,13 @@ trait TrackableTrait
     /**
      * @param string $createdByUserId
      * @param string $createdReason
-     * @param string $trackingId
      *
      * @return void
      * @throws TrackingException
      */
     protected function setCreatedData(
         string $createdByUserId,
-        string $createdReason,
-        string $trackingId
+        string $createdReason
     ) {
         // invalid
         if (empty($createdByUserId)) {
@@ -168,21 +135,9 @@ trait TrackableTrait
             );
         }
 
-        if (empty($trackingId)) {
-            throw new TrackingException(
-                'Invalid trackingId in ' . get_class($this)
-            );
-        }
-
         if (!empty($this->createdByUserId)) {
             throw new TrackingException(
                 'Can not change createdByUserId in ' . get_class($this)
-            );
-        }
-
-        if (!empty($this->trackingId)) {
-            throw new TrackingException(
-                'Can not change trackingId in ' . get_class($this)
             );
         }
 
@@ -196,6 +151,5 @@ trait TrackableTrait
 
         $this->createdDate = new \DateTime();
         $this->createdReason = $createdReason;
-        $this->trackingId = $trackingId;
     }
 }

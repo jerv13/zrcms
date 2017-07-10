@@ -14,7 +14,7 @@ abstract class CountryAbstract implements Country
     /**
      * @var string
      */
-    protected $name;
+    protected $uid;
 
     /**
      * @var string
@@ -27,33 +27,47 @@ abstract class CountryAbstract implements Country
     protected $iso2;
 
     /**
-     * @param string $name
+     * @var string
+     */
+    protected $name;
+
+    /**
+     * @param string $uid
      * @param string $iso3
      * @param string $iso2
+     * @param string $name
      * @param string $createdByUserId
      * @param string $createdReason
      */
     public function __construct(
-        string $name,
+        string $uid,
         string $iso3,
         string $iso2,
+        string $name,
         string $createdByUserId,
-        string $createdReason,
-        string $trackingId
+        string $createdReason
     ) {
         // if has id it is immutable
         if (!empty($this->iso3)) {
             return;
         }
 
-        $this->name = $name;
+        $this->uid = $uid;
         $this->iso3 = $iso3;
         $this->iso2 = $iso2;
+        $this->name = $name;
         $this->setCreatedData(
             $createdByUserId,
-            $createdReason,
-            $trackingId
+            $createdReason
         );
+    }
+
+    /**
+     * @return string
+     */
+    public function getUid(): string
+    {
+        return $this->uid;
     }
 
     /**

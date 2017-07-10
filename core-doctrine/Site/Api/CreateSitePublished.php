@@ -3,8 +3,8 @@
 namespace Zrcms\CoreDoctrine\Site\Api;
 
 use Doctrine\ORM\EntityManager;
+use Zrcms\Core\Site\Api\NewSiteUid;
 use Zrcms\Core\Site\Model\SitePublished;
-use Zrcms\Core\Uid\Api\NewUid;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -17,20 +17,20 @@ class CreateSitePublished implements \Zrcms\Core\Site\Api\CreateSitePublished
     protected $entityManager;
 
     /**
-     * @var NewUid
+     * @var NewSiteUid
      */
-    protected $newUid;
+    protected $newSiteUid;
 
     /**
      * @param EntityManager $entityManager
-     * @param NewUid        $newUid
+     * @param NewSiteUid        $newSiteUid
      */
     public function __construct(
         EntityManager $entityManager,
-        NewUid $newUid
+        NewSiteUid $newSiteUid
     ) {
         $this->entityManager = $entityManager;
-        $this->newUid = $newUid;
+        $this->newSiteUid = $newSiteUid;
     }
 
     /**
@@ -39,7 +39,6 @@ class CreateSitePublished implements \Zrcms\Core\Site\Api\CreateSitePublished
      * @param array  $properties
      * @param string $createdByUserId
      * @param string $createdReason
-     * @param null   $id
      * @param array  $options
      *
      * @return SitePublished
@@ -50,18 +49,16 @@ class CreateSitePublished implements \Zrcms\Core\Site\Api\CreateSitePublished
         array $properties,
         string $createdByUserId,
         string $createdReason,
-        $id = null,
         array $options = []
     ): SitePublished
     {
         $newSite = new \Zrcms\CoreDoctrine\Site\Entity\SitePublished(
+            $this->newSiteUid->__invoke(),
             $host,
             $theme,
             $properties,
             $createdByUserId,
-            $createdReason,
-            $this->newUid->__invoke(),
-            $id = null
+            $createdReason
         );
 
         $this->entityManager->persist($newSite);

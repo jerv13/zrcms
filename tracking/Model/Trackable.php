@@ -30,11 +30,6 @@ interface Trackable
     public function getCreatedReason(): string;
 
     /**
-     * @return string
-     */
-    public function getTrackingId(): string;
-
-    /**
      * @return void
      * @throws TrackingException
      */

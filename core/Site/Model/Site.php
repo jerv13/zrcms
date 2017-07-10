@@ -10,11 +10,13 @@ use Zrcms\Tracking\Model\Trackable;
 interface Site extends Trackable
 {
     /**
-     * @return int
+     * @return string
      */
-    public function getId(): int;
+    public function getUid(): string;
 
     /**
+     * <identifier>
+     *
      * @return string
      */
     public function getHost(): string;

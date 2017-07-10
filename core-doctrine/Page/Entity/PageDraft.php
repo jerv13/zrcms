@@ -3,7 +3,6 @@
 namespace Zrcms\CoreDoctrine\Page\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Zrcms\Core\Page\Model\PageAbstract;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -13,13 +12,16 @@ use Zrcms\Core\Page\Model\PageAbstract;
  * @ORM\Table(
  *     name="zrcms_core_page_draft",
  *     indexes={
- *         @ORM\Index(name="uri_index", columns={"uri"})
+ *         @ORM\Index(name="uri_index", columns={"uri"}),
+ *         @ORM\Index(name="uid_index", columns={"uid"})
  *     }
  * )
  */
 class PageDraft extends PageAbstract implements \Zrcms\Core\Page\Model\PageDraft
 {
     /**
+     * <identifier>
+     *
      * @var int Auto-Incremented Primary Key
      *
      * @ORM\Id
@@ -27,6 +29,13 @@ class PageDraft extends PageAbstract implements \Zrcms\Core\Page\Model\PageDraft
      * @ORM\GeneratedValue
      */
     protected $id;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(type="string")
+     */
+    protected $uid;
 
     /**
      * @var string
@@ -77,22 +86,20 @@ class PageDraft extends PageAbstract implements \Zrcms\Core\Page\Model\PageDraft
     protected $createdReason;
 
     /**
-     * Globally unique tracking ID
-     *
-     * Tracking id for tracking changes to content when data is build from existing source
-     * For example, if you are building a new  object
-     *
-     * @var string
-     *
-     * @ORM\Column(type="string")
-     */
-    protected $trackingId;
-
-    /**
      * @return int
      */
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * @return void
+     *
+     * @ORM\PrePersist
+     */
+    public function assertHasTrackingData()
+    {
+        parent::assertHasTrackingData();
     }
 }
