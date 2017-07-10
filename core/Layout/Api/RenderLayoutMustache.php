@@ -61,16 +61,20 @@ class RenderLayoutMustache implements RenderLayout
             $findContainerPathsByHtmlServiceName
         );
 
-         $containerPaths = $findContainerPathsByHtml->__invoke(
+        $containerPaths = $findContainerPathsByHtml->__invoke(
             $layout->getHtml()
         );
+
+        $containers = $this->findContainers->__invoke(
+
+        )
 
         $containerHtml = [];
 
         /** @var Container $container */
         foreach ($containerPaths as $containerPath) {
 
-            $container= '';
+            $container = '';
 
             $renderContainerServiceName = $container->getProperty(
                 LayoutProperties::KEY_RENDER,

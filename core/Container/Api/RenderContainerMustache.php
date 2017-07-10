@@ -44,6 +44,10 @@ class RenderContainerMustache implements RenderContainer
         array $options = []
     ): string
     {
-        // @todo Write me
+        $blockInstances = $this->findBlockInstancesByContainer->__invoke(
+            $container
+        );
+
+        $blockInstances
     }
 }

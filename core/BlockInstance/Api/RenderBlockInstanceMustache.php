@@ -7,7 +7,7 @@ use Zrcms\Core\BlockInstance\Model\BlockInstance;
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class RenderBlockInstanceBasic implements RenderBlockInstance
+class RenderBlockInstanceMustache implements RenderBlockInstance
 {
     /**
      * @param BlockInstance $blockInstance
