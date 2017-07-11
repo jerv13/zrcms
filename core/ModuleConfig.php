@@ -4,6 +4,8 @@ namespace Zrcms\Core;
 
 use Zrcms\Core\Block\Api\FindBlock;
 use Zrcms\Core\Block\Api\FindBlocksBy;
+use Zrcms\Core\Block\Api\ReadBlockConfig;
+use Zrcms\Core\Block\Api\ReadBlockConfigJsonFile;
 use Zrcms\Core\Block\Api\RenderBlock;
 use Zrcms\Core\BlockInstance\Api\GetMergedConfig;
 use Zrcms\Core\BlockInstance\Api\GetMergedConfigBasic;
@@ -40,6 +42,17 @@ class ModuleConfig
                     ],
                     FindBlocksBy::class => [
                         'class' => ApiNoop::class,
+                        'arguments' => [
+                        ],
+                    ],
+                    // DEFAULT SERVICE
+                    ReadBlockConfig::class => [
+                        'class' => ReadBlockConfigJsonFile::class,
+                        'arguments' => [
+                        ],
+                    ],
+                    ReadBlockConfigJsonFile::class => [
+                        'class' => ReadBlockConfigJsonFile::class,
                         'arguments' => [
                         ],
                     ],
@@ -92,8 +105,11 @@ class ModuleConfig
                         ],
                     ],
                     /** Layout **/
-                ]
-            ]
+                ],
+            ],
+            'zrcms' => [
+                'blocks' => [],
+            ],
         ];
     }
 }

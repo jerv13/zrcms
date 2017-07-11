@@ -2,6 +2,7 @@
 
 namespace Zrcms\CoreConfigDataSource\Block\Api;
 
+use Zrcms\Core\Block\Api\ReadBlockConfig;
 use Zrcms\Core\Block\Model\BlockBasic;
 use Zrcms\Core\Cache\Service\Cache;
 use Zrcms\CoreConfigDataSource\Block\Model\BlockConfigFields;
@@ -28,18 +29,26 @@ class GetBlocks
     protected $cache;
 
     /**
+     * @var ReadBlockConfig
+     */
+    protected $readBlockConfig;
+
+    /**
      * @param array              $registryConfig
      * @param PrepareBlockConfig $prepareBlockConfig
      * @param Cache              $cache
+     * @param ReadBlockConfig    $readBlockConfig
      */
     public function __construct(
         array $registryConfig,
         PrepareBlockConfig $prepareBlockConfig,
-        Cache $cache
+        Cache $cache,
+        ReadBlockConfig $readBlockConfig
     ) {
         $this->registryConfig = $registryConfig;
         $this->prepareBlockConfig = $prepareBlockConfig;
         $this->cache = $cache;
+        $this->readBlockConfig = $readBlockConfig;
     }
 
     /**
@@ -116,23 +125,31 @@ class GetBlocks
     }
 
     /**
-     * readConfigs
-     *
      * @param array $blockPaths
      *
      * @return array
+     * @throws \Exception
      */
     protected function readConfigs(array $blockPaths)
     {
         $blockConfigs = [];
 
-        foreach ($blockPaths as $blockPath) {
-            $blockDir = $blockPath;
-            $configFileName = $blockDir . '/block.json';
-            $configFileContents = file_get_contents($configFileName);
-            $config = json_decode($configFileContents, true, 512, JSON_BIGINT_AS_STRING);
-            $config['directory'] = realpath($blockDir);
-            $blockConfigs[$config['name']] = $config;
+        foreach ($blockPaths as $blockDirectory) {
+            $blockConfig = $this->readBlockConfig->__invoke($blockDirectory);
+
+            if (!array_key_exists(BlockConfigFields::NAME, $blockConfig)) {
+                throw  new \Exception(
+                    'Block name is required for: ' . json_encode($blockConfig)
+                );
+            }
+
+            $blockName = $blockConfig[BlockConfigFields::NAME];
+            if (array_key_exists($blockName, $blockConfigs)) {
+                throw  new \Exception(
+                    'Duplicate block name configured.'
+                );
+            }
+            $blockConfigs[$blockName] = $blockConfig;
         }
 
         return $blockConfigs;

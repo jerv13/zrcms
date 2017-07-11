@@ -10,8 +10,7 @@ use Zrcms\Core\Block\Model\Block;
 class SearchBlockList
 {
     /**
-     * search
-     *
+     * @param array $blocks
      * @param array $criteria
      *
      * @return array
