@@ -17,7 +17,7 @@ use Rcm\Block\Renderer\Renderer;
 use Zend\View\Helper\Placeholder\Container;
 use Zrcms\Core\BlockInstance\Model\BlockInstanceData;
 
-class RenderBlockInstanceRcmZf2Legacy implements RenderBlockInstance
+class RenderBlockInstanceRcmLegacy implements RenderBlockInstance
 {
     /**
      * @var ContainerInterface
