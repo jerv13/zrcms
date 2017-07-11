@@ -8,6 +8,7 @@ use Zrcms\Core\BlockInstance\Api\GetBlockInstancesWithData;
 use Zrcms\Core\BlockInstance\Api\RenderBlockInstance;
 use Zrcms\Core\BlockInstance\Api\WrapRenderedBlockInstance;
 use Zrcms\Core\BlockInstance\Model\BlockInstance;
+use Zrcms\Core\BlockInstance\Model\BlockInstanceData;
 use Zrcms\Core\BlockInstance\Model\BlockInstanceProperties;
 use Zrcms\Core\Container\Model\Container;
 
@@ -86,7 +87,7 @@ class GetContainerRenderData
         $renderedBlocks = []; //row -> renderOrder -> renderedBlockHtml
 
         /**
-         * @var BlockInstance $blockInstance
+         * @var BlockInstanceData $blockInstance
          */
         foreach ($blockInstances as $blockInstance) {
             $rowNumber = $blockInstance->getLayoutProperty(BlockInstanceProperties::KEY_ROW_NUMBER);

@@ -129,15 +129,15 @@ abstract class BlockInstanceAbstract implements BlockInstance
     }
 
     /**
-     * @param string $blockName
+     * @param string $name
      * @param null   $default
      *
      * @return mixed
      */
-    public function getLayoutProperty(string $blockName, $default = null)
+    public function getLayoutProperty(string $name, $default = null)
     {
-        if (array_key_exists($blockName, $this->layoutProperties)) {
-            return $this->layoutProperties[$blockName];
+        if (array_key_exists($name, $this->layoutProperties)) {
+            return $this->layoutProperties[$name];
         }
 
         return $default;

@@ -1,11 +1,11 @@
 <?php
 
-namespace Zrcms\Core\Block\Api;
+namespace Zrcms\CoreConfigDataSource\Block\Api;
 
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-interface FindBlocksBy
+class FindBlocksBy implements \Zrcms\Core\Block\Api\FindBlocksBy
 {
     /**
      * @param array      $criteria
@@ -22,5 +22,7 @@ interface FindBlocksBy
         $limit = null,
         $offset = null,
         array $options = []
-    ): array;
+    ): array {
+
+    }
 }
