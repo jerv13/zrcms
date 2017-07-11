@@ -3,7 +3,6 @@
 namespace Zrcms\CoreConfigDataSource\Block\Api;
 
 use Interop\Container\ContainerInterface;
-use Zrcms\Core\Block\Api\ReadBlockConfig;
 use Zrcms\Core\Cache\Service\Cache;
 
 /**

@@ -1,6 +1,6 @@
 <?php
 
-namespace Zrcms\Core\Block\Api;
+namespace Zrcms\CoreConfigDataSource\Block\Api;
 
 use Zrcms\CoreConfigDataSource\Block\Model\BlockConfigFields;
 
@@ -12,19 +12,19 @@ class ReadBlockConfigJsonFile implements ReadBlockConfig
     const JSON_FILE_NAME = 'block.json';
 
     /**
-     * @param string $blockPath
+     * @param string $blockDirectory
      * @param array  $options
      *
      * @return array
      * @throws \Exception
      */
     public function __invoke(
-        string $blockPath,
+        string $blockDirectory,
         array $options = []
     ): array
     {
-        $blockPath = realpath($blockPath);
-        $configFilePath = realpath($blockPath . '/' . self::JSON_FILE_NAME);
+        $blockDirectory = realpath($blockDirectory);
+        $configFilePath = realpath($blockDirectory . '/' . self::JSON_FILE_NAME);
 
         $configFileContents = file_get_contents($configFilePath);
         $config = json_decode($configFileContents, true, 512, JSON_BIGINT_AS_STRING);
@@ -32,7 +32,7 @@ class ReadBlockConfigJsonFile implements ReadBlockConfig
         if (json_last_error() !== JSON_ERROR_NONE) {
             throw new \Exception('ReadBlockConfigJsonFile received invalid JSON from: ' . $configFilePath);
         }
-        $config[BlockConfigFields::DIRECTORY] = $blockPath;
+        $config[BlockConfigFields::DIRECTORY] = $blockDirectory;
 
         return $config;
     }

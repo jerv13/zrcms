@@ -9,6 +9,8 @@ use Zrcms\CoreConfigDataSource\Block\Api\GetBlockConfigFieldsBcSubstitution;
 use Zrcms\CoreConfigDataSource\Block\Api\GetBlocks;
 use Zrcms\CoreConfigDataSource\Block\Api\GetBlocksFactory;
 use Zrcms\CoreConfigDataSource\Block\Api\PrepareBlockConfig;
+use Zrcms\CoreConfigDataSource\Block\Api\ReadBlockConfig;
+use Zrcms\CoreConfigDataSource\Block\Api\ReadBlockConfigJsonFile;
 use Zrcms\CoreConfigDataSource\Block\Api\SearchBlockList;
 
 /**
@@ -24,7 +26,6 @@ class ModuleConfig
     public function __invoke()
     {
         return [
-
             'dependencies' => [
                 'config_factories' => [
                     /** Api **/
@@ -63,11 +64,27 @@ class ModuleConfig
                             GetBlockConfigFieldsBcSubstitution::class
                         ],
                     ],
+                    // DEFAULT SERVICE
+                    ReadBlockConfig::class => [
+                        'class' => ReadBlockConfigJsonFile::class,
+                        'arguments' => [
+                        ],
+                    ],
+                    ReadBlockConfigJsonFile::class => [
+                        'class' => ReadBlockConfigJsonFile::class,
+                        'arguments' => [
+                        ],
+                    ],
                     SearchBlockList::class => [
                         'class' => SearchBlockList::class,
                         'arguments' => [
                         ],
                     ],
+                ],
+            ],
+            'zrcms' => [
+                'blocks' => [
+                    // 'blockName' => 'blockDirectory'
                 ],
             ],
         ];

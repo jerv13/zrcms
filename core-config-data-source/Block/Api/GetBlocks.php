@@ -2,7 +2,6 @@
 
 namespace Zrcms\CoreConfigDataSource\Block\Api;
 
-use Zrcms\Core\Block\Api\ReadBlockConfig;
 use Zrcms\Core\Block\Model\BlockBasic;
 use Zrcms\Core\Cache\Service\Cache;
 use Zrcms\CoreConfigDataSource\Block\Model\BlockConfigFields;
@@ -134,7 +133,7 @@ class GetBlocks
     {
         $blockConfigs = [];
 
-        foreach ($blockPaths as $blockDirectory) {
+        foreach ($blockPaths as $blockName => $blockDirectory) {
             $blockConfig = $this->readBlockConfig->__invoke($blockDirectory);
 
             if (!array_key_exists(BlockConfigFields::NAME, $blockConfig)) {

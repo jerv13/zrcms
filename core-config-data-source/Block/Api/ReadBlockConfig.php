@@ -1,6 +1,6 @@
 <?php
 
-namespace Zrcms\Core\Block\Api;
+namespace Zrcms\CoreConfigDataSource\Block\Api;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -8,13 +8,13 @@ namespace Zrcms\Core\Block\Api;
 interface ReadBlockConfig
 {
     /**
-     * @param string $blockPath
+     * @param string $blockDirectory
      * @param array  $options
      *
      * @return array
      */
     public function __invoke(
-        string $blockPath,
+        string $blockDirectory,
         array $options = []
     ): array;
 }
