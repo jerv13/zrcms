@@ -6,7 +6,7 @@ use Zrcms\Core\Block\Api\FindBlocksBy;
 
 class ConfigRepository
 {
-    const CACHE_KEY = 'ConfigRepositoryBc';
+    const CACHE_KEY = 'RcmPluginCompatibilityConfigRepo';
 
     /**
      * @var array
