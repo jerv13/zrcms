@@ -39,7 +39,7 @@ class FindBlock implements \Zrcms\Core\Block\Api\FindBlock
      */
     public function __construct(
         $registryConfig,
-        $cache,
+        Psr\SimpleCache\CacheInterface $cache,
         ConfigFields $configFields
     ) {
         $this->registryConfig = $registryConfig;
@@ -54,7 +54,7 @@ class FindBlock implements \Zrcms\Core\Block\Api\FindBlock
      */
     protected function hasCache()
     {
-        return ($this->cache->hasItem(self::CACHE_KEY));
+        return ($this->cache->has(self::CACHE_KEY));
     }
 
     /**
@@ -64,7 +64,7 @@ class FindBlock implements \Zrcms\Core\Block\Api\FindBlock
      */
     protected function getCache()
     {
-        return $this->cache->getItem(self::CACHE_KEY);
+        return $this->cache->get(self::CACHE_KEY);
     }
 
     /**
@@ -76,7 +76,7 @@ class FindBlock implements \Zrcms\Core\Block\Api\FindBlock
      */
     protected function setCache($configs)
     {
-        $this->cache->setItem(self::CACHE_KEY, $configs);
+        $this->cache->set(self::CACHE_KEY, $configs);
     }
 
     /**
