@@ -1,6 +1,6 @@
 <?php
 
-namespace Zrcms\Core\BlockInstance\Api;
+namespace Zrcms\RcmPluginCompatibility\BlockInstance\Api;
 
 use Zrcms\Core\Block\Api\FindBlock;
 use Zrcms\Core\BlockInstance\Model\BlockInstance;
@@ -17,7 +17,7 @@ use Rcm\Block\Renderer\Renderer;
 use Zend\View\Helper\Placeholder\Container;
 use Zrcms\Core\BlockInstance\Model\BlockInstanceData;
 
-class RenderBlockInstanceRcmLegacy implements RenderBlockInstance
+class RenderBlockInstanceRcm implements RenderBlockInstance
 {
     /**
      * @var ContainerInterface
