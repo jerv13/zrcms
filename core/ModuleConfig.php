@@ -8,6 +8,8 @@ use Zrcms\Core\Block\Api\RenderBlock;
 use Zrcms\Core\BlockInstance\Api\GetMergedConfig;
 use Zrcms\Core\BlockInstance\Api\GetMergedConfigBasic;
 use Zrcms\Core\BlockInstance\Api\RenderBlockInstance;
+use Zrcms\Core\Cache\Service\Cache;
+use Zrcms\Core\Cache\Service\CacheArray;
 use Zrcms\Core\Container\Api\BuildContainerUri;
 use Zrcms\Core\Container\Api\BuildContainerUriBasic;
 use Zrcms\Core\Container\Api\CreateContainerPublished;
@@ -54,6 +56,12 @@ class ModuleConfig
                     ],
                     RenderBlockInstance::class => [
                         'class' => ApiNoop::class,
+                        'arguments' => [
+                        ],
+                    ],
+                    /** Cache **/
+                    Cache::class => [
+                        'class' => CacheArray::class,
                         'arguments' => [
                         ],
                     ],

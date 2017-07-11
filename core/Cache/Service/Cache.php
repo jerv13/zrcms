@@ -2,17 +2,12 @@
 
 namespace Zrcms\Core\Cache\Service;
 
-use Zend\Cache\Storage\StorageInterface;
+use Psr\SimpleCache\CacheInterface;
 
 /**
- * @GammaRelease
- * Interface Cache
- *
- * @author    James Jervis
- * @license   License.txt
- * @link      https://github.com/jerv13
+ * @author James Jervis - https://github.com/jerv13
  */
-interface Cache extends StorageInterface
+interface Cache extends CacheInterface
 {
 
 }
