@@ -2,7 +2,7 @@
 
 namespace Zrcms\Core\BlockInstance\Api;
 
-use Zrcms\Core\BlockInstance\Model\BlockInstance;
+use Zrcms\Core\BlockInstance\Model\BlockInstanceData;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -10,13 +10,13 @@ use Zrcms\Core\BlockInstance\Model\BlockInstance;
 interface RenderBlockInstance
 {
     /**
-     * @param BlockInstance $blockInstance
-     * @param array         $options
+     * @param BlockInstanceData $blockInstance
+     * @param array             $options
      *
      * @return string
      */
     public function __invoke(
-        BlockInstance $blockInstance,
+        BlockInstanceData $blockInstance,
         array $options = []
     ): string;
 }

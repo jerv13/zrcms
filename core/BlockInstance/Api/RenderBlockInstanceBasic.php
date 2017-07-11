@@ -4,8 +4,7 @@ namespace Zrcms\Core\BlockInstance\Api;
 
 use Psr\Container\ContainerInterface;
 use Zrcms\Core\Block\Api\FindBlock;
-use Zrcms\Core\Block\Model\BlockProperties;
-use Zrcms\Core\BlockInstance\Model\BlockInstance;
+use Zrcms\Core\BlockInstance\Model\BlockInstanceData;
 
 class RenderBlockInstanceBasic implements RenderBlockInstance
 {
@@ -22,15 +21,16 @@ class RenderBlockInstanceBasic implements RenderBlockInstance
     }
 
     /**
-     * @param BlockInstance $blockInstance
-     * @param array $options
+     * @param BlockInstanceData $blockInstance
+     * @param array             $options
      *
      * @return string
      */
     public function __invoke(
-        BlockInstance $blockInstance,
+        BlockInstanceData $blockInstance,
         array $options = []
-    ): string {
+    ): string
+    {
 
         $block = $this->findBlock->__invoke($blockInstance->getBlockName());
 
