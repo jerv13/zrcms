@@ -15,6 +15,7 @@ use Zend\Stdlib\ResponseInterface;
 use Zend\View\Renderer\PhpRenderer;
 use Rcm\Block\Renderer\Renderer;
 use Zend\View\Helper\Placeholder\Container;
+use Zrcms\Core\BlockInstance\Model\BlockInstanceData;
 
 class RenderBlockInstanceRcmZf2Legacy implements RenderBlockInstance
 {
@@ -47,7 +48,7 @@ class RenderBlockInstanceRcmZf2Legacy implements RenderBlockInstance
      *
      * @return string HTML
      */
-    public function __invoke(GetBlockInstanceWithData $blockInstance)
+    public function __invoke(BlockInstanceData $blockInstance)
     {
         /** @var \Rcm\Plugin\PluginInterface $controller */
         $controller = $this->getPluginController($blockInstance->getName());
