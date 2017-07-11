@@ -21,15 +21,6 @@ class ModuleConfig
         return [
             'dependencies' => [
                 'config_factories' => [
-                    ConfigFields::class => [],
-                    ConfigRepository::class => [
-                        'arguments' => [
-                            'config',
-                            Zrcms\Core\Cache\Service::class,
-                            ConfigFields::class,
-                            FindBlocksBy::class
-                        ]
-                    ],
                     FindBlocksByRcmLegacy::class => [
                         'arguments' => [
                             ConfigRepository::class
@@ -39,7 +30,16 @@ class ModuleConfig
                         'arguments' => [
                             ConfigRepository::class
                         ]
-                    ]
+                    ],
+                    ConfigFields::class => [],
+                    ConfigRepository::class => [
+                        'arguments' => [
+                            'config',
+                            Zrcms\Core\Cache\Service::class,
+                            ConfigFields::class,
+                            FindBlocksBy::class
+                        ]
+                    ],
                 ]
             ]
         ];
