@@ -3,138 +3,38 @@
 namespace Zrcms\CoreConfigDataSource\Block\Api;
 
 use Zrcms\Core\Block\Model\Block;
+use Zrcms\CoreConfigDataSource\Block\Model\BlockConfigFields;
 
 /**
  * @author James Jervis - https://github.com/jerv13
  */
 class FindBlock implements \Zrcms\Core\Block\Api\FindBlock
 {
-    const CACHE_KEY = 'ConfigRepositoryJson';
     /**
-     * @var array
+     * @var GetBlocks
      */
-    protected $registryConfig;
+    protected $getBlocks;
 
     /**
-     * @var Cache
+     * @var SearchBlockList
      */
-    protected $cache;
+    protected $searchBlockList;
 
     /**
-     * @var ConfigFields
-     */
-    protected $configFields;
-
-    /**
-     * @var array
-     */
-    protected $configs = [];
-
-    /**
-     * Constructor.
-     *
-     * @param array        $registryConfig
-     * @param Cache        $cache
-     * @param ConfigFields $configFields
+     * @param GetBlocks       $getBlocks
+     * @param SearchBlockList $searchBlockList
      */
     public function __construct(
-        $registryConfig,
-        $cache,
-        ConfigFields $configFields
+        GetBlocks $getBlocks,
+        SearchBlockList $searchBlockList
     ) {
-        $this->registryConfig = $registryConfig;
-        $this->cache = $cache;
-        $this->configFields = $configFields;
+        $this->getBlocks = $getBlocks;
+        $this->searchBlockList = $searchBlockList;
     }
 
     /**
-     * hasCache
-     *
-     * @return bool
-     */
-    protected function hasCache()
-    {
-        return ($this->cache->hasItem(self::CACHE_KEY));
-    }
-
-    /**
-     * getCache
-     *
-     * @return mixed
-     */
-    protected function getCache()
-    {
-        return $this->cache->getItem(self::CACHE_KEY);
-    }
-
-    /**
-     * setCache
-     *
-     * @param array $configs
-     *
-     * @return void
-     */
-    protected function setCache($configs)
-    {
-        $this->cache->setItem(self::CACHE_KEY, $configs);
-    }
-
-    /**
-     * getConfigs
-     *
-     * @return array|mixed
-     */
-    protected function getConfigs()
-    {
-        if ($this->hasCache()) {
-            return $this->getCache();
-        }
-
-        $pluginConfigs = $this->readConfigs(
-            $this->registryConfig
-        );
-
-        $configs = [];
-
-        foreach ($pluginConfigs as $pluginConfig) {
-            $config = $this->configFields->prepare(
-                $pluginConfig
-            );
-
-            $configs[] = new ConfigBasic($config);
-        }
-
-        $this->setCache($configs);
-
-        return $configs;
-    }
-
-    /**
-     * readConfigs
-     *
-     * @param array $blockPaths
-     *
-     * @return array
-     */
-    protected function readConfigs(array $blockPaths)
-    {
-        $pluginConfigs = [];
-
-        foreach ($blockPaths as $blockPath) {
-            $pluginDir = $blockPath;
-            $configFileName = $pluginDir . '/block.json';
-            $configFileContents = file_get_contents($configFileName);
-            $config = json_decode($configFileContents, true, 512, JSON_BIGINT_AS_STRING);
-            $config['directory'] = realpath($pluginDir);
-            $pluginConfigs[$config['name']] = $config;
-        }
-
-        return $pluginConfigs;
-    }
-
-    /**
-     * @param string   $name
-     * @param array $options
+     * @param string $name
+     * @param array  $options
      *
      * @return Block|null
      */
@@ -142,6 +42,14 @@ class FindBlock implements \Zrcms\Core\Block\Api\FindBlock
         $name,
         array $options = []
     ) {
+        $result = $this->searchBlockList->__invoke(
+            [BlockConfigFields::NAME => $name]
+        );
 
+        if (count($result) > 0) {
+            return $result[0];
+        }
+
+        return null;
     }
 }

@@ -2,10 +2,12 @@
 
 namespace Zrcms\Core\Block\Model;
 
+use Zrcms\Tracking\Model\Trackable;
+
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-interface Block
+interface Block extends Trackable
 {
     /**
      * Unique name

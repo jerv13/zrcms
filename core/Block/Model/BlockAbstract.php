@@ -2,11 +2,14 @@
 
 namespace Zrcms\Core\Block\Model;
 
+use Zrcms\Tracking\Model\TrackableTrait;
+
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class BlockAbstract implements Block
+abstract class BlockAbstract implements Block
 {
+    use TrackableTrait;
     /**
      * @var string
      */
@@ -58,7 +61,9 @@ class BlockAbstract implements Block
         boolean $cacheable = false,
         array $fields = [],
         array $defaultConfig = [],
-        array $properties = []
+        array $properties = [],
+        string $createdByUserId,
+        string $createdReason
     ) {
         $this->name = $name;
         $this->directory = $directory;
@@ -67,6 +72,11 @@ class BlockAbstract implements Block
         $this->fields = $fields;
         $this->defaultConfig = $defaultConfig;
         $this->properties = $properties;
+
+        $this->setCreatedData(
+            $createdByUserId,
+            $createdReason
+        );
     }
 
     /**
