@@ -18,13 +18,6 @@ use Zend\View\Helper\Placeholder\Container;
 
 class RenderBlockInstanceRcmZf2Legacy implements RenderBlockInstance
 {
-//    protected $findBlock;
-//
-//    public function __construct(FindBlock $findBlock)
-//    {
-//        $this->findBlock = $findBlock;
-//    }
-
     /**
      * @var ContainerInterface
      */
@@ -54,7 +47,7 @@ class RenderBlockInstanceRcmZf2Legacy implements RenderBlockInstance
      *
      * @return string HTML
      */
-    public function __invoke(BlockInstanceWith $blockInstance)
+    public function __invoke(GetBlockInstanceWithData $blockInstance)
     {
         /** @var \Rcm\Plugin\PluginInterface $controller */
         $controller = $this->getPluginController($blockInstance->getName());
@@ -78,7 +71,7 @@ class RenderBlockInstanceRcmZf2Legacy implements RenderBlockInstance
         );
 
         if ($viewModel instanceof ResponseInterface) {
-            //Contains exit() call!
+            //Contains an exit() call!
             $this->handleResponseFromPluginController($viewModel, $blockInstance->getName());
 
             return '';
@@ -183,71 +176,4 @@ class RenderBlockInstanceRcmZf2Legacy implements RenderBlockInstance
         echo $response->getContent();
         exit;
     }
-
-//    /**
-//     * Get a plugin instance rendered view.
-//     *
-//     * @param string $pluginName Plugin name
-//     * @param integer $pluginInstanceId Plugin Instance Id
-//     * @param null $forcedAlternativeInstanceConfig Not normally used. Useful for previewing changes
-//     *
-//     * @return array
-//     * @throws \Rcm\Exception\InvalidPluginException
-//     * @throws \Rcm\Exception\PluginReturnedResponseException
-//     */
-//    public function getPluginViewData(
-//        $pluginName,
-//        $pluginInstanceId,
-//        $forcedAlternativeInstanceConfig = null
-//    ) {
-//        $request = ServerRequestFactory::fromGlobals();
-//
-//        $blockConfig = $this->blockConfigRepository->findById($pluginName);
-//
-//        if ($pluginInstanceId < 0) {
-//            $instanceWithData = new InstanceWithDataBasic(
-//                $pluginInstanceId,
-//                $pluginName,
-//                $blockConfig->getDefaultConfig(),
-//                [] //@TODO run the dataprovider here instead of returning empty array
-//            );
-//        } else {
-//            $instanceWithData = $this->instanceWithDataService->__invoke($pluginInstanceId, $request);
-//        }
-//
-//        if ($forcedAlternativeInstanceConfig !== null) {
-//            $instanceWithData = new InstanceWithDataBasic(
-//                $instanceWithData->getId(),
-//                $instanceWithData->getName(),
-//                $forcedAlternativeInstanceConfig,
-//                //@TODO we should have got the data from the data provider with the forced instance config as an input
-//                $instanceWithData->getData()
-//            );
-//        }
-//
-//        $html = $this->blockRendererService->__invoke($instanceWithData);
-//
-//        /**
-//         * @var $blockConfig Config
-//         */
-//
-//        $return = [
-//            'html' => $html,
-//            'css' => [],
-//            'js' => [],
-//            'editJs' => '',
-//            'editCss' => '',
-//            'displayName' => $blockConfig->getLabel(),
-//            'tooltip' => $blockConfig->getDescription(),
-//            'icon' => $blockConfig->getIcon(),
-//            'siteWide' => false, // @deprecated <deprecated-site-wide-plugin>
-//            'md5' => '',
-//            'fromCache' => false,
-//            'canCache' => $blockConfig->getCache(),
-//            'pluginName' => $blockConfig->getName(),
-//            'pluginInstanceId' => $pluginInstanceId,
-//        ];
-//
-//        return $return;
-//    }
 }
