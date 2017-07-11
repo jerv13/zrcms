@@ -2,10 +2,10 @@
 
 namespace Zrcms\Core\BlockInstance\Api;
 
-use Zrcms\Core\Block\Api\FindBlock;
-use Zrcms\Core\BlockInstance\Model\BlockInstance;
 use Phly\Mustache\Mustache;
 use Phly\Mustache\Resolver\DefaultResolver;
+use Zrcms\Core\Block\Api\FindBlock;
+use Zrcms\Core\BlockInstance\Model\BlockInstanceData;
 
 class RenderBlockInstanceMustache implements RenderBlockInstance
 {
@@ -15,16 +15,18 @@ class RenderBlockInstanceMustache implements RenderBlockInstance
     {
         $this->findBlock = $findBlock;
     }
+
     /**
-     * @param BlockInstance $blockInstance
-     * @param array $options
+     * @param BlockInstanceData $blockInstance
+     * @param array             $options
      *
      * @return string
      */
     public function __invoke(
-        BlockInstance $blockInstance,
+        BlockInstanceData $blockInstance,
         array $options = []
-    ): string {
+    ): string
+    {
         /**
          * @var $blockConfig Config
          */
