@@ -8,48 +8,50 @@ namespace Zrcms\Core\Block\Model;
 interface Block
 {
     /**
-     * getName
+     * Unique name
      *
      * @return string
      */
     public function getName(): string;
 
     /**
-     * getDirectory
+     * Directory of template files
      *
      * @return string
      */
     public function getDirectory(): string;
 
     /**
-     * getRenderer
+     * Service name of render
      *
      * @return string
      */
     public function getRenderer(): string;
 
     /**
-     * isCacheable
+     * Can the html be cached
      *
      * @return bool
      */
     public function isCacheable(): bool;
 
     /**
-     * getFields
+     * Admin fields
      *
      * @return array
      */
     public function getFields(): array;
 
     /**
-     * getDefaultConfig
+     * Default config values
      *
      * @return array
      */
     public function getDefaultConfig(): array;
 
     /**
+     * Extra properties
+     *
      * @return array
      */
     public function getProperties(): array;
