@@ -44,6 +44,8 @@ class RenderBlockInstanceBasic implements RenderBlockInstance
             $renderServiceName
         );
 
+        //@TODO cache this rendered html if the plugin has "canCache=true"
+
         return $render->__invoke(
             $blockInstance
         );
