@@ -5,7 +5,7 @@ namespace Zrcms\RcmPluginCompatibility\Block\Api;
 use Zrcms\Core\Block\Api\FindBlock;
 use Zrcms\RcmPluginCompatibility\Block\Internal\ConfigRepository;
 
-class FindBlockRcmLegacy implements FindBlock
+class FindBlocksByRcmLegacy implements FindBlock
 {
     protected $configRepo;
 
@@ -15,15 +15,21 @@ class FindBlockRcmLegacy implements FindBlock
     }
 
     /**
-     * @param string $name
+     * @param array $criteria
+     * @param array|null $orderBy
+     * @param null|int $limit
+     * @param null|int $offset
      * @param array $options
      *
-     * @return Block|null
+     * @return array
      */
     public function __invoke(
-        $name,
+        array $criteria,
+        array $orderBy = null,
+        $limit = null,
+        $offset = null,
         array $options = []
-    ) {
-        return $this->configRepo->findById($name);
+    ): array {
+        return $this->configRepo->find($criteria, $orderBy, $limit, $offset);
     }
 }
