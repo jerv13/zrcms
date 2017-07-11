@@ -39,7 +39,8 @@
   "autoload": {
     "psr-4": {
       "Zrcms\\Core\\": "core/",
-      "Zrcms\\CoreDoctrine\\": "core-doctrine/"
+      "Zrcms\\CoreDoctrine\\": "core-doctrine/",
+      "Zrcms\\RcmPluginCompatibility\\": "rcm-plugin-compatibility/",
     }
   },
   "suggest": {

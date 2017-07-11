@@ -22,15 +22,14 @@ class RenderBlockInstanceBasic implements RenderBlockInstance
 
     /**
      * @param BlockInstanceData $blockInstance
-     * @param array             $options
+     * @param array $options
      *
      * @return string
      */
     public function __invoke(
         BlockInstanceData $blockInstance,
         array $options = []
-    ): string
-    {
+    ): string {
 
         $block = $this->findBlock->__invoke($blockInstance->getBlockName());
 

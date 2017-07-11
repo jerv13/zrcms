@@ -7,9 +7,6 @@ use Phly\Mustache\Resolver\DefaultResolver;
 use Zrcms\Core\Block\Api\FindBlock;
 use Zrcms\Core\BlockInstance\Model\BlockInstanceData;
 
-/**
- * @author James Jervis - https://github.com/jerv13
- */
 class RenderBlockInstanceMustache implements RenderBlockInstance
 {
     protected $findBlock;
