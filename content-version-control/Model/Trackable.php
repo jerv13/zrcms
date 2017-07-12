@@ -1,8 +1,8 @@
 <?php
 
-namespace Zrcms\Tracking\Model;
+namespace Zrcms\ContentVersionControl\Model;
 
-use Zrcms\Tracking\Exception\TrackingException;
+use Zrcms\ContentVersionControl\Exception\TrackingException;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -28,6 +28,11 @@ interface Trackable
      * @return string
      */
     public function getCreatedReason(): string;
+
+    /**
+     * @return bool
+     */
+    public function hasTrackingData();
 
     /**
      * @return void

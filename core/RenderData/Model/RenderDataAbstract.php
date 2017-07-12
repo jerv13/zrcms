@@ -41,10 +41,13 @@ abstract class RenderDataAbstract
      * @param string $name
      *
      * @return void
+     * @throws \Exception
      */
     protected function setName(string $name)
     {
-        // @todo validate string only contains valid charaactors
+        if (!preg_match('^[A-Za-z0-9_\-\[\]\/]+$', $name)) {
+            throw new \Exception('Invalid name');
+        }
         $this->name = $name;
     }
 

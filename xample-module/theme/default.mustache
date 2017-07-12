@@ -1,43 +1,66 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
     {{{container.head_all}}}
+
     <!-- OR
+
+    <meta charset="UTF-8">
     {{{container.head_meta}}}
+
     <title>Title</title>
     {{{container.head_title}}}
+
     {{{container.head_link}}}
+
     {{{container.head_script}}}
     -->
 
 </head>
+
 <body>
     <header>
+
         {{{container.body_header_content}}}
+
         <nav>{{{container.nav_content}}}</nav>
+
     </header>
 
     <article>
+
         <header>
             {{{container.article_header_content}}}
         </header>
-        <!--<section>{{{container.article_section_top}}}</section>-->
+
+        <section>{{{container.article_section_top}}}</section>
+
         <section>{{{container.[page]}}}</section>
-        <!--<section>{{{container.article_section_bottom}}}</section>-->
+
+        <section>{{{container.article_section_bottom}}}</section>
+
         <footer>
             {{{container.article_footer_content}}}
         </footer>
+
     </article>
 
     <aside>
         <section>{{{container.aside_section_top}}}</section>
+
         <section>{{{container.aside_section_main}}}</section>
+
         <section>{{{container.aside_section_bottom}}}</section>
+
     </aside>
 
     <footer>
+
         {{{container.body_footer_content}}}
+
     </footer>
+
 </body>
+
 </html>

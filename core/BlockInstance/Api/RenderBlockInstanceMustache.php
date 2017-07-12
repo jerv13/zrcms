@@ -5,6 +5,7 @@ namespace Zrcms\Core\BlockInstance\Api;
 use Phly\Mustache\Mustache;
 use Phly\Mustache\Resolver\DefaultResolver;
 use Zrcms\Core\Block\Api\FindBlock;
+use Zrcms\Core\Block\Model\Block;
 use Zrcms\Core\BlockInstance\Model\BlockInstanceData;
 
 class RenderBlockInstanceMustache implements RenderBlockInstance
@@ -27,19 +28,17 @@ class RenderBlockInstanceMustache implements RenderBlockInstance
         array $options = []
     ): string
     {
-        /**
-         * @var $blockConfig Config
-         */
-        $blockConfig = $this->findBlock->__invoke($blockInstance->getBlockName());
+        /** @var Block $block */
+        $block = $this->findBlock->__invoke($blockInstance->getBlockName());
 
         $resolver = new DefaultResolver();
-        $resolver->addTemplatePath($blockConfig->getDirectory());
+        $resolver->addTemplatePath($block->getDirectory());
 
         $mustache = new Mustache();
         $mustache->getResolver()->attach($resolver);
 
         $viewData = [
-            'id' => $blockInstance->getId(),
+            'id' => $blockInstance->getUid(),
             'config' => $blockInstance->getConfig(),
             'data' => $blockInstance->getData()
         ];

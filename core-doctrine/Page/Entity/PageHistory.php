@@ -3,6 +3,7 @@
 namespace Zrcms\CoreDoctrine\Page\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Zrcms\Core\Page\Model\PageAbstract;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -35,14 +36,14 @@ class PageHistory extends PageAbstract implements \Zrcms\Core\Page\Model\PageHis
      *
      * @ORM\Column(type="string")
      */
-    protected $uid;
+    protected $uri;
 
     /**
      * @var string
      *
      * @ORM\Column(type="string")
      */
-    protected $uri;
+    protected $sourceUri;
 
     /**
      * @var array

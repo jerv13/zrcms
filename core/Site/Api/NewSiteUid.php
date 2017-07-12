@@ -2,7 +2,7 @@
 
 namespace Zrcms\Core\Site\Api;
 
-use Zrcms\Uid\Api\NewUid;
+use Zrcms\ContentVersionControl\Api\NewUid;
 
 /**
  * @author James Jervis - https://github.com/jerv13

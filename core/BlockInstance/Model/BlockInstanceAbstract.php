@@ -2,27 +2,13 @@
 
 namespace Zrcms\Core\BlockInstance\Model;
 
-use Zrcms\Tracking\Model\TrackableTrait;
+use Zrcms\ContentVersionControl\Model\ContentAbstract;
 
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-abstract class BlockInstanceAbstract implements BlockInstance
+abstract class BlockInstanceAbstract extends ContentAbstract implements BlockInstance
 {
-    use TrackableTrait;
-
-    /**
-     * @var string
-     */
-    protected $uid;
-
-    /**
-     * <identifier>
-     *
-     * @var string
-     */
-    protected $uri;
-
     /**
      * @var string
      */
@@ -39,53 +25,36 @@ abstract class BlockInstanceAbstract implements BlockInstance
     protected $layoutProperties = [];
 
     /**
-     * @param string $uid
      * @param string $uri
+     * @param string $sourceUri
+     * @param array  $properties
+     * @param string $createdByUserId
+     * @param string $createdReason
      * @param string $blockName
      * @param array  $config
      * @param array  $layoutProperties
-     * @param string $createdByUserId
-     * @param string $createdReason
      */
     public function __construct(
-        string $uid,
         string $uri,
+        string $sourceUri,
+        array $properties,
+        string $createdByUserId,
+        string $createdReason,
         string $blockName,
         array $config,
-        array $layoutProperties,
-        string $createdByUserId,
-        string $createdReason
+        array $layoutProperties
     ) {
-        // if has id it is immutable
-        if (!empty($this->uid)) {
-            return;
-        }
-        $this->uid = $uid;
-        $this->uri = $uri;
         $this->blockName = $blockName;
         $this->config = $config;
         $this->layoutProperties = $layoutProperties;
 
-        $this->setCreatedData(
+        parent::__construct(
+            $uri,
+            $sourceUri,
+            $properties,
             $createdByUserId,
             $createdReason
         );
-    }
-
-    /**
-     * @return string
-     */
-    public function getUid(): string
-    {
-        return $this->uid;
-    }
-
-    /**
-     * @return string
-     */
-    public function getUri(): string
-    {
-        return $this->uid;
     }
 
     /**

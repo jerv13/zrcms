@@ -1,8 +1,8 @@
 <?php
 
-namespace Zrcms\Tracking\Model;
+namespace Zrcms\ContentVersionControl\Model;
 
-use Zrcms\Tracking\Exception\TrackingException;
+use Zrcms\ContentVersionControl\Exception\TrackingException;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -73,6 +73,14 @@ trait TrackableTrait
         }
 
         return $this->createdReason;
+    }
+
+    /**
+     * @return bool
+     */
+    public function hasTrackingData()
+    {
+        return (!empty($this->createdDate) && !empty($this->createdByUserId) && empty($this->createdReason));
     }
 
     /**

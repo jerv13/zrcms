@@ -3,21 +3,25 @@
 namespace Zrcms\Core\Layout\Api;
 
 use Psr\Container\ContainerInterface;
+use Psr\Http\Message\ServerRequestInterface;
 use Zrcms\Core\Container\Api\BuildContainerUri;
 use Zrcms\Core\Container\Api\FindContainerPathsByHtml;
 use Zrcms\Core\Container\Api\FindContainers;
+use Zrcms\Core\Container\Api\GetContainerRenderData;
 use Zrcms\Core\Container\Api\RenderContainer;
 use Zrcms\Core\Container\Model\Container;
+use Zrcms\Core\Container\Model\ContainerRenderProperties;
 use Zrcms\Core\Layout\Model\Layout;
 use Zrcms\Core\Layout\Model\LayoutProperties;
 use Zrcms\Core\Page\Model\Page;
-use Zrcms\Core\RenderData\Model\RenderDataCollection;
+use Zrcms\Core\Page\Model\PageRenderNamespace;
+use Zrcms\Core\Page\Model\PageRenderProperties;
 use Zrcms\Core\Uri\Api\ParseCmsUri;
 
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class GetLayoutRenderDataBasic
+class GetLayoutRenderDataBasic implements GetLayoutRenderData
 {
     /**
      * @var ContainerInterface
@@ -28,6 +32,11 @@ class GetLayoutRenderDataBasic
      * @var FindContainers
      */
     protected $findContainers;
+
+    /**
+     * @var GetContainerRenderData
+     */
+    protected $getContainerRenderData;
 
     /**
      * @var BuildContainerUri
@@ -45,38 +54,44 @@ class GetLayoutRenderDataBasic
     protected $defaultRenderServiceName;
 
     /**
-     * @param ContainerInterface $serviceContainer
-     * @param FindContainers     $findContainers
-     * @param BuildContainerUri  $buildContainerUri
-     * @param ParseCmsUri        $parseCmsUri
-     * @param RenderLayout       $defaultRenderServiceName
+     * @param                        $serviceContainer
+     * @param FindContainers         $findContainers
+     * @param GetContainerRenderData $getContainerRenderData
+     * @param BuildContainerUri      $buildContainerUri
+     * @param ParseCmsUri            $parseCmsUri
+     * @param RenderLayout           $defaultRenderServiceName
      */
     public function __construct(
         $serviceContainer,
         FindContainers $findContainers,
+        GetContainerRenderData $getContainerRenderData,
         BuildContainerUri $buildContainerUri,
         ParseCmsUri $parseCmsUri,
         RenderLayout $defaultRenderServiceName = RenderLayoutMustache::class
     ) {
         $this->serviceContainer = $serviceContainer;
         $this->findContainers = $findContainers;
+        $this->getContainerRenderData = $getContainerRenderData;
         $this->buildContainerUri = $buildContainerUri;
         $this->parseCmsUri = $parseCmsUri;
         $this->defaultRenderServiceName = $defaultRenderServiceName;
     }
 
     /**
-     * @param Layout $layout
-     * @param Page   $page
-     * @param array  $options
+     * @param Layout                 $layout
+     * @param Page                   $page
+     * @param ServerRequestInterface $request
+     * @param array                  $options
      *
-     * @return RenderDataCollection
+     * @return array
      */
     public function __invoke(
         Layout $layout,
         Page $page,
+        ServerRequestInterface $request,
         array $options = []
-    ): RenderDataCollection {
+    ): array
+    {
         $findContainerPathsByHtmlServiceName = $layout->getProperty(
             LayoutProperties::KEY_CONTAINER_PATHS_SERVICE,
             FindContainerPathsByHtml::class
@@ -108,7 +123,7 @@ class GetLayoutRenderDataBasic
             $containerUris
         );
 
-        $containerRenderData = new RenderDataCollectionBasic();
+        $containerHtml = [];
 
         /** @var Container $container */
         foreach ($containers as $container) {
@@ -122,13 +137,18 @@ class GetLayoutRenderDataBasic
             $renderContainer = $this->serviceContainer->get(
                 $renderContainerServiceName
             );
+            $containerRenderData = $this->getContainerRenderData->__invoke(
+                $container,
+                $request
+            );
 
             $containerUri = $this->parseCmsUri->__invoke(
                 $container->getUri()
             );
 
-            $containerHtml['container:' . $containerUri->getPath()] = $renderContainer->__invoke(
-                $container
+            $containerHtml[$containerUri->getPath()] = $renderContainer->__invoke(
+                $container,
+                $containerRenderData
             );
         }
 
@@ -142,11 +162,19 @@ class GetLayoutRenderDataBasic
             $renderContainerServiceName
         );
 
-        $containerHtml['container:{page}'] = $renderContainer->__invoke(
-            $page
+        $containerRenderData = $this->getContainerRenderData->__invoke(
+            $page,
+            $request
         );
 
-        return $containerHtml;
+        $containerHtml[PageRenderProperties::NAME] = $renderContainer->__invoke(
+            $page,
+            $containerRenderData
+        );
+
+        return [
+            ContainerRenderProperties::NAMESPACE => $containerHtml
+        ];
     }
 
 }

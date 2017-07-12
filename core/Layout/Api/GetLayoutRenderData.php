@@ -2,9 +2,9 @@
 
 namespace Zrcms\Core\Layout\Api;
 
-use Rcm\Entity\Page;
+use Psr\Http\Message\ServerRequestInterface;
 use Zrcms\Core\Layout\Model\Layout;
-use Zrcms\Core\RenderData\Model\RenderDataCollection;
+use Zrcms\Core\Page\Model\Page;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -12,15 +12,17 @@ use Zrcms\Core\RenderData\Model\RenderDataCollection;
 interface GetLayoutRenderData
 {
     /**
-     * @param Layout $layout
-     * @param Page   $page
-     * @param array  $options
+     * @param Layout                 $layout
+     * @param Page                   $page
+     * @param ServerRequestInterface $request
+     * @param array                  $options
      *
-     * @return RenderDataCollection
+     * @return array
      */
     public function __invoke(
         Layout $layout,
         Page $page,
+        ServerRequestInterface $request,
         array $options = []
-    ): RenderDataCollection;
+    ): array;
 }

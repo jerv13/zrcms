@@ -2,25 +2,13 @@
 
 namespace Zrcms\Core\BlockInstance\Model;
 
-use Zrcms\Tracking\Model\Trackable;
+use Zrcms\ContentVersionControl\Model\Content;
 
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-interface BlockInstance extends Trackable
+interface BlockInstance extends Content
 {
-    /**
-     * @return string
-     */
-    public function getUid(): string;
-
-    /**
-     * <identifier>
-     *
-     * @return string
-     */
-    public function getUri(): string;
-
     /**
      * @return string
      */
@@ -39,14 +27,6 @@ interface BlockInstance extends Trackable
      * @return mixed
      */
     public function getConfigValue(string $name, $default = null);
-
-    /**
-     * @param string $name
-     * @param null   $default
-     *
-     * @return mixed
-     */
-    public function getDataValue(string $name, $default = null);
 
     /**
      * @return array

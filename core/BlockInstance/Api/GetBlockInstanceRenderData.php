@@ -1,26 +1,25 @@
 <?php
 
-namespace Zrcms\Core\Container\Api;
+namespace Zrcms\Core\BlockInstance\Api;
 
 use Psr\Http\Message\ServerRequestInterface;
-use Zrcms\Core\Container\Model\Container;
+use Zrcms\Core\BlockInstance\Model\BlockInstance;
 
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-interface GetContainerRenderData
+interface GetBlockInstanceRenderData
 {
     /**
-     * @param Container              $container
+     * @param BlockInstance          $blockInstance
      * @param ServerRequestInterface $request
      * @param array                  $options
      *
-     * @return string
-     * @throws \Exception
+     * @return array
      */
     public function __invoke(
-        Container $container,
+        BlockInstance $blockInstance,
         ServerRequestInterface $request,
         array $options = []
-    ): string;
+    ): array;
 }

@@ -2,20 +2,13 @@
 
 namespace Zrcms\Country\Model;
 
-use Zrcms\Tracking\Model\TrackableTrait;
+use Zrcms\ContentVersionControl\Model\ContentAbstract;
 
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-abstract class CountryAbstract implements Country
+abstract class CountryAbstract extends ContentAbstract implements Country
 {
-    use TrackableTrait;
-
-    /**
-     * @var string
-     */
-    protected $uid;
-
     /**
      * @var string
      */
@@ -32,42 +25,36 @@ abstract class CountryAbstract implements Country
     protected $name;
 
     /**
-     * @param string $uid
+     * @param string $uri
+     * @param string $sourceUri
+     * @param array  $properties
+     * @param string $createdByUserId
+     * @param string $createdReason
      * @param string $iso3
      * @param string $iso2
      * @param string $name
-     * @param string $createdByUserId
-     * @param string $createdReason
      */
     public function __construct(
-        string $uid,
+        string $uri,
+        string $sourceUri,
+        array $properties,
+        string $createdByUserId,
+        string $createdReason,
         string $iso3,
         string $iso2,
-        string $name,
-        string $createdByUserId,
-        string $createdReason
+        string $name
     ) {
-        // if has id it is immutable
-        if (!empty($this->iso3)) {
-            return;
-        }
-
-        $this->uid = $uid;
         $this->iso3 = $iso3;
         $this->iso2 = $iso2;
         $this->name = $name;
-        $this->setCreatedData(
+
+        parent::__construct(
+            $uri,
+            $sourceUri,
+            $properties,
             $createdByUserId,
             $createdReason
         );
-    }
-
-    /**
-     * @return string
-     */
-    public function getUid(): string
-    {
-        return $this->uid;
     }
 
     /**

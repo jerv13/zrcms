@@ -15,7 +15,6 @@ class ModuleConfig
     public function __invoke()
     {
         return [
-
         ];
     }
 }

@@ -32,13 +32,6 @@ class SiteHistory extends SiteAbstract implements \Zrcms\Core\Site\Model\SiteHis
     protected $id;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(type="string")
-     */
-    protected $uid;
-
-    /**
      * Host name or domain name
      *
      * @var string
@@ -46,6 +39,13 @@ class SiteHistory extends SiteAbstract implements \Zrcms\Core\Site\Model\SiteHis
      * @ORM\Column(type="string")
      */
     protected $host;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(type="string")
+     */
+    protected $sourceHost;
 
     /**
      * Theme name

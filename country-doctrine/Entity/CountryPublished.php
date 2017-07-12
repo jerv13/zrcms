@@ -10,18 +10,11 @@ use Zrcms\Country\Model\CountryAbstract;
  * @ORM\Entity()
  * @ORM\HasLifecycleCallbacks()
  * @ORM\Table(
- *     name="zrcms_country_published",
+ *     name="zrcms_country",
  * )
  */
-class CountryPublished extends CountryAbstract implements \Zrcms\Country\Model\CountryPublished
+class Country extends CountryAbstract implements \Zrcms\Country\Model\Country
 {
-    /**
-     * @var string
-     *
-     * @ORM\Column(type="string", unique=true, nullable=false)
-     */
-    protected $uid;
-
     /**
      * @var string
      *

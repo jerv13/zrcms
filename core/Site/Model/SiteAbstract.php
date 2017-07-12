@@ -2,28 +2,27 @@
 
 namespace Zrcms\Core\Site\Model;
 
-use Zrcms\Tracking\Model\TrackableTrait;
+use Zrcms\ContentVersionControl\Model\ContentAbstract;
+
 
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-abstract class SiteAbstract implements Site
+abstract class SiteAbstract extends ContentAbstract  implements Site
 {
-    use TrackableTrait;
-
-    /**
-     * @var string
-     */
-    protected $uid;
-
     /**
      * <identifier>
      *
-     * Host name or domain name
+     * Host name or domain name (same as URI)
      *
      * @var string
      */
     protected $host;
+
+    /**
+     * @var string
+     */
+    protected $sourceHost;
 
     /**
      * Theme name
@@ -40,34 +39,32 @@ abstract class SiteAbstract implements Site
     protected $locale;
 
     /**
-     *
-     * @var array
-     */
-    protected $properties
-        = [
-
-        ];
-
-    /**
-     * @param string $uid
      * @param string $host
-     * @param string $theme
+     * @param string $sourceHost
      * @param array  $properties
      * @param string $createdByUserId
      * @param string $createdReason
+     * @param string $theme
+     * @param string $locale
      */
     public function __construct(
-        string $uid,
         string $host,
-        string $theme,
+        string $sourceHost,
         array $properties,
         string $createdByUserId,
-        string $createdReason
+        string $createdReason,
+        string $theme,
+        string $locale
     ) {
         $this->host = $host;
+        $this->sourceHost = $sourceHost;
         $this->theme = $theme;
-        $this->properties = $properties;
-        $this->setCreatedData(
+        $this->locale = $locale;
+
+        parent::__construct(
+            $host,
+            $sourceHost,
+            $properties,
             $createdByUserId,
             $createdReason
         );
@@ -76,9 +73,17 @@ abstract class SiteAbstract implements Site
     /**
      * @return string
      */
-    public function getUid(): string
+    public function getUri(): string
     {
-        return $this->uid;
+        return $this->getHost();
+    }
+
+    /**
+     * @return string
+     */
+    public function getSourceUri(): string
+    {
+        return $this->getSourceHost();
     }
 
     /**
@@ -87,6 +92,14 @@ abstract class SiteAbstract implements Site
     public function getHost(): string
     {
         return $this->host;
+    }
+
+    /**
+     * @return string
+     */
+    public function getSourceHost(): string
+    {
+        return $this->sourceHost;
     }
 
     /**

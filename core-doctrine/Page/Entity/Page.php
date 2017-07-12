@@ -3,6 +3,7 @@
 namespace Zrcms\CoreDoctrine\Page\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Zrcms\Core\Page\Model\PageAbstract;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -10,31 +11,30 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Entity()
  * @ORM\HasLifecycleCallbacks()
  * @ORM\Table(
- *     name="zrcms_core_page_deleted",
+ *     name="zrcms_core_page",
  *     indexes={
- *         @ORM\Index(name="uri_index", columns={"uri"}),
  *         @ORM\Index(name="uid_index", columns={"uid"})
  *     }
  * )
  */
-class PageDeleted extends PageAbstract implements \Zrcms\Core\Page\Model\PageDeleted
+class Page extends PageAbstract implements \Zrcms\Core\Page\Model\Page
 {
-    /**
-     * @var string
-     *
-     * @ORM\Column(type="string", unique=true, nullable=false)
-     */
-    protected $uid;
-
     /**
      * <identifier>
      *
      * @var string
      *
      * @ORM\Id
-     * @ORM\Column(type="string", nullable=false)
+     * @ORM\Column(type="string")
      */
     protected $uri;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(type="string")
+     */
+    protected $sourceUri;
 
     /**
      * @var array
@@ -76,14 +76,6 @@ class PageDeleted extends PageAbstract implements \Zrcms\Core\Page\Model\PageDel
      * @ORM\Column(type="string")
      */
     protected $createdReason;
-
-    /**
-     * @return int
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
 
     /**
      * @return void

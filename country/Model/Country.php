@@ -2,18 +2,13 @@
 
 namespace Zrcms\Country\Model;
 
-use Zrcms\Tracking\Model\Trackable;
+use Zrcms\ContentVersionControl\Model\Content;
 
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-interface Country extends Trackable
+interface Country extends Content
 {
-    /**
-     * @return string
-     */
-    public function getUid(): string;
-
     /**
      * @return string
      */

@@ -3,6 +3,7 @@
 namespace Zrcms\CoreDoctrine\Page\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Zrcms\Core\Page\Model\PageAbstract;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -19,13 +20,6 @@ use Doctrine\ORM\Mapping as ORM;
 class PageTemplate extends PageAbstract implements \Zrcms\Core\Page\Model\PageTemplate
 {
     /**
-     * @var string
-     *
-     * @ORM\Column(type="string", unique=true, nullable=false)
-     */
-    protected $uid;
-
-    /**
      * <identifier>
      *
      * @var string
@@ -34,6 +28,13 @@ class PageTemplate extends PageAbstract implements \Zrcms\Core\Page\Model\PageTe
      * @ORM\Column(type="string")
      */
     protected $uri;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(type="string")
+     */
+    protected $sourceUri;
 
     /**
      * @var array

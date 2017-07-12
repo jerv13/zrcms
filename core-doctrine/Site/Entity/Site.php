@@ -11,21 +11,14 @@ use Zrcms\Core\Site\Model\SiteAbstract;
  * @ORM\Entity()
  * @ORM\HasLifecycleCallbacks()
  * @ORM\Table(
- *     name="zrcms_core_site_unpublished",
+ *     name="zrcms_core_site",
  *     indexes={
  *         @ORM\Index(name="uid_index", columns={"uid"})
  *     }
  * )
  */
-class SiteUnpublished extends SiteAbstract implements \Zrcms\Core\Site\Model\SiteUnpublished
+class Site extends SiteAbstract implements \Zrcms\Core\Site\Model\SitePublished
 {
-    /**
-     * @var string
-     *
-     * @ORM\Column(type="string", unique=true, nullable=false)
-     */
-    protected $uid;
-
     /**
      * Host name or domain name
      *
@@ -35,6 +28,13 @@ class SiteUnpublished extends SiteAbstract implements \Zrcms\Core\Site\Model\Sit
      * @ORM\Column(type="string")
      */
     protected $host;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(type="string")
+     */
+    protected $sourceHost;
 
     /**
      * Theme name

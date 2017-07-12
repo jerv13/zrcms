@@ -20,6 +20,7 @@ interface RenderLayout
     public function __invoke(
         Layout $layout,
         Page $page,
+        array $renderData,
         array $options = []
     ):string;
 }

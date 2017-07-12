@@ -24,4 +24,13 @@ NOTES
 
 
 
+/**
+ * @var string
+ *
+ * @ORM\Column(type="string")
+ */
+protected $sourceUri;
+
+
+
 

@@ -3,7 +3,8 @@
 namespace Zrcms\Core\BlockInstance\Model;
 
 /**
- * @author James Jervis - https://github.com/jerv13
+ * @deprecated Handled by GetBlockInstanceRenderData
+ * @author     James Jervis - https://github.com/jerv13
  */
 abstract class BlockInstanceDataAbstract extends BlockInstanceAbstract implements BlockInstanceData
 {
@@ -13,34 +14,38 @@ abstract class BlockInstanceDataAbstract extends BlockInstanceAbstract implement
     protected $data = [];
 
     /**
-     * @param string $uid
      * @param string $uri
+     * @param string $sourceUri
+     * @param array  $properties
+     * @param string $createdByUserId
+     * @param string $createdReason
      * @param string $blockName
      * @param array  $config
      * @param array  $layoutProperties
      * @param array  $data
-     * @param string $createdByUserId
-     * @param string $createdReason
      */
     public function __construct(
-        string $uid,
         string $uri,
+        string $sourceUri,
+        array $properties,
+        string $createdByUserId,
+        string $createdReason,
         string $blockName,
         array $config,
         array $layoutProperties,
-        array $data,
-        string $createdByUserId,
-        string $createdReason
+        array $data
     ) {
         $this->data = $data;
+
         parent::__construct(
-            $uid,
             $uri,
+            $sourceUri,
+            $properties,
+            $createdByUserId,
+            $createdReason,
             $blockName,
             $config,
-            $layoutProperties,
-            $createdByUserId,
-            $createdReason
+            $layoutProperties
         );
     }
 

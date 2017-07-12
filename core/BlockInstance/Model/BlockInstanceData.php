@@ -3,6 +3,7 @@
 namespace Zrcms\Core\BlockInstance\Model;
 
 /**
+ * @deprecated Handled by GetBlockInstanceRenderData
  * @author James Jervis - https://github.com/jerv13
  */
 interface BlockInstanceData extends BlockInstance

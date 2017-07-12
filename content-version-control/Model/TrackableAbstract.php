@@ -1,6 +1,6 @@
 <?php
 
-namespace Zrcms\Tracking\Model;
+namespace Zrcms\ContentVersionControl\Model;
 
 /**
  * @author James Jervis - https://github.com/jerv13
