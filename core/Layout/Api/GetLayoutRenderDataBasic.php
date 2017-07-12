@@ -11,6 +11,7 @@ use Zrcms\Core\Container\Model\Container;
 use Zrcms\Core\Layout\Model\Layout;
 use Zrcms\Core\Layout\Model\LayoutProperties;
 use Zrcms\Core\Page\Model\Page;
+use Zrcms\Core\RenderData\Model\RenderDataCollection;
 use Zrcms\Core\Uri\Api\ParseCmsUri;
 
 /**
@@ -69,13 +70,13 @@ class GetLayoutRenderDataBasic
      * @param Page   $page
      * @param array  $options
      *
-     * @return array
+     * @return RenderDataCollection
      */
     public function __invoke(
         Layout $layout,
         Page $page,
         array $options = []
-    ): array {
+    ): RenderDataCollection {
         $findContainerPathsByHtmlServiceName = $layout->getProperty(
             LayoutProperties::KEY_CONTAINER_PATHS_SERVICE,
             FindContainerPathsByHtml::class
@@ -107,7 +108,7 @@ class GetLayoutRenderDataBasic
             $containerUris
         );
 
-        $containerHtml = [];
+        $containerRenderData = new RenderDataCollectionBasic();
 
         /** @var Container $container */
         foreach ($containers as $container) {
