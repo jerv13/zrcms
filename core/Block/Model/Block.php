@@ -2,12 +2,12 @@
 
 namespace Zrcms\Core\Block\Model;
 
-use Zrcms\Tracking\Model\Trackable;
+use Zrcms\ContentVersionControl\Model\Content;
 
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-interface Block extends Trackable
+interface Block extends Content
 {
     /**
      * Unique name
@@ -15,6 +15,13 @@ interface Block extends Trackable
      * @return string
      */
     public function getName(): string;
+
+    /**
+     * Unique name
+     *
+     * @return string
+     */
+    public function getSourceName(): string;
 
     /**
      * Directory of template files

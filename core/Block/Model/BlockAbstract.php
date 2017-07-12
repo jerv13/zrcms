@@ -2,18 +2,22 @@
 
 namespace Zrcms\Core\Block\Model;
 
-use Zrcms\Tracking\Model\TrackableTrait;
+use Zrcms\ContentVersionControl\Model\ContentAbstract;
 
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-abstract class BlockAbstract implements Block
+abstract class BlockAbstract extends ContentAbstract implements Block
 {
-    use TrackableTrait;
     /**
      * @var string
      */
     protected $name;
+
+    /**
+     * @var string
+     */
+    protected $sourceName;
 
     /**
      * @var string
@@ -47,36 +51,59 @@ abstract class BlockAbstract implements Block
 
     /**
      * @param string $name
+     * @param string $sourceName
+     * @param array  $properties
+     * @param string $createdByUserId
+     * @param string $createdReason
      * @param string $directory
      * @param string $renderer
      * @param bool   $cacheable
      * @param array  $fields
      * @param array  $defaultConfig
-     * @param array  $properties
      */
     public function __construct(
         string $name,
+        string $sourceName,
+        array $properties = [],
+        string $createdByUserId,
+        string $createdReason,
         string $directory,
         string $renderer,
         boolean $cacheable = false,
         array $fields = [],
-        array $defaultConfig = [],
-        array $properties = [],
-        string $createdByUserId,
-        string $createdReason
+        array $defaultConfig = []
     ) {
         $this->name = $name;
+        $this->sourceName = $sourceName;
         $this->directory = $directory;
         $this->renderer = $renderer;
         $this->cacheable = $cacheable;
         $this->fields = $fields;
         $this->defaultConfig = $defaultConfig;
-        $this->properties = $properties;
 
-        $this->setCreatedData(
+        parent::__construct(
+            $name,
+            $sourceName,
+            $properties,
             $createdByUserId,
             $createdReason
         );
+    }
+
+    /**
+     * @return string
+     */
+    public function getUri(): string
+    {
+        return $this->getName();
+    }
+
+    /**
+     * @return string
+     */
+    public function getSourceUri(): string
+    {
+        return $this->getSourceName();
     }
 
     /**
@@ -87,6 +114,14 @@ abstract class BlockAbstract implements Block
     public function getName(): string
     {
         return $this->name;
+    }
+
+    /**
+     * @return string
+     */
+    public function getSourceName(): string
+    {
+        return $this->sourceName;
     }
 
     /**

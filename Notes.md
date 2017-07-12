@@ -32,5 +32,11 @@ NOTES
 protected $sourceUri;
 
 
-
+parent::__construct(
+    $uri,
+    $sourceUri,
+    $properties,
+    $createdByUserId,
+    $createdReason
+);
 
