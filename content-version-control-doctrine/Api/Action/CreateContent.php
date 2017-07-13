@@ -3,7 +3,11 @@
 namespace Zrcms\ContentVersionControlDoctrine\Api\Action;
 
 use Doctrine\ORM\EntityManager;
+use Zrcms\ContentVersionControl\Model\Action;
 use Zrcms\ContentVersionControl\Model\Content;
+use Zrcms\ContentVersionControl\Model\Draft;
+use Zrcms\ContentVersionControl\Model\History;
+use Zrcms\ContentVersionControl\Model\Uri;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -26,26 +30,18 @@ abstract class CreateContent implements \Zrcms\ContentVersionControl\Api\Action\
     protected $historyEntityClass;
 
     /**
-     * @var string
-     */
-    protected $draftEntityClass;
-
-    /**
      * @param EntityManager $entityManager
      * @param string        $contentEntityClass
      * @param string        $historyEntityClass
-     * @param string        $draftEntityClass
      */
     public function __construct(
         EntityManager $entityManager,
         string $contentEntityClass,
-        string $historyEntityClass,
-        string $draftEntityClass
+        string $historyEntityClass
     ) {
         $this->entityManager = $entityManager;
         $this->contentEntityClass = $contentEntityClass;
         $this->historyEntityClass = $historyEntityClass;
-        $this->draftEntityClass = $draftEntityClass;
     }
 
     /**
@@ -69,31 +65,34 @@ abstract class CreateContent implements \Zrcms\ContentVersionControl\Api\Action\
         $historyEntityClass = $this->historyEntityClass;
         /** @var History $history */
         $history = new $historyEntityClass(
-            $content->getUri(),
-            $content->getSourceUri(),
-            Action::COPY_CONTENT_TO_DRAFT,
-            $content->getProperties(),
-            $modifiedByUserId,
-            $modifiedReason
+            $uri,
+            Uri::SOURCE_ON_CREATE,
+            Action::CREATE_CONTENT,
+            $properties,
+            $createdByUserId,
+            $createdReason
         );
 
         $this->entityManager->persist($history);
         $this->entityManager->flush($history);
 
         // make new from existing
-        $draftEntityClass = $this->draftEntityClass;
-        /** @var Draft $newDraft */
-        $newDraft = new $draftEntityClass(
-            $content->getUri(),
-            $content->getSourceUri(),
-            $content->getProperties(),
-            $modifiedByUserId,
-            $modifiedReason
+        $contentEntityClass = $this->contentEntityClass;
+        /** @var Content $newContent */
+        $newContent = new $contentEntityClass(
+            $uri,
+            Uri::SOURCE_ON_CREATE,
+            Action::CREATE_CONTENT,
+            $createdByUserId,
+            $createdReason
         );
 
-        $this->entityManager->persist($newDraft);
-        $this->entityManager->flush($newDraft);
+        // @todo transaction here
+        $this->entityManager->persist($newContent);
+        $this->entityManager->persist($history);
+        $this->entityManager->flush($history);
+        $this->entityManager->flush($newContent);
 
-        return $newDraft;
+        return $newContent;
     }
 }
