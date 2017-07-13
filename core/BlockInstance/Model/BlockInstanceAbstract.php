@@ -12,6 +12,11 @@ abstract class BlockInstanceAbstract extends ContentAbstract implements BlockIns
     /**
      * @var string
      */
+    protected $id;
+
+    /**
+     * @var string
+     */
     protected $blockName;
 
     /**
@@ -30,6 +35,7 @@ abstract class BlockInstanceAbstract extends ContentAbstract implements BlockIns
      * @param array  $properties
      * @param string $createdByUserId
      * @param string $createdReason
+     * @param string $id
      * @param string $blockName
      * @param array  $config
      * @param array  $layoutProperties
@@ -40,10 +46,12 @@ abstract class BlockInstanceAbstract extends ContentAbstract implements BlockIns
         array $properties,
         string $createdByUserId,
         string $createdReason,
+        string $id,
         string $blockName,
         array $config,
         array $layoutProperties
     ) {
+        $this->id = $id;
         $this->blockName = $blockName;
         $this->config = $config;
         $this->layoutProperties = $layoutProperties;
@@ -58,7 +66,15 @@ abstract class BlockInstanceAbstract extends ContentAbstract implements BlockIns
     }
 
     /**
-     * @return mixed
+     * @return string
+     */
+    public function getId(): string
+    {
+        return $this->blockName;
+    }
+
+    /**
+     * @return string
      */
     public function getBlockName(): string
     {

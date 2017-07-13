@@ -7,17 +7,16 @@ use Zrcms\Param\Param;
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class GetParam
+class GetParamRequired
 {
     /**
      * @param array  $params
      * @param string $key
-     * @param null   $default
      *
-     * @return mixed|null
+     * @return mixed
      */
-    public function __invoke(array $params, string $key, $default = null)
+    public function __invoke(array $params, string $key)
     {
-        return Param::get($params, $key, $default);
+        return Param::getRequired($params, $key);
     }
 }

@@ -57,19 +57,4 @@ interface Block extends Content
      * @return array
      */
     public function getDefaultConfig(): array;
-
-    /**
-     * Extra properties
-     *
-     * @return array
-     */
-    public function getProperties(): array;
-
-    /**
-     * @param string $name
-     * @param null   $default
-     *
-     * @return mixed
-     */
-    public function getProperty(string $name, $default = null);
 }

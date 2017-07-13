@@ -2,7 +2,7 @@
 
 namespace Zrcms\Core\BlockInstance\Api;
 
-use Zrcms\Core\Block\Api\FindBlock;
+use Zrcms\Core\Block\Api\Repository\FindBlock;
 use Zrcms\Core\Block\Model\BlockProperties;
 use Zrcms\Core\BlockInstance\Model\BlockInstance;
 use Zrcms\Core\BlockInstance\Model\BlockInstanceProperties;
@@ -11,11 +11,20 @@ class WrapRenderedBlockInstanceLegacy implements WrapRenderedBlockInstance
 {
     protected $findBlock;
 
+    /**
+     * @param FindBlock $findBlock
+     */
     public function __construct(FindBlock $findBlock)
     {
         $this->findBlock = $findBlock;
     }
 
+    /**
+     * @param string        $innerHtml
+     * @param BlockInstance $blockInstance
+     *
+     * @return string
+     */
     public function __invoke(string $innerHtml, BlockInstance $blockInstance): string
     {
         $block = $this->findBlock->__invoke($blockInstance->getBlockName());
@@ -30,8 +39,8 @@ class WrapRenderedBlockInstanceLegacy implements WrapRenderedBlockInstance
             . 'data-rcmplugincolumnclass="' . $columnClass . '" '
             . 'data-rcmpluginrownumber="' . $rowNumber . '" '
             . 'data-rcmpluginrenderordernumber="' . $renderOrder . '" '
-            . 'data-rcmplugininstanceid="' . $blockInstance->getUid() . '" '
-            . 'data-rcmpluginwrapperid="' . $blockInstance->getUid() . '" ' //Deprecated
+            . 'data-rcmplugininstanceid="' . $blockInstance->getId() . '" '
+            . 'data-rcmpluginwrapperid="' . $blockInstance->getId() . '" ' //Deprecated
             . 'data-rcmsitewideplugin="" ' //Deprecated
             . 'data-rcmplugindisplayname="" ' //Deprecated
             . 'data-block-editor="' . $block->getProperty(BlockProperties::KEY_EDITOR) . '">'

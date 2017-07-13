@@ -50,6 +50,7 @@ abstract class BlockAbstract extends ContentAbstract implements Block
     protected $properties = [];
 
     /**
+     * @todo
      * @param string $name
      * @param string $sourceName
      * @param array  $properties

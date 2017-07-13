@@ -2,7 +2,8 @@
 
 namespace Zrcms\Core\BlockInstance\Api;
 
-use Zrcms\Core\Block\Api\FindBlock;
+use Zrcms\Core\Block\Api\Repository\FindBlock;
+use Zrcms\Core\Block\Model\Block;
 use Zrcms\Core\BlockInstance\Model\BlockInstance;
 
 /**
@@ -32,8 +33,9 @@ class GetMergedConfigBasic implements GetMergedConfig
         array $options = []
     ): array
     {
+        /** @var Block $bock */
         $bock = $this->findBlock->__invoke(
-            $blockInstance->getName()
+            $blockInstance->getBlockName()
         );
 
         return $this->merge($bock->getDefaultConfig(), $blockInstance->getConfig());
