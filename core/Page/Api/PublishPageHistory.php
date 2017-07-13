@@ -2,7 +2,7 @@
 
 namespace Zrcms\Core\Page\Api;
 
-use Zrcms\Core\Page\Model\PagePublished;
+use Zrcms\Core\Page\Model\Page;
 use Zrcms\Core\Page\Model\PageHistory;
 
 /**
@@ -16,7 +16,7 @@ interface PublishPageHistory
      * @param string      $modifiedReason
      * @param array       $options
      *
-     * @return PagePublished
+     * @return Page
      */
     public function __invoke(
         PageHistory $page,

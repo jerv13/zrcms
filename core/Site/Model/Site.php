@@ -10,6 +10,11 @@ use Zrcms\ContentVersionControl\Model\Content;
 interface Site extends Content
 {
     /**
+     * @return string
+     */
+    public function getId(): string;
+
+    /**
      * <identifier>
      *
      * @return string

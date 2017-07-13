@@ -122,3 +122,10 @@ parent::__construct(
     $createdReason
 );
 
+## 
+
+    <?= $this->headTitle($this->metaTitle) ?>
+    <?= $this->headMeta() ?>
+    <?= $this->headLink() ?>
+    <?= $this->rcmGoogleAnalytics(); ?>
+    <?= $this->headScript() ?>

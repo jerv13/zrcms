@@ -86,6 +86,9 @@ class ModuleConfig
                 'blocks' => [
                     // 'blockName' => 'blockDirectory'
                 ],
+                'layout-render-data-providers' => [
+                    // 'GetLayoutRenderData Service'
+                ],
             ],
         ];
     }
