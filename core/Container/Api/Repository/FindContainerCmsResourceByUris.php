@@ -5,13 +5,13 @@ namespace Zrcms\Core\Container\Api\Repository;
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-interface FindContainersByUris
+interface FindContainerCmsResourceByUris
 {
     /**
      * @param array $uris
      * @param array $options
      *
-     * @return array [Container]
+     * @return array [ContainerCmsResource]
      */
     public function __invoke(array $uris, array $options = []);
 }

@@ -11,4 +11,6 @@ class ContainerProperties
 
     const RENDER = 'renderer';
     const RENDER_NAMESPACE = 'container';
+
+    const URI_NAMESPACE = 'container';
 }

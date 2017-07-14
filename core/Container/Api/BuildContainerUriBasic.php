@@ -2,7 +2,8 @@
 
 namespace Zrcms\Core\Container\Api;
 
-use Zrcms\Core\Uri\Api\BuildCmsUri;
+use Zrcms\ContentResourceUri\Api\BuildCmsUri;
+use Zrcms\Core\Container\Model\ContainerProperties;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -38,7 +39,7 @@ class BuildContainerUriBasic implements BuildContainerUri
     {
         return $this->buildCmsUri->__invoke(
             $siteId,
-            'container',
+            ContainerProperties::URI_NAMESPACE,
             $containerPath,
             $options
         );
