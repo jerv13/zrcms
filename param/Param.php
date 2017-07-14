@@ -18,7 +18,7 @@ class Param
      */
     public static function get(array $params, string $key, $default = null)
     {
-        if (array_key_exists($key, $params)) {
+        if (self::has($params, $key)) {
             return $params[$key];
         }
 
@@ -34,12 +34,23 @@ class Param
      */
     public static function getRequired(array $params, string $key)
     {
-        if (!array_key_exists($key, $params)) {
+        if (!self::has($params, $key)) {
             throw new ParamMissingException(
                 "Required property ({$key}) is missing and is required"
             );
         }
 
         return $params[$key];
+    }
+
+    /**
+     * @param array  $params
+     * @param string $key
+     *
+     * @return bool
+     */
+    public static function has(array $params, string $key)
+    {
+        return array_key_exists($key, $params);
     }
 }

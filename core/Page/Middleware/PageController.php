@@ -5,6 +5,7 @@ namespace Zrcms\Core\Page\Middleware;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Zrcms\Core\Container\Api\BuildContainerUri;
+use Zrcms\Core\Layout\Api\Render\RenderLayout;
 use Zrcms\Core\Page\Api\BuildPageUri;
 use Zrcms\Core\Page\Api\FindPagePublished;
 use Zrcms\Core\Site\Api\FindSitePublished;
@@ -22,12 +23,14 @@ class PageController
         FindSitePublished $findSitePublished,
         FindPagePublished $findPagePublished,
         BuildPageUri $buildPageUri,
-        BuildContainerUri $buildContainerUri
+        BuildContainerUri $buildContainerUri,
+        RenderLayout $renderLayout
     ) {
         $this->findSitePublished = $findSitePublished;
         $this->findPagePublished = $findPagePublished;
         $this->buildPageUri = $buildPageUri;
         $this->buildContainerUri = $buildContainerUri;
+        $this->renderLayout = $renderLayout;
     }
 
     /**
@@ -54,16 +57,23 @@ class PageController
             return $response->withStatus(404);
         }
 
-        $pageUri = $this->buildPageUri->__invoke(
-            $site->getId(),
-            $uri->getPath()
+//        $pageUri = $this->buildPageUri->__invoke(
+//            $site->getId(),
+//            $uri->getPath()
+//        );
+
+//        $page = $this->findPagePublished->__invoke($pageUri);
+//
+//        if (empty($page)) {
+//            return $response->withStatus(404);
+//        }
+//
+        // get page layout
+        // get site layout in no page layout
+
+
+        $this->renderLayout->__invoke(
+            $layout
         );
-
-        $page = $this->findPagePublished->__invoke($pageUri);
-
-        if (empty($page)) {
-            return $response->withStatus(404);
-        }
-
     }
 }

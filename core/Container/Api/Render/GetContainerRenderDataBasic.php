@@ -3,12 +3,14 @@
 namespace Zrcms\Core\Container\Api\Render;
 
 use Psr\Http\Message\ServerRequestInterface;
-use Zrcms\ContentVersionControl\Model\Content;
-use Zrcms\Core\BlockInstance\Api\FindBlockInstancesByContainer;
+use Zrcms\Content\Model\Content;
 use Zrcms\Core\BlockInstance\Api\Render\GetBlockInstanceRenderData;
 use Zrcms\Core\BlockInstance\Api\Render\RenderBlockInstance;
+use Zrcms\Core\BlockInstance\Api\Repository\FindBlockInstanceCmsResourcesBy;
+use Zrcms\Core\BlockInstance\Api\Repository\FindBlockInstancesByContainer;
 use Zrcms\Core\BlockInstance\Api\WrapRenderedBlockInstance;
 use Zrcms\Core\BlockInstance\Model\BlockInstance;
+use Zrcms\Core\BlockInstance\Model\BlockInstanceCmsResource;
 use Zrcms\Core\BlockInstance\Model\BlockInstanceProperties;
 use Zrcms\Core\Container\Api\WrapRenderedContainer;
 use Zrcms\Core\Container\Model\Container;
@@ -19,9 +21,9 @@ use Zrcms\Core\Container\Model\Container;
 class GetContainerRenderDataBasic implements GetContainerRenderData
 {
     /**
-     * @var FindBlockInstancesByContainer
+     * @var FindBlockInstanceCmsResourcesBy
      */
-    protected $findBlockInstancesByContainer;
+    protected $findBlockInstanceCmsResourcesBy;
 
     /**
      * @var RenderBlockInstance
@@ -44,20 +46,20 @@ class GetContainerRenderDataBasic implements GetContainerRenderData
     protected $getBlockInstanceRenderData;
 
     /**
-     * @param FindBlockInstancesByContainer $findBlockInstancesByContainer
-     * @param RenderBlockInstance           $renderBlockInstance
-     * @param WrapRenderedBlockInstance     $wrapRenderedBlockInstance
-     * @param WrapRenderedContainer         $wrapRenderedContainer
-     * @param GetBlockInstanceRenderData    $getBlockInstanceRenderData
+     * @param FindBlockInstanceCmsResourcesBy $findBlockInstanceCmsResourcesBy
+     * @param RenderBlockInstance             $renderBlockInstance
+     * @param WrapRenderedBlockInstance       $wrapRenderedBlockInstance
+     * @param WrapRenderedContainer           $wrapRenderedContainer
+     * @param GetBlockInstanceRenderData      $getBlockInstanceRenderData
      */
     public function __construct(
-        FindBlockInstancesByContainer $findBlockInstancesByContainer,
+        FindBlockInstanceCmsResourcesBy $findBlockInstanceCmsResourcesBy,
         RenderBlockInstance $renderBlockInstance,
         WrapRenderedBlockInstance $wrapRenderedBlockInstance,
         WrapRenderedContainer $wrapRenderedContainer,
         GetBlockInstanceRenderData $getBlockInstanceRenderData
     ) {
-        $this->findBlockInstancesByContainer = $findBlockInstancesByContainer;
+        $this->findBlockInstanceCmsResourcesBy = $findBlockInstanceCmsResourcesBy;
         $this->renderBlockInstance = $renderBlockInstance;
         $this->wrapRenderedBlockInstance = $wrapRenderedBlockInstance;
         $this->wrapRenderedContainer = $wrapRenderedContainer;
@@ -78,16 +80,19 @@ class GetContainerRenderDataBasic implements GetContainerRenderData
         array $options = []
     ): array
     {
-        $blockInstances = $this->findBlockInstancesByContainer->__invoke($container);
-
         $renderedBlockInstances = []; //row -> renderOrder -> renderedBlockHtml
 
-        /**
-         * @var BlockInstance $blockInstance
-         */
+        $blockInstances = $container->getBlockInstances();
+
+        /** @var BlockInstance $blockInstance */
         foreach ($blockInstances as $blockInstance) {
-            $rowNumber = $blockInstance->getLayoutProperty(BlockInstanceProperties::KEY_ROW_NUMBER);
-            $renderOrder = $blockInstance->getLayoutProperty(BlockInstanceProperties::KEY_RENDER_ORDER);
+
+            $rowNumber = $blockInstance->getRequiredLayoutProperty(
+                BlockInstanceProperties::LAYOUT_PROPERTIES_ROW_NUMBER
+            );
+            $renderOrder = $blockInstance->getRequiredLayoutProperty(
+                BlockInstanceProperties::LAYOUT_PROPERTIES_RENDER_ORDER
+            );
 
             if (!array_key_exists($rowNumber, $renderedBlockInstances)) {
                 $renderedBlockInstances[$rowNumber] = [];
@@ -106,7 +111,7 @@ class GetContainerRenderDataBasic implements GetContainerRenderData
             );
 
             $blockInstanceInnerHtml = $this->renderBlockInstance->__invoke(
-                $blockInstance,
+                $blockInstanceCmsResource,
                 $blockInstanceRenderData
             );
 

@@ -2,10 +2,10 @@
 
 namespace Zrcms\Core\Layout\Api\Render;
 
-use Zrcms\ContentVersionControl\Api\Render\RenderContent;
-use Zrcms\ContentVersionControl\Model\Content;
+use Psr\Http\Message\ServerRequestInterface;
+use Zrcms\Content\Api\Render\RenderContent;
+use Zrcms\Content\Model\Content;
 use Zrcms\Core\Layout\Model\Layout;
-use Zrcms\Core\Page\Model\Page;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -13,15 +13,15 @@ use Zrcms\Core\Page\Model\Page;
 interface RenderLayout extends RenderContent
 {
     /**
-     * @param Layout|Content $content
-     * @param array   $renderData
-     * @param array   $options
+     * @param Layout|Content $layout
+     * @param ServerRequestInterface $serverRequest
+     * @param array                  $options
      *
      * @return string
      */
     public function __invoke(
-        Content $content,
-        array $renderData,
+        Content $layout,
+        ServerRequestInterface $serverRequest,
         array $options = []
     ): string;
 }

@@ -27,26 +27,42 @@ class WrapRenderedBlockInstanceLegacy implements WrapRenderedBlockInstance
      */
     public function __invoke(string $innerHtml, BlockInstance $blockInstance): string
     {
-        $block = $this->findBlock->__invoke($blockInstance->getBlockName());
+        $block = $this->findBlock->__invoke(
+            $blockInstance->getBlockName()
+        );
 
-        $rowNumber = $blockInstance->getLayoutProperty(BlockInstanceProperties::KEY_ROW_NUMBER);
-        $renderOrder = $blockInstance->getLayoutProperty(BlockInstanceProperties::KEY_RENDER_ORDER);
-        $columnClass = $blockInstance->getLayoutProperty(BlockInstanceProperties::KEY_COLUMN_CLASS);
+        $rowNumber = $blockInstance->getRequiredLayoutProperty(
+            BlockInstanceProperties::LAYOUT_PROPERTIES_ROW_NUMBER
+        );
+        $renderOrder = $blockInstance->getRequiredLayoutProperty(
+            BlockInstanceProperties::LAYOUT_PROPERTIES_RENDER_ORDER
+        );
+        $columnClass = $blockInstance->getRequiredLayoutProperty(
+            BlockInstanceProperties::LAYOUT_PROPERTIES_COLUMN_CLASS
+        );
 
-        return '<div class="rcmPlugin RcmResponsiveImage ' . $columnClass . '" '
-            . 'data-rcmpluginname="RcmResponsiveImage" '
-            . 'data-rcmplugindefaultclass="rcmPlugin RcmResponsiveImage" '
-            . 'data-rcmplugincolumnclass="' . $columnClass . '" '
-            . 'data-rcmpluginrownumber="' . $rowNumber . '" '
-            . 'data-rcmpluginrenderordernumber="' . $renderOrder . '" '
-            . 'data-rcmplugininstanceid="' . $blockInstance->getId() . '" '
-            . 'data-rcmpluginwrapperid="' . $blockInstance->getId() . '" ' //Deprecated
-            . 'data-rcmsitewideplugin="" ' //Deprecated
-            . 'data-rcmplugindisplayname="" ' //Deprecated
-            . 'data-block-editor="' . $block->getProperty(BlockProperties::KEY_EDITOR) . '">'
-            . '<div class="rcmPluginContainer">'
-            . $innerHtml
-            . '</div>'
-            . '</div>';
+        $id = $blockInstance->getId();
+
+        $editor = $block->getProperty(BlockProperties::EDITOR, '');
+
+        return "\n"
+        . '<div class="rcmPlugin RcmResponsiveImage ' . $columnClass . '" '
+        . 'data-rcmpluginname="RcmResponsiveImage" '
+        . 'data-rcmplugindefaultclass="rcmPlugin RcmResponsiveImage" '
+        . 'data-rcmplugincolumnclass="' . $columnClass . '" '
+        . 'data-rcmpluginrownumber="' . $rowNumber . '" '
+        . 'data-rcmpluginrenderordernumber="' . $renderOrder . '" '
+        . 'data-rcmplugininstanceid="' . $id . '" '
+        . 'data-rcmpluginwrapperid="' . $id . '" ' //Deprecated
+        . 'data-rcmsitewideplugin="" ' //Deprecated
+        . 'data-rcmplugindisplayname="" ' //Deprecated
+        . 'data-block-editor="' . $editor . '">'
+        . "\n"
+        . ' <div class="rcmPluginContainer">'
+        . $innerHtml
+        . ' </div>'
+        . "\n"
+        . '</div>'
+        . "\n";
     }
 }

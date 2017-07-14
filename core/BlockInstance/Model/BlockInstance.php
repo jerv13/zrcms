@@ -2,18 +2,13 @@
 
 namespace Zrcms\Core\BlockInstance\Model;
 
-use Zrcms\ContentVersionControl\Model\Content;
+use Zrcms\Content\Model\Content;
 
 /**
  * @author James Jervis - https://github.com/jerv13
  */
 interface BlockInstance extends Content
 {
-    /**
-     * @return string
-     */
-    public function getId(): string;
-
     /**
      * @return string
      */
@@ -45,4 +40,11 @@ interface BlockInstance extends Content
      * @return mixed
      */
     public function getLayoutProperty(string $name, $default = null);
+
+    /**
+     * @param string $name
+     *
+     * @return mixed
+     */
+    public function getRequiredLayoutProperty(string $name);
 }

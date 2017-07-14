@@ -3,8 +3,8 @@
 namespace Zrcms\Core\Container\Api\Render;
 
 use Psr\Http\Message\ServerRequestInterface;
-use Zrcms\ContentVersionControl\Api\Render\GetRenderData;
-use Zrcms\ContentVersionControl\Model\Content;
+use Zrcms\Content\Api\Render\GetRenderData;
+use Zrcms\Content\Model\Content;
 use Zrcms\Core\Container\Model\Container;
 
 /**

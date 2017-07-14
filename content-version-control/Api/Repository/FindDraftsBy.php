@@ -5,7 +5,7 @@ namespace Zrcms\ContentVersionControl\Api\Repository;
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-interface FindDraftsBy extends FindContentsBy
+interface FindDraftsBy
 {
     /**
      * @param array      $criteria

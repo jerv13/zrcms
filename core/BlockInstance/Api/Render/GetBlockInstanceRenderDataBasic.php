@@ -3,28 +3,31 @@
 namespace Zrcms\Core\BlockInstance\Api\Render;
 
 use Psr\Http\Message\ServerRequestInterface;
-use Zrcms\ContentVersionControl\Model\Content;
+use Zrcms\Content\Model\Content;
+use Zrcms\Core\Block\Api\Repository\FindBlock;
+use Zrcms\Core\BlockInstance\Api\GetMergedConfig;
 use Zrcms\Core\BlockInstance\Api\Repository\GetBlockInstanceData;
 use Zrcms\Core\BlockInstance\Model\BlockInstance;
-use Zrcms\Core\BlockInstance\Model\BlockInstanceRenderProperties;
+use Zrcms\Core\BlockInstance\Model\BlockInstanceProperties;
 
 /**
  * @author James Jervis - https://github.com/jerv13
  */
 class GetBlockInstanceRenderDataBasic implements GetBlockInstanceRenderData
 {
-    /**
-     * @var GetBlockInstanceData
-     */
     protected $getBlockInstanceData;
+    protected $getMergedConfig;
 
     /**
      * @param GetBlockInstanceData $getBlockInstanceData
+     * @param GetMergedConfig      $getMergedConfig
      */
     public function __construct(
-        GetBlockInstanceData $getBlockInstanceData
+        GetBlockInstanceData $getBlockInstanceData,
+        GetMergedConfig $getMergedConfig
     ) {
         $this->getBlockInstanceData = $getBlockInstanceData;
+        $this->getMergedConfig = $getMergedConfig;
     }
 
     /**
@@ -40,12 +43,18 @@ class GetBlockInstanceRenderDataBasic implements GetBlockInstanceRenderData
         array $options = []
     ): array
     {
+        $config = $this->getMergedConfig->__invoke(
+            $blockInstance
+        );
+
         return [
-            BlockInstanceRenderProperties::ID
+            BlockInstanceProperties::RENDER_ID
             => $blockInstance->getId(),
-            BlockInstanceRenderProperties::CONFIG
-            => $blockInstance->getConfig(),
-            BlockInstanceRenderProperties::DATA
+
+            BlockInstanceProperties::RENDER_CONFIG
+            => $config,
+
+            BlockInstanceProperties::RENDER_DATA
             => $this->getBlockInstanceData->__invoke(
                 $blockInstance,
                 $request

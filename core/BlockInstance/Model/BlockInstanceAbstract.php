@@ -2,18 +2,14 @@
 
 namespace Zrcms\Core\BlockInstance\Model;
 
-use Zrcms\ContentVersionControl\Model\ContentAbstract;
+use Zrcms\Content\Model\ContentAbstract;
+use Zrcms\Param\Param;
 
 /**
  * @author James Jervis - https://github.com/jerv13
  */
 abstract class BlockInstanceAbstract extends ContentAbstract implements BlockInstance
 {
-    /**
-     * @var string
-     */
-    protected $id;
-
     /**
      * @var string
      */
@@ -30,47 +26,36 @@ abstract class BlockInstanceAbstract extends ContentAbstract implements BlockIns
     protected $layoutProperties = [];
 
     /**
-     * @param string $uri
-     * @param string $sourceUri
      * @param array  $properties
      * @param string $createdByUserId
      * @param string $createdReason
-     * @param string $id
-     * @param string $blockName
-     * @param array  $config
-     * @param array  $layoutProperties
      */
     public function __construct(
-        string $uri,
-        string $sourceUri,
         array $properties,
         string $createdByUserId,
-        string $createdReason,
-        string $id,
-        string $blockName,
-        array $config,
-        array $layoutProperties
+        string $createdReason
     ) {
-        $this->id = $id;
-        $this->blockName = $blockName;
-        $this->config = $config;
-        $this->layoutProperties = $layoutProperties;
+        $this->blockName = Param::getRequired(
+            $properties,
+            BlockInstanceProperties::BLOCK_NAME
+        );
+
+        $this->config = Param::get(
+            $properties,
+            BlockInstanceProperties::CONFIG,
+            []
+        );
+
+        $this->layoutProperties = Param::getRequired(
+            $properties,
+            BlockInstanceProperties::LAYOUT_PROPERTIES
+        );
 
         parent::__construct(
-            $uri,
-            $sourceUri,
             $properties,
             $createdByUserId,
             $createdReason
         );
-    }
-
-    /**
-     * @return string
-     */
-    public function getId(): string
-    {
-        return $this->blockName;
     }
 
     /**
@@ -121,10 +106,16 @@ abstract class BlockInstanceAbstract extends ContentAbstract implements BlockIns
      */
     public function getLayoutProperty(string $name, $default = null)
     {
-        if (array_key_exists($name, $this->layoutProperties)) {
-            return $this->layoutProperties[$name];
-        }
+        return Param::get($this->layoutProperties, $name, $default);
+    }
 
-        return $default;
+    /**
+     * @param string $name
+     *
+     * @return mixed
+     */
+    public function getRequiredLayoutProperty(string $name)
+    {
+        return Param::getRequired($this->layoutProperties, $name);
     }
 }

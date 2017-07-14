@@ -72,9 +72,6 @@ abstract class CreateDraft implements \Zrcms\ContentVersionControl\Api\Action\Cr
             $createdReason
         );
 
-        $this->entityManager->persist($history);
-        $this->entityManager->flush($history);
-
         // make new from existing
         $draftEntityClass = $this->draftEntityClass;
         /** @var Draft $newDraft */

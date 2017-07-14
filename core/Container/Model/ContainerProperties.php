@@ -7,5 +7,8 @@ namespace Zrcms\Core\Container\Model;
  */
 class ContainerProperties
 {
-    const KEY_RENDER = 'renderer';
+    const BLOCK_INSTANCES = 'blockInstances';
+
+    const RENDER = 'renderer';
+    const RENDER_NAMESPACE = 'container';
 }

@@ -8,7 +8,7 @@ use Zrcms\CoreConfigDataSource\Block\Model\BlockConfigFields;
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class FindBlock implements \Zrcms\Core\Block\Api\FindBlock
+class FindBlock implements \Zrcms\Core\Block\Api\Repository\FindBlock
 {
     /**
      * @var GetBlocks
@@ -39,7 +39,7 @@ class FindBlock implements \Zrcms\Core\Block\Api\FindBlock
      * @return Block|null
      */
     public function __invoke(
-        $name,
+        string $name,
         array $options = []
     ) {
         $result = $this->searchBlockList->__invoke(

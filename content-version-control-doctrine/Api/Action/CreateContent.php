@@ -3,11 +3,12 @@
 namespace Zrcms\ContentVersionControlDoctrine\Api\Action;
 
 use Doctrine\ORM\EntityManager;
+use Zrcms\ContentVersionControl\Exception\ContentAlreadyExistsException;
 use Zrcms\ContentVersionControl\Model\Action;
 use Zrcms\ContentVersionControl\Model\Content;
-use Zrcms\ContentVersionControl\Model\Draft;
 use Zrcms\ContentVersionControl\Model\History;
 use Zrcms\ContentVersionControl\Model\Uri;
+use Zrcms\ContentVersionControlDoctrine\Api\Repository\FindContent;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -18,6 +19,11 @@ abstract class CreateContent implements \Zrcms\ContentVersionControl\Api\Action\
      * @var EntityManager
      */
     protected $entityManager;
+
+    /**
+     * @var FindContent
+     */
+    protected $findContent;
 
     /**
      * @var string
@@ -31,15 +37,18 @@ abstract class CreateContent implements \Zrcms\ContentVersionControl\Api\Action\
 
     /**
      * @param EntityManager $entityManager
+     * @param FindContent   $findContent
      * @param string        $contentEntityClass
      * @param string        $historyEntityClass
      */
     public function __construct(
         EntityManager $entityManager,
+        FindContent $findContent,
         string $contentEntityClass,
         string $historyEntityClass
     ) {
         $this->entityManager = $entityManager;
+        $this->findContent = $findContent;
         $this->contentEntityClass = $contentEntityClass;
         $this->historyEntityClass = $historyEntityClass;
     }
@@ -52,6 +61,7 @@ abstract class CreateContent implements \Zrcms\ContentVersionControl\Api\Action\
      * @param array  $options
      *
      * @return Content
+     * @throws ContentAlreadyExistsException
      */
     public function __invoke(
         string $uri,
@@ -61,6 +71,16 @@ abstract class CreateContent implements \Zrcms\ContentVersionControl\Api\Action\
         array $options = []
     ): Content
     {
+        $existingContent = $this->findContent->__invoke(
+            $uri
+        );
+
+        if (!empty($existingContent)) {
+            throw new ContentAlreadyExistsException(
+                "Content for URI {$uri} already exist: " . get_class($existingContent)
+            );
+        }
+
         // make history entry
         $historyEntityClass = $this->historyEntityClass;
         /** @var History $history */
@@ -72,9 +92,6 @@ abstract class CreateContent implements \Zrcms\ContentVersionControl\Api\Action\
             $createdByUserId,
             $createdReason
         );
-
-        $this->entityManager->persist($history);
-        $this->entityManager->flush($history);
 
         // make new from existing
         $contentEntityClass = $this->contentEntityClass;

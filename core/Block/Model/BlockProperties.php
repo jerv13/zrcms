@@ -7,10 +7,17 @@ namespace Zrcms\Core\Block\Model;
  */
 interface BlockProperties
 {
-    const KEY_ICON = 'icon';
-    const KEY_EDITOR = 'editor';
-    const KEY_CATEGORY = 'category';
-    const KEY_LABEL = 'label';
-    const KEY_DESCRIPTION = 'description';
-    const KEY_DATA_PROVIDER = 'data-provider';
+    const NAME = 'name';
+    const DIRECTORY = 'directory';
+
+    const CONFIG = 'config';
+    const ICON = 'icon';
+    const EDITOR = 'editor';
+    const CATEGORY = 'category';
+    const LABEL = 'label';
+    const DESCRIPTION = 'description';
+    const DATA_PROVIDER = 'data-provider';
+    const FIELDS = 'fields';
+    const CACHEABLE = 'cache';
+    const RENDERER = 'renderer';
 }

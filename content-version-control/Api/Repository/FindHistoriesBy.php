@@ -5,7 +5,7 @@ namespace Zrcms\ContentVersionControl\Api\Repository;
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-interface FindHistoriesBy extends FindContentsBy
+interface FindHistoriesBy
 {
     /**
      * @param array      $criteria

@@ -3,11 +3,17 @@
 namespace Zrcms\Core\BlockInstance\Api\Render;
 
 use Psr\Container\ContainerInterface;
-use Zrcms\ContentVersionControl\Model\Content;
+use Psr\Http\Message\ServerRequestInterface;
+use Zrcms\Content\Api\Render\RenderContent;
+use Zrcms\Content\Model\Content;
 use Zrcms\Core\Block\Api\Repository\FindBlock;
 use Zrcms\Core\Block\Model\Block;
+use Zrcms\Core\Block\Model\BlockProperties;
 use Zrcms\Core\BlockInstance\Model\BlockInstance;
 
+/**
+ * @author James Jervis - https://github.com/jerv13
+ */
 class RenderBlockInstanceBasic implements RenderBlockInstance
 {
     protected $findBlock;
@@ -15,13 +21,13 @@ class RenderBlockInstanceBasic implements RenderBlockInstance
     protected $defaultRenderServiceName;
 
     /**
-     * @param FindBlock          $findBlock
      * @param ContainerInterface $serviceContainer
+     * @param FindBlock          $findBlock
      * @param string             $defaultRenderServiceName
      */
     public function __construct(
+        $serviceContainer,
         FindBlock $findBlock,
-        ContainerInterface $serviceContainer,
         string $defaultRenderServiceName = RenderBlockInstanceMustache::class
     ) {
         $this->findBlock = $findBlock;
@@ -30,34 +36,37 @@ class RenderBlockInstanceBasic implements RenderBlockInstance
     }
 
     /**
-     * @param BlockInstance|Content $blockInstance
-     * @param array                 $renderData ['templateTag' => '{html}']
-     * @param array                 $options
+     * @param BlockInstance|Content  $blockInstance
+     * @param ServerRequestInterface $request
+     * @param array                  $options
      *
      * @return string
      */
     public function __invoke(
         Content $blockInstance,
-        array $renderData,
+        ServerRequestInterface $request,
         array $options = []
     ): string
     {
         /** @var Block $block */
-        $block = $this->findBlock->__invoke($blockInstance->getBlockName());
+        $block = $this->findBlock->__invoke(
+            $blockInstance->getBlockName()
+        );
 
         $renderServiceName = $block->getProperty(
-            $block->getRenderer(),
+            BlockProperties::RENDERER,
             $this->defaultRenderServiceName
         );
 
-        /** @var RenderBlockInstance $render */
-        $render = $this->serviceContainer->get(
+        /** @var RenderContent $render */
+        $renderContent = $this->serviceContainer->get(
             $renderServiceName
         );
 
-        return $render->__invoke(
+        return $renderContent->__invoke(
             $blockInstance,
-            $renderData
+            $request,
+            $options
         );
     }
 }

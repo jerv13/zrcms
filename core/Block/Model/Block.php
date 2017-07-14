@@ -2,7 +2,7 @@
 
 namespace Zrcms\Core\Block\Model;
 
-use Zrcms\ContentVersionControl\Model\Content;
+use Zrcms\Content\Model\Content;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -17,13 +17,6 @@ interface Block extends Content
     public function getName(): string;
 
     /**
-     * Unique name
-     *
-     * @return string
-     */
-    public function getSourceName(): string;
-
-    /**
      * Directory of template files
      *
      * @return string
@@ -31,30 +24,14 @@ interface Block extends Content
     public function getDirectory(): string;
 
     /**
-     * Service name of render
-     *
-     * @return string
-     */
-    public function getRenderer(): string;
-
-    /**
-     * Can the html be cached
-     *
-     * @return bool
-     */
-    public function isCacheable(): bool;
-
-    /**
-     * Admin fields
-     *
-     * @return array
-     */
-    public function getFields(): array;
-
-    /**
      * Default config values
      *
      * @return array
      */
     public function getDefaultConfig(): array;
+
+    /**
+     * @return bool
+     */
+    public function isCacheable(): bool;
 }

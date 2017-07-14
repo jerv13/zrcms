@@ -4,7 +4,7 @@ namespace Zrcms\Core\Layout\Api\Render;
 
 use Psr\Container\ContainerInterface;
 use Psr\Http\Message\ServerRequestInterface;
-use Zrcms\ContentVersionControl\Model\Content;
+use Zrcms\Content\Model\Content;
 use Zrcms\Core\Layout\Api\Repository\FindLayoutRenderDataServices;
 use Zrcms\Core\Layout\Model\Layout;
 

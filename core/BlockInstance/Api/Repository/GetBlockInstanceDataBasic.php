@@ -30,9 +30,9 @@ class GetBlockInstanceDataBasic implements GetBlockInstanceData
     protected $defaultGetBlockInstanceDataServiceName;
 
     /**
-     * @param ContainerInterface $serviceContainer
-     * @param FindBlock          $findBlock
-     * @param string             $defaultGetBlockInstanceDataServiceName
+     * @param ContainerInterface           $serviceContainer
+     * @param FindBlock $findBlock
+     * @param string    $defaultGetBlockInstanceDataServiceName
      */
     public function __construct(
         $serviceContainer,
@@ -58,10 +58,12 @@ class GetBlockInstanceDataBasic implements GetBlockInstanceData
     ) : array
     {
         /** @var Block $block */
-        $block = $this->findBlock->__invoke($blockInstance->getBlockName());
+        $block = $this->findBlock->__invoke(
+            $blockInstance->getBlockName()
+        );
 
         $defaultGetBlockInstanceDataServiceName = $block->getProperty(
-            BlockProperties::KEY_DATA_PROVIDER,
+            BlockProperties::DATA_PROVIDER,
             $this->defaultGetBlockInstanceDataServiceName
         );
 

@@ -1,0 +1,25 @@
+<?php
+
+namespace Zrcms\Content\Model;
+
+/**
+ * @author James Jervis - https://github.com/jerv13
+ */
+abstract class TrackableAbstract implements Trackable
+{
+    use TrackableTrait;
+
+    /**
+     * @param string $createdByUserId <tracking>
+     * @param string $createdReason   <tracking>
+     */
+    public function __construct(
+        string $createdByUserId,
+        string $createdReason
+    ) {
+        $this->setCreatedData(
+            $createdByUserId,
+            $createdReason
+        );
+    }
+}

@@ -71,7 +71,6 @@ abstract class CopyContentToDraft implements \Zrcms\ContentVersionControl\Api\Ac
             $modifiedReason
         );
 
-
         // make new from existing
         $draftEntityClass = $this->draftEntityClass;
         /** @var Draft $newDraft */

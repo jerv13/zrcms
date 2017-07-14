@@ -2,7 +2,7 @@
 
 namespace Zrcms\Core\Block\Api\Repository;
 
-use Zrcms\ContentVersionControl\Api\Repository\FindContent;
+use Zrcms\Content\Api\Repository\FindContent;
 
 /**
  * @author James Jervis - https://github.com/jerv13
