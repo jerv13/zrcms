@@ -3,14 +3,14 @@
 namespace Zrcms\Core\Container\Api\Render;
 
 use Psr\Http\Message\ServerRequestInterface;
-use Zrcms\Content\Api\Render\GetRenderData;
+use Zrcms\Content\Api\Render\GetContentRenderData;
 use Zrcms\Content\Model\Content;
 use Zrcms\Core\Container\Model\Container;
 
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-interface GetContainerRenderData extends GetRenderData
+interface GetContainerRenderData extends GetContentRenderData
 {
     /**
      * @param Content|Container      $container

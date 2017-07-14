@@ -6,11 +6,8 @@ use Psr\Http\Message\ServerRequestInterface;
 use Zrcms\Content\Model\Content;
 use Zrcms\Core\BlockInstance\Api\Render\GetBlockInstanceRenderData;
 use Zrcms\Core\BlockInstance\Api\Render\RenderBlockInstance;
-use Zrcms\Core\BlockInstance\Api\Repository\FindBlockInstanceCmsResourcesBy;
-use Zrcms\Core\BlockInstance\Api\Repository\FindBlockInstancesByContainer;
 use Zrcms\Core\BlockInstance\Api\WrapRenderedBlockInstance;
 use Zrcms\Core\BlockInstance\Model\BlockInstance;
-use Zrcms\Core\BlockInstance\Model\BlockInstanceCmsResource;
 use Zrcms\Core\BlockInstance\Model\BlockInstanceProperties;
 use Zrcms\Core\Container\Api\WrapRenderedContainer;
 use Zrcms\Core\Container\Model\Container;
@@ -20,11 +17,6 @@ use Zrcms\Core\Container\Model\Container;
  */
 class GetContainerRenderDataBasic implements GetContainerRenderData
 {
-    /**
-     * @var FindBlockInstanceCmsResourcesBy
-     */
-    protected $findBlockInstanceCmsResourcesBy;
-
     /**
      * @var RenderBlockInstance
      */
@@ -46,20 +38,17 @@ class GetContainerRenderDataBasic implements GetContainerRenderData
     protected $getBlockInstanceRenderData;
 
     /**
-     * @param FindBlockInstanceCmsResourcesBy $findBlockInstanceCmsResourcesBy
-     * @param RenderBlockInstance             $renderBlockInstance
-     * @param WrapRenderedBlockInstance       $wrapRenderedBlockInstance
-     * @param WrapRenderedContainer           $wrapRenderedContainer
-     * @param GetBlockInstanceRenderData      $getBlockInstanceRenderData
+     * @param RenderBlockInstance        $renderBlockInstance
+     * @param WrapRenderedBlockInstance  $wrapRenderedBlockInstance
+     * @param WrapRenderedContainer      $wrapRenderedContainer
+     * @param GetBlockInstanceRenderData $getBlockInstanceRenderData
      */
     public function __construct(
-        FindBlockInstanceCmsResourcesBy $findBlockInstanceCmsResourcesBy,
         RenderBlockInstance $renderBlockInstance,
         WrapRenderedBlockInstance $wrapRenderedBlockInstance,
         WrapRenderedContainer $wrapRenderedContainer,
         GetBlockInstanceRenderData $getBlockInstanceRenderData
     ) {
-        $this->findBlockInstanceCmsResourcesBy = $findBlockInstanceCmsResourcesBy;
         $this->renderBlockInstance = $renderBlockInstance;
         $this->wrapRenderedBlockInstance = $wrapRenderedBlockInstance;
         $this->wrapRenderedContainer = $wrapRenderedContainer;
@@ -105,14 +94,9 @@ class GetContainerRenderDataBasic implements GetContainerRenderData
                 );
             }
 
-            $blockInstanceRenderData = $this->getBlockInstanceRenderData->__invoke(
+            $blockInstanceInnerHtml = $this->renderBlockInstance->__invoke(
                 $blockInstance,
                 $request
-            );
-
-            $blockInstanceInnerHtml = $this->renderBlockInstance->__invoke(
-                $blockInstanceCmsResource,
-                $blockInstanceRenderData
             );
 
             $blockInstanceOuterHtml = $this->wrapRenderedBlockInstance->__invoke(
