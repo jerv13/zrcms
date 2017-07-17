@@ -15,4 +15,7 @@ interface PageProperties
     const PATH = 'path';
 
     const RENDER_NAMESPACE = '[page]';
+    const RENDER = 'render';
+
+    const PRE_RENDERED_HTML = 'html';
 }

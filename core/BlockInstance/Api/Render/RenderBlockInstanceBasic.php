@@ -4,7 +4,6 @@ namespace Zrcms\Core\BlockInstance\Api\Render;
 
 use Psr\Container\ContainerInterface;
 use Psr\Http\Message\ServerRequestInterface;
-use Zrcms\Content\Api\Render\RenderContent;
 use Zrcms\Content\Model\Content;
 use Zrcms\Core\Block\Api\Repository\FindBlock;
 use Zrcms\Core\Block\Model\Block;
@@ -58,7 +57,7 @@ class RenderBlockInstanceBasic implements RenderBlockInstance
             $this->defaultRenderServiceName
         );
 
-        /** @var RenderContent $render */
+        /** @var RenderBlockInstance $render */
         $renderContent = $this->serviceContainer->get(
             $renderServiceName
         );

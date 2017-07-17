@@ -1,6 +1,6 @@
 <?php
 
-namespace Zrcms\Core\Page\Middleware;
+namespace Zrcms\Core\PageView\Middleware;
 
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
@@ -8,14 +8,12 @@ use Zrcms\Core\Container\Api\BuildContainerUri;
 use Zrcms\Core\Container\Api\BuildLayoutUri;
 use Zrcms\Core\ThemeLayout\Api\Repository\FindLayoutCmsResource;
 use Zrcms\Core\Page\Api\BuildPageUri;
-use Zrcms\Core\Page\Api\FindPagePublished;
 use Zrcms\Core\Page\Api\Repository\FindPageCmsResource;
 use Zrcms\Core\Page\Model\PageBasic;
 use Zrcms\Core\Page\Model\PageProperties;
 use Zrcms\Core\PageView\Api\Render\RenderPageView;
 use Zrcms\Core\PageView\Model\PageViewBasic;
 use Zrcms\Core\PageView\Model\PageViewProperties;
-use Zrcms\Core\Site\Api\FindSitePublished;
 use Zrcms\Core\Site\Api\Repository\FindSiteCmsResource;
 use Zrcms\Core\Site\Model\Site;
 use Zrcms\Core\Site\Model\SiteProperties;
@@ -24,7 +22,7 @@ use Zrcms\Core\Theme\Api\FindTheme;
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class PageController
+class PageViewController
 {
     protected $buildCmsUri;
 
