@@ -56,7 +56,7 @@ class GetContainerRenderDataBasic implements GetContainerRenderData
     }
 
     /**
-     * @param Content|Container      $container
+     * @param Container|Content      $container
      * @param ServerRequestInterface $request
      * @param array                  $options
      *

@@ -2,7 +2,7 @@
 
 namespace Zrcms\ContentResourceUri\Api;
 
-use Zrcms\ContentResourceUri\Schema\UriSchemaBasic;
+use Zrcms\ContentResourceUri\Schema\CmsUriSchemaBasic;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -33,7 +33,7 @@ class BuildCmsUriBasic implements BuildCmsUri
         $schema = '';
 
         foreach ($values as $key => $value) {
-            $schema = str_replace('{{' . $key . '}}', '{{' . $value . '}}', UriSchemaBasic::SCHEMA);
+            $schema = str_replace('{{' . $key . '}}', '{{' . $value . '}}', CmsUriSchemaBasic::SCHEMA);
         }
 
         return $schema;

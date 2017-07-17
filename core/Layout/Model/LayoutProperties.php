@@ -7,6 +7,10 @@ namespace Zrcms\Core\Layout\Model;
  */
 class LayoutProperties
 {
-    const KEY_RENDER = 'renderer';
-    const KEY_CONTAINER_PATHS_SERVICE= 'containerPathsFinder';
+    const RENDER = 'renderer';
+    const RENDER_DATA_PROVIDER = 'renderDataProvider';
+    const RENDER_TAG_NAME_PARSER = 'renderTagNameParser';
+    const HTML = 'html';
+
+    const URI_NAMESPACE = 'theme';
 }

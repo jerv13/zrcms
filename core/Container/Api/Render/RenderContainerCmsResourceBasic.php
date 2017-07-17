@@ -6,6 +6,7 @@ use Zrcms\Content\Model\CmsResource;
 use Zrcms\Core\BlockInstance\Api\Render\RenderBlockInstance;
 use Zrcms\Core\Container\Api\WrapRenderedContainer;
 use Zrcms\Core\Container\Model\Container;
+use Zrcms\Core\Container\Model\ContainerCmsResource;
 
 class RenderContainerCmsResourceBasic implements RenderContainerCmsResource
 {
@@ -25,14 +26,14 @@ class RenderContainerCmsResourceBasic implements RenderContainerCmsResource
     }
 
     /**
-     * @param Container|CmsResource $container
-     * @param array                 $renderData ['templateTag' => '{html}']
-     * @param array                 $options
+     * @param ContainerCmsResource|CmsResource $containerCmsResource
+     * @param array                            $renderData ['templateTag' => '{html}']
+     * @param array                            $options
      *
      * @return string
      */
     public function __invoke(
-        CmsResource $container,
+        CmsResource $containerCmsResource,
         array $renderData,
         array $options = []
     ): string
@@ -45,6 +46,9 @@ class RenderContainerCmsResourceBasic implements RenderContainerCmsResource
             }
             $containerInnerHtml .= '</div>';
         }
+
+        /** @var Container $container */
+        $container = $containerCmsResource->getContent();
 
         return $this->wrapRenderedContainer->__invoke(
             $containerInnerHtml,

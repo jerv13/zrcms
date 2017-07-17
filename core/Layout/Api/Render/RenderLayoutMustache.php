@@ -2,17 +2,11 @@
 
 namespace Zrcms\Core\Layout\Api\Render;
 
-use Psr\Container\ContainerInterface;
-use Zrcms\Core\Container\Api\BuildContainerUri;
-use Zrcms\Core\Container\Api\FindContainerPathsByHtml;
-use Zrcms\Core\Container\Api\FindContainers;
-use Zrcms\Core\Container\Api\RenderContainer;
-use Zrcms\Core\Container\Model\Container;
+use Phly\Mustache\Mustache;
+use Psr\Http\Message\ServerRequestInterface;
+use Zrcms\Content\Model\Content;
 use Zrcms\Core\Layout\Model\Layout;
-use Zrcms\Core\Layout\Model\LayoutProperties;
-use Zrcms\Core\Page\Model\Page;
-use Zrcms\Core\Uri\Api\BuildCmsUri;
-use Zrcms\Core\Uri\Api\ParseCmsUri;
+use Zrcms\Mustache\StringResolver;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -20,60 +14,24 @@ use Zrcms\Core\Uri\Api\ParseCmsUri;
 class RenderLayoutMustache implements RenderLayout
 {
     /**
-     * @var ContainerInterface
-     */
-    protected $serviceContainer;
-
-    /**
-     * @var FindContainers
-     */
-    protected $findContainers;
-
-    /**
-     * @var BuildCmsUri
-     */
-    protected $buildContainerUri;
-
-    /**
-     * @var ParseCmsUri
-     */
-    protected $parseCmsUri;
-
-    /**
-     * @param ContainerInterface $serviceContainer
-     * @param FindContainers     $findContainers
-     * @param BuildContainerUri  $buildContainerUri
-     * @param ParseCmsUri        $parseCmsUri
-     */
-    public function __construct(
-        $serviceContainer,
-        FindContainers $findContainers,
-        BuildContainerUri $buildContainerUri,
-        ParseCmsUri $parseCmsUri
-    ) {
-        $this->serviceContainer = $serviceContainer;
-        $this->findContainers = $findContainers;
-        $this->buildContainerUri = $buildContainerUri;
-        $this->parseCmsUri = $parseCmsUri;
-    }
-
-    /**
-     * @param Layout $layout
-     * @param Page   $page
-     * @param array  $options
+     * @param Layout|Content         $layout
+     * @param ServerRequestInterface $request
+     * @param array                  $options
      *
      * @return string
      */
     public function __invoke(
-        Layout $layout,
-        Page $page,
+        Content $layout,
+        ServerRequestInterface $request,
         array $options = []
-    ):string
+    ): string
     {
+        $resolver = new StringResolver();
+        $resolver->addTemplate('template', $layout->getHtml());
 
+        $mustache = new Mustache();
+        $mustache->getResolver()->attach($resolver);
 
-        // @todo RENDER
-
-        return '';
+        return $mustache->render('template', $renderData);
     }
 }

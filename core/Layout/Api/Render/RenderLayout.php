@@ -13,15 +13,15 @@ use Zrcms\Core\Layout\Model\Layout;
 interface RenderLayout extends RenderContent
 {
     /**
-     * @param Layout|Content $layout
-     * @param ServerRequestInterface $serverRequest
+     * @param Layout|Content         $layout
+     * @param ServerRequestInterface $request
      * @param array                  $options
      *
      * @return string
      */
     public function __invoke(
         Content $layout,
-        ServerRequestInterface $serverRequest,
+        ServerRequestInterface $request,
         array $options = []
     ): string;
 }

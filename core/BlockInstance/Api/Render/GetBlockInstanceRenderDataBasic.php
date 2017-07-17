@@ -4,7 +4,6 @@ namespace Zrcms\Core\BlockInstance\Api\Render;
 
 use Psr\Http\Message\ServerRequestInterface;
 use Zrcms\Content\Model\Content;
-use Zrcms\Core\Block\Api\Repository\FindBlock;
 use Zrcms\Core\BlockInstance\Api\GetMergedConfig;
 use Zrcms\Core\BlockInstance\Api\Repository\GetBlockInstanceData;
 use Zrcms\Core\BlockInstance\Model\BlockInstance;

@@ -39,6 +39,11 @@ interface Theme
     public function getLayout(string $name, Layout $default = null);
 
     /**
+     * @return Layout
+     */
+    public function getDefaultLayout();
+
+    /**
      * @return array
      */
     public function getProperties(): array;

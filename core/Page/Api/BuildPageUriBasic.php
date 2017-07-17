@@ -2,12 +2,12 @@
 
 namespace Zrcms\Core\Page\Api;
 
-use Zrcms\Core\Uri\Api\BuildCmsUri;
+use Zrcms\ContentResourceUri\Api\BuildCmsUri;
 
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class GetPageUriBasic implements GetPageUri
+class GetPageUriBasic implements BuildPageUri
 {
     protected $buildCmsUri;
 

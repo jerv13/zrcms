@@ -2,7 +2,7 @@
 
 namespace Zrcms\Core\Site\Model;
 
-use Zrcms\ContentVersionControl\Model\Content;
+use Zrcms\Content\Model\Content;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -10,21 +10,11 @@ use Zrcms\ContentVersionControl\Model\Content;
 interface Site extends Content
 {
     /**
-     * @return string
-     */
-    public function getId(): string;
-
-    /**
      * <identifier>
      *
      * @return string
      */
     public function getHost(): string;
-
-    /**
-     * @return string
-     */
-    public function getSourceHost(): string;
 
     /**
      * @return string

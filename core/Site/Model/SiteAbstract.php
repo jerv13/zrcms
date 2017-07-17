@@ -2,13 +2,13 @@
 
 namespace Zrcms\Core\Site\Model;
 
-use Zrcms\ContentVersionControl\Model\ContentAbstract;
-
+use Zrcms\Content\Model\ContentAbstract;
+use Zrcms\Param\Param;
 
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-abstract class SiteAbstract extends ContentAbstract  implements Site
+abstract class SiteAbstract extends ContentAbstract implements Site
 {
     /**
      * <identifier>
@@ -39,31 +39,31 @@ abstract class SiteAbstract extends ContentAbstract  implements Site
     protected $locale;
 
     /**
-     * @param string $host
-     * @param string $sourceHost
      * @param array  $properties
      * @param string $createdByUserId
      * @param string $createdReason
-     * @param string $theme
-     * @param string $locale
      */
     public function __construct(
-        string $host,
-        string $sourceHost,
         array $properties,
         string $createdByUserId,
-        string $createdReason,
-        string $theme,
-        string $locale
+        string $createdReason
     ) {
-        $this->host = $host;
-        $this->sourceHost = $sourceHost;
-        $this->theme = $theme;
-        $this->locale = $locale;
+        $this->host = Param::getRequired(
+            $properties,
+            SiteProperties::HOST
+        );
+
+        $this->theme = Param::getRequired(
+            $properties,
+            SiteProperties::THEME
+        );
+        ;
+        $this->locale = Param::getRequired(
+            $properties,
+            SiteProperties::LOCALE
+        );
 
         parent::__construct(
-            $host,
-            $sourceHost,
             $properties,
             $createdByUserId,
             $createdReason
@@ -73,33 +73,9 @@ abstract class SiteAbstract extends ContentAbstract  implements Site
     /**
      * @return string
      */
-    public function getUri(): string
-    {
-        return $this->getHost();
-    }
-
-    /**
-     * @return string
-     */
-    public function getSourceUri(): string
-    {
-        return $this->getSourceHost();
-    }
-
-    /**
-     * @return string
-     */
     public function getHost(): string
     {
         return $this->host;
-    }
-
-    /**
-     * @return string
-     */
-    public function getSourceHost(): string
-    {
-        return $this->sourceHost;
     }
 
     /**
@@ -116,28 +92,5 @@ abstract class SiteAbstract extends ContentAbstract  implements Site
     public function getLocale(): string
     {
         return $this->locale;
-    }
-
-    /**
-     * @return array
-     */
-    public function getProperties(): array
-    {
-        return $this->properties;
-    }
-
-    /**
-     * @param string $name
-     * @param null   $default
-     *
-     * @return mixed
-     */
-    public function getProperty(string $name, $default = null)
-    {
-        if (array_key_exists($name, $this->properties)) {
-            return $this->properties[$name];
-        }
-
-        return $default;
     }
 }

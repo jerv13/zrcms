@@ -21,7 +21,7 @@ interface Content extends Trackable
     );
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getId();
 

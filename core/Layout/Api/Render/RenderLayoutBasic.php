@@ -3,67 +3,66 @@
 namespace Zrcms\Core\Layout\Api\Render;
 
 use Psr\Container\ContainerInterface;
-use Zrcms\Core\Container\Api\BuildContainerUri;
-use Zrcms\Core\Container\Api\FindContainers;
+use Psr\Http\Message\ServerRequestInterface;
+use Zrcms\Content\Api\Render\RenderCmsResource;
+use Zrcms\Content\Api\Render\RenderContent;
+use Zrcms\Content\Model\Content;
 use Zrcms\Core\Layout\Model\Layout;
 use Zrcms\Core\Layout\Model\LayoutProperties;
-use Zrcms\Core\Page\Model\Page;
-use Zrcms\Core\Uri\Api\ParseCmsUri;
 
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class RenderLayoutBasic extends RenderLayoutAbstract implements RenderLayout
+class RenderLayoutBasic implements RenderLayout
 {
     /**
+     * @var ContainerInterface
+     */
+    protected $serviceContainer;
+
+    /**
+     * @var string
+     */
+    protected $defaultRenderServiceName;
+
+    /**
      * @param ContainerInterface $serviceContainer
-     * @param FindContainers     $findContainers
-     * @param BuildContainerUri  $buildContainerUri
-     * @param ParseCmsUri        $parseCmsUri
-     * @param RenderLayout       $defaultRenderServiceName
+     * @param string             $defaultRenderServiceName
      */
     public function __construct(
-        ContainerInterface $serviceContainer,
-        FindContainers $findContainers,
-        BuildContainerUri $buildContainerUri,
-        ParseCmsUri $parseCmsUri,
-        RenderLayout $defaultRenderServiceName
+        $serviceContainer,
+        string $defaultRenderServiceName = RenderLayoutMustache::class
     ) {
-        parent::__construct(
-            $serviceContainer,
-            $findContainers,
-            $buildContainerUri,
-            $parseCmsUri,
-            $defaultRenderServiceName
-        );
+        $this->serviceContainer = $serviceContainer;
+        $this->defaultRenderServiceName = $defaultRenderServiceName;
     }
 
     /**
-     * @param Layout $layout
-     * @param Page   $page
-     * @param array  $options
+     * @param Layout|Content         $layout
+     * @param ServerRequestInterface $request
+     * @param array                  $options
      *
      * @return string
      */
     public function __invoke(
-        Layout $layout,
-        Page $page,
+        Content $layout,
+        ServerRequestInterface $request,
         array $options = []
-    ):string
+    ): string
     {
         $renderServiceName = $layout->getProperty(
-            LayoutProperties::KEY_RENDER,
+            LayoutProperties::RENDER,
             $this->defaultRenderServiceName
         );
 
-        /** @var RenderLayout $render */
+        /** @var RenderContent $render */
         $render = $this->serviceContainer->get(
             $renderServiceName
         );
 
         return $render->__invoke(
             $layout,
-            $page
+            $request
         );
     }
 }

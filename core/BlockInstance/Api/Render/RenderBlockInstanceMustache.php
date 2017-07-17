@@ -17,12 +17,18 @@ class RenderBlockInstanceMustache implements RenderBlockInstance
 {
     protected $findBlock;
 
+    protected $getBlockInstanceRenderData;
+
     /**
-     * @param FindBlock $findBlock
+     * @param FindBlock                  $findBlock
+     * @param GetBlockInstanceRenderData $getBlockInstanceRenderData
      */
-    public function __construct(FindBlock $findBlock)
-    {
+    public function __construct(
+        FindBlock $findBlock,
+        GetBlockInstanceRenderData $getBlockInstanceRenderData
+    ) {
         $this->findBlock = $findBlock;
+        $this->getBlockInstanceRenderData = $getBlockInstanceRenderData;
     }
 
     /**
@@ -38,10 +44,14 @@ class RenderBlockInstanceMustache implements RenderBlockInstance
         array $options = []
     ): string
     {
-
         /** @var Block $block */
         $block = $this->findBlock->__invoke(
             $blockInstance->getBlockName()
+        );
+
+        $renderData = $this->getBlockInstanceRenderData->__invoke(
+            $blockInstance,
+            $request
         );
 
         $resolver = new DefaultResolver();

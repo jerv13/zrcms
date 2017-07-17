@@ -2,9 +2,9 @@
 
 namespace Zrcms\Core\Site\Api\Repository;
 
-use Zrcms\ContentVersionControl\Api\Repository\FindContent;
-use Zrcms\ContentVersionControl\Model\Content;
-use Zrcms\Core\Site\Model\SitePublished;
+use Zrcms\Content\Api\Repository\FindContent;
+use Zrcms\Content\Model\Content;
+use Zrcms\Core\Site\Model\Site;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -15,7 +15,7 @@ interface FindSite extends FindContent
      * @param string $host
      * @param array  $options
      *
-     * @return SitePublished|Content|null
+     * @return Site|Content|null
      */
     public function __invoke(
         string $host,

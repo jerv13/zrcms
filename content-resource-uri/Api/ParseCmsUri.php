@@ -2,7 +2,7 @@
 
 namespace Zrcms\ContentResourceUri\Api;
 
-use Zrcms\ContentResourceUri\Model\Uri;
+use Zrcms\ContentResourceUri\Model\CmsUri;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -10,13 +10,13 @@ use Zrcms\ContentResourceUri\Model\Uri;
 interface ParseCmsUri
 {
     /**
-     * @param string $uri
-     * @param array $options
+     * @param string $cmsUri
+     * @param array  $options
      *
-     * @return Uri
+     * @return CmsUri
      */
     public function __invoke(
-        string $uri,
+        string $cmsUri,
         array $options = []
-    ): Uri;
+    ): CmsUri;
 }

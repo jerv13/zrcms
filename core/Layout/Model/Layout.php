@@ -2,7 +2,7 @@
 
 namespace Zrcms\Core\Layout\Model;
 
-use Zrcms\ContentVersionControl\Model\Content;
+use Zrcms\Content\Model\Content;
 
 /**
  * @author James Jervis - https://github.com/jerv13
