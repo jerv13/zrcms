@@ -1,6 +1,6 @@
 <?php
 
-namespace Zrcms\Core\Layout\Model;
+namespace Zrcms\Core\ThemeLayout\Model;
 
 use Zrcms\Content\Model\Content;
 

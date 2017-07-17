@@ -1,11 +1,11 @@
 <?php
 
-namespace Zrcms\Core\Layout\Api\Render;
+namespace Zrcms\Core\ThemeLayout\Api\Render;
 
 use Phly\Mustache\Mustache;
 use Psr\Http\Message\ServerRequestInterface;
 use Zrcms\Content\Model\Content;
-use Zrcms\Core\Layout\Model\Layout;
+use Zrcms\Core\ThemeLayout\Model\Layout;
 use Zrcms\Mustache\StringResolver;
 
 /**

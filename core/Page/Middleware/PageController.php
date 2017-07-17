@@ -6,7 +6,7 @@ use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Zrcms\Core\Container\Api\BuildContainerUri;
 use Zrcms\Core\Container\Api\BuildLayoutUri;
-use Zrcms\Core\Layout\Api\Repository\FindLayoutCmsResource;
+use Zrcms\Core\ThemeLayout\Api\Repository\FindLayoutCmsResource;
 use Zrcms\Core\Page\Api\BuildPageUri;
 use Zrcms\Core\Page\Api\FindPagePublished;
 use Zrcms\Core\Page\Api\Repository\FindPageCmsResource;

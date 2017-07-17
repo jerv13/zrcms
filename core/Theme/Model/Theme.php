@@ -2,7 +2,7 @@
 
 namespace Zrcms\Core\Theme\Model;
 
-use Zrcms\Core\Layout\Model\Layout;
+use Zrcms\Core\ThemeLayout\Model\Layout;
 
 /**
  * @author James Jervis - https://github.com/jerv13

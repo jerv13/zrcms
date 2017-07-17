@@ -1,14 +1,14 @@
 <?php
 
-namespace Zrcms\Core\Layout\Api\Render;
+namespace Zrcms\Core\ThemeLayout\Api\Render;
 
 use Psr\Container\ContainerInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Zrcms\Content\Api\Render\RenderCmsResource;
 use Zrcms\Content\Api\Render\RenderContent;
 use Zrcms\Content\Model\Content;
-use Zrcms\Core\Layout\Model\Layout;
-use Zrcms\Core\Layout\Model\LayoutProperties;
+use Zrcms\Core\ThemeLayout\Model\Layout;
+use Zrcms\Core\ThemeLayout\Model\LayoutProperties;
 
 /**
  * @author James Jervis - https://github.com/jerv13

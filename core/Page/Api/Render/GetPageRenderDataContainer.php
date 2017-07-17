@@ -1,6 +1,6 @@
 <?php
 
-namespace Zrcms\Core\Layout\Api\Render;
+namespace Zrcms\Core\Page\Api\Render;
 
 use Psr\Container\ContainerInterface;
 use Psr\Http\Message\ServerRequestInterface;
@@ -14,8 +14,8 @@ use Zrcms\Core\Container\Api\Repository\FindContainerCmsResourceByUris;
 use Zrcms\Core\Container\Api\Repository\FindContainerPathsByHtml;
 use Zrcms\Core\Container\Model\Container;
 use Zrcms\Core\Container\Model\ContainerProperties;
-use Zrcms\Core\Layout\Model\Layout;
-use Zrcms\Core\Layout\Model\LayoutProperties;
+use Zrcms\Core\ThemeLayout\Model\Layout;
+use Zrcms\Core\ThemeLayout\Model\LayoutProperties;
 use Zrcms\Core\Page\Api\BuildPageUri;
 use Zrcms\Core\Page\Api\Render\GetPageRenderData;
 use Zrcms\Core\Page\Api\Repository\FindPage;

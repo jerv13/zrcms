@@ -1,10 +1,10 @@
 <?php
 
-namespace Zrcms\Core\Layout\Api\Repository;
+namespace Zrcms\Core\ThemeLayout\Api\Repository;
 
 use Zrcms\Content\Api\Repository\FindCmsResource;
 use Zrcms\Content\Model\CmsResource;
-use Zrcms\Core\Layout\Model\LayoutCmsResource;
+use Zrcms\Core\ThemeLayout\Model\LayoutCmsResource;
 
 /**
  * @author James Jervis - https://github.com/jerv13

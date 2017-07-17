@@ -3,7 +3,7 @@
 namespace Zrcms\Core\PageView\Model;
 
 use Zrcms\Content\Model\ContentAbstract;
-use Zrcms\Core\Layout\Model\LayoutCmsResource;
+use Zrcms\Core\ThemeLayout\Model\LayoutCmsResource;
 use Zrcms\Core\Page\Model\PageCmsResource;
 use Zrcms\Core\Site\Model\SiteCmsResource;
 use Zrcms\Core\Theme\Model\Theme;

@@ -4,8 +4,8 @@ namespace Zrcms\Core\PageView\Api\Render;
 
 use Psr\Http\Message\ServerRequestInterface;
 use Zrcms\Content\Model\Content;
-use Zrcms\Core\Layout\Api\Render\RenderLayout;
-use Zrcms\Core\Layout\Api\Render\RenderLayoutCmsResource;
+use Zrcms\Core\ThemeLayout\Api\Render\RenderLayout;
+use Zrcms\Core\ThemeLayout\Api\Render\RenderLayoutCmsResource;
 use Zrcms\Core\PageView\Model\PageView;
 
 /**

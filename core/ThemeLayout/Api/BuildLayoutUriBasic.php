@@ -3,8 +3,8 @@
 namespace Zrcms\Core\Container\Api;
 
 use Zrcms\ContentResourceUri\Api\BuildCmsUri;
-use Zrcms\Core\Layout\Model\CmsUriLayout;
-use Zrcms\Core\Layout\Model\LayoutProperties;
+use Zrcms\Core\ThemeLayout\Model\CmsUriLayout;
+use Zrcms\Core\ThemeLayout\Model\LayoutProperties;
 
 /**
  * @author James Jervis - https://github.com/jerv13
