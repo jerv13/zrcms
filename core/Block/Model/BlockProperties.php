@@ -10,7 +10,7 @@ interface BlockProperties
     // required
     const NAME = 'name';
     const DIRECTORY = 'directory';
-    const CONFIG = 'config';
+    const DEFAULT_CONFIG = 'defaultConfig';
     const CACHEABLE = 'cache';
 
     // possibly required

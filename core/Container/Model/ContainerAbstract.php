@@ -10,6 +10,9 @@ use Zrcms\Param\Param;
  */
 abstract class ContainerAbstract extends ContentAbstract implements Container
 {
+    /**
+     * @var array|mixed
+     */
     protected $blockInstances = [];
 
     /**
@@ -22,6 +25,11 @@ abstract class ContainerAbstract extends ContentAbstract implements Container
         string $createdByUserId,
         string $createdReason
     ) {
+        $this->id = Param::getRequired(
+            $properties,
+            ContainerProperties::PATH
+        );
+
         $this->blockInstances = Param::getRequired(
             $properties,
             ContainerProperties::BLOCK_INSTANCES
@@ -32,6 +40,16 @@ abstract class ContainerAbstract extends ContentAbstract implements Container
             $createdByUserId,
             $createdReason
         );
+    }
+
+    /**
+     * <identifier>
+     *
+     * @return string
+     */
+    public function getPath(): string
+    {
+        return $this->getId();
     }
 
     /**

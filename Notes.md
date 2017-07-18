@@ -40,7 +40,9 @@ zrcms:site:1:page/{page-path}
 
 zrcms:site:1:page-app/{page-path}
 
-zrcms:site:1:theme/{theme-name}{/layout-name}
+zrcms:site:1:theme/{theme-name}
+
+zrcms:site:1:theme-layout/{theme-layout-path}
 
 
 ## Issues with content tracking and URIs ##

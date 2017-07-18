@@ -2,20 +2,16 @@
 
 namespace Zrcms\Core;
 
-use Zrcms\Core\Block\Api\FindBlock;
-use Zrcms\Core\Block\Api\FindBlocksBy;
-use Zrcms\Core\Block\Api\RenderBlock;
+use Zrcms\Core\Block\Api\Repository\FindBlock;
+use Zrcms\Core\Block\Api\Repository\FindBlocksBy;
+use Zrcms\Core\Block\Api\Render\RenderBlock;
 use Zrcms\Core\BlockInstance\Api\GetMergedConfig;
 use Zrcms\Core\BlockInstance\Api\GetMergedConfigBasic;
-use Zrcms\Core\BlockInstance\Api\RenderBlockInstance;
+use Zrcms\Core\BlockInstance\Api\Render\RenderBlockInstance;
 use Zrcms\Cache\Service\Cache;
 use Zrcms\Cache\Service\CacheArray;
 use Zrcms\Core\Container\Api\BuildContainerUri;
 use Zrcms\Core\Container\Api\BuildContainerUriBasic;
-use Zrcms\Core\Container\Api\CreateContainerPublished;
-use Zrcms\Core\Container\Api\FindContainerPathsByHtml;
-use Zrcms\Core\Container\Api\FindContainerPathsByHtmlMustache;
-use Zrcms\Core\Container\Api\RenderContainer;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -68,21 +64,6 @@ class ModuleConfig
                     /** Container **/
                     BuildContainerUri::class => [
                         'class' => BuildContainerUriBasic::class,
-                        'arguments' => [
-                        ],
-                    ],
-                    CreateContainerPublished::class => [
-                        'class' => ApiNoop::class,
-                        'arguments' => [
-                        ],
-                    ],
-                    RenderContainer::class => [
-                        'class' => ApiNoop::class,
-                        'arguments' => [
-                        ],
-                    ],
-                    FindContainerPathsByHtml::class => [
-                        'class' => FindContainerPathsByHtmlMustache::class,
                         'arguments' => [
                         ],
                     ],

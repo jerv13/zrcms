@@ -1,6 +1,6 @@
 <?php
 
-namespace Zrcms\Core\Theme\Model;
+namespace Zrcms\Core\ThemeLayout\Model;
 
 use Zrcms\Content\Model\CmsResourceAbstract;
 use Zrcms\Content\Model\Content;
@@ -8,19 +8,19 @@ use Zrcms\Content\Model\Content;
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-abstract class LayoutCmsResourceAbstract extends CmsResourceAbstract implements LayoutCmsResource
+abstract class LayoutCmsResourceAbstract extends CmsResourceAbstract implements ThemeLayoutCmsResource
 {
     /**
      * @param string  $uri
      * @param string  $source
-     * @param Content $layout
+     * @param ThemeLayout|Content $themeLayout
      * @param string  $createdByUserId
      * @param string  $createdReason
      */
     public function __construct(
         string $uri,
         string $source,
-        Content $layout,
+        Content $themeLayout,
         string $createdByUserId,
         string $createdReason
     ) {
@@ -28,7 +28,7 @@ abstract class LayoutCmsResourceAbstract extends CmsResourceAbstract implements 
         parent::__construct(
             $uri,
             $source,
-            $layout,
+            $themeLayout,
             $createdByUserId,
             $createdReason
         );

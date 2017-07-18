@@ -25,9 +25,9 @@ class BuildCmsUriBasic implements BuildCmsUri
     ): string
     {
         $values = [
-            'siteId' => $uri->getSiteId(),
-            'type' => $uri->getType(),
-            'path' => $uri->getPath()
+            'siteId' => $siteId,
+            'type' => $type,
+            'path' => $path
         ];
 
         $schema = '';

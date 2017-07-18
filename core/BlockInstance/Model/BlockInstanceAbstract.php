@@ -40,6 +40,11 @@ abstract class BlockInstanceAbstract extends ContentAbstract implements BlockIns
             BlockInstanceProperties::BLOCK_NAME
         );
 
+        $this->id = Param::get(
+            $properties,
+            BlockInstanceProperties::ID
+        );
+
         $this->config = Param::get(
             $properties,
             BlockInstanceProperties::CONFIG,

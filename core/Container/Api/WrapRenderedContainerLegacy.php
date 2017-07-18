@@ -21,8 +21,8 @@ class WrapRenderedContainerLegacy implements WrapRenderedContainer
         return '<div class="container-fluid rcmContainer" '
         . 'data-containerid="' . $container->getId() . '" '
         . ($isPageContainer ? 'data-ispagecontainer="Y" ' : '')
-//            . 'data-containerrevision="????" '
-//            . 'id="' . $container->getUid()
+        // . 'data-containerrevision="????" '
+        // . 'id="' . $container->getUid()
         . '">'
         . $innerHtml
         . '</div>';

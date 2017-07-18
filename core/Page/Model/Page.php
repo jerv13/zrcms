@@ -9,7 +9,13 @@ use Zrcms\Core\Container\Model\Container;
  */
 interface Page extends Container
 {
+    /**
+     * @return string
+     */
     public function getTitle(): string;
 
+    /**
+     * @return string
+     */
     public function getKeywords(): string;
 }

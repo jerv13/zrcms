@@ -10,7 +10,7 @@ use Zrcms\Content\Model\Content;
 interface Block extends Content
 {
     /**
-     * Unique name
+     * <identifier>
      *
      * @return string
      */

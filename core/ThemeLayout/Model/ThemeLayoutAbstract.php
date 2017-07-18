@@ -1,6 +1,6 @@
 <?php
 
-namespace Zrcms\Core\Site\Model;
+namespace Zrcms\Core\ThemeLayout\Model;
 
 use Zrcms\Content\Model\ContentAbstract;
 use Zrcms\Param\Param;
@@ -8,21 +8,11 @@ use Zrcms\Param\Param;
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-abstract class SiteAbstract extends ContentAbstract implements Site
+class ThemeLayoutAbstract extends ContentAbstract implements ThemeLayout
 {
-    /**
-     * Theme name
-     *
-     * @var string
-     */
     protected $themeName;
-
-    /**
-     * Locale used for translations and formating
-     *
-     * @var string
-     */
-    protected $locale;
+    protected $name;
+    protected $html;
 
     /**
      * @param array  $properties
@@ -34,36 +24,28 @@ abstract class SiteAbstract extends ContentAbstract implements Site
         string $createdByUserId,
         string $createdReason
     ) {
-        $this->id = Param::getRequired(
-            $properties,
-            SiteProperties::HOST
-        );
-
         $this->themeName = Param::getRequired(
             $properties,
-            SiteProperties::THEME_NAME
+            ThemeLayoutProperties::THEME_NAME
         );
 
-        $this->locale = Param::getRequired(
+        $this->name = Param::getRequired(
             $properties,
-            SiteProperties::LOCALE
+            ThemeLayoutProperties::NAME
         );
+
+        $this->html = Param::getRequired(
+            $properties,
+            ThemeLayoutProperties::HTML
+        );
+
+        $this->id = $this->themeName . '/' . $this->name;
 
         parent::__construct(
             $properties,
             $createdByUserId,
             $createdReason
         );
-    }
-
-    /**
-     * <identifier>
-     *
-     * @return string
-     */
-    public function getHost(): string
-    {
-        return $this->getId();
     }
 
     /**
@@ -77,8 +59,16 @@ abstract class SiteAbstract extends ContentAbstract implements Site
     /**
      * @return string
      */
-    public function getLocale(): string
+    public function getName(): string
     {
-        return $this->locale;
+        return $this->name;
+    }
+
+    /**
+     * @return string
+     */
+    public function getHtml(): string
+    {
+        return $this->html;
     }
 }

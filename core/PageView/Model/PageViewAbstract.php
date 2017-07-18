@@ -3,7 +3,7 @@
 namespace Zrcms\Core\PageView\Model;
 
 use Zrcms\Content\Model\ContentAbstract;
-use Zrcms\Core\Theme\Model\LayoutCmsResource;
+use Zrcms\Core\ThemeLayout\Model\ThemeLayoutCmsResource;
 use Zrcms\Core\Page\Model\PageCmsResource;
 use Zrcms\Core\Site\Model\SiteCmsResource;
 use Zrcms\Core\Theme\Model\Theme;
@@ -22,7 +22,7 @@ abstract class PageViewAbstract extends ContentAbstract implements PageView
 
     protected $theme;
 
-    protected $layoutCmsResource;
+    protected $themeLayoutCmsResource;
 
     protected $layoutRenderData = [];
 
@@ -51,9 +51,9 @@ abstract class PageViewAbstract extends ContentAbstract implements PageView
             PageViewProperties::THEME
         );
 
-        $this->layoutCmsResource = Param::getRequired(
+        $this->themeLayoutCmsResource = Param::getRequired(
             $properties,
-            PageViewProperties::LAYOUT_CMS_RESOURCE
+            PageViewProperties::THEME_LAYOUT_CMS_RESOURCE
         );
 
         $this->layoutRenderData = Param::getRequired(
@@ -93,11 +93,11 @@ abstract class PageViewAbstract extends ContentAbstract implements PageView
     }
 
     /**
-     * @return LayoutCmsResource
+     * @return ThemeLayoutCmsResource
      */
-    public function getLayoutCmsResource(): LayoutCmsResource
+    public function getThemeLayoutCmsResource(): ThemeLayoutCmsResource
     {
-        return $this->layoutCmsResource;
+        return $this->themeLayoutCmsResource;
     }
 
     /**

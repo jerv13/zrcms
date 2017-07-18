@@ -3,6 +3,7 @@
 namespace Zrcms\CoreConfigDataSource\Block\Api;
 
 use Zrcms\Cache\Service\Cache;
+use Zrcms\Core\Block\Model\BlockBasic;
 use Zrcms\CoreConfigDataSource\Block\Model\BlockConfigFields;
 
 /**
@@ -105,12 +106,6 @@ class GetBlocks
             );
 
             $configs[] = new BlockBasic(
-                $config[BlockConfigFields::CONFIG],
-                $config[BlockConfigFields::DIRECTORY],
-                $config[BlockConfigFields::RENDERER],
-                $config[BlockConfigFields::CACHE],
-                $config[BlockConfigFields::FIELDS],
-                $config[BlockConfigFields::CONFIG],
                 $config,
                 $config[BlockConfigFields::CREATED_BY_USER_ID],
                 $config[BlockConfigFields::CREATED_REASON]

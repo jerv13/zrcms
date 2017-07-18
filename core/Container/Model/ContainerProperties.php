@@ -7,6 +7,7 @@ namespace Zrcms\Core\Container\Model;
  */
 class ContainerProperties
 {
+    const PATH = 'path';
     const BLOCK_INSTANCES = 'blockInstances';
 
     const RENDERER = 'renderer';

@@ -4,6 +4,9 @@ namespace Zrcms\Core\BlockInstance\Api;
 
 use Zrcms\Core\BlockInstance\Model\BlockInstance;
 
+/**
+ *
+ */
 interface WrapRenderedBlockInstance
 {
     /**

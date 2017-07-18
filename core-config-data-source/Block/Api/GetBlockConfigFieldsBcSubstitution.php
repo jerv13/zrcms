@@ -20,8 +20,8 @@ class GetBlockConfigFieldsBcSubstitution
             'display' => BlockConfigFields::LABEL,
             'tooltip' => BlockConfigFields::DESCRIPTION,
             'icon' => BlockConfigFields::ICON,
-            'canCache' => BlockConfigFields::CACHE,
-            'defaultInstanceConfig' => BlockConfigFields::CONFIG,
+            'canCache' => BlockConfigFields::CACHEABLE,
+            'defaultInstanceConfig' => BlockConfigFields::DEFAULT_CONFIG,
         ];
 
     /**

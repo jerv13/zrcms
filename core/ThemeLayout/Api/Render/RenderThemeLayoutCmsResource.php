@@ -1,18 +1,18 @@
 <?php
 
-namespace Zrcms\Core\Theme\Api\Render;
+namespace Zrcms\Core\ThemeLayout\Api\Render;
 
 use Zrcms\Content\Api\Render\RenderCmsResource;
 use Zrcms\Content\Model\CmsResource;
-use Zrcms\Core\Theme\Model\LayoutCmsResource;
+use Zrcms\Core\ThemeLayout\Model\ThemeLayoutCmsResource;
 
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-interface RenderLayoutCmsResource extends RenderCmsResource
+interface RenderThemeLayoutCmsResource extends RenderCmsResource
 {
     /**
-     * @param LayoutCmsResource|CmsResource $layoutCmsResource
+     * @param ThemeLayoutCmsResource|CmsResource $layoutCmsResource
      * @param array                         $renderData ['templateTag' => '{html}']
      * @param array                         $options
      *

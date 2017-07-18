@@ -1,6 +1,6 @@
 <?php
 
-namespace Zrcms\Core\Theme\Model;
+namespace Zrcms\Core\ThemeLayout\Model;
 
 use Zrcms\ContentResourceUri\Model\CmsUri;
 use Zrcms\ContentResourceUri\Model\CmsUriBasic;
@@ -8,7 +8,7 @@ use Zrcms\ContentResourceUri\Model\CmsUriBasic;
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class CmsUriTheme extends CmsUriBasic implements CmsUri
+class CmsUriThemeLayout extends CmsUriBasic implements CmsUri
 {
     /**
      * @return string
@@ -31,8 +31,8 @@ class CmsUriTheme extends CmsUriBasic implements CmsUri
 
         $parts = explode('/', $path);
 
-        if(!isset($parts[1])) {
-            return LayoutDefault::NAME;
+        if (!isset($parts[1])) {
+            return ThemeLayout::DEFAULT_NAME;
         }
 
         return $parts[1];

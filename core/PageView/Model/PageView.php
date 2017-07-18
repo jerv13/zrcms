@@ -3,7 +3,7 @@
 namespace Zrcms\Core\PageView\Model;
 
 use Zrcms\Content\Model\Content;
-use Zrcms\Core\Theme\Model\LayoutCmsResource;
+use Zrcms\Core\ThemeLayout\Model\ThemeLayoutCmsResource;
 use Zrcms\Core\Page\Model\PageCmsResource;
 use Zrcms\Core\Site\Model\SiteCmsResource;
 use Zrcms\Core\Theme\Model\Theme;
@@ -31,9 +31,9 @@ interface PageView extends Content
     public function getTheme(): Theme;
 
     /**
-     * @return LayoutCmsResource
+     * @return ThemeLayoutCmsResource
      */
-    public function getLayoutCmsResource(): LayoutCmsResource;
+    public function getThemeLayoutCmsResource(): ThemeLayoutCmsResource;
 
     /**
      * @return array

@@ -17,6 +17,5 @@ interface PageProperties
     const RENDERER = 'render';
     const RENDER_TAG = '[page]';
 
-
     const PRE_RENDERED_HTML = 'html';
 }

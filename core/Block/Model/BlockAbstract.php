@@ -52,7 +52,7 @@ abstract class BlockAbstract extends ContentAbstract implements Block
 
         $this->defaultConfig = Param::get(
             $properties,
-            BlockProperties::CONFIG,
+            BlockProperties::DEFAULT_CONFIG,
             []
         );
 
@@ -70,7 +70,7 @@ abstract class BlockAbstract extends ContentAbstract implements Block
     }
 
     /**
-     * Unique name ID
+     * <identifier>
      *
      * @return string
      */

@@ -23,9 +23,9 @@ class GetBlockConfigFields
             BlockConfigFields::RENDERER => null,
             BlockConfigFields::DATA_PROVIDER => null,
             BlockConfigFields::ICON => null,
-            BlockConfigFields::CACHE => false,
+            BlockConfigFields::CACHEABLE => false,
             BlockConfigFields::FIELDS => [],
-            BlockConfigFields::CONFIG => [],
+            BlockConfigFields::DEFAULT_CONFIG => [],
             BlockConfigFields::CREATED_BY_USER_ID => Trackable::UNKNOWN_USER_ID,
             BlockConfigFields::CREATED_REASON => Trackable::UNKNOWN_REASON
         ];

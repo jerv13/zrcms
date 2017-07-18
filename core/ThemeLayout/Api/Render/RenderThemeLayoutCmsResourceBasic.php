@@ -1,19 +1,17 @@
 <?php
 
-namespace Zrcms\Core\Theme\Api\Render;
+namespace Zrcms\Core\ThemeLayout\Api\Render;
 
 use Psr\Container\ContainerInterface;
-use Psr\Http\Message\ServerRequestInterface;
 use Zrcms\Content\Api\Render\RenderCmsResource;
-use Zrcms\Content\Api\Render\RenderContent;
-use Zrcms\Content\Model\Content;
-use Zrcms\Core\Theme\Model\Layout;
-use Zrcms\Core\Theme\Model\LayoutProperties;
+use Zrcms\Content\Model\CmsResource;
+use Zrcms\Core\ThemeLayout\Model\ThemeLayoutCmsResource;
+use Zrcms\Core\ThemeLayout\Model\ThemeLayoutProperties;
 
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class RenderLayoutBasic implements RenderLayout
+class RenderThemeLayoutCmsResourceBasic implements RenderThemeLayoutCmsResource
 {
     /**
      * @var ContainerInterface
@@ -31,38 +29,40 @@ class RenderLayoutBasic implements RenderLayout
      */
     public function __construct(
         $serviceContainer,
-        string $defaultRenderServiceName = RenderLayoutMustache::class
+        string $defaultRenderServiceName = RenderThemeLayoutCmsResourceMustache::class
     ) {
         $this->serviceContainer = $serviceContainer;
         $this->defaultRenderServiceName = $defaultRenderServiceName;
     }
 
     /**
-     * @param Layout|Content         $layout
-     * @param ServerRequestInterface $request
-     * @param array                  $options
+     * @param ThemeLayoutCmsResource|CmsResource $layoutCmsResource
+     * @param array                              $renderData ['templateTag' => '{html}']
+     * @param array                              $options
      *
      * @return string
      */
     public function __invoke(
-        Content $layout,
-        ServerRequestInterface $request,
+        CmsResource $layoutCmsResource,
+        array $renderData,
         array $options = []
     ): string
     {
+        $layout = $layoutCmsResource->getContent();
+
         $renderServiceName = $layout->getProperty(
-            LayoutProperties::RENDER,
+            ThemeLayoutProperties::RENDER,
             $this->defaultRenderServiceName
         );
 
-        /** @var RenderContent $render */
+        /** @var RenderCmsResource $render */
         $render = $this->serviceContainer->get(
             $renderServiceName
         );
 
         return $render->__invoke(
-            $layout,
-            $request
+            $layoutCmsResource,
+            $renderData
         );
     }
 }

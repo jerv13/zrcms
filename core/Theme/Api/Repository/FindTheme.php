@@ -10,8 +10,8 @@ use Zrcms\Core\Theme\Model\Theme;
 interface FindTheme
 {
     /**
-     * @param string   $name
-     * @param array $options
+     * @param string $name
+     * @param array  $options
      *
      * @return Theme|null
      */

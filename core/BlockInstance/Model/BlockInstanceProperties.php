@@ -8,6 +8,7 @@ namespace Zrcms\Core\BlockInstance\Model;
 interface BlockInstanceProperties
 {
     // required
+    const ID = 'id';
     const BLOCK_NAME = 'blockName';
     const CONFIG = 'config';
 

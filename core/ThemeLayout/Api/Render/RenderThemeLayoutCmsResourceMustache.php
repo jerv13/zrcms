@@ -1,22 +1,22 @@
 <?php
 
-namespace Zrcms\Core\Theme\Api\Render;
+namespace Zrcms\Core\ThemeLayout\Api\Render;
 
 use Phly\Mustache\Mustache;
 use Zrcms\Content\Model\CmsResource;
-use Zrcms\Core\Theme\Model\Layout;
-use Zrcms\Core\Theme\Model\LayoutCmsResource;
+use Zrcms\Core\ThemeLayout\Model\ThemeLayout;
+use Zrcms\Core\ThemeLayout\Model\ThemeLayoutCmsResource;
 use Zrcms\Mustache\StringResolver;
 
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class RenderLayoutCmsResourceMustache implements RenderLayoutCmsResource
+class RenderThemeLayoutCmsResourceMustache implements RenderThemeLayoutCmsResource
 {
     /**
-     * @param LayoutCmsResource|CmsResource $layoutCmsResource
-     * @param array                         $renderData ['templateTag' => '{html}']
-     * @param array                         $options
+     * @param ThemeLayoutCmsResource|CmsResource $layoutCmsResource
+     * @param array                              $renderData ['templateTag' => '{html}']
+     * @param array                              $options
      *
      * @return string
      */
@@ -26,7 +26,7 @@ class RenderLayoutCmsResourceMustache implements RenderLayoutCmsResource
         array $options = []
     ): string
     {
-        /** @var Layout $layout */
+        /** @var ThemeLayout $layout */
         $layout = $layoutCmsResource->getContent();
 
         $resolver = new StringResolver();

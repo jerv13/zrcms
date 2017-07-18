@@ -7,5 +7,8 @@ namespace Zrcms\Core\Theme\Model;
  */
 interface ThemeProperties
 {
+    const NAME = 'name';
+    const DIRECTORY = 'directory';
+    const LAYOUTS = 'layouts';
     const DEFAULT_LAYOUT = 'defaultLayout';
 }

@@ -4,9 +4,8 @@ namespace Zrcms\Core\PageView\Api\Render;
 
 use Psr\Http\Message\ServerRequestInterface;
 use Zrcms\Content\Model\Content;
-use Zrcms\Core\Theme\Api\Render\RenderLayout;
-use Zrcms\Core\Theme\Api\Render\RenderLayoutCmsResource;
 use Zrcms\Core\PageView\Model\PageView;
+use Zrcms\Core\ThemeLayout\Api\Render\RenderThemeLayoutCmsResource;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -18,12 +17,12 @@ class RenderPageViewBasic implements RenderPageView
     protected $renderLayoutCmsResource;
 
     /**
-     * @param GetPageViewRenderData   $getPageViewRenderData
-     * @param RenderLayoutCmsResource $renderLayoutCmsResource
+     * @param GetPageViewRenderData        $getPageViewRenderData
+     * @param RenderThemeLayoutCmsResource $renderLayoutCmsResource
      */
     public function __construct(
         GetPageViewRenderData $getPageViewRenderData,
-        RenderLayoutCmsResource $renderLayoutCmsResource
+        RenderThemeLayoutCmsResource $renderLayoutCmsResource
     ) {
         $this->getPageViewRenderData = $getPageViewRenderData;
         $this->renderLayoutCmsResource = $renderLayoutCmsResource;
@@ -49,7 +48,7 @@ class RenderPageViewBasic implements RenderPageView
         );
 
         return $this->renderLayoutCmsResource->__invoke(
-            $pageView->getLayoutCmsResource(),
+            $pageView->getThemeLayoutCmsResource(),
             $renderData
         );
     }

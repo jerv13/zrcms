@@ -5,10 +5,10 @@ namespace Zrcms\Core\PageView\Middleware;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Zrcms\Core\Container\Api\BuildContainerUri;
-use Zrcms\Core\Container\Api\BuildLayoutUri;
-use Zrcms\Core\Theme\Api\Repository\FindLayoutCmsResource;
+use Zrcms\Core\Container\Api\BuildThemeLayoutUri;
 use Zrcms\Core\Page\Api\BuildPageUri;
 use Zrcms\Core\Page\Api\Repository\FindPageCmsResource;
+use Zrcms\Core\Page\Model\Page;
 use Zrcms\Core\Page\Model\PageBasic;
 use Zrcms\Core\Page\Model\PageProperties;
 use Zrcms\Core\PageView\Api\Render\RenderPageView;
@@ -18,6 +18,8 @@ use Zrcms\Core\Site\Api\Repository\FindSiteCmsResource;
 use Zrcms\Core\Site\Model\Site;
 use Zrcms\Core\Site\Model\SiteProperties;
 use Zrcms\Core\Theme\Api\Repository\FindTheme;
+use Zrcms\Core\Theme\Model\Layout;
+use Zrcms\Core\ThemeLayout\Api\Repository\FindThemeLayoutCmsResource;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -30,19 +32,19 @@ class PageViewController
         FindSiteCmsResource $findSiteCmsResource,
         FindTheme $findTheme,
         FindPageCmsResource $findPageCmsResource,
-        FindLayoutCmsResource $findLayoutCmsResource,
+        FindThemeLayoutCmsResource $findThemeLayoutCmsResource,
         BuildPageUri $buildPageUri,
         BuildContainerUri $buildContainerUri,
-        BuildLayoutUri $buildLayoutUri,
+        BuildThemeLayoutUri $buildThemeLayoutUri,
         RenderPageView $renderPageView
     ) {
         $this->findSiteCmsResource = $findSiteCmsResource;
         $this->findTheme = $findTheme;
         $this->findPageCmsResource = $findPageCmsResource;
-        $this->findLayoutCmsResource = $findLayoutCmsResource;
+        $this->findThemeLayoutCmsResource = $findThemeLayoutCmsResource;
         $this->buildPageUri = $buildPageUri;
         $this->buildContainerUri = $buildContainerUri;
-        $this->buildLayoutUri = $buildLayoutUri
+        $this->buildThemeLayoutUri = $buildThemeLayoutUri
         $this->renderPageView = $renderPageView;
     }
 
@@ -67,7 +69,7 @@ class PageViewController
         );
 
         if (empty($siteCmsResource)) {
-            return $response->withStatus(404);
+            return $response->withStatus(404, 'SITE NOT FOUND');
         }
 
         /** @var Site $site */
@@ -83,31 +85,36 @@ class PageViewController
         );
 
         if (empty($pageCmsResource)) {
-            return $response->withStatus(404);
+            return $response->withStatus(404, 'PAGE NOT FOUND');
         }
 
+        /** @var Page $page */
         $page = $pageCmsResource->getContent();
 
         $theme = $this->findTheme->__invoke(
-            $site->getTheme()
+            $site->getThemeName()
         );
 
         if (empty($theme)) {
             // @todo throw
-            return $response->withStatus(404);
+            return $response->withStatus(404, 'SITE THEME NOT FOUND');
         }
 
         $layoutName = $page->getProperty(
             PageProperties::LAYOUT,
             $site->getProperty(
-                SiteProperties::LAYOUT
+                SiteProperties::LAYOUT,
+                Layout::DEFAULT_NAME
             )
         );
 
-        $this->buildLayoutUri->__invoke(
+        $themeLayoutUri = $this->buildThemeLayoutUri->__invoke(
             $site->getId(),
+            $layoutName,
             $layoutName
         );
+
+        $themeLayoutUri
 
         $layout = $theme->getLayout(
             $layoutName,

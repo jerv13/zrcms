@@ -52,8 +52,8 @@ class PrepareBlockConfig
 
         $new = array_merge($blockConfigBc, $new);
 
-        if (empty($new[BlockConfigFields::CONFIG])) {
-            $new[BlockConfigFields::CONFIG] = $new[BlockConfigFields::FIELDS];
+        if (empty($new[BlockConfigFields::DEFAULT_CONFIG])) {
+            $new[BlockConfigFields::DEFAULT_CONFIG] = $new[BlockConfigFields::FIELDS];
         }
 
         return $new;

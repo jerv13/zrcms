@@ -15,7 +15,6 @@ use Zrcms\Core\Container\Model\Container;
 use Zrcms\Core\Container\Model\ContainerProperties;
 use Zrcms\Core\Page\Api\BuildPageUri;
 use Zrcms\Core\PageView\Model\PageView;
-use Zrcms\Core\PageView\Model\PageViewProperties;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -123,6 +122,7 @@ class GetPageViewRenderDataContainers implements GetPageViewRenderData
     /**
      * @todo NOTE: this will only work with tags like container.{path}
      * @todo Not with container.something.{path}
+     *
      * @param string $layoutTag
      *
      * @return bool

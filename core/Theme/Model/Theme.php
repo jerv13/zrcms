@@ -2,12 +2,12 @@
 
 namespace Zrcms\Core\Theme\Model;
 
-use Zrcms\Core\Theme\Model\Layout;
+use Zrcms\Content\Model\Content;
 
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-interface Theme
+interface Theme extends Content
 {
     /**
      * Unique Name
@@ -36,23 +36,22 @@ interface Theme
      *
      * @return Layout|null
      */
-    public function getLayout(string $name, Layout $default = null);
+    public function getLayout(
+        string $name,
+        Layout $default = null
+    );
+
+    /**
+     * @param string $name
+     *
+     * @return bool
+     */
+    public function hasLayout(
+        string $name
+    ): bool;
 
     /**
      * @return Layout
      */
     public function getDefaultLayout();
-
-    /**
-     * @return array
-     */
-    public function getProperties(): array;
-
-    /**
-     * @param string $name
-     * @param null   $default
-     *
-     * @return mixed
-     */
-    public function getProperty(string $name, $default = null);
 }
