@@ -1,6 +1,6 @@
 <?php
 
-namespace Zrcms\Core\Cache\Service;
+namespace Zrcms\Cache\Service;
 
 use Psr\SimpleCache\CacheInterface;
 

@@ -1,13 +1,13 @@
 <?php
 
-namespace Zrcms\Core\Cache\Api;
+namespace Zrcms\Cache\Api;
 
 use Psr\SimpleCache\CacheInterface;
 
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class ClearCacheBasic implements ClearCache
+class GetCacheValuesBasic implements GetCacheValues
 {
     /**
      * @var CacheInterface
@@ -23,8 +23,14 @@ class ClearCacheBasic implements ClearCache
         $this->cache = $cache;
     }
 
-    public function __invoke(): bool
+    /**
+     * @param array $keys
+     * @param null  $default
+     *
+     * @return array
+     */
+    public function __invoke($keys, $default = null): array
     {
-        return $this->cache->clear();
+        return $this->cache->getMultiple($keys, $default);
     }
 }

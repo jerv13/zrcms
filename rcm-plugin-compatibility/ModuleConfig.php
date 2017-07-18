@@ -8,7 +8,7 @@ use Zrcms\RcmPluginCompatibility\Block\Api\FindBlockRcmLegacy;
 use Zrcms\RcmPluginCompatibility\Block\Api\FindBlocksByRcmLegacy;
 use Zrcms\RcmPluginCompatibility\Block\Internal\ConfigFields;
 use Zrcms\RcmPluginCompatibility\Block\Internal\ConfigRepository;
-use Zrcms\Core\Cache\Service;
+use Zrcms\Cache\Service;
 
 class ModuleConfig
 {
@@ -36,7 +36,7 @@ class ModuleConfig
                     ConfigRepository::class => [
                         'arguments' => [
                             'config',
-                            Zrcms\Core\Cache\Service::class,
+                            Zrcms\Cache\Service::class,
                             ConfigFields::class,
                             FindBlocksBy::class
                         ]

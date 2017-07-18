@@ -1,13 +1,13 @@
 <?php
 
-namespace Zrcms\Core\Cache\Api;
+namespace Zrcms\Cache\Api;
 
 use Psr\SimpleCache\CacheInterface;
 
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class DeleteCacheValueBasic implements DeleteCacheValue
+class SetCacheValuesBasic implements SetCacheValues
 {
     /**
      * @var CacheInterface
@@ -24,12 +24,13 @@ class DeleteCacheValueBasic implements DeleteCacheValue
     }
 
     /**
-     * @param string $key
+     * @param array $values
+     * @param null  $ttl
      *
      * @return bool
      */
-    public function __invoke($key): bool
+    public function __invoke(array $values, $ttl = null): bool
     {
-        return $this->cache->delete($key);
+        return $this->cache->setMultiple($values, $ttl);
     }
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace Zrcms\Core\Cache\Service;
+namespace Zrcms\Cache\Service;
 
 /**
  * @todo   Implement valid key checks and TTL

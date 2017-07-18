@@ -1,6 +1,6 @@
 <?php
 
-namespace Zrcms\Core\Cache\Api;
+namespace Zrcms\Cache\Api;
 
 /**
  * @author James Jervis - https://github.com/jerv13
