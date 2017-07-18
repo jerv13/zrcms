@@ -3,8 +3,8 @@
 namespace Zrcms\Core\Container\Api\Repository;
 
 use Psr\Container\ContainerInterface;
-use Zrcms\Core\ThemeLayout\Model\Layout;
-use Zrcms\Core\ThemeLayout\Model\LayoutProperties;
+use Zrcms\Core\Theme\Model\Layout;
+use Zrcms\Core\Theme\Model\LayoutProperties;
 
 /**
  * @author James Jervis - https://github.com/jerv13

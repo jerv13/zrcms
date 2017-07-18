@@ -19,6 +19,9 @@ class CacheArray implements Cache
     protected $values = [];
 
     /**
+     * @param string $key
+     * @param null   $default
+     *
      * @return mixed
      */
     public function get($key, $default = null)

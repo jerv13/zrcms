@@ -31,7 +31,7 @@ class GetPageApplicationRenderData implements GetPageRenderData
         }
 
         return [
-            PageProperties::RENDER_NAMESPACE => $pagePreRendered->getHtml()
+            PageProperties::RENDER_TAG => $pagePreRendered->getHtml()
         ];
     }
 }

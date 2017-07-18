@@ -47,13 +47,13 @@ class GetBlockInstanceRenderDataBasic implements GetBlockInstanceRenderData
         );
 
         return [
-            BlockInstanceProperties::RENDER_ID
+            BlockInstanceProperties::RENDER_DATA_ID
             => $blockInstance->getId(),
 
-            BlockInstanceProperties::RENDER_CONFIG
+            BlockInstanceProperties::RENDER_DATA_CONFIG
             => $config,
 
-            BlockInstanceProperties::RENDER_DATA
+            BlockInstanceProperties::RENDER_DATA_DATA
             => $this->getBlockInstanceData->__invoke(
                 $blockInstance,
                 $request

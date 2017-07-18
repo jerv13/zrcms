@@ -15,8 +15,19 @@ use Zrcms\Core\BlockInstance\Model\BlockInstance;
  */
 class RenderBlockInstanceBasic implements RenderBlockInstance
 {
+    /**
+     * @var FindBlock
+     */
     protected $findBlock;
+
+    /**
+     * @var ContainerInterface
+     */
     protected $serviceContainer;
+
+    /**
+     * @var string
+     */
     protected $defaultRenderServiceName;
 
     /**
@@ -58,11 +69,11 @@ class RenderBlockInstanceBasic implements RenderBlockInstance
         );
 
         /** @var RenderBlockInstance $render */
-        $renderContent = $this->serviceContainer->get(
+        $renderBlockInstance = $this->serviceContainer->get(
             $renderServiceName
         );
 
-        return $renderContent->__invoke(
+        return $renderBlockInstance->__invoke(
             $blockInstance,
             $request,
             $options

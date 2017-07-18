@@ -91,7 +91,7 @@ class GetPageViewRenderDataContainers implements GetPageViewRenderData
     {
         $pageViewRenderData = [];
 
-        $containerNs = ContainerProperties::RENDER_NAMESPACE;
+        $containerNs = ContainerProperties::RENDER_TAG;
 
         $pageViewRenderData[$containerNs] = $this->getContainersRenderData(
             $pageView,
@@ -129,7 +129,7 @@ class GetPageViewRenderDataContainers implements GetPageViewRenderData
      */
     protected function getPath(string $layoutTag)
     {
-        $hasTag = (0 === strpos($layoutTag, ContainerProperties::RENDER_NAMESPACE));
+        $hasTag = (0 === strpos($layoutTag, ContainerProperties::RENDER_TAG));
 
         if (!$hasTag) {
             return null;
@@ -208,7 +208,7 @@ class GetPageViewRenderDataContainers implements GetPageViewRenderData
         ServerRequestInterface $request
     ) {
         $renderContainerServiceName = $container->getProperty(
-            ContainerProperties::RENDER,
+            ContainerProperties::RENDERER,
             RenderContainerCmsResource::class
         );
 

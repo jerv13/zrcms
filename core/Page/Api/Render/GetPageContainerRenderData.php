@@ -41,7 +41,7 @@ class GetPageContainerRenderData implements GetPageRenderData
     ): array
     {
         return [
-            PageProperties::RENDER_NAMESPACE => $this->getContainerRenderData->__invoke(
+            PageProperties::RENDER_TAG => $this->getContainerRenderData->__invoke(
                 $page,
                 $request
             )

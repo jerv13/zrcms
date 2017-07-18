@@ -15,8 +15,14 @@ use Zrcms\CoreConfigDataSource\Block\Api\FindBlock;
  */
 class RenderBlockInstanceMustache implements RenderBlockInstance
 {
+    /**
+     * @var FindBlock
+     */
     protected $findBlock;
 
+    /**
+     * @var GetBlockInstanceRenderData
+     */
     protected $getBlockInstanceRenderData;
 
     /**

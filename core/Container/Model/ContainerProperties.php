@@ -9,8 +9,8 @@ class ContainerProperties
 {
     const BLOCK_INSTANCES = 'blockInstances';
 
-    const RENDER = 'renderer';
-    const RENDER_NAMESPACE = 'container';
+    const RENDERER = 'renderer';
+    const RENDER_TAG = 'container';
 
     const URI_NAMESPACE = 'container';
 }

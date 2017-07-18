@@ -33,26 +33,18 @@ class GetContainerRenderDataBasic implements GetContainerRenderData
     protected $wrapRenderedContainer;
 
     /**
-     * @var GetBlockInstanceRenderData
-     */
-    protected $getBlockInstanceRenderData;
-
-    /**
      * @param RenderBlockInstance        $renderBlockInstance
      * @param WrapRenderedBlockInstance  $wrapRenderedBlockInstance
      * @param WrapRenderedContainer      $wrapRenderedContainer
-     * @param GetBlockInstanceRenderData $getBlockInstanceRenderData
      */
     public function __construct(
         RenderBlockInstance $renderBlockInstance,
         WrapRenderedBlockInstance $wrapRenderedBlockInstance,
-        WrapRenderedContainer $wrapRenderedContainer,
-        GetBlockInstanceRenderData $getBlockInstanceRenderData
+        WrapRenderedContainer $wrapRenderedContainer
     ) {
         $this->renderBlockInstance = $renderBlockInstance;
         $this->wrapRenderedBlockInstance = $wrapRenderedBlockInstance;
         $this->wrapRenderedContainer = $wrapRenderedContainer;
-        $this->getBlockInstanceRenderData = $getBlockInstanceRenderData;
     }
 
     /**

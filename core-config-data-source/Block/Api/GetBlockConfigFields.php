@@ -2,8 +2,8 @@
 
 namespace Zrcms\CoreConfigDataSource\Block\Api;
 
+use Zrcms\Content\Model\Trackable;
 use Zrcms\CoreConfigDataSource\Block\Model\BlockConfigFields;
-use Zrcms\Tracking\Model\Trackable;
 
 /**
  * @author James Jervis - https://github.com/jerv13

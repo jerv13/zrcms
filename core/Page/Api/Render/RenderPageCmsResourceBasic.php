@@ -51,7 +51,7 @@ class RenderPageCmsResourceBasic implements RenderPageCmsResource
         $page = $pageCmsResource->getContent();
 
         $renderPageCmsResourceServiceName = $page->getProperty(
-            PageProperties::RENDER,
+            PageProperties::RENDERER,
             $this->defaultRenderPageCmsResourceServiceName
         );
 

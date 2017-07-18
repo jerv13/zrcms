@@ -30,17 +30,18 @@ Allows for virtually arbitrary properties AKA easy to extend functionality
 
 zrcms:site:{{siteId}}:{{resource}}/{{path}}
 
-zrcms:site:1:block/block-name // if sites had blocks
+zrcms:site:1:block/{block-name}
 
-zrcms:site:1:block-instance/block-name
+zrcms:site:1:block-instance/{block-instance-id}
 
-zrcms:site:1:container/container-name
-zrcms:site:1:page/page-name
-zrcms:site:1:layout/layout-name
+zrcms:site:1:container/{container-path}
 
-// Maybe if sites had themes
-zrcms:site:1:theme/theme-name
-zrcms:theme:7:layout/layout-name
+zrcms:site:1:page/{page-path}
+
+zrcms:site:1:page-app/{page-path}
+
+zrcms:site:1:theme/{theme-name}{/layout-name}
+
 
 ## Issues with content tracking and URIs ##
 
@@ -63,69 +64,7 @@ zrcms:theme:7:layout/layout-name
     zrcms:site:1:theme:7/theme-name
     zrcms:theme:7:layout:8/layout-name
 
-There is an issue finding the actual creator of content
+## @todo ##
 
-@see page/c
-
-CREATE: page/a (content:1:creator:11)
-CREATE: page/b (content:2:creator:22)
-CREATE: page/c (content:3:creator:33)
-
-Only applies to History and Draft
-
-UPDATE: page/a (content:1:creator:11) -> page/d (content:1:creator:11) (change)
-UPDATE: page/b (content:2:creator:22) -> page/a (content:2:creator:22) (change)
-UPDATE: page/a (content:2:creator:22) -> page/b (content:2:creator:22) (change)
-UPDATE: page/c (content:3:creator:33) -> page/a (content:3:creator:33) (change)
-UPDATE: page/a (content:3:creator:33) -> page/a (content:3:creator:33) (delete)
-UPDATE: page/a (content:3:creator:33) -> page/a (content:3:creator:33) (restore)
-UPDATE: page/a (content:3:creator:33) -> page/c (content:3:creator:33) (change)
-
-
-Result:
-
-URI:    page/a (content:3:creator:33) 
-SOURCE: page/c 
-ACTUAL_SOURCE_CONTENT:    (content:3:creator:33) 
-PERCEIVED_SOURCE_CONTENT: (content:3:creator:33) 
-
-URI:    page/b (content:2:creator:22) 
-SOURCE: page/a 
-ACTUAL_SOURCE_CONTENT:    (content:2:creator:22)
-PERCEIVED_SOURCE_CONTENT: (content:2:creator:22) 
-
-URI:    page/c (content:2:creator:22) 
-SOURCE: page/a 
-ACTUAL_SOURCE_CONTENT:    (content:2:creator:22)
-PERCEIVED_SOURCE_CONTENT: (content:3:creator:33)
-
-URI:    page/d (content:1:creator:11) 
-SOURCE: page/a 
-ACTUAL_SOURCE_CONTENT:    (content:1:creator:11)
-PERCEIVED_SOURCE_CONTENT: (content:1:creator:11)
-
-
-
-/**
- * @var string
- *
- * @ORM\Column(type="string")
- */
-protected $sourceUri;
-
-
-parent::__construct(
-    $uri,
-    $sourceUri,
-    $properties,
-    $createdByUserId,
-    $createdReason
-);
-
-## 
-
-    <?= $this->headTitle($this->metaTitle) ?>
-    <?= $this->headMeta() ?>
-    <?= $this->headLink() ?>
-    <?= $this->rcmGoogleAnalytics(); ?>
-    <?= $this->headScript() ?>
+- there is a disconnect in container rendering
+- rendering pattern seems off - why 2 ways to render (RenderCmsResource and RenderContent)

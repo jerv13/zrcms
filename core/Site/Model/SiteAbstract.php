@@ -20,16 +20,11 @@ abstract class SiteAbstract extends ContentAbstract implements Site
     protected $host;
 
     /**
-     * @var string
-     */
-    protected $sourceHost;
-
-    /**
      * Theme name
      *
      * @var string
      */
-    protected $theme;
+    protected $themeName;
 
     /**
      * Locale used for translations and formating
@@ -48,14 +43,19 @@ abstract class SiteAbstract extends ContentAbstract implements Site
         string $createdByUserId,
         string $createdReason
     ) {
+        $this->id = Param::getRequired(
+            $properties,
+            SiteProperties::HOST
+        );
+
         $this->host = Param::getRequired(
             $properties,
             SiteProperties::HOST
         );
 
-        $this->theme = Param::getRequired(
+        $this->themeName = Param::getRequired(
             $properties,
-            SiteProperties::THEME
+            SiteProperties::THEME_NAME
         );
         ;
         $this->locale = Param::getRequired(
@@ -81,9 +81,9 @@ abstract class SiteAbstract extends ContentAbstract implements Site
     /**
      * @return string
      */
-    public function getTheme(): string
+    public function getThemeName(): string
     {
-        return $this->theme;
+        return $this->themeName;
     }
 
     /**

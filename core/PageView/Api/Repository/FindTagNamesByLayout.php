@@ -2,7 +2,7 @@
 
 namespace Zrcms\Core\Container\Api\Repository;
 
-use Zrcms\Core\ThemeLayout\Model\Layout;
+use Zrcms\Core\Theme\Model\Layout;
 
 /**
  * @author James Jervis - https://github.com/jerv13

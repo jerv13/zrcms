@@ -98,4 +98,12 @@ abstract class BlockAbstract extends ContentAbstract implements Block
     {
         return $this->defaultConfig;
     }
+
+    /**
+     * @return bool
+     */
+    public function isCacheable(): bool
+    {
+        return $this->cacheable;
+    }
 }

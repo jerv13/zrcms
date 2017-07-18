@@ -19,7 +19,7 @@ interface Site extends Content
     /**
      * @return string
      */
-    public function getTheme(): string;
+    public function getThemeName(): string;
 
     /**
      * @return string

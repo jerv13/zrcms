@@ -2,8 +2,8 @@
 
 namespace Zrcms\CoreConfigDataSource;
 
-use Zrcms\Core\Block\Api\FindBlock;
-use Zrcms\Core\Block\Api\FindBlocksBy;
+use Zrcms\Core\Block\Api\Repository\FindBlock;
+use Zrcms\Core\Block\Api\Repository\FindBlocksBy;
 use Zrcms\CoreConfigDataSource\Block\Api\GetBlockConfigFields;
 use Zrcms\CoreConfigDataSource\Block\Api\GetBlockConfigFieldsBcSubstitution;
 use Zrcms\CoreConfigDataSource\Block\Api\GetBlocks;
