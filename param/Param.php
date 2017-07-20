@@ -42,19 +42,9 @@ class Param
         string $key,
         $exception = null
     ) {
-        if (self::has($params, $key)) {
-            return $params[$key];
-        }
+        self::assertHas($params, $key, $exception);
 
-        $messageParams['key'] = $key;
-
-        if ($exception instanceof \Exception) {
-            throw $exception;
-        }
-
-        throw new ParamMissingException(
-            "Required property ({$key}) is missing and is required"
-        );
+        return $params[$key];
     }
 
     /**
@@ -116,5 +106,34 @@ class Param
         unset($params[$key]);
 
         return $value;
+    }
+
+    /**
+     * @param array           $params
+     * @param string          $key
+     * @param \Exception|null $exception
+     *
+     * @return void
+     * @throws ParamMissingException
+     * @throws \Exception
+     */
+    public static function assertHas(
+        array $params,
+        string $key,
+        $exception = null
+    ) {
+        if (self::has($params, $key)) {
+            return;
+        }
+
+        $messageParams['key'] = $key;
+
+        if ($exception instanceof \Exception) {
+            throw $exception;
+        }
+
+        throw new ParamMissingException(
+            "Required property ({$key}) is missing and is required"
+        );
     }
 }

@@ -4,7 +4,7 @@ namespace Zrcms\Core\Block\Api;
 
 use Zrcms\Core\Block\Api\Repository\FindBlockComponent;
 use Zrcms\Core\Block\Model\BlockComponent;
-use Zrcms\Core\Block\Model\BlockRevision;
+use Zrcms\Core\Block\Model\Block;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -23,22 +23,22 @@ class GetMergedConfigBasic implements GetMergedConfig
     }
 
     /**
-     * @param BlockRevision $blockRevision
+     * @param Block $block
      * @param array                 $options
      *
      * @return array
      */
     public function __invoke(
-        BlockRevision $blockRevision,
+        Block $block,
         array $options = []
     ): array
     {
         /** @var BlockComponent $bockComponent */
         $bockComponent = $this->findBlockComponent->__invoke(
-            $blockRevision->getBlockComponentName()
+            $block->getBlockComponentName()
         );
 
-        return $this->merge($bockComponent->getDefaultConfig(), $blockRevision->getConfig());
+        return $this->merge($bockComponent->getDefaultConfig(), $block->getConfig());
     }
 
     /**

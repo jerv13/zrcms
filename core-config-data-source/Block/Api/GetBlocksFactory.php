@@ -2,7 +2,7 @@
 
 namespace Zrcms\CoreConfigDataSource\Block\Api;
 
-use Interop\Container\ContainerInterface;
+use Psr\Container\ContainerInterface;
 use Zrcms\Cache\Service\Cache;
 
 /**

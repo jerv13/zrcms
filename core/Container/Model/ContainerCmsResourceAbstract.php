@@ -4,7 +4,6 @@ namespace Zrcms\Core\Container\Model;
 
 use Zrcms\Content\Exception\PropertyMissingException;
 use Zrcms\Content\Model\CmsResourceAbstract;
-use Zrcms\Content\Model\CmsResourceProperties;
 use Zrcms\Param\Param;
 
 /**
@@ -23,37 +22,35 @@ abstract class ContainerCmsResourceAbstract extends CmsResourceAbstract implemen
     protected $path;
 
     /**
-     * @param string $contentRevisionId
      * @param array  $properties
+     * @param string $createdByUserId
+     * @param string $createdReason
      */
     public function __construct(
-        string $contentRevisionId,
-        array $properties = []
+        array $properties,
+        string $createdByUserId,
+        string $createdReason
     ) {
-
         $this->siteId = Param::getAndRemoveRequired(
             $properties,
-            ContainerCmsResourceProperties::SITE_ID,
+            PropertiesContainerCmsResource::SITE_ID,
             new PropertyMissingException(
-                'Required property (' . ContainerCmsResourceProperties::SITE_ID . ') is missing in: '
-                . get_class($this)
+                'Required property (' . PropertiesContainerCmsResource::SITE_ID . ') is missing'
             )
         );
 
         $this->path = Param::getAndRemoveRequired(
             $properties,
-            ContainerCmsResourceProperties::PATH,
+            PropertiesContainerCmsResource::PATH,
             new PropertyMissingException(
-                'Required property (' . ContainerCmsResourceProperties::PATH . ') is missing in: '
-                . get_class($this)
+                'Required property (' . PropertiesContainerCmsResource::PATH . ') is missing'
             )
         );
 
-        $this->contentRevisionId = $contentRevisionId;
-
         parent::__construct(
-            $contentRevisionId,
-            $properties = []
+            $properties,
+            $createdByUserId,
+            $createdReason
         );
     }
 

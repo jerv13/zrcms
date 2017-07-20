@@ -46,7 +46,7 @@ class Page extends PageAbstract implements \Zrcms\Core\Page\Model\Page
      *
      * @ORM\Column(type="json_array")
      */
-    protected $blockRevisions = [];
+    protected $blockVersions = [];
 
     /**
      * Date object was first created

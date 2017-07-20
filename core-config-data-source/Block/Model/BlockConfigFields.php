@@ -3,25 +3,25 @@
 namespace Zrcms\CoreConfigDataSource\Block\Model;
 
 use Zrcms\Content\Model\TrackableProperties;
-use Zrcms\Core\Block\Model\BlockProperties;
+use Zrcms\Core\Block\Model\PropertiesBlock;
 
 /**
  * @author James Jervis - https://github.com/jerv13
  */
 class BlockConfigFields
 {
-    const NAME = BlockProperties::NAME;
-    const DIRECTORY = BlockProperties::DIRECTORY;
-    const CATEGORY = BlockProperties::CATEGORY;
-    const LABEL = BlockProperties::LABEL;
-    const DESCRIPTION = BlockProperties::DESCRIPTION;
-    const RENDERER = BlockProperties::RENDERER;
-    const DATA_PROVIDER = BlockProperties::DATA_PROVIDER;
-    const ICON = BlockProperties::ICON;
-    const EDITOR = BlockProperties::EDITOR;
-    const CACHEABLE = BlockProperties::CACHEABLE;
-    const FIELDS = BlockProperties::FIELDS;
-    const DEFAULT_CONFIG = BlockProperties::DEFAULT_CONFIG;
+    const NAME = PropertiesBlock::NAME;
+    const DIRECTORY = PropertiesBlock::DIRECTORY;
+    const CATEGORY = PropertiesBlock::CATEGORY;
+    const LABEL = PropertiesBlock::LABEL;
+    const DESCRIPTION = PropertiesBlock::DESCRIPTION;
+    const RENDERER = PropertiesBlock::RENDERER;
+    const DATA_PROVIDER = PropertiesBlock::DATA_PROVIDER;
+    const ICON = PropertiesBlock::ICON;
+    const EDITOR = PropertiesBlock::EDITOR;
+    const CACHEABLE = PropertiesBlock::CACHEABLE;
+    const FIELDS = PropertiesBlock::FIELDS;
+    const DEFAULT_CONFIG = PropertiesBlock::DEFAULT_CONFIG;
     const CREATED_BY_USER_ID = TrackableProperties::CREATED_BY_USER_ID;
     const CREATED_REASON = TrackableProperties::CREATED_REASON;
 }

@@ -5,15 +5,17 @@ namespace Zrcms\Content\Model;
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-interface CmsResource extends Immutable ,Properties
+interface CmsResource extends Immutable, Properties, Trackable
 {
     /**
-     * @param string $contentRevisionId
      * @param array  $properties
+     * @param string $createdByUserId
+     * @param string $createdReason
      */
     public function __construct(
-        string $contentRevisionId,
-        array $properties = []
+        array $properties,
+        string $createdByUserId,
+        string $createdReason
     );
 
     /**
@@ -24,5 +26,5 @@ interface CmsResource extends Immutable ,Properties
     /**
      * @return string
      */
-    public function getContentRevisionId(): string;
+    public function getContentVersionId(): string;
 }

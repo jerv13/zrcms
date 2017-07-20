@@ -2,7 +2,7 @@
 
 namespace Zrcms\Core\Block\Api;
 
-use Zrcms\Core\Block\Model\BlockRevision;
+use Zrcms\Core\Block\Model\Block;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -10,13 +10,13 @@ use Zrcms\Core\Block\Model\BlockRevision;
 interface GetMergedConfig
 {
     /**
-     * @param BlockRevision $blockRevision
+     * @param Block $block
      * @param array         $options
      *
      * @return array
      */
     public function __invoke(
-        BlockRevision $blockRevision,
+        Block $block,
         array $options = []
     ): array;
 }

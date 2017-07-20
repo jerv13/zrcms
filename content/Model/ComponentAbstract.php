@@ -14,8 +14,19 @@ abstract class ComponentAbstract implements Component
     use PropertiesTrait;
     use TrackableTrait;
 
+    /**
+     * @var string
+     */
     protected $name;
+
+    /**
+     * @var string
+     */
     protected $directory;
+
+    /**
+     * @var array
+     */
     protected $properties = [];
 
     /**
@@ -35,17 +46,17 @@ abstract class ComponentAbstract implements Component
 
         $this->name = Param::getAndRemoveRequired(
             $properties,
-            ComponentProperties::NAME,
+            PropertiesComponent::NAME,
             new PropertyMissingException(
-                'Required property (' . ComponentProperties::NAME . ') is missing in: ' . get_class($this)
+                'Required property (' . PropertiesComponent::NAME . ') is missing'
             )
         );
 
         $this->directory = Param::getAndRemoveRequired(
             $properties,
-            ComponentProperties::DIRECTORY,
+            PropertiesComponent::DIRECTORY,
             new PropertyMissingException(
-                'Required property (' . ComponentProperties::DIRECTORY . ') is missing in: ' . get_class($this)
+                'Required property (' . PropertiesComponent::DIRECTORY . ') is missing'
             )
         );
 

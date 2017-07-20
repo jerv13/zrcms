@@ -10,14 +10,6 @@ use Zrcms\Content\Exception\ImmutableException;
 trait ImmutableTrait
 {
     /**
-     * @return bool
-     */
-    public function isNew(): bool
-    {
-        return empty($this->id);
-    }
-
-    /**
      * @return void
      * @throws ImmutableException
      */

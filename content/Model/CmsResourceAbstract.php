@@ -2,6 +2,7 @@
 
 namespace Zrcms\Content\Model;
 
+use Zrcms\Content\Exception\PropertyMissingException;
 use Zrcms\Param\Param;
 
 /**
@@ -11,18 +12,21 @@ abstract class CmsResourceAbstract implements CmsResource
 {
     use ImmutableTrait;
     use PropertiesTrait;
+    use TrackableTrait;
 
     protected $id = null;
-    protected $contentRevisionId = null;
+    protected $contentVersionId = null;
     protected $properties = [];
 
     /**
-     * @param string $contentRevisionId
      * @param array  $properties
+     * @param string $createdByUserId
+     * @param string $createdReason
      */
     public function __construct(
-        string $contentRevisionId,
-        array $properties = []
+        array $properties,
+        string $createdByUserId,
+        string $createdReason
     ) {
         // Enforce immutability
         if (!$this->isNew()) {
@@ -30,12 +34,27 @@ abstract class CmsResourceAbstract implements CmsResource
         }
 
         $this->id = Param::getAndRemove(
-            $this->properties,
-            CmsResourceProperties::ID
+            $properties,
+            PropertiesCmsResource::ID
         );
 
-        $this->contentRevisionId = $contentRevisionId;
+        $this->contentVersionId = Param::getAndRemoveRequired(
+            $properties,
+            PropertiesCmsResource::CONTENT_VERSION_ID,
+            new PropertyMissingException(
+                'Required property (' . PropertiesCmsResource::CONTENT_VERSION_ID . ') is missing'
+            )
+        );
+
         $this->properties = $properties;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isNew(): bool
+    {
+        return empty($this->id);
     }
 
     /**
@@ -49,8 +68,8 @@ abstract class CmsResourceAbstract implements CmsResource
     /**
      * @return string
      */
-    public function getContentRevisionId(): string
+    public function getContentVersionId(): string
     {
-        return $this->contentRevisionId;
+        return $this->contentVersionId;
     }
 }

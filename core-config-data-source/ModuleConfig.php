@@ -2,8 +2,8 @@
 
 namespace Zrcms\CoreConfigDataSource;
 
-use Zrcms\Core\Block\Api\Repository\FindBlock;
-use Zrcms\Core\Block\Api\Repository\FindBlocksBy;
+use Zrcms\Core\Block\Api\Repository\FindBlockComponent;
+use Zrcms\Core\Block\Api\Repository\FindBlockComponentsBy;
 use Zrcms\CoreConfigDataSource\Block\Api\GetBlockConfigFields;
 use Zrcms\CoreConfigDataSource\Block\Api\GetBlockConfigFieldsBcSubstitution;
 use Zrcms\CoreConfigDataSource\Block\Api\GetBlocks;
@@ -30,14 +30,14 @@ class ModuleConfig
                 'config_factories' => [
                     /** Api **/
                     // @override
-                    FindBlock::class => [
+                    FindBlockComponent::class => [
                         'class' => \Zrcms\CoreConfigDataSource\Block\Api\FindBlock::class,
                         'arguments' => [
                             GetBlocks::class,
                             SearchBlockList::class
                         ],
                     ],
-                    FindBlocksBy::class => [
+                    FindBlockComponentsBy::class => [
                         'class' => \Zrcms\CoreConfigDataSource\Block\Api\FindBlocksBy::class,
                         'arguments' => [
                             GetBlocks::class,
@@ -86,8 +86,11 @@ class ModuleConfig
                 'blocks' => [
                     // 'blockName' => 'blockDirectory'
                 ],
-                'layout-render-data-providers' => [
+                'layout-render-data-getter' => [
                     // 'GetLayoutRenderData Service'
+                ],
+                'theme' => [
+                    // 'themeName' => 'themeDirectory'
                 ],
             ],
         ];

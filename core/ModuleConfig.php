@@ -7,7 +7,7 @@ use Zrcms\Core\Block\Api\Repository\FindBlocksBy;
 use Zrcms\Core\Block\Api\Render\RenderBlock;
 use Zrcms\Core\Block\Api\GetMergedConfig;
 use Zrcms\Core\Block\Api\GetMergedConfigBasic;
-use Zrcms\Core\Block\Api\Render\RenderBlockRevision;
+use Zrcms\Core\Block\Api\Render\RenderBlock;
 use Zrcms\Cache\Service\Cache;
 use Zrcms\Cache\Service\CacheArray;
 use Zrcms\Core\Container\Api\BuildContainerUri;
@@ -44,13 +44,13 @@ class ModuleConfig
                         'arguments' => [
                         ],
                     ],
-                    /** BlockRevision **/
+                    /** BlockVersion **/
                     GetMergedConfig::class => [
                         'class' => GetMergedConfigBasic::class,
                         'arguments' => [
                         ],
                     ],
-                    RenderBlockRevision::class => [
+                    RenderBlock::class => [
                         'class' => ApiNoop::class,
                         'arguments' => [
                         ],

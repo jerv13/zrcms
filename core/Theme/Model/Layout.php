@@ -2,18 +2,13 @@
 
 namespace Zrcms\Core\Theme\Model;
 
+use Zrcms\Content\Model\Content;
+
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-interface Layout
+interface Layout extends Content
 {
-    const DEFAULT_NAME = 'default';
-
-    /**
-     * @return string
-     */
-    public function getName(): string;
-
     /**
      * @return string
      */

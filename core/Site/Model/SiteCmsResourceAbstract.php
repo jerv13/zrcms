@@ -17,25 +17,28 @@ abstract class SiteCmsResourceAbstract extends CmsResourceAbstract implements Si
     protected $host;
 
     /**
-     * @param string $contentRevisionId
      * @param array  $properties
+     * @param string $createdByUserId
+     * @param string $createdReason
      */
     public function __construct(
-        string $contentRevisionId,
-        array $properties = []
+        array $properties,
+        string $createdByUserId,
+        string $createdReason
     ) {
         $this->host = Param::getAndRemoveRequired(
             $properties,
-            SiteCmsResourceProperties::HOST,
+            PropertiesSiteCmsResource::HOST,
             new PropertyMissingException(
-                'Required property (' . SiteCmsResourceProperties::HOST . ') is missing in: '
+                'Required property (' . PropertiesSiteCmsResource::HOST . ') is missing'
                 . get_class($this)
             )
         );
 
         parent::__construct(
-            $contentRevisionId,
-            $properties
+            $properties,
+            $createdByUserId,
+            $createdReason
         );
     }
 

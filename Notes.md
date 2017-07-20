@@ -7,7 +7,7 @@ NOTES
     - injectable middleware the says what to do on non-200 status codes
     
 - Block instances might need be split from Page 
-  (AKA: eliminate Page::getBlockRevisions and replace with an API like BlockRevision\Api\FindBlockRevisionsBy();
+  (AKA: eliminate Page::getBlockVersions and replace with an API like BlockVersion\Api\FindBlockVersionsBy();
   
 - Uri parser (get values from Uri)
 
@@ -69,5 +69,5 @@ zrcms:site:1:theme-layout/{theme-layout-path}
 ## @todo ##
 
 - there is a disconnect in container rendering
-- getBlockRevisionData in GetBlockRevisionRenderDataBasic could work like containers
+- getBlockVersionData in GetBlockRenderDataBasic could work like containers
 - <identifier>

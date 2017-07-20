@@ -2,7 +2,7 @@
 
 namespace Zrcms\CoreDoctrine\Container\Entity;
 
-use Zrcms\Core\BlockRevision\Model\BlockRevision;
+use Zrcms\Core\BlockVersion\Model\BlockVersion;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -10,39 +10,39 @@ use Zrcms\Core\BlockRevision\Model\BlockRevision;
 abstract class ContainerAbstract extends \Zrcms\Core\Container\Model\ContainerAbstract
 {
     /**
-     * @var array [BlockRevision]
+     * @var array [BlockVersion]
      */
-    protected $blockRevisions = [];
+    protected $blockVersions = [];
 
     /**
-     * @param array $blockRevisions
+     * @param array $blockVersions
      *
      * @return void
      */
-    public function setBlockRevisions(array $blockRevisions)
+    public function setBlockVersions(array $blockVersions)
     {
-        $this->blockRevisions = $blockRevisions;
+        $this->blockVersions = $blockVersions;
     }
 
 
     /**
      * @return array
      */
-    public function getBlockRevisions(): array
+    public function getBlockVersions(): array
     {
-        return $this->blockRevisions;
+        return $this->blockVersions;
     }
 
     /**
      * @param int  $id ,
      * @param null $default
      *
-     * @return BlockRevision
+     * @return BlockVersion
      */
-    public function getBlockRevision(int $id, $default = null): BlockRevision
+    public function getBlockVersion(int $id, $default = null): BlockVersion
     {
-        if (array_key_exists($id, $this->blockRevisions)) {
-            return $this->blockRevisions[$id];
+        if (array_key_exists($id, $this->blockVersions)) {
+            return $this->blockVersions[$id];
         }
 
         return $default;

@@ -4,7 +4,6 @@ namespace Zrcms\ContentDoctrine\Api\Repository;
 
 use Doctrine\ORM\EntityManager;
 use Zrcms\Content\Model\CmsResource;
-use Zrcms\Content\Model\ContentRevision;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -19,18 +18,18 @@ class InsertCmsResource implements \Zrcms\Content\Api\Repository\InsertCmsResour
     /**
      * @var string
      */
-    protected $contentRevisionClass;
+    protected $contentVersionClass;
 
     /**
      * @param EntityManager $entityManager
-     * @param string        $contentRevisionClass
+     * @param string        $contentVersionClass
      */
     public function __construct(
         EntityManager $entityManager,
-        string $contentRevisionClass
+        string $contentVersionClass
     ) {
         $this->entityManager = $entityManager;
-        $this->contentRevisionClass = $contentRevisionClass;
+        $this->contentVersionClass = $contentVersionClass;
     }
 
     /**

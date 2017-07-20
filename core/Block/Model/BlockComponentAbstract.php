@@ -32,13 +32,13 @@ abstract class BlockComponentAbstract extends ComponentAbstract  implements Bloc
     ) {
         $this->defaultConfig = Param::get(
             $properties,
-            BlockComponentProperties::DEFAULT_CONFIG,
+            PropertiesBlockComponent::DEFAULT_CONFIG,
             []
         );
 
         $this->cacheable = Param::get(
             $properties,
-            BlockComponentProperties::CACHEABLE,
+            PropertiesBlockComponent::CACHEABLE,
             false
         );
 
