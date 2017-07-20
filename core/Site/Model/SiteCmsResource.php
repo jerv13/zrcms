@@ -9,5 +9,8 @@ use Zrcms\Content\Model\CmsResource;
  */
 interface SiteCmsResource extends CmsResource
 {
-
+    /**
+     * @return string
+     */
+    public function getHost(): string;
 }

@@ -32,13 +32,13 @@ class DeleteCmsResource implements \Zrcms\Content\Api\Repository\DeleteCmsResour
     }
 
     /**
-     * @param string $uri
+     * @param string $id
      * @param array  $options
      *
      * @return bool success
      */
     public function __invoke(
-        string $uri,
+        string $id,
         array $options = []
     ): bool
     {
@@ -46,7 +46,7 @@ class DeleteCmsResource implements \Zrcms\Content\Api\Repository\DeleteCmsResour
             $this->cmsResourceClass
         );
 
-        $cmsResource = $repository->find($uri);
+        $cmsResource = $repository->find($id);
 
         if (empty($cmsResource)) {
             return false;

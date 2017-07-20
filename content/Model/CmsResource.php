@@ -5,39 +5,24 @@ namespace Zrcms\Content\Model;
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-interface CmsResource extends Trackable
+interface CmsResource extends Immutable ,Properties
 {
     /**
-     * @param string  $uri
-     * @param string  $source
-     * @param Content $content
-     * @param string  $createdByUserId
-     * @param string  $createdReason
+     * @param string $contentRevisionId
+     * @param array  $properties
      */
     public function __construct(
-        string $uri,
-        string $source,
-        Content $content,
-        string $createdByUserId,
-        string $createdReason
+        string $contentRevisionId,
+        array $properties = []
     );
 
     /**
-     * Unique URI
-     *
      * @return string
      */
-    public function getUri(): string;
+    public function getId(): string;
 
     /**
-     * Creation source
-     *
      * @return string
      */
-    public function getSource(): string;
-
-    /**
-     * @return Content
-     */
-    public function getContent(): Content;
+    public function getContentRevisionId(): string;
 }

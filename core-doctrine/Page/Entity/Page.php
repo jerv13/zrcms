@@ -20,14 +20,12 @@ use Zrcms\Core\Page\Model\PageAbstract;
 class Page extends PageAbstract implements \Zrcms\Core\Page\Model\Page
 {
     /**
-     * <identifier>
-     *
      * @var string
      *
      * @ORM\Id
      * @ORM\Column(type="string")
      */
-    protected $uri;
+    protected $id;
 
     /**
      * @var string
@@ -48,7 +46,7 @@ class Page extends PageAbstract implements \Zrcms\Core\Page\Model\Page
      *
      * @ORM\Column(type="json_array")
      */
-    protected $blockInstances = [];
+    protected $blockRevisions = [];
 
     /**
      * Date object was first created

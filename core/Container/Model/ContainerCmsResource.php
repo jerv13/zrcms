@@ -9,4 +9,13 @@ use Zrcms\Content\Model\CmsResource;
  */
 interface ContainerCmsResource extends CmsResource
 {
+    /**
+     * @return string
+     */
+    public function getSiteId(): string;
+
+    /**
+     * @return string
+     */
+    public function getPath(): string;
 }

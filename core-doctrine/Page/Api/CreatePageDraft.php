@@ -35,7 +35,7 @@ class CreatePageDraft implements \Zrcms\Core\Page\Api\CreatePageDraft
     }
 
     /**
-     * @param string $uri
+     * @param string $id
      * @param string $createdByUserId
      * @param string $createdReason
      * @param array  $properties
@@ -44,7 +44,7 @@ class CreatePageDraft implements \Zrcms\Core\Page\Api\CreatePageDraft
      * @return PageDraft
      */
     public function __invoke(
-        string $uri,
+        string $id,
         string $createdByUserId,
         string $createdReason,
         array $properties,
@@ -53,7 +53,7 @@ class CreatePageDraft implements \Zrcms\Core\Page\Api\CreatePageDraft
     {
         $page = new \Zrcms\CoreDoctrine\Page\Entity\PageDraft(
             $this->newPageUid->__invoke(),
-            $uri,
+            $id,
             $properties,
             $createdByUserId,
             $createdReason

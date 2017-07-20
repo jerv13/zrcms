@@ -11,14 +11,14 @@ use Zrcms\Content\Model\Content;
 abstract class LayoutCmsResourceAbstract extends CmsResourceAbstract implements ThemeLayoutCmsResource
 {
     /**
-     * @param string  $uri
+     * @param string  $id
      * @param string  $source
      * @param ThemeLayout|Content $themeLayout
      * @param string  $createdByUserId
      * @param string  $createdReason
      */
     public function __construct(
-        string $uri,
+        string $id,
         string $source,
         Content $themeLayout,
         string $createdByUserId,
@@ -26,7 +26,7 @@ abstract class LayoutCmsResourceAbstract extends CmsResourceAbstract implements 
     ) {
 
         parent::__construct(
-            $uri,
+            $id,
             $source,
             $themeLayout,
             $createdByUserId,

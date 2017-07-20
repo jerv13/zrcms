@@ -4,19 +4,11 @@ namespace Zrcms\Core\PageView\Middleware;
 
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
-use Zrcms\Core\Container\Api\BuildContainerUri;
-use Zrcms\Core\Container\Api\BuildThemeLayoutUri;
-use Zrcms\Core\Page\Api\BuildPageUri;
 use Zrcms\Core\Page\Api\Repository\FindPageCmsResource;
-use Zrcms\Core\Page\Model\Page;
-use Zrcms\Core\Page\Model\PageBasic;
-use Zrcms\Core\Page\Model\PageProperties;
 use Zrcms\Core\PageView\Api\Render\RenderPageView;
 use Zrcms\Core\PageView\Model\PageViewBasic;
 use Zrcms\Core\PageView\Model\PageViewProperties;
 use Zrcms\Core\Site\Api\Repository\FindSiteCmsResource;
-use Zrcms\Core\Site\Model\Site;
-use Zrcms\Core\Site\Model\SiteProperties;
 use Zrcms\Core\Theme\Api\Repository\FindTheme;
 use Zrcms\Core\Theme\Model\Layout;
 use Zrcms\Core\ThemeLayout\Api\Repository\FindThemeLayoutCmsResource;
@@ -33,18 +25,12 @@ class PageViewController
         FindTheme $findTheme,
         FindPageCmsResource $findPageCmsResource,
         FindThemeLayoutCmsResource $findThemeLayoutCmsResource,
-        BuildPageUri $buildPageUri,
-        BuildContainerUri $buildContainerUri,
-        BuildThemeLayoutUri $buildThemeLayoutUri,
         RenderPageView $renderPageView
     ) {
         $this->findSiteCmsResource = $findSiteCmsResource;
         $this->findTheme = $findTheme;
         $this->findPageCmsResource = $findPageCmsResource;
         $this->findThemeLayoutCmsResource = $findThemeLayoutCmsResource;
-        $this->buildPageUri = $buildPageUri;
-        $this->buildContainerUri = $buildContainerUri;
-        $this->buildThemeLayoutUri = $buildThemeLayoutUri
         $this->renderPageView = $renderPageView;
     }
 
@@ -62,10 +48,10 @@ class PageViewController
         ResponseInterface $response,
         callable $next = null
     ) {
-        $uri = $request->getUri();
+        $id = $request->getUri();
 
         $siteCmsResource = $this->findSiteCmsResource->__invoke(
-            $uri->getHost()
+            $id->getHost()
         );
 
         if (empty($siteCmsResource)) {
@@ -74,10 +60,21 @@ class PageViewController
 
         /** @var Site $site */
         $site = $siteCmsResource->getContent();
+        $themeName = $site->getThemeName();
+
+        $theme = $this->findTheme->__invoke(
+            $themeName
+        );
+
+        if (empty($theme)) {
+            throw new \Exception(
+                'Theme not found for site: ' . $site->getHost()
+            );
+        }
 
         $pageUri = $this->buildPageUri->__invoke(
             $site->getId(),
-            $uri->getPath()
+            $id->getPath()
         );
 
         $pageCmsResource = $this->findPageCmsResource->__invoke(
@@ -91,15 +88,6 @@ class PageViewController
         /** @var Page $page */
         $page = $pageCmsResource->getContent();
 
-        $theme = $this->findTheme->__invoke(
-            $site->getThemeName()
-        );
-
-        if (empty($theme)) {
-            // @todo throw
-            return $response->withStatus(404, 'SITE THEME NOT FOUND');
-        }
-
         $layoutName = $page->getProperty(
             PageProperties::LAYOUT,
             $site->getProperty(
@@ -109,14 +97,18 @@ class PageViewController
         );
 
         $themeLayoutUri = $this->buildThemeLayoutUri->__invoke(
-            $site->getId(),
+            $theme->getName(),
             $layoutName,
-            $layoutName
+            $site->getId()
         );
 
-        $themeLayoutUri
+        $layoutCmsResource = $this->findThemeLayoutCmsResource->__invoke(
+            $themeLayoutUri
+        );
 
-        $layout = $theme->getLayout(
+        $layout = $layoutCmsResource->getContent();
+
+        $theme->getLayout(
             $layoutName,
             $theme->getDefaultLayout()
         );
@@ -144,25 +136,12 @@ class PageViewController
         Site $site,
         string $html
     ) {
-        $theme = $this->findTheme->__invoke(
-            $site->getTheme()
-        );
+        $site = findSite('host');
 
-        $page = new PageBasic();
+        $page = findPage('path' and $site->id);
 
-        $sitePage = new SitePage(
-            $site,
-            new Page();
-        $layout
-        )
+        $containers = findContainers();
 
-        $renderData = $this->getLayoutRenderData();
 
-        $renderData['[page]'] = $html;
-
-        return $this->renderSitePage(
-            $sitePage,
-            $renderData
-        );
     }
 }

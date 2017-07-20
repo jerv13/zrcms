@@ -12,13 +12,13 @@ use Zrcms\Core\Page\Model\PageCmsResource;
 interface FindPageCmsResource extends FindCmsResource
 {
     /**
-     * @param string $uri
+     * @param string $id
      * @param array  $options
      *
      * @return PageCmsResource|CmsResource|null
      */
     public function __invoke(
-        string $uri,
+        string $id,
         array $options = []
     );
 }

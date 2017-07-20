@@ -25,7 +25,7 @@ abstract class CountryAbstract extends ContentAbstract implements Country
     protected $name;
 
     /**
-     * @param string $uri
+     * @param string $id
      * @param string $sourceUri
      * @param array  $properties
      * @param string $createdByUserId
@@ -35,7 +35,7 @@ abstract class CountryAbstract extends ContentAbstract implements Country
      * @param string $name
      */
     public function __construct(
-        string $uri,
+        string $id,
         string $sourceUri,
         array $properties,
         string $createdByUserId,
@@ -49,7 +49,7 @@ abstract class CountryAbstract extends ContentAbstract implements Country
         $this->name = $name;
 
         parent::__construct(
-            $uri,
+            $id,
             $sourceUri,
             $properties,
             $createdByUserId,

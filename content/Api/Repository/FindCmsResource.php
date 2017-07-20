@@ -10,13 +10,13 @@ use Zrcms\Content\Model\CmsResource;
 interface FindCmsResource
 {
     /**
-     * @param string $uri
+     * @param string $id
      * @param array  $options
      *
      * @return CmsResource|null
      */
     public function __invoke(
-        string $uri,
+        string $id,
         array $options = []
     );
 }

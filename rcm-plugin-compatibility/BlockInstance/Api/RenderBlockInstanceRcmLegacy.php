@@ -1,9 +1,9 @@
 <?php
 
-namespace Zrcms\RcmPluginCompatibility\BlockInstance\Api;
+namespace Zrcms\RcmPluginCompatibility\BlockRevision\Api;
 
 use Zrcms\Core\Block\Api\FindBlock;
-use Zrcms\Core\BlockInstance\Model\BlockInstance;
+use Zrcms\Core\BlockRevision\Model\BlockRevision;
 use Phly\Mustache\Mustache;
 use Phly\Mustache\Resolver\DefaultResolver;
 use Interop\Container\ContainerInterface;
@@ -15,9 +15,9 @@ use Zend\Stdlib\ResponseInterface;
 use Zend\View\Renderer\PhpRenderer;
 use Rcm\Block\Renderer\Renderer;
 use Zend\View\Helper\Placeholder\Container;
-use Zrcms\Core\BlockInstance\Model\BlockInstanceData;
+use Zrcms\Core\BlockRevision\Model\BlockRevisionData;
 
-class RenderBlockInstanceRcm implements RenderBlockInstance
+class RenderBlockRevisionRcm implements RenderBlockRevision
 {
     /**
      * @var ContainerInterface
@@ -44,14 +44,14 @@ class RenderBlockInstanceRcm implements RenderBlockInstance
     /**
      * __invoke
      *
-     * @param InstanceWithData $blockInstance
+     * @param InstanceWithData $blockRevision
      *
      * @return string HTML
      */
-    public function __invoke(BlockInstanceData $blockInstance)
+    public function __invoke(BlockRevisionData $blockRevision)
     {
         /** @var \Rcm\Plugin\PluginInterface $controller */
-        $controller = $this->getPluginController($blockInstance->getName());
+        $controller = $this->getPluginController($blockRevision->getName());
 
         $request = new Request();
         $response = new Response();
@@ -67,13 +67,13 @@ class RenderBlockInstanceRcm implements RenderBlockInstance
         $controller->setResponse($response);
 
         $viewModel = $controller->renderInstance(
-            $blockInstance->getId(),
-            $blockInstance->getConfig()
+            $blockRevision->getId(),
+            $blockRevision->getConfig()
         );
 
         if ($viewModel instanceof ResponseInterface) {
             //Contains an exit() call!
-            $this->handleResponseFromPluginController($viewModel, $blockInstance->getName());
+            $this->handleResponseFromPluginController($viewModel, $blockRevision->getName());
 
             return '';
         }
@@ -154,11 +154,11 @@ class RenderBlockInstanceRcm implements RenderBlockInstance
      * zf2 responses instead of view models
      * @TODO remove all this and throw an exception if the plugin controller doesn't return a view model
      */
-    public function handleResponseFromPluginController(ResponseInterface $response, $blockInstanceName)
+    public function handleResponseFromPluginController(ResponseInterface $response, $blockRevisionName)
     {
 //        trigger_error(
 //            'Returning responses from plugin controllers is no longer supported.
-//                 The following plugin attempted this: ' . $blockInstanceName .
+//                 The following plugin attempted this: ' . $blockRevisionName .
 //            ' Post to your own route to avoid this problem.',
 //            E_USER_WARNING
 //        );

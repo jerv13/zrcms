@@ -16,7 +16,7 @@ interface FindPageCmsResourcesBy extends FindCmsResourcesBy
      * @param null|int   $offset
      * @param array      $options
      *
-     * @return array [Page]
+     * @return array [PageCmsResource]
      */
     public function __invoke(
         array $criteria,

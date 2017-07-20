@@ -33,19 +33,19 @@ class FindCmsResource implements \Zrcms\Content\Api\Repository\FindCmsResource
     }
 
     /**
-     * @param string $uri
+     * @param string $id
      * @param array  $options
      *
      * @return CmsResource|null
      */
     public function __invoke(
-        string $uri,
+        string $id,
         array $options = []
     ) {
         $repository = $this->entityManager->getRepository(
             $this->cmsResourceClass
         );
 
-        return $repository->find($uri);
+        return $repository->find($id);
     }
 }

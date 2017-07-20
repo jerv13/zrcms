@@ -12,13 +12,13 @@ use Zrcms\Core\ThemeLayout\Model\ThemeLayoutCmsResource;
 interface FindThemeLayoutCmsResource extends FindCmsResource
 {
     /**
-     * @param string $uriThemeLayout
+     * @param string $themeLayoutUri
      * @param array  $options
      *
      * @return ThemeLayoutCmsResource|CmsResource|null
      */
     public function __invoke(
-        string $uriThemeLayout,
+        string $themeLayoutUri,
         array $options = []
     );
 }

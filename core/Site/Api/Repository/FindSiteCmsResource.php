@@ -12,13 +12,13 @@ use Zrcms\Core\Site\Model\SiteCmsResource;
 interface FindSiteCmsResource extends FindCmsResource
 {
     /**
-     * @param string $uri
+     * @param string $host
      * @param array  $options
      *
      * @return SiteCmsResource|CmsResource|null
      */
     public function __invoke(
-        string $uri,
+        string $host,
         array $options = []
     );
 }

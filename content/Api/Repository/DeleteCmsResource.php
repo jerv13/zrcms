@@ -8,13 +8,13 @@ namespace Zrcms\Content\Api\Repository;
 interface DeleteCmsResource
 {
     /**
-     * @param string $uri
+     * @param string $id
      * @param array  $options
      *
      * @return bool success
      */
     public function __invoke(
-        string $uri,
+        string $id,
         array $options = []
     ): bool;
 }

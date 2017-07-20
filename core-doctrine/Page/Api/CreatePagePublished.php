@@ -35,7 +35,7 @@ class CreatePagePublished implements \Zrcms\Core\Page\Api\CreatePagePublished
     }
 
     /**
-     * @param string $uri
+     * @param string $id
      * @param string $createdByUserId
      * @param string $createdReason
      * @param array  $properties
@@ -44,7 +44,7 @@ class CreatePagePublished implements \Zrcms\Core\Page\Api\CreatePagePublished
      * @return PagePublished
      */
     public function __invoke(
-        string $uri,
+        string $id,
         string $createdByUserId,
         string $createdReason,
         array $properties,
@@ -53,7 +53,7 @@ class CreatePagePublished implements \Zrcms\Core\Page\Api\CreatePagePublished
     {
         $page = new \Zrcms\CoreDoctrine\Page\Entity\PagePublished(
             $this->newPageUid->__invoke(),
-            $uri,
+            $id,
             $properties,
             $createdByUserId,
             $createdReason

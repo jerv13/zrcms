@@ -34,7 +34,7 @@ class CreatePageTemplate implements \Zrcms\Core\Page\Api\CreatePageTemplate
     }
 
     /**
-     * @param string $uri
+     * @param string $id
      * @param string $createdByUserId
      * @param string $createdReason
      * @param array  $properties
@@ -43,7 +43,7 @@ class CreatePageTemplate implements \Zrcms\Core\Page\Api\CreatePageTemplate
      * @return PageTemplate
      */
     public function __invoke(
-        string $uri,
+        string $id,
         string $createdByUserId,
         string $createdReason,
         array $properties,
@@ -52,7 +52,7 @@ class CreatePageTemplate implements \Zrcms\Core\Page\Api\CreatePageTemplate
     {
         $page = new \Zrcms\CoreDoctrine\Page\Entity\PageTemplate(
             $this->newPageUid->__invoke(),
-            $uri,
+            $id,
             $properties,
             $createdByUserId,
             $createdReason

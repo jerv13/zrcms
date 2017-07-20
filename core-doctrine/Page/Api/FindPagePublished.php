@@ -25,19 +25,19 @@ class FindPagePublished implements \Zrcms\Core\Page\Api\FindPagePublished
     }
 
     /**
-     * @param string $uri
+     * @param string $id
      * @param array  $options
      *
      * @return PagePublished|null
      */
     public function __invoke(
-        string $uri,
+        string $id,
         array $options = []
     ) {
         $repository = $this->entityManager->getRepository(
             \Zrcms\CoreDoctrine\Page\Entity\PagePublished::class
         );
 
-        return $repository->find($uri);
+        return $repository->find($id);
     }
 }
