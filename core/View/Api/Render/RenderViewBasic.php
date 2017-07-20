@@ -2,8 +2,10 @@
 
 namespace Zrcms\Core\View\Api\Render;
 
+use Psr\Container\ContainerInterface;
 use Zrcms\Content\Model\Content;
 use Zrcms\Core\Theme\Api\Render\RenderLayout;
+use Zrcms\Core\View\Model\PropertiesView;
 use Zrcms\Core\View\Model\View;
 
 /**
@@ -12,17 +14,25 @@ use Zrcms\Core\View\Model\View;
 class RenderViewBasic implements RenderView
 {
     /**
-     * @var RenderLayout
+     * @var ContainerInterface
      */
-    protected $renderLayout;
+    protected $serviceContainer;
 
     /**
-     * @param RenderLayout $renderLayout
+     * @var string
+     */
+    protected $defaultRenderServiceName;
+
+    /**
+     * @param ContainerInterface $serviceContainer
+     * @param string             $defaultRenderServiceName
      */
     public function __construct(
-        RenderLayout $renderLayout
+        $serviceContainer,
+        string $defaultRenderServiceName = RenderViewLayout::class
     ) {
-        $this->renderLayout = $renderLayout;
+        $this->serviceContainer = $serviceContainer;
+        $this->defaultRenderServiceName = $defaultRenderServiceName;
     }
 
     /**
@@ -38,8 +48,18 @@ class RenderViewBasic implements RenderView
         array $options = []
     ): string
     {
-        return $this->renderLayout->__invoke(
-            $view->getLayout(),
+        $renderServiceName = $view->getProperty(
+            PropertiesView::RENDERER,
+            $this->defaultRenderServiceName
+        );
+
+        /** @var RenderLayout $render */
+        $render = $this->serviceContainer->get(
+            $renderServiceName
+        );
+
+        return $render->__invoke(
+            $view,
             $renderData,
             $options
         );

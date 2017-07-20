@@ -16,7 +16,5 @@ class PropertiesView
     const LAYOUT_CMS_RESOURCE = 'themeLayoutCmsResource';
     const LAYOUT = 'theme';
 
-    const LAYOUT_RENDER_DATA = 'layoutRenderData';
-
-    const RENDER = 'render';
+    const RENDERER = 'renderer';
 }
