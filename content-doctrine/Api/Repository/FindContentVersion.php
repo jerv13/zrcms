@@ -2,36 +2,16 @@
 
 namespace Zrcms\ContentDoctrine\Api\Repository;
 
-use Doctrine\ORM\EntityManager;
 use Zrcms\Content\Model\ContentVersion;
+use Zrcms\ContentDoctrine\Api\ApiAbstractContentVersion;
 
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class FindContentVersion implements \Zrcms\Content\Api\Repository\FindContentVersion
+class FindContentVersion
+    extends ApiAbstractContentVersion
+    implements \Zrcms\Content\Api\Repository\FindContentVersion
 {
-    /**
-     * @var EntityManager
-     */
-    protected $entityManager;
-
-    /**
-     * @var string
-     */
-    protected $contentVersionClass;
-
-    /**
-     * @param EntityManager $entityManager
-     * @param string        $contentVersionClass
-     */
-    public function __construct(
-        EntityManager $entityManager,
-        string $contentVersionClass
-    ) {
-        $this->entityManager = $entityManager;
-        $this->contentVersionClass = $contentVersionClass;
-    }
-
     /**
      * @param string $id
      * @param array  $options
@@ -43,7 +23,7 @@ class FindContentVersion implements \Zrcms\Content\Api\Repository\FindContentVer
         array $options = []
     ) {
         $repository = $this->entityManager->getRepository(
-            $this->contentVersionClass
+            $this->entityClass
         );
 
         return $repository->find($id);

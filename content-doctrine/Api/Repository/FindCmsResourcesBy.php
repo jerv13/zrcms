@@ -2,35 +2,15 @@
 
 namespace Zrcms\ContentDoctrine\Api\Repository;
 
-use Doctrine\ORM\EntityManager;
+use Zrcms\ContentDoctrine\Api\ApiAbstractCmsResource;
 
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class FindCmsResourcesBy implements \Zrcms\Content\Api\Repository\FindCmsResourcesBy
+class FindCmsResourcesBy
+    extends ApiAbstractCmsResource
+    implements \Zrcms\Content\Api\Repository\FindCmsResourcesBy
 {
-    /**
-     * @var EntityManager
-     */
-    protected $entityManager;
-
-    /**
-     * @var string
-     */
-    protected $cmsResourceClass;
-
-    /**
-     * @param EntityManager $entityManager
-     * @param string        $cmsResourceClass
-     */
-    public function __construct(
-        EntityManager $entityManager,
-        string $cmsResourceClass
-    ) {
-        $this->entityManager = $entityManager;
-        $this->cmsResourceClass = $cmsResourceClass;
-    }
-
     /**
      * @param array      $criteria
      * @param array|null $orderBy
@@ -49,7 +29,7 @@ class FindCmsResourcesBy implements \Zrcms\Content\Api\Repository\FindCmsResourc
     ): array
     {
         $repository = $this->entityManager->getRepository(
-            $this->cmsResourceClass
+            $this->entityClass
         );
 
         return $repository->findBy(

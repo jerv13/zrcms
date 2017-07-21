@@ -2,35 +2,15 @@
 
 namespace Zrcms\ContentDoctrine\Api\Repository;
 
-use Doctrine\ORM\EntityManager;
+use Zrcms\ContentDoctrine\Api\ApiAbstractCmsResource;
 
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class DeleteCmsResource implements \Zrcms\Content\Api\Repository\DeleteCmsResource
+class DeleteCmsResource
+    extends ApiAbstractCmsResource
+    implements \Zrcms\Content\Api\Repository\DeleteCmsResource
 {
-    /**
-     * @var EntityManager
-     */
-    protected $entityManager;
-
-    /**
-     * @var string
-     */
-    protected $cmsResourceClass;
-
-    /**
-     * @param EntityManager $entityManager
-     * @param string        $cmsResourceClass
-     */
-    public function __construct(
-        EntityManager $entityManager,
-        string $cmsResourceClass
-    ) {
-        $this->entityManager = $entityManager;
-        $this->cmsResourceClass = $cmsResourceClass;
-    }
-
     /**
      * @param string $id
      * @param array  $options
@@ -43,7 +23,7 @@ class DeleteCmsResource implements \Zrcms\Content\Api\Repository\DeleteCmsResour
     ): bool
     {
         $repository = $this->entityManager->getRepository(
-            $this->cmsResourceClass
+            $this->entityClass
         );
 
         $cmsResource = $repository->find($id);
