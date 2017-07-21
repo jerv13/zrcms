@@ -29,7 +29,7 @@ class GetPageContainerRenderDataBasic implements GetPageContainerRenderData
      */
     public function __construct(
         $serviceContainer,
-        string $defaultGetPageContainerRenderDataServiceName = GetPageContainerRenderData::class
+        string $defaultGetPageContainerRenderDataServiceName = GetPageContainerRenderDataBlockVersions::class
     ) {
         $this->serviceContainer = $serviceContainer;
         $this->defaultGetPageContainerRenderDataServiceName

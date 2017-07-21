@@ -7,7 +7,7 @@ use Psr\Http\Message\ServerRequestInterface;
 use Zrcms\Content\Model\CmsResource;
 use Zrcms\Content\Model\Content;
 use Zrcms\Core\Container\Api\Render\GetContainerRenderData;
-use Zrcms\Core\Container\Api\Repository\FindContainerCmsResourceBySitePaths;
+use Zrcms\Core\Container\Api\Repository\FindContainerCmsResourcesBySitePaths;
 use Zrcms\Core\Container\Api\Repository\FindContainerVersion;
 use Zrcms\Core\Container\Model\Container;
 use Zrcms\Core\Container\Model\ContainerCmsResource;
@@ -31,9 +31,9 @@ class GetViewRenderDataContainers implements GetViewRenderData
     protected $findTagNamesByLayout;
 
     /**
-     * @var FindContainerCmsResourceBySitePaths
+     * @var FindContainerCmsResourcesBySitePaths
      */
-    protected $findContainerCmsResourceBySitePaths;
+    protected $findContainerCmsResourcesBySitePaths;
 
     /**
      * @var FindContainerVersion
@@ -48,20 +48,20 @@ class GetViewRenderDataContainers implements GetViewRenderData
     /**
      * @param                                     $serviceContainer
      * @param FindTagNamesByLayout                $findTagNamesByLayout
-     * @param FindContainerCmsResourceBySitePaths $findContainerCmsResourceBySitePaths
+     * @param FindContainerCmsResourcesBySitePaths $findContainerCmsResourcesBySitePaths
      * @param FindContainerVersion                $findContainerVersion
      * @param GetContainerRenderData              $getContainerRenderData
      */
     public function __construct(
         $serviceContainer,
         FindTagNamesByLayout $findTagNamesByLayout,
-        FindContainerCmsResourceBySitePaths $findContainerCmsResourceBySitePaths,
+        FindContainerCmsResourcesBySitePaths $findContainerCmsResourcesBySitePaths,
         FindContainerVersion $findContainerVersion,
         GetContainerRenderData $getContainerRenderData
     ) {
         $this->serviceContainer = $serviceContainer;
         $this->findTagNamesByLayout = $findTagNamesByLayout;
-        $this->findContainerCmsResourceBySitePaths = $findContainerCmsResourceBySitePaths;
+        $this->findContainerCmsResourcesBySitePaths = $findContainerCmsResourcesBySitePaths;
         $this->findContainerVersion = $findContainerVersion;
         $this->getContainerRenderData = $getContainerRenderData;
     }
@@ -159,7 +159,7 @@ class GetViewRenderDataContainers implements GetViewRenderData
             $layoutTags
         );
 
-        $containerCmsResources = $this->findContainerCmsResourceBySitePaths->__invoke(
+        $containerCmsResources = $this->findContainerCmsResourcesBySitePaths->__invoke(
             $siteCmsResource->getId(),
             $containerPaths
         );

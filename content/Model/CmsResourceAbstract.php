@@ -33,16 +33,19 @@ abstract class CmsResourceAbstract implements CmsResource
             return;
         }
 
-        $this->id = Param::getAndRemove(
+        // @todo might use getAndRemove
+        $this->id = Param::get(
             $properties,
             PropertiesCmsResource::ID
         );
 
-        $this->contentVersionId = Param::getAndRemoveRequired(
+        // @todo might use getAndRemoveRequired
+        $this->contentVersionId = Param::getRequired(
             $properties,
             PropertiesCmsResource::CONTENT_VERSION_ID,
             new PropertyMissingException(
-                'Required property (' . PropertiesCmsResource::CONTENT_VERSION_ID . ') is missing'
+                'Required property (' . PropertiesCmsResource::CONTENT_VERSION_ID . ') is missing in: '
+                . get_class($this)
             )
         );
 

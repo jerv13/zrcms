@@ -33,7 +33,8 @@ abstract class ContentAbstract implements Content
             return;
         }
 
-        $this->id = Param::getAndRemoveRequired(
+        // @todo might use getAndRemoveRequired
+        $this->id = Param::getRequired(
             $properties,
             PropertiesContentVersion::ID
         );

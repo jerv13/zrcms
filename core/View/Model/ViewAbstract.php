@@ -43,51 +43,52 @@ abstract class ViewAbstract extends ContentAbstract implements View
     public function __construct(
         array $properties
     ) {
-        $this->siteCmsResource = Param::getAndRemoveRequired(
+        // @todo might use getAndRemoveRequired
+        $this->siteCmsResource = Param::getRequired(
             $properties,
             PropertiesView::SITE_CMS_RESOURCE,
             new PropertyMissingException(
-                'Required property (' . PropertiesView::SITE_CMS_RESOURCE . ') is missing'
+                'Required property (' . PropertiesView::SITE_CMS_RESOURCE . ') is missing in: ' . get_class($this)
             )
         );
-
-        $this->site = Param::getAndRemoveRequired(
+        // @todo might use getAndRemoveRequired
+        $this->site = Param::getRequired(
             $properties,
             PropertiesView::SITE,
             new PropertyMissingException(
-                'Required property (' . PropertiesView::SITE . ') is missing'
+                'Required property (' . PropertiesView::SITE . ') is missing in: ' . get_class($this)
             )
         );
-
-        $this->pageContainerCmsResource = Param::getAndRemoveRequired(
+        // @todo might use getAndRemoveRequired
+        $this->pageContainerCmsResource = Param::getRequired(
             $properties,
             PropertiesView::PAGE_CONTAINER_CMS_RESOURCE,
             new PropertyMissingException(
-                'Required property (' . PropertiesView::PAGE_CONTAINER_CMS_RESOURCE . ') is missing'
+                'Required property (' . PropertiesView::PAGE_CONTAINER_CMS_RESOURCE . ') is missing in: ' . get_class($this)
             )
         );
-
-        $this->page = Param::getAndRemoveRequired(
+        // @todo might use getAndRemoveRequired
+        $this->page = Param::getRequired(
             $properties,
             PropertiesView::PAGE,
             new PropertyMissingException(
-                'Required property (' . PropertiesView::PAGE . ') is missing'
+                'Required property (' . PropertiesView::PAGE . ') is missing in: ' . get_class($this)
             )
         );
-
-        $this->layoutCmsResource = Param::getAndRemoveRequired(
+        // @todo might use getAndRemoveRequired
+        $this->layoutCmsResource = Param::getRequired(
             $properties,
             PropertiesView::LAYOUT_CMS_RESOURCE,
             new PropertyMissingException(
-                'Required property (' . PropertiesView::LAYOUT_CMS_RESOURCE . ') is missing'
+                'Required property (' . PropertiesView::LAYOUT_CMS_RESOURCE . ') is missing in: ' . get_class($this)
             )
         );
-
-        $this->layout = Param::getAndRemoveRequired(
+        // @todo might use getAndRemoveRequired
+        $this->layout = Param::getRequired(
             $properties,
             PropertiesView::LAYOUT,
             new PropertyMissingException(
-                'Required property (' . PropertiesView::LAYOUT . ') is missing'
+                'Required property (' . PropertiesView::LAYOUT . ') is missing in: ' . get_class($this)
             )
         );
         

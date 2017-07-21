@@ -82,7 +82,7 @@ class GetContainerRenderDataBlocks implements GetContainerRenderData
 
         $blocks = $this->findBlockVersionsBy->__invoke(
             [
-                PropertiesBlock::CONTAINER_ID => $container->getId()
+                PropertiesBlock::CONTAINER_VERSION_ID => $container->getId()
             ]
         );
 

@@ -25,7 +25,8 @@ class LayoutVersionAbstract extends ContentVersionAbstract implements LayoutVers
         string $createdByUserId,
         string $createdReason
     ) {
-        $this->html = Param::getAndRemoveRequired(
+        // @todo might use getAndRemoveRequired
+        $this->html = Param::getRequired(
             $properties,
             PropertiesLayoutVersion::HTML
         );

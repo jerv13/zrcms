@@ -26,11 +26,12 @@ abstract class SiteCmsResourceAbstract extends CmsResourceAbstract implements Si
         string $createdByUserId,
         string $createdReason
     ) {
-        $this->host = Param::getAndRemoveRequired(
+        // @todo might use getAndRemoveRequired
+        $this->host = Param::getRequired(
             $properties,
             PropertiesSiteCmsResource::HOST,
             new PropertyMissingException(
-                'Required property (' . PropertiesSiteCmsResource::HOST . ') is missing'
+                'Required property (' . PropertiesSiteCmsResource::HOST . ') is missing in: ' . get_class($this)
                 . get_class($this)
             )
         );

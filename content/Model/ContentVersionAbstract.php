@@ -38,7 +38,8 @@ abstract class ContentVersionAbstract implements ContentVersion
             return;
         }
 
-        $this->id = Param::getAndRemove(
+        // @todo might use getAndRemove
+        $this->id = Param::get(
             $properties,
             PropertiesContentVersion::ID
         );

@@ -30,12 +30,13 @@ abstract class LayoutComponentAbstract extends ComponentAbstract implements Layo
         string $createdByUserId,
         string $createdReason
     ) {
-        $this->themeName = Param::getAndRemoveRequired(
+        // @todo might use getAndRemoveRequired
+        $this->themeName = Param::getRequired(
             $properties,
             PropertiesLayoutComponent::THEME_NAME
         );
-
-        $this->html = Param::getAndRemoveRequired(
+        // @todo might use getAndRemoveRequired
+        $this->html = Param::getRequired(
             $properties,
             PropertiesLayoutComponent::HTML,
             false

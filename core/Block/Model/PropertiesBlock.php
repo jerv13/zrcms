@@ -10,7 +10,7 @@ use Zrcms\Content\Model\PropertiesContent;
 interface PropertiesBlock extends PropertiesContent
 {
     // required
-    const CONTAINER_ID = 'containerId';
+    const CONTAINER_VERSION_ID = 'containerVersionId';
     const BLOCK_COMPONENT_NAME = 'blockComponentName';
     const CONFIG = 'config';
 

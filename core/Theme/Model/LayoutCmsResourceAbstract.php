@@ -31,20 +31,21 @@ abstract class LayoutCmsResourceAbstract extends CmsResourceAbstract implements 
         string $createdByUserId,
         string $createdReason
     ) {
-
-        $this->themeName = Param::getAndRemoveRequired(
+        // @todo might use getAndRemoveRequired
+        $this->themeName = Param::getRequired(
             $properties,
             PropertiesLayoutCmsResource::THEME_NAME,
             new PropertyMissingException(
-                'Required property (' . PropertiesLayoutCmsResource::THEME_NAME . ') is missing'
+                'Required property (' . PropertiesLayoutCmsResource::THEME_NAME . ') is missing in: ' . get_class($this)
             )
         );
 
-        $this->name = Param::getAndRemoveRequired(
+        // @todo might use getAndRemoveRequired
+        $this->name = Param::getRequired(
             $properties,
             PropertiesLayoutCmsResource::NAME,
             new PropertyMissingException(
-                'Required property (' . PropertiesLayoutCmsResource::NAME . ') is missing'
+                'Required property (' . PropertiesLayoutCmsResource::NAME . ') is missing in: ' . get_class($this)
             )
         );
 

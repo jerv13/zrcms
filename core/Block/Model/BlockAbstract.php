@@ -13,7 +13,7 @@ abstract class BlockAbstract extends ContentAbstract implements Block
     /**
      * @var string
      */
-    protected $containerId;
+    protected $containerVersionId;
 
     /**
      * @var string
@@ -36,9 +36,9 @@ abstract class BlockAbstract extends ContentAbstract implements Block
     public function __construct(
         array $properties
     ) {
-        $this->containerId = Param::getRequired(
+        $this->containerVersionId = Param::getRequired(
             $properties,
-            PropertiesBlockVersion::BLOCK_COMPONENT_NAME
+            PropertiesBlockVersion::CONTAINER_VERSION_ID
         );
 
         $this->blockComponentName = Param::getRequired(

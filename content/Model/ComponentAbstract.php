@@ -44,19 +44,21 @@ abstract class ComponentAbstract implements Component
             return;
         }
 
-        $this->name = Param::getAndRemoveRequired(
+        // @todo might use getAndRemoveRequired
+        $this->name = Param::getRequired(
             $properties,
             PropertiesComponent::NAME,
             new PropertyMissingException(
-                'Required property (' . PropertiesComponent::NAME . ') is missing'
+                'Required property (' . PropertiesComponent::NAME . ') is missing in: ' . get_class($this)
             )
         );
 
-        $this->directory = Param::getAndRemoveRequired(
+        // @todo might use getAndRemoveRequired
+        $this->directory = Param::getRequired(
             $properties,
             PropertiesComponent::DIRECTORY,
             new PropertyMissingException(
-                'Required property (' . PropertiesComponent::DIRECTORY . ') is missing'
+                'Required property (' . PropertiesComponent::DIRECTORY . ') is missing in: ' . get_class($this)
             )
         );
 

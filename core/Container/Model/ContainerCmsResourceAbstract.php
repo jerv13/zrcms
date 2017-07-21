@@ -31,19 +31,21 @@ abstract class ContainerCmsResourceAbstract extends CmsResourceAbstract implemen
         string $createdByUserId,
         string $createdReason
     ) {
-        $this->siteId = Param::getAndRemoveRequired(
+        // @todo might use getAndRemoveRequired
+        $this->siteId = Param::getRequired(
             $properties,
             PropertiesContainerCmsResource::SITE_ID,
             new PropertyMissingException(
-                'Required property (' . PropertiesContainerCmsResource::SITE_ID . ') is missing'
+                'Required property (' . PropertiesContainerCmsResource::SITE_ID . ') is missing in: ' . get_class($this)
             )
         );
 
-        $this->path = Param::getAndRemoveRequired(
+        // @todo might use getAndRemoveRequired
+        $this->path = Param::getRequired(
             $properties,
             PropertiesContainerCmsResource::PATH,
             new PropertyMissingException(
-                'Required property (' . PropertiesContainerCmsResource::PATH . ') is missing'
+                'Required property (' . PropertiesContainerCmsResource::PATH . ') is missing in: ' . get_class($this)
             )
         );
 

@@ -68,6 +68,9 @@ zrcms:site:1:theme-layout/{theme-layout-path}
 
 ## @todo ##
 
-- there is a disconnect in container rendering
-- getBlockVersionData in GetBlockRenderDataBasic could work like containers
-- <identifier>
+- CmsResource will need ContentVersion as property
+- ContainerVersion will need blockInstances as property
+- Unsettignn properties makes population of new diffecult
+
+- getBlockData in GetBlockRenderDataBasic could work like containers
+- add <identifier> to comments

@@ -12,7 +12,7 @@ interface Block extends Content
     /**
      * @return string
      */
-    public function getContainerId(): string;
+    public function getContainerVersionId(): string;
 
     /**
      * @return string

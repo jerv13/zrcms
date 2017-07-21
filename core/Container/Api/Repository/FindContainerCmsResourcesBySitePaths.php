@@ -5,7 +5,7 @@ namespace Zrcms\Core\Container\Api\Repository;
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-interface FindContainerCmsResourceBySitePaths
+interface FindContainerCmsResourcesBySitePaths
 {
     /**
      * @param string $siteCmsResourceId
