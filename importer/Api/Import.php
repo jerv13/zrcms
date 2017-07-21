@@ -2,27 +2,52 @@
 
 namespace Zrcms\Importer\Api;
 
+use Zrcms\Content\Model\PropertiesCmsResource;
 use Zrcms\Core\Container\Api\CreateContainerPublished;
+use Zrcms\Core\Page\Api\Action\PublishPageContainerVersion;
 use Zrcms\Core\Page\Api\CreatePagePublished;
+use Zrcms\Core\Page\Api\Repository\InsertPageContainerVersion;
+use Zrcms\Core\Page\Model\PageContainerCmsResourceBasic;
+use Zrcms\Core\Page\Model\PageContainerVersionBasic;
+use Zrcms\Core\Page\Model\PropertiesPageContainerCmsResource;
+use Zrcms\Core\Page\Model\PropertiesPageContainerVersion;
+use Zrcms\Core\Site\Api\Action\PublishSiteVersion;
+use Zrcms\Core\Site\Api\Action\PublishSiteVersionByHost;
 use Zrcms\Core\Site\Api\CreateSitePublished;
+use Zrcms\Core\Site\Api\Repository\InsertSiteVersion;
+use Zrcms\Core\Site\Model\SiteCmsResourceBasic;
+use Zrcms\Core\Site\Model\SiteVersionBasic;
 use Zrcms\Core\Uri\Api\BuildCmsUri;
 use Zrcms\Core\Uri\Api\ParseCmsUri;
 use Zrcms\Core\Uri\Model\Uri;
 
 class Import
 {
-    protected $createSitePublished;
-    protected $createPagePublished;
-    protected $createContainerPublished;
-    protected $buildCmsUri;
-    protected $parseCmsUri;
+    /**
+     * @var InsertSiteVersion
+     */
+    protected $insertSiteVersion;
+    /**
+     * @var PublishSiteVersion
+     */
+    protected $publishSite;
+
+    /**
+     * @var InsertPageContainerVersion
+     */
+    protected $insertPageVersion;
+
+    /**
+     * @var PublishPageContainerVersion
+     */
+    protected $publishPage;
+    protected $insertContainerVersion;
+    protected $publishContainer;
 
     public function __construct(
         CreateSitePublished $createSitePublished,
         CreatePagePublished $createPagePublished,
-        CreateContainerPublished $createContainerPublished,
-        BuildCmsUri $buildCmsUri,
-        ParseCmsUri $parseCmsUri
+        CreateContainerPublished $createContainerPublished
     ) {
         $this->createPagePublished = $createPagePublished;
         $this->createContainerPublished = $createContainerPublished;
@@ -42,49 +67,69 @@ class Import
 
         $createdByReason = 'Import script ' . get_class($this);
 
-        $siteIdOldToNewMap = [];
-
         foreach ($data['sites'] as $site) {
-            $newSite = $this->createSitePublished->__invoke(
-                $site['host'],
-                $site['theme'],
+            $version = $this->insertSiteVersion->__invoke(new SiteVersionBasic(
                 $site['properties'],
-                $currentUserId,
-                $createdByReason
+                $createdByUserId,
+                $createdReason
+            ));
+
+            $published = $this->publishSite->__invoke(
+                new SiteCmsResourceBasic([
+                        'id' => $site['id'],
+                        'host' => $site['host'],
+                        PropertiesCmsResource::CONTENT_VERSION_ID => $version->getId()
+                    ],
+                    $createdByUserId,
+                    $createdReason
+                ),
+                $createdByUserId,
+                $createdReason
             );
-            $siteIdOldToNewMap[$site['id']] = $newSite->getId();
         }
 
         foreach ($data['pages'] as $page) {
-            $this->createPagePublished->__invoke(
-                $this->replaceSiteIdInUri($page['uri'], $siteIdOldToNewMap),
-                $currentUserId,
-                $createdByReason,
-                $page['properties']
+
+            $version = $this->insertPageVersion->__invoke(new PageContainerVersionBasic(
+                $page['properties'],
+                $createdByUserId,
+                $createdReason
+            ));
+
+            $published = $this->publishPage->__invoke(
+                new PageContainerCmsResourceBasic([
+                    PropertiesPageContainerCmsResource::SITE_ID => $site['id'],
+                    PropertiesPageContainerCmsResource::PATH => $site['path'],
+                    PropertiesPageContainerCmsResource::CONTENT_VERSION_ID => $version->getId()
+                ],
+                    $createdByUserId,
+                    $createdReason
+                ),
+                $createdByUserId,
+                $createdReason
             );
         }
 
         foreach ($data['containers'] as $container) {
-            $this->createContainerPublished->__invoke(
-                $this->replaceSiteIdInUri($container['uri'], $siteIdOldToNewMap),
-                $currentUserId,
-                $createdByReason,
-                $container['properties']
+
+            $version = $this->insertContainerVersion->__invoke(new ConatinerVersionBasic(
+                $container['properties'],
+                $createdByUserId,
+                $createdReason
+            ));
+
+            $published = $this->publishContainer->__invoke(
+                new ConatinerCmsResourceBasic([
+                    PropertiesConatinerCmsResource::SITE_ID => $site['id'],
+                    PropertiesConatinerCmsResource::PATH => $site['path'],
+                    PropertiesConatinerCmsResource::CONTENT_VERSION_ID => $version->getId()
+                ],
+                    $createdByUserId,
+                    $createdReason
+                ),
+                $createdByUserId,
+                $createdReason
             );
         }
-    }
-
-    protected function replaceSiteIdInUri(string $oldUri, array $siteIdOldToNewMap)
-    {
-        /**
-         * @var Uri $oldParsedUri
-         */
-        $oldParsedUri = $this->parseCmsUri->__invoke($oldUri);
-
-        return $this->buildCmsUri->__invoke(
-            $siteIdOldToNewMap[$oldParsedUri->getSiteId()],
-            $oldParsedUri->getType(),
-            $oldParsedUri->getPath()
-        );
     }
 }
