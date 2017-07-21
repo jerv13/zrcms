@@ -1,17 +1,16 @@
 <?php
 
-namespace Zrcms\Core\Container\Api\Repository;
+namespace Zrcms\Core\Site\Api\Action;
 
-use Zrcms\Core\Container\Model\ContainerCmsResource;
 use Zrcms\Core\Site\Model\SiteCmsResource;
 
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-interface PublishContainerVersionBySitePath
+interface PublishSiteVersionByHost
 {
     /**
-     * @param string $host
+     * @param string $siteHost
      * @param string $siteVersionId
      * @param string $publisherByUserId
      * @param string $publishReason
@@ -20,7 +19,7 @@ interface PublishContainerVersionBySitePath
      * @return SiteCmsResource
      */
     public function __invoke(
-        string $host,
+        string $siteHost,
         string $siteVersionId,
         string $publisherByUserId,
         string $publishReason,

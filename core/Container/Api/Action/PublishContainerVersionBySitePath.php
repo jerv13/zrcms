@@ -1,6 +1,6 @@
 <?php
 
-namespace Zrcms\Core\Container\Api\Repository;
+namespace Zrcms\Core\Container\Api\Action;
 
 use Zrcms\Core\Container\Model\ContainerCmsResource;
 

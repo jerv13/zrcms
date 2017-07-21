@@ -1,8 +1,8 @@
 <?php
 
-namespace Zrcms\Core\Page\Api\Repository;
+namespace Zrcms\Core\Page\Api\Action;
 
-use Zrcms\Core\Container\Api\Repository\PublishContainerVersionBySitePath;
+use Zrcms\Core\Container\Api\ACtion\PublishContainerVersionBySitePath;
 use Zrcms\Core\Container\Model\ContainerCmsResource;
 
 /**

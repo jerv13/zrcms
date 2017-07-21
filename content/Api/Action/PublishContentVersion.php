@@ -1,6 +1,6 @@
 <?php
 
-namespace Zrcms\Content\Api\Repository;
+namespace Zrcms\Content\Api\Action;
 
 use Zrcms\Content\Model\CmsResource;
 
@@ -11,10 +11,14 @@ interface PublishContentVersion
 {
     /**
      * @param CmsResource $cmsResource
+     * @param string      $publishedByUserId
+     * @param string      $publishReason
      *
      * @return CmsResource
      */
     public function __invoke(
-        CmsResource $cmsResource
+        CmsResource $cmsResource,
+        string $publishedByUserId,
+        string $publishReason
     ): CmsResource;
 }
