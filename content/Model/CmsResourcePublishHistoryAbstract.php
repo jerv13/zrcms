@@ -27,7 +27,7 @@ abstract class CmsResourcePublishHistoryAbstract extends CmsResourceAbstract
         string $publishedByUserId,
         string $publishReason
     ) {
-        // @todo might use getAndRemoveRequired
+
         $this->action = Param::getRequired(
             $properties,
             PropertiesCmsResourcePublishHistory::ACTION,

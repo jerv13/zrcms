@@ -6,7 +6,7 @@ use Zrcms\Content\Model\CmsResource;
 
 /**
  * If ContentVersion does not exist, throw ContentVersionNotExistsException
- * Delete CmsResource if exists
+ * Unpublish (delete) CmsResource if exists
  * Create CmsResource (or recreate) WARNING: foreign keys constraints can not be used
  * Make CmsResourcePublishHistory entry
  * Save CmsResource

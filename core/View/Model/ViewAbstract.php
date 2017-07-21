@@ -43,7 +43,7 @@ abstract class ViewAbstract extends ContentAbstract implements View
     public function __construct(
         array $properties
     ) {
-        // @todo might use getAndRemoveRequired
+
         $this->siteCmsResource = Param::getRequired(
             $properties,
             PropertiesView::SITE_CMS_RESOURCE,
@@ -51,7 +51,7 @@ abstract class ViewAbstract extends ContentAbstract implements View
                 'Required property (' . PropertiesView::SITE_CMS_RESOURCE . ') is missing in: ' . get_class($this)
             )
         );
-        // @todo might use getAndRemoveRequired
+
         $this->site = Param::getRequired(
             $properties,
             PropertiesView::SITE,
@@ -59,7 +59,7 @@ abstract class ViewAbstract extends ContentAbstract implements View
                 'Required property (' . PropertiesView::SITE . ') is missing in: ' . get_class($this)
             )
         );
-        // @todo might use getAndRemoveRequired
+
         $this->pageContainerCmsResource = Param::getRequired(
             $properties,
             PropertiesView::PAGE_CONTAINER_CMS_RESOURCE,
@@ -67,7 +67,7 @@ abstract class ViewAbstract extends ContentAbstract implements View
                 'Required property (' . PropertiesView::PAGE_CONTAINER_CMS_RESOURCE . ') is missing in: ' . get_class($this)
             )
         );
-        // @todo might use getAndRemoveRequired
+
         $this->page = Param::getRequired(
             $properties,
             PropertiesView::PAGE,
@@ -75,7 +75,7 @@ abstract class ViewAbstract extends ContentAbstract implements View
                 'Required property (' . PropertiesView::PAGE . ') is missing in: ' . get_class($this)
             )
         );
-        // @todo might use getAndRemoveRequired
+
         $this->layoutCmsResource = Param::getRequired(
             $properties,
             PropertiesView::LAYOUT_CMS_RESOURCE,
@@ -83,7 +83,7 @@ abstract class ViewAbstract extends ContentAbstract implements View
                 'Required property (' . PropertiesView::LAYOUT_CMS_RESOURCE . ') is missing in: ' . get_class($this)
             )
         );
-        // @todo might use getAndRemoveRequired
+
         $this->layout = Param::getRequired(
             $properties,
             PropertiesView::LAYOUT,

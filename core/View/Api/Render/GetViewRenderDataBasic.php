@@ -5,7 +5,7 @@ namespace Zrcms\Core\View\Api\Render;
 use Psr\Container\ContainerInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Zrcms\Content\Model\Content;
-use Zrcms\Core\View\Api\Repository\FindViewRenderDataServices;
+use Zrcms\Core\View\Api\Repository\FindViewRenderDataGetters;
 use Zrcms\Core\View\Model\View;
 
 /**
@@ -19,17 +19,17 @@ class GetViewRenderDataBasic implements GetViewRenderData
     protected $serviceContainer;
 
     /**
-     * @var FindViewRenderDataServices
+     * @var FindViewRenderDataGetters
      */
-    protected $findViewRenderDataServices;
+    protected $findViewRenderDataGetters;
 
     /**
-     * @param FindViewRenderDataServices $findViewRenderDataServices
+     * @param FindViewRenderDataGetters $findViewRenderDataGetters
      */
     public function __construct(
-        FindViewRenderDataServices $findViewRenderDataServices
+        FindViewRenderDataGetters $findViewRenderDataGetters
     ) {
-        $this->findViewRenderDataServices = $findViewRenderDataServices;
+        $this->findViewRenderDataGetters = $findViewRenderDataGetters;
     }
 
     /**
@@ -46,11 +46,11 @@ class GetViewRenderDataBasic implements GetViewRenderData
         array $options = []
     ): array
     {
-        $getViewRenderDataServices = $this->findViewRenderDataServices->__invoke([]);
+        $viewRenderDataGetters = $this->findViewRenderDataGetters->__invoke([]);
         $allViewRenderData = [];
 
         /** @var GetViewRenderData $getViewRenderData */
-        foreach ($getViewRenderDataServices as $getViewRenderData) {
+        foreach ($viewRenderDataGetters as $getViewRenderData) {
 
             $viewRenderData = $getViewRenderData->__invoke(
                 $view,

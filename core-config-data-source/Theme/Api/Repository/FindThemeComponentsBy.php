@@ -1,11 +1,11 @@
 <?php
 
-namespace Zrcms\Core\View\Api\Repository;
+namespace Zrcms\CoreConfigDataSource\Theme\Api;
 
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-interface FindViewRenderDataServices
+class FindThemeComponentsBy implements \Zrcms\Core\Theme\Api\Repository\FindThemeComponentsBy
 {
     /**
      * @param array      $criteria
@@ -14,7 +14,7 @@ interface FindViewRenderDataServices
      * @param null       $offset
      * @param array      $options
      *
-     * @return array [GetViewRenderData]
+     * @return array [ThemeComponent]
      */
     public function __invoke(
         array $criteria,
@@ -22,5 +22,8 @@ interface FindViewRenderDataServices
         $limit = null,
         $offset = null,
         array $options = []
-    ): array;
+    ): array
+    {
+
+    }
 }

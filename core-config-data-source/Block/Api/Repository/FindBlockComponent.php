@@ -4,11 +4,12 @@ namespace Zrcms\CoreConfigDataSource\Block\Api;
 
 use Zrcms\Core\Block\Model\Block;
 use Zrcms\CoreConfigDataSource\Block\Model\BlockConfigFields;
+use Zrcms\CoreConfigDataSource\SearchConfigList;
 
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class FindBlock implements \Zrcms\Core\Block\Api\Repository\FindBlock
+class FindBlockComponent implements \Zrcms\Core\Block\Api\Repository\FindBlockComponent
 {
     /**
      * @var GetBlocks
@@ -16,20 +17,20 @@ class FindBlock implements \Zrcms\Core\Block\Api\Repository\FindBlock
     protected $getBlocks;
 
     /**
-     * @var SearchBlockList
+     * @var SearchConfigList
      */
-    protected $searchBlockList;
+    protected $searchConfigList;
 
     /**
      * @param GetBlocks       $getBlocks
-     * @param SearchBlockList $searchBlockList
+     * @param SearchConfigList $searchConfigList
      */
     public function __construct(
         GetBlocks $getBlocks,
-        SearchBlockList $searchBlockList
+        SearchConfigList $searchConfigList
     ) {
         $this->getBlocks = $getBlocks;
-        $this->searchBlockList = $searchBlockList;
+        $this->searchConfigList = $searchConfigList;
     }
 
     /**
@@ -42,7 +43,7 @@ class FindBlock implements \Zrcms\Core\Block\Api\Repository\FindBlock
         string $name,
         array $options = []
     ) {
-        $result = $this->searchBlockList->__invoke(
+        $result = $this->searchConfigList->__invoke(
             [BlockConfigFields::NAME => $name]
         );
 

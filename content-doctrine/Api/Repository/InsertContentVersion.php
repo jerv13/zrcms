@@ -25,8 +25,17 @@ class InsertContentVersion
     {
         $contentVersion->assertIsNew();
 
-        $this->entityManager->persist($contentVersion);
-        $this->entityManager->flush($contentVersion);
+        /** @var ContentVersion::class $class */
+        $class = $this->entityClass;
+
+        $newContentVersion = new $class(
+            $contentVersion->getProperties(),
+            $contentVersion->getCreatedByUserId(),
+            $contentVersion->getCreatedReason()
+        );
+
+        $this->entityManager->persist($newContentVersion);
+        $this->entityManager->flush($newContentVersion);
 
         return $contentVersion;
     }

@@ -26,7 +26,7 @@ abstract class SiteCmsResourceAbstract extends CmsResourceAbstract implements Si
         string $createdByUserId,
         string $createdReason
     ) {
-        // @todo might use getAndRemoveRequired
+
         $this->host = Param::getRequired(
             $properties,
             PropertiesSiteCmsResource::HOST,

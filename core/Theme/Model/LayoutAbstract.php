@@ -22,7 +22,7 @@ abstract class LayoutAbstract extends ContentAbstract implements Layout
     public function __construct(
         array $properties
     ) {
-        // @todo might use getAndRemoveRequired
+
         $this->html = Param::getRequired(
             $properties,
             PropertiesLayout::HTML

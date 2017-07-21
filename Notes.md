@@ -68,9 +68,9 @@ zrcms:site:1:theme-layout/{theme-layout-path}
 
 ## @todo ##
 
-- CmsResource will need ContentVersion as property
-- ContainerVersion will need blockInstances as property
-- Unsettignn properties makes population of new diffecult
+- 
+- ContainerVersion will need blockInstances as property HOW?
+- View may need a component to read 
 
 - getBlockData in GetBlockRenderDataBasic could work like containers
 - add <identifier> to comments

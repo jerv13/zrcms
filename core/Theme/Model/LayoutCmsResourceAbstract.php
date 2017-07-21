@@ -31,7 +31,7 @@ abstract class LayoutCmsResourceAbstract extends CmsResourceAbstract implements 
         string $createdByUserId,
         string $createdReason
     ) {
-        // @todo might use getAndRemoveRequired
+
         $this->themeName = Param::getRequired(
             $properties,
             PropertiesLayoutCmsResource::THEME_NAME,
@@ -40,7 +40,7 @@ abstract class LayoutCmsResourceAbstract extends CmsResourceAbstract implements 
             )
         );
 
-        // @todo might use getAndRemoveRequired
+
         $this->name = Param::getRequired(
             $properties,
             PropertiesLayoutCmsResource::NAME,

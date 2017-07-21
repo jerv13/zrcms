@@ -2,10 +2,13 @@
 namespace Zrcms\ContentDoctrine\Api\Action;
 
 use Doctrine\ORM\EntityManager;
+use Zrcms\Content\Api\Action\UnpublishContentVersion;
 use Zrcms\Content\Exception\ContentVersionNotExistsException;
+use Zrcms\Content\Model\Action;
 use Zrcms\Content\Model\CmsResource;
 use Zrcms\Content\Model\CmsResourcePublishHistory;
 use Zrcms\Content\Model\ContentVersion;
+use Zrcms\Content\Model\PropertiesCmsResourcePublishHistory;
 use Zrcms\ContentDoctrine\Api\ApiAbstract;
 
 /**
@@ -19,6 +22,11 @@ class PublishContentVersion
      * @var EntityManager
      */
     protected $entityManager;
+
+    /**
+     * @var UnpublishContentVersion
+     */
+    protected $unpublishContentVersion;
 
     /**
      * @var string
@@ -36,16 +44,25 @@ class PublishContentVersion
     protected $entityClassContentVersion;
 
     /**
-     * @param EntityManager $entityManager
-     * @param string        $entityClassCmsResource
-     * @param string        $entityClassCmsResourcePublishHistory
-     * @param string        $entityClassContentVersion
+     * @var string
+     */
+    protected $classCmsResourceBasic;
+
+    /**
+     * @param EntityManager           $entityManager
+     * @param UnpublishContentVersion $unpublishContentVersion
+     * @param string                  $entityClassCmsResource
+     * @param string                  $entityClassCmsResourcePublishHistory
+     * @param string                  $entityClassContentVersion
+     * @param string                  $classCmsResourceBasic
      */
     public function __construct(
         EntityManager $entityManager,
+        UnpublishContentVersion $unpublishContentVersion,
         string $entityClassCmsResource,
         string $entityClassCmsResourcePublishHistory,
-        string $entityClassContentVersion
+        string $entityClassContentVersion,
+        string $classCmsResourceBasic
     ) {
         $this->assertValidEntityClass(
             $entityClassCmsResource,
@@ -63,12 +80,16 @@ class PublishContentVersion
         );
 
         $this->entityManager = $entityManager;
+        $this->unpublishContentVersion = $unpublishContentVersion;
         $this->entityClassCmsResourcePublishHistory = $entityClassCmsResourcePublishHistory;
         $this->entityClassCmsResource = $entityClassCmsResource;
         $this->entityClassContentVersion = $entityClassContentVersion;
+        $this->classCmsResourceBasic = $classCmsResourceBasic;
     }
 
     /**
+     * @todo use a Doctrine transaction
+     *
      * @param CmsResource $cmsResource
      * @param string      $publishedByUserId
      * @param string      $publishReason
@@ -96,28 +117,56 @@ class PublishContentVersion
             );
         }
 
-
-
-
-
-        // @todo use a Doctrine transaction
         $repositoryCmsResource = $this->entityManager->getRepository(
             $this->entityClassCmsResource
         );
 
+        /** @var CmsResource $existingCmsResource */
         $existingCmsResource = $repositoryCmsResource->find(
             $cmsResource->getId()
         );
 
+        /** @var CmsResourcePublishHistory::class $cmsResourcePublishHistoryClass */
+        $cmsResourcePublishHistoryClass = $this->entityClassCmsResourcePublishHistory;
+
+        $historyProperties = $cmsResource->getProperties();
+        $historyProperties[PropertiesCmsResourcePublishHistory::ACTION] = Action::PUBLISH_CMS_RESOURCE;
+
+        /** @var CmsResourcePublishHistory $newCmsResourcePublishHistory */
+        $newCmsResourcePublishHistory = new $cmsResourcePublishHistoryClass(
+            $historyProperties,
+            $cmsResource->getCreatedByUserId(),
+            $cmsResource->getCreatedReason()
+        );
+
+        /** @var CmsResource::class $cmsResourceClass */
+        $cmsResourceClass = $this->entityClassCmsResource;
+
+        /** @var CmsResource $newCmsResource */
+        $newCmsResource = new $cmsResourceClass(
+            $cmsResource->getProperties(),
+            $cmsResource->getCreatedByUserId(),
+            $cmsResource->getCreatedReason()
+        );
+
+        // @todo Update instead of delete and remake
         if ($existingCmsResource) {
             $this->entityManager->remove($existingCmsResource);
+            $this->entityManager->flush($existingCmsResource);
         }
 
-        $this->entityManager->persist($cmsResource);
+        $this->entityManager->persist($newCmsResource);
+        $this->entityManager->persist($newCmsResourcePublishHistory);
+        $this->entityManager->flush($newCmsResourcePublishHistory);
+        $this->entityManager->flush($newCmsResource);
 
-        $this->entityManager->flush($existingCmsResource);
-        $this->entityManager->flush($cmsResource);
+        /** @var CmsResource::class $classCmsResourceBasic */
+        $classCmsResourceBasic = $this->classCmsResourceBasic;
 
-        return $cmsResource;
+        return new $classCmsResourceBasic(
+            $newCmsResource->getProperties(),
+            $newCmsResource->getCreatedByUserId(),
+            $newCmsResource->getCreatedReason()
+        );
     }
 }

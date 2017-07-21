@@ -44,7 +44,7 @@ abstract class ComponentAbstract implements Component
             return;
         }
 
-        // @todo might use getAndRemoveRequired
+
         $this->name = Param::getRequired(
             $properties,
             PropertiesComponent::NAME,
@@ -53,7 +53,7 @@ abstract class ComponentAbstract implements Component
             )
         );
 
-        // @todo might use getAndRemoveRequired
+
         $this->directory = Param::getRequired(
             $properties,
             PropertiesComponent::DIRECTORY,

@@ -1,27 +1,27 @@
 <?php
 
-namespace Zrcms\CoreConfigDataSource\Block\Api;
+namespace Zrcms\CoreConfigDataSource;
 
-use Zrcms\Core\Block\Model\Block;
+use Zrcms\Content\Model\Component;
 
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class SearchBlockList
+class SearchConfigList
 {
     /**
-     * @param array $blocks
+     * @param array $components
      * @param array $criteria
      *
      * @return array
      */
-    public function __invoke(array $blocks, array $criteria = [])
+    public function __invoke(array $components, array $criteria = [])
     {
         $result = [];
 
-        foreach ($blocks as $block) {
-            if ($this->filter($block, $criteria)) {
-                $result[] = $block;
+        foreach ($components as $component) {
+            if ($this->filter($component, $criteria)) {
+                $result[] = $component;
             }
         }
 
@@ -31,28 +31,27 @@ class SearchBlockList
     /**
      * filter
      *
-     * @param Block $block
+     * @param Component $component
      * @param array $criteria
      *
      * @return bool
      */
-    protected function filter(Block $block, array $criteria = [])
+    protected function filter(Component $component, array $criteria = [])
     {
         $count = count($criteria);
         $default = new \stdClass();
         $countResult = 0;
         foreach ($criteria as $key => $value) {
-            // @todo the is strange
             $method = 'get' . ucfirst($key);
-            if (method_exists($block, $method)) {
+            if (method_exists($component, $method)) {
                 // Try to get property if has method
-                $blockValue = $block->$method();
+                $componentValue = $component->$method();
             } else {
                 // Try to get property from properties
-                $blockValue = $block->getProperty($key, $default);
+                $componentValue = $component->getProperty($key, $default);
             }
 
-            if ($blockValue === $value) {
+            if ($componentValue === $value) {
                 $countResult++;
             }
         }

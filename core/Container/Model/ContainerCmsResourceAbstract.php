@@ -31,7 +31,7 @@ abstract class ContainerCmsResourceAbstract extends CmsResourceAbstract implemen
         string $createdByUserId,
         string $createdReason
     ) {
-        // @todo might use getAndRemoveRequired
+
         $this->siteId = Param::getRequired(
             $properties,
             PropertiesContainerCmsResource::SITE_ID,
@@ -40,7 +40,7 @@ abstract class ContainerCmsResourceAbstract extends CmsResourceAbstract implemen
             )
         );
 
-        // @todo might use getAndRemoveRequired
+
         $this->path = Param::getRequired(
             $properties,
             PropertiesContainerCmsResource::PATH,

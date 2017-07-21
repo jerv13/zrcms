@@ -18,7 +18,7 @@ class GetBlocksFactory
     public function __invoke(
         $serviceContainer
     ) {
-        $config = $serviceContainer->get('Config');
+        $config = $serviceContainer->get('config');
 
         $registryConfig = $config['zrcms']['blocks'];
 

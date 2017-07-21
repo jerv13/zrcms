@@ -5,7 +5,7 @@ namespace Zrcms\CoreConfigDataSource\Block\Api;
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class FindBlocksBy implements \Zrcms\Core\Block\Api\Repository\FindBlocksBy
+class FindBlockComponentsBy implements \Zrcms\Core\Block\Api\Repository\FindBlockComponentsBy
 {
     /**
      * @var GetBlocks

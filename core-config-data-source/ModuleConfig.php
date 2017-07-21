@@ -28,20 +28,24 @@ class ModuleConfig
         return [
             'dependencies' => [
                 'config_factories' => [
-                    /** Api **/
+                    SearchConfigList::class => [
+                        'class' => SearchConfigList::class,
+                        'arguments' => [],
+                    ],
+                    /** BlockComponents **/
                     // @override
                     FindBlockComponent::class => [
-                        'class' => \Zrcms\CoreConfigDataSource\Block\Api\FindBlock::class,
+                        'class' => \Zrcms\CoreConfigDataSource\Block\Api\FindBlockComponent::class,
                         'arguments' => [
                             GetBlocks::class,
-                            SearchBlockList::class
+                            SearchConfigList::class
                         ],
                     ],
                     FindBlockComponentsBy::class => [
-                        'class' => \Zrcms\CoreConfigDataSource\Block\Api\FindBlocksBy::class,
+                        'class' => \Zrcms\CoreConfigDataSource\Block\Api\FindBlockComponentsBy::class,
                         'arguments' => [
                             GetBlocks::class,
-                            SearchBlockList::class
+                            SearchConfigList::class
                         ],
                     ],
                     GetBlockConfigFields::class => [
@@ -75,21 +79,18 @@ class ModuleConfig
                         'arguments' => [
                         ],
                     ],
-                    SearchBlockList::class => [
-                        'class' => SearchBlockList::class,
-                        'arguments' => [
-                        ],
-                    ],
+                    /** ThemeComponents **/
+                    /** ViewComponents **/
                 ],
             ],
             'zrcms' => [
                 'blocks' => [
                     // 'blockName' => 'blockDirectory'
                 ],
-                'layout-render-data-getter' => [
+                'layout-render-data-getters' => [
                     // 'GetLayoutRenderData Service'
                 ],
-                'theme' => [
+                'themes' => [
                     // 'themeName' => 'themeDirectory'
                 ],
             ],

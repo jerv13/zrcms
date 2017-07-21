@@ -33,13 +33,11 @@ abstract class CmsResourceAbstract implements CmsResource
             return;
         }
 
-        // @todo might use getAndRemove
         $this->id = Param::get(
             $properties,
             PropertiesCmsResource::ID
         );
 
-        // @todo might use getAndRemoveRequired
         $this->contentVersionId = Param::getRequired(
             $properties,
             PropertiesCmsResource::CONTENT_VERSION_ID,
