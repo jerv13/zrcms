@@ -21,7 +21,7 @@ abstract class ContentVersionAbstract implements ContentVersion
     /**
      * @var array
      */
-    protected $properties = null;
+    protected $properties = [];
 
     /**
      * @param array  $properties
@@ -38,7 +38,6 @@ abstract class ContentVersionAbstract implements ContentVersion
             return;
         }
 
-
         $this->id = Param::get(
             $properties,
             PropertiesContentVersion::ID
@@ -48,6 +47,7 @@ abstract class ContentVersionAbstract implements ContentVersion
             $createdByUserId,
             $createdReason
         );
+
         $this->properties = $properties;
     }
 

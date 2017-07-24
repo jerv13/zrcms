@@ -20,7 +20,7 @@ abstract class ContentAbstract implements Content
     /**
      * @var array
      */
-    protected $properties = null;
+    protected $properties = [];
 
     /**
      * @param array $properties

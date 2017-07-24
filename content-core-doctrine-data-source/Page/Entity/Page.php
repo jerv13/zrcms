@@ -1,9 +1,9 @@
 <?php
 
-namespace Zrcms\ContentCoreDoctrine\Page\Entity;
+namespace Zrcms\ContentCoreDoctrineDataSource\Page\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Zrcms\ContentCore\Page\Model\PageAbstract;
+use Zrcms\ContentCore\Page\Model\PageContainerVersionAbstract;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -11,13 +11,15 @@ use Zrcms\ContentCore\Page\Model\PageAbstract;
  * @ORM\Entity()
  * @ORM\HasLifecycleCallbacks()
  * @ORM\Table(
- *     name="zrcms_core_page",
+ *     name="zrcms_core_page_container_version",
  *     indexes={
  *         @ORM\Index(name="uid_index", columns={"uid"})
  *     }
  * )
  */
-class Page extends PageAbstract implements \Zrcms\ContentCore\Page\Model\Page
+class PageContainerVersion
+    extends PageContainerVersionAbstract
+    implements \Zrcms\ContentCore\Page\Model\PageContainerVersion
 {
     /**
      * @var string
@@ -26,13 +28,6 @@ class Page extends PageAbstract implements \Zrcms\ContentCore\Page\Model\Page
      * @ORM\Column(type="string")
      */
     protected $id;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(type="string")
-     */
-    protected $sourceUri;
 
     /**
      * @var array

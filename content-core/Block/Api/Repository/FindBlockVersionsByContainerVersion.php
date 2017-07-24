@@ -8,16 +8,16 @@ use Zrcms\ContentCore\Container\Model\ContainerVersion;
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-interface FindBlockVersionByContainerVersion
+interface FindBlockVersionsByContainerVersion
 {
     /**
      * @param ContainerVersion $containerVersion
      * @param array            $options
      *
-     * @return BlockVersion|null
+     * @return BlockVersion[]
      */
     public function __invoke(
         ContainerVersion $containerVersion,
         array $options = []
-    );
+    ): array;
 }

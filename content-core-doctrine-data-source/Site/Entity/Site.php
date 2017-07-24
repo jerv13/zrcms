@@ -1,6 +1,6 @@
 <?php
 
-namespace Zrcms\ContentCoreDoctrine\Site\Entity;
+namespace Zrcms\ContentCoreDoctrineDataSource\Site\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Zrcms\ContentCore\Site\Model\SiteAbstract;

@@ -13,7 +13,7 @@ abstract class BlockVersionAbstract extends ContentVersionAbstract implements Bl
     /**
      * @var string
      */
-    protected $containerId;
+    protected $containerCmsResourceId;
 
     /**
      * @var string
@@ -40,9 +40,9 @@ abstract class BlockVersionAbstract extends ContentVersionAbstract implements Bl
         string $createdByUserId,
         string $createdReason
     ) {
-        $this->containerId = Param::getRequired(
+        $this->containerCmsResourceId = Param::getRequired(
             $properties,
-            PropertiesBlockVersion::BLOCK_COMPONENT_NAME
+            PropertiesBlockVersion::BLOCK_CONTAINER_CMS_RESOURCE_ID
         );
 
         $this->blockComponentName = Param::getRequired(
@@ -76,9 +76,9 @@ abstract class BlockVersionAbstract extends ContentVersionAbstract implements Bl
     /**
      * @return string
      */
-    public function getContainerId(): string
+    public function getContainerCmsResourceId(): string
     {
-        return $this->containerId;
+        return $this->containerCmsResourceId;
     }
 
     /**

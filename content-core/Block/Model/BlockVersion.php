@@ -9,5 +9,9 @@ use Zrcms\Content\Model\ContentVersion;
  */
 interface BlockVersion extends Block, ContentVersion
 {
+    /**
+     * @return string|null
+     */
+    public function getContainerCmsResourceId(): string;
 
 }

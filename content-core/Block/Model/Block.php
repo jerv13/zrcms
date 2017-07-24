@@ -12,11 +12,6 @@ interface Block extends Content
     /**
      * @return string
      */
-    public function getContainerVersionId(): string;
-
-    /**
-     * @return string
-     */
     public function getBlockComponentName(): string;
 
     /**

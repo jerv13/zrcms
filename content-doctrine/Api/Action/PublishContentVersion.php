@@ -24,11 +24,6 @@ class PublishContentVersion
     protected $entityManager;
 
     /**
-     * @var UnpublishContentVersion
-     */
-    protected $unpublishContentVersion;
-
-    /**
      * @var string
      */
     protected $entityClassCmsResource;
@@ -50,7 +45,6 @@ class PublishContentVersion
 
     /**
      * @param EntityManager           $entityManager
-     * @param UnpublishContentVersion $unpublishContentVersion
      * @param string                  $entityClassCmsResource
      * @param string                  $entityClassCmsResourcePublishHistory
      * @param string                  $entityClassContentVersion
@@ -58,7 +52,6 @@ class PublishContentVersion
      */
     public function __construct(
         EntityManager $entityManager,
-        UnpublishContentVersion $unpublishContentVersion,
         string $entityClassCmsResource,
         string $entityClassCmsResourcePublishHistory,
         string $entityClassContentVersion,
@@ -80,7 +73,6 @@ class PublishContentVersion
         );
 
         $this->entityManager = $entityManager;
-        $this->unpublishContentVersion = $unpublishContentVersion;
         $this->entityClassCmsResourcePublishHistory = $entityClassCmsResourcePublishHistory;
         $this->entityClassCmsResource = $entityClassCmsResource;
         $this->entityClassContentVersion = $entityClassContentVersion;

@@ -1,6 +1,6 @@
 <?php
 
-namespace Zrcms\ContentCoreDoctrine;
+namespace Zrcms\ContentCoreDoctrineDataSource;
 
 /**
  * @author James Jervis - https://github.com/jerv13

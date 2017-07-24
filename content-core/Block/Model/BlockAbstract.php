@@ -13,11 +13,6 @@ abstract class BlockAbstract extends ContentAbstract implements Block
     /**
      * @var string
      */
-    protected $containerVersionId;
-
-    /**
-     * @var string
-     */
     protected $blockComponentName;
 
     /**
@@ -36,11 +31,6 @@ abstract class BlockAbstract extends ContentAbstract implements Block
     public function __construct(
         array $properties
     ) {
-        $this->containerVersionId = Param::getRequired(
-            $properties,
-            PropertiesBlockVersion::CONTAINER_VERSION_ID
-        );
-
         $this->blockComponentName = Param::getRequired(
             $properties,
             PropertiesBlockVersion::BLOCK_COMPONENT_NAME
@@ -65,14 +55,6 @@ abstract class BlockAbstract extends ContentAbstract implements Block
         parent::__construct(
             $properties
         );
-    }
-
-    /**
-     * @return string
-     */
-    public function getContainerId(): string
-    {
-        return $this->containerId;
     }
 
     /**

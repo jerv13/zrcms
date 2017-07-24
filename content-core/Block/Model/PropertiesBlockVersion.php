@@ -9,5 +9,5 @@ use Zrcms\Content\Model\PropertiesContentVersion;
  */
 interface PropertiesBlockVersion extends PropertiesBlock, PropertiesContentVersion
 {
-
+    const BLOCK_CONTAINER_CMS_RESOURCE_ID = 'blockContainerCmsResourceId';
 }
