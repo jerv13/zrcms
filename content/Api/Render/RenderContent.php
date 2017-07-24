@@ -11,7 +11,7 @@ interface RenderContent
 {
     /**
      * @param Content $content
-     * @param array   $renderData ['templateTag' => '{html}']
+     * @param array   $renderData ['render-tag' => '{html}']
      * @param array   $options
      *
      * @return string

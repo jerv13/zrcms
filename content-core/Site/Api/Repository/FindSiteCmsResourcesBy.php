@@ -3,6 +3,7 @@
 namespace Zrcms\ContentCore\Site\Api\Repository;
 
 use Zrcms\Content\Api\Repository\FindCmsResourcesBy;
+use Zrcms\ContentCore\Site\Model\SiteCmsResource;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -16,7 +17,7 @@ interface FindSiteCmsResourcesBy extends FindCmsResourcesBy
      * @param null       $offset
      * @param array      $options
      *
-     * @return array [SiteCmsResource]
+     * @return SiteCmsResource[]
      */
     public function __invoke(
         array $criteria,

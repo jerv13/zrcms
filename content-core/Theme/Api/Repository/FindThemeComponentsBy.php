@@ -3,6 +3,7 @@
 namespace Zrcms\ContentCore\Theme\Api\Repository;
 
 use Zrcms\Content\Api\Repository\FindComponentsBy;
+use Zrcms\ContentCore\Theme\Model\ThemeComponent;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -16,7 +17,7 @@ interface FindThemeComponentsBy extends FindComponentsBy
      * @param null       $offset
      * @param array      $options
      *
-     * @return array [ThemeComponent]
+     * @return ThemeComponent[]
      */
     public function __invoke(
         array $criteria,

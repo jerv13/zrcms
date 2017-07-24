@@ -39,7 +39,7 @@ class FindViewRenderDataGetters implements \Zrcms\ContentCore\View\Api\Repositor
      * @param null       $offset
      * @param array      $options
      *
-     * @return array [serviceNames]
+     * @return string[] ['serviceName']
      */
     public function __invoke(
         array $criteria,

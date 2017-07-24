@@ -36,7 +36,7 @@ class RenderPageContainerBasic implements RenderPageContainer
 
     /**
      * @param Page|Content $pageContainer
-     * @param array                                 $renderData ['templateTag' => '{html}']
+     * @param array                                 $renderData ['render-tag' => '{html}']
      * @param array                                 $options
      *
      * @return string

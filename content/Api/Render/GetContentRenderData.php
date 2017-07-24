@@ -15,7 +15,7 @@ interface GetContentRenderData
      * @param ServerRequestInterface $request
      * @param array                  $options
      *
-     * @return array ['templateTag' => '{html}']
+     * @return string[] ['{render-tag}' => '{html}']
      */
     public function __invoke(
         Content $content,

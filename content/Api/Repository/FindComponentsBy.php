@@ -2,6 +2,8 @@
 
 namespace Zrcms\Content\Api\Repository;
 
+use Zrcms\Content\Model\Component;
+
 /**
  * @author James Jervis - https://github.com/jerv13
  */
@@ -14,7 +16,7 @@ interface FindComponentsBy
      * @param null       $offset
      * @param array      $options
      *
-     * @return array [Component]
+     * @return Component[]
      */
     public function __invoke(
         array $criteria,

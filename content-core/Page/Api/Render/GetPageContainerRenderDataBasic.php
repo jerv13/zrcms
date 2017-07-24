@@ -37,11 +37,11 @@ class GetPageContainerRenderDataBasic implements GetPageContainerRenderData
     }
 
     /**
-     * @param Page|Content $pageContainer
-     * @param ServerRequestInterface                $request
-     * @param array                                 $options
+     * @param Page|Content           $pageContainer
+     * @param ServerRequestInterface $request
+     * @param array                  $options
      *
-     * @return array ['templateTag' => '{html}']
+     * @return string[] ['{render-tag}' => '{html}']
      * @throws \Exception
      */
     public function __invoke(

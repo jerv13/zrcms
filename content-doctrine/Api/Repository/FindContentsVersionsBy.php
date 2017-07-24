@@ -2,6 +2,7 @@
 
 namespace Zrcms\ContentDoctrine\Api\Repository;
 
+use Zrcms\Content\Model\ContentVersion;
 use Zrcms\ContentDoctrine\Api\ApiAbstractContentVersion;
 
 /**
@@ -18,7 +19,7 @@ class FindContentVersionsBy
      * @param null       $offset
      * @param array      $options
      *
-     * @return array [ContentVersion]
+     * @return ContentVersion[]
      */
     public function __invoke(
         array $criteria,

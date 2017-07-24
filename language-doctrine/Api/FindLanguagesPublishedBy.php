@@ -30,7 +30,7 @@ class FindLanguagesPublishedBy implements \Zrcms\Language\Api\FindLanguagesPubli
      * @param null|int   $offset
      * @param array      $options
      *
-     * @return array [LanguagePublished]
+     * @return LanguagePublished[]
      */
     public function __invoke(
         array $criteria,

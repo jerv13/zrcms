@@ -2,6 +2,8 @@
 
 namespace Zrcms\Content\Api\Repository;
 
+use Zrcms\Content\Model\ContentVersion;
+
 /**
  * @author James Jervis - https://github.com/jerv13
  */
@@ -14,7 +16,7 @@ interface FindContentVersionsBy
      * @param null       $offset
      * @param array      $options
      *
-     * @return array [ContentVersion]
+     * @return ContentVersion[]
      */
     public function __invoke(
         array $criteria,

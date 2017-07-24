@@ -1,14 +1,14 @@
 <?php
 
-namespace Zrcms\ContentCore\Theme\Api\Repository;
+namespace Zrcms\ContentCore\View\Api\Repository;
 
-use Zrcms\Content\Api\Repository\FindCmsResourcesBy;
-use Zrcms\ContentCore\Theme\Model\LayoutCmsResource;
+use Zrcms\Content\Api\Repository\FindComponentsBy;
+use Zrcms\ContentCore\View\Model\ViewComponent;
 
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-interface FindLayoutCmsResourcesBy extends FindCmsResourcesBy
+interface FindViewComponentsBy extends FindComponentsBy
 {
     /**
      * @param array      $criteria
@@ -17,7 +17,7 @@ interface FindLayoutCmsResourcesBy extends FindCmsResourcesBy
      * @param null       $offset
      * @param array      $options
      *
-     * @return LayoutCmsResource[]
+     * @return ViewComponent[]
      */
     public function __invoke(
         array $criteria,

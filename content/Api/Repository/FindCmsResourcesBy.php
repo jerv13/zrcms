@@ -2,6 +2,8 @@
 
 namespace Zrcms\Content\Api\Repository;
 
+use Zrcms\Content\Model\CmsResource;
+
 /**
  * @author James Jervis - https://github.com/jerv13
  */
@@ -14,7 +16,7 @@ interface FindCmsResourcesBy
      * @param null       $offset
      * @param array      $options
      *
-     * @return array [CmsResource]
+     * @return CmsResource[]
      */
     public function __invoke(
         array $criteria,

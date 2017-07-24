@@ -2,6 +2,8 @@
 
 namespace Zrcms\ContentCore\View\Api\Repository;
 
+use Zrcms\ContentCore\View\Api\Render\GetViewRenderData;
+
 /**
  * @author James Jervis - https://github.com/jerv13
  */
@@ -14,7 +16,7 @@ interface FindViewRenderDataGetters
      * @param null       $offset
      * @param array      $options
      *
-     * @return array [GetViewRenderData]
+     * @return GetViewRenderData[]
      */
     public function __invoke(
         array $criteria,

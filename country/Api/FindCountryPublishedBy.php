@@ -14,7 +14,7 @@ interface FindCountriesPublishedBy
      * @param null|int   $offset
      * @param array      $options
      *
-     * @return array [CountryPublished]
+     * @return CountryPublished[]
      */
     public function __invoke(
         array $criteria,

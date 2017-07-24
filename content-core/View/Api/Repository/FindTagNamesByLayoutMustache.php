@@ -2,7 +2,6 @@
 
 namespace Zrcms\ContentCore\View\Api\Repository;
 
-use Zrcms\ContentCore\Container\Model\ContainerProperties;
 use Zrcms\ContentCore\Theme\Model\Layout;
 
 /**
@@ -14,11 +13,11 @@ class FindContainerPathsByHtmlMustache implements FindTagNamesByLayout
      * @param Layout $layout
      * @param array  $options
      *
-     * @return array ['{container-path}']
+     * @return string[] ['{container-path}']
      */
-    public function __invoke(Layout $layout, array $options = [])
+    public function __invoke(Layout $layout, array $options = []): array
     {
-        // '/\{\{' . ContainerProperties::RENDER_NAMESPACE . '.([^}:]+)\}\}/'
+        // '/\{\{' . PropertiesContainer::RENDER_NAMESPACE . '.([^}:]+)\}\}/'
         preg_match_all(
             '/\{\{([^}:]+)\}\}/',
             $layout->getHtml(),

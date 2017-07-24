@@ -3,6 +3,7 @@
 namespace Zrcms\ContentCore\Site\Api\Repository;
 
 use Zrcms\Content\Api\Repository\FindContentVersionsBy;
+use Zrcms\ContentCore\Site\Model\SiteVersion;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -16,7 +17,7 @@ interface FindSiteVersionsBy extends FindContentVersionsBy
      * @param null       $offset
      * @param array      $options
      *
-     * @return array [SiteVersion]
+     * @return SiteVersion[]
      */
     public function __invoke(
         array $criteria,

@@ -14,7 +14,7 @@ interface FindLanguagesPublishedBy
      * @param null|int   $offset
      * @param array      $options
      *
-     * @return array [LanguagePublished]
+     * @return LanguagePublished[]
      */
     public function __invoke(
         array $criteria,

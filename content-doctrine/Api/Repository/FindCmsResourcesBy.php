@@ -2,6 +2,7 @@
 
 namespace Zrcms\ContentDoctrine\Api\Repository;
 
+use Zrcms\Content\Model\CmsResource;
 use Zrcms\ContentDoctrine\Api\ApiAbstractCmsResource;
 
 /**
@@ -18,7 +19,7 @@ class FindCmsResourcesBy
      * @param null       $offset
      * @param array      $options
      *
-     * @return array [CmsResource]
+     * @return CmsResource[]
      */
     public function __invoke(
         array $criteria,

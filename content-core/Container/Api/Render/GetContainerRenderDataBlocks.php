@@ -69,7 +69,7 @@ class GetContainerRenderDataBlocks implements GetContainerRenderData
      * @param ServerRequestInterface $request
      * @param array                  $options
      *
-     * @return array ['templateTag' => '{html}']
+     * @return string[] ['{render-tag}' => '{html}']
      * @throws \Exception
      */
     public function __invoke(

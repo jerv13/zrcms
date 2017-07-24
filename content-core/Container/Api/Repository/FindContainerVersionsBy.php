@@ -3,6 +3,7 @@
 namespace Zrcms\ContentCore\Container\Api\Repository;
 
 use Zrcms\Content\Api\Repository\FindContentVersionsBy;
+use Zrcms\ContentCore\Container\Model\ContainerVersion;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -16,7 +17,7 @@ interface FindContainerVersionsBy extends FindContentVersionsBy
      * @param null       $offset
      * @param array      $options
      *
-     * @return array [ContainerVersion]
+     * @return ContainerVersion[]
      */
     public function __invoke(
         array $criteria,

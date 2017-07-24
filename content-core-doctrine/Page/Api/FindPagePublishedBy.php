@@ -3,8 +3,6 @@
 namespace Zrcms\ContentCoreDoctrine\Page\Api;
 
 use Doctrine\ORM\EntityManager;
-use Zrcms\ContentCoreDoctrine\Page\Entity\PagePublished;
-
 /**
  * @author James Jervis - https://github.com/jerv13
  */
@@ -31,7 +29,7 @@ class FindPagePublishedBy implements \Zrcms\ContentCore\Page\Api\FindPagePublish
      * @param null|int   $offset
      * @param array      $options
      *
-     * @return array [PagePublished]
+     * @return PagePublished[]
      */
     public function __invoke(
         array $criteria,

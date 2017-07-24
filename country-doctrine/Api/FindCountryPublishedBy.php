@@ -30,7 +30,7 @@ class FindCountriesPublishedBy implements \Zrcms\Country\Api\FindCountriesPublis
      * @param null|int   $offset
      * @param array      $options
      *
-     * @return array [CountryPublished]
+     * @return CountryPublished[]
      */
     public function __invoke(
         array $criteria,

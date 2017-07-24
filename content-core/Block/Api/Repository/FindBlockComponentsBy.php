@@ -3,6 +3,7 @@
 namespace Zrcms\ContentCore\Block\Api\Repository;
 
 use Zrcms\Content\Api\Repository\FindComponentsBy;
+use Zrcms\ContentCore\Block\Model\BlockComponent;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -16,7 +17,7 @@ interface FindBlockComponentsBy extends FindComponentsBy
      * @param null       $offset
      * @param array      $options
      *
-     * @return array [BlockComponent]
+     * @return BlockComponent[]
      */
     public function __invoke(
         array $criteria,
