@@ -8,7 +8,7 @@ use Zrcms\Param\Param;
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class ViewComponentAbstract extends ComponentAbstract implements ViewComponent
+abstract class ViewComponentAbstract extends ComponentAbstract implements ViewComponent
 {
     /**
      * @var array
