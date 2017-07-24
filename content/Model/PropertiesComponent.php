@@ -8,5 +8,5 @@ namespace Zrcms\Content\Model;
 interface PropertiesComponent
 {
     const NAME = 'name';
-    const DIRECTORY = 'directory';
+    const LOCATION = 'location';
 }

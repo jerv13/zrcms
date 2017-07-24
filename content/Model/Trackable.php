@@ -9,8 +9,8 @@ use Zrcms\Content\Exception\TrackingException;
  */
 interface Trackable
 {
-    const UNKNOWN_USER_ID = 'unknown';
-    const UNKNOWN_REASON = 'unknown';
+    const UNKNOWN_USER_ID = 'unknown-user-id';
+    const UNKNOWN_REASON = 'unknown-reason';
 
     /**
      * @return \DateTime

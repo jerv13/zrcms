@@ -6,17 +6,17 @@
     </php>
     <filter>
         <whitelist>
-            <directory suffix=".php">./</directory>
+            <location suffix=".php">./</location>
             <exclude>
-                <directory>vendor/</directory>
-                <directory>test/</directory>
-                <directory>src/Exception/</directory>
+                <location>vendor/</location>
+                <location>test/</location>
+                <location>src/Exception/</location>
             </exclude>
         </whitelist>
     </filter>
     <testsuites>
         <testsuite name="rcm">
-            <directory>test</directory>
+            <location>test</location>
         </testsuite>
     </testsuites>
 </phpunit>

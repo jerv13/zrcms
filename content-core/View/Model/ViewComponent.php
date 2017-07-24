@@ -10,4 +10,9 @@ use Zrcms\Content\Model\Component;
 interface ViewComponent extends Component
 {
     const DEFAULT_NAME = 'default';
+
+    /**
+     * @return array
+     */
+    public function getViewRenderDataGetters(): array;
 }

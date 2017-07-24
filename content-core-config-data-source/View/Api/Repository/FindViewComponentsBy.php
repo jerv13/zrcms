@@ -1,16 +1,16 @@
 <?php
 
-namespace Zrcms\ContentCoreConfigDataSource\Block\Api;
+namespace Zrcms\ContentCoreConfigDataSource\View\Api\Repository;
 
-use Zrcms\ContentCore\Block\Model\BlockComponent;
+use Zrcms\ContentCore\View\Model\ViewComponent;
 use Zrcms\ContentCoreConfigDataSource\Content\Api\Repository\FindComponentsByAbstract;
 
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class FindBlockComponentsBy
+class FindViewComponentsBy
     extends FindComponentsByAbstract
-    implements \Zrcms\ContentCore\Block\Api\Repository\FindBlockComponentsBy
+    implements \Zrcms\ContentCore\View\Api\Repository\FindViewComponentsBy
 {
     /**
      * @param array      $criteria
@@ -19,7 +19,8 @@ class FindBlockComponentsBy
      * @param null       $offset
      * @param array      $options
      *
-     * @return BlockComponent[]
+     * @return ViewComponent[]
+     * @throws \Exception
      */
     public function __invoke(
         array $criteria,

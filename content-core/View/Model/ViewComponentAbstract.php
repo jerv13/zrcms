@@ -42,4 +42,12 @@ abstract class ViewComponentAbstract extends ComponentAbstract implements ViewCo
             $createdReason
         );
     }
+
+    /**
+     * @return array
+     */
+    public function getViewRenderDataGetters(): array
+    {
+        return $this->viewRenderDataGetters;
+    }
 }

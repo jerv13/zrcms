@@ -47,7 +47,7 @@ class RenderBlockMustache implements RenderBlock
         );
 
         $resolver = new DefaultResolver();
-        $resolver->addTemplatePath($blockComponent->getDirectory());
+        $resolver->addTemplatePath($blockComponent->getLocation());
 
         $mustache = new Mustache();
         $mustache->getResolver()->attach($resolver);

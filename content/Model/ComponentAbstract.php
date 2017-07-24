@@ -22,7 +22,7 @@ abstract class ComponentAbstract implements Component
     /**
      * @var string
      */
-    protected $directory;
+    protected $location;
 
     /**
      * @var array
@@ -54,11 +54,11 @@ abstract class ComponentAbstract implements Component
         );
 
 
-        $this->directory = Param::getRequired(
+        $this->location = Param::getRequired(
             $properties,
-            PropertiesComponent::DIRECTORY,
+            PropertiesComponent::LOCATION,
             new PropertyMissingException(
-                'Required property (' . PropertiesComponent::DIRECTORY . ') is missing in: ' . get_class($this)
+                'Required property (' . PropertiesComponent::LOCATION . ') is missing in: ' . get_class($this)
             )
         );
 
@@ -89,8 +89,8 @@ abstract class ComponentAbstract implements Component
     /**
      * @return string
      */
-    public function getDirectory(): string
+    public function getLocation(): string
     {
-        return $this->directory;
+        return $this->location;
     }
 }

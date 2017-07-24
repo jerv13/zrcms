@@ -71,6 +71,7 @@ zrcms:site:1:theme-layout/{theme-layout-path}
 - 
 - ContainerVersion will need blockInstances as property HOW?
 - View may need a component to read 
+- Directory changed to location for components
 
 - getBlockData in GetBlockRenderDataBasic could work like containers
 - add <identifier> to comments

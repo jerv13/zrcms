@@ -1,6 +1,6 @@
 <?php
 
-namespace Zrcms\ContentCoreConfigDataSource;
+namespace Zrcms\ContentCoreConfigDataSource\Content\Api;
 
 use Zrcms\Content\Model\Component;
 
@@ -15,8 +15,10 @@ class SearchConfigList
      *
      * @return array
      */
-    public function __invoke(array $components, array $criteria = [])
-    {
+    public function __invoke(
+        array $components,
+        array $criteria = []
+    ) {
         $result = [];
 
         foreach ($components as $component) {
@@ -32,12 +34,14 @@ class SearchConfigList
      * filter
      *
      * @param Component $component
-     * @param array $criteria
+     * @param array     $criteria
      *
      * @return bool
      */
-    protected function filter(Component $component, array $criteria = [])
-    {
+    protected function filter(
+        Component $component,
+        array $criteria = []
+    ) {
         $count = count($criteria);
         $default = new \stdClass();
         $countResult = 0;

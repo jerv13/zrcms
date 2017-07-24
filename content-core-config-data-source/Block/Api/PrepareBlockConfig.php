@@ -2,7 +2,7 @@
 
 namespace Zrcms\ContentCoreConfigDataSource\Block\Api;
 
-use Zrcms\ContentCoreConfigDataSource\Block\Model\BlockConfigFields;
+use Zrcms\ContentCoreConfigDataSource\Block\Model\BlockComponentConfigFields;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -53,8 +53,8 @@ class PrepareBlockConfig
 
         $new = array_merge($blockConfigBc, $new);
 
-        if (empty($new[BlockConfigFields::DEFAULT_CONFIG])) {
-            $new[BlockConfigFields::DEFAULT_CONFIG] = $new[BlockConfigFields::FIELDS];
+        if (empty($new[BlockComponentConfigFields::DEFAULT_CONFIG])) {
+            $new[BlockComponentConfigFields::DEFAULT_CONFIG] = $new[BlockComponentConfigFields::FIELDS];
         }
 
         return $new;

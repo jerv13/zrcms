@@ -2,6 +2,7 @@
 
 namespace Zrcms\Param;
 
+use Zrcms\Param\Exception\IllegalParamException;
 use Zrcms\Param\Exception\ParamMissingException;
 
 /**
@@ -126,14 +127,39 @@ class Param
             return;
         }
 
-        $messageParams['key'] = $key;
-
         if ($exception instanceof \Exception) {
             throw $exception;
         }
 
         throw new ParamMissingException(
             "Required property ({$key}) is missing and is required"
+        );
+    }
+
+    /**
+     * @param array           $params
+     * @param string          $key
+     * @param \Exception|null $exception
+     *
+     * @return void
+     * @throws ParamMissingException
+     * @throws \Exception
+     */
+    public static function assertNotHas(
+        array $params,
+        string $key,
+        $exception = null
+    ) {
+        if (!self::has($params, $key)) {
+            return;
+        }
+
+        if ($exception instanceof \Exception) {
+            throw $exception;
+        }
+
+        throw new IllegalParamException(
+            "Illegal property ({$key}) is was found"
         );
     }
 }

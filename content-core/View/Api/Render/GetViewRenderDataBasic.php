@@ -5,8 +5,9 @@ namespace Zrcms\ContentCore\View\Api\Render;
 use Psr\Container\ContainerInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Zrcms\Content\Model\Content;
-use Zrcms\ContentCore\View\Api\Repository\FindViewRenderDataGetters;
 use Zrcms\ContentCore\View\Model\View;
+use Zrcms\ContentCore\View\Model\ViewComponent;
+use Zrcms\ContentCoreConfigDataSource\View\Api\Repository\FindViewComponent;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -19,21 +20,24 @@ class GetViewRenderDataBasic implements GetViewRenderData
     protected $serviceContainer;
 
     /**
-     * @var FindViewRenderDataGetters
+     * @var FindViewComponent
      */
-    protected $findViewRenderDataGetters;
+    protected $findViewComponent;
 
     /**
-     * @param FindViewRenderDataGetters $findViewRenderDataGetters
+     * @param ContainerInterface $serviceContainer
+     * @param FindViewComponent  $findViewComponent
      */
     public function __construct(
-        FindViewRenderDataGetters $findViewRenderDataGetters
+        $serviceContainer,
+        FindViewComponent $findViewComponent
     ) {
-        $this->findViewRenderDataGetters = $findViewRenderDataGetters;
+        $this->serviceContainer = $serviceContainer;
+        $this->findViewComponent = $findViewComponent;
     }
 
     /**
-     * @param View|Content       $view
+     * @param View|Content           $view
      * @param ServerRequestInterface $request
      * @param array                  $options
      *
@@ -46,11 +50,22 @@ class GetViewRenderDataBasic implements GetViewRenderData
         array $options = []
     ): array
     {
-        $viewRenderDataGetters = $this->findViewRenderDataGetters->__invoke([]);
+        /** @var ViewComponent $viewComponent */
+        $viewComponent = $this->findViewComponent->__invoke(
+            ViewComponent::DEFAULT_NAME
+        );
+
+        if (empty($viewComponent)) {
+            throw new \Exception('No view component found');
+        }
+
+        $viewRenderDataGetterServiceNames = $viewComponent->getViewRenderDataGetters();
         $allViewRenderData = [];
 
         /** @var GetViewRenderData $getViewRenderData */
-        foreach ($viewRenderDataGetters as $getViewRenderData) {
+        foreach ($viewRenderDataGetterServiceNames as $viewRenderDataGetterServiceName) {
+            /** @var GetViewRenderData $getViewRenderData */
+            $getViewRenderData = $this->serviceContainer->get($viewRenderDataGetterServiceName);
 
             $viewRenderData = $getViewRenderData->__invoke(
                 $view,

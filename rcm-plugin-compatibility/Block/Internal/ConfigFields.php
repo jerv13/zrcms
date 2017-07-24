@@ -5,7 +5,7 @@ namespace Zrcms\RcmPluginCompatibility\Block\Internal;
 class ConfigFields
 {
     const NAME = 'name';
-    const DIRECTORY = 'directory';
+    const LOCATION = 'location';
     const CATEGORY = 'category';
     const LABEL = 'label';
     const DESCRIPTION = 'description';
@@ -20,7 +20,7 @@ class ConfigFields
     protected $fields
         = [
             self::NAME => '',
-            self::DIRECTORY => null,
+            self::LOCATION => null,
             self::CATEGORY => null,
             self::LABEL => null,
             self::DESCRIPTION => null,
@@ -35,7 +35,7 @@ class ConfigFields
     protected $bcFields
         = [
             'name' => self::NAME,
-            'directory' => self::DIRECTORY,
+            'location' => self::LOCATION,
             'type' => self::CATEGORY,
             'display' => self::LABEL,
             'tooltip' => self::DESCRIPTION,

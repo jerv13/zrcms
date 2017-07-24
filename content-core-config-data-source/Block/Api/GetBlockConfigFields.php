@@ -3,7 +3,7 @@
 namespace Zrcms\ContentCoreConfigDataSource\Block\Api;
 
 use Zrcms\Content\Model\Trackable;
-use Zrcms\ContentCoreConfigDataSource\Block\Model\BlockConfigFields;
+use Zrcms\ContentCoreConfigDataSource\Block\Model\BlockComponentConfigFields;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -15,19 +15,19 @@ class GetBlockConfigFields
      */
     protected $fields
         = [
-            BlockConfigFields::NAME => '',
-            BlockConfigFields::DIRECTORY => null,
-            BlockConfigFields::CATEGORY => null,
-            BlockConfigFields::LABEL => null,
-            BlockConfigFields::DESCRIPTION => null,
-            BlockConfigFields::RENDERER => null,
-            BlockConfigFields::DATA_PROVIDER => null,
-            BlockConfigFields::ICON => null,
-            BlockConfigFields::CACHEABLE => false,
-            BlockConfigFields::FIELDS => [],
-            BlockConfigFields::DEFAULT_CONFIG => [],
-            BlockConfigFields::CREATED_BY_USER_ID => Trackable::UNKNOWN_USER_ID,
-            BlockConfigFields::CREATED_REASON => Trackable::UNKNOWN_REASON
+            BlockComponentConfigFields::NAME => '',
+            BlockComponentConfigFields::LOCATION => null,
+            BlockComponentConfigFields::CATEGORY => null,
+            BlockComponentConfigFields::LABEL => null,
+            BlockComponentConfigFields::DESCRIPTION => null,
+            BlockComponentConfigFields::RENDERER => null,
+            BlockComponentConfigFields::DATA_PROVIDER => null,
+            BlockComponentConfigFields::ICON => null,
+            BlockComponentConfigFields::CACHEABLE => false,
+            BlockComponentConfigFields::FIELDS => [],
+            BlockComponentConfigFields::DEFAULT_CONFIG => [],
+            BlockComponentConfigFields::CREATED_BY_USER_ID => Trackable::UNKNOWN_USER_ID,
+            BlockComponentConfigFields::CREATED_REASON => Trackable::UNKNOWN_REASON
         ];
 
     /**
