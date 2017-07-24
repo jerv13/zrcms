@@ -2,12 +2,12 @@
 
 namespace Zrcms\CoreConfigDataSource\Theme\Api;
 
-use Zrcms\Core\Theme\Model\ThemeComponent;
+use Zrcms\ContentCore\Theme\Model\ThemeComponent;
 
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class FindThemeComponent implements \Zrcms\Core\Theme\Api\Repository\FindThemeComponent
+class FindThemeComponent implements \Zrcms\ContentCore\Theme\Api\Repository\FindThemeComponent
 {
     /**
      * @param string $name

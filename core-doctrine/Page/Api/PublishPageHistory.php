@@ -3,13 +3,13 @@
 namespace Zrcms\CoreDoctrine\Page\Api;
 
 use Doctrine\ORM\EntityManager;
-use Zrcms\Core\Page\Model\PageHistory;
-use Zrcms\Core\Page\Model\PagePublished;
+use Zrcms\ContentCore\Page\Model\PageHistory;
+use Zrcms\ContentCore\Page\Model\PagePublished;
 
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class PublishPageHistory implements \Zrcms\Core\Page\Api\PublishPageHistory
+class PublishPageHistory implements \Zrcms\ContentCore\Page\Api\PublishPageHistory
 {
     /**
      * @var EntityManager

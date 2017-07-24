@@ -2,7 +2,7 @@
 
 namespace Zrcms\RcmPluginCompatibility\Block\Api;
 
-use Zrcms\Core\Block\Api\FindBlock;
+use Zrcms\ContentCore\Block\Api\FindBlock;
 use Zrcms\RcmPluginCompatibility\Block\Internal\ConfigRepository;
 
 class FindBlocksByRcmLegacy implements FindBlock

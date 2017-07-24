@@ -3,13 +3,13 @@
 namespace Zrcms\CoreDoctrine\Site\Api;
 
 use Doctrine\ORM\EntityManager;
-use Zrcms\Core\Site\Api\NewSiteUid;
-use Zrcms\Core\Site\Model\SitePublished;
+use Zrcms\ContentCore\Site\Api\NewSiteUid;
+use Zrcms\ContentCore\Site\Model\SitePublished;
 
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class CreateSitePublished implements \Zrcms\Core\Site\Api\CreateSitePublished
+class CreateSitePublished implements \Zrcms\ContentCore\Site\Api\CreateSitePublished
 {
     /**
      * @var EntityManager

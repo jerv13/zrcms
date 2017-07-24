@@ -2,7 +2,7 @@
 
 namespace Zrcms\RcmPluginCompatibility\Block\Internal;
 
-use Zrcms\Core\Block\Api\FindBlocksBy;
+use Zrcms\ContentCore\Block\Api\FindBlocksBy;
 
 class ConfigRepository
 {

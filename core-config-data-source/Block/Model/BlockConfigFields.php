@@ -3,7 +3,7 @@
 namespace Zrcms\CoreConfigDataSource\Block\Model;
 
 use Zrcms\Content\Model\TrackableProperties;
-use Zrcms\Core\Block\Model\PropertiesBlockComponent;
+use Zrcms\ContentCore\Block\Model\PropertiesBlockComponent;
 
 /**
  * @author James Jervis - https://github.com/jerv13

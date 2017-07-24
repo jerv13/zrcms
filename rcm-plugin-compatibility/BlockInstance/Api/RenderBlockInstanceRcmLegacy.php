@@ -10,9 +10,9 @@ use Zend\Mvc\MvcEvent;
 use Zend\Stdlib\ResponseInterface;
 use Zend\View\Helper\Placeholder\Container;
 use Zend\View\Renderer\PhpRenderer;
-use Zrcms\Core\Block\Api\FindBlock;
-use Zrcms\Core\BlockVersion\Model\BlockVersion;
-use Zrcms\Core\BlockVersion\Model\BlockVersionData;
+use Zrcms\ContentCore\Block\Api\FindBlock;
+use Zrcms\ContentCore\BlockVersion\Model\BlockVersion;
+use Zrcms\ContentCore\BlockVersion\Model\BlockVersionData;
 
 class RenderBlockVersionRcm implements RenderBlockVersion
 {

@@ -2,12 +2,12 @@
 
 namespace Zrcms\CoreDoctrine\Container\Entity;
 
-use Zrcms\Core\BlockVersion\Model\BlockVersion;
+use Zrcms\ContentCore\BlockVersion\Model\BlockVersion;
 
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-abstract class ContainerAbstract extends \Zrcms\Core\Container\Model\ContainerAbstract
+abstract class ContainerAbstract extends \Zrcms\ContentCore\Container\Model\ContainerAbstract
 {
     /**
      * @var array [BlockVersion]

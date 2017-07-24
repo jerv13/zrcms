@@ -2,11 +2,11 @@
 
 namespace Zrcms\Importer;
 
-use Zrcms\Core\Container\Api\CreateContainerPublished;
-use Zrcms\Core\Page\Api\CreatePagePublished;
-use Zrcms\Core\Site\Api\CreateSitePublished;
-use Zrcms\Core\Uri\Api\BuildCmsUri;
-use Zrcms\Core\Uri\Api\ParseCmsUri;
+use Zrcms\ContentCore\Container\Api\CreateContainerPublished;
+use Zrcms\ContentCore\Page\Api\CreatePagePublished;
+use Zrcms\ContentCore\Site\Api\CreateSitePublished;
+use Zrcms\ContentCore\Uri\Api\BuildCmsUri;
+use Zrcms\ContentCore\Uri\Api\ParseCmsUri;
 use Zrcms\Importer\Api\Import;
 use Zrcms\Importer\Middleware\ImportController;
 

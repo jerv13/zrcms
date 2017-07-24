@@ -3,12 +3,12 @@
 namespace Zrcms\CoreConfigDataSource\View\Api\Repository;
 
 use Psr\Container\ContainerInterface;
-use Zrcms\Core\View\Api\Render\GetViewRenderData;
+use Zrcms\ContentCore\View\Api\Render\GetViewRenderData;
 
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class FindViewRenderDataGetters implements \Zrcms\Core\View\Api\Repository\FindViewRenderDataGetters
+class FindViewRenderDataGetters implements \Zrcms\ContentCore\View\Api\Repository\FindViewRenderDataGetters
 {
     /**
      * @var ContainerInterface

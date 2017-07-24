@@ -3,13 +3,13 @@
 namespace Zrcms\CoreDoctrine\Page\Api;
 
 use Doctrine\ORM\EntityManager;
-use Zrcms\Core\Page\Model\PageDeleted;
-use Zrcms\Core\Page\Model\PagePublished;
+use Zrcms\ContentCore\Page\Model\PageDeleted;
+use Zrcms\ContentCore\Page\Model\PagePublished;
 
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class DeletePagePublished implements \Zrcms\Core\Page\Api\DeletePagePublished
+class DeletePagePublished implements \Zrcms\ContentCore\Page\Api\DeletePagePublished
 {
     /**
      * @var EntityManager

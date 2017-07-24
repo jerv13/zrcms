@@ -3,13 +3,13 @@
 namespace Zrcms\CoreDoctrine\Page\Api;
 
 use Doctrine\ORM\EntityManager;
-use Zrcms\Core\Page\Api\NewPageUid;
-use Zrcms\Core\Page\Model\PageTemplate;
+use Zrcms\ContentCore\Page\Api\NewPageUid;
+use Zrcms\ContentCore\Page\Model\PageTemplate;
 
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class CreatePageTemplate implements \Zrcms\Core\Page\Api\CreatePageTemplate
+class CreatePageTemplate implements \Zrcms\ContentCore\Page\Api\CreatePageTemplate
 {
     /**
      * @var EntityManager

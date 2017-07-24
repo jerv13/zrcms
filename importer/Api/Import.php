@@ -3,23 +3,23 @@
 namespace Zrcms\Importer\Api;
 
 use Zrcms\Content\Model\PropertiesCmsResource;
-use Zrcms\Core\Container\Api\CreateContainerPublished;
-use Zrcms\Core\Page\Api\Action\PublishPageContainerVersion;
-use Zrcms\Core\Page\Api\CreatePagePublished;
-use Zrcms\Core\Page\Api\Repository\InsertPageContainerVersion;
-use Zrcms\Core\Page\Model\PageContainerCmsResourceBasic;
-use Zrcms\Core\Page\Model\PageContainerVersionBasic;
-use Zrcms\Core\Page\Model\PropertiesPageContainerCmsResource;
-use Zrcms\Core\Page\Model\PropertiesPageContainerVersion;
-use Zrcms\Core\Site\Api\Action\PublishSiteVersion;
-use Zrcms\Core\Site\Api\Action\PublishSiteVersionByHost;
-use Zrcms\Core\Site\Api\CreateSitePublished;
-use Zrcms\Core\Site\Api\Repository\InsertSiteVersion;
-use Zrcms\Core\Site\Model\SiteCmsResourceBasic;
-use Zrcms\Core\Site\Model\SiteVersionBasic;
-use Zrcms\Core\Uri\Api\BuildCmsUri;
-use Zrcms\Core\Uri\Api\ParseCmsUri;
-use Zrcms\Core\Uri\Model\Uri;
+use Zrcms\ContentCore\Container\Api\CreateContainerPublished;
+use Zrcms\ContentCore\Page\Api\Action\PublishPageContainerVersion;
+use Zrcms\ContentCore\Page\Api\CreatePagePublished;
+use Zrcms\ContentCore\Page\Api\Repository\InsertPageContainerVersion;
+use Zrcms\ContentCore\Page\Model\PageContainerCmsResourceBasic;
+use Zrcms\ContentCore\Page\Model\PageContainerVersionBasic;
+use Zrcms\ContentCore\Page\Model\PropertiesPageContainerCmsResource;
+use Zrcms\ContentCore\Page\Model\PropertiesPageContainerVersion;
+use Zrcms\ContentCore\Site\Api\Action\PublishSiteVersion;
+use Zrcms\ContentCore\Site\Api\Action\PublishSiteVersionByHost;
+use Zrcms\ContentCore\Site\Api\CreateSitePublished;
+use Zrcms\ContentCore\Site\Api\Repository\InsertSiteVersion;
+use Zrcms\ContentCore\Site\Model\SiteCmsResourceBasic;
+use Zrcms\ContentCore\Site\Model\SiteVersionBasic;
+use Zrcms\ContentCore\Uri\Api\BuildCmsUri;
+use Zrcms\ContentCore\Uri\Api\ParseCmsUri;
+use Zrcms\ContentCore\Uri\Model\Uri;
 
 class Import
 {

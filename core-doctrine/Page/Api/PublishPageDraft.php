@@ -3,14 +3,14 @@
 namespace Zrcms\CoreDoctrine\Page\Api;
 
 use Doctrine\ORM\EntityManager;
-use Zrcms\Core\Page\Model\PageDraft;
-use Zrcms\Core\Page\Model\PagePublished;
+use Zrcms\ContentCore\Page\Model\PageDraft;
+use Zrcms\ContentCore\Page\Model\PagePublished;
 use Zrcms\CoreDoctrine\Page\Entity\PageHistory;
 
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class PublishPageDraft implements \Zrcms\Core\Page\Api\PublishPageDraft
+class PublishPageDraft implements \Zrcms\ContentCore\Page\Api\PublishPageDraft
 {
     /**
      * @var EntityManager

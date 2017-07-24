@@ -2,8 +2,14 @@
 
 namespace Zrcms\CoreConfigDataSource;
 
-use Zrcms\Core\Block\Api\Repository\FindBlockComponent;
-use Zrcms\Core\Block\Api\Repository\FindBlockComponentsBy;
+use Zrcms\ContentCore\Block\Api\Repository\FindBlockComponent;
+use Zrcms\ContentCore\Block\Api\Repository\FindBlockComponentsBy;
+use Zrcms\ContentCore\Container\Model\PropertiesContainer;
+use Zrcms\ContentCore\Page\Model\PropertiesPage;
+use Zrcms\ContentCore\View\Api\Render\GetViewRenderDataContainers;
+use Zrcms\ContentCore\View\Api\Render\GetViewRenderDataHead;
+use Zrcms\ContentCore\View\Api\Render\GetViewRenderDataHeadAll;
+use Zrcms\ContentCore\View\Api\Render\GetViewRenderDataPage;
 use Zrcms\CoreConfigDataSource\Block\Api\GetBlockConfigFields;
 use Zrcms\CoreConfigDataSource\Block\Api\GetBlockConfigFieldsBcSubstitution;
 use Zrcms\CoreConfigDataSource\Block\Api\GetBlocks;
@@ -11,7 +17,6 @@ use Zrcms\CoreConfigDataSource\Block\Api\GetBlocksFactory;
 use Zrcms\CoreConfigDataSource\Block\Api\PrepareBlockConfig;
 use Zrcms\CoreConfigDataSource\Block\Api\ReadBlockConfig;
 use Zrcms\CoreConfigDataSource\Block\Api\ReadBlockConfigJsonFile;
-use Zrcms\CoreConfigDataSource\Block\Api\SearchBlockList;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -85,13 +90,20 @@ class ModuleConfig
             ],
             'zrcms' => [
                 'blocks' => [
-                    // 'blockName' => 'blockDirectory'
+                    /* '{block-name}' => '{block-directory}' */
                 ],
-                'layout-render-data-getters' => [
-                    // 'GetLayoutRenderData Service'
+                'view' => [
+                    'name' => 'default',
+                    'directory' => '@todo',
+                    'view-render-data-getters' => [
+                        /* '{render-tag}' => '{GetLayoutRenderData-Service}' */
+                        PropertiesPage::RENDER_TAG => GetViewRenderDataPage::class,
+                        PropertiesContainer::RENDER_TAG => GetViewRenderDataContainers::class,
+                        GetViewRenderDataHead::RENDER_TAG => GetViewRenderDataHeadAll::class,
+                    ],
                 ],
                 'themes' => [
-                    // 'themeName' => 'themeDirectory'
+                    /* '{theme-name}' => '{theme-directory}' */
                 ],
             ],
         ];

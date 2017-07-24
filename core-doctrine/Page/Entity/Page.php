@@ -3,7 +3,7 @@
 namespace Zrcms\CoreDoctrine\Page\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Zrcms\Core\Page\Model\PageAbstract;
+use Zrcms\ContentCore\Page\Model\PageAbstract;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -17,7 +17,7 @@ use Zrcms\Core\Page\Model\PageAbstract;
  *     }
  * )
  */
-class Page extends PageAbstract implements \Zrcms\Core\Page\Model\Page
+class Page extends PageAbstract implements \Zrcms\ContentCore\Page\Model\Page
 {
     /**
      * @var string

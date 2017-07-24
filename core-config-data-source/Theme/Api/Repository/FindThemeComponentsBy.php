@@ -5,7 +5,7 @@ namespace Zrcms\CoreConfigDataSource\Theme\Api;
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class FindThemeComponentsBy implements \Zrcms\Core\Theme\Api\Repository\FindThemeComponentsBy
+class FindThemeComponentsBy implements \Zrcms\ContentCore\Theme\Api\Repository\FindThemeComponentsBy
 {
     /**
      * @param array      $criteria

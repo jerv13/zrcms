@@ -2,14 +2,14 @@
 
 namespace Zrcms\CoreConfigDataSource\Block\Api;
 
-use Zrcms\Core\Block\Model\Block;
+use Zrcms\ContentCore\Block\Model\Block;
 use Zrcms\CoreConfigDataSource\Block\Model\BlockConfigFields;
 use Zrcms\CoreConfigDataSource\SearchConfigList;
 
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class FindBlockComponent implements \Zrcms\Core\Block\Api\Repository\FindBlockComponent
+class FindBlockComponent implements \Zrcms\ContentCore\Block\Api\Repository\FindBlockComponent
 {
     /**
      * @var GetBlocks

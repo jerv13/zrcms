@@ -2,12 +2,12 @@
 
 namespace Zrcms\CoreDoctrine\Site\Api;
 
-use Zrcms\Core\Site\Model\SitePublished;
+use Zrcms\ContentCore\Site\Model\SitePublished;
 
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class UpdateSitePublished implements \Zrcms\Core\Site\Api\UpdateSitePublished
+class UpdateSitePublished implements \Zrcms\ContentCore\Site\Api\UpdateSitePublished
 {
     /**
      * @param SitePublished $sitePublished

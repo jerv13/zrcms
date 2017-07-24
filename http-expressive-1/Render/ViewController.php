@@ -1,15 +1,15 @@
 <?php
 
-namespace Zrcms\Core\PageView\Middleware;
+namespace Zrcms\ContentCore\PageView\Middleware;
 
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Zend\Diactoros\Response\HtmlResponse;
-use Zrcms\Core\Page\Exception\PageNotFoundException;
-use Zrcms\Core\Site\Exception\SiteNotFoundException;
-use Zrcms\Core\View\Api\Render\GetViewRenderData;
-use Zrcms\Core\View\Api\Render\RenderView;
-use Zrcms\Core\View\Api\Repository\FindViewByRequest;
+use Zrcms\ContentCore\Page\Exception\PageNotFoundException;
+use Zrcms\ContentCore\Site\Exception\SiteNotFoundException;
+use Zrcms\ContentCore\View\Api\Render\GetViewRenderData;
+use Zrcms\ContentCore\View\Api\Render\RenderView;
+use Zrcms\ContentCore\View\Api\Repository\FindViewByRequest;
 
 /**
  * @author James Jervis - https://github.com/jerv13

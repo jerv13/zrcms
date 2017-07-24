@@ -3,7 +3,7 @@
 namespace Zrcms\CoreConfigDataSource\Block\Api;
 
 use Zrcms\Cache\Service\Cache;
-use Zrcms\Core\Block\Model\BlockComponentBasic;
+use Zrcms\ContentCore\Block\Model\BlockComponentBasic;
 use Zrcms\CoreConfigDataSource\Block\Model\BlockConfigFields;
 
 /**

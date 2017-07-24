@@ -8,7 +8,7 @@ use Zrcms\CoreDoctrine\Page\Entity\PagePublished;
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class FindPagePublishedBy implements \Zrcms\Core\Page\Api\FindPagePublishedBy
+class FindPagePublishedBy implements \Zrcms\ContentCore\Page\Api\FindPagePublishedBy
 {
     /**
      * @var EntityManager

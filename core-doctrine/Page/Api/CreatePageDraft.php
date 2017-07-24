@@ -3,14 +3,14 @@
 namespace Zrcms\CoreDoctrine\Page\Api;
 
 use Doctrine\ORM\EntityManager;
-use Zrcms\Core\Page\Api\NewPageUid;
-use Zrcms\Core\Page\Model\PageDraft;
+use Zrcms\ContentCore\Page\Api\NewPageUid;
+use Zrcms\ContentCore\Page\Model\PageDraft;
 use Zrcms\Uid\Api\NewUid;
 
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class CreatePageDraft implements \Zrcms\Core\Page\Api\CreatePageDraft
+class CreatePageDraft implements \Zrcms\ContentCore\Page\Api\CreatePageDraft
 {
     /**
      * @var EntityManager
