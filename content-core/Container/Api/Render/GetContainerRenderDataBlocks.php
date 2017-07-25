@@ -6,7 +6,8 @@ use Psr\Http\Message\ServerRequestInterface;
 use Zrcms\Content\Model\Content;
 use Zrcms\ContentCore\Block\Api\Render\GetBlockRenderData;
 use Zrcms\ContentCore\Block\Api\Render\RenderBlock;
-use Zrcms\ContentCore\Block\Api\Repository\FindBlockVersionsBy;
+use Zrcms\ContentCore\Block\Api\Repository\FindBlockVersionsByContainer;
+use Zrcms\ContentCore\Block\Api\Repository\FindBlockVersionsByContainerContainerVersion;
 use Zrcms\ContentCore\Block\Api\WrapRenderedBlock;
 use Zrcms\ContentCore\Block\Model\Block;
 use Zrcms\ContentCore\Block\Model\PropertiesBlock;
@@ -19,9 +20,9 @@ use Zrcms\ContentCore\Container\Model\Container;
 class GetContainerRenderDataBlocks implements GetContainerRenderData
 {
     /**
-     * @var FindBlockVersionsBy
+     * @var FindBlockVersionsByContainer
      */
-    protected $findBlockVersionsBy;
+    protected $FindBlockVersionsByContainer;
 
     /**
      * @var RenderBlock
@@ -44,20 +45,20 @@ class GetContainerRenderDataBlocks implements GetContainerRenderData
     protected $wrapRenderedContainer;
 
     /**
-     * @param FindBlockVersionsBy   $findBlockVersionsBy
-     * @param RenderBlock           $renderBlock
-     * @param GetBlockRenderData    $getBlockRenderData
-     * @param WrapRenderedBlock     $wrapRenderedBlock
-     * @param WrapRenderedContainer $wrapRenderedContainer
+     * @param FindBlockVersionsByContainer $FindBlockVersionsByContainer
+     * @param RenderBlock                  $renderBlock
+     * @param GetBlockRenderData           $getBlockRenderData
+     * @param WrapRenderedBlock            $wrapRenderedBlock
+     * @param WrapRenderedContainer        $wrapRenderedContainer
      */
     public function __construct(
-        FindBlockVersionsBy $findBlockVersionsBy,
+        FindBlockVersionsByContainer $FindBlockVersionsByContainer,
         RenderBlock $renderBlock,
         GetBlockRenderData $getBlockRenderData,
         WrapRenderedBlock $wrapRenderedBlock,
         WrapRenderedContainer $wrapRenderedContainer
     ) {
-        $this->findBlockVersionsBy = $findBlockVersionsBy;
+        $this->FindBlockVersionsByContainer = $FindBlockVersionsByContainer;
         $this->renderBlock = $renderBlock;
         $this->getBlockRenderData = $getBlockRenderData;
         $this->wrapRenderedBlock = $wrapRenderedBlock;
@@ -80,10 +81,8 @@ class GetContainerRenderDataBlocks implements GetContainerRenderData
     {
         $renderedData = []; //row -> renderOrder -> renderedBlockHtml
 
-        $blocks = $this->findBlockVersionsBy->__invoke(
-            [
-                PropertiesBlock::CONTAINER_VERSION_ID => $container->getId()
-            ]
+        $blocks = $this->FindBlockVersionsByContainer->__invoke(
+            $container
         );
 
         /** @var Block $block */

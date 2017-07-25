@@ -12,7 +12,7 @@ use Zrcms\ContentCore\Container\Model\ContainerCmsResource;
 interface FindContainerCmsResource extends FindCmsResource
 {
     /**
-     * @param string $id {siteId/{path}}
+     * @param string $id
      * @param array  $options
      *
      * @return ContainerCmsResource|CmsResource|null

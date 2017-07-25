@@ -4,6 +4,7 @@ namespace Zrcms\ContentDoctrine\Api\Repository;
 
 use Zrcms\Content\Model\ContentVersion;
 use Zrcms\ContentDoctrine\Api\ApiAbstractContentVersion;
+use Zrcms\ContentDoctrine\Api\BasicContentVersionTrait;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -12,6 +13,8 @@ class FindContentVersion
     extends ApiAbstractContentVersion
     implements \Zrcms\Content\Api\Repository\FindContentVersion
 {
+    use BasicContentVersionTrait;
+
     /**
      * @param string $id
      * @param array  $options
@@ -26,6 +29,8 @@ class FindContentVersion
             $this->entityClass
         );
 
-        return $repository->find($id);
+        $entity = $repository->find($id);
+
+        return $this->newBasic($entity);
     }
 }

@@ -14,9 +14,41 @@ abstract class CmsResourceAbstract implements CmsResource
     use PropertiesTrait;
     use TrackableTrait;
 
+    /**
+     * @var string
+     */
     protected $id = null;
+
+    /**
+     * @var string
+     */
     protected $contentVersionId = null;
+
+    /**
+     * @var array
+     */
     protected $properties = [];
+
+    /**
+     * Date object was first created
+     *
+     * @var \DateTime
+     */
+    protected $createdDate;
+
+    /**
+     * User ID of creator
+     *
+     * @var string
+     */
+    protected $createdByUserId;
+
+    /**
+     * Short description of create reason
+     *
+     * @var string
+     */
+    protected $createdReason;
 
     /**
      * @param array  $properties

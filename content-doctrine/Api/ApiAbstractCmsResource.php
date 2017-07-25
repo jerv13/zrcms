@@ -10,6 +10,8 @@ use Zrcms\Content\Model\CmsResource;
  */
 abstract class ApiAbstractCmsResource extends ApiAbstract
 {
+    use BasicCmsResourceTrait;
+
     /**
      * @var EntityManager
      */
@@ -21,12 +23,19 @@ abstract class ApiAbstractCmsResource extends ApiAbstract
     protected $entityClass;
 
     /**
+     * @var
+     */
+    protected $classCmsResourceBasic;
+
+    /**
      * @param EntityManager $entityManager
      * @param string        $entityClass
+     * @param string        $classCmsResourceBasic
      */
     public function __construct(
         EntityManager $entityManager,
-        string $entityClass
+        string $entityClass,
+        string $classCmsResourceBasic
     ) {
         $this->assertValidEntityClass(
             $entityClass,
@@ -35,5 +44,6 @@ abstract class ApiAbstractCmsResource extends ApiAbstract
 
         $this->entityManager = $entityManager;
         $this->entityClass = $entityClass;
+        $this->classCmsResourceBasic = $classCmsResourceBasic;
     }
 }

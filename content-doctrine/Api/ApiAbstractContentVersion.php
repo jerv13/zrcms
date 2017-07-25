@@ -3,6 +3,7 @@
 namespace Zrcms\ContentDoctrine\Api;
 
 use Doctrine\ORM\EntityManager;
+use Zrcms\Content\Model\Content;
 use Zrcms\Content\Model\ContentVersion;
 
 /**
@@ -10,6 +11,8 @@ use Zrcms\Content\Model\ContentVersion;
  */
 abstract class ApiAbstractContentVersion extends ApiAbstract
 {
+    use BasicContentVersionTrait;
+
     /**
      * @var EntityManager
      */
@@ -21,12 +24,19 @@ abstract class ApiAbstractContentVersion extends ApiAbstract
     protected $entityClass;
 
     /**
+     * @var string
+     */
+    protected $classContentVersionBasic;
+
+    /**
      * @param EntityManager $entityManager
      * @param string        $entityClass
+     * @param string        $classContentVersionBasic
      */
     public function __construct(
         EntityManager $entityManager,
-        string $entityClass
+        string $entityClass,
+        string $classContentVersionBasic
     ) {
         $this->assertValidEntityClass(
             $entityClass,
@@ -35,5 +45,6 @@ abstract class ApiAbstractContentVersion extends ApiAbstract
 
         $this->entityManager = $entityManager;
         $this->entityClass = $entityClass;
+        $this->classContentVersionBasic = $classContentVersionBasic;
     }
 }

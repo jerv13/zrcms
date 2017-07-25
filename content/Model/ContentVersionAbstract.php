@@ -24,6 +24,27 @@ abstract class ContentVersionAbstract implements ContentVersion
     protected $properties = [];
 
     /**
+     * Date object was first created
+     *
+     * @var \DateTime
+     */
+    protected $createdDate;
+
+    /**
+     * User ID of creator
+     *
+     * @var string
+     */
+    protected $createdByUserId;
+
+    /**
+     * Short description of create reason
+     *
+     * @var string
+     */
+    protected $createdReason;
+
+    /**
      * @param array  $properties
      * @param string $createdByUserId
      * @param string $createdReason

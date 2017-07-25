@@ -14,7 +14,7 @@ abstract class ContainerCmsResourceAbstract extends CmsResourceAbstract implemen
     /**
      * @var string
      */
-    protected $siteId;
+    protected $siteCmsResourceId;
 
     /**
      * @var string
@@ -32,20 +32,21 @@ abstract class ContainerCmsResourceAbstract extends CmsResourceAbstract implemen
         string $createdReason
     ) {
 
-        $this->siteId = Param::getRequired(
+        $this->siteCmsResourceId = Param::getRequired(
             $properties,
-            PropertiesContainerCmsResource::SITE_ID,
+            PropertiesContainerCmsResource::SITE_CMS_RESOURCE_ID,
             new PropertyMissingException(
-                'Required property (' . PropertiesContainerCmsResource::SITE_ID . ') is missing in: ' . get_class($this)
+                'Required property (' . PropertiesContainerCmsResource::SITE_CMS_RESOURCE_ID . ') is missing in: '
+                . get_class($this)
             )
         );
-
 
         $this->path = Param::getRequired(
             $properties,
             PropertiesContainerCmsResource::PATH,
             new PropertyMissingException(
-                'Required property (' . PropertiesContainerCmsResource::PATH . ') is missing in: ' . get_class($this)
+                'Required property (' . PropertiesContainerCmsResource::PATH . ') is missing in: '
+                . get_class($this)
             )
         );
 
@@ -59,9 +60,9 @@ abstract class ContainerCmsResourceAbstract extends CmsResourceAbstract implemen
     /**
      * @return string
      */
-    public function getSiteId(): string
+    public function getSiteCmsResourceId(): string
     {
-        return $this->siteId;
+        return $this->siteCmsResourceId;
     }
 
     /**

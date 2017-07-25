@@ -4,6 +4,7 @@ namespace Zrcms\ContentDoctrine\Api\Repository;
 
 use Zrcms\Content\Model\ContentVersion;
 use Zrcms\ContentDoctrine\Api\ApiAbstractContentVersion;
+use Zrcms\ContentDoctrine\Api\BasicContentVersionTrait;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -12,6 +13,8 @@ class FindContentVersionsBy
     extends ApiAbstractContentVersion
     implements \Zrcms\Content\Api\Repository\FindContentVersionsBy
 {
+    use BasicContentVersionTrait;
+
     /**
      * @param array      $criteria
      * @param array|null $orderBy
@@ -33,11 +36,13 @@ class FindContentVersionsBy
             $this->entityClass
         );
 
-        return $repository->findBy(
+        $entities = $repository->findBy(
             $criteria,
             $orderBy,
             $limit,
             $offset
         );
+
+        return $this->newBasics($entities);
     }
 }

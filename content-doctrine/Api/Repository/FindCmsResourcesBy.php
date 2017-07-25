@@ -4,6 +4,7 @@ namespace Zrcms\ContentDoctrine\Api\Repository;
 
 use Zrcms\Content\Model\CmsResource;
 use Zrcms\ContentDoctrine\Api\ApiAbstractCmsResource;
+use Zrcms\ContentDoctrine\Api\BasicCmsResourceTrait;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -12,6 +13,7 @@ class FindCmsResourcesBy
     extends ApiAbstractCmsResource
     implements \Zrcms\Content\Api\Repository\FindCmsResourcesBy
 {
+    use BasicCmsResourceTrait;
     /**
      * @param array      $criteria
      * @param array|null $orderBy
@@ -33,11 +35,13 @@ class FindCmsResourcesBy
             $this->entityClass
         );
 
-        return $repository->findBy(
+        $entities = $repository->findBy(
             $criteria,
             $orderBy,
             $limit,
             $offset
         );
+
+        return $this->newBasics($entities);
     }
 }

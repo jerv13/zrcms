@@ -9,6 +9,6 @@ use Zrcms\Content\Model\PropertiesCmsResource;
  */
 interface PropertiesContainerCmsResource extends PropertiesCmsResource
 {
-    const SITE_ID = 'siteId';
+    const SITE_CMS_RESOURCE_ID = 'siteCmsResourceId';
     const PATH = 'path';
 }

@@ -11,6 +11,11 @@ use Zrcms\Param\Param;
  */
 class BlockVersionEntity extends BlockVersionAbstract implements BlockVersion
 {
+    /**
+     * @param array  $properties
+     * @param string $createdByUserId
+     * @param string $createdReason
+     */
     public function __construct(
         array $properties,
         string $createdByUserId,
@@ -21,6 +26,16 @@ class BlockVersionEntity extends BlockVersionAbstract implements BlockVersion
             PropertiesBlockVersionEntity::CREATED_BY_USER_ID
         );
 
-        parent::__construct($properties, $createdByUserId, $createdReason);
+        // Id is required to preserve interface and for caching
+        $this->id = Param::getRequired(
+            $properties,
+            PropertiesBlockVersionEntity::ID
+        );
+
+        parent::__construct(
+            $properties,
+            $createdByUserId,
+            $createdReason
+        );
     }
 }

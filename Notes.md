@@ -68,10 +68,15 @@ zrcms:site:1:theme-layout/{theme-layout-path}
 
 ## @todo ##
 
-- 
-- ContainerVersion will need blockInstances as property HOW?
-- View may need a component to read 
-- Directory changed to location for components
-
-- getBlockData in GetBlockRenderDataBasic could work like containers
+- NOTE: Directory changed to location for components
+- Param::getRequired to have custom exceptions
+- PropertiesCmsResourcePublishHistory should be specified in each model 
+  (I.E.: container should have a PropertiesContainerCmsResourcePublishHistory)
 - add <identifier> to comments
+- Deal with properties
+    - Property definitions need to be defined somehow that is easy to understand from code
+    - Property definitions might be injectable or validated
+
+
+
+UnPublishContainerCmsResource UnpublishContainerCmsResource 

@@ -10,7 +10,9 @@ use Zrcms\Param\Param;
  *
  * @author James Jervis - https://github.com/jerv13
  */
-abstract class CmsResourcePublishHistoryAbstract extends CmsResourceAbstract
+abstract class CmsResourcePublishHistoryAbstract
+    extends CmsResourceAbstract
+    implements CmsResourcePublishHistory
 {
     /**
      * @var string
@@ -32,7 +34,7 @@ abstract class CmsResourcePublishHistoryAbstract extends CmsResourceAbstract
             $properties,
             PropertiesCmsResourcePublishHistory::ACTION,
             new PropertyMissingException(
-                'Required property (' . PropertiesCmsResource::CONTENT_VERSION_ID . ') is missing in: '
+                'Required property (' . PropertiesCmsResourcePublishHistory::ACTION . ') is missing in: '
                 . get_class($this)
             )
         );
@@ -42,5 +44,13 @@ abstract class CmsResourcePublishHistoryAbstract extends CmsResourceAbstract
             $publishedByUserId,
             $publishReason
         );
+    }
+
+    /**
+     * @return string
+     */
+    public function getAction(): string
+    {
+        return $this->action;
     }
 }

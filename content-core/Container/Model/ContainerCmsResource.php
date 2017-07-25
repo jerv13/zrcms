@@ -12,7 +12,7 @@ interface ContainerCmsResource extends CmsResource
     /**
      * @return string
      */
-    public function getSiteId(): string;
+    public function getSiteCmsResourceId(): string;
 
     /**
      * @return string

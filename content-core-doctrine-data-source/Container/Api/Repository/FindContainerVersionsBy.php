@@ -22,7 +22,8 @@ class FindContainerVersionsBy
     ) {
         parent::__construct(
             $entityManager,
-            ContainerVersionEntity::class
+            ContainerVersionEntity::class,
+            ContainerVersionBasic::class
         );
     }
 

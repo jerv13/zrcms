@@ -24,6 +24,7 @@ class ModuleConfig
                             __DIR__ . '/../Container/Entity',
                             __DIR__ . '/../Page/Entity',
                             __DIR__ . '/../Site/Entity',
+                            __DIR__ . '/../Theme/Entity',
                         ]
                     ],
                     'orm_default' => [

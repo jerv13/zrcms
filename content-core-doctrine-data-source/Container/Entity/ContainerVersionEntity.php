@@ -2,25 +2,40 @@
 
 namespace Zrcms\ContentCoreDoctrineDataSource\Container\Entity;
 
+use Doctrine\ORM\Mapping as ORM;
 use Zrcms\ContentCore\Block\Model\BlockVersion;
 use Zrcms\ContentCore\Container\Model\ContainerVersion;
 use Zrcms\ContentCore\Container\Model\ContainerVersionAbstract;
-use Zrcms\ContentCoreDoctrineDataSource\Block\Entity\BlockVersionEntity;
+use Zrcms\ContentCoreDoctrineDataSource\Block\Model\BlockVersionEntity;
 use Zrcms\ContentCoreDoctrineDataSource\Block\Model\PropertiesBlockVersionEntity;
 use Zrcms\Param\Param;
 
 /**
  * @author James Jervis - https://github.com/jerv13
+ *
+ * @ORM\Entity()
+ * @ORM\HasLifecycleCallbacks()
+ * @ORM\Table(
+ *     name="zrcms_core_container_version",
+ *     indexes={}
+ * )
  */
 class ContainerVersionEntity extends ContainerVersionAbstract implements ContainerVersion
 {
+    use ContainerBlockVersionsTrait;
+
     /**
      * @var string
+     *
+     * @ORM\Id
+     * @ORM\Column(type="string")
      */
     protected $id;
 
     /**
      * @var array
+     *
+     * @ORM\Column(type="json_array")
      */
     protected $properties = null;
 
@@ -28,6 +43,8 @@ class ContainerVersionEntity extends ContainerVersionAbstract implements Contain
      * Date object was first created
      *
      * @var \DateTime
+     *
+     * @ORM\Column(type="datetime")
      */
     protected $createdDate;
 
@@ -35,6 +52,8 @@ class ContainerVersionEntity extends ContainerVersionAbstract implements Contain
      * User ID of creator
      *
      * @var string
+     *
+     * @ORM\Column(type="string")
      */
     protected $createdByUserId;
 
@@ -42,11 +61,16 @@ class ContainerVersionEntity extends ContainerVersionAbstract implements Contain
      * Short description of create reason
      *
      * @var string
+     *
+     * @ORM\Column(type="string")
      */
     protected $createdReason;
 
-    /////////////////////////////////////
-
+    /**
+     * @var array
+     *
+     * @ORM\Column(type="json_array")
+     */
     protected $blockVersionsData = [];
 
     /**
@@ -59,90 +83,24 @@ class ContainerVersionEntity extends ContainerVersionAbstract implements Contain
         string $createdByUserId,
         string $createdReason
     ) {
-        $this->blockVersionsData = Param::get(
+        $blockVersions = Param::get(
             $properties,
             PropertiesContainerVersionEntity::BLOCK_VERSIONS_DATA,
             []
         );
 
+        $this->addBlockVersions($blockVersions);
+
         parent::__construct($properties, $createdByUserId, $createdReason);
     }
 
-
     /**
-     * @return BlockVersion[]
-     */
-    public function getBlockVersions(): array
-    {
-        $blockVersions = [];
-        /** @var array $blockVersionData */
-        foreach ($this->blockVersionsData as $blockVersionData) {
-            $blockVersions[] = $this->buildBlockVersion($blockVersionData);
-        }
-
-        return $blockVersions;
-    }
-
-    /**
-     * @param int  $id ,
-     * @param null $default
-     *
-     * @return BlockVersion
-     */
-    public function getBlockVersion(int $id, $default = null): BlockVersion
-    {
-        if (array_key_exists($id, $this->blockVersionsData)) {
-            return $this->buildBlockVersion($this->blockVersionsData[$id]);
-        }
-
-        return $default;
-    }
-
-    /**
-     * @param BlockVersion[] $blockVersions
-     *
      * @return void
-     */
-    protected function addBlockVersions(array $blockVersions)
-    {
-        /** @var BlockVersion $blockVersion */
-        foreach ($blockVersions as $blockVersion) {
-            $this->addBlockVersion($blockVersion);
-        }
-    }
-
-    /**
-     * @param BlockVersion $blockVersion
      *
-     * @return void
+     * @ORM\PrePersist
      */
-    protected function addBlockVersion(BlockVersion $blockVersion)
+    public function assertHasTrackingData()
     {
-        $data = $blockVersion->getProperties();
-        $data[PropertiesBlockVersionEntity::CREATED_BY_USER_ID] = $blockVersion->getCreatedByUserId();
-        $data[PropertiesBlockVersionEntity::CREATED_REASON] = $blockVersion->getCreatedReason();
-        $data[PropertiesBlockVersionEntity::CREATED_DATE] = $blockVersion->getCreatedDate();
-
-        $this->blockVersionsData[$blockVersion->getId()] = $data;
-    }
-
-    /**
-     * @param $blockVersion
-     *
-     * @return BlockVersion
-     */
-    protected function buildBlockVersion(array $blockVersion): BlockVersion
-    {
-        return new BlockVersionEntity(
-            $blockVersion,
-            Param::getRequired(
-                $blockVersion,
-                PropertiesBlockVersionEntity::CREATED_BY_USER_ID
-            ),
-            Param::getRequired(
-                $blockVersion,
-                PropertiesBlockVersionEntity::CREATED_REASON
-            )
-        );
+        parent::assertHasTrackingData();
     }
 }

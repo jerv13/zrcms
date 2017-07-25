@@ -4,6 +4,7 @@ namespace Zrcms\ContentDoctrine\Api\Repository;
 
 use Zrcms\Content\Model\ContentVersion;
 use Zrcms\ContentDoctrine\Api\ApiAbstractContentVersion;
+use Zrcms\ContentDoctrine\Api\BasicContentVersionTrait;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -12,6 +13,8 @@ class InsertContentVersion
     extends ApiAbstractContentVersion
     implements \Zrcms\Content\Api\Repository\InsertContentVersion
 {
+    use BasicContentVersionTrait;
+
     /**
      * @param ContentVersion $contentVersion
      * @param array          $options
@@ -37,6 +40,6 @@ class InsertContentVersion
         $this->entityManager->persist($newContentVersion);
         $this->entityManager->flush($newContentVersion);
 
-        return $contentVersion;
+        return $this->newBasic($newContentVersion);
     }
 }

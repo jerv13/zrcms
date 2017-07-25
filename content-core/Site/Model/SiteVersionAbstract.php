@@ -18,7 +18,7 @@ abstract class SiteVersionAbstract extends ContentVersionAbstract implements Sit
     protected $themeName;
 
     /**
-     * Locale used for translations and formating
+     * Locale used for translations and formatting
      *
      * @var string
      */
