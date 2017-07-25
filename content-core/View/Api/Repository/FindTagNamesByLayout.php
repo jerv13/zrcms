@@ -15,5 +15,8 @@ interface FindTagNamesByLayout
      *
      * @return string[] ['{container-path}']
      */
-    public function __invoke(Layout $layout, array $options = []): array;
+    public function __invoke(
+        Layout $layout,
+        array $options = []
+    ): array;
 }

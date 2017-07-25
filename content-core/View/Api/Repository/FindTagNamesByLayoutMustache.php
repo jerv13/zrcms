@@ -7,7 +7,7 @@ use Zrcms\ContentCore\Theme\Model\Layout;
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class FindContainerPathsByHtmlMustache implements FindTagNamesByLayout
+class FindTagNamesByLayoutMustache implements FindTagNamesByLayout
 {
     /**
      * @param Layout $layout
@@ -15,7 +15,10 @@ class FindContainerPathsByHtmlMustache implements FindTagNamesByLayout
      *
      * @return string[] ['{container-path}']
      */
-    public function __invoke(Layout $layout, array $options = []): array
+    public function __invoke(
+        Layout $layout,
+        array $options = []
+    ): array
     {
         // '/\{\{' . PropertiesContainer::RENDER_NAMESPACE . '.([^}:]+)\}\}/'
         preg_match_all(

@@ -99,6 +99,14 @@ use Zrcms\ContentCore\View\Api\Render\RenderView;
 use Zrcms\ContentCore\View\Api\Render\RenderViewBasic;
 use Zrcms\ContentCore\View\Api\Render\RenderViewBasicFactory;
 use Zrcms\ContentCore\View\Api\Render\RenderViewLayout;
+use Zrcms\ContentCore\View\Api\Repository\FindTagNamesByLayout;
+use Zrcms\ContentCore\View\Api\Repository\FindTagNamesByLayoutBasic;
+use Zrcms\ContentCore\View\Api\Repository\FindTagNamesByLayoutBasicFactory;
+use Zrcms\ContentCore\View\Api\Repository\FindTagNamesByLayoutMustache;
+use Zrcms\ContentCore\View\Api\Repository\FindViewByRequest;
+use Zrcms\ContentCore\View\Api\Repository\FindViewByRequestBasic;
+use Zrcms\ContentCore\View\Api\Repository\FindViewComponent;
+use Zrcms\ContentCore\View\Api\Repository\FindViewComponentsBy;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -509,6 +517,53 @@ class ModuleConfig
                     RenderViewLayout::class => [
                         'arguments' => [
                             RenderLayout::class,
+                        ],
+                    ],
+                    FindTagNamesByLayout::class => [
+                        'factory' => FindTagNamesByLayoutBasicFactory::class,
+                    ],
+                    FindTagNamesByLayoutBasic::class => [
+                        'factory' => FindTagNamesByLayoutBasicFactory::class,
+                    ],
+                    FindTagNamesByLayoutMustache::class => [],
+                    FindViewByRequest::class => [
+                        'class' => FindViewByRequestBasic::class,
+                        'arguments' => [
+                            FindSiteCmsResourceByHost::class,
+                            FindSiteVersion::class,
+                            FindPageContainerCmsResourceBySitePath::class,
+                            FindPageContainerVersion::class,
+                            FindLayoutCmsResourceByThemeNameLayoutName::class,
+                            FindLayoutVersion::class,
+                            FindThemeComponent::class,
+                            GetViewRenderData::class,
+                            RenderView::class
+                        ],
+                    ],
+                    FindViewByRequestBasic::class => [
+                        'class' => FindViewByRequestBasic::class,
+                        'arguments' => [
+                            FindSiteCmsResourceByHost::class,
+                            FindSiteVersion::class,
+                            FindPageContainerCmsResourceBySitePath::class,
+                            FindPageContainerVersion::class,
+                            FindLayoutCmsResourceByThemeNameLayoutName::class,
+                            FindLayoutVersion::class,
+                            FindThemeComponent::class,
+                            GetViewRenderData::class,
+                            RenderView::class
+                        ],
+                    ],
+                    FindViewComponent::class => [
+                        'class' => ApiNoop::class,
+                        'arguments' => [
+                            ['literal' => FindViewComponent::class],
+                        ],
+                    ],
+                    FindViewComponentsBy::class => [
+                        'class' => ApiNoop::class,
+                        'arguments' => [
+                            ['literal' => FindViewComponentsBy::class],
                         ],
                     ],
                 ],

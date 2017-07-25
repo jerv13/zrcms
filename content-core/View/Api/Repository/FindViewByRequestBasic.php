@@ -8,7 +8,7 @@ use Zrcms\ContentCore\Page\Api\Repository\FindPageContainerVersion;
 use Zrcms\ContentCore\Page\Exception\PageNotFoundException;
 use Zrcms\ContentCore\Page\Model\PageContainerVersion;
 use Zrcms\ContentCore\Page\Model\PropertiesPageContainerVersion;
-use Zrcms\ContentCore\Site\Api\Repository\FindSiteCmsResourcesByHost;
+use Zrcms\ContentCore\Site\Api\Repository\FindSiteCmsResourceByHost;
 use Zrcms\ContentCore\Site\Api\Repository\FindSiteVersion;
 use Zrcms\ContentCore\Site\Exception\SiteNotFoundException;
 use Zrcms\ContentCore\Site\Model\PropertiesSiteVersion;
@@ -30,7 +30,52 @@ use Zrcms\ContentCore\View\Model\ViewBasic;
 class FindViewByRequestBasic implements FindViewByRequest
 {
     /**
-     * @param FindSiteCmsResourcesByHost                 $findSiteCmsResourcesByHost
+     * @var FindSiteCmsResourceByHost
+     */
+    protected $findSiteCmsResourceByHost;
+
+    /**
+     * @var FindSiteVersion
+     */
+    protected $findSiteVersion;
+
+    /**
+     * @var FindPageContainerCmsResourceBySitePath
+     */
+    protected $findPageContainerCmsResourceBySitePath;
+
+    /**
+     * @var FindPageContainerVersion
+     */
+    protected $findPageContainerVersion;
+
+    /**
+     * @var FindLayoutCmsResourceByThemeNameLayoutName
+     */
+    protected $findLayoutCmsResourceByThemeNameLayoutName;
+
+    /**
+     * @var FindLayoutVersion
+     */
+    protected $findLayoutVersion;
+
+    /**
+     * @var FindThemeComponent
+     */
+    protected $findThemeComponent;
+
+    /**
+     * @var GetViewRenderData
+     */
+    protected $getViewRenderData;
+
+    /**
+     * @var RenderView
+     */
+    protected $renderView;
+
+    /**
+     * @param FindSiteCmsResourceByHost                  $findSiteCmsResourceByHost
      * @param FindSiteVersion                            $findSiteVersion
      * @param FindPageContainerCmsResourceBySitePath     $findPageContainerCmsResourceBySitePath
      * @param FindPageContainerVersion                   $findPageContainerVersion
@@ -41,7 +86,7 @@ class FindViewByRequestBasic implements FindViewByRequest
      * @param RenderView                                 $renderView
      */
     public function __construct(
-        FindSiteCmsResourcesByHost $findSiteCmsResourcesByHost,
+        FindSiteCmsResourceByHost $findSiteCmsResourceByHost,
         FindSiteVersion $findSiteVersion,
         FindPageContainerCmsResourceBySitePath $findPageContainerCmsResourceBySitePath,
         FindPageContainerVersion $findPageContainerVersion,
@@ -51,7 +96,7 @@ class FindViewByRequestBasic implements FindViewByRequest
         GetViewRenderData $getViewRenderData,
         RenderView $renderView
     ) {
-        $this->findSiteCmsResourcesByHost = $findSiteCmsResourcesByHost;
+        $this->findSiteCmsResourceByHost = $findSiteCmsResourceByHost;
         $this->findSiteVersion = $findSiteVersion;
         $this->findPageContainerCmsResourceBySitePath = $findPageContainerCmsResourceBySitePath;
         $this->findPageContainerVersion = $findPageContainerVersion;
@@ -63,6 +108,15 @@ class FindViewByRequestBasic implements FindViewByRequest
         $this->renderView = $renderView;
     }
 
+    /**
+     * @param ServerRequestInterface $request
+     * @param array                  $options
+     *
+     * @return View
+     * @throws PageNotFoundException
+     * @throws SiteNotFoundException
+     * @throws ThemeNotFoundException
+     */
     public function __invoke(
         ServerRequestInterface $request,
         array $options = []
@@ -70,13 +124,13 @@ class FindViewByRequestBasic implements FindViewByRequest
     {
         $uri = $request->getUri();
 
-        $siteCmsResource = $this->findSiteCmsResourcesByHost->__invoke(
+        $siteCmsResource = $this->findSiteCmsResourceByHost->__invoke(
             $uri->getHost()
         );
 
         if (empty($siteCmsResource)) {
             throw new SiteNotFoundException(
-                ''
+                'Site not found for host: ' . $uri->getHost()
             );
         }
 

@@ -4,15 +4,21 @@ namespace Zrcms\ContentCore\View\Api\Repository;
 
 use Psr\Container\ContainerInterface;
 use Zrcms\ContentCore\Theme\Model\Layout;
-use Zrcms\ContentCore\Theme\Model\LayoutProperties;
 use Zrcms\ContentCore\Theme\Model\PropertiesLayout;
 
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class FindContainerPathsByHtmlBasic implements FindTagNamesByLayout
+class FindTagNamesByLayoutBasic implements FindTagNamesByLayout
 {
+    /**
+     * @var ContainerInterface
+     */
     protected $serviceContainer;
+
+    /***
+     * @var string
+     */
     protected $defaultFindTagNamesServiceName;
 
     /**
@@ -33,7 +39,10 @@ class FindContainerPathsByHtmlBasic implements FindTagNamesByLayout
      *
      * @return string[] ['{container-path}']
      */
-    public function __invoke(Layout $layout, array $options = []): array
+    public function __invoke(
+        Layout $layout,
+        array $options = []
+    ): array
     {
         $findTagNamesServiceName = $layout->getProperty(
             PropertiesLayout::RENDER_TAG_NAME_PARSER,
