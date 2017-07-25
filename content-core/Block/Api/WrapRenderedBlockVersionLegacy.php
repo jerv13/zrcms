@@ -7,7 +7,7 @@ use Zrcms\ContentCore\Block\Model\Block;
 use Zrcms\ContentCore\Block\Model\PropertiesBlock;
 use Zrcms\ContentCore\Block\Model\PropertiesBlockComponent;
 
-class WrapRenderedBlockLegacy implements WrapRenderedBlock
+class WrapRenderedBlockVersionLegacy implements WrapRenderedBlockVersion
 {
     /**
      * @var FindBlockComponent

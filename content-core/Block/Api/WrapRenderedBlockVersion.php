@@ -7,7 +7,7 @@ use Zrcms\ContentCore\Block\Model\Block;
 /**
  *
  */
-interface WrapRenderedBlock
+interface WrapRenderedBlockVersion
 {
     /**
      * @param string $innerHtml

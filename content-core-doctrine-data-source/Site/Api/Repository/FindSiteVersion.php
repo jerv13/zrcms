@@ -1,19 +1,19 @@
 <?php
 
-namespace Zrcms\ContentCoreDoctrineDataSource\Theme\Api\Repository;
+namespace Zrcms\ContentCoreDoctrineDataSource\Site\Api\Repository;
 
 use Doctrine\ORM\EntityManager;
 use Zrcms\Content\Model\ContentVersion;
-use Zrcms\ContentCore\Theme\Model\LayoutVersionBasic;
-use Zrcms\ContentCoreDoctrineDataSource\Theme\Entity\LayoutVersionEntity;
+use Zrcms\ContentCore\Site\Model\SiteVersionBasic;
+use Zrcms\ContentCoreDoctrineDataSource\Site\Entity\SiteVersionEntity;
 use Zrcms\ContentDoctrine\Api\Repository\FindContentVersion;
 
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class FindLayoutVersion
+class FindSiteVersion
     extends FindContentVersion
-    implements \Zrcms\ContentCore\Theme\Api\Repository\FindLayoutVersion
+    implements \Zrcms\ContentCore\Site\Api\Repository\FindSiteVersion
 {
     /**
      * @param EntityManager $entityManager
@@ -23,8 +23,8 @@ class FindLayoutVersion
     ) {
         parent::__construct(
             $entityManager,
-            LayoutVersionEntity::class,
-            LayoutVersionBasic::class
+            SiteVersionEntity::class,
+            SiteVersionBasic::class
         );
     }
 
@@ -32,7 +32,7 @@ class FindLayoutVersion
      * @param string $id
      * @param array  $options
      *
-     * @return LayoutVersionBasic|ContentVersion|null
+     * @return SiteVersionBasic|ContentVersion|null
      */
     public function __invoke(
         string $id,

@@ -7,7 +7,7 @@ use Zrcms\ContentCore\Site\Model\SiteCmsResource;
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-interface FindSiteCmsResourcesByHost
+interface FindSiteCmsResourceByHost
 {
     /**
      * @param string $host

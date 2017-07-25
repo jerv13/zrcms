@@ -4,16 +4,17 @@ namespace Zrcms\ContentCoreDoctrineDataSource\Theme\Api\Repository;
 
 use Doctrine\ORM\EntityManager;
 use Zrcms\Content\Model\ContentVersion;
+use Zrcms\ContentCore\Theme\Model\LayoutVersion;
 use Zrcms\ContentCore\Theme\Model\LayoutVersionBasic;
 use Zrcms\ContentCoreDoctrineDataSource\Theme\Entity\LayoutVersionEntity;
-use Zrcms\ContentDoctrine\Api\Repository\FindContentVersion;
+use Zrcms\ContentDoctrine\Api\Repository\InsertContentVersion;
 
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class FindLayoutVersion
-    extends FindContentVersion
-    implements \Zrcms\ContentCore\Theme\Api\Repository\FindLayoutVersion
+class InsertLayoutVersion
+    extends InsertContentVersion
+    implements \Zrcms\ContentCore\Theme\Api\Repository\InsertLayoutVersion
 {
     /**
      * @param EntityManager $entityManager
@@ -29,17 +30,18 @@ class FindLayoutVersion
     }
 
     /**
-     * @param string $id
-     * @param array  $options
+     * @param LayoutVersion|ContentVersion $layoutVersion
+     * @param array                           $options
      *
-     * @return LayoutVersionBasic|ContentVersion|null
+     * @return ContentVersion
      */
     public function __invoke(
-        string $id,
+        ContentVersion $layoutVersion,
         array $options = []
-    ) {
-        parent::__invoke(
-            $id,
+    ): ContentVersion
+    {
+        return parent::__invoke(
+            $layoutVersion,
             $options
         );
     }

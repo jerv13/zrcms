@@ -1,18 +1,18 @@
 <?php
 
-namespace Zrcms\ContentCoreDoctrineDataSource\Theme\Api\Repository;
+namespace Zrcms\ContentCoreDoctrineDataSource\Page\Api\Repository;
 
 use Doctrine\ORM\EntityManager;
 use Zrcms\Content\Model\CmsResource;
-use Zrcms\ContentCore\Theme\Model\LayoutCmsResource;
-use Zrcms\ContentCore\Theme\Model\LayoutCmsResourceBasic;
-use Zrcms\ContentCoreDoctrineDataSource\Theme\Entity\LayoutCmsResourceEntity;
+use Zrcms\ContentCore\Page\Model\PageContainerCmsResource;
+use Zrcms\ContentCore\Page\Model\PageContainerCmsResourceBasic;
+use Zrcms\ContentCoreDoctrineDataSource\Page\Entity\PageContainerCmsResourceEntity;
 use Zrcms\ContentDoctrine\Api\Repository\FindCmsResource;
 
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class FindLayoutCmsResource
+class FindPageContainerCmsResource
     extends FindCmsResource
     implements \Zrcms\Content\Api\Repository\FindCmsResource
 {
@@ -24,8 +24,8 @@ class FindLayoutCmsResource
     ) {
         parent::__construct(
             $entityManager,
-            LayoutCmsResourceEntity::class,
-            LayoutCmsResourceBasic::class
+            PageContainerCmsResourceEntity::class,
+            PageContainerCmsResourceBasic::class
         );
     }
 
@@ -33,7 +33,7 @@ class FindLayoutCmsResource
      * @param string $id
      * @param array  $options
      *
-     * @return LayoutCmsResource|CmsResource|null
+     * @return PageContainerCmsResource|CmsResource|null
      */
     public function __invoke(
         string $id,

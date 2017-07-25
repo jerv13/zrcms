@@ -1,19 +1,19 @@
 <?php
 
-namespace Zrcms\ContentCoreDoctrineDataSource\Theme\Api\Action;
+namespace Zrcms\ContentCoreDoctrineDataSource\Site\Api\Action;
 
 use Doctrine\ORM\EntityManager;
 use Zrcms\Content\Model\CmsResource;
-use Zrcms\ContentCore\Theme\Model\LayoutCmsResource;
-use Zrcms\ContentCoreDoctrineDataSource\Theme\Entity\LayoutCmsResourceEntity;
-use Zrcms\ContentCoreDoctrineDataSource\Theme\Entity\LayoutCmsResourcePublishHistoryEntity;
-use Zrcms\ContentCoreDoctrineDataSource\Theme\Entity\LayoutVersionEntity;
+use Zrcms\ContentCore\Site\Model\SiteCmsResource;
+use Zrcms\ContentCoreDoctrineDataSource\Site\Entity\SiteCmsResourceEntity;
+use Zrcms\ContentCoreDoctrineDataSource\Site\Entity\SiteCmsResourcePublishHistoryEntity;
+use Zrcms\ContentCoreDoctrineDataSource\Site\Entity\SiteVersionEntity;
 use Zrcms\ContentDoctrine\Api\Action\UnpublishCmsResource;
 
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class UnpublishLayoutCmsResource
+class UnpublishSiteCmsResource
     extends UnpublishCmsResource
     implements \Zrcms\Content\Api\Action\UnpublishCmsResource
 {
@@ -25,27 +25,27 @@ class UnpublishLayoutCmsResource
     ) {
         parent::__construct(
             $entityManager,
-            LayoutCmsResourceEntity::class,
-            LayoutCmsResourcePublishHistoryEntity::class,
-            LayoutVersionEntity::class
+            SiteCmsResourceEntity::class,
+            SiteCmsResourcePublishHistoryEntity::class,
+            SiteVersionEntity::class
         );
     }
 
     /**
-     * @param LayoutCmsResource|CmsResource $layoutCmsResource
+     * @param SiteCmsResource|CmsResource $siteCmsResource
      * @param string                           $unpublishedByUserId
      * @param string                           $unpublishReason
      *
      * @return bool
      */
     public function __invoke(
-        CmsResource $layoutCmsResource,
+        CmsResource $siteCmsResource,
         string $unpublishedByUserId,
         string $unpublishReason
     ): bool
     {
         return parent::__invoke(
-            $layoutCmsResource,
+            $siteCmsResource,
             $unpublishedByUserId,
             $unpublishReason
         );

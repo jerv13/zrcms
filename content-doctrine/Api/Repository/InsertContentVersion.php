@@ -28,10 +28,10 @@ class InsertContentVersion
     {
         $contentVersion->assertIsNew();
 
-        /** @var ContentVersion::class $class */
-        $class = $this->entityClass;
+        /** @var ContentVersion::class $entityClass */
+        $entityClass = $this->entityClass;
 
-        $newContentVersion = new $class(
+        $newContentVersion = new $entityClass(
             $contentVersion->getProperties(),
             $contentVersion->getCreatedByUserId(),
             $contentVersion->getCreatedReason()

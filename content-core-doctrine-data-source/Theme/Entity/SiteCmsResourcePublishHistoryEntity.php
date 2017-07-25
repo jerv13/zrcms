@@ -1,10 +1,10 @@
 <?php
 
-namespace Zrcms\ContentCoreDoctrineDataSource\Site\Entity;
+namespace Zrcms\ContentCoreDoctrineDataSource\Theme\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Zrcms\ContentCore\Site\Model\SiteCmsResource;
-use Zrcms\ContentCore\Site\Model\SiteCmsResourceAbstract;
+use Zrcms\ContentCore\Theme\Model\LayoutCmsResourcePublishHistory;
+use Zrcms\ContentCore\Theme\Model\LayoutCmsResourcePublishHistoryAbstract;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -12,11 +12,13 @@ use Zrcms\ContentCore\Site\Model\SiteCmsResourceAbstract;
  * @ORM\Entity()
  * @ORM\HasLifecycleCallbacks()
  * @ORM\Table(
- *     name="zrcms_core_site_resource",
+ *     name="zrcms_core_layout_resource_publish_history",
  *     indexes={}
  * )
  */
-class SiteCmsResourceEntity extends SiteCmsResourceAbstract implements SiteCmsResource
+class LayoutCmsResourcePublishHistoryEntity
+    extends LayoutCmsResourcePublishHistoryAbstract
+    implements LayoutCmsResourcePublishHistory
 {
     /**
      * @var string
@@ -72,7 +74,7 @@ class SiteCmsResourceEntity extends SiteCmsResourceAbstract implements SiteCmsRe
      *
      * @ORM\Column(type="string")
      */
-    protected $host;
+    protected $action;
 
     /**
      * @return void

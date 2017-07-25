@@ -4,7 +4,6 @@ namespace Zrcms\ContentCore\Block\Api;
 
 use Zrcms\ContentCore\Container\Api\WrapRenderedContainer;
 use Zrcms\ContentCore\Container\Model\Container;
-use Zrcms\ContentCore\Container\Model\ContainerVersion;
 use Zrcms\ContentCore\Page\Model\PageContainerVersion;
 
 class WrapRenderedContainerLegacy implements WrapRenderedContainer

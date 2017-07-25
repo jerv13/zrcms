@@ -1,29 +1,29 @@
 <?php
 
-namespace Zrcms\ContentCoreDoctrineDataSource\Theme\Api\Repository;
+namespace Zrcms\ContentCoreDoctrineDataSource\Page\Api\Repository;
 
 use Doctrine\ORM\EntityManager;
-use Zrcms\ContentCore\Theme\Model\LayoutVersionBasic;
-use Zrcms\ContentCoreDoctrineDataSource\Theme\Entity\LayoutVersionEntity;
-use Zrcms\ContentDoctrine\Api\Repository\FindContentVersionsBy;
+use Zrcms\ContentCore\Page\Model\PageContainerCmsResource;
+use Zrcms\ContentCore\Page\Model\PageContainerCmsResourceBasic;
+use Zrcms\ContentCoreDoctrineDataSource\Page\Entity\PageContainerCmsResourceEntity;
+use Zrcms\ContentDoctrine\Api\Repository\FindCmsResourcesBy;
 
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class FindLayoutVersionsBy
-    extends FindContentVersionsBy
-    implements \Zrcms\ContentCore\Theme\Api\Repository\FindLayoutVersionsBy
+class FindPageContainerCmsResourcesBy
+    extends FindCmsResourcesBy
+    implements \Zrcms\Content\Api\Repository\FindCmsResourcesBy
 {
     /**
      * @param EntityManager $entityManager
      */
-    public function __construct(
-        EntityManager $entityManager
-    ) {
+    public function __construct(EntityManager $entityManager)
+    {
         parent::__construct(
             $entityManager,
-            LayoutVersionEntity::class,
-            LayoutVersionBasic::class
+            PageContainerCmsResourceEntity::class,
+            PageContainerCmsResourceBasic::class
         );
     }
 
@@ -34,7 +34,7 @@ class FindLayoutVersionsBy
      * @param null       $offset
      * @param array      $options
      *
-     * @return LayoutVersionBasic[]
+     * @return PageContainerCmsResource[]
      */
     public function __invoke(
         array $criteria,

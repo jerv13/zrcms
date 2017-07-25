@@ -1,22 +1,22 @@
 <?php
 
-namespace Zrcms\ContentCoreDoctrineDataSource\Theme\Api\Action;
+namespace Zrcms\ContentCoreDoctrineDataSource\Site\Api\Action;
 
 use Doctrine\ORM\EntityManager;
 use Zrcms\Content\Model\CmsResource;
-use Zrcms\ContentCore\Theme\Model\LayoutCmsResource;
-use Zrcms\ContentCore\Theme\Model\LayoutCmsResourceBasic;
-use Zrcms\ContentCoreDoctrineDataSource\Theme\Entity\LayoutCmsResourceEntity;
-use Zrcms\ContentCoreDoctrineDataSource\Theme\Entity\LayoutCmsResourcePublishHistoryEntity;
-use Zrcms\ContentCoreDoctrineDataSource\Theme\Entity\LayoutVersionEntity;
+use Zrcms\ContentCore\Site\Model\SiteCmsResource;
+use Zrcms\ContentCore\Site\Model\SiteCmsResourceBasic;
+use Zrcms\ContentCoreDoctrineDataSource\Site\Entity\SiteCmsResourceEntity;
+use Zrcms\ContentCoreDoctrineDataSource\Site\Entity\SiteCmsResourcePublishHistoryEntity;
+use Zrcms\ContentCoreDoctrineDataSource\Site\Entity\SiteVersionEntity;
 use Zrcms\ContentDoctrine\Api\Action\PublishCmsResource;
 
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class PublishLayoutCmsResource
+class PublishSiteCmsResource
     extends PublishCmsResource
-    implements \Zrcms\ContentCore\Layout\Api\Action\PublishLayoutCmsResource
+    implements \Zrcms\ContentCore\Site\Api\Action\PublishSiteCmsResource
 {
     /**
      * @param EntityManager $entityManager
@@ -26,28 +26,28 @@ class PublishLayoutCmsResource
     ) {
         parent::__construct(
             $entityManager,
-            LayoutCmsResourceEntity::class,
-            LayoutCmsResourcePublishHistoryEntity::class,
-            LayoutVersionEntity::class,
-            LayoutCmsResourceBasic::class
+            SiteCmsResourceEntity::class,
+            SiteCmsResourcePublishHistoryEntity::class,
+            SiteVersionEntity::class,
+            SiteCmsResourceBasic::class
         );
     }
 
     /**
-     * @param LayoutCmsResource|CmsResource $layoutCmsResource
+     * @param SiteCmsResource|CmsResource $siteCmsResource
      * @param string                           $publishedByUserId
      * @param string                           $publishReason
      *
      * @return CmsResource
      */
     public function __invoke(
-        CmsResource $layoutCmsResource,
+        CmsResource $siteCmsResource,
         string $publishedByUserId,
         string $publishReason
     ): CmsResource
     {
         return parent::__invoke(
-            $layoutCmsResource,
+            $siteCmsResource,
             $publishedByUserId,
             $publishReason
         );

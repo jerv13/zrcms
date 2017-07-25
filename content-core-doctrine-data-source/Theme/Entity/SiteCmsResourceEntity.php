@@ -1,10 +1,10 @@
 <?php
 
-namespace Zrcms\ContentCoreDoctrineDataSource\Site\Entity;
+namespace Zrcms\ContentCoreDoctrineDataSource\Theme\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Zrcms\ContentCore\Site\Model\SiteCmsResource;
-use Zrcms\ContentCore\Site\Model\SiteCmsResourceAbstract;
+use Zrcms\ContentCore\Theme\Model\LayoutCmsResource;
+use Zrcms\ContentCore\Theme\Model\LayoutCmsResourceAbstract;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -12,11 +12,11 @@ use Zrcms\ContentCore\Site\Model\SiteCmsResourceAbstract;
  * @ORM\Entity()
  * @ORM\HasLifecycleCallbacks()
  * @ORM\Table(
- *     name="zrcms_core_site_resource",
+ *     name="zrcms_core_layout_resource",
  *     indexes={}
  * )
  */
-class SiteCmsResourceEntity extends SiteCmsResourceAbstract implements SiteCmsResource
+class LayoutCmsResourceEntity extends LayoutCmsResourceAbstract implements LayoutCmsResource
 {
     /**
      * @var string
@@ -66,13 +66,6 @@ class SiteCmsResourceEntity extends SiteCmsResourceAbstract implements SiteCmsRe
      * @ORM\Column(type="string")
      */
     protected $createdReason;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(type="string")
-     */
-    protected $host;
 
     /**
      * @return void

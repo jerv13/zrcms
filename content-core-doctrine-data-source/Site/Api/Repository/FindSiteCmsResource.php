@@ -1,18 +1,18 @@
 <?php
 
-namespace Zrcms\ContentCoreDoctrineDataSource\Theme\Api\Repository;
+namespace Zrcms\ContentCoreDoctrineDataSource\Site\Api\Repository;
 
 use Doctrine\ORM\EntityManager;
 use Zrcms\Content\Model\CmsResource;
-use Zrcms\ContentCore\Theme\Model\LayoutCmsResource;
-use Zrcms\ContentCore\Theme\Model\LayoutCmsResourceBasic;
-use Zrcms\ContentCoreDoctrineDataSource\Theme\Entity\LayoutCmsResourceEntity;
+use Zrcms\ContentCore\Site\Model\SiteCmsResource;
+use Zrcms\ContentCore\Site\Model\SiteCmsResourceBasic;
+use Zrcms\ContentCoreDoctrineDataSource\Site\Entity\SiteCmsResourceEntity;
 use Zrcms\ContentDoctrine\Api\Repository\FindCmsResource;
 
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class FindLayoutCmsResource
+class FindSiteCmsResource
     extends FindCmsResource
     implements \Zrcms\Content\Api\Repository\FindCmsResource
 {
@@ -24,8 +24,8 @@ class FindLayoutCmsResource
     ) {
         parent::__construct(
             $entityManager,
-            LayoutCmsResourceEntity::class,
-            LayoutCmsResourceBasic::class
+            SiteCmsResourceEntity::class,
+            SiteCmsResourceBasic::class
         );
     }
 
@@ -33,7 +33,7 @@ class FindLayoutCmsResource
      * @param string $id
      * @param array  $options
      *
-     * @return LayoutCmsResource|CmsResource|null
+     * @return SiteCmsResource|CmsResource|null
      */
     public function __invoke(
         string $id,
