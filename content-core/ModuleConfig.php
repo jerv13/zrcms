@@ -46,7 +46,6 @@ use Zrcms\ContentCore\Page\Api\Render\GetPageContainerRenderDataBasic;
 use Zrcms\ContentCore\Page\Api\Render\GetPageContainerRenderDataBasicFactory;
 use Zrcms\ContentCore\Page\Api\Render\GetPageContainerRenderDataBlocks;
 use Zrcms\ContentCore\Page\Api\Render\GetPageContainerRenderDataHtml;
-use Zrcms\ContentCore\Page\Api\Render\GetPageContainerRenderDataHtmlFactory;
 use Zrcms\ContentCore\Page\Api\Render\RenderPageContainer;
 use Zrcms\ContentCore\Page\Api\Render\RenderPageContainerBasic;
 use Zrcms\ContentCore\Page\Api\Render\RenderPageContainerBasicFactory;
@@ -84,7 +83,6 @@ use Zrcms\ContentCore\View\Api\Render\GetViewRenderData;
 use Zrcms\ContentCore\View\Api\Render\GetViewRenderDataBasic;
 use Zrcms\ContentCore\View\Api\Render\GetViewRenderDataBasicFactory;
 use Zrcms\ContentCore\View\Api\Render\GetViewRenderDataContainers;
-use Zrcms\ContentCore\View\Api\Render\GetViewRenderDataContainersFactory;
 use Zrcms\ContentCore\View\Api\Render\GetViewRenderDataHead;
 use Zrcms\ContentCore\View\Api\Render\GetViewRenderDataHeadAll;
 use Zrcms\ContentCore\View\Api\Render\GetViewRenderDataHeadAllFactory;
@@ -292,9 +290,7 @@ class ModuleConfig
                             WrapRenderedContainer::class
                         ],
                     ],
-                    GetPageContainerRenderDataHtml::class => [
-                        'factory' => GetPageContainerRenderDataHtmlFactory::class,
-                    ],
+                    GetPageContainerRenderDataHtml::class => [],
                     RenderPageContainer::class => [
                         'factory' => RenderPageContainerBasicFactory::class,
                     ],
@@ -481,7 +477,12 @@ class ModuleConfig
                         'factory' => GetViewRenderDataBasicFactory::class,
                     ],
                     GetViewRenderDataContainers::class => [
-                        'factory' => GetViewRenderDataContainersFactory::class,
+                        'arguments' => [
+                            FindTagNamesByLayout::class,
+                            FindContainerCmsResourcesBySitePaths::class,
+                            FindContainerVersion::class,
+                            GetContainerRenderData::class
+                        ],
                     ],
                     GetViewRenderDataHead::class => [
                         'factory' => GetViewRenderDataHeadAllFactory::class,

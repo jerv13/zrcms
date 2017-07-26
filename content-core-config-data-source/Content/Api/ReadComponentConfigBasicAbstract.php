@@ -53,6 +53,12 @@ abstract class ReadComponentConfigBasicAbstract implements ReadComponentConfig
         /** @var ReadComponentConfig $componentConfigReader */
         $componentConfigReader = $this->serviceContainer->get($componentConfigReaderServiceName);
 
+        if (get_class($componentConfigReader) == get_class($this)) {
+            throw new \Exception(
+                'Class ' . get_class($this) . ' can not use itself as service.'
+            );
+        }
+
         $config = $componentConfigReader->__invoke(
             $location,
             $options

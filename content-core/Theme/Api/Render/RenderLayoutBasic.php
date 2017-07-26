@@ -57,6 +57,12 @@ class RenderLayoutBasic implements RenderLayout
             $renderServiceName
         );
 
+        if (get_class($render) == get_class($this)) {
+            throw new \Exception(
+                'Class ' . get_class($this) . ' can not use itself as service.'
+            );
+        }
+
         return $render->__invoke(
             $layout,
             $renderData,

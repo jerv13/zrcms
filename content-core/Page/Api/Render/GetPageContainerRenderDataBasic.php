@@ -61,6 +61,12 @@ class GetPageContainerRenderDataBasic implements GetPageContainerRenderData
             $getPageContainerRenderDataServiceName
         );
 
+        if (get_class($getPageContainerRenderDataService) == get_class($this)) {
+            throw new \Exception(
+                'Class ' . get_class($this) . ' can not use itself as service.'
+            );
+        }
+
         return $getPageContainerRenderDataService->__invoke(
             $pageContainer,
             $request,

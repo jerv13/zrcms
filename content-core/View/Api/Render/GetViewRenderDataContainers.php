@@ -20,11 +20,6 @@ use Zrcms\ContentCore\View\Model\View;
 class GetViewRenderDataContainers implements GetViewRenderData
 {
     /**
-     * @var ContainerInterface
-     */
-    protected $serviceContainer;
-
-    /**
      * @var FindTagNamesByLayout
      */
     protected $findTagNamesByLayout;
@@ -45,20 +40,17 @@ class GetViewRenderDataContainers implements GetViewRenderData
     protected $getContainerRenderData;
 
     /**
-     * @param                                      $serviceContainer
      * @param FindTagNamesByLayout                 $findTagNamesByLayout
      * @param FindContainerCmsResourcesBySitePaths $findContainerCmsResourcesBySitePaths
      * @param FindContainerVersion                 $findContainerVersion
      * @param GetContainerRenderData               $getContainerRenderData
      */
     public function __construct(
-        $serviceContainer,
         FindTagNamesByLayout $findTagNamesByLayout,
         FindContainerCmsResourcesBySitePaths $findContainerCmsResourcesBySitePaths,
         FindContainerVersion $findContainerVersion,
         GetContainerRenderData $getContainerRenderData
     ) {
-        $this->serviceContainer = $serviceContainer;
         $this->findTagNamesByLayout = $findTagNamesByLayout;
         $this->findContainerCmsResourcesBySitePaths = $findContainerCmsResourcesBySitePaths;
         $this->findContainerVersion = $findContainerVersion;

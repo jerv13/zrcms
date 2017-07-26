@@ -68,6 +68,12 @@ class GetViewRenderDataHeadAll implements GetViewRenderDataHead
                 $renderServiceName
             );
 
+            if (get_class($renderService) == get_class($this)) {
+                throw new \Exception(
+                    'Class ' . get_class($this) . ' can not use itself as service.'
+                );
+            }
+
             $subRenderData = $renderService->__invoke(
                 $view,
                 $request,

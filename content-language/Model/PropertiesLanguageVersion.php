@@ -9,8 +9,8 @@ use Zrcms\Content\Model\PropertiesContent;
  */
 interface PropertiesLanguageVersion extends PropertiesContent
 {
-    const ISO639_2T = 'iso639_2t';
-    const ISO639_2B = 'iso639_2b';
-    const ISO639_1 = 'iso639_1';
+    const ISO_639_2T = 'iso639_2t';
+    const ISO_639_2B = 'iso639_2b';
+    const ISO_639_1 = 'iso639_1';
     const NAME = 'name';
 }

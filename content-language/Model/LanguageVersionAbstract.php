@@ -54,17 +54,17 @@ abstract class LanguageVersionAbstract extends ContentVersionAbstract implements
     ) {
         $this->iso639_2t = Param::getRequired(
             $properties,
-            PropertiesLanguageVersion::ISO639_2T
+            PropertiesLanguageVersion::ISO_639_2T
         );
 
         $this->iso639_2b = Param::getRequired(
             $properties,
-            PropertiesLanguageVersion::ISO639_2B
+            PropertiesLanguageVersion::ISO_639_2B
         );
 
         $this->iso639_1 = Param::getRequired(
             $properties,
-            PropertiesLanguageVersion::ISO639_1
+            PropertiesLanguageVersion::ISO_639_1
         );
 
         $this->name = Param::getRequired(

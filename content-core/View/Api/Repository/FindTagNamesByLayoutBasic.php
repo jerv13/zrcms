@@ -54,6 +54,12 @@ class FindTagNamesByLayoutBasic implements FindTagNamesByLayout
             $findTagNamesServiceName
         );
 
+        if (get_class($findTagNamesService) == get_class($this)) {
+            throw new \Exception(
+                'Class ' . get_class($this) . ' can not use itself as service.'
+            );
+        }
+
         return $findTagNamesService->__invoke(
             $layout,
             $options

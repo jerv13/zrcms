@@ -59,6 +59,12 @@ class GetContainerRenderDataBasic implements GetContainerRenderData
             $getContainerRenderDataServiceName
         );
 
+        if (get_class($getContainerRenderDataService) == get_class($this)) {
+            throw new \Exception(
+                'Class ' . get_class($this) . ' can not use itself as service.'
+            );
+        }
+
         return $getContainerRenderDataService->__invoke(
             $container,
             $request,

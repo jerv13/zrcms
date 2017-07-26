@@ -58,6 +58,12 @@ class RenderPageContainerBasic implements RenderPageContainer
             $renderPageContainerServiceName
         );
 
+        if (get_class($renderPageContainerService) == get_class($this)) {
+            throw new \Exception(
+                'Class ' . get_class($this) . ' can not use itself as service.'
+            );
+        }
+
         return $renderPageContainerService->__invoke(
             $pageContainer,
             $renderData

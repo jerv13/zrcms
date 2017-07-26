@@ -71,6 +71,12 @@ class GetBlockDataBasic implements GetBlockData
             $getBlockDataServiceName
         );
 
+        if (get_class($getBlockData) == get_class($this)) {
+            throw new \Exception(
+                'Class ' . get_class($this) . ' can not use itself as service.'
+            );
+        }
+
         return $getBlockData->__invoke(
             $block,
             $request,

@@ -58,6 +58,12 @@ class GetLayoutRenderDataBasic implements GetLayoutRenderData
             $renderDataGetterServiceName
         );
 
+        if (get_class($renderDataGetterService) == get_class($this)) {
+            throw new \Exception(
+                'Class ' . get_class($this) . ' can not use itself as service.'
+            );
+        }
+
         return $renderDataGetterService->__invoke(
             $layout,
             $request,

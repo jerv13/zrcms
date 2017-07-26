@@ -73,6 +73,12 @@ class RenderBlockBasic implements RenderBlock
             $renderServiceName
         );
 
+        if (get_class($renderBlock) == get_class($this)) {
+            throw new \Exception(
+                'Class ' . get_class($this) . ' can not use itself as service.'
+            );
+        }
+
         return $renderBlock->__invoke(
             $block,
             $renderData,

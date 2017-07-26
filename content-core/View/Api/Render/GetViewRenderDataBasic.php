@@ -67,6 +67,12 @@ class GetViewRenderDataBasic implements GetViewRenderData
             /** @var GetViewRenderData $getViewRenderData */
             $getViewRenderData = $this->serviceContainer->get($viewRenderDataGetterServiceName);
 
+            if (get_class($getViewRenderData) == get_class($this)) {
+                throw new \Exception(
+                    'Class ' . get_class($this) . ' can not use itself as service.'
+                );
+            }
+
             $viewRenderData = $getViewRenderData->__invoke(
                 $view,
                 $request,

@@ -56,6 +56,12 @@ class RenderContainerBasic implements RenderContent
             $renderContainerServiceName
         );
 
+        if (get_class($renderContainerService) == get_class($this)) {
+            throw new \Exception(
+                'Class ' . get_class($this) . ' can not use itself as service.'
+            );
+        }
+
         return $renderContainerService->__invoke(
             $Container,
             $renderData
