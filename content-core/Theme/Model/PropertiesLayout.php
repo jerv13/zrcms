@@ -16,6 +16,4 @@ interface PropertiesLayout extends PropertiesContent
     const RENDER_DATA_GETTER = 'renderDataGetter';
     const RENDER_TAG_NAME_PARSER = 'renderTagNameParser';
     const HTML = 'html';
-
-    const URI_NAMESPACE = 'theme-layout';
 }

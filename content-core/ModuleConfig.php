@@ -67,6 +67,7 @@ use Zrcms\ContentCore\Site\Api\Repository\InsertSiteVersion;
 use Zrcms\ContentCore\Theme\Api\Render\GetLayoutRenderData;
 use Zrcms\ContentCore\Theme\Api\Render\GetLayoutRenderDataBasic;
 use Zrcms\ContentCore\Theme\Api\Render\GetLayoutRenderDataBasicFactory;
+use Zrcms\ContentCore\Theme\Api\Render\GetLayoutRenderDataNoop;
 use Zrcms\ContentCore\Theme\Api\Render\RenderLayout;
 use Zrcms\ContentCore\Theme\Api\Render\RenderLayoutBasic;
 use Zrcms\ContentCore\Theme\Api\Render\RenderLayoutBasicFactory;
@@ -133,9 +134,6 @@ class ModuleConfig
                     RenderBlock::class => [
                         'factory' => RenderBlockBasicFactory::class,
                     ],
-                    RenderBlockBasic::class => [
-                        'factory' => RenderBlockBasicFactory::class,
-                    ],
                     RenderBlockMustache::class => [
                         'arguments' => [
                             FindBlockComponent::class
@@ -162,14 +160,10 @@ class ModuleConfig
                     GetBlockData::class => [
                         'factory' => GetBlockDataBasicFactory::class,
                     ],
-                    GetBlockDataBasic::class => [
-                        'factory' => GetBlockDataBasicFactory::class,
-                    ],
                     GetBlockDataNoop::class => [],
                     GetMergedConfig::class => [
                         'class' => GetMergedConfigBasic::class,
                     ],
-                    GetMergedConfigBasic::class => [],
                     WrapRenderedBlockVersion::class => [
                         'class' => WrapRenderedBlockVersionLegacy::class,
                         'arguments' => [
@@ -195,9 +189,6 @@ class ModuleConfig
                     GetContainerRenderData::class => [
                         'factory' => GetContainerRenderDataBasicFactory::class,
                     ],
-                    GetContainerRenderDataBasic::class => [
-                        'factory' => GetContainerRenderDataBasicFactory::class,
-                    ],
                     GetContainerRenderDataBlocks::class => [
                         'arguments' => [
                             FindBlockVersionsByContainer::class,
@@ -208,9 +199,6 @@ class ModuleConfig
                         ],
                     ],
                     RenderContainer::class => [
-                        'factory' => RenderContainerBasicFactory::class,
-                    ],
-                    RenderContainerBasic::class => [
                         'factory' => RenderContainerBasicFactory::class,
                     ],
                     RenderContainerRows::class => [
@@ -278,9 +266,6 @@ class ModuleConfig
                     GetPageContainerRenderData::class => [
                         'factory' => GetPageContainerRenderDataBasicFactory::class,
                     ],
-                    GetPageContainerRenderDataBasic::class => [
-                        'factory' => GetPageContainerRenderDataBasicFactory::class,
-                    ],
                     GetPageContainerRenderDataBlocks::class => [
                         'arguments' => [
                             FindBlockVersionsByContainer::class,
@@ -292,9 +277,6 @@ class ModuleConfig
                     ],
                     GetPageContainerRenderDataHtml::class => [],
                     RenderPageContainer::class => [
-                        'factory' => RenderPageContainerBasicFactory::class,
-                    ],
-                    RenderPageContainerBasic::class => [
                         'factory' => RenderPageContainerBasicFactory::class,
                     ],
                     RenderPageContainerRows::class => [
@@ -409,13 +391,8 @@ class ModuleConfig
                     GetLayoutRenderData::class => [
                         'factory' => GetLayoutRenderDataBasicFactory::class,
                     ],
-                    GetLayoutRenderDataBasic::class => [
-                        'factory' => GetLayoutRenderDataBasicFactory::class,
-                    ],
+                    GetLayoutRenderDataNoop::class => [],
                     RenderLayout::class => [
-                        'factory' => RenderLayoutBasicFactory::class,
-                    ],
-                    RenderLayoutBasic::class => [
                         'factory' => RenderLayoutBasicFactory::class,
                     ],
                     RenderLayoutMustache::class => [],
@@ -473,9 +450,6 @@ class ModuleConfig
                     GetViewRenderData::class => [
                         'factory' => GetViewRenderDataBasicFactory::class,
                     ],
-                    GetViewRenderDataBasic::class => [
-                        'factory' => GetViewRenderDataBasicFactory::class,
-                    ],
                     GetViewRenderDataContainers::class => [
                         'arguments' => [
                             FindTagNamesByLayout::class,
@@ -503,9 +477,6 @@ class ModuleConfig
                     RenderView::class => [
                         'factory' => RenderViewBasicFactory::class,
                     ],
-                    RenderViewBasic::class => [
-                        'factory' => RenderViewBasicFactory::class,
-                    ],
                     RenderViewLayout::class => [
                         'arguments' => [
                             RenderLayout::class,
@@ -514,25 +485,8 @@ class ModuleConfig
                     FindTagNamesByLayout::class => [
                         'factory' => FindTagNamesByLayoutBasicFactory::class,
                     ],
-                    FindTagNamesByLayoutBasic::class => [
-                        'factory' => FindTagNamesByLayoutBasicFactory::class,
-                    ],
                     FindTagNamesByLayoutMustache::class => [],
                     FindViewByRequest::class => [
-                        'class' => FindViewByRequestBasic::class,
-                        'arguments' => [
-                            FindSiteCmsResourceByHost::class,
-                            FindSiteVersion::class,
-                            FindPageContainerCmsResourceBySitePath::class,
-                            FindPageContainerVersion::class,
-                            FindLayoutCmsResourceByThemeNameLayoutName::class,
-                            FindLayoutVersion::class,
-                            FindThemeComponent::class,
-                            GetViewRenderData::class,
-                            RenderView::class
-                        ],
-                    ],
-                    FindViewByRequestBasic::class => [
                         'class' => FindViewByRequestBasic::class,
                         'arguments' => [
                             FindSiteCmsResourceByHost::class,

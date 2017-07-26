@@ -38,6 +38,7 @@ class FindTagNamesByLayoutBasic implements FindTagNamesByLayout
      * @param array  $options
      *
      * @return string[] ['{container-path}']
+     * @throws \Exception
      */
     public function __invoke(
         Layout $layout,

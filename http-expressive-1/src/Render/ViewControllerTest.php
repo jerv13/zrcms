@@ -16,6 +16,12 @@ use Zrcms\ContentCore\Site\Model\PropertiesSiteCmsResource;
 use Zrcms\ContentCore\Site\Model\PropertiesSiteVersion;
 use Zrcms\ContentCore\Site\Model\SiteCmsResourceBasic;
 use Zrcms\ContentCore\Site\Model\SiteVersionBasic;
+use Zrcms\ContentCore\Theme\Api\Render\GetLayoutRenderData;
+use Zrcms\ContentCore\Theme\Api\Render\GetLayoutRenderDataNoop;
+use Zrcms\ContentCore\Theme\Model\LayoutCmsResourceBasic;
+use Zrcms\ContentCore\Theme\Model\LayoutVersionBasic;
+use Zrcms\ContentCore\Theme\Model\PropertiesLayoutCmsResource;
+use Zrcms\ContentCore\Theme\Model\PropertiesLayoutVersion;
 use Zrcms\ContentCore\View\Api\Render\GetViewRenderData;
 use Zrcms\ContentCore\View\Api\Render\RenderView;
 use Zrcms\ContentCore\View\Api\Repository\FindViewByRequest;
@@ -133,8 +139,38 @@ class ViewController
                 => GetPageContainerRenderDataHtml::class,
                 PropertiesPageContainerVersion::RENDERER
                 => RenderPageContainerRows::class,
-                PropertiesPageContainerVersion::
-                => 'test:' . PropertiesPageContainerVersion::PRE_RENDERED_HTML,
+            ],
+            'test-user-id',
+            'test-reason'
+        );
+
+        $layoutCmsResource = new LayoutCmsResourceBasic(
+            [
+                PropertiesLayoutCmsResource::ID
+                => 'test:' . PropertiesLayoutCmsResource::ID,
+                PropertiesLayoutCmsResource::CONTENT_VERSION_ID
+                => 'test:' . PropertiesLayoutCmsResource::CONTENT_VERSION_ID,
+                PropertiesLayoutCmsResource::NAME
+                => 'test:' . PropertiesLayoutCmsResource::NAME,
+                PropertiesLayoutCmsResource::THEME_NAME
+                => 'test:' . PropertiesLayoutCmsResource::THEME_NAME,
+            ],
+            'test-user-id',
+            'test-reason'
+        );
+
+        $layout = new LayoutVersionBasic(
+            [
+                PropertiesLayoutVersion::ID
+                => 'test:' . PropertiesLayoutVersion::ID,
+                PropertiesLayoutVersion::NAME
+                => 'test:' . PropertiesLayoutVersion::NAME,
+                PropertiesLayoutVersion::THEME_NAME
+                => 'test:' . PropertiesLayoutVersion::THEME_NAME,
+                PropertiesLayoutVersion::HTML
+                => 'test:' . PropertiesLayoutVersion::HTML,
+                PropertiesLayoutVersion::RENDER_DATA_GETTER
+                => GetLayoutRenderDataNoop::class,
             ],
             'test-user-id',
             'test-reason'

@@ -29,7 +29,7 @@ class GetLayoutRenderDataBasic implements GetLayoutRenderData
      */
     public function __construct(
         $serviceContainer,
-        string $defaultRenderDataGetterServiceName = RenderLayoutMustache::class
+        string $defaultRenderDataGetterServiceName = GetLayoutRenderDataNoop::class
     ) {
         $this->serviceContainer = $serviceContainer;
         $this->defaultRenderDataGetterServiceName = $defaultRenderDataGetterServiceName;
@@ -41,6 +41,7 @@ class GetLayoutRenderDataBasic implements GetLayoutRenderData
      * @param array                  $options
      *
      * @return string[] ['{render-tag}' => '{html}']
+     * @throws \Exception
      */
     public function __invoke(
         Content $layout,
