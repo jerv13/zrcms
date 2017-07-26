@@ -1,20 +1,23 @@
 <?php
 
-namespace Zrcms\Country\Api;
+namespace Zrcms\ContentCountry\Api\Repository;
+
+use Zrcms\Content\Api\Repository\FindContentVersionsBy;
+use Zrcms\ContentCountry\Model\CountryVersion;
 
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-interface FindCountriesPublishedBy
+interface FindCountryVersionsBy extends FindContentVersionsBy
 {
     /**
      * @param array      $criteria
      * @param array|null $orderBy
-     * @param null|int   $limit
-     * @param null|int   $offset
+     * @param null       $limit
+     * @param null       $offset
      * @param array      $options
      *
-     * @return CountryPublished[]
+     * @return CountryVersion[]
      */
     public function __invoke(
         array $criteria,

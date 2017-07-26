@@ -1,13 +1,14 @@
 <?php
 
-namespace Zrcms\Country\Model;
+namespace Zrcms\ContentCountry\Model;
 
-use Zrcms\ContentVersionControl\Model\ContentAbstract;
+use Zrcms\Content\Model\ContentVersionAbstract;
+use Zrcms\Param\Param;
 
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-abstract class CountryAbstract extends ContentAbstract implements Country
+abstract class CountryVersionAbstract extends ContentVersionAbstract implements CountryVersion
 {
     /**
      * @var string
@@ -25,32 +26,31 @@ abstract class CountryAbstract extends ContentAbstract implements Country
     protected $name;
 
     /**
-     * @param string $id
-     * @param string $sourceUri
      * @param array  $properties
      * @param string $createdByUserId
      * @param string $createdReason
-     * @param string $iso3
-     * @param string $iso2
-     * @param string $name
      */
     public function __construct(
-        string $id,
-        string $sourceUri,
         array $properties,
         string $createdByUserId,
-        string $createdReason,
-        string $iso3,
-        string $iso2,
-        string $name
+        string $createdReason
     ) {
-        $this->iso3 = $iso3;
-        $this->iso2 = $iso2;
-        $this->name = $name;
+        $this->iso3 = Param::getRequired(
+            $properties,
+            PropertiesCountryVersion::ISO3
+        );
+
+        $this->iso2 = Param::getRequired(
+            $properties,
+            PropertiesCountryVersion::ISO2
+        );
+
+        $this->name = Param::getRequired(
+            $properties,
+            PropertiesCountryVersion::NAME
+        );
 
         parent::__construct(
-            $id,
-            $sourceUri,
             $properties,
             $createdByUserId,
             $createdReason

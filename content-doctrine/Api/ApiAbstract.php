@@ -2,7 +2,6 @@
 
 namespace Zrcms\ContentDoctrine\Api;
 
-use Doctrine\ORM\EntityManager;
 use Zrcms\ContentDoctrine\Exception\InvalidEntityException;
 
 /**

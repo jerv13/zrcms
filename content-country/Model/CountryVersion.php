@@ -1,13 +1,13 @@
 <?php
 
-namespace Zrcms\Country\Model;
+namespace Zrcms\ContentCountry\Model;
 
-use Zrcms\ContentVersionControl\Model\Content;
+use Zrcms\Content\Model\ContentVersion;
 
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-interface Country extends Content
+interface CountryVersion extends ContentVersion
 {
     /**
      * @return string

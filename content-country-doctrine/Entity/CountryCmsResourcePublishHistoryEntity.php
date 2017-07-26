@@ -1,8 +1,10 @@
 <?php
 
-namespace Zrcms\CountryDoctrine\Country\Entity;
+namespace Zrcms\ContentCountryDoctrine\Entity;
 
-use Zrcms\Country\Model\CountryAbstract;
+use Doctrine\ORM\Mapping as ORM;
+use Zrcms\ContentCountry\Model\CountryCmsResourcePublishHistory;
+use Zrcms\ContentCountry\Model\CountryCmsResourcePublishHistoryAbstract;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -10,32 +12,35 @@ use Zrcms\Country\Model\CountryAbstract;
  * @ORM\Entity()
  * @ORM\HasLifecycleCallbacks()
  * @ORM\Table(
- *     name="zrcms_country",
+ *     name="zrcms_core_country_resource_publish_history",
+ *     indexes={}
  * )
  */
-class Country extends CountryAbstract implements \Zrcms\Country\Model\Country
+class CountryCmsResourcePublishHistoryEntity
+    extends CountryCmsResourcePublishHistoryAbstract
+    implements CountryCmsResourcePublishHistory
 {
     /**
      * @var string
      *
      * @ORM\Id
-     * @ORM\Column(type="string", length=3)
+     * @ORM\Column(type="string")
      */
-    protected $iso3;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(type="string", length=2)
-     */
-    protected $iso2;
+    protected $id;
 
     /**
      * @var string
      *
      * @ORM\Column(type="string")
      */
-    protected $name;
+    protected $contentVersionId = null;
+
+    /**
+     * @var array
+     *
+     * @ORM\Column(type="json_array")
+     */
+    protected $properties = [];
 
     /**
      * Date object was first created
@@ -63,6 +68,13 @@ class Country extends CountryAbstract implements \Zrcms\Country\Model\Country
      * @ORM\Column(type="string")
      */
     protected $createdReason;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(type="string")
+     */
+    protected $action;
 
     /**
      * @return void

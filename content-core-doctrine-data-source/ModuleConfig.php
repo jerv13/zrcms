@@ -2,6 +2,8 @@
 
 namespace Zrcms\ContentCoreDoctrineDataSource;
 
+use Doctrine\ORM\Mapping\Driver\AnnotationDriver;
+
 /**
  * @author James Jervis - https://github.com/jerv13
  */
@@ -18,7 +20,7 @@ class ModuleConfig
             'doctrine' => [
                 'driver' => [
                     ModuleConfig::class => [
-                        'class' => \Doctrine\ORM\Mapping\Driver\AnnotationDriver::class,
+                        'class' => AnnotationDriver::class,
                         'cache' => 'array',
                         'paths' => [
                             __DIR__ . '/../Container/Entity',

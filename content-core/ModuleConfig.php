@@ -2,8 +2,6 @@
 
 namespace Zrcms\Core;
 
-use Zrcms\Cache\Service\Cache;
-use Zrcms\Cache\Service\CacheArray;
 use Zrcms\ContentCore\Block\Api\GetMergedConfig;
 use Zrcms\ContentCore\Block\Api\GetMergedConfigBasic;
 use Zrcms\ContentCore\Block\Api\Render\GetBlockRenderData;
@@ -179,13 +177,6 @@ class ModuleConfig
                         'arguments' => [
                             FindBlockComponent::class
                         ],
-                    ],
-
-                    /**
-                     * Cache ===========================================
-                     */
-                    Cache::class => [
-                        'class' => CacheArray::class,
                     ],
 
                     /**

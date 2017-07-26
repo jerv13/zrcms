@@ -1,6 +1,6 @@
 <?php
 
-namespace Zrcms\CountryDoctrine;
+namespace Zrcms\ContentCountryDoctrine;
 
 /**
  * @author James Jervis - https://github.com/jerv13

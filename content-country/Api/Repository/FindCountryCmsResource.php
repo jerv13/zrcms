@@ -1,24 +1,24 @@
 <?php
 
-namespace Zrcms\ContentCore\Site\Api\Repository;
+namespace Zrcms\ContentCountry\Api\Repository;
 
 use Zrcms\Content\Api\Repository\FindCmsResource;
 use Zrcms\Content\Model\CmsResource;
-use Zrcms\ContentCore\Site\Model\SiteCmsResource;
+use Zrcms\ContentCountry\Model\CountryCmsResource;
 
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-interface FindSiteCmsResource extends FindCmsResource
+interface FindCountryCmsResource extends FindCmsResource
 {
     /**
-     * @param string $id
+     * @param string $host
      * @param array  $options
      *
-     * @return SiteCmsResource|CmsResource|null
+     * @return CountryCmsResource|CmsResource|null
      */
     public function __invoke(
-        string $id,
+        string $host,
         array $options = []
     );
 }

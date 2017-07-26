@@ -23,6 +23,9 @@ class ClearCacheBasic implements ClearCache
         $this->cache = $cache;
     }
 
+    /**
+     * @return bool
+     */
     public function __invoke(): bool
     {
         return $this->cache->clear();
