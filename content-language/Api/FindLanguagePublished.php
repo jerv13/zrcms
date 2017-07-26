@@ -1,8 +1,8 @@
 <?php
 
-namespace Zrcms\Language\Api;
+namespace Zrcms\ContentLanguage\Api;
 
-use Zrcms\Language\Model\LanguagePublished;
+use Zrcms\ContentLanguage\Model\ContentLanguagePublished;
 
 /**
  * @author James Jervis - https://github.com/jerv13

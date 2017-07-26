@@ -1,6 +1,6 @@
 <?php
 
-namespace Zrcms\LanguageDoctrine\Api;
+namespace Zrcms\ContentLanguageDoctrine\Api;
 
 use Doctrine\ORM\EntityManager;
 
@@ -41,7 +41,7 @@ class FindLanguagesPublishedBy implements \Zrcms\Language\Api\FindLanguagesPubli
     ):array
     {
         $repository = $this->entityManager->getRepository(
-            \Zrcms\LanguageDoctrine\Language\Entity\LanguagePublished::class
+            \Zrcms\ContentLanguageDoctrine\Language\Entity\LanguagePublished::class
         );
 
         return $repository->findBy(

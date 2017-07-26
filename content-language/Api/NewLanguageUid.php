@@ -1,6 +1,6 @@
 <?php
 
-namespace Zrcms\Language\Api;
+namespace Zrcms\ContentLanguage\Api;
 
 use Zrcms\Uid\Api\NewUid;
 

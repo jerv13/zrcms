@@ -1,6 +1,6 @@
 <?php
 
-namespace Zrcms\Core;
+namespace Zrcms\ContentCore;
 
 /**
  * @deprecated Only a place holder

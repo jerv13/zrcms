@@ -1,6 +1,6 @@
 <?php
 
-namespace Zrcms\LanguageDoctrine;
+namespace Zrcms\ContentLanguageDoctrine;
 
 /**
  * @author James Jervis - https://github.com/jerv13

@@ -38,8 +38,21 @@
   },
   "autoload": {
     "psr-4": {
-      "Zrcms\\Core\\": "core/",
-      "Zrcms\\CoreDoctrine\\": "core-doctrine/",
+      "Zrcms\\Cache\\": "cache/",
+      "Zrcms\\Content\\": "content/",
+      "Zrcms\\ContentCore\\": "content-core/",
+      "Zrcms\\ContentCoreConfigDataSource\\": "content-core-config-data-source/",
+      "Zrcms\\ContentCoreDoctrineDataSource\\": "content-core-doctrine-data-source/",
+      "Zrcms\\ContentCountry\\": "content-country/",
+      "Zrcms\\ContentCountryDoctrine\\": "content-country-doctrine/",
+      "Zrcms\\ContentDoctrine\\": "content-doctrine/",
+      "Zrcms\\ContentLanguage\\": "content-language/",
+      "Zrcms\\ContentLanguageDoctrine\\": "content-language-doctrine/",
+      "Zrcms\\HttpExpressive1\\": "http-expressive-1/src",
+      "Zrcms\\Importer\\": "importer",
+      "Zrcms\\Install\\": "install/src",
+      "Zrcms\\Mustache\\": "mustache",
+      "Zrcms\\Param\\": "param",
       "Zrcms\\RcmPluginCompatibility\\": "rcm-plugin-compatibility/"
     }
   },

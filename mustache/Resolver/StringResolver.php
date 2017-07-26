@@ -1,6 +1,6 @@
 <?php
 
-namespace Zrcms\Mustache;
+namespace Zrcms\Mustache\Resolver;
 
 use Phly\Mustache\Resolver\ResolverInterface;
 

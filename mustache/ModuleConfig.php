@@ -1,6 +1,6 @@
 <?php
 
-namespace Zrcms\Language;
+namespace Zrcms\Mustache;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -14,7 +14,6 @@ class ModuleConfig
      */
     public function __invoke()
     {
-        return [
-        ];
+        return [];
     }
 }

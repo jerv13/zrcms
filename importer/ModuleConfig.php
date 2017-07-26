@@ -2,11 +2,12 @@
 
 namespace Zrcms\Importer;
 
-use Zrcms\ContentCore\Container\Api\CreateContainerPublished;
-use Zrcms\ContentCore\Page\Api\CreatePagePublished;
-use Zrcms\ContentCore\Site\Api\CreateSitePublished;
-use Zrcms\ContentCore\Uri\Api\BuildCmsUri;
-use Zrcms\ContentCore\Uri\Api\ParseCmsUri;
+use Zrcms\ContentCore\Container\Api\Action\PublishContainerCmsResource;
+use Zrcms\ContentCore\Container\Api\Repository\InsertContainerVersion;
+use Zrcms\ContentCore\Page\Api\Action\PublishPageContainerCmsResource;
+use Zrcms\ContentCore\Page\Api\Repository\InsertPageContainerVersion;
+use Zrcms\ContentCore\Site\Api\Action\PublishSiteCmsResource;
+use Zrcms\ContentCore\Site\Api\Repository\InsertSiteVersion;
 use Zrcms\Importer\Api\Import;
 use Zrcms\Importer\Middleware\ImportController;
 
@@ -24,11 +25,12 @@ class ModuleConfig
                 'config_factories' => [
                     Import::class => [
                         'arguments' => [
-                            CreateSitePublished::class,
-                            CreatePagePublished::class,
-                            CreateContainerPublished::class,
-                            BuildCmsUri::class,
-                            ParseCmsUri::class
+                            InsertSiteVersion::class,
+                            PublishSiteCmsResource::class,
+                            InsertPageContainerVersion::class,
+                            PublishPageContainerCmsResource::class,
+                            InsertContainerVersion::class,
+                            PublishContainerCmsResource::class,
                         ]
                     ],
                     ImportController::class => [

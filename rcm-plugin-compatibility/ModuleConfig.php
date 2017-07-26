@@ -1,6 +1,6 @@
 <?php
 
-namespace Zrcms\ContentCoreConfigDataSource;
+namespace Zrcms\RcmPluginCompatibility;
 
 use Zrcms\ContentCoreConfigDataSource\Block\Api\FindBlocksBy;
 use Zrcms\RcmPluginCompatibility\Block\Api\FindBlockByRcmLegacy;
@@ -36,7 +36,7 @@ class ModuleConfig
                     ConfigRepository::class => [
                         'arguments' => [
                             'config',
-                            Zrcms\Cache\Service::class,
+                            Cache::class,
                             ConfigFields::class,
                             FindBlocksBy::class
                         ]

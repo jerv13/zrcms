@@ -1,6 +1,6 @@
 <?php
 
-namespace Zrcms\Core;
+namespace Zrcms\ContentCore;
 
 use Zrcms\ContentCore\Block\Api\GetMergedConfig;
 use Zrcms\ContentCore\Block\Api\GetMergedConfigBasic;

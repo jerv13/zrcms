@@ -1,6 +1,6 @@
 <?php
 
-namespace Zrcms\LanguageDoctrine\Language\Entity;
+namespace Zrcms\ContentLanguageDoctrine\Language\Entity;
 
 use Zrcms\Language\Model\LanguageAbstract;
 

@@ -5,7 +5,7 @@ namespace Zrcms\ContentCore\Theme\Api\Render;
 use Phly\Mustache\Mustache;
 use Zrcms\Content\Model\Content;
 use Zrcms\ContentCore\Theme\Model\Layout;
-use Zrcms\Mustache\StringResolver;
+use Zrcms\Mustache\Resolver\StringResolver;
 
 /**
  * @author James Jervis - https://github.com/jerv13

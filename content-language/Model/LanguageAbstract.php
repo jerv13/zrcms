@@ -1,6 +1,6 @@
 <?php
 
-namespace Zrcms\Language\Model;
+namespace Zrcms\ContentLanguage\Model;
 
 use Zrcms\Tracking\Model\TrackableTrait;
 
