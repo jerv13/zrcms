@@ -1,8 +1,10 @@
 <?php
 
-namespace Zrcms\ContentLanguageDoctrine\Language\Entity;
+namespace Zrcms\ContentLanguageDoctrine\Entity;
 
-use Zrcms\Language\Model\LanguageAbstract;
+use Doctrine\ORM\Mapping as ORM;
+use Zrcms\ContentLanguage\Model\LanguageCmsResource;
+use Zrcms\ContentLanguage\Model\LanguageCmsResourceAbstract;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -10,46 +12,33 @@ use Zrcms\Language\Model\LanguageAbstract;
  * @ORM\Entity()
  * @ORM\HasLifecycleCallbacks()
  * @ORM\Table(
- *     name="zrcms_language_published",
+ *     name="zrcms_core_language_resource",
+ *     indexes={}
  * )
  */
-class LanguagePublished extends LanguageAbstract implements \Zrcms\Language\Model\LanguagePublished
+class LanguageCmsResourceEntity extends LanguageCmsResourceAbstract implements LanguageCmsResource
 {
     /**
      * @var string
      *
-     * @ORM\Column(type="string", unique=true, nullable=false)
-     */
-    protected $uid;
-
-    /**
-     * @var string
-     *
      * @ORM\Id
-     * @ORM\Column(type="string", length=3)
+     * @ORM\Column(type="string")
      */
-    protected $iso639_2t;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(type="string", length=3)
-     */
-    protected $iso639_2b;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(type="string", length=2)
-     */
-    protected $iso639_1;
+    protected $id;
 
     /**
      * @var string
      *
      * @ORM\Column(type="string")
      */
-    protected $name;
+    protected $contentVersionId = null;
+
+    /**
+     * @var array
+     *
+     * @ORM\Column(type="json_array")
+     */
+    protected $properties = [];
 
     /**
      * Date object was first created

@@ -16,6 +16,11 @@ use Zrcms\ContentCore\View\Api\Repository\FindViewByRequest;
  */
 class ViewController
 {
+    /**
+     * @param FindViewByRequest $findViewByRequest
+     * @param GetViewRenderData $getViewRenderData
+     * @param RenderView        $renderView
+     */
     public function __construct(
         FindViewByRequest $findViewByRequest,
         GetViewRenderData $getViewRenderData,
@@ -41,9 +46,12 @@ class ViewController
         ResponseInterface $response,
         callable $next = null
     ) {
+        $additionalViewProperties = [];
+
         try {
             $pageView = $this->findViewByRequest->__invoke(
-                $request
+                $request,
+                $additionalViewProperties
             );
         } catch (SiteNotFoundException $exception) {
             return $response->withStatus(404, 'SITE NOT FOUND');

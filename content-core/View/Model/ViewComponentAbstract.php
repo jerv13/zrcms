@@ -16,11 +16,6 @@ abstract class ViewComponentAbstract extends ComponentAbstract implements ViewCo
     protected $viewRenderDataGetters = [];
 
     /**
-     * @var bool
-     */
-    protected $cacheable = false;
-
-    /**
      * @param array  $properties
      * @param string $createdByUserId
      * @param string $createdReason

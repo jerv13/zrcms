@@ -2,23 +2,15 @@
 
 namespace Zrcms\ContentLanguage\Model;
 
-use Zrcms\Tracking\Model\TrackableTrait;
+use Zrcms\Content\Model\ContentVersionAbstract;
+use Zrcms\Param\Param;
 
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-abstract class LanguageAbstract implements Language
+abstract class LanguageVersionAbstract extends ContentVersionAbstract implements LanguageVersion
 {
-    use TrackableTrait;
-
     /**
-     * @var string
-     */
-    protected $uid;
-
-    /**
-     * ***ID***
-     *
      * Three digit ISO 639-2/T "terminological" language code.
      *
      * @link http://en.wikipedia.org/wiki/List_of_ISO_639-2_codes
@@ -51,46 +43,41 @@ abstract class LanguageAbstract implements Language
     protected $name;
 
     /**
-     * @param string $uid
-     * @param string $name
-     * @param string $iso639_2t
-     * @param string $iso639_2b
-     * @param string $iso639_1
+     * @param array  $properties
      * @param string $createdByUserId
      * @param string $createdReason
      */
     public function __construct(
-        string $uid,
-        string $iso639_2t,
-        string $iso639_2b,
-        string $iso639_1,
-        string $name,
+        array $properties,
         string $createdByUserId,
         string $createdReason
     ) {
-        // if has id it is immutable
-        if (!empty($this->uid)) {
-            return;
-        }
+        $this->iso639_2t = Param::getRequired(
+            $properties,
+            PropertiesLanguageVersion::ISO639_2T
+        );
 
-        $this->iso639_2t = $iso639_2t;
-        $this->iso639_2b = $iso639_2b;
-        $this->iso639_1 = $iso639_1;
-        $this->name = $name;
-        $this->setCreatedData(
+        $this->iso639_2b = Param::getRequired(
+            $properties,
+            PropertiesLanguageVersion::ISO639_2B
+        );
+
+        $this->iso639_1 = Param::getRequired(
+            $properties,
+            PropertiesLanguageVersion::ISO639_1
+        );
+
+        $this->name = Param::getRequired(
+            $properties,
+            PropertiesLanguageVersion::NAME
+        );
+
+        parent::__construct(
+            $properties,
             $createdByUserId,
             $createdReason
         );
     }
-
-    /**
-     * @return string
-     */
-    public function getUid(): string
-    {
-        return $this->uid;
-    }
-
 
     /**
      * @return string

@@ -1,10 +1,10 @@
 <?php
 
-namespace Zrcms\ContentCountryDoctrine\Entity;
+namespace Zrcms\ContentLanguageDoctrine\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Zrcms\ContentCountry\Model\CountryVersion;
-use Zrcms\ContentCountry\Model\CountryVersionAbstract;
+use Zrcms\ContentLanguage\Model\LanguageCmsResourcePublishHistory;
+use Zrcms\ContentLanguage\Model\LanguageCmsResourcePublishHistoryAbstract;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -12,13 +12,13 @@ use Zrcms\ContentCountry\Model\CountryVersionAbstract;
  * @ORM\Entity()
  * @ORM\HasLifecycleCallbacks()
  * @ORM\Table(
- *     name="zrcms_core_country_version",
+ *     name="zrcms_core_language_resource_publish_history",
  *     indexes={}
  * )
  */
-class CountryVersionEntity
-    extends CountryVersionAbstract
-    implements CountryVersion
+class LanguageCmsResourcePublishHistoryEntity
+    extends LanguageCmsResourcePublishHistoryAbstract
+    implements LanguageCmsResourcePublishHistory
 {
     /**
      * @var string
@@ -29,7 +29,13 @@ class CountryVersionEntity
     protected $id;
 
     /**
+     * @var string
      *
+     * @ORM\Column(type="string")
+     */
+    protected $contentVersionId = null;
+
+    /**
      * @var array
      *
      * @ORM\Column(type="json_array")
@@ -66,23 +72,9 @@ class CountryVersionEntity
     /**
      * @var string
      *
-     * @ORM\Column(type="string", length=3)
-     */
-    protected $iso3;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(type="string", length=2)
-     */
-    protected $iso2;
-
-    /**
-     * @var string
-     *
      * @ORM\Column(type="string")
      */
-    protected $name;
+    protected $action;
 
     /**
      * @return void

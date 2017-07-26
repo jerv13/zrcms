@@ -23,6 +23,7 @@ use Zrcms\ContentCore\View\Api\Render\RenderView;
 use Zrcms\ContentCore\View\Model\PropertiesView;
 use Zrcms\ContentCore\View\Model\View;
 use Zrcms\ContentCore\View\Model\ViewBasic;
+use Zrcms\Param\Param;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -153,12 +154,13 @@ class FindViewByRequestBasic implements FindViewByRequest
 
         $pageContainerCmsResource = $this->findPageContainerCmsResourceBySitePath->__invoke(
             $siteCmsResource->getId(),
-            $uri->getHost()
+            $uri->getPath()
         );
 
         if (empty($pageContainerCmsResource)) {
             throw new PageNotFoundException(
-                ''
+                'Page not found for host: ' . $uri->getHost()
+                . ' and page: ' . $uri->getPath()
             );
         }
 
@@ -184,15 +186,28 @@ class FindViewByRequestBasic implements FindViewByRequest
             $layoutCmsResource->getContentVersionId()
         );
 
+        $properties = [
+            PropertiesView::SITE_CMS_RESOURCE => $siteCmsResource,
+            PropertiesView::SITE => $siteVersion,
+            PropertiesView::PAGE_CONTAINER_CMS_RESOURCE => $pageContainerCmsResource,
+            PropertiesView::PAGE => $pageContainerVersion,
+            PropertiesView::LAYOUT_CMS_RESOURCE => $layoutCmsResource,
+            PropertiesView::LAYOUT => $layout,
+        ];
+
+        $additionalProperties = Param::get(
+            $options,
+            self::OPTION_ADDITIONAL_PROPERTIES,
+            []
+        );
+
+        $properties = array_merge(
+            $additionalProperties,
+            $properties
+        );
+
         return new ViewBasic(
-            [
-                PropertiesView::SITE_CMS_RESOURCE => $siteCmsResource,
-                PropertiesView::SITE => $siteVersion,
-                PropertiesView::PAGE_CONTAINER_CMS_RESOURCE => $pageContainerCmsResource,
-                PropertiesView::PAGE => $pageContainerVersion,
-                PropertiesView::LAYOUT_CMS_RESOURCE => $layoutCmsResource,
-                PropertiesView::LAYOUT => $layout,
-            ]
+            $properties
         );
     }
 }

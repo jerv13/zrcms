@@ -2,21 +2,14 @@
 
 namespace Zrcms\ContentLanguage\Model;
 
-use Zrcms\Tracking\Model\Trackable;
+use Zrcms\Content\Model\ContentVersion;
 
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-interface Language extends Trackable
+interface LanguageVersion extends ContentVersion
 {
     /**
-     * @return string
-     */
-    public function getUid(): string;
-
-    /**
-     * Use as ID
-     *
      * Three digit iso639_2t "terminological" language code.
      *
      * @link http://en.wikipedia.org/wiki/List_of_ISO_639-2_codes
@@ -47,5 +40,4 @@ interface Language extends Trackable
      * @return mixed
      */
     public function getName(): string;
-
 }

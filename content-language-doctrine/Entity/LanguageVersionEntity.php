@@ -1,10 +1,10 @@
 <?php
 
-namespace Zrcms\ContentCountryDoctrine\Entity;
+namespace Zrcms\ContentLanguageDoctrine\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Zrcms\ContentCountry\Model\CountryVersion;
-use Zrcms\ContentCountry\Model\CountryVersionAbstract;
+use Zrcms\ContentLanguage\Model\LanguageVersion;
+use Zrcms\ContentLanguage\Model\LanguageVersionAbstract;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -12,13 +12,13 @@ use Zrcms\ContentCountry\Model\CountryVersionAbstract;
  * @ORM\Entity()
  * @ORM\HasLifecycleCallbacks()
  * @ORM\Table(
- *     name="zrcms_core_country_version",
+ *     name="zrcms_core_language_version",
  *     indexes={}
  * )
  */
-class CountryVersionEntity
-    extends CountryVersionAbstract
-    implements CountryVersion
+class LanguageVersionEntity
+    extends LanguageVersionAbstract
+    implements LanguageVersion
 {
     /**
      * @var string
@@ -64,18 +64,37 @@ class CountryVersionEntity
     protected $createdReason;
 
     /**
+     * Three digit ISO 639-2/T "terminological" language code.
+     *
+     * @link http://en.wikipedia.org/wiki/List_of_ISO_639-2_codes
+     *
      * @var string
      *
      * @ORM\Column(type="string", length=3)
      */
-    protected $iso3;
+    protected $iso639_2t;
 
     /**
+     * Three digit ISO 639-2/B "bibliographic" language code.
+     *
+     * @link http://en.wikipedia.org/wiki/List_of_ISO_639-2_codes
+     *
+     * @var string
+     *
+     * @ORM\Column(type="string", length=3)
+     */
+    protected $iso639_2b;
+
+    /**
+     * Two digit iso639_1 language code.
+     *
+     * @link http://en.wikipedia.org/wiki/List_of_ISO_639-2_codes
+     *
      * @var string
      *
      * @ORM\Column(type="string", length=2)
      */
-    protected $iso2;
+    protected $iso639_1;
 
     /**
      * @var string

@@ -1,18 +1,18 @@
 <?php
 
-namespace Zrcms\ContentCountryDoctrine\Api\Repository;
+namespace Zrcms\ContentLanguageDoctrine\Api\Repository;
 
 use Doctrine\ORM\EntityManager;
-use Zrcms\ContentCountry\Model\CountryCmsResource;
-use Zrcms\ContentCountry\Model\CountryCmsResourceBasic;
-use Zrcms\ContentCountryDoctrine\Entity\CountryCmsResourceEntity;
+use Zrcms\ContentLanguage\Model\LanguageCmsResource;
+use Zrcms\ContentLanguage\Model\LanguageCmsResourceBasic;
+use Zrcms\ContentLanguageDoctrine\Entity\LanguageCmsResourceEntity;
 use Zrcms\ContentDoctrine\Api\BasicCmsResourceTrait;
 
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class FindCountryCmsResourceByIso3
-    implements \Zrcms\ContentCountry\Api\Repository\FindCountryCmsResourceByIso3
+class FindLanguageCmsResourceByIso6392t
+    implements \Zrcms\ContentLanguage\Api\Repository\FindLanguageCmsResourceByIso3
 {
     use BasicCmsResourceTrait;
 
@@ -37,18 +37,18 @@ class FindCountryCmsResourceByIso3
     public function __construct(EntityManager $entityManager)
     {
         $this->entityManager = $entityManager;
-        $this->entityClass = CountryCmsResourceEntity::class;
-        $this->classCmsResourceBasic = CountryCmsResourceBasic::class;
+        $this->entityClass = LanguageCmsResourceEntity::class;
+        $this->classCmsResourceBasic = LanguageCmsResourceBasic::class;
     }
 
     /**
-     * @param string $iso3
+     * @param string $iso639_2t
      * @param array  $options
      *
-     * @return CountryCmsResource|null
+     * @return LanguageCmsResource|null
      */
     public function __invoke(
-        string $iso3,
+        string $iso639_2t,
         array $options = []
     ) {
         // @todo

@@ -14,6 +14,7 @@ use Zrcms\ContentCore\View\Api\Render\GetViewRenderDataHeadAll;
 use Zrcms\ContentCore\View\Api\Render\GetViewRenderDataPage;
 use Zrcms\ContentCore\View\Api\Repository\FindViewComponent;
 use Zrcms\ContentCore\View\Api\Repository\FindViewComponentsBy;
+use Zrcms\ContentCore\View\Model\PropertiesViewComponent;
 use Zrcms\ContentCore\View\Model\ViewComponent;
 use Zrcms\ContentCoreConfigDataSource\Block\Api\GetBlockConfigFields;
 use Zrcms\ContentCoreConfigDataSource\Block\Api\GetBlockConfigFieldsBcSubstitution;
@@ -183,13 +184,13 @@ class ModuleConfig
                     ViewComponent::DEFAULT_NAME => [
                         ComponentConfigFields::LOCATION => ViewComponent::DEFAULT_NAME,
                         ComponentConfigFields::COMPONENT_CONFIG_READER => ReadViewComponentConfigApplicationConfig::class,
-                        'view-render-data-getters' => [
-                            /* '{render-tag}(optional)' => '{GetLayoutRenderData-Service}' */
+                        PropertiesViewComponent::LAYOUT_RENDER_DATA_GETTERS => [
+                            /* '{render-tag}(optional)' => '{GetLayoutRenderData}(service-name)' */
                             PropertiesPage::RENDER_TAG => GetViewRenderDataPage::class,
                             PropertiesContainer::RENDER_TAG => GetViewRenderDataContainers::class,
                             GetViewRenderDataHead::RENDER_TAG => GetViewRenderDataHeadAll::class,
                         ],
-                    ]
+                    ],
                 ],
                 'themes' => [
                     /*
