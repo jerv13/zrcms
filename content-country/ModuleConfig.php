@@ -2,14 +2,14 @@
 
 namespace Zrcms\ContentCountry;
 
-use Zrcms\ContentCountry\ContentCountry\Api\Action\PublishCountryCmsResource;
-use Zrcms\ContentCountry\ContentCountry\Api\Action\UnpublishCountryCmsResource;
-use Zrcms\ContentCountry\ContentCountry\Api\Repository\FindCountryCmsResource;
-use Zrcms\ContentCountry\ContentCountry\Api\Repository\FindCountryCmsResourceByIso3;
-use Zrcms\ContentCountry\ContentCountry\Api\Repository\FindCountryCmsResourcesBy;
-use Zrcms\ContentCountry\ContentCountry\Api\Repository\FindCountryVersion;
-use Zrcms\ContentCountry\ContentCountry\Api\Repository\FindCountryVersionsBy;
-use Zrcms\ContentCountry\ContentCountry\Api\Repository\InsertCountryVersion;
+use Zrcms\ContentCountry\Api\Action\PublishCountryCmsResource;
+use Zrcms\ContentCountry\Api\Action\UnpublishCountryCmsResource;
+use Zrcms\ContentCountry\Api\Repository\FindCountryCmsResource;
+use Zrcms\ContentCountry\Api\Repository\FindCountryCmsResourceByIso3;
+use Zrcms\ContentCountry\Api\Repository\FindCountryCmsResourcesBy;
+use Zrcms\ContentCountry\Api\Repository\FindCountryVersion;
+use Zrcms\ContentCountry\Api\Repository\FindCountryVersionsBy;
+use Zrcms\ContentCountry\Api\Repository\InsertCountryVersion;
 use Zrcms\Core\ApiNoop;
 
 /**
