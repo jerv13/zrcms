@@ -3,6 +3,7 @@
 namespace Zrcms\ContentCore\View\Api\Render;
 
 use Psr\Container\ContainerInterface;
+use Zrcms\ContentCore\View\Api\Repository\FindViewComponent;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -19,7 +20,7 @@ class GetViewRenderDataBasicFactory
     ) {
         return new GetViewRenderDataBasic(
             $serviceContainer,
-            $serviceContainer->get(GetViewRenderData::class)
+            $serviceContainer->get(FindViewComponent::class)
         );
     }
 }

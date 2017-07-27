@@ -116,8 +116,8 @@ class ModuleConfig
                     GetBlockRenderData::class => [
                         'class' => GetBlockRenderDataBasic::class,
                         'arguments' => [
-                            GetBlockData::class,
-                            GetMergedConfig::class,
+                            '0-' => GetBlockData::class,
+                            '1-' => GetMergedConfig::class,
                         ],
                     ],
                     RenderBlock::class => [
@@ -125,25 +125,25 @@ class ModuleConfig
                     ],
                     RenderBlockMustache::class => [
                         'arguments' => [
-                            FindBlockComponent::class
+                            '0-' => FindBlockComponent::class
                         ],
                     ],
                     FindBlockComponent::class => [
                         'class' => ApiNoop::class,
                         'arguments' => [
-                            ['literal' => FindBlockComponent::class],
+                            '0-' => ['literal' => FindBlockComponent::class],
                         ],
                     ],
                     FindBlockComponentsBy::class => [
                         'class' => ApiNoop::class,
                         'arguments' => [
-                            ['literal' => FindBlockComponentsBy::class],
+                            '0-' => ['literal' => FindBlockComponentsBy::class],
                         ],
                     ],
                     FindBlockVersionsByContainer::class => [
                         'class' => ApiNoop::class,
                         'arguments' => [
-                            ['literal' => FindBlockVersionsByContainer::class],
+                            '0-' => ['literal' => FindBlockVersionsByContainer::class],
                         ],
                     ],
                     GetBlockData::class => [
@@ -156,7 +156,7 @@ class ModuleConfig
                     WrapRenderedBlockVersion::class => [
                         'class' => WrapRenderedBlockVersionLegacy::class,
                         'arguments' => [
-                            FindBlockComponent::class
+                            '0-' => FindBlockComponent::class
                         ],
                     ],
 
@@ -166,13 +166,13 @@ class ModuleConfig
                     PublishContainerCmsResource::class => [
                         'class' => ApiNoop::class,
                         'arguments' => [
-                            ['literal' => PublishContainerCmsResource::class],
+                            '0-' => ['literal' => PublishContainerCmsResource::class],
                         ],
                     ],
                     UnpublishContainerCmsResource::class => [
                         'class' => ApiNoop::class,
                         'arguments' => [
-                            ['literal' => UnpublishContainerCmsResource::class],
+                            '0-' => ['literal' => UnpublishContainerCmsResource::class],
                         ],
                     ],
                     GetContainerRenderData::class => [
@@ -180,11 +180,11 @@ class ModuleConfig
                     ],
                     GetContainerRenderDataBlocks::class => [
                         'arguments' => [
-                            FindBlockVersionsByContainer::class,
-                            RenderBlock::class,
-                            GetBlockRenderData::class,
-                            WrapRenderedBlockVersion::class,
-                            WrapRenderedContainer::class,
+                            '0-' => FindBlockVersionsByContainer::class,
+                            '1-' => RenderBlock::class,
+                            '2-' => GetBlockRenderData::class,
+                            '3-' => WrapRenderedBlockVersion::class,
+                            '4-' => WrapRenderedContainer::class,
                         ],
                     ],
                     RenderContainer::class => [
@@ -192,44 +192,44 @@ class ModuleConfig
                     ],
                     RenderContainerRows::class => [
                         'arguments' => [
-                            RenderBlock::class,
-                            WrapRenderedContainer::class
+                            '0-' => RenderBlock::class,
+                            '1-' => WrapRenderedContainer::class
                         ],
                     ],
                     FindContainerCmsResource::class => [
                         'class' => ApiNoop::class,
                         'arguments' => [
-                            ['literal' => FindContainerCmsResource::class],
+                            '0-' => ['literal' => FindContainerCmsResource::class],
                         ],
                     ],
                     FindContainerCmsResourcesBy::class => [
                         'class' => ApiNoop::class,
                         'arguments' => [
-                            ['literal' => FindContainerCmsResourcesBy::class],
+                            '0-' => ['literal' => FindContainerCmsResourcesBy::class],
                         ],
                     ],
                     FindContainerCmsResourcesBySitePaths::class => [
                         'class' => ApiNoop::class,
                         'arguments' => [
-                            ['literal' => FindContainerCmsResourcesBySitePaths::class],
+                            '0-' => ['literal' => FindContainerCmsResourcesBySitePaths::class],
                         ],
                     ],
                     FindContainerVersion::class => [
                         'class' => ApiNoop::class,
                         'arguments' => [
-                            ['literal' => FindContainerVersion::class],
+                            '0-' => ['literal' => FindContainerVersion::class],
                         ],
                     ],
                     FindContainerVersionsBy::class => [
                         'class' => ApiNoop::class,
                         'arguments' => [
-                            ['literal' => FindContainerVersionsBy::class],
+                            '0-' => ['literal' => FindContainerVersionsBy::class],
                         ],
                     ],
                     InsertContainerVersion::class => [
                         'class' => ApiNoop::class,
                         'arguments' => [
-                            ['literal' => InsertContainerVersion::class],
+                            '0-' => ['literal' => InsertContainerVersion::class],
                         ],
                     ],
                     WrapRenderedContainer::class => [
@@ -243,13 +243,13 @@ class ModuleConfig
                     PublishPageContainerCmsResource::class => [
                         'class' => ApiNoop::class,
                         'arguments' => [
-                            ['literal' => PublishPageContainerCmsResource::class],
+                            '0-' => ['literal' => PublishPageContainerCmsResource::class],
                         ],
                     ],
                     UnpublishPageContainerCmsResource::class => [
                         'class' => ApiNoop::class,
                         'arguments' => [
-                            ['literal' => UnpublishPageContainerCmsResource::class],
+                            '0-' => ['literal' => UnpublishPageContainerCmsResource::class],
                         ],
                     ],
                     GetPageContainerRenderData::class => [
@@ -257,11 +257,11 @@ class ModuleConfig
                     ],
                     GetPageContainerRenderDataBlocks::class => [
                         'arguments' => [
-                            FindBlockVersionsByContainer::class,
-                            RenderBlock::class,
-                            GetBlockRenderData::class,
-                            WrapRenderedBlockVersion::class,
-                            WrapRenderedContainer::class
+                            '0-' => FindBlockVersionsByContainer::class,
+                            '1-' => RenderBlock::class,
+                            '2-' => GetBlockRenderData::class,
+                            '3-' => WrapRenderedBlockVersion::class,
+                            '4-' => WrapRenderedContainer::class
                         ],
                     ],
                     GetPageContainerRenderDataHtml::class => [],
@@ -270,44 +270,44 @@ class ModuleConfig
                     ],
                     RenderPageContainerRows::class => [
                         'arguments' => [
-                            RenderBlock::class,
-                            WrapRenderedContainer::class
+                            '0-' => RenderBlock::class,
+                            '1-' => WrapRenderedContainer::class
                         ],
                     ],
                     FindPageContainerCmsResource::class => [
                         'class' => ApiNoop::class,
                         'arguments' => [
-                            ['literal' => FindPageContainerCmsResource::class],
+                            '0-' => ['literal' => FindPageContainerCmsResource::class],
                         ],
                     ],
                     FindPageContainerCmsResourceBySitePath::class => [
                         'class' => ApiNoop::class,
                         'arguments' => [
-                            ['literal' => FindPageContainerCmsResourceBySitePath::class],
+                            '0-' => ['literal' => FindPageContainerCmsResourceBySitePath::class],
                         ],
                     ],
                     FindPageContainerCmsResourcesBy::class => [
                         'class' => ApiNoop::class,
                         'arguments' => [
-                            ['literal' => FindPageContainerCmsResourcesBy::class],
+                            '0-' => ['literal' => FindPageContainerCmsResourcesBy::class],
                         ],
                     ],
                     FindPageContainerVersion::class => [
                         'class' => ApiNoop::class,
                         'arguments' => [
-                            ['literal' => FindPageContainerVersion::class],
+                            '0-' => ['literal' => FindPageContainerVersion::class],
                         ],
                     ],
                     FindPageContainerVersionsBy::class => [
                         'class' => ApiNoop::class,
                         'arguments' => [
-                            ['literal' => FindPageContainerVersionsBy::class],
+                            '0-' => ['literal' => FindPageContainerVersionsBy::class],
                         ],
                     ],
                     InsertPageContainerVersion::class => [
                         'class' => ApiNoop::class,
                         'arguments' => [
-                            ['literal' => InsertPageContainerVersion::class],
+                            '0-' => ['literal' => InsertPageContainerVersion::class],
                         ],
                     ],
                     /**
@@ -316,49 +316,49 @@ class ModuleConfig
                     PublishSiteCmsResource::class => [
                         'class' => ApiNoop::class,
                         'arguments' => [
-                            ['literal' => PublishSiteCmsResource::class],
+                            '0-' => ['literal' => PublishSiteCmsResource::class],
                         ],
                     ],
                     UnpublishSiteCmsResource::class => [
                         'class' => ApiNoop::class,
                         'arguments' => [
-                            ['literal' => UnpublishSiteCmsResource::class],
+                            '0-' => ['literal' => UnpublishSiteCmsResource::class],
                         ],
                     ],
                     FindSiteCmsResource::class => [
                         'class' => ApiNoop::class,
                         'arguments' => [
-                            ['literal' => FindSiteCmsResource::class],
+                            '0-' => ['literal' => FindSiteCmsResource::class],
                         ],
                     ],
                     FindSiteCmsResourceByHost::class => [
                         'class' => ApiNoop::class,
                         'arguments' => [
-                            ['literal' => FindSiteCmsResourceByHost::class],
+                            '0-' => ['literal' => FindSiteCmsResourceByHost::class],
                         ],
                     ],
                     FindSiteCmsResourcesBy::class => [
                         'class' => ApiNoop::class,
                         'arguments' => [
-                            ['literal' => FindSiteCmsResourcesBy::class],
+                            '0-' => ['literal' => FindSiteCmsResourcesBy::class],
                         ],
                     ],
                     FindSiteVersion::class => [
                         'class' => ApiNoop::class,
                         'arguments' => [
-                            ['literal' => FindSiteVersion::class],
+                            '0-' => ['literal' => FindSiteVersion::class],
                         ],
                     ],
                     FindSiteVersionsBy::class => [
                         'class' => ApiNoop::class,
                         'arguments' => [
-                            ['literal' => FindSiteVersionsBy::class],
+                            '0-' => ['literal' => FindSiteVersionsBy::class],
                         ],
                     ],
                     InsertSiteVersion::class => [
                         'class' => ApiNoop::class,
                         'arguments' => [
-                            ['literal' => InsertSiteVersion::class],
+                            '0-' => ['literal' => InsertSiteVersion::class],
                         ],
                     ],
 
@@ -368,13 +368,13 @@ class ModuleConfig
                     PublishLayoutCmsResource::class => [
                         'class' => ApiNoop::class,
                         'arguments' => [
-                            ['literal' => PublishLayoutCmsResource::class],
+                            '0-' => ['literal' => PublishLayoutCmsResource::class],
                         ],
                     ],
                     UnpublishLayoutCmsResource::class => [
                         'class' => ApiNoop::class,
                         'arguments' => [
-                            ['literal' => UnpublishLayoutCmsResource::class],
+                            '0-' => ['literal' => UnpublishLayoutCmsResource::class],
                         ],
                     ],
                     GetLayoutRenderData::class => [
@@ -388,49 +388,49 @@ class ModuleConfig
                     FindLayoutCmsResource::class => [
                         'class' => ApiNoop::class,
                         'arguments' => [
-                            ['literal' => FindLayoutCmsResource::class],
+                            '0-' => ['literal' => FindLayoutCmsResource::class],
                         ],
                     ],
                     FindLayoutCmsResourceByThemeNameLayoutName::class => [
                         'class' => ApiNoop::class,
                         'arguments' => [
-                            ['literal' => FindLayoutCmsResourceByThemeNameLayoutName::class],
+                            '0-' => ['literal' => FindLayoutCmsResourceByThemeNameLayoutName::class],
                         ],
                     ],
                     FindLayoutCmsResourcesBy::class => [
                         'class' => ApiNoop::class,
                         'arguments' => [
-                            ['literal' => FindLayoutCmsResourcesBy::class],
+                            '0-' => ['literal' => FindLayoutCmsResourcesBy::class],
                         ],
                     ],
                     FindLayoutVersion::class => [
                         'class' => ApiNoop::class,
                         'arguments' => [
-                            ['literal' => FindLayoutVersion::class],
+                            '0-' => ['literal' => FindLayoutVersion::class],
                         ],
                     ],
                     FindLayoutVersionsBy::class => [
                         'class' => ApiNoop::class,
                         'arguments' => [
-                            ['literal' => FindLayoutVersionsBy::class],
+                            '0-' => ['literal' => FindLayoutVersionsBy::class],
                         ],
                     ],
                     FindThemeComponent::class => [
                         'class' => ApiNoop::class,
                         'arguments' => [
-                            ['literal' => FindThemeComponent::class],
+                            '0-' => ['literal' => FindThemeComponent::class],
                         ],
                     ],
                     FindThemeComponentsBy::class => [
                         'class' => ApiNoop::class,
                         'arguments' => [
-                            ['literal' => FindThemeComponentsBy::class],
+                            '0-' => ['literal' => FindThemeComponentsBy::class],
                         ],
                     ],
                     InsertLayoutVersion::class => [
                         'class' => ApiNoop::class,
                         'arguments' => [
-                            ['literal' => InsertLayoutVersion::class],
+                            '0-' => ['literal' => InsertLayoutVersion::class],
                         ],
                     ],
                     /**
@@ -441,10 +441,10 @@ class ModuleConfig
                     ],
                     GetViewRenderDataContainers::class => [
                         'arguments' => [
-                            FindTagNamesByLayout::class,
-                            FindContainerCmsResourcesBySitePaths::class,
-                            FindContainerVersion::class,
-                            GetContainerRenderData::class
+                            '0-' => FindTagNamesByLayout::class,
+                            '1-' => FindContainerCmsResourcesBySitePaths::class,
+                            '2-' => FindContainerVersion::class,
+                            '3-' => GetContainerRenderData::class
                         ],
                     ],
                     GetViewRenderDataHead::class => [
@@ -459,8 +459,8 @@ class ModuleConfig
                     GetViewRenderDataHeadTitle::class => [],
                     GetViewRenderDataPage::class => [
                         'arguments' => [
-                            GetPageContainerRenderData::class,
-                            RenderPageContainer::class,
+                            '0-' => GetPageContainerRenderData::class,
+                            '1-' => RenderPageContainer::class,
                         ],
                     ],
                     RenderView::class => [
@@ -468,7 +468,7 @@ class ModuleConfig
                     ],
                     RenderViewLayout::class => [
                         'arguments' => [
-                            RenderLayout::class,
+                            '0-' => RenderLayout::class,
                         ],
                     ],
                     FindTagNamesByLayout::class => [
@@ -478,27 +478,27 @@ class ModuleConfig
                     FindViewByRequest::class => [
                         'class' => FindViewByRequestBasic::class,
                         'arguments' => [
-                            FindSiteCmsResourceByHost::class,
-                            FindSiteVersion::class,
-                            FindPageContainerCmsResourceBySitePath::class,
-                            FindPageContainerVersion::class,
-                            FindLayoutCmsResourceByThemeNameLayoutName::class,
-                            FindLayoutVersion::class,
-                            FindThemeComponent::class,
-                            GetViewRenderData::class,
-                            RenderView::class
+                            '0-' => FindSiteCmsResourceByHost::class,
+                            '1-' => FindSiteVersion::class,
+                            '2-' => FindPageContainerCmsResourceBySitePath::class,
+                            '3-' => FindPageContainerVersion::class,
+                            '4-' => FindLayoutCmsResourceByThemeNameLayoutName::class,
+                            '5-' => FindLayoutVersion::class,
+                            '6-' => FindThemeComponent::class,
+                            '7-' => GetViewRenderData::class,
+                            '8-' => RenderView::class
                         ],
                     ],
                     FindViewComponent::class => [
                         'class' => ApiNoop::class,
                         'arguments' => [
-                            ['literal' => FindViewComponent::class],
+                            '0-' => ['literal' => FindViewComponent::class],
                         ],
                     ],
                     FindViewComponentsBy::class => [
                         'class' => ApiNoop::class,
                         'arguments' => [
-                            ['literal' => FindViewComponentsBy::class],
+                            '0-' => ['literal' => FindViewComponentsBy::class],
                         ],
                     ],
                 ],

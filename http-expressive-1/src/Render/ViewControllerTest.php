@@ -1,6 +1,6 @@
 <?php
 
-namespace Zrcms\ContentCore\PageView\Middleware;
+namespace Zrcms\HttpExpressive1\Render;
 
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;

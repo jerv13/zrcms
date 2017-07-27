@@ -2,8 +2,8 @@
 
 namespace Zrcms\HttpExpressive1;
 
-use Zrcms\ContentCore\PageView\Middleware\ViewController;
-use Zrcms\ContentCore\PageView\Middleware\ViewControllerTest;
+use Zrcms\HttpExpressive1\Render\ViewController;
+use Zrcms\HttpExpressive1\Render\ViewControllerTest;
 use Zrcms\ContentCore\View\Api\Render\GetViewRenderData;
 use Zrcms\ContentCore\View\Api\Render\RenderView;
 use Zrcms\ContentCore\View\Api\Repository\FindViewByRequest;

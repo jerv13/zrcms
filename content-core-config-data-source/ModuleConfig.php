@@ -38,6 +38,7 @@ use Zrcms\ContentCoreConfigDataSource\View\Api\GetConfigViewComponentsBasicFacto
 use Zrcms\ContentCoreConfigDataSource\View\Api\ReadViewComponentConfig;
 use Zrcms\ContentCoreConfigDataSource\View\Api\ReadViewComponentConfigApplicationConfig;
 use Zrcms\ContentCoreConfigDataSource\View\Api\ReadViewComponentConfigApplicationConfigFactory;
+use Zrcms\ContentCoreConfigDataSource\View\Api\ReadViewComponentConfigBasicFactory;
 use Zrcms\ContentCoreConfigDataSource\View\Api\ReadViewComponentConfigJsonFile;
 
 /**
@@ -56,30 +57,25 @@ class ModuleConfig
             'dependencies' => [
                 'config_factories' => [
                     /** Block **/
-                    // @override
                     FindBlockComponent::class => [
                         'class' => \Zrcms\ContentCoreConfigDataSource\Block\Api\FindBlockComponent::class,
                         'arguments' => [
-                            GetConfigBlockComponents::class,
-                            SearchConfigList::class,
+                            '0-' => GetConfigBlockComponents::class,
+                            '1-' => SearchConfigList::class,
                         ],
                     ],
                     FindBlockComponentsBy::class => [
                         'class' => \Zrcms\ContentCoreConfigDataSource\Block\Api\FindBlockComponentsBy::class,
                         'arguments' => [
-                            GetConfigBlockComponents::class,
-                            SearchConfigList::class,
+                            '0-' => GetConfigBlockComponents::class,
+                            '1-' => SearchConfigList::class,
                         ],
                     ],
                     GetBlockConfigFields::class => [
                         'class' => GetBlockConfigFields::class,
-                        'arguments' => [
-                        ],
                     ],
                     GetBlockConfigFieldsBcSubstitution::class => [
                         'class' => GetBlockConfigFieldsBcSubstitution::class,
-                        'arguments' => [
-                        ],
                     ],
                     GetConfigBlockComponents::class => [
                         'factory' => GetConfigBlockComponentsBcFactory::class,
@@ -87,8 +83,8 @@ class ModuleConfig
                     PrepareBlockConfig::class => [
                         'class' => PrepareBlockConfig::class,
                         'arguments' => [
-                            GetBlockConfigFields::class,
-                            GetBlockConfigFieldsBcSubstitution::class,
+                            '0-' => GetBlockConfigFields::class,
+                            '1-' => GetBlockConfigFieldsBcSubstitution::class,
                         ],
                     ],
                     ReadBlockComponentConfig::class => [
@@ -99,27 +95,24 @@ class ModuleConfig
                     ],
                     ReadBlockComponentConfigJsonFile::class => [
                         'class' => ReadBlockComponentConfigJsonFile::class,
-                        'arguments' => [
-                        ],
                     ],
                     /** Content (abstracts) */
                     SearchConfigList::class => [
                         'class' => SearchConfigList::class,
-                        'arguments' => [],
                     ],
                     /** ThemeComponents **/
                     FindThemeComponent::class => [
                         'class' => \Zrcms\ContentCoreConfigDataSource\Theme\Api\FindThemeComponent::class,
                         'arguments' => [
-                            GetConfigThemeComponents::class,
-                            SearchConfigList::class
+                            '0-' => GetConfigThemeComponents::class,
+                            '1-' => SearchConfigList::class
                         ],
                     ],
                     FindThemeComponentsBy::class => [
                         'class' => \Zrcms\ContentCoreConfigDataSource\Theme\Api\FindThemeComponentsBy::class,
                         'arguments' => [
-                            GetConfigThemeComponents::class,
-                            SearchConfigList::class
+                            '0-' => GetConfigThemeComponents::class,
+                            '1-' => SearchConfigList::class
                         ],
                     ],
                     GetConfigThemeComponents::class => [
@@ -136,15 +129,15 @@ class ModuleConfig
                     FindViewComponent::class => [
                         'class' => \Zrcms\ContentCoreConfigDataSource\View\Api\Repository\FindViewComponent::class,
                         'arguments' => [
-                            GetConfigViewComponents::class,
-                            SearchConfigList::class
+                            '0-' => GetConfigViewComponents::class,
+                            '1-' => SearchConfigList::class
                         ],
                     ],
                     FindViewComponentsBy::class => [
                         'class' => \Zrcms\ContentCoreConfigDataSource\View\Api\Repository\FindViewComponentsBy::class,
                         'arguments' => [
-                            GetConfigViewComponents::class,
-                            SearchConfigList::class
+                            '0-' => GetConfigViewComponents::class,
+                            '1-' => SearchConfigList::class
                         ],
                     ],
                     GetConfigViewComponents::class => [
@@ -154,7 +147,7 @@ class ModuleConfig
                         'factory' => ReadViewComponentConfigApplicationConfigFactory::class,
                     ],
                     ReadViewComponentConfig::class => [
-                        'factory' => ReadThemeComponentConfigBasicFactory::class,
+                        'factory' => ReadViewComponentConfigBasicFactory::class,
                     ],
                     ReadViewComponentConfigJsonFile::class => [
                         'class' => ReadViewComponentConfigJsonFile::class,
