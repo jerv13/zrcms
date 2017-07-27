@@ -38,10 +38,11 @@ class ModuleConfig
                     ],
                 ],
             ],
-
-            'routing' => [
-                'middleware' => [
-                    ViewControllerTest::class => ViewControllerTest::class,
+            'middleware_pipeline' => [
+                'always' => [
+                    'middleware' => [
+                        ViewControllerTest::class => ViewControllerTest::class,
+                    ],
                 ],
             ],
         ];

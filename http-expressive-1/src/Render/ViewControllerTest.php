@@ -24,7 +24,6 @@ use Zrcms\ContentCore\Theme\Model\PropertiesLayoutVersion;
 use Zrcms\ContentCore\View\Api\Render\GetViewRenderData;
 use Zrcms\ContentCore\View\Api\Render\RenderView;
 use Zrcms\ContentCore\View\Api\Repository\FindTagNamesByLayout;
-use Zrcms\ContentCore\View\Api\Repository\FindViewByRequest;
 use Zrcms\ContentCore\View\Model\PropertiesView;
 use Zrcms\ContentCore\View\Model\ViewBasic;
 
@@ -60,6 +59,7 @@ class ViewControllerTest
         ResponseInterface $response,
         callable $next = null
     ) {
+        die('here');
         $additionalViewProperties = [];
 
         $siteCmsResource = new SiteCmsResourceBasic(
