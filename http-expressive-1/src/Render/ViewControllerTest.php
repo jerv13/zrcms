@@ -33,19 +33,16 @@ use Zrcms\ContentCore\View\Model\ViewBasic;
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class ViewController
+class ViewControllerTest
 {
     /**
-     * @param FindViewByRequest $findViewByRequest
      * @param GetViewRenderData $getViewRenderData
      * @param RenderView        $renderView
      */
     public function __construct(
-        FindViewByRequest $findViewByRequest,
         GetViewRenderData $getViewRenderData,
         RenderView $renderView
     ) {
-        $this->findViewByRequest = $findViewByRequest;
         $this->getViewRenderData = $getViewRenderData;
         $this->renderView = $renderView;
     }

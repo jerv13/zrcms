@@ -1,6 +1,6 @@
 <?php
 
-//namespace Zrcms;
+namespace Zrcms;
 
 $zrcmsModules =  [
     // Low level
