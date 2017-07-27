@@ -63,7 +63,7 @@ class GetViewRenderDataPage implements GetViewRenderData
         );
 
         return [
-            PropertiesPage::RENDER_TAG => $viewRenderData
+            PropertiesPage::RENDER_TAG_PAGE => $viewRenderData
         ];
     }
 }

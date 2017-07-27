@@ -186,7 +186,7 @@ class ModuleConfig
                         ComponentConfigFields::COMPONENT_CONFIG_READER => ReadViewComponentConfigApplicationConfig::class,
                         PropertiesViewComponent::LAYOUT_RENDER_DATA_GETTERS => [
                             /* '{render-tag}(optional)' => '{GetLayoutRenderData}(service-name)' */
-                            PropertiesPage::RENDER_TAG => GetViewRenderDataPage::class,
+                            PropertiesPage::RENDER_TAG_PAGE => GetViewRenderDataPage::class,
                             PropertiesContainer::RENDER_TAG => GetViewRenderDataContainers::class,
                             GetViewRenderDataHead::RENDER_TAG => GetViewRenderDataHeadAll::class,
                         ],

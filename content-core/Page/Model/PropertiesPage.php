@@ -14,7 +14,7 @@ interface PropertiesPage extends PropertiesContainer
     const KEYWORDS = 'keywords';
 
     const LAYOUT = 'layout';
-    const RENDER_TAG = '[page]';
+    const RENDER_TAG_PAGE = '[page]';
 
     const PRE_RENDERED_HTML = 'html';
 }
