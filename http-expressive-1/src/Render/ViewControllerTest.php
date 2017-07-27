@@ -60,7 +60,6 @@ class ViewControllerTest
         ResponseInterface $response,
         callable $next = null
     ) {
-        ddd('here');
         $additionalViewProperties = [];
 
         $siteCmsResource = new SiteCmsResourceBasic(
@@ -180,6 +179,7 @@ class ViewControllerTest
         );
 
         $properties = [
+            PropertiesView::ID => 'test:' . PropertiesView::ID,
             PropertiesView::SITE_CMS_RESOURCE => $siteCmsResource,
             PropertiesView::SITE => $siteVersion,
             PropertiesView::PAGE_CONTAINER_CMS_RESOURCE => $pageContainerCmsResource,

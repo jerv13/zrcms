@@ -2,6 +2,7 @@
 
 namespace Zrcms\ContentCore\Page\Model;
 
+use Zrcms\Content\Exception\PropertyMissingException;
 use Zrcms\ContentCore\Container\Model\ContainerVersionAbstract;
 use Zrcms\Param\Param;
 
@@ -34,12 +35,20 @@ abstract class PageContainerVersionAbstract
     ) {
         $this->title = Param::getRequired(
             $properties,
-            PropertiesPageContainerVersion::TITLE
+            PropertiesPageContainerVersion::TITLE,
+            new PropertyMissingException(
+                'Required property (' . PropertiesPageContainerVersion::TITLE. ') is missing in: '
+                . get_class($this)
+            )
         );
 
         $this->keywords = Param::getRequired(
             $properties,
-            PropertiesPageContainerVersion::KEYWORDS
+            PropertiesPageContainerVersion::KEYWORDS,
+            new PropertyMissingException(
+                'Required property (' . PropertiesPageContainerVersion::KEYWORDS. ') is missing in: '
+                . get_class($this)
+            )
         );
 
         parent::__construct(

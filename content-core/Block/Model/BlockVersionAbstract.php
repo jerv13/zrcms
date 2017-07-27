@@ -2,6 +2,7 @@
 
 namespace Zrcms\ContentCore\Block\Model;
 
+use Zrcms\Content\Exception\PropertyMissingException;
 use Zrcms\Content\Model\ContentVersionAbstract;
 use Zrcms\Param\Param;
 
@@ -42,12 +43,20 @@ abstract class BlockVersionAbstract extends ContentVersionAbstract implements Bl
     ) {
         $this->containerCmsResourceId = Param::getRequired(
             $properties,
-            PropertiesBlockVersion::BLOCK_CONTAINER_CMS_RESOURCE_ID
+            PropertiesBlockVersion::BLOCK_CONTAINER_CMS_RESOURCE_ID,
+            new PropertyMissingException(
+                'Required property (' . PropertiesBlockVersion::BLOCK_CONTAINER_CMS_RESOURCE_ID . ') is missing in: '
+                . get_class($this)
+            )
         );
 
         $this->blockComponentName = Param::getRequired(
             $properties,
-            PropertiesBlockVersion::BLOCK_COMPONENT_NAME
+            PropertiesBlockVersion::BLOCK_COMPONENT_NAME,
+            new PropertyMissingException(
+                'Required property (' . PropertiesBlockVersion::BLOCK_COMPONENT_NAME . ') is missing in: '
+                . get_class($this)
+            )
         );
 
         $this->id = Param::get(
@@ -63,7 +72,11 @@ abstract class BlockVersionAbstract extends ContentVersionAbstract implements Bl
 
         $this->layoutProperties = Param::getRequired(
             $properties,
-            PropertiesBlockVersion::LAYOUT_PROPERTIES
+            PropertiesBlockVersion::LAYOUT_PROPERTIES,
+            new PropertyMissingException(
+                'Required property (' . PropertiesBlockVersion::LAYOUT_PROPERTIES . ') is missing in: '
+                . get_class($this)
+            )
         );
 
         parent::__construct(
@@ -139,6 +152,13 @@ abstract class BlockVersionAbstract extends ContentVersionAbstract implements Bl
      */
     public function getRequiredLayoutProperty(string $name)
     {
-        return Param::getRequired($this->layoutProperties, $name);
+        return Param::getRequired(
+            $this->layoutProperties,
+            $name,
+            new PropertyMissingException(
+                'Required property (' . $name . ') is missing in: '
+                . get_class($this)
+            )
+        );
     }
 }

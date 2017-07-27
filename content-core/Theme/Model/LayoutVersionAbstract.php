@@ -2,6 +2,7 @@
 
 namespace Zrcms\ContentCore\Theme\Model;
 
+use Zrcms\Content\Exception\PropertyMissingException;
 use Zrcms\Content\Model\ContentVersionAbstract;
 use Zrcms\Param\Param;
 
@@ -28,7 +29,11 @@ class LayoutVersionAbstract extends ContentVersionAbstract implements LayoutVers
 
         $this->html = Param::getRequired(
             $properties,
-            PropertiesLayoutVersion::HTML
+            PropertiesLayoutVersion::HTML,
+            new PropertyMissingException(
+                'Required property (' . PropertiesLayoutVersion::HTML. ') is missing in: '
+                . get_class($this)
+            )
         );
 
         parent::__construct(

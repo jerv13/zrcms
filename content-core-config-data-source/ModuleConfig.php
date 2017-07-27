@@ -175,6 +175,7 @@ class ModuleConfig
                      ]
                     */
                     ViewComponent::DEFAULT_NAME => [
+                        ComponentConfigFields::NAME => ViewComponent::DEFAULT_NAME,
                         ComponentConfigFields::LOCATION => ViewComponent::DEFAULT_NAME,
                         ComponentConfigFields::COMPONENT_CONFIG_READER => ReadViewComponentConfigApplicationConfig::class,
                         PropertiesViewComponent::LAYOUT_RENDER_DATA_GETTERS => [

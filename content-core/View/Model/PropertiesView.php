@@ -2,10 +2,12 @@
 
 namespace Zrcms\ContentCore\View\Model;
 
+use Zrcms\Content\Model\PropertiesContent;
+
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-interface PropertiesView
+interface PropertiesView extends PropertiesContent
 {
     const SITE_CMS_RESOURCE = 'siteCmsResource';
     const SITE = 'siteVersion';

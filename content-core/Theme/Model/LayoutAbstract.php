@@ -2,6 +2,7 @@
 
 namespace Zrcms\ContentCore\Theme\Model;
 
+use Zrcms\Content\Exception\PropertyMissingException;
 use Zrcms\Content\Model\Content;
 use Zrcms\Content\Model\ContentAbstract;
 use Zrcms\Param\Param;
@@ -25,7 +26,11 @@ abstract class LayoutAbstract extends ContentAbstract implements Layout
 
         $this->html = Param::getRequired(
             $properties,
-            PropertiesLayout::HTML
+            PropertiesLayout::HTML,
+            new PropertyMissingException(
+                'Required property (' . PropertiesLayout::HTML. ') is missing in: '
+                . get_class($this)
+            )
         );
 
         parent::__construct(

@@ -2,6 +2,7 @@
 
 namespace Zrcms\ContentCore\Theme\Model;
 
+use Zrcms\Content\Exception\PropertyMissingException;
 use Zrcms\Content\Model\ComponentAbstract;
 use Zrcms\ContentCore\Theme\Exception\DefaultLayoutMissingException;
 use Zrcms\Param\Param;
@@ -29,7 +30,11 @@ abstract class ThemeComponentAbstract extends ComponentAbstract implements Theme
         $this->addLayoutVariations(
             Param::getRequired(
                 $properties,
-                PropertiesThemeComponent::LAYOUT_VARIATIONS
+                PropertiesThemeComponent::LAYOUT_VARIATIONS,
+                new PropertyMissingException(
+                    'Required property (' . PropertiesThemeComponent::LAYOUT_VARIATIONS. ') is missing in: '
+                    . get_class($this)
+                )
             )
         );
 

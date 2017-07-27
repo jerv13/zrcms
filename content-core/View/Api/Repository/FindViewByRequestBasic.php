@@ -187,6 +187,7 @@ class FindViewByRequestBasic implements FindViewByRequest
         );
 
         $properties = [
+            PropertiesView::ID => 'basic',
             PropertiesView::SITE_CMS_RESOURCE => $siteCmsResource,
             PropertiesView::SITE => $siteVersion,
             PropertiesView::PAGE_CONTAINER_CMS_RESOURCE => $pageContainerCmsResource,

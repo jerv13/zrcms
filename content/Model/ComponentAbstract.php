@@ -44,7 +44,6 @@ abstract class ComponentAbstract implements Component
             return;
         }
 
-
         $this->name = Param::getRequired(
             $properties,
             PropertiesComponent::NAME,
@@ -52,7 +51,6 @@ abstract class ComponentAbstract implements Component
                 'Required property (' . PropertiesComponent::NAME . ') is missing in: ' . get_class($this)
             )
         );
-
 
         $this->location = Param::getRequired(
             $properties,

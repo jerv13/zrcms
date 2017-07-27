@@ -3,11 +3,10 @@
 namespace Zrcms\ContentCore\View\Model;
 
 use Zrcms\Content\Model\Content;
-use Zrcms\Content\Model\PropertiesContent;
-use Zrcms\ContentCore\Page\Model\PageContainerCmsResource;
 use Zrcms\ContentCore\Page\Model\Page;
-use Zrcms\ContentCore\Site\Model\SiteCmsResource;
+use Zrcms\ContentCore\Page\Model\PageContainerCmsResource;
 use Zrcms\ContentCore\Site\Model\Site;
+use Zrcms\ContentCore\Site\Model\SiteCmsResource;
 use Zrcms\ContentCore\Theme\Model\Layout;
 use Zrcms\ContentCore\Theme\Model\LayoutCmsResource;
 

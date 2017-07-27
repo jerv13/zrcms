@@ -2,6 +2,7 @@
 
 namespace Zrcms\ContentCore\Block\Model;
 
+use Zrcms\Content\Exception\PropertyMissingException;
 use Zrcms\Content\Model\ContentAbstract;
 use Zrcms\Param\Param;
 
@@ -26,19 +27,27 @@ abstract class BlockAbstract extends ContentAbstract implements Block
     protected $layoutProperties = [];
 
     /**
-     * @param array  $properties
+     * @param array $properties
      */
     public function __construct(
         array $properties
     ) {
         $this->blockComponentName = Param::getRequired(
             $properties,
-            PropertiesBlockVersion::BLOCK_COMPONENT_NAME
+            PropertiesBlockVersion::BLOCK_COMPONENT_NAME,
+            new PropertyMissingException(
+                'Required property (' . PropertiesBlockVersion::BLOCK_COMPONENT_NAME . ') is missing in: '
+                . get_class($this)
+            )
         );
 
         $this->id = Param::get(
             $properties,
-            PropertiesBlockVersion::ID
+            PropertiesBlockVersion::ID,
+            new PropertyMissingException(
+                'Required property (' . PropertiesBlockVersion::ID . ') is missing in: '
+                . get_class($this)
+            )
         );
 
         $this->config = Param::get(
@@ -115,6 +124,13 @@ abstract class BlockAbstract extends ContentAbstract implements Block
      */
     public function getRequiredLayoutProperty(string $name)
     {
-        return Param::getRequired($this->layoutProperties, $name);
+        return Param::getRequired(
+            $this->layoutProperties,
+            $name,
+            new PropertyMissingException(
+                'Required property (' . $name . ') is missing in: '
+                . get_class($this)
+            )
+        );
     }
 }

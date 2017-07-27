@@ -2,6 +2,7 @@
 
 namespace Zrcms\ContentCore\Site\Model;
 
+use Zrcms\Content\Exception\PropertyMissingException;
 use Zrcms\Content\Model\ContentVersionAbstract;
 use Zrcms\Param\Param;
 
@@ -36,12 +37,20 @@ abstract class SiteVersionAbstract extends ContentVersionAbstract implements Sit
     ) {
         $this->themeName = Param::getRequired(
             $properties,
-            PropertiesSiteVersion::THEME_NAME
+            PropertiesSiteVersion::THEME_NAME,
+            new PropertyMissingException(
+                'Required property (' . PropertiesSiteVersion::THEME_NAME. ') is missing in: '
+                . get_class($this)
+            )
         );
 
         $this->locale = Param::getRequired(
             $properties,
-            PropertiesSiteVersion::LOCALE
+            PropertiesSiteVersion::LOCALE,
+            new PropertyMissingException(
+                'Required property (' . PropertiesSiteVersion::LOCALE. ') is missing in: '
+                . get_class($this)
+            )
         );
 
         parent::__construct(

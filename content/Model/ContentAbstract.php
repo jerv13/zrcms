@@ -2,6 +2,7 @@
 
 namespace Zrcms\Content\Model;
 
+use Zrcms\Content\Exception\PropertyMissingException;
 use Zrcms\Param\Param;
 
 /**
@@ -33,10 +34,13 @@ abstract class ContentAbstract implements Content
             return;
         }
 
-
         $this->id = Param::getRequired(
             $properties,
-            PropertiesContentVersion::ID
+            PropertiesContentVersion::ID,
+            new PropertyMissingException(
+                'Required property (' . PropertiesContentVersion::ID. ') is missing in: '
+                . get_class($this)
+            )
         );
 
         $this->properties = $properties;

@@ -2,6 +2,7 @@
 
 namespace Zrcms\ContentCoreDoctrineDataSource\Container\Entity;
 
+use Zrcms\Content\Exception\PropertyMissingException;
 use Zrcms\ContentCore\Block\Model\BlockVersion;
 use Zrcms\ContentCoreDoctrineDataSource\Block\Model\BlockVersionEntity;
 use Zrcms\ContentCoreDoctrineDataSource\Block\Model\PropertiesBlockVersionEntity;
@@ -92,11 +93,19 @@ trait ContainerBlockVersionsTrait
             $blockVersionData,
             Param::getRequired(
                 $blockVersionData,
-                PropertiesBlockVersionEntity::CREATED_BY_USER_ID
+                PropertiesBlockVersionEntity::CREATED_BY_USER_ID,
+                new PropertyMissingException(
+                    'Required property (' . PropertiesBlockVersionEntity::CREATED_BY_USER_ID . ') is missing in: '
+                    . get_class($this)
+                )
             ),
             Param::getRequired(
                 $blockVersionData,
-                PropertiesBlockVersionEntity::CREATED_REASON
+                PropertiesBlockVersionEntity::CREATED_REASON,
+                new PropertyMissingException(
+                    'Required property (' . PropertiesBlockVersionEntity::CREATED_REASON . ') is missing in: '
+                    . get_class($this)
+                )
             )
         );
     }

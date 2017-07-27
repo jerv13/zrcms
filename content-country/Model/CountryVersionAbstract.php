@@ -2,6 +2,7 @@
 
 namespace Zrcms\ContentCountry\Model;
 
+use Zrcms\Content\Exception\PropertyMissingException;
 use Zrcms\Content\Model\ContentVersionAbstract;
 use Zrcms\Param\Param;
 
@@ -37,17 +38,29 @@ abstract class CountryVersionAbstract extends ContentVersionAbstract implements 
     ) {
         $this->iso3 = Param::getRequired(
             $properties,
-            PropertiesCountryVersion::ISO3
+            PropertiesCountryVersion::ISO3,
+            new PropertyMissingException(
+                'Required property (' . PropertiesCountryVersion::ISO3. ') is missing in: '
+                . get_class($this)
+            )
         );
 
         $this->iso2 = Param::getRequired(
             $properties,
-            PropertiesCountryVersion::ISO2
+            PropertiesCountryVersion::ISO2,
+            new PropertyMissingException(
+                'Required property (' . PropertiesCountryVersion::ISO2. ') is missing in: '
+                . get_class($this)
+            )
         );
 
         $this->name = Param::getRequired(
             $properties,
-            PropertiesCountryVersion::NAME
+            PropertiesCountryVersion::NAME,
+            new PropertyMissingException(
+                'Required property (' . PropertiesCountryVersion::NAME. ') is missing in: '
+                . get_class($this)
+            )
         );
 
         parent::__construct(

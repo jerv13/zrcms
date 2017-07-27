@@ -2,6 +2,7 @@
 
 namespace Zrcms\ContentCore\Theme\Model;
 
+use Zrcms\Content\Exception\PropertyMissingException;
 use Zrcms\Content\Model\ComponentAbstract;
 use Zrcms\Param\Param;
 
@@ -33,13 +34,20 @@ abstract class LayoutComponentAbstract extends ComponentAbstract implements Layo
 
         $this->themeName = Param::getRequired(
             $properties,
-            PropertiesLayoutComponent::THEME_NAME
+            PropertiesLayoutComponent::THEME_NAME,
+            new PropertyMissingException(
+                'Required property (' . PropertiesLayoutComponent::THEME_NAME. ') is missing in: '
+                . get_class($this)
+            )
         );
 
         $this->html = Param::getRequired(
             $properties,
             PropertiesLayoutComponent::HTML,
-            false
+            new PropertyMissingException(
+                'Required property (' . PropertiesLayoutComponent::HTML. ') is missing in: '
+                . get_class($this)
+            )
         );
 
         parent::__construct(
