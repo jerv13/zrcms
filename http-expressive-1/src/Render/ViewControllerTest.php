@@ -6,7 +6,6 @@ use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Zend\Diactoros\Response\HtmlResponse;
 use Zrcms\ContentCore\Page\Api\Render\GetPageContainerRenderDataHtml;
-use Zrcms\ContentCore\Page\Api\Render\RenderPageContainerBasic;
 use Zrcms\ContentCore\Page\Api\Render\RenderPageContainerRows;
 use Zrcms\ContentCore\Page\Model\PageContainerCmsResourceBasic;
 use Zrcms\ContentCore\Page\Model\PageContainerVersionBasic;
@@ -16,7 +15,6 @@ use Zrcms\ContentCore\Site\Model\PropertiesSiteCmsResource;
 use Zrcms\ContentCore\Site\Model\PropertiesSiteVersion;
 use Zrcms\ContentCore\Site\Model\SiteCmsResourceBasic;
 use Zrcms\ContentCore\Site\Model\SiteVersionBasic;
-use Zrcms\ContentCore\Theme\Api\Render\GetLayoutRenderData;
 use Zrcms\ContentCore\Theme\Api\Render\GetLayoutRenderDataNoop;
 use Zrcms\ContentCore\Theme\Api\Render\RenderLayoutMustache;
 use Zrcms\ContentCore\Theme\Model\LayoutCmsResourceBasic;
@@ -33,19 +31,16 @@ use Zrcms\ContentCore\View\Model\ViewBasic;
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class ViewController
+class ViewControllerTest
 {
     /**
-     * @param FindViewByRequest $findViewByRequest
      * @param GetViewRenderData $getViewRenderData
      * @param RenderView        $renderView
      */
     public function __construct(
-        FindViewByRequest $findViewByRequest,
         GetViewRenderData $getViewRenderData,
         RenderView $renderView
     ) {
-        $this->findViewByRequest = $findViewByRequest;
         $this->getViewRenderData = $getViewRenderData;
         $this->renderView = $renderView;
     }

@@ -3,6 +3,7 @@
 namespace Zrcms\HttpExpressive1;
 
 use Zrcms\ContentCore\PageView\Middleware\ViewController;
+use Zrcms\ContentCore\PageView\Middleware\ViewControllerTest;
 use Zrcms\ContentCore\View\Api\Render\GetViewRenderData;
 use Zrcms\ContentCore\View\Api\Render\RenderView;
 use Zrcms\ContentCore\View\Api\Repository\FindViewByRequest;
@@ -29,6 +30,18 @@ class ModuleConfig
                             RenderView::class,
                         ],
                     ],
+                    ViewControllerTest::class => [
+                        'arguments' => [
+                            GetViewRenderData::class,
+                            RenderView::class,
+                        ],
+                    ],
+                ],
+            ],
+
+            'routing' => [
+                'middleware' => [
+                    ViewControllerTest::class => ViewControllerTest::class,
                 ],
             ],
         ];
