@@ -18,14 +18,17 @@ use Zrcms\ContentCore\Site\Model\SiteCmsResourceBasic;
 use Zrcms\ContentCore\Site\Model\SiteVersionBasic;
 use Zrcms\ContentCore\Theme\Api\Render\GetLayoutRenderData;
 use Zrcms\ContentCore\Theme\Api\Render\GetLayoutRenderDataNoop;
+use Zrcms\ContentCore\Theme\Api\Render\RenderLayoutMustache;
 use Zrcms\ContentCore\Theme\Model\LayoutCmsResourceBasic;
 use Zrcms\ContentCore\Theme\Model\LayoutVersionBasic;
 use Zrcms\ContentCore\Theme\Model\PropertiesLayoutCmsResource;
 use Zrcms\ContentCore\Theme\Model\PropertiesLayoutVersion;
 use Zrcms\ContentCore\View\Api\Render\GetViewRenderData;
 use Zrcms\ContentCore\View\Api\Render\RenderView;
+use Zrcms\ContentCore\View\Api\Repository\FindTagNamesByLayout;
 use Zrcms\ContentCore\View\Api\Repository\FindViewByRequest;
 use Zrcms\ContentCore\View\Model\PropertiesView;
+use Zrcms\ContentCore\View\Model\ViewBasic;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -171,6 +174,10 @@ class ViewController
                 => 'test:' . PropertiesLayoutVersion::HTML,
                 PropertiesLayoutVersion::RENDER_DATA_GETTER
                 => GetLayoutRenderDataNoop::class,
+                PropertiesLayoutVersion::RENDER_TAG_NAME_PARSER
+                => FindTagNamesByLayout::class,
+                PropertiesLayoutVersion::RENDERER
+                => RenderLayoutMustache::class,
             ],
             'test-user-id',
             'test-reason'
@@ -185,18 +192,16 @@ class ViewController
             PropertiesView::LAYOUT => $layout,
         ];
 
-        $additionalProperties = Param::get(
-            $options,
-            self::OPTION_ADDITIONAL_PROPERTIES,
-            []
-        );
+        $additionalProperties = [
+            'some-test' => 'test'
+        ];
 
         $properties = array_merge(
             $additionalProperties,
             $properties
         );
 
-        return new ViewBasic(
+        $pageView = new ViewBasic(
             $properties
         );
 

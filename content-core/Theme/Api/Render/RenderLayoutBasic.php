@@ -40,6 +40,7 @@ class RenderLayoutBasic implements RenderLayout
      * @param array          $options
      *
      * @return string
+     * @throws \Exception
      */
     public function __invoke(
         Content $layout,
