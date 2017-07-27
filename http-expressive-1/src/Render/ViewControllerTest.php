@@ -26,6 +26,7 @@ use Zrcms\ContentCore\View\Api\Render\RenderView;
 use Zrcms\ContentCore\View\Api\Repository\FindTagNamesByLayout;
 use Zrcms\ContentCore\View\Model\PropertiesView;
 use Zrcms\ContentCore\View\Model\ViewBasic;
+use Zrcms\ContentCoreDoctrineDataSource\Container\Entity\ContainerCmsResourcePublishHistoryEntity;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -59,7 +60,7 @@ class ViewControllerTest
         ResponseInterface $response,
         callable $next = null
     ) {
-        die('here');
+        ddd('here');
         $additionalViewProperties = [];
 
         $siteCmsResource = new SiteCmsResourceBasic(

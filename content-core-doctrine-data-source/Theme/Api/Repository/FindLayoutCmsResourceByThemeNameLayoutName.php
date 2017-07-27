@@ -8,7 +8,8 @@ use Zrcms\ContentCore\Theme\Model\LayoutCmsResource;
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-interface FindLayoutCmsResourceByThemeNameLayoutName
+class FindLayoutCmsResourceByThemeNameLayoutName
+    implements \Zrcms\ContentCore\Theme\Api\Repository\FindLayoutCmsResourceByThemeNameLayoutName
 {
     /**
      * @param string $themeName
@@ -21,5 +22,7 @@ interface FindLayoutCmsResourceByThemeNameLayoutName
         string $themeName,
         string $layoutName,
         array $options = []
-    );
+    ) {
+        // @todo
+    }
 }

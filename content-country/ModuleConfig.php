@@ -30,49 +30,49 @@ class ModuleConfig
                     PublishCountryCmsResource::class => [
                         'class' => ApiNoop::class,
                         'arguments' => [
-                            ['literal' => PublishCountryCmsResource::class],
+                            '0-' => ['literal' => PublishCountryCmsResource::class],
                         ],
                     ],
                     UnpublishCountryCmsResource::class => [
                         'class' => ApiNoop::class,
                         'arguments' => [
-                            ['literal' => UnpublishCountryCmsResource::class],
+                            '0-' => ['literal' => UnpublishCountryCmsResource::class],
                         ],
                     ],
                     FindCountryCmsResource::class => [
                         'class' => ApiNoop::class,
                         'arguments' => [
-                            ['literal' => FindCountryCmsResource::class],
+                            '0-' => ['literal' => FindCountryCmsResource::class],
                         ],
                     ],
                     FindCountryCmsResourceByIso3::class => [
                         'class' => ApiNoop::class,
                         'arguments' => [
-                            ['literal' => FindCountryCmsResourceByIso3::class],
+                            '0-' => ['literal' => FindCountryCmsResourceByIso3::class],
                         ],
                     ],
                     FindCountryCmsResourcesBy::class => [
                         'class' => ApiNoop::class,
                         'arguments' => [
-                            ['literal' => FindCountryCmsResourcesBy::class],
+                            '0-' => ['literal' => FindCountryCmsResourcesBy::class],
                         ],
                     ],
                     FindCountryVersion::class => [
                         'class' => ApiNoop::class,
                         'arguments' => [
-                            ['literal' => FindCountryVersion::class],
+                            '0-' => ['literal' => FindCountryVersion::class],
                         ],
                     ],
                     FindCountryVersionsBy::class => [
                         'class' => ApiNoop::class,
                         'arguments' => [
-                            ['literal' => UnpublishCountryCmsResource::class],
+                            '0-' => ['literal' => UnpublishCountryCmsResource::class],
                         ],
                     ],
                     InsertCountryVersion::class => [
                         'class' => ApiNoop::class,
                         'arguments' => [
-                            ['literal' => UnpublishCountryCmsResource::class],
+                            '0-' => ['literal' => UnpublishCountryCmsResource::class],
                         ],
                     ],
                 ],

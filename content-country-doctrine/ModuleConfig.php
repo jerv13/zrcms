@@ -31,49 +31,49 @@ class ModuleConfig
                     PublishCountryCmsResource::class => [
                         'class' => \Zrcms\ContentCountryDoctrine\Api\Action\PublishCountryCmsResource::class,
                         'arguments' => [
-                            EntityManager::class,
+                            '0-' => EntityManager::class,
                         ],
                     ],
                     UnpublishCountryCmsResource::class => [
                         'class' => \Zrcms\ContentCountryDoctrine\Api\Action\UnpublishCountryCmsResource::class,
                         'arguments' => [
-                            EntityManager::class,
+                            '0-' => EntityManager::class,
                         ],
                     ],
                     FindCountryCmsResource::class => [
                         'class' => \Zrcms\ContentCountryDoctrine\Api\Repository\FindCountryCmsResource::class,
                         'arguments' => [
-                            EntityManager::class,
+                            '0-' => EntityManager::class,
                         ],
                     ],
                     FindCountryCmsResourceByIso3::class => [
                         'class' => \Zrcms\ContentCountryDoctrine\Api\Repository\FindCountryCmsResourceByIso3::class,
                         'arguments' => [
-                            EntityManager::class,
+                            '0-' => EntityManager::class,
                         ],
                     ],
                     FindCountryCmsResourcesBy::class => [
                         'class' => \Zrcms\ContentCountryDoctrine\Api\Repository\FindCountryCmsResourcesBy::class,
                         'arguments' => [
-                            EntityManager::class,
+                            '0-' => EntityManager::class,
                         ],
                     ],
                     FindCountryVersion::class => [
                         'class' => \Zrcms\ContentCountryDoctrine\Api\Repository\FindCountryVersion::class,
                         'arguments' => [
-                            EntityManager::class,
+                            '0-' => EntityManager::class,
                         ],
                     ],
                     FindCountryVersionsBy::class => [
                         'class' => \Zrcms\ContentCountryDoctrine\Api\Repository\FindCountryVersionsBy::class,
                         'arguments' => [
-                            EntityManager::class,
+                            '0-' => EntityManager::class,
                         ],
                     ],
                     InsertCountryVersion::class => [
                         'class' => \Zrcms\ContentCountryDoctrine\Api\Repository\InsertCountryVersion::class,
                         'arguments' => [
-                            EntityManager::class,
+                            '0-' => EntityManager::class,
                         ],
                     ],
                 ],
@@ -84,7 +84,7 @@ class ModuleConfig
                         'class' => AnnotationDriver::class,
                         'cache' => 'array',
                         'paths' => [
-                            __DIR__ . '/../Entity',
+                            __DIR__ . '/Entity',
                         ]
                     ],
                     'orm_default' => [

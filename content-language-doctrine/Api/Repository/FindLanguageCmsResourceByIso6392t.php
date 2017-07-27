@@ -12,7 +12,7 @@ use Zrcms\ContentDoctrine\Api\BasicCmsResourceTrait;
  * @author James Jervis - https://github.com/jerv13
  */
 class FindLanguageCmsResourceByIso6392t
-    implements \Zrcms\ContentLanguage\Api\Repository\FindLanguageCmsResourceByIso3
+    implements \Zrcms\ContentLanguage\Api\Repository\FindLanguageCmsResourceByIso6392t
 {
     use BasicCmsResourceTrait;
 
