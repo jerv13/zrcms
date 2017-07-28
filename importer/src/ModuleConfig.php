@@ -9,6 +9,7 @@ use Zrcms\ContentCore\Page\Api\Repository\InsertPageContainerVersion;
 use Zrcms\ContentCore\Site\Api\Action\PublishSiteCmsResource;
 use Zrcms\ContentCore\Site\Api\Repository\InsertSiteVersion;
 use Zrcms\Importer\Api\Import;
+use Zrcms\Importer\Api\ImportFactory;
 use Zrcms\Importer\Middleware\ImportController;
 
 class ModuleConfig
@@ -24,13 +25,8 @@ class ModuleConfig
             'dependencies' => [
                 'config_factories' => [
                     Import::class => [
-                        'arguments' => [
-                            InsertSiteVersion::class,
-                            PublishSiteCmsResource::class,
-                            InsertPageContainerVersion::class,
-                            PublishPageContainerCmsResource::class,
-                            InsertContainerVersion::class,
-                            PublishContainerCmsResource::class,
+                        'factory' => [
+                            ImportFactory::class
                         ]
                     ],
                     ImportController::class => [
