@@ -43,7 +43,7 @@ abstract class BlockComponentAbstract extends ComponentAbstract  implements Bloc
         );
 
         parent::__construct(
-            $properties = [],
+            $properties,
             $createdByUserId,
             $createdReason
         );

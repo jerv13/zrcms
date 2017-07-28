@@ -58,7 +58,7 @@ class ModuleConfig
                 'config_factories' => [
                     /** Block **/
                     FindBlockComponent::class => [
-                        'class' => \Zrcms\ContentCoreConfigDataSource\Block\Api\FindBlockComponent::class,
+                        'class' => \Zrcms\ContentCoreConfigDataSource\Block\Api\Repository\FindBlockComponent::class,
                         'arguments' => [
                             '0-' => GetConfigBlockComponents::class,
                             '1-' => SearchConfigList::class,
@@ -180,8 +180,8 @@ class ModuleConfig
                         ComponentConfigFields::COMPONENT_CONFIG_READER => ReadViewComponentConfigApplicationConfig::class,
                         PropertiesViewComponent::LAYOUT_RENDER_DATA_GETTERS => [
                             /* '{render-tag}(optional)' => '{GetLayoutRenderData}(service-name)' */
-                            PropertiesPage::RENDER_TAG_PAGE => GetViewRenderDataPage::class,
-                            PropertiesContainer::RENDER_TAG => GetViewRenderDataContainers::class,
+                            GetViewRenderDataPage::RENDER_TAG_PAGE => GetViewRenderDataPage::class,
+                            GetViewRenderDataContainers::RENDER_TAG_CONTAINER => GetViewRenderDataContainers::class,
                             GetViewRenderDataHead::RENDER_TAG => GetViewRenderDataHeadAll::class,
                         ],
                     ],

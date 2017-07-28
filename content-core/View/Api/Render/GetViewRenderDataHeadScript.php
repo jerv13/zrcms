@@ -11,7 +11,7 @@ use Zrcms\ContentCore\View\Model\View;
  */
 class GetViewRenderDataHeadScript implements GetViewRenderDataHead
 {
-    const RENDER_TAG = 'script';
+    const RENDER_TAG_SCRIPT = 'script';
 
     /**
      * @param View|Content           $view
@@ -29,7 +29,7 @@ class GetViewRenderDataHeadScript implements GetViewRenderDataHead
     {
         return [
             GetViewRenderDataHead::RENDER_TAG => [
-                self::RENDER_TAG => '<!-- @todo: ' . get_class($this) . ' -->'
+                self::RENDER_TAG_SCRIPT => '<!-- @todo: ' . get_class($this) . ' -->'
             ],
         ];
     }

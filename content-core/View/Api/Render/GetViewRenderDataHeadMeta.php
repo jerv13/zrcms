@@ -11,7 +11,7 @@ use Zrcms\ContentCore\View\Model\View;
  */
 class GetViewRenderDataHeadMeta implements GetViewRenderDataHead
 {
-    const RENDER_TAG = 'meta';
+    const RENDER_TAG_META = 'meta';
 
     /**
      * @param View|Content           $view
@@ -29,7 +29,7 @@ class GetViewRenderDataHeadMeta implements GetViewRenderDataHead
     {
         return [
             GetViewRenderDataHead::RENDER_TAG => [
-                self::RENDER_TAG => '<!-- @todo: ' . get_class($this) . ' -->'
+                self::RENDER_TAG_META => '<!-- @todo: ' . get_class($this) . ' -->'
             ],
         ];
     }

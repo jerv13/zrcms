@@ -1,8 +1,7 @@
 <?php
 
-namespace Zrcms\ContentCore\Block\Api;
+namespace Zrcms\ContentCore\Container\Api;
 
-use Zrcms\ContentCore\Container\Api\WrapRenderedContainer;
 use Zrcms\ContentCore\Container\Model\Container;
 use Zrcms\ContentCore\Page\Model\PageContainerVersion;
 

@@ -39,8 +39,8 @@ class RenderBlockBasic implements RenderBlock
         FindBlockComponent $findBlockComponent,
         string $defaultRenderServiceName = RenderBlockMustache::class
     ) {
-        $this->findBlockComponent = $findBlockComponent;
         $this->serviceContainer = $serviceContainer;
+        $this->findBlockComponent = $findBlockComponent;
         $this->defaultRenderServiceName = $defaultRenderServiceName;
     }
 

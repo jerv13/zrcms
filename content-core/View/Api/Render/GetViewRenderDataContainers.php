@@ -19,6 +19,8 @@ use Zrcms\ContentCore\View\Model\View;
  */
 class GetViewRenderDataContainers implements GetViewRenderData
 {
+    const RENDER_TAG_CONTAINER = 'container';
+
     /**
      * @var FindTagNamesByLayout
      */
@@ -105,7 +107,7 @@ class GetViewRenderDataContainers implements GetViewRenderData
         }
 
         return [
-            PropertiesContainer::RENDER_TAG => $renderData
+            self::RENDER_TAG_CONTAINER => $renderData
         ];
     }
 
@@ -138,7 +140,7 @@ class GetViewRenderDataContainers implements GetViewRenderData
      */
     protected function getPath(string $layoutTag)
     {
-        $hasTag = (0 === strpos($layoutTag, PropertiesContainer::RENDER_TAG));
+        $hasTag = (0 === strpos($layoutTag, self::RENDER_TAG_CONTAINER));
 
         if (!$hasTag) {
             return null;

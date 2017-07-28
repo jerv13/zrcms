@@ -14,6 +14,8 @@ use Zrcms\ContentCore\View\Model\View;
  */
 class GetViewRenderDataPage implements GetViewRenderData
 {
+    const RENDER_TAG_PAGE = '[page]';
+
     /**
      * @var GetPageContainerRenderData
      */
@@ -63,7 +65,7 @@ class GetViewRenderDataPage implements GetViewRenderData
         );
 
         return [
-            PropertiesPage::RENDER_TAG_PAGE => $viewRenderData
+            self::RENDER_TAG_PAGE => $viewRenderData
         ];
     }
 }

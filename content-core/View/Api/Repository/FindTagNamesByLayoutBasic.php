@@ -27,7 +27,7 @@ class FindTagNamesByLayoutBasic implements FindTagNamesByLayout
      */
     public function __construct(
         $serviceContainer,
-        string $defaultFindTagNamesServiceName = FindTagNamesByLayout::class
+        string $defaultFindTagNamesServiceName = FindTagNamesByLayoutMustache::class
     ) {
         $this->serviceContainer = $serviceContainer;
         $this->defaultFindTagNamesServiceName = $defaultFindTagNamesServiceName;

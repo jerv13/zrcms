@@ -11,7 +11,7 @@ use Zrcms\ContentCore\View\Model\View;
  */
 class GetViewRenderDataHeadTitle implements GetViewRenderDataHead
 {
-    const NAMESPACE = 'title';
+    const RENDER_TAG_TITLE = 'title';
 
     /**
      * @param View|Content           $view
@@ -29,7 +29,7 @@ class GetViewRenderDataHeadTitle implements GetViewRenderDataHead
     {
         return [
             GetViewRenderDataHead::RENDER_TAG => [
-                self::RENDER_TAG => '<!-- @todo: ' . get_class($this) . ' -->'
+                self::RENDER_TAG_TITLE => '<!-- @todo: ' . get_class($this) . ' -->'
             ],
         ];
     }

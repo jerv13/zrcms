@@ -7,5 +7,4 @@ namespace Zrcms\ContentCore\View\Model;
  */
 class ViewComponentBasic extends ViewComponentAbstract implements ViewComponent
 {
-
 }

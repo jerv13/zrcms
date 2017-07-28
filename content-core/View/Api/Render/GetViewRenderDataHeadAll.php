@@ -13,7 +13,7 @@ use Zrcms\ContentCore\View\Model\View;
  */
 class GetViewRenderDataHeadAll implements GetViewRenderDataHead
 {
-    const RENDER_TAG = 'all';
+    const RENDER_TAG_ALL = 'all';
 
     /**
      * @var ContainerInterface
@@ -25,10 +25,10 @@ class GetViewRenderDataHeadAll implements GetViewRenderDataHead
      */
     protected $renderServiceNames
         = [
-            GetViewRenderDataHeadMeta::RENDER_TAG => GetViewRenderDataHeadMeta::class,
-            GetViewRenderDataHeadTitle::RENDER_TAG => GetViewRenderDataHeadTitle::class,
-            GetViewRenderDataHeadLink::RENDER_TAG => GetViewRenderDataHeadLink::class,
-            GetViewRenderDataHeadScript::RENDER_TAG => GetViewRenderDataHeadScript::class,
+            GetViewRenderDataHeadMeta::RENDER_TAG_META => GetViewRenderDataHeadMeta::class,
+            GetViewRenderDataHeadTitle::RENDER_TAG_TITLE => GetViewRenderDataHeadTitle::class,
+            GetViewRenderDataHeadLink::RENDER_TAG_LINK => GetViewRenderDataHeadLink::class,
+            GetViewRenderDataHeadScript::RENDER_TAG_SCRIPT => GetViewRenderDataHeadScript::class,
         ];
 
     /**
@@ -80,14 +80,22 @@ class GetViewRenderDataHeadAll implements GetViewRenderDataHead
                 $options
             );
 
-            foreach ($subRenderData as $subRenderDataIn) {
-                $renderData .= $subRenderDataIn;
+            if (!is_array($subRenderData[GetViewRenderDataHead::RENDER_TAG])) {
+                throw new \Exception(
+                    get_class($this) . ' requires injected services to return array with '
+                    . GetViewRenderDataHead::RENDER_TAG . ' as a key'
+                );
             }
+
+            $renderData = array_merge(
+                $renderData,
+                $subRenderData[GetViewRenderDataHead::RENDER_TAG]
+            );
         }
 
         return [
             GetViewRenderDataHead::RENDER_TAG => [
-                self::RENDER_TAG => $renderData
+                self::RENDER_TAG_ALL => $renderData
             ],
         ];
     }

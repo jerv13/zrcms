@@ -51,7 +51,7 @@ abstract class LayoutComponentAbstract extends ComponentAbstract implements Layo
         );
 
         parent::__construct(
-            $properties = [],
+            $properties,
             $createdByUserId,
             $createdReason
         );

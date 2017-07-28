@@ -11,7 +11,7 @@ use Zrcms\ContentCore\View\Model\View;
  */
 class GetViewRenderDataHeadLink implements GetViewRenderDataHead
 {
-    const RENDER_TAG = 'link';
+    const RENDER_TAG_LINK = 'link';
 
     /**
      * @param View|Content           $view
@@ -29,7 +29,7 @@ class GetViewRenderDataHeadLink implements GetViewRenderDataHead
     {
         return [
             GetViewRenderDataHead::RENDER_TAG => [
-                self::RENDER_TAG => '<!-- @todo: ' . get_class($this) . ' -->'
+                self::RENDER_TAG_LINK => '<!-- @todo: ' . get_class($this) . ' -->'
             ],
         ];
     }

@@ -21,8 +21,7 @@ class RenderBlockBasicFactory
     ) {
         return new RenderBlockBasic(
             $serviceContainer,
-            $serviceContainer->get(FindBlockComponent::class),
-            $serviceContainer->get(Cache::class)
+            $serviceContainer->get(FindBlockComponent::class)
         );
     }
 }

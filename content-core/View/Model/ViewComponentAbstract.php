@@ -32,7 +32,7 @@ abstract class ViewComponentAbstract extends ComponentAbstract implements ViewCo
         );
 
         parent::__construct(
-            $properties = [],
+            $properties,
             $createdByUserId,
             $createdReason
         );

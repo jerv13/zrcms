@@ -1,6 +1,6 @@
 <?php
 
-namespace Zrcms\ContentCoreConfigDataSource\Block\Api;
+namespace Zrcms\ContentCoreConfigDataSource\Block\Api\Repository;
 
 use Zrcms\Content\Model\Component;
 use Zrcms\ContentCore\Block\Model\BlockComponent;

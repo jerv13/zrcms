@@ -16,11 +16,13 @@ abstract class ApiAbstract
      * @return void
      * @throws InvalidEntityException
      */
-    protected function assertValidEntityClass($entityClass, $entity)
+    protected function assertValidEntityClass($entityClass, $requiredEntityClass)
     {
-        if (!is_a($entity, $entityClass)) {
+        if (!is_a($entityClass, $requiredEntityClass, true)
+            && !is_subclass_of($entityClass, $requiredEntityClass, true)
+        ) {
             throw new InvalidEntityException(
-                'Invalid entityClass (' . $entityClass . '), entityClass must be: ' . get_class($entity)
+                'Invalid entityClass (' . $entityClass . '), entityClass must be a: ' . $requiredEntityClass
             );
         }
     }

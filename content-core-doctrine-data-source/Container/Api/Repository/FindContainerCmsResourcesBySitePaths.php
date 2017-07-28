@@ -55,5 +55,6 @@ class FindContainerCmsResourcesBySitePaths
     ): array
     {
         // @todo
+        return [];
     }
 }

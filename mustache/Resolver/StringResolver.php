@@ -72,7 +72,7 @@ class StringResolver implements ResolverInterface
      */
     public function hasTemplate(string $name)
     {
-        return array_key_exists($this->templates, $name);
+        return array_key_exists($name, $this->templates);
     }
 
     /**

@@ -24,9 +24,9 @@ use Zrcms\ContentCore\Theme\Model\PropertiesLayoutVersion;
 use Zrcms\ContentCore\View\Api\Render\GetViewRenderData;
 use Zrcms\ContentCore\View\Api\Render\RenderView;
 use Zrcms\ContentCore\View\Api\Repository\FindTagNamesByLayout;
+use Zrcms\ContentCore\View\Api\Repository\FindTagNamesByLayoutMustache;
 use Zrcms\ContentCore\View\Model\PropertiesView;
 use Zrcms\ContentCore\View\Model\ViewBasic;
-use Zrcms\ContentCoreDoctrineDataSource\Container\Entity\ContainerCmsResourcePublishHistoryEntity;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -170,7 +170,7 @@ class ViewControllerTest
                 PropertiesLayoutVersion::RENDER_DATA_GETTER
                 => GetLayoutRenderDataNoop::class,
                 PropertiesLayoutVersion::RENDER_TAG_NAME_PARSER
-                => FindTagNamesByLayout::class,
+                => FindTagNamesByLayoutMustache::class,
                 PropertiesLayoutVersion::RENDERER
                 => RenderLayoutMustache::class,
             ],

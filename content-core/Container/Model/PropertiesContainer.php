@@ -11,5 +11,4 @@ interface PropertiesContainer extends PropertiesContent
 {
     const RENDER_DATA_GETTER = 'renderDataGetter';
     const RENDERER = 'renderer';
-    const RENDER_TAG = 'container';
 }

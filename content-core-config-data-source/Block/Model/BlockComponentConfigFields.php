@@ -11,6 +11,4 @@ use Zrcms\ContentCoreConfigDataSource\Content\Model\ComponentConfigFields;
  */
 interface BlockComponentConfigFields extends ComponentConfigFields, PropertiesBlockComponent
 {
-    const CREATED_BY_USER_ID = TrackableProperties::CREATED_BY_USER_ID;
-    const CREATED_REASON = TrackableProperties::CREATED_REASON;
 }

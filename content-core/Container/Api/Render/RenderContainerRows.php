@@ -48,8 +48,10 @@ class RenderContainerRows implements RenderContent
         $containerInnerHtml = '';
         foreach ($renderData as $row) {
             $containerInnerHtml .= '<div class="row">';
-            foreach ($row as $block) {
-                $containerInnerHtml .= $block;
+            if (is_array($row)) {
+                foreach ($row as $block) {
+                    $containerInnerHtml .= $block;
+                }
             }
             $containerInnerHtml .= '</div>';
         }
