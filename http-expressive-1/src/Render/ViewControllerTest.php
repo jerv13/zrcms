@@ -23,10 +23,10 @@ use Zrcms\ContentCore\Theme\Model\PropertiesLayoutCmsResource;
 use Zrcms\ContentCore\Theme\Model\PropertiesLayoutVersion;
 use Zrcms\ContentCore\View\Api\Render\GetViewRenderData;
 use Zrcms\ContentCore\View\Api\Render\RenderView;
-use Zrcms\ContentCore\View\Api\Repository\FindTagNamesByLayout;
 use Zrcms\ContentCore\View\Api\Repository\FindTagNamesByLayoutMustache;
 use Zrcms\ContentCore\View\Model\PropertiesView;
 use Zrcms\ContentCore\View\Model\ViewBasic;
+use Zrcms\ContentCoreDoctrineDataSource\Container\Entity\Test;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -166,7 +166,7 @@ class ViewControllerTest
                 PropertiesLayoutVersion::THEME_NAME
                 => 'test:' . PropertiesLayoutVersion::THEME_NAME,
                 PropertiesLayoutVersion::HTML
-                => 'test:' . PropertiesLayoutVersion::HTML,
+                => file_get_contents(__DIR__ . '/../../../xample-module/theme/default.mustache'),
                 PropertiesLayoutVersion::RENDER_DATA_GETTER
                 => GetLayoutRenderDataNoop::class,
                 PropertiesLayoutVersion::RENDER_TAG_NAME_PARSER

@@ -64,6 +64,8 @@ class GetViewRenderDataPage implements GetViewRenderData
             $pageRenderData
         );
 
+        $viewRenderData = "<!-- <[page]> -->\n" . $viewRenderData . "\n<!-- </[page]> -->";
+
         return [
             self::RENDER_TAG_PAGE => $viewRenderData
         ];

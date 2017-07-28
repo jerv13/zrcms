@@ -3,11 +3,8 @@
 namespace Zrcms\ContentCoreDoctrineDataSource\Container\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Zrcms\ContentCore\Block\Model\BlockVersion;
 use Zrcms\ContentCore\Container\Model\ContainerVersion;
 use Zrcms\ContentCore\Container\Model\ContainerVersionAbstract;
-use Zrcms\ContentCoreDoctrineDataSource\Block\Model\BlockVersionEntity;
-use Zrcms\ContentCoreDoctrineDataSource\Block\Model\PropertiesBlockVersionEntity;
 use Zrcms\Param\Param;
 
 /**

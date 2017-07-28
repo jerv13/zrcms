@@ -58,7 +58,8 @@
   },
   "suggest": {
     "dasprid/container-interop-doctrine": "^0.2.2",
-    "rwoverdijk/assetmanager": "1.*"
+    "rwoverdijk/assetmanager": "1.*",
+    "zendframework/zend-diactoros": "Should install with Expressive"
   },
   "extra": {
     "asset-pattern-skip-version": "(-patch*)",

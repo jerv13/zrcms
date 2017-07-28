@@ -93,9 +93,15 @@ class GetViewRenderDataHeadAll implements GetViewRenderDataHead
             );
         }
 
+        $mergedHtml = '';
+
+        foreach ($renderData as $html) {
+            $mergedHtml .= "\n" . $html;
+        }
+
         return [
             GetViewRenderDataHead::RENDER_TAG => [
-                self::RENDER_TAG_ALL => $renderData
+                self::RENDER_TAG_ALL => $mergedHtml
             ],
         ];
     }

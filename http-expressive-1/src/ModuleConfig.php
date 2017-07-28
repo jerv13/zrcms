@@ -38,13 +38,13 @@ class ModuleConfig
                     ],
                 ],
             ],
-            'middleware_pipeline' => [
-                'always' => [
-                    'middleware' => [
-                        ViewControllerTest::class => ViewControllerTest::class,
-                    ],
-                ],
-            ],
+//            'middleware_pipeline' => [
+//                'always' => [
+//                    'middleware' => [
+//                        ViewControllerTest::class => ViewControllerTest::class,
+//                    ],
+//                ],
+//            ],
         ];
     }
 }
