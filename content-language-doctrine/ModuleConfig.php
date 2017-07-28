@@ -80,7 +80,7 @@ class ModuleConfig
             ],
             'doctrine' => [
                 'driver' => [
-                    ModuleConfig::class => [
+                    'Zrcms\ContentLanguageDoctrine' => [
                         'class' => AnnotationDriver::class,
                         'cache' => 'array',
                         'paths' => [
@@ -89,7 +89,7 @@ class ModuleConfig
                     ],
                     'orm_default' => [
                         'drivers' => [
-                            ModuleConfig::class => ModuleConfig::class
+                            'Zrcms\ContentLanguageDoctrine' => 'Zrcms\ContentLanguageDoctrine'
                         ]
                     ]
                 ],

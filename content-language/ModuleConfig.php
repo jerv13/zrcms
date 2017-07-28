@@ -6,7 +6,7 @@ use Zrcms\ContentCore\ApiNoop;
 use Zrcms\ContentLanguage\Api\Action\PublishLanguageCmsResource;
 use Zrcms\ContentLanguage\Api\Action\UnpublishLanguageCmsResource;
 use Zrcms\ContentLanguage\Api\Repository\FindLanguageCmsResource;
-use Zrcms\ContentLanguage\Api\Repository\FindLanguageCmsResourceByIso3;
+use Zrcms\ContentLanguage\Api\Repository\FindLanguageCmsResourceByIso6392t;
 use Zrcms\ContentLanguage\Api\Repository\FindLanguageCmsResourcesBy;
 use Zrcms\ContentLanguage\Api\Repository\FindLanguageVersion;
 use Zrcms\ContentLanguage\Api\Repository\FindLanguageVersionsBy;
@@ -46,10 +46,10 @@ class ModuleConfig
                             '0-' => ['literal' => FindLanguageCmsResource::class],
                         ],
                     ],
-                    FindLanguageCmsResourceByIso3::class => [
+                    FindLanguageCmsResourceByIso6392t::class => [
                         'class' => ApiNoop::class,
                         'arguments' => [
-                            '0-' => ['literal' => FindLanguageCmsResourceByIso3::class],
+                            '0-' => ['literal' => FindLanguageCmsResourceByIso6392t::class],
                         ],
                     ],
                     FindLanguageCmsResourcesBy::class => [
