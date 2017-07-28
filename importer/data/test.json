@@ -1,3 +1,211 @@
 {
-
+  "sites": [
+    {
+      "id": 1,
+      "host": "local.reliv.com",
+      "properties": {
+        "theme": "GuestResponsive",
+        "locale": "en_US",
+        "languageIso9392t": "eng",
+        "countryIso3": "USA",
+        "favIcon": "\/images\/favicon.ico",
+        "loginPage": "\/login",
+        "notAuthorizedPage": "\/not-authorized",
+        "notFoundPage": "not-found",
+        "title": "Reliv International"
+      }
+    }
+  ],
+  "pages": [
+    {
+      "id": 1,
+      "path": "index",
+      "siteId": 1,
+      "properties": {
+        "title": "Reliv International - Reliv International",
+        "description": "Reliv offers exceptionally effective nutritional products, a simple and profitable business opportunity and the chance to change lives. Don't just live. Reliv.",
+        "keywords": "reliv, reliv nutrition, reliv opportunity, local.reliv.com, reliv international, lunarich, lunasin, epigenetics",
+        "layout": null,
+        "blockInstances": [
+          [
+            {
+              "name": "RcmResponsiveHoverImage",
+              "id": 127862,
+              "config": {
+                "alt": "Reliv LunaRich",
+                "hoverSrc": "https:\/\/reliv-static.s3.amazonaws.com\/art\/WebStuff\/Homepage\/Redesign16\/US\/Discover2-web.png",
+                "href": "\/lunarich",
+                "src": "https:\/\/reliv-static.s3.amazonaws.com\/art\/WebStuff\/Homepage\/Redesign16\/US\/Discover-web.png"
+              },
+              "layoutData": {
+                "renderOrder": 0,
+                "rowNumber": 0,
+                "columnClass": "col-sm-3 col-xs-6"
+              }
+            }
+          ],
+          [
+            {
+              "name": "RcmHtmlArea",
+              "id": 162977,
+              "config": {
+                "html": "<a data-mce-href=\"\/what-is-fit3-video\" href=\"\/what-is-fit3-video\" title=\"What is Fit3 Video\"><img alt=\"Fit3 Launch\" src=\"https:\/\/reliv-static.s3.amazonaws.com\/art\/WebStuff\/Homepage\/Redesign\/Fit3HomePageFeb-web.gif\" data-mce-src=\"https:\/\/reliv-static.s3.amazonaws.com\/art\/WebStuff\/Homepage\/Redesign\/Fit3HomePageFeb-web.gif\" width=\"948\" height=\"335\"><\/a>"
+              },
+              "layoutData": {
+                "renderOrder": 0,
+                "rowNumber": 0,
+                "columnClass": "col-sm-12"
+              }
+            }
+          ],
+          [
+            {
+              "name": "RcmResponsiveHoverImage",
+              "id": 127863,
+              "config": {
+                "alt": "Reliv Opportunity",
+                "hoverSrc": "https:\/\/reliv-static.s3.amazonaws.com\/art\/WebStuff\/Homepage\/Redesign16\/US\/Earn2-web.png",
+                "href": "\/reliv-opportunity",
+                "src": "https:\/\/reliv-static.s3.amazonaws.com\/art\/WebStuff\/Homepage\/Redesign16\/US\/Earn-web.png"
+              },
+              "layoutData": {
+                "renderOrder": 1,
+                "rowNumber": 0,
+                "columnClass": "col-sm-3 col-xs-6"
+              }
+            }
+          ],
+          [
+            {
+              "name": "RcmResponsiveHoverImage",
+              "id": 127869,
+              "config": {
+                "alt": "Reliv Products",
+                "hoverSrc": "https:\/\/reliv-static.s3.amazonaws.com\/art\/WebStuff\/Homepage\/Redesign16\/US\/Start2-web.png",
+                "href": "\/reliv-products",
+                "src": "https:\/\/reliv-static.s3.amazonaws.com\/art\/WebStuff\/Homepage\/Redesign16\/US\/Start-web.png"
+              },
+              "layoutData": {
+                "renderOrder": 2,
+                "rowNumber": 0,
+                "columnClass": "col-sm-3 col-xs-6"
+              }
+            }
+          ],
+          [
+            {
+              "name": "RcmResponsiveHoverImage",
+              "id": 127870,
+              "config": {
+                "alt": "",
+                "hoverSrc": "https:\/\/reliv-static.s3.amazonaws.com\/art\/WebStuff\/Homepage\/Redesign16\/US\/Reliv2-web.png",
+                "href": "\/reliv",
+                "src": "https:\/\/reliv-static.s3.amazonaws.com\/art\/WebStuff\/Homepage\/Redesign16\/US\/Reliv-web.png"
+              },
+              "layoutData": {
+                "renderOrder": 3,
+                "rowNumber": 0,
+                "columnClass": "col-sm-3 col-xs-6"
+              }
+            }
+          ],
+          [
+            {
+              "name": "RcmHtmlArea",
+              "id": 169942,
+              "config": {
+                "html": "<a title=\"International Conference\" href=\"\/international-conference\" data-mce-href=\"\/international-conference\"><img style=\"display: block; margin-left: auto; margin-right: auto;\" src=\"https:\/\/reliv-static.s3.amazonaws.com\/art\/WebStuff\/Homepage\/2017\/FitForLife\/FitForLife-web.jpg\" alt=\"Fit for Life Conference\" data-mce-src=\"https:\/\/reliv-static.s3.amazonaws.com\/art\/WebStuff\/Homepage\/2017\/FitForLife\/FitForLife-web.jpg\" data-pin-nopin=\"true\" data-mce-style=\"display: block; margin-left: auto; margin-right: auto;\" width=\"734px\"><\/a>"
+              },
+              "layoutData": {
+                "renderOrder": 4,
+                "rowNumber": 0,
+                "columnClass": "col-xs-12 col-sm-6"
+              }
+            }
+          ],
+          [
+            {
+              "name": "RcmHtmlArea",
+              "id": 168289,
+              "config": {
+                "html": "<a title=\"Reliv Podcast\" href=\"\/conference-calls\" data-mce-href=\"\/conference-calls\"><img style=\"display: block; margin-left: auto; margin-right: auto;\" src=\"https:\/\/reliv-static.s3.amazonaws.com\/art\/WebStuff\/Homepage\/2017\/Podcast\/PodCastAd-web.jpg\" data-mce-src=\"https:\/\/reliv-static.s3.amazonaws.com\/art\/WebStuff\/Homepage\/2017\/Podcast\/PodCastAd-web.jpg\" data-pin-nopin=\"true\" data-mce-style=\"display: block; margin-left: auto; margin-right: auto;\" width=\"734px\"><\/a>"
+              },
+              "layoutData": {
+                "renderOrder": 5,
+                "rowNumber": 0,
+                "columnClass": "col-xs-12 col-sm-6"
+              }
+            }
+          ],
+          [
+            {
+              "name": "RcmHtmlArea",
+              "id": 159867,
+              "config": {
+                "html": "<a title=\"Reliv Videos\" href=\"\/reliv-videos\" data-mce-href=\"\/reliv-videos\"><img src=\"https:\/\/reliv-static.s3.amazonaws.com\/art\/WebStuff\/Homepage\/Redesign16\/US\/RelivVision-web.png\" alt=\"Relivision-web.png\" data-mce-src=\"https:\/\/reliv-static.s3.amazonaws.com\/art\/WebStuff\/Homepage\/Redesign16\/US\/RelivVision-web.png\" width=\"950\" height=\"196\"><\/a>"
+              },
+              "layoutData": {
+                "renderOrder": 6,
+                "rowNumber": 0,
+                "columnClass": "col-xs-12"
+              }
+            }
+          ]
+        ]
+      }
+    }
+  ],
+  "containers": [
+    {
+      "id": 1,
+      "path": "guestTopNavigation",
+      "siteId": 1,
+      "properties": {
+        "blockInstances": [
+          [
+            {
+              "name": "RcmDynamicNavigation",
+              "id": 177169,
+              "config": {
+                "links": [
+                  {
+                    "display": "join",
+                    "href": "\/join-reliv",
+                    "myIndex": "0",
+                    "permissions": ""
+                  },
+                  {
+                    "class": "rcmDynamicNavigationLogout rcmDynamicNavigationAuthMenuItem",
+                    "display": "logout",
+                    "href": "\/login?logout=1",
+                    "myIndex": "1",
+                    "permissions": ""
+                  },
+                  {
+                    "class": "rcmDynamicNavigationLogin rcmDynamicNavigationAuthMenuItem",
+                    "display": "login",
+                    "href": "\/login",
+                    "myIndex": "2",
+                    "permissions": ""
+                  },
+                  {
+                    "class": "portal",
+                    "display": "my portal",
+                    "href": "\/login-home",
+                    "myIndex": "3",
+                    "permissions": ""
+                  }
+                ]
+              },
+              "layoutData": {
+                "renderOrder": 0,
+                "rowNumber": 0,
+                "columnClass": "col-xs-8 col-sm-8"
+              }
+            }
+          ]
+        ]
+      }
+    }
+  ]
 }
