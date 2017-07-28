@@ -77,4 +77,3 @@ zrcms:site:1:theme-layout/{theme-layout-path}
     - Property definitions need to be defined somehow that is easy to understand from code
     - Property definitions might be injectable or validated
 - Arguments over-ride issue due to config merge
-- ENTITIES ddd($config->getArrayCopy()['doctrine']);
