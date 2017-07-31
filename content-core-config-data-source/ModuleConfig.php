@@ -4,8 +4,6 @@ namespace Zrcms\ContentCoreConfigDataSource;
 
 use Zrcms\ContentCore\Block\Api\Repository\FindBlockComponent;
 use Zrcms\ContentCore\Block\Api\Repository\FindBlockComponentsBy;
-use Zrcms\ContentCore\Container\Model\PropertiesContainer;
-use Zrcms\ContentCore\Page\Model\PropertiesPage;
 use Zrcms\ContentCore\Theme\Api\Repository\FindThemeComponent;
 use Zrcms\ContentCore\Theme\Api\Repository\FindThemeComponentsBy;
 use Zrcms\ContentCore\View\Api\Render\GetViewRenderDataContainers;
@@ -102,14 +100,14 @@ class ModuleConfig
                     ],
                     /** ThemeComponents **/
                     FindThemeComponent::class => [
-                        'class' => \Zrcms\ContentCoreConfigDataSource\Theme\Api\FindThemeComponent::class,
+                        'class' => \Zrcms\ContentCoreConfigDataSource\Theme\Api\Repository\FindThemeComponent::class,
                         'arguments' => [
                             '0-' => GetConfigThemeComponents::class,
                             '1-' => SearchConfigList::class
                         ],
                     ],
                     FindThemeComponentsBy::class => [
-                        'class' => \Zrcms\ContentCoreConfigDataSource\Theme\Api\FindThemeComponentsBy::class,
+                        'class' => \Zrcms\ContentCoreConfigDataSource\Theme\Api\Repository\FindThemeComponentsBy::class,
                         'arguments' => [
                             '0-' => GetConfigThemeComponents::class,
                             '1-' => SearchConfigList::class

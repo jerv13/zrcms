@@ -3,8 +3,11 @@
 namespace Zrcms\ContentCoreDoctrineDataSource\Container\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Zrcms\Content\Model\PropertiesContent;
 use Zrcms\ContentCore\Container\Model\ContainerVersion;
 use Zrcms\ContentCore\Container\Model\ContainerVersionAbstract;
+use Zrcms\ContentDoctrine\Entity\ContentEntity;
+use Zrcms\ContentDoctrine\Entity\ContentEntityTrait;
 use Zrcms\Param\Param;
 
 /**
@@ -17,15 +20,19 @@ use Zrcms\Param\Param;
  *     indexes={}
  * )
  */
-class ContainerVersionEntity extends ContainerVersionAbstract implements ContainerVersion
+class ContainerVersionEntity
+    extends ContainerVersionAbstract
+    implements ContainerVersion, ContentEntity
 {
     use ContainerBlockVersionsTrait;
+    use ContentEntityTrait;
 
     /**
-     * @var string
+     * @var int
      *
      * @ORM\Id
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="integer")
+     * @ORM\GeneratedValue
      */
     protected $id;
 
@@ -80,6 +87,12 @@ class ContainerVersionEntity extends ContainerVersionAbstract implements Contain
         string $createdByUserId,
         string $createdReason
     ) {
+        // Force Id to int
+        $properties[PropertiesContent::ID] = Param::getInt(
+            $properties,
+            PropertiesContent::ID
+        );
+
         $blockVersions = Param::get(
             $properties,
             PropertiesContainerVersionEntity::BLOCK_VERSIONS_DATA,
@@ -88,16 +101,10 @@ class ContainerVersionEntity extends ContainerVersionAbstract implements Contain
 
         $this->addBlockVersions($blockVersions);
 
-        parent::__construct($properties, $createdByUserId, $createdReason);
-    }
-
-    /**
-     * @return void
-     *
-     * @ORM\PrePersist
-     */
-    public function assertHasTrackingData()
-    {
-        parent::assertHasTrackingData();
+        parent::__construct(
+            $properties,
+            $createdByUserId,
+            $createdReason
+        );
     }
 }

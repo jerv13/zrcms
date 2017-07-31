@@ -3,8 +3,12 @@
 namespace Zrcms\ContentCoreDoctrineDataSource\Page\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Zrcms\Content\Model\PropertiesCmsResourcePublishHistory;
 use Zrcms\ContentCore\Page\Model\PageContainerCmsResourcePublishHistory;
 use Zrcms\ContentCore\Page\Model\PageContainerCmsResourcePublishHistoryAbstract;
+use Zrcms\ContentDoctrine\Entity\CmsResourcePublishHistoryEntity;
+use Zrcms\ContentDoctrine\Entity\CmsResourcePublishHistoryEntityTrait;
+use Zrcms\Param\Param;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -18,13 +22,16 @@ use Zrcms\ContentCore\Page\Model\PageContainerCmsResourcePublishHistoryAbstract;
  */
 class PageContainerCmsResourcePublishHistoryEntity
     extends PageContainerCmsResourcePublishHistoryAbstract
-    implements PageContainerCmsResourcePublishHistory
+    implements PageContainerCmsResourcePublishHistory, CmsResourcePublishHistoryEntity
 {
+    use CmsResourcePublishHistoryEntityTrait;
+
     /**
-     * @var string
+     * @var int
      *
      * @ORM\Id
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="integer")
+     * @ORM\GeneratedValue
      */
     protected $id;
 
@@ -91,12 +98,25 @@ class PageContainerCmsResourcePublishHistoryEntity
     protected $action;
 
     /**
-     * @return void
-     *
-     * @ORM\PrePersist
+     * @param array  $properties
+     * @param string $createdByUserId
+     * @param string $createdReason
      */
-    public function assertHasTrackingData()
-    {
-        parent::assertHasTrackingData();
+    public function __construct(
+        array $properties,
+        string $createdByUserId,
+        string $createdReason
+    ) {
+        // Force Id to int
+        $properties[PropertiesCmsResourcePublishHistory::ID] = Param::getInt(
+            $properties,
+            PropertiesCmsResourcePublishHistory::ID
+        );
+
+        parent::__construct(
+            $properties,
+            $createdByUserId,
+            $createdReason
+        );
     }
 }

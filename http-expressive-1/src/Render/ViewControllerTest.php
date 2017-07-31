@@ -2,6 +2,7 @@
 
 namespace Zrcms\HttpExpressive1\Render;
 
+use Psr\Container\ContainerInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Zend\Diactoros\Response\HtmlResponse;
@@ -11,6 +12,7 @@ use Zrcms\ContentCore\Page\Model\PageContainerCmsResourceBasic;
 use Zrcms\ContentCore\Page\Model\PageContainerVersionBasic;
 use Zrcms\ContentCore\Page\Model\PropertiesPageContainerCmsResource;
 use Zrcms\ContentCore\Page\Model\PropertiesPageContainerVersion;
+use Zrcms\ContentCore\Site\Api\Repository\InsertSiteVersion;
 use Zrcms\ContentCore\Site\Model\PropertiesSiteCmsResource;
 use Zrcms\ContentCore\Site\Model\PropertiesSiteVersion;
 use Zrcms\ContentCore\Site\Model\SiteCmsResourceBasic;
@@ -26,23 +28,27 @@ use Zrcms\ContentCore\View\Api\Render\RenderView;
 use Zrcms\ContentCore\View\Api\Repository\FindTagNamesByLayoutMustache;
 use Zrcms\ContentCore\View\Model\PropertiesView;
 use Zrcms\ContentCore\View\Model\ViewBasic;
-use Zrcms\ContentCoreDoctrineDataSource\Container\Entity\Test;
 
 /**
  * @author James Jervis - https://github.com/jerv13
  */
 class ViewControllerTest
 {
+    const CREATED_BY_USER_ID = 'test-user-id';
+    const CREATED_REASON = 'test-reason';
+
     /**
-     * @param GetViewRenderData $getViewRenderData
-     * @param RenderView        $renderView
+     * @var ContainerInterface
+     */
+    protected $serviceContainer;
+
+    /**
+     * @param ContainerInterface $serviceContainer
      */
     public function __construct(
-        GetViewRenderData $getViewRenderData,
-        RenderView $renderView
+        $serviceContainer
     ) {
-        $this->getViewRenderData = $getViewRenderData;
-        $this->renderView = $renderView;
+        $this->serviceContainer = $serviceContainer;
     }
 
     /**
@@ -60,6 +66,72 @@ class ViewControllerTest
         ResponseInterface $response,
         callable $next = null
     ) {
+        $siteVersion = new SiteVersionBasic(
+            [
+//                PropertiesSiteVersion::ID
+//                => '1',
+                PropertiesSiteVersion::COUNTRY_ISO3
+                => 'test1:' . PropertiesSiteVersion::COUNTRY_ISO3,
+                PropertiesSiteVersion::FAVICON
+                => 'test:' . PropertiesSiteVersion::FAVICON,
+                PropertiesSiteVersion::LANGUAGE_ISO_939_2T
+                => 'test:' . PropertiesSiteVersion::LANGUAGE_ISO_939_2T,
+                PropertiesSiteVersion::LAYOUT
+                => 'test:' . PropertiesSiteVersion::LAYOUT,
+                PropertiesSiteVersion::LOCALE
+                => 'test:' . PropertiesSiteVersion::LOCALE,
+                PropertiesSiteVersion::LOGIN_PAGE
+                => 'test:' . PropertiesSiteVersion::LOGIN_PAGE,
+                PropertiesSiteVersion::NOT_AUTHORIZED_PAGE
+                => 'test:' . PropertiesSiteVersion::NOT_AUTHORIZED_PAGE,
+                PropertiesSiteVersion::NOT_FOUND_PAGE
+                => 'test:' . PropertiesSiteVersion::NOT_FOUND_PAGE,
+                PropertiesSiteVersion::THEME_NAME
+                => 'test:' . PropertiesSiteVersion::THEME_NAME,
+                PropertiesSiteVersion::TITLE
+                => 'test:' . PropertiesSiteVersion::TITLE,
+            ],
+            self::CREATED_BY_USER_ID,
+            self::CREATED_REASON
+        );
+
+        /** @var InsertSiteVersion $insertSiteVersion */
+        $insertSiteVersion = $this->serviceContainer->get(InsertSiteVersion::class);
+
+        $newSiteVersion = $insertSiteVersion->__invoke(
+            $siteVersion
+        );
+
+        ddd($siteVersion, $newSiteVersion);
+
+        $siteCmsResource = new SiteCmsResourceBasic(
+            [
+                PropertiesSiteCmsResource::ID
+                => '1',
+                PropertiesSiteCmsResource::CONTENT_VERSION_ID
+                => $newSiteVersion->getId(),
+                PropertiesSiteCmsResource::HOST
+                => 'test:' . PropertiesSiteCmsResource::HOST,
+            ],
+            self::CREATED_BY_USER_ID,
+            self::CREATED_REASON
+        );
+
+        return new HtmlResponse('test');
+    }
+
+    /**
+     * @param ServerRequestInterface $request
+     * @param ResponseInterface      $response
+     * @param callable|null          $next
+     *
+     * @return HtmlResponse
+     */
+    public function renderBasicView(
+        ServerRequestInterface $request,
+        ResponseInterface $response,
+        callable $next = null
+    ) {
         $additionalViewProperties = [];
 
         $siteCmsResource = new SiteCmsResourceBasic(
@@ -71,8 +143,8 @@ class ViewControllerTest
                 PropertiesSiteCmsResource::HOST
                 => 'test:' . PropertiesSiteCmsResource::HOST,
             ],
-            'test-user-id',
-            'test-reason'
+            self::CREATED_BY_USER_ID,
+            self::CREATED_REASON
         );
 
         $siteVersion = new SiteVersionBasic(
@@ -100,8 +172,8 @@ class ViewControllerTest
                 PropertiesSiteVersion::TITLE
                 => 'test:' . PropertiesSiteVersion::TITLE,
             ],
-            'test-user-id',
-            'test-reason'
+            self::CREATED_BY_USER_ID,
+            self::CREATED_REASON
         );
 
         $pageContainerCmsResource = new PageContainerCmsResourceBasic(
@@ -115,8 +187,8 @@ class ViewControllerTest
                 PropertiesPageContainerCmsResource::PATH
                 => 'test:' . PropertiesPageContainerCmsResource::PATH,
             ],
-            'test-user-id',
-            'test-reason'
+            self::CREATED_BY_USER_ID,
+            self::CREATED_REASON
         );
 
         $pageContainerVersion = new PageContainerVersionBasic(
@@ -138,8 +210,8 @@ class ViewControllerTest
                 PropertiesPageContainerVersion::RENDERER
                 => RenderPageContainerRows::class,
             ],
-            'test-user-id',
-            'test-reason'
+            self::CREATED_BY_USER_ID,
+            self::CREATED_REASON
         );
 
         $layoutCmsResource = new LayoutCmsResourceBasic(
@@ -153,8 +225,8 @@ class ViewControllerTest
                 PropertiesLayoutCmsResource::THEME_NAME
                 => 'test:' . PropertiesLayoutCmsResource::THEME_NAME,
             ],
-            'test-user-id',
-            'test-reason'
+            self::CREATED_BY_USER_ID,
+            self::CREATED_REASON
         );
 
         $layout = new LayoutVersionBasic(
@@ -174,8 +246,8 @@ class ViewControllerTest
                 PropertiesLayoutVersion::RENDERER
                 => RenderLayoutMustache::class,
             ],
-            'test-user-id',
-            'test-reason'
+            self::CREATED_BY_USER_ID,
+            self::CREATED_REASON
         );
 
         $properties = [
@@ -201,12 +273,12 @@ class ViewControllerTest
             $properties
         );
 
-        $viewRenderData = $this->getViewRenderData->__invoke(
+        $viewRenderData = $this->serviceContainer->get(GetViewRenderData::class)->__invoke(
             $pageView,
             $request
         );
 
-        $html = $this->renderView->__invoke(
+        $html = $this->serviceContainer->get(RenderView::class)->__invoke(
             $pageView,
             $viewRenderData
         );

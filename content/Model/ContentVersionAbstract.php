@@ -16,7 +16,7 @@ abstract class ContentVersionAbstract implements ContentVersion
     /**
      * @var string
      */
-    protected $id;
+    protected $id = '';
 
     /**
      * @var array
@@ -58,10 +58,12 @@ abstract class ContentVersionAbstract implements ContentVersion
         if (!$this->isNew()) {
             return;
         }
+        $this->new = false;
 
         $this->id = Param::get(
             $properties,
-            PropertiesContentVersion::ID
+            PropertiesContentVersion::ID,
+            ''
         );
 
         $this->setCreatedData(
@@ -70,14 +72,6 @@ abstract class ContentVersionAbstract implements ContentVersion
         );
 
         $this->properties = $properties;
-    }
-
-    /**
-     * @return bool
-     */
-    public function isNew(): bool
-    {
-        return empty($this->id);
     }
 
     /**

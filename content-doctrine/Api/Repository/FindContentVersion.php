@@ -29,7 +29,7 @@ class FindContentVersion
             $this->entityClass
         );
 
-        $entity = $repository->find($id);
+        $entity = $repository->find((int)$id);
 
         return $this->newBasic($entity);
     }

@@ -9,6 +9,8 @@ use Zrcms\Param\Exception\ParamMissingException;
  */
 interface Properties
 {
+    const NAME_PROPERTIES = 'properties';
+
     /**
      * @return array
      */
@@ -21,14 +23,6 @@ interface Properties
      * @return mixed
      */
     public function getProperty(string $name, $default = null);
-
-    /**
-     * @param string $name
-     *
-     * @return mixed
-     * @throws ParamMissingException
-     */
-    public function getPropertyRequired(string $name);
 
     /**
      * @param string $name

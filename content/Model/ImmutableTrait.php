@@ -10,6 +10,20 @@ use Zrcms\Content\Exception\ImmutableException;
 trait ImmutableTrait
 {
     /**
+     * @var bool
+     */
+    protected $new = true;
+
+
+    /**
+     * @return bool
+     */
+    public function isNew(): bool
+    {
+        return $this->new;
+    }
+
+    /**
      * @return void
      * @throws ImmutableException
      */
@@ -17,7 +31,7 @@ trait ImmutableTrait
     {
         if (!$this->isNew()) {
             throw new ImmutableException(
-                'Data my not be changed'
+                'Data my not be changed in ' . get_class($this)
             );
         }
     }

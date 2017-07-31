@@ -17,12 +17,12 @@ abstract class CmsResourceAbstract implements CmsResource
     /**
      * @var string
      */
-    protected $id = null;
+    protected $id = '';
 
     /**
      * @var string
      */
-    protected $contentVersionId = null;
+    protected $contentVersionId = '';
 
     /**
      * @var array
@@ -64,6 +64,7 @@ abstract class CmsResourceAbstract implements CmsResource
         if (!$this->isNew()) {
             return;
         }
+        $this->new = false;
 
         $this->id = Param::get(
             $properties,
@@ -80,14 +81,6 @@ abstract class CmsResourceAbstract implements CmsResource
         );
 
         $this->properties = $properties;
-    }
-
-    /**
-     * @return bool
-     */
-    public function isNew(): bool
-    {
-        return empty($this->id);
     }
 
     /**

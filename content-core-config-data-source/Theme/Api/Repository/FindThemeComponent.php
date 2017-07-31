@@ -1,6 +1,6 @@
 <?php
 
-namespace Zrcms\ContentCoreConfigDataSource\Theme\Api;
+namespace Zrcms\ContentCoreConfigDataSource\Theme\Api\Repository;
 
 use Zrcms\Content\Model\Component;
 use Zrcms\ContentCore\Theme\Model\ThemeComponent;

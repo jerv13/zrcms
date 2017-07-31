@@ -2,7 +2,6 @@
 namespace Zrcms\ContentDoctrine\Api\Action;
 
 use Doctrine\ORM\EntityManager;
-use Zrcms\Content\Api\Action\UnpublishCmsResource;
 use Zrcms\Content\Exception\ContentVersionNotExistsException;
 use Zrcms\Content\Model\Action;
 use Zrcms\Content\Model\CmsResource;
@@ -11,7 +10,6 @@ use Zrcms\Content\Model\ContentVersion;
 use Zrcms\Content\Model\PropertiesCmsResourcePublishHistory;
 use Zrcms\ContentDoctrine\Api\ApiAbstract;
 use Zrcms\ContentDoctrine\Api\BasicCmsResourceTrait;
-use Zrcms\ContentDoctrine\Api\BasicContentVersionTrait;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -48,11 +46,11 @@ class PublishCmsResource
     protected $classCmsResourceBasic;
 
     /**
-     * @param EntityManager           $entityManager
-     * @param string                  $entityClassCmsResource
-     * @param string                  $entityClassCmsResourcePublishHistory
-     * @param string                  $entityClassContentVersion
-     * @param string                  $classCmsResourceBasic
+     * @param EntityManager $entityManager
+     * @param string        $entityClassCmsResource
+     * @param string        $entityClassCmsResourcePublishHistory
+     * @param string        $entityClassContentVersion
+     * @param string        $classCmsResourceBasic
      */
     public function __construct(
         EntityManager $entityManager,

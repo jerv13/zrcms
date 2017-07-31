@@ -76,4 +76,171 @@ zrcms:site:1:theme-layout/{theme-layout-path}
 - Deal with properties
     - Property definitions need to be defined somehow that is easy to understand from code
     - Property definitions might be injectable or validated
+    - Properties need to be synced between Content and array
 - Arguments over-ride issue due to config merge
+
+
+    /**
+     * @var int
+     *
+     * @ORM\Id
+     * @ORM\Column(type="integer")
+     * @ORM\GeneratedValue
+     */
+ 
+    /**
+     * @param array  $properties
+     * @param string $createdByUserId
+     * @param string $createdReason
+     */
+    public function __construct(
+        array $properties,
+        string $createdByUserId,
+        string $createdReason
+    ) {
+        // Force Id to int
+        $properties[PropertiesCmsResource::ID] = Param::getInt(
+            $properties,
+            PropertiesCmsResource::ID
+        );
+
+        parent::__construct(
+            $properties,
+            $createdByUserId,
+            $createdReason
+        );
+    }
+
+, CmsResourceEntity
+use CmsResourceEntityTrait;
+
+    /**
+     * @var int
+     *
+     * @ORM\Id
+     * @ORM\Column(type="integer")
+     * @ORM\GeneratedValue
+     */
+ 
+    /**
+     * @param array  $properties
+     * @param string $createdByUserId
+     * @param string $createdReason
+     */
+    public function __construct(
+        array $properties,
+        string $createdByUserId,
+        string $createdReason
+    ) {
+        // Force Id to int
+        $properties[PropertiesCmsResourcePublishHistory::ID] = Param::getInt(
+            $properties,
+            PropertiesCmsResourcePublishHistory::ID
+        );
+
+        parent::__construct(
+            $properties,
+            $createdByUserId,
+            $createdReason
+        );
+    }
+
+, CmsResourcePublishHistoryEntity
+use CmsResourcePublishHistoryEntityTrait;
+
+    /**
+     * @var int
+     *
+     * @ORM\Id
+     * @ORM\Column(type="integer")
+     * @ORM\GeneratedValue
+     */
+     
+    /**
+     * @param array  $properties
+     * @param string $createdByUserId
+     * @param string $createdReason
+     */
+    public function __construct(
+        array $properties,
+        string $createdByUserId,
+        string $createdReason
+    ) {
+        // Force Id to int
+        $properties[PropertiesContent::ID] = Param::getInt(
+            $properties,
+            PropertiesContent::ID
+        );
+
+        parent::__construct(
+            $properties,
+            $createdByUserId,
+            $createdReason
+        );
+    }
+
+, ContentEntity
+use ContentEntityTrait;
+
+    /**
+     * @param array  $properties
+     * @param string $createdByUserId
+     * @param string $createdReason
+     */
+    public function __construct(
+        array $properties,
+        string $createdByUserId,
+        string $createdReason
+    ) {
+        // Force Id to int
+        $properties[PropertiesContent::ID] = Param::getInt(
+            $properties,
+            PropertiesContent::ID
+        );
+
+        parent::__construct(
+            $properties,
+            $createdByUserId,
+            $createdReason
+        );
+    }
+    
+    
+
+
+    /**
+     * @return void
+     *
+     * @ORM\PreUpdate
+     */
+    public function preUpdate(LifecycleEventArgs $event)
+    {
+        var_dump('PreUpdate', $this->id);
+    }
+    /**
+     * @return void
+     *
+     * @ORM\PostUpdate
+     */
+    public function postUpdate(LifecycleEventArgs $event)
+    {
+        var_dump('PostUpdate', $this->id);
+    }
+    /**
+     * @return void
+     *
+     * @ORM\PreFlush
+     */
+    public function preFlush(PreFlushEventArgs $event)
+    {
+        var_dump('PreFlush', $this->id);
+    }
+    /**
+     * @return void
+     *
+     * @ORM\PostLoad
+     */
+    public function postLoad(LifecycleEventArgs $event)
+    {
+        var_dump('PostLoad', $this->id);
+    }

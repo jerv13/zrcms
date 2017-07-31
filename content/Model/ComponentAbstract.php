@@ -43,6 +43,7 @@ abstract class ComponentAbstract implements Component
         if (!$this->isNew()) {
             return;
         }
+        $this->new = false;
 
         $this->name = Param::getRequired(
             $properties,
@@ -66,14 +67,6 @@ abstract class ComponentAbstract implements Component
             $createdByUserId,
             $createdReason
         );
-    }
-
-    /**
-     * @return bool
-     */
-    public function isNew(): bool
-    {
-        return empty($this->name);
     }
 
     /**

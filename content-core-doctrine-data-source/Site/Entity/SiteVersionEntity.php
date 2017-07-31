@@ -3,8 +3,12 @@
 namespace Zrcms\ContentCoreDoctrineDataSource\Site\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Zrcms\Content\Model\PropertiesContent;
 use Zrcms\ContentCore\Site\Model\SiteVersion;
 use Zrcms\ContentCore\Site\Model\SiteVersionAbstract;
+use Zrcms\ContentDoctrine\Entity\ContentEntity;
+use Zrcms\ContentDoctrine\Entity\ContentEntityTrait;
+use Zrcms\Param\Param;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -18,13 +22,16 @@ use Zrcms\ContentCore\Site\Model\SiteVersionAbstract;
  */
 class SiteVersionEntity
     extends SiteVersionAbstract
-    implements SiteVersion
+    implements SiteVersion, ContentEntity
 {
+    use ContentEntityTrait;
+
     /**
      * @var string
      *
      * @ORM\Id
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="integer")
+     * @ORM\GeneratedValue
      */
     protected $id;
 
@@ -82,12 +89,25 @@ class SiteVersionEntity
     protected $locale;
 
     /**
-     * @return void
-     *
-     * @ORM\PrePersist
+     * @param array  $properties
+     * @param string $createdByUserId
+     * @param string $createdReason
      */
-    public function assertHasTrackingData()
-    {
-        parent::assertHasTrackingData();
+    public function __construct(
+        array $properties,
+        string $createdByUserId,
+        string $createdReason
+    ) {
+        // Force Id to int
+        $properties[PropertiesContent::ID] = Param::getInt(
+            $properties,
+            PropertiesContent::ID
+        );
+
+        parent::__construct(
+            $properties,
+            $createdByUserId,
+            $createdReason
+        );
     }
 }

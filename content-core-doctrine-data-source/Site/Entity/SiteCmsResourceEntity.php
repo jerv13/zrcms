@@ -3,8 +3,12 @@
 namespace Zrcms\ContentCoreDoctrineDataSource\Site\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Zrcms\ContentCore\Site\Model\PropertiesSiteCmsResource;
 use Zrcms\ContentCore\Site\Model\SiteCmsResource;
 use Zrcms\ContentCore\Site\Model\SiteCmsResourceAbstract;
+use Zrcms\ContentDoctrine\Entity\CmsResourceEntity;
+use Zrcms\ContentDoctrine\Entity\CmsResourceEntityTrait;
+use Zrcms\Param\Param;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -16,13 +20,18 @@ use Zrcms\ContentCore\Site\Model\SiteCmsResourceAbstract;
  *     indexes={}
  * )
  */
-class SiteCmsResourceEntity extends SiteCmsResourceAbstract implements SiteCmsResource
+class SiteCmsResourceEntity
+    extends SiteCmsResourceAbstract
+    implements SiteCmsResource, CmsResourceEntity
 {
+    use CmsResourceEntityTrait;
+
     /**
-     * @var string
+     * @var int
      *
      * @ORM\Id
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="integer")
+     * @ORM\GeneratedValue
      */
     protected $id;
 
@@ -75,12 +84,25 @@ class SiteCmsResourceEntity extends SiteCmsResourceAbstract implements SiteCmsRe
     protected $host;
 
     /**
-     * @return void
-     *
-     * @ORM\PrePersist
+     * @param array  $properties
+     * @param string $createdByUserId
+     * @param string $createdReason
      */
-    public function assertHasTrackingData()
-    {
-        parent::assertHasTrackingData();
+    public function __construct(
+        array $properties,
+        string $createdByUserId,
+        string $createdReason
+    ) {
+        // Force Id to int
+        $properties[PropertiesSiteCmsResource::ID] = Param::getInt(
+            $properties,
+            PropertiesSiteCmsResource::ID
+        );
+
+        parent::__construct(
+            $properties,
+            $createdByUserId,
+            $createdReason
+        );
     }
 }

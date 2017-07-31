@@ -38,7 +38,7 @@ class FindContainerVersion
         string $id,
         array $options = []
     ) {
-        parent::__invoke(
+        return parent::__invoke(
             $id,
             $options
         );

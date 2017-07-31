@@ -3,8 +3,12 @@
 namespace Zrcms\ContentCoreDoctrineDataSource\Page\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Zrcms\Content\Model\PropertiesContent;
+use Zrcms\ContentCore\Page\Model\PageContainerVersion;
 use Zrcms\ContentCore\Page\Model\PageContainerVersionAbstract;
 use Zrcms\ContentCoreDoctrineDataSource\Container\Entity\ContainerBlockVersionsTrait;
+use Zrcms\ContentDoctrine\Entity\ContentEntity;
+use Zrcms\ContentDoctrine\Entity\ContentEntityTrait;
 use Zrcms\Param\Param;
 
 /**
@@ -19,15 +23,17 @@ use Zrcms\Param\Param;
  */
 class PageContainerVersionEntity
     extends PageContainerVersionAbstract
-    implements \Zrcms\ContentCore\Page\Model\PageContainerVersion
+    implements PageContainerVersion, ContentEntity
 {
     use ContainerBlockVersionsTrait;
+    use ContentEntityTrait;
 
     /**
-     * @var string
+     * @var int
      *
      * @ORM\Id
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="integer")
+     * @ORM\GeneratedValue
      */
     protected $id;
 
@@ -82,6 +88,12 @@ class PageContainerVersionEntity
         string $createdByUserId,
         string $createdReason
     ) {
+        // Force Id to int
+        $properties[PropertiesContent::ID] = Param::getInt(
+            $properties,
+            PropertiesContent::ID
+        );
+
         $blockVersions = Param::get(
             $properties,
             PropertiesPageContainerVersionEntity::BLOCK_VERSIONS_DATA,
@@ -91,15 +103,5 @@ class PageContainerVersionEntity
         $this->addBlockVersions($blockVersions);
 
         parent::__construct($properties, $createdByUserId, $createdReason);
-    }
-
-    /**
-     * @return void
-     *
-     * @ORM\PrePersist
-     */
-    public function assertHasTrackingData()
-    {
-        parent::assertHasTrackingData();
     }
 }

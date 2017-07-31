@@ -46,6 +46,22 @@ trait TrackableTrait
     }
 
     /**
+     * @param string $format
+     *
+     * @return string
+     */
+    public function createdDateToString(
+        string $format = Trackable::DATE_FORMAT
+    ): string
+    {
+        if (empty($this->createdDate)) {
+            return '';
+        }
+
+        return $this->createdDate->format($format);
+    }
+
+    /**
      * @return string
      * @throws TrackingException
      */

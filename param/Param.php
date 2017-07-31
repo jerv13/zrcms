@@ -30,6 +30,63 @@ class Param
     }
 
     /**
+     * @param array  $params
+     * @param string $key
+     * @param null   $default
+     *
+     * @return int|null
+     */
+    public static function getInt(
+        array $params,
+        string $key,
+        $default = null
+    ) {
+        if (self::has($params, $key)) {
+            return (int)$params[$key];
+        }
+
+        return $default;
+    }
+
+    /**
+     * @param array  $params
+     * @param string $key
+     * @param null   $default
+     *
+     * @return string|null
+     */
+    public static function getString(
+        array $params,
+        string $key,
+        $default = null
+    ) {
+        if (self::has($params, $key)) {
+            return (string)$params[$key];
+        }
+
+        return $default;
+    }
+
+    /**
+     * @param array  $params
+     * @param string $key
+     * @param null   $default
+     *
+     * @return array|null
+     */
+    public static function getArray(
+        array $params,
+        string $key,
+        $default = null
+    ) {
+        if (self::has($params, $key)) {
+            return (array)$params[$key];
+        }
+
+        return $default;
+    }
+
+    /**
      * @param array           $params
      * @param string          $key
      * @param \Exception|null $exception

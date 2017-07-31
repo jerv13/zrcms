@@ -16,7 +16,7 @@ abstract class ContentAbstract implements Content
     /**
      * @var string
      */
-    protected $id;
+    protected $id = '';
 
     /**
      * @var array
@@ -33,6 +33,7 @@ abstract class ContentAbstract implements Content
         if (!$this->isNew()) {
             return;
         }
+        $this->new = false;
 
         $this->id = Param::getRequired(
             $properties,
@@ -44,14 +45,6 @@ abstract class ContentAbstract implements Content
         );
 
         $this->properties = $properties;
-    }
-
-    /**
-     * @return bool
-     */
-    public function isNew(): bool
-    {
-        return empty($this->id);
     }
 
     /**

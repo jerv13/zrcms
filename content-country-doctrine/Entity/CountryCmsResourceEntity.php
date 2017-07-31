@@ -3,8 +3,12 @@
 namespace Zrcms\ContentCountryDoctrine\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Zrcms\Content\Model\PropertiesCmsResource;
 use Zrcms\ContentCountry\Model\CountryCmsResource;
 use Zrcms\ContentCountry\Model\CountryCmsResourceAbstract;
+use Zrcms\ContentDoctrine\Entity\CmsResourceEntity;
+use Zrcms\ContentDoctrine\Entity\CmsResourceEntityTrait;
+use Zrcms\Param\Param;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -16,13 +20,18 @@ use Zrcms\ContentCountry\Model\CountryCmsResourceAbstract;
  *     indexes={}
  * )
  */
-class CountryCmsResourceEntity extends CountryCmsResourceAbstract implements CountryCmsResource
+class CountryCmsResourceEntity
+    extends CountryCmsResourceAbstract
+    implements CountryCmsResource, CmsResourceEntity
 {
+    use CmsResourceEntityTrait;
+
     /**
-     * @var string
+     * @var int
      *
      * @ORM\Id
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="integer")
+     * @ORM\GeneratedValue
      */
     protected $id;
 
@@ -68,12 +77,25 @@ class CountryCmsResourceEntity extends CountryCmsResourceAbstract implements Cou
     protected $createdReason;
 
     /**
-     * @return void
-     *
-     * @ORM\PrePersist
+     * @param array  $properties
+     * @param string $createdByUserId
+     * @param string $createdReason
      */
-    public function assertHasTrackingData()
-    {
-        parent::assertHasTrackingData();
+    public function __construct(
+        array $properties,
+        string $createdByUserId,
+        string $createdReason
+    ) {
+        // Force Id to int
+        $properties[PropertiesCmsResource::ID] = Param::getInt(
+            $properties,
+            PropertiesCmsResource::ID
+        );
+
+        parent::__construct(
+            $properties,
+            $createdByUserId,
+            $createdReason
+        );
     }
 }

@@ -3,8 +3,12 @@
 namespace Zrcms\ContentLanguageDoctrine\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Zrcms\Content\Model\PropertiesContent;
+use Zrcms\ContentDoctrine\Entity\ContentEntity;
+use Zrcms\ContentDoctrine\Entity\ContentEntityTrait;
 use Zrcms\ContentLanguage\Model\LanguageVersion;
 use Zrcms\ContentLanguage\Model\LanguageVersionAbstract;
+use Zrcms\Param\Param;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -18,13 +22,16 @@ use Zrcms\ContentLanguage\Model\LanguageVersionAbstract;
  */
 class LanguageVersionEntity
     extends LanguageVersionAbstract
-    implements LanguageVersion
+    implements LanguageVersion, ContentEntity
 {
+    use ContentEntityTrait;
+
     /**
-     * @var string
+     * @var int
      *
      * @ORM\Id
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="integer")
+     * @ORM\GeneratedValue
      */
     protected $id;
 
@@ -104,12 +111,25 @@ class LanguageVersionEntity
     protected $name;
 
     /**
-     * @return void
-     *
-     * @ORM\PrePersist
+     * @param array  $properties
+     * @param string $createdByUserId
+     * @param string $createdReason
      */
-    public function assertHasTrackingData()
-    {
-        parent::assertHasTrackingData();
+    public function __construct(
+        array $properties,
+        string $createdByUserId,
+        string $createdReason
+    ) {
+        // Force Id to int
+        $properties[PropertiesContent::ID] = Param::getInt(
+            $properties,
+            PropertiesContent::ID
+        );
+
+        parent::__construct(
+            $properties,
+            $createdByUserId,
+            $createdReason
+        );
     }
 }

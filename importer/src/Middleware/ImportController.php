@@ -29,6 +29,7 @@ class ImportController
         ResponseInterface $response,
         callable $next = null
     ) {
+        die('nope');
         $importData = $request->getBody()->getContents();
 
         $this->import->__invoke(
