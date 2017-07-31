@@ -3,6 +3,7 @@
 namespace Zrcms\ContentCoreDoctrineDataSource\Site\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Zrcms\Content\Model\PropertiesCmsResourcePublishHistory;
 use Zrcms\ContentCore\Site\Model\PropertiesSiteCmsResource;
 use Zrcms\ContentCore\Site\Model\SiteCmsResourcePublishHistory;
 use Zrcms\ContentCore\Site\Model\SiteCmsResourcePublishHistoryAbstract;
@@ -100,10 +101,19 @@ class SiteCmsResourcePublishHistoryEntity
         string $createdByUserId,
         string $createdReason
     ) {
-        // Force Id to int
-        $properties[PropertiesSiteCmsResource::ID] = Param::getInt(
+        $this->id = Param::getInt(
             $properties,
             PropertiesSiteCmsResource::ID
+        );
+
+        $this->host = Param::getString(
+            $properties,
+            PropertiesSiteCmsResource::HOST
+        );
+
+        $this->action = Param::getString(
+            $properties,
+            PropertiesCmsResourcePublishHistory::ACTION
         );
 
         parent::__construct(

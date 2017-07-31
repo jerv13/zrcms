@@ -14,11 +14,6 @@ abstract class ContentVersionAbstract implements ContentVersion
     use TrackableTrait;
 
     /**
-     * @var string
-     */
-    protected $id = '';
-
-    /**
      * @var array
      */
     protected $properties = [];
@@ -60,12 +55,6 @@ abstract class ContentVersionAbstract implements ContentVersion
         }
         $this->new = false;
 
-        $this->id = Param::get(
-            $properties,
-            PropertiesContentVersion::ID,
-            ''
-        );
-
         $this->setCreatedData(
             $createdByUserId,
             $createdReason
@@ -79,6 +68,9 @@ abstract class ContentVersionAbstract implements ContentVersion
      */
     public function getId(): string
     {
-        return $this->id;
+        return $this->getProperty(
+            PropertiesContentVersion::ID,
+            ''
+        );
     }
 }

@@ -13,18 +13,13 @@ use Zrcms\Param\Param;
 abstract class LayoutAbstract extends ContentAbstract implements Layout
 {
     /**
-     * @var string
-     */
-    protected $html;
-
-    /**
      * @param array  $properties
      */
     public function __construct(
         array $properties
     ) {
 
-        $this->html = Param::getRequired(
+        Param::assertHas(
             $properties,
             PropertiesLayout::HTML,
             new PropertyMissingException(
@@ -43,6 +38,9 @@ abstract class LayoutAbstract extends ContentAbstract implements Layout
      */
     public function getHtml(): string
     {
-        return $this->html;
+        return $this->getProperty(
+            PropertiesLayout::HTML,
+            ''
+        );
     }
 }

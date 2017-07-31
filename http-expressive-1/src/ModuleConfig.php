@@ -3,14 +3,16 @@
 namespace Zrcms\HttpExpressive1;
 
 use Zrcms\Content\Api\ContentVersionToArray;
+use Zrcms\ContentCore\Site\Model\SiteVersionBasic;
 use Zrcms\ContentCore\View\Api\Render\GetViewRenderData;
 use Zrcms\ContentCore\View\Api\Render\RenderView;
 use Zrcms\ContentCore\View\Api\Repository\FindViewByRequest;
-use Zrcms\HttpExpressive1\Api\FindContentVersion;
-use Zrcms\HttpExpressive1\Api\FindSiteVersion;
+use Zrcms\HttpExpressive1\Api\Site\Repository\FindSiteVersion;
+use Zrcms\HttpExpressive1\Api\Site\Repository\InsertSiteVersion;
 use Zrcms\HttpExpressive1\Render\ViewController;
 use Zrcms\HttpExpressive1\Render\ViewControllerTest;
 use Zrcms\HttpExpressive1\Render\ViewControllerTestFactory;
+use Zrcms\User\Api\GetUserIdByRequest;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -31,11 +33,19 @@ class ModuleConfig
                      * Api ===========================================
                      */
                     FindSiteVersion::class => [
-                        'class' => FindContentVersion::class,
                         'arguments' => [
                             \Zrcms\ContentCore\Site\Api\Repository\FindSiteVersion::class,
                             ContentVersionToArray::class,
-                            ['literal' => 'find-site-content-version']
+                            ['literal' => 'site-repository-find-content-version']
+                        ],
+                    ],
+                    InsertSiteVersion::class => [
+                        'arguments' => [
+                            \Zrcms\Content\Api\Repository\InsertContentVersion::class,
+                            ContentVersionToArray::class,
+                            GetUserIdByRequest::class,
+                            ['literal' => SiteVersionBasic::class],
+                            ['literal' => 'site-repository-insert-content-version']
                         ],
                     ],
                     /**
@@ -56,7 +66,7 @@ class ModuleConfig
 //            'middleware_pipeline' => [
 //                'always' => [
 //                    'middleware' => [
-//                        ViewControllerTest::class => ViewControllerTest::class,
+//                        ViewController::class => ViewController::class,
 //                    ],
 //                ],
 //            ],
@@ -68,10 +78,12 @@ class ModuleConfig
                     'options' => [],
                     'allowed_methods' => ['GET'],
                 ],
-                'zrcms.find-site-content-version' => [
-                    'name' => 'zrcms.find-site-content-version',
-                    'path' => '/zrcms/find-site-content-version/{id}',
-                    'middleware' => FindSiteVersion::class,
+                'zrcms.site.repository.find-content-version' => [
+                    'name' => 'zrcms.site.repository.find-content-version',
+                    'path' => '/zrcms/site/repository/find-content-version/{id}',
+                    'middleware' => [
+                        FindSiteVersion::class => FindSiteVersion::class
+                    ],
                     'options' => [],
                     'allowed_methods' => ['GET'],
                 ],

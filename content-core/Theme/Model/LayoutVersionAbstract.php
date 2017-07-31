@@ -12,11 +12,6 @@ use Zrcms\Param\Param;
 class LayoutVersionAbstract extends ContentVersionAbstract implements LayoutVersion
 {
     /**
-     * @var string
-     */
-    protected $html;
-
-    /**
      * @param array  $properties
      * @param string $createdByUserId
      * @param string $createdReason
@@ -27,11 +22,11 @@ class LayoutVersionAbstract extends ContentVersionAbstract implements LayoutVers
         string $createdReason
     ) {
 
-        $this->html = Param::getRequired(
+        Param::assertHas(
             $properties,
             PropertiesLayoutVersion::HTML,
             new PropertyMissingException(
-                'Required property (' . PropertiesLayoutVersion::HTML. ') is missing in: '
+                'Required property (' . PropertiesLayoutVersion::HTML . ') is missing in: '
                 . get_class($this)
             )
         );
@@ -48,6 +43,9 @@ class LayoutVersionAbstract extends ContentVersionAbstract implements LayoutVers
      */
     public function getHtml(): string
     {
-        return $this->html;
+        return $this->getProperty(
+            PropertiesLayoutVersion::HTML,
+            ''
+        );
     }
 }

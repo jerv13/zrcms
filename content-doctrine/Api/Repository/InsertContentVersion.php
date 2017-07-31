@@ -32,18 +32,6 @@ class InsertContentVersion
         /** @var ContentVersion::class $entityClass */
         $entityClass = $this->entityClass;
 
-        $repository = $this->entityManager->getRepository($entityClass);
-
-        $existingContentVersion = $repository->find($contentVersion->getId());
-
-        if ($existingContentVersion) {
-            return $this->update(
-                $existingContentVersion,
-                $contentVersion,
-                $options
-            );
-        }
-
         if (!empty($contentVersion->getId())) {
             throw new IdMustBeEmptyException(
                 "ID may not be set on create for {$entityClass} with id " . $contentVersion->getId()
@@ -60,27 +48,5 @@ class InsertContentVersion
         $this->entityManager->flush($newContentVersion);
 
         return $this->newBasic($newContentVersion);
-    }
-
-    /**
-     * @param ContentEntity|ContentVersion $existingContentVersion
-     * @param ContentVersion               $newContentVersion
-     * @param array                        $options
-     *
-     * @return ContentVersion
-     */
-    protected function update(
-        ContentEntity $existingContentVersion,
-        ContentVersion $newContentVersion,
-        array $options = []
-    ): ContentVersion
-    {
-        $existingContentVersion->updateProperties(
-            $newContentVersion->getProperties()
-        );
-
-        $this->entityManager->flush($existingContentVersion);
-
-        return $this->newBasic($existingContentVersion);
     }
 }

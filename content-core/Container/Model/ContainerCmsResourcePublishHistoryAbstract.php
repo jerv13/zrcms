@@ -3,7 +3,6 @@
 namespace Zrcms\ContentCore\Container\Model;
 
 use Zrcms\Content\Exception\PropertyMissingException;
-use Zrcms\Content\Model\CmsResourcePublishHistory;
 use Zrcms\Content\Model\PropertiesCmsResourcePublishHistory;
 use Zrcms\Param\Param;
 
@@ -15,11 +14,6 @@ abstract class ContainerCmsResourcePublishHistoryAbstract
     implements ContainerCmsResourcePublishHistory
 {
     /**
-     * @var string
-     */
-    protected $action;
-
-    /**
      * @param array  $properties
      * @param string $publishedByUserId
      * @param string $publishReason
@@ -30,7 +24,7 @@ abstract class ContainerCmsResourcePublishHistoryAbstract
         string $publishReason
     ) {
 
-        $this->action = Param::getRequired(
+        Param::assertHas(
             $properties,
             PropertiesCmsResourcePublishHistory::ACTION,
             new PropertyMissingException(
@@ -51,6 +45,9 @@ abstract class ContainerCmsResourcePublishHistoryAbstract
      */
     public function getAction(): string
     {
-        return $this->action;
+        return $this->getProperty(
+            PropertiesCmsResourcePublishHistory::ACTION,
+            ''
+        );
     }
 }

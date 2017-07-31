@@ -19,18 +19,6 @@ trait CmsResourcePublishHistoryEntityTrait
     }
 
     /**
-     * @param array $properties
-     *
-     * @return void
-     */
-    public function updateProperties(
-        array $properties
-    ) {
-        $this->properties = $properties;
-    }
-
-
-    /**
      * @return void
      *
      * @ORM\PrePersist

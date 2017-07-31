@@ -12,16 +12,6 @@ use Zrcms\Param\Param;
 abstract class LayoutComponentAbstract extends ComponentAbstract implements LayoutComponent
 {
     /**
-     * @var string
-     */
-    protected $themeName;
-
-    /**
-     * @var string
-     */
-    protected $html;
-
-    /**
      * @param array  $properties
      * @param string $createdByUserId
      * @param string $createdReason
@@ -32,7 +22,7 @@ abstract class LayoutComponentAbstract extends ComponentAbstract implements Layo
         string $createdReason
     ) {
 
-        $this->themeName = Param::getRequired(
+        Param::assertHas(
             $properties,
             PropertiesLayoutComponent::THEME_NAME,
             new PropertyMissingException(
@@ -41,7 +31,7 @@ abstract class LayoutComponentAbstract extends ComponentAbstract implements Layo
             )
         );
 
-        $this->html = Param::getRequired(
+        Param::assertHas(
             $properties,
             PropertiesLayoutComponent::HTML,
             new PropertyMissingException(
@@ -62,7 +52,10 @@ abstract class LayoutComponentAbstract extends ComponentAbstract implements Layo
      */
     public function getThemeName(): string
     {
-        return $this->themeName;
+        return $this->getProperty(
+            PropertiesLayoutComponent::THEME_NAME,
+            ''
+        );
     }
 
     /**
@@ -70,6 +63,9 @@ abstract class LayoutComponentAbstract extends ComponentAbstract implements Layo
      */
     public function getHtml(): string
     {
-        return $this->html;
+        return $this->getProperty(
+            PropertiesLayoutComponent::HTML,
+            ''
+        );
     }
 }

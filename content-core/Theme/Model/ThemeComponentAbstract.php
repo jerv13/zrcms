@@ -13,11 +13,6 @@ use Zrcms\Param\Param;
 abstract class ThemeComponentAbstract extends ComponentAbstract implements ThemeComponent
 {
     /**
-     * @var array
-     */
-    protected $layoutVariations = [];
-
-    /**
      * @param array  $properties
      * @param string $createdByUserId
      * @param string $createdReason
@@ -27,14 +22,29 @@ abstract class ThemeComponentAbstract extends ComponentAbstract implements Theme
         string $createdByUserId,
         string $createdReason
     ) {
-        $this->addLayoutVariations(
-            Param::getRequired(
-                $properties,
-                PropertiesThemeComponent::LAYOUT_VARIATIONS,
-                new PropertyMissingException(
-                    'Required property (' . PropertiesThemeComponent::LAYOUT_VARIATIONS. ') is missing in: '
-                    . get_class($this)
-                )
+
+        Param::assertHas(
+            $properties,
+            PropertiesThemeComponent::LAYOUT_VARIATIONS,
+            new PropertyMissingException(
+                'Required property (' . PropertiesThemeComponent::LAYOUT_VARIATIONS . ') is missing in: '
+                . get_class($this)
+            )
+        );
+
+        $layoutVariations = Param::getArray(
+            $properties,
+            PropertiesThemeComponent::LAYOUT_VARIATIONS,
+            []
+        );
+
+        $this->assertAreLayoutVariations($layoutVariations);
+
+        Param::assertHas(
+            $layoutVariations,
+            LayoutComponent::PRIMARY_NAME,
+            new DefaultLayoutMissingException(
+                "Primary layout is missing for theme " . $this->getName()
             )
         );
 
@@ -42,14 +52,6 @@ abstract class ThemeComponentAbstract extends ComponentAbstract implements Theme
             $properties,
             $createdByUserId,
             $createdReason
-        );
-
-        Param::assertHas(
-            $properties,
-            LayoutComponent::PRIMARY_NAME,
-            new DefaultLayoutMissingException(
-                "Primary layout is missing for theme " . $this->getName()
-            )
         );
     }
 
@@ -69,11 +71,14 @@ abstract class ThemeComponentAbstract extends ComponentAbstract implements Theme
      */
     public function getLayoutVariations(): array
     {
-        return $this->layoutVariations;
+        return $this->getProperty(
+            PropertiesThemeComponent::LAYOUT_VARIATIONS,
+            []
+        );
     }
 
     /**
-     * @param string      $name
+     * @param string               $name
      * @param LayoutComponent|null $default
      *
      * @return LayoutComponent|null
@@ -82,11 +87,13 @@ abstract class ThemeComponentAbstract extends ComponentAbstract implements Theme
         string $name,
         LayoutComponent $default = null
     ) {
-        if ($this->hasLayoutVariation($name)) {
-            return $this->layoutVariations[$name];
-        }
+        $layoutVariations = $this->getLayoutVariations();
 
-        return $default;
+        return Param::get(
+            $layoutVariations,
+            $name,
+            $default
+        );
     }
 
     /**
@@ -98,28 +105,29 @@ abstract class ThemeComponentAbstract extends ComponentAbstract implements Theme
         string $name
     ): bool
     {
-        return array_key_exists($name, $this->layoutVariations);
+        $layoutVariations = $this->getLayoutVariations();
+
+        return Param::has(
+            $layoutVariations,
+            $name
+        );
     }
 
     /**
-     * @param array $layouts
+     * @param array $layoutVariations
      *
      * @return void
+     * @throws \Exception
      */
-    protected function addLayoutVariations(array $layouts)
+    protected function assertAreLayoutVariations(array $layoutVariations)
     {
-        foreach ($layouts as $layout) {
-            $this->addLayoutVariation($layout);
+        /** @var LayoutComponent $layoutVariation */
+        foreach ($layoutVariations as $layoutVariation) {
+            if (!is_a($layoutVariation, LayoutComponent::class)) {
+                throw new \Exception(
+                    'Layout variations must be object of type: ' . LayoutComponent::class
+                );
+            }
         }
-    }
-
-    /**
-     * @param LayoutComponent $layout
-     *
-     * @return void
-     */
-    protected function addLayoutVariation(LayoutComponent $layout)
-    {
-        $this->layoutVariations[$layout->getName()] = $layout;
     }
 }

@@ -12,45 +12,14 @@ use Zrcms\Param\Param;
 abstract class BlockVersionAbstract extends ContentVersionAbstract implements BlockVersion
 {
     /**
-     * @var string
-     */
-    protected $containerCmsResourceId;
-
-    /**
-     * @var string
-     */
-    protected $blockComponentName;
-
-    /**
-     * @var array
-     */
-    protected $config = [];
-
-    /**
-     * @var array
-     */
-    protected $layoutProperties = [];
-
-    /**
-     * @param array  $properties
-     * @param string $createdByUserId
-     * @param string $createdReason
+     * @param array $properties
      */
     public function __construct(
         array $properties,
         string $createdByUserId,
         string $createdReason
     ) {
-        $this->containerCmsResourceId = Param::getRequired(
-            $properties,
-            PropertiesBlockVersion::BLOCK_CONTAINER_CMS_RESOURCE_ID,
-            new PropertyMissingException(
-                'Required property (' . PropertiesBlockVersion::BLOCK_CONTAINER_CMS_RESOURCE_ID . ') is missing in: '
-                . get_class($this)
-            )
-        );
-
-        $this->blockComponentName = Param::getRequired(
+        Param::assertHas(
             $properties,
             PropertiesBlockVersion::BLOCK_COMPONENT_NAME,
             new PropertyMissingException(
@@ -59,22 +28,20 @@ abstract class BlockVersionAbstract extends ContentVersionAbstract implements Bl
             )
         );
 
-        $this->id = Param::get(
-            $properties,
-            PropertiesBlockVersion::ID
-        );
-
-        $this->config = Param::get(
-            $properties,
-            PropertiesBlockVersion::CONFIG,
-            []
-        );
-
-        $this->layoutProperties = Param::getRequired(
+        Param::assertHas(
             $properties,
             PropertiesBlockVersion::LAYOUT_PROPERTIES,
             new PropertyMissingException(
                 'Required property (' . PropertiesBlockVersion::LAYOUT_PROPERTIES . ') is missing in: '
+                . get_class($this)
+            )
+        );
+
+        Param::assertHas(
+            $properties,
+            PropertiesBlockVersion::BLOCK_CONTAINER_CMS_RESOURCE_ID,
+            new PropertyMissingException(
+                'Required property (' . PropertiesBlockVersion::BLOCK_CONTAINER_CMS_RESOURCE_ID . ') is missing in: '
                 . get_class($this)
             )
         );
@@ -89,17 +56,12 @@ abstract class BlockVersionAbstract extends ContentVersionAbstract implements Bl
     /**
      * @return string
      */
-    public function getContainerCmsResourceId(): string
-    {
-        return $this->containerCmsResourceId;
-    }
-
-    /**
-     * @return string
-     */
     public function getBlockComponentName(): string
     {
-        return $this->blockComponentName;
+        return $this->getProperty(
+            PropertiesBlockVersion::BLOCK_COMPONENT_NAME,
+            ''
+        );
     }
 
     /**
@@ -108,7 +70,10 @@ abstract class BlockVersionAbstract extends ContentVersionAbstract implements Bl
      */
     public function getConfig(): array
     {
-        return $this->config;
+        return $this->getProperty(
+            PropertiesBlockVersion::CONFIG,
+            []
+        );
     }
 
     /**
@@ -119,11 +84,13 @@ abstract class BlockVersionAbstract extends ContentVersionAbstract implements Bl
      */
     public function getConfigValue(string $name, $default = null)
     {
-        if (array_key_exists($name, $this->config)) {
-            return $this->config[$name];
-        }
+        $config = $this->getConfig();
 
-        return $default;
+        return Param::get(
+            $config,
+            $name,
+            $default
+        );
     }
 
     /**
@@ -131,7 +98,10 @@ abstract class BlockVersionAbstract extends ContentVersionAbstract implements Bl
      */
     public function getLayoutProperties(): array
     {
-        return $this->layoutProperties;
+        return $this->getProperty(
+            PropertiesBlockVersion::LAYOUT_PROPERTIES,
+            []
+        );
     }
 
     /**
@@ -142,7 +112,13 @@ abstract class BlockVersionAbstract extends ContentVersionAbstract implements Bl
      */
     public function getLayoutProperty(string $name, $default = null)
     {
-        return Param::get($this->layoutProperties, $name, $default);
+        $layoutProperties = $this->getLayoutProperties();
+
+        return Param::get(
+            $layoutProperties,
+            $name,
+            $default
+        );
     }
 
     /**
@@ -152,13 +128,26 @@ abstract class BlockVersionAbstract extends ContentVersionAbstract implements Bl
      */
     public function getRequiredLayoutProperty(string $name)
     {
+        $layoutProperties = $this->getLayoutProperties();
+
         return Param::getRequired(
-            $this->layoutProperties,
+            $layoutProperties,
             $name,
             new PropertyMissingException(
                 'Required property (' . $name . ') is missing in: '
                 . get_class($this)
             )
+        );
+    }
+
+    /**
+     * @return string
+     */
+    public function getContainerCmsResourceId(): string
+    {
+        return $this->getProperty(
+            PropertiesBlockVersion::BLOCK_CONTAINER_CMS_RESOURCE_ID,
+            ''
         );
     }
 }

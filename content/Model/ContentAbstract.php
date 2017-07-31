@@ -14,11 +14,6 @@ abstract class ContentAbstract implements Content
     use PropertiesTrait;
 
     /**
-     * @var string
-     */
-    protected $id = '';
-
-    /**
      * @var array
      */
     protected $properties = [];
@@ -35,7 +30,7 @@ abstract class ContentAbstract implements Content
         }
         $this->new = false;
 
-        $this->id = Param::getRequired(
+        Param::assertHas(
             $properties,
             PropertiesContentVersion::ID,
             new PropertyMissingException(
@@ -52,6 +47,9 @@ abstract class ContentAbstract implements Content
      */
     public function getId(): string
     {
-        return $this->id;
+        return $this->getProperty(
+            PropertiesContentVersion::ID,
+            ''
+        );
     }
 }

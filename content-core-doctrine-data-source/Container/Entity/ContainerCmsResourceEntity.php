@@ -3,9 +3,9 @@
 namespace Zrcms\ContentCoreDoctrineDataSource\Container\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Zrcms\Content\Model\PropertiesCmsResource;
 use Zrcms\ContentCore\Container\Model\ContainerCmsResource;
 use Zrcms\ContentCore\Container\Model\ContainerCmsResourceAbstract;
+use Zrcms\ContentCore\Container\Model\PropertiesContainerCmsResource;
 use Zrcms\ContentDoctrine\Entity\CmsResourceEntity;
 use Zrcms\ContentDoctrine\Entity\CmsResourceEntityTrait;
 use Zrcms\Param\Param;
@@ -73,10 +73,19 @@ class ContainerCmsResourceEntity
         string $createdByUserId,
         string $createdReason
     ) {
-        // Force Id to int
-        $properties[PropertiesCmsResource::ID] = Param::getInt(
+        $this->id = Param::getInt(
             $properties,
-            PropertiesCmsResource::ID
+            PropertiesContainerCmsResource::ID
+        );
+
+        $this->siteCmsResourceId = Param::getInt(
+            $properties,
+            PropertiesContainerCmsResource::SITE_CMS_RESOURCE_ID
+        );
+
+        $this->path = Param::getInt(
+            $properties,
+            PropertiesContainerCmsResource::PATH
         );
 
         parent::__construct(

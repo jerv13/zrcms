@@ -93,10 +93,19 @@ class SiteCmsResourceEntity
         string $createdByUserId,
         string $createdReason
     ) {
-        // Force Id to int
-        $properties[PropertiesSiteCmsResource::ID] = Param::getInt(
+        $this->id = Param::getInt(
             $properties,
             PropertiesSiteCmsResource::ID
+        );
+
+        $this->contentVersionId = Param::getInt(
+            $properties,
+            PropertiesSiteCmsResource::CONTENT_VERSION_ID
+        );
+
+        $this->host = Param::getString(
+            $properties,
+            PropertiesSiteCmsResource::HOST
         );
 
         parent::__construct(

@@ -12,11 +12,6 @@ use Zrcms\Param\Param;
 abstract class SiteCmsResourceAbstract extends CmsResourceAbstract implements SiteCmsResource
 {
     /**
-     * @var string
-     */
-    protected $host;
-
-    /**
      * @param array  $properties
      * @param string $createdByUserId
      * @param string $createdReason
@@ -27,7 +22,7 @@ abstract class SiteCmsResourceAbstract extends CmsResourceAbstract implements Si
         string $createdReason
     ) {
 
-        $this->host = Param::getRequired(
+        Param::assertHas(
             $properties,
             PropertiesSiteCmsResource::HOST,
             new PropertyMissingException(
@@ -48,6 +43,9 @@ abstract class SiteCmsResourceAbstract extends CmsResourceAbstract implements Si
      */
     public function getHost(): string
     {
-        return $this->host;
+        return $this->getProperty(
+            PropertiesSiteCmsResource::HOST,
+            ''
+        );
     }
 }

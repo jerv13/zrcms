@@ -14,16 +14,6 @@ abstract class PageContainerVersionAbstract
     implements PageContainerVersion
 {
     /**
-     * @var string
-     */
-    protected $title;
-
-    /**
-     * @var string
-     */
-    protected $keywords;
-
-    /**
      * @param array  $properties
      * @param string $createdByUserId
      * @param string $createdReason
@@ -33,7 +23,7 @@ abstract class PageContainerVersionAbstract
         string $createdByUserId,
         string $createdReason
     ) {
-        $this->title = Param::getRequired(
+        Param::assertHas(
             $properties,
             PropertiesPageContainerVersion::TITLE,
             new PropertyMissingException(
@@ -42,7 +32,7 @@ abstract class PageContainerVersionAbstract
             )
         );
 
-        $this->keywords = Param::getRequired(
+        Param::assertHas(
             $properties,
             PropertiesPageContainerVersion::KEYWORDS,
             new PropertyMissingException(
@@ -63,7 +53,10 @@ abstract class PageContainerVersionAbstract
      */
     public function getTitle(): string
     {
-        return $this->title;
+        return $this->getProperty(
+            PropertiesPageContainerVersion::TITLE,
+            ''
+        );
     }
 
     /**
@@ -71,6 +64,9 @@ abstract class PageContainerVersionAbstract
      */
     public function getKeywords(): string
     {
-        return $this->keywords;
+        return $this->getProperty(
+            PropertiesPageContainerVersion::KEYWORDS,
+            ''
+        );
     }
 }

@@ -17,18 +17,6 @@ trait ContentEntityTrait
     {
         return (string)$this->id;
     }
-
-    /**
-     * @param array $properties
-     *
-     * @return void
-     */
-    public function updateProperties(
-        array $properties
-    ) {
-        $this->properties = $properties;
-    }
-
     /**
      * @return void
      *
@@ -47,6 +35,6 @@ trait ContentEntityTrait
      */
     public function postPersist(LifecycleEventArgs $event)
     {
-        $this->properties[PropertiesContent::ID] = $this->id;
+        $this->properties[PropertiesContent::ID] = (string)$this->id;
     }
 }

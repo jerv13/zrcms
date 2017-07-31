@@ -12,53 +12,27 @@ use Zrcms\Param\Param;
 abstract class BlockAbstract extends ContentAbstract implements Block
 {
     /**
-     * @var string
-     */
-    protected $blockComponentName;
-
-    /**
-     * @var array
-     */
-    protected $config = [];
-
-    /**
-     * @var array
-     */
-    protected $layoutProperties = [];
-
-    /**
      * @param array $properties
      */
     public function __construct(
         array $properties
     ) {
-        $this->blockComponentName = Param::getRequired(
+        Param::assertHas(
             $properties,
-            PropertiesBlockVersion::BLOCK_COMPONENT_NAME,
+            PropertiesBlock::BLOCK_COMPONENT_NAME,
             new PropertyMissingException(
-                'Required property (' . PropertiesBlockVersion::BLOCK_COMPONENT_NAME . ') is missing in: '
+                'Required property (' . PropertiesBlock::BLOCK_COMPONENT_NAME . ') is missing in: '
                 . get_class($this)
             )
         );
 
-        $this->id = Param::get(
+        Param::assertHas(
             $properties,
-            PropertiesBlockVersion::ID,
+            PropertiesBlock::LAYOUT_PROPERTIES,
             new PropertyMissingException(
-                'Required property (' . PropertiesBlockVersion::ID . ') is missing in: '
+                'Required property (' . PropertiesBlock::LAYOUT_PROPERTIES . ') is missing in: '
                 . get_class($this)
             )
-        );
-
-        $this->config = Param::get(
-            $properties,
-            PropertiesBlockVersion::CONFIG,
-            []
-        );
-
-        $this->layoutProperties = Param::getRequired(
-            $properties,
-            PropertiesBlockVersion::LAYOUT_PROPERTIES
         );
 
         parent::__construct(
@@ -71,7 +45,10 @@ abstract class BlockAbstract extends ContentAbstract implements Block
      */
     public function getBlockComponentName(): string
     {
-        return $this->blockComponentName;
+        return $this->getProperty(
+            PropertiesBlock::BLOCK_COMPONENT_NAME,
+            ''
+        );
     }
 
     /**
@@ -80,7 +57,10 @@ abstract class BlockAbstract extends ContentAbstract implements Block
      */
     public function getConfig(): array
     {
-        return $this->config;
+        return $this->getProperty(
+            PropertiesBlock::CONFIG,
+            []
+        );
     }
 
     /**
@@ -91,11 +71,13 @@ abstract class BlockAbstract extends ContentAbstract implements Block
      */
     public function getConfigValue(string $name, $default = null)
     {
-        if (array_key_exists($name, $this->config)) {
-            return $this->config[$name];
-        }
+        $config = $this->getConfig();
 
-        return $default;
+        return Param::get(
+            $config,
+            $name,
+            $default
+        );
     }
 
     /**
@@ -103,7 +85,10 @@ abstract class BlockAbstract extends ContentAbstract implements Block
      */
     public function getLayoutProperties(): array
     {
-        return $this->layoutProperties;
+        return $this->getProperty(
+            PropertiesBlock::LAYOUT_PROPERTIES,
+            []
+        );
     }
 
     /**
@@ -114,7 +99,13 @@ abstract class BlockAbstract extends ContentAbstract implements Block
      */
     public function getLayoutProperty(string $name, $default = null)
     {
-        return Param::get($this->layoutProperties, $name, $default);
+        $layoutProperties = $this->getLayoutProperties();
+
+        return Param::get(
+            $layoutProperties,
+            $name,
+            $default
+        );
     }
 
     /**
@@ -124,8 +115,10 @@ abstract class BlockAbstract extends ContentAbstract implements Block
      */
     public function getRequiredLayoutProperty(string $name)
     {
+        $layoutProperties = $this->getLayoutProperties();
+
         return Param::getRequired(
-            $this->layoutProperties,
+            $layoutProperties,
             $name,
             new PropertyMissingException(
                 'Required property (' . $name . ') is missing in: '

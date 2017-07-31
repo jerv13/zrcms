@@ -15,16 +15,6 @@ abstract class ComponentAbstract implements Component
     use TrackableTrait;
 
     /**
-     * @var string
-     */
-    protected $name;
-
-    /**
-     * @var string
-     */
-    protected $location;
-
-    /**
      * @var array
      */
     protected $properties = [];
@@ -45,7 +35,7 @@ abstract class ComponentAbstract implements Component
         }
         $this->new = false;
 
-        $this->name = Param::getRequired(
+        Param::assertHas(
             $properties,
             PropertiesComponent::NAME,
             new PropertyMissingException(
@@ -53,7 +43,7 @@ abstract class ComponentAbstract implements Component
             )
         );
 
-        $this->location = Param::getRequired(
+        Param::assertHas(
             $properties,
             PropertiesComponent::LOCATION,
             new PropertyMissingException(
@@ -74,7 +64,10 @@ abstract class ComponentAbstract implements Component
      */
     public function getName(): string
     {
-        return $this->name;
+        return $this->getProperty(
+            PropertiesComponent::NAME,
+            ''
+        );
     }
 
     /**
@@ -82,6 +75,9 @@ abstract class ComponentAbstract implements Component
      */
     public function getLocation(): string
     {
-        return $this->location;
+        return $this->getProperty(
+            PropertiesComponent::LOCATION,
+            ''
+        );
     }
 }

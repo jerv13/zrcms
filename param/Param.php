@@ -136,7 +136,10 @@ class Param
             $default
         );
 
-        unset($params[$key]);
+        self::remove(
+            $params,
+            $key
+        );
 
         return $value;
     }
@@ -161,9 +164,25 @@ class Param
             $exception
         );
 
-        unset($params[$key]);
+        self::remove(
+            $params,
+            $key
+        );
 
         return $value;
+    }
+
+    /**
+     * @param array  $params
+     * @param string $key
+     *
+     * @return void
+     */
+    public static function remove(
+        array &$params,
+        string $key
+    ) {
+        unset($params[$key]);
     }
 
     /**

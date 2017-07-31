@@ -1,18 +1,20 @@
 <?php
 
-namespace Zrcms\HttpExpressive1\Api;
+namespace Zrcms\HttpExpressive1\Api\Content\Repository;
 
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Reliv\RcmApiLib\Http\PsrApiResponse;
 use Reliv\RcmApiLib\Model\ApiMessage;
 use Zrcms\Content\Api\ContentVersionToArray;
+use Zrcms\HttpExpressive1\Model\ResponseCodes;
 
 /**
  * @author James Jervis - https://github.com/jerv13
  */
 class FindContentVersion
 {
+    const SOURCE = 'find-content-version';
     /**
      * @var \Zrcms\Content\Api\Repository\FindContentVersion
      */
@@ -67,8 +69,8 @@ class FindContentVersion
                     new ApiMessage(
                         $this->name,
                         'ID not received',
-                        'find-content-version',
-                        'id-not-received',
+                        self::SOURCE,
+                        ResponseCodes::ID_NOT_RECEIVED,
                         true
                     )
                 ],
@@ -87,8 +89,8 @@ class FindContentVersion
                     new ApiMessage(
                         $this->name,
                         'Not found for id: ' . $contentVersionId,
-                        'find-content-version',
-                        'not-found',
+                        self::SOURCE,
+                        ResponseCodes::NOT_FOUND,
                         true
                     )
                 ],

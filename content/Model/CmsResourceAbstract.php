@@ -15,16 +15,6 @@ abstract class CmsResourceAbstract implements CmsResource
     use TrackableTrait;
 
     /**
-     * @var string
-     */
-    protected $id = '';
-
-    /**
-     * @var string
-     */
-    protected $contentVersionId = '';
-
-    /**
      * @var array
      */
     protected $properties = [];
@@ -66,12 +56,7 @@ abstract class CmsResourceAbstract implements CmsResource
         }
         $this->new = false;
 
-        $this->id = Param::get(
-            $properties,
-            PropertiesCmsResource::ID
-        );
-
-        $this->contentVersionId = Param::getRequired(
+        Param::assertHas(
             $properties,
             PropertiesCmsResource::CONTENT_VERSION_ID,
             new PropertyMissingException(
@@ -81,6 +66,11 @@ abstract class CmsResourceAbstract implements CmsResource
         );
 
         $this->properties = $properties;
+
+        $this->setCreatedData(
+            $createdByUserId,
+            $createdReason
+        );
     }
 
     /**
@@ -88,7 +78,10 @@ abstract class CmsResourceAbstract implements CmsResource
      */
     public function getId(): string
     {
-        return $this->id;
+        return $this->getProperty(
+            PropertiesCmsResource::ID,
+            ''
+        );
     }
 
     /**
@@ -96,6 +89,9 @@ abstract class CmsResourceAbstract implements CmsResource
      */
     public function getContentVersionId(): string
     {
-        return $this->contentVersionId;
+        return $this->getProperty(
+            PropertiesCmsResource::CONTENT_VERSION_ID,
+            ''
+        );
     }
 }

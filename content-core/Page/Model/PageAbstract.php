@@ -12,22 +12,12 @@ use Zrcms\Param\Param;
 abstract class PageAbstract extends ContentAbstract implements Page
 {
     /**
-     * @var string
-     */
-    protected $title;
-
-    /**
-     * @var string
-     */
-    protected $keywords;
-
-    /**
      * @param array  $properties
      */
     public function __construct(
         array $properties
     ) {
-        $this->title = Param::getRequired(
+        Param::assertHas(
             $properties,
             PropertiesPageContainerVersion::TITLE,
             new PropertyMissingException(
@@ -36,7 +26,7 @@ abstract class PageAbstract extends ContentAbstract implements Page
             )
         );
 
-        $this->keywords = Param::getRequired(
+        Param::assertHas(
             $properties,
             PropertiesPageContainerVersion::KEYWORDS,
             new PropertyMissingException(
@@ -55,7 +45,10 @@ abstract class PageAbstract extends ContentAbstract implements Page
      */
     public function getTitle(): string
     {
-        return $this->title;
+        return $this->getProperty(
+            PropertiesPageContainerVersion::TITLE,
+            ''
+        );
     }
 
     /**
@@ -63,6 +56,9 @@ abstract class PageAbstract extends ContentAbstract implements Page
      */
     public function getKeywords(): string
     {
-        return $this->keywords;
+        return $this->getProperty(
+            PropertiesPageContainerVersion::KEYWORDS,
+            ''
+        );
     }
 }

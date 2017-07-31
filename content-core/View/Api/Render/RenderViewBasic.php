@@ -36,11 +36,12 @@ class RenderViewBasic implements RenderView
     }
 
     /**
-     * @param View|Content $view
-     * @param array        $renderData ['render-tag' => '{html}']
-     * @param array        $options
+     * @param Content $view
+     * @param array   $renderData
+     * @param array   $options
      *
      * @return string
+     * @throws \Exception
      */
     public function __invoke(
         Content $view,
@@ -52,6 +53,8 @@ class RenderViewBasic implements RenderView
             PropertiesView::RENDERER,
             $this->defaultRenderServiceName
         );
+
+        ddd($renderServiceName);
 
         /** @var RenderLayout $render */
         $render = $this->serviceContainer->get(

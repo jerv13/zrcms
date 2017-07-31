@@ -12,16 +12,6 @@ use Zrcms\Param\Param;
 abstract class ContainerCmsResourceAbstract extends CmsResourceAbstract implements ContainerCmsResource
 {
     /**
-     * @var string
-     */
-    protected $siteCmsResourceId;
-
-    /**
-     * @var string
-     */
-    protected $path;
-
-    /**
      * @param array  $properties
      * @param string $createdByUserId
      * @param string $createdReason
@@ -32,7 +22,7 @@ abstract class ContainerCmsResourceAbstract extends CmsResourceAbstract implemen
         string $createdReason
     ) {
 
-        $this->siteCmsResourceId = Param::getRequired(
+        Param::assertHas(
             $properties,
             PropertiesContainerCmsResource::SITE_CMS_RESOURCE_ID,
             new PropertyMissingException(
@@ -41,7 +31,7 @@ abstract class ContainerCmsResourceAbstract extends CmsResourceAbstract implemen
             )
         );
 
-        $this->path = Param::getRequired(
+        Param::assertHas(
             $properties,
             PropertiesContainerCmsResource::PATH,
             new PropertyMissingException(
@@ -62,7 +52,10 @@ abstract class ContainerCmsResourceAbstract extends CmsResourceAbstract implemen
      */
     public function getSiteCmsResourceId(): string
     {
-        return $this->siteCmsResourceId;
+        return $this->getProperty(
+            PropertiesContainerCmsResource::SITE_CMS_RESOURCE_ID,
+            ''
+        );
     }
 
     /**
@@ -70,6 +63,9 @@ abstract class ContainerCmsResourceAbstract extends CmsResourceAbstract implemen
      */
     public function getPath(): string
     {
-        return $this->path;
+        return $this->getProperty(
+            PropertiesContainerCmsResource::PATH,
+            ''
+        );
     }
 }

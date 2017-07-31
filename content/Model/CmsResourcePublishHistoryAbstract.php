@@ -15,11 +15,6 @@ abstract class CmsResourcePublishHistoryAbstract
     implements CmsResourcePublishHistory
 {
     /**
-     * @var string
-     */
-    protected $action;
-
-    /**
      * @param array  $properties
      * @param string $publishedByUserId
      * @param string $publishReason
@@ -30,7 +25,7 @@ abstract class CmsResourcePublishHistoryAbstract
         string $publishReason
     ) {
 
-        $this->action = Param::getRequired(
+        Param::assertHas(
             $properties,
             PropertiesCmsResourcePublishHistory::ACTION,
             new PropertyMissingException(
@@ -51,6 +46,9 @@ abstract class CmsResourcePublishHistoryAbstract
      */
     public function getAction(): string
     {
-        return $this->action;
+        return $this->getProperty(
+            PropertiesCmsResourcePublishHistory::ACTION,
+            ''
+        );
     }
 }

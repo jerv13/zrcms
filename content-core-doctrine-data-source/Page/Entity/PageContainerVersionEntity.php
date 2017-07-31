@@ -88,13 +88,12 @@ class PageContainerVersionEntity
         string $createdByUserId,
         string $createdReason
     ) {
-        // Force Id to int
-        $properties[PropertiesContent::ID] = Param::getInt(
+        $this->id = Param::getInt(
             $properties,
             PropertiesContent::ID
         );
 
-        $blockVersions = Param::get(
+        $blockVersions = Param::getArray(
             $properties,
             PropertiesPageContainerVersionEntity::BLOCK_VERSIONS_DATA,
             []

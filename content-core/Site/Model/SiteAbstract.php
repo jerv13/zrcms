@@ -12,39 +12,25 @@ use Zrcms\Param\Param;
 abstract class SiteAbstract extends ContentAbstract implements Site
 {
     /**
-     * Theme name
-     *
-     * @var string
-     */
-    protected $themeName;
-
-    /**
-     * Locale used for translations and formating
-     *
-     * @var string
-     */
-    protected $locale;
-
-    /**
      * @param array $properties
      */
     public function __construct(
         array $properties
     ) {
-        $this->themeName = Param::getRequired(
+        Param::assertHas(
             $properties,
             PropertiesSiteVersion::THEME_NAME,
             new PropertyMissingException(
-                'Required property (' . PropertiesSiteVersion::THEME_NAME. ') is missing in: '
+                'Required property (' . PropertiesSiteVersion::THEME_NAME . ') is missing in: '
                 . get_class($this)
             )
         );
 
-        $this->locale = Param::getRequired(
+        Param::assertHas(
             $properties,
             PropertiesSiteVersion::LOCALE,
             new PropertyMissingException(
-                'Required property (' . PropertiesSiteVersion::LOCALE. ') is missing in: '
+                'Required property (' . PropertiesSiteVersion::LOCALE . ') is missing in: '
                 . get_class($this)
             )
         );
@@ -59,7 +45,10 @@ abstract class SiteAbstract extends ContentAbstract implements Site
      */
     public function getThemeName(): string
     {
-        return $this->themeName;
+        return $this->getProperty(
+            PropertiesSiteVersion::THEME_NAME,
+            ''
+        );
     }
 
     /**
@@ -67,6 +56,9 @@ abstract class SiteAbstract extends ContentAbstract implements Site
      */
     public function getLocale(): string
     {
-        return $this->locale;
+        return $this->getProperty(
+            PropertiesSiteVersion::LOCALE,
+            ''
+        );
     }
 }

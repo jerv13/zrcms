@@ -6,7 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Zrcms\Content\Model\PropertiesCmsResourcePublishHistory;
 use Zrcms\ContentCore\Container\Model\ContainerCmsResourcePublishHistory;
 use Zrcms\ContentCore\Container\Model\ContainerCmsResourcePublishHistoryAbstract;
-use Zrcms\ContentDoctrine\Entity\CmsResourceEntityTrait;
+use Zrcms\ContentCore\Container\Model\PropertiesContainerCmsResource;
 use Zrcms\ContentDoctrine\Entity\CmsResourcePublishHistoryEntity;
 use Zrcms\ContentDoctrine\Entity\CmsResourcePublishHistoryEntityTrait;
 use Zrcms\Param\Param;
@@ -108,10 +108,24 @@ class ContainerCmsResourcePublishHistoryEntity
         string $createdByUserId,
         string $createdReason
     ) {
-        // Force Id to int
-        $properties[PropertiesCmsResourcePublishHistory::ID] = Param::getInt(
+        $this->id = Param::getInt(
             $properties,
-            PropertiesCmsResourcePublishHistory::ID
+            PropertiesContainerCmsResource::ID
+        );
+
+        $this->siteCmsResourceId = Param::getInt(
+            $properties,
+            PropertiesContainerCmsResource::SITE_CMS_RESOURCE_ID
+        );
+
+        $this->path = Param::getInt(
+            $properties,
+            PropertiesContainerCmsResource::PATH
+        );
+
+        $this->action = Param::getInt(
+            $properties,
+            PropertiesCmsResourcePublishHistory::ACTION
         );
 
         parent::__construct(

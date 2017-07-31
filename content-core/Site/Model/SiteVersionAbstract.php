@@ -12,20 +12,6 @@ use Zrcms\Param\Param;
 abstract class SiteVersionAbstract extends ContentVersionAbstract implements SiteVersion
 {
     /**
-     * Theme name
-     *
-     * @var string
-     */
-    protected $themeName;
-
-    /**
-     * Locale used for translations and formatting
-     *
-     * @var string
-     */
-    protected $locale;
-
-    /**
      * @param array  $properties
      * @param string $createdByUserId
      * @param string $createdReason
@@ -35,7 +21,7 @@ abstract class SiteVersionAbstract extends ContentVersionAbstract implements Sit
         string $createdByUserId,
         string $createdReason
     ) {
-        $this->themeName = Param::getRequired(
+        Param::assertHas(
             $properties,
             PropertiesSiteVersion::THEME_NAME,
             new PropertyMissingException(
@@ -44,7 +30,7 @@ abstract class SiteVersionAbstract extends ContentVersionAbstract implements Sit
             )
         );
 
-        $this->locale = Param::getRequired(
+        Param::assertHas(
             $properties,
             PropertiesSiteVersion::LOCALE,
             new PropertyMissingException(
@@ -65,7 +51,10 @@ abstract class SiteVersionAbstract extends ContentVersionAbstract implements Sit
      */
     public function getThemeName(): string
     {
-        return $this->themeName;
+        return $this->getProperty(
+            PropertiesSiteVersion::THEME_NAME,
+            ''
+        );
     }
 
     /**
@@ -73,6 +62,9 @@ abstract class SiteVersionAbstract extends ContentVersionAbstract implements Sit
      */
     public function getLocale(): string
     {
-        return $this->locale;
+        return $this->getProperty(
+            PropertiesSiteVersion::LOCALE,
+            ''
+        );
     }
 }

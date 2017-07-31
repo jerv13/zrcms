@@ -8,18 +8,8 @@ use Zrcms\Param\Param;
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-abstract class BlockComponentAbstract extends ComponentAbstract  implements BlockComponent
+abstract class BlockComponentAbstract extends ComponentAbstract implements BlockComponent
 {
-    /**
-     * @var array
-     */
-    protected $defaultConfig = [];
-
-    /**
-     * @var bool
-     */
-    protected $cacheable = false;
-
     /**
      * @param array  $properties
      * @param string $createdByUserId
@@ -30,18 +20,6 @@ abstract class BlockComponentAbstract extends ComponentAbstract  implements Bloc
         string $createdByUserId,
         string $createdReason
     ) {
-        $this->defaultConfig = Param::get(
-            $properties,
-            PropertiesBlockComponent::DEFAULT_CONFIG,
-            []
-        );
-
-        $this->cacheable = Param::get(
-            $properties,
-            PropertiesBlockComponent::CACHEABLE,
-            false
-        );
-
         parent::__construct(
             $properties,
             $createdByUserId,
@@ -56,7 +34,10 @@ abstract class BlockComponentAbstract extends ComponentAbstract  implements Bloc
      */
     public function getDefaultConfig(): array
     {
-        return $this->defaultConfig;
+        return $this->getProperty(
+            PropertiesBlockComponent::DEFAULT_CONFIG,
+            []
+        );
     }
 
     /**
@@ -64,6 +45,9 @@ abstract class BlockComponentAbstract extends ComponentAbstract  implements Bloc
      */
     public function isCacheable(): bool
     {
-        return $this->cacheable;
+        return $this->getProperty(
+            PropertiesBlockComponent::CACHEABLE,
+            false
+        );
     }
 }

@@ -10,6 +10,7 @@ use Zrcms\Content\Model\ContentVersion;
 use Zrcms\Content\Model\PropertiesCmsResourcePublishHistory;
 use Zrcms\ContentDoctrine\Api\ApiAbstract;
 use Zrcms\ContentDoctrine\Api\BasicCmsResourceTrait;
+use Zrcms\ContentDoctrine\Entity\CmsResourceEntity;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -129,9 +130,19 @@ class PublishCmsResource
         /** @var CmsResourcePublishHistory $newCmsResourcePublishHistory */
         $newCmsResourcePublishHistory = new $cmsResourcePublishHistoryClass(
             $historyProperties,
-            $cmsResource->getCreatedByUserId(),
-            $cmsResource->getCreatedReason()
+            $publishedByUserId,
+            $publishReason
         );
+
+        $this->entityManager->persist($newCmsResourcePublishHistory);
+        $this->entityManager->flush($newCmsResourcePublishHistory);
+
+        if ($existingCmsResource) {
+            return $this->update(
+                $existingCmsResource,
+                $cmsResource
+            );
+        }
 
         /** @var CmsResource::class $cmsResourceClass */
         $cmsResourceClass = $this->entityClass;
@@ -139,21 +150,35 @@ class PublishCmsResource
         /** @var CmsResource $newCmsResource */
         $newCmsResource = new $cmsResourceClass(
             $cmsResource->getProperties(),
-            $cmsResource->getCreatedByUserId(),
-            $cmsResource->getCreatedReason()
+            $publishReason,
+            $publishReason
         );
 
-        // @todo Update instead of delete and remake
-        if ($existingCmsResource) {
-            $this->entityManager->remove($existingCmsResource);
-            $this->entityManager->flush($existingCmsResource);
-        }
-
         $this->entityManager->persist($newCmsResource);
-        $this->entityManager->persist($newCmsResourcePublishHistory);
-        $this->entityManager->flush($newCmsResourcePublishHistory);
         $this->entityManager->flush($newCmsResource);
 
         return $this->newBasic($newCmsResource);
+    }
+
+    /**
+     * @param CmsResourceEntity|CmsResource $existingCmsResource
+     * @param CmsResource                   $newCmsResource
+     * @param array                         $options
+     *
+     * @return CmsResource
+     */
+    protected function update(
+        CmsResourceEntity $existingCmsResource,
+        CmsResource $newCmsResource,
+        array $options = []
+    ): CmsResource
+    {
+        $existingCmsResource->updateProperties(
+            $newCmsResource->getProperties()
+        );
+
+        $this->entityManager->flush($existingCmsResource);
+
+        return $this->newBasic($existingCmsResource);
     }
 }

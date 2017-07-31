@@ -6,12 +6,15 @@ use Psr\Container\ContainerInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Zend\Diactoros\Response\HtmlResponse;
+use Zend\Diactoros\Response\JsonResponse;
+use Zrcms\Content\Api\CsmResourceToArray;
 use Zrcms\ContentCore\Page\Api\Render\GetPageContainerRenderDataHtml;
 use Zrcms\ContentCore\Page\Api\Render\RenderPageContainerRows;
 use Zrcms\ContentCore\Page\Model\PageContainerCmsResourceBasic;
 use Zrcms\ContentCore\Page\Model\PageContainerVersionBasic;
 use Zrcms\ContentCore\Page\Model\PropertiesPageContainerCmsResource;
 use Zrcms\ContentCore\Page\Model\PropertiesPageContainerVersion;
+use Zrcms\ContentCore\Site\Api\Action\PublishSiteCmsResource;
 use Zrcms\ContentCore\Site\Api\Repository\InsertSiteVersion;
 use Zrcms\ContentCore\Site\Model\PropertiesSiteCmsResource;
 use Zrcms\ContentCore\Site\Model\PropertiesSiteVersion;
@@ -66,10 +69,13 @@ class ViewControllerTest
         ResponseInterface $response,
         callable $next = null
     ) {
+//        return $this->renderBasicView(
+//            $request,
+//            $response,
+//            $next
+//        );
         $siteVersion = new SiteVersionBasic(
             [
-//                PropertiesSiteVersion::ID
-//                => '1',
                 PropertiesSiteVersion::COUNTRY_ISO3
                 => 'test1:' . PropertiesSiteVersion::COUNTRY_ISO3,
                 PropertiesSiteVersion::FAVICON
@@ -102,12 +108,8 @@ class ViewControllerTest
             $siteVersion
         );
 
-        ddd($siteVersion, $newSiteVersion);
-
         $siteCmsResource = new SiteCmsResourceBasic(
             [
-                PropertiesSiteCmsResource::ID
-                => '1',
                 PropertiesSiteCmsResource::CONTENT_VERSION_ID
                 => $newSiteVersion->getId(),
                 PropertiesSiteCmsResource::HOST
@@ -117,7 +119,21 @@ class ViewControllerTest
             self::CREATED_REASON
         );
 
-        return new HtmlResponse('test');
+        /** @var PublishSiteCmsResource $publishSiteCmsResource */
+        $publishSiteCmsResource = $this->serviceContainer->get(PublishSiteCmsResource::class);
+
+        $newSiteCmsResource = $publishSiteCmsResource->__invoke(
+            $siteCmsResource,
+            self::CREATED_BY_USER_ID,
+            self::CREATED_REASON
+        );
+
+        /** @var CsmResourceToArray $toArray */
+        $toArray = $this->serviceContainer->get(CsmResourceToArray::class);
+
+        return new JsonResponse(
+            $toArray->__invoke($newSiteCmsResource)
+        );
     }
 
     /**

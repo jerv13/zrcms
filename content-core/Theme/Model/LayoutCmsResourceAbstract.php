@@ -12,16 +12,6 @@ use Zrcms\Param\Param;
 abstract class LayoutCmsResourceAbstract extends CmsResourceAbstract implements LayoutCmsResource
 {
     /**
-     * @var string
-     */
-    protected $themeName;
-
-    /**
-     * @var string
-     */
-    protected $name;
-
-    /**
      * @param array  $properties
      * @param string $createdByUserId
      * @param string $createdReason
@@ -32,7 +22,7 @@ abstract class LayoutCmsResourceAbstract extends CmsResourceAbstract implements 
         string $createdReason
     ) {
 
-        $this->themeName = Param::getRequired(
+        Param::assertHas(
             $properties,
             PropertiesLayoutCmsResource::THEME_NAME,
             new PropertyMissingException(
@@ -41,7 +31,7 @@ abstract class LayoutCmsResourceAbstract extends CmsResourceAbstract implements 
         );
 
 
-        $this->name = Param::getRequired(
+        Param::assertHas(
             $properties,
             PropertiesLayoutCmsResource::NAME,
             new PropertyMissingException(
@@ -61,7 +51,10 @@ abstract class LayoutCmsResourceAbstract extends CmsResourceAbstract implements 
      */
     public function getThemeName(): string
     {
-        return $this->themeName;
+        return $this->getProperty(
+            PropertiesLayoutCmsResource::THEME_NAME,
+            ''
+        );
     }
 
     /**
@@ -69,6 +62,9 @@ abstract class LayoutCmsResourceAbstract extends CmsResourceAbstract implements 
      */
     public function getName(): string
     {
-        return $this->name;
+        return $this->getProperty(
+            PropertiesLayoutCmsResource::NAME,
+            ''
+        );
     }
 }

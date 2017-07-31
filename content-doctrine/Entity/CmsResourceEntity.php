@@ -7,4 +7,12 @@ namespace Zrcms\ContentDoctrine\Entity;
  */
 interface CmsResourceEntity extends Entity
 {
+    /**
+     * @param array $properties
+     *
+     * @return void
+     */
+    public function updateProperties(
+        array $properties
+    );
 }

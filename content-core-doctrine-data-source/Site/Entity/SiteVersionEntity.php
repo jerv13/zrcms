@@ -4,6 +4,7 @@ namespace Zrcms\ContentCoreDoctrineDataSource\Site\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Zrcms\Content\Model\PropertiesContent;
+use Zrcms\ContentCore\Site\Model\PropertiesSiteVersion;
 use Zrcms\ContentCore\Site\Model\SiteVersion;
 use Zrcms\ContentCore\Site\Model\SiteVersionAbstract;
 use Zrcms\ContentDoctrine\Entity\ContentEntity;
@@ -98,10 +99,19 @@ class SiteVersionEntity
         string $createdByUserId,
         string $createdReason
     ) {
-        // Force Id to int
-        $properties[PropertiesContent::ID] = Param::getInt(
+        $this->id = Param::getInt(
             $properties,
-            PropertiesContent::ID
+            PropertiesSiteVersion::ID
+        );
+
+        $this->themeName = Param::getString(
+            $properties,
+            PropertiesSiteVersion::THEME_NAME
+        );
+
+        $this->locale = Param::getString(
+            $properties,
+            PropertiesSiteVersion::LOCALE
         );
 
         parent::__construct(

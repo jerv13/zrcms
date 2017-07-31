@@ -15,41 +15,12 @@ trait PropertiesTrait
      */
     protected $properties = [];
 
-    protected function propertyFromMethod(
-        $name,
-        $default = null
-    ) {
-        $method = 'get' . ucfirst($name);
-        if (method_exists($this, $method)) {
-            return $this->$method();
-        }
-
-        $method = 'is' . ucfirst($name);
-        if (method_exists($this, $method)) {
-            return $this->$method();
-        }
-
-        return Param::get(
-            $this->properties,
-            $name,
-            $default
-        );
-    }
-
     /**
      * @return array
      */
     public function getProperties(): array
     {
-        $properties = [];
-
-        foreach ($this->properties as $name => $value) {
-            $properties[$name] = $this->propertyFromMethod(
-                $name
-            );
-        }
-
-        return $properties;
+        return $this->properties;
     }
 
     /**
@@ -62,8 +33,30 @@ trait PropertiesTrait
         string $name,
         $default = null
     ) {
-        return $this->propertyFromMethod(
-            $name
+        return Param::get(
+            $this->getProperties(),
+            $name,
+            $default
+        );
+    }
+
+    /**
+     * @param string $name
+     *
+     * @return mixed
+     * @throws PropertyMissingException
+     */
+    public function getPropertyRequired(
+        string $name
+    ) {
+        $class = get_class($this);
+
+        return Param::getRequired(
+            $this->getProperties(),
+            $name,
+            new PropertyMissingException(
+                "Required property ({$name}) is missing in: {$class}"
+            )
         );
     }
 
@@ -76,10 +69,8 @@ trait PropertiesTrait
         string $name
     ): bool
     {
-        $properties = $this->getProperties();
-
         return Param::has(
-            $properties,
+            $this->getProperties(),
             $name
         );
     }
