@@ -26,9 +26,10 @@ abstract class ThemeComponentAbstract extends ComponentAbstract implements Theme
         Param::assertHas(
             $properties,
             PropertiesThemeComponent::LAYOUT_VARIATIONS,
-            new PropertyMissingException(
-                'Required property (' . PropertiesThemeComponent::LAYOUT_VARIATIONS . ') is missing in: '
-                . get_class($this)
+            PropertyMissingException::build(
+                PropertiesThemeComponent::LAYOUT_VARIATIONS,
+                $properties,
+                get_class($this)
             )
         );
 

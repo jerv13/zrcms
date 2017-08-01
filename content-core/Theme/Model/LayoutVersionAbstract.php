@@ -25,9 +25,10 @@ class LayoutVersionAbstract extends ContentVersionAbstract implements LayoutVers
         Param::assertHas(
             $properties,
             PropertiesLayoutVersion::HTML,
-            new PropertyMissingException(
-                'Required property (' . PropertiesLayoutVersion::HTML . ') is missing in: '
-                . get_class($this)
+            PropertyMissingException::build(
+                PropertiesLayoutVersion::HTML,
+                $properties,
+                get_class($this)
             )
         );
 

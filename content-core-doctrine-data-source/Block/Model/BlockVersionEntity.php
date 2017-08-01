@@ -26,9 +26,10 @@ class BlockVersionEntity extends BlockVersionAbstract implements BlockVersion
         $this->createdDate = Param::getRequired(
             $properties,
             PropertiesBlockVersionEntity::CREATED_DATE,
-            new PropertyMissingException(
-                'Required property (' . PropertiesBlockVersionEntity::CREATED_DATE . ') is missing in: '
-                . get_class($this)
+            PropertyMissingException::build(
+                PropertiesBlockVersionEntity::CREATED_DATE,
+                $properties,
+                get_class($this)
             )
         );
 
@@ -36,9 +37,10 @@ class BlockVersionEntity extends BlockVersionAbstract implements BlockVersion
         Param::assertHas(
             $properties,
             PropertiesBlockVersionEntity::ID,
-            new PropertyMissingException(
-                'Required property (' . PropertiesBlockVersionEntity::ID . ') is missing in: '
-                . get_class($this)
+            PropertyMissingException::build(
+                PropertiesBlockVersionEntity::ID,
+                $properties,
+                get_class($this)
             )
         );
 

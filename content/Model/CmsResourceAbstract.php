@@ -59,9 +59,10 @@ abstract class CmsResourceAbstract implements CmsResource
         Param::assertHas(
             $properties,
             PropertiesCmsResource::CONTENT_VERSION_ID,
-            new PropertyMissingException(
-                'Required property (' . PropertiesCmsResource::CONTENT_VERSION_ID . ') is missing in: '
-                . get_class($this)
+            PropertyMissingException::build(
+                PropertiesCmsResource::CONTENT_VERSION_ID,
+                $properties,
+                get_class($this)
             )
         );
 

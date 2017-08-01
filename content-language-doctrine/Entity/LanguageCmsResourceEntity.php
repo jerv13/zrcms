@@ -8,6 +8,7 @@ use Zrcms\ContentDoctrine\Entity\CmsResourceEntity;
 use Zrcms\ContentDoctrine\Entity\CmsResourceEntityTrait;
 use Zrcms\ContentLanguage\Model\LanguageCmsResource;
 use Zrcms\ContentLanguage\Model\LanguageCmsResourceAbstract;
+use Zrcms\ContentLanguage\Model\PropertiesLanguageCmsResource;
 use Zrcms\Param\Param;
 
 /**
@@ -86,10 +87,14 @@ class LanguageCmsResourceEntity
         string $createdByUserId,
         string $createdReason
     ) {
-        // Force Id to int
-        $properties[PropertiesCmsResource::ID] = Param::getInt(
+        $this->id = Param::getInt(
             $properties,
-            PropertiesCmsResource::ID
+            PropertiesLanguageCmsResource::ID
+        );
+
+        $this->contentVersionId = Param::getInt(
+            $properties,
+            PropertiesLanguageCmsResource::CONTENT_VERSION_ID
         );
 
         parent::__construct(

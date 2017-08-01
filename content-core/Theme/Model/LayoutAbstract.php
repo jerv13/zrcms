@@ -22,9 +22,10 @@ abstract class LayoutAbstract extends ContentAbstract implements Layout
         Param::assertHas(
             $properties,
             PropertiesLayout::HTML,
-            new PropertyMissingException(
-                'Required property (' . PropertiesLayout::HTML. ') is missing in: '
-                . get_class($this)
+            PropertyMissingException::build(
+                PropertiesLayout::HTML,
+                $properties,
+                get_class($this)
             )
         );
 

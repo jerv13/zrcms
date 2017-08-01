@@ -123,12 +123,12 @@ class ContainerCmsResourcePublishHistoryEntity
             PropertiesContainerCmsResource::SITE_CMS_RESOURCE_ID
         );
 
-        $this->path = Param::getInt(
+        $this->path = Param::getString(
             $properties,
             PropertiesContainerCmsResource::PATH
         );
 
-        $this->action = Param::getInt(
+        $this->action = Param::getString(
             $properties,
             PropertiesCmsResourcePublishHistory::ACTION
         );

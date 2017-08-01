@@ -94,17 +94,19 @@ trait ContainerBlockVersionsTrait
             Param::getRequired(
                 $blockVersionData,
                 PropertiesBlockVersionEntity::CREATED_BY_USER_ID,
-                new PropertyMissingException(
-                    'Required property (' . PropertiesBlockVersionEntity::CREATED_BY_USER_ID . ') is missing in: '
-                    . get_class($this)
+                PropertyMissingException::build(
+                    PropertiesBlockVersionEntity::CREATED_BY_USER_ID,
+                    $blockVersionData,
+                    get_class($this)
                 )
             ),
             Param::getRequired(
                 $blockVersionData,
                 PropertiesBlockVersionEntity::CREATED_REASON,
-                new PropertyMissingException(
-                    'Required property (' . PropertiesBlockVersionEntity::CREATED_REASON . ') is missing in: '
-                    . get_class($this)
+                PropertyMissingException::build(
+                    PropertiesBlockVersionEntity::CREATED_REASON,
+                    $blockVersionData,
+                    get_class($this)
                 )
             )
         );

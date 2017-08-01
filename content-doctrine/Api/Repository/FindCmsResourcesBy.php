@@ -32,7 +32,7 @@ class FindCmsResourcesBy
     ): array
     {
         $repository = $this->entityManager->getRepository(
-            $this->entityClass
+            $this->entityClassCmsResource
         );
 
         $entities = $repository->findBy(
@@ -42,6 +42,10 @@ class FindCmsResourcesBy
             $offset
         );
 
-        return $this->newBasics($entities);
+        return $this->newBasicCmsResources(
+            $this->entityClassCmsResource,
+            $this->classCmsResourceBasic,
+            $entities
+        );
     }
 }

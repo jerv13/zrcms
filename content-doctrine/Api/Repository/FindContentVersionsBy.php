@@ -33,7 +33,7 @@ class FindContentVersionsBy
     ): array
     {
         $repository = $this->entityManager->getRepository(
-            $this->entityClass
+            $this->entityClassContentVersion
         );
 
         $entities = $repository->findBy(
@@ -43,6 +43,10 @@ class FindContentVersionsBy
             $offset
         );
 
-        return $this->newBasics($entities);
+        return $this->newBasicContentVersions(
+            $this->entityClassContentVersion,
+            $this->classContentVersionBasic,
+            $entities
+        );
     }
 }

@@ -20,18 +20,20 @@ abstract class SiteAbstract extends ContentAbstract implements Site
         Param::assertHas(
             $properties,
             PropertiesSiteVersion::THEME_NAME,
-            new PropertyMissingException(
-                'Required property (' . PropertiesSiteVersion::THEME_NAME . ') is missing in: '
-                . get_class($this)
+            PropertyMissingException::build(
+                PropertiesSiteVersion::THEME_NAME,
+                $properties,
+                get_class($this)
             )
         );
 
         Param::assertHas(
             $properties,
             PropertiesSiteVersion::LOCALE,
-            new PropertyMissingException(
-                'Required property (' . PropertiesSiteVersion::LOCALE . ') is missing in: '
-                . get_class($this)
+            PropertyMissingException::build(
+                PropertiesSiteVersion::LOCALE,
+                $properties,
+                get_class($this)
             )
         );
 

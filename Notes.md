@@ -80,7 +80,14 @@ zrcms:site:1:theme-layout/{theme-layout-path}
 - Arguments over-ride issue due to config merge
 - Sync properties from columns in entities using $this->getProperties()
 - Layout version might require themeName as property
-    
+- Need ViewDataGatters (port or wrap from ZF view helpers):
+    - rcmGoogleAnalytics
+    - browser-warning.html
+    - rcmAdminPanel
+    - rcmHtmlEditorOptions
+            
+            
+            
     /**
      * @return void
      *

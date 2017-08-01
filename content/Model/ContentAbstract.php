@@ -33,9 +33,10 @@ abstract class ContentAbstract implements Content
         Param::assertHas(
             $properties,
             PropertiesContentVersion::ID,
-            new PropertyMissingException(
-                'Required property (' . PropertiesContentVersion::ID. ') is missing in: '
-                . get_class($this)
+            PropertyMissingException::build(
+                PropertiesContentVersion::ID,
+                $properties,
+                get_class($this)
             )
         );
 

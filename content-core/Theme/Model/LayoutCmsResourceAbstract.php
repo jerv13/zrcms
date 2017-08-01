@@ -25,8 +25,10 @@ abstract class LayoutCmsResourceAbstract extends CmsResourceAbstract implements 
         Param::assertHas(
             $properties,
             PropertiesLayoutCmsResource::THEME_NAME,
-            new PropertyMissingException(
-                'Required property (' . PropertiesLayoutCmsResource::THEME_NAME . ') is missing in: ' . get_class($this)
+            PropertyMissingException::build(
+                PropertiesLayoutCmsResource::THEME_NAME,
+                $properties,
+                get_class($this)
             )
         );
 
@@ -34,8 +36,10 @@ abstract class LayoutCmsResourceAbstract extends CmsResourceAbstract implements 
         Param::assertHas(
             $properties,
             PropertiesLayoutCmsResource::NAME,
-            new PropertyMissingException(
-                'Required property (' . PropertiesLayoutCmsResource::NAME . ') is missing in: ' . get_class($this)
+            PropertyMissingException::build(
+                PropertiesLayoutCmsResource::NAME,
+                $properties,
+                get_class($this)
             )
         );
 

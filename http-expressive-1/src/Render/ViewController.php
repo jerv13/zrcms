@@ -46,6 +46,17 @@ class ViewController
         ResponseInterface $response,
         callable $next = null
     ) {
+        // @todo TESTING ONLY
+        $queryParams = $request->getQueryParams();
+
+        if (!array_key_exists('zrcms', $queryParams)) {
+            return $next(
+                $request,
+                $response
+            );
+        }
+        // end TESTING
+
         $additionalViewProperties = [];
 
         try {
@@ -54,8 +65,13 @@ class ViewController
                 $additionalViewProperties
             );
         } catch (SiteNotFoundException $exception) {
+            // @todo Use a response service to generate these
+            $response = new HtmlResponse('SITE NOT FOUND');
+
             return $response->withStatus(404, 'SITE NOT FOUND');
         } catch (PageNotFoundException $exception) {
+            $response = new HtmlResponse('PAGE NOT FOUND');
+
             return $response->withStatus(404, 'PAGE NOT FOUND');
         }
 

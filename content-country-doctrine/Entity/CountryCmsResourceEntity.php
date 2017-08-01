@@ -6,6 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Zrcms\Content\Model\PropertiesCmsResource;
 use Zrcms\ContentCountry\Model\CountryCmsResource;
 use Zrcms\ContentCountry\Model\CountryCmsResourceAbstract;
+use Zrcms\ContentCountry\Model\PropertiesCountryCmsResource;
 use Zrcms\ContentDoctrine\Entity\CmsResourceEntity;
 use Zrcms\ContentDoctrine\Entity\CmsResourceEntityTrait;
 use Zrcms\Param\Param;
@@ -86,10 +87,14 @@ class CountryCmsResourceEntity
         string $createdByUserId,
         string $createdReason
     ) {
-        // Force Id to int
-        $properties[PropertiesCmsResource::ID] = Param::getInt(
+        $this->id = Param::getInt(
             $properties,
-            PropertiesCmsResource::ID
+            PropertiesCountryCmsResource::ID
+        );
+
+        $this->contentVersionId = Param::getInt(
+            $properties,
+            PropertiesCountryCmsResource::CONTENT_VERSION_ID
         );
 
         parent::__construct(

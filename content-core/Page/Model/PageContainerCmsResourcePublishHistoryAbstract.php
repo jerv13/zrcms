@@ -27,9 +27,10 @@ abstract class PageContainerCmsResourcePublishHistoryAbstract
         Param::assertHas(
             $properties,
             PropertiesCmsResourcePublishHistory::ACTION,
-            new PropertyMissingException(
-                'Required property (' . PropertiesCmsResourcePublishHistory::ACTION . ') is missing in: '
-                . get_class($this)
+            PropertyMissingException::build(
+                PropertiesCmsResourcePublishHistory::ACTION,
+                $properties,
+                get_class($this)
             )
         );
 

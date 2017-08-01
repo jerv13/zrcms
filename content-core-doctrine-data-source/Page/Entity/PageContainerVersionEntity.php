@@ -3,9 +3,9 @@
 namespace Zrcms\ContentCoreDoctrineDataSource\Page\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Zrcms\Content\Model\PropertiesContent;
 use Zrcms\ContentCore\Page\Model\PageContainerVersion;
 use Zrcms\ContentCore\Page\Model\PageContainerVersionAbstract;
+use Zrcms\ContentCore\Page\Model\PropertiesPageContainerVersion;
 use Zrcms\ContentCoreDoctrineDataSource\Container\Entity\ContainerBlockVersionsTrait;
 use Zrcms\ContentDoctrine\Entity\ContentEntity;
 use Zrcms\ContentDoctrine\Entity\ContentEntityTrait;
@@ -72,6 +72,20 @@ class PageContainerVersionEntity
     protected $createdReason;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(type="string")
+     */
+    protected $title;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(type="string")
+     */
+    protected $keywords;
+
+    /**
      * @var array
      *
      * @ORM\Column(type="json_array")
@@ -90,7 +104,17 @@ class PageContainerVersionEntity
     ) {
         $this->id = Param::getInt(
             $properties,
-            PropertiesContent::ID
+            PropertiesPageContainerVersion::ID
+        );
+
+        $this->title = Param::getString(
+            $properties,
+            PropertiesPageContainerVersion::TITLE
+        );
+
+        $this->keywords = Param::getString(
+            $properties,
+            PropertiesPageContainerVersion::KEYWORDS
         );
 
         $blockVersions = Param::getArray(
@@ -101,6 +125,10 @@ class PageContainerVersionEntity
 
         $this->addBlockVersions($blockVersions);
 
-        parent::__construct($properties, $createdByUserId, $createdReason);
+        parent::__construct(
+            $properties,
+            $createdByUserId,
+            $createdReason
+        );
     }
 }

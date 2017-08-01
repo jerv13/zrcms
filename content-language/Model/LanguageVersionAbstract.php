@@ -56,27 +56,30 @@ abstract class LanguageVersionAbstract extends ContentVersionAbstract implements
         $this->iso639_2t = Param::getRequired(
             $properties,
             PropertiesLanguageVersion::ISO_639_2T,
-            new PropertyMissingException(
-                'Required property (' . PropertiesLanguageVersion::ISO_639_2T. ') is missing in: '
-                . get_class($this)
+            PropertyMissingException::build(
+                PropertiesLanguageVersion::ISO_639_2T,
+                $properties,
+                get_class($this)
             )
         );
 
         $this->iso639_2b = Param::getRequired(
             $properties,
             PropertiesLanguageVersion::ISO_639_2B,
-            new PropertyMissingException(
-                'Required property (' . PropertiesLanguageVersion::ISO_639_2B. ') is missing in: '
-                . get_class($this)
+            PropertyMissingException::build(
+                PropertiesLanguageVersion::ISO_639_2B,
+                $properties,
+                get_class($this)
             )
         );
 
         $this->iso639_1 = Param::getRequired(
             $properties,
             PropertiesLanguageVersion::ISO_639_1,
-            new PropertyMissingException(
-                'Required property (' . PropertiesLanguageVersion::ISO_639_1. ') is missing in: '
-                . get_class($this)
+            PropertyMissingException::build(
+                PropertiesLanguageVersion::ISO_639_1,
+                $properties,
+                get_class($this)
             )
         );
 

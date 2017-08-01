@@ -26,11 +26,15 @@ class FindCmsResource
         array $options = []
     ) {
         $repository = $this->entityManager->getRepository(
-            $this->entityClass
+            $this->entityClassCmsResource
         );
 
         $entity = $repository->find($id);
 
-        return $this->newBasic($entity);
+        return $this->newBasicCmsResource(
+            $this->entityClassCmsResource,
+            $this->classCmsResourceBasic,
+            $entity
+        );
     }
 }

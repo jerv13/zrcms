@@ -38,16 +38,20 @@ abstract class ComponentAbstract implements Component
         Param::assertHas(
             $properties,
             PropertiesComponent::NAME,
-            new PropertyMissingException(
-                'Required property (' . PropertiesComponent::NAME . ') is missing in: ' . get_class($this)
+            PropertyMissingException::build(
+                PropertiesComponent::NAME,
+                $properties,
+                get_class($this)
             )
         );
 
         Param::assertHas(
             $properties,
             PropertiesComponent::LOCATION,
-            new PropertyMissingException(
-                'Required property (' . PropertiesComponent::LOCATION . ') is missing in: ' . get_class($this)
+            PropertyMissingException::build(
+                PropertiesComponent::LOCATION,
+                $properties,
+                get_class($this)
             )
         );
 

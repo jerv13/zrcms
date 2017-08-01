@@ -105,12 +105,17 @@ class PageContainerCmsResourceEntity
             PropertiesPageContainerCmsResource::ID
         );
 
+        $this->contentVersionId = Param::getInt(
+            $properties,
+            PropertiesPageContainerCmsResource::CONTENT_VERSION_ID
+        );
+
         $this->siteCmsResourceId = Param::getInt(
             $properties,
             PropertiesPageContainerCmsResource::SITE_CMS_RESOURCE_ID
         );
 
-        $this->path = Param::getInt(
+        $this->path = Param::getString(
             $properties,
             PropertiesPageContainerCmsResource::PATH
         );

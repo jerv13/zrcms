@@ -10,8 +10,8 @@ use Zrcms\ContentDoctrine\Exception\InvalidEntityException;
 abstract class ApiAbstract
 {
     /**
-     * @param $entity
      * @param $entityClass
+     * @param $requiredEntityClass
      *
      * @return void
      * @throws InvalidEntityException

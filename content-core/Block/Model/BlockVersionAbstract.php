@@ -12,7 +12,9 @@ use Zrcms\Param\Param;
 abstract class BlockVersionAbstract extends ContentVersionAbstract implements BlockVersion
 {
     /**
-     * @param array $properties
+     * @param array  $properties
+     * @param string $createdByUserId
+     * @param string $createdReason
      */
     public function __construct(
         array $properties,
@@ -22,27 +24,30 @@ abstract class BlockVersionAbstract extends ContentVersionAbstract implements Bl
         Param::assertHas(
             $properties,
             PropertiesBlockVersion::BLOCK_COMPONENT_NAME,
-            new PropertyMissingException(
-                'Required property (' . PropertiesBlockVersion::BLOCK_COMPONENT_NAME . ') is missing in: '
-                . get_class($this)
+            PropertyMissingException::build(
+                PropertiesBlockVersion::BLOCK_COMPONENT_NAME,
+                $properties,
+                get_class($this)
             )
         );
 
         Param::assertHas(
             $properties,
             PropertiesBlockVersion::LAYOUT_PROPERTIES,
-            new PropertyMissingException(
-                'Required property (' . PropertiesBlockVersion::LAYOUT_PROPERTIES . ') is missing in: '
-                . get_class($this)
+            PropertyMissingException::build(
+                PropertiesBlockVersion::LAYOUT_PROPERTIES,
+                $properties,
+                get_class($this)
             )
         );
 
         Param::assertHas(
             $properties,
             PropertiesBlockVersion::BLOCK_CONTAINER_CMS_RESOURCE_ID,
-            new PropertyMissingException(
-                'Required property (' . PropertiesBlockVersion::BLOCK_CONTAINER_CMS_RESOURCE_ID . ') is missing in: '
-                . get_class($this)
+            PropertyMissingException::build(
+                PropertiesBlockVersion::BLOCK_CONTAINER_CMS_RESOURCE_ID,
+                $properties,
+                get_class($this)
             )
         );
 
@@ -133,9 +138,10 @@ abstract class BlockVersionAbstract extends ContentVersionAbstract implements Bl
         return Param::getRequired(
             $layoutProperties,
             $name,
-            new PropertyMissingException(
-                'Required property (' . $name . ') is missing in: '
-                . get_class($this)
+            PropertyMissingException::build(
+                $name,
+                $layoutProperties,
+                get_class($this)
             )
         );
     }

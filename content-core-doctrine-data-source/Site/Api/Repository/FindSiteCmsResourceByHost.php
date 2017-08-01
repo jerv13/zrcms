@@ -3,6 +3,7 @@
 namespace Zrcms\ContentCoreDoctrineDataSource\Site\Api\Repository;
 
 use Doctrine\ORM\EntityManager;
+use Zrcms\Content\Model\CmsResource;
 use Zrcms\ContentCore\Site\Model\SiteCmsResource;
 use Zrcms\ContentCore\Site\Model\SiteCmsResourceBasic;
 use Zrcms\ContentCoreDoctrineDataSource\Site\Entity\SiteCmsResourceEntity;
@@ -24,7 +25,7 @@ class FindSiteCmsResourceByHost
     /**
      * @var string
      */
-    protected $entityClass;
+    protected $entityClassCmsResource;
 
     /**
      * @var
@@ -37,7 +38,7 @@ class FindSiteCmsResourceByHost
     public function __construct(EntityManager $entityManager)
     {
         $this->entityManager = $entityManager;
-        $this->entityClass = SiteCmsResourceEntity::class;
+        $this->entityClassCmsResource = SiteCmsResourceEntity::class;
         $this->classCmsResourceBasic = SiteCmsResourceBasic::class;
     }
 
@@ -45,12 +46,23 @@ class FindSiteCmsResourceByHost
      * @param string $host
      * @param array  $options
      *
-     * @return SiteCmsResource|null
+     * @return SiteCmsResource|CmsResource|null
      */
     public function __invoke(
         string $host,
         array $options = []
     ) {
-        // @todo
+        $repository = $this->entityManager->getRepository(
+            $this->entityClassCmsResource
+        );
+
+        /** @var SiteCmsResource|CmsResource $siteCmsResource */
+        $siteCmsResource = $repository->findOneBy(['host' => $host]);
+
+        return $this->newBasicCmsResource(
+            $this->entityClassCmsResource,
+            $this->classCmsResourceBasic,
+            $siteCmsResource
+        );
     }
 }

@@ -20,18 +20,20 @@ abstract class BlockAbstract extends ContentAbstract implements Block
         Param::assertHas(
             $properties,
             PropertiesBlock::BLOCK_COMPONENT_NAME,
-            new PropertyMissingException(
-                'Required property (' . PropertiesBlock::BLOCK_COMPONENT_NAME . ') is missing in: '
-                . get_class($this)
+            PropertyMissingException::build(
+                PropertiesBlock::BLOCK_COMPONENT_NAME,
+                $properties,
+                get_class($this)
             )
         );
 
         Param::assertHas(
             $properties,
             PropertiesBlock::LAYOUT_PROPERTIES,
-            new PropertyMissingException(
-                'Required property (' . PropertiesBlock::LAYOUT_PROPERTIES . ') is missing in: '
-                . get_class($this)
+            PropertyMissingException::build(
+                PropertiesBlock::LAYOUT_PROPERTIES,
+                $properties,
+                get_class($this)
             )
         );
 
@@ -120,9 +122,10 @@ abstract class BlockAbstract extends ContentAbstract implements Block
         return Param::getRequired(
             $layoutProperties,
             $name,
-            new PropertyMissingException(
-                'Required property (' . $name . ') is missing in: '
-                . get_class($this)
+            PropertyMissingException::build(
+                $name,
+                $layoutProperties,
+                get_class($this)
             )
         );
     }

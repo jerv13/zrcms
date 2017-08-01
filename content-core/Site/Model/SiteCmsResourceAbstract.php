@@ -25,9 +25,10 @@ abstract class SiteCmsResourceAbstract extends CmsResourceAbstract implements Si
         Param::assertHas(
             $properties,
             PropertiesSiteCmsResource::HOST,
-            new PropertyMissingException(
-                'Required property (' . PropertiesSiteCmsResource::HOST . ') is missing in: ' . get_class($this)
-                . get_class($this)
+            PropertyMissingException::build(
+                PropertiesSiteCmsResource::HOST,
+                $properties,
+                get_class($this)
             )
         );
 

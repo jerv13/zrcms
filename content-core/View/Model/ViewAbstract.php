@@ -46,48 +46,60 @@ abstract class ViewAbstract extends ContentAbstract implements View
         $this->siteCmsResource = Param::getRequired(
             $properties,
             PropertiesView::SITE_CMS_RESOURCE,
-            new PropertyMissingException(
-                'Required property (' . PropertiesView::SITE_CMS_RESOURCE . ') is missing in: ' . get_class($this)
+            PropertyMissingException::build(
+                PropertiesView::SITE_CMS_RESOURCE,
+                $properties,
+                get_class($this)
             )
         );
 
         $this->site = Param::getRequired(
             $properties,
             PropertiesView::SITE,
-            new PropertyMissingException(
-                'Required property (' . PropertiesView::SITE . ') is missing in: ' . get_class($this)
+            PropertyMissingException::build(
+                PropertiesView::SITE,
+                $properties,
+                get_class($this)
             )
         );
 
         $this->pageContainerCmsResource = Param::getRequired(
             $properties,
             PropertiesView::PAGE_CONTAINER_CMS_RESOURCE,
-            new PropertyMissingException(
-                'Required property (' . PropertiesView::PAGE_CONTAINER_CMS_RESOURCE . ') is missing in: ' . get_class($this)
+            PropertyMissingException::build(
+                PropertiesView::PAGE_CONTAINER_CMS_RESOURCE,
+                $properties,
+                get_class($this)
             )
         );
 
         $this->page = Param::getRequired(
             $properties,
             PropertiesView::PAGE,
-            new PropertyMissingException(
-                'Required property (' . PropertiesView::PAGE . ') is missing in: ' . get_class($this)
+            PropertyMissingException::build(
+                PropertiesView::PAGE,
+                $properties,
+                get_class($this)
             )
         );
 
         $this->layoutCmsResource = Param::getRequired(
             $properties,
             PropertiesView::LAYOUT_CMS_RESOURCE,
-            new PropertyMissingException(
-                'Required property (' . PropertiesView::LAYOUT_CMS_RESOURCE . ') is missing in: ' . get_class($this)
+            PropertyMissingException::build(
+                PropertiesView::LAYOUT_CMS_RESOURCE,
+                $properties,
+                get_class($this)
             )
         );
 
         $this->layout = Param::getRequired(
             $properties,
             PropertiesView::LAYOUT,
-            new PropertyMissingException(
-                'Required property (' . PropertiesView::LAYOUT . ') is missing in: ' . get_class($this)
+            PropertyMissingException::build(
+                PropertiesView::LAYOUT,
+                $properties,
+                get_class($this)
             )
         );
         

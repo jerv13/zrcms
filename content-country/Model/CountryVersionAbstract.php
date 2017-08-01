@@ -39,27 +39,30 @@ abstract class CountryVersionAbstract extends ContentVersionAbstract implements 
         $this->iso3 = Param::getRequired(
             $properties,
             PropertiesCountryVersion::ISO3,
-            new PropertyMissingException(
-                'Required property (' . PropertiesCountryVersion::ISO3. ') is missing in: '
-                . get_class($this)
+            PropertyMissingException::build(
+                PropertiesCountryVersion::ISO3,
+                $properties,
+                get_class($this)
             )
         );
 
         $this->iso2 = Param::getRequired(
             $properties,
             PropertiesCountryVersion::ISO2,
-            new PropertyMissingException(
-                'Required property (' . PropertiesCountryVersion::ISO2. ') is missing in: '
-                . get_class($this)
+            PropertyMissingException::build(
+                PropertiesCountryVersion::ISO2,
+                $properties,
+                get_class($this)
             )
         );
 
         $this->name = Param::getRequired(
             $properties,
             PropertiesCountryVersion::NAME,
-            new PropertyMissingException(
-                'Required property (' . PropertiesCountryVersion::NAME. ') is missing in: '
-                . get_class($this)
+            PropertyMissingException::build(
+                PropertiesCountryVersion::NAME,
+                $properties,
+                get_class($this)
             )
         );
 

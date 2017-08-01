@@ -25,18 +25,20 @@ abstract class ContainerCmsResourceAbstract extends CmsResourceAbstract implemen
         Param::assertHas(
             $properties,
             PropertiesContainerCmsResource::SITE_CMS_RESOURCE_ID,
-            new PropertyMissingException(
-                'Required property (' . PropertiesContainerCmsResource::SITE_CMS_RESOURCE_ID . ') is missing in: '
-                . get_class($this)
+            PropertyMissingException::build(
+                PropertiesContainerCmsResource::SITE_CMS_RESOURCE_ID,
+                $properties,
+                get_class($this)
             )
         );
 
         Param::assertHas(
             $properties,
             PropertiesContainerCmsResource::PATH,
-            new PropertyMissingException(
-                'Required property (' . PropertiesContainerCmsResource::PATH . ') is missing in: '
-                . get_class($this)
+            PropertyMissingException::build(
+                PropertiesContainerCmsResource::PATH,
+                $properties,
+                get_class($this)
             )
         );
 

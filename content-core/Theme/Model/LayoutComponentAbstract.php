@@ -25,18 +25,20 @@ abstract class LayoutComponentAbstract extends ComponentAbstract implements Layo
         Param::assertHas(
             $properties,
             PropertiesLayoutComponent::THEME_NAME,
-            new PropertyMissingException(
-                'Required property (' . PropertiesLayoutComponent::THEME_NAME. ') is missing in: '
-                . get_class($this)
+            PropertyMissingException::build(
+                PropertiesLayoutComponent::THEME_NAME,
+                $properties,
+                get_class($this)
             )
         );
 
         Param::assertHas(
             $properties,
             PropertiesLayoutComponent::HTML,
-            new PropertyMissingException(
-                'Required property (' . PropertiesLayoutComponent::HTML. ') is missing in: '
-                . get_class($this)
+            PropertyMissingException::build(
+                PropertiesLayoutComponent::HTML,
+                $properties,
+                get_class($this)
             )
         );
 

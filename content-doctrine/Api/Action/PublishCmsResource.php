@@ -29,7 +29,7 @@ class PublishCmsResource
     /**
      * @var string
      */
-    protected $entityClass;
+    protected $entityClassCmsResource;
 
     /**
      * @var string
@@ -77,7 +77,7 @@ class PublishCmsResource
 
         $this->entityManager = $entityManager;
         $this->entityClassCmsResourcePublishHistory = $entityClassCmsResourcePublishHistory;
-        $this->entityClass = $entityClassCmsResource;
+        $this->entityClassCmsResource = $entityClassCmsResource;
         $this->entityClassContentVersion = $entityClassContentVersion;
         $this->classCmsResourceBasic = $classCmsResourceBasic;
     }
@@ -102,18 +102,18 @@ class PublishCmsResource
             $this->entityClassContentVersion
         );
 
-        $newContentVersion = $repositoryContentVersion->find(
+        $existingContentVersion = $repositoryContentVersion->find(
             $cmsResource->getContentVersionId()
         );
 
-        if (empty($newContentVersion)) {
+        if (empty($existingContentVersion)) {
             throw new ContentVersionNotExistsException(
                 'No content version exists for content version ID: ' . $cmsResource->getContentVersionId()
             );
         }
 
         $repositoryCmsResource = $this->entityManager->getRepository(
-            $this->entityClass
+            $this->entityClassCmsResource
         );
 
         /** @var CmsResource $existingCmsResource */
@@ -145,7 +145,7 @@ class PublishCmsResource
         }
 
         /** @var CmsResource::class $cmsResourceClass */
-        $cmsResourceClass = $this->entityClass;
+        $cmsResourceClass = $this->entityClassCmsResource;
 
         /** @var CmsResource $newCmsResource */
         $newCmsResource = new $cmsResourceClass(
@@ -157,7 +157,11 @@ class PublishCmsResource
         $this->entityManager->persist($newCmsResource);
         $this->entityManager->flush($newCmsResource);
 
-        return $this->newBasic($newCmsResource);
+        return $this->newBasicCmsResource(
+            $this->entityClassCmsResource,
+            $this->classCmsResourceBasic,
+            $newCmsResource
+        );
     }
 
     /**
@@ -179,6 +183,10 @@ class PublishCmsResource
 
         $this->entityManager->flush($existingCmsResource);
 
-        return $this->newBasic($existingCmsResource);
+        return $this->newBasicCmsResource(
+            $this->entityClassCmsResource,
+            $this->classCmsResourceBasic,
+            $existingCmsResource
+        );
     }
 }

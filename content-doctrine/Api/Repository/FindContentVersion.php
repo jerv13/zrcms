@@ -26,11 +26,15 @@ class FindContentVersion
         array $options = []
     ) {
         $repository = $this->entityManager->getRepository(
-            $this->entityClass
+            $this->entityClassContentVersion
         );
 
         $entity = $repository->find((int)$id);
 
-        return $this->newBasic($entity);
+        return $this->newBasicContentVersion(
+            $this->entityClassContentVersion,
+            $this->classContentVersionBasic,
+            $entity
+        );
     }
 }

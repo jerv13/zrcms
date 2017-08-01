@@ -6,6 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Zrcms\Content\Model\PropertiesContent;
 use Zrcms\ContentCountry\Model\CountryVersion;
 use Zrcms\ContentCountry\Model\CountryVersionAbstract;
+use Zrcms\ContentCountry\Model\PropertiesCountryVersion;
 use Zrcms\ContentDoctrine\Entity\ContentEntity;
 use Zrcms\ContentDoctrine\Entity\ContentEntityTrait;
 use Zrcms\Param\Param;
@@ -101,10 +102,24 @@ class CountryVersionEntity
         string $createdByUserId,
         string $createdReason
     ) {
-        // Force Id to int
-        $properties[PropertiesContent::ID] = Param::getInt(
+        $this->id = Param::getInt(
             $properties,
-            PropertiesContent::ID
+            PropertiesCountryVersion::ID
+        );
+
+        $this->iso3 = Param::getInt(
+            $properties,
+            PropertiesCountryVersion::ISO3
+        );
+
+        $this->iso2 = Param::getInt(
+            $properties,
+            PropertiesCountryVersion::ISO2
+        );
+
+        $this->name = Param::getInt(
+            $properties,
+            PropertiesCountryVersion::NAME
         );
 
         parent::__construct(

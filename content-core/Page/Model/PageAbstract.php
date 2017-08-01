@@ -20,18 +20,20 @@ abstract class PageAbstract extends ContentAbstract implements Page
         Param::assertHas(
             $properties,
             PropertiesPageContainerVersion::TITLE,
-            new PropertyMissingException(
-                'Required property (' . PropertiesPageContainerVersion::TITLE . ') is missing in: '
-                . get_class($this)
+            PropertyMissingException::build(
+                PropertiesPageContainerVersion::TITLE,
+                $properties,
+                get_class($this)
             )
         );
 
         Param::assertHas(
             $properties,
             PropertiesPageContainerVersion::KEYWORDS,
-            new PropertyMissingException(
-                'Required property (' . PropertiesPageContainerVersion::KEYWORDS . ') is missing in: '
-                . get_class($this)
+            PropertyMissingException::build(
+                PropertiesPageContainerVersion::KEYWORDS,
+                $properties,
+                get_class($this)
             )
         );
 

@@ -10,27 +10,37 @@ use Zrcms\Content\Model\ContentVersion;
 trait BasicContentVersionTrait
 {
     /**
-     * @var string
-     */
-    protected $entityClass;
-
-    /**
-     * @var string
-     */
-    protected $classContentVersionBasic;
-
-    /**
-     * @param ContentVersion|null $entity
+     * @param string         $entityClassContentVersion
+     * @param string         $classContentVersionBasic
+     * @param ContentVersion $entity
      *
-     * @return null
+     * @return ContentVersion
+     * @throws \Exception
      */
-    protected function newBasic($entity)
-    {
-        if(!is_a($entity, $this->entityClass)) {
+    protected function newBasicContentVersion(
+        string $entityClassContentVersion,
+        string $classContentVersionBasic,
+        $entity
+    ) {
+        if (empty($entity)) {
             return null;
         }
 
-        $classContentVersionBasic = $this->classContentVersionBasic;
+        if (!is_a($entityClassContentVersion, ContentVersion::class, true)) {
+            throw new \Exception('Entity class must be of type: ' . ContentVersion::class);
+        }
+
+        if (!is_a($classContentVersionBasic, ContentVersion::class, true)) {
+            throw new \Exception('Entity basic must be of type: ' . ContentVersion::class);
+        }
+
+        if (!is_a($entity, $entityClassContentVersion)) {
+            throw new \Exception('Entity must be of type: ' . $entityClassContentVersion);
+        }
+
+        if (!is_a($entity, ContentVersion::class)) {
+            throw new \Exception('Entity must be of type: ' . ContentVersion::class);
+        }
 
         return new $classContentVersionBasic(
             $entity->getProperties(),
@@ -40,16 +50,25 @@ trait BasicContentVersionTrait
     }
 
     /**
-     * @param array $entities
+     * @param string $entityClassContentVersion
+     * @param string $classContentVersionBasic
+     * @param array  $entities
      *
-     * @return array
+     * @return ContentVersion[]
      */
-    protected function newBasics(array $entities)
-    {
+    protected function newBasicContentVersions(
+        string $entityClassContentVersion,
+        string $classContentVersionBasic,
+        array $entities
+    ) {
         $basics = [];
 
         foreach ($entities as $entity) {
-            $basics[] = $this->newBasic($entity);
+            $basics[] = $this->newBasicContentVersion(
+                $entityClassContentVersion,
+                $classContentVersionBasic,
+                $entity
+            );
         }
 
         return $basics;

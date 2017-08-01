@@ -3,11 +3,11 @@
 namespace Zrcms\ContentLanguageDoctrine\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Zrcms\Content\Model\PropertiesContent;
 use Zrcms\ContentDoctrine\Entity\ContentEntity;
 use Zrcms\ContentDoctrine\Entity\ContentEntityTrait;
 use Zrcms\ContentLanguage\Model\LanguageVersion;
 use Zrcms\ContentLanguage\Model\LanguageVersionAbstract;
+use Zrcms\ContentLanguage\Model\PropertiesLanguageVersion;
 use Zrcms\Param\Param;
 
 /**
@@ -120,10 +120,29 @@ class LanguageVersionEntity
         string $createdByUserId,
         string $createdReason
     ) {
-        // Force Id to int
-        $properties[PropertiesContent::ID] = Param::getInt(
+        $this->id = Param::getInt(
             $properties,
-            PropertiesContent::ID
+            PropertiesLanguageVersion::ID
+        );
+
+        $this->iso639_2t = Param::getInt(
+            $properties,
+            PropertiesLanguageVersion::ISO_639_2T
+        );
+
+        $this->iso639_2b = Param::getInt(
+            $properties,
+            PropertiesLanguageVersion::ISO_639_2B
+        );
+
+        $this->iso639_1 = Param::getInt(
+            $properties,
+            PropertiesLanguageVersion::ISO_639_1
+        );
+
+        $this->name = Param::getInt(
+            $properties,
+            PropertiesLanguageVersion::NAME
         );
 
         parent::__construct(

@@ -32,9 +32,10 @@ abstract class CountryCmsResourcePublishHistoryAbstract
         $this->action = Param::getRequired(
             $properties,
             PropertiesCmsResourcePublishHistory::ACTION,
-            new PropertyMissingException(
-                'Required property (' . PropertiesCmsResourcePublishHistory::ACTION . ') is missing in: '
-                . get_class($this)
+            PropertyMissingException::build(
+                PropertiesCmsResourcePublishHistory::ACTION,
+                $properties,
+                get_class($this)
             )
         );
 

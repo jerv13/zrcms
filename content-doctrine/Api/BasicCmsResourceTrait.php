@@ -10,27 +10,37 @@ use Zrcms\Content\Model\CmsResource;
 trait BasicCmsResourceTrait
 {
     /**
-     * @var string
-     */
-    protected $entityClass;
-
-    /**
-     * @var string
-     */
-    protected $classCmsResourceBasic;
-
-    /**
-     * @param CmsResource|null $entity
+     * @param string      $entityClassCmsResource
+     * @param string      $classCmsResourceBasic
+     * @param CmsResource $entity
      *
-     * @return null
+     * @return CmsResource
+     * @throws \Exception
      */
-    protected function newBasic($entity)
-    {
-        if(!is_a($entity, $this->entityClass)) {
+    protected function newBasicCmsResource(
+        string $entityClassCmsResource,
+        string $classCmsResourceBasic,
+        $entity
+    ) {
+        if (empty($entity)) {
             return null;
         }
 
-        $classCmsResourceBasic = $this->classCmsResourceBasic;
+        if (!is_a($entityClassCmsResource, CmsResource::class, true)) {
+            throw new \Exception('Entity class must be of type: ' . CmsResource::class);
+        }
+
+        if (!is_a($classCmsResourceBasic, CmsResource::class, true)) {
+            throw new \Exception('Entity basic must be of type: ' . CmsResource::class);
+        }
+
+        if (!is_a($entity, $entityClassCmsResource)) {
+            throw new \Exception('Entity must be of type: ' . $entityClassCmsResource);
+        }
+
+        if (!is_a($entity, CmsResource::class)) {
+            throw new \Exception('Entity must be of type: ' . CmsResource::class);
+        }
 
         return new $classCmsResourceBasic(
             $entity->getProperties(),
@@ -40,16 +50,25 @@ trait BasicCmsResourceTrait
     }
 
     /**
-     * @param array $entities
+     * @param string $entityClassCmsResource
+     * @param string $classCmsResourceBasic
+     * @param array  $entities
      *
      * @return array
      */
-    protected function newBasics(array $entities)
-    {
+    protected function newBasicCmsResources(
+        string $entityClassCmsResource,
+        string $classCmsResourceBasic,
+        array $entities
+    ) {
         $basics = [];
 
         foreach ($entities as $entity) {
-            $basics[] = $this->newBasic($entity);
+            $basics[] = $this->newBasicCmsResource(
+                $entityClassCmsResource,
+                $classCmsResourceBasic,
+                $entity
+            );
         }
 
         return $basics;

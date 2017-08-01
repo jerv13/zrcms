@@ -8,6 +8,7 @@ use Zrcms\ContentDoctrine\Entity\CmsResourcePublishHistoryEntity;
 use Zrcms\ContentDoctrine\Entity\CmsResourcePublishHistoryEntityTrait;
 use Zrcms\ContentLanguage\Model\LanguageCmsResourcePublishHistory;
 use Zrcms\ContentLanguage\Model\LanguageCmsResourcePublishHistoryAbstract;
+use Zrcms\ContentLanguage\Model\PropertiesLanguageCmsResource;
 use Zrcms\Param\Param;
 
 /**
@@ -93,10 +94,19 @@ class LanguageCmsResourcePublishHistoryEntity
         string $createdByUserId,
         string $createdReason
     ) {
-        // Force Id to int
-        $properties[PropertiesCmsResourcePublishHistory::ID] = Param::getInt(
+        $this->id = Param::getInt(
             $properties,
-            PropertiesCmsResourcePublishHistory::ID
+            PropertiesLanguageCmsResource::ID
+        );
+
+        $this->contentVersionId = Param::getInt(
+            $properties,
+            PropertiesLanguageCmsResource::CONTENT_VERSION_ID
+        );
+
+        $this->action = Param::getString(
+            $properties,
+            PropertiesCmsResourcePublishHistory::ACTION
         );
 
         parent::__construct(

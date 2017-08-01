@@ -24,7 +24,7 @@ class FindContainerCmsResourcesBySitePaths
     /**
      * @var string
      */
-    protected $entityClass;
+    protected $entityClassCmsResource;
 
     /**
      * @var
@@ -37,7 +37,7 @@ class FindContainerCmsResourcesBySitePaths
     public function __construct(EntityManager $entityManager)
     {
         $this->entityManager = $entityManager;
-        $this->entityClass = ContainerCmsResourceEntity::class;
+        $this->entityClassCmsResource = ContainerCmsResourceEntity::class;
         $this->classCmsResourceBasic = ContainerCmsResourceBasic::class;
     }
 

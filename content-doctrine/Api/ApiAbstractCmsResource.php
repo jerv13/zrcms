@@ -20,7 +20,7 @@ abstract class ApiAbstractCmsResource extends ApiAbstract
     /**
      * @var string
      */
-    protected $entityClass;
+    protected $entityClassCmsResource;
 
     /**
      * @var
@@ -29,21 +29,21 @@ abstract class ApiAbstractCmsResource extends ApiAbstract
 
     /**
      * @param EntityManager $entityManager
-     * @param string        $entityClass
+     * @param string        $entityClassCmsResource
      * @param string        $classCmsResourceBasic
      */
     public function __construct(
         EntityManager $entityManager,
-        string $entityClass,
+        string $entityClassCmsResource,
         string $classCmsResourceBasic
     ) {
         $this->assertValidEntityClass(
-            $entityClass,
+            $entityClassCmsResource,
             CmsResource::class
         );
 
         $this->entityManager = $entityManager;
-        $this->entityClass = $entityClass;
+        $this->entityClassCmsResource = $entityClassCmsResource;
         $this->classCmsResourceBasic = $classCmsResourceBasic;
     }
 }

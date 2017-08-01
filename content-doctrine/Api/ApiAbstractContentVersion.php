@@ -21,7 +21,7 @@ abstract class ApiAbstractContentVersion extends ApiAbstract
     /**
      * @var string
      */
-    protected $entityClass;
+    protected $entityClassContentVersion;
 
     /**
      * @var string
@@ -30,21 +30,21 @@ abstract class ApiAbstractContentVersion extends ApiAbstract
 
     /**
      * @param EntityManager $entityManager
-     * @param string        $entityClass
+     * @param string        $entityClassContentVersion
      * @param string        $classContentVersionBasic
      */
     public function __construct(
         EntityManager $entityManager,
-        string $entityClass,
+        string $entityClassContentVersion,
         string $classContentVersionBasic
     ) {
         $this->assertValidEntityClass(
-            $entityClass,
+            $entityClassContentVersion,
             ContentVersion::class
         );
 
         $this->entityManager = $entityManager;
-        $this->entityClass = $entityClass;
+        $this->entityClassContentVersion = $entityClassContentVersion;
         $this->classContentVersionBasic = $classContentVersionBasic;
     }
 }
