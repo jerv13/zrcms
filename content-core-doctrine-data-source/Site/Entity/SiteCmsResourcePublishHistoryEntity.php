@@ -106,6 +106,11 @@ class SiteCmsResourcePublishHistoryEntity
             PropertiesSiteCmsResource::ID
         );
 
+        $this->contentVersionId = Param::getInt(
+            $properties,
+            PropertiesSiteCmsResource::CONTENT_VERSION_ID
+        );
+
         $this->host = Param::getString(
             $properties,
             PropertiesSiteCmsResource::HOST

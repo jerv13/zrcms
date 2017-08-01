@@ -1,16 +1,18 @@
 <?php
 
-namespace Zrcms\Importer\Console;
+namespace Zrcms\Importer\Cli\Command;
 
 use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Zrcms\Importer\Api\Import;
 
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class CommandImport extends Command
+class ImportCommand extends Command
 {
     /**
      * @var Import
@@ -29,6 +31,10 @@ class CommandImport extends Command
             null
         );
     }
+
+    /**
+     * @return void
+     */
     protected function configure()
     {
         $this
@@ -37,6 +43,19 @@ class CommandImport extends Command
 
             // the short description shown while running "php bin/console list"
             ->setDescription('Imports data to ZRCMS.')
+
+//            ->addArgument(
+//                'file',
+//                InputArgument::REQUIRED,
+//                'JSON file to import'
+//            )
+
+            ->addOption(
+                'file',
+                null,
+                InputOption::VALUE_REQUIRED,
+                'JSON file to import'
+            )
 
             // the full command description shown when running the command with
             // the "--help" option
@@ -48,16 +67,11 @@ class CommandImport extends Command
      * @param InputInterface  $input
      * @param OutputInterface $output
      *
-     * @return OutputInterface
+     * @return void
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $file = $input->getArgument('file');
-        if (empty($file)) {
-            $output->writeln('File to import is required');
-
-            return $output;
-        }
+        $file = $input->getOption('file');
 
         $createdByUserId = 'cli-import';
         $file = realpath($file);
@@ -65,7 +79,7 @@ class CommandImport extends Command
         if (!file_exists($file)) {
             $output->writeln('File to import not found ' . $file);
 
-            return $output;
+            return;
         }
 
         $contents = file_get_contents($file);
@@ -76,7 +90,5 @@ class CommandImport extends Command
         );
 
         $output->writeln('COMPLETE');
-
-        return $output;
     }
 }

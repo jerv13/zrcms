@@ -85,7 +85,7 @@ class Import
      */
     function __invoke(string $json, string $createdByUserId)
     {
-        $data = json_decode($json);
+        $data = json_decode($json, true);
 
         $createdReason = 'Import script ' . get_class($this);
 

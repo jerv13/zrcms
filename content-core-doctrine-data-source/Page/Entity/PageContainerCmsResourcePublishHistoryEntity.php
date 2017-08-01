@@ -113,6 +113,11 @@ class PageContainerCmsResourcePublishHistoryEntity
             PropertiesPageContainerCmsResource::ID
         );
 
+        $this->contentVersionId = Param::getInt(
+            $properties,
+            PropertiesPageContainerCmsResource::CONTENT_VERSION_ID
+        );
+
         $this->siteCmsResourceId = Param::getInt(
             $properties,
             PropertiesPageContainerCmsResource::SITE_CMS_RESOURCE_ID

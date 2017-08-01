@@ -93,10 +93,19 @@ class LayoutCmsResourcePublishHistoryEntity
         string $createdByUserId,
         string $createdReason
     ) {
-        // Force Id to int
-        $properties[PropertiesCmsResourcePublishHistory::ID] = Param::getInt(
+        $this->id = Param::getInt(
             $properties,
             PropertiesCmsResourcePublishHistory::ID
+        );
+
+        $this->contentVersionId = Param::getInt(
+            $properties,
+            PropertiesCmsResourcePublishHistory::CONTENT_VERSION_ID
+        );
+        
+        $this->action = Param::getString(
+            $properties,
+            PropertiesCmsResourcePublishHistory::ACTION
         );
 
         parent::__construct(

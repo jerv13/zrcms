@@ -3,9 +3,9 @@
 namespace Zrcms\ContentCoreDoctrineDataSource\Theme\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Zrcms\Content\Model\PropertiesContent;
 use Zrcms\ContentCore\Theme\Model\LayoutVersion;
 use Zrcms\ContentCore\Theme\Model\LayoutVersionAbstract;
+use Zrcms\ContentCore\Theme\Model\PropertiesLayoutVersion;
 use Zrcms\ContentDoctrine\Entity\ContentEntity;
 use Zrcms\ContentDoctrine\Entity\ContentEntityTrait;
 use Zrcms\Param\Param;
@@ -87,10 +87,14 @@ class LayoutVersionEntity
         string $createdByUserId,
         string $createdReason
     ) {
-        // Force Id to int
-        $properties[PropertiesContent::ID] = Param::getInt(
+        $this->id = Param::getInt(
             $properties,
-            PropertiesContent::ID
+            PropertiesLayoutVersion::ID
+        );
+
+        $this->html = Param::getString(
+            $properties,
+            PropertiesLayoutVersion::HTML
         );
 
         parent::__construct(

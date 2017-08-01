@@ -3,9 +3,9 @@
 namespace Zrcms\ContentCoreDoctrineDataSource\Theme\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Zrcms\Content\Model\PropertiesCmsResource;
 use Zrcms\ContentCore\Theme\Model\LayoutCmsResource;
 use Zrcms\ContentCore\Theme\Model\LayoutCmsResourceAbstract;
+use Zrcms\ContentCore\Theme\Model\PropertiesLayoutCmsResource;
 use Zrcms\ContentDoctrine\Entity\CmsResourceEntity;
 use Zrcms\ContentDoctrine\Entity\CmsResourceEntityTrait;
 use Zrcms\Param\Param;
@@ -86,10 +86,14 @@ class LayoutCmsResourceEntity
         string $createdByUserId,
         string $createdReason
     ) {
-        // Force Id to int
-        $properties[PropertiesCmsResource::ID] = Param::getInt(
+        $this->id = Param::getInt(
             $properties,
-            PropertiesCmsResource::ID
+            PropertiesLayoutCmsResource::ID
+        );
+
+        $this->contentVersionId = Param::getInt(
+            $properties,
+            PropertiesLayoutCmsResource::CONTENT_VERSION_ID
         );
 
         parent::__construct(

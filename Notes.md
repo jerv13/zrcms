@@ -79,6 +79,7 @@ zrcms:site:1:theme-layout/{theme-layout-path}
     - Properties need to be synced between Content and array
 - Arguments over-ride issue due to config merge
 - Sync properties from columns in entities using $this->getProperties()
+- Layout version might require themeName as property
     
     /**
      * @return void
