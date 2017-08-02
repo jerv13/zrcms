@@ -75,13 +75,6 @@ use Zrcms\ContentCore\Theme\Api\Repository\InsertLayoutVersion;
 use Zrcms\ContentCore\View\Api\Render\GetViewRenderData;
 use Zrcms\ContentCore\View\Api\Render\GetViewRenderDataBasicFactory;
 use Zrcms\ContentCore\View\Api\Render\GetViewRenderDataContainers;
-use Zrcms\ContentCore\View\Api\Render\GetViewRenderDataHead;
-use Zrcms\ContentCore\View\Api\Render\GetViewRenderDataHeadAll;
-use Zrcms\ContentCore\View\Api\Render\GetViewRenderDataHeadAllFactory;
-use Zrcms\ContentCore\View\Api\Render\GetViewRenderDataHeadLink;
-use Zrcms\ContentCore\View\Api\Render\GetViewRenderDataHeadMeta;
-use Zrcms\ContentCore\View\Api\Render\GetViewRenderDataHeadScript;
-use Zrcms\ContentCore\View\Api\Render\GetViewRenderDataHeadTitle;
 use Zrcms\ContentCore\View\Api\Render\GetViewRenderDataPage;
 use Zrcms\ContentCore\View\Api\Render\RenderView;
 use Zrcms\ContentCore\View\Api\Render\RenderViewBasicFactory;
@@ -91,8 +84,6 @@ use Zrcms\ContentCore\View\Api\Repository\FindTagNamesByLayoutBasicFactory;
 use Zrcms\ContentCore\View\Api\Repository\FindTagNamesByLayoutMustache;
 use Zrcms\ContentCore\View\Api\Repository\FindViewByRequest;
 use Zrcms\ContentCore\View\Api\Repository\FindViewByRequestBasic;
-use Zrcms\ContentCore\View\Api\Repository\FindViewComponent;
-use Zrcms\ContentCore\View\Api\Repository\FindViewComponentsBy;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -447,16 +438,6 @@ class ModuleConfig
                             '3-' => GetContainerRenderData::class
                         ],
                     ],
-                    GetViewRenderDataHead::class => [
-                        'factory' => GetViewRenderDataHeadAllFactory::class,
-                    ],
-                    GetViewRenderDataHeadAll::class => [
-                        'factory' => GetViewRenderDataHeadAllFactory::class,
-                    ],
-                    GetViewRenderDataHeadLink::class => [],
-                    GetViewRenderDataHeadMeta::class => [],
-                    GetViewRenderDataHeadScript::class => [],
-                    GetViewRenderDataHeadTitle::class => [],
                     GetViewRenderDataPage::class => [
                         'arguments' => [
                             '0-' => GetPageContainerRenderData::class,
@@ -487,18 +468,6 @@ class ModuleConfig
                             '6-' => FindThemeComponent::class,
                             '7-' => GetViewRenderData::class,
                             '8-' => RenderView::class
-                        ],
-                    ],
-                    FindViewComponent::class => [
-                        'class' => ApiNoop::class,
-                        'arguments' => [
-                            '0-' => ['literal' => FindViewComponent::class],
-                        ],
-                    ],
-                    FindViewComponentsBy::class => [
-                        'class' => ApiNoop::class,
-                        'arguments' => [
-                            '0-' => ['literal' => FindViewComponentsBy::class],
                         ],
                     ],
                 ],

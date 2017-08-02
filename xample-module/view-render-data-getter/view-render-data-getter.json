@@ -1,0 +1,4 @@
+{
+  "name": "MyViewRenderDataGetter",
+  "renderDataGetter": "GetViewRenderDataMyService"
+}

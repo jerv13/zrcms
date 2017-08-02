@@ -7,7 +7,19 @@ use Zrcms\ContentCore\Container\Model\PropertiesContainerCmsResource;
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-interface PropertiesPageContainerCmsResource
+class PropertiesPageContainerCmsResource
     extends PropertiesContainerCmsResource
 {
+    /**
+     * Default values
+     *
+     * @var array
+     */
+    protected $properties
+        = [
+            self::ID => '',
+            self::CONTENT_VERSION_ID => '',
+            self::SITE_CMS_RESOURCE_ID => '',
+            self::PATH => ''
+        ];
 }

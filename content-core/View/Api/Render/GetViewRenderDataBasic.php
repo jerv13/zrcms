@@ -6,8 +6,7 @@ use Psr\Container\ContainerInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Zrcms\Content\Model\Content;
 use Zrcms\ContentCore\View\Model\View;
-use Zrcms\ContentCore\View\Model\ViewComponent;
-use Zrcms\ContentCoreConfigDataSource\View\Api\Repository\FindViewComponent;
+use Zrcms\ContentCore\ViewRenderDataGetter\Api\Repository\FindViewRenderDataGetterComponentsBy;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -20,20 +19,20 @@ class GetViewRenderDataBasic implements GetViewRenderData
     protected $serviceContainer;
 
     /**
-     * @var FindViewComponent
+     * @var FindViewRenderDataGetterComponentsBy
      */
-    protected $findViewComponent;
+    protected $findViewRenderDataGetterComponentsBy;
 
     /**
-     * @param ContainerInterface $serviceContainer
-     * @param FindViewComponent  $findViewComponent
+     * @param ContainerInterface                   $serviceContainer
+     * @param FindViewRenderDataGetterComponentsBy $findViewRenderDataGetterComponentsBy
      */
     public function __construct(
         $serviceContainer,
-        FindViewComponent $findViewComponent
+        FindViewRenderDataGetterComponentsBy $findViewRenderDataGetterComponentsBy
     ) {
         $this->serviceContainer = $serviceContainer;
-        $this->findViewComponent = $findViewComponent;
+        $this->findViewRenderDataGetterComponentsBy = $findViewRenderDataGetterComponentsBy;
     }
 
     /**
@@ -50,20 +49,26 @@ class GetViewRenderDataBasic implements GetViewRenderData
         array $options = []
     ): array
     {
-        /** @var ViewComponent $viewComponent */
-        $viewComponent = $this->findViewComponent->__invoke(
-            ViewComponent::DEFAULT_NAME
-        );
+        $viewRenderDataGetterServiceNames = $this->findViewRenderDataGetterComponentsBy->__invoke([]);
 
-        if (empty($viewComponent)) {
-            throw new \Exception('No view component found');
-        }
+        // @todo always injecting page and containers - should we do this?
+        $viewRenderDataGetterServiceNames[] = GetViewRenderDataContainers::class;
+        $viewRenderDataGetterServiceNames[] = GetViewRenderDataPage::class;
 
-        $viewRenderDataGetterServiceNames = $viewComponent->getViewRenderDataGetters();
         $allViewRenderData = [];
 
+        $serviceNameChecks = [];
+
+        // @todo Only invoke the services that have tags in the layout
         /** @var GetViewRenderData $getViewRenderData */
         foreach ($viewRenderDataGetterServiceNames as $viewRenderDataGetterServiceName) {
+            // Duplicate check
+            if (in_array($viewRenderDataGetterServiceName, $serviceNameChecks)) {
+                // @todo need throw if this happens
+                continue;
+            }
+            $serviceNameChecks[] = $viewRenderDataGetterServiceName;
+
             /** @var GetViewRenderData $getViewRenderData */
             $getViewRenderData = $this->serviceContainer->get($viewRenderDataGetterServiceName);
 

@@ -7,7 +7,7 @@ use Zrcms\Content\Model\PropertiesContent;
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-interface PropertiesSite extends PropertiesContent
+class PropertiesSite extends PropertiesContent
 {
     /* required */
     // Theme name: 'GuestResponsive'
@@ -35,4 +35,24 @@ interface PropertiesSite extends PropertiesContent
 
     // Path to favicon: '/images/favicon.ico'
     const FAVICON = 'favicon';
+
+    /**
+     * Default values
+     *
+     * @var array
+     */
+    protected $properties
+        = [
+            self::ID => '',
+            self::THEME_NAME => '',
+            self::LOCALE => '',
+            self::LAYOUT => '',
+            self::COUNTRY_ISO3 => '',
+            self::LANGUAGE_ISO_939_2T => '',
+            self::TITLE => '',
+            self::LOGIN_PAGE => '',
+            self::NOT_AUTHORIZED_PAGE => '',
+            self::NOT_FOUND_PAGE => '',
+            self::FAVICON => '',
+        ];
 }

@@ -5,6 +5,15 @@ namespace Zrcms\Content\Model;
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-interface PropertiesContentVersion extends PropertiesContent
+class PropertiesContentVersion extends PropertiesContent
 {
+    /**
+     * Default values
+     *
+     * @var array
+     */
+    protected $properties
+        = [
+            self::ID => '',
+        ];
 }

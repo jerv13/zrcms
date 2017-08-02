@@ -6,14 +6,8 @@ use Zrcms\ContentCore\Block\Api\Repository\FindBlockComponent;
 use Zrcms\ContentCore\Block\Api\Repository\FindBlockComponentsBy;
 use Zrcms\ContentCore\Theme\Api\Repository\FindThemeComponent;
 use Zrcms\ContentCore\Theme\Api\Repository\FindThemeComponentsBy;
-use Zrcms\ContentCore\View\Api\Render\GetViewRenderDataContainers;
-use Zrcms\ContentCore\View\Api\Render\GetViewRenderDataHead;
-use Zrcms\ContentCore\View\Api\Render\GetViewRenderDataHeadAll;
-use Zrcms\ContentCore\View\Api\Render\GetViewRenderDataPage;
-use Zrcms\ContentCore\View\Api\Repository\FindViewComponent;
-use Zrcms\ContentCore\View\Api\Repository\FindViewComponentsBy;
-use Zrcms\ContentCore\View\Model\PropertiesViewComponent;
-use Zrcms\ContentCore\View\Model\ViewComponent;
+use Zrcms\ContentCore\ViewRenderDataGetter\Api\Repository\FindViewRenderDataGetterComponent;
+use Zrcms\ContentCore\ViewRenderDataGetter\Api\Repository\FindViewRenderDataGetterComponentsBy;
 use Zrcms\ContentCoreConfigDataSource\Block\Api\GetBlockConfigFields;
 use Zrcms\ContentCoreConfigDataSource\Block\Api\GetBlockConfigFieldsBcSubstitution;
 use Zrcms\ContentCoreConfigDataSource\Block\Api\GetConfigBlockComponents;
@@ -25,19 +19,18 @@ use Zrcms\ContentCoreConfigDataSource\Block\Api\ReadBlockComponentConfigBc;
 use Zrcms\ContentCoreConfigDataSource\Block\Api\ReadBlockComponentConfigBcFactory;
 use Zrcms\ContentCoreConfigDataSource\Block\Api\ReadBlockComponentConfigJsonFile;
 use Zrcms\ContentCoreConfigDataSource\Content\Api\SearchConfigList;
-use Zrcms\ContentCoreConfigDataSource\Content\Model\ComponentConfigFields;
 use Zrcms\ContentCoreConfigDataSource\Theme\Api\GetConfigThemeComponents;
 use Zrcms\ContentCoreConfigDataSource\Theme\Api\GetConfigThemeComponentsBasicFactory;
 use Zrcms\ContentCoreConfigDataSource\Theme\Api\ReadThemeComponentConfig;
 use Zrcms\ContentCoreConfigDataSource\Theme\Api\ReadThemeComponentConfigBasicFactory;
 use Zrcms\ContentCoreConfigDataSource\Theme\Api\ReadThemeComponentConfigJsonFile;
-use Zrcms\ContentCoreConfigDataSource\View\Api\GetConfigViewComponents;
-use Zrcms\ContentCoreConfigDataSource\View\Api\GetConfigViewComponentsBasicFactory;
-use Zrcms\ContentCoreConfigDataSource\View\Api\ReadViewComponentConfig;
-use Zrcms\ContentCoreConfigDataSource\View\Api\ReadViewComponentConfigApplicationConfig;
-use Zrcms\ContentCoreConfigDataSource\View\Api\ReadViewComponentConfigApplicationConfigFactory;
-use Zrcms\ContentCoreConfigDataSource\View\Api\ReadViewComponentConfigBasicFactory;
-use Zrcms\ContentCoreConfigDataSource\View\Api\ReadViewComponentConfigJsonFile;
+use Zrcms\ContentCoreConfigDataSource\ViewRenderDataGetter\Api\GetConfigViewRenderDataGetterComponents;
+use Zrcms\ContentCoreConfigDataSource\ViewRenderDataGetter\Api\GetConfigViewRenderDataGetterComponentsBasicFactory;
+use Zrcms\ContentCoreConfigDataSource\ViewRenderDataGetter\Api\ReadViewRenderDataGetterComponentConfig;
+use Zrcms\ContentCoreConfigDataSource\ViewRenderDataGetter\Api\ReadViewRenderDataGetterComponentConfigApplicationConfig;
+use Zrcms\ContentCoreConfigDataSource\ViewRenderDataGetter\Api\ReadViewRenderDataGetterComponentConfigApplicationConfigFactory;
+use Zrcms\ContentCoreConfigDataSource\ViewRenderDataGetter\Api\ReadViewRenderDataGetterComponentConfigBasicFactory;
+use Zrcms\ContentCoreConfigDataSource\ViewRenderDataGetter\Api\ReadViewRenderDataGetterComponentConfigJsonFile;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -54,7 +47,9 @@ class ModuleConfig
         return [
             'dependencies' => [
                 'config_factories' => [
-                    /** Block **/
+                    /**
+                     * Block Component ===========================================
+                     */
                     FindBlockComponent::class => [
                         'class' => \Zrcms\ContentCoreConfigDataSource\Block\Api\Repository\FindBlockComponent::class,
                         'arguments' => [
@@ -94,11 +89,17 @@ class ModuleConfig
                     ReadBlockComponentConfigJsonFile::class => [
                         'class' => ReadBlockComponentConfigJsonFile::class,
                     ],
-                    /** Content (abstracts) */
+
+                    /**
+                     * Content (abstracts) ===========================================
+                     */
                     SearchConfigList::class => [
                         'class' => SearchConfigList::class,
                     ],
-                    /** ThemeComponents **/
+
+                    /**
+                     * Theme Component ===========================================
+                     */
                     FindThemeComponent::class => [
                         'class' => \Zrcms\ContentCoreConfigDataSource\Theme\Api\Repository\FindThemeComponent::class,
                         'arguments' => [
@@ -122,33 +123,35 @@ class ModuleConfig
                     ReadThemeComponentConfigJsonFile::class => [
                         'class' => ReadThemeComponentConfigJsonFile::class,
                     ],
-                    /** ViewComponents **/
 
-                    FindViewComponent::class => [
-                        'class' => \Zrcms\ContentCoreConfigDataSource\View\Api\Repository\FindViewComponent::class,
+                    /**
+                     * ViewRenderDataGetter Component ===========================================
+                     */
+                    FindViewRenderDataGetterComponent::class => [
+                        'class' => \Zrcms\ContentCoreConfigDataSource\ViewRenderDataGetter\Api\Repository\FindViewRenderDataGetterComponent::class,
                         'arguments' => [
-                            '0-' => GetConfigViewComponents::class,
+                            '0-' => GetConfigViewRenderDataGetterComponents::class,
                             '1-' => SearchConfigList::class
                         ],
                     ],
-                    FindViewComponentsBy::class => [
-                        'class' => \Zrcms\ContentCoreConfigDataSource\View\Api\Repository\FindViewComponentsBy::class,
+                    FindViewRenderDataGetterComponentsBy::class => [
+                        'class' => \Zrcms\ContentCoreConfigDataSource\ViewRenderDataGetter\Api\Repository\FindViewRenderDataGetterComponentsBy::class,
                         'arguments' => [
-                            '0-' => GetConfigViewComponents::class,
+                            '0-' => GetConfigViewRenderDataGetterComponents::class,
                             '1-' => SearchConfigList::class
                         ],
                     ],
-                    GetConfigViewComponents::class => [
-                        'factory' => GetConfigViewComponentsBasicFactory::class,
+                    GetConfigViewRenderDataGetterComponents::class => [
+                        'factory' => GetConfigViewRenderDataGetterComponentsBasicFactory::class,
                     ],
-                    ReadViewComponentConfigApplicationConfig::class => [
-                        'factory' => ReadViewComponentConfigApplicationConfigFactory::class,
+                    ReadViewRenderDataGetterComponentConfigApplicationConfig::class => [
+                        'factory' => ReadViewRenderDataGetterComponentConfigApplicationConfigFactory::class,
                     ],
-                    ReadViewComponentConfig::class => [
-                        'factory' => ReadViewComponentConfigBasicFactory::class,
+                    ReadViewRenderDataGetterComponentConfig::class => [
+                        'factory' => ReadViewRenderDataGetterComponentConfigBasicFactory::class,
                     ],
-                    ReadViewComponentConfigJsonFile::class => [
-                        'class' => ReadViewComponentConfigJsonFile::class,
+                    ReadViewRenderDataGetterComponentConfigJsonFile::class => [
+                        'class' => ReadViewRenderDataGetterComponentConfigJsonFile::class,
                     ],
                 ],
             ],
@@ -163,27 +166,6 @@ class ModuleConfig
                      ]
                     */
                 ],
-                'views' => [
-                    /*
-                    '{view-name}' => '{view-location}(directory)'
-                    OR
-                    '{view-name}' => [
-                      ComponentConfigFields::LOCATION => '{view-location}(service-name)',
-                      ComponentConfigFields::COMPONENT_CONFIG_READER => '{view-location}(service-name)',
-                     ]
-                    */
-                    ViewComponent::DEFAULT_NAME => [
-                        ComponentConfigFields::NAME => ViewComponent::DEFAULT_NAME,
-                        ComponentConfigFields::LOCATION => ViewComponent::DEFAULT_NAME,
-                        ComponentConfigFields::COMPONENT_CONFIG_READER => ReadViewComponentConfigApplicationConfig::class,
-                        PropertiesViewComponent::LAYOUT_RENDER_DATA_GETTERS => [
-                            /* '{render-tag}(optional)' => '{GetLayoutRenderData}(service-name)' */
-                            GetViewRenderDataPage::RENDER_TAG_PAGE => GetViewRenderDataPage::class,
-                            GetViewRenderDataContainers::RENDER_TAG_CONTAINER => GetViewRenderDataContainers::class,
-                            GetViewRenderDataHead::RENDER_TAG => GetViewRenderDataHeadAll::class,
-                        ],
-                    ],
-                ],
                 'themes' => [
                     /*
                     '{theme-name}' => '{theme-location}(directory)'
@@ -193,6 +175,16 @@ class ModuleConfig
                       ComponentConfigFields::COMPONENT_CONFIG_READER => '{theme-location}(service-name)',
                      ]
                     */
+                ],
+                'view-render-data-getters' => [
+                    /*
+                     '{view-render-data-getter-name}' => '{view-render-data-getter-location}(directory)'
+                     OR
+                     '{view-render-data-getter-name}' => [
+                       ComponentConfigFields::LOCATION => '{view-render-data-getter-location}(service-name)',
+                       ComponentConfigFields::COMPONENT_CONFIG_READER => '{view-render-data-getter-location}(service-name)',
+                      ]
+                     */
                 ],
             ],
         ];

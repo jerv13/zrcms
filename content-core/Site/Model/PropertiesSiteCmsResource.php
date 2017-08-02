@@ -7,7 +7,19 @@ use Zrcms\Content\Model\PropertiesCmsResource;
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-interface PropertiesSiteCmsResource extends PropertiesCmsResource
+class PropertiesSiteCmsResource extends PropertiesCmsResource
 {
     const HOST = 'host';
+
+    /**
+     * Default values
+     *
+     * @var array
+     */
+    protected $properties
+        = [
+            self::ID => '',
+            self::CONTENT_VERSION_ID => '',
+            self::HOST => '',
+        ];
 }

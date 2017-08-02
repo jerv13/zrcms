@@ -6,7 +6,6 @@ use Psr\Http\Message\ServerRequestInterface;
 use Zrcms\Content\Model\Content;
 use Zrcms\ContentCore\Page\Api\Render\GetPageContainerRenderData;
 use Zrcms\ContentCore\Page\Api\Render\RenderPageContainer;
-use Zrcms\ContentCore\Page\Model\PropertiesPage;
 use Zrcms\ContentCore\View\Model\View;
 
 /**

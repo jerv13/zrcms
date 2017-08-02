@@ -140,6 +140,12 @@ class FindViewByRequestBasic implements FindViewByRequest
             $siteCmsResource->getContentVersionId()
         );
 
+        if (empty($siteVersion)) {
+            throw new SiteNotFoundException(
+                'Site version found with version ID: ' . $siteCmsResource->getContentVersionId()
+            );
+        }
+
         $themeName = $siteVersion->getThemeName();
 
         $theme = $this->findThemeComponent->__invoke(
@@ -169,6 +175,12 @@ class FindViewByRequestBasic implements FindViewByRequest
             $pageContainerCmsResource->getContentVersionId()
         );
 
+        if (empty($pageContainerVersion)) {
+            throw new PageNotFoundException(
+                'Page version found with version ID: ' . $pageContainerCmsResource->getContentVersionId()
+            );
+        }
+
         $layoutName = $pageContainerVersion->getProperty(
             PropertiesPageContainerVersion::LAYOUT,
             $siteVersion->getProperty(
@@ -182,9 +194,27 @@ class FindViewByRequestBasic implements FindViewByRequest
             $layoutName
         );
 
+        if (empty($layoutCmsResource)) {
+            throw new PageNotFoundException(
+                'Layout not found: ' . $layoutName
+                . ' with theme name: ' . $themeName
+                . ' for site version ID: ' . $siteVersion->getId()
+                . ' and page version ID: ' . $pageContainerVersion->getId()
+            );
+        }
+
         $layout = $this->findLayoutVersion->__invoke(
             $layoutCmsResource->getContentVersionId()
         );
+
+        if (empty($layout)) {
+            throw new PageNotFoundException(
+                'Layout version not found: ' . $layoutName
+                . ' with theme name: ' . $themeName
+                . ' for site version ID: ' . $siteVersion->getId()
+                . ' and page version ID: ' . $pageContainerVersion->getId()
+            );
+        }
 
         $properties = [
             PropertiesView::ID => 'basic',

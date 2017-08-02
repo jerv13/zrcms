@@ -7,7 +7,7 @@ use Zrcms\Content\Model\PropertiesComponent;
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-interface PropertiesBlockComponent extends PropertiesComponent
+class PropertiesBlockComponent extends PropertiesComponent
 {
     // required
     const DEFAULT_CONFIG = 'defaultConfig';
@@ -24,4 +24,24 @@ interface PropertiesBlockComponent extends PropertiesComponent
     const CATEGORY = 'category';
     const LABEL = 'label';
     const DESCRIPTION = 'description';
+
+    /**
+     * Default values
+     *
+     * @var array
+     */
+    protected $properties
+        = [
+            self::NAME => '',
+            self::LOCATION => '',
+            self::DEFAULT_CONFIG => [],
+            self::CACHEABLE => false,
+            self::RENDERER => '',
+            self::DATA_PROVIDER => '',
+            self::FIELDS => [],
+            self::ICON => '',
+            self::CATEGORY => '',
+            self::LABEL => '',
+            self::DESCRIPTION => '',
+        ];
 }

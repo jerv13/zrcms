@@ -2,7 +2,6 @@
 
 namespace Zrcms\ContentCore\View\Api\Render;
 
-use Psr\Container\ContainerInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Zrcms\Content\Model\Content;
 use Zrcms\ContentCore\Container\Api\Render\GetContainerRenderData;
@@ -10,7 +9,6 @@ use Zrcms\ContentCore\Container\Api\Repository\FindContainerCmsResourcesBySitePa
 use Zrcms\ContentCore\Container\Api\Repository\FindContainerVersion;
 use Zrcms\ContentCore\Container\Model\Container;
 use Zrcms\ContentCore\Container\Model\ContainerCmsResource;
-use Zrcms\ContentCore\Container\Model\PropertiesContainer;
 use Zrcms\ContentCore\View\Api\Repository\FindTagNamesByLayout;
 use Zrcms\ContentCore\View\Model\View;
 

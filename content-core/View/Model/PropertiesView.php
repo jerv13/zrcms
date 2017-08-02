@@ -7,7 +7,7 @@ use Zrcms\Content\Model\PropertiesContent;
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-interface PropertiesView extends PropertiesContent
+class PropertiesView extends PropertiesContent
 {
     const SITE_CMS_RESOURCE = 'siteCmsResource';
     const SITE = 'siteVersion';
@@ -19,4 +19,21 @@ interface PropertiesView extends PropertiesContent
     const LAYOUT = 'theme';
 
     const RENDERER = 'renderer';
+
+    /**
+     * Default values
+     *
+     * @var array
+     */
+    protected $properties
+        = [
+            self::ID => '',
+            self::SITE_CMS_RESOURCE => '',
+            self::SITE => '',
+            self::PAGE_CONTAINER_CMS_RESOURCE => '',
+            self::PAGE => '',
+            self::LAYOUT_CMS_RESOURCE => '',
+            self::LAYOUT => '',
+            self::RENDERER => '',
+        ];
 }

@@ -38,6 +38,7 @@ abstract class ReadComponentConfigBasicAbstract implements ReadComponentConfig
      * @param array  $options
      *
      * @return array
+     * @throws \Exception
      */
     public function __invoke(
         string $location,

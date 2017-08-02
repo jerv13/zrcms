@@ -2,13 +2,25 @@
 
 namespace Zrcms\ContentCoreDoctrineDataSource\Container\Entity;
 
-use Zrcms\Content\Model\TrackableProperties;
 use Zrcms\ContentCore\Container\Model\PropertiesContainerVersion;
 
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-interface PropertiesContainerVersionEntity extends PropertiesContainerVersion
+class PropertiesContainerVersionEntity extends PropertiesContainerVersion
 {
     const BLOCK_VERSIONS_DATA = 'blockVersionsData';
+
+    /**
+     * Default values
+     *
+     * @var array
+     */
+    protected $properties
+        = [
+            self::ID => '',
+            self::RENDER_DATA_GETTER => '',
+            self::RENDERER => '',
+            self::BLOCK_VERSIONS_DATA => [],
+        ];
 }

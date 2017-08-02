@@ -7,7 +7,17 @@ use Zrcms\Content\Model\PropertiesContentVersion;
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-interface PropertiesContainerVersion extends PropertiesContainer, PropertiesContentVersion
+class PropertiesContainerVersion extends PropertiesContainer
 {
-
+    /**
+     * Default values
+     *
+     * @var array
+     */
+    protected $properties
+        = [
+            PropertiesContentVersion::ID => '',
+            self::RENDER_DATA_GETTER => '',
+            self::RENDERER => '',
+        ];
 }

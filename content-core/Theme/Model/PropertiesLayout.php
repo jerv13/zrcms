@@ -7,7 +7,7 @@ use Zrcms\Content\Model\PropertiesContent;
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-interface PropertiesLayout extends PropertiesContent
+class PropertiesLayout extends PropertiesContent
 {
     const THEME_NAME = 'themeName';
     const NAME = 'name';
@@ -16,4 +16,19 @@ interface PropertiesLayout extends PropertiesContent
     const RENDER_DATA_GETTER = 'renderDataGetter';
     const RENDER_TAG_NAME_PARSER = 'renderTagNameParser';
     const HTML = 'html';
+
+    /**
+     * Default values
+     *
+     * @var array
+     */
+    protected $properties
+        = [
+            self::ID => '',
+            self::THEME_NAME => '',
+            self::RENDERER => '',
+            self::RENDER_DATA_GETTER => '',
+            self::RENDER_TAG_NAME_PARSER => '',
+            self::HTML => '',
+        ];
 }

@@ -1,0 +1,4 @@
+{
+  "name": "head-link",
+  "renderDataGetter": "Zrcms\\ViewRenderDataGetters\\Head\\Api\\Render\\GetViewRenderDataHeadLink"
+}
