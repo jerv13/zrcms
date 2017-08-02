@@ -8,7 +8,7 @@ namespace Zrcms\Content\Model;
 class PropertiesComponent extends PropertiesSettableAbstract implements Properties
 {
     const NAME = 'name';
-    const LOCATION = 'location';
+    const CONFIG_LOCATION = 'configLocation';
 
     /**
      * Default values
@@ -18,6 +18,6 @@ class PropertiesComponent extends PropertiesSettableAbstract implements Properti
     protected $properties
         = [
             self::NAME => '',
-            self::LOCATION => '',
+            self::CONFIG_LOCATION => '',
         ];
 }

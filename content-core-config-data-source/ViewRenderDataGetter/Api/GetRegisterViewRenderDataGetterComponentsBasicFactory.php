@@ -8,12 +8,12 @@ use Zrcms\Cache\Service\Cache;
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class GetConfigViewRenderDataGetterComponentsBasicFactory
+class GetRegisterViewRenderDataGetterComponentsBasicFactory
 {
     /**
      * @param ContainerInterface $serviceContainer
      *
-     * @return GetConfigViewRenderDataGetterComponentsBasic
+     * @return GetRegisterViewRenderDataGetterComponentsBasic
      */
     public function __invoke(
         $serviceContainer
@@ -22,7 +22,7 @@ class GetConfigViewRenderDataGetterComponentsBasicFactory
 
         $registryConfig = $config['zrcms']['view-render-data-getters'];
 
-        return new GetConfigViewRenderDataGetterComponentsBasic(
+        return new GetRegisterViewRenderDataGetterComponentsBasic(
             $registryConfig,
             $serviceContainer->get(ReadViewRenderDataGetterComponentConfig::class),
             $serviceContainer->get(Cache::class)

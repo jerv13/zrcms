@@ -56,7 +56,8 @@
       "Zrcms\\Param\\": "param/",
       "Zrcms\\RcmPluginCompatibility\\": "rcm-plugin-compatibility/",
       "Zrcms\\User\\": "user/",
-      "Zrcms\\ViewRenderDataGetters\\Head\\": "view-render-data-getters/head/src/"
+      "Zrcms\\ViewRenderDataGetters\\Head\\": "view-render-data-getters/head/src/",
+      "Zrcms\\XampleComponent\\": "xample-component/src/"
     }
   },
   "suggest": {

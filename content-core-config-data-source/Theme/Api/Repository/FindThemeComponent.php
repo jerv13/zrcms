@@ -4,7 +4,7 @@ namespace Zrcms\ContentCoreConfigDataSource\Theme\Api\Repository;
 
 use Zrcms\Content\Model\Component;
 use Zrcms\ContentCore\Theme\Model\ThemeComponent;
-use Zrcms\ContentCoreConfigDataSource\Content\Api\GetConfigComponents;
+use Zrcms\ContentCoreConfigDataSource\Content\Api\GetRegisterComponents;
 use Zrcms\ContentCoreConfigDataSource\Content\Api\Repository\FindComponentAbstract;
 use Zrcms\ContentCoreConfigDataSource\Content\Api\SearchConfigList;
 
@@ -16,15 +16,15 @@ class FindThemeComponent
     implements \Zrcms\ContentCore\Theme\Api\Repository\FindThemeComponent
 {
     /**
-     * @param GetConfigComponents $getConfigComponents
+     * @param GetRegisterComponents $getRegisterComponents
      * @param SearchConfigList    $searchConfigList
      */
     public function __construct(
-        GetConfigComponents $getConfigComponents,
+        GetRegisterComponents $getRegisterComponents,
         SearchConfigList $searchConfigList
     ) {
         parent::__construct(
-            $getConfigComponents,
+            $getRegisterComponents,
             $searchConfigList
         );
     }

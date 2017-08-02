@@ -1,0 +1,12 @@
+{
+  "name": "XampleBock",
+  "category": "XampleCategory",
+  "label": "Xample Block",
+  "description": "Xample Block does cool stuff",
+  "renderer": "mustache",
+  "icon": "/path/to/xample/icon.png",
+  "cache": false,
+  "editor": "",
+  "fields": [
+  ]
+}

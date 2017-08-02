@@ -19,7 +19,7 @@ class PropertiesViewRenderDataGetter extends PropertiesComponent
     protected $properties
         = [
             self::NAME => '',
-            self::LOCATION => '',
+            self::CONFIG_LOCATION => '',
             self::RENDER_DATA_GETTER => '',
         ];
 }

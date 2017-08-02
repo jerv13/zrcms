@@ -4,17 +4,16 @@ namespace Zrcms\ContentCoreConfigDataSource\Block\Api;
 
 use Zrcms\Cache\Service\Cache;
 use Zrcms\Content\Model\Trackable;
-use Zrcms\ContentCore\Block\Model\BlockComponent;
 use Zrcms\ContentCore\Block\Model\BlockComponentBasic;
-use Zrcms\ContentCoreConfigDataSource\Block\Model\BlockComponentConfigFields;
-use Zrcms\ContentCoreConfigDataSource\Content\Api\GetConfigComponentsAbstract;
+use Zrcms\ContentCoreConfigDataSource\Block\Model\BlockComponentRegistryFields;
+use Zrcms\ContentCoreConfigDataSource\Content\Api\GetRegisterComponentsAbstract;
 use Zrcms\ContentCoreConfigDataSource\Content\Model\ComponentConfigFields;
 use Zrcms\Param\Param;
 
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class GetConfigBlockComponentsBc extends GetConfigComponentsAbstract implements GetConfigBlockComponents
+class GetRegisterBlockComponentsBc extends GetRegisterComponentsAbstract implements GetRegisterBlockComponents
 {
     const CACHE_KEY = 'ZrcmsBlockComponentConfigBc';
     /**
@@ -118,7 +117,7 @@ class GetConfigBlockComponentsBc extends GetConfigComponentsAbstract implements 
         array $pluginConfigsBc
     ) {
         foreach ($pluginConfigsBc as $name => $pluginConfigBc) {
-            $pluginConfigBc[BlockComponentConfigFields::COMPONENT_CONFIG_READER] = ReadBlockComponentConfigBc::class;
+            $pluginConfigBc[BlockComponentRegistryFields::COMPONENT_CONFIG_READER] = ReadBlockComponentConfigBc::class;
             $pluginConfigsBc[$name] = $pluginConfigBc;
         }
 

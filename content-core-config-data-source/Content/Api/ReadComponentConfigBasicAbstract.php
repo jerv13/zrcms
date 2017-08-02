@@ -4,6 +4,7 @@ namespace Zrcms\ContentCoreConfigDataSource\Content\Api;
 
 use Psr\Container\ContainerInterface;
 use Zrcms\ContentCoreConfigDataSource\Content\Model\ComponentConfigFields;
+use Zrcms\ContentCoreConfigDataSource\Content\Model\ComponentRegistryFields;
 use Zrcms\Param\Param;
 
 /**
@@ -47,7 +48,7 @@ abstract class ReadComponentConfigBasicAbstract implements ReadComponentConfig
     {
         $componentConfigReaderServiceName = Param::get(
             $options,
-            ComponentConfigFields::COMPONENT_CONFIG_READER,
+            ComponentRegistryFields::COMPONENT_CONFIG_READER,
             $this->defaultComponentConfigReaderServiceName
         );
 
@@ -65,7 +66,7 @@ abstract class ReadComponentConfigBasicAbstract implements ReadComponentConfig
             $options
         );
 
-        $config[ComponentConfigFields::COMPONENT_CONFIG_READER] = $componentConfigReaderServiceName;
+        $config[ComponentRegistryFields::COMPONENT_CONFIG_READER] = $componentConfigReaderServiceName;
 
         return $config;
     }

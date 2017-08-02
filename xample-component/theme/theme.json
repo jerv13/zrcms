@@ -1,0 +1,8 @@
+{
+  "name": "xample-theme",
+  "primaryLayoutName": "primary",
+  "layoutLocations": {
+    "primary": "/layout/primary",
+    "layout1": "/layout/layout1"
+  }
+}

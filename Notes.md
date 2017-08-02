@@ -41,7 +41,10 @@ Allows for virtually arbitrary properties AKA easy to extend functionality
     - basePath
             
 - Document the architecture and basics of how it works
-- Fix ComponentConfigFields to be RegistryConfigFields (from $config) and ComponentConfigFields (from file.json)
+- Fix ComponentConfigFields to be RegistryConfigFields (from $config) and ComponentConfigFields (from file.json) and Properties
+    - Each has it's own use case, so they can be maps, but should not extend each other
+    
+- Deal with service aliases so config can be simple
 
     /**
      * @return void

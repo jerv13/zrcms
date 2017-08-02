@@ -4,6 +4,7 @@ namespace Zrcms\ContentCoreConfigDataSource\Content\Api;
 
 use Psr\Container\ContainerInterface;
 use Zrcms\ContentCoreConfigDataSource\Content\Model\ComponentConfigFields;
+use Zrcms\ContentCoreConfigDataSource\Content\Model\ComponentRegistryFields;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -40,7 +41,7 @@ abstract class ReadComponentConfigCallableAbstract implements ReadComponentConfi
 
         $config = $callableService->__invoke();
 
-        $config[ComponentConfigFields::LOCATION] = $callableServiceName;
+        $config[ComponentRegistryFields::CONFIG_LOCATION] = $callableServiceName;
 
         return $config;
     }

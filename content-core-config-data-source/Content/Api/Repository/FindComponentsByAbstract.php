@@ -3,7 +3,7 @@
 namespace Zrcms\ContentCoreConfigDataSource\Content\Api\Repository;
 
 use Zrcms\Content\Model\Component;
-use Zrcms\ContentCoreConfigDataSource\Content\Api\GetConfigComponents;
+use Zrcms\ContentCoreConfigDataSource\Content\Api\GetRegisterComponents;
 use Zrcms\ContentCoreConfigDataSource\Content\Api\SearchConfigList;
 
 /**
@@ -12,9 +12,9 @@ use Zrcms\ContentCoreConfigDataSource\Content\Api\SearchConfigList;
 abstract class FindComponentsByAbstract implements \Zrcms\Content\Api\Repository\FindComponentsBy
 {
     /**
-     * @var GetConfigComponents
+     * @var GetRegisterComponents
      */
-    protected $getConfigComponents;
+    protected $getRegisterComponents;
 
     /**
      * @var SearchConfigList
@@ -22,14 +22,14 @@ abstract class FindComponentsByAbstract implements \Zrcms\Content\Api\Repository
     protected $searchConfigList;
 
     /**
-     * @param GetConfigComponents $getConfigComponents
+     * @param GetRegisterComponents $getRegisterComponents
      * @param SearchConfigList    $searchConfigList
      */
     public function __construct(
-        GetConfigComponents $getConfigComponents,
+        GetRegisterComponents $getRegisterComponents,
         SearchConfigList $searchConfigList
     ) {
-        $this->getConfigComponents = $getConfigComponents;
+        $this->getRegisterComponents = $getRegisterComponents;
         $this->searchConfigList = $searchConfigList;
     }
 
@@ -56,7 +56,7 @@ abstract class FindComponentsByAbstract implements \Zrcms\Content\Api\Repository
             throw new \Exception('orderBy, limit and offset not yet implemented');
         }
 
-        $components = $this->getConfigComponents->__invoke();
+        $components = $this->getRegisterComponents->__invoke();
 
         if (empty($criteria)) {
             return $components;

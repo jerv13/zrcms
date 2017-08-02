@@ -16,7 +16,6 @@ class GetBlockConfigFields
     protected $fields
         = [
             BlockComponentConfigFields::NAME => '',
-            BlockComponentConfigFields::LOCATION => null,
             BlockComponentConfigFields::CATEGORY => null,
             BlockComponentConfigFields::LABEL => null,
             BlockComponentConfigFields::DESCRIPTION => null,

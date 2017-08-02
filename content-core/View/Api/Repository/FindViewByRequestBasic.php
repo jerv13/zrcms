@@ -150,13 +150,14 @@ class FindViewByRequestBasic implements FindViewByRequest
 
         $themeName = $siteVersion->getThemeName();
 
-        $theme = $this->findThemeComponent->__invoke(
+        $themeComponent = $this->findThemeComponent->__invoke(
             $themeName
         );
 
-        if (empty($theme)) {
+        if (empty($themeComponent)) {
             throw new ThemeNotFoundException(
-                'Theme not found for site: ' . $siteCmsResource->getHost()
+                'Theme not found (' . $themeName . ')'
+                . ' for site: ' . $siteCmsResource->getHost()
             );
         }
 

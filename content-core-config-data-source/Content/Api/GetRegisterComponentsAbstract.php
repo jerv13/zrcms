@@ -6,12 +6,13 @@ use Zrcms\Cache\Service\Cache;
 use Zrcms\Content\Model\Component;
 use Zrcms\Content\Model\Trackable;
 use Zrcms\ContentCoreConfigDataSource\Content\Model\ComponentConfigFields;
+use Zrcms\ContentCoreConfigDataSource\Content\Model\ComponentRegistryFields;
 use Zrcms\Param\Param;
 
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-abstract class GetConfigComponentsAbstract implements GetConfigComponents
+abstract class GetRegisterComponentsAbstract implements GetRegisterComponents
 {
     /**
      * @var array
@@ -108,6 +109,8 @@ abstract class GetConfigComponentsAbstract implements GetConfigComponents
             $this->registryConfig
         );
 
+        ddd(get_class($this),$componentConfigs);
+
         $configs = [];
 
         $componentClass = $this->componentClass;
@@ -148,40 +151,40 @@ abstract class GetConfigComponentsAbstract implements GetConfigComponents
     }
 
     /**
-     * @param array $componentLocations
+     * @param array $registryConfig
      *
      * @return array
      * @throws \Exception
      */
-    protected function readConfigs(array $componentLocations)
+    protected function readConfigs(array $registryConfig)
     {
         $componentConfigs = [];
 
-        foreach ($componentLocations as $componentNameOptional => $componentLocation) {
+        foreach ($registryConfig as $componentNameOptional => $configLocation) {
 
             $componentOptions = [];
             $componentName = $componentNameOptional;
 
-            if (is_array($componentLocation)) {
-                $componentOptions = $componentLocation;
-                $componentLocation = Param::getRequired(
+            if (is_array($configLocation)) {
+                $componentOptions = $configLocation;
+                $configLocation = Param::getRequired(
                     $componentOptions,
-                    ComponentConfigFields::LOCATION,
+                    ComponentRegistryFields::CONFIG_LOCATION,
                     new \Exception(
-                        'Component location is required for: ' . json_encode($componentLocation)
+                        'Component location is required for: ' . json_encode($configLocation)
                         . ' in ' . $this->componentClass
                     )
                 );
 
                 $componentName = Param::get(
                     $componentOptions,
-                    ComponentConfigFields::NAME,
+                    ComponentRegistryFields::NAME,
                     $componentNameOptional
                 );
             }
 
             $componentConfig = $this->readComponentConfig->__invoke(
-                $componentLocation,
+                $configLocation,
                 $componentOptions
             );
 

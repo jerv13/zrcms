@@ -1,32 +1,30 @@
 <?php
 
-namespace Zrcms\ContentCoreConfigDataSource\Block\Api;
+namespace Zrcms\ContentCoreConfigDataSource\Theme\Api;
 
 use Psr\Container\ContainerInterface;
 use Zrcms\Cache\Service\Cache;
-use Zrcms\ContentCore\Block\Model\BlockComponent;
-use Zrcms\ContentCore\Block\Model\BlockComponentBasic;
 
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class GetConfigBlockComponentsBasicFactory
+class GetRegisterThemeComponentsBasicFactory
 {
     /**
      * @param ContainerInterface $serviceContainer
      *
-     * @return GetConfigBlockComponentsBasic
+     * @return GetRegisterThemeComponentsBasic
      */
     public function __invoke(
         $serviceContainer
     ) {
         $config = $serviceContainer->get('config');
 
-        $registryConfig = $config['zrcms']['blocks'];
+        $registryConfig = $config['zrcms']['themes'];
 
-        return new GetConfigBlockComponentsBasic(
+        return new GetRegisterThemeComponentsBasic(
             $registryConfig,
-            $serviceContainer->get(ReadBlockComponentConfig::class),
+            $serviceContainer->get(ReadThemeComponentConfig::class),
             $serviceContainer->get(Cache::class)
         );
     }

@@ -10,6 +10,16 @@ use Zrcms\ContentCoreConfigDataSource\Content\Model\ComponentConfigFields;
  */
 class BlockComponentConfigFields extends ComponentConfigFields
 {
+    const DEFAULT_CONFIG = PropertiesBlockComponent::DEFAULT_CONFIG;
+    const CACHEABLE = PropertiesBlockComponent::CACHEABLE;
+    const RENDERER = PropertiesBlockComponent::RENDERER;
+    const DATA_PROVIDER = PropertiesBlockComponent::DATA_PROVIDER;
+    const FIELDS = PropertiesBlockComponent::FIELDS;
+    const ICON = PropertiesBlockComponent::ICON;
+    const CATEGORY = PropertiesBlockComponent::CATEGORY;
+    const LABEL = PropertiesBlockComponent::LABEL;
+    const DESCRIPTION = PropertiesBlockComponent::DESCRIPTION;
+
     /**
      * Default values
      *
@@ -18,19 +28,17 @@ class BlockComponentConfigFields extends ComponentConfigFields
     protected $properties
         = [
             self::NAME => '',
-            self::LOCATION => '',
             self::CREATED_BY_USER_ID => '',
             self::CREATED_REASON => '',
-            self::COMPONENT_CONFIG_READER => '',
 
-            PropertiesBlockComponent::DEFAULT_CONFIG => [],
-            PropertiesBlockComponent::CACHEABLE => false,
-            PropertiesBlockComponent::RENDERER => '',
-            PropertiesBlockComponent::DATA_PROVIDER => '',
-            PropertiesBlockComponent::FIELDS => [],
-            PropertiesBlockComponent::ICON => '',
-            PropertiesBlockComponent::CATEGORY => '',
-            PropertiesBlockComponent::LABEL => '',
-            PropertiesBlockComponent::DESCRIPTION => '',
+            self::DEFAULT_CONFIG => [],
+            self::CACHEABLE => false,
+            self::RENDERER => '',
+            self::DATA_PROVIDER => '',
+            self::FIELDS => [],
+            self::ICON => '',
+            self::CATEGORY => '',
+            self::LABEL => '',
+            self::DESCRIPTION => '',
         ];
 }

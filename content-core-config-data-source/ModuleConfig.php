@@ -10,8 +10,8 @@ use Zrcms\ContentCore\ViewRenderDataGetter\Api\Repository\FindViewRenderDataGett
 use Zrcms\ContentCore\ViewRenderDataGetter\Api\Repository\FindViewRenderDataGetterComponentsBy;
 use Zrcms\ContentCoreConfigDataSource\Block\Api\GetBlockConfigFields;
 use Zrcms\ContentCoreConfigDataSource\Block\Api\GetBlockConfigFieldsBcSubstitution;
-use Zrcms\ContentCoreConfigDataSource\Block\Api\GetConfigBlockComponents;
-use Zrcms\ContentCoreConfigDataSource\Block\Api\GetConfigBlockComponentsBcFactory;
+use Zrcms\ContentCoreConfigDataSource\Block\Api\GetRegisterBlockComponents;
+use Zrcms\ContentCoreConfigDataSource\Block\Api\GetRegisterBlockComponentsBcFactory;
 use Zrcms\ContentCoreConfigDataSource\Block\Api\PrepareBlockConfig;
 use Zrcms\ContentCoreConfigDataSource\Block\Api\ReadBlockComponentConfig;
 use Zrcms\ContentCoreConfigDataSource\Block\Api\ReadBlockComponentConfigBasicFactory;
@@ -19,19 +19,19 @@ use Zrcms\ContentCoreConfigDataSource\Block\Api\ReadBlockComponentConfigBc;
 use Zrcms\ContentCoreConfigDataSource\Block\Api\ReadBlockComponentConfigBcFactory;
 use Zrcms\ContentCoreConfigDataSource\Block\Api\ReadBlockComponentConfigJsonFile;
 use Zrcms\ContentCoreConfigDataSource\Content\Api\SearchConfigList;
-use Zrcms\ContentCoreConfigDataSource\Theme\Api\GetConfigThemeComponents;
-use Zrcms\ContentCoreConfigDataSource\Theme\Api\GetConfigThemeComponentsBasicFactory;
+use Zrcms\ContentCoreConfigDataSource\Theme\Api\GetRegisterThemeComponents;
+use Zrcms\ContentCoreConfigDataSource\Theme\Api\GetRegisterThemeComponentsBasicFactory;
 use Zrcms\ContentCoreConfigDataSource\Theme\Api\ReadThemeComponentConfig;
 use Zrcms\ContentCoreConfigDataSource\Theme\Api\ReadThemeComponentConfigBasicFactory;
 use Zrcms\ContentCoreConfigDataSource\Theme\Api\ReadThemeComponentConfigJsonFile;
-use Zrcms\ContentCoreConfigDataSource\ViewRenderDataGetter\Api\GetConfigViewRenderDataGetterComponents;
-use Zrcms\ContentCoreConfigDataSource\ViewRenderDataGetter\Api\GetConfigViewRenderDataGetterComponentsBasicFactory;
+use Zrcms\ContentCoreConfigDataSource\ViewRenderDataGetter\Api\GetRegisterViewRenderDataGetterComponents;
+use Zrcms\ContentCoreConfigDataSource\ViewRenderDataGetter\Api\GetRegisterViewRenderDataGetterComponentsBasicFactory;
 use Zrcms\ContentCoreConfigDataSource\ViewRenderDataGetter\Api\ReadViewRenderDataGetterComponentConfig;
 use Zrcms\ContentCoreConfigDataSource\ViewRenderDataGetter\Api\ReadViewRenderDataGetterComponentConfigApplicationConfig;
 use Zrcms\ContentCoreConfigDataSource\ViewRenderDataGetter\Api\ReadViewRenderDataGetterComponentConfigApplicationConfigFactory;
 use Zrcms\ContentCoreConfigDataSource\ViewRenderDataGetter\Api\ReadViewRenderDataGetterComponentConfigBasicFactory;
 use Zrcms\ContentCoreConfigDataSource\ViewRenderDataGetter\Api\ReadViewRenderDataGetterComponentConfigJsonFile;
-
+use Zrcms\ContentCoreConfigDataSource as This;
 /**
  * @author James Jervis - https://github.com/jerv13
  */
@@ -51,16 +51,16 @@ class ModuleConfig
                      * Block Component ===========================================
                      */
                     FindBlockComponent::class => [
-                        'class' => \Zrcms\ContentCoreConfigDataSource\Block\Api\Repository\FindBlockComponent::class,
+                        'class' => This\Block\Api\Repository\FindBlockComponent::class,
                         'arguments' => [
-                            '0-' => GetConfigBlockComponents::class,
+                            '0-' => GetRegisterBlockComponents::class,
                             '1-' => SearchConfigList::class,
                         ],
                     ],
                     FindBlockComponentsBy::class => [
-                        'class' => \Zrcms\ContentCoreConfigDataSource\Block\Api\FindBlockComponentsBy::class,
+                        'class' => This\Block\Api\FindBlockComponentsBy::class,
                         'arguments' => [
-                            '0-' => GetConfigBlockComponents::class,
+                            '0-' => GetRegisterBlockComponents::class,
                             '1-' => SearchConfigList::class,
                         ],
                     ],
@@ -70,8 +70,8 @@ class ModuleConfig
                     GetBlockConfigFieldsBcSubstitution::class => [
                         'class' => GetBlockConfigFieldsBcSubstitution::class,
                     ],
-                    GetConfigBlockComponents::class => [
-                        'factory' => GetConfigBlockComponentsBcFactory::class,
+                    GetRegisterBlockComponents::class => [
+                        'factory' => GetRegisterBlockComponentsBcFactory::class,
                     ],
                     PrepareBlockConfig::class => [
                         'class' => PrepareBlockConfig::class,
@@ -101,21 +101,21 @@ class ModuleConfig
                      * Theme Component ===========================================
                      */
                     FindThemeComponent::class => [
-                        'class' => \Zrcms\ContentCoreConfigDataSource\Theme\Api\Repository\FindThemeComponent::class,
+                        'class' => This\Theme\Api\Repository\FindThemeComponent::class,
                         'arguments' => [
-                            '0-' => GetConfigThemeComponents::class,
+                            '0-' => GetRegisterThemeComponents::class,
                             '1-' => SearchConfigList::class
                         ],
                     ],
                     FindThemeComponentsBy::class => [
-                        'class' => \Zrcms\ContentCoreConfigDataSource\Theme\Api\Repository\FindThemeComponentsBy::class,
+                        'class' => This\Theme\Api\Repository\FindThemeComponentsBy::class,
                         'arguments' => [
-                            '0-' => GetConfigThemeComponents::class,
+                            '0-' => GetRegisterThemeComponents::class,
                             '1-' => SearchConfigList::class
                         ],
                     ],
-                    GetConfigThemeComponents::class => [
-                        'factory' => GetConfigThemeComponentsBasicFactory::class,
+                    GetRegisterThemeComponents::class => [
+                        'factory' => GetRegisterThemeComponentsBasicFactory::class,
                     ],
                     ReadThemeComponentConfig::class => [
                         'factory' => ReadThemeComponentConfigBasicFactory::class,
@@ -128,21 +128,21 @@ class ModuleConfig
                      * ViewRenderDataGetter Component ===========================================
                      */
                     FindViewRenderDataGetterComponent::class => [
-                        'class' => \Zrcms\ContentCoreConfigDataSource\ViewRenderDataGetter\Api\Repository\FindViewRenderDataGetterComponent::class,
+                        'class' => This\ViewRenderDataGetter\Api\Repository\FindViewRenderDataGetterComponent::class,
                         'arguments' => [
-                            '0-' => GetConfigViewRenderDataGetterComponents::class,
+                            '0-' => GetRegisterViewRenderDataGetterComponents::class,
                             '1-' => SearchConfigList::class
                         ],
                     ],
                     FindViewRenderDataGetterComponentsBy::class => [
-                        'class' => \Zrcms\ContentCoreConfigDataSource\ViewRenderDataGetter\Api\Repository\FindViewRenderDataGetterComponentsBy::class,
+                        'class' => This\ViewRenderDataGetter\Api\Repository\FindViewRenderDataGetterComponentsBy::class,
                         'arguments' => [
-                            '0-' => GetConfigViewRenderDataGetterComponents::class,
+                            '0-' => GetRegisterViewRenderDataGetterComponents::class,
                             '1-' => SearchConfigList::class
                         ],
                     ],
-                    GetConfigViewRenderDataGetterComponents::class => [
-                        'factory' => GetConfigViewRenderDataGetterComponentsBasicFactory::class,
+                    GetRegisterViewRenderDataGetterComponents::class => [
+                        'factory' => GetRegisterViewRenderDataGetterComponentsBasicFactory::class,
                     ],
                     ReadViewRenderDataGetterComponentConfigApplicationConfig::class => [
                         'factory' => ReadViewRenderDataGetterComponentConfigApplicationConfigFactory::class,

@@ -8,12 +8,12 @@ use Zrcms\Cache\Service\Cache;
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class GetConfigBlockComponentsBcFactory
+class GetRegisterBlockComponentsBcFactory
 {
     /**
      * @param ContainerInterface $serviceContainer
      *
-     * @return GetConfigBlockComponentsBc
+     * @return GetRegisterBlockComponentsBc
      */
     public function __invoke(
         $serviceContainer
@@ -24,7 +24,7 @@ class GetConfigBlockComponentsBcFactory
 
         $registryConfigBc = $config['rcmPlugin'];
 
-        return new GetConfigBlockComponentsBc(
+        return new GetRegisterBlockComponentsBc(
             $registryConfig,
             $registryConfigBc,
             $serviceContainer->get(ReadBlockComponentConfig::class),

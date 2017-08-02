@@ -33,7 +33,7 @@ class PropertiesBlockComponent extends PropertiesComponent
     protected $properties
         = [
             self::NAME => '',
-            self::LOCATION => '',
+            self::CONFIG_LOCATION => '',
             self::DEFAULT_CONFIG => [],
             self::CACHEABLE => false,
             self::RENDERER => '',

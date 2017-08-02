@@ -4,7 +4,7 @@ namespace Zrcms\ContentCoreConfigDataSource\ViewRenderDataGetter\Api\Repository;
 
 use Zrcms\Content\Model\Component;
 use Zrcms\ContentCore\ViewRenderDataGetter\Model\ViewRenderDataGetterComponent;
-use Zrcms\ContentCoreConfigDataSource\Content\Api\GetConfigComponents;
+use Zrcms\ContentCoreConfigDataSource\Content\Api\GetRegisterComponents;
 use Zrcms\ContentCoreConfigDataSource\Content\Api\Repository\FindComponentAbstract;
 use Zrcms\ContentCoreConfigDataSource\Content\Api\SearchConfigList;
 
@@ -16,15 +16,15 @@ class FindViewRenderDataGetterComponent
     implements \Zrcms\ContentCore\ViewRenderDataGetter\Api\Repository\FindViewRenderDataGetterComponent
 {
     /**
-     * @param GetConfigComponents $getConfigComponents
+     * @param GetRegisterComponents $getRegisterComponents
      * @param SearchConfigList    $searchConfigList
      */
     public function __construct(
-        GetConfigComponents $getConfigComponents,
+        GetRegisterComponents $getRegisterComponents,
         SearchConfigList $searchConfigList
     ) {
         parent::__construct(
-            $getConfigComponents,
+            $getRegisterComponents,
             $searchConfigList
         );
     }

@@ -4,14 +4,14 @@ namespace Zrcms\ContentCoreConfigDataSource\Block\Api;
 
 use Zrcms\Cache\Service\Cache;
 use Zrcms\ContentCore\Block\Model\BlockComponentBasic;
-use Zrcms\ContentCoreConfigDataSource\Content\Api\GetConfigComponentsAbstract;
+use Zrcms\ContentCoreConfigDataSource\Content\Api\GetRegisterComponentsAbstract;
 
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class GetConfigBlockComponentsBasic
-    extends GetConfigComponentsAbstract
-    implements GetConfigBlockComponents
+class GetRegisterBlockComponentsBasic
+    extends GetRegisterComponentsAbstract
+    implements GetRegisterBlockComponents
 {
     const CACHE_KEY = 'ZrcmsBlockComponentConfigBasic';
 

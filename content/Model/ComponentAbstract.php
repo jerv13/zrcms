@@ -47,9 +47,9 @@ abstract class ComponentAbstract implements Component
 
         Param::assertHas(
             $properties,
-            PropertiesComponent::LOCATION,
+            PropertiesComponent::CONFIG_LOCATION,
             PropertyMissingException::build(
-                PropertiesComponent::LOCATION,
+                PropertiesComponent::CONFIG_LOCATION,
                 $properties,
                 get_class($this)
             )
@@ -77,10 +77,10 @@ abstract class ComponentAbstract implements Component
     /**
      * @return string
      */
-    public function getLocation(): string
+    public function getConfigLocation(): string
     {
         return $this->getProperty(
-            PropertiesComponent::LOCATION,
+            PropertiesComponent::CONFIG_LOCATION,
             ''
         );
     }

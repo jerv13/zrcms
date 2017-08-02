@@ -1,0 +1,5 @@
+{
+  "name": "primary",
+  "templateFile": "template.mustache",
+  "renderer": "mustache"
+}

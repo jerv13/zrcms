@@ -7,16 +7,17 @@ use Zrcms\Content\Model\Trackable;
 use Zrcms\ContentCore\Theme\Model\LayoutComponentBasic;
 use Zrcms\ContentCore\Theme\Model\PropertiesThemeComponent;
 use Zrcms\ContentCore\Theme\Model\ThemeComponentBasic;
-use Zrcms\ContentCoreConfigDataSource\Content\Api\GetConfigComponentsAbstract;
+use Zrcms\ContentCoreConfigDataSource\Content\Api\GetRegisterComponentsAbstract;
 use Zrcms\ContentCoreConfigDataSource\Content\Model\ComponentConfigFields;
+use Zrcms\ContentCoreConfigDataSource\Content\Model\ComponentRegistryFields;
 use Zrcms\Param\Param;
 
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class GetConfigThemeComponentsBasic
-    extends GetConfigComponentsAbstract
-    implements GetConfigThemeComponents
+class GetRegisterThemeComponentsBasic
+    extends GetRegisterComponentsAbstract
+    implements GetRegisterThemeComponents
 {
     const CACHE_KEY = 'ZrcmsThemeComponentConfigBasic';
 
@@ -43,6 +44,13 @@ class GetConfigThemeComponentsBasic
         );
     }
 
+    public function __invoke(
+        array $options = []
+    ): array
+    {
+        return parent::__invoke($options);
+    }
+
     /**
      * @param array $themeComponentConfig
      *
@@ -56,18 +64,23 @@ class GetConfigThemeComponentsBasic
             []
         );
 
+        $themeLocation ='';
+
         $layoutVariationsRegistry = [];
 
         foreach ($layoutVariationConfigs as $layoutVariationConfig) {
             $layoutName = Param::getRequired(
                 $layoutVariationConfig,
-                ComponentConfigFields::NAME
+                ComponentRegistryFields::NAME
             );
             $location = Param::getRequired(
                 $layoutVariationConfig,
-                ComponentConfigFields::LOCATION
+                ComponentRegistryFields::CONFIG_LOCATION
             );
 
+            // Add theme location to layout location
+
+            $layoutLocation = '';
             $layoutVariationsRegistry[$layoutName] = $location;
         }
 

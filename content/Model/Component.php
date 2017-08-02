@@ -24,9 +24,9 @@ interface Component extends Immutable, Properties, Trackable
     public function getName(): string;
 
     /**
-     * Location where file are located
+     * Location the config came from
      *
      * @return string
      */
-    public function getLocation(): string ;
+    public function getConfigLocation(): string ;
 }

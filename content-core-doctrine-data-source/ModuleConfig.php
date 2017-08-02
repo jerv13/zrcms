@@ -36,7 +36,9 @@ use Zrcms\ContentCore\Theme\Api\Repository\FindLayoutCmsResourceByThemeNameLayou
 use Zrcms\ContentCore\Theme\Api\Repository\FindLayoutCmsResourcesBy;
 use Zrcms\ContentCore\Theme\Api\Repository\FindLayoutVersion;
 use Zrcms\ContentCore\Theme\Api\Repository\FindLayoutVersionsBy;
+use Zrcms\ContentCore\Theme\Api\Repository\FindThemeComponent;
 use Zrcms\ContentCore\Theme\Api\Repository\InsertLayoutVersion;
+use Zrcms\ContentCoreDoctrineDataSource as This;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -58,7 +60,7 @@ class ModuleConfig
                      * Block ===========================================
                      */
                     FindBlockVersionsByContainer::class => [
-                        'class' => \Zrcms\ContentCoreDoctrineDataSource\Block\Api\Repository\FindBlockVersionsByContainer::class,
+                        'class' => This\Block\Api\Repository\FindBlockVersionsByContainer::class,
                         'arguments' => [
                             '0-' => EntityManager::class,
                         ],
@@ -68,49 +70,49 @@ class ModuleConfig
                      * Container ===========================================
                      */
                     PublishContainerCmsResource::class => [
-                        'class' => \Zrcms\ContentCoreDoctrineDataSource\Container\Api\Action\PublishContainerCmsResource::class,
+                        'class' => This\Container\Api\Action\PublishContainerCmsResource::class,
                         'arguments' => [
                             '0-' => EntityManager::class,
                         ],
                     ],
                     UnpublishContainerCmsResource::class => [
-                        'class' => \Zrcms\ContentCoreDoctrineDataSource\Container\Api\Action\UnpublishContainerCmsResource::class,
+                        'class' => This\Container\Api\Action\UnpublishContainerCmsResource::class,
                         'arguments' => [
                             '0-' => EntityManager::class,
                         ],
                     ],
                     FindContainerCmsResource::class => [
-                        'class' => \Zrcms\ContentCoreDoctrineDataSource\Container\Api\Repository\FindContainerCmsResource::class,
+                        'class' => This\Container\Api\Repository\FindContainerCmsResource::class,
                         'arguments' => [
                             '0-' => EntityManager::class,
                         ],
                     ],
                     FindContainerCmsResourcesBy::class => [
-                        'class' => \Zrcms\ContentCoreDoctrineDataSource\Container\Api\Repository\FindContainerCmsResourcesBy::class,
+                        'class' => This\Container\Api\Repository\FindContainerCmsResourcesBy::class,
                         'arguments' => [
                             '0-' => EntityManager::class,
                         ],
                     ],
                     FindContainerCmsResourcesBySitePaths::class => [
-                        'class' => \Zrcms\ContentCoreDoctrineDataSource\Container\Api\Repository\FindContainerCmsResourcesBySitePaths::class,
+                        'class' => This\Container\Api\Repository\FindContainerCmsResourcesBySitePaths::class,
                         'arguments' => [
                             '0-' => EntityManager::class,
                         ],
                     ],
                     FindContainerVersion::class => [
-                        'class' => \Zrcms\ContentCoreDoctrineDataSource\Container\Api\Repository\FindContainerVersion::class,
+                        'class' => This\Container\Api\Repository\FindContainerVersion::class,
                         'arguments' => [
                             '0-' => EntityManager::class,
                         ],
                     ],
                     FindContainerVersionsBy::class => [
-                        'class' => \Zrcms\ContentCoreDoctrineDataSource\Container\Api\Repository\FindContainerVersionsBy::class,
+                        'class' => This\Container\Api\Repository\FindContainerVersionsBy::class,
                         'arguments' => [
                             '0-' => EntityManager::class,
                         ],
                     ],
                     InsertContainerVersion::class => [
-                        'class' => \Zrcms\ContentCoreDoctrineDataSource\Container\Api\Repository\InsertContainerVersion::class,
+                        'class' => This\Container\Api\Repository\InsertContainerVersion::class,
                         'arguments' => [
                             '0-' => EntityManager::class,
                         ],
@@ -120,49 +122,49 @@ class ModuleConfig
                      * Page ===========================================
                      */
                     PublishPageContainerCmsResource::class => [
-                        'class' => \Zrcms\ContentCoreDoctrineDataSource\Page\Api\Action\PublishPageContainerCmsResource::class,
+                        'class' => This\Page\Api\Action\PublishPageContainerCmsResource::class,
                         'arguments' => [
                             '0-' => EntityManager::class,
                         ],
                     ],
                     UnpublishPageContainerCmsResource::class => [
-                        'class' => \Zrcms\ContentCoreDoctrineDataSource\Page\Api\Action\UnPublishPageContainerCmsResource::class,
+                        'class' => This\Page\Api\Action\UnPublishPageContainerCmsResource::class,
                         'arguments' => [
                             '0-' => EntityManager::class,
                         ],
                     ],
                     FindPageContainerCmsResource::class => [
-                        'class' => \Zrcms\ContentCoreDoctrineDataSource\Page\Api\Repository\FindPageContainerCmsResource::class,
+                        'class' => This\Page\Api\Repository\FindPageContainerCmsResource::class,
                         'arguments' => [
                             '0-' => EntityManager::class,
                         ],
                     ],
                     FindPageContainerCmsResourceBySitePath::class => [
-                        'class' => \Zrcms\ContentCoreDoctrineDataSource\Page\Api\Repository\FindPageContainerCmsResourceBySitePath::class,
+                        'class' => This\Page\Api\Repository\FindPageContainerCmsResourceBySitePath::class,
                         'arguments' => [
                             '0-' => EntityManager::class,
                         ],
                     ],
                     FindPageContainerCmsResourcesBy::class => [
-                        'class' => \Zrcms\ContentCoreDoctrineDataSource\Page\Api\Repository\FindPageContainerCmsResourcesBy::class,
+                        'class' => This\Page\Api\Repository\FindPageContainerCmsResourcesBy::class,
                         'arguments' => [
                             '0-' => EntityManager::class,
                         ],
                     ],
                     FindPageContainerVersion::class => [
-                        'class' => \Zrcms\ContentCoreDoctrineDataSource\Page\Api\Repository\FindPageContainerVersion::class,
+                        'class' => This\Page\Api\Repository\FindPageContainerVersion::class,
                         'arguments' => [
                             '0-' => EntityManager::class,
                         ],
                     ],
                     FindPageContainerVersionsBy::class => [
-                        'class' => \Zrcms\ContentCoreDoctrineDataSource\Page\Api\Repository\FindPageContainerVersionsBy::class,
+                        'class' => This\Page\Api\Repository\FindPageContainerVersionsBy::class,
                         'arguments' => [
                             '0-' => EntityManager::class,
                         ],
                     ],
                     InsertPageContainerVersion::class => [
-                        'class' => \Zrcms\ContentCoreDoctrineDataSource\Page\Api\Repository\InsertPageContainerVersion::class,
+                        'class' => This\Page\Api\Repository\InsertPageContainerVersion::class,
                         'arguments' => [
                             '0-' => EntityManager::class,
                         ],
@@ -172,49 +174,49 @@ class ModuleConfig
                      * Site ===========================================
                      */
                     PublishSiteCmsResource::class => [
-                        'class' => \Zrcms\ContentCoreDoctrineDataSource\Site\Api\Action\PublishSiteCmsResource::class,
+                        'class' => This\Site\Api\Action\PublishSiteCmsResource::class,
                         'arguments' => [
                             '0-' => EntityManager::class,
                         ],
                     ],
                     UnpublishSiteCmsResource::class => [
-                        'class' => \Zrcms\ContentCoreDoctrineDataSource\Site\Api\Action\UnpublishSiteCmsResource::class,
+                        'class' => This\Site\Api\Action\UnpublishSiteCmsResource::class,
                         'arguments' => [
                             '0-' => EntityManager::class,
                         ],
                     ],
                     FindSiteCmsResource::class => [
-                        'class' => \Zrcms\ContentCoreDoctrineDataSource\Site\Api\Repository\FindSiteCmsResource::class,
+                        'class' => This\Site\Api\Repository\FindSiteCmsResource::class,
                         'arguments' => [
                             '0-' => EntityManager::class,
                         ],
                     ],
                     FindSiteCmsResourceByHost::class => [
-                        'class' => \Zrcms\ContentCoreDoctrineDataSource\Site\Api\Repository\FindSiteCmsResourceByHost::class,
+                        'class' => This\Site\Api\Repository\FindSiteCmsResourceByHost::class,
                         'arguments' => [
                             '0-' => EntityManager::class,
                         ],
                     ],
                     FindSiteCmsResourcesBy::class => [
-                        'class' => \Zrcms\ContentCoreDoctrineDataSource\Site\Api\Repository\FindSiteCmsResourcesBy::class,
+                        'class' => This\Site\Api\Repository\FindSiteCmsResourcesBy::class,
                         'arguments' => [
                             '0-' => EntityManager::class,
                         ],
                     ],
                     FindSiteVersion::class => [
-                        'class' => \Zrcms\ContentCoreDoctrineDataSource\Site\Api\Repository\FindSiteVersion::class,
+                        'class' => This\Site\Api\Repository\FindSiteVersion::class,
                         'arguments' => [
                             '0-' => EntityManager::class,
                         ],
                     ],
                     FindSiteVersionsBy::class => [
-                        'class' => \Zrcms\ContentCoreDoctrineDataSource\Site\Api\Repository\FindSiteVersionsBy::class,
+                        'class' => This\Site\Api\Repository\FindSiteVersionsBy::class,
                         'arguments' => [
                             '0-' => EntityManager::class,
                         ],
                     ],
                     InsertSiteVersion::class => [
-                        'class' => \Zrcms\ContentCoreDoctrineDataSource\Site\Api\Repository\InsertSiteVersion::class,
+                        'class' => This\Site\Api\Repository\InsertSiteVersion::class,
                         'arguments' => [
                             '0-' => EntityManager::class,
                         ],
@@ -223,49 +225,51 @@ class ModuleConfig
                      * Theme ===========================================
                      */
                     PublishLayoutCmsResource::class => [
-                        'class' => \Zrcms\ContentCoreDoctrineDataSource\Theme\Api\Action\PublishLayoutCmsResource::class,
+                        'class' => This\Theme\Api\Action\PublishLayoutCmsResource::class,
                         'arguments' => [
                             '0-' => EntityManager::class,
                         ],
                     ],
                     UnpublishLayoutCmsResource::class => [
-                        'class' => \Zrcms\ContentCoreDoctrineDataSource\Theme\Api\Action\UnpublishLayoutCmsResource::class,
+                        'class' => This\Theme\Api\Action\UnpublishLayoutCmsResource::class,
                         'arguments' => [
                             '0-' => EntityManager::class,
                         ],
                     ],
                     FindLayoutCmsResource::class => [
-                        'class' => \Zrcms\ContentCoreDoctrineDataSource\Theme\Api\Repository\FindLayoutCmsResource::class,
+                        'class' => This\Theme\Api\Repository\FindLayoutCmsResource::class,
                         'arguments' => [
                             '0-' => EntityManager::class,
                         ],
                     ],
                     FindLayoutCmsResourceByThemeNameLayoutName::class => [
-                        'class' => \Zrcms\ContentCoreDoctrineDataSource\Theme\Api\Repository\FindLayoutCmsResourceByThemeNameLayoutName::class,
+                        'class' => This\Theme\Api\Repository\FindLayoutCmsResourceByThemeNameLayoutName::class,
                         'arguments' => [
                             '0-' => EntityManager::class,
+                            '1-' => FindThemeComponent::class, // @todo TEMP HACK
                         ],
                     ],
                     FindLayoutCmsResourcesBy::class => [
-                        'class' => \Zrcms\ContentCoreDoctrineDataSource\Theme\Api\Repository\FindLayoutCmsResourcesBy::class,
+                        'class' => This\Theme\Api\Repository\FindLayoutCmsResourcesBy::class,
                         'arguments' => [
                             '0-' => EntityManager::class,
                         ],
                     ],
                     FindLayoutVersion::class => [
-                        'class' => \Zrcms\ContentCoreDoctrineDataSource\Theme\Api\Repository\FindLayoutVersion::class,
+                        'class' => This\Theme\Api\Repository\FindLayoutVersion::class,
                         'arguments' => [
                             '0-' => EntityManager::class,
+                            '1-' => FindThemeComponent::class, // @todo TEMP HACK
                         ],
                     ],
                     FindLayoutVersionsBy::class => [
-                        'class' => \Zrcms\ContentCoreDoctrineDataSource\Theme\Api\Repository\FindLayoutVersionsBy::class,
+                        'class' => This\Theme\Api\Repository\FindLayoutVersionsBy::class,
                         'arguments' => [
                             '0-' => EntityManager::class,
                         ],
                     ],
                     InsertLayoutVersion::class => [
-                        'class' => \Zrcms\ContentCoreDoctrineDataSource\Theme\Api\Repository\InsertLayoutVersion::class,
+                        'class' => This\Theme\Api\Repository\InsertLayoutVersion::class,
                         'arguments' => [
                             '0-' => EntityManager::class,
                         ],

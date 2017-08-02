@@ -3,15 +3,15 @@
 namespace Zrcms\ContentCoreConfigDataSource\ViewRenderDataGetter\Api;
 
 use Zrcms\Cache\Service\Cache;
-use Zrcms\ContentCore\View\Model\ViewComponentBasic;
-use Zrcms\ContentCoreConfigDataSource\Content\Api\GetConfigComponentsAbstract;
+use Zrcms\ContentCore\ViewRenderDataGetter\Model\ViewRenderDataGetterComponentBasic;
+use Zrcms\ContentCoreConfigDataSource\Content\Api\GetRegisterComponentsAbstract;
 
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class GetConfigViewRenderDataGetterComponentsBasic
-    extends GetConfigComponentsAbstract
-    implements GetConfigViewRenderDataGetterComponents
+class GetRegisterViewRenderDataGetterComponentsBasic
+    extends GetRegisterComponentsAbstract
+    implements GetRegisterViewRenderDataGetterComponents
 {
     const CACHE_KEY = 'ZrcmsViewRenderDataGetterComponentConfigBasic';
 
@@ -26,7 +26,7 @@ class GetConfigViewRenderDataGetterComponentsBasic
         array $registryConfig,
         ReadViewRenderDataGetterComponentConfig $readComponentConfig,
         Cache $cache,
-        string $componentClass = ViewComponentBasic::class,
+        string $componentClass = ViewRenderDataGetterComponentBasic::class,
         string $cacheKey = self::CACHE_KEY
     ) {
         parent::__construct(

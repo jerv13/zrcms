@@ -22,7 +22,10 @@ $zrcmsModules =  [
     new \Zrcms\ContentCountryDoctrine\ModuleConfig(),
     new \Zrcms\ContentLanguageDoctrine\ModuleConfig(),
     new \Zrcms\HttpExpressive1\ModuleConfig(),
-    new \Zrcms\HttpResponseHandler\ModuleConfig()
+    new \Zrcms\HttpResponseHandler\ModuleConfig(),
+
+    // @todo REMOVE Xample
+    new \Zrcms\XampleComponent\ModuleConfig(),
 ];
 
 $configManager = new \Zend\ConfigAggregator\ConfigAggregator(

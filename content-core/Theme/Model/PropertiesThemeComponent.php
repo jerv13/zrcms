@@ -20,7 +20,7 @@ class PropertiesThemeComponent extends PropertiesComponent
     protected $properties
         = [
             self::NAME => '',
-            self::LOCATION => '',
+            self::CONFIG_LOCATION => '',
             self::PRIMARY_LAYOUT_NAME => '',
             self::LAYOUT_VARIATIONS => [],
         ];
