@@ -11,7 +11,7 @@ use Zrcms\Param\Param;
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class HandleResponseWithExceptionMessage
+class HandleResponseWithExceptionMessage implements HandleResponse
 {
     /**
      * @param ServerRequestInterface $request

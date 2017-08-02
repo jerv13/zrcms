@@ -12,7 +12,8 @@ use Zrcms\ContentCore\Site\Api\Repository\FindSiteCmsResourceByHost;
 use Zrcms\ContentCore\Site\Api\Repository\FindSiteVersion;
 use Zrcms\ContentCore\Site\Exception\SiteNotFoundException;
 use Zrcms\ContentCore\Site\Model\PropertiesSiteVersion;
-use Zrcms\ContentCore\Site\Model\Site;
+use Zrcms\ContentCore\Site\Model\SiteCmsResource;
+use Zrcms\ContentCore\Site\Model\SiteVersion;
 use Zrcms\ContentCore\Theme\Api\Repository\FindLayoutCmsResourceByThemeNameLayoutName;
 use Zrcms\ContentCore\Theme\Api\Repository\FindLayoutVersion;
 use Zrcms\ContentCore\Theme\Api\Repository\FindThemeComponent;
@@ -125,6 +126,7 @@ class FindViewByRequestBasic implements FindViewByRequest
     {
         $uri = $request->getUri();
 
+        /** @var SiteCmsResource $siteCmsResource */
         $siteCmsResource = $this->findSiteCmsResourceByHost->__invoke(
             $uri->getHost()
         );
@@ -135,7 +137,7 @@ class FindViewByRequestBasic implements FindViewByRequest
             );
         }
 
-        /** @var Site $siteVersion */
+        /** @var SiteVersion $siteVersion */
         $siteVersion = $this->findSiteVersion->__invoke(
             $siteCmsResource->getContentVersionId()
         );

@@ -74,6 +74,7 @@ class ViewController
             $response = new HtmlResponse('SITE NOT FOUND');
 
             return $this->handleResponse->__invoke(
+                $request,
                 $response->withStatus(404, 'SITE NOT FOUND'),
                 [HandleResponseOptions::EXCEPTION => $exception]
             );
@@ -81,6 +82,7 @@ class ViewController
             $response = new HtmlResponse('PAGE NOT FOUND');
 
             return $this->handleResponse->__invoke(
+                $request,
                 $response->withStatus(404, 'PAGE NOT FOUND'),
                 [HandleResponseOptions::EXCEPTION => $exception]
             );

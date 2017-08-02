@@ -5,9 +5,13 @@ namespace Zrcms\HttpResponseHandler\Api;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Zend\Diactoros\Response\RedirectResponse;
+use Zrcms\ContentCore\Page\Api\Repository\FindPageContainerCmsResourceBySitePath;
+use Zrcms\ContentCore\Page\Api\Repository\FindPageContainerVersion;
+use Zrcms\ContentCore\Page\Model\PageContainerVersion;
+use Zrcms\ContentCore\Site\Api\Repository\FindSiteCmsResourceByHost;
+use Zrcms\ContentCore\Site\Api\Repository\FindSiteVersion;
 use Zrcms\ContentCore\Site\Model\PropertiesSiteVersion;
 use Zrcms\ContentCore\Site\Model\SiteVersion;
-use Zrcms\HttpResponseHandler\Model\HandleResponseOptions;
 use Zrcms\Param\Param;
 
 /**
@@ -22,6 +26,60 @@ class HandleResponseSiteRedirect implements HandleResponse
         ];
 
     /**
+     * @var FindSiteCmsResourceByHost
+     */
+    protected $findSiteCmsResourceByHost;
+
+    /**
+     * @var FindSiteVersion
+     */
+    protected $findSiteVersion;
+
+    /**
+     * @var FindPageContainerCmsResourceBySitePath
+     */
+    protected $findPageContainerCmsResourceBySitePath;
+
+    /**
+     * @var FindPageContainerVersion
+     */
+    protected $findPageContainerVersion;
+
+    /**
+     * @var int
+     */
+    protected $redirectStatusCode = 302;
+
+    /**
+     * @var array
+     */
+    protected $headers = [];
+
+    /**
+     * @param FindSiteCmsResourceByHost              $findSiteCmsResourceByHost
+     * @param FindSiteVersion                        $findSiteVersion
+     * @param FindPageContainerCmsResourceBySitePath $findPageContainerCmsResourceBySitePath
+     * @param FindPageContainerVersion               $findPageContainerVersion
+     * @param int                                    $redirectStatusCode
+     * @param array                                  $headers
+     */
+    public function __construct(
+        FindSiteCmsResourceByHost $findSiteCmsResourceByHost,
+        FindSiteVersion $findSiteVersion,
+        FindPageContainerCmsResourceBySitePath $findPageContainerCmsResourceBySitePath,
+        FindPageContainerVersion $findPageContainerVersion,
+        int $redirectStatusCode = 302,
+        array $headers = []
+    ) {
+        $this->findSiteCmsResourceByHost = $findSiteCmsResourceByHost;
+        $this->findSiteVersion = $findSiteVersion;
+        $this->findPageContainerCmsResourceBySitePath = $findPageContainerCmsResourceBySitePath;
+        $this->findPageContainerVersion = $findPageContainerVersion;
+        $this->redirectStatusCode = $redirectStatusCode;
+        $this->headers = $headers;
+    }
+
+    /**
      * @param ServerRequestInterface $request
      * @param ResponseInterface      $response
      * @param array                  $options
@@ -34,13 +92,22 @@ class HandleResponseSiteRedirect implements HandleResponse
         array $options = []
     ): ResponseInterface
     {
-        /** @var SiteVersion $siteVersion */
-        $siteVersion = Param::get(
-            $options,
-            HandleResponseOptions::SITE_VERSION
+        $uri = $request->getUri();
+
+        $siteCmsResource = $this->findSiteCmsResourceByHost->__invoke(
+            $uri->getHost()
         );
 
-        if (!$siteVersion instanceof SiteVersion) {
+        if (empty($siteCmsResource)) {
+            return $response;
+        }
+
+        /** @var SiteVersion $siteVersion */
+        $siteVersion = $this->findSiteVersion->__invoke(
+            $siteCmsResource->getContentVersionId()
+        );
+
+        if (empty($siteVersion)) {
             return $response;
         }
 
@@ -60,17 +127,29 @@ class HandleResponseSiteRedirect implements HandleResponse
             return $response;
         }
 
-        $uri = $request->getUri();
-
-        $redirectStatusCode = Param::get(
-            $options,
-            HandleResponseOptions::REDIRECT_STATUS_CODE,
-            302
+        $pageContainerCmsResource = $this->findPageContainerCmsResourceBySitePath->__invoke(
+            $siteCmsResource->getId(),
+            $path
         );
+
+        if (empty($pageContainerCmsResource)) {
+            return $response;
+        }
+
+        /** @var PageContainerVersion $pageContainerVersion */
+        $pageContainerVersion = $this->findPageContainerVersion->__invoke(
+            $pageContainerCmsResource->getContentVersionId()
+        );
+
+        if (empty($pageContainerVersion)) {
+            return $response;
+        }
+
+        $uri = $request->getUri();
 
         return new RedirectResponse(
             $uri->withPath($path),
-            $redirectStatusCode
+            $this->redirectStatusCode
         );
     }
 
