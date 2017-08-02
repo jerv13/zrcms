@@ -3,6 +3,7 @@
 namespace Zrcms\HttpResponseHandler\Api;
 
 use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\ServerRequestInterface;
 use Zend\Diactoros\Response\HtmlResponse;
 use Zrcms\HttpResponseHandler\Model\HandleResponseOptions;
 use Zrcms\Param\Param;
@@ -13,12 +14,14 @@ use Zrcms\Param\Param;
 class HandleResponseWithExceptionMessage
 {
     /**
-     * @param ResponseInterface $response
-     * @param array             $options
+     * @param ServerRequestInterface $request
+     * @param ResponseInterface      $response
+     * @param array                  $options
      *
      * @return ResponseInterface
      */
     public function __invoke(
+        ServerRequestInterface $request,
         ResponseInterface $response,
         array $options = []
     ): ResponseInterface

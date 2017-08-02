@@ -8,4 +8,6 @@ namespace Zrcms\HttpResponseHandler\Model;
 class HandleResponseOptions
 {
     const EXCEPTION = 'exception';
+    const SITE_VERSION = 'siteVersion';
+    const REDIRECT_STATUS_CODE = 'redirectStatusCode';
 }
