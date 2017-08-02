@@ -38,9 +38,11 @@ Allows for virtually arbitrary properties AKA easy to extend functionality
     - browser-warning.html
     - rcmAdminPanel
     - rcmHtmlEditorOptions
+    - basePath
             
 - Document the architecture and basics of how it works
-            
+- Fix ComponentConfigFields to be RegistryConfigFields (from $config) and ComponentConfigFields (from file.json)
+
     /**
      * @return void
      *

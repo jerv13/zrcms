@@ -9,7 +9,7 @@ use Zrcms\Content\Model\PropertiesComponent;
  */
 class PropertiesThemeComponent extends PropertiesComponent
 {
-    const LAYOUT = 'layout';
+    const PRIMARY_LAYOUT_NAME = 'primaryLayoutName';
     const LAYOUT_VARIATIONS = 'layoutVariations';
 
     /**
@@ -21,7 +21,7 @@ class PropertiesThemeComponent extends PropertiesComponent
         = [
             self::NAME => '',
             self::LOCATION => '',
-            self::LAYOUT => '',
+            self::PRIMARY_LAYOUT_NAME => '',
             self::LAYOUT_VARIATIONS => [],
         ];
 }

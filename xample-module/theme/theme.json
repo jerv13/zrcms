@@ -1,4 +1,16 @@
 {
-  "name": "MyBock",
-  "renderer": "mustache"
+  "name": "my-theme",
+  "primaryLayoutName": "primary",
+  "layoutVariations": [
+    {
+      "name": "primary",
+      "location": "/my-theme/layout/primary",
+      "renderer": "mustache"
+    },
+    {
+      "name": "layout1",
+      "location": "/my-theme/layout/layout1",
+      "renderer": "mustache"
+    }
+  ]
 }

@@ -12,6 +12,7 @@ use Zrcms\HttpExpressive1\Api\Site\Repository\InsertSiteVersion;
 use Zrcms\HttpExpressive1\Render\ViewController;
 use Zrcms\HttpExpressive1\Render\ViewControllerTest;
 use Zrcms\HttpExpressive1\Render\ViewControllerTestFactory;
+use Zrcms\HttpResponseHandler\Api\HandleResponseWithExceptionMessage;
 use Zrcms\User\Api\GetUserIdByRequest;
 
 /**
@@ -56,6 +57,7 @@ class ModuleConfig
                             FindViewByRequest::class,
                             GetViewRenderData::class,
                             RenderView::class,
+                            HandleResponseWithExceptionMessage::class
                         ],
                     ],
                     ViewControllerTest::class => [

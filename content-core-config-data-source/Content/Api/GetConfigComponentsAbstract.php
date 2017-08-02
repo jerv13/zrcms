@@ -114,6 +114,8 @@ abstract class GetConfigComponentsAbstract implements GetConfigComponents
 
         foreach ($componentConfigs as $componentConfig) {
 
+            $componentConfig = $this->buildSubComponents($componentConfig);
+
             $configs[] = new $componentClass(
                 $componentConfig,
                 Param::get(
@@ -132,6 +134,17 @@ abstract class GetConfigComponentsAbstract implements GetConfigComponents
         $this->setCache($configs);
 
         return $configs;
+    }
+
+    /**
+     * @param array $componentConfig
+     *
+     * @return array
+     */
+    protected function buildSubComponents(array $componentConfig): array
+    {
+        // over-ride to build sub-components
+        return $componentConfig;
     }
 
     /**

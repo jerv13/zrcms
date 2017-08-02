@@ -10,6 +10,8 @@ use Zrcms\ContentCore\Site\Exception\SiteNotFoundException;
 use Zrcms\ContentCore\View\Api\Render\GetViewRenderData;
 use Zrcms\ContentCore\View\Api\Render\RenderView;
 use Zrcms\ContentCore\View\Api\Repository\FindViewByRequest;
+use Zrcms\HttpResponseHandler\Api\HandleResponse;
+use Zrcms\HttpResponseHandler\Model\HandleResponseOptions;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -20,15 +22,18 @@ class ViewController
      * @param FindViewByRequest $findViewByRequest
      * @param GetViewRenderData $getViewRenderData
      * @param RenderView        $renderView
+     * @param HandleResponse    $handleResponse
      */
     public function __construct(
         FindViewByRequest $findViewByRequest,
         GetViewRenderData $getViewRenderData,
-        RenderView $renderView
+        RenderView $renderView,
+        HandleResponse $handleResponse
     ) {
         $this->findViewByRequest = $findViewByRequest;
         $this->getViewRenderData = $getViewRenderData;
         $this->renderView = $renderView;
+        $this->handleResponse = $handleResponse;
     }
 
     /**
@@ -68,11 +73,17 @@ class ViewController
             // @todo Use a response service to generate these
             $response = new HtmlResponse('SITE NOT FOUND');
 
-            return $response->withStatus(404, 'SITE NOT FOUND');
+            return $this->handleResponse->__invoke(
+                $response->withStatus(404, 'SITE NOT FOUND'),
+                [HandleResponseOptions::EXCEPTION => $exception]
+            );
         } catch (PageNotFoundException $exception) {
             $response = new HtmlResponse('PAGE NOT FOUND');
 
-            return $response->withStatus(404, 'PAGE NOT FOUND');
+            return $this->handleResponse->__invoke(
+                $response->withStatus(404, 'PAGE NOT FOUND'),
+                [HandleResponseOptions::EXCEPTION => $exception]
+            );
         }
 
         $viewRenderData = $this->getViewRenderData->__invoke(

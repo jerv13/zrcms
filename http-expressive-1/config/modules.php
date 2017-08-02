@@ -22,6 +22,7 @@ $zrcmsModules =  [
     new \Zrcms\ContentCountryDoctrine\ModuleConfig(),
     new \Zrcms\ContentLanguageDoctrine\ModuleConfig(),
     new \Zrcms\HttpExpressive1\ModuleConfig(),
+    new \Zrcms\HttpResponseHandler\ModuleConfig()
 ];
 
 $configManager = new \Zend\ConfigAggregator\ConfigAggregator(

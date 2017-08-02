@@ -22,7 +22,6 @@ abstract class ThemeComponentAbstract extends ComponentAbstract implements Theme
         string $createdByUserId,
         string $createdReason
     ) {
-
         Param::assertHas(
             $properties,
             PropertiesThemeComponent::LAYOUT_VARIATIONS,
@@ -41,18 +40,30 @@ abstract class ThemeComponentAbstract extends ComponentAbstract implements Theme
 
         $this->assertAreLayoutVariations($layoutVariations);
 
-        Param::assertHas(
-            $layoutVariations,
-            LayoutComponent::PRIMARY_NAME,
-            new DefaultLayoutMissingException(
-                "Primary layout is missing for theme " . $this->getName()
-            )
-        );
-
         parent::__construct(
             $properties,
             $createdByUserId,
             $createdReason
+        );
+
+        Param::assertHas(
+            $this->getLayoutVariations(),
+            $this->getPrimaryLayoutName(),
+            new DefaultLayoutMissingException(
+                'Primary layout ' . $this->getPrimaryLayoutName()
+                . 'is missing for theme ' . $this->getName()
+            )
+        );
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPrimaryLayoutName()
+    {
+        return $this->getProperty(
+            PropertiesThemeComponent::PRIMARY_LAYOUT_NAME,
+            LayoutComponent::PRIMARY_NAME
         );
     }
 
@@ -60,9 +71,11 @@ abstract class ThemeComponentAbstract extends ComponentAbstract implements Theme
      * @return LayoutComponent
      * @throws DefaultLayoutMissingException
      */
-    public function getLayout()
+    public function getPrimaryLayout()
     {
-        return $this->getLayoutVariation(LayoutComponent::PRIMARY_NAME);
+        return $this->getLayoutVariation(
+            $this->getPrimaryLayoutName()
+        );
     }
 
     /**

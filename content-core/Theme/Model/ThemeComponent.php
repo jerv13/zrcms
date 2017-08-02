@@ -14,7 +14,7 @@ interface ThemeComponent extends Component
      *
      * @return LayoutComponent
      */
-    public function getLayout();
+    public function getPrimaryLayout();
 
     /**
      * List of Layouts
