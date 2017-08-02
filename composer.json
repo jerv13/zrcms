@@ -53,7 +53,9 @@
       "Zrcms\\Install\\": "install/src/",
       "Zrcms\\Mustache\\": "mustache/",
       "Zrcms\\Param\\": "param/",
-      "Zrcms\\RcmPluginCompatibility\\": "rcm-plugin-compatibility/"
+      "Zrcms\\RcmPluginCompatibility\\": "rcm-plugin-compatibility/",
+      "Zrcms\\User\\": "user/",
+      "Zrcms\\ViewRenderDataGetters\\Head\\": "view-render-data-getters/head/src/"
     }
   },
   "suggest": {
