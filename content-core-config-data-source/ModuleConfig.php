@@ -24,6 +24,9 @@ use Zrcms\ContentCoreConfigDataSource\Theme\Api\GetRegisterThemeComponentsBasicF
 use Zrcms\ContentCoreConfigDataSource\Theme\Api\ReadThemeComponentConfig;
 use Zrcms\ContentCoreConfigDataSource\Theme\Api\ReadThemeComponentConfigBasicFactory;
 use Zrcms\ContentCoreConfigDataSource\Theme\Api\ReadThemeComponentConfigJsonFile;
+use Zrcms\ContentCoreConfigDataSource\Theme\Api\ReadLayoutComponentConfig;
+use Zrcms\ContentCoreConfigDataSource\Theme\Api\ReadLayoutComponentConfigBasicFactory;
+use Zrcms\ContentCoreConfigDataSource\Theme\Api\ReadLayoutComponentConfigJsonFile;
 use Zrcms\ContentCoreConfigDataSource\ViewRenderDataGetter\Api\GetRegisterViewRenderDataGetterComponents;
 use Zrcms\ContentCoreConfigDataSource\ViewRenderDataGetter\Api\GetRegisterViewRenderDataGetterComponentsBasicFactory;
 use Zrcms\ContentCoreConfigDataSource\ViewRenderDataGetter\Api\ReadViewRenderDataGetterComponentConfig;
@@ -117,6 +120,13 @@ class ModuleConfig
                     GetRegisterThemeComponents::class => [
                         'factory' => GetRegisterThemeComponentsBasicFactory::class,
                     ],
+                    ReadLayoutComponentConfig::class => [
+                        'factory' => ReadLayoutComponentConfigBasicFactory::class,
+                    ],
+                    ReadLayoutComponentConfigJsonFile::class => [
+                        'class' => ReadLayoutComponentConfigJsonFile::class,
+                    ],
+
                     ReadThemeComponentConfig::class => [
                         'factory' => ReadThemeComponentConfigBasicFactory::class,
                     ],

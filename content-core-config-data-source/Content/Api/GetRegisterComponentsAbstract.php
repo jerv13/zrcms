@@ -109,8 +109,6 @@ abstract class GetRegisterComponentsAbstract implements GetRegisterComponents
             $this->registryConfig
         );
 
-        ddd(get_class($this),$componentConfigs);
-
         $configs = [];
 
         $componentClass = $this->componentClass;
@@ -133,6 +131,8 @@ abstract class GetRegisterComponentsAbstract implements GetRegisterComponents
                 )
             );
         }
+
+        ddd(get_class($this),$configs);
 
         $this->setCache($configs);
 
@@ -175,6 +175,8 @@ abstract class GetRegisterComponentsAbstract implements GetRegisterComponents
                         . ' in ' . $this->componentClass
                     )
                 );
+
+                // @todo readComponentConfig injection here
 
                 $componentName = Param::get(
                     $componentOptions,

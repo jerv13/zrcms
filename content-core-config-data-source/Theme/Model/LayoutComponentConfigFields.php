@@ -2,6 +2,7 @@
 
 namespace Zrcms\ContentCoreConfigDataSource\Theme\Model;
 
+use Zrcms\ContentCore\Theme\Model\PropertiesLayoutComponent;
 use Zrcms\ContentCoreConfigDataSource\Content\Model\ComponentConfigFields;
 
 /**

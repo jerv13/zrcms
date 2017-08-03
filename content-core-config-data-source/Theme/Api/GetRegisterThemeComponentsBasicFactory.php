@@ -25,6 +25,7 @@ class GetRegisterThemeComponentsBasicFactory
         return new GetRegisterThemeComponentsBasic(
             $registryConfig,
             $serviceContainer->get(ReadThemeComponentConfig::class),
+            $serviceContainer->get(ReadLayoutComponentConfig::class),
             $serviceContainer->get(Cache::class)
         );
     }

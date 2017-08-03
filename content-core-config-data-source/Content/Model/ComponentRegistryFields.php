@@ -10,8 +10,8 @@ use Zrcms\Content\Model\PropertiesComponent;
 class ComponentRegistryFields
 {
     const NAME = PropertiesComponent::NAME;
-    const CONFIG_LOCATION = PropertiesComponent::LOCATION;
-    const COMPONENT_CONFIG_READER = 'component-config-reader';
+    const CONFIG_LOCATION = PropertiesComponent::CONFIG_LOCATION;
+    const COMPONENT_CONFIG_READER = 'componentConfigReader';
 
     /**
      * Default values

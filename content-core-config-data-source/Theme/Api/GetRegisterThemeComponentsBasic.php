@@ -5,11 +5,14 @@ namespace Zrcms\ContentCoreConfigDataSource\Theme\Api;
 use Zrcms\Cache\Service\Cache;
 use Zrcms\Content\Model\Trackable;
 use Zrcms\ContentCore\Theme\Model\LayoutComponentBasic;
+use Zrcms\ContentCore\Theme\Model\PropertiesLayoutComponent;
 use Zrcms\ContentCore\Theme\Model\PropertiesThemeComponent;
 use Zrcms\ContentCore\Theme\Model\ThemeComponentBasic;
 use Zrcms\ContentCoreConfigDataSource\Content\Api\GetRegisterComponentsAbstract;
 use Zrcms\ContentCoreConfigDataSource\Content\Model\ComponentConfigFields;
-use Zrcms\ContentCoreConfigDataSource\Content\Model\ComponentRegistryFields;
+use Zrcms\ContentCoreConfigDataSource\Theme\Model\LayoutComponentConfigFields;
+use Zrcms\ContentCoreConfigDataSource\Theme\Model\ThemeComponentConfigFields;
+use Zrcms\ContentCoreConfigDataSource\Theme\Model\ThemeComponentRegistryFields;
 use Zrcms\Param\Param;
 
 /**
@@ -22,19 +25,27 @@ class GetRegisterThemeComponentsBasic
     const CACHE_KEY = 'ZrcmsThemeComponentConfigBasic';
 
     /**
-     * @param array                    $registryConfig
-     * @param ReadThemeComponentConfig $readComponentConfig
-     * @param Cache                    $cache
-     * @param string                   $componentClass
-     * @param string                   $cacheKey
+     * @var ReadLayoutComponentConfig
+     */
+    protected $readLayoutComponentConfig;
+
+    /**
+     * @param array                     $registryConfig
+     * @param ReadThemeComponentConfig  $readComponentConfig
+     * @param ReadLayoutComponentConfig $readLayoutComponentConfig
+     * @param Cache                     $cache
+     * @param string                    $componentClass
+     * @param string                    $cacheKey
      */
     public function __construct(
         array $registryConfig,
         ReadThemeComponentConfig $readComponentConfig,
+        ReadLayoutComponentConfig $readLayoutComponentConfig,
         Cache $cache,
         string $componentClass = ThemeComponentBasic::class,
         string $cacheKey = self::CACHE_KEY
     ) {
+        $this->readLayoutComponentConfig = $readLayoutComponentConfig;
         parent::__construct(
             $registryConfig,
             $readComponentConfig,
@@ -55,42 +66,67 @@ class GetRegisterThemeComponentsBasic
      * @param array $themeComponentConfig
      *
      * @return array
+     * @throws \Exception
      */
     protected function buildSubComponents(array $themeComponentConfig): array
     {
-        $layoutVariationConfigs = Param::getArray(
+        $layoutConfigLocations = Param::getArray(
             $themeComponentConfig,
-            PropertiesThemeComponent::LAYOUT_VARIATIONS,
+            ThemeComponentConfigFields::LAYOUT_LOCATIONS,
             []
         );
 
-        $themeLocation ='';
+        $themeLocation = Param::getRequired(
+            $themeComponentConfig,
+            ThemeComponentRegistryFields::CONFIG_LOCATION
+        );
 
-        $layoutVariationsRegistry = [];
+        $themeName = Param::getRequired(
+            $themeComponentConfig,
+            ThemeComponentConfigFields::NAME
+        );
 
-        foreach ($layoutVariationConfigs as $layoutVariationConfig) {
-            $layoutName = Param::getRequired(
-                $layoutVariationConfig,
-                ComponentRegistryFields::NAME
-            );
-            $location = Param::getRequired(
-                $layoutVariationConfig,
-                ComponentRegistryFields::CONFIG_LOCATION
-            );
+        $layoutComponentConfigs = [];
+
+        // @todo We should use a GetRegisterComponents for layout so it is supports the same formats
+        foreach ($layoutConfigLocations as $layoutName => $layoutConfigLocation) {
 
             // Add theme location to layout location
+            $layoutLocation = $themeLocation . $layoutConfigLocation;
 
-            $layoutLocation = '';
-            $layoutVariationsRegistry[$layoutName] = $location;
+            $realLayoutLocation = realpath($layoutLocation);
+
+            if (empty($layoutLocation) || !file_exists($realLayoutLocation)) {
+                throw new \Exception('Layout location not found for ' . $layoutLocation);
+            }
+
+            $layoutComponentConfig = $this->readLayoutComponentConfig->__invoke($realLayoutLocation);
+
+            $layoutComponentConfig[PropertiesLayoutComponent::THEME_NAME] = $themeName;
+
+            $templateFile = Param::getRequired(
+                $layoutComponentConfig,
+                LayoutComponentConfigFields::TEMPLATE_FILE
+            );
+
+            $templateFile = $realLayoutLocation . '/' . $templateFile;
+
+            $realTemplateFile = realpath($templateFile);
+
+            if (empty($realTemplateFile) || !file_exists($realTemplateFile)) {
+                throw new \Exception('Layout template not found for ' . $templateFile);
+            }
+
+            $layoutComponentConfig[PropertiesLayoutComponent::HTML] = file_get_contents($realTemplateFile);
+
+            $layoutComponentConfigs[] = $layoutComponentConfig;
         }
-
-        $layoutComponentConfigs = $this->readConfigs($layoutVariationsRegistry);
 
         $layoutVariations = [];
 
         foreach ($layoutComponentConfigs as $layoutComponentConfig) {
 
-            $configs[] = new LayoutComponentBasic(
+            $layoutVariations[] = new LayoutComponentBasic(
                 $layoutComponentConfig,
                 Param::get(
                     $layoutComponentConfig,
@@ -106,6 +142,8 @@ class GetRegisterThemeComponentsBasic
         }
 
         $themeComponentConfig[PropertiesThemeComponent::LAYOUT_VARIATIONS] = $layoutVariations;
+
+        ddd(get_class($this), $themeComponentConfig);
 
         return $themeComponentConfig;
     }
