@@ -77,6 +77,20 @@ class LayoutCmsResourceEntity
     protected $createdReason;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(type="string")
+     */
+    protected $themeName;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(type="string")
+     */
+    protected $name;
+
+    /**
      * @param array  $properties
      * @param string $createdByUserId
      * @param string $createdReason
@@ -94,6 +108,16 @@ class LayoutCmsResourceEntity
         $this->contentVersionId = Param::getInt(
             $properties,
             PropertiesLayoutCmsResource::CONTENT_VERSION_ID
+        );
+
+        $this->themeName = Param::getString(
+            $properties,
+            PropertiesLayoutCmsResource::THEME_NAME
+        );
+
+        $this->name = Param::getString(
+            $properties,
+            PropertiesLayoutCmsResource::NAME
         );
 
         parent::__construct(

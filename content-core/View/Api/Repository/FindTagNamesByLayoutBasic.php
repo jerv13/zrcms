@@ -45,7 +45,7 @@ class FindTagNamesByLayoutBasic implements FindTagNamesByLayout
         array $options = []
     ): array
     {
-        $findTagNamesServiceName = $layout->getProperty(
+        $findTagNamesServiceName = $layout->getDefaultIfEmptyProperty(
             PropertiesLayout::RENDER_TAG_NAME_PARSER,
             $this->defaultFindTagNamesServiceName
         );

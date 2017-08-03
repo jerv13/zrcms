@@ -54,8 +54,6 @@ class RenderViewBasic implements RenderView
             $this->defaultRenderServiceName
         );
 
-        ddd($renderServiceName);
-
         /** @var RenderLayout $render */
         $render = $this->serviceContainer->get(
             $renderServiceName

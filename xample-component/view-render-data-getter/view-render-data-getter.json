@@ -1,4 +1,4 @@
 {
   "name": "xample-view-render-data-getter",
-  "renderDataGetter": "Zrcms\\XampleComponent\\GetViewRenderData"
+  "renderDataGetter": "Zrcms\\XampleComponent\\ViewRenderDataGetter\\Api\\Render\\GetViewRenderData"
 }

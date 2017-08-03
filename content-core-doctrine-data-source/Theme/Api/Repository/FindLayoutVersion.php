@@ -83,7 +83,6 @@ class FindLayoutVersion
         }
 
         $parts = explode(':-:', $id);
-
         if ($parts[0] !== 'FALLBACK') {
             return null;
         }
@@ -109,7 +108,7 @@ class FindLayoutVersion
             return null;
         }
 
-        $id = 'FALLBACK_VERSION:-:' . $layoutComponent->getThemeName() . ':-:' . $layoutComponent->getThemeName();
+        $id = 'FALLBACK_VERSION:-:' . $layoutComponent->getThemeName() . ':-:' . $layoutComponent->getName();
 
         return new LayoutVersionBasic(
             [

@@ -3,6 +3,7 @@
 namespace Zrcms\ContentDoctrine\Api;
 
 use Zrcms\Content\Model\CmsResource;
+use Zrcms\Content\Model\PropertiesCmsResource;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -42,8 +43,13 @@ trait BasicCmsResourceTrait
             throw new \Exception('Entity must be of type: ' . CmsResource::class);
         }
 
+        $properties = $entity->getProperties();
+
+        // Sync ID back
+        $properties[PropertiesCmsResource::ID] = (string)$entity->getId();
+
         return new $classCmsResourceBasic(
-            $entity->getProperties(),
+            $properties,
             $entity->getCreatedByUserId(),
             $entity->getCreatedReason()
         );

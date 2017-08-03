@@ -45,39 +45,16 @@ Allows for virtually arbitrary properties AKA easy to extend functionality
 
 - Deal with service aliases so config can be simple
 
-    /**
-     * @return void
-     *
-     * @ORM\PreUpdate
-     */
-    public function preUpdate(LifecycleEventArgs $event)
-    {
-        var_dump('PreUpdate', $this->id);
-    }
-    /**
-     * @return void
-     *
-     * @ORM\PostUpdate
-     */
-    public function postUpdate(LifecycleEventArgs $event)
-    {
-        var_dump('PostUpdate', $this->id);
-    }
-    /**
-     * @return void
-     *
-     * @ORM\PreFlush
-     */
-    public function preFlush(PreFlushEventArgs $event)
-    {
-        var_dump('PreFlush', $this->id);
-    }
-    /**
-     * @return void
-     *
-     * @ORM\PostLoad
-     */
-    public function postLoad(LifecycleEventArgs $event)
-    {
-        var_dump('PostLoad', $this->id);
-    }
+- Check all component Properties and config values
+    - BLOCKS:
+        - RENDERER
+        - DATA_PROVIDER
+        - ?RENDER_DATA_GETTER (not currently supported)
+        
+    - Layout
+        - RENDERER
+        - RENDER_DATA_GETTER
+        - RENDER_TAG_NAME_PARSER
+        
+    - ViewRenderDataGatter
+        - RENDER_DATA_GETTER

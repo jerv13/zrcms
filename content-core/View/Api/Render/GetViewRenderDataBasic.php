@@ -7,6 +7,7 @@ use Psr\Http\Message\ServerRequestInterface;
 use Zrcms\Content\Model\Content;
 use Zrcms\ContentCore\View\Model\View;
 use Zrcms\ContentCore\ViewRenderDataGetter\Api\Repository\FindViewRenderDataGetterComponentsBy;
+use Zrcms\ContentCore\ViewRenderDataGetter\Model\ViewRenderDataGetterComponent;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -49,11 +50,18 @@ class GetViewRenderDataBasic implements GetViewRenderData
         array $options = []
     ): array
     {
-        $viewRenderDataGetterServiceNames = $this->findViewRenderDataGetterComponentsBy->__invoke([]);
+        // @todo always injecting page and containers - should we do this or should they be components too?
+        $viewRenderDataGetterServiceNames = [
+            GetViewRenderDataContainers::class,
+            GetViewRenderDataPage::class,
+        ];
 
-        // @todo always injecting page and containers - should we do this?
-        $viewRenderDataGetterServiceNames[] = GetViewRenderDataContainers::class;
-        $viewRenderDataGetterServiceNames[] = GetViewRenderDataPage::class;
+        $viewRenderDataGetterComponents = $this->findViewRenderDataGetterComponentsBy->__invoke([]);
+
+        /** @var ViewRenderDataGetterComponent $viewRenderDataGetterComponent */
+        foreach ($viewRenderDataGetterComponents as $viewRenderDataGetterComponent) {
+            $viewRenderDataGetterServiceNames[] = $viewRenderDataGetterComponent->getViewRenderDataGetter();
+        }
 
         $allViewRenderData = [];
 

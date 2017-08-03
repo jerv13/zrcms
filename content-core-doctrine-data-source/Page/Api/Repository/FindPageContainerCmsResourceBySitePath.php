@@ -6,6 +6,7 @@ use Doctrine\ORM\EntityManager;
 use Zrcms\Content\Model\CmsResource;
 use Zrcms\ContentCore\Page\Model\PageContainerCmsResource;
 use Zrcms\ContentCore\Page\Model\PageContainerCmsResourceBasic;
+use Zrcms\ContentCore\Page\Model\PropertiesPageContainerCmsResource;
 use Zrcms\ContentCoreDoctrineDataSource\Page\Entity\PageContainerCmsResourceEntity;
 use Zrcms\ContentDoctrine\Api\BasicCmsResourceTrait;
 
@@ -54,6 +55,22 @@ class FindPageContainerCmsResourceBySitePath
         string $pageContainerCmsResourcePath,
         array $options = []
     ) {
+        $repository = $this->entityManager->getRepository(
+            $this->entityClassCmsResource
+        );
 
+        /** @var PageContainerCmsResource $pageContainerCmsResource */
+        $pageContainerCmsResource = $repository->findOneBy(
+            [
+                PropertiesPageContainerCmsResource::SITE_CMS_RESOURCE_ID => $siteCmsResourceId,
+                PropertiesPageContainerCmsResource::PATH => $pageContainerCmsResourcePath,
+            ]
+        );
+
+        return $this->newBasicCmsResource(
+            $this->entityClassCmsResource,
+            $this->classCmsResourceBasic,
+            $pageContainerCmsResource
+        );
     }
 }

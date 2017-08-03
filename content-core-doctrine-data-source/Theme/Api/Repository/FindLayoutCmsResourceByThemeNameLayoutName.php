@@ -10,6 +10,7 @@ use Zrcms\ContentCore\Theme\Model\LayoutCmsResourceBasic;
 use Zrcms\ContentCore\Theme\Model\PropertiesLayoutCmsResource;
 use Zrcms\ContentCore\Theme\Model\ThemeComponent;
 use Zrcms\ContentCoreDoctrineDataSource\Theme\Entity\LayoutCmsResourceEntity;
+use Zrcms\ContentDoctrine\Api\BasicCmsResourceTrait;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -17,6 +18,8 @@ use Zrcms\ContentCoreDoctrineDataSource\Theme\Entity\LayoutCmsResourceEntity;
 class FindLayoutCmsResourceByThemeNameLayoutName
     implements \Zrcms\ContentCore\Theme\Api\Repository\FindLayoutCmsResourceByThemeNameLayoutName
 {
+    use BasicCmsResourceTrait;
+
     /**
      * @var EntityManager
      */
@@ -28,6 +31,16 @@ class FindLayoutCmsResourceByThemeNameLayoutName
     protected $findThemeComponent;
 
     /**
+     * @var string
+     */
+    protected $entityClassCmsResource;
+
+    /**
+     * @var
+     */
+    protected $classCmsResourceBasic;
+
+    /**
      * @param EntityManager      $entityManager
      * @param FindThemeComponent $findThemeComponent
      */
@@ -37,6 +50,8 @@ class FindLayoutCmsResourceByThemeNameLayoutName
     ) {
         $this->entityManager = $entityManager;
         $this->findThemeComponent = $findThemeComponent;
+        $this->entityClassCmsResource = LayoutCmsResourceEntity::class;
+        $this->classCmsResourceBasic = LayoutCmsResourceBasic::class;
     }
 
     /**
@@ -52,9 +67,10 @@ class FindLayoutCmsResourceByThemeNameLayoutName
         array $options = []
     ) {
         $repository = $this->entityManager->getRepository(
-            LayoutCmsResourceEntity::class
+            $this->entityClassCmsResource
         );
 
+        /** @var LayoutCmsResource $layoutCmsResource */
         $layoutCmsResource = $repository->findOneBy(
             [
                 PropertiesLayoutCmsResource::THEME_NAME => $themeName,
@@ -87,7 +103,11 @@ class FindLayoutCmsResourceByThemeNameLayoutName
         array $options = []
     ) {
         if (!empty($layoutCmsResource)) {
-            return $layoutCmsResource;
+            return $this->newBasicCmsResource(
+                $this->entityClassCmsResource,
+                $this->classCmsResourceBasic,
+                $layoutCmsResource
+            );
         }
 
         /** @var ThemeComponent $theme */
@@ -107,7 +127,7 @@ class FindLayoutCmsResourceByThemeNameLayoutName
             return null;
         }
 
-        $id = 'FALLBACK:-:' . $layoutComponent->getThemeName() . ':-:' . $layoutComponent->getThemeName();
+        $id = 'FALLBACK:-:' . $layoutComponent->getThemeName() . ':-:' . $layoutComponent->getName();
 
         return new LayoutCmsResourceBasic(
             [

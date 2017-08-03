@@ -17,6 +17,7 @@ trait ContentEntityTrait
     {
         return (string)$this->id;
     }
+
     /**
      * @return void
      *

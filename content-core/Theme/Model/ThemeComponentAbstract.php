@@ -38,7 +38,8 @@ abstract class ThemeComponentAbstract extends ComponentAbstract implements Theme
             []
         );
 
-        $this->assertAreLayoutVariations($layoutVariations);
+        // avoid setting them twice
+        Param::remove($properties, PropertiesThemeComponent::LAYOUT_VARIATIONS);
 
         parent::__construct(
             $properties,
@@ -46,11 +47,14 @@ abstract class ThemeComponentAbstract extends ComponentAbstract implements Theme
             $createdReason
         );
 
+        // Must be dome after parent construct
+        $this->addLayoutVariations($layoutVariations);
+
         Param::assertHas(
             $this->getLayoutVariations(),
             $this->getPrimaryLayoutName(),
             new DefaultLayoutMissingException(
-                'Primary layout ' . $this->getPrimaryLayoutName()
+                'Primary layout (' . $this->getPrimaryLayoutName() . ') '
                 . 'is missing for theme ' . $this->getName()
             )
         );
@@ -128,20 +132,41 @@ abstract class ThemeComponentAbstract extends ComponentAbstract implements Theme
     }
 
     /**
-     * @param array $layoutVariations
+     * @param array $layoutComponents
      *
      * @return void
-     * @throws \Exception
      */
-    protected function assertAreLayoutVariations(array $layoutVariations)
+    protected function addLayoutVariations(array $layoutComponents)
     {
-        /** @var LayoutComponent $layoutVariation */
-        foreach ($layoutVariations as $layoutVariation) {
-            if (!is_a($layoutVariation, LayoutComponent::class)) {
-                throw new \Exception(
-                    'Layout variations must be object of type: ' . LayoutComponent::class
-                );
-            }
+        /** @var LayoutComponent $layoutComponent */
+        foreach ($layoutComponents as $layoutComponent) {
+            $this->addLayoutVariation($layoutComponent);
         }
+    }
+
+    /**
+     * @param LayoutComponent $layoutComponent
+     *
+     * @return void
+     */
+    protected function addLayoutVariation(LayoutComponent $layoutComponent)
+    {
+        $layoutVariations = Param::getArray(
+            $this->properties,
+            PropertiesThemeComponent::LAYOUT_VARIATIONS,
+            []
+        );
+
+        $layoutVariations = Param::set(
+            $layoutVariations,
+            $layoutComponent->getName(),
+            $layoutComponent
+        );
+
+        $this->properties = Param::set(
+            $this->properties,
+            PropertiesThemeComponent::LAYOUT_VARIATIONS,
+            $layoutVariations
+        );
     }
 }

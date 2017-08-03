@@ -2,6 +2,8 @@
 
 namespace Zrcms\XampleComponent;
 
+use Zrcms\XampleComponent\ViewRenderDataGetter\Api\Render\GetViewRenderData;
+
 /**
  * @author James Jervis - https://github.com/jerv13
  */
@@ -16,7 +18,9 @@ class ModuleConfig
     {
         return [
             'dependencies' => [
-                GetViewRenderData::class => [],
+                'config_factories' => [
+                    GetViewRenderData::class => [],
+                ],
             ],
             'zrcms' => [
                 'blocks' => [

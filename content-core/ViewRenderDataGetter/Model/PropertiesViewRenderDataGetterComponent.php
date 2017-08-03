@@ -7,7 +7,7 @@ use Zrcms\Content\Model\PropertiesComponent;
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class PropertiesViewRenderDataGetter extends PropertiesComponent
+class PropertiesViewRenderDataGetterComponent extends PropertiesComponent
 {
     const RENDER_DATA_GETTER = 'renderDataGetter';
 

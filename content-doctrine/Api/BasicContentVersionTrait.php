@@ -3,6 +3,7 @@
 namespace Zrcms\ContentDoctrine\Api;
 
 use Zrcms\Content\Model\ContentVersion;
+use Zrcms\Content\Model\PropertiesContentVersion;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -42,8 +43,13 @@ trait BasicContentVersionTrait
             throw new \Exception('Entity must be of type: ' . ContentVersion::class);
         }
 
+        $properties = $entity->getProperties();
+
+        // Sync ID back
+        $properties[PropertiesContentVersion::ID] = (string)$entity->getId();
+
         return new $classContentVersionBasic(
-            $entity->getProperties(),
+            $properties,
             $entity->getCreatedByUserId(),
             $entity->getCreatedReason()
         );

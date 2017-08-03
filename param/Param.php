@@ -13,6 +13,23 @@ class Param
     /**
      * @param array  $params
      * @param string $key
+     * @param        $value
+     *
+     * @return array
+     */
+    public static function set(
+        array $params,
+        string $key,
+        $value
+    ) {
+        $params[$key] = $value;
+
+        return $params;
+    }
+
+    /**
+     * @param array  $params
+     * @param string $key
      * @param null   $default
      *
      * @return mixed|null
@@ -116,6 +133,42 @@ class Param
         string $key
     ) {
         return array_key_exists($key, $params);
+    }
+
+    /**
+     * @param array  $params
+     * @param string $key
+     *
+     * @return bool
+     */
+    public static function isEmpty(
+        array $params,
+        string $key
+    ) {
+        return empty(self::get($params, $key, null));
+    }
+
+    /**
+     * @param array  $params
+     * @param string $key
+     * @param null   $default
+     *
+     * @return mixed|null
+     */
+    public static function getDefaultIfEmpty(
+        array $params,
+        string $key,
+        $default = null
+    ) {
+        if (self::isEmpty($params, $key)) {
+            return $default;
+        }
+
+        return self::get(
+            $params,
+            $key,
+            $default
+        );
     }
 
     /**

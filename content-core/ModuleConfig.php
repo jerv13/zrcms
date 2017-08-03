@@ -72,6 +72,8 @@ use Zrcms\ContentCore\Theme\Api\Repository\FindLayoutVersionsBy;
 use Zrcms\ContentCore\Theme\Api\Repository\FindThemeComponent;
 use Zrcms\ContentCore\Theme\Api\Repository\FindThemeComponentsBy;
 use Zrcms\ContentCore\Theme\Api\Repository\InsertLayoutVersion;
+use Zrcms\ContentCore\View\Api\GetLayoutName;
+use Zrcms\ContentCore\View\Api\GetLayoutNameBasic;
 use Zrcms\ContentCore\View\Api\Render\GetViewRenderData;
 use Zrcms\ContentCore\View\Api\Render\GetViewRenderDataBasicFactory;
 use Zrcms\ContentCore\View\Api\Render\GetViewRenderDataContainers;
@@ -143,6 +145,9 @@ class ModuleConfig
                     GetBlockDataNoop::class => [],
                     GetMergedConfig::class => [
                         'class' => GetMergedConfigBasic::class,
+                        'arguments' => [
+                            '0-' => FindBlockComponent::class
+                        ],
                     ],
                     WrapRenderedBlockVersion::class => [
                         'class' => WrapRenderedBlockVersionLegacy::class,
@@ -465,14 +470,28 @@ class ModuleConfig
                             '3-' => FindPageContainerVersion::class,
                             '4-' => FindLayoutCmsResourceByThemeNameLayoutName::class,
                             '5-' => FindLayoutVersion::class,
-                            '6-' => FindThemeComponent::class,
-                            '7-' => GetViewRenderData::class,
-                            '8-' => RenderView::class
+                            '6-' => GetLayoutName::class,
+                            '7-' => FindThemeComponent::class,
+                            '8-' => GetViewRenderData::class,
+                            '9-' => RenderView::class
                         ],
                     ],
+                    GetLayoutName::class => [
+                        'class' => GetLayoutNameBasic::class
+                    ]
                 ],
             ],
             'zrcms' => [
+            ],
+            'zrcms-service-alias' => [
+                'blocks' => [
+                    'mustache' => RenderBlockMustache::class,
+                    'mustache' => RenderBlockMustache::class,
+                ],
+                'themes' => [
+                ],
+                'view-render-data-getters' => [
+                ],
             ],
         ];
     }

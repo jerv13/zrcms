@@ -11,6 +11,9 @@ use Zrcms\ContentCoreConfigDataSource\Content\Model\ComponentConfigFields;
 class LayoutComponentConfigFields extends ComponentConfigFields
 {
     const TEMPLATE_FILE = 'templateFile';
+    const RENDERER = PropertiesLayoutComponent::RENDERER;
+    const RENDER_DATA_GETTER = PropertiesLayoutComponent::RENDER_DATA_GETTER;
+    const RENDER_TAG_NAME_PARSER = PropertiesLayoutComponent::RENDER_TAG_NAME_PARSER;
 
     /**
      * Default values
@@ -23,5 +26,8 @@ class LayoutComponentConfigFields extends ComponentConfigFields
             self::CREATED_BY_USER_ID => '',
             self::CREATED_REASON => '',
             self::TEMPLATE_FILE => '',
+            self::RENDERER => '',
+            self::RENDER_DATA_GETTER => '',
+            self::RENDER_TAG_NAME_PARSER => '',
         ];
 }

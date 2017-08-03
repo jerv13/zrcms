@@ -3,6 +3,7 @@
 namespace Zrcms\ContentCoreConfigDataSource\Theme\Api;
 
 use Zrcms\Cache\Service\Cache;
+use Zrcms\Content\Exception\PropertyMissingException;
 use Zrcms\Content\Model\Trackable;
 use Zrcms\ContentCore\Theme\Model\LayoutComponentBasic;
 use Zrcms\ContentCore\Theme\Model\PropertiesLayoutComponent;
@@ -106,7 +107,12 @@ class GetRegisterThemeComponentsBasic
 
             $templateFile = Param::getRequired(
                 $layoutComponentConfig,
-                LayoutComponentConfigFields::TEMPLATE_FILE
+                LayoutComponentConfigFields::TEMPLATE_FILE,
+                PropertyMissingException::build(
+                    LayoutComponentConfigFields::TEMPLATE_FILE,
+                    $layoutComponentConfig,
+                    get_class($this)
+                )
             );
 
             $templateFile = $realLayoutLocation . '/' . $templateFile;
@@ -142,8 +148,6 @@ class GetRegisterThemeComponentsBasic
         }
 
         $themeComponentConfig[PropertiesThemeComponent::LAYOUT_VARIATIONS] = $layoutVariations;
-
-        ddd(get_class($this), $themeComponentConfig);
 
         return $themeComponentConfig;
     }

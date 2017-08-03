@@ -24,7 +24,7 @@ class PropertyMissingException extends \Exception
         return new PropertyMissingException(
             'Required property (' . $propertyName . ') is missing '
             .'in: ' . $class
-            //. ' with properties: ' . json_encode($properties, JSON_PRETTY_PRINT)
+            . ' with properties: ' . json_encode($properties, JSON_PRETTY_PRINT)
         );
     }
 }

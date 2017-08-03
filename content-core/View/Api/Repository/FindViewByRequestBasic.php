@@ -7,18 +7,16 @@ use Zrcms\ContentCore\Page\Api\Repository\FindPageContainerCmsResourceBySitePath
 use Zrcms\ContentCore\Page\Api\Repository\FindPageContainerVersion;
 use Zrcms\ContentCore\Page\Exception\PageNotFoundException;
 use Zrcms\ContentCore\Page\Model\PageContainerVersion;
-use Zrcms\ContentCore\Page\Model\PropertiesPageContainerVersion;
 use Zrcms\ContentCore\Site\Api\Repository\FindSiteCmsResourceByHost;
 use Zrcms\ContentCore\Site\Api\Repository\FindSiteVersion;
 use Zrcms\ContentCore\Site\Exception\SiteNotFoundException;
-use Zrcms\ContentCore\Site\Model\PropertiesSiteVersion;
 use Zrcms\ContentCore\Site\Model\SiteCmsResource;
 use Zrcms\ContentCore\Site\Model\SiteVersion;
 use Zrcms\ContentCore\Theme\Api\Repository\FindLayoutCmsResourceByThemeNameLayoutName;
 use Zrcms\ContentCore\Theme\Api\Repository\FindLayoutVersion;
 use Zrcms\ContentCore\Theme\Api\Repository\FindThemeComponent;
 use Zrcms\ContentCore\Theme\Exception\ThemeNotFoundException;
-use Zrcms\ContentCore\Theme\Model\LayoutComponent;
+use Zrcms\ContentCore\View\Api\GetLayoutName;
 use Zrcms\ContentCore\View\Api\Render\GetViewRenderData;
 use Zrcms\ContentCore\View\Api\Render\RenderView;
 use Zrcms\ContentCore\View\Model\PropertiesView;
@@ -62,6 +60,11 @@ class FindViewByRequestBasic implements FindViewByRequest
     protected $findLayoutVersion;
 
     /**
+     * @var GetLayoutName
+     */
+    protected $getLayoutName;
+
+    /**
      * @var FindThemeComponent
      */
     protected $findThemeComponent;
@@ -83,6 +86,7 @@ class FindViewByRequestBasic implements FindViewByRequest
      * @param FindPageContainerVersion                   $findPageContainerVersion
      * @param FindLayoutCmsResourceByThemeNameLayoutName $findLayoutCmsResourceByThemeNameLayoutName
      * @param FindLayoutVersion                          $findLayoutVersion
+     * @param GetLayoutName                              $getLayoutName
      * @param FindThemeComponent                         $findThemeComponent
      * @param GetViewRenderData                          $getViewRenderData
      * @param RenderView                                 $renderView
@@ -94,6 +98,7 @@ class FindViewByRequestBasic implements FindViewByRequest
         FindPageContainerVersion $findPageContainerVersion,
         FindLayoutCmsResourceByThemeNameLayoutName $findLayoutCmsResourceByThemeNameLayoutName,
         FindLayoutVersion $findLayoutVersion,
+        GetLayoutName $getLayoutName,
         FindThemeComponent $findThemeComponent,
         GetViewRenderData $getViewRenderData,
         RenderView $renderView
@@ -104,6 +109,7 @@ class FindViewByRequestBasic implements FindViewByRequest
         $this->findPageContainerVersion = $findPageContainerVersion;
         $this->findLayoutCmsResourceByThemeNameLayoutName = $findLayoutCmsResourceByThemeNameLayoutName;
         $this->findLayoutVersion = $findLayoutVersion;
+        $this->getLayoutName = $getLayoutName;
 
         $this->findThemeComponent = $findThemeComponent;
         $this->getViewRenderData = $getViewRenderData;
@@ -133,7 +139,7 @@ class FindViewByRequestBasic implements FindViewByRequest
 
         if (empty($siteCmsResource)) {
             throw new SiteNotFoundException(
-                'Site not found for host: ' . $uri->getHost()
+                'Site not found for host: (' . $uri->getHost() . ')'
             );
         }
 
@@ -144,7 +150,7 @@ class FindViewByRequestBasic implements FindViewByRequest
 
         if (empty($siteVersion)) {
             throw new SiteNotFoundException(
-                'Site version found with version ID: ' . $siteCmsResource->getContentVersionId()
+                'Site version found with version ID: (' . $siteCmsResource->getContentVersionId() . ')'
             );
         }
 
@@ -157,19 +163,21 @@ class FindViewByRequestBasic implements FindViewByRequest
         if (empty($themeComponent)) {
             throw new ThemeNotFoundException(
                 'Theme not found (' . $themeName . ')'
-                . ' for site: ' . $siteCmsResource->getHost()
+                . ' for site: (' . $siteCmsResource->getHost() . ')'
             );
         }
 
+        $path = ltrim($uri->getPath(), '/');
+
         $pageContainerCmsResource = $this->findPageContainerCmsResourceBySitePath->__invoke(
             $siteCmsResource->getId(),
-            $uri->getPath()
+            $path
         );
 
         if (empty($pageContainerCmsResource)) {
             throw new PageNotFoundException(
-                'Page not found for host: ' . $uri->getHost()
-                . ' and page: ' . $uri->getPath()
+                'Page not found for host: (' . $uri->getHost() . ')'
+                . ' and page: (' . $path . ')'
             );
         }
 
@@ -180,17 +188,11 @@ class FindViewByRequestBasic implements FindViewByRequest
 
         if (empty($pageContainerVersion)) {
             throw new PageNotFoundException(
-                'Page version found with version ID: ' . $pageContainerCmsResource->getContentVersionId()
+                'Page version found with version ID: (' . $pageContainerCmsResource->getContentVersionId() . ')'
             );
         }
 
-        $layoutName = $pageContainerVersion->getProperty(
-            PropertiesPageContainerVersion::LAYOUT,
-            $siteVersion->getProperty(
-                PropertiesSiteVersion::LAYOUT,
-                LayoutComponent::PRIMARY_NAME
-            )
-        );
+        $layoutName = $this->getLayoutName->__invoke($siteVersion, $pageContainerVersion);
 
         $layoutCmsResource = $this->findLayoutCmsResourceByThemeNameLayoutName->__invoke(
             $themeName,
@@ -199,10 +201,10 @@ class FindViewByRequestBasic implements FindViewByRequest
 
         if (empty($layoutCmsResource)) {
             throw new PageNotFoundException(
-                'Layout not found: ' . $layoutName
-                . ' with theme name: ' . $themeName
-                . ' for site version ID: ' . $siteVersion->getId()
-                . ' and page version ID: ' . $pageContainerVersion->getId()
+                'Layout not found: (' . $layoutName . ')'
+                . ' with theme name: (' . $themeName . ')'
+                . ' for site version ID: (' . $siteVersion->getId() . ')'
+                . ' and page version ID: (' . $pageContainerVersion->getId() . ')'
             );
         }
 
@@ -212,10 +214,10 @@ class FindViewByRequestBasic implements FindViewByRequest
 
         if (empty($layout)) {
             throw new PageNotFoundException(
-                'Layout version not found: ' . $layoutName
-                . ' with theme name: ' . $themeName
-                . ' for site version ID: ' . $siteVersion->getId()
-                . ' and page version ID: ' . $pageContainerVersion->getId()
+                'Layout version not found: (' . $layoutName . ')'
+                . ' with theme name: (' . $themeName . ')'
+                . ' for site version ID: (' . $siteVersion->getId() . ')'
+                . ' and page version ID: (' . $pageContainerVersion->getId() . ')'
             );
         }
 

@@ -2,8 +2,6 @@
 
 namespace Zrcms\Content\Model;
 
-use Zrcms\Param\Exception\ParamMissingException;
-
 /**
  * @author James Jervis - https://github.com/jerv13
  */
@@ -22,12 +20,28 @@ interface Properties
      *
      * @return mixed
      */
-    public function getProperty(string $name, $default = null);
+    public function getProperty(
+        string $name,
+        $default = null
+    );
 
     /**
      * @param string $name
      *
      * @return bool
      */
-    public function hasProperty(string $name): bool;
+    public function hasProperty(
+        string $name
+    ): bool;
+
+    /**
+     * @param string $name
+     * @param null   $default
+     *
+     * @return mixed
+     */
+    public function getDefaultIfEmptyProperty(
+        string $name,
+        $default = null
+    );
 }

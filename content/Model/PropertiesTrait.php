@@ -74,4 +74,21 @@ trait PropertiesTrait
             $name
         );
     }
+
+    /**
+     * @param string $name
+     * @param null   $default
+     *
+     * @return mixed
+     */
+    public function getDefaultIfEmptyProperty(
+        string $name,
+        $default = null
+    ) {
+        return Param::getDefaultIfEmpty(
+            $this->getProperties(),
+            $name,
+            $default
+        );
+    }
 }

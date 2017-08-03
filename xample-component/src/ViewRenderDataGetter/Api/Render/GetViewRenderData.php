@@ -1,6 +1,6 @@
 <?php
 
-namespace Zrcms\XampleComponent;
+namespace Zrcms\XampleComponent\ViewRenderDataGetter\Api\Render;
 
 use Psr\Http\Message\ServerRequestInterface;
 use Zrcms\Content\Model\Content;

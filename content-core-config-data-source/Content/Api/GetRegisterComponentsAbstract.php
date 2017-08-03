@@ -132,8 +132,6 @@ abstract class GetRegisterComponentsAbstract implements GetRegisterComponents
             );
         }
 
-        ddd(get_class($this),$configs);
-
         $this->setCache($configs);
 
         return $configs;

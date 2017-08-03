@@ -44,11 +44,12 @@ class GetBlockDataBasic implements GetBlockData
     }
 
     /**
-     * @param Block  $block
+     * @param Block                  $block
      * @param ServerRequestInterface $request
      * @param array                  $options
      *
      * @return array
+     * @throws \Exception
      */
     public function __invoke(
         Block $block,

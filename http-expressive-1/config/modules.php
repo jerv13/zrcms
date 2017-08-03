@@ -9,6 +9,7 @@ $zrcmsModules =  [
     new \Zrcms\Mustache\ModuleConfig(),
     new \Zrcms\Content\ModuleConfig(),
     new \Zrcms\ContentDoctrine\ModuleConfig(),
+    new \Zrcms\ServiceAlias\ModuleConfig(),
 
     // Mid level
     new \Zrcms\ContentCore\ModuleConfig(),

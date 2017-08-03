@@ -34,10 +34,10 @@ abstract class ViewRenderDataGetterComponentAbstract
      */
     public function getViewRenderDataGetter(): string
     {
-        return Param::get(
+        return Param::getString(
             $this->properties,
-            PropertiesViewRenderDataGetter::RENDER_DATA_GETTER,
-            []
+            PropertiesViewRenderDataGetterComponent::RENDER_DATA_GETTER,
+            ''
         );
     }
 }
