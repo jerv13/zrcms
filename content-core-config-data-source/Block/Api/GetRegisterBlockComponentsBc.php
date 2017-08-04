@@ -3,11 +3,13 @@
 namespace Zrcms\ContentCoreConfigDataSource\Block\Api;
 
 use Zrcms\Cache\Service\Cache;
+use Zrcms\Content\Model\ComponentConfigFields;
 use Zrcms\Content\Model\Trackable;
+use Zrcms\ContentCore\Block\Api\PrepareBlockConfigBc;
+use Zrcms\ContentCore\Block\Api\ReadBlockComponentConfigBc;
 use Zrcms\ContentCore\Block\Model\BlockComponentBasic;
 use Zrcms\ContentCoreConfigDataSource\Block\Model\BlockComponentRegistryFields;
 use Zrcms\ContentCoreConfigDataSource\Content\Api\GetRegisterComponentsAbstract;
-use Zrcms\ContentCoreConfigDataSource\Content\Model\ComponentConfigFields;
 use Zrcms\Param\Param;
 
 /**
@@ -22,25 +24,25 @@ class GetRegisterBlockComponentsBc extends GetRegisterComponentsAbstract impleme
     protected $registryConfig;
 
     /**
-     * @var PrepareBlockConfig
+     * @var PrepareBlockConfigBc
      */
     protected $prepareBlockConfig;
 
     /**
-     * @param array                    $registryConfig
-     * @param array                    $pluginConfigsBc
-     * @param ReadBlockComponentConfig $readBlockComponentConfig
-     * @param Cache                    $cache
-     * @param PrepareBlockConfig       $prepareBlockConfig
-     * @param string                   $componentClass
-     * @param string                   $cacheKey
+     * @param array                      $registryConfig
+     * @param array                      $pluginConfigsBc
+     * @param ReadBlockComponentConfigBc $readBlockComponentConfig
+     * @param Cache                      $cache
+     * @param PrepareBlockConfigBc       $prepareBlockConfig
+     * @param string                     $componentClass
+     * @param string                     $cacheKey \
      */
     public function __construct(
         array $registryConfig,
         array $pluginConfigsBc,
-        ReadBlockComponentConfig $readBlockComponentConfig,
+        ReadBlockComponentConfigBc $readBlockComponentConfig,
         Cache $cache,
-        PrepareBlockConfig $prepareBlockConfig,
+        PrepareBlockConfigBc $prepareBlockConfig,
         string $componentClass = BlockComponentBasic::class,
         string $cacheKey = self::CACHE_KEY
     ) {

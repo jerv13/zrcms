@@ -2,11 +2,13 @@
 
 namespace Zrcms\ContentCore\Theme\Api\Render;
 
-use Psr\Container\ContainerInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Zrcms\Content\Model\Content;
 use Zrcms\ContentCore\Theme\Model\Layout;
 use Zrcms\ContentCore\Theme\Model\PropertiesLayout;
+use Zrcms\ContentCore\Theme\Model\ServiceAliasLayout;
+use Zrcms\ServiceAlias\Api\GetServiceFromAlias;
+use Zrcms\ServiceAlias\ServiceCheck;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -14,9 +16,14 @@ use Zrcms\ContentCore\Theme\Model\PropertiesLayout;
 class GetLayoutRenderDataBasic implements GetLayoutRenderData
 {
     /**
-     * @var ContainerInterface
+     * @var GetServiceFromAlias
      */
-    protected $serviceContainer;
+    protected $getServiceFromAlias;
+
+    /**
+     * @var string
+     */
+    protected $serviceAliasNamespace;
 
     /**
      * @var string
@@ -24,14 +31,15 @@ class GetLayoutRenderDataBasic implements GetLayoutRenderData
     protected $defaultRenderDataGetterServiceName;
 
     /**
-     * @param ContainerInterface $serviceContainer
-     * @param string             $defaultRenderDataGetterServiceName
+     * @param GetServiceFromAlias $getServiceFromAlias
+     * @param string              $defaultRenderDataGetterServiceName
      */
     public function __construct(
-        $serviceContainer,
+        GetServiceFromAlias $getServiceFromAlias,
         string $defaultRenderDataGetterServiceName = GetLayoutRenderDataNoop::class
     ) {
-        $this->serviceContainer = $serviceContainer;
+        $this->getServiceFromAlias = $getServiceFromAlias;
+        $this->serviceAliasNamespace = ServiceAliasLayout::NAMESPACE_CONTENT_RENDER_DATA_GETTER;
         $this->defaultRenderDataGetterServiceName = $defaultRenderDataGetterServiceName;
     }
 
@@ -49,21 +57,20 @@ class GetLayoutRenderDataBasic implements GetLayoutRenderData
         array $options = []
     ): array
     {
-        $renderDataGetterServiceName = $layout->getProperty(
+        $renderDataGetterServiceAlias = $layout->getProperty(
             PropertiesLayout::RENDER_DATA_GETTER,
-            $this->defaultRenderDataGetterServiceName
+            ''
         );
 
         /** @var GetLayoutRenderData $render */
-        $renderDataGetterService = $this->serviceContainer->get(
-            $renderDataGetterServiceName
+        $renderDataGetterService = $this->getServiceFromAlias->__invoke(
+            $this->serviceAliasNamespace,
+            $renderDataGetterServiceAlias,
+            GetLayoutRenderData::class,
+            $this->defaultRenderDataGetterServiceName
         );
 
-        if (get_class($renderDataGetterService) == get_class($this)) {
-            throw new \Exception(
-                'Class ' . get_class($this) . ' can not use itself as service.'
-            );
-        }
+        ServiceCheck::assertNotSelfReference($this, $renderDataGetterService);
 
         return $renderDataGetterService->__invoke(
             $layout,

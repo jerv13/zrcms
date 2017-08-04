@@ -2,9 +2,9 @@
 
 namespace Zrcms\ViewRenderDataGetters\Head;
 
+use Zrcms\ServiceAlias\Api\GetServiceFromAlias;
 use Zrcms\ViewRenderDataGetters\Head\Api\Render\GetViewRenderDataHead;
 use Zrcms\ViewRenderDataGetters\Head\Api\Render\GetViewRenderDataHeadAll;
-use Zrcms\ViewRenderDataGetters\Head\Api\Render\GetViewRenderDataHeadAllFactory;
 use Zrcms\ViewRenderDataGetters\Head\Api\Render\GetViewRenderDataHeadLink;
 use Zrcms\ViewRenderDataGetters\Head\Api\Render\GetViewRenderDataHeadMeta;
 use Zrcms\ViewRenderDataGetters\Head\Api\Render\GetViewRenderDataHeadScript;
@@ -26,10 +26,16 @@ class ModuleConfig
             'dependencies' => [
                 'config_factories' => [
                     GetViewRenderDataHead::class => [
-                        'factory' => GetViewRenderDataHeadAllFactory::class,
+                        'class' => GetViewRenderDataHeadAll::class,
+                        'arguments' => [
+                            '0-' => GetServiceFromAlias::class,
+                        ],
                     ],
                     GetViewRenderDataHeadAll::class => [
-                        'factory' => GetViewRenderDataHeadAllFactory::class,
+                        'class' => GetViewRenderDataHeadAll::class,
+                        'arguments' => [
+                            '0-' => GetServiceFromAlias::class,
+                        ],
                     ],
                     GetViewRenderDataHeadLink::class => [],
                     GetViewRenderDataHeadMeta::class => [],

@@ -4,6 +4,8 @@ namespace Zrcms\ContentCoreConfigDataSource\Block\Api;
 
 use Psr\Container\ContainerInterface;
 use Zrcms\Cache\Service\Cache;
+use Zrcms\ContentCore\Block\Api\PrepareBlockConfigBc;
+use Zrcms\ContentCore\Block\Api\ReadBlockComponentConfigBc;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -27,9 +29,9 @@ class GetRegisterBlockComponentsBcFactory
         return new GetRegisterBlockComponentsBc(
             $registryConfig,
             $registryConfigBc,
-            $serviceContainer->get(ReadBlockComponentConfig::class),
+            $serviceContainer->get(ReadBlockComponentConfigBc::class),
             $serviceContainer->get(Cache::class),
-            $serviceContainer->get(PrepareBlockConfig::class)
+            $serviceContainer->get(PrepareBlockConfigBc::class)
         );
     }
 }

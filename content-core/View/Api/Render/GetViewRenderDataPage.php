@@ -14,6 +14,7 @@ use Zrcms\ContentCore\View\Model\View;
 class GetViewRenderDataPage implements GetViewRenderData
 {
     const RENDER_TAG_PAGE = '[page]';
+    const SERVICE_ALIAS = 'page';
 
     /**
      * @var GetPageContainerRenderData

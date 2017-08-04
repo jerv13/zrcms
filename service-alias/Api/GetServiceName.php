@@ -10,7 +10,7 @@ use Zrcms\ServiceAlias\Exception\ServiceAliasNotFoundException;
 interface GetServiceName
 {
     /**
-     * @param string $type
+     * @param string $namespace
      * @param string $serviceAlias
      * @param string $defaultServiceName
      * @param array  $options
@@ -19,7 +19,7 @@ interface GetServiceName
      * @throws ServiceAliasNotFoundException
      */
     public function __invoke(
-        string $type,
+        string $namespace,
         string $serviceAlias,
         string $defaultServiceName,
         array $options = []

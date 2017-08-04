@@ -2,11 +2,13 @@
 
 namespace Zrcms\ContentCore\Block\Api\Repository;
 
-use Psr\Container\ContainerInterface;
 use Psr\Http\Message\ServerRequestInterface;
+use Zrcms\ContentCore\Block\Model\Block;
 use Zrcms\ContentCore\Block\Model\BlockComponent;
 use Zrcms\ContentCore\Block\Model\PropertiesBlockComponent;
-use Zrcms\ContentCore\Block\Model\Block;
+use Zrcms\ContentCore\Block\Model\ServiceAliasBlock;
+use Zrcms\ServiceAlias\Api\GetServiceFromAlias;
+use Zrcms\ServiceAlias\ServiceCheck;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -14,9 +16,14 @@ use Zrcms\ContentCore\Block\Model\Block;
 class GetBlockDataBasic implements GetBlockData
 {
     /**
-     * @var ContainerInterface
+     * @var GetServiceFromAlias
      */
-    protected $serviceContainer;
+    protected $getServiceFromAlias;
+
+    /**
+     * @var string
+     */
+    protected $serviceAliasNamespace;
 
     /**
      * @var FindBlockComponent
@@ -29,16 +36,17 @@ class GetBlockDataBasic implements GetBlockData
     protected $defaultGetBlockDataServiceName;
 
     /**
-     * @param ContainerInterface $serviceContainer
-     * @param FindBlockComponent $findBlockComponent
-     * @param string             $defaultGetBlockDataServiceName
+     * @param GetServiceFromAlias $getServiceFromAlias
+     * @param FindBlockComponent  $findBlockComponent
+     * @param string              $defaultGetBlockDataServiceName
      */
     public function __construct(
-        $serviceContainer,
+        GetServiceFromAlias $getServiceFromAlias,
         FindBlockComponent $findBlockComponent,
         string $defaultGetBlockDataServiceName = GetBlockDataNoop::class
     ) {
-        $this->serviceContainer = $serviceContainer;
+        $this->getServiceFromAlias = $getServiceFromAlias;
+        $this->serviceAliasNamespace = ServiceAliasBlock::NAMESPACE_CONTENT_DATA_PROVIDER;
         $this->findBlockComponent = $findBlockComponent;
         $this->defaultGetBlockDataServiceName = $defaultGetBlockDataServiceName;
     }
@@ -62,21 +70,20 @@ class GetBlockDataBasic implements GetBlockData
             $block->getBlockComponentName()
         );
 
-        $getBlockDataServiceName = $blockComponent->getProperty(
+        $getBlockDataServiceAlias = $blockComponent->getProperty(
             PropertiesBlockComponent::DATA_PROVIDER,
-            $this->defaultGetBlockDataServiceName
+            ''
         );
 
         /** @var GetBlockData $getBlockData */
-        $getBlockData = $this->serviceContainer->get(
-            $getBlockDataServiceName
+        $getBlockData = $this->getServiceFromAlias->__invoke(
+            $this->serviceAliasNamespace,
+            $getBlockDataServiceAlias,
+            GetBlockData::class,
+            $this->defaultGetBlockDataServiceName
         );
 
-        if (get_class($getBlockData) == get_class($this)) {
-            throw new \Exception(
-                'Class ' . get_class($this) . ' can not use itself as service.'
-            );
-        }
+        ServiceCheck::assertNotSelfReference($this, $getBlockData);
 
         return $getBlockData->__invoke(
             $block,

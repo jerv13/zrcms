@@ -5,7 +5,7 @@ namespace Zrcms\ContentCoreConfigDataSource\Content\Api\Repository;
 use Zrcms\Content\Model\Component;
 use Zrcms\ContentCoreConfigDataSource\Content\Api\GetRegisterComponents;
 use Zrcms\ContentCoreConfigDataSource\Content\Api\SearchConfigList;
-use Zrcms\ContentCoreConfigDataSource\Content\Model\ComponentConfigFields;
+use Zrcms\Content\Model\ComponentConfigFields;
 
 /**
  * @author James Jervis - https://github.com/jerv13

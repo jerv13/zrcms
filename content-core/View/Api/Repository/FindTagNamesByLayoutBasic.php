@@ -2,9 +2,11 @@
 
 namespace Zrcms\ContentCore\View\Api\Repository;
 
-use Psr\Container\ContainerInterface;
 use Zrcms\ContentCore\Theme\Model\Layout;
 use Zrcms\ContentCore\Theme\Model\PropertiesLayout;
+use Zrcms\ContentCore\View\Model\ServiceAliasView;
+use Zrcms\ServiceAlias\Api\GetServiceFromAlias;
+use Zrcms\ServiceAlias\ServiceCheck;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -12,9 +14,14 @@ use Zrcms\ContentCore\Theme\Model\PropertiesLayout;
 class FindTagNamesByLayoutBasic implements FindTagNamesByLayout
 {
     /**
-     * @var ContainerInterface
+     * @var GetServiceFromAlias
      */
-    protected $serviceContainer;
+    protected $getServiceFromAlias;
+
+    /**
+     * @var string
+     */
+    protected $serviceAliasNamespace;
 
     /***
      * @var string
@@ -22,14 +29,15 @@ class FindTagNamesByLayoutBasic implements FindTagNamesByLayout
     protected $defaultFindTagNamesServiceName;
 
     /**
-     * @param ContainerInterface $serviceContainer
-     * @param string             $defaultFindTagNamesServiceName
+     * @param GetServiceFromAlias $getServiceFromAlias
+     * @param string              $defaultFindTagNamesServiceName
      */
     public function __construct(
-        $serviceContainer,
+        GetServiceFromAlias $getServiceFromAlias,
         string $defaultFindTagNamesServiceName = FindTagNamesByLayoutMustache::class
     ) {
-        $this->serviceContainer = $serviceContainer;
+        $this->getServiceFromAlias = $getServiceFromAlias;
+        $this->serviceAliasNamespace = ServiceAliasView::NAMESPACE_LAYOUT_TAG_NAME_PARSER;
         $this->defaultFindTagNamesServiceName = $defaultFindTagNamesServiceName;
     }
 
@@ -45,21 +53,20 @@ class FindTagNamesByLayoutBasic implements FindTagNamesByLayout
         array $options = []
     ): array
     {
-        $findTagNamesServiceName = $layout->getDefaultIfEmptyProperty(
+        $findTagNamesServiceAlias = $layout->getDefaultIfEmptyProperty(
             PropertiesLayout::RENDER_TAG_NAME_PARSER,
-            $this->defaultFindTagNamesServiceName
+            ''
         );
 
         /** @var FindTagNamesByLayout $findTagNamesService */
-        $findTagNamesService = $this->serviceContainer->get(
-            $findTagNamesServiceName
+        $findTagNamesService = $this->getServiceFromAlias->__invoke(
+            $this->serviceAliasNamespace,
+            $findTagNamesServiceAlias,
+            FindTagNamesByLayout::class,
+            $this->defaultFindTagNamesServiceName
         );
 
-        if (get_class($findTagNamesService) == get_class($this)) {
-            throw new \Exception(
-                'Class ' . get_class($this) . ' can not use itself as service.'
-            );
-        }
+        ServiceCheck::assertNotSelfReference($this, $findTagNamesService);
 
         return $findTagNamesService->__invoke(
             $layout,

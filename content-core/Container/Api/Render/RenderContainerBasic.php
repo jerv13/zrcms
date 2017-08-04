@@ -2,18 +2,25 @@
 
 namespace Zrcms\ContentCore\Container\Api\Render;
 
-use Psr\Container\ContainerInterface;
 use Zrcms\Content\Api\Render\RenderContent;
 use Zrcms\Content\Model\Content;
 use Zrcms\ContentCore\Container\Model\Container;
 use Zrcms\ContentCore\Container\Model\PropertiesContainer;
+use Zrcms\ContentCore\Container\Model\ServiceAliasContainer;
+use Zrcms\ServiceAlias\Api\GetServiceFromAlias;
+use Zrcms\ServiceAlias\ServiceCheck;
 
 class RenderContainerBasic implements RenderContent
 {
     /**
-     * @var ContainerInterface
+     * @var GetServiceFromAlias
      */
-    protected $serviceContainer;
+    protected $getServiceFromAlias;
+
+    /**
+     * @var string
+     */
+    protected $serviceAliasNamespace;
 
     /**
      * @var string
@@ -21,49 +28,49 @@ class RenderContainerBasic implements RenderContent
     protected $defaultRenderContainerServiceName;
 
     /**
-     * @param ContainerInterface $serviceContainer
-     * @param string             $defaultRenderContainerServiceName
+     * @param GetServiceFromAlias $getServiceFromAlias
+     * @param string              $defaultRenderContainerServiceName
      */
     public function __construct(
-        $serviceContainer,
+        GetServiceFromAlias $getServiceFromAlias,
         string $defaultRenderContainerServiceName = RenderContainerRows::class
     ) {
-        $this->serviceContainer = $serviceContainer;
+        $this->getServiceFromAlias = $getServiceFromAlias;
+        $this->serviceAliasNamespace = ServiceAliasContainer::NAMESPACE_CONTENT_RENDERER;
         $this->defaultRenderContainerServiceName = $defaultRenderContainerServiceName;
     }
 
     /**
-     * @param Container|Content $Container
+     * @param Container|Content $container
      * @param array             $renderData ['render-tag' => '{html}']
      * @param array             $options
      *
      * @return string
      */
     public function __invoke(
-        Content $Container,
+        Content $container,
         array $renderData,
         array $options = []
     ): string
     {
         // Get version renderer or use default
-        $renderContainerServiceName = $Container->getProperty(
+        $renderContainerServiceAlias = $container->getProperty(
             PropertiesContainer::RENDERER,
-            $this->defaultRenderContainerServiceName
+            ''
         );
 
         /** @var RenderContainer $renderContainerService */
-        $renderContainerService = $this->serviceContainer->get(
-            $renderContainerServiceName
+        $renderContainerService = $this->getServiceFromAlias->__invoke(
+            $this->serviceAliasNamespace,
+            $renderContainerServiceAlias,
+            RenderContainer::class,
+            $this->defaultRenderContainerServiceName
         );
 
-        if (get_class($renderContainerService) == get_class($this)) {
-            throw new \Exception(
-                'Class ' . get_class($this) . ' can not use itself as service.'
-            );
-        }
+        ServiceCheck::assertNotSelfReference($this, $renderContainerService);
 
         return $renderContainerService->__invoke(
-            $Container,
+            $container,
             $renderData
         );
     }

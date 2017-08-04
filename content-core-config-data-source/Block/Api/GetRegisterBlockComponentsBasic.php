@@ -3,6 +3,7 @@
 namespace Zrcms\ContentCoreConfigDataSource\Block\Api;
 
 use Zrcms\Cache\Service\Cache;
+use Zrcms\ContentCore\Block\Api\ReadBlockComponentConfig;
 use Zrcms\ContentCore\Block\Model\BlockComponentBasic;
 use Zrcms\ContentCoreConfigDataSource\Content\Api\GetRegisterComponentsAbstract;
 

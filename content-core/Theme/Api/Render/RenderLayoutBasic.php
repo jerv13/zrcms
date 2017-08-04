@@ -2,10 +2,12 @@
 
 namespace Zrcms\ContentCore\Theme\Api\Render;
 
-use Psr\Container\ContainerInterface;
 use Zrcms\Content\Model\Content;
 use Zrcms\ContentCore\Theme\Model\Layout;
 use Zrcms\ContentCore\Theme\Model\PropertiesLayout;
+use Zrcms\ContentCore\Theme\Model\ServiceAliasLayout;
+use Zrcms\ServiceAlias\Api\GetServiceFromAlias;
+use Zrcms\ServiceAlias\ServiceCheck;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -13,9 +15,14 @@ use Zrcms\ContentCore\Theme\Model\PropertiesLayout;
 class RenderLayoutBasic implements RenderLayout
 {
     /**
-     * @var ContainerInterface
+     * @var GetServiceFromAlias
      */
-    protected $serviceContainer;
+    protected $getServiceFromAlias;
+
+    /**
+     * @var string
+     */
+    protected $serviceAliasNamespace;
 
     /**
      * @var string
@@ -23,14 +30,15 @@ class RenderLayoutBasic implements RenderLayout
     protected $defaultRenderServiceName;
 
     /**
-     * @param ContainerInterface $serviceContainer
-     * @param string             $defaultRenderServiceName
+     * @param GetServiceFromAlias $getServiceFromAlias
+     * @param string              $defaultRenderServiceName
      */
     public function __construct(
-        $serviceContainer,
+        GetServiceFromAlias $getServiceFromAlias,
         string $defaultRenderServiceName = RenderLayoutMustache::class
     ) {
-        $this->serviceContainer = $serviceContainer;
+        $this->getServiceFromAlias = $getServiceFromAlias;
+        $this->serviceAliasNamespace = ServiceAliasLayout::NAMESPACE_CONTENT_RENDERER;
         $this->defaultRenderServiceName = $defaultRenderServiceName;
     }
 
@@ -48,21 +56,20 @@ class RenderLayoutBasic implements RenderLayout
         array $options = []
     ): string
     {
-        $renderServiceName = $layout->getProperty(
+        $renderServiceAlias = $layout->getProperty(
             PropertiesLayout::RENDERER,
-            $this->defaultRenderServiceName
+            ''
         );
 
         /** @var RenderLayout $render */
-        $render = $this->serviceContainer->get(
-            $renderServiceName
+        $render = $this->getServiceFromAlias->__invoke(
+            $this->serviceAliasNamespace,
+            $renderServiceAlias,
+            RenderLayout::class,
+            $this->defaultRenderServiceName
         );
 
-        if (get_class($render) == get_class($this)) {
-            throw new \Exception(
-                'Class ' . get_class($this) . ' can not use itself as service.'
-            );
-        }
+        ServiceCheck::assertNotSelfReference($this, $render);
 
         return $render->__invoke(
             $layout,

@@ -3,9 +3,10 @@
 namespace Zrcms\ContentCoreConfigDataSource\Content\Api;
 
 use Zrcms\Cache\Service\Cache;
+use Zrcms\Content\Api\ReadComponentConfig;
 use Zrcms\Content\Model\Component;
 use Zrcms\Content\Model\Trackable;
-use Zrcms\ContentCoreConfigDataSource\Content\Model\ComponentConfigFields;
+use Zrcms\Content\Model\ComponentConfigFields;
 use Zrcms\ContentCoreConfigDataSource\Content\Model\ComponentRegistryFields;
 use Zrcms\Param\Param;
 

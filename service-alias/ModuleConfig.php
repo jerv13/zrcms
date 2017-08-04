@@ -2,10 +2,11 @@
 
 namespace Zrcms\ServiceAlias;
 
-use Zrcms\ServiceAlias\Api\GetService;
-use Zrcms\ServiceAlias\Api\GetServiceBasicFactory;
+use Zrcms\ServiceAlias\Api\GetServiceFromAlias;
+use Zrcms\ServiceAlias\Api\GetServiceFromAliasBasicFactory;
 use Zrcms\ServiceAlias\Api\GetServiceName;
 use Zrcms\ServiceAlias\Api\GetServiceNameBasicFactory;
+use Zrcms\ServiceAlias\Model\ServiceAliasDefault;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -22,8 +23,8 @@ class ModuleConfig
         return [
             'dependencies' => [
                 'config_factories' => [
-                    GetService::class => [
-                        'factory' => GetServiceBasicFactory::class
+                    GetServiceFromAlias::class => [
+                        'factory' => GetServiceFromAliasBasicFactory::class
                     ],
                     GetServiceName::class => [
                         'factory' => GetServiceNameBasicFactory::class
@@ -31,6 +32,7 @@ class ModuleConfig
                 ],
             ],
             'zrcms-service-alias' => [
+                ServiceAliasDefault::NAMESPACE_DEFAULT => [],
             ],
         ];
     }

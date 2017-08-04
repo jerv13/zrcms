@@ -2,12 +2,14 @@
 
 namespace Zrcms\ContentCore\View\Api\Render;
 
-use Psr\Container\ContainerInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Zrcms\Content\Model\Content;
+use Zrcms\ContentCore\View\Model\ServiceAliasView;
 use Zrcms\ContentCore\View\Model\View;
 use Zrcms\ContentCore\ViewRenderDataGetter\Api\Repository\FindViewRenderDataGetterComponentsBy;
 use Zrcms\ContentCore\ViewRenderDataGetter\Model\ViewRenderDataGetterComponent;
+use Zrcms\ServiceAlias\Api\GetServiceFromAlias;
+use Zrcms\ServiceAlias\ServiceCheck;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -15,9 +17,14 @@ use Zrcms\ContentCore\ViewRenderDataGetter\Model\ViewRenderDataGetterComponent;
 class GetViewRenderDataBasic implements GetViewRenderData
 {
     /**
-     * @var ContainerInterface
+     * @var GetServiceFromAlias
      */
-    protected $serviceContainer;
+    protected $getServiceFromAlias;
+
+    /**
+     * @var string
+     */
+    protected $serviceAliasNamespace;
 
     /**
      * @var FindViewRenderDataGetterComponentsBy
@@ -25,14 +32,15 @@ class GetViewRenderDataBasic implements GetViewRenderData
     protected $findViewRenderDataGetterComponentsBy;
 
     /**
-     * @param ContainerInterface                   $serviceContainer
+     * @param GetServiceFromAlias                  $getServiceFromAlias
      * @param FindViewRenderDataGetterComponentsBy $findViewRenderDataGetterComponentsBy
      */
     public function __construct(
-        $serviceContainer,
+        GetServiceFromAlias $getServiceFromAlias,
         FindViewRenderDataGetterComponentsBy $findViewRenderDataGetterComponentsBy
     ) {
-        $this->serviceContainer = $serviceContainer;
+        $this->getServiceFromAlias = $getServiceFromAlias;
+        $this->serviceAliasNamespace = ServiceAliasView::NAMESPACE_CONTENT_RENDER_DATA_GETTER;
         $this->findViewRenderDataGetterComponentsBy = $findViewRenderDataGetterComponentsBy;
     }
 
@@ -50,17 +58,17 @@ class GetViewRenderDataBasic implements GetViewRenderData
         array $options = []
     ): array
     {
-        // @todo always injecting page and containers - should we do this or should they be components too?
-        $viewRenderDataGetterServiceNames = [
-            GetViewRenderDataContainers::class,
-            GetViewRenderDataPage::class,
+        // @todo always injecting page and containers always?
+        $viewRenderDataGetterServiceAliases = [
+            GetViewRenderDataContainers::SERVICE_ALIAS,
+            GetViewRenderDataPage::SERVICE_ALIAS,
         ];
 
         $viewRenderDataGetterComponents = $this->findViewRenderDataGetterComponentsBy->__invoke([]);
 
         /** @var ViewRenderDataGetterComponent $viewRenderDataGetterComponent */
         foreach ($viewRenderDataGetterComponents as $viewRenderDataGetterComponent) {
-            $viewRenderDataGetterServiceNames[] = $viewRenderDataGetterComponent->getViewRenderDataGetter();
+            $viewRenderDataGetterServiceAliases[] = $viewRenderDataGetterComponent->getViewRenderDataGetter();
         }
 
         $allViewRenderData = [];
@@ -69,22 +77,23 @@ class GetViewRenderDataBasic implements GetViewRenderData
 
         // @todo Only invoke the services that have tags in the layout
         /** @var GetViewRenderData $getViewRenderData */
-        foreach ($viewRenderDataGetterServiceNames as $viewRenderDataGetterServiceName) {
+        foreach ($viewRenderDataGetterServiceAliases as $viewRenderDataGetterServiceAlias) {
             // Duplicate check
-            if (in_array($viewRenderDataGetterServiceName, $serviceNameChecks)) {
+            if (in_array($viewRenderDataGetterServiceAlias, $serviceNameChecks)) {
                 // @todo need throw if this happens
                 continue;
             }
-            $serviceNameChecks[] = $viewRenderDataGetterServiceName;
+            $serviceNameChecks[] = $viewRenderDataGetterServiceAlias;
 
             /** @var GetViewRenderData $getViewRenderData */
-            $getViewRenderData = $this->serviceContainer->get($viewRenderDataGetterServiceName);
+            $getViewRenderData = $this->getServiceFromAlias->__invoke(
+                $this->serviceAliasNamespace,
+                $viewRenderDataGetterServiceAlias,
+                GetViewRenderData::class,
+                ''
+            );
 
-            if (get_class($getViewRenderData) == get_class($this)) {
-                throw new \Exception(
-                    'Class ' . get_class($this) . ' can not use itself as service.'
-                );
-            }
+            ServiceCheck::assertNotSelfReference($this, $getViewRenderData);
 
             $viewRenderData = $getViewRenderData->__invoke(
                 $view,

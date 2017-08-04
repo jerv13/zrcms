@@ -18,6 +18,7 @@ use Zrcms\ContentCore\View\Model\View;
 class GetViewRenderDataContainers implements GetViewRenderData
 {
     const RENDER_TAG_CONTAINER = 'container';
+    const SERVICE_ALIAS = 'containers';
 
     /**
      * @var FindTagNamesByLayout

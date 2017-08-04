@@ -2,11 +2,13 @@
 
 namespace Zrcms\ContentCore\Container\Api\Render;
 
-use Psr\Container\ContainerInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Zrcms\Content\Model\Content;
 use Zrcms\ContentCore\Container\Model\Container;
 use Zrcms\ContentCore\Container\Model\PropertiesContainer;
+use Zrcms\ContentCore\Container\Model\ServiceAliasContainer;
+use Zrcms\ServiceAlias\Api\GetServiceFromAlias;
+use Zrcms\ServiceAlias\ServiceCheck;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -14,9 +16,14 @@ use Zrcms\ContentCore\Container\Model\PropertiesContainer;
 class GetContainerRenderDataBasic implements GetContainerRenderData
 {
     /**
-     * @var ContainerInterface
+     * @var GetServiceFromAlias
      */
-    protected $serviceContainer;
+    protected $getServiceFromAlias;
+
+    /**
+     * @var string
+     */
+    protected $serviceAliasNamespace;
 
     /**
      * @var string
@@ -24,14 +31,15 @@ class GetContainerRenderDataBasic implements GetContainerRenderData
     protected $defaultGetContainerRenderDataServiceName;
 
     /**
-     * @param        $serviceContainer
-     * @param string $defaultGetContainerRenderDataServiceName
+     * @param GetServiceFromAlias $getServiceFromAlias
+     * @param string              $defaultGetContainerRenderDataServiceName
      */
     public function __construct(
-        $serviceContainer,
+        GetServiceFromAlias $getServiceFromAlias,
         string $defaultGetContainerRenderDataServiceName = GetContainerRenderDataBlocks::class
     ) {
-        $this->serviceContainer = $serviceContainer;
+        $this->getServiceFromAlias = $getServiceFromAlias;
+        $this->serviceAliasNamespace = ServiceAliasContainer::NAMESPACE_CONTENT_RENDERER;
         $this->defaultGetContainerRenderDataServiceName = $defaultGetContainerRenderDataServiceName;
     }
 
@@ -49,21 +57,20 @@ class GetContainerRenderDataBasic implements GetContainerRenderData
         array $options = []
     ): array
     {
-        $getContainerRenderDataServiceName = $container->getProperty(
+        $getContainerRenderDataServiceAlias = $container->getProperty(
             PropertiesContainer::RENDER_DATA_GETTER,
-            $this->defaultGetContainerRenderDataServiceName
+            ''
         );
 
         /** @var GetContainerRenderData $getContainerRenderDataService */
-        $getContainerRenderDataService = $this->serviceContainer->get(
-            $getContainerRenderDataServiceName
+        $getContainerRenderDataService = $this->getServiceFromAlias->__invoke(
+            $this->serviceAliasNamespace,
+            $getContainerRenderDataServiceAlias,
+            GetContainerRenderData::class,
+            $this->defaultGetContainerRenderDataServiceName
         );
 
-        if (get_class($getContainerRenderDataService) == get_class($this)) {
-            throw new \Exception(
-                'Class ' . get_class($this) . ' can not use itself as service.'
-            );
-        }
+        ServiceCheck::assertNotSelfReference($this, $getContainerRenderDataService);
 
         return $getContainerRenderDataService->__invoke(
             $container,

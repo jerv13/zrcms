@@ -2,12 +2,14 @@
 
 namespace Zrcms\ContentCore\Block\Api\Render;
 
-use Psr\Container\ContainerInterface;
 use Zrcms\Content\Model\Content;
 use Zrcms\ContentCore\Block\Api\Repository\FindBlockComponent;
 use Zrcms\ContentCore\Block\Model\Block;
 use Zrcms\ContentCore\Block\Model\BlockComponent;
 use Zrcms\ContentCore\Block\Model\PropertiesBlockComponent;
+use Zrcms\ContentCore\Block\Model\ServiceAliasBlock;
+use Zrcms\ServiceAlias\Api\GetServiceFromAlias;
+use Zrcms\ServiceAlias\ServiceCheck;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -20,9 +22,14 @@ class RenderBlockBasic implements RenderBlock
     protected $findBlockComponent;
 
     /**
-     * @var ContainerInterface
+     * @var GetServiceFromAlias
      */
-    protected $serviceContainer;
+    protected $getServiceFromAlias;
+
+    /**
+     * @var string
+     */
+    protected $serviceAliasNamespace;
 
     /**
      * @var string
@@ -30,16 +37,17 @@ class RenderBlockBasic implements RenderBlock
     protected $defaultRenderServiceName;
 
     /**
-     * @param ContainerInterface $serviceContainer
-     * @param FindBlockComponent $findBlockComponent
-     * @param string             $defaultRenderServiceName
+     * @param GetServiceFromAlias $getServiceFromAlias
+     * @param FindBlockComponent  $findBlockComponent
+     * @param string              $defaultRenderServiceName
      */
     public function __construct(
-        $serviceContainer,
+        GetServiceFromAlias $getServiceFromAlias,
         FindBlockComponent $findBlockComponent,
         string $defaultRenderServiceName = RenderBlockMustache::class
     ) {
-        $this->serviceContainer = $serviceContainer;
+        $this->getServiceFromAlias = $getServiceFromAlias;
+        $this->serviceAliasNamespace = ServiceAliasBlock::NAMESPACE_CONTENT_RENDERER;
         $this->findBlockComponent = $findBlockComponent;
         $this->defaultRenderServiceName = $defaultRenderServiceName;
     }
@@ -50,6 +58,7 @@ class RenderBlockBasic implements RenderBlock
      * @param array         $options
      *
      * @return string
+     * @throws \Exception
      */
     public function __invoke(
         Content $block,
@@ -63,21 +72,20 @@ class RenderBlockBasic implements RenderBlock
         );
 
         // Get version renderer or use default
-        $renderServiceName = $blockComponent->getProperty(
+        $renderServiceAlias = $blockComponent->getProperty(
             PropertiesBlockComponent::RENDERER,
+            ''
+        );
+
+        /** @var RenderBlock $renderBlock */
+        $renderBlock = $this->getServiceFromAlias->__invoke(
+            $this->serviceAliasNamespace,
+            $renderServiceAlias,
+            RenderBlock::class,
             $this->defaultRenderServiceName
         );
 
-        /** @var RenderBlock $render */
-        $renderBlock = $this->serviceContainer->get(
-            $renderServiceName
-        );
-
-        if (get_class($renderBlock) == get_class($this)) {
-            throw new \Exception(
-                'Class ' . get_class($this) . ' can not use itself as service.'
-            );
-        }
+        ServiceCheck::assertNotSelfReference($this, $renderBlock);
 
         return $renderBlock->__invoke(
             $block,

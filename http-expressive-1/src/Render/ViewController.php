@@ -10,6 +10,7 @@ use Zrcms\ContentCore\Site\Exception\SiteNotFoundException;
 use Zrcms\ContentCore\View\Api\Render\GetViewRenderData;
 use Zrcms\ContentCore\View\Api\Render\RenderView;
 use Zrcms\ContentCore\View\Api\Repository\FindViewByRequest;
+use Zrcms\ContentCore\View\Model\View;
 use Zrcms\HttpResponseHandler\Api\HandleResponse;
 use Zrcms\HttpResponseHandler\Model\HandleResponseOptions;
 
@@ -65,6 +66,7 @@ class ViewController
         $additionalViewProperties = [];
 
         try {
+            /** @var View $pageView */
             $pageView = $this->findViewByRequest->__invoke(
                 $request,
                 $additionalViewProperties

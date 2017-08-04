@@ -9,6 +9,7 @@ use Psr\Container\ContainerInterface;
  */
 class GetServiceNameBasicFactory
 {
+
     /**
      * @param ContainerInterface $serviceContainer
      *

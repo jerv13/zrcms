@@ -9,6 +9,7 @@ class PropertiesComponent extends PropertiesSettableAbstract implements Properti
 {
     const NAME = 'name';
     const CONFIG_LOCATION = 'configLocation';
+    const COMPONENT_CONFIG_READER = 'componentConfigReader';
 
     /**
      * Default values
@@ -19,5 +20,6 @@ class PropertiesComponent extends PropertiesSettableAbstract implements Properti
         = [
             self::NAME => '',
             self::CONFIG_LOCATION => '',
+            self::COMPONENT_CONFIG_READER => '',
         ];
 }

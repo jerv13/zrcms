@@ -58,3 +58,16 @@ Allows for virtually arbitrary properties AKA easy to extend functionality
         
     - ViewRenderDataGatter
         - RENDER_DATA_GETTER
+        
+- GetServiceFromAlias and wire const NAMESPACE_RESOURCE = 'zrcms.view.resource';
+
+- RENAME ViewRenderDataGetter to LayoutTag and rearrange code
+    - NOTE: the pattern is different so split them @see GetViewRenderDataBasic
+    - GetContentRenderData -> GetContentRenderTags
+    - GetContentRenderData -> GetContentRenderTags
+    
+    - GetViewRenderData -> GetLayoutTags
+    - ViewRenderDataGetter -> LayoutTagsGetter
+    - NS ViewRenderDataGetter -> LayoutTags
+    - VIEW_RENDER_DATA_GETTER -> RENDER_TAGS_GETTER
+    - view-render-data-getter -> layout-tags-getter

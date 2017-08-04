@@ -62,6 +62,7 @@ class FindContainerCmsResourcesBySitePaths
             $siteCmsResourceId => 'siteCmsResourceId'
         ];
 
+        // @todo Add prepared statements not concat
         $query = ""
             . "SELECT container FROM {$this->entityClassCmsResource} container"
             . " WHERE container.{$siteCmsResourceIdName} > :siteCmsResourceId";
@@ -120,7 +121,7 @@ class FindContainerCmsResourcesBySitePaths
                 continue;
             }
 
-            $pathParam = 'path' . $cnt;;
+            $pathParam = 'path' . $cnt;
 
             $query = $query . ":{$pathParam}";
 

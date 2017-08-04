@@ -22,7 +22,7 @@ class GetServiceNameBasic implements GetServiceName
     }
 
     /**
-     * @param string $type
+     * @param string $namespace
      * @param string $serviceAlias
      * @param string $defaultServiceName
      * @param array  $options
@@ -31,22 +31,26 @@ class GetServiceNameBasic implements GetServiceName
      * @throws ServiceAliasNotFoundException
      */
     public function __invoke(
-        string $type,
+        string $namespace,
         string $serviceAlias,
         string $defaultServiceName,
         array $options = []
     ): string
     {
-        $typeRegistry = Param::getArray(
+        if (empty($serviceAlias)) {
+            return $defaultServiceName;
+        }
+
+        $namespaceRegistry = Param::getArray(
             $this->registry,
-            $type,
+            $namespace,
             []
         );
 
-        if (empty($typeRegistry)) {
+        if (empty($namespaceRegistry)) {
             // @todo Logger::warning())
             trigger_error(
-                "Type registry not defined for type: ({$type}) "
+                "Namespace registry not defined for namespace: ({$namespace}) "
                 . " with service alias ({$serviceAlias})"
                 . " used service: ({$defaultServiceName})",
                 E_USER_WARNING
@@ -55,7 +59,7 @@ class GetServiceNameBasic implements GetServiceName
         }
 
         $serviceName = Param::getString(
-            $typeRegistry,
+            $namespaceRegistry,
             $serviceAlias,
             $defaultServiceName
         );
@@ -63,8 +67,8 @@ class GetServiceNameBasic implements GetServiceName
         if (empty($serviceName)) {
             // @todo Logger::warning()
             trigger_error(
-                "Type registry not defined for type: ({$type}) "
-                . " with service alias ({$serviceAlias})"
+                "Service alias not defined: ({$serviceAlias}) "
+                . " with namespace ({$namespace})"
                 . " used service: ({$defaultServiceName})",
                 E_USER_WARNING
             );

@@ -4,6 +4,7 @@ namespace Zrcms\ContentCoreConfigDataSource\Block\Api;
 
 use Psr\Container\ContainerInterface;
 use Zrcms\Cache\Service\Cache;
+use Zrcms\ContentCore\Block\Api\ReadBlockComponentConfig;
 
 /**
  * @author James Jervis - https://github.com/jerv13

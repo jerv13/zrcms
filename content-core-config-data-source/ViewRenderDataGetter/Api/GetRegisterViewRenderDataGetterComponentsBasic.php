@@ -3,6 +3,7 @@
 namespace Zrcms\ContentCoreConfigDataSource\ViewRenderDataGetter\Api;
 
 use Zrcms\Cache\Service\Cache;
+use Zrcms\ContentCore\ViewRenderDataGetter\Api\ReadViewRenderDataGetterComponentConfig;
 use Zrcms\ContentCore\ViewRenderDataGetter\Model\ViewRenderDataGetterComponentBasic;
 use Zrcms\ContentCoreConfigDataSource\Content\Api\GetRegisterComponentsAbstract;
 

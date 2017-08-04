@@ -11,7 +11,7 @@ class ComponentRegistryFields
 {
     const NAME = PropertiesComponent::NAME;
     const CONFIG_LOCATION = PropertiesComponent::CONFIG_LOCATION;
-    const COMPONENT_CONFIG_READER = 'componentConfigReader';
+    const COMPONENT_CONFIG_READER = PropertiesComponent::COMPONENT_CONFIG_READER;
 
     /**
      * Default values

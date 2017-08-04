@@ -2,10 +2,12 @@
 
 namespace Zrcms\ViewRenderDataGetters\Head\Api\Render;
 
-use Psr\Container\ContainerInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Zrcms\Content\Model\Content;
+use Zrcms\ContentCore\View\Model\ServiceAliasView;
 use Zrcms\ContentCore\View\Model\View;
+use Zrcms\ServiceAlias\Api\GetServiceFromAlias;
+use Zrcms\ServiceAlias\ServiceCheck;
 
 /**
  *
@@ -16,9 +18,14 @@ class GetViewRenderDataHeadAll implements GetViewRenderDataHead
     const RENDER_TAG_ALL = 'all';
 
     /**
-     * @var ContainerInterface
+     * @var GetServiceFromAlias
      */
-    protected $serviceContainer;
+    protected $getServiceFromAlias;
+
+    /**
+     * @var string
+     */
+    protected $serviceAliasNamespace;
 
     /**
      * @var array
@@ -32,14 +39,15 @@ class GetViewRenderDataHeadAll implements GetViewRenderDataHead
         ];
 
     /**
-     * @param ContainerInterface $serviceContainer
-     * @param array              $renderServiceNames ['{tag-property-name}' => '{GetViewRenderDataHeadServiceName}']
+     * @param GetServiceFromAlias $getServiceFromAlias
+     * @param array               $renderServiceNames ['{tag-property-name}' => '{GetViewRenderDataHeadServiceAlias}']
      */
     public function __construct(
-        $serviceContainer,
+        GetServiceFromAlias $getServiceFromAlias,
         array $renderServiceNames = []
     ) {
-        $this->serviceContainer = $serviceContainer;
+        $this->getServiceFromAlias = $getServiceFromAlias;
+        $this->serviceAliasNamespace = ServiceAliasView::NAMESPACE_CONTENT_RENDER_DATA_GETTER;
         $this->renderServiceNames = array_merge(
             $this->renderServiceNames,
             $renderServiceNames
@@ -62,17 +70,16 @@ class GetViewRenderDataHeadAll implements GetViewRenderDataHead
     {
         $renderData = [];
 
-        foreach ($this->renderServiceNames as $renderTag => $renderServiceName) {
+        foreach ($this->renderServiceNames as $renderTag => $renderServiceAlias) {
             /** @var GetViewRenderDataHead $renderService */
-            $renderService = $this->serviceContainer->get(
-                $renderServiceName
+            $renderService = $this->getServiceFromAlias->__invoke(
+                $this->serviceAliasNamespace,
+                $renderServiceAlias,
+                GetViewRenderDataHead::class,
+                ''
             );
 
-            if (get_class($renderService) == get_class($this)) {
-                throw new \Exception(
-                    'Class ' . get_class($this) . ' can not use itself as service.'
-                );
-            }
+            ServiceCheck::assertNotSelfReference($this, $renderService);
 
             $subRenderData = $renderService->__invoke(
                 $view,

@@ -4,6 +4,7 @@ namespace Zrcms\ContentCoreDoctrineDataSource\Site\Api\Repository;
 
 use Doctrine\ORM\EntityManager;
 use Zrcms\Content\Model\CmsResource;
+use Zrcms\ContentCore\Site\Model\PropertiesSiteCmsResource;
 use Zrcms\ContentCore\Site\Model\SiteCmsResource;
 use Zrcms\ContentCore\Site\Model\SiteCmsResourceBasic;
 use Zrcms\ContentCoreDoctrineDataSource\Site\Entity\SiteCmsResourceEntity;
@@ -57,7 +58,7 @@ class FindSiteCmsResourceByHost
         );
 
         /** @var SiteCmsResource|CmsResource $siteCmsResource */
-        $siteCmsResource = $repository->findOneBy(['host' => $host]);
+        $siteCmsResource = $repository->findOneBy([PropertiesSiteCmsResource::HOST => $host]);
 
         return $this->newBasicCmsResource(
             $this->entityClassCmsResource,

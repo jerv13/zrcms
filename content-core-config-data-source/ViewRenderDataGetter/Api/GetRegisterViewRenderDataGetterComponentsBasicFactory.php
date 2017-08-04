@@ -4,6 +4,7 @@ namespace Zrcms\ContentCoreConfigDataSource\ViewRenderDataGetter\Api;
 
 use Interop\Container\ContainerInterface;
 use Zrcms\Cache\Service\Cache;
+use Zrcms\ContentCore\ViewRenderDataGetter\Api\ReadViewRenderDataGetterComponentConfig;
 
 /**
  * @author James Jervis - https://github.com/jerv13
