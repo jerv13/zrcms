@@ -21,10 +21,24 @@ class PropertyMissingException extends \Exception
         string $class,
         array $options = []
     ) {
+
+        $message = 'Required property (' . $propertyName . ') is missing '
+            .'in: ' . $class;
+
         return new PropertyMissingException(
-            'Required property (' . $propertyName . ') is missing '
-            .'in: ' . $class
-            . ' with properties: ' . json_encode($properties, JSON_PRETTY_PRINT)
+            $message,
+            $properties
         );
+    }
+
+    /**
+     * @param string          $message
+     * @param array           $properties
+     * @param int             $code
+     * @param \Exception|null $previous
+     */
+    public function __construct($message = "", $properties = [], $code = 0, \Exception $previous = null)
+    {
+        parent::__construct($message, $code, $previous);
     }
 }

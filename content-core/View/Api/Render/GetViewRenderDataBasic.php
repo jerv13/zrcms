@@ -78,6 +78,7 @@ class GetViewRenderDataBasic implements GetViewRenderData
         // @todo Only invoke the services that have tags in the layout
         /** @var GetViewRenderData $getViewRenderData */
         foreach ($viewRenderDataGetterServiceAliases as $viewRenderDataGetterServiceAlias) {
+
             // Duplicate check
             if (in_array($viewRenderDataGetterServiceAlias, $serviceNameChecks)) {
                 // @todo need throw if this happens
@@ -101,15 +102,12 @@ class GetViewRenderDataBasic implements GetViewRenderData
                 $options
             );
 
-
-
             $allViewRenderData = array_merge(
                 $allViewRenderData,
                 $viewRenderData
             );
         }
 
-        var_dump($allViewRenderData);
 
         return $allViewRenderData;
     }

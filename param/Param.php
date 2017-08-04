@@ -256,7 +256,7 @@ class Param
             return;
         }
 
-        if ($exception instanceof \Exception) {
+        if (is_a($exception, \Exception::class)) {
             throw $exception;
         }
 

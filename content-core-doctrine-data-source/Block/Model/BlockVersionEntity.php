@@ -22,17 +22,6 @@ class BlockVersionEntity extends BlockVersionAbstract implements BlockVersion
         string $createdByUserId,
         string $createdReason
     ) {
-        // @todo is this right?
-        $this->createdDate = Param::getRequired(
-            $properties,
-            PropertiesBlockVersionEntity::CREATED_DATE,
-            PropertyMissingException::build(
-                PropertiesBlockVersionEntity::CREATED_DATE,
-                $properties,
-                get_class($this)
-            )
-        );
-
         // Id is required to preserve interface and for caching
         Param::assertHas(
             $properties,
@@ -48,6 +37,17 @@ class BlockVersionEntity extends BlockVersionAbstract implements BlockVersion
             $properties,
             $createdByUserId,
             $createdReason
+        );
+
+        // @todo is this right?
+        $this->createdDate = Param::getRequired(
+            $properties,
+            PropertiesBlockVersionEntity::CREATED_DATE,
+            PropertyMissingException::build(
+                PropertiesBlockVersionEntity::CREATED_DATE,
+                $properties,
+                get_class($this)
+            )
         );
     }
 }
