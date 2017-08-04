@@ -24,7 +24,6 @@ class ContainerVersionEntity
     extends ContainerVersionAbstract
     implements ContainerVersion, ContentEntity
 {
-    use ContainerBlockVersionsTrait;
     use ContentEntityTrait;
 
     /**
@@ -75,7 +74,7 @@ class ContainerVersionEntity
      *
      * @ORM\Column(type="json_array")
      */
-    protected $blockVersionsData = [];
+    protected $blockVersions = [];
 
     /**
      * @param array  $properties
@@ -92,18 +91,37 @@ class ContainerVersionEntity
             PropertiesContent::ID
         );
 
-        $blockVersions = Param::getArray(
+        $this->blockVersions = Param::getArray(
             $properties,
-            PropertiesContainerVersionEntity::BLOCK_VERSIONS_DATA,
+            PropertiesContainerVersionEntity::BLOCK_VERSIONS,
             []
         );
 
-        $this->addBlockVersions($blockVersions);
+        Param::remove($properties, PropertiesContainerVersionEntity::BLOCK_VERSIONS);
 
         parent::__construct(
             $properties,
             $createdByUserId,
             $createdReason
         );
+    }
+
+    /**
+     * @return array
+     */
+    public function getProperties(): array
+    {
+        $properties = parent::getProperties();
+        $properties[PropertiesContainerVersionEntity::BLOCK_VERSIONS] = $this->getBlockVersions();
+
+        return $properties;
+    }
+
+    /**
+     * @return array
+     */
+    public function getBlockVersions(): array
+    {
+        return $this->blockVersions;
     }
 }

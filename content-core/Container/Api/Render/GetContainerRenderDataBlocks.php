@@ -84,8 +84,6 @@ class GetContainerRenderDataBlocks implements GetContainerRenderData
             $container
         );
 
-        ddd(get_class($this->findBlockVersionsByContainer), $blocks);
-
         /** @var Block $block */
         foreach ($blocks as $block) {
 

@@ -26,7 +26,7 @@ class ModuleConfig
             ],
             'zrcms' => [
                 'blocks' => [
-
+                    'xample' => __DIR__ . '/../block',
                 ],
                 'themes' => [
                     'xample-theme' => __DIR__ . '/../theme',

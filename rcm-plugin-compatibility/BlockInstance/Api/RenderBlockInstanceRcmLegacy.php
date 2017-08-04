@@ -12,7 +12,7 @@ use Zend\View\Helper\Placeholder\Container;
 use Zend\View\Renderer\PhpRenderer;
 use Zrcms\ContentCore\Block\Api\FindBlock;
 use Zrcms\ContentCore\Block\Model\BlockVersion;
-use Zrcms\ContentCore\Block\Model\BlockVersionData;
+use Zrcms\ContentCore\Block\Model\BlockVersion;
 
 class RenderBlockVersionRcm implements RenderBlockVersion
 {
@@ -45,7 +45,7 @@ class RenderBlockVersionRcm implements RenderBlockVersion
      *
      * @return string HTML
      */
-    public function __invoke(BlockVersionData $blockVersion)
+    public function __invoke(BlockVersion $blockVersion)
     {
         /** @var \Rcm\Plugin\PluginInterface $controller */
         $controller = $this->getPluginController($blockVersion->getName());

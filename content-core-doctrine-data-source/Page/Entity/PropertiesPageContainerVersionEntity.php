@@ -19,6 +19,6 @@ class PropertiesPageContainerVersionEntity extends PropertiesContainerVersionEnt
             self::ID => '',
             self::RENDER_DATA_GETTER => '',
             self::RENDERER => '',
-            self::BLOCK_VERSIONS_DATA => [],
+            self::BLOCK_VERSIONS => [],
         ];
 }

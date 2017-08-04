@@ -9,7 +9,7 @@ use Zrcms\ContentCore\Container\Model\PropertiesContainerVersion;
  */
 class PropertiesContainerVersionEntity extends PropertiesContainerVersion
 {
-    const BLOCK_VERSIONS_DATA = 'blockVersionsData';
+    const BLOCK_VERSIONS = 'blockVersions';
 
     /**
      * Default values
@@ -21,6 +21,6 @@ class PropertiesContainerVersionEntity extends PropertiesContainerVersion
             self::ID => '',
             self::RENDER_DATA_GETTER => '',
             self::RENDERER => '',
-            self::BLOCK_VERSIONS_DATA => [],
+            self::BLOCK_VERSIONS => [],
         ];
 }

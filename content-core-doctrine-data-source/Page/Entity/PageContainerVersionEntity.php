@@ -6,7 +6,6 @@ use Doctrine\ORM\Mapping as ORM;
 use Zrcms\ContentCore\Page\Model\PageContainerVersion;
 use Zrcms\ContentCore\Page\Model\PageContainerVersionAbstract;
 use Zrcms\ContentCore\Page\Model\PropertiesPageContainerVersion;
-use Zrcms\ContentCoreDoctrineDataSource\Container\Entity\ContainerBlockVersionsTrait;
 use Zrcms\ContentDoctrine\Entity\ContentEntity;
 use Zrcms\ContentDoctrine\Entity\ContentEntityTrait;
 use Zrcms\Param\Param;
@@ -25,7 +24,6 @@ class PageContainerVersionEntity
     extends PageContainerVersionAbstract
     implements PageContainerVersion, ContentEntity
 {
-    use ContainerBlockVersionsTrait;
     use ContentEntityTrait;
 
     /**
@@ -90,7 +88,7 @@ class PageContainerVersionEntity
      *
      * @ORM\Column(type="json_array")
      */
-    protected $blockVersionsData = [];
+    protected $blockVersions = [];
 
     /**
      * @param array  $properties
@@ -117,18 +115,37 @@ class PageContainerVersionEntity
             PropertiesPageContainerVersion::KEYWORDS
         );
 
-        $blockVersions = Param::getArray(
+        $this->blockVersions = Param::getArray(
             $properties,
-            PropertiesPageContainerVersionEntity::BLOCK_VERSIONS_DATA,
+            PropertiesPageContainerVersionEntity::BLOCK_VERSIONS,
             []
         );
 
-        $this->addBlockVersions($blockVersions);
+        Param::remove($properties, PropertiesPageContainerVersionEntity::BLOCK_VERSIONS);
 
         parent::__construct(
             $properties,
             $createdByUserId,
             $createdReason
         );
+    }
+
+    /**
+     * @return array
+     */
+    public function getProperties(): array
+    {
+        $properties = parent::getProperties();
+        $properties[PropertiesPageContainerVersionEntity::BLOCK_VERSIONS] = $this->getBlockVersions();
+
+        return $properties;
+    }
+
+    /**
+     * @return array
+     */
+    public function getBlockVersions(): array
+    {
+        return $this->blockVersions;
     }
 }
