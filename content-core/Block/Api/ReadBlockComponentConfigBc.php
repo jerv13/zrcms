@@ -2,6 +2,8 @@
 
 namespace Zrcms\ContentCore\Block\Api;
 
+use Zrcms\Content\Model\PropertiesComponent;
+
 /**
  * @author James Jervis - https://github.com/jerv13
  */
@@ -33,6 +35,10 @@ class ReadBlockComponentConfigBc implements ReadBlockComponentConfig
         array $options = []
     ): array
     {
-        return $this->pluginConfig[$configKey];
+        $config = $this->pluginConfig[$configKey];
+
+        $config[PropertiesComponent::CONFIG_LOCATION] = "BC config:['rcmPlugin'][{$configKey}]";
+
+        return $config;
     }
 }

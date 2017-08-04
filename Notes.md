@@ -19,6 +19,15 @@ Allows for virtually arbitrary properties AKA easy to extend functionality
 ## Tracking ##
 - Tracking: who (userId) - what (action) - why(reason)
 
+## CLI helper ## 
+
+ENV="local" ./bin/console rcm:export --file ./data/export.json --limit 1 --pp 1
+
+ENV="local" ./bin/console zrcms:import --file ./data/export.json 
+
+ENV="local" bin/console orm:schema-tool:update --dump-sql > ./data/0.0.0.sql
+
+ENV="local" bin/console orm:schema-tool:update --force
 
 ## @todo ##
 
@@ -39,6 +48,8 @@ Allows for virtually arbitrary properties AKA easy to extend functionality
     - rcmAdminPanel
     - rcmHtmlEditorOptions
     - basePath
+    
+
             
 - Document the architecture and basics of how it works
 - GetRegisterComponentsAbstract needs a default service name, not ReadComponentConfig
