@@ -2,6 +2,8 @@
 
 namespace Zrcms\XampleComponent;
 
+use Zrcms\ContentCore\View\Model\ServiceAliasView;
+use Zrcms\ContentCore\ViewRenderDataGetter\Model\ServiceAliasViewRenderDataGetter;
 use Zrcms\XampleComponent\ViewRenderDataGetter\Api\Render\GetViewRenderData;
 
 /**
@@ -31,6 +33,15 @@ class ModuleConfig
                 ],
                 'view-render-data-getters' => [
                     GetViewRenderData::XAMPLE_RENDER_TAG => __DIR__ . '/../view-render-data-getter',
+                ],
+            ],
+
+            'zrcms-service-alias' => [
+                /**
+                 * ViewRenderDataGetter ===========================================
+                 */
+                ServiceAliasView::NAMESPACE_CONTENT_RENDER_DATA_GETTER  => [
+                    'xample' => GetViewRenderData::class,
                 ],
             ],
         ];

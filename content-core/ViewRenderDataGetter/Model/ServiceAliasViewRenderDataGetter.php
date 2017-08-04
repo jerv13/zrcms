@@ -7,6 +7,5 @@ namespace Zrcms\ContentCore\ViewRenderDataGetter\Model;
  */
 class ServiceAliasViewRenderDataGetter
 {
-    const NAMESPACE_COMPONENT_VIEW_RENDER_DATA_GETTER = 'zrcms.view-render-data-getter.component';
-    const NAMESPACE_CONTENT = 'zrcms.view-render-data-getter.content';
+    const NAMESPACE_COMPONENT_VIEW_RENDER_DATA_GETTER = 'zrcms.view-render-data-getter.content.render-data-getter';
 }

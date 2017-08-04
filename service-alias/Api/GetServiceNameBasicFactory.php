@@ -20,7 +20,7 @@ class GetServiceNameBasicFactory
     ) {
         $config = $serviceContainer->get('config');
 
-        $registryConfig = $config['zrcms']['zrcms-service-alias'];
+        $registryConfig = $config['zrcms-service-alias'];
 
         return new GetServiceNameBasic(
             $registryConfig

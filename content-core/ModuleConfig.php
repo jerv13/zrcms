@@ -17,14 +17,12 @@ use Zrcms\ContentCore\Block\Api\Render\GetBlockRenderData;
 use Zrcms\ContentCore\Block\Api\Render\GetBlockRenderDataBasic;
 use Zrcms\ContentCore\Block\Api\Render\RenderBlock;
 use Zrcms\ContentCore\Block\Api\Render\RenderBlockBasic;
-use Zrcms\ContentCore\Block\Api\Render\RenderBlockBasicFactory;
 use Zrcms\ContentCore\Block\Api\Render\RenderBlockMustache;
 use Zrcms\ContentCore\Block\Api\Repository\FindBlockComponent;
 use Zrcms\ContentCore\Block\Api\Repository\FindBlockComponentsBy;
 use Zrcms\ContentCore\Block\Api\Repository\FindBlockVersionsByContainer;
 use Zrcms\ContentCore\Block\Api\Repository\GetBlockData;
 use Zrcms\ContentCore\Block\Api\Repository\GetBlockDataBasic;
-use Zrcms\ContentCore\Block\Api\Repository\GetBlockDataBasicFactory;
 use Zrcms\ContentCore\Block\Api\Repository\GetBlockDataNoop;
 use Zrcms\ContentCore\Block\Api\WrapRenderedBlockVersion;
 use Zrcms\ContentCore\Block\Api\WrapRenderedBlockVersionLegacy;
@@ -33,11 +31,9 @@ use Zrcms\ContentCore\Container\Api\Action\PublishContainerCmsResource;
 use Zrcms\ContentCore\Container\Api\Action\UnpublishContainerCmsResource;
 use Zrcms\ContentCore\Container\Api\Render\GetContainerRenderData;
 use Zrcms\ContentCore\Container\Api\Render\GetContainerRenderDataBasic;
-use Zrcms\ContentCore\Container\Api\Render\GetContainerRenderDataBasicFactory;
 use Zrcms\ContentCore\Container\Api\Render\GetContainerRenderDataBlocks;
 use Zrcms\ContentCore\Container\Api\Render\RenderContainer;
 use Zrcms\ContentCore\Container\Api\Render\RenderContainerBasic;
-use Zrcms\ContentCore\Container\Api\Render\RenderContainerBasicFactory;
 use Zrcms\ContentCore\Container\Api\Render\RenderContainerRows;
 use Zrcms\ContentCore\Container\Api\Repository\FindContainerCmsResource;
 use Zrcms\ContentCore\Container\Api\Repository\FindContainerCmsResourcesBy;
@@ -47,18 +43,17 @@ use Zrcms\ContentCore\Container\Api\Repository\FindContainerVersionsBy;
 use Zrcms\ContentCore\Container\Api\Repository\InsertContainerVersion;
 use Zrcms\ContentCore\Container\Api\WrapRenderedContainer;
 use Zrcms\ContentCore\Container\Api\WrapRenderedContainerLegacy;
+use Zrcms\ContentCore\Container\Model\ServiceAliasContainer;
 use Zrcms\ContentCore\Layout\Api\Action\PublishLayoutCmsResource;
 use Zrcms\ContentCore\Layout\Api\Action\UnpublishLayoutCmsResource;
 use Zrcms\ContentCore\Page\Api\Action\PublishPageContainerCmsResource;
 use Zrcms\ContentCore\Page\Api\Action\UnpublishPageContainerCmsResource;
 use Zrcms\ContentCore\Page\Api\Render\GetPageContainerRenderData;
 use Zrcms\ContentCore\Page\Api\Render\GetPageContainerRenderDataBasic;
-use Zrcms\ContentCore\Page\Api\Render\GetPageContainerRenderDataBasicFactory;
 use Zrcms\ContentCore\Page\Api\Render\GetPageContainerRenderDataBlocks;
 use Zrcms\ContentCore\Page\Api\Render\GetPageContainerRenderDataHtml;
 use Zrcms\ContentCore\Page\Api\Render\RenderPageContainer;
 use Zrcms\ContentCore\Page\Api\Render\RenderPageContainerBasic;
-use Zrcms\ContentCore\Page\Api\Render\RenderPageContainerBasicFactory;
 use Zrcms\ContentCore\Page\Api\Render\RenderPageContainerRows;
 use Zrcms\ContentCore\Page\Api\Repository\FindPageContainerCmsResource;
 use Zrcms\ContentCore\Page\Api\Repository\FindPageContainerCmsResourceBySitePath;
@@ -66,6 +61,7 @@ use Zrcms\ContentCore\Page\Api\Repository\FindPageContainerCmsResourcesBy;
 use Zrcms\ContentCore\Page\Api\Repository\FindPageContainerVersion;
 use Zrcms\ContentCore\Page\Api\Repository\FindPageContainerVersionsBy;
 use Zrcms\ContentCore\Page\Api\Repository\InsertPageContainerVersion;
+use Zrcms\ContentCore\Page\Model\ServiceAliasPageContainer;
 use Zrcms\ContentCore\Site\Api\Action\PublishSiteCmsResource;
 use Zrcms\ContentCore\Site\Api\Action\UnpublishSiteCmsResource;
 use Zrcms\ContentCore\Site\Api\Repository\FindSiteCmsResource;
@@ -76,19 +72,15 @@ use Zrcms\ContentCore\Site\Api\Repository\FindSiteVersionsBy;
 use Zrcms\ContentCore\Site\Api\Repository\InsertSiteVersion;
 use Zrcms\ContentCore\Theme\Api\ReadLayoutComponentConfig;
 use Zrcms\ContentCore\Theme\Api\ReadLayoutComponentConfigBasic;
-use Zrcms\ContentCore\Theme\Api\ReadLayoutComponentConfigBasicFactory;
 use Zrcms\ContentCore\Theme\Api\ReadLayoutComponentConfigJsonFile;
 use Zrcms\ContentCore\Theme\Api\ReadThemeComponentConfig;
 use Zrcms\ContentCore\Theme\Api\ReadThemeComponentConfigBasic;
-use Zrcms\ContentCore\Theme\Api\ReadThemeComponentConfigBasicFactory;
 use Zrcms\ContentCore\Theme\Api\ReadThemeComponentConfigJsonFile;
 use Zrcms\ContentCore\Theme\Api\Render\GetLayoutRenderData;
 use Zrcms\ContentCore\Theme\Api\Render\GetLayoutRenderDataBasic;
-use Zrcms\ContentCore\Theme\Api\Render\GetLayoutRenderDataBasicFactory;
 use Zrcms\ContentCore\Theme\Api\Render\GetLayoutRenderDataNoop;
 use Zrcms\ContentCore\Theme\Api\Render\RenderLayout;
 use Zrcms\ContentCore\Theme\Api\Render\RenderLayoutBasic;
-use Zrcms\ContentCore\Theme\Api\Render\RenderLayoutBasicFactory;
 use Zrcms\ContentCore\Theme\Api\Render\RenderLayoutMustache;
 use Zrcms\ContentCore\Theme\Api\Repository\FindLayoutCmsResource;
 use Zrcms\ContentCore\Theme\Api\Repository\FindLayoutCmsResourceByThemeNameLayoutName;
@@ -98,6 +90,7 @@ use Zrcms\ContentCore\Theme\Api\Repository\FindLayoutVersionsBy;
 use Zrcms\ContentCore\Theme\Api\Repository\FindThemeComponent;
 use Zrcms\ContentCore\Theme\Api\Repository\FindThemeComponentsBy;
 use Zrcms\ContentCore\Theme\Api\Repository\InsertLayoutVersion;
+use Zrcms\ContentCore\Theme\Model\ServiceAliasLayout;
 use Zrcms\ContentCore\Theme\Model\ServiceAliasTheme;
 use Zrcms\ContentCore\View\Api\GetLayoutName;
 use Zrcms\ContentCore\View\Api\GetLayoutNameBasic;
@@ -110,7 +103,6 @@ use Zrcms\ContentCore\View\Api\Render\RenderViewBasic;
 use Zrcms\ContentCore\View\Api\Render\RenderViewLayout;
 use Zrcms\ContentCore\View\Api\Repository\FindTagNamesByLayout;
 use Zrcms\ContentCore\View\Api\Repository\FindTagNamesByLayoutBasic;
-use Zrcms\ContentCore\View\Api\Repository\FindTagNamesByLayoutBasicFactory;
 use Zrcms\ContentCore\View\Api\Repository\FindTagNamesByLayoutMustache;
 use Zrcms\ContentCore\View\Api\Repository\FindViewByRequest;
 use Zrcms\ContentCore\View\Api\Repository\FindViewByRequestBasic;
@@ -203,6 +195,12 @@ class ModuleConfig
                     ],
                     PrepareBlockConfig::class => [
                         'class' => PrepareBlockConfigBc::class,
+                        'arguments' => [
+                            '0-' => GetBlockConfigFields::class,
+                            '1-' => GetBlockConfigFieldsBcSubstitution::class,
+                        ],
+                    ],
+                    PrepareBlockConfigBc::class => [
                         'arguments' => [
                             '0-' => GetBlockConfigFields::class,
                             '1-' => GetBlockConfigFieldsBcSubstitution::class,
@@ -601,7 +599,7 @@ class ModuleConfig
                     ],
 
                     /**
-                     * View ===========================================
+                     * ViewRenderDataGetter ===========================================
                      */
                     FindViewRenderDataGetterComponent::class => [
                         'class' => ApiNoop::class,
@@ -632,22 +630,75 @@ class ModuleConfig
             'zrcms' => [
             ],
             'zrcms-service-alias' => [
-                // Block
+                /**
+                 * Block ===========================================
+                 */
                 ServiceAliasBlock::NAMESPACE_CONTENT_RENDERER => [
                     'mustache' => RenderBlockMustache::class,
-                    'mustache' => RenderBlockMustache::class,
                 ],
-                // Theme
-                ServiceAliasTheme::TYPE => [
+                ServiceAliasBlock::NAMESPACE_CONTENT_DATA_PROVIDER => [
+                    'noop' => GetBlockDataNoop::class,
+                ],
+                ServiceAliasBlock::NAMESPACE_COMPONENT_CONFIG_READER => [
+                    'bc' => ReadBlockComponentConfigBc::class,
+                    'json' => ReadBlockComponentConfigJsonFile::class,
+                ],
 
+                /**
+                 * Container ===========================================
+                 */
+                ServiceAliasContainer::NAMESPACE_CONTENT_RENDER_DATA_GETTER => [
+                    'blocks' => GetContainerRenderDataBlocks::class,
                 ],
+                ServiceAliasContainer::NAMESPACE_CONTENT_RENDERER => [
+                    'rows' => RenderContainerRows::class,
+                ],
+
+                /**
+                 * Page ===========================================
+                 */
+                ServiceAliasPageContainer::NAMESPACE_CONTENT_RENDER_DATA_GETTER => [
+                    'blocks' => GetPageContainerRenderDataBlocks::class,
+                    'html' => GetPageContainerRenderDataHtml::class,
+                ],
+                ServiceAliasPageContainer::NAMESPACE_CONTENT_RENDERER => [
+                    'rows' => RenderPageContainerRows::class,
+                ],
+
+                /**
+                 * Theme ===========================================
+                 */
+                ServiceAliasTheme::NAMESPACE_COMPONENT_CONFIG_READER => [
+                    'json' => ReadThemeComponentConfigJsonFile::class,
+                ],
+                // layout
+                ServiceAliasLayout::NAMESPACE_COMPONENT_CONFIG_READER => [
+                    'json' => ReadLayoutComponentConfigJsonFile::class,
+                ],
+                ServiceAliasLayout::NAMESPACE_CONTENT_RENDER_DATA_GETTER => [
+                    'noop' => GetLayoutRenderDataNoop::class,
+                ],
+                ServiceAliasLayout::NAMESPACE_CONTENT_RENDERER => [
+                    'mustache' => RenderLayoutMustache::class
+                ],
+                /**
+                 * View ===========================================
+                 */
                 ServiceAliasView::NAMESPACE_CONTENT_RENDER_DATA_GETTER => [
                     GetViewRenderDataContainers::SERVICE_ALIAS => GetViewRenderDataContainers::class,
                     GetViewRenderDataPage::SERVICE_ALIAS => GetViewRenderDataPage::class,
                 ],
-                // ViewRenderDataGetter
-                ServiceAliasViewRenderDataGetter::TYPE => [
-
+                ServiceAliasView::NAMESPACE_CONTENT_RENDERER => [
+                    'layout' => RenderViewLayout::class,
+                ],
+                ServiceAliasView::NAMESPACE_LAYOUT_TAG_NAME_PARSER => [
+                    'mustache' => FindTagNamesByLayoutMustache::class
+                ],
+                /**
+                 * ViewRenderDataGetter ===========================================
+                 */
+                ServiceAliasViewRenderDataGetter::NAMESPACE_COMPONENT_VIEW_RENDER_DATA_GETTER => [
+                    // not used just yet
                 ],
             ],
         ];

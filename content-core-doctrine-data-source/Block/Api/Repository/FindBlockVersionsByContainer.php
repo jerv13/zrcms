@@ -46,6 +46,8 @@ class FindBlockVersionsByContainer
             $container->getId()
         );
 
+        ddd($entity);
+
         return $entity->getBlockVersions();
     }
 }

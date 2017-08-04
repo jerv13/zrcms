@@ -101,11 +101,15 @@ class GetViewRenderDataBasic implements GetViewRenderData
                 $options
             );
 
+
+
             $allViewRenderData = array_merge(
                 $allViewRenderData,
                 $viewRenderData
             );
         }
+
+        var_dump($allViewRenderData);
 
         return $allViewRenderData;
     }
