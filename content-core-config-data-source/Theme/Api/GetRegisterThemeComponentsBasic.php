@@ -3,18 +3,19 @@
 namespace Zrcms\ContentCoreConfigDataSource\Theme\Api;
 
 use Zrcms\Cache\Service\Cache;
+use Zrcms\Content\Api\GetRegisterComponentsAbstract;
 use Zrcms\Content\Exception\PropertyMissingException;
+use Zrcms\Content\Model\ComponentConfigFields;
 use Zrcms\Content\Model\Trackable;
-use Zrcms\ContentCore\Theme\Api\ReadLayoutComponentConfig;
-use Zrcms\ContentCore\Theme\Api\ReadThemeComponentConfig;
+use Zrcms\ContentCore\Theme\Api\GetRegisterThemeComponents;
+use Zrcms\ContentCore\Theme\Api\Repository\ReadLayoutComponentConfig;
 use Zrcms\ContentCore\Theme\Model\LayoutComponentBasic;
+use Zrcms\ContentCore\Theme\Model\LayoutComponentConfigFields;
 use Zrcms\ContentCore\Theme\Model\PropertiesLayoutComponent;
 use Zrcms\ContentCore\Theme\Model\PropertiesThemeComponent;
 use Zrcms\ContentCore\Theme\Model\ThemeComponentBasic;
-use Zrcms\ContentCoreConfigDataSource\Content\Api\GetRegisterComponentsAbstract;
-use Zrcms\Content\Model\ComponentConfigFields;
-use Zrcms\ContentCore\Theme\Model\LayoutComponentConfigFields;
 use Zrcms\ContentCore\Theme\Model\ThemeComponentConfigFields;
+use Zrcms\ContentCoreConfigDataSource\Theme\Api\Repository\ReadThemeComponentRegistryBasic;
 use Zrcms\ContentCoreConfigDataSource\Theme\Model\ThemeComponentRegistryFields;
 use Zrcms\Param\Param;
 
@@ -33,31 +34,34 @@ class GetRegisterThemeComponentsBasic
     protected $readLayoutComponentConfig;
 
     /**
-     * @param array                     $registryConfig
-     * @param ReadThemeComponentConfig  $readComponentConfig
-     * @param ReadLayoutComponentConfig $readLayoutComponentConfig
-     * @param Cache                     $cache
-     * @param string                    $componentClass
-     * @param string                    $cacheKey
+     * @param ReadThemeComponentRegistryBasic $readComponentRegistry
+     * @param ReadLayoutComponentConfig       $readLayoutComponentConfig
+     * @param Cache                           $cache
+     * @param string                          $componentClass
+     * @param string                          $cacheKey
      */
     public function __construct(
-        array $registryConfig,
-        ReadThemeComponentConfig $readComponentConfig,
+        ReadThemeComponentRegistryBasic $readComponentRegistry,
         ReadLayoutComponentConfig $readLayoutComponentConfig,
         Cache $cache,
         string $componentClass = ThemeComponentBasic::class,
         string $cacheKey = self::CACHE_KEY
     ) {
         $this->readLayoutComponentConfig = $readLayoutComponentConfig;
+
         parent::__construct(
-            $registryConfig,
-            $readComponentConfig,
+            $readComponentRegistry,
             $cache,
             $componentClass,
             $cacheKey
         );
     }
 
+    /**
+     * @param array $options
+     *
+     * @return array
+     */
     public function __invoke(
         array $options = []
     ): array
@@ -66,6 +70,8 @@ class GetRegisterThemeComponentsBasic
     }
 
     /**
+     * @todo This should be in the ReadLayoutComponentRegistry
+     *
      * @param array $themeComponentConfig
      *
      * @return array
@@ -91,7 +97,7 @@ class GetRegisterThemeComponentsBasic
 
         $layoutComponentConfigs = [];
 
-        // @todo We should use a GetRegisterComponents for layout so it is supports the same formats
+        // @todo We should use a ReadLayoutComponentRegistry for layout so it is supports the same formats
         foreach ($layoutConfigLocations as $layoutName => $layoutConfigLocation) {
 
             // Add theme location to layout location

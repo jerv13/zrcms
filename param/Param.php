@@ -10,6 +10,8 @@ use Zrcms\Param\Exception\ParamMissingException;
  */
 class Param
 {
+    public static $debug = true;
+
     /**
      * @param array  $params
      * @param string $key
@@ -256,23 +258,25 @@ class Param
             return;
         }
 
-        if (is_a($exception, \Exception::class)) {
-            throw $exception;
+        if (is_a($exception, \Throwable::class)) {
+            self::throwError($exception);
         }
 
-        throw new ParamMissingException(
-            "Required property ({$key}) is missing and is required"
+        self::throwError(
+            new ParamMissingException(
+                "Required property ({$key}) is missing and is required"
+            )
         );
     }
 
     /**
-     * @param array           $params
-     * @param string          $key
-     * @param \Exception|null $exception
+     * @param array  $params
+     * @param string $key
+     * @param null   $exception
      *
      * @return void
-     * @throws ParamMissingException
-     * @throws \Exception
+     * @throws IllegalParamException
+     * @throws \Throwable
      */
     public static function assertNotHas(
         array $params,
@@ -283,12 +287,29 @@ class Param
             return;
         }
 
-        if ($exception instanceof \Exception) {
-            throw $exception;
+        if (is_a($exception, \Throwable::class)) {
+            self::throwError($exception);
         }
 
-        throw new IllegalParamException(
-            "Illegal property ({$key}) is was found"
+        self::throwError(
+            new IllegalParamException(
+                "Illegal property ({$key}) is was found"
+            )
         );
+    }
+
+    /**
+     * @param \Throwable $error
+     *
+     * @return void
+     * @throws \Throwable
+     */
+    public static function throwError(\Throwable $error)
+    {
+        if (self::$debug) {
+            ddd($error);
+        }
+
+        throw $error;
     }
 }

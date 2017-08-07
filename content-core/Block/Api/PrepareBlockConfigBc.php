@@ -5,6 +5,7 @@ namespace Zrcms\ContentCore\Block\Api;
 use Zrcms\ContentCore\Block\Model\BlockComponentConfigFields;
 
 /**
+ * @deprecated BC only
  * @author James Jervis - https://github.com/jerv13
  */
 class PrepareBlockConfigBc implements PrepareBlockConfig
@@ -39,7 +40,7 @@ class PrepareBlockConfigBc implements PrepareBlockConfig
     public function __invoke(array $blockConfig): array
     {
         $blockConfigFields = $this->getBlockConfigFields->__invoke();
-        $blockConfigFieldsBcSubstitution = $this->getBlockConfigFields->__invoke();
+        $blockConfigFieldsBcSubstitution = $this->getBlockConfigFieldsBcSubstitution->__invoke();
 
         $blockConfigBc = [];
 

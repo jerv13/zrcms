@@ -8,11 +8,11 @@ use Zrcms\ContentCore\Block\Api\GetMergedConfig;
 use Zrcms\ContentCore\Block\Api\GetMergedConfigBasic;
 use Zrcms\ContentCore\Block\Api\PrepareBlockConfig;
 use Zrcms\ContentCore\Block\Api\PrepareBlockConfigBc;
-use Zrcms\ContentCore\Block\Api\ReadBlockComponentConfig;
-use Zrcms\ContentCore\Block\Api\ReadBlockComponentConfigBasic;
-use Zrcms\ContentCore\Block\Api\ReadBlockComponentConfigBc;
-use Zrcms\ContentCore\Block\Api\ReadBlockComponentConfigBcFactory;
-use Zrcms\ContentCore\Block\Api\ReadBlockComponentConfigJsonFile;
+use Zrcms\ContentCore\Block\Api\Repository\ReadBlockComponentConfig;
+use Zrcms\ContentCore\Block\Api\Repository\ReadBlockComponentConfigBasic;
+use Zrcms\ContentCore\Block\Api\Repository\ReadBlockComponentConfigBc;
+use Zrcms\ContentCore\Block\Api\Repository\ReadBlockComponentConfigBcFactory;
+use Zrcms\ContentCore\Block\Api\Repository\ReadBlockComponentConfigJsonFile;
 use Zrcms\ContentCore\Block\Api\Render\GetBlockRenderData;
 use Zrcms\ContentCore\Block\Api\Render\GetBlockRenderDataBasic;
 use Zrcms\ContentCore\Block\Api\Render\RenderBlock;
@@ -70,12 +70,12 @@ use Zrcms\ContentCore\Site\Api\Repository\FindSiteCmsResourcesBy;
 use Zrcms\ContentCore\Site\Api\Repository\FindSiteVersion;
 use Zrcms\ContentCore\Site\Api\Repository\FindSiteVersionsBy;
 use Zrcms\ContentCore\Site\Api\Repository\InsertSiteVersion;
-use Zrcms\ContentCore\Theme\Api\ReadLayoutComponentConfig;
-use Zrcms\ContentCore\Theme\Api\ReadLayoutComponentConfigBasic;
-use Zrcms\ContentCore\Theme\Api\ReadLayoutComponentConfigJsonFile;
-use Zrcms\ContentCore\Theme\Api\ReadThemeComponentConfig;
-use Zrcms\ContentCore\Theme\Api\ReadThemeComponentConfigBasic;
-use Zrcms\ContentCore\Theme\Api\ReadThemeComponentConfigJsonFile;
+use Zrcms\ContentCore\Theme\Api\Repository\ReadLayoutComponentConfig;
+use Zrcms\ContentCore\Theme\Api\Repository\ReadLayoutComponentConfigBasic;
+use Zrcms\ContentCore\Theme\Api\Repository\ReadLayoutComponentConfigJsonFile;
+use Zrcms\ContentCore\Theme\Api\Repository\ReadThemeComponentConfig;
+use Zrcms\ContentCore\Theme\Api\Repository\ReadThemeComponentConfigBasic;
+use Zrcms\ContentCore\Theme\Api\Repository\ReadThemeComponentConfigJsonFile;
 use Zrcms\ContentCore\Theme\Api\Render\GetLayoutRenderData;
 use Zrcms\ContentCore\Theme\Api\Render\GetLayoutRenderDataBasic;
 use Zrcms\ContentCore\Theme\Api\Render\GetLayoutRenderDataNoop;
@@ -107,11 +107,11 @@ use Zrcms\ContentCore\View\Api\Repository\FindTagNamesByLayoutMustache;
 use Zrcms\ContentCore\View\Api\Repository\FindViewByRequest;
 use Zrcms\ContentCore\View\Api\Repository\FindViewByRequestBasic;
 use Zrcms\ContentCore\View\Model\ServiceAliasView;
-use Zrcms\ContentCore\ViewRenderDataGetter\Api\ReadViewRenderDataGetterComponentConfig;
-use Zrcms\ContentCore\ViewRenderDataGetter\Api\ReadViewRenderDataGetterComponentConfigApplicationConfig;
-use Zrcms\ContentCore\ViewRenderDataGetter\Api\ReadViewRenderDataGetterComponentConfigApplicationConfigFactory;
-use Zrcms\ContentCore\ViewRenderDataGetter\Api\ReadViewRenderDataGetterComponentConfigBasic;
-use Zrcms\ContentCore\ViewRenderDataGetter\Api\ReadViewRenderDataGetterComponentConfigJsonFile;
+use Zrcms\ContentCore\ViewRenderDataGetter\Api\Repository\ReadViewRenderDataGetterComponentConfig;
+use Zrcms\ContentCore\ViewRenderDataGetter\Api\Repository\ReadViewRenderDataGetterComponentConfigApplicationConfig;
+use Zrcms\ContentCore\ViewRenderDataGetter\Api\Repository\ReadViewRenderDataGetterComponentConfigApplicationConfigFactory;
+use Zrcms\ContentCore\ViewRenderDataGetter\Api\Repository\ReadViewRenderDataGetterComponentConfigBasic;
+use Zrcms\ContentCore\ViewRenderDataGetter\Api\Repository\ReadViewRenderDataGetterComponentConfigJsonFile;
 use Zrcms\ContentCore\ViewRenderDataGetter\Api\Repository\FindViewRenderDataGetterComponent;
 use Zrcms\ContentCore\ViewRenderDataGetter\Api\Repository\FindViewRenderDataGetterComponentsBy;
 use Zrcms\ContentCore\ViewRenderDataGetter\Model\ServiceAliasViewRenderDataGetter;
@@ -629,21 +629,23 @@ class ModuleConfig
             ],
             'zrcms' => [
             ],
+            /**
+             * Block ===========================================
+             */
             'zrcms-service-alias' => [
                 /**
                  * Block ===========================================
                  */
+                ServiceAliasBlock::NAMESPACE_COMPONENT_CONFIG_READER => [
+                    ReadBlockComponentConfigBc::SERVICE_ALIAS => ReadBlockComponentConfigBc::class,
+                    ReadBlockComponentConfigJsonFile::SERVICE_ALIAS => ReadBlockComponentConfigJsonFile::class,
+                ],
                 ServiceAliasBlock::NAMESPACE_CONTENT_RENDERER => [
                     'mustache' => RenderBlockMustache::class,
                 ],
                 ServiceAliasBlock::NAMESPACE_CONTENT_DATA_PROVIDER => [
                     'noop' => GetBlockDataNoop::class,
                 ],
-                ServiceAliasBlock::NAMESPACE_COMPONENT_CONFIG_READER => [
-                    'bc' => ReadBlockComponentConfigBc::class,
-                    'json' => ReadBlockComponentConfigJsonFile::class,
-                ],
-
                 /**
                  * Container ===========================================
                  */
@@ -697,8 +699,11 @@ class ModuleConfig
                 /**
                  * ViewRenderDataGetter ===========================================
                  */
+                ServiceAliasViewRenderDataGetter::NAMESPACE_COMPONENT_CONFIG_READER => [
+                    'json' => ReadViewRenderDataGetterComponentConfigJsonFile::class,
+                ],
                 ServiceAliasViewRenderDataGetter::NAMESPACE_COMPONENT_VIEW_RENDER_DATA_GETTER => [
-                    // not used just yet
+                    // not used just yet, using ServiceAliasView::NAMESPACE_CONTENT_RENDER_DATA_GETTER
                 ],
             ],
         ];

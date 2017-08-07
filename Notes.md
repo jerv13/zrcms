@@ -82,3 +82,77 @@ ENV="local" bin/console orm:schema-tool:update --force
     - NS ViewRenderDataGetter -> LayoutTags
     - VIEW_RENDER_DATA_GETTER -> RENDER_TAGS_GETTER
     - view-render-data-getter -> layout-tags-getter
+
+- Refactor GetRegisterThemeComponentsBasic to use same interfaces as the rest
+
+    /**
+     * @param array $registryConfig
+     *
+     * @return array
+     * @throws \Exception
+     */
+    protected function readConfigs(array $registryConfig)
+    {
+        $componentConfigs = [];
+
+        foreach ($registryConfig as $componentNameOptional => $configLocation) {
+
+            $componentOptions = [];
+            $componentName = $componentNameOptional;
+
+            $readComponentConfig = $this->readComponentConfig;
+
+            if (is_array($configLocation)) {
+                $componentOptions = $configLocation;
+                $configLocation = Param::getRequired(
+                    $componentOptions,
+                    ComponentRegistryFields::CONFIG_LOCATION,
+                    new \Exception(
+                        'Component location is required for: ' . json_encode($configLocation)
+                        . ' in ' . $this->componentClass
+                    )
+                );
+
+
+                $readComponentConfig = Param::get(
+                    $componentOptions,
+                    ComponentRegistryFields::COMPONENT_CONFIG_READER,
+                    $this->defaultComponentConfReaderServiceAlias
+                );
+
+                // @todo readComponentConfig injection here
+
+                $componentName = Param::get(
+                    $componentOptions,
+                    ComponentRegistryFields::NAME,
+                    $componentNameOptional
+                );
+            }
+
+            $componentConfig = $this->readComponentConfig->__invoke(
+                $configLocation,
+                $componentOptions
+            );
+
+            if (!is_string($componentName)) {
+                new \Exception(
+                    'Component ' . ComponentConfigFields::NAME . ' is required and must be string for: '
+                    . json_encode($componentConfig)
+                    . ' in ' . $this->componentClass
+                );
+            }
+
+            Param::assertNotHas(
+                $componentConfig,
+                $componentName,
+                new \Exception(
+                    'Duplicate component name configured: ' . $componentName
+                    . ' for ' . $this->componentClass
+                )
+            );
+
+            $componentConfigs[$componentName] = $componentConfig;
+        }
+
+        return $componentConfigs;
+    }

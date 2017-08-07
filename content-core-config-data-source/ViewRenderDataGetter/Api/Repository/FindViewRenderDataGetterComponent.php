@@ -4,7 +4,7 @@ namespace Zrcms\ContentCoreConfigDataSource\ViewRenderDataGetter\Api\Repository;
 
 use Zrcms\Content\Model\Component;
 use Zrcms\ContentCore\ViewRenderDataGetter\Model\ViewRenderDataGetterComponent;
-use Zrcms\ContentCoreConfigDataSource\Content\Api\GetRegisterComponents;
+use Zrcms\Content\Api\GetRegisterComponents;
 use Zrcms\ContentCoreConfigDataSource\Content\Api\Repository\FindComponentAbstract;
 use Zrcms\ContentCoreConfigDataSource\Content\Api\SearchConfigList;
 

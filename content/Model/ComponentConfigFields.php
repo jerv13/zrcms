@@ -16,10 +16,18 @@ class ComponentConfigFields
      *
      * @var array
      */
-    protected $properties
+    protected $fields
         = [
             self::NAME => '',
             self::CREATED_BY_USER_ID => '',
             self::CREATED_REASON => '',
         ];
+
+    /**
+     * @return array
+     */
+    public function getFields()
+    {
+        return $this->fields;
+    }
 }

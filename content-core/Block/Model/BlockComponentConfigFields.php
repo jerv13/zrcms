@@ -3,6 +3,7 @@
 namespace Zrcms\ContentCore\Block\Model;
 
 use Zrcms\Content\Model\ComponentConfigFields;
+use Zrcms\Content\Model\Trackable;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -18,17 +19,19 @@ class BlockComponentConfigFields extends ComponentConfigFields
     const CATEGORY = PropertiesBlockComponent::CATEGORY;
     const LABEL = PropertiesBlockComponent::LABEL;
     const DESCRIPTION = PropertiesBlockComponent::DESCRIPTION;
+    const CONFIG_LOCATION = PropertiesBlockComponent::CONFIG_LOCATION;
+    const COMPONENT_CONFIG_READER = PropertiesBlockComponent::COMPONENT_CONFIG_READER;
 
     /**
      * Default values
      *
      * @var array
      */
-    protected $properties
+    protected $fields
         = [
             self::NAME => '',
-            self::CREATED_BY_USER_ID => '',
-            self::CREATED_REASON => '',
+            self::CREATED_BY_USER_ID => Trackable::UNKNOWN_USER_ID,
+            self::CREATED_REASON => Trackable::UNKNOWN_REASON,
 
             self::DEFAULT_CONFIG => [],
             self::CACHEABLE => false,
@@ -39,5 +42,7 @@ class BlockComponentConfigFields extends ComponentConfigFields
             self::CATEGORY => '',
             self::LABEL => '',
             self::DESCRIPTION => '',
+            self::CONFIG_LOCATION => '',
+            self::COMPONENT_CONFIG_READER => '',
         ];
 }

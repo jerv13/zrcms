@@ -19,7 +19,7 @@ class LayoutComponentConfigFields extends ComponentConfigFields
      *
      * @var array
      */
-    protected $properties
+    protected $fields
         = [
             self::NAME => '',
             self::CREATED_BY_USER_ID => '',

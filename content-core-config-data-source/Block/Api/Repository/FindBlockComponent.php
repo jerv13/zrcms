@@ -4,7 +4,7 @@ namespace Zrcms\ContentCoreConfigDataSource\Block\Api\Repository;
 
 use Zrcms\Content\Model\Component;
 use Zrcms\ContentCore\Block\Model\BlockComponent;
-use Zrcms\ContentCoreConfigDataSource\Content\Api\GetRegisterComponents;
+use Zrcms\Content\Api\GetRegisterComponents;
 use Zrcms\ContentCoreConfigDataSource\Content\Api\Repository\FindComponentAbstract;
 use Zrcms\ContentCoreConfigDataSource\Content\Api\SearchConfigList;
 

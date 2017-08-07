@@ -3,9 +3,10 @@
 namespace Zrcms\ContentCoreConfigDataSource\ViewRenderDataGetter\Api;
 
 use Zrcms\Cache\Service\Cache;
-use Zrcms\ContentCore\ViewRenderDataGetter\Api\ReadViewRenderDataGetterComponentConfig;
+use Zrcms\Content\Api\GetRegisterComponentsAbstract;
+use Zrcms\ContentCore\ViewRenderDataGetter\Api\GetRegisterViewRenderDataGetterComponents;
 use Zrcms\ContentCore\ViewRenderDataGetter\Model\ViewRenderDataGetterComponentBasic;
-use Zrcms\ContentCoreConfigDataSource\Content\Api\GetRegisterComponentsAbstract;
+use Zrcms\ContentCoreConfigDataSource\ViewRenderDataGetter\Api\Repository\ReadViewRenderDataGetterComponentRegistryBasic;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -17,22 +18,19 @@ class GetRegisterViewRenderDataGetterComponentsBasic
     const CACHE_KEY = 'ZrcmsViewRenderDataGetterComponentConfigBasic';
 
     /**
-     * @param array                                   $registryConfig
-     * @param ReadViewRenderDataGetterComponentConfig $readComponentConfig
-     * @param Cache                                   $cache
-     * @param string                                  $componentClass
-     * @param string                                  $cacheKey
+     * @param ReadViewRenderDataGetterComponentRegistryBasic $readComponentRegistry
+     * @param Cache                                          $cache
+     * @param string                                         $componentClass
+     * @param string                                         $cacheKey
      */
     public function __construct(
-        array $registryConfig,
-        ReadViewRenderDataGetterComponentConfig $readComponentConfig,
+        ReadViewRenderDataGetterComponentRegistryBasic $readComponentRegistry,
         Cache $cache,
         string $componentClass = ViewRenderDataGetterComponentBasic::class,
         string $cacheKey = self::CACHE_KEY
     ) {
         parent::__construct(
-            $registryConfig,
-            $readComponentConfig,
+            $readComponentRegistry,
             $cache,
             $componentClass,
             $cacheKey

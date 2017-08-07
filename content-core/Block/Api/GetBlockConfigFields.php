@@ -34,6 +34,8 @@ class GetBlockConfigFields
      */
     public function __invoke()
     {
-        return $this->fields;
+        $blockComponentConfigFields = new BlockComponentConfigFields();
+
+        return $blockComponentConfigFields->getFields();
     }
 }

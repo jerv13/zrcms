@@ -3,7 +3,7 @@
 namespace Zrcms\ContentCoreConfigDataSource\Content\Api\Repository;
 
 use Zrcms\Content\Model\Component;
-use Zrcms\ContentCoreConfigDataSource\Content\Api\GetRegisterComponents;
+use Zrcms\Content\Api\GetRegisterComponents;
 use Zrcms\ContentCoreConfigDataSource\Content\Api\SearchConfigList;
 use Zrcms\Content\Model\ComponentConfigFields;
 

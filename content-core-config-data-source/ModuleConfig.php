@@ -2,20 +2,23 @@
 
 namespace Zrcms\ContentCoreConfigDataSource;
 
+use Zrcms\Cache\Service\Cache;
+use Zrcms\ContentCore\Block\Api\PrepareBlockConfigBc;
 use Zrcms\ContentCore\Block\Api\Repository\FindBlockComponent;
 use Zrcms\ContentCore\Block\Api\Repository\FindBlockComponentsBy;
+use Zrcms\ContentCore\Block\Api\Repository\ReadBlockComponentRegistry;
+use Zrcms\ContentCore\Theme\Api\Repository\ReadLayoutComponentConfigJsonFile;
 use Zrcms\ContentCore\Theme\Api\Repository\FindThemeComponent;
 use Zrcms\ContentCore\Theme\Api\Repository\FindThemeComponentsBy;
+use Zrcms\ContentCore\Theme\Api\Repository\ReadThemeComponentRegistry;
 use Zrcms\ContentCore\ViewRenderDataGetter\Api\Repository\FindViewRenderDataGetterComponent;
 use Zrcms\ContentCore\ViewRenderDataGetter\Api\Repository\FindViewRenderDataGetterComponentsBy;
+use Zrcms\ContentCore\ViewRenderDataGetter\Api\Repository\ReadViewRenderDataGetterComponentRegistry;
 use Zrcms\ContentCoreConfigDataSource as This;
-use Zrcms\ContentCoreConfigDataSource\Block\Api\GetRegisterBlockComponents;
-use Zrcms\ContentCoreConfigDataSource\Block\Api\GetRegisterBlockComponentsBcFactory;
+use Zrcms\ContentCore\Block\Api\GetRegisterBlockComponents;
 use Zrcms\ContentCoreConfigDataSource\Content\Api\SearchConfigList;
-use Zrcms\ContentCoreConfigDataSource\Theme\Api\GetRegisterThemeComponents;
-use Zrcms\ContentCoreConfigDataSource\Theme\Api\GetRegisterThemeComponentsBasicFactory;
-use Zrcms\ContentCoreConfigDataSource\ViewRenderDataGetter\Api\GetRegisterViewRenderDataGetterComponents;
-use Zrcms\ContentCoreConfigDataSource\ViewRenderDataGetter\Api\GetRegisterViewRenderDataGetterComponentsBasicFactory;
+use Zrcms\ContentCore\Theme\Api\GetRegisterThemeComponents;
+use Zrcms\ContentCore\ViewRenderDataGetter\Api\GetRegisterViewRenderDataGetterComponents;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -49,8 +52,17 @@ class ModuleConfig
                             '1-' => SearchConfigList::class,
                         ],
                     ],
+                    ReadBlockComponentRegistry::class => [
+                        // @BC 'factory' => This\Block\Api\Repository\ReadBlockComponentRegistryBasicFactory::class,
+                        'factory' => This\Block\Api\Repository\ReadBlockComponentRegistryBcFactory::class,
+                    ],
                     GetRegisterBlockComponents::class => [
-                        'factory' => GetRegisterBlockComponentsBcFactory::class,
+                        'class' => This\Block\Api\GetRegisterBlockComponentsBasic::class,
+                        'arguments' => [
+                            '0-' => PrepareBlockConfigBc::class,
+                            '1-' => ReadBlockComponentRegistry::class,
+                            '2-' => Cache::class,
+                        ],
                     ],
 
                     /**
@@ -77,8 +89,16 @@ class ModuleConfig
                             '1-' => SearchConfigList::class
                         ],
                     ],
+                    ReadThemeComponentRegistry::class => [
+                        'factory' => This\Theme\Api\Repository\ReadThemeComponentRegistryBasicFactory::class,
+                    ],
                     GetRegisterThemeComponents::class => [
-                        'factory' => GetRegisterThemeComponentsBasicFactory::class,
+                        'class' => This\Theme\Api\GetRegisterThemeComponentsBasic::class,
+                        'arguments' => [
+                            '0-' => ReadThemeComponentRegistry::class,
+                            '1-' => ReadLayoutComponentConfigJsonFile::class,
+                            '2-' => Cache::class
+                        ],
                     ],
 
                     /**
@@ -98,8 +118,16 @@ class ModuleConfig
                             '1-' => SearchConfigList::class
                         ],
                     ],
+                    ReadViewRenderDataGetterComponentRegistry::class => [
+                        'factory'
+                        => This\ViewRenderDataGetter\Api\Repository\ReadViewRenderDataGetterComponentRegistryBasicFactory::class,
+                    ],
                     GetRegisterViewRenderDataGetterComponents::class => [
-                        'factory' => GetRegisterViewRenderDataGetterComponentsBasicFactory::class,
+                        'class' => This\ViewRenderDataGetter\Api\GetRegisterViewRenderDataGetterComponentsBasic::class,
+                        'arguments' => [
+                            '0-' => ReadViewRenderDataGetterComponentRegistry::class,
+                            '1-' => Cache::class
+                        ],
                     ],
                 ],
             ],

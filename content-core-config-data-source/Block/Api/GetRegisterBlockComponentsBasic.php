@@ -3,9 +3,11 @@
 namespace Zrcms\ContentCoreConfigDataSource\Block\Api;
 
 use Zrcms\Cache\Service\Cache;
-use Zrcms\ContentCore\Block\Api\ReadBlockComponentConfig;
+use Zrcms\Content\Api\GetRegisterComponentsAbstract;
+use Zrcms\ContentCore\Block\Api\GetRegisterBlockComponents;
+use Zrcms\ContentCore\Block\Api\PrepareBlockConfigBc;
+use Zrcms\ContentCore\Block\Api\Repository\ReadBlockComponentRegistry;
 use Zrcms\ContentCore\Block\Model\BlockComponentBasic;
-use Zrcms\ContentCoreConfigDataSource\Content\Api\GetRegisterComponentsAbstract;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -17,25 +19,48 @@ class GetRegisterBlockComponentsBasic
     const CACHE_KEY = 'ZrcmsBlockComponentConfigBasic';
 
     /**
-     * @param array                    $registryConfig
-     * @param ReadBlockComponentConfig $readComponentConfig
-     * @param Cache                    $cache
-     * @param string                   $componentClass
-     * @param string                   $cacheKey
+     * @var PrepareBlockConfigBc
+     */
+    protected $prepareBlockConfig;
+
+    /**
+     * @param PrepareBlockConfigBc       $prepareBlockConfig
+     * @param ReadBlockComponentRegistry $readComponentRegistry
+     * @param Cache                      $cache
+     * @param string                     $componentClass
+     * @param string                     $cacheKey
      */
     public function __construct(
-        array $registryConfig,
-        ReadBlockComponentConfig $readComponentConfig,
+        PrepareBlockConfigBc $prepareBlockConfig,
+        ReadBlockComponentRegistry $readComponentRegistry,
         Cache $cache,
         string $componentClass = BlockComponentBasic::class,
         string $cacheKey = self::CACHE_KEY
     ) {
+        $this->prepareBlockConfig = $prepareBlockConfig;
+
         parent::__construct(
-            $registryConfig,
-            $readComponentConfig,
+            $readComponentRegistry,
             $cache,
             $componentClass,
             $cacheKey
         );
+    }
+
+    public function __invoke(
+        array $options = []
+    ): array
+    {
+        return parent::__invoke($options);
+    }
+
+    /**
+     * @param array $componentConfig
+     *
+     * @return array
+     */
+    public function prepareConfig(array $componentConfig): array
+    {
+        return $this->prepareBlockConfig->__invoke($componentConfig);
     }
 }
