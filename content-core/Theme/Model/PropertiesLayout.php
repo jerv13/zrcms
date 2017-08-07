@@ -13,7 +13,7 @@ class PropertiesLayout extends PropertiesContent
     const NAME = 'name';
 
     const RENDERER = 'renderer';
-    const RENDER_DATA_GETTER = 'renderDataGetter';
+    const RENDER_TAGS_GETTER = 'renderTagsGetter';
     const RENDER_TAG_NAME_PARSER = 'renderTagNameParser';
     const HTML = 'html';
 
@@ -27,7 +27,7 @@ class PropertiesLayout extends PropertiesContent
             self::ID => '',
             self::THEME_NAME => '',
             self::RENDERER => '',
-            self::RENDER_DATA_GETTER => '',
+            self::RENDER_TAGS_GETTER => '',
             self::RENDER_TAG_NAME_PARSER => '',
             self::HTML => '',
         ];

@@ -18,7 +18,7 @@ class PropertiesPageContainerVersion
     protected $properties
         = [
             PropertiesContainerVersion::ID => '',
-            self::RENDER_DATA_GETTER => '',
+            self::RENDER_TAGS_GETTER => '',
             self::RENDERER => '',
             self::TITLE => '',
             self::DESCRIPTION => '',

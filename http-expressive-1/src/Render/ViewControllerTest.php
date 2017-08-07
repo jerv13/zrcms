@@ -8,7 +8,7 @@ use Psr\Http\Message\ServerRequestInterface;
 use Zend\Diactoros\Response\HtmlResponse;
 use Zend\Diactoros\Response\JsonResponse;
 use Zrcms\Content\Api\CsmResourceToArray;
-use Zrcms\ContentCore\Page\Api\Render\GetPageContainerRenderDataHtml;
+use Zrcms\ContentCore\Page\Api\Render\GetPageContainerRenderTagsHtml;
 use Zrcms\ContentCore\Page\Api\Render\RenderPageContainerRows;
 use Zrcms\ContentCore\Page\Model\PageContainerCmsResourceBasic;
 use Zrcms\ContentCore\Page\Model\PageContainerVersionBasic;
@@ -26,7 +26,7 @@ use Zrcms\ContentCore\Theme\Model\LayoutCmsResourceBasic;
 use Zrcms\ContentCore\Theme\Model\LayoutVersionBasic;
 use Zrcms\ContentCore\Theme\Model\PropertiesLayoutCmsResource;
 use Zrcms\ContentCore\Theme\Model\PropertiesLayoutVersion;
-use Zrcms\ContentCore\View\Api\Render\GetViewRenderData;
+use Zrcms\ContentCore\View\Api\Render\GetViewRenderTags;
 use Zrcms\ContentCore\View\Api\Render\RenderView;
 use Zrcms\ContentCore\View\Api\Repository\FindTagNamesByLayoutMustache;
 use Zrcms\ContentCore\View\Model\PropertiesView;
@@ -221,8 +221,8 @@ class ViewControllerTest
                 => 'test:' . PropertiesPageContainerVersion::LAYOUT,
                 PropertiesPageContainerVersion::PRE_RENDERED_HTML
                 => 'test:' . PropertiesPageContainerVersion::PRE_RENDERED_HTML,
-                PropertiesPageContainerVersion::RENDER_DATA_GETTER
-                => GetPageContainerRenderDataHtml::class,
+                PropertiesPageContainerVersion::RENDER_TAGS_GETTER
+                => GetPageContainerRenderTagsHtml::class,
                 PropertiesPageContainerVersion::RENDERER
                 => RenderPageContainerRows::class,
             ],
@@ -255,7 +255,7 @@ class ViewControllerTest
                 => 'test:' . PropertiesLayoutVersion::THEME_NAME,
                 PropertiesLayoutVersion::HTML
                 => file_get_contents(__DIR__ . '/../../../xample-module/theme/default.mustache'),
-                PropertiesLayoutVersion::RENDER_DATA_GETTER
+                PropertiesLayoutVersion::RENDER_TAGS_GETTER
                 => GetLayoutRenderDataNoop::class,
                 PropertiesLayoutVersion::RENDER_TAG_NAME_PARSER
                 => FindTagNamesByLayoutMustache::class,
@@ -289,7 +289,7 @@ class ViewControllerTest
             $properties
         );
 
-        $viewRenderData = $this->serviceContainer->get(GetViewRenderData::class)->__invoke(
+        $viewRenderData = $this->serviceContainer->get(GetViewRenderTags::class)->__invoke(
             $pageView,
             $request
         );

@@ -13,7 +13,7 @@ class PropertiesBlockComponent extends PropertiesComponent
     const DEFAULT_CONFIG = 'defaultConfig';
     const CACHEABLE = 'cache';
 
-    // @todo const RENDER_DATA_GETTER = 'renderDataService';
+    // @todo const RENDER_TAGS_GETTER = 'renderDataService';
     const RENDERER = 'renderer';
     const DATA_PROVIDER = 'data-provider';
     const FIELDS = 'fields';

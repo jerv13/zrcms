@@ -1,4 +1,0 @@
-{
-  "name": "head-all",
-  "renderDataGetter": "Zrcms\\ViewRenderDataGetters\\Head\\Api\\Render\\GetViewRenderDataHeadAll"
-}

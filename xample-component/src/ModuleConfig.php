@@ -3,8 +3,8 @@
 namespace Zrcms\XampleComponent;
 
 use Zrcms\ContentCore\View\Model\ServiceAliasView;
-use Zrcms\ContentCore\ViewRenderDataGetter\Model\ServiceAliasViewRenderDataGetter;
-use Zrcms\XampleComponent\ViewRenderDataGetter\Api\Render\GetViewRenderData;
+use Zrcms\ContentCore\ViewLayoutTags\Model\ServiceAliasViewLayoutTagsGetter;
+use Zrcms\XampleComponent\ViewLayoutTags\Api\Render\GetViewLayoutTags;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -21,7 +21,7 @@ class ModuleConfig
         return [
             'dependencies' => [
                 'config_factories' => [
-                    GetViewRenderData::class => [],
+                    GetViewLayoutTags::class => [],
                 ],
             ],
             'zrcms' => [
@@ -31,17 +31,17 @@ class ModuleConfig
                 'themes' => [
                     'xample-theme' => __DIR__ . '/../theme',
                 ],
-                'view-render-data-getters' => [
-                    GetViewRenderData::XAMPLE_RENDER_TAG => __DIR__ . '/../view-render-data-getter',
+                'view-layout-tags-getters' => [
+                    GetViewLayoutTags::XAMPLE_RENDER_TAG => __DIR__ . '/../view-layout-tags-getter',
                 ],
             ],
 
             'zrcms-service-alias' => [
                 /**
-                 * ViewRenderDataGetter ===========================================
+                 * ViewLayoutTagsGetter ===========================================
                  */
-                ServiceAliasView::NAMESPACE_CONTENT_RENDER_DATA_GETTER  => [
-                    'xample' => GetViewRenderData::class,
+                ServiceAliasView::NAMESPACE_CONTENT_RENDER_TAGS_GETTER  => [
+                    'xample' => GetViewLayoutTags::class,
                 ],
             ],
         ];

@@ -19,7 +19,7 @@ class PropertiesLayoutVersion extends PropertiesLayout
             PropertiesContentVersion::ID => '',
             self::THEME_NAME => '',
             self::RENDERER => '',
-            self::RENDER_DATA_GETTER => '',
+            self::RENDER_TAGS_GETTER => '',
             self::RENDER_TAG_NAME_PARSER => '',
             self::HTML => '',
         ];

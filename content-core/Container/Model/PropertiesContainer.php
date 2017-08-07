@@ -9,7 +9,7 @@ use Zrcms\Content\Model\PropertiesContent;
  */
 class PropertiesContainer extends PropertiesContent
 {
-    const RENDER_DATA_GETTER = 'renderDataGetter';
+    const RENDER_TAGS_GETTER = 'renderTagsGetter';
     const RENDERER = 'renderer';
 
     /**
@@ -20,7 +20,7 @@ class PropertiesContainer extends PropertiesContent
     protected $properties
         = [
             self::ID => '',
-            self::RENDER_DATA_GETTER => '',
+            self::RENDER_TAGS_GETTER => '',
             self::RENDERER => '',
         ];
 }

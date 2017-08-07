@@ -1,0 +1,4 @@
+{
+  "name": "head-meta",
+  "renderDataGetter": "Zrcms\\ViewLayoutTagsHead\\Head\\Api\\Render\\GetViewRenderTagsHeadMeta"
+}

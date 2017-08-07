@@ -52,6 +52,8 @@ class RenderContainerRows implements RenderContent
                 foreach ($row as $block) {
                     $containerInnerHtml .= $block;
                 }
+            } else {
+                $containerInnerHtml .= (string)$row;
             }
             $containerInnerHtml .= "\n</div>\n";
         }

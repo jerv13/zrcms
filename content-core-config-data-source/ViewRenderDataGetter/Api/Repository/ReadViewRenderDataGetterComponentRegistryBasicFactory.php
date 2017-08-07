@@ -1,6 +1,6 @@
 <?php
 
-namespace Zrcms\ContentCoreConfigDataSource\ViewRenderDataGetter\Api\Repository;
+namespace Zrcms\ContentCoreConfigDataSource\ViewLayoutTags\Api\Repository;
 
 use Psr\Container\ContainerInterface;
 use Zrcms\ServiceAlias\Api\GetServiceFromAlias;
@@ -8,21 +8,21 @@ use Zrcms\ServiceAlias\Api\GetServiceFromAlias;
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class ReadViewRenderDataGetterComponentRegistryBasicFactory
+class ReadViewLayoutTagsGetterComponentRegistryBasicFactory
 {
     /**
      * @param ContainerInterface $serviceContainer
      *
-     * @return ReadViewRenderDataGetterComponentRegistryBasic
+     * @return ReadViewLayoutTagsGetterComponentRegistryBasic
      */
     public function __invoke(
         $serviceContainer
     ) {
         $config = $serviceContainer->get('config');
 
-        $registry = $config['zrcms']['view-render-data-getters'];
+        $registry = $config['zrcms']['view-layout-tags-getters'];
 
-        return new ReadViewRenderDataGetterComponentRegistryBasic(
+        return new ReadViewLayoutTagsGetterComponentRegistryBasic(
             $registry,
             $serviceContainer->get(GetServiceFromAlias::class)
         );

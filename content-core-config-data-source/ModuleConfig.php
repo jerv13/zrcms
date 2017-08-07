@@ -11,14 +11,14 @@ use Zrcms\ContentCore\Theme\Api\Repository\ReadLayoutComponentConfigJsonFile;
 use Zrcms\ContentCore\Theme\Api\Repository\FindThemeComponent;
 use Zrcms\ContentCore\Theme\Api\Repository\FindThemeComponentsBy;
 use Zrcms\ContentCore\Theme\Api\Repository\ReadThemeComponentRegistry;
-use Zrcms\ContentCore\ViewRenderDataGetter\Api\Repository\FindViewRenderDataGetterComponent;
-use Zrcms\ContentCore\ViewRenderDataGetter\Api\Repository\FindViewRenderDataGetterComponentsBy;
-use Zrcms\ContentCore\ViewRenderDataGetter\Api\Repository\ReadViewRenderDataGetterComponentRegistry;
+use Zrcms\ContentCore\ViewLayoutTags\Api\Repository\FindViewLayoutTagsGetterComponent;
+use Zrcms\ContentCore\ViewLayoutTags\Api\Repository\FindViewLayoutTagsGetterComponentsBy;
+use Zrcms\ContentCore\ViewLayoutTags\Api\Repository\ReadViewLayoutTagsGetterComponentRegistry;
 use Zrcms\ContentCoreConfigDataSource as This;
 use Zrcms\ContentCore\Block\Api\GetRegisterBlockComponents;
 use Zrcms\ContentCoreConfigDataSource\Content\Api\SearchConfigList;
 use Zrcms\ContentCore\Theme\Api\GetRegisterThemeComponents;
-use Zrcms\ContentCore\ViewRenderDataGetter\Api\GetRegisterViewRenderDataGetterComponents;
+use Zrcms\ContentCore\ViewLayoutTags\Api\GetRegisterViewLayoutTagsGetterComponents;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -102,30 +102,30 @@ class ModuleConfig
                     ],
 
                     /**
-                     * ViewRenderDataGetter Component ===========================================
+                     * ViewLayoutTagsGetter Component ===========================================
                      */
-                    FindViewRenderDataGetterComponent::class => [
-                        'class' => This\ViewRenderDataGetter\Api\Repository\FindViewRenderDataGetterComponent::class,
+                    FindViewLayoutTagsGetterComponent::class => [
+                        'class' => This\ViewLayoutTags\Api\Repository\FindViewLayoutTagsGetterComponent::class,
                         'arguments' => [
-                            '0-' => GetRegisterViewRenderDataGetterComponents::class,
+                            '0-' => GetRegisterViewLayoutTagsGetterComponents::class,
                             '1-' => SearchConfigList::class
                         ],
                     ],
-                    FindViewRenderDataGetterComponentsBy::class => [
-                        'class' => This\ViewRenderDataGetter\Api\Repository\FindViewRenderDataGetterComponentsBy::class,
+                    FindViewLayoutTagsGetterComponentsBy::class => [
+                        'class' => This\ViewLayoutTags\Api\Repository\FindViewLayoutTagsGetterComponentsBy::class,
                         'arguments' => [
-                            '0-' => GetRegisterViewRenderDataGetterComponents::class,
+                            '0-' => GetRegisterViewLayoutTagsGetterComponents::class,
                             '1-' => SearchConfigList::class
                         ],
                     ],
-                    ReadViewRenderDataGetterComponentRegistry::class => [
+                    ReadViewLayoutTagsGetterComponentRegistry::class => [
                         'factory'
-                        => This\ViewRenderDataGetter\Api\Repository\ReadViewRenderDataGetterComponentRegistryBasicFactory::class,
+                        => This\ViewLayoutTags\Api\Repository\ReadViewLayoutTagsGetterComponentRegistryBasicFactory::class,
                     ],
-                    GetRegisterViewRenderDataGetterComponents::class => [
-                        'class' => This\ViewRenderDataGetter\Api\GetRegisterViewRenderDataGetterComponentsBasic::class,
+                    GetRegisterViewLayoutTagsGetterComponents::class => [
+                        'class' => This\ViewLayoutTags\Api\GetRegisterViewLayoutTagsGetterComponentsBasic::class,
                         'arguments' => [
-                            '0-' => ReadViewRenderDataGetterComponentRegistry::class,
+                            '0-' => ReadViewLayoutTagsGetterComponentRegistry::class,
                             '1-' => Cache::class
                         ],
                     ],
@@ -152,13 +152,13 @@ class ModuleConfig
                      ]
                     */
                 ],
-                'view-render-data-getters' => [
+                'view-layout-tags-getters' => [
                     /*
-                     '{view-render-data-getter-name}' => '{view-render-data-getter-location}(directory)'
+                     '{view-layout-tags-getter-name}' => '{view-layout-tags-getter-location}(directory)'
                      OR
-                     '{view-render-data-getter-name}' => [
-                       ComponentConfigFields::LOCATION => '{view-render-data-getter-location}(service-name)',
-                       ComponentConfigFields::COMPONENT_CONFIG_READER => '{view-render-data-getter-location}(service-name)',
+                     '{view-layout-tags-getter-name}' => [
+                       ComponentConfigFields::LOCATION => '{view-layout-tags-getter-location}(service-name)',
+                       ComponentConfigFields::COMPONENT_CONFIG_READER => '{view-layout-tags-getter-location}(service-name)',
                       ]
                      */
                 ],

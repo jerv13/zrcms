@@ -60,28 +60,27 @@ ENV="local" bin/console orm:schema-tool:update --force
     - BLOCKS:
         - RENDERER
         - DATA_PROVIDER
-        - ?RENDER_DATA_GETTER (not currently supported)
+        - ?RENDER_TAGS_GETTER (not currently supported)
         
     - Layout
         - RENDERER
-        - RENDER_DATA_GETTER
+        - RENDER_TAGS_GETTER
         - RENDER_TAG_NAME_PARSER
         
     - ViewRenderDataGatter
-        - RENDER_DATA_GETTER
+        - RENDER_TAGS_GETTER
         
 - GetServiceFromAlias and wire const NAMESPACE_RESOURCE = 'zrcms.view.resource';
 
-- RENAME ViewRenderDataGetter to LayoutTag and rearrange code
-    - NOTE: the pattern is different so split them @see GetViewRenderDataBasic
-    - GetContentRenderData -> GetContentRenderTags
-    - GetContentRenderData -> GetContentRenderTags
+- RENAME ViewLayoutTagsGetter to LayoutTag and rearrange code
+    - NOTE: the pattern is different so split them @see GetViewRenderTagsBasic
+    -x GetContentRenderTags -> GetContentRenderTags
     
-    - GetViewRenderData -> GetLayoutTags
-    - ViewRenderDataGetter -> LayoutTagsGetter
-    - NS ViewRenderDataGetter -> LayoutTags
-    - VIEW_RENDER_DATA_GETTER -> RENDER_TAGS_GETTER
-    - view-render-data-getter -> layout-tags-getter
+    - GetViewRenderTags -> GetLayoutTags
+    - ViewLayoutTagsGetter -> LayoutTagsGetter
+    - NS ViewLayoutTagsGetter -> LayoutTags
+    - VIEW_RENDER_TAGS_GETTER -> RENDER_TAGS_GETTER
+    - view-layout-tags-getter -> layout-tags-getter
 
 - Refactor GetRegisterThemeComponentsBasic to use same interfaces as the rest
 

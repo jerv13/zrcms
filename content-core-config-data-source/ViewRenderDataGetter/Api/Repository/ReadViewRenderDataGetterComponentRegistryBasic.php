@@ -1,19 +1,19 @@
 <?php
 
-namespace Zrcms\ContentCoreConfigDataSource\ViewRenderDataGetter\Api\Repository;
+namespace Zrcms\ContentCoreConfigDataSource\ViewLayoutTags\Api\Repository;
 
 use Zrcms\Content\Api\Repository\ReadComponentRegistryAbstract;
-use Zrcms\ContentCore\ViewRenderDataGetter\Api\Repository\ReadViewRenderDataGetterComponentConfigJsonFile;
-use Zrcms\ContentCore\ViewRenderDataGetter\Api\Repository\ReadViewRenderDataGetterComponentRegistry;
-use Zrcms\ContentCore\ViewRenderDataGetter\Model\ServiceAliasViewRenderDataGetter;
+use Zrcms\ContentCore\ViewLayoutTags\Api\Repository\ReadViewLayoutTagsGetterComponentConfigJsonFile;
+use Zrcms\ContentCore\ViewLayoutTags\Api\Repository\ReadViewLayoutTagsGetterComponentRegistry;
+use Zrcms\ContentCore\ViewLayoutTags\Model\ServiceAliasViewLayoutTagsGetter;
 use Zrcms\ServiceAlias\Api\GetServiceFromAlias;
 
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class ReadViewRenderDataGetterComponentRegistryBasic
+class ReadViewLayoutTagsGetterComponentRegistryBasic
     extends ReadComponentRegistryAbstract
-    implements ReadViewRenderDataGetterComponentRegistry
+    implements ReadViewLayoutTagsGetterComponentRegistry
 {
     /**
      * @param array               $registry
@@ -23,12 +23,12 @@ class ReadViewRenderDataGetterComponentRegistryBasic
     public function __construct(
         array $registry,
         GetServiceFromAlias $getServiceFromAlias,
-        $defaultComponentConfReaderServiceAlias = ReadViewRenderDataGetterComponentConfigJsonFile::class
+        $defaultComponentConfReaderServiceAlias = ReadViewLayoutTagsGetterComponentConfigJsonFile::class
     ) {
         parent::__construct(
             $registry,
             $getServiceFromAlias,
-            ServiceAliasViewRenderDataGetter::NAMESPACE_COMPONENT_CONFIG_READER,
+            ServiceAliasViewLayoutTagsGetter::NAMESPACE_COMPONENT_CONFIG_READER,
             $defaultComponentConfReaderServiceAlias
         );
     }

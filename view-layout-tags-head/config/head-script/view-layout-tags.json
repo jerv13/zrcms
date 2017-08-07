@@ -1,0 +1,4 @@
+{
+  "name": "head-script",
+  "renderDataGetter": "Zrcms\\ViewLayoutTagsHead\\Head\\Api\\Render\\GetViewRenderTagsHeadScript"
+}

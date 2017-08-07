@@ -56,7 +56,7 @@
       "Zrcms\\Param\\": "param/",
       "Zrcms\\ServiceAlias\\": "service-alias/",
       "Zrcms\\User\\": "user/",
-      "Zrcms\\ViewRenderDataGetters\\Head\\": "view-render-data-getters/head/src/",
+      "Zrcms\\ViewLayoutTagsHead\\Head\\": "view-render-tags-head/src/",
       "Zrcms\\XampleComponent\\": "xample-component/src/"
     }
   },

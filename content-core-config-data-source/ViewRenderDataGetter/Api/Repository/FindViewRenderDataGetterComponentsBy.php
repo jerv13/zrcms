@@ -1,16 +1,16 @@
 <?php
 
-namespace Zrcms\ContentCoreConfigDataSource\ViewRenderDataGetter\Api\Repository;
+namespace Zrcms\ContentCoreConfigDataSource\ViewLayoutTags\Api\Repository;
 
-use Zrcms\ContentCore\ViewRenderDataGetter\Model\ViewRenderDataGetterComponent;
+use Zrcms\ContentCore\ViewLayoutTags\Model\ViewLayoutTagsGetterComponent;
 use Zrcms\ContentCoreConfigDataSource\Content\Api\Repository\FindComponentsByAbstract;
 
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class FindViewRenderDataGetterComponentsBy
+class FindViewLayoutTagsGetterComponentsBy
     extends FindComponentsByAbstract
-    implements \Zrcms\ContentCore\ViewRenderDataGetter\Api\Repository\FindViewRenderDataGetterComponentsBy
+    implements \Zrcms\ContentCore\ViewLayoutTags\Api\Repository\FindViewLayoutTagsGetterComponentsBy
 {
     /**
      * @param array      $criteria
@@ -19,7 +19,7 @@ class FindViewRenderDataGetterComponentsBy
      * @param null       $offset
      * @param array      $options
      *
-     * @return ViewRenderDataGetterComponent[]
+     * @return ViewLayoutTagsGetterComponent[]
      * @throws \Exception
      */
     public function __invoke(

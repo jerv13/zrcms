@@ -39,7 +39,7 @@ class GetLayoutRenderDataBasic implements GetLayoutRenderData
         string $defaultRenderDataGetterServiceName = GetLayoutRenderDataNoop::class
     ) {
         $this->getServiceFromAlias = $getServiceFromAlias;
-        $this->serviceAliasNamespace = ServiceAliasLayout::NAMESPACE_CONTENT_RENDER_DATA_GETTER;
+        $this->serviceAliasNamespace = ServiceAliasLayout::NAMESPACE_CONTENT_RENDER_TAGS_GETTER;
         $this->defaultRenderDataGetterServiceName = $defaultRenderDataGetterServiceName;
     }
 
@@ -58,7 +58,7 @@ class GetLayoutRenderDataBasic implements GetLayoutRenderData
     ): array
     {
         $renderDataGetterServiceAlias = $layout->getProperty(
-            PropertiesLayout::RENDER_DATA_GETTER,
+            PropertiesLayout::RENDER_TAGS_GETTER,
             ''
         );
 

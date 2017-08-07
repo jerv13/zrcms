@@ -116,8 +116,8 @@ class FindLayoutVersion
                 PropertiesLayoutVersion::NAME => $layoutComponent->getName(),
                 PropertiesLayoutVersion::THEME_NAME => $layoutComponent->getThemeName(),
                 PropertiesLayoutVersion::HTML => $layoutComponent->getHtml(),
-                PropertiesLayoutVersion::RENDER_DATA_GETTER => $layoutComponent->getProperty(
-                    PropertiesLayoutVersion::RENDER_DATA_GETTER
+                PropertiesLayoutVersion::RENDER_TAGS_GETTER => $layoutComponent->getProperty(
+                    PropertiesLayoutVersion::RENDER_TAGS_GETTER
                 ),
                 PropertiesLayoutVersion::RENDER_TAG_NAME_PARSER => $layoutComponent->getProperty(
                     PropertiesLayoutVersion::RENDER_TAG_NAME_PARSER
@@ -125,8 +125,8 @@ class FindLayoutVersion
                 PropertiesLayoutVersion::RENDERER => $layoutComponent->getProperty(
                     PropertiesLayoutVersion::RENDERER
                 ),
-                PropertiesLayoutVersion::RENDER_DATA_GETTER => $layoutComponent->getProperty(
-                    PropertiesLayoutVersion::RENDER_DATA_GETTER
+                PropertiesLayoutVersion::RENDER_TAGS_GETTER => $layoutComponent->getProperty(
+                    PropertiesLayoutVersion::RENDER_TAGS_GETTER
                 ),
             ],
             $layoutComponent->getCreatedByUserId(),

@@ -1,0 +1,4 @@
+{
+  "name": "head-title",
+  "renderDataGetter": "Zrcms\\ViewLayoutTagsHead\\Head\\Api\\Render\\GetViewRenderTagsHeadTitle"
+}

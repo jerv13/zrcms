@@ -1,32 +1,32 @@
 <?php
 
-namespace Zrcms\ContentCoreConfigDataSource\ViewRenderDataGetter\Api;
+namespace Zrcms\ContentCoreConfigDataSource\ViewLayoutTags\Api;
 
 use Zrcms\Cache\Service\Cache;
 use Zrcms\Content\Api\GetRegisterComponentsAbstract;
-use Zrcms\ContentCore\ViewRenderDataGetter\Api\GetRegisterViewRenderDataGetterComponents;
-use Zrcms\ContentCore\ViewRenderDataGetter\Model\ViewRenderDataGetterComponentBasic;
-use Zrcms\ContentCoreConfigDataSource\ViewRenderDataGetter\Api\Repository\ReadViewRenderDataGetterComponentRegistryBasic;
+use Zrcms\ContentCore\ViewLayoutTags\Api\GetRegisterViewLayoutTagsGetterComponents;
+use Zrcms\ContentCore\ViewLayoutTags\Model\ViewLayoutTagsGetterComponentBasic;
+use Zrcms\ContentCoreConfigDataSource\ViewLayoutTags\Api\Repository\ReadViewLayoutTagsGetterComponentRegistryBasic;
 
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class GetRegisterViewRenderDataGetterComponentsBasic
+class GetRegisterViewLayoutTagsGetterComponentsBasic
     extends GetRegisterComponentsAbstract
-    implements GetRegisterViewRenderDataGetterComponents
+    implements GetRegisterViewLayoutTagsGetterComponents
 {
-    const CACHE_KEY = 'ZrcmsViewRenderDataGetterComponentConfigBasic';
+    const CACHE_KEY = 'ZrcmsViewLayoutTagsGetterComponentConfigBasic';
 
     /**
-     * @param ReadViewRenderDataGetterComponentRegistryBasic $readComponentRegistry
+     * @param ReadViewLayoutTagsGetterComponentRegistryBasic $readComponentRegistry
      * @param Cache                                          $cache
      * @param string                                         $componentClass
      * @param string                                         $cacheKey
      */
     public function __construct(
-        ReadViewRenderDataGetterComponentRegistryBasic $readComponentRegistry,
+        ReadViewLayoutTagsGetterComponentRegistryBasic $readComponentRegistry,
         Cache $cache,
-        string $componentClass = ViewRenderDataGetterComponentBasic::class,
+        string $componentClass = ViewLayoutTagsGetterComponentBasic::class,
         string $cacheKey = self::CACHE_KEY
     ) {
         parent::__construct(

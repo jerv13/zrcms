@@ -17,7 +17,7 @@ class PropertiesContainerVersion extends PropertiesContainer
     protected $properties
         = [
             PropertiesContentVersion::ID => '',
-            self::RENDER_DATA_GETTER => '',
+            self::RENDER_TAGS_GETTER => '',
             self::RENDERER => '',
         ];
 }

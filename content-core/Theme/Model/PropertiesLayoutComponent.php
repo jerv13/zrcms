@@ -12,7 +12,7 @@ class PropertiesLayoutComponent extends PropertiesComponent
     const THEME_NAME = 'themeName';
     const HTML = 'html';
     const RENDERER = 'renderer';
-    const RENDER_DATA_GETTER = 'renderDataGetter';
+    const RENDER_TAGS_GETTER = 'renderTagsGetter';
     const RENDER_TAG_NAME_PARSER = 'renderTagNameParser';
 
     /**
@@ -27,7 +27,7 @@ class PropertiesLayoutComponent extends PropertiesComponent
             self::THEME_NAME => '',
             self::HTML => '',
             self::RENDERER => '',
-            self::RENDER_DATA_GETTER => '',
+            self::RENDER_TAGS_GETTER => '',
             self::RENDER_TAG_NAME_PARSER => '',
         ];
 }

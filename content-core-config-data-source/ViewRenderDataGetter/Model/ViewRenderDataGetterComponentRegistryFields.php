@@ -1,13 +1,13 @@
 <?php
 
-namespace Zrcms\ContentCoreConfigDataSource\ViewRenderDataGetter\Model;
+namespace Zrcms\ContentCoreConfigDataSource\ViewLayoutTags\Model;
 
 use Zrcms\ContentCoreConfigDataSource\Content\Model\ComponentRegistryFields;
 
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class ViewRenderDataGetterComponentRegistryFields extends ComponentRegistryFields
+class ViewLayoutTagsGetterComponentRegistryFields extends ComponentRegistryFields
 {
     /**
      * Default values

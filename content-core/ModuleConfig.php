@@ -15,8 +15,8 @@ use Zrcms\ContentCore\Block\Api\Repository\ReadBlockComponentConfigBasic;
 use Zrcms\ContentCore\Block\Api\Repository\ReadBlockComponentConfigBc;
 use Zrcms\ContentCore\Block\Api\Repository\ReadBlockComponentConfigBcFactory;
 use Zrcms\ContentCore\Block\Api\Repository\ReadBlockComponentConfigJsonFile;
-use Zrcms\ContentCore\Block\Api\Render\GetBlockRenderData;
-use Zrcms\ContentCore\Block\Api\Render\GetBlockRenderDataBasic;
+use Zrcms\ContentCore\Block\Api\Render\GetBlockRenderTags;
+use Zrcms\ContentCore\Block\Api\Render\GetBlockRenderTagsBasic;
 use Zrcms\ContentCore\Block\Api\Render\RenderBlock;
 use Zrcms\ContentCore\Block\Api\Render\RenderBlockBasic;
 use Zrcms\ContentCore\Block\Api\Render\RenderBlockMustache;
@@ -31,9 +31,9 @@ use Zrcms\ContentCore\Block\Api\WrapRenderedBlockVersionLegacy;
 use Zrcms\ContentCore\Block\Model\ServiceAliasBlock;
 use Zrcms\ContentCore\Container\Api\Action\PublishContainerCmsResource;
 use Zrcms\ContentCore\Container\Api\Action\UnpublishContainerCmsResource;
-use Zrcms\ContentCore\Container\Api\Render\GetContainerRenderData;
-use Zrcms\ContentCore\Container\Api\Render\GetContainerRenderDataBasic;
-use Zrcms\ContentCore\Container\Api\Render\GetContainerRenderDataBlocks;
+use Zrcms\ContentCore\Container\Api\Render\GetContainerRenderTags;
+use Zrcms\ContentCore\Container\Api\Render\GetContainerRenderTagsBasic;
+use Zrcms\ContentCore\Container\Api\Render\GetContainerRenderTagsBlocks;
 use Zrcms\ContentCore\Container\Api\Render\RenderContainer;
 use Zrcms\ContentCore\Container\Api\Render\RenderContainerBasic;
 use Zrcms\ContentCore\Container\Api\Render\RenderContainerRows;
@@ -50,10 +50,10 @@ use Zrcms\ContentCore\Layout\Api\Action\PublishLayoutCmsResource;
 use Zrcms\ContentCore\Layout\Api\Action\UnpublishLayoutCmsResource;
 use Zrcms\ContentCore\Page\Api\Action\PublishPageContainerCmsResource;
 use Zrcms\ContentCore\Page\Api\Action\UnpublishPageContainerCmsResource;
-use Zrcms\ContentCore\Page\Api\Render\GetPageContainerRenderData;
-use Zrcms\ContentCore\Page\Api\Render\GetPageContainerRenderDataBasic;
-use Zrcms\ContentCore\Page\Api\Render\GetPageContainerRenderDataBlocks;
-use Zrcms\ContentCore\Page\Api\Render\GetPageContainerRenderDataHtml;
+use Zrcms\ContentCore\Page\Api\Render\GetPageContainerRenderTags;
+use Zrcms\ContentCore\Page\Api\Render\GetPageContainerRenderTagsBasic;
+use Zrcms\ContentCore\Page\Api\Render\GetPageContainerRenderTagsBlocks;
+use Zrcms\ContentCore\Page\Api\Render\GetPageContainerRenderTagsHtml;
 use Zrcms\ContentCore\Page\Api\Render\RenderPageContainer;
 use Zrcms\ContentCore\Page\Api\Render\RenderPageContainerBasic;
 use Zrcms\ContentCore\Page\Api\Render\RenderPageContainerRows;
@@ -96,10 +96,10 @@ use Zrcms\ContentCore\Theme\Model\ServiceAliasLayout;
 use Zrcms\ContentCore\Theme\Model\ServiceAliasTheme;
 use Zrcms\ContentCore\View\Api\GetLayoutName;
 use Zrcms\ContentCore\View\Api\GetLayoutNameBasic;
-use Zrcms\ContentCore\View\Api\Render\GetViewRenderData;
-use Zrcms\ContentCore\View\Api\Render\GetViewRenderDataBasic;
-use Zrcms\ContentCore\View\Api\Render\GetViewRenderDataContainers;
-use Zrcms\ContentCore\View\Api\Render\GetViewRenderDataPage;
+use Zrcms\ContentCore\View\Api\Render\GetViewRenderTags;
+use Zrcms\ContentCore\View\Api\Render\GetViewRenderTagsBasic;
+use Zrcms\ContentCore\View\Api\Render\GetViewRenderTagsContainers;
+use Zrcms\ContentCore\View\Api\Render\GetViewRenderTagsPage;
 use Zrcms\ContentCore\View\Api\Render\RenderView;
 use Zrcms\ContentCore\View\Api\Render\RenderViewBasic;
 use Zrcms\ContentCore\View\Api\Render\RenderViewLayout;
@@ -109,14 +109,14 @@ use Zrcms\ContentCore\View\Api\Repository\FindTagNamesByLayoutMustache;
 use Zrcms\ContentCore\View\Api\Repository\FindViewByRequest;
 use Zrcms\ContentCore\View\Api\Repository\FindViewByRequestBasic;
 use Zrcms\ContentCore\View\Model\ServiceAliasView;
-use Zrcms\ContentCore\ViewRenderDataGetter\Api\Repository\ReadViewRenderDataGetterComponentConfig;
-use Zrcms\ContentCore\ViewRenderDataGetter\Api\Repository\ReadViewRenderDataGetterComponentConfigApplicationConfig;
-use Zrcms\ContentCore\ViewRenderDataGetter\Api\Repository\ReadViewRenderDataGetterComponentConfigApplicationConfigFactory;
-use Zrcms\ContentCore\ViewRenderDataGetter\Api\Repository\ReadViewRenderDataGetterComponentConfigBasic;
-use Zrcms\ContentCore\ViewRenderDataGetter\Api\Repository\ReadViewRenderDataGetterComponentConfigJsonFile;
-use Zrcms\ContentCore\ViewRenderDataGetter\Api\Repository\FindViewRenderDataGetterComponent;
-use Zrcms\ContentCore\ViewRenderDataGetter\Api\Repository\FindViewRenderDataGetterComponentsBy;
-use Zrcms\ContentCore\ViewRenderDataGetter\Model\ServiceAliasViewRenderDataGetter;
+use Zrcms\ContentCore\ViewLayoutTags\Api\Repository\ReadViewLayoutTagsGetterComponentConfig;
+use Zrcms\ContentCore\ViewLayoutTags\Api\Repository\ReadViewLayoutTagsGetterComponentConfigApplicationConfig;
+use Zrcms\ContentCore\ViewLayoutTags\Api\Repository\ReadViewLayoutTagsGetterComponentConfigApplicationConfigFactory;
+use Zrcms\ContentCore\ViewLayoutTags\Api\Repository\ReadViewLayoutTagsGetterComponentConfigBasic;
+use Zrcms\ContentCore\ViewLayoutTags\Api\Repository\ReadViewLayoutTagsGetterComponentConfigJsonFile;
+use Zrcms\ContentCore\ViewLayoutTags\Api\Repository\FindViewLayoutTagsGetterComponent;
+use Zrcms\ContentCore\ViewLayoutTags\Api\Repository\FindViewLayoutTagsGetterComponentsBy;
+use Zrcms\ContentCore\ViewLayoutTags\Model\ServiceAliasViewLayoutTagsGetter;
 use Zrcms\ServiceAlias\Api\GetServiceFromAlias;
 
 /**
@@ -138,8 +138,8 @@ class ModuleConfig
                     /**
                      * Block ===========================================
                      */
-                    GetBlockRenderData::class => [
-                        'class' => GetBlockRenderDataBasic::class,
+                    GetBlockRenderTags::class => [
+                        'class' => GetBlockRenderTagsBasic::class,
                         'arguments' => [
                             '0-' => GetBlockData::class,
                             '1-' => GetMergedConfig::class,
@@ -246,17 +246,17 @@ class ModuleConfig
                             '0-' => ['literal' => UnpublishContainerCmsResource::class],
                         ],
                     ],
-                    GetContainerRenderData::class => [
-                        'class' => GetContainerRenderDataBasic::class,
+                    GetContainerRenderTags::class => [
+                        'class' => GetContainerRenderTagsBasic::class,
                         'arguments' => [
                             '0-' => GetServiceFromAlias::class,
                         ],
                     ],
-                    GetContainerRenderDataBlocks::class => [
+                    GetContainerRenderTagsBlocks::class => [
                         'arguments' => [
                             '0-' => FindBlockVersionsByContainer::class,
                             '1-' => RenderBlock::class,
-                            '2-' => GetBlockRenderData::class,
+                            '2-' => GetBlockRenderTags::class,
                             '3-' => WrapRenderedBlockVersion::class,
                             '4-' => WrapRenderedContainer::class,
                         ],
@@ -329,22 +329,22 @@ class ModuleConfig
                             '0-' => ['literal' => UnpublishPageContainerCmsResource::class],
                         ],
                     ],
-                    GetPageContainerRenderData::class => [
-                        'class' => GetPageContainerRenderDataBasic::class,
+                    GetPageContainerRenderTags::class => [
+                        'class' => GetPageContainerRenderTagsBasic::class,
                         'arguments' => [
                             '0-' => GetServiceFromAlias::class,
                         ],
                     ],
-                    GetPageContainerRenderDataBlocks::class => [
+                    GetPageContainerRenderTagsBlocks::class => [
                         'arguments' => [
                             '0-' => FindBlockVersionsByContainer::class,
                             '1-' => RenderBlock::class,
-                            '2-' => GetBlockRenderData::class,
+                            '2-' => GetBlockRenderTags::class,
                             '3-' => WrapRenderedBlockVersion::class,
                             '4-' => WrapRenderedContainer::class
                         ],
                     ],
-                    GetPageContainerRenderDataHtml::class => [],
+                    GetPageContainerRenderTagsHtml::class => [],
                     RenderPageContainer::class => [
                         'class' => RenderPageContainerBasic::class,
                         'arguments' => [
@@ -545,24 +545,24 @@ class ModuleConfig
                     /**
                      * View ===========================================
                      */
-                    GetViewRenderData::class => [
-                        'class' => GetViewRenderDataBasic::class,
+                    GetViewRenderTags::class => [
+                        'class' => GetViewRenderTagsBasic::class,
                         'arguments' => [
                             '0-' => GetServiceFromAlias::class,
-                            '1-' => FindViewRenderDataGetterComponentsBy::class,
+                            '1-' => FindViewLayoutTagsGetterComponentsBy::class,
                         ],
                     ],
-                    GetViewRenderDataContainers::class => [
+                    GetViewRenderTagsContainers::class => [
                         'arguments' => [
                             '0-' => FindTagNamesByLayout::class,
                             '1-' => FindContainerCmsResourcesBySitePaths::class,
                             '2-' => FindContainerVersion::class,
-                            '3-' => GetContainerRenderData::class
+                            '3-' => GetContainerRenderTags::class
                         ],
                     ],
-                    GetViewRenderDataPage::class => [
+                    GetViewRenderTagsPage::class => [
                         'arguments' => [
-                            '0-' => GetPageContainerRenderData::class,
+                            '0-' => GetPageContainerRenderTags::class,
                             '1-' => RenderPageContainer::class,
                         ],
                     ],
@@ -595,7 +595,7 @@ class ModuleConfig
                             '5-' => FindLayoutVersion::class,
                             '6-' => GetLayoutName::class,
                             '7-' => FindThemeComponent::class,
-                            '8-' => GetViewRenderData::class,
+                            '8-' => GetViewRenderTags::class,
                             '9-' => RenderView::class
                         ],
                     ],
@@ -604,31 +604,31 @@ class ModuleConfig
                     ],
 
                     /**
-                     * ViewRenderDataGetter ===========================================
+                     * ViewLayoutTagsGetter ===========================================
                      */
-                    FindViewRenderDataGetterComponent::class => [
+                    FindViewLayoutTagsGetterComponent::class => [
                         'class' => ApiNoop::class,
                         'arguments' => [
-                            '0-' => ['literal' => FindViewRenderDataGetterComponent::class],
+                            '0-' => ['literal' => FindViewLayoutTagsGetterComponent::class],
                         ],
                     ],
-                    FindViewRenderDataGetterComponent::class => [
+                    FindViewLayoutTagsGetterComponent::class => [
                         'class' => ApiNoop::class,
                         'arguments' => [
-                            '0-' => ['literal' => FindViewRenderDataGetterComponent::class],
+                            '0-' => ['literal' => FindViewLayoutTagsGetterComponent::class],
                         ],
                     ],
-                    ReadViewRenderDataGetterComponentConfigApplicationConfig::class => [
-                        'factory' => ReadViewRenderDataGetterComponentConfigApplicationConfigFactory::class,
+                    ReadViewLayoutTagsGetterComponentConfigApplicationConfig::class => [
+                        'factory' => ReadViewLayoutTagsGetterComponentConfigApplicationConfigFactory::class,
                     ],
-                    ReadViewRenderDataGetterComponentConfig::class => [
-                        'class' => ReadViewRenderDataGetterComponentConfigBasic::class,
+                    ReadViewLayoutTagsGetterComponentConfig::class => [
+                        'class' => ReadViewLayoutTagsGetterComponentConfigBasic::class,
                         'arguments' => [
                             '0-' => GetServiceFromAlias::class,
                         ],
                     ],
-                    ReadViewRenderDataGetterComponentConfigJsonFile::class => [
-                        'class' => ReadViewRenderDataGetterComponentConfigJsonFile::class,
+                    ReadViewLayoutTagsGetterComponentConfigJsonFile::class => [
+                        'class' => ReadViewLayoutTagsGetterComponentConfigJsonFile::class,
                     ],
                 ],
             ],
@@ -655,8 +655,8 @@ class ModuleConfig
                 /**
                  * Container ===========================================
                  */
-                ServiceAliasContainer::NAMESPACE_CONTENT_RENDER_DATA_GETTER => [
-                    'blocks' => GetContainerRenderDataBlocks::class,
+                ServiceAliasContainer::NAMESPACE_CONTENT_RENDER_TAGS_GETTER => [
+                    'blocks' => GetContainerRenderTagsBlocks::class,
                 ],
                 ServiceAliasContainer::NAMESPACE_CONTENT_RENDERER => [
                     'rows' => RenderContainerRows::class,
@@ -665,9 +665,9 @@ class ModuleConfig
                 /**
                  * Page ===========================================
                  */
-                ServiceAliasPageContainer::NAMESPACE_CONTENT_RENDER_DATA_GETTER => [
-                    'blocks' => GetPageContainerRenderDataBlocks::class,
-                    'html' => GetPageContainerRenderDataHtml::class,
+                ServiceAliasPageContainer::NAMESPACE_CONTENT_RENDER_TAGS_GETTER => [
+                    'blocks' => GetPageContainerRenderTagsBlocks::class,
+                    'html' => GetPageContainerRenderTagsHtml::class,
                 ],
                 ServiceAliasPageContainer::NAMESPACE_CONTENT_RENDERER => [
                     'rows' => RenderPageContainerRows::class,
@@ -683,7 +683,7 @@ class ModuleConfig
                 ServiceAliasLayout::NAMESPACE_COMPONENT_CONFIG_READER => [
                     'json' => ReadLayoutComponentConfigJsonFile::class,
                 ],
-                ServiceAliasLayout::NAMESPACE_CONTENT_RENDER_DATA_GETTER => [
+                ServiceAliasLayout::NAMESPACE_CONTENT_RENDER_TAGS_GETTER => [
                     'noop' => GetLayoutRenderDataNoop::class,
                 ],
                 ServiceAliasLayout::NAMESPACE_CONTENT_RENDERER => [
@@ -692,9 +692,9 @@ class ModuleConfig
                 /**
                  * View ===========================================
                  */
-                ServiceAliasView::NAMESPACE_CONTENT_RENDER_DATA_GETTER => [
-                    GetViewRenderDataContainers::SERVICE_ALIAS => GetViewRenderDataContainers::class,
-                    GetViewRenderDataPage::SERVICE_ALIAS => GetViewRenderDataPage::class,
+                ServiceAliasView::NAMESPACE_CONTENT_RENDER_TAGS_GETTER => [
+                    GetViewRenderTagsContainers::SERVICE_ALIAS => GetViewRenderTagsContainers::class,
+                    GetViewRenderTagsPage::SERVICE_ALIAS => GetViewRenderTagsPage::class,
                 ],
                 ServiceAliasView::NAMESPACE_CONTENT_RENDERER => [
                     'layout' => RenderViewLayout::class,
@@ -703,13 +703,13 @@ class ModuleConfig
                     'mustache' => FindTagNamesByLayoutMustache::class
                 ],
                 /**
-                 * ViewRenderDataGetter ===========================================
+                 * ViewLayoutTagsGetter ===========================================
                  */
-                ServiceAliasViewRenderDataGetter::NAMESPACE_COMPONENT_CONFIG_READER => [
-                    'json' => ReadViewRenderDataGetterComponentConfigJsonFile::class,
+                ServiceAliasViewLayoutTagsGetter::NAMESPACE_COMPONENT_CONFIG_READER => [
+                    'json' => ReadViewLayoutTagsGetterComponentConfigJsonFile::class,
                 ],
-                ServiceAliasViewRenderDataGetter::NAMESPACE_COMPONENT_VIEW_RENDER_DATA_GETTER => [
-                    // not used just yet, using ServiceAliasView::NAMESPACE_CONTENT_RENDER_DATA_GETTER
+                ServiceAliasViewLayoutTagsGetter::NAMESPACE_COMPONENT_VIEW_RENDER_TAGS_GETTER => [
+                    // not used just yet, using ServiceAliasView::NAMESPACE_CONTENT_RENDER_TAGS_GETTER
                 ],
             ],
         ];

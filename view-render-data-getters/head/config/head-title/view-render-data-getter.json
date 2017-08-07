@@ -1,4 +1,0 @@
-{
-  "name": "head-title",
-  "renderDataGetter": "Zrcms\\ViewRenderDataGetters\\Head\\Api\\Render\\GetViewRenderDataHeadTitle"
-}
