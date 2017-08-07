@@ -11,14 +11,14 @@ interface RenderContent
 {
     /**
      * @param Content $content
-     * @param array   $renderData ['render-tag' => '{html}']
+     * @param array   $renderTags ['render-tag' => '{html}']
      * @param array   $options
      *
      * @return string
      */
     public function __invoke(
         Content $content,
-        array $renderData,
+        array $renderTags,
         array $options = []
     ): string;
 }

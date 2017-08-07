@@ -36,4 +36,13 @@ class GetRegisterViewLayoutTagsGetterComponentsBasic
             $cacheKey
         );
     }
+
+    public function __invoke(
+        array $options = []
+    ): array
+    {
+        $registry =  parent::__invoke($options);
+
+        return $registry;
+    }
 }

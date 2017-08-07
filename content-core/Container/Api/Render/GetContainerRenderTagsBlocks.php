@@ -104,14 +104,14 @@ class GetContainerRenderTagsBlocks implements GetContainerRenderTags
                 );
             }
 
-            $blockRenderData = $this->getBlockRenderTags->__invoke(
+            $blockRenderTags = $this->getBlockRenderTags->__invoke(
                 $block,
                 $request
             );
 
             $blockInnerHtml = $this->renderBlock->__invoke(
                 $block,
-                $blockRenderData
+                $blockRenderTags
             );
 
             $blockOuterHtml = $this->wrapRenderedBlockVersion->__invoke(

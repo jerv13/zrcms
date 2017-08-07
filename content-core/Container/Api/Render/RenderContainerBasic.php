@@ -42,14 +42,14 @@ class RenderContainerBasic implements RenderContent
 
     /**
      * @param Container|Content $container
-     * @param array             $renderData ['render-tag' => '{html}']
+     * @param array             $renderTags ['render-tag' => '{html}']
      * @param array             $options
      *
      * @return string
      */
     public function __invoke(
         Content $container,
-        array $renderData,
+        array $renderTags,
         array $options = []
     ): string
     {
@@ -71,7 +71,7 @@ class RenderContainerBasic implements RenderContent
 
         return $renderContainerService->__invoke(
             $container,
-            $renderData
+            $renderTags
         );
     }
 }

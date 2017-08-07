@@ -90,14 +90,16 @@ class ViewController
             );
         }
 
-        $viewRenderData = $this->getViewRenderTags->__invoke(
+        $viewRenderTags = $this->getViewRenderTags->__invoke(
             $pageView,
             $request
         );
 
+        ddd(array_keys($viewRenderTags['head']));
+
         $html = $this->renderView->__invoke(
             $pageView,
-            $viewRenderData
+            $viewRenderTags
         );
 
         return new HtmlResponse($html);

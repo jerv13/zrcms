@@ -44,7 +44,7 @@ class RenderLayoutBasic implements RenderLayout
 
     /**
      * @param Layout|Content $layout
-     * @param array          $renderData ['render-tag' => '{html}']
+     * @param array          $renderTags ['render-tag' => '{html}']
      * @param array          $options
      *
      * @return string
@@ -52,7 +52,7 @@ class RenderLayoutBasic implements RenderLayout
      */
     public function __invoke(
         Content $layout,
-        array $renderData,
+        array $renderTags,
         array $options = []
     ): string
     {
@@ -73,7 +73,7 @@ class RenderLayoutBasic implements RenderLayout
 
         return $render->__invoke(
             $layout,
-            $renderData,
+            $renderTags,
             $options
         );
     }

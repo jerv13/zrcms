@@ -27,20 +27,20 @@ class RenderViewLayout implements RenderView
 
     /**
      * @param View|Content $view
-     * @param array        $renderData ['render-tag' => '{html}']
+     * @param array        $renderTags ['render-tag' => '{html}']
      * @param array        $options
      *
      * @return string
      */
     public function __invoke(
         Content $view,
-        array $renderData,
+        array $renderTags,
         array $options = []
     ): string
     {
         return $this->renderLayout->__invoke(
             $view->getLayout(),
-            $renderData,
+            $renderTags,
             $options
         );
     }

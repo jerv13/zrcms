@@ -8,7 +8,7 @@ use Zrcms\Content\Model\Content;
 use Zrcms\ContentCore\Page\Model\Page;
 
 /**
- * renderDataService
+ * renderTagsService
  *
  * @author James Jervis - https://github.com/jerv13
  */

@@ -15,7 +15,7 @@ use Zrcms\ServiceAlias\ServiceCheck;
  */
 class GetViewRenderTagsHeadAll implements GetViewRenderTagsHead
 {
-    const RENDER_TAG_ALL = 'all';
+    const RENDER_TAG_ALL = 'head-all';
     const SERVICE_ALIAS = 'head-all';
 
     /**
@@ -31,34 +31,34 @@ class GetViewRenderTagsHeadAll implements GetViewRenderTagsHead
     /**
      * @var array
      */
-    protected $renderServiceNames
+    protected $renderServiceAliases
         = [
-            GetViewRenderTagsHeadMeta::RENDER_TAG_META => GetViewRenderTagsHeadMeta::class,
-            GetViewRenderTagsHeadTitle::RENDER_TAG_TITLE => GetViewRenderTagsHeadTitle::class,
-            GetViewRenderTagsHeadLink::RENDER_TAG_LINK => GetViewRenderTagsHeadLink::class,
-            GetViewRenderTagsHeadScript::RENDER_TAG_SCRIPT => GetViewRenderTagsHeadScript::class,
+            GetViewRenderTagsHeadMeta::RENDER_TAG_META => GetViewRenderTagsHeadMeta::SERVICE_ALIAS,
+            GetViewRenderTagsHeadTitle::RENDER_TAG_TITLE => GetViewRenderTagsHeadTitle::SERVICE_ALIAS,
+            GetViewRenderTagsHeadLink::RENDER_TAG_LINK => GetViewRenderTagsHeadLink::SERVICE_ALIAS,
+            GetViewRenderTagsHeadScript::RENDER_TAG_SCRIPT => GetViewRenderTagsHeadScript::SERVICE_ALIAS,
         ];
 
     /**
      * @param GetServiceFromAlias $getServiceFromAlias
-     * @param array               $renderServiceNames ['{tag-property-name}' => '{GetViewRenderTagsHeadServiceAlias}']
+     * @param array               $renderServiceAliases ['{tag-property-name}' => '{GetViewRenderTagsHeadServiceAlias}']
      */
     public function __construct(
         GetServiceFromAlias $getServiceFromAlias,
-        array $renderServiceNames = []
+        array $renderServiceAliases = []
     ) {
         $this->getServiceFromAlias = $getServiceFromAlias;
         $this->serviceAliasNamespace = ServiceAliasView::NAMESPACE_CONTENT_RENDER_TAGS_GETTER;
-        $this->renderServiceNames = array_merge(
-            $this->renderServiceNames,
-            $renderServiceNames
+        $this->renderServiceAliases = array_merge(
+            $this->renderServiceAliases,
+            $renderServiceAliases
         );
     }
 
     /**
-     * @param View|Content           $view
+     * @param View|Content $view
      * @param ServerRequestInterface $request
-     * @param array                  $options
+     * @param array $options
      *
      * @return array
      * @throws \Exception
@@ -69,9 +69,11 @@ class GetViewRenderTagsHeadAll implements GetViewRenderTagsHead
         array $options = []
     ): array
     {
-        $renderData = [];
+        $renderTags = [
+            GetViewRenderTagsHead::RENDER_TAG => [],
+        ];
 
-        foreach ($this->renderServiceNames as $renderTag => $renderServiceAlias) {
+        foreach ($this->renderServiceAliases as $renderTag => $renderServiceAlias) {
             /** @var GetViewRenderTagsHead $renderService */
             $renderService = $this->getServiceFromAlias->__invoke(
                 $this->serviceAliasNamespace,
@@ -82,28 +84,32 @@ class GetViewRenderTagsHeadAll implements GetViewRenderTagsHead
 
             ServiceCheck::assertNotSelfReference($this, $renderService);
 
-            $subRenderData = $renderService->__invoke(
+            $subRenderTags = $renderService->__invoke(
                 $view,
                 $request,
                 $options
             );
 
-            if (!is_array($subRenderData[GetViewRenderTagsHead::RENDER_TAG])) {
+            var_dump($subRenderTags[GetViewRenderTagsHead::RENDER_TAG]);
+
+            if (!is_array($subRenderTags[GetViewRenderTagsHead::RENDER_TAG])) {
                 throw new \Exception(
                     get_class($this) . ' requires injected services to return array with '
                     . GetViewRenderTagsHead::RENDER_TAG . ' as a key'
                 );
             }
 
-            $renderData = array_merge(
-                $renderData,
-                $subRenderData[GetViewRenderTagsHead::RENDER_TAG]
+            $renderTags[GetViewRenderTagsHead::RENDER_TAG] = array_merge(
+                $renderTags[GetViewRenderTagsHead::RENDER_TAG],
+                $subRenderTags[GetViewRenderTagsHead::RENDER_TAG]
             );
         }
 
+        ddd(get_class($this), $renderTags);
+
         $mergedHtml = '';
 
-        foreach ($renderData as $html) {
+        foreach ($renderTags as $html) {
             $mergedHtml .= "\n" . $html;
         }
 

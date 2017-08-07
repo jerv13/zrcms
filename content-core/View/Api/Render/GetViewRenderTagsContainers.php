@@ -89,7 +89,7 @@ class GetViewRenderTagsContainers implements GetViewRenderTags
             $containerPaths
         );
 
-        $renderData = [];
+        $renderTags = [];
 
         /** @var ContainerCmsResource $containerCmsResource */
         foreach ($containerCmsResources as $containerCmsResource) {
@@ -99,14 +99,14 @@ class GetViewRenderTagsContainers implements GetViewRenderTags
                 $containerCmsResource->getContentVersionId()
             );
 
-            $renderData[$containerCmsResource->getPath()] = $this->getContainerRenderTags->__invoke(
+            $renderTags[$containerCmsResource->getPath()] = $this->getContainerRenderTags->__invoke(
                 $container,
                 $request
             );
         }
 
         return [
-            self::RENDER_TAG_CONTAINER => $renderData
+            self::RENDER_TAG_CONTAINER => $renderTags
         ];
     }
 

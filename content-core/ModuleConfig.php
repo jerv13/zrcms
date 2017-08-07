@@ -78,9 +78,9 @@ use Zrcms\ContentCore\Theme\Api\Repository\ReadLayoutComponentConfigJsonFile;
 use Zrcms\ContentCore\Theme\Api\Repository\ReadThemeComponentConfig;
 use Zrcms\ContentCore\Theme\Api\Repository\ReadThemeComponentConfigBasic;
 use Zrcms\ContentCore\Theme\Api\Repository\ReadThemeComponentConfigJsonFile;
-use Zrcms\ContentCore\Theme\Api\Render\GetLayoutRenderData;
-use Zrcms\ContentCore\Theme\Api\Render\GetLayoutRenderDataBasic;
-use Zrcms\ContentCore\Theme\Api\Render\GetLayoutRenderDataNoop;
+use Zrcms\ContentCore\Theme\Api\Render\GetLayoutRenderTags;
+use Zrcms\ContentCore\Theme\Api\Render\GetLayoutRenderTagsBasic;
+use Zrcms\ContentCore\Theme\Api\Render\GetLayoutRenderTagsNoop;
 use Zrcms\ContentCore\Theme\Api\Render\RenderLayout;
 use Zrcms\ContentCore\Theme\Api\Render\RenderLayoutBasic;
 use Zrcms\ContentCore\Theme\Api\Render\RenderLayoutMustache;
@@ -460,13 +460,13 @@ class ModuleConfig
                             '0-' => ['literal' => UnpublishLayoutCmsResource::class],
                         ],
                     ],
-                    GetLayoutRenderData::class => [
-                        'class' => GetLayoutRenderDataBasic::class,
+                    GetLayoutRenderTags::class => [
+                        'class' => GetLayoutRenderTagsBasic::class,
                         'arguments' => [
                             '0-' => GetServiceFromAlias::class,
                         ],
                     ],
-                    GetLayoutRenderDataNoop::class => [],
+                    GetLayoutRenderTagsNoop::class => [],
                     RenderLayout::class => [
                         'class' => RenderLayoutBasic::class,
                         'arguments' => [
@@ -684,7 +684,7 @@ class ModuleConfig
                     'json' => ReadLayoutComponentConfigJsonFile::class,
                 ],
                 ServiceAliasLayout::NAMESPACE_CONTENT_RENDER_TAGS_GETTER => [
-                    'noop' => GetLayoutRenderDataNoop::class,
+                    'noop' => GetLayoutRenderTagsNoop::class,
                 ],
                 ServiceAliasLayout::NAMESPACE_CONTENT_RENDERER => [
                     'mustache' => RenderLayoutMustache::class

@@ -10,7 +10,7 @@ use Zrcms\ContentCore\Theme\Model\Layout;
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-interface GetLayoutRenderData extends GetContentRenderTags
+interface GetLayoutRenderTags extends GetContentRenderTags
 {
     /**
      * @param Layout|Content         $layout

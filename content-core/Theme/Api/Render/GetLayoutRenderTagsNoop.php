@@ -9,7 +9,7 @@ use Zrcms\ContentCore\Theme\Model\Layout;
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class GetLayoutRenderDataNoop implements GetLayoutRenderData
+class GetLayoutRenderTagsNoop implements GetLayoutRenderTags
 {
     /**
      * @param Layout|Content         $layout

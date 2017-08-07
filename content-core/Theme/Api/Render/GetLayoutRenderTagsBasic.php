@@ -13,7 +13,7 @@ use Zrcms\ServiceAlias\ServiceCheck;
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class GetLayoutRenderDataBasic implements GetLayoutRenderData
+class GetLayoutRenderTagsBasic implements GetLayoutRenderTags
 {
     /**
      * @var GetServiceFromAlias
@@ -36,7 +36,7 @@ class GetLayoutRenderDataBasic implements GetLayoutRenderData
      */
     public function __construct(
         GetServiceFromAlias $getServiceFromAlias,
-        string $defaultRenderTagsGetterServiceName = GetLayoutRenderDataNoop::class
+        string $defaultRenderTagsGetterServiceName = GetLayoutRenderTagsNoop::class
     ) {
         $this->getServiceFromAlias = $getServiceFromAlias;
         $this->serviceAliasNamespace = ServiceAliasLayout::NAMESPACE_CONTENT_RENDER_TAGS_GETTER;
@@ -62,11 +62,11 @@ class GetLayoutRenderDataBasic implements GetLayoutRenderData
             ''
         );
 
-        /** @var GetLayoutRenderData $render */
+        /** @var GetLayoutRenderTags $render */
         $renderTagsGetterService = $this->getServiceFromAlias->__invoke(
             $this->serviceAliasNamespace,
             $renderTagsGetterServiceAlias,
-            GetLayoutRenderData::class,
+            GetLayoutRenderTags::class,
             $this->defaultRenderTagsGetterServiceName
         );
 

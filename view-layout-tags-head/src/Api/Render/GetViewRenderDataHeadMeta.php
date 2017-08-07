@@ -11,7 +11,7 @@ use Zrcms\ContentCore\View\Model\View;
  */
 class GetViewRenderTagsHeadMeta implements GetViewRenderTagsHead
 {
-    const RENDER_TAG_META = 'meta';
+    const RENDER_TAG_META = 'head-meta';
     const SERVICE_ALIAS = 'head-meta';
 
     /**

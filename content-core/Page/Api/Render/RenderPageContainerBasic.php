@@ -44,14 +44,14 @@ class RenderPageContainerBasic implements RenderPageContainer
 
     /**
      * @param Page|Content $pageContainer
-     * @param array        $renderData ['render-tag' => '{html}']
+     * @param array        $renderTags ['render-tag' => '{html}']
      * @param array        $options
      *
      * @return string
      */
     public function __invoke(
         Content $pageContainer,
-        array $renderData,
+        array $renderTags,
         array $options = []
     ): string
     {
@@ -73,7 +73,7 @@ class RenderPageContainerBasic implements RenderPageContainer
 
         return $renderPageContainerService->__invoke(
             $pageContainer,
-            $renderData
+            $renderTags
         );
     }
 }

@@ -30,14 +30,14 @@ class RenderBlockMustache implements RenderBlock
 
     /**
      * @param Block|Content $block
-     * @param array         $renderData ['render-tag' => '{html}']
+     * @param array         $renderTags ['render-tag' => '{html}']
      * @param array         $options
      *
      * @return string
      */
     public function __invoke(
         Content $block,
-        array $renderData,
+        array $renderTags,
         array $options = []
     ): string
     {
@@ -52,6 +52,6 @@ class RenderBlockMustache implements RenderBlock
         $mustache = new Mustache();
         $mustache->getResolver()->attach($resolver);
 
-        return $mustache->render('template', $renderData);
+        return $mustache->render('template', $renderTags);
     }
 }

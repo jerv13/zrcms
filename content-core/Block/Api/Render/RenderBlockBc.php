@@ -80,14 +80,14 @@ class RenderBlockBc implements RenderBlock
 
     /**
      * @param BlockVersion|Content $blockVersion
-     * @param array                $renderData
+     * @param array                $renderTags
      * @param array                $options
      *
      * @return string
      */
     public function __invoke(
         Content $blockVersion,
-        array $renderData,
+        array $renderTags,
         array $options = []
     ): string
     {
@@ -108,8 +108,8 @@ class RenderBlockBc implements RenderBlock
         $controller->setResponse($response);
 
         $viewModel = $controller->renderInstance(
-            $renderData[PropertiesBlock::RENDER_DATA_ID],
-            $renderData[PropertiesBlock::RENDER_DATA_CONFIG]
+            $renderTags[PropertiesBlock::RENDER_DATA_ID],
+            $renderTags[PropertiesBlock::RENDER_DATA_CONFIG]
         );
 
         if ($viewModel instanceof ResponseInterface) {

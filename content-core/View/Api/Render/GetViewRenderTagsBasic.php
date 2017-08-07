@@ -71,7 +71,7 @@ class GetViewRenderTagsBasic implements GetViewRenderTags
             $viewLayoutTagsGetterServiceAliases[] = $viewLayoutTagsGetterComponent->getViewRenderTagsGetter();
         }
 
-        $allViewRenderData = [];
+        $allViewRenderTags = [];
 
         $serviceNameChecks = [];
 
@@ -96,19 +96,19 @@ class GetViewRenderTagsBasic implements GetViewRenderTags
 
             ServiceCheck::assertNotSelfReference($this, $getViewRenderTags);
 
-            $viewRenderData = $getViewRenderTags->__invoke(
+            $viewRenderTags = $getViewRenderTags->__invoke(
                 $view,
                 $request,
                 $options
             );
 
-            $allViewRenderData = array_merge(
-                $allViewRenderData,
-                $viewRenderData
+            $allViewRenderTags = array_merge(
+                $allViewRenderTags,
+                $viewRenderTags
             );
         }
 
 
-        return $allViewRenderData;
+        return $allViewRenderTags;
     }
 }

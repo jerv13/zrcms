@@ -26,12 +26,12 @@ class GetPageContainerRenderTagsHtml implements GetPageContainerRenderTags
         array $options = []
     ): array
     {
-        $renderedData = [];
+        $renderTags = [];
 
-        $renderedData[] = $pageContainer->getProperty(
+        $renderTags[] = $pageContainer->getProperty(
             PropertiesPage::PRE_RENDERED_HTML
         );
 
-        return $renderedData;
+        return $renderTags;
     }
 }

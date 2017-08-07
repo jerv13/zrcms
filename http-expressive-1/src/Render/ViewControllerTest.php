@@ -20,7 +20,7 @@ use Zrcms\ContentCore\Site\Model\PropertiesSiteCmsResource;
 use Zrcms\ContentCore\Site\Model\PropertiesSiteVersion;
 use Zrcms\ContentCore\Site\Model\SiteCmsResourceBasic;
 use Zrcms\ContentCore\Site\Model\SiteVersionBasic;
-use Zrcms\ContentCore\Theme\Api\Render\GetLayoutRenderDataNoop;
+use Zrcms\ContentCore\Theme\Api\Render\GetLayoutRenderTagsNoop;
 use Zrcms\ContentCore\Theme\Api\Render\RenderLayoutMustache;
 use Zrcms\ContentCore\Theme\Model\LayoutCmsResourceBasic;
 use Zrcms\ContentCore\Theme\Model\LayoutVersionBasic;
@@ -256,7 +256,7 @@ class ViewControllerTest
                 PropertiesLayoutVersion::HTML
                 => file_get_contents(__DIR__ . '/../../../xample-module/theme/default.mustache'),
                 PropertiesLayoutVersion::RENDER_TAGS_GETTER
-                => GetLayoutRenderDataNoop::class,
+                => GetLayoutRenderTagsNoop::class,
                 PropertiesLayoutVersion::RENDER_TAG_NAME_PARSER
                 => FindTagNamesByLayoutMustache::class,
                 PropertiesLayoutVersion::RENDERER
@@ -289,14 +289,14 @@ class ViewControllerTest
             $properties
         );
 
-        $viewRenderData = $this->serviceContainer->get(GetViewRenderTags::class)->__invoke(
+        $viewRenderTags = $this->serviceContainer->get(GetViewRenderTags::class)->__invoke(
             $pageView,
             $request
         );
 
         $html = $this->serviceContainer->get(RenderView::class)->__invoke(
             $pageView,
-            $viewRenderData
+            $viewRenderTags
         );
 
         return new HtmlResponse($html);

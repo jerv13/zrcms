@@ -1,6 +1,6 @@
 <?php
 
-namespace Zrcms\ViewLayoutTagsHead\Head;
+namespace Zrcms\ViewLayoutTagsHead;
 
 use Zrcms\ContentCore\View\Model\ServiceAliasView;
 use Zrcms\ServiceAlias\Api\GetServiceFromAlias;
@@ -46,11 +46,11 @@ class ModuleConfig
             ],
             'zrcms' => [
                 'view-layout-tags' => [
-                    'head-all' => __DIR__ . '/../../config/head-all',
-                    'head-link' => __DIR__ . '/../../config/head-link',
-                    'head-meta' => __DIR__ . '/../../config/head-meta',
-                    'head-script' => __DIR__ . '/../../config/head-script',
-                    'head-title' => __DIR__ . '/../../config/head-title',
+                    GetViewRenderTagsHeadAll::RENDER_TAG_ALL => __DIR__ . '/../config/head-all',
+                    GetViewRenderTagsHeadLink::RENDER_TAG_LINK => __DIR__ . '/../config/head-link',
+                    GetViewRenderTagsHeadMeta::RENDER_TAG_META => __DIR__ . '/../config/head-meta',
+                    GetViewRenderTagsHeadScript::RENDER_TAG_SCRIPT => __DIR__ . '/../config/head-script',
+                    GetViewRenderTagsHeadTitle::RENDER_TAG_TITLE => __DIR__ . '/../config/head-title',
                 ],
             ],
 

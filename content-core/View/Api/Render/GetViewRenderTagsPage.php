@@ -54,20 +54,20 @@ class GetViewRenderTagsPage implements GetViewRenderTags
     {
         $pageContainer = $view->getPage();
 
-        $pageRenderData = $this->getPageContainerRenderTags->__invoke(
+        $pageRenderTags = $this->getPageContainerRenderTags->__invoke(
             $view->getPage(),
             $request
         );
 
-        $viewRenderData = $this->renderPageContainer->__invoke(
+        $viewRenderTags = $this->renderPageContainer->__invoke(
             $pageContainer,
-            $pageRenderData
+            $pageRenderTags
         );
 
-        $viewRenderData = "<!-- <[page]> -->\n" . $viewRenderData . "\n<!-- </[page]> -->";
+        $viewRenderTags = "<!-- <[page]> -->\n" . $viewRenderTags . "\n<!-- </[page]> -->";
 
         return [
-            self::RENDER_TAG_PAGE => $viewRenderData
+            self::RENDER_TAG_PAGE => $viewRenderTags
         ];
     }
 }

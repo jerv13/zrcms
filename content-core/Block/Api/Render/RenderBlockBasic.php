@@ -54,7 +54,7 @@ class RenderBlockBasic implements RenderBlock
 
     /**
      * @param Block|Content $block
-     * @param array         $renderData ['render-tag' => '{html}']
+     * @param array         $renderTags ['render-tag' => '{html}']
      * @param array         $options
      *
      * @return string
@@ -62,7 +62,7 @@ class RenderBlockBasic implements RenderBlock
      */
     public function __invoke(
         Content $block,
-        array $renderData,
+        array $renderTags,
         array $options = []
     ): string
     {
@@ -89,7 +89,7 @@ class RenderBlockBasic implements RenderBlock
 
         return $renderBlock->__invoke(
             $block,
-            $renderData,
+            $renderTags,
             $options
         );
     }

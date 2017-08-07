@@ -44,7 +44,7 @@ class RenderViewBasic implements RenderView
 
     /**
      * @param Content $view
-     * @param array   $renderData
+     * @param array   $renderTags
      * @param array   $options
      *
      * @return string
@@ -52,7 +52,7 @@ class RenderViewBasic implements RenderView
      */
     public function __invoke(
         Content $view,
-        array $renderData,
+        array $renderTags,
         array $options = []
     ): string
     {
@@ -73,7 +73,7 @@ class RenderViewBasic implements RenderView
 
         return $render->__invoke(
             $view,
-            $renderData,
+            $renderTags,
             $options
         );
     }

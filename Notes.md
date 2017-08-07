@@ -67,7 +67,7 @@ ENV="local" bin/console orm:schema-tool:update --force
         - RENDER_TAGS_GETTER
         - RENDER_TAG_NAME_PARSER
         
-    - ViewRenderDataGatter
+    - ViewRenderTagsGatter
         - RENDER_TAGS_GETTER
         
 - GetServiceFromAlias and wire const NAMESPACE_RESOURCE = 'zrcms.view.resource';
