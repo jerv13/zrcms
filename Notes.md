@@ -84,4 +84,5 @@ ENV="local" bin/console orm:schema-tool:update --force
 
 - Refactor GetRegisterThemeComponentsBasic to use same interfaces as the rest
 
-- Fix caching (cache registry not componenets)
+- Fix caching (cache registry not components)
+- 
