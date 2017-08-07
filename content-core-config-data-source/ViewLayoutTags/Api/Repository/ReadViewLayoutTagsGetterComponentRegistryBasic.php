@@ -32,4 +32,18 @@ class ReadViewLayoutTagsGetterComponentRegistryBasic
             $defaultComponentConfReaderServiceAlias
         );
     }
+
+    /**
+     * @param array $options
+     *
+     * @return array
+     */
+    public function __invoke(
+        array $options = []
+    ): array
+    {
+        $registry = parent::__invoke($options);
+
+        return $registry;
+    }
 }
