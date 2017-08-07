@@ -32,7 +32,7 @@ class ModuleConfig
                     'xample-theme' => __DIR__ . '/../theme',
                 ],
                 'view-layout-tags-getters' => [
-                    GetViewLayoutTags::XAMPLE_RENDER_TAG => __DIR__ . '/../view-layout-tags-getter',
+                    GetViewLayoutTags::XAMPLE_RENDER_TAG => __DIR__ . '/../view-layout-tags',
                 ],
             ],
 

@@ -12,7 +12,7 @@ use Zrcms\ContentCore\View\Model\View;
 class GetViewRenderTagsHeadTitle implements GetViewRenderTagsHead
 {
     const RENDER_TAG_TITLE = 'title';
-
+    const SERVICE_ALIAS = 'head-title';
     /**
      * @param View|Content           $view
      * @param ServerRequestInterface $request

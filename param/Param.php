@@ -3,6 +3,7 @@
 namespace Zrcms\Param;
 
 use Zrcms\Param\Exception\IllegalParamException;
+use Zrcms\Param\Exception\ParamException;
 use Zrcms\Param\Exception\ParamMissingException;
 
 /**
@@ -10,7 +11,7 @@ use Zrcms\Param\Exception\ParamMissingException;
  */
 class Param
 {
-    public static $debug = true;
+    public static $debug = false;
 
     /**
      * @param array  $params
@@ -299,15 +300,15 @@ class Param
     }
 
     /**
-     * @param \Throwable $error
+     * @param \Throwable|ParamException $error
      *
      * @return void
-     * @throws \Throwable
+     * @throws \Throwable|ParamException
      */
     public static function throwError(\Throwable $error)
     {
-        if (self::$debug) {
-            ddd($error);
+        if (self::$debug && is_a($error, ParamException::class)) {
+            print_r($error->getProperties());
         }
 
         throw $error;

@@ -12,7 +12,7 @@ use Zrcms\ContentCore\View\Model\View;
 class GetViewRenderTagsHeadScript implements GetViewRenderTagsHead
 {
     const RENDER_TAG_SCRIPT = 'script';
-
+    const SERVICE_ALIAS = 'head-script';
     /**
      * @param View|Content           $view
      * @param ServerRequestInterface $request

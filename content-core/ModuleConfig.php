@@ -635,7 +635,7 @@ class ModuleConfig
             'zrcms' => [
             ],
             /**
-             * Block ===========================================
+             * Service Alias ===========================================
              */
             'zrcms-service-alias' => [
                 /**

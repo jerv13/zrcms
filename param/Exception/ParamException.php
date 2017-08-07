@@ -38,7 +38,7 @@ class ParamException extends \Exception
 
     /**
      * @param string          $message
-     * @param array      Component location is required     $properties
+     * @param array           $properties
      * @param int             $code
      * @param \Exception|null $previous
      */

@@ -28,19 +28,19 @@ class GetLayoutRenderDataBasic implements GetLayoutRenderData
     /**
      * @var string
      */
-    protected $defaultRenderDataGetterServiceName;
+    protected $defaultRenderTagsGetterServiceName;
 
     /**
      * @param GetServiceFromAlias $getServiceFromAlias
-     * @param string              $defaultRenderDataGetterServiceName
+     * @param string              $defaultRenderTagsGetterServiceName
      */
     public function __construct(
         GetServiceFromAlias $getServiceFromAlias,
-        string $defaultRenderDataGetterServiceName = GetLayoutRenderDataNoop::class
+        string $defaultRenderTagsGetterServiceName = GetLayoutRenderDataNoop::class
     ) {
         $this->getServiceFromAlias = $getServiceFromAlias;
         $this->serviceAliasNamespace = ServiceAliasLayout::NAMESPACE_CONTENT_RENDER_TAGS_GETTER;
-        $this->defaultRenderDataGetterServiceName = $defaultRenderDataGetterServiceName;
+        $this->defaultRenderTagsGetterServiceName = $defaultRenderTagsGetterServiceName;
     }
 
     /**
@@ -57,22 +57,22 @@ class GetLayoutRenderDataBasic implements GetLayoutRenderData
         array $options = []
     ): array
     {
-        $renderDataGetterServiceAlias = $layout->getProperty(
+        $renderTagsGetterServiceAlias = $layout->getProperty(
             PropertiesLayout::RENDER_TAGS_GETTER,
             ''
         );
 
         /** @var GetLayoutRenderData $render */
-        $renderDataGetterService = $this->getServiceFromAlias->__invoke(
+        $renderTagsGetterService = $this->getServiceFromAlias->__invoke(
             $this->serviceAliasNamespace,
-            $renderDataGetterServiceAlias,
+            $renderTagsGetterServiceAlias,
             GetLayoutRenderData::class,
-            $this->defaultRenderDataGetterServiceName
+            $this->defaultRenderTagsGetterServiceName
         );
 
-        ServiceCheck::assertNotSelfReference($this, $renderDataGetterService);
+        ServiceCheck::assertNotSelfReference($this, $renderTagsGetterService);
 
-        return $renderDataGetterService->__invoke(
+        return $renderTagsGetterService->__invoke(
             $layout,
             $request,
             $options

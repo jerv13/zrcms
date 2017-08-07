@@ -16,6 +16,7 @@ use Zrcms\ServiceAlias\ServiceCheck;
 class GetViewRenderTagsHeadAll implements GetViewRenderTagsHead
 {
     const RENDER_TAG_ALL = 'all';
+    const SERVICE_ALIAS = 'head-all';
 
     /**
      * @var GetServiceFromAlias

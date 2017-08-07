@@ -118,14 +118,15 @@ class ModuleConfig
                             '1-' => SearchConfigList::class
                         ],
                     ],
-                    ReadViewLayoutTagsGetterComponentRegistry::class => [
+                    ReadViewLayoutTagsGetterComponentRegistry::class.'1' => [
                         'factory'
                         => This\ViewLayoutTags\Api\Repository\ReadViewLayoutTagsGetterComponentRegistryBasicFactory::class,
+
                     ],
                     GetRegisterViewLayoutTagsGetterComponents::class => [
                         'class' => This\ViewLayoutTags\Api\GetRegisterViewLayoutTagsGetterComponentsBasic::class,
                         'arguments' => [
-                            '0-' => ReadViewLayoutTagsGetterComponentRegistry::class,
+                            '0-' => ReadViewLayoutTagsGetterComponentRegistry::class.'1',
                             '1-' => Cache::class
                         ],
                     ],

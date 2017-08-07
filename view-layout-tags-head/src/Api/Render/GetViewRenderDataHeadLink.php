@@ -12,6 +12,7 @@ use Zrcms\ContentCore\View\Model\View;
 class GetViewRenderTagsHeadLink implements GetViewRenderTagsHead
 {
     const RENDER_TAG_LINK = 'link';
+    const SERVICE_ALIAS = 'head-link';
 
     /**
      * @param View|Content           $view
