@@ -3,8 +3,8 @@
 namespace Zrcms\ContentCore\Block\Api;
 
 use Zrcms\ContentCore\Block\Api\Repository\FindBlockComponent;
-use Zrcms\ContentCore\Block\Model\BlockComponent;
 use Zrcms\ContentCore\Block\Model\Block;
+use Zrcms\ContentCore\Block\Model\BlockComponent;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -24,9 +24,10 @@ class GetMergedConfigBasic implements GetMergedConfig
 
     /**
      * @param Block $block
-     * @param array                 $options
+     * @param array $options
      *
      * @return array
+     * @throws \Exception
      */
     public function __invoke(
         Block $block,
@@ -37,6 +38,10 @@ class GetMergedConfigBasic implements GetMergedConfig
         $bockComponent = $this->findBlockComponent->__invoke(
             $block->getBlockComponentName()
         );
+
+        if (empty($bockComponent)) {
+            throw new \Exception("Block not found: (" . $block->getBlockComponentName() . ")");
+        }
 
         return $this->merge($bockComponent->getDefaultConfig(), $block->getConfig());
     }

@@ -86,7 +86,6 @@ class GetContainerRenderDataBlocks implements GetContainerRenderData
 
         /** @var Block $block */
         foreach ($blocks as $block) {
-
             $rowNumber = $block->getRequiredLayoutProperty(
                 PropertiesBlock::LAYOUT_PROPERTIES_ROW_NUMBER
             );

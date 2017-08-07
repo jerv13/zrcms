@@ -110,18 +110,18 @@ abstract class GetRegisterComponentsAbstract implements GetRegisterComponents
 
         foreach ($componentConfigs as $componentConfig) {
 
-            $componentConfig = $this->prepareConfig($componentConfig);
-            $componentConfig = $this->buildSubComponents($componentConfig);
+            $preparedConfig = $this->prepareConfig($componentConfig);
+            $builtConfig = $this->buildSubComponents($preparedConfig);
 
             $configs[] = new $componentClass(
-                $componentConfig,
+                $builtConfig,
                 Param::get(
-                    $componentConfig,
+                    $builtConfig,
                     ComponentConfigFields::CREATED_BY_USER_ID,
                     Trackable::UNKNOWN_USER_ID
                 ),
                 Param::get(
-                    $componentConfig,
+                    $builtConfig,
                     ComponentConfigFields::CREATED_REASON,
                     Trackable::UNKNOWN_REASON
                 )

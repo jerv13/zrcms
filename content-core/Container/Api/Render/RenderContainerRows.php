@@ -47,13 +47,13 @@ class RenderContainerRows implements RenderContent
     {
         $containerInnerHtml = '';
         foreach ($renderData as $row) {
-            $containerInnerHtml .= '<div class="row">';
+            $containerInnerHtml .= "\n<div class=\"row\">\n";
             if (is_array($row)) {
                 foreach ($row as $block) {
                     $containerInnerHtml .= $block;
                 }
             }
-            $containerInnerHtml .= '</div>';
+            $containerInnerHtml .= "\n</div>\n";
         }
 
         return $this->wrapRenderedContainer->__invoke(

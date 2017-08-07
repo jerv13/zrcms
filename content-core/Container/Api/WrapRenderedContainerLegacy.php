@@ -21,13 +21,13 @@ class WrapRenderedContainerLegacy implements WrapRenderedContainer
     {
         $isPageContainer = $container instanceof PageContainerVersion;
 
-        return '<div class="container-fluid rcmContainer" '
-        . 'data-containerid="' . $container->getId() . '" '
-        . ($isPageContainer ? 'data-ispagecontainer="Y" ' : '')
+        return "\n<div class=\"container-fluid rcmContainer\""
+        . ' data-containerid="' . $container->getId() . '" '
+        . ($isPageContainer ? ' data-ispagecontainer="Y"' : '')
         // . 'data-container="????" '
         // . 'id="' . $container->getUid()
-        . '">'
+        . ">\n"
         . $innerHtml
-        . '</div>';
+        . "\n</div>\n";
     }
 }

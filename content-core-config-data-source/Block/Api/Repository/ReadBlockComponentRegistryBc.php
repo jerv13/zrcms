@@ -69,14 +69,17 @@ class ReadBlockComponentRegistryBc extends ReadComponentRegistryAbstract impleme
         array $registry,
         array $pluginConfigsBc
     ) {
+        $registryBcs = [];
         foreach ($pluginConfigsBc as $name => $pluginConfigBc) {
-            $pluginConfigBc[BlockComponentRegistryFields::COMPONENT_CONFIG_READER] = ReadBlockComponentConfigBc::SERVICE_ALIAS;
-            $pluginConfigBc[BlockComponentRegistryFields::CONFIG_LOCATION] = $name;
-            $pluginConfigsBc[$name] = $pluginConfigBc;
+            $registryBc = [];
+            $registryBc[BlockComponentRegistryFields::COMPONENT_CONFIG_READER] = ReadBlockComponentConfigBc::SERVICE_ALIAS;
+            $registryBc[BlockComponentRegistryFields::CONFIG_LOCATION] = $name;
+            $registryBc[BlockComponentRegistryFields::NAME] = $name;
+            $registryBcs[] = $registryBc;
         }
 
         $registry = array_merge(
-            $pluginConfigsBc,
+            $registryBcs,
             $registry
         );
 

@@ -8,6 +8,8 @@ use Zrcms\ContentCore\Block\Api\GetMergedConfig;
 use Zrcms\ContentCore\Block\Api\GetMergedConfigBasic;
 use Zrcms\ContentCore\Block\Api\PrepareBlockConfig;
 use Zrcms\ContentCore\Block\Api\PrepareBlockConfigBc;
+use Zrcms\ContentCore\Block\Api\Render\RenderBlockBc;
+use Zrcms\ContentCore\Block\Api\Render\RenderBlockBcFactory;
 use Zrcms\ContentCore\Block\Api\Repository\ReadBlockComponentConfig;
 use Zrcms\ContentCore\Block\Api\Repository\ReadBlockComponentConfigBasic;
 use Zrcms\ContentCore\Block\Api\Repository\ReadBlockComponentConfigBc;
@@ -150,9 +152,12 @@ class ModuleConfig
                             '1-' => FindBlockComponent::class,
                         ],
                     ],
+                    RenderBlockBc::class => [
+                        'factory' => RenderBlockBcFactory::class,
+                    ],
                     RenderBlockMustache::class => [
                         'arguments' => [
-                            '0-' => FindBlockComponent::class
+                            '0-' => FindBlockComponent::class,
                         ],
                     ],
                     FindBlockComponent::class => [
@@ -642,6 +647,7 @@ class ModuleConfig
                 ],
                 ServiceAliasBlock::NAMESPACE_CONTENT_RENDERER => [
                     'mustache' => RenderBlockMustache::class,
+                    RenderBlockBc::SERVICE_ALIAS => RenderBlockBc::class,
                 ],
                 ServiceAliasBlock::NAMESPACE_CONTENT_DATA_PROVIDER => [
                     'noop' => GetBlockDataNoop::class,

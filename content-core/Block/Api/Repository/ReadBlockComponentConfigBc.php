@@ -2,6 +2,9 @@
 
 namespace Zrcms\ContentCore\Block\Api\Repository;
 
+use Zrcms\ContentCore\Block\Api\Render\RenderBlockBc;
+use Zrcms\ContentCore\Block\Model\BlockComponentConfigFields;
+
 /**
  * @deprecated BC only
  * @author James Jervis - https://github.com/jerv13
@@ -42,6 +45,11 @@ class ReadBlockComponentConfigBc implements ReadBlockComponentConfig
             );
         }
         $config = $this->pluginConfig[$configKey];
+
+        $config[BlockComponentConfigFields::COMPONENT_CONFIG_READER] = ReadBlockComponentConfigBc::SERVICE_ALIAS;
+        $config[BlockComponentConfigFields::CONFIG_LOCATION] = $configKey;
+        $config[BlockComponentConfigFields::NAME] = $configKey;
+        $config[BlockComponentConfigFields::RENDERER] = RenderBlockBc::SERVICE_ALIAS;
 
         return $config;
     }

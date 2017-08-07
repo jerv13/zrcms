@@ -39,9 +39,11 @@ class FindBlockComponent
         string $name,
         array $options = []
     ) {
-        return parent::__invoke(
+        $blockComponent = parent::__invoke(
             $name,
             $options
         );
+
+        return $blockComponent;
     }
 }

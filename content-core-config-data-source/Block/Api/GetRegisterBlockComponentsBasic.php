@@ -51,7 +51,9 @@ class GetRegisterBlockComponentsBasic
         array $options = []
     ): array
     {
-        return parent::__invoke($options);
+        $components =  parent::__invoke($options);
+
+        return $components;
     }
 
     /**
