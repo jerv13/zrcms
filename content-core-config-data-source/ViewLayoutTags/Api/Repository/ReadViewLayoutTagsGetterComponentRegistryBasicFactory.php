@@ -20,7 +20,7 @@ class ReadViewLayoutTagsGetterComponentRegistryBasicFactory
     ) {
         $config = $serviceContainer->get('config');
 
-        $registry = $config['zrcms']['view-layout-tags-getters'];
+        $registry = $config['zrcms']['view-layout-tags'];
 
         return new ReadViewLayoutTagsGetterComponentRegistryBasic(
             $registry,

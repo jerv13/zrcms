@@ -31,7 +31,7 @@ class ModuleConfig
                 'themes' => [
                     'xample-theme' => __DIR__ . '/../theme',
                 ],
-                'view-layout-tags-getters' => [
+                'view-layout-tags' => [
                     GetViewLayoutTags::XAMPLE_RENDER_TAG => __DIR__ . '/../view-layout-tags',
                 ],
             ],

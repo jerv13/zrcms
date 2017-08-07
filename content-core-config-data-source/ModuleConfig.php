@@ -153,7 +153,7 @@ class ModuleConfig
                      ]
                     */
                 ],
-                'view-layout-tags-getters' => [
+                'view-layout-tags' => [
                     /*
                      '{view-layout-tags-getter-name}' => '{view-layout-tags-getter-location}(directory)'
                      OR

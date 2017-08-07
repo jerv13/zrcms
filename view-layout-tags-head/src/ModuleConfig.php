@@ -45,7 +45,7 @@ class ModuleConfig
                 ],
             ],
             'zrcms' => [
-                'view-layout-tags-getters' => [
+                'view-layout-tags' => [
                     'head-all' => __DIR__ . '/../../config/head-all',
                     'head-link' => __DIR__ . '/../../config/head-link',
                     'head-meta' => __DIR__ . '/../../config/head-meta',
