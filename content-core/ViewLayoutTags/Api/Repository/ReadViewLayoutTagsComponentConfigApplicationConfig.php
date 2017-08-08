@@ -11,5 +11,5 @@ class ReadViewLayoutTagsComponentConfigApplicationConfig
     extends ReadComponentConfigApplicationConfigAbstract
     implements ReadViewLayoutTagsComponentConfig
 {
-
+    const SERVICE_ALIAS = 'app-config';
 }

@@ -8,17 +8,12 @@ use Zrcms\ContentCore\Block\Api\GetMergedConfig;
 use Zrcms\ContentCore\Block\Api\GetMergedConfigBasic;
 use Zrcms\ContentCore\Block\Api\PrepareBlockConfig;
 use Zrcms\ContentCore\Block\Api\PrepareBlockConfigBc;
-use Zrcms\ContentCore\Block\Api\Render\RenderBlockBc;
-use Zrcms\ContentCore\Block\Api\Render\RenderBlockBcFactory;
-use Zrcms\ContentCore\Block\Api\Repository\ReadBlockComponentConfig;
-use Zrcms\ContentCore\Block\Api\Repository\ReadBlockComponentConfigBasic;
-use Zrcms\ContentCore\Block\Api\Repository\ReadBlockComponentConfigBc;
-use Zrcms\ContentCore\Block\Api\Repository\ReadBlockComponentConfigBcFactory;
-use Zrcms\ContentCore\Block\Api\Repository\ReadBlockComponentConfigJsonFile;
 use Zrcms\ContentCore\Block\Api\Render\GetBlockRenderTags;
 use Zrcms\ContentCore\Block\Api\Render\GetBlockRenderTagsBasic;
 use Zrcms\ContentCore\Block\Api\Render\RenderBlock;
 use Zrcms\ContentCore\Block\Api\Render\RenderBlockBasic;
+use Zrcms\ContentCore\Block\Api\Render\RenderBlockBc;
+use Zrcms\ContentCore\Block\Api\Render\RenderBlockBcFactory;
 use Zrcms\ContentCore\Block\Api\Render\RenderBlockMustache;
 use Zrcms\ContentCore\Block\Api\Repository\FindBlockComponent;
 use Zrcms\ContentCore\Block\Api\Repository\FindBlockComponentsBy;
@@ -26,6 +21,11 @@ use Zrcms\ContentCore\Block\Api\Repository\FindBlockVersionsByContainer;
 use Zrcms\ContentCore\Block\Api\Repository\GetBlockData;
 use Zrcms\ContentCore\Block\Api\Repository\GetBlockDataBasic;
 use Zrcms\ContentCore\Block\Api\Repository\GetBlockDataNoop;
+use Zrcms\ContentCore\Block\Api\Repository\ReadBlockComponentConfig;
+use Zrcms\ContentCore\Block\Api\Repository\ReadBlockComponentConfigBasic;
+use Zrcms\ContentCore\Block\Api\Repository\ReadBlockComponentConfigBc;
+use Zrcms\ContentCore\Block\Api\Repository\ReadBlockComponentConfigBcFactory;
+use Zrcms\ContentCore\Block\Api\Repository\ReadBlockComponentConfigJsonFile;
 use Zrcms\ContentCore\Block\Api\WrapRenderedBlockVersion;
 use Zrcms\ContentCore\Block\Api\WrapRenderedBlockVersionLegacy;
 use Zrcms\ContentCore\Block\Model\ServiceAliasBlock;
@@ -72,12 +72,6 @@ use Zrcms\ContentCore\Site\Api\Repository\FindSiteCmsResourcesBy;
 use Zrcms\ContentCore\Site\Api\Repository\FindSiteVersion;
 use Zrcms\ContentCore\Site\Api\Repository\FindSiteVersionsBy;
 use Zrcms\ContentCore\Site\Api\Repository\InsertSiteVersion;
-use Zrcms\ContentCore\Theme\Api\Repository\ReadLayoutComponentConfig;
-use Zrcms\ContentCore\Theme\Api\Repository\ReadLayoutComponentConfigBasic;
-use Zrcms\ContentCore\Theme\Api\Repository\ReadLayoutComponentConfigJsonFile;
-use Zrcms\ContentCore\Theme\Api\Repository\ReadThemeComponentConfig;
-use Zrcms\ContentCore\Theme\Api\Repository\ReadThemeComponentConfigBasic;
-use Zrcms\ContentCore\Theme\Api\Repository\ReadThemeComponentConfigJsonFile;
 use Zrcms\ContentCore\Theme\Api\Render\GetLayoutRenderTags;
 use Zrcms\ContentCore\Theme\Api\Render\GetLayoutRenderTagsBasic;
 use Zrcms\ContentCore\Theme\Api\Render\GetLayoutRenderTagsNoop;
@@ -92,6 +86,12 @@ use Zrcms\ContentCore\Theme\Api\Repository\FindLayoutVersionsBy;
 use Zrcms\ContentCore\Theme\Api\Repository\FindThemeComponent;
 use Zrcms\ContentCore\Theme\Api\Repository\FindThemeComponentsBy;
 use Zrcms\ContentCore\Theme\Api\Repository\InsertLayoutVersion;
+use Zrcms\ContentCore\Theme\Api\Repository\ReadLayoutComponentConfig;
+use Zrcms\ContentCore\Theme\Api\Repository\ReadLayoutComponentConfigBasic;
+use Zrcms\ContentCore\Theme\Api\Repository\ReadLayoutComponentConfigJsonFile;
+use Zrcms\ContentCore\Theme\Api\Repository\ReadThemeComponentConfig;
+use Zrcms\ContentCore\Theme\Api\Repository\ReadThemeComponentConfigBasic;
+use Zrcms\ContentCore\Theme\Api\Repository\ReadThemeComponentConfigJsonFile;
 use Zrcms\ContentCore\Theme\Model\ServiceAliasLayout;
 use Zrcms\ContentCore\Theme\Model\ServiceAliasTheme;
 use Zrcms\ContentCore\View\Api\GetLayoutName;
@@ -109,13 +109,13 @@ use Zrcms\ContentCore\View\Api\Repository\FindTagNamesByLayoutMustache;
 use Zrcms\ContentCore\View\Api\Repository\FindViewByRequest;
 use Zrcms\ContentCore\View\Api\Repository\FindViewByRequestBasic;
 use Zrcms\ContentCore\View\Model\ServiceAliasView;
+use Zrcms\ContentCore\ViewLayoutTags\Api\Repository\FindViewLayoutTagsComponent;
+use Zrcms\ContentCore\ViewLayoutTags\Api\Repository\FindViewLayoutTagsComponentsBy;
 use Zrcms\ContentCore\ViewLayoutTags\Api\Repository\ReadViewLayoutTagsComponentConfig;
 use Zrcms\ContentCore\ViewLayoutTags\Api\Repository\ReadViewLayoutTagsComponentConfigApplicationConfig;
 use Zrcms\ContentCore\ViewLayoutTags\Api\Repository\ReadViewLayoutTagsComponentConfigApplicationConfigFactory;
 use Zrcms\ContentCore\ViewLayoutTags\Api\Repository\ReadViewLayoutTagsComponentConfigBasic;
 use Zrcms\ContentCore\ViewLayoutTags\Api\Repository\ReadViewLayoutTagsComponentConfigJsonFile;
-use Zrcms\ContentCore\ViewLayoutTags\Api\Repository\FindViewLayoutTagsComponent;
-use Zrcms\ContentCore\ViewLayoutTags\Api\Repository\FindViewLayoutTagsComponentsBy;
 use Zrcms\ContentCore\ViewLayoutTags\Model\ServiceAliasViewLayoutTags;
 use Zrcms\ServiceAlias\Api\GetServiceFromAlias;
 
@@ -642,59 +642,79 @@ class ModuleConfig
                  * Block ===========================================
                  */
                 ServiceAliasBlock::NAMESPACE_COMPONENT_CONFIG_READER => [
-                    ReadBlockComponentConfigBc::SERVICE_ALIAS => ReadBlockComponentConfigBc::class,
-                    ReadBlockComponentConfigJsonFile::SERVICE_ALIAS => ReadBlockComponentConfigJsonFile::class,
+                    ReadBlockComponentConfigBc::SERVICE_ALIAS
+                    => ReadBlockComponentConfigBc::class,
+
+                    ReadBlockComponentConfigJsonFile::SERVICE_ALIAS
+                    => ReadBlockComponentConfigJsonFile::class,
                 ],
                 ServiceAliasBlock::NAMESPACE_CONTENT_RENDERER => [
-                    'mustache' => RenderBlockMustache::class,
-                    RenderBlockBc::SERVICE_ALIAS => RenderBlockBc::class,
+                    'mustache'
+                    => RenderBlockMustache::class,
+
+                    RenderBlockBc::SERVICE_ALIAS
+                    => RenderBlockBc::class,
                 ],
                 ServiceAliasBlock::NAMESPACE_CONTENT_DATA_PROVIDER => [
-                    'noop' => GetBlockDataNoop::class,
+                    'noop'
+                    => GetBlockDataNoop::class,
                 ],
                 /**
                  * Container ===========================================
                  */
                 ServiceAliasContainer::NAMESPACE_CONTENT_RENDER_TAGS_GETTER => [
-                    'blocks' => GetContainerRenderTagsBlocks::class,
+                    'blocks'
+                    => GetContainerRenderTagsBlocks::class,
                 ],
                 ServiceAliasContainer::NAMESPACE_CONTENT_RENDERER => [
-                    'rows' => RenderContainerRows::class,
+                    'rows'
+                    => RenderContainerRows::class,
                 ],
 
                 /**
                  * Page ===========================================
                  */
                 ServiceAliasPageContainer::NAMESPACE_CONTENT_RENDER_TAGS_GETTER => [
-                    'blocks' => GetPageContainerRenderTagsBlocks::class,
-                    'html' => GetPageContainerRenderTagsHtml::class,
+                    'blocks'
+                    => GetPageContainerRenderTagsBlocks::class,
+
+                    'html'
+                    => GetPageContainerRenderTagsHtml::class,
                 ],
                 ServiceAliasPageContainer::NAMESPACE_CONTENT_RENDERER => [
-                    'rows' => RenderPageContainerRows::class,
+                    'rows'
+                    => RenderPageContainerRows::class,
                 ],
 
                 /**
                  * Theme ===========================================
                  */
                 ServiceAliasTheme::NAMESPACE_COMPONENT_CONFIG_READER => [
-                    'json' => ReadThemeComponentConfigJsonFile::class,
+                    'json'
+                    => ReadThemeComponentConfigJsonFile::class,
                 ],
                 // layout
                 ServiceAliasLayout::NAMESPACE_COMPONENT_CONFIG_READER => [
-                    'json' => ReadLayoutComponentConfigJsonFile::class,
+                    'json'
+                    => ReadLayoutComponentConfigJsonFile::class,
                 ],
                 ServiceAliasLayout::NAMESPACE_CONTENT_RENDER_TAGS_GETTER => [
-                    'noop' => GetLayoutRenderTagsNoop::class,
+                    'noop'
+                    => GetLayoutRenderTagsNoop::class,
                 ],
                 ServiceAliasLayout::NAMESPACE_CONTENT_RENDERER => [
-                    'mustache' => RenderLayoutMustache::class
+                    'mustache'
+                    => RenderLayoutMustache::class
                 ],
                 /**
                  * View ===========================================
                  */
                 ServiceAliasView::NAMESPACE_CONTENT_RENDER_TAGS_GETTER => [
-                    GetViewRenderTagsContainers::SERVICE_ALIAS => GetViewRenderTagsContainers::class,
-                    GetViewRenderTagsPage::SERVICE_ALIAS => GetViewRenderTagsPage::class,
+                    GetViewRenderTagsContainers::SERVICE_ALIAS
+                    => GetViewRenderTagsContainers::class,
+
+                    GetViewRenderTagsPage::SERVICE_ALIAS
+                    => GetViewRenderTagsPage::class,
                 ],
                 ServiceAliasView::NAMESPACE_CONTENT_RENDERER => [
                     'layout' => RenderViewLayout::class,
@@ -706,7 +726,11 @@ class ModuleConfig
                  * ViewLayoutTagsGetter ===========================================
                  */
                 ServiceAliasViewLayoutTags::NAMESPACE_COMPONENT_CONFIG_READER => [
-                    'json' => ReadViewLayoutTagsComponentConfigJsonFile::class,
+                    'json'
+                    => ReadViewLayoutTagsComponentConfigJsonFile::class,
+
+                    ReadViewLayoutTagsComponentConfigApplicationConfig::SERVICE_ALIAS
+                    => ReadViewLayoutTagsComponentConfigApplicationConfig::class,
                 ],
                 ServiceAliasViewLayoutTags::NAMESPACE_COMPONENT_VIEW_RENDER_TAGS_GETTER => [
                     // not used just yet, using ServiceAliasView::NAMESPACE_CONTENT_RENDER_TAGS_GETTER

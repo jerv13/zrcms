@@ -138,8 +138,8 @@ class ModuleConfig
                     '{block-name}' => '{block-location}(directory)'
                     OR
                     '{block-name}' => [
-                      ComponentConfigFields::LOCATION => '{block-location}(service-name)',
-                      ComponentConfigFields::COMPONENT_CONFIG_READER => '{block-location}(service-name)',
+                      ComponentRegistryFields::CONFIG_LOCATION => '{block-location}(string)',
+                      ComponentRegistryFields::COMPONENT_CONFIG_READER => '{block-location}(service-alias)',
                      ]
                     */
                 ],
@@ -148,18 +148,18 @@ class ModuleConfig
                     '{theme-name}' => '{theme-location}(directory)'
                     OR
                     '{theme-name}' => [
-                      ComponentConfigFields::LOCATION => '{theme-location}(service-name)',
-                      ComponentConfigFields::COMPONENT_CONFIG_READER => '{theme-location}(service-name)',
+                      ComponentRegistryFields::CONFIG_LOCATION => '{theme-location}(string)',
+                      ComponentRegistryFields::COMPONENT_CONFIG_READER => '{theme-location}(service-alias)',
                      ]
                     */
                 ],
                 'view-layout-tags' => [
                     /*
-                     '{view-layout-tags-getter-name}' => '{view-layout-tags-getter-location}(directory)'
+                     '{view-layout-tags-name}' => '{view-layout-tags-getter-location}(directory)'
                      OR
-                     '{view-layout-tags-getter-name}' => [
-                       ComponentConfigFields::LOCATION => '{view-layout-tags-getter-location}(service-name)',
-                       ComponentConfigFields::COMPONENT_CONFIG_READER => '{view-layout-tags-getter-location}(service-name)',
+                     '{view-layout-tags-name}' => [
+                       ComponentRegistryFields::CONFIG_LOCATION => '{view-layout-tags-location}(string)',
+                       ComponentRegistryFields::COMPONENT_CONFIG_READER => '{view-layout-tags-location}(service-alias)',
                       ]
                      */
                 ],

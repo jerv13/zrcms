@@ -19,7 +19,7 @@ class ReadViewLayoutTagsComponentConfigApplicationConfigFactory
     ) {
         $config = $serviceContainer->get('config');
 
-        $applicationConfig = $config['zrcms']['views'];
+        $applicationConfig = $config['zrcms']['view-layout-tags'];
 
         return new ReadViewLayoutTagsComponentConfigApplicationConfig(
             $applicationConfig
