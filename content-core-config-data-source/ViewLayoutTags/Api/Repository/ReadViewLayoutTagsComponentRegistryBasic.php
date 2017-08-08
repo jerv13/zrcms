@@ -2,33 +2,42 @@
 
 namespace Zrcms\ContentCoreConfigDataSource\ViewLayoutTags\Api\Repository;
 
+use Zrcms\Cache\Service\Cache;
 use Zrcms\Content\Api\Repository\ReadComponentRegistryAbstract;
-use Zrcms\ContentCore\ViewLayoutTags\Api\Repository\ReadViewLayoutTagsGetterComponentConfigJsonFile;
-use Zrcms\ContentCore\ViewLayoutTags\Api\Repository\ReadViewLayoutTagsGetterComponentRegistry;
-use Zrcms\ContentCore\ViewLayoutTags\Model\ServiceAliasViewLayoutTagsGetter;
+use Zrcms\ContentCore\ViewLayoutTags\Api\Repository\ReadViewLayoutTagsComponentConfigJsonFile;
+use Zrcms\ContentCore\ViewLayoutTags\Api\Repository\ReadViewLayoutTagsComponentRegistry;
+use Zrcms\ContentCore\ViewLayoutTags\Model\ServiceAliasViewLayoutTags;
 use Zrcms\ServiceAlias\Api\GetServiceFromAlias;
 
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class ReadViewLayoutTagsGetterComponentRegistryBasic
+class ReadViewLayoutTagsComponentRegistryBasic
     extends ReadComponentRegistryAbstract
-    implements ReadViewLayoutTagsGetterComponentRegistry
+    implements ReadViewLayoutTagsComponentRegistry
 {
+    const CACHE_KEY = 'ZrcmsViewLayoutTagsComponentRegistryBasic';
+
     /**
      * @param array               $registry
      * @param GetServiceFromAlias $getServiceFromAlias
+     * @param Cache               $cache
+     * @param string              $cacheKey
      * @param string              $defaultComponentConfReaderServiceAlias
      */
     public function __construct(
         array $registry,
         GetServiceFromAlias $getServiceFromAlias,
-        $defaultComponentConfReaderServiceAlias = ReadViewLayoutTagsGetterComponentConfigJsonFile::class
+        Cache $cache,
+        string $cacheKey = self::CACHE_KEY,
+        $defaultComponentConfReaderServiceAlias = ReadViewLayoutTagsComponentConfigJsonFile::class
     ) {
         parent::__construct(
             $registry,
             $getServiceFromAlias,
-            ServiceAliasViewLayoutTagsGetter::NAMESPACE_COMPONENT_CONFIG_READER,
+            ServiceAliasViewLayoutTags::NAMESPACE_COMPONENT_CONFIG_READER,
+            $cache,
+            $cacheKey,
             $defaultComponentConfReaderServiceAlias
         );
     }

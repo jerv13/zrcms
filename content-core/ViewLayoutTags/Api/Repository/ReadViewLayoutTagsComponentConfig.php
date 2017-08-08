@@ -7,7 +7,7 @@ use Zrcms\Content\Api\Repository\ReadComponentConfig;
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-interface ReadViewLayoutTagsGetterComponentConfig extends ReadComponentConfig
+interface ReadViewLayoutTagsComponentConfig extends ReadComponentConfig
 {
 
 }

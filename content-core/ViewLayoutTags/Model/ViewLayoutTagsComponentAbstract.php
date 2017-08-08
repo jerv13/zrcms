@@ -8,9 +8,9 @@ use Zrcms\Param\Param;
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-abstract class ViewLayoutTagsGetterComponentAbstract
+abstract class ViewLayoutTagsComponentAbstract
     extends ComponentAbstract
-    implements ViewLayoutTagsGetterComponent
+    implements ViewLayoutTagsComponent
 {
     /**
      * @param array  $properties
@@ -36,7 +36,7 @@ abstract class ViewLayoutTagsGetterComponentAbstract
     {
         return Param::getString(
             $this->properties,
-            PropertiesViewLayoutTagsGetterComponent::RENDER_TAGS_GETTER,
+            PropertiesViewLayoutTagsComponent::RENDER_TAGS_GETTER,
             ''
         );
     }

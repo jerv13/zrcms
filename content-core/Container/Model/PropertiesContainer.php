@@ -11,6 +11,7 @@ class PropertiesContainer extends PropertiesContent
 {
     const RENDER_TAGS_GETTER = 'renderTagsGetter';
     const RENDERER = 'renderer';
+    const BLOCK_VERSIONS = 'blockVersions';
 
     /**
      * Default values
@@ -22,5 +23,6 @@ class PropertiesContainer extends PropertiesContent
             self::ID => '',
             self::RENDER_TAGS_GETTER => '',
             self::RENDERER => '',
+            self::BLOCK_VERSIONS => [],
         ];
 }

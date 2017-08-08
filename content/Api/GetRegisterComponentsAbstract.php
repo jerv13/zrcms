@@ -20,11 +20,9 @@ abstract class GetRegisterComponentsAbstract implements GetRegisterComponents
     protected $readComponentRegistry;
 
     /**
-     * @var ReadComponentConfig
-     */
-    protected $readComponentConfig;
-
-    /**
+     * @todo Should we cache here??
+     * Note: This cache is storing objects
+     *
      * @var Cache
      */
     protected $cache;

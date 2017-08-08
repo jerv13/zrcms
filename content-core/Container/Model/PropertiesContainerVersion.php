@@ -2,8 +2,6 @@
 
 namespace Zrcms\ContentCore\Container\Model;
 
-use Zrcms\Content\Model\PropertiesContentVersion;
-
 /**
  * @author James Jervis - https://github.com/jerv13
  */
@@ -16,8 +14,9 @@ class PropertiesContainerVersion extends PropertiesContainer
      */
     protected $properties
         = [
-            PropertiesContentVersion::ID => '',
+            self::ID => '',
             self::RENDER_TAGS_GETTER => '',
             self::RENDERER => '',
+            self::BLOCK_VERSIONS => [],
         ];
 }

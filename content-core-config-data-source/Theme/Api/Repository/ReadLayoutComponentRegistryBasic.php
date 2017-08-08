@@ -2,6 +2,7 @@
 
 namespace Zrcms\ContentCoreConfigDataSource\Theme\Api\Repository;
 
+use Zrcms\Cache\Service\Cache;
 use Zrcms\Content\Api\Repository\ReadComponentRegistryAbstract;
 use Zrcms\ContentCore\Theme\Api\Repository\ReadLayoutComponentConfigJsonFile;
 use Zrcms\ContentCore\Theme\Api\Repository\ReadLayoutComponentRegistry;
@@ -14,20 +15,28 @@ use Zrcms\ServiceAlias\Api\GetServiceFromAlias;
  */
 class ReadLayoutComponentRegistryBasic extends ReadComponentRegistryAbstract implements ReadLayoutComponentRegistry
 {
+    const CACHE_KEY = 'ZrcmsLayoutComponentRegistryBasic';
+
     /**
      * @param array               $registry
      * @param GetServiceFromAlias $getServiceFromAlias
+     * @param Cache               $cache
+     * @param string              $cacheKey
      * @param string              $defaultComponentConfReaderServiceAlias
      */
     public function __construct(
         array $registry,
         GetServiceFromAlias $getServiceFromAlias,
+        Cache $cache,
+        string $cacheKey = self::CACHE_KEY,
         $defaultComponentConfReaderServiceAlias = ReadLayoutComponentConfigJsonFile::class
     ) {
         parent::__construct(
             $registry,
             $getServiceFromAlias,
             ServiceAliasLayout::NAMESPACE_COMPONENT_CONFIG_READER,
+            $cache,
+            $cacheKey,
             $defaultComponentConfReaderServiceAlias
         );
     }

@@ -3,6 +3,7 @@
 namespace Zrcms\ContentCoreConfigDataSource\Block\Api\Repository;
 
 use Psr\Container\ContainerInterface;
+use Zrcms\Cache\Service\Cache;
 use Zrcms\ServiceAlias\Api\GetServiceFromAlias;
 
 /**
@@ -24,7 +25,8 @@ class ReadBlockComponentRegistryBasicFactory
 
         return new ReadBlockComponentRegistryBasic(
             $registry,
-            $serviceContainer->get(GetServiceFromAlias::class)
+            $serviceContainer->get(GetServiceFromAlias::class),
+            $serviceContainer->get(Cache::class)
         );
     }
 }

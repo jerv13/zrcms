@@ -4,18 +4,18 @@ namespace Zrcms\ContentCore\ViewLayoutTags\Api\Repository;
 
 use Zrcms\Content\Api\Repository\FindComponent;
 use Zrcms\Content\Model\Component;
-use Zrcms\ContentCore\ViewLayoutTags\Model\ViewLayoutTagsGetterComponent;
+use Zrcms\ContentCore\ViewLayoutTags\Model\ViewLayoutTagsComponent;
 
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-interface FindViewLayoutTagsGetterComponent extends FindComponent
+interface FindViewLayoutTagsComponent extends FindComponent
 {
     /**
      * @param string $name
      * @param array  $options
      *
-     * @return ViewLayoutTagsGetterComponent|Component|null
+     * @return ViewLayoutTagsComponent|Component|null
      */
     public function __invoke(
         string $name,

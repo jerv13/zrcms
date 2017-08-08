@@ -9,5 +9,10 @@ use Zrcms\Content\Model\Content;
  */
 interface Container extends Content
 {
-
+    /**
+     * This couples block versions to containers
+     *
+     * @return array
+     */
+    public function getBlockVersions(): array;
 }

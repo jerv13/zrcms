@@ -7,7 +7,7 @@ use Zrcms\ContentCoreConfigDataSource\Content\Model\ComponentRegistryFields;
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class ViewLayoutTagsGetterComponentRegistryFields extends ComponentRegistryFields
+class ViewLayoutTagsComponentRegistryFields extends ComponentRegistryFields
 {
     /**
      * Default values

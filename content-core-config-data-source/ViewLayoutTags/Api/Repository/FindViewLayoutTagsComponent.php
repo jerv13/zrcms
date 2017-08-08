@@ -3,7 +3,7 @@
 namespace Zrcms\ContentCoreConfigDataSource\ViewLayoutTags\Api\Repository;
 
 use Zrcms\Content\Model\Component;
-use Zrcms\ContentCore\ViewLayoutTags\Model\ViewLayoutTagsGetterComponent;
+use Zrcms\ContentCore\ViewLayoutTags\Model\ViewLayoutTagsComponent;
 use Zrcms\Content\Api\GetRegisterComponents;
 use Zrcms\ContentCoreConfigDataSource\Content\Api\Repository\FindComponentAbstract;
 use Zrcms\ContentCoreConfigDataSource\Content\Api\SearchConfigList;
@@ -11,9 +11,9 @@ use Zrcms\ContentCoreConfigDataSource\Content\Api\SearchConfigList;
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class FindViewLayoutTagsGetterComponent
+class FindViewLayoutTagsComponent
     extends FindComponentAbstract
-    implements \Zrcms\ContentCore\ViewLayoutTags\Api\Repository\FindViewLayoutTagsGetterComponent
+    implements \Zrcms\ContentCore\ViewLayoutTags\Api\Repository\FindViewLayoutTagsComponent
 {
     /**
      * @param GetRegisterComponents $getRegisterComponents
@@ -32,7 +32,7 @@ class FindViewLayoutTagsGetterComponent
      * @param string $name
      * @param array  $options
      *
-     * @return ViewLayoutTagsGetterComponent|Component|null
+     * @return ViewLayoutTagsComponent|Component|null
      */
     public function __invoke(
         string $name,

@@ -9,5 +9,14 @@ use Zrcms\Content\Model\ContentAbstract;
  */
 abstract class ContainerAbstract extends ContentAbstract implements Container
 {
-
+    /**
+     * @return array
+     */
+    public function getBlockVersions(): array
+    {
+        return $this->getProperty(
+            PropertiesContainer::BLOCK_VERSIONS,
+            []
+        );
+    }
 }

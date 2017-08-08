@@ -3,17 +3,18 @@
 namespace Zrcms\ContentCoreConfigDataSource\ViewLayoutTags\Api\Repository;
 
 use Psr\Container\ContainerInterface;
+use Zrcms\Cache\Service\Cache;
 use Zrcms\ServiceAlias\Api\GetServiceFromAlias;
 
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class ReadViewLayoutTagsGetterComponentRegistryBasicFactory
+class ReadViewLayoutTagsComponentRegistryBasicFactory
 {
     /**
      * @param ContainerInterface $serviceContainer
      *
-     * @return ReadViewLayoutTagsGetterComponentRegistryBasic
+     * @return ReadViewLayoutTagsComponentRegistryBasic
      */
     public function __invoke(
         $serviceContainer
@@ -22,9 +23,10 @@ class ReadViewLayoutTagsGetterComponentRegistryBasicFactory
 
         $registry = $config['zrcms']['view-layout-tags'];
 
-        return new ReadViewLayoutTagsGetterComponentRegistryBasic(
+        return new ReadViewLayoutTagsComponentRegistryBasic(
             $registry,
-            $serviceContainer->get(GetServiceFromAlias::class)
+            $serviceContainer->get(GetServiceFromAlias::class),
+            $serviceContainer->get(Cache::class)
         );
     }
 }

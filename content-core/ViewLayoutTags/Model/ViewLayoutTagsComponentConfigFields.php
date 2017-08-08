@@ -7,7 +7,7 @@ use Zrcms\Content\Model\ComponentConfigFields;
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class ViewLayoutTagsGetterComponentConfigFields extends ComponentConfigFields
+class ViewLayoutTagsComponentConfigFields extends ComponentConfigFields
 {
     /**
      * Default values

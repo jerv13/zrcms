@@ -3,7 +3,7 @@
 namespace Zrcms\XampleComponent;
 
 use Zrcms\ContentCore\View\Model\ServiceAliasView;
-use Zrcms\ContentCore\ViewLayoutTags\Model\ServiceAliasViewLayoutTagsGetter;
+use Zrcms\ContentCore\ViewLayoutTags\Model\ServiceAliasViewLayoutTags;
 use Zrcms\XampleComponent\ViewLayoutTags\Api\Render\GetViewLayoutTags;
 
 /**

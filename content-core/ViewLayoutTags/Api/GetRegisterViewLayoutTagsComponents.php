@@ -7,7 +7,7 @@ use Zrcms\Content\Api\GetRegisterComponents;
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-interface GetRegisterViewLayoutTagsGetterComponents extends GetRegisterComponents
+interface GetRegisterViewLayoutTagsComponents extends GetRegisterComponents
 {
 
 }

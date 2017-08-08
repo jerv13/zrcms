@@ -7,9 +7,9 @@ use Zrcms\Content\Api\Repository\ReadComponentConfigJsonFileAbstract;
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class ReadViewLayoutTagsGetterComponentConfigJsonFile
+class ReadViewLayoutTagsComponentConfigJsonFile
     extends ReadComponentConfigJsonFileAbstract
-    implements ReadViewLayoutTagsGetterComponentConfig
+    implements ReadViewLayoutTagsComponentConfig
 {
     const JSON_FILE_NAME = 'view-layout-tags.json';
 

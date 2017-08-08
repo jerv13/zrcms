@@ -15,8 +15,9 @@ interface Block extends Content
     public function getBlockComponentName(): string;
 
     /**
-     * @return array The instance config for this block instance.
-     * This is what admins can edit in the CMS
+     * The instance config for this block instance.
+     *
+     * @return array
      */
     public function getConfig(): array;
 

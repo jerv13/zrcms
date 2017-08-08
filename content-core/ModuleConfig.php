@@ -109,14 +109,14 @@ use Zrcms\ContentCore\View\Api\Repository\FindTagNamesByLayoutMustache;
 use Zrcms\ContentCore\View\Api\Repository\FindViewByRequest;
 use Zrcms\ContentCore\View\Api\Repository\FindViewByRequestBasic;
 use Zrcms\ContentCore\View\Model\ServiceAliasView;
-use Zrcms\ContentCore\ViewLayoutTags\Api\Repository\ReadViewLayoutTagsGetterComponentConfig;
-use Zrcms\ContentCore\ViewLayoutTags\Api\Repository\ReadViewLayoutTagsGetterComponentConfigApplicationConfig;
-use Zrcms\ContentCore\ViewLayoutTags\Api\Repository\ReadViewLayoutTagsGetterComponentConfigApplicationConfigFactory;
-use Zrcms\ContentCore\ViewLayoutTags\Api\Repository\ReadViewLayoutTagsGetterComponentConfigBasic;
-use Zrcms\ContentCore\ViewLayoutTags\Api\Repository\ReadViewLayoutTagsGetterComponentConfigJsonFile;
-use Zrcms\ContentCore\ViewLayoutTags\Api\Repository\FindViewLayoutTagsGetterComponent;
-use Zrcms\ContentCore\ViewLayoutTags\Api\Repository\FindViewLayoutTagsGetterComponentsBy;
-use Zrcms\ContentCore\ViewLayoutTags\Model\ServiceAliasViewLayoutTagsGetter;
+use Zrcms\ContentCore\ViewLayoutTags\Api\Repository\ReadViewLayoutTagsComponentConfig;
+use Zrcms\ContentCore\ViewLayoutTags\Api\Repository\ReadViewLayoutTagsComponentConfigApplicationConfig;
+use Zrcms\ContentCore\ViewLayoutTags\Api\Repository\ReadViewLayoutTagsComponentConfigApplicationConfigFactory;
+use Zrcms\ContentCore\ViewLayoutTags\Api\Repository\ReadViewLayoutTagsComponentConfigBasic;
+use Zrcms\ContentCore\ViewLayoutTags\Api\Repository\ReadViewLayoutTagsComponentConfigJsonFile;
+use Zrcms\ContentCore\ViewLayoutTags\Api\Repository\FindViewLayoutTagsComponent;
+use Zrcms\ContentCore\ViewLayoutTags\Api\Repository\FindViewLayoutTagsComponentsBy;
+use Zrcms\ContentCore\ViewLayoutTags\Model\ServiceAliasViewLayoutTags;
 use Zrcms\ServiceAlias\Api\GetServiceFromAlias;
 
 /**
@@ -549,7 +549,7 @@ class ModuleConfig
                         'class' => GetViewRenderTagsBasic::class,
                         'arguments' => [
                             '0-' => GetServiceFromAlias::class,
-                            '1-' => FindViewLayoutTagsGetterComponentsBy::class,
+                            '1-' => FindViewLayoutTagsComponentsBy::class,
                         ],
                     ],
                     GetViewRenderTagsContainers::class => [
@@ -606,29 +606,29 @@ class ModuleConfig
                     /**
                      * ViewLayoutTagsGetter ===========================================
                      */
-                    FindViewLayoutTagsGetterComponent::class => [
+                    FindViewLayoutTagsComponent::class => [
                         'class' => ApiNoop::class,
                         'arguments' => [
-                            '0-' => ['literal' => FindViewLayoutTagsGetterComponent::class],
+                            '0-' => ['literal' => FindViewLayoutTagsComponent::class],
                         ],
                     ],
-                    FindViewLayoutTagsGetterComponent::class => [
+                    FindViewLayoutTagsComponent::class => [
                         'class' => ApiNoop::class,
                         'arguments' => [
-                            '0-' => ['literal' => FindViewLayoutTagsGetterComponent::class],
+                            '0-' => ['literal' => FindViewLayoutTagsComponent::class],
                         ],
                     ],
-                    ReadViewLayoutTagsGetterComponentConfigApplicationConfig::class => [
-                        'factory' => ReadViewLayoutTagsGetterComponentConfigApplicationConfigFactory::class,
+                    ReadViewLayoutTagsComponentConfigApplicationConfig::class => [
+                        'factory' => ReadViewLayoutTagsComponentConfigApplicationConfigFactory::class,
                     ],
-                    ReadViewLayoutTagsGetterComponentConfig::class => [
-                        'class' => ReadViewLayoutTagsGetterComponentConfigBasic::class,
+                    ReadViewLayoutTagsComponentConfig::class => [
+                        'class' => ReadViewLayoutTagsComponentConfigBasic::class,
                         'arguments' => [
                             '0-' => GetServiceFromAlias::class,
                         ],
                     ],
-                    ReadViewLayoutTagsGetterComponentConfigJsonFile::class => [
-                        'class' => ReadViewLayoutTagsGetterComponentConfigJsonFile::class,
+                    ReadViewLayoutTagsComponentConfigJsonFile::class => [
+                        'class' => ReadViewLayoutTagsComponentConfigJsonFile::class,
                     ],
                 ],
             ],
@@ -705,10 +705,10 @@ class ModuleConfig
                 /**
                  * ViewLayoutTagsGetter ===========================================
                  */
-                ServiceAliasViewLayoutTagsGetter::NAMESPACE_COMPONENT_CONFIG_READER => [
-                    'json' => ReadViewLayoutTagsGetterComponentConfigJsonFile::class,
+                ServiceAliasViewLayoutTags::NAMESPACE_COMPONENT_CONFIG_READER => [
+                    'json' => ReadViewLayoutTagsComponentConfigJsonFile::class,
                 ],
-                ServiceAliasViewLayoutTagsGetter::NAMESPACE_COMPONENT_VIEW_RENDER_TAGS_GETTER => [
+                ServiceAliasViewLayoutTags::NAMESPACE_COMPONENT_VIEW_RENDER_TAGS_GETTER => [
                     // not used just yet, using ServiceAliasView::NAMESPACE_CONTENT_RENDER_TAGS_GETTER
                 ],
             ],

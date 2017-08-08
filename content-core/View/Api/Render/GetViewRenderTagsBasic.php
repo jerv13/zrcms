@@ -6,8 +6,8 @@ use Psr\Http\Message\ServerRequestInterface;
 use Zrcms\Content\Model\Content;
 use Zrcms\ContentCore\View\Model\ServiceAliasView;
 use Zrcms\ContentCore\View\Model\View;
-use Zrcms\ContentCore\ViewLayoutTags\Api\Repository\FindViewLayoutTagsGetterComponentsBy;
-use Zrcms\ContentCore\ViewLayoutTags\Model\ViewLayoutTagsGetterComponent;
+use Zrcms\ContentCore\ViewLayoutTags\Api\Repository\FindViewLayoutTagsComponentsBy;
+use Zrcms\ContentCore\ViewLayoutTags\Model\ViewLayoutTagsComponent;
 use Zrcms\ServiceAlias\Api\GetServiceFromAlias;
 use Zrcms\ServiceAlias\ServiceCheck;
 
@@ -27,21 +27,21 @@ class GetViewRenderTagsBasic implements GetViewRenderTags
     protected $serviceAliasNamespace;
 
     /**
-     * @var FindViewLayoutTagsGetterComponentsBy
+     * @var FindViewLayoutTagsComponentsBy
      */
-    protected $findViewLayoutTagsGetterComponentsBy;
+    protected $findViewLayoutTagsComponentsBy;
 
     /**
      * @param GetServiceFromAlias                  $getServiceFromAlias
-     * @param FindViewLayoutTagsGetterComponentsBy $findViewLayoutTagsGetterComponentsBy
+     * @param FindViewLayoutTagsComponentsBy $findViewLayoutTagsComponentsBy
      */
     public function __construct(
         GetServiceFromAlias $getServiceFromAlias,
-        FindViewLayoutTagsGetterComponentsBy $findViewLayoutTagsGetterComponentsBy
+        FindViewLayoutTagsComponentsBy $findViewLayoutTagsComponentsBy
     ) {
         $this->getServiceFromAlias = $getServiceFromAlias;
         $this->serviceAliasNamespace = ServiceAliasView::NAMESPACE_CONTENT_RENDER_TAGS_GETTER;
-        $this->findViewLayoutTagsGetterComponentsBy = $findViewLayoutTagsGetterComponentsBy;
+        $this->findViewLayoutTagsComponentsBy = $findViewLayoutTagsComponentsBy;
     }
 
     /**
@@ -64,11 +64,11 @@ class GetViewRenderTagsBasic implements GetViewRenderTags
             GetViewRenderTagsPage::SERVICE_ALIAS,
         ];
 
-        $viewLayoutTagsGetterComponents = $this->findViewLayoutTagsGetterComponentsBy->__invoke([]);
+        $viewLayoutTagsComponents = $this->findViewLayoutTagsComponentsBy->__invoke([]);
 
-        /** @var ViewLayoutTagsGetterComponent $viewLayoutTagsGetterComponent */
-        foreach ($viewLayoutTagsGetterComponents as $viewLayoutTagsGetterComponent) {
-            $viewLayoutTagsGetterServiceAliases[] = $viewLayoutTagsGetterComponent->getViewRenderTagsGetter();
+        /** @var ViewLayoutTagsComponent $viewLayoutTagsComponent */
+        foreach ($viewLayoutTagsComponents as $viewLayoutTagsComponent) {
+            $viewLayoutTagsGetterServiceAliases[] = $viewLayoutTagsComponent->getViewRenderTagsGetter();
         }
 
         $allViewRenderTags = [];

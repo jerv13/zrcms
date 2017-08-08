@@ -3,6 +3,7 @@
 namespace Zrcms\ContentCoreConfigDataSource\Theme\Api\Repository;
 
 use Psr\Container\ContainerInterface;
+use Zrcms\Cache\Service\Cache;
 use Zrcms\ServiceAlias\Api\GetServiceFromAlias;
 
 /**
@@ -24,7 +25,8 @@ class ReadThemeComponentRegistryBasicFactory
 
         return new ReadThemeComponentRegistryBasic(
             $registry,
-            $serviceContainer->get(GetServiceFromAlias::class)
+            $serviceContainer->get(GetServiceFromAlias::class),
+            $serviceContainer->get(Cache::class)
         );
     }
 }

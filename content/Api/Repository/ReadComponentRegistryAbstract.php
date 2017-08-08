@@ -2,6 +2,7 @@
 
 namespace Zrcms\Content\Api\Repository;
 
+use Zrcms\Cache\Service\Cache;
 use Zrcms\Content\Model\ComponentConfigFields;
 use Zrcms\ContentCoreConfigDataSource\Content\Model\ComponentRegistryFields;
 use Zrcms\Param\Param;
@@ -28,6 +29,16 @@ abstract class ReadComponentRegistryAbstract implements ReadComponentRegistry
     protected $serviceAliasNamespace;
 
     /**
+     * @var Cache
+     */
+    protected $cache;
+
+    /**
+     * @var string
+     */
+    protected $cacheKey;
+
+    /**
      * @var string
      */
     protected $defaultComponentConfReaderServiceAlias;
@@ -36,18 +47,56 @@ abstract class ReadComponentRegistryAbstract implements ReadComponentRegistry
      * @param array               $registry
      * @param GetServiceFromAlias $getServiceFromAlias
      * @param string              $serviceAliasNamespace
+     * @param Cache               $cache
+     * @param string              $cacheKey
      * @param string              $defaultComponentConfReaderServiceAlias
      */
     public function __construct(
         array $registry,
         GetServiceFromAlias $getServiceFromAlias,
         string $serviceAliasNamespace,
+        Cache $cache,
+        string $cacheKey,
         string $defaultComponentConfReaderServiceAlias = ReadComponentConfig::class
     ) {
         $this->registry = $registry;
         $this->getServiceFromAlias = $getServiceFromAlias;
         $this->serviceAliasNamespace = $serviceAliasNamespace;
+        $this->cache = $cache;
+        $this->cacheKey = $cacheKey;
         $this->defaultComponentConfReaderServiceAlias = $defaultComponentConfReaderServiceAlias;
+    }
+
+    /**
+     * hasCache
+     *
+     * @return bool
+     */
+    protected function hasCache()
+    {
+        return ($this->cache->has($this->cacheKey));
+    }
+
+    /**
+     * getCache
+     *
+     * @return mixed
+     */
+    protected function getCache()
+    {
+        return $this->cache->get($this->cacheKey);
+    }
+
+    /**
+     * setCache
+     *
+     * @param array $configs
+     *
+     * @return void
+     */
+    protected function setCache($configs)
+    {
+        $this->cache->set($this->cacheKey, $configs);
     }
 
     /**
@@ -59,6 +108,10 @@ abstract class ReadComponentRegistryAbstract implements ReadComponentRegistry
         array $options = []
     ): array
     {
+        if ($this->hasCache()) {
+            return $this->getCache();
+        }
+
         $componentConfigs = [];
 
         foreach ($this->registry as $componentNameOptional => $configLocation) {
@@ -123,6 +176,8 @@ abstract class ReadComponentRegistryAbstract implements ReadComponentRegistry
 
             $componentConfigs[$componentName] = $componentConfig;
         }
+
+        $this->setCache($componentConfigs);
 
         return $componentConfigs;
     }

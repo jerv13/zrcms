@@ -2,6 +2,7 @@
 
 namespace Zrcms\ContentCoreDoctrineDataSource\Container\Entity;
 
+use Zrcms\ContentCore\Container\Model\PropertiesContainer;
 use Zrcms\ContentCore\Container\Model\PropertiesContainerVersion;
 
 /**
@@ -9,7 +10,7 @@ use Zrcms\ContentCore\Container\Model\PropertiesContainerVersion;
  */
 class PropertiesContainerVersionEntity extends PropertiesContainerVersion
 {
-    const BLOCK_VERSIONS = 'blockVersions';
+    const BLOCK_VERSIONS = PropertiesContainer::BLOCK_VERSIONS;
 
     /**
      * Default values

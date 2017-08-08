@@ -4,29 +4,29 @@ namespace Zrcms\ContentCoreConfigDataSource\ViewLayoutTags\Api;
 
 use Zrcms\Cache\Service\Cache;
 use Zrcms\Content\Api\GetRegisterComponentsAbstract;
-use Zrcms\ContentCore\ViewLayoutTags\Api\GetRegisterViewLayoutTagsGetterComponents;
-use Zrcms\ContentCore\ViewLayoutTags\Model\ViewLayoutTagsGetterComponentBasic;
-use Zrcms\ContentCoreConfigDataSource\ViewLayoutTags\Api\Repository\ReadViewLayoutTagsGetterComponentRegistryBasic;
+use Zrcms\ContentCore\ViewLayoutTags\Api\GetRegisterViewLayoutTagsComponents;
+use Zrcms\ContentCore\ViewLayoutTags\Model\ViewLayoutTagsComponentBasic;
+use Zrcms\ContentCoreConfigDataSource\ViewLayoutTags\Api\Repository\ReadViewLayoutTagsComponentRegistryBasic;
 
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class GetRegisterViewLayoutTagsGetterComponentsBasic
+class GetRegisterViewLayoutTagsComponentsBasic
     extends GetRegisterComponentsAbstract
-    implements GetRegisterViewLayoutTagsGetterComponents
+    implements GetRegisterViewLayoutTagsComponents
 {
-    const CACHE_KEY = 'ZrcmsViewLayoutTagsGetterComponentConfigBasic';
+    const CACHE_KEY = 'ZrcmsViewLayoutTagsComponentConfigBasic';
 
     /**
-     * @param ReadViewLayoutTagsGetterComponentRegistryBasic $readComponentRegistry
+     * @param ReadViewLayoutTagsComponentRegistryBasic $readComponentRegistry
      * @param Cache                                          $cache
      * @param string                                         $componentClass
      * @param string                                         $cacheKey
      */
     public function __construct(
-        ReadViewLayoutTagsGetterComponentRegistryBasic $readComponentRegistry,
+        ReadViewLayoutTagsComponentRegistryBasic $readComponentRegistry,
         Cache $cache,
-        string $componentClass = ViewLayoutTagsGetterComponentBasic::class,
+        string $componentClass = ViewLayoutTagsComponentBasic::class,
         string $cacheKey = self::CACHE_KEY
     ) {
         parent::__construct(

@@ -2,15 +2,15 @@
 
 namespace Zrcms\ContentCoreConfigDataSource\ViewLayoutTags\Api\Repository;
 
-use Zrcms\ContentCore\ViewLayoutTags\Model\ViewLayoutTagsGetterComponent;
+use Zrcms\ContentCore\ViewLayoutTags\Model\ViewLayoutTagsComponent;
 use Zrcms\ContentCoreConfigDataSource\Content\Api\Repository\FindComponentsByAbstract;
 
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class FindViewLayoutTagsGetterComponentsBy
+class FindViewLayoutTagsComponentsBy
     extends FindComponentsByAbstract
-    implements \Zrcms\ContentCore\ViewLayoutTags\Api\Repository\FindViewLayoutTagsGetterComponentsBy
+    implements \Zrcms\ContentCore\ViewLayoutTags\Api\Repository\FindViewLayoutTagsComponentsBy
 {
     /**
      * @param array      $criteria
@@ -19,7 +19,7 @@ class FindViewLayoutTagsGetterComponentsBy
      * @param null       $offset
      * @param array      $options
      *
-     * @return ViewLayoutTagsGetterComponent[]
+     * @return ViewLayoutTagsComponent[]
      * @throws \Exception
      */
     public function __invoke(

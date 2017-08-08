@@ -7,7 +7,7 @@ use Zrcms\Content\Model\PropertiesComponent;
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class PropertiesViewLayoutTagsGetterComponent extends PropertiesComponent
+class PropertiesViewLayoutTagsComponent extends PropertiesComponent
 {
     const RENDER_TAGS_GETTER = 'renderTagsGetter';
 

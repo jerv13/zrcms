@@ -7,12 +7,12 @@ use Psr\Container\ContainerInterface;
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class ReadViewLayoutTagsGetterComponentConfigApplicationConfigFactory
+class ReadViewLayoutTagsComponentConfigApplicationConfigFactory
 {
     /**
      * @param ContainerInterface $serviceContainer
      *
-     * @return ReadViewLayoutTagsGetterComponentConfigApplicationConfig
+     * @return ReadViewLayoutTagsComponentConfigApplicationConfig
      */
     public function __invoke(
         $serviceContainer
@@ -21,7 +21,7 @@ class ReadViewLayoutTagsGetterComponentConfigApplicationConfigFactory
 
         $applicationConfig = $config['zrcms']['views'];
 
-        return new ReadViewLayoutTagsGetterComponentConfigApplicationConfig(
+        return new ReadViewLayoutTagsComponentConfigApplicationConfig(
             $applicationConfig
         );
     }

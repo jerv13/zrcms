@@ -3,15 +3,15 @@
 namespace Zrcms\ContentCore\ViewLayoutTags\Api\Repository;
 
 use Zrcms\Content\Api\Repository\ReadComponentConfigBasicAbstract;
-use Zrcms\ContentCore\ViewLayoutTags\Model\ServiceAliasViewLayoutTagsGetter;
+use Zrcms\ContentCore\ViewLayoutTags\Model\ServiceAliasViewLayoutTags;
 use Zrcms\ServiceAlias\Api\GetServiceFromAlias;
 
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class ReadViewLayoutTagsGetterComponentConfigBasic
+class ReadViewLayoutTagsComponentConfigBasic
     extends ReadComponentConfigBasicAbstract
-    implements ReadViewLayoutTagsGetterComponentConfig
+    implements ReadViewLayoutTagsComponentConfig
 {
     /**
      * @param GetServiceFromAlias $getServiceFromAlias
@@ -19,11 +19,11 @@ class ReadViewLayoutTagsGetterComponentConfigBasic
      */
     public function __construct(
         GetServiceFromAlias $getServiceFromAlias,
-        string $defaultComponentConfigReaderServiceName = ReadViewLayoutTagsGetterComponentConfigJsonFile::class
+        string $defaultComponentConfigReaderServiceName = ReadViewLayoutTagsComponentConfigJsonFile::class
     ) {
         parent::__construct(
             $getServiceFromAlias,
-            ServiceAliasViewLayoutTagsGetter::NAMESPACE_COMPONENT_VIEW_RENDER_TAGS_GETTER,
+            ServiceAliasViewLayoutTags::NAMESPACE_COMPONENT_VIEW_RENDER_TAGS_GETTER,
             $defaultComponentConfigReaderServiceName
         );
     }
