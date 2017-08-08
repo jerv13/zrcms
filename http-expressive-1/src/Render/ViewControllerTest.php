@@ -31,6 +31,8 @@ use Zrcms\ContentCore\View\Api\Render\RenderView;
 use Zrcms\ContentCore\View\Api\Repository\FindTagNamesByLayoutMustache;
 use Zrcms\ContentCore\View\Model\PropertiesView;
 use Zrcms\ContentCore\View\Model\ViewBasic;
+use Zrcms\ContentCore\ViewLayoutTags\Api\Repository\FindViewLayoutTagsComponent;
+use Zrcms\ContentCore\ViewLayoutTags\Api\Repository\FindViewLayoutTagsComponentsBy;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -69,11 +71,14 @@ class ViewControllerTest
         ResponseInterface $response,
         callable $next = null
     ) {
-//        return $this->renderBasicView(
-//            $request,
-//            $response,
-//            $next
-//        );
+
+        /** @var FindViewLayoutTagsComponent $s */
+        $s = $this->serviceContainer->get(FindViewLayoutTagsComponent::class);
+
+        ddd(
+            $s->__invoke('head-all')
+        );
+
         $siteVersion = new SiteVersionBasic(
             [
                 PropertiesSiteVersion::COUNTRY_ISO3

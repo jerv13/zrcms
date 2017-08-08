@@ -62,6 +62,125 @@ class ModuleConfig
                     GetViewRenderTagsHeadScript::SERVICE_ALIAS => GetViewRenderTagsHeadScript::class,
                     GetViewRenderTagsHeadTitle::SERVICE_ALIAS => GetViewRenderTagsHeadTitle::class,
                 ],
+            ],
+
+            'zrcms-head-definitions' => [
+                /**
+                 * Set the script key to use
+                 * Useful for setting up prebuilt (minimized and combined) files
+                 */
+                'defaultScriptKey' => 'scripts',
+
+                /**
+                 * Set the stylesheet key to use
+                 * Useful for setting up prebuilt (minimized and combined) files
+                 */
+                'defaultStylesheetKey' => 'stylesheets',
+
+                /**
+                 * This determines the order of the head sections, thus, loading order of scripts and css
+                 */
+                'sections' => [
+                    'pre-config',
+                    'config',
+                    'post-config',
+                    'pre-libraries',
+                    'libraries',
+                    'post-libraries',
+                    'pre-core',
+                    'core',
+                    'post-core',
+                    'pre-modules',
+                    'modules',
+                    'post-modules',
+                ],
+            ],
+
+            /**
+             * Scripts to be required always on every page
+             */
+            'zrcms-head' => [
+
+                '{tag}' => [
+                    '{section}' => [
+                        '{name}' => [
+                            '_content' => '{string}',
+                            '{attribute-name}' => '{string}',
+                        ]
+                    ]
+                ],
+
+
+
+                /**
+                 * Meta tags that will always be loaded
+                 * Example
+                 * 'keyValue' => [
+                 *  'content' => 'value',
+                 *  'modifiers' => [],
+                 * ],
+                 */
+                'meta' => [
+                    // @todo this is for the application to do
+                    'X-UA-Compatible' => [
+                        'content' => 'IE=edge',
+                    ],
+                    // @todo this is for the application to do
+                    'viewport' => [
+                        'content' => 'width=device-width, initial-scale=1',
+                    ],
+                ],
+
+                /**
+                 * Script files that will always be loaded
+                 * Example:
+                 * 'section' => [
+                 *  '/script/url' => [
+                 *   'type' => 'text/javascript',
+                 *   'attrs' => []
+                 *  ],
+                 * ],
+                 */
+                'scripts' => [
+                    'pre-config' => [],
+                    'config' => [],
+                    'post-config' => [],
+                    'pre-libraries' => [],
+                    'libraries' => [],
+                    'post-libraries' => [],
+                    'pre-core' => [],
+                    'core' => [],
+                    'post-core' => [],
+                    'pre-modules' => [],
+                    'modules' => [],
+                    'post-modules' => [],
+                ],
+
+                /**
+                 * Stylesheet files that will always be loaded
+                 * Example:
+                 * 'section' => [
+                 *  '/stylesheet/url' => [
+                 *   'media' => 'screen',
+                 *   'conditionalStylesheet' => '',
+                 *   'extras' => []
+                 *  ],
+                 * ],
+                 */
+                'stylesheets' => [
+                    'pre-config' => [],
+                    'config' => [],
+                    'post-config' => [],
+                    'pre-libraries' => [],
+                    'libraries' => [],
+                    'post-libraries' => [],
+                    'pre-core' => [],
+                    'core' => [],
+                    'post-core' => [],
+                    'pre-modules' => [],
+                    'modules' => [],
+                    'post-modules' => [],
+                ],
             ]
         ];
     }

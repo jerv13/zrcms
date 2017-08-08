@@ -14,25 +14,9 @@ NOTES
 - Tracking: who (userId) - what (action) - why(reason)
 
 
-const CACHE_KEY = 'Zrcms ComponentRegistryBasic';
-
-__construct(
-,
-Cache $cache,
-string $cacheKey = self::CACHE_KEY,
-
-
-$cache,
-$cacheKey,
-            
-$serviceContainer->get(Cache::class)
-            
-ReadBlockComponentRegistryBasic
-ReadBlockComponentRegistryBc
-ReadLayoutComponentRegistryBasic
-ReadThemeComponentRegistryBasic
-ReadViewLayoutTagsComponent
-
-
-
-RENAME: ViewLayoutTagsComponent ViewLayoutTagsComponent
+                // @todo Logger::warning()
+                trigger_error(
+                    "Tag section is not defined: ({$section}) "
+                    . " in: " . json_encode($sections),
+                    E_USER_WARNING
+                );

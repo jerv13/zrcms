@@ -1,4 +1,22 @@
 {
   "name": "head-all",
-  "renderTagsGetter": "head-all"
+  "renderTagsGetter": "head-all",
+  "htmlIncludes": {
+    "defaultScriptKey": "scripts",
+    "defaultStylesheetKey": "stylesheets",
+    "sections": [
+      "pre-config",
+      "config",
+      "post-config",
+      "pre-libraries",
+      "libraries",
+      "post-libraries",
+      "pre-rcm",
+      "rcm",
+      "post-rcm",
+      "pre-modules",
+      "modules",
+      "post-modules"
+    ]
+  }
 }
