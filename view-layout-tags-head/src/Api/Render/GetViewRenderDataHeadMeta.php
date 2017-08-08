@@ -29,9 +29,7 @@ class GetViewRenderTagsHeadMeta implements GetViewRenderTagsHead
     ): array
     {
         return [
-            GetViewRenderTagsHead::RENDER_TAG => [
-                self::RENDER_TAG_META => '<!-- @todo: ' . get_class($this) . ' -->'
-            ],
+            self::RENDER_TAG_META => '<!-- @todo: ' . get_class($this) . ' -->'
         ];
     }
 }

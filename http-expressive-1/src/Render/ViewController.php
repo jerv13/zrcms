@@ -95,8 +95,6 @@ class ViewController
             $request
         );
 
-        ddd(array_keys($viewRenderTags['head']));
-
         $html = $this->renderView->__invoke(
             $pageView,
             $viewRenderTags

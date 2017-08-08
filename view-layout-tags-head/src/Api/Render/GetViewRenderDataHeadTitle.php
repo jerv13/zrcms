@@ -13,6 +13,7 @@ class GetViewRenderTagsHeadTitle implements GetViewRenderTagsHead
 {
     const RENDER_TAG_TITLE = 'head-title';
     const SERVICE_ALIAS = 'head-title';
+
     /**
      * @param View|Content           $view
      * @param ServerRequestInterface $request
@@ -28,9 +29,7 @@ class GetViewRenderTagsHeadTitle implements GetViewRenderTagsHead
     ): array
     {
         return [
-            GetViewRenderTagsHead::RENDER_TAG => [
-                self::RENDER_TAG_TITLE => '<!-- @todo: ' . get_class($this) . ' -->'
-            ],
+            self::RENDER_TAG_TITLE => '<!-- @todo: ' . get_class($this) . ' -->'
         ];
     }
 }

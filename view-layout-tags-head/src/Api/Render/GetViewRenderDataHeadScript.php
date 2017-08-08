@@ -13,6 +13,7 @@ class GetViewRenderTagsHeadScript implements GetViewRenderTagsHead
 {
     const RENDER_TAG_SCRIPT = 'head-script';
     const SERVICE_ALIAS = 'head-script';
+
     /**
      * @param View|Content           $view
      * @param ServerRequestInterface $request
@@ -28,9 +29,7 @@ class GetViewRenderTagsHeadScript implements GetViewRenderTagsHead
     ): array
     {
         return [
-            GetViewRenderTagsHead::RENDER_TAG => [
-                self::RENDER_TAG_SCRIPT => '<!-- @todo: ' . get_class($this) . ' -->'
-            ],
+            self::RENDER_TAG_SCRIPT => '<!-- @todo: ' . get_class($this) . ' -->'
         ];
     }
 }

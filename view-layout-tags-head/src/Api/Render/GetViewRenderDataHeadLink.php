@@ -29,9 +29,7 @@ class GetViewRenderTagsHeadLink implements GetViewRenderTagsHead
     ): array
     {
         return [
-            GetViewRenderTagsHead::RENDER_TAG => [
-                self::RENDER_TAG_LINK => '<!-- @todo: ' . get_class($this) . ' -->'
-            ],
+            self::RENDER_TAG_LINK => '<!-- @todo: ' . get_class($this) . ' -->'
         ];
     }
 }

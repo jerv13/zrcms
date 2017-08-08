@@ -56,9 +56,9 @@ class GetViewRenderTagsHeadAll implements GetViewRenderTagsHead
     }
 
     /**
-     * @param View|Content $view
+     * @param View|Content           $view
      * @param ServerRequestInterface $request
-     * @param array $options
+     * @param array                  $options
      *
      * @return array
      * @throws \Exception
@@ -69,9 +69,7 @@ class GetViewRenderTagsHeadAll implements GetViewRenderTagsHead
         array $options = []
     ): array
     {
-        $renderTags = [
-            GetViewRenderTagsHead::RENDER_TAG => [],
-        ];
+        $renderTags = [];
 
         foreach ($this->renderServiceAliases as $renderTag => $renderServiceAlias) {
             /** @var GetViewRenderTagsHead $renderService */
@@ -90,22 +88,11 @@ class GetViewRenderTagsHeadAll implements GetViewRenderTagsHead
                 $options
             );
 
-            var_dump($subRenderTags[GetViewRenderTagsHead::RENDER_TAG]);
-
-            if (!is_array($subRenderTags[GetViewRenderTagsHead::RENDER_TAG])) {
-                throw new \Exception(
-                    get_class($this) . ' requires injected services to return array with '
-                    . GetViewRenderTagsHead::RENDER_TAG . ' as a key'
-                );
-            }
-
-            $renderTags[GetViewRenderTagsHead::RENDER_TAG] = array_merge(
-                $renderTags[GetViewRenderTagsHead::RENDER_TAG],
-                $subRenderTags[GetViewRenderTagsHead::RENDER_TAG]
+            $renderTags = array_merge(
+                $renderTags,
+                $subRenderTags
             );
         }
-
-        ddd(get_class($this), $renderTags);
 
         $mergedHtml = '';
 
@@ -114,9 +101,7 @@ class GetViewRenderTagsHeadAll implements GetViewRenderTagsHead
         }
 
         return [
-            GetViewRenderTagsHead::RENDER_TAG => [
-                self::RENDER_TAG_ALL => $mergedHtml
-            ],
+            self::RENDER_TAG_ALL => $mergedHtml
         ];
     }
 }
