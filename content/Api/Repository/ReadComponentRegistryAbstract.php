@@ -127,7 +127,7 @@ abstract class ReadComponentRegistryAbstract implements ReadComponentRegistry
                     $componentOptions,
                     ComponentRegistryFields::CONFIG_LOCATION,
                     new \Exception(
-                        'Component location is required for: ' . json_encode($configLocation)
+                        'Component location is required for: ' //. json_encode($configLocation, 0, 2)
                         . ' in ' . $componentName
                     )
                 );
@@ -159,9 +159,10 @@ abstract class ReadComponentRegistryAbstract implements ReadComponentRegistry
             );
 
             if (!is_string($componentName)) {
-                new \Exception(
+
+                throw new \Exception(
                     'Component ' . ComponentConfigFields::NAME . ' is required and must be string for: '
-                    . json_encode($componentConfig)
+                //. json_encode($componentConfig, 0, 2)
                 );
             }
 
@@ -170,7 +171,7 @@ abstract class ReadComponentRegistryAbstract implements ReadComponentRegistry
                 $componentName,
                 new \Exception(
                     'Duplicate component name configured: ' . $componentName
-                    . ' for ' . json_encode($componentConfig)
+                //. ' for ' . json_encode($componentConfig, 0, 2)
                 )
             );
 

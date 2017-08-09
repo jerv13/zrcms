@@ -65,7 +65,7 @@ class FindContainerCmsResourcesBySitePaths
         // @todo Add prepared statements not concat
         $query = ""
             . "SELECT container FROM {$this->entityClassCmsResource} container"
-            . " WHERE container.{$siteCmsResourceIdName} > :siteCmsResourceId";
+            . " WHERE container.{$siteCmsResourceIdName} = :siteCmsResourceId";
 
         $query = $this->buildInQuery(
             $containerCmsResourcePaths,
@@ -82,7 +82,7 @@ class FindContainerCmsResourcesBySitePaths
             $dQuery->setParameter($pathParam, $value);
         }
 
-        $containerCmsResources = $dQuery->getArrayResult();
+        $containerCmsResources = $dQuery->getResult();
 
         return $this->newBasicCmsResources(
             $this->entityClassCmsResource,

@@ -556,7 +556,8 @@ class ModuleConfig
                             '0-' => FindTagNamesByLayout::class,
                             '1-' => FindContainerCmsResourcesBySitePaths::class,
                             '2-' => FindContainerVersion::class,
-                            '3-' => GetContainerRenderTags::class
+                            '3-' => GetContainerRenderTags::class,
+                            '4-' => RenderContainer::class,
                         ],
                     ],
                     GetViewLayoutTagsPage::class => [

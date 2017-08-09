@@ -28,19 +28,27 @@ trait BasicCmsResourceTrait
         }
 
         if (!is_a($entityClassCmsResource, CmsResource::class, true)) {
-            throw new \Exception('Entity class must be of type: ' . CmsResource::class);
+            throw new \Exception(
+                'Entity class must be of type: ' . CmsResource::class
+            );
         }
 
         if (!is_a($classCmsResourceBasic, CmsResource::class, true)) {
-            throw new \Exception('Entity basic must be of type: ' . CmsResource::class);
+            throw new \Exception(
+                'Entity basic must be of type: ' . CmsResource::class
+            );
         }
 
         if (!is_a($entity, $entityClassCmsResource)) {
-            throw new \Exception('Entity must be of type: ' . $entityClassCmsResource);
+            throw new \Exception(
+                'Entity must be of type: ' . $entityClassCmsResource . ' got: ' . get_class($entity)
+            );
         }
 
         if (!is_a($entity, CmsResource::class)) {
-            throw new \Exception('Entity must be of type: ' . CmsResource::class);
+            throw new \Exception(
+                'Entity must be of type: ' . CmsResource::class . ' got: ' . get_class($entity)
+            );
         }
 
         $properties = $entity->getProperties();

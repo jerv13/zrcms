@@ -2,7 +2,6 @@
 
 namespace Zrcms\ContentCore\Container\Api\Render;
 
-use Zrcms\Content\Api\Render\RenderContent;
 use Zrcms\Content\Model\Content;
 use Zrcms\ContentCore\Container\Model\Container;
 use Zrcms\ContentCore\Container\Model\PropertiesContainer;
@@ -10,7 +9,7 @@ use Zrcms\ContentCore\Container\Model\ServiceAliasContainer;
 use Zrcms\ServiceAlias\Api\GetServiceFromAlias;
 use Zrcms\ServiceAlias\ServiceCheck;
 
-class RenderContainerBasic implements RenderContent
+class RenderContainerBasic implements RenderContainer
 {
     /**
      * @var GetServiceFromAlias

@@ -6,7 +6,7 @@ Command Line
 Exporting from RCM:
 
 ```
-ENV="local" ./bin/console rcm:export --file ./data/export.json --limit 1 --pp 1
+ENV="local" ./bin/console rcm:export --file ./data/export.json --limit 100 --pp 1
 ```
 
 Importing to ZRCMS:

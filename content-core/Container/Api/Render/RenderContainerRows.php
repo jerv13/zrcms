@@ -2,13 +2,12 @@
 
 namespace Zrcms\ContentCore\Container\Api\Render;
 
-use Zrcms\Content\Api\Render\RenderContent;
 use Zrcms\Content\Model\Content;
 use Zrcms\ContentCore\Block\Api\Render\RenderBlock;
 use Zrcms\ContentCore\Container\Api\WrapRenderedContainer;
 use Zrcms\ContentCore\Container\Model\Container;
 
-class RenderContainerRows implements RenderContent
+class RenderContainerRows implements RenderContainer
 {
     /**
      * @var RenderBlock
@@ -45,7 +44,7 @@ class RenderContainerRows implements RenderContent
         array $options = []
     ): string
     {
-        $containerInnerHtml = '';
+        $containerInnerHtml = '<!-- <container ' . $container->getId() . '> -->';
         foreach ($renderTags as $row) {
             $containerInnerHtml .= "\n<div class=\"row\">\n";
             if (is_array($row)) {
@@ -57,6 +56,7 @@ class RenderContainerRows implements RenderContent
             }
             $containerInnerHtml .= "\n</div>\n";
         }
+        $containerInnerHtml .= '<!-- </container ' . $container->getId() . '> -->';
 
         return $this->wrapRenderedContainer->__invoke(
             $containerInnerHtml,

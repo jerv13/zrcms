@@ -50,6 +50,33 @@ class ContainerCmsResourceEntity
     protected $properties = [];
 
     /**
+     * Date object was first created
+     *
+     * @var \DateTime
+     *
+     * @ORM\Column(type="datetime")
+     */
+    protected $createdDate;
+
+    /**
+     * User ID of creator
+     *
+     * @var string
+     *
+     * @ORM\Column(type="string")
+     */
+    protected $createdByUserId;
+
+    /**
+     * Short description of create reason
+     *
+     * @var string
+     *
+     * @ORM\Column(type="string")
+     */
+    protected $createdReason;
+
+    /**
      * @var string
      *
      * @ORM\Column(type="string")

@@ -22,7 +22,7 @@ class FindTagNamesByLayoutMustache implements FindTagNamesByLayout
     {
         // '/\{\{' . PropertiesContainer::RENDER_NAMESPACE . '.([^}:]+)\}\}/'
         preg_match_all(
-            '/\{\{([^}:]+)\}\}/',
+            '/\{\{([^{^}:]+)\}\}/',
             $layout->getHtml(),
             $matches
         );

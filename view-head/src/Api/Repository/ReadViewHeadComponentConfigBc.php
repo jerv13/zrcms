@@ -58,7 +58,7 @@ class ReadViewHeadComponentConfigBc implements ReadViewLayoutTagsComponentConfig
         $applicationConfigBc = [
             GetViewLayoutTagsHeadMeta::RENDER_TAG_META => [
                 'tag' => 'meta',
-                'sections' => [],
+                'tags' => [],
             ],
             GetViewLayoutTagsHeadLink::RENDER_TAG_LINK => [
                 'tag' => 'link',
@@ -71,7 +71,7 @@ class ReadViewHeadComponentConfigBc implements ReadViewLayoutTagsComponentConfig
         ];
 
         foreach ($applicationConfigBc['meta'] as $nameAttribute => $value) {
-
+            $applicationConfigBc['meta']['tags'][$nameAttribute] = [];
             if (array_key_exists('content', $value)) {
                 $applicationConfigBc;
             }

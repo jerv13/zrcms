@@ -86,6 +86,7 @@ class GetViewLayoutTagsBasic implements GetViewLayoutTags
                 // @todo need throw if this happens
                 continue;
             }
+
             $serviceNameChecks[] = $viewLayoutTagsGetterServiceAlias;
 
             /** @var GetViewLayoutTags $getViewLayoutTags */
