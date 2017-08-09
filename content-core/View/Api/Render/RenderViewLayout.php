@@ -9,7 +9,7 @@ use Zrcms\ContentCore\View\Model\View;
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class RenderViewLayout implements RenderView
+class RenderViewLayout implements RenderView, RenderLayout
 {
     /**
      * @var RenderLayout

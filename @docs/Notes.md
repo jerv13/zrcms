@@ -20,3 +20,8 @@ NOTES
                     . " in: " . json_encode($sections),
                     E_USER_WARNING
                 );
+
+
+\ContentCore\View\ => \ContentCore\View\
+
+\ContentCore\View\

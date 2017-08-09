@@ -21,7 +21,7 @@ class ReadBlockComponentRegistryBasicFactory
     ) {
         $config = $serviceContainer->get('config');
 
-        $registry = $config['zrcms']['blocks'];
+        $registry = $config['zrcms-components']['blocks'];
 
         return new ReadBlockComponentRegistryBasic(
             $registry,

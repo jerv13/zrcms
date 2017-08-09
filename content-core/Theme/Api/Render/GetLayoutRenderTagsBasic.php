@@ -11,6 +11,7 @@ use Zrcms\ServiceAlias\Api\GetServiceFromAlias;
 use Zrcms\ServiceAlias\ServiceCheck;
 
 /**
+ * @deprecated NOT NEEDED?
  * @author James Jervis - https://github.com/jerv13
  */
 class GetLayoutRenderTagsBasic implements GetLayoutRenderTags

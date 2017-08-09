@@ -7,7 +7,7 @@ use Psr\Http\Message\ServerRequestInterface;
 use Zend\Diactoros\Response\HtmlResponse;
 use Zrcms\ContentCore\Page\Exception\PageNotFoundException;
 use Zrcms\ContentCore\Site\Exception\SiteNotFoundException;
-use Zrcms\ContentCore\View\Api\Render\GetViewRenderTags;
+use Zrcms\ContentCore\View\Api\Render\GetViewLayoutTags;
 use Zrcms\ContentCore\View\Api\Render\RenderView;
 use Zrcms\ContentCore\View\Api\Repository\FindViewByRequest;
 use Zrcms\ContentCore\View\Model\View;
@@ -21,18 +21,18 @@ class ViewController
 {
     /**
      * @param FindViewByRequest $findViewByRequest
-     * @param GetViewRenderTags $getViewRenderTags
+     * @param GetViewLayoutTags $getViewLayoutTags
      * @param RenderView        $renderView
      * @param HandleResponse    $handleResponse
      */
     public function __construct(
         FindViewByRequest $findViewByRequest,
-        GetViewRenderTags $getViewRenderTags,
+        GetViewLayoutTags $getViewLayoutTags,
         RenderView $renderView,
         HandleResponse $handleResponse
     ) {
         $this->findViewByRequest = $findViewByRequest;
-        $this->getViewRenderTags = $getViewRenderTags;
+        $this->getViewLayoutTags = $getViewLayoutTags;
         $this->renderView = $renderView;
         $this->handleResponse = $handleResponse;
     }
@@ -90,7 +90,7 @@ class ViewController
             );
         }
 
-        $viewRenderTags = $this->getViewRenderTags->__invoke(
+        $viewRenderTags = $this->getViewLayoutTags->__invoke(
             $pageView,
             $request
         );

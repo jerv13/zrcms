@@ -12,13 +12,13 @@ use Zrcms\ContentCountry\Model\CountryCmsResource;
 interface FindCountryCmsResource extends FindCmsResource
 {
     /**
-     * @param string $host
+     * @param string $id
      * @param array  $options
      *
      * @return CountryCmsResource|CmsResource|null
      */
     public function __invoke(
-        string $host,
+        string $id,
         array $options = []
     );
 }

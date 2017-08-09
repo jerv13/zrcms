@@ -96,10 +96,10 @@ use Zrcms\ContentCore\Theme\Model\ServiceAliasLayout;
 use Zrcms\ContentCore\Theme\Model\ServiceAliasTheme;
 use Zrcms\ContentCore\View\Api\GetLayoutName;
 use Zrcms\ContentCore\View\Api\GetLayoutNameBasic;
-use Zrcms\ContentCore\View\Api\Render\GetViewRenderTags;
-use Zrcms\ContentCore\View\Api\Render\GetViewRenderTagsBasic;
-use Zrcms\ContentCore\View\Api\Render\GetViewRenderTagsContainers;
-use Zrcms\ContentCore\View\Api\Render\GetViewRenderTagsPage;
+use Zrcms\ContentCore\View\Api\Render\GetViewLayoutTags;
+use Zrcms\ContentCore\View\Api\Render\GetViewLayoutTagsBasic;
+use Zrcms\ContentCore\View\Api\Render\GetViewLayoutTagsContainers;
+use Zrcms\ContentCore\View\Api\Render\GetViewLayoutTagsPage;
 use Zrcms\ContentCore\View\Api\Render\RenderView;
 use Zrcms\ContentCore\View\Api\Render\RenderViewBasic;
 use Zrcms\ContentCore\View\Api\Render\RenderViewLayout;
@@ -108,15 +108,14 @@ use Zrcms\ContentCore\View\Api\Repository\FindTagNamesByLayoutBasic;
 use Zrcms\ContentCore\View\Api\Repository\FindTagNamesByLayoutMustache;
 use Zrcms\ContentCore\View\Api\Repository\FindViewByRequest;
 use Zrcms\ContentCore\View\Api\Repository\FindViewByRequestBasic;
+use Zrcms\ContentCore\View\Api\Repository\FindViewLayoutTagsComponent;
+use Zrcms\ContentCore\View\Api\Repository\FindViewLayoutTagsComponentsBy;
+use Zrcms\ContentCore\View\Api\Repository\ReadViewLayoutTagsComponentConfig;
+use Zrcms\ContentCore\View\Api\Repository\ReadViewLayoutTagsComponentConfigApplicationConfig;
+use Zrcms\ContentCore\View\Api\Repository\ReadViewLayoutTagsComponentConfigApplicationConfigFactory;
+use Zrcms\ContentCore\View\Api\Repository\ReadViewLayoutTagsComponentConfigBasic;
+use Zrcms\ContentCore\View\Api\Repository\ReadViewLayoutTagsComponentConfigJsonFile;
 use Zrcms\ContentCore\View\Model\ServiceAliasView;
-use Zrcms\ContentCore\ViewLayoutTags\Api\Repository\FindViewLayoutTagsComponent;
-use Zrcms\ContentCore\ViewLayoutTags\Api\Repository\FindViewLayoutTagsComponentsBy;
-use Zrcms\ContentCore\ViewLayoutTags\Api\Repository\ReadViewLayoutTagsComponentConfig;
-use Zrcms\ContentCore\ViewLayoutTags\Api\Repository\ReadViewLayoutTagsComponentConfigApplicationConfig;
-use Zrcms\ContentCore\ViewLayoutTags\Api\Repository\ReadViewLayoutTagsComponentConfigApplicationConfigFactory;
-use Zrcms\ContentCore\ViewLayoutTags\Api\Repository\ReadViewLayoutTagsComponentConfigBasic;
-use Zrcms\ContentCore\ViewLayoutTags\Api\Repository\ReadViewLayoutTagsComponentConfigJsonFile;
-use Zrcms\ContentCore\ViewLayoutTags\Model\ServiceAliasViewLayoutTags;
 use Zrcms\ServiceAlias\Api\GetServiceFromAlias;
 
 /**
@@ -545,14 +544,14 @@ class ModuleConfig
                     /**
                      * View ===========================================
                      */
-                    GetViewRenderTags::class => [
-                        'class' => GetViewRenderTagsBasic::class,
+                    GetViewLayoutTags::class => [
+                        'class' => GetViewLayoutTagsBasic::class,
                         'arguments' => [
                             '0-' => GetServiceFromAlias::class,
                             '1-' => FindViewLayoutTagsComponentsBy::class,
                         ],
                     ],
-                    GetViewRenderTagsContainers::class => [
+                    GetViewLayoutTagsContainers::class => [
                         'arguments' => [
                             '0-' => FindTagNamesByLayout::class,
                             '1-' => FindContainerCmsResourcesBySitePaths::class,
@@ -560,7 +559,7 @@ class ModuleConfig
                             '3-' => GetContainerRenderTags::class
                         ],
                     ],
-                    GetViewRenderTagsPage::class => [
+                    GetViewLayoutTagsPage::class => [
                         'arguments' => [
                             '0-' => GetPageContainerRenderTags::class,
                             '1-' => RenderPageContainer::class,
@@ -595,7 +594,7 @@ class ModuleConfig
                             '5-' => FindLayoutVersion::class,
                             '6-' => GetLayoutName::class,
                             '7-' => FindThemeComponent::class,
-                            '8-' => GetViewRenderTags::class,
+                            '8-' => GetViewLayoutTags::class,
                             '9-' => RenderView::class
                         ],
                     ],
@@ -632,7 +631,7 @@ class ModuleConfig
                     ],
                 ],
             ],
-            'zrcms' => [
+            'zrcms-components' => [
             ],
             /**
              * Service Alias ===========================================
@@ -698,42 +697,42 @@ class ModuleConfig
                     'json'
                     => ReadLayoutComponentConfigJsonFile::class,
                 ],
-                ServiceAliasLayout::NAMESPACE_CONTENT_RENDER_TAGS_GETTER => [
-                    'noop'
-                    => GetLayoutRenderTagsNoop::class,
-                ],
+                // NOT NEEDED?
+//                ServiceAliasLayout::NAMESPACE_CONTENT_RENDER_TAGS_GETTER => [
+//                    'noop'
+//                    => GetLayoutRenderTagsNoop::class,
+//                ],
                 ServiceAliasLayout::NAMESPACE_CONTENT_RENDERER => [
                     'mustache'
-                    => RenderLayoutMustache::class
+                    => RenderLayoutMustache::class,
                 ],
                 /**
                  * View ===========================================
                  */
-                ServiceAliasView::NAMESPACE_CONTENT_RENDER_TAGS_GETTER => [
-                    GetViewRenderTagsContainers::SERVICE_ALIAS
-                    => GetViewRenderTagsContainers::class,
+                /* zrcms.view.content.view-layout-tags-getter */
+                ServiceAliasView::NAMESPACE_COMPONENT_VIEW_LAYOUT_TAGS_GETTER => [
+                    GetViewLayoutTagsContainers::SERVICE_ALIAS
+                    => GetViewLayoutTagsContainers::class,
 
-                    GetViewRenderTagsPage::SERVICE_ALIAS
-                    => GetViewRenderTagsPage::class,
+                    GetViewLayoutTagsPage::SERVICE_ALIAS
+                    => GetViewLayoutTagsPage::class,
                 ],
-                ServiceAliasView::NAMESPACE_CONTENT_RENDERER => [
-                    'layout' => RenderViewLayout::class,
-                ],
-                ServiceAliasView::NAMESPACE_LAYOUT_TAG_NAME_PARSER => [
-                    'mustache' => FindTagNamesByLayoutMustache::class
-                ],
-                /**
-                 * ViewLayoutTagsGetter ===========================================
-                 */
-                ServiceAliasViewLayoutTags::NAMESPACE_COMPONENT_CONFIG_READER => [
+
+                /* zrcms.view.component.view-layout-tags-config-reader */
+                ServiceAliasView::NAMESPACE_COMPONENT_VIEW_LAYOUT_TAGS_CONFIG_READER => [
                     'json'
                     => ReadViewLayoutTagsComponentConfigJsonFile::class,
 
                     ReadViewLayoutTagsComponentConfigApplicationConfig::SERVICE_ALIAS
                     => ReadViewLayoutTagsComponentConfigApplicationConfig::class,
                 ],
-                ServiceAliasViewLayoutTags::NAMESPACE_COMPONENT_VIEW_RENDER_TAGS_GETTER => [
-                    // not used just yet, using ServiceAliasView::NAMESPACE_CONTENT_RENDER_TAGS_GETTER
+
+                ServiceAliasView::NAMESPACE_CONTENT_RENDERER => [
+                    'layout' => RenderViewLayout::class,
+                ],
+
+                ServiceAliasView::NAMESPACE_LAYOUT_TAG_NAME_PARSER => [
+                    'mustache' => FindTagNamesByLayoutMustache::class
                 ],
             ],
         ];

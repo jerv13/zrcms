@@ -26,13 +26,13 @@ use Zrcms\ContentCore\Theme\Model\LayoutCmsResourceBasic;
 use Zrcms\ContentCore\Theme\Model\LayoutVersionBasic;
 use Zrcms\ContentCore\Theme\Model\PropertiesLayoutCmsResource;
 use Zrcms\ContentCore\Theme\Model\PropertiesLayoutVersion;
-use Zrcms\ContentCore\View\Api\Render\GetViewRenderTags;
+use Zrcms\ContentCore\View\Api\Render\GetViewLayoutTags;
 use Zrcms\ContentCore\View\Api\Render\RenderView;
 use Zrcms\ContentCore\View\Api\Repository\FindTagNamesByLayoutMustache;
 use Zrcms\ContentCore\View\Model\PropertiesView;
 use Zrcms\ContentCore\View\Model\ViewBasic;
-use Zrcms\ContentCore\ViewLayoutTags\Api\Repository\FindViewLayoutTagsComponent;
-use Zrcms\ContentCore\ViewLayoutTags\Api\Repository\FindViewLayoutTagsComponentsBy;
+use Zrcms\ContentCore\View\Api\Repository\FindViewLayoutTagsComponent;
+use Zrcms\ContentCore\View\Api\Repository\FindViewLayoutTagsComponentsBy;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -76,7 +76,7 @@ class ViewControllerTest
         $s = $this->serviceContainer->get(FindViewLayoutTagsComponent::class);
 
         ddd(
-            $s->__invoke('head-all')
+            $s->__invoke('head-link')
         );
 
         $siteVersion = new SiteVersionBasic(
@@ -294,7 +294,7 @@ class ViewControllerTest
             $properties
         );
 
-        $viewRenderTags = $this->serviceContainer->get(GetViewRenderTags::class)->__invoke(
+        $viewRenderTags = $this->serviceContainer->get(GetViewLayoutTags::class)->__invoke(
             $pageView,
             $request
         );

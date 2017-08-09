@@ -38,10 +38,10 @@
         - RENDER_TAGS_GETTER
 
 - RENAME ViewLayoutTagsGetter to LayoutTag and rearrange code
-    - NOTE: the pattern is different so split them @see GetViewRenderTagsBasic
+    - NOTE: the pattern is different so split them @see GetViewLayoutTagsBasic
     -x GetContentRenderTags -> GetContentRenderTags
     
-    - GetViewRenderTags -> GetLayoutTags
+    - GetViewLayoutTags -> GetLayoutTags
     - ViewLayoutTagsGetter -> LayoutTagsGetter
     - NS ViewLayoutTagsGetter -> LayoutTags
     - VIEW_RENDER_TAGS_GETTER -> RENDER_TAGS_GETTER
@@ -49,4 +49,4 @@
 
 - Refactor GetRegisterThemeComponentsBasic to use same interfaces as the rest
 
-- Fix caching (cache registry not components)
+- Fix caching - should we avoid caching component objects?

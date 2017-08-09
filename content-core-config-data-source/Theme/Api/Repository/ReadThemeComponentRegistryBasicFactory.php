@@ -21,7 +21,7 @@ class ReadThemeComponentRegistryBasicFactory
     ) {
         $config = $serviceContainer->get('config');
 
-        $registry = $config['zrcms']['themes'];
+        $registry = $config['zrcms-components']['themes'];
 
         return new ReadThemeComponentRegistryBasic(
             $registry,

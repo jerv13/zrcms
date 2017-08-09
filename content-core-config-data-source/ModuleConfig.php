@@ -11,14 +11,14 @@ use Zrcms\ContentCore\Theme\Api\Repository\ReadLayoutComponentConfigJsonFile;
 use Zrcms\ContentCore\Theme\Api\Repository\FindThemeComponent;
 use Zrcms\ContentCore\Theme\Api\Repository\FindThemeComponentsBy;
 use Zrcms\ContentCore\Theme\Api\Repository\ReadThemeComponentRegistry;
-use Zrcms\ContentCore\ViewLayoutTags\Api\Repository\FindViewLayoutTagsComponent;
-use Zrcms\ContentCore\ViewLayoutTags\Api\Repository\FindViewLayoutTagsComponentsBy;
-use Zrcms\ContentCore\ViewLayoutTags\Api\Repository\ReadViewLayoutTagsComponentRegistry;
+use Zrcms\ContentCore\View\Api\Repository\FindViewLayoutTagsComponent;
+use Zrcms\ContentCore\View\Api\Repository\FindViewLayoutTagsComponentsBy;
+use Zrcms\ContentCore\View\Api\Repository\ReadViewLayoutTagsComponentRegistry;
 use Zrcms\ContentCoreConfigDataSource as This;
 use Zrcms\ContentCore\Block\Api\GetRegisterBlockComponents;
 use Zrcms\ContentCoreConfigDataSource\Content\Api\SearchConfigList;
 use Zrcms\ContentCore\Theme\Api\GetRegisterThemeComponents;
-use Zrcms\ContentCore\ViewLayoutTags\Api\GetRegisterViewLayoutTagsComponents;
+use Zrcms\ContentCore\View\Api\GetRegisterViewLayoutTagsComponents;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -105,14 +105,14 @@ class ModuleConfig
                      * ViewLayoutTagsGetter Component ===========================================
                      */
                     FindViewLayoutTagsComponent::class => [
-                        'class' => This\ViewLayoutTags\Api\Repository\FindViewLayoutTagsComponent::class,
+                        'class' => This\View\Api\Repository\FindViewLayoutTagsComponent::class,
                         'arguments' => [
                             '0-' => GetRegisterViewLayoutTagsComponents::class,
                             '1-' => SearchConfigList::class
                         ],
                     ],
                     FindViewLayoutTagsComponentsBy::class => [
-                        'class' => This\ViewLayoutTags\Api\Repository\FindViewLayoutTagsComponentsBy::class,
+                        'class' => This\View\Api\Repository\FindViewLayoutTagsComponentsBy::class,
                         'arguments' => [
                             '0-' => GetRegisterViewLayoutTagsComponents::class,
                             '1-' => SearchConfigList::class
@@ -120,11 +120,11 @@ class ModuleConfig
                     ],
                     ReadViewLayoutTagsComponentRegistry::class.'1' => [
                         'factory'
-                        => This\ViewLayoutTags\Api\Repository\ReadViewLayoutTagsComponentRegistryBasicFactory::class,
+                        => This\View\Api\Repository\ReadViewLayoutTagsComponentRegistryBasicFactory::class,
 
                     ],
                     GetRegisterViewLayoutTagsComponents::class => [
-                        'class' => This\ViewLayoutTags\Api\GetRegisterViewLayoutTagsComponentsBasic::class,
+                        'class' => This\View\Api\GetRegisterViewLayoutTagsComponentsBasic::class,
                         'arguments' => [
                             '0-' => ReadViewLayoutTagsComponentRegistry::class.'1',
                             '1-' => Cache::class
@@ -132,7 +132,7 @@ class ModuleConfig
                     ],
                 ],
             ],
-            'zrcms' => [
+            'zrcms-components' => [
                 'blocks' => [
                     /*
                     '{block-name}' => '{block-location}(directory)'

@@ -17,7 +17,7 @@ use Zrcms\ContentCore\Theme\Api\Repository\FindLayoutVersion;
 use Zrcms\ContentCore\Theme\Api\Repository\FindThemeComponent;
 use Zrcms\ContentCore\Theme\Exception\ThemeNotFoundException;
 use Zrcms\ContentCore\View\Api\GetLayoutName;
-use Zrcms\ContentCore\View\Api\Render\GetViewRenderTags;
+use Zrcms\ContentCore\View\Api\Render\GetViewLayoutTags;
 use Zrcms\ContentCore\View\Api\Render\RenderView;
 use Zrcms\ContentCore\View\Model\PropertiesView;
 use Zrcms\ContentCore\View\Model\View;
@@ -70,9 +70,9 @@ class FindViewByRequestBasic implements FindViewByRequest
     protected $findThemeComponent;
 
     /**
-     * @var GetViewRenderTags
+     * @var GetViewLayoutTags
      */
-    protected $getViewRenderTags;
+    protected $getViewLayoutTags;
 
     /**
      * @var RenderView
@@ -88,7 +88,7 @@ class FindViewByRequestBasic implements FindViewByRequest
      * @param FindLayoutVersion                          $findLayoutVersion
      * @param GetLayoutName                              $getLayoutName
      * @param FindThemeComponent                         $findThemeComponent
-     * @param GetViewRenderTags                          $getViewRenderTags
+     * @param GetViewLayoutTags                          $getViewLayoutTags
      * @param RenderView                                 $renderView
      */
     public function __construct(
@@ -100,7 +100,7 @@ class FindViewByRequestBasic implements FindViewByRequest
         FindLayoutVersion $findLayoutVersion,
         GetLayoutName $getLayoutName,
         FindThemeComponent $findThemeComponent,
-        GetViewRenderTags $getViewRenderTags,
+        GetViewLayoutTags $getViewLayoutTags,
         RenderView $renderView
     ) {
         $this->findSiteCmsResourceByHost = $findSiteCmsResourceByHost;
@@ -112,7 +112,7 @@ class FindViewByRequestBasic implements FindViewByRequest
         $this->getLayoutName = $getLayoutName;
 
         $this->findThemeComponent = $findThemeComponent;
-        $this->getViewRenderTags = $getViewRenderTags;
+        $this->getViewLayoutTags = $getViewLayoutTags;
         $this->renderView = $renderView;
     }
 

@@ -7,6 +7,7 @@ use Zrcms\Content\Model\Content;
 use Zrcms\ContentCore\Theme\Model\Layout;
 
 /**
+ * @deprecated NOT NEEDED?
  * @author James Jervis - https://github.com/jerv13
  */
 class GetLayoutRenderTagsNoop implements GetLayoutRenderTags

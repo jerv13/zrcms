@@ -18,7 +18,7 @@ $zrcmsModules =  [
     new \Zrcms\Importer\ModuleConfig(),
     new \Zrcms\Install\ModuleConfig(),
 
-    new \Zrcms\ViewLayoutTagsHead\ModuleConfig(),
+    new \Zrcms\ViewHead\ModuleConfig(),
 
     new \Zrcms\ContentCoreConfigDataSource\ModuleConfig(),
     new \Zrcms\ContentCoreDoctrineDataSource\ModuleConfig(),

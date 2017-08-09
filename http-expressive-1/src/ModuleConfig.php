@@ -4,7 +4,7 @@ namespace Zrcms\HttpExpressive1;
 
 use Zrcms\Content\Api\ContentVersionToArray;
 use Zrcms\ContentCore\Site\Model\SiteVersionBasic;
-use Zrcms\ContentCore\View\Api\Render\GetViewRenderTags;
+use Zrcms\ContentCore\View\Api\Render\GetViewLayoutTags;
 use Zrcms\ContentCore\View\Api\Render\RenderView;
 use Zrcms\ContentCore\View\Api\Repository\FindViewByRequest;
 use Zrcms\HttpExpressive1\Api\Site\Repository\FindSiteVersion;
@@ -55,7 +55,7 @@ class ModuleConfig
                     ViewController::class => [
                         'arguments' => [
                             FindViewByRequest::class,
-                            GetViewRenderTags::class,
+                            GetViewLayoutTags::class,
                             RenderView::class,
                             HandleResponseWithExceptionMessage::class
                         ],

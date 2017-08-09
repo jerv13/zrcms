@@ -42,7 +42,8 @@ class GetServiceFromAliasBasic implements GetServiceFromAlias
      * @param string $defaultServiceName
      * @param array  $options
      *
-     * @return object
+     * @return mixed
+     * @throws ServiceAliasNotFoundException
      */
     public function __invoke(
         string $namespace,
@@ -57,8 +58,17 @@ class GetServiceFromAliasBasic implements GetServiceFromAlias
             $defaultServiceName
         );
 
+        if (empty($serviceName)) {
+            throw new ServiceAliasNotFoundException(
+                "Service name empty: ({$serviceName})"
+                . " with alias: ({$serviceAlias})"
+                . " with default service: ({$defaultServiceName})"
+                . " of interface: ({$interfaceClass})"
+            );
+        }
+
         if (!$this->serviceContainer->has($serviceName)) {
-            new ServiceAliasNotFoundException(
+            throw new ServiceAliasNotFoundException(
                 "Service not found: ({$serviceName})"
                 . " with alias: ({$serviceAlias})"
                 . " with default service: ({$defaultServiceName})"
@@ -69,7 +79,7 @@ class GetServiceFromAliasBasic implements GetServiceFromAlias
         $service = $this->serviceContainer->get($serviceName);
 
         if (!$service instanceof $interfaceClass) {
-            new ServiceAliasNotFoundException(
+            throw new ServiceAliasNotFoundException(
                 "Service not instance of interface: ({$interfaceClass})"
                 . " with alias: ({$serviceAlias})"
                 . " with default service: ({$defaultServiceName})"

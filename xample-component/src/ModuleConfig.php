@@ -3,8 +3,7 @@
 namespace Zrcms\XampleComponent;
 
 use Zrcms\ContentCore\View\Model\ServiceAliasView;
-use Zrcms\ContentCore\ViewLayoutTags\Model\ServiceAliasViewLayoutTags;
-use Zrcms\XampleComponent\ViewLayoutTags\Api\Render\GetViewLayoutTags;
+use Zrcms\XampleComponent\View\Api\Render\GetViewLayoutTags;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -24,7 +23,7 @@ class ModuleConfig
                     GetViewLayoutTags::class => [],
                 ],
             ],
-            'zrcms' => [
+            'zrcms-components' => [
                 'blocks' => [
                     'xample' => __DIR__ . '/../block',
                 ],
@@ -40,7 +39,7 @@ class ModuleConfig
                 /**
                  * ViewLayoutTagsGetter ===========================================
                  */
-                ServiceAliasView::NAMESPACE_CONTENT_RENDER_TAGS_GETTER  => [
+                ServiceAliasView::NAMESPACE_COMPONENT_VIEW_LAYOUT_TAGS_GETTER => [
                     'xample' => GetViewLayoutTags::class,
                 ],
             ],

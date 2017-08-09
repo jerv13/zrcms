@@ -22,7 +22,7 @@ class ReadBlockComponentRegistryBcFactory
     ) {
         $config = $serviceContainer->get('config');
 
-        $registry = $config['zrcms']['blocks'];
+        $registry = $config['zrcms-components']['blocks'];
 
         $pluginConfigsBc = $config['rcmPlugin'];
 

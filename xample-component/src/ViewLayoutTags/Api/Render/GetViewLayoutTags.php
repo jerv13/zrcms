@@ -1,6 +1,6 @@
 <?php
 
-namespace Zrcms\XampleComponent\ViewLayoutTags\Api\Render;
+namespace Zrcms\XampleComponent\View\Api\Render;
 
 use Psr\Http\Message\ServerRequestInterface;
 use Zrcms\Content\Model\Content;
@@ -8,7 +8,7 @@ use Zrcms\Content\Model\Content;
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class GetViewLayoutTags implements \Zrcms\ContentCore\ViewLayoutTags\Api\Render\GetViewLayoutTags
+class GetViewLayoutTags implements \Zrcms\ContentCore\View\Api\Render\GetViewLayoutTags
 {
     const XAMPLE_RENDER_TAG = 'xample';
 
