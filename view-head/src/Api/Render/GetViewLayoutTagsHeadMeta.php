@@ -28,6 +28,9 @@ class GetViewLayoutTagsHeadMeta implements GetViewLayoutTagsHead
         array $options = []
     ): array
     {
+        // @todo descriptions and keywords always from page then site
+
+
         return [
             self::RENDER_TAG_META => '<!-- @todo: ' . get_class($this) . ' -->'
         ];

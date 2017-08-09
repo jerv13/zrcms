@@ -87,6 +87,8 @@ class GetViewLayoutTagsHeadLink implements GetViewLayoutTagsHead
             GetViewLayoutTagsHeadLink::RENDER_TAG_LINK
         );
 
+        ddd($getViewLayoutTagsHeadLinkComponent->getProperties());
+
         $properties = $getViewLayoutTagsHeadLinkComponent->getProperties();
         $properties[PropertiesHeadSection::ID] = 'head-link:' . time();
 

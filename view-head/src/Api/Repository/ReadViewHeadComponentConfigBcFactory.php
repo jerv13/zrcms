@@ -21,17 +21,11 @@ class ReadViewHeadComponentConfigBcFactory
 
         $applicationConfig = $config['zrcms-components']['view-layout-tags'];
 
-        $configBc = [
-            'meta' => [],
-            'script' => [],
-            'link' => [],
-        ];
+        $configBc = [];
 
         if (array_key_exists('Rcm', $config)) {
             if (array_key_exists('HtmlIncludes', $config['Rcm'])) {
-                $configBc['meta'] = $config['Rcm']['HtmlIncludes']['headMetaName'];
-                $configBc['script'] =  $config['Rcm']['HtmlIncludes']['scripts'];
-                $configBc['link'] =  $config['Rcm']['HtmlIncludes']['stylesheets'];
+                $configBc = $config['Rcm']['HtmlIncludes'];
             }
         }
 

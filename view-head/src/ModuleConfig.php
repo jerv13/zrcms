@@ -3,7 +3,6 @@
 namespace Zrcms\ViewHead;
 
 use Zrcms\ContentCore\View\Api\Repository\FindViewLayoutTagsComponent;
-use Zrcms\ContentCore\View\Api\Repository\ReadViewLayoutTagsComponentConfigApplicationConfig;
 use Zrcms\ContentCore\View\Model\PropertiesViewLayoutTagsComponent;
 use Zrcms\ContentCore\View\Model\ServiceAliasView;
 use Zrcms\ContentCoreConfigDataSource\Content\Model\ComponentRegistryFields;
@@ -15,10 +14,11 @@ use Zrcms\ViewHead\Api\Render\GetViewLayoutTagsHeadMeta;
 use Zrcms\ViewHead\Api\Render\GetViewLayoutTagsHeadScript;
 use Zrcms\ViewHead\Api\Render\GetViewLayoutTagsHeadTitle;
 use Zrcms\ViewHead\Api\Render\RenderHeadSectionsTag;
-use Zrcms\ViewHead\Api\Render\RenderHeadSectionsTagBasic;
 use Zrcms\ViewHead\Api\Render\RenderHeadSectionsTagBcFactory;
 use Zrcms\ViewHead\Api\Render\RenderTag;
 use Zrcms\ViewHead\Api\Render\RenderTagBasic;
+use Zrcms\ViewHead\Api\Repository\ReadViewHeadComponentConfigBc;
+use Zrcms\ViewHead\Api\Repository\ReadViewHeadComponentConfigBcFactory;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -62,6 +62,9 @@ class ModuleConfig
                     RenderTag::class => [
                         'class' => RenderTagBasic::class
                     ],
+                    ReadViewHeadComponentConfigBc::class => [
+                        'factory' => ReadViewHeadComponentConfigBcFactory::class,
+                    ],
                 ],
             ],
             'zrcms-components' => [
@@ -74,7 +77,7 @@ class ModuleConfig
                         => GetViewLayoutTagsHeadLink::RENDER_TAG_LINK,
 
                         ComponentRegistryFields::COMPONENT_CONFIG_READER
-                        => ReadViewLayoutTagsComponentConfigApplicationConfig::SERVICE_ALIAS,
+                        => ReadViewHeadComponentConfigBc::SERVICE_ALIAS,
 
                         ComponentRegistryFields::NAME
                         => GetViewLayoutTagsHeadLink::RENDER_TAG_LINK,
@@ -119,6 +122,10 @@ class ModuleConfig
                     GetViewLayoutTagsHeadMeta::SERVICE_ALIAS => GetViewLayoutTagsHeadMeta::class,
                     GetViewLayoutTagsHeadScript::SERVICE_ALIAS => GetViewLayoutTagsHeadScript::class,
                     GetViewLayoutTagsHeadTitle::SERVICE_ALIAS => GetViewLayoutTagsHeadTitle::class,
+                ],
+
+                ServiceAliasView::NAMESPACE_COMPONENT_VIEW_LAYOUT_TAGS_CONFIG_READER => [
+                    ReadViewHeadComponentConfigBc::SERVICE_ALIAS => ReadViewHeadComponentConfigBc::class,
                 ],
             ],
 
