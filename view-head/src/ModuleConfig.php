@@ -1,9 +1,10 @@
 <?php
 
-namespace Zrcms\ViewLayoutTagsHead;
+namespace Zrcms\ViewHead;
 
 use Zrcms\ContentCore\View\Api\Repository\FindViewLayoutTagsComponent;
 use Zrcms\ContentCore\View\Api\Repository\ReadViewLayoutTagsComponentConfigApplicationConfig;
+use Zrcms\ContentCore\View\Model\PropertiesViewLayoutTagsComponent;
 use Zrcms\ContentCore\View\Model\ServiceAliasView;
 use Zrcms\ContentCoreConfigDataSource\Content\Model\ComponentRegistryFields;
 use Zrcms\ServiceAlias\Api\GetServiceFromAlias;
@@ -93,7 +94,11 @@ class ModuleConfig
                         ComponentRegistryFields::COMPONENT_CONFIG_READER
                         => ReadViewLayoutTagsComponentConfigApplicationConfig::SERVICE_ALIAS,
 
-                        ComponentRegistryFields::NAME => GetViewLayoutTagsHeadLink::RENDER_TAG_LINK,
+                        ComponentRegistryFields::NAME
+                        => GetViewLayoutTagsHeadLink::RENDER_TAG_LINK,
+
+                        PropertiesViewLayoutTagsComponent::RENDER_TAGS_GETTER
+                        => GetViewLayoutTagsHeadLink::SERVICE_ALIAS,
 
                         'tag' => 'link',
                         'sections' => [

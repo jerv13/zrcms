@@ -308,7 +308,10 @@ class Param
     public static function throwError(\Throwable $error)
     {
         if (self::$debug && is_a($error, ParamException::class)) {
+            echo "<pre>\n";
+            echo "DEBUG: " . self::class . "\n\n";
             print_r($error->getProperties());
+            echo "</pre>\n";
         }
 
         throw $error;

@@ -4,9 +4,9 @@ namespace Zrcms\ContentCore\View\Api\Render;
 
 use Psr\Http\Message\ServerRequestInterface;
 use Zrcms\Content\Model\Content;
+use Zrcms\ContentCore\View\Api\Repository\FindViewLayoutTagsComponentsBy;
 use Zrcms\ContentCore\View\Model\ServiceAliasView;
 use Zrcms\ContentCore\View\Model\View;
-use Zrcms\ContentCore\View\Api\Repository\FindViewLayoutTagsComponentsBy;
 use Zrcms\ContentCore\View\Model\ViewLayoutTagsComponent;
 use Zrcms\ServiceAlias\Api\GetServiceFromAlias;
 use Zrcms\ServiceAlias\ServiceCheck;
@@ -32,7 +32,7 @@ class GetViewLayoutTagsBasic implements GetViewLayoutTags
     protected $findViewLayoutTagsComponentsBy;
 
     /**
-     * @param GetServiceFromAlias                  $getServiceFromAlias
+     * @param GetServiceFromAlias            $getServiceFromAlias
      * @param FindViewLayoutTagsComponentsBy $findViewLayoutTagsComponentsBy
      */
     public function __construct(
@@ -60,8 +60,8 @@ class GetViewLayoutTagsBasic implements GetViewLayoutTags
     {
         // @todo always injecting page and containers always?
         $viewLayoutTagsGetterServiceAliases = [
-            GetViewLayoutTagsContainers::SERVICE_ALIAS,
-            GetViewLayoutTagsPage::SERVICE_ALIAS,
+            GetViewLayoutTagsContainers::RENDER_TAG_CONTAINER => GetViewLayoutTagsContainers::SERVICE_ALIAS,
+            GetViewLayoutTagsPage::RENDER_TAG_PAGE => GetViewLayoutTagsPage::SERVICE_ALIAS,
         ];
 
         // @todo only get layout components that have paths in the layout
@@ -69,7 +69,8 @@ class GetViewLayoutTagsBasic implements GetViewLayoutTags
 
         /** @var ViewLayoutTagsComponent $viewLayoutTagsComponent */
         foreach ($viewLayoutTagsComponents as $viewLayoutTagsComponent) {
-            $viewLayoutTagsGetterServiceAliases[] = $viewLayoutTagsComponent->getViewLayoutTagsGetter();
+            $viewLayoutTagsGetterServiceAliases[$viewLayoutTagsComponent->getName()]
+                = $viewLayoutTagsComponent->getViewLayoutTagsGetter();
         }
 
         $allViewRenderTags = [];
@@ -78,7 +79,7 @@ class GetViewLayoutTagsBasic implements GetViewLayoutTags
 
         // @todo Only invoke the services that have tags in the layout
         /** @var GetViewLayoutTags $getViewLayoutTags */
-        foreach ($viewLayoutTagsGetterServiceAliases as $viewLayoutTagsGetterServiceAlias) {
+        foreach ($viewLayoutTagsGetterServiceAliases as $name => $viewLayoutTagsGetterServiceAlias) {
 
             // Duplicate check
             if (in_array($viewLayoutTagsGetterServiceAlias, $serviceNameChecks)) {
@@ -108,7 +109,6 @@ class GetViewLayoutTagsBasic implements GetViewLayoutTags
                 $viewRenderTags
             );
         }
-
 
         return $allViewRenderTags;
     }

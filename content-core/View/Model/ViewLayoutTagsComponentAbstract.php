@@ -2,6 +2,7 @@
 
 namespace Zrcms\ContentCore\View\Model;
 
+use Zrcms\Content\Exception\PropertyMissingException;
 use Zrcms\Content\Model\ComponentAbstract;
 use Zrcms\Param\Param;
 
@@ -22,6 +23,16 @@ abstract class ViewLayoutTagsComponentAbstract
         string $createdByUserId,
         string $createdReason
     ) {
+        Param::assertHas(
+            $properties,
+            PropertiesViewLayoutTagsComponent::RENDER_TAGS_GETTER,
+            PropertyMissingException::build(
+                PropertiesViewLayoutTagsComponent::RENDER_TAGS_GETTER,
+                $properties,
+                get_class($this)
+            )
+        );
+
         parent::__construct(
             $properties,
             $createdByUserId,

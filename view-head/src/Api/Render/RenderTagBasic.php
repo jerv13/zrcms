@@ -103,7 +103,7 @@ class RenderTagBasic implements RenderTag
             if ($index === 1) {
                 $html .= ' ';
             }
-            $html .= (string)$attribute . '=' . (string)$value;
+            $html .= (string)$attribute . '="' . (string)$value . '"';
 
             // trailing space
             if ($index < $count) {
