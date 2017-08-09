@@ -40,8 +40,10 @@ class GetViewLayoutTagsHeadTitle implements GetViewLayoutTagsHead
             );
         }
 
+        $title = strip_tags($title);
+
         return [
-            self::RENDER_TAG_TITLE => $title
+            self::RENDER_TAG_TITLE => "<title>$title</title>"
         ];
     }
 }

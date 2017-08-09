@@ -16,6 +16,7 @@ use Zrcms\ViewHead\Api\Render\GetViewLayoutTagsHeadScript;
 use Zrcms\ViewHead\Api\Render\GetViewLayoutTagsHeadTitle;
 use Zrcms\ViewHead\Api\Render\RenderHeadSectionsTag;
 use Zrcms\ViewHead\Api\Render\RenderHeadSectionsTagBasic;
+use Zrcms\ViewHead\Api\Render\RenderHeadSectionsTagBcFactory;
 use Zrcms\ViewHead\Api\Render\RenderTag;
 use Zrcms\ViewHead\Api\Render\RenderTagBasic;
 
@@ -56,27 +57,7 @@ class ModuleConfig
                     GetViewLayoutTagsHeadScript::class => [],
                     GetViewLayoutTagsHeadTitle::class => [],
                     RenderHeadSectionsTag::class => [
-                        'class' => RenderHeadSectionsTagBasic::class,
-                        'arguments' => [
-                            '0-' => RenderTag::class,
-                            // @todo THIS IS WRONG =======================================================
-                            '1-' => [
-                                'literal' => [
-                                    'pre-config',
-                                    'config',
-                                    'post-config',
-                                    'pre-libraries',
-                                    'libraries',
-                                    'post-libraries',
-                                    'pre-core',
-                                    'core',
-                                    'post-core',
-                                    'pre-modules',
-                                    'modules',
-                                    'post-modules',
-                                ]
-                            ],
-                        ],
+                        'factory' => RenderHeadSectionsTagBcFactory::class,
                     ],
                     RenderTag::class => [
                         'class' => RenderTagBasic::class
@@ -86,7 +67,8 @@ class ModuleConfig
             'zrcms-components' => [
                 'view-layout-tags' => [
                     GetViewLayoutTagsHeadAll::RENDER_TAG_ALL => __DIR__ . '/../config/head-all',
-                    GetViewLayoutTagsHeadLink::RENDER_TAG_LINK => [
+                    // GetViewLayoutTagsHeadLink::RENDER_TAG_LINK
+                    'head-link' => [
 
                         ComponentRegistryFields::CONFIG_LOCATION
                         => GetViewLayoutTagsHeadLink::RENDER_TAG_LINK,
@@ -153,23 +135,23 @@ class ModuleConfig
                  */
                 'defaultStylesheetKey' => 'stylesheets',
 
-                /**
-                 * This determines the order of the head sections, thus, loading order of scripts and css
-                 */
-                'available-sections' => [
-                    'pre-config',
-                    'config',
-                    'post-config',
-                    'pre-libraries',
-                    'libraries',
-                    'post-libraries',
-                    'pre-core',
-                    'core',
-                    'post-core',
-                    'pre-modules',
-                    'modules',
-                    'post-modules',
-                ],
+            ],
+            /**
+             * This determines the order of the head sections, thus, loading order of scripts and css
+             */
+            'zrcms-head-available-sections' => [
+                'pre-config',
+                'config',
+                'post-config',
+                'pre-libraries',
+                'libraries',
+                'post-libraries',
+                'pre-core',
+                'core',
+                'post-core',
+                'pre-modules',
+                'modules',
+                'post-modules',
             ],
 
             /**

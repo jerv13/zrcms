@@ -10,6 +10,9 @@ use Zrcms\Param\Param;
  */
 class RenderTagBasic implements RenderTag
 {
+    /**
+     * @var array
+     */
     protected $selfClosingTags
         = [
             'area',
@@ -50,20 +53,7 @@ class RenderTagBasic implements RenderTag
         $attributes = Param::getRequired($renderTags, 'attributes');
         $contentHtml = Param::get($renderTags, 'content');
 
-        $html = $this->renderTag($tag, $attributes, $contentHtml);
-
-        return $this->purify($html);
-    }
-
-    /**
-     * @param string $html
-     *
-     * @return string
-     */
-    protected function purify(string $html): string
-    {
-        // @todo Purifier
-        return $html;
+        return $this->renderTag($tag, $attributes, $contentHtml);
     }
 
     /**
