@@ -16,22 +16,31 @@ class BuildBlockVersion
 {
     /**
      * @param Container|ContainerVersion $containerVersion
-     * @param array                      $blockVersionProperties
+     * @param array                      $blockVersionData
      *
      * @return BlockVersion
      */
     public static function invoke(
         Container $containerVersion,
-        array $blockVersionProperties
+        array $blockVersionData,
+        $containerBlockIndex
     ): BlockVersion
     {
-        // We map the IDs to this object since that are one-to-one
-        $blockVersionProperties[PropertiesBlockVersion::ID] = $containerVersion->getId();
-        $blockVersionProperties[PropertiesBlockVersion::BLOCK_CONTAINER_CMS_RESOURCE_ID] = $containerVersion->getId();
-        $blockVersionProperties[TrackableProperties::CREATED_DATE] = $containerVersion->getCreatedDate();
+
+        $blockVersionData[PropertiesBlockVersion::CONTAINER_VERSION_ID] = $containerVersion->getId();
+        // @todo Why is this required
+        $blockVersionData[PropertiesBlockVersion::BLOCK_CONTAINER_CMS_RESOURCE_ID] = $containerVersion->getId();
+        $blockVersionData[TrackableProperties::CREATED_DATE] = $containerVersion->getCreatedDate();
+
+        if (!array_key_exists(PropertiesBlockVersion::ID, $blockVersionData)
+            || empty($blockVersionData[PropertiesBlockVersion::ID])
+        ) {
+            // @todo FIX this
+            $blockVersionData[PropertiesBlockVersion::ID] = $containerVersion->getId() . '.' . $containerBlockIndex;
+        }
 
         return new BlockVersionBasic(
-            $blockVersionProperties,
+            $blockVersionData,
             $containerVersion->getCreatedByUserId(),
             $containerVersion->getCreatedReason()
         );

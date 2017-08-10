@@ -28,11 +28,16 @@ class BuildBlockVersions
 
         $blockVersions = [];
 
+        $index = 0;
         foreach ($blockVersionsData as $blockVersionData) {
+
             $blockVersions[] = BuildBlockVersion::invoke(
                 $containerVersion,
-                $blockVersionData
+                $blockVersionData,
+                $index
             );
+
+            $index++;
         }
 
         return $blockVersions;

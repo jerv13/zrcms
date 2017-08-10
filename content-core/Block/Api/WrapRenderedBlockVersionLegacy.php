@@ -24,11 +24,14 @@ class WrapRenderedBlockVersionLegacy implements WrapRenderedBlockVersion
 
     /**
      * @param string $innerHtml
-     * @param Block $block
+     * @param Block  $block
      *
      * @return string
      */
-    public function __invoke(string $innerHtml, Block $block): string
+    public function __invoke(
+        string $innerHtml,
+        Block $block
+    ): string
     {
         $blockComponent = $this->findBlockComponent->__invoke(
             $block->getBlockComponentName()
@@ -51,23 +54,23 @@ class WrapRenderedBlockVersionLegacy implements WrapRenderedBlockVersion
         $componentName = $blockComponent->getName();
 
         return "\n"
-            . '<div class="rcmPlugin ' . $componentName . ' ' . $columnClass . '" '
-            . 'data-rcmpluginname="' . $componentName . '" '
-            . 'data-rcmplugindefaultclass="rcmPlugin ' . $componentName . '" '
-            . 'data-rcmplugincolumnclass="' . $columnClass . '" '
-            . 'data-rcmpluginrownumber="' . $rowNumber . '" '
-            . 'data-rcmpluginrenderordernumber="' . $renderOrder . '" '
-            . 'data-rcmplugininstanceid="' . $id . '" '
-            . 'data-rcmpluginwrapperid="' . $id . '" ' //Deprecated
-            . 'data-rcmsitewideplugin="" ' //Deprecated
-            . 'data-rcmplugindisplayname="" ' //Deprecated
-            . 'data-block-editor="' . $editor . '">'
-            . "\n"
-            . ' <div class="rcmPluginContainer">'
-            . $innerHtml
-            . ' </div>'
-            . "\n"
-            . '</div>'
-            . "\n";
+        . '<div class="rcmPlugin ' . $componentName . ' ' . $columnClass . '" '
+        . 'data-rcmpluginname="' . $componentName . '" '
+        . 'data-rcmplugindefaultclass="rcmPlugin ' . $componentName . '" '
+        . 'data-rcmplugincolumnclass="' . $columnClass . '" '
+        . 'data-rcmpluginrownumber="' . $rowNumber . '" '
+        . 'data-rcmpluginrenderordernumber="' . $renderOrder . '" '
+        . 'data-rcmplugininstanceid="' . $id . '" '
+        . 'data-rcmpluginwrapperid="' . $id . '" ' //Deprecated
+        . 'data-rcmsitewideplugin="" ' //Deprecated
+        . 'data-rcmplugindisplayname="" ' //Deprecated
+        . 'data-block-editor="' . $editor . '">'
+        . "\n"
+        . ' <div class="rcmPluginContainer">'
+        . $innerHtml
+        . ' </div>'
+        . "\n"
+        . '</div>'
+        . "\n";
     }
 }
