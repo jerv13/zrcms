@@ -116,6 +116,7 @@ class Import
             $logger->debug(
                 'executing insertSiteVersion('
                 . 'siteId:' . $site['id']
+                . ',host:' . $site['host']
                 . ')'
             );
             $version = $this->insertSiteVersion->__invoke(
@@ -129,6 +130,7 @@ class Import
             $logger->debug(
                 'executing publishSiteCmsResource('
                 . 'siteId:' . $site['id']
+                . ',host:' . $site['host']
                 . ')'
             );
             $publishedSiteCmsResource = $this->publishSiteCmsResource->__invoke(
@@ -147,7 +149,7 @@ class Import
 
             $this->createPages(
                 $publishedSiteCmsResource,
-                $data['pages'],
+                $site['pages'],
                 $createdByUserId,
                 $createdReason,
                 $logger
@@ -155,7 +157,7 @@ class Import
 
             $this->createContainers(
                 $publishedSiteCmsResource,
-                $data['containers'],
+                $site['containers'],
                 $createdByUserId,
                 $createdReason,
                 $logger
