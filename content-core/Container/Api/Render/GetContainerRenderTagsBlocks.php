@@ -6,7 +6,6 @@ use Psr\Http\Message\ServerRequestInterface;
 use Zrcms\Content\Model\Content;
 use Zrcms\ContentCore\Block\Api\Render\GetBlockRenderTags;
 use Zrcms\ContentCore\Block\Api\Render\RenderBlock;
-use Zrcms\ContentCore\Block\Api\Repository\FindBlockVersionsByContainer;
 use Zrcms\ContentCore\Block\Api\WrapRenderedBlockVersion;
 use Zrcms\ContentCore\Block\Model\Block;
 use Zrcms\ContentCore\Block\Model\PropertiesBlock;
@@ -18,11 +17,6 @@ use Zrcms\ContentCore\Container\Model\Container;
  */
 class GetContainerRenderTagsBlocks implements GetContainerRenderTags
 {
-    /**
-     * @var FindBlockVersionsByContainer
-     */
-    protected $findBlockVersionsByContainer;
-
     /**
      * @var RenderBlock
      */
@@ -44,20 +38,17 @@ class GetContainerRenderTagsBlocks implements GetContainerRenderTags
     protected $wrapRenderedContainer;
 
     /**
-     * @param FindBlockVersionsByContainer $findBlockVersionsByContainer
-     * @param RenderBlock                  $renderBlock
-     * @param GetBlockRenderTags           $getBlockRenderTags
-     * @param WrapRenderedBlockVersion     $wrapRenderedBlockVersion
-     * @param WrapRenderedContainer        $wrapRenderedContainer
+     * @param RenderBlock              $renderBlock
+     * @param GetBlockRenderTags       $getBlockRenderTags
+     * @param WrapRenderedBlockVersion $wrapRenderedBlockVersion
+     * @param WrapRenderedContainer    $wrapRenderedContainer
      */
     public function __construct(
-        FindBlockVersionsByContainer $findBlockVersionsByContainer,
         RenderBlock $renderBlock,
         GetBlockRenderTags $getBlockRenderTags,
         WrapRenderedBlockVersion $wrapRenderedBlockVersion,
         WrapRenderedContainer $wrapRenderedContainer
     ) {
-        $this->findBlockVersionsByContainer = $findBlockVersionsByContainer;
         $this->renderBlock = $renderBlock;
         $this->getBlockRenderTags = $getBlockRenderTags;
         $this->wrapRenderedBlockVersion = $wrapRenderedBlockVersion;
@@ -80,15 +71,14 @@ class GetContainerRenderTagsBlocks implements GetContainerRenderTags
     {
         $renderedData = []; //row -> renderOrder -> renderedBlockHtml
 
-        $blocks = $this->findBlockVersionsByContainer->__invoke(
-            $container
-        );
+        $blocks = $container->getBlockVersions();
 
         /** @var Block $block */
         foreach ($blocks as $block) {
             $rowNumber = $block->getRequiredLayoutProperty(
                 PropertiesBlock::LAYOUT_PROPERTIES_ROW_NUMBER
             );
+
             $renderOrder = $block->getRequiredLayoutProperty(
                 PropertiesBlock::LAYOUT_PROPERTIES_RENDER_ORDER
             );
@@ -98,10 +88,21 @@ class GetContainerRenderTagsBlocks implements GetContainerRenderTags
             }
 
             if (array_key_exists($renderOrder, $renderedData[$rowNumber])) {
-                throw new \Exception(
-                    'Block instance has duplicate "renderOrder" in its row. '
-                    . 'Block->Uid: ' . $block->getId()
-                );
+                $message = 'Block instance has duplicate "renderOrder" in its row.'
+                    . ' Container type: ' . get_class($container)
+                    . ' Container ID: ' . $container->getId()
+                    . ' Block ID: ' . $block->getId()
+                    . ' layout properties: ' . json_encode($block->getLayoutProperties(), 0, 3)
+                    . ' duped in: ' . json_encode($block->getLayoutProperties(), 0, 3);
+
+                // @todo Throw OR fix the data OR Logger::warning())
+                //throw new \Exception(
+                //    $message
+                //);
+                //trigger_error(
+                //    $message,
+                //    E_USER_WARNING
+                //);
             }
 
             $blockRenderTags = $this->getBlockRenderTags->__invoke(

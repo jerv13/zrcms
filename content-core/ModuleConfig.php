@@ -17,7 +17,6 @@ use Zrcms\ContentCore\Block\Api\Render\RenderBlockBcFactory;
 use Zrcms\ContentCore\Block\Api\Render\RenderBlockMustache;
 use Zrcms\ContentCore\Block\Api\Repository\FindBlockComponent;
 use Zrcms\ContentCore\Block\Api\Repository\FindBlockComponentsBy;
-use Zrcms\ContentCore\Block\Api\Repository\FindBlockVersionsByContainer;
 use Zrcms\ContentCore\Block\Api\Repository\GetBlockData;
 use Zrcms\ContentCore\Block\Api\Repository\GetBlockDataBasic;
 use Zrcms\ContentCore\Block\Api\Repository\GetBlockDataNoop;
@@ -171,12 +170,6 @@ class ModuleConfig
                             '0-' => ['literal' => FindBlockComponentsBy::class],
                         ],
                     ],
-                    FindBlockVersionsByContainer::class => [
-                        'class' => ApiNoop::class,
-                        'arguments' => [
-                            '0-' => ['literal' => FindBlockVersionsByContainer::class],
-                        ],
-                    ],
                     GetBlockData::class => [
                         'class' => GetBlockDataBasic::class,
                         'arguments' => [
@@ -253,7 +246,6 @@ class ModuleConfig
                     ],
                     GetContainerRenderTagsBlocks::class => [
                         'arguments' => [
-                            '0-' => FindBlockVersionsByContainer::class,
                             '1-' => RenderBlock::class,
                             '2-' => GetBlockRenderTags::class,
                             '3-' => WrapRenderedBlockVersion::class,
@@ -336,7 +328,6 @@ class ModuleConfig
                     ],
                     GetPageContainerRenderTagsBlocks::class => [
                         'arguments' => [
-                            '0-' => FindBlockVersionsByContainer::class,
                             '1-' => RenderBlock::class,
                             '2-' => GetBlockRenderTags::class,
                             '3-' => WrapRenderedBlockVersion::class,

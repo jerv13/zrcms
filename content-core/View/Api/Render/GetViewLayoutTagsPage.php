@@ -6,6 +6,7 @@ use Psr\Http\Message\ServerRequestInterface;
 use Zrcms\Content\Model\Content;
 use Zrcms\ContentCore\Page\Api\Render\GetPageContainerRenderTags;
 use Zrcms\ContentCore\Page\Api\Render\RenderPageContainer;
+use Zrcms\ContentCore\Page\Model\PageContainerVersion;
 use Zrcms\ContentCore\View\Model\View;
 
 /**
@@ -52,22 +53,23 @@ class GetViewLayoutTagsPage implements GetViewLayoutTags
         array $options = []
     ): array
     {
+        /** @var PageContainerVersion $pageContainer */
         $pageContainer = $view->getPage();
 
         $pageRenderTags = $this->getPageContainerRenderTags->__invoke(
-            $view->getPage(),
+            $pageContainer,
             $request
         );
 
-        $viewRenderTags = $this->renderPageContainer->__invoke(
+        $html = $this->renderPageContainer->__invoke(
             $pageContainer,
             $pageRenderTags
         );
 
-        $viewRenderTags = "<!-- <[page]> -->\n" . $viewRenderTags . "\n<!-- </[page]> -->";
+        $html = "<!-- <[page]> -->\n" . $html . "\n<!-- </[page]> -->";
 
         return [
-            self::RENDER_TAG_PAGE => $viewRenderTags
+            self::RENDER_TAG_PAGE => $html
         ];
     }
 }

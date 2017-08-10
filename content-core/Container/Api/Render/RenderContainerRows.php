@@ -6,6 +6,7 @@ use Zrcms\Content\Model\Content;
 use Zrcms\ContentCore\Block\Api\Render\RenderBlock;
 use Zrcms\ContentCore\Container\Api\WrapRenderedContainer;
 use Zrcms\ContentCore\Container\Model\Container;
+use Zrcms\Param\Param;
 
 class RenderContainerRows implements RenderContainer
 {
@@ -44,7 +45,13 @@ class RenderContainerRows implements RenderContainer
         array $options = []
     ): string
     {
-        $containerInnerHtml = '<!-- <container ' . $container->getId() . '> -->';
+        $comment = Param::get(
+            $options,
+            'containerType',
+            'container'
+        );
+
+        $containerInnerHtml = '<!-- <' . $comment . ' ' . $container->getId() . '> -->';
         foreach ($renderTags as $row) {
             $containerInnerHtml .= "\n<div class=\"row\">\n";
             if (is_array($row)) {
@@ -56,7 +63,7 @@ class RenderContainerRows implements RenderContainer
             }
             $containerInnerHtml .= "\n</div>\n";
         }
-        $containerInnerHtml .= '<!-- </container ' . $container->getId() . '> -->';
+        $containerInnerHtml .= '<!-- </' . $comment . ' ' . $container->getId() . '> -->';
 
         return $this->wrapRenderedContainer->__invoke(
             $containerInnerHtml,

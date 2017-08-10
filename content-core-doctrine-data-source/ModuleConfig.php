@@ -4,7 +4,6 @@ namespace Zrcms\ContentCoreDoctrineDataSource;
 
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Mapping\Driver\AnnotationDriver;
-use Zrcms\ContentCore\Block\Api\Repository\FindBlockVersionsByContainer;
 use Zrcms\ContentCore\Container\Api\Action\PublishContainerCmsResource;
 use Zrcms\ContentCore\Container\Api\Action\UnpublishContainerCmsResource;
 use Zrcms\ContentCore\Container\Api\Repository\FindContainerCmsResource;
@@ -59,12 +58,6 @@ class ModuleConfig
                     /**
                      * Block ===========================================
                      */
-                    FindBlockVersionsByContainer::class => [
-                        'class' => This\Block\Api\Repository\FindBlockVersionsByContainer::class,
-                        'arguments' => [
-                            '0-' => EntityManager::class,
-                        ],
-                    ],
 
                     /**
                      * Container ===========================================
