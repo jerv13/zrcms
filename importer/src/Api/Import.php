@@ -2,6 +2,7 @@
 
 namespace Zrcms\Importer\Api;
 
+use Psr\Log\LoggerInterface;
 use Zrcms\ContentCore\Container\Api\Action\PublishContainerCmsResource;
 use Zrcms\ContentCore\Container\Api\Repository\InsertContainerVersion;
 use Zrcms\ContentCore\Container\Model\ContainerCmsResourceBasic;
@@ -52,12 +53,12 @@ class Import
     protected $publishContainerCmsResource;
 
     /**
-     * @param InsertSiteVersion               $insertSiteVersion
-     * @param PublishSiteCmsResource          $publishSiteCmsResource
-     * @param InsertPageContainerVersion      $insertPageContainerVersion
+     * @param InsertSiteVersion $insertSiteVersion
+     * @param PublishSiteCmsResource $publishSiteCmsResource
+     * @param InsertPageContainerVersion $insertPageContainerVersion
      * @param PublishPageContainerCmsResource $publishPageContainerCmsResource
-     * @param InsertContainerVersion          $insertContainerVersion
-     * @param PublishContainerCmsResource     $publishContainerCmsResource
+     * @param InsertContainerVersion $insertContainerVersion
+     * @param PublishContainerCmsResource $publishContainerCmsResource
      */
     public function __construct(
         InsertSiteVersion $insertSiteVersion,
@@ -83,7 +84,7 @@ class Import
      *
      * @return void
      */
-    function __invoke(string $json, string $createdByUserId)
+    function __invoke(string $json, string $createdByUserId, LoggerInterface $logger)
     {
         $data = json_decode($json, true);
 
@@ -92,12 +93,13 @@ class Import
         $this->createSites(
             $data,
             $createdByUserId,
-            $createdReason
+            $createdReason,
+            $logger
         );
     }
 
     /**
-     * @param array  $data
+     * @param array $data
      * @param string $createdByUserId
      * @param string $createdReason
      *
@@ -106,10 +108,16 @@ class Import
     protected function createSites(
         array $data,
         string $createdByUserId,
-        string $createdReason
+        string $createdReason,
+        LoggerInterface $logger
     ) {
 
         foreach ($data['sites'] as $site) {
+            $logger->debug(
+                'executing insertSiteVersion('
+                . 'siteId:' . $site['id']
+                . ')'
+            );
             $version = $this->insertSiteVersion->__invoke(
                 new SiteVersionBasic(
                     $site['properties'],
@@ -118,6 +126,11 @@ class Import
                 )
             );
 
+            $logger->debug(
+                'executing publishSiteCmsResource('
+                . 'siteId:' . $site['id']
+                . ')'
+            );
             $publishedSiteCmsResource = $this->publishSiteCmsResource->__invoke(
                 new SiteCmsResourceBasic(
                     [
@@ -136,14 +149,16 @@ class Import
                 $publishedSiteCmsResource,
                 $data['pages'],
                 $createdByUserId,
-                $createdReason
+                $createdReason,
+                $logger
             );
 
             $this->createContainers(
                 $publishedSiteCmsResource,
                 $data['containers'],
                 $createdByUserId,
-                $createdReason
+                $createdReason,
+                $logger
             );
         }
     }
@@ -152,9 +167,16 @@ class Import
         SiteCmsResource $siteCmsResource,
         array $pages,
         string $createdByUserId,
-        string $createdReason
+        string $createdReason,
+        LoggerInterface $logger
     ) {
         foreach ($pages as $page) {
+
+            $logger->debug(
+                'executing insertPageContainerVersion('
+                . 'siteId:' . $page['siteId'] . ',path:' . $page['path']
+                . ')'
+            );
             $version = $this->insertPageContainerVersion->__invoke(
                 new PageContainerVersionBasic(
                     $page['properties'],
@@ -163,6 +185,11 @@ class Import
                 )
             );
 
+            $logger->debug(
+                'executing publishPageContainerCmsResource('
+                . 'siteId:' . $page['siteId'] . ',path:' . $page['path']
+                . ')'
+            );
             $publishedPageContainerCmsResource = $this->publishPageContainerCmsResource->__invoke(
                 new PageContainerCmsResourceBasic(
                     [
@@ -183,10 +210,16 @@ class Import
         SiteCmsResource $siteCmsResource,
         array $containers,
         string $createdByUserId,
-        string $createdReason
+        string $createdReason,
+        LoggerInterface $logger
     ) {
         foreach ($containers as $container) {
 
+            $logger->debug(
+                'executing insertContainerVersion('
+                . 'siteId:' . $container['siteId'] . ',path:' . $container['path']
+                . ')'
+            );
             $version = $this->insertContainerVersion->__invoke(
                 new ContainerVersionBasic(
                     $container['properties'],
@@ -195,6 +228,11 @@ class Import
                 )
             );
 
+            $logger->debug(
+                'executing publishContainerCmsResource('
+                . 'siteId:' . $container['siteId'] . ',path:' . $container['path']
+                . ')'
+            );
             $publishedContainerCmsResource = $this->publishContainerCmsResource->__invoke(
                 new ContainerCmsResourceBasic(
                     [

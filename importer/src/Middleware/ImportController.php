@@ -29,14 +29,14 @@ class ImportController
         ResponseInterface $response,
         callable $next = null
     ) {
-        die('nope');
-        $importData = $request->getBody()->getContents();
-
-        $this->import->__invoke(
-            $importData,
-            $createdByUser = 'import-script'//@TODO get current logged in user
-        );
-
-        return new \Zend\Diactoros\Response\JsonResponse('Imported successfully');
+        throw new \Exception('This functionality has been disabled as part of security hardening.');
+//        $importData = $request->getBody()->getContents();
+//
+//        $this->import->__invoke(
+//            $importData,
+//            $createdByUser = 'import-script'//@TODO get current logged in user
+//        );
+//
+//        return new \Zend\Diactoros\Response\JsonResponse('Imported successfully');
     }
 }

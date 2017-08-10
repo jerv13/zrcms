@@ -7,6 +7,7 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Zrcms\Importer\Api\Import;
+use Zrcms\Importer\Logger\CallbackLogger;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -39,10 +40,8 @@ class ImportCommand extends Command
         $this
             // the name of the command (the part after "bin/console")
             ->setName('zrcms:import')
-
             // the short description shown while running "php bin/console list"
             ->setDescription('Imports data to ZRCMS.')
-
 //            ->addArgument(
 //                'file',
 //                InputArgument::REQUIRED,
@@ -55,15 +54,13 @@ class ImportCommand extends Command
                 InputOption::VALUE_REQUIRED,
                 'JSON file to import'
             )
-
             // the full command description shown when running the command with
             // the "--help" option
-            ->setHelp('Example: zrcms:import --file data.json')
-        ;
+            ->setHelp('Example: zrcms:import --file data.json');
     }
 
     /**
-     * @param InputInterface  $input
+     * @param InputInterface $input
      * @param OutputInterface $output
      *
      * @return void
@@ -83,9 +80,14 @@ class ImportCommand extends Command
 
         $contents = file_get_contents($file);
 
+        $logger = new CallbackLogger(function ($message) use ($output) {
+            $output->writeln($message);
+        });
+
         $this->import->__invoke(
             $contents,
-            $createdByUserId
+            $createdByUserId,
+            $logger
         );
 
         $output->writeln('COMPLETE');
