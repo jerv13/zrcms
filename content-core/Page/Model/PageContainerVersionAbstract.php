@@ -64,6 +64,17 @@ abstract class PageContainerVersionAbstract
     /**
      * @return string
      */
+    public function getDescription(): string
+    {
+        return $this->getProperty(
+            PropertiesPageContainerVersion::DESCRIPTION,
+            ''
+        );
+    }
+
+    /**
+     * @return string
+     */
     public function getKeywords(): string
     {
         return $this->getProperty(

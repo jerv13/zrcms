@@ -12,7 +12,7 @@ use Zrcms\Param\Param;
 abstract class PageAbstract extends ContentAbstract implements Page
 {
     /**
-     * @param array  $properties
+     * @param array $properties
      */
     public function __construct(
         array $properties
@@ -49,6 +49,17 @@ abstract class PageAbstract extends ContentAbstract implements Page
     {
         return $this->getProperty(
             PropertiesPageContainerVersion::TITLE,
+            ''
+        );
+    }
+
+    /**
+     * @return string
+     */
+    public function getDescription(): string
+    {
+        return $this->getProperty(
+            PropertiesPageContainerVersion::DESCRIPTION,
             ''
         );
     }

@@ -6,6 +6,7 @@ use Psr\Http\Message\ServerRequestInterface;
 use Zrcms\Content\Model\Content;
 use Zrcms\ContentCore\View\Model\View;
 use Zrcms\ContentCore\View\Api\Repository\FindViewLayoutTagsComponent;
+use Zrcms\ContentCore\View\Model\ViewLayoutTagsComponent;
 use Zrcms\ViewHead\Model\HeadSection;
 use Zrcms\ViewHead\Model\HeadSectionBasic;
 use Zrcms\ViewHead\Model\PropertiesHeadSection;
@@ -83,11 +84,12 @@ class GetViewLayoutTagsHeadLink implements GetViewLayoutTagsHead
         string $id = null,
         array $options = []
     ) {
-        $getViewLayoutTagsHeadLinkComponent = $this->findViewLayoutTagsComponent->__invoke(
-            GetViewLayoutTagsHeadLink::RENDER_TAG_LINK
+        /** @var ViewLayoutTagsComponent $getViewLayoutTagsHeadLinkComponent */
+        $component = $this->findViewLayoutTagsComponent->__invoke(
+            self::RENDER_TAG_LINK
         );
 
-        $properties = $getViewLayoutTagsHeadLinkComponent->getProperties();
+        $properties = $component->getProperties();
         $properties[PropertiesHeadSection::ID] = 'head-link:' . time();
 
         // take the properties directly from the component

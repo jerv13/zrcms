@@ -3,7 +3,6 @@
 namespace Zrcms\ViewHead;
 
 use Zrcms\ContentCore\View\Api\Repository\FindViewLayoutTagsComponent;
-use Zrcms\ContentCore\View\Api\Repository\ReadViewLayoutTagsComponentConfigApplicationConfig;
 use Zrcms\ContentCore\View\Model\PropertiesViewLayoutTagsComponent;
 use Zrcms\ContentCore\View\Model\ServiceAliasView;
 use Zrcms\ContentCoreConfigDataSource\Content\Model\ComponentRegistryFields;
@@ -17,8 +16,12 @@ use Zrcms\ViewHead\Api\Render\GetViewLayoutTagsHeadTitle;
 use Zrcms\ViewHead\Api\Render\RenderHeadSectionsTag;
 use Zrcms\ViewHead\Api\Render\RenderHeadSectionsTagBasic;
 use Zrcms\ViewHead\Api\Render\RenderHeadSectionsTagBcFactory;
-use Zrcms\ViewHead\Api\Render\RenderTag;
-use Zrcms\ViewHead\Api\Render\RenderTagBasic;
+use Zrcms\ViewHtmlTags\Api\Render\RenderTag;
+use Zrcms\ViewHtmlTags\Api\Render\RenderTagBasic;
+use Zrcms\ViewHtmlTags\Api\Render\RenderTags;
+use Zrcms\ViewHtmlTags\Api\Render\RenderTagsBasic;
+use Zrcms\ViewHead\Api\Repository\ReadViewHeadComponentConfigBc;
+use Zrcms\ViewHead\Api\Repository\ReadViewHeadComponentConfigBcFactory;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -53,20 +56,61 @@ class ModuleConfig
                             '1-' => RenderHeadSectionsTag::class,
                         ],
                     ],
-                    GetViewLayoutTagsHeadMeta::class => [],
-                    GetViewLayoutTagsHeadScript::class => [],
+                    GetViewLayoutTagsHeadMeta::class => [
+                        'arguments' => [
+                            '0-' => FindViewLayoutTagsComponent::class,
+                            '1-' => RenderTags::class,
+                        ],
+                    ],
+                    GetViewLayoutTagsHeadScript::class => [
+                        'arguments' => [
+                            '0-' => FindViewLayoutTagsComponent::class,
+                            '1-' => RenderHeadSectionsTag::class,
+                        ],
+                    ],
                     GetViewLayoutTagsHeadTitle::class => [],
                     RenderHeadSectionsTag::class => [
-                        'factory' => RenderHeadSectionsTagBcFactory::class,
+                        'class' => RenderHeadSectionsTagBasic::class,
+                        'arguments' => [
+                            '0-' => RenderTag::class,
+                        ],
                     ],
                     RenderTag::class => [
-                        'class' => RenderTagBasic::class
+                        'class' => RenderTagBasic::class,
+                    ],
+                    RenderTags::class => [
+                        'class' => RenderTagsBasic::class,
+                        'arguments' => [
+                            '0-' => RenderTag::class,
+                        ],
+                    ],
+                    ReadViewHeadComponentConfigBc::class => [
+                        'factory' => ReadViewHeadComponentConfigBcFactory::class,
                     ],
                 ],
             ],
             'zrcms-components' => [
                 'view-layout-tags' => [
-                    GetViewLayoutTagsHeadAll::RENDER_TAG_ALL => __DIR__ . '/../config/head-all',
+                    GetViewLayoutTagsHeadAll::RENDER_TAG_ALL
+                    => __DIR__ . '/../config/head-all',
+
+                    GetViewLayoutTagsHeadMeta::RENDER_TAG_META => [
+
+                        ComponentRegistryFields::CONFIG_LOCATION
+                        => GetViewLayoutTagsHeadMeta::RENDER_TAG_META,
+
+                        ComponentRegistryFields::COMPONENT_CONFIG_READER
+                        => ReadViewHeadComponentConfigBc::SERVICE_ALIAS,
+
+                        ComponentRegistryFields::NAME
+                        => GetViewLayoutTagsHeadMeta::RENDER_TAG_META,
+
+                        PropertiesViewLayoutTagsComponent::RENDER_TAGS_GETTER
+                        => GetViewLayoutTagsHeadMeta::SERVICE_ALIAS,
+
+                        'tags' => [],
+                    ],
+
                     // GetViewLayoutTagsHeadLink::RENDER_TAG_LINK
                     'head-link' => [
 
@@ -74,7 +118,7 @@ class ModuleConfig
                         => GetViewLayoutTagsHeadLink::RENDER_TAG_LINK,
 
                         ComponentRegistryFields::COMPONENT_CONFIG_READER
-                        => ReadViewLayoutTagsComponentConfigApplicationConfig::SERVICE_ALIAS,
+                        => ReadViewHeadComponentConfigBc::SERVICE_ALIAS,
 
                         ComponentRegistryFields::NAME
                         => GetViewLayoutTagsHeadLink::RENDER_TAG_LINK,
@@ -85,13 +129,15 @@ class ModuleConfig
                         'tag' => 'link',
                         'sections' => [
                             'pre-config' => [
-                                'TEST' => [
-                                    '_content' => 'TESTTEST',
-                                    'href' => '/test/test.css',
+                                /*
+                                'EXAMPLE' => [
+                                    '_content' => 'EXAMPLE',
+                                    'href' => '/example/example.css',
                                     'media' => "screen,print",
                                     'rel' => "stylesheet",
                                     'type' => "text/css"
                                 ],
+                                */
                             ],
                             'config' => [],
                             'post-config' => [],
@@ -106,8 +152,36 @@ class ModuleConfig
                             'post-modules' => [],
                         ],
                     ],
-                    GetViewLayoutTagsHeadMeta::RENDER_TAG_META => __DIR__ . '/../config/head-meta',
-                    GetViewLayoutTagsHeadScript::RENDER_TAG_SCRIPT => __DIR__ . '/../config/head-script',
+
+                    GetViewLayoutTagsHeadScript::RENDER_TAG_SCRIPT => [
+                        ComponentRegistryFields::CONFIG_LOCATION
+                        => GetViewLayoutTagsHeadScript::RENDER_TAG_SCRIPT,
+
+                        ComponentRegistryFields::COMPONENT_CONFIG_READER
+                        => ReadViewHeadComponentConfigBc::SERVICE_ALIAS,
+
+                        ComponentRegistryFields::NAME
+                        => GetViewLayoutTagsHeadScript::RENDER_TAG_SCRIPT,
+
+                        PropertiesViewLayoutTagsComponent::RENDER_TAGS_GETTER
+                        => GetViewLayoutTagsHeadScript::SERVICE_ALIAS,
+
+                        'tag' => 'script',
+                        'sections' => [
+                            'pre-config' => [],
+                            'config' => [],
+                            'post-config' => [],
+                            'pre-libraries' => [],
+                            'libraries' => [],
+                            'post-libraries' => [],
+                            'pre-core' => [],
+                            'core' => [],
+                            'post-core' => [],
+                            'pre-modules' => [],
+                            'modules' => [],
+                            'post-modules' => [],
+                        ],
+                    ],
                     GetViewLayoutTagsHeadTitle::RENDER_TAG_TITLE => __DIR__ . '/../config/head-title',
                 ],
             ],
@@ -120,22 +194,12 @@ class ModuleConfig
                     GetViewLayoutTagsHeadScript::SERVICE_ALIAS => GetViewLayoutTagsHeadScript::class,
                     GetViewLayoutTagsHeadTitle::SERVICE_ALIAS => GetViewLayoutTagsHeadTitle::class,
                 ],
+
+                ServiceAliasView::NAMESPACE_COMPONENT_VIEW_LAYOUT_TAGS_CONFIG_READER => [
+                    ReadViewHeadComponentConfigBc::SERVICE_ALIAS => ReadViewHeadComponentConfigBc::class,
+                ],
             ],
 
-            'zrcms-head-definitions' => [
-                /**
-                 * Set the script key to use
-                 * Useful for setting up prebuilt (minimized and combined) files
-                 */
-                'defaultScriptKey' => 'scripts',
-
-                /**
-                 * Set the stylesheet key to use
-                 * Useful for setting up prebuilt (minimized and combined) files
-                 */
-                'defaultStylesheetKey' => 'stylesheets',
-
-            ],
             /**
              * This determines the order of the head sections, thus, loading order of scripts and css
              */
@@ -153,91 +217,6 @@ class ModuleConfig
                 'modules',
                 'post-modules',
             ],
-
-            /**
-             * Scripts to be required always on every page
-             */
-            'zrcms-head' => [
-
-                '{tag}' => [
-                    '{section}' => [
-                        '{name}' => [
-                            '_content' => '{value}',
-                            '{attribute-name}' => '{value}',
-                        ]
-                    ]
-                ],
-
-                /**
-                 * Meta tags that will always be loaded
-                 * Example
-                 * 'keyValue' => [
-                 *  'content' => 'value',
-                 *  'modifiers' => [],
-                 * ],
-                 */
-                'meta' => [
-                    // @todo this is for the application to do
-                    'X-UA-Compatible' => [
-                        'content' => 'IE=edge',
-                    ],
-                    // @todo this is for the application to do
-                    'viewport' => [
-                        'content' => 'width=device-width, initial-scale=1',
-                    ],
-                ],
-
-                /**
-                 * Script files that will always be loaded
-                 * Example:
-                 * 'section' => [
-                 *  '/script/url' => [
-                 *   'type' => 'text/javascript',
-                 *   'attrs' => []
-                 *  ],
-                 * ],
-                 */
-                'scripts' => [
-                    'pre-config' => [],
-                    'config' => [],
-                    'post-config' => [],
-                    'pre-libraries' => [],
-                    'libraries' => [],
-                    'post-libraries' => [],
-                    'pre-core' => [],
-                    'core' => [],
-                    'post-core' => [],
-                    'pre-modules' => [],
-                    'modules' => [],
-                    'post-modules' => [],
-                ],
-
-                /**
-                 * Stylesheet files that will always be loaded
-                 * Example:
-                 * 'section' => [
-                 *  '/stylesheet/url' => [
-                 *   'media' => 'screen',
-                 *   'conditionalStylesheet' => '',
-                 *   'extras' => []
-                 *  ],
-                 * ],
-                 */
-                'stylesheets' => [
-                    'pre-config' => [],
-                    'config' => [],
-                    'post-config' => [],
-                    'pre-libraries' => [],
-                    'libraries' => [],
-                    'post-libraries' => [],
-                    'pre-core' => [],
-                    'core' => [],
-                    'post-core' => [],
-                    'pre-modules' => [],
-                    'modules' => [],
-                    'post-modules' => [],
-                ],
-            ]
         ];
     }
 }

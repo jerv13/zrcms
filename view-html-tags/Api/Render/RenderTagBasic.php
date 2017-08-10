@@ -1,8 +1,7 @@
 <?php
 
-namespace Zrcms\ViewHead\Api\Render;
+namespace Zrcms\ViewHtmlTags\Api\Render;
 
-use Zrcms\Content\Model\Content;
 use Zrcms\Param\Param;
 
 /**

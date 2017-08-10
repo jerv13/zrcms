@@ -27,3 +27,13 @@
     - Add getters where required
 
 - Fix caching - should we avoid caching component objects in GetRegisterComponents?
+
+- Handlers for request status
+    - This may require our own pipe
+    - injectable middleware the says what to do on non-200 status codes
+    
+- Optimize view-head
+    - reduce loops
+    - optimize BC
+    - Use const for strings
+    

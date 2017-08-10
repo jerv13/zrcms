@@ -11,7 +11,7 @@ use Zrcms\Param\Exception\ParamMissingException;
  */
 class Param
 {
-    public static $debug = false;
+    public static $debug = true;
 
     /**
      * @param array  $params

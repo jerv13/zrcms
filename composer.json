@@ -57,6 +57,7 @@
       "Zrcms\\ServiceAlias\\": "service-alias/",
       "Zrcms\\User\\": "user/",
       "Zrcms\\ViewHead\\": "view-head/src/",
+      "Zrcms\\ViewHtmlTags\\": "view-html-tags/",
       "Zrcms\\XampleComponent\\": "xample-component/src/"
     }
   },

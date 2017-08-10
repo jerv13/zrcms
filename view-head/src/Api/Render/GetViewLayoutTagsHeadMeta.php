@@ -4,7 +4,10 @@ namespace Zrcms\ViewHead\Api\Render;
 
 use Psr\Http\Message\ServerRequestInterface;
 use Zrcms\Content\Model\Content;
+use Zrcms\ContentCore\Page\Model\PageContainerVersion;
+use Zrcms\ContentCore\View\Api\Repository\FindViewLayoutTagsComponent;
 use Zrcms\ContentCore\View\Model\View;
+use Zrcms\ContentCore\View\Model\ViewLayoutTagsComponent;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -13,6 +16,28 @@ class GetViewLayoutTagsHeadMeta implements GetViewLayoutTagsHead
 {
     const RENDER_TAG_META = 'head-meta';
     const SERVICE_ALIAS = 'head-meta';
+
+    /**
+     * @var FindViewLayoutTagsComponent
+     */
+    protected $findViewLayoutTagsComponent;
+
+    /**
+     * @var RenderTags
+     */
+    protected $renderTags;
+
+    /**
+     * @param FindViewLayoutTagsComponent $findViewLayoutTagsComponent
+     * @param RenderTags                  $renderTags
+     */
+    public function __construct(
+        FindViewLayoutTagsComponent $findViewLayoutTagsComponent,
+        RenderTags $renderTags
+    ) {
+        $this->findViewLayoutTagsComponent = $findViewLayoutTagsComponent;
+        $this->renderTags = $renderTags;
+    }
 
     /**
      * @param View|Content           $view
@@ -28,8 +53,40 @@ class GetViewLayoutTagsHeadMeta implements GetViewLayoutTagsHead
         array $options = []
     ): array
     {
+        /** @var ViewLayoutTagsComponent $getViewLayoutTagsHeadLinkComponent */
+        $component = $this->findViewLayoutTagsComponent->__invoke(
+            self::RENDER_TAG_META
+        );
+
+        $tagsData = $component->getProperty(
+            'tags',
+            []
+        );
+
+        // descriptions and keywords always from page then site
+        /** @var PageContainerVersion $pageVersion */
+        $pageVersion = $view->getPage();
+
+        $tagsData[] = [
+            'tag' => 'meta',
+            'attributes' => [
+                'name' => 'description',
+                'content' => $pageVersion->getDescription()
+            ],
+        ];
+
+        $tagsData[] = [
+            'tag' => 'meta',
+            'attributes' => [
+                'name' => 'keywords',
+                'content' => $pageVersion->getKeywords()
+            ],
+        ];
+
+        // @todo We can fall back to site description and site keywords if they exist?
+
         return [
-            self::RENDER_TAG_META => '<!-- @todo: ' . get_class($this) . ' -->'
+            self::RENDER_TAG_META => $this->renderTags->__invoke($tagsData)
         ];
     }
 }

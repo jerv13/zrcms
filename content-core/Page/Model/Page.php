@@ -17,5 +17,10 @@ interface Page extends Content
     /**
      * @return string
      */
+    public function getDescription(): string;
+
+    /**
+     * @return string
+     */
     public function getKeywords(): string;
 }

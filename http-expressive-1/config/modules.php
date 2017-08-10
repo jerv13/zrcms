@@ -2,7 +2,7 @@
 
 namespace Zrcms;
 
-$zrcmsModules =  [
+$zrcmsModules = [
     // Low level
     new \Zrcms\Cache\ModuleConfig(),
     new \Zrcms\Param\ModuleConfig(),
@@ -19,6 +19,7 @@ $zrcmsModules =  [
     new \Zrcms\Install\ModuleConfig(),
 
     new \Zrcms\ViewHead\ModuleConfig(),
+    new \Zrcms\ViewHtmlTags\ModuleConfig(),
 
     new \Zrcms\ContentCoreConfigDataSource\ModuleConfig(),
     new \Zrcms\ContentCoreDoctrineDataSource\ModuleConfig(),

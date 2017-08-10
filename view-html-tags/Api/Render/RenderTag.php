@@ -1,8 +1,6 @@
 <?php
 
-namespace Zrcms\ViewHead\Api\Render;
-
-use Zrcms\Content\Api\Render\RenderContent;
+namespace Zrcms\ViewHtmlTags\Api\Render;
 
 /**
  * @author James Jervis - https://github.com/jerv13

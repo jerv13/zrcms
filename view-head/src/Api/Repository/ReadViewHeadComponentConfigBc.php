@@ -6,25 +6,36 @@ use Zrcms\ContentCore\View\Api\Repository\ReadViewLayoutTagsComponentConfig;
 use Zrcms\ViewHead\Api\Render\GetViewLayoutTagsHeadLink;
 use Zrcms\ViewHead\Api\Render\GetViewLayoutTagsHeadMeta;
 use Zrcms\ViewHead\Api\Render\GetViewLayoutTagsHeadScript;
+use Zrcms\ViewHead\Api\MergeSectionsBc;
 
 /**
  * @author James Jervis - https://github.com/jerv13
  */
 class ReadViewHeadComponentConfigBc implements ReadViewLayoutTagsComponentConfig
 {
+    const SERVICE_ALIAS = 'view-head-bc';
     /**
      * @var array
      */
-    protected $rcmConfig;
+    protected $applicationConfig;
+
+    /**
+     * @var array
+     */
+    protected $applicationConfigBc;
 
     /**
      * @param array $applicationConfig
+     * @param array $applicationConfigBc
      */
     public function __construct(
         array $applicationConfig,
         array $applicationConfigBc
     ) {
-        $this->applicationConfig = $applicationConfig;
+        $this->applicationConfig = $this->merge(
+            $applicationConfig,
+            $applicationConfigBc
+        );
     }
 
     /**
@@ -47,34 +58,60 @@ class ReadViewHeadComponentConfigBc implements ReadViewLayoutTagsComponentConfig
     }
 
     /**
+     * @param array $applicationConfig
      * @param array $applicationConfigBc
      *
      * @return array
      */
-    protected function convert(
+    protected function merge(
+        array $applicationConfig,
         array $applicationConfigBc
     ): array
     {
-        $applicationConfigBc = [
-            GetViewLayoutTagsHeadMeta::RENDER_TAG_META => [
-                'tag' => 'meta',
-                'tags' => [],
+        $metaKey = GetViewLayoutTagsHeadMeta::RENDER_TAG_META;
+        $linkKey = GetViewLayoutTagsHeadLink::RENDER_TAG_LINK;
+        $scriptKey = GetViewLayoutTagsHeadScript::RENDER_TAG_SCRIPT;
+
+        $applicationConfigBcConverted = [
+            $metaKey => [
+                'tags' => MergeSectionsBc::convertMeta($applicationConfigBc),
             ],
-            GetViewLayoutTagsHeadLink::RENDER_TAG_LINK => [
-                'tag' => 'link',
-                'sections' => [],
+            $linkKey => [
+                'sections' => MergeSectionsBc::convertStylesheets($applicationConfigBc),
             ],
-            GetViewLayoutTagsHeadScript::RENDER_TAG_SCRIPT => [
-                'tag' => 'script',
-                'sections' => [],
+            $scriptKey => [
+                'sections' => MergeSectionsBc::convertScripts($applicationConfigBc),
             ],
         ];
 
-        foreach ($applicationConfigBc['meta'] as $nameAttribute => $value) {
-            $applicationConfigBc['meta']['tags'][$nameAttribute] = [];
-            if (array_key_exists('content', $value)) {
-                $applicationConfigBc;
-            }
+        if (is_array($applicationConfig[$metaKey])) {
+            $applicationConfig[$metaKey]['tags'] = array_merge(
+                $applicationConfig[$metaKey]['tags'],
+                $applicationConfigBcConverted[$metaKey]['tags']
+            );
+        } else {
+            // throw
         }
+        if (is_array($applicationConfig[$linkKey])) {
+            $applicationConfig[$linkKey]['sections'] = MergeSectionsBc::keys(
+                $applicationConfig[$linkKey]['sections'],
+                $applicationConfigBcConverted[$linkKey]['sections']
+            );
+        } else {
+            // throw
+        }
+
+        if (is_array($applicationConfig[$scriptKey])) {
+            $applicationConfig[$scriptKey]['sections'] = MergeSectionsBc::keys(
+                $applicationConfig[$scriptKey]['sections'],
+                $applicationConfigBcConverted[$scriptKey]['sections']
+            );
+        } else {
+            // throw
+        }
+
+        return $applicationConfig;
     }
+
+
 }
