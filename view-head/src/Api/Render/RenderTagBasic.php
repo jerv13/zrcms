@@ -37,21 +37,19 @@ class RenderTagBasic implements RenderTag
     }
 
     /**
-     * @param Content $content
-     * @param array   $renderTags
-     * @param array   $options
+     * @param array $tagData
+     * @param array $options
      *
      * @return string
      */
     public function __invoke(
-        Content $content,
-        array $renderTags,
+        array $tagData,
         array $options = []
     ): string
     {
-        $tag = Param::getRequired($renderTags, 'tag');
-        $attributes = Param::getRequired($renderTags, 'attributes');
-        $contentHtml = Param::get($renderTags, 'content');
+        $tag = Param::getRequired($tagData, 'tag');
+        $attributes = Param::getArray($tagData, 'attributes', []);
+        $contentHtml = Param::getString($tagData, 'content', '');
 
         return $this->renderTag($tag, $attributes, $contentHtml);
     }

@@ -16,20 +16,12 @@ class RenderHeadSectionsTagBasic implements RenderHeadSectionsTag
     protected $renderTag;
 
     /**
-     * @var array
-     */
-    protected $availableSections;
-
-    /**
      * @param RenderTag $renderTag
-     * @param array     $availableSections
      */
     public function __construct(
-        RenderTag $renderTag,
-        array $availableSections
+        RenderTag $renderTag
     ) {
         $this->renderTag = $renderTag;
-        $this->availableSections = $availableSections;
     }
 
     /**
@@ -51,10 +43,10 @@ class RenderHeadSectionsTagBasic implements RenderHeadSectionsTag
         $sections = Param::getRequired($renderTags, 'sections');
 
         $html .= $this->renderSections(
-                $content,
-                $tag,
-                $sections
-            ) . "\n";
+            $content,
+            $tag,
+            $sections
+        );
 
         return $html;
     }
@@ -73,13 +65,8 @@ class RenderHeadSectionsTagBasic implements RenderHeadSectionsTag
     ): string
     {
         $html = '';
-        foreach ($this->availableSections as $section) {
-            // Section must be defined, else we can know the order
-            if (!array_key_exists($section, $sections)) {
-                continue;
-            }
-
-            $html .= $this->renderSection($content, $tag, $sections[$section]) . "\n";
+        foreach ($sections as $section) {
+            $html .= $this->renderSection($content, $tag, $section);
         }
 
         return $html;
@@ -108,13 +95,12 @@ class RenderHeadSectionsTagBasic implements RenderHeadSectionsTag
             }
 
             $html .= $this->renderTag->__invoke(
-                    $content,
                     [
                         'tag' => $tag,
                         'attributes' => $attributes,
                         'content' => $contentHtml
                     ]
-                ) . "\n";
+                ) . "\n    ";
         }
 
         return $html;
