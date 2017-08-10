@@ -15,13 +15,12 @@ use Zrcms\ViewHead\Api\Render\GetViewLayoutTagsHeadScript;
 use Zrcms\ViewHead\Api\Render\GetViewLayoutTagsHeadTitle;
 use Zrcms\ViewHead\Api\Render\RenderHeadSectionsTag;
 use Zrcms\ViewHead\Api\Render\RenderHeadSectionsTagBasic;
-use Zrcms\ViewHead\Api\Render\RenderHeadSectionsTagBcFactory;
+use Zrcms\ViewHead\Api\Repository\ReadViewHeadComponentConfigBc;
+use Zrcms\ViewHead\Api\Repository\ReadViewHeadComponentConfigBcFactory;
 use Zrcms\ViewHtmlTags\Api\Render\RenderTag;
 use Zrcms\ViewHtmlTags\Api\Render\RenderTagBasic;
 use Zrcms\ViewHtmlTags\Api\Render\RenderTags;
 use Zrcms\ViewHtmlTags\Api\Render\RenderTagsBasic;
-use Zrcms\ViewHead\Api\Repository\ReadViewHeadComponentConfigBc;
-use Zrcms\ViewHead\Api\Repository\ReadViewHeadComponentConfigBcFactory;
 
 /**
  * @author James Jervis - https://github.com/jerv13

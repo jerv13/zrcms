@@ -4,6 +4,7 @@ namespace Zrcms\ViewHead\Api\Render;
 
 use Zrcms\Content\Model\Content;
 use Zrcms\Param\Param;
+use Zrcms\ViewHtmlTags\Api\Render\RenderTag;
 
 /**
  * @author James Jervis - https://github.com/jerv13

@@ -8,6 +8,7 @@ use Zrcms\ContentCore\Page\Model\PageContainerVersion;
 use Zrcms\ContentCore\View\Api\Repository\FindViewLayoutTagsComponent;
 use Zrcms\ContentCore\View\Model\View;
 use Zrcms\ContentCore\View\Model\ViewLayoutTagsComponent;
+use Zrcms\ViewHtmlTags\Api\Render\RenderTags;
 
 /**
  * @author James Jervis - https://github.com/jerv13
