@@ -1,4 +1,8 @@
 ZRCMS
-====
+=====
 
-Version 2.0 of RCM Core
+Content management for version tracking and immutable content
+
+see /@docs
+
+Loosely bases on RCM Core

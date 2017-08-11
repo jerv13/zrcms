@@ -1,6 +1,6 @@
 {
   "name": "zrcms/core",
-  "description": "Reliv Content Management System 2",
+  "description": "ZRCMS - Content management for version tracking and content",
   "type": "library",
   "license": "BSD-3-Clause",
   "keywords": [
@@ -65,17 +65,5 @@
     "dasprid/container-interop-doctrine": "^0.2.2",
     "rwoverdijk/assetmanager": "1.*",
     "zendframework/zend-diactoros": "Should install with Expressive"
-  },
-  "extra": {
-    "asset-pattern-skip-version": "(-patch*)",
-    "asset-installer-paths": {
-      "bower-asset-library": "public/bower_components"
-    }
-  },
-  "config": {
-    "asset-pattern-skip-version": "(-patch*)",
-    "asset-installer-paths": {
-      "bower-asset-library": "public/bower_components"
-    }
   }
 }
