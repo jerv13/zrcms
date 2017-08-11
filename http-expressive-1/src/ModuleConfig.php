@@ -65,14 +65,6 @@ class ModuleConfig
                     ],
                 ],
             ],
-            'middleware_pipeline' => [
-//                'zrcms' => [
-//                    'middleware' => [
-//                        ViewController::class => ViewController::class,
-//                    ],
-//                    'priority' => -10000,
-//                ],
-            ],
             'routes' => [
                 'zrcms.test-render' => [
                     'name' => 'zrcms.test-render',
