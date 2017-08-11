@@ -66,6 +66,8 @@ class RenderBlockBc implements RenderBlock
         );
         $renderer->setResolver($resolver);
 
+        $helperPluginManager->get('BasePath')->setBasePath('');
+
         $renderer->setHelperPluginManager(
             $helperPluginManager
         );

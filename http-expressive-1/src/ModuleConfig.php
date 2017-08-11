@@ -65,13 +65,6 @@ class ModuleConfig
                     ],
                 ],
             ],
-            'middleware_pipeline' => [
-                'always' => [
-                    'middleware' => [
-                        ViewController::class => ViewController::class,
-                    ],
-                ],
-            ],
             'routes' => [
                 'zrcms.test-render' => [
                     'name' => 'zrcms.test-render',

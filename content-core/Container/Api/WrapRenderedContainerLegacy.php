@@ -22,7 +22,8 @@ class WrapRenderedContainerLegacy implements WrapRenderedContainer
         $isPageContainer = $container instanceof PageContainerVersion;
 
         return "\n<div class=\"container-fluid rcmContainer\""
-        . ' data-containerid="' . $container->getId() . '" '
+        . ' data-container-version-id="' . $container->getId() . '" '
+//        . ' data-containerid="' . $container->getId() . '" ' //WARNING THIS MAY NOT BE WHAT RCM ADMIN EXPECTS
         . ($isPageContainer ? ' data-ispagecontainer="Y"' : '')
         // . 'data-container="????" '
         // . 'id="' . $container->getUid()

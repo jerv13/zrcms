@@ -22,8 +22,8 @@ class ViewController
     /**
      * @param FindViewByRequest $findViewByRequest
      * @param GetViewLayoutTags $getViewLayoutTags
-     * @param RenderView        $renderView
-     * @param HandleResponse    $handleResponse
+     * @param RenderView $renderView
+     * @param HandleResponse $handleResponse
      */
     public function __construct(
         FindViewByRequest $findViewByRequest,
@@ -41,8 +41,8 @@ class ViewController
      * __invoke
      *
      * @param ServerRequestInterface $request
-     * @param ResponseInterface      $response
-     * @param callable|null          $next
+     * @param ResponseInterface $response
+     * @param callable|null $next
      *
      * @return ResponseInterface
      * @throws \Exception
@@ -55,13 +55,17 @@ class ViewController
         // @todo TESTING ONLY
         $queryParams = $request->getQueryParams();
 
-        if (!array_key_exists('zrcms', $queryParams)) {
-            return $next(
-                $request,
-                $response
-            );
-        }
+//        if (!array_key_exists('zrcms', $queryParams)) {
+//            return $next(
+//                $request,
+//                $response
+//            );
+//        }
         // end TESTING
+
+        if ($request->getUri()->getPath() === '/') {
+            $request = $request->withUri($request->getUri()->withPath('/index'));
+        }
 
         $additionalViewProperties = [];
 
@@ -72,22 +76,26 @@ class ViewController
                 $additionalViewProperties
             );
         } catch (SiteNotFoundException $exception) {
-            // @todo Use a response service to generate these
-            $response = new HtmlResponse('SITE NOT FOUND');
-
-            return $this->handleResponse->__invoke(
-                $request,
-                $response->withStatus(404, 'SITE NOT FOUND'),
-                [HandleResponseOptions::EXCEPTION => $exception]
-            );
+            return $next($request, $response);
+//
+//            // @todo Use a response service to generate these
+//            $response = new HtmlResponse('SITE NOT FOUND');
+//
+//            return $this->handleResponse->__invoke(
+//                $request,
+//                $response->withStatus(404, 'SITE NOT FOUND'),
+//                [HandleResponseOptions::EXCEPTION => $exception]
+//            );
         } catch (PageNotFoundException $exception) {
-            $response = new HtmlResponse('PAGE NOT FOUND');
+            return $next($request, $response);
 
-            return $this->handleResponse->__invoke(
-                $request,
-                $response->withStatus(404, 'PAGE NOT FOUND'),
-                [HandleResponseOptions::EXCEPTION => $exception]
-            );
+//            $response = new HtmlResponse('PAGE NOT FOUND');
+//
+//            return $this->handleResponse->__invoke(
+//                $request,
+//                $response->withStatus(404, 'PAGE NOT FOUND'),
+//                [HandleResponseOptions::EXCEPTION => $exception]
+//            );
         }
 
         $viewRenderTags = $this->getViewLayoutTags->__invoke(
