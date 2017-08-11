@@ -38,6 +38,7 @@
   },
   "autoload": {
     "psr-4": {
+      "Zrcms\\": "/",
       "Zrcms\\Cache\\": "cache/",
       "Zrcms\\Content\\": "content/",
       "Zrcms\\ContentCore\\": "content-core/",
