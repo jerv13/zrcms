@@ -95,14 +95,9 @@ class GetContainerRenderTagsBlocks implements GetContainerRenderTags
                     . ' layout properties: ' . json_encode($block->getLayoutProperties(), 0, 3)
                     . ' duped in: ' . json_encode($block->getLayoutProperties(), 0, 3);
 
-                // @todo Throw OR fix the data OR Logger::warning())
-                //throw new \Exception(
-                //    $message
-                //);
-                //trigger_error(
-                //    $message,
-                //    E_USER_WARNING
-                //);
+                throw new \Exception(
+                    $message
+                );
             }
 
             $blockRenderTags = $this->getBlockRenderTags->__invoke(

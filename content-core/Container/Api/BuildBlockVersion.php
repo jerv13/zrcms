@@ -3,6 +3,7 @@
 namespace Zrcms\ContentCore\Container\Api;
 
 use Zrcms\Content\Model\TrackableProperties;
+use Zrcms\ContentCore\GetDomId;
 use Zrcms\ContentCore\Block\Model\BlockVersion;
 use Zrcms\ContentCore\Block\Model\BlockVersionBasic;
 use Zrcms\ContentCore\Block\Model\PropertiesBlockVersion;
@@ -17,8 +18,6 @@ class BuildBlockVersion
 {
     const TYPE_CONTAINER = 1;
     const TYPE_PAGE_CONTAINER = 2;
-
-    const FORMAT_ID = '{{type}}{{containerVersionId}}.{{index}}';
 
     protected static $typeMap
         = [
@@ -45,14 +44,7 @@ class BuildBlockVersion
 
         $blockVersionData[PropertiesBlockVersion::CONTAINER_VERSION_ID] = $containerVersion->getId();
 
-        $blockVersionData[PropertiesBlockVersion::ID] = self::parseFormat(
-            self::FORMAT_ID,
-            [
-                'type' => self::getType($containerVersion),
-                'containerVersionId' => $containerVersion->getId(),
-                'index' => $containerBlockIndex
-            ]
-        );
+        $blockVersionData[PropertiesBlockVersion::ID] = GetDomId::invoke();
 
         $blockVersionData[TrackableProperties::CREATED_DATE] = $containerVersion->getCreatedDate();
 

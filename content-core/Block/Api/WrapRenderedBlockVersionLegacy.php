@@ -54,7 +54,7 @@ class WrapRenderedBlockVersionLegacy implements WrapRenderedBlockVersion
         $componentName = $blockComponent->getName();
 
         return "\n"
-        . '<div class="rcmPlugin ' . $componentName . ' ' . $columnClass . '" '
+        . '<div class="zrcms-block rcmPlugin ' . $componentName . ' ' . $columnClass . '" '
         . 'data-rcmpluginname="' . $componentName . '" '
         . 'data-rcmplugindefaultclass="rcmPlugin ' . $componentName . '" '
         . 'data-rcmplugincolumnclass="' . $columnClass . '" '
