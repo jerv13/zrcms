@@ -4,12 +4,31 @@ namespace Zrcms\ContentCore\Container\Model;
 
 use Zrcms\Content\Model\ContentAbstract;
 use Zrcms\ContentCore\Container\Api\BuildBlockVersions;
+use Zrcms\Param\Param;
 
 /**
  * @author James Jervis - https://github.com/jerv13
  */
 abstract class ContainerAbstract extends ContentAbstract implements Container
 {
+    /**
+     * @param array $properties
+     */
+    public function __construct(array $properties)
+    {
+        $blockVersions = Param::getArray(
+            $properties,
+            PropertiesContainer::BLOCK_VERSIONS,
+            []
+        );
+
+        $properties[PropertiesContainer::BLOCK_VERSIONS] = BuildBlockVersions::prepare(
+            $blockVersions
+        );
+
+        parent::__construct($properties);
+    }
+
     /**
      * @return array
      */

@@ -43,9 +43,9 @@ abstract class BlockVersionAbstract extends ContentVersionAbstract implements Bl
 
         Param::assertHas(
             $properties,
-            PropertiesBlockVersion::BLOCK_CONTAINER_CMS_RESOURCE_ID,
+            PropertiesBlockVersion::CONTAINER_VERSION_ID,
             PropertyMissingException::build(
-                PropertiesBlockVersion::BLOCK_CONTAINER_CMS_RESOURCE_ID,
+                PropertiesBlockVersion::CONTAINER_VERSION_ID,
                 $properties,
                 get_class($this)
             )
@@ -147,12 +147,12 @@ abstract class BlockVersionAbstract extends ContentVersionAbstract implements Bl
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getContainerCmsResourceId(): string
+    public function getContainerVersionId(): string
     {
         return $this->getProperty(
-            PropertiesBlockVersion::BLOCK_CONTAINER_CMS_RESOURCE_ID,
+            PropertiesBlockVersion::CONTAINER_VERSION_ID,
             ''
         );
     }

@@ -12,6 +12,6 @@ interface BlockVersion extends Block, ContentVersion
     /**
      * @return string|null
      */
-    public function getContainerCmsResourceId(): string;
+    public function getContainerVersionId(): string;
 
 }

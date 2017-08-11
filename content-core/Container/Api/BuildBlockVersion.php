@@ -8,41 +8,114 @@ use Zrcms\ContentCore\Block\Model\BlockVersionBasic;
 use Zrcms\ContentCore\Block\Model\PropertiesBlockVersion;
 use Zrcms\ContentCore\Container\Model\Container;
 use Zrcms\ContentCore\Container\Model\ContainerVersion;
+use Zrcms\ContentCore\Page\Model\PageContainerVersion;
 
 /**
  * @author James Jervis - https://github.com/jerv13
  */
 class BuildBlockVersion
 {
+    const TYPE_CONTAINER = 1;
+    const TYPE_PAGE_CONTAINER = 2;
+
+    const FORMAT_ID = '{{type}}{{containerVersionId}}.{{index}}';
+
+    protected static $typeMap
+        = [
+            Container::class => self::TYPE_CONTAINER,
+            PageContainerVersion::class => self::TYPE_PAGE_CONTAINER
+        ];
+
     /**
-     * @param Container|ContainerVersion $containerVersion
-     * @param array                      $blockVersionData
+     * @param ContainerVersion $containerVersion
+     * @param array            $blockVersionData
+     * @param int              $containerBlockIndex
      *
      * @return BlockVersion
      */
     public static function invoke(
-        Container $containerVersion,
+        ContainerVersion $containerVersion,
         array $blockVersionData,
-        $containerBlockIndex
+        int $containerBlockIndex
     ): BlockVersion
     {
+        $blockVersionData = self::prepare(
+            $blockVersionData
+        );
 
         $blockVersionData[PropertiesBlockVersion::CONTAINER_VERSION_ID] = $containerVersion->getId();
-        // @todo Why is this required
-        $blockVersionData[PropertiesBlockVersion::BLOCK_CONTAINER_CMS_RESOURCE_ID] = $containerVersion->getId();
-        $blockVersionData[TrackableProperties::CREATED_DATE] = $containerVersion->getCreatedDate();
 
-        if (!array_key_exists(PropertiesBlockVersion::ID, $blockVersionData)
-            || empty($blockVersionData[PropertiesBlockVersion::ID])
-        ) {
-            // @todo FIX this
-            $blockVersionData[PropertiesBlockVersion::ID] = $containerVersion->getId() . '.' . $containerBlockIndex;
-        }
+        $blockVersionData[PropertiesBlockVersion::ID] = self::parseFormat(
+            self::FORMAT_ID,
+            [
+                'type' => self::getType($containerVersion),
+                'containerVersionId' => $containerVersion->getId(),
+                'index' => $containerBlockIndex
+            ]
+        );
+
+        $blockVersionData[TrackableProperties::CREATED_DATE] = $containerVersion->getCreatedDate();
 
         return new BlockVersionBasic(
             $blockVersionData,
             $containerVersion->getCreatedByUserId(),
             $containerVersion->getCreatedReason()
         );
+    }
+
+    /**
+     * @param array $blockVersionData
+     *
+     * @return array
+     */
+    public static function prepare(
+        array $blockVersionData
+    ): array
+    {
+        $blockVersionData[PropertiesBlockVersion::CONTAINER_VERSION_ID] = '';
+
+        $blockVersionData[PropertiesBlockVersion::ID] = '';
+
+        return $blockVersionData;
+    }
+
+    /**
+     * @param ContainerVersion $containerVersion
+     *
+     * @return mixed
+     * @throws \Exception
+     */
+    public static function getType(
+        ContainerVersion $containerVersion
+    ) {
+        $type = null;
+
+        foreach (self::$typeMap as $interface => $type) {
+            if (is_a($containerVersion, $interface)) {
+                return $type;
+            }
+        }
+
+        throw new \Exception('Type not found for: ' . get_class($containerVersion));
+    }
+
+    /**
+     * @param       $value
+     * @param array $params
+     *
+     * @return mixed|string
+     */
+    public static function parseFormat(
+        $value,
+        array $params
+    ): string
+    {
+        $value = (string)$value;
+
+        foreach ($params as $paramName => $param) {
+            $value = str_replace('{{' . $paramName . '}}', $param, $value);
+        }
+
+        return $value;
     }
 }

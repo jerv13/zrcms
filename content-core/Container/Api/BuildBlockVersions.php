@@ -42,4 +42,27 @@ class BuildBlockVersions
 
         return $blockVersions;
     }
+
+    /**
+     * @param array $blockVersionsData
+     *
+     * @return array
+     */
+    public static function prepare(
+        array $blockVersionsData
+    ) {
+        $blockVersions = [];
+
+        $index = 0;
+        foreach ($blockVersionsData as $blockVersionData) {
+
+            $blockVersions[] = BuildBlockVersion::prepare(
+                $blockVersionData
+            );
+
+            $index++;
+        }
+
+        return $blockVersions;
+    }
 }

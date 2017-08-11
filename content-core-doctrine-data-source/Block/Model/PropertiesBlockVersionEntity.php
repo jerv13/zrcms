@@ -6,6 +6,7 @@ use Zrcms\Content\Model\TrackableProperties;
 use Zrcms\ContentCore\Block\Model\PropertiesBlockVersion;
 
 /**
+ * @deprecated NOT USED
  * @author James Jervis - https://github.com/jerv13
  */
 class PropertiesBlockVersionEntity extends PropertiesBlockVersion
@@ -30,7 +31,7 @@ class PropertiesBlockVersionEntity extends PropertiesBlockVersion
                 self::LAYOUT_PROPERTIES_ROW_NUMBER => 0,
                 self::LAYOUT_PROPERTIES_COLUMN_CLASS => '',
             ],
-            self::BLOCK_CONTAINER_CMS_RESOURCE_ID => '',
+            // NOT REQUIRED self::BLOCK_CONTAINER_CMS_RESOURCE_ID => '',
             self::CREATED_BY_USER_ID => '',
             self::CREATED_REASON => '',
             self::CREATED_DATE => '',

@@ -8,6 +8,7 @@ use Zrcms\ContentCore\Block\Model\BlockVersionAbstract;
 use Zrcms\Param\Param;
 
 /**
+ * @deprecated NOT USED
  * @author James Jervis - https://github.com/jerv13
  */
 class BlockVersionEntity extends BlockVersionAbstract implements BlockVersion

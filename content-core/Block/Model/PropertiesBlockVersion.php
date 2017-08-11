@@ -9,7 +9,7 @@ use Zrcms\Content\Model\PropertiesContentVersion;
  */
 class PropertiesBlockVersion extends PropertiesBlock
 {
-    const BLOCK_CONTAINER_CMS_RESOURCE_ID = 'blockContainerCmsResourceId';
+    // NOT USED const BLOCK_CONTAINER_CMS_RESOURCE_ID = 'blockContainerCmsResourceId';
 
     /**
      * Default values
@@ -27,6 +27,6 @@ class PropertiesBlockVersion extends PropertiesBlock
                 self::LAYOUT_PROPERTIES_ROW_NUMBER => 0,
                 self::LAYOUT_PROPERTIES_COLUMN_CLASS => '',
             ],
-            self::BLOCK_CONTAINER_CMS_RESOURCE_ID => '',
+            // NOT REQUIRED self::BLOCK_CONTAINER_CMS_RESOURCE_ID => '',
         ];
 }
