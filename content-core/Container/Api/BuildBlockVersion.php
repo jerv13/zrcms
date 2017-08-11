@@ -90,24 +90,4 @@ class BuildBlockVersion
 
         throw new \Exception('Type not found for: ' . get_class($containerVersion));
     }
-
-    /**
-     * @param       $value
-     * @param array $params
-     *
-     * @return mixed|string
-     */
-    public static function parseFormat(
-        $value,
-        array $params
-    ): string
-    {
-        $value = (string)$value;
-
-        foreach ($params as $paramName => $param) {
-            $value = str_replace('{{' . $paramName . '}}', $param, $value);
-        }
-
-        return $value;
-    }
 }
