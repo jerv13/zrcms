@@ -8,6 +8,7 @@ use Psr\Http\Message\ServerRequestInterface;
 use Zend\Diactoros\Response\HtmlResponse;
 use Zend\Diactoros\Response\JsonResponse;
 use Zrcms\Content\Api\CsmResourceToArray;
+use Zrcms\ContentCore\Basic\Api\Repository\FindBasicComponent;
 use Zrcms\ContentCore\Page\Api\Render\GetPageContainerRenderTagsHtml;
 use Zrcms\ContentCore\Page\Api\Render\RenderPageContainerRows;
 use Zrcms\ContentCore\Page\Model\PageContainerCmsResourceBasic;
@@ -73,10 +74,10 @@ class ViewControllerTest
     ) {
 
         /** @var FindViewLayoutTagsComponent $s */
-        $s = $this->serviceContainer->get(FindViewLayoutTagsComponent::class);
+        $s = $this->serviceContainer->get(FindBasicComponent::class);
 
         ddd(
-            $s->__invoke('head-link')
+            $s->__invoke('zrcms-languages')->getLanguage('eng')
         );
 
         $siteVersion = new SiteVersionBasic(

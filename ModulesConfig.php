@@ -35,8 +35,6 @@ class ModulesConfig
 
             new \Zrcms\ContentCoreConfigDataSource\ModuleConfig(),
             new \Zrcms\ContentCoreDoctrineDataSource\ModuleConfig(),
-            new \Zrcms\ContentCountryDoctrine\ModuleConfig(),
-            new \Zrcms\ContentLanguageDoctrine\ModuleConfig(),
             new \Zrcms\HttpExpressive1\ModuleConfig(),
             new \Zrcms\HttpResponseHandler\ModuleConfig(),
 

@@ -3,22 +3,25 @@
 namespace Zrcms\ContentCoreConfigDataSource;
 
 use Zrcms\Cache\Service\Cache;
+use Zrcms\ContentCore\Basic\Api\GetRegisterBasicComponents;
+use Zrcms\ContentCore\Basic\Api\Repository\FindBasicComponent;
+use Zrcms\ContentCore\Basic\Api\Repository\ReadBasicComponentRegistry;
+use Zrcms\ContentCore\Block\Api\GetRegisterBlockComponents;
 use Zrcms\ContentCore\Block\Api\PrepareBlockConfigBc;
 use Zrcms\ContentCore\Block\Api\Repository\FindBlockComponent;
 use Zrcms\ContentCore\Block\Api\Repository\FindBlockComponentsBy;
 use Zrcms\ContentCore\Block\Api\Repository\ReadBlockComponentRegistry;
-use Zrcms\ContentCore\Theme\Api\Repository\ReadLayoutComponentConfigJsonFile;
+use Zrcms\ContentCore\Theme\Api\GetRegisterThemeComponents;
 use Zrcms\ContentCore\Theme\Api\Repository\FindThemeComponent;
 use Zrcms\ContentCore\Theme\Api\Repository\FindThemeComponentsBy;
+use Zrcms\ContentCore\Theme\Api\Repository\ReadLayoutComponentConfigJsonFile;
 use Zrcms\ContentCore\Theme\Api\Repository\ReadThemeComponentRegistry;
+use Zrcms\ContentCore\View\Api\GetRegisterViewLayoutTagsComponents;
 use Zrcms\ContentCore\View\Api\Repository\FindViewLayoutTagsComponent;
 use Zrcms\ContentCore\View\Api\Repository\FindViewLayoutTagsComponentsBy;
 use Zrcms\ContentCore\View\Api\Repository\ReadViewLayoutTagsComponentRegistry;
 use Zrcms\ContentCoreConfigDataSource as This;
-use Zrcms\ContentCore\Block\Api\GetRegisterBlockComponents;
 use Zrcms\ContentCoreConfigDataSource\Content\Api\SearchConfigList;
-use Zrcms\ContentCore\Theme\Api\GetRegisterThemeComponents;
-use Zrcms\ContentCore\View\Api\GetRegisterViewLayoutTagsComponents;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -35,6 +38,33 @@ class ModuleConfig
         return [
             'dependencies' => [
                 'config_factories' => [
+                    /**
+                     * Basic Component ===========================================
+                     */
+                    FindBasicComponent::class => [
+                        'class' => This\Basic\Api\Repository\FindBasicComponent::class,
+                        'arguments' => [
+                            '0-' => GetRegisterBasicComponents::class,
+                            '1-' => SearchConfigList::class,
+                        ],
+                    ],
+                    FindBlockComponentsBy::class => [
+                        'class' => This\Basic\Api\Repository\FindBasicComponent::class,
+                        'arguments' => [
+                            '0-' => GetRegisterBasicComponents::class,
+                            '1-' => SearchConfigList::class,
+                        ],
+                    ],
+                    ReadBasicComponentRegistry::class => [
+                        'factory' => This\Basic\Api\Repository\ReadBasicComponentRegistryBasicFactory::class,
+                    ],
+                    GetRegisterBasicComponents::class => [
+                        'class' => This\Basic\Api\GetRegisterBasicComponentsBasic::class,
+                        'arguments' => [
+                            '0-' => ReadBasicComponentRegistry::class,
+                            '1-' => Cache::class,
+                        ],
+                    ],
                     /**
                      * Block Component ===========================================
                      */
@@ -118,7 +148,7 @@ class ModuleConfig
                             '1-' => SearchConfigList::class
                         ],
                     ],
-                    ReadViewLayoutTagsComponentRegistry::class.'1' => [
+                    ReadViewLayoutTagsComponentRegistry::class . '1' => [
                         'factory'
                         => This\View\Api\Repository\ReadViewLayoutTagsComponentRegistryBasicFactory::class,
 
@@ -126,7 +156,7 @@ class ModuleConfig
                     GetRegisterViewLayoutTagsComponents::class => [
                         'class' => This\View\Api\GetRegisterViewLayoutTagsComponentsBasic::class,
                         'arguments' => [
-                            '0-' => ReadViewLayoutTagsComponentRegistry::class.'1',
+                            '0-' => ReadViewLayoutTagsComponentRegistry::class . '1',
                             '1-' => Cache::class
                         ],
                     ],

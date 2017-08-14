@@ -39,6 +39,7 @@ class FindBasicComponent
         string $name,
         array $options = []
     ) {
+
         $basicComponent = parent::__invoke(
             $name,
             $options
