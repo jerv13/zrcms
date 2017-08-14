@@ -9,6 +9,8 @@ use Zrcms\Content\Model\PropertiesCmsResource;
  */
 class PropertiesCountryCmsResource extends PropertiesCmsResource
 {
+    const ISO3 = 'iso3';
+
     /**
      * Default values
      *
@@ -17,6 +19,7 @@ class PropertiesCountryCmsResource extends PropertiesCmsResource
     protected $properties
         = [
             self::ID => '',
+            self::ISO3 => '',
             self::CONTENT_VERSION_ID => '',
         ];
 }

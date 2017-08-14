@@ -26,56 +26,11 @@ class ModuleConfig
     {
         return [
             'dependencies' => [
-                'config_factories' => [
-                    PublishCountryCmsResource::class => [
-                        'class' => ApiNoop::class,
-                        'arguments' => [
-                            '0-' => ['literal' => PublishCountryCmsResource::class],
-                        ],
-                    ],
-                    UnpublishCountryCmsResource::class => [
-                        'class' => ApiNoop::class,
-                        'arguments' => [
-                            '0-' => ['literal' => UnpublishCountryCmsResource::class],
-                        ],
-                    ],
-                    FindCountryCmsResource::class => [
-                        'class' => ApiNoop::class,
-                        'arguments' => [
-                            '0-' => ['literal' => FindCountryCmsResource::class],
-                        ],
-                    ],
-                    FindCountryCmsResourceByIso3::class => [
-                        'class' => ApiNoop::class,
-                        'arguments' => [
-                            '0-' => ['literal' => FindCountryCmsResourceByIso3::class],
-                        ],
-                    ],
-                    FindCountryCmsResourcesBy::class => [
-                        'class' => ApiNoop::class,
-                        'arguments' => [
-                            '0-' => ['literal' => FindCountryCmsResourcesBy::class],
-                        ],
-                    ],
-                    FindCountryVersion::class => [
-                        'class' => ApiNoop::class,
-                        'arguments' => [
-                            '0-' => ['literal' => FindCountryVersion::class],
-                        ],
-                    ],
-                    FindCountryVersionsBy::class => [
-                        'class' => ApiNoop::class,
-                        'arguments' => [
-                            '0-' => ['literal' => UnpublishCountryCmsResource::class],
-                        ],
-                    ],
-                    InsertCountryVersion::class => [
-                        'class' => ApiNoop::class,
-                        'arguments' => [
-                            '0-' => ['literal' => UnpublishCountryCmsResource::class],
-                        ],
-                    ],
-                ],
+                'zrcms-components' => [
+                    'countries' => [
+
+                    ]
+                ]
             ],
         ];
     }

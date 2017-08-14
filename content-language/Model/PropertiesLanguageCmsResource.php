@@ -9,6 +9,8 @@ use Zrcms\Content\Model\PropertiesCmsResource;
  */
 class PropertiesLanguageCmsResource extends PropertiesCmsResource
 {
+    const ISO_639_2T = 'iso639_2t';
+
     /**
      * Default values
      *
@@ -17,6 +19,7 @@ class PropertiesLanguageCmsResource extends PropertiesCmsResource
     protected $properties
         = [
             self::ID => '',
+            self::ISO_639_2T => '',
             self::CONTENT_VERSION_ID => '',
         ];
 }
