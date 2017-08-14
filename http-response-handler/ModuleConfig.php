@@ -25,7 +25,8 @@ class ModuleConfig
                      * Api ===========================================
                      */
                     HandleResponse::class => [
-                        'class' => HandleResponseBasic::class
+                        // @todo USE THIS: 'class' => HandleResponseBasic::class,
+                        'class' => HandleResponseWithExceptionMessage::class
                     ],
                     HandleResponseBasic::class => [],
                     HandleResponseWithExceptionMessage::class => [],

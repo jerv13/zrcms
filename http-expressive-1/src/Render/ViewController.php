@@ -11,8 +11,8 @@ use Zrcms\ContentCore\View\Api\Render\GetViewLayoutTags;
 use Zrcms\ContentCore\View\Api\Render\RenderView;
 use Zrcms\ContentCore\View\Api\Repository\FindViewByRequest;
 use Zrcms\ContentCore\View\Model\View;
+use Zrcms\HttpExpressive1\Model\RequestedPage;
 use Zrcms\HttpResponseHandler\Api\HandleResponse;
-use Zrcms\HttpResponseHandler\Model\HandleResponseOptions;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -22,8 +22,8 @@ class ViewController
     /**
      * @param FindViewByRequest $findViewByRequest
      * @param GetViewLayoutTags $getViewLayoutTags
-     * @param RenderView $renderView
-     * @param HandleResponse $handleResponse
+     * @param RenderView        $renderView
+     * @param HandleResponse    $handleResponse
      */
     public function __construct(
         FindViewByRequest $findViewByRequest,
@@ -41,8 +41,8 @@ class ViewController
      * __invoke
      *
      * @param ServerRequestInterface $request
-     * @param ResponseInterface $response
-     * @param callable|null $next
+     * @param ResponseInterface      $response
+     * @param callable|null          $next
      *
      * @return ResponseInterface
      * @throws \Exception
@@ -56,19 +56,25 @@ class ViewController
         $queryParams = $request->getQueryParams();
 
         /* @todo TESTING ONLY *
-        if (!array_key_exists('zrcms', $queryParams)) {
-            return $next(
-                $request,
-                $response
-            );
-        }
-        /* end TESTING */
+         * if (!array_key_exists('zrcms', $queryParams)) {
+         * return $next(
+         * $request,
+         * $response
+         * );
+         * }
+         * /* end TESTING */
 
-        if ($request->getUri()->getPath() === '/') {
+        $path = $request->getUri()->getPath();
+        if ($path === '/') {
             $request = $request->withUri($request->getUri()->withPath('/index'));
         }
 
-        $additionalViewProperties = [];
+        $additionalViewProperties = [
+            RequestedPage::PROPERTY_NAME => new RequestedPage(
+                $path,
+                null
+            )
+        ];
 
         try {
             /** @var View $pageView */
@@ -77,25 +83,11 @@ class ViewController
                 $additionalViewProperties
             );
         } catch (SiteNotFoundException $exception) {
+            // Call next, fallback controller can handle them
             return $next($request, $response);
-//
-//            $response = new HtmlResponse('SITE NOT FOUND');
-//
-//            return $this->handleResponse->__invoke(
-//                $request,
-//                $response->withStatus(404, 'SITE NOT FOUND'),
-//                [HandleResponseOptions::EXCEPTION => $exception]
-//            );
         } catch (PageNotFoundException $exception) {
+            // Call next, fallback controller can handle them
             return $next($request, $response);
-
-//            $response = new HtmlResponse('PAGE NOT FOUND');
-//
-//            return $this->handleResponse->__invoke(
-//                $request,
-//                $response->withStatus(404, 'PAGE NOT FOUND'),
-//                [HandleResponseOptions::EXCEPTION => $exception]
-//            );
         }
 
         $viewRenderTags = $this->getViewLayoutTags->__invoke(

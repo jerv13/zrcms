@@ -133,6 +133,16 @@ class ModuleConfig
                 ],
             ],
             'zrcms-components' => [
+                'basic' => [
+                    /*
+                    '{basic-name}' => '{basic-location}(directory)'
+                    OR
+                    '{basic-name}' => [
+                      ComponentRegistryFields::CONFIG_LOCATION => '{basic-location}(string)',
+                      ComponentRegistryFields::COMPONENT_CONFIG_READER => '{basic-location}(service-alias)',
+                     ]
+                    */
+                ],
                 'blocks' => [
                     /*
                     '{block-name}' => '{block-location}(directory)'

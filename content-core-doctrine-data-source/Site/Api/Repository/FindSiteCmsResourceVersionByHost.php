@@ -1,24 +1,28 @@
 <?php
 
-namespace Zrcms\ContentDoctrine\Api\Repository;
+namespace Zrcms\ContentCoreDoctrineDataSource\Site\Api\Repository;
 
 use Doctrine\ORM\EntityManager;
 use Zrcms\Content\Model\CmsResource;
-use Zrcms\Content\Model\CmsResourceVersion;
-use Zrcms\Content\Model\Content;
 use Zrcms\Content\Model\ContentVersion;
-use Zrcms\Content\Model\PropertiesCmsResource;
+use Zrcms\ContentCore\Site\Model\PropertiesSiteCmsResource;
+use Zrcms\ContentCore\Site\Model\SiteCmsResourceBasic;
+use Zrcms\ContentCore\Site\Model\SiteVersionBasic;
+use Zrcms\ContentCoreDoctrineDataSource\Site\Entity\SiteCmsResourceEntity;
+use Zrcms\ContentCoreDoctrineDataSource\Site\Entity\SiteVersionEntity;
 use Zrcms\ContentDoctrine\Api\ApiAbstract;
 use Zrcms\ContentDoctrine\Api\BasicCmsResourceTrait;
+use Zrcms\ContentDoctrine\Api\BasicContentVersionTrait;
 
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class FindCmsResourceVersion
+class FindSiteCmsResourceVersionByHost
     extends ApiAbstract
-    implements \Zrcms\Content\Api\Repository\FindCmsResourceVersion
+    implements \Zrcms\ContentCore\Site\Api\Repository\FindSiteCmsResourceVersionByHost
 {
     use BasicCmsResourceTrait;
+    use BasicContentVersionTrait;
 
     /**
      * @var EntityManager
@@ -70,34 +74,27 @@ class FindCmsResourceVersion
         );
 
         $this->entityManager = $entityManager;
-        $this->entityClassCmsResource = $entityClassCmsResource;
-        $this->entityClassContentVersion = $entityClassContentVersion;
-        $this->classCmsResourceBasic = $classCmsResourceBasic;
-        $this->classContentVersion = $classContentVersion;
+        $this->entityClassCmsResource = SiteCmsResourceEntity::class;
+        $this->entityClassContentVersion = SiteVersionEntity::class;
+        $this->classCmsResourceBasic = SiteCmsResourceBasic::class;
+        $this->classContentVersion = SiteVersionBasic::class;
     }
 
-    /**
-     * @param string $cmsResourceId
-     * @param array  $options
-     *
-     * @return CmsResourceVersion|null
-     */
     public function __invoke(
-        string $cmsResourceId,
+        string $host,
         array $options = []
     ) {
-        $cmsResourceIdName = PropertiesCmsResource::ID;
+        $hostPropertyName = PropertiesSiteCmsResource::HOST;
 
         $queryParams = [
-            $cmsResourceId=> 'cmsResourceId'
+            $host => 'host'
         ];
 
         // @todo Add prepared statements not concat
         $query = ""
             . "SELECT resource FROM {$this->entityClassCmsResource} resource"
-            . " WHERE resource.{$cmsResourceIdName} = :cmsResourceId"
+            . " WHERE resource.{$hostPropertyName} = :host"
             . " JOIN {$this->entityClassContentVersion} version WITH resource.contentVersionId =  version.id";
-
 
         $dQuery = $this->entityManager->createQuery($query);
 

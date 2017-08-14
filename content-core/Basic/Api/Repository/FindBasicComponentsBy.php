@@ -1,13 +1,14 @@
 <?php
 
-namespace Zrcms\Content\Api\Repository;
+namespace Zrcms\ContentCore\Basic\Api\Repository;
 
-use Zrcms\Content\Model\CmsResourceVersion;
+use Zrcms\Content\Api\Repository\FindComponentsBy;
+use Zrcms\ContentCore\Basic\Model\BasicComponent;
 
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-interface FindCmsResourceVersionsBy
+interface FindBasicComponentsBy extends FindComponentsBy
 {
     /**
      * @param array      $criteria
@@ -16,7 +17,7 @@ interface FindCmsResourceVersionsBy
      * @param null       $offset
      * @param array      $options
      *
-     * @return CmsResourceVersion[]
+     * @return BasicComponent[]
      */
     public function __invoke(
         array $criteria,
