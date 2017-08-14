@@ -66,7 +66,7 @@ abstract class SiteVersionAbstract extends ContentVersionAbstract implements Sit
     {
         return $this->getProperty(
             PropertiesSiteVersion::LOCALE,
-            ''
+            'en_US'
         );
     }
 }

@@ -52,16 +52,17 @@ class ViewController
         ResponseInterface $response,
         callable $next = null
     ) {
-        // @todo TESTING ONLY
+
         $queryParams = $request->getQueryParams();
 
-//        if (!array_key_exists('zrcms', $queryParams)) {
-//            return $next(
-//                $request,
-//                $response
-//            );
-//        }
-        // end TESTING
+        /* @todo TESTING ONLY *
+        if (!array_key_exists('zrcms', $queryParams)) {
+            return $next(
+                $request,
+                $response
+            );
+        }
+        /* end TESTING */
 
         if ($request->getUri()->getPath() === '/') {
             $request = $request->withUri($request->getUri()->withPath('/index'));
@@ -78,7 +79,6 @@ class ViewController
         } catch (SiteNotFoundException $exception) {
             return $next($request, $response);
 //
-//            // @todo Use a response service to generate these
 //            $response = new HtmlResponse('SITE NOT FOUND');
 //
 //            return $this->handleResponse->__invoke(
