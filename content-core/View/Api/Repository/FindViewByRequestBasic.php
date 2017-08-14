@@ -16,6 +16,7 @@ use Zrcms\ContentCore\Theme\Api\Repository\FindLayoutCmsResourceByThemeNameLayou
 use Zrcms\ContentCore\Theme\Api\Repository\FindLayoutVersion;
 use Zrcms\ContentCore\Theme\Api\Repository\FindThemeComponent;
 use Zrcms\ContentCore\Theme\Exception\ThemeNotFoundException;
+use Zrcms\ContentCore\View\Api\BuildView;
 use Zrcms\ContentCore\View\Api\GetLayoutName;
 use Zrcms\ContentCore\View\Api\Render\GetViewLayoutTags;
 use Zrcms\ContentCore\View\Api\Render\RenderView;
@@ -80,6 +81,11 @@ class FindViewByRequestBasic implements FindViewByRequest
     protected $renderView;
 
     /**
+     * @var BuildView
+     */
+    protected $buildView;
+
+    /**
      * @param FindSiteCmsResourceByHost                  $findSiteCmsResourceByHost
      * @param FindSiteVersion                            $findSiteVersion
      * @param FindPageContainerCmsResourceBySitePath     $findPageContainerCmsResourceBySitePath
@@ -101,7 +107,8 @@ class FindViewByRequestBasic implements FindViewByRequest
         GetLayoutName $getLayoutName,
         FindThemeComponent $findThemeComponent,
         GetViewLayoutTags $getViewLayoutTags,
-        RenderView $renderView
+        RenderView $renderView,
+        BuildView $buildView
     ) {
         $this->findSiteCmsResourceByHost = $findSiteCmsResourceByHost;
         $this->findSiteVersion = $findSiteVersion;
@@ -114,6 +121,7 @@ class FindViewByRequestBasic implements FindViewByRequest
         $this->findThemeComponent = $findThemeComponent;
         $this->getViewLayoutTags = $getViewLayoutTags;
         $this->renderView = $renderView;
+        $this->buildView = $buildView;
     }
 
     /**
@@ -242,8 +250,13 @@ class FindViewByRequestBasic implements FindViewByRequest
             $properties
         );
 
-        return new ViewBasic(
+        $view = new ViewBasic(
             $properties
+        );
+
+        return $this->buildView->__invoke(
+            $request,
+            $view
         );
     }
 }

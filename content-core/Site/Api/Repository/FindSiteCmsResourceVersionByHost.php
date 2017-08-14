@@ -1,0 +1,22 @@
+<?php
+
+namespace Zrcms\ContentCore\Site\Api\Repository;
+
+use Zrcms\ContentCore\Site\Model\SiteCmsResourceVersion;
+
+/**
+ * @author James Jervis - https://github.com/jerv13
+ */
+interface FindSiteCmsResourceVersionByHost
+{
+    /**
+     * @param string $host
+     * @param array  $options
+     *
+     * @return SiteCmsResourceVersion|null
+     */
+    public function __invoke(
+        string $host,
+        array $options = []
+    );
+}

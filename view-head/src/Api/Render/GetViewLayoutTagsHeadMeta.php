@@ -69,7 +69,7 @@ class GetViewLayoutTagsHeadMeta implements GetViewLayoutTagsHead
         $pageVersion = $view->getPage();
 
         $tagsData[] = [
-            'tag' => 'meta',
+            //'tag' => 'meta',
             'attributes' => [
                 'name' => 'description',
                 'content' => $pageVersion->getDescription()
@@ -77,12 +77,16 @@ class GetViewLayoutTagsHeadMeta implements GetViewLayoutTagsHead
         ];
 
         $tagsData[] = [
-            'tag' => 'meta',
+            //'tag' => 'meta',
             'attributes' => [
                 'name' => 'keywords',
                 'content' => $pageVersion->getKeywords()
             ],
         ];
+
+        foreach ($tagsData as $key => $tag) {
+            $tagsData[$key]['tag'] = 'meta';
+        }
 
         // @todo We can fall back to site description and site keywords if they exist?
 

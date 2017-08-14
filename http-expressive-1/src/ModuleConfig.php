@@ -3,16 +3,20 @@
 namespace Zrcms\HttpExpressive1;
 
 use Zrcms\Content\Api\ContentVersionToArray;
+use Zrcms\ContentCore\Site\Model\PropertiesSiteVersion;
 use Zrcms\ContentCore\Site\Model\SiteVersionBasic;
 use Zrcms\ContentCore\View\Api\Render\GetViewLayoutTags;
 use Zrcms\ContentCore\View\Api\Render\RenderView;
 use Zrcms\ContentCore\View\Api\Repository\FindViewByRequest;
+use Zrcms\HttpExpressive1\Api\GetStatusSitePropertyPagePath;
+use Zrcms\HttpExpressive1\Api\GetStatusSitePropertyPagePathConfigFactory;
 use Zrcms\HttpExpressive1\Api\Site\Repository\FindSiteVersion;
 use Zrcms\HttpExpressive1\Api\Site\Repository\InsertSiteVersion;
 use Zrcms\HttpExpressive1\Render\ViewController;
+use Zrcms\HttpExpressive1\Render\ViewControllerFallbackPage;
 use Zrcms\HttpExpressive1\Render\ViewControllerTest;
 use Zrcms\HttpExpressive1\Render\ViewControllerTestFactory;
-use Zrcms\HttpResponseHandler\Api\HandleResponseWithExceptionMessage;
+use Zrcms\HttpResponseHandler\Api\HandleResponse;
 use Zrcms\User\Api\GetUserIdByRequest;
 
 /**
@@ -37,7 +41,7 @@ class ModuleConfig
                         'arguments' => [
                             \Zrcms\ContentCore\Site\Api\Repository\FindSiteVersion::class,
                             ContentVersionToArray::class,
-                            ['literal' => 'site-repository-find-content-version']
+                            ['literal' => 'site-repository-find-content-version'],
                         ],
                     ],
                     InsertSiteVersion::class => [
@@ -46,8 +50,11 @@ class ModuleConfig
                             ContentVersionToArray::class,
                             GetUserIdByRequest::class,
                             ['literal' => SiteVersionBasic::class],
-                            ['literal' => 'site-repository-insert-content-version']
+                            ['literal' => 'site-repository-insert-content-version'],
                         ],
+                    ],
+                    GetStatusSitePropertyPagePath::class => [
+                        'factory' => GetStatusSitePropertyPagePathConfigFactory::class,
                     ],
                     /**
                      * Render ===========================================
@@ -57,11 +64,18 @@ class ModuleConfig
                             FindViewByRequest::class,
                             GetViewLayoutTags::class,
                             RenderView::class,
-                            HandleResponseWithExceptionMessage::class
+                            HandleResponse::class,
+                        ],
+                    ],
+                    ViewControllerFallbackPage::class => [
+                        'arguments' => [
+                            GetStatusSitePropertyPagePath::class,
+                            HandleResponse::class,
+                            ViewController::class,
                         ],
                     ],
                     ViewControllerTest::class => [
-                        'factory' => ViewControllerTestFactory::class
+                        'factory' => ViewControllerTestFactory::class,
                     ],
                 ],
             ],
@@ -77,11 +91,16 @@ class ModuleConfig
                     'name' => 'zrcms.site.repository.find-content-version',
                     'path' => '/zrcms/site/repository/find-content-version/{id}',
                     'middleware' => [
-                        FindSiteVersion::class => FindSiteVersion::class
+                        FindSiteVersion::class => FindSiteVersion::class,
                     ],
                     'options' => [],
                     'allowed_methods' => ['GET'],
                 ],
+            ],
+
+            'zrcms-status-site-property-page-path' => [
+                '404' => PropertiesSiteVersion::NOT_FOUND_PAGE,
+                '401' => PropertiesSiteVersion::NOT_AUTHORIZED_PAGE,
             ],
         ];
     }

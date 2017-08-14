@@ -28,8 +28,10 @@ class RenderTagBasic implements RenderTag
     /**
      * @param array $selfClosingTags
      */
-    public function __construct(array $selfClosingTags = [])
-    {
+    public function __construct(
+        array $selfClosingTags = [],
+        string $encoding = 'UTF-8'
+    ) {
         if (!empty($selfClosingTags)) {
             $this->selfClosingTags = $selfClosingTags;
         }
@@ -90,7 +92,7 @@ class RenderTagBasic implements RenderTag
             if ($index === 1) {
                 $html .= ' ';
             }
-            $html .= (string)$attribute . '="' . (string)$value . '"';
+            $html .= (string)$attribute . '="' . htmlspecialchars((string)$value, ENT_QUOTES, 'UTF-8', false) . '"';
 
             // trailing space
             if ($index < $count) {

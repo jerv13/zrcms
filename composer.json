@@ -65,6 +65,7 @@
   "suggest": {
     "dasprid/container-interop-doctrine": "^0.2.2",
     "rwoverdijk/assetmanager": "1.*",
-    "zendframework/zend-diactoros": "Should install with Expressive"
+    "zendframework/zend-diactoros": "Should install with Expressive",
+    "rcm/user": "Decent user library"
   }
 }

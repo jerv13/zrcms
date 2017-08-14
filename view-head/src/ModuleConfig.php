@@ -107,7 +107,15 @@ class ModuleConfig
                         PropertiesViewLayoutTagsComponent::RENDER_TAGS_GETTER
                         => GetViewLayoutTagsHeadMeta::SERVICE_ALIAS,
 
-                        'tags' => [],
+                        'tags' => [
+                            // @todo TESTING ONLY
+                            [
+                                'attributes' => [
+                                    'name' => 'zrcms',
+                                    'content' => 'true'
+                                ],
+                            ],
+                        ],
                     ],
 
                     // GetViewLayoutTagsHeadLink::RENDER_TAG_LINK

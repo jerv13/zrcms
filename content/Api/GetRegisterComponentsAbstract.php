@@ -100,35 +100,67 @@ abstract class GetRegisterComponentsAbstract implements GetRegisterComponents
             return $this->getCache();
         }
 
-        $componentConfigs = $this->readComponentRegistry->__invoke();
-
-        $configs = [];
+        $componentRegistry = $this->readComponentRegistry->__invoke();
 
         $componentClass = $this->componentClass;
 
-        foreach ($componentConfigs as $componentConfig) {
-
-            $preparedConfig = $this->prepareConfig($componentConfig);
-            $builtConfig = $this->buildSubComponents($preparedConfig);
-
-            $configs[] = new $componentClass(
-                $builtConfig,
-                Param::get(
-                    $builtConfig,
-                    ComponentConfigFields::CREATED_BY_USER_ID,
-                    Trackable::UNKNOWN_USER_ID
-                ),
-                Param::get(
-                    $builtConfig,
-                    ComponentConfigFields::CREATED_REASON,
-                    Trackable::UNKNOWN_REASON
-                )
-            );
-        }
+        $configs = $this->buildComponentObjects(
+            $componentRegistry,
+            $componentClass
+        );
 
         $this->setCache($configs);
 
         return $configs;
+    }
+
+    /**
+     * @param array  $componentRegistry
+     * @param string $componentClass
+     *
+     * @return array
+     */
+    protected function buildComponentObjects(
+        array $componentRegistry,
+        string $componentClass
+    ) {
+        $configs = [];
+        foreach ($componentRegistry as $componentConfig) {
+            $configs[] = $this->buildComponentObject(
+                $componentConfig,
+                $componentClass
+            );
+        }
+
+        return $configs;
+    }
+
+    /**
+     * @param array  $componentConfig
+     * @param string $componentClass
+     *
+     * @return mixed
+     */
+    protected function buildComponentObject(
+        array $componentConfig,
+        string $componentClass
+    ) {
+        $preparedConfig = $this->prepareConfig($componentConfig);
+        $builtConfig = $this->buildSubComponents($preparedConfig);
+
+        return new $componentClass(
+            $builtConfig,
+            Param::get(
+                $builtConfig,
+                ComponentConfigFields::CREATED_BY_USER_ID,
+                Trackable::UNKNOWN_USER_ID
+            ),
+            Param::get(
+                $builtConfig,
+                ComponentConfigFields::CREATED_REASON,
+                Trackable::UNKNOWN_REASON
+            )
+        );
     }
 
     /**

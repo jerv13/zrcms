@@ -2,6 +2,10 @@
 
 namespace Zrcms\ContentCore;
 
+use Zrcms\ContentCore\Basic\Api\Repository\ReadBasicComponentConfig;
+use Zrcms\ContentCore\Basic\Api\Repository\ReadBasicComponentConfigBasic;
+use Zrcms\ContentCore\Basic\Api\Repository\ReadBasicComponentConfigJsonFile;
+use Zrcms\ContentCore\Basic\Model\ServiceAliasBasic;
 use Zrcms\ContentCore\Block\Api\GetBlockConfigFields;
 use Zrcms\ContentCore\Block\Api\GetBlockConfigFieldsBcSubstitution;
 use Zrcms\ContentCore\Block\Api\GetMergedConfig;
@@ -93,6 +97,8 @@ use Zrcms\ContentCore\Theme\Api\Repository\ReadThemeComponentConfigBasic;
 use Zrcms\ContentCore\Theme\Api\Repository\ReadThemeComponentConfigJsonFile;
 use Zrcms\ContentCore\Theme\Model\ServiceAliasLayout;
 use Zrcms\ContentCore\Theme\Model\ServiceAliasTheme;
+use Zrcms\ContentCore\View\Api\BuildView;
+use Zrcms\ContentCore\View\Api\BuildViewCompositeFactory;
 use Zrcms\ContentCore\View\Api\GetLayoutName;
 use Zrcms\ContentCore\View\Api\GetLayoutNameBasic;
 use Zrcms\ContentCore\View\Api\Render\GetViewLayoutTags;
@@ -132,7 +138,18 @@ class ModuleConfig
         return [
             'dependencies' => [
                 'config_factories' => [
-
+                    /**
+                     * Basic ===========================================
+                     */
+                    ReadBasicComponentConfig::class => [
+                        'class' => ReadBasicComponentConfigBasic::class,
+                        'arguments' => [
+                            '0-' => GetServiceFromAlias::class,
+                        ],
+                    ],
+                    ReadBasicComponentConfigJsonFile::class => [
+                        'class' => ReadBasicComponentConfigJsonFile::class,
+                    ],
                     /**
                      * Block ===========================================
                      */
@@ -587,16 +604,10 @@ class ModuleConfig
                             '6-' => GetLayoutName::class,
                             '7-' => FindThemeComponent::class,
                             '8-' => GetViewLayoutTags::class,
-                            '9-' => RenderView::class
+                            '9-' => RenderView::class,
+                            '10-' => BuildView::class
                         ],
                     ],
-                    GetLayoutName::class => [
-                        'class' => GetLayoutNameBasic::class
-                    ],
-
-                    /**
-                     * ViewLayoutTagsGetter ===========================================
-                     */
                     FindViewLayoutTagsComponent::class => [
                         'class' => ApiNoop::class,
                         'arguments' => [
@@ -621,6 +632,12 @@ class ModuleConfig
                     ReadViewLayoutTagsComponentConfigJsonFile::class => [
                         'class' => ReadViewLayoutTagsComponentConfigJsonFile::class,
                     ],
+                    BuildView::class => [
+                        'factory' => BuildViewCompositeFactory::class,
+                    ],
+                    GetLayoutName::class => [
+                        'class' => GetLayoutNameBasic::class
+                    ],
                 ],
             ],
             'zrcms-components' => [
@@ -629,6 +646,14 @@ class ModuleConfig
              * Service Alias ===========================================
              */
             'zrcms-service-alias' => [
+                /**
+                 * Basic ===========================================
+                 */
+                /* 'zrcms.basic.component.config-reader' */
+                ServiceAliasBasic::NAMESPACE_COMPONENT_CONFIG_READER => [
+                    ReadBasicComponentConfigJsonFile::SERVICE_ALIAS
+                    => ReadBasicComponentConfigJsonFile::class,
+                ],
                 /**
                  * Block ===========================================
                  */
@@ -689,11 +714,6 @@ class ModuleConfig
                     'json'
                     => ReadLayoutComponentConfigJsonFile::class,
                 ],
-                // NOT NEEDED?
-//                ServiceAliasLayout::NAMESPACE_CONTENT_RENDER_TAGS_GETTER => [
-//                    'noop'
-//                    => GetLayoutRenderTagsNoop::class,
-//                ],
                 ServiceAliasLayout::NAMESPACE_CONTENT_RENDERER => [
                     'mustache'
                     => RenderLayoutMustache::class,
@@ -726,6 +746,9 @@ class ModuleConfig
                 ServiceAliasView::NAMESPACE_LAYOUT_TAG_NAME_PARSER => [
                     'mustache' => FindTagNamesByLayoutMustache::class
                 ],
+            ],
+            'zrcms-view-builders' => [
+                // 'key (optional)' => '{service-name}'
             ],
         ];
     }

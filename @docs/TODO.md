@@ -3,14 +3,24 @@
 
 - Service to FindResourceVersion
     - return a CurrentVersionObject that has CmsResource and ContentVersion
+    - NOTE: Should CmsResource interface contain no version and CmsResourceVersion have an ID and content
+
+- Page properties from rcm
+    - GetViewLayoutMetaPageData
     
 - Optimize api (after FindResourceVersion implemented)
     - Optimize queries
     - Add indexes
+    
+-x View pipeline (BuildViewComposite) (allow others to use or add to the View at runtime)
 
-- Handlers for request status
-    - This may require our own pipe
-    - injectable middleware the says what to do on non-200 status codes
+-x Handlers for request status
+    -x This may require our own pipe
+    -x injectable middleware the says what to do on non-200 status codes
+    
+- Page templates - create content pattern
+
+- How to handle product pages
     
 - Deal with properties
     - Property definitions need to be defined somehow that is easy to understand from code
@@ -34,3 +44,7 @@
     - optimize BC
     - Use const for strings
     
+- CM User needs PSR7 request interface
+    - Get user from request
+    - IsAllowed PHP API
+    -
