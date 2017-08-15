@@ -4,9 +4,9 @@ namespace Zrcms\HttpExpressive1\ApiHttp\Content\Repository;
 
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
-use Reliv\RcmApiLib\Http\PsrApiResponse;
-use Reliv\RcmApiLib\Model\ApiMessage;
 use Zrcms\Content\Api\ContentVersionToArray;
+use Zrcms\HttpExpressive1\Model\ApiMessage;
+use Zrcms\HttpExpressive1\Model\ApiResponse;
 use Zrcms\HttpExpressive1\Model\ResponseCodes;
 
 /**
@@ -63,7 +63,7 @@ class FindContentVersion
         $contentVersionId = $request->getAttribute('id');
 
         if (empty($contentVersionId)) {
-            return new PsrApiResponse(
+            return new ApiResponse(
                 null,
                 [
                     new ApiMessage(
@@ -83,7 +83,7 @@ class FindContentVersion
         );
 
         if (empty($contentVersion)) {
-            return new PsrApiResponse(
+            return new ApiResponse(
                 null,
                 [
                     new ApiMessage(
@@ -102,7 +102,7 @@ class FindContentVersion
             $contentVersion
         );
 
-        return new PsrApiResponse(
+        return new ApiResponse(
             $result
         );
     }

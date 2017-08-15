@@ -8,6 +8,7 @@ use Zrcms\ContentCore\Page\Model\PageContainerVersion;
 use Zrcms\ContentCore\View\Api\Repository\FindViewLayoutTagsComponent;
 use Zrcms\ContentCore\View\Model\View;
 use Zrcms\ContentCore\View\Model\ViewLayoutTagsComponent;
+use Zrcms\ViewHtmlTags\Api\Render\RenderTag;
 use Zrcms\ViewHtmlTags\Api\Render\RenderTags;
 
 /**
@@ -91,7 +92,7 @@ class GetViewLayoutTagsHeadMeta implements GetViewLayoutTagsHead
         // @todo We can fall back to site description and site keywords if they exist?
 
         return [
-            self::RENDER_TAG_META => $this->renderTags->__invoke($tagsData)
+            self::RENDER_TAG_META => $this->renderTags->__invoke($tagsData, [RenderTag::OPTION_INDENT => '    '])
         ];
     }
 }

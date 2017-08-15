@@ -24,12 +24,15 @@ class ModulesConfig
             new \Zrcms\ServiceAlias\ModuleConfig(),
 
             // Mid level
+            new \Zrcms\Acl\ModuleConfig(),
+            new \Zrcms\Locale\ModuleConfig(),
             new \Zrcms\ContentCore\ModuleConfig(),
             new \Zrcms\ContentCountry\ModuleConfig(),
             new \Zrcms\ContentLanguage\ModuleConfig(),
             new \Zrcms\Importer\ModuleConfig(),
             new \Zrcms\Install\ModuleConfig(),
 
+            new \Zrcms\ViewAssets\ModuleConfig(),
             new \Zrcms\ViewHead\ModuleConfig(),
             new \Zrcms\ViewHtmlTags\ModuleConfig(),
 

@@ -2,6 +2,7 @@
 
 namespace Zrcms\HttpExpressive1;
 
+use Zrcms\Acl\Api\IsAllowed;
 use Zrcms\Content\Api\ContentVersionToArray;
 use Zrcms\ContentCore\Basic\Api\Repository\FindBasicComponent;
 use Zrcms\ContentCore\Basic\Api\Repository\ReadBasicComponentConfigApplicationConfig;
@@ -10,7 +11,9 @@ use Zrcms\ContentCore\Site\Model\SiteVersionBasic;
 use Zrcms\ContentCore\View\Api\Render\GetViewLayoutTags;
 use Zrcms\ContentCore\View\Api\Render\RenderView;
 use Zrcms\ContentCore\View\Api\Repository\FindViewByRequest;
+use Zrcms\ContentCore\View\Model\ServiceAliasView;
 use Zrcms\ContentCoreConfigDataSource\Content\Model\ComponentRegistryFields;
+use Zrcms\HttpExpressive1\Api\View\Render\GetViewLayoutMetaPageData;
 use Zrcms\HttpExpressive1\ApiHttp\Site\Repository\FindSiteVersion;
 use Zrcms\HttpExpressive1\ApiHttp\Site\Repository\InsertSiteVersion;
 use Zrcms\HttpExpressive1\Model\HttpExpressiveComponent;
@@ -21,6 +24,7 @@ use Zrcms\HttpExpressive1\Render\ViewControllerTest;
 use Zrcms\HttpExpressive1\Render\ViewControllerTestFactory;
 use Zrcms\HttpResponseHandler\Api\HandleResponse;
 use Zrcms\User\Api\GetUserIdByRequest;
+use Zrcms\ViewHtmlTags\Api\Render\RenderTag;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -38,7 +42,18 @@ class ModuleConfig
             'dependencies' => [
                 'config_factories' => [
                     /**
-                     * Api ===========================================
+                     * ApiHttp ===========================================
+                     */
+                    GetViewLayoutMetaPageData::class => [
+                        'arguments' => [
+                            RenderTag::class,
+                            IsAllowed::class,
+                            ['literal' => 'site'],
+                            ['literal' => 'admin'],
+                        ],
+                    ],
+                    /**
+                     * ApiHttp ===========================================
                      */
                     FindSiteVersion::class => [
                         'arguments' => [
@@ -117,6 +132,17 @@ class ModuleConfig
                             '401' => PropertiesSiteVersion::NOT_AUTHORIZED_PAGE,
                         ],
                     ],
+                ],
+                'view-layout-tags' => [
+                    GetViewLayoutMetaPageData::RENDER_TAG_META_PAGE_DATA
+                    => __DIR__ . '/../config/meta-page-data',
+                ],
+            ],
+
+            'zrcms-service-alias' => [
+                ServiceAliasView::NAMESPACE_COMPONENT_VIEW_LAYOUT_TAGS_GETTER => [
+                    GetViewLayoutMetaPageData::RENDER_TAG_META_PAGE_DATA
+                    => GetViewLayoutMetaPageData::class
                 ],
             ],
         ];

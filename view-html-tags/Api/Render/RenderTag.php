@@ -7,6 +7,9 @@ namespace Zrcms\ViewHtmlTags\Api\Render;
  */
 interface RenderTag
 {
+    const OPTION_INDENT = 'indent';
+    const OPTION_DEPTH = 'depth';
+    const OPTION_LINE_BREAK = 'lineBreak';
     /**
      * @param array $tagData
      * @param array $options

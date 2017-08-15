@@ -51,26 +51,57 @@ class RenderTagBasic implements RenderTag
         $tag = Param::getRequired($tagData, 'tag');
         $attributes = Param::getArray($tagData, 'attributes', []);
         $contentHtml = Param::getString($tagData, 'content', '');
+        $depth = Param::getInt(
+            $options,
+            RenderTag::OPTION_DEPTH,
+            1
+        );
+        $indent = Param::getString(
+            $options,
+            self::OPTION_INDENT,
+            ''
+        );
 
-        return $this->renderTag($tag, $attributes, $contentHtml);
+        $indent = $this->getIndent($indent, $depth);
+
+        $lineBreak = Param::getString(
+            $options,
+            self::OPTION_LINE_BREAK,
+            "\n"
+        );
+
+        return $this->renderTag(
+            $tag,
+            $attributes,
+            $contentHtml,
+            $indent,
+            $lineBreak
+        );
     }
 
     /**
      * @param string $tag
      * @param array  $attributes
      * @param null   $contentHtml
+     * @param string $indent
      *
      * @return string
      */
-    protected function renderTag(string $tag, array $attributes, $contentHtml = null): string
+    protected function renderTag(
+        string $tag,
+        array $attributes,
+        $contentHtml = null,
+        string $indent = '',
+        string $lineBreak = "\n"
+    ): string
     {
         $attributeHtml = $this->buildAttributes($attributes);
 
         if (!$this->canSelfClose($tag, $contentHtml)) {
             $contentHtml = (string)$contentHtml;
-            $html = '<' . $tag . $attributeHtml . '>' . $contentHtml . '</' . $tag . '>';
+            $html = $indent . '<' . $tag . $attributeHtml . '>' . $contentHtml . '</' . $tag . '>' . $lineBreak;
         } else {
-            $html = '<' . $tag . $attributeHtml . '/>';
+            $html = $indent . '<' . $tag . $attributeHtml . '/>' . $lineBreak;
         }
 
         return $html;
@@ -113,5 +144,16 @@ class RenderTagBasic implements RenderTag
     protected function canSelfClose(string $tag, $content = null): bool
     {
         return (in_array($tag, $this->selfClosingTags) && empty($content));
+    }
+
+    /**
+     * @param string $indent
+     * @param int    $depth
+     *
+     * @return string
+     */
+    protected function getIndent(string $indent, int $depth): string
+    {
+        return str_repeat($indent, $depth);
     }
 }

@@ -96,12 +96,13 @@ class RenderHeadSectionsTagBasic implements RenderHeadSectionsTag
             }
 
             $html .= $this->renderTag->__invoke(
-                    [
-                        'tag' => $tag,
-                        'attributes' => $attributes,
-                        'content' => $contentHtml
-                    ]
-                ) . "\n    ";
+                [
+                    'tag' => $tag,
+                    'attributes' => $attributes,
+                    'content' => $contentHtml
+                ],
+                [RenderTag::OPTION_INDENT => '    ']
+            );
         }
 
         return $html;

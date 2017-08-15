@@ -4,10 +4,10 @@ namespace Zrcms\HttpExpressive1\ApiHttp\Content\Repository;
 
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
-use Reliv\RcmApiLib\Http\PsrApiResponse;
-use Reliv\RcmApiLib\Model\ApiMessage;
 use Zrcms\Content\Api\ContentVersionToArray;
 use Zrcms\Content\Model\ContentVersion;
+use Zrcms\HttpExpressive1\Model\ApiMessage;
+use Zrcms\HttpExpressive1\Model\ApiResponse;
 use Zrcms\HttpExpressive1\Model\ResponseCodes;
 use Zrcms\User\Api\GetUserIdByRequest;
 
@@ -82,7 +82,7 @@ class InsertContentVersion
 
         // @todo input validations
         if (empty($properties)) {
-            return new PsrApiResponse(
+            return new ApiResponse(
                 null,
                 [
                     new ApiMessage(
@@ -114,7 +114,7 @@ class InsertContentVersion
             $newContentVersion
         );
 
-        return new PsrApiResponse(
+        return new ApiResponse(
             $result
         );
     }

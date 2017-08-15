@@ -39,32 +39,32 @@
   "autoload": {
     "psr-4": {
       "Zrcms\\": "/",
+      "Zrcms\\Acl\\": "acl/",
       "Zrcms\\Cache\\": "cache/",
       "Zrcms\\Content\\": "content/",
       "Zrcms\\ContentCore\\": "content-core/",
       "Zrcms\\ContentCoreConfigDataSource\\": "content-core-config-data-source/",
       "Zrcms\\ContentCoreDoctrineDataSource\\": "content-core-doctrine-data-source/",
       "Zrcms\\ContentCountry\\": "content-country/",
-      "Zrcms\\ContentCountryDoctrine\\": "content-country-doctrine/",
       "Zrcms\\ContentDoctrine\\": "content-doctrine/",
       "Zrcms\\ContentLanguage\\": "content-language/",
-      "Zrcms\\ContentLanguageDoctrine\\": "content-language-doctrine/",
       "Zrcms\\HttpExpressive1\\": "http-expressive-1/src/",
       "Zrcms\\HttpResponseHandler\\": "http-response-handler/",
       "Zrcms\\Importer\\": "importer/src/",
       "Zrcms\\Install\\": "install/src/",
+      "Zrcms\\Locale\\": "locale/",
       "Zrcms\\Mustache\\": "mustache/",
       "Zrcms\\Param\\": "param/",
       "Zrcms\\ServiceAlias\\": "service-alias/",
       "Zrcms\\User\\": "user/",
+      "Zrcms\\ViewAssets\\": "view-assets/",
       "Zrcms\\ViewHead\\": "view-head/src/",
       "Zrcms\\ViewHtmlTags\\": "view-html-tags/",
       "Zrcms\\XampleComponent\\": "xample-component/src/"
     }
   },
   "suggest": {
-    "dasprid/container-interop-doctrine": "^0.2.2",
-    "rwoverdijk/assetmanager": "1.*",
+    "rwoverdijk/assetmanager": "A way of combining and delivering js and css from server",
     "zendframework/zend-diactoros": "Should install with Expressive",
     "rcm/user": "Decent user library"
   }

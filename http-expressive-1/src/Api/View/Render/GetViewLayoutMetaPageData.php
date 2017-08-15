@@ -16,14 +16,26 @@ use Zrcms\ViewHtmlTags\Api\Render\RenderTag;
  */
 class GetViewLayoutMetaPageData implements GetViewLayoutTags
 {
-    const RENDER_TAG_META_PAGE_DATA = 'head';
+    const RENDER_TAG_META_PAGE_DATA = 'meta-page-data';
 
+    /**
+     * @var RenderTag
+     */
     protected $renderTag;
 
+    /**
+     * @var IsAllowed
+     */
     protected $isAllowed;
 
+    /**
+     * @var string
+     */
     protected $resourceId;
 
+    /**
+     * @var null|string
+     */
     protected $privilege;
 
     /**
@@ -64,6 +76,7 @@ class GetViewLayoutMetaPageData implements GetViewLayoutTags
             $this->resourceId,
             $this->privilege
         );
+
         if (!$isAllowed) {
             return [];
         }

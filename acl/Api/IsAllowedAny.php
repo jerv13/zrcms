@@ -3,27 +3,12 @@
 namespace Zrcms\Acl\Api;
 
 use Psr\Http\Message\ServerRequestInterface;
-use RcmUser\Service\RcmUserService;
 
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class IsAllowedRcmUser implements IsAllowed
+class IsAllowedAny implements IsAllowed
 {
-    /**
-     * @var RcmUserService
-     */
-    protected $rcmUserService;
-
-    /**
-     * @param RcmUserService $rcmUserService
-     */
-    public function __construct(
-        RcmUserService $rcmUserService
-    ) {
-        $this->rcmUserService = $rcmUserService;
-    }
-
     /**
      * @param ServerRequestInterface $request
      * @param string                 $resourceId
@@ -39,10 +24,6 @@ class IsAllowedRcmUser implements IsAllowed
         array $options = []
     ): bool
     {
-        // @todo This should utilize the request
-        return $this->rcmUserService->isAllowed(
-            $resourceId,
-            $privilege
-        );
+        return true;
     }
 }
