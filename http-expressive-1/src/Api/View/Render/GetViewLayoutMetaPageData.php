@@ -50,6 +50,7 @@ class GetViewLayoutMetaPageData implements GetViewLayoutTags
      * @param array                  $options
      *
      * @return array
+     * @throws \Exception
      */
     public function __invoke(
         Content $view,
@@ -73,12 +74,12 @@ class GetViewLayoutMetaPageData implements GetViewLayoutTags
         $pageVersion = $view->getPage();
 
         /** @var RequestedPage $requestedPage */
-        $requestedPage = $view->getProperty(
-            RequestedPage::PROPERTY_NAME,
+        $requestedPagePath = $view->getProperty(
+            RequestedPage::PROPERTY_PATH,
             null
         );
 
-        if (empty($requestedPage)) {
+        if (empty($requestedPagePath)) {
             throw new \Exception('RequestedPage data is required to render');
         }
 
@@ -91,27 +92,29 @@ class GetViewLayoutMetaPageData implements GetViewLayoutTags
             'page' => [
                 'revision' => $pageVersion->getId(),
                 'type' => 'n', // @todo @pageType
-                'name' => $pageResource->getPath(),
+                'name' => $pageResource->getPath(),//BC
+                'path' => $pageResource->getPath(),
                 'id' => $pageResource->getId(),
                 'title' => $pageVersion->getTitle(),
                 'keywords' => $pageVersion->getKeywords(),
                 'description' => $pageVersion->getDescription(),
                 'siteId' => $siteResource->getId()
             ],
-            'requestedPage' => $requestedPage->__toArray()
+            'requestedPage' => [
+                'name' => $requestedPagePath,//BC
+                'path' => $requestedPagePath,
+                'revision' => '', //BC
+                'type' => 'n' // @todo @pageType
+            ]
         ];
 
         $tagData = [
             'tag' => 'meta',
             'attributes' => [
                 'name' => 'keywords',
-                'content' => $content
+                'content' => json_encode($content),
             ],
         ];
-
-        /*
-         <meta property="rcm:page" content="{&quot;site&quot;:{&quot;id&quot;:1,&quot;title&quot;:&quot;Reliv International&quot;},&quot;page&quot;:{&quot;revision&quot;:109737,&quot;type&quot;:&quot;n&quot;,&quot;name&quot;:&quot;my-portal&quot;,&quot;id&quot;:3731,&quot;title&quot;:&quot;My Reliv Distributor Portal&quot;,&quot;keywords&quot;:&quot;Reliv International Portal&quot;,&quot;description&quot;:&quot;Discover Reliv, the Nutritional Epigenetics Company.&quot;,&quot;siteId&quot;:1},&quot;requestedPage&quot;:{&quot;name&quot;:&quot;my-portal&quot;,&quot;type&quot;:&quot;n&quot;,&quot;revision&quot;:null}}">
-         */
 
         return [
             self::RENDER_TAG_META_PAGE_DATA => $this->renderTag->__invoke($tagData)

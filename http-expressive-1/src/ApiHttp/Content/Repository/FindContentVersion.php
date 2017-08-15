@@ -1,6 +1,6 @@
 <?php
 
-namespace Zrcms\HttpExpressive1\Api\Content\Repository;
+namespace Zrcms\HttpExpressive1\ApiHttp\Content\Repository;
 
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;

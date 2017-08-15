@@ -5,7 +5,8 @@ namespace Zrcms\HttpExpressive1\Render;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Zend\Diactoros\Response\HtmlResponse;
-use Zrcms\HttpExpressive1\Api\GetStatusSitePropertyPagePath;
+use Zrcms\ContentCore\Basic\Api\Repository\FindBasicComponent;
+use Zrcms\HttpExpressive1\Model\HttpExpressiveComponent;
 use Zrcms\HttpResponseHandler\Api\HandleResponse;
 use Zrcms\HttpResponseHandler\Model\HandleResponseOptions;
 
@@ -15,9 +16,9 @@ use Zrcms\HttpResponseHandler\Model\HandleResponseOptions;
 class ViewControllerFallbackPage
 {
     /**
-     * @var GetStatusSitePropertyPagePath
+     * @var FindBasicComponent
      */
-    protected $getStatusSitePropertyPagePath;
+    protected $findBasicComponent;
 
     /**
      * @var HandleResponse
@@ -30,16 +31,16 @@ class ViewControllerFallbackPage
     protected $viewController;
 
     /**
-     * @param GetStatusSitePropertyPagePath $getStatusSitePropertyPagePath
+     * @param FindBasicComponent $findBasicComponent
      * @param HandleResponse                $handleResponse
      * @param ViewController                $viewController
      */
     public function __construct(
-        GetStatusSitePropertyPagePath $getStatusSitePropertyPagePath,
+        FindBasicComponent $findBasicComponent,
         HandleResponse $handleResponse,
         $viewController
     ) {
-        $this->getStatusSitePropertyPagePath = $getStatusSitePropertyPagePath;
+        $this->findBasicComponent = $findBasicComponent;
         $this->handleResponse = $handleResponse;
         $this->viewController = $viewController;
     }
@@ -70,7 +71,12 @@ class ViewControllerFallbackPage
         // any other status should have returned before getting here
         $status = ($status == 200 || empty($status)) ? '404' : (string)$status;
 
-        $sitePropertyPagePath = $this->getStatusSitePropertyPagePath->__invoke($status);
+        /** @var HttpExpressiveComponent $component */
+        $component = $this->findBasicComponent->__invoke(
+            HttpExpressiveComponent::NAME
+        );
+
+        $sitePropertyPagePath = $component->getSitePagePathProperty($status);
 
         if (empty($sitePropertyPagePath)) {
             $response = new HtmlResponse('PAGE NOT FOUND');
@@ -79,8 +85,8 @@ class ViewControllerFallbackPage
                 $request,
                 $response->withStatus(404, 'PAGE NOT FOUND'),
                 [
-                    HandleResponseOptions::EXCEPTION
-                    => new \Exception('SitePropertyPagePath is not set for status: ' . $status)
+                    HandleResponseOptions::MESSAGE
+                    => 'SitePropertyPagePath is not set for status: ' . $status
                 ]
             );
         }

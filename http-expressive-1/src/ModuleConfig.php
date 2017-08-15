@@ -3,15 +3,18 @@
 namespace Zrcms\HttpExpressive1;
 
 use Zrcms\Content\Api\ContentVersionToArray;
+use Zrcms\ContentCore\Basic\Api\Repository\FindBasicComponent;
+use Zrcms\ContentCore\Basic\Api\Repository\ReadBasicComponentConfigApplicationConfig;
 use Zrcms\ContentCore\Site\Model\PropertiesSiteVersion;
 use Zrcms\ContentCore\Site\Model\SiteVersionBasic;
 use Zrcms\ContentCore\View\Api\Render\GetViewLayoutTags;
 use Zrcms\ContentCore\View\Api\Render\RenderView;
 use Zrcms\ContentCore\View\Api\Repository\FindViewByRequest;
-use Zrcms\HttpExpressive1\Api\GetStatusSitePropertyPagePath;
-use Zrcms\HttpExpressive1\Api\GetStatusSitePropertyPagePathConfigFactory;
-use Zrcms\HttpExpressive1\Api\Site\Repository\FindSiteVersion;
-use Zrcms\HttpExpressive1\Api\Site\Repository\InsertSiteVersion;
+use Zrcms\ContentCoreConfigDataSource\Content\Model\ComponentRegistryFields;
+use Zrcms\HttpExpressive1\ApiHttp\Site\Repository\FindSiteVersion;
+use Zrcms\HttpExpressive1\ApiHttp\Site\Repository\InsertSiteVersion;
+use Zrcms\HttpExpressive1\Model\HttpExpressiveComponent;
+use Zrcms\HttpExpressive1\Model\PropertiesHttpExpressiveComponent;
 use Zrcms\HttpExpressive1\Render\ViewController;
 use Zrcms\HttpExpressive1\Render\ViewControllerFallbackPage;
 use Zrcms\HttpExpressive1\Render\ViewControllerTest;
@@ -53,9 +56,6 @@ class ModuleConfig
                             ['literal' => 'site-repository-insert-content-version'],
                         ],
                     ],
-                    GetStatusSitePropertyPagePath::class => [
-                        'factory' => GetStatusSitePropertyPagePathConfigFactory::class,
-                    ],
                     /**
                      * Render ===========================================
                      */
@@ -69,7 +69,7 @@ class ModuleConfig
                     ],
                     ViewControllerFallbackPage::class => [
                         'arguments' => [
-                            GetStatusSitePropertyPagePath::class,
+                            FindBasicComponent::class,
                             HandleResponse::class,
                             ViewController::class,
                         ],
@@ -98,9 +98,26 @@ class ModuleConfig
                 ],
             ],
 
-            'zrcms-status-site-property-page-path' => [
-                '404' => PropertiesSiteVersion::NOT_FOUND_PAGE,
-                '401' => PropertiesSiteVersion::NOT_AUTHORIZED_PAGE,
+            'zrcms-components' => [
+                'basic' => [
+                    /* 'zrcms-http-expressive-1' */
+                    HttpExpressiveComponent::NAME => [
+                        ComponentRegistryFields::NAME
+                        => HttpExpressiveComponent::NAME,
+
+                        ComponentRegistryFields::CONFIG_LOCATION
+                        => HttpExpressiveComponent::NAME,
+
+                        ComponentRegistryFields::COMPONENT_CONFIG_READER
+                        => ReadBasicComponentConfigApplicationConfig::SERVICE_ALIAS,
+
+                        /* Map of HTTP status to the name of a SiteVersion property with the corresponding path */
+                        PropertiesHttpExpressiveComponent::STATUS_TO_SITE_PATH_PROPERTY => [
+                            '404' => PropertiesSiteVersion::NOT_FOUND_PAGE,
+                            '401' => PropertiesSiteVersion::NOT_AUTHORIZED_PAGE,
+                        ],
+                    ],
+                ],
             ],
         ];
     }

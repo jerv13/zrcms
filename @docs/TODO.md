@@ -18,9 +18,9 @@
     -x This may require our own pipe
     -x injectable middleware the says what to do on non-200 status codes
     
-- Page templates - create content pattern
+- Page templates - create content pattern!
 
-- How to handle product pages
+- How to handle [age types = product pages
     
 - Deal with properties
     - Property definitions need to be defined somehow that is easy to understand from code
@@ -44,7 +44,7 @@
     - optimize BC
     - Use const for strings
     
-- CM User needs PSR7 request interface
+- RCM User needs PSR7 request interface
     - Get user from request
     - IsAllowed PHP API
     -

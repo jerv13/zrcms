@@ -3,6 +3,8 @@
 namespace Zrcms\ContentCore;
 
 use Zrcms\ContentCore\Basic\Api\Repository\ReadBasicComponentConfig;
+use Zrcms\ContentCore\Basic\Api\Repository\ReadBasicComponentConfigApplicationConfig;
+use Zrcms\ContentCore\Basic\Api\Repository\ReadBasicComponentConfigApplicationConfigFactory;
 use Zrcms\ContentCore\Basic\Api\Repository\ReadBasicComponentConfigBasic;
 use Zrcms\ContentCore\Basic\Api\Repository\ReadBasicComponentConfigJsonFile;
 use Zrcms\ContentCore\Basic\Model\ServiceAliasBasic;
@@ -141,6 +143,9 @@ class ModuleConfig
                     /**
                      * Basic ===========================================
                      */
+                    ReadBasicComponentConfigApplicationConfig::class => [
+                        'factory' => ReadBasicComponentConfigApplicationConfigFactory::class,
+                    ],
                     ReadBasicComponentConfig::class => [
                         'class' => ReadBasicComponentConfigBasic::class,
                         'arguments' => [
@@ -651,6 +656,9 @@ class ModuleConfig
                  */
                 /* 'zrcms.basic.component.config-reader' */
                 ServiceAliasBasic::NAMESPACE_COMPONENT_CONFIG_READER => [
+                    ReadBasicComponentConfigApplicationConfig::SERVICE_ALIAS
+                    => ReadBasicComponentConfigApplicationConfig::class,
+
                     ReadBasicComponentConfigJsonFile::SERVICE_ALIAS
                     => ReadBasicComponentConfigJsonFile::class,
                 ],

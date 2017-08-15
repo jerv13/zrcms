@@ -9,6 +9,7 @@ use Zend\Diactoros\Response\HtmlResponse;
 use Zend\Diactoros\Response\JsonResponse;
 use Zrcms\Content\Api\CsmResourceToArray;
 use Zrcms\ContentCore\Basic\Api\Repository\FindBasicComponent;
+use Zrcms\ContentCore\Basic\Api\Repository\FindBasicComponentsBy;
 use Zrcms\ContentCore\Page\Api\Render\GetPageContainerRenderTagsHtml;
 use Zrcms\ContentCore\Page\Api\Render\RenderPageContainerRows;
 use Zrcms\ContentCore\Page\Model\PageContainerCmsResourceBasic;
@@ -34,6 +35,7 @@ use Zrcms\ContentCore\View\Model\PropertiesView;
 use Zrcms\ContentCore\View\Model\ViewBasic;
 use Zrcms\ContentCore\View\Api\Repository\FindViewLayoutTagsComponent;
 use Zrcms\ContentCore\View\Api\Repository\FindViewLayoutTagsComponentsBy;
+use Zrcms\HttpExpressive1\Model\HttpExpressiveComponent;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -74,10 +76,18 @@ class ViewControllerTest
     ) {
 
         /** @var FindViewLayoutTagsComponent $s */
-        $s = $this->serviceContainer->get(FindBasicComponent::class);
+//        $findBasicComponent = $this->serviceContainer->get(FindBasicComponent::class);
+//        $component = $findBasicComponent->__invoke(
+//            HttpExpressiveComponent::NAME
+//        );
+
+        $findBasicComponents = $this->serviceContainer->get(FindBasicComponentsBy::class);
+        $components = $findBasicComponents->__invoke(
+            []
+        );
 
         ddd(
-            $s->__invoke('zrcms-languages')->getLanguage('eng')
+            $components
         );
 
         $siteVersion = new SiteVersionBasic(

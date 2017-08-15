@@ -1,6 +1,6 @@
 <?php
 
-namespace Zrcms\ContentCoreConfigDataSource\Basic\Api;
+namespace Zrcms\ContentCoreConfigDataSource\Basic\Api\Repository;
 
 use Zrcms\ContentCore\Basic\Model\BasicComponent;
 use Zrcms\ContentCoreConfigDataSource\Content\Api\Repository\FindComponentsByAbstract;

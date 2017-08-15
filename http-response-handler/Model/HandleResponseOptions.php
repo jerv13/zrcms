@@ -8,4 +8,5 @@ namespace Zrcms\HttpResponseHandler\Model;
 class HandleResponseOptions
 {
     const EXCEPTION = 'exception';
+    const MESSAGE = 'message';
 }

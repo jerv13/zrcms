@@ -5,6 +5,7 @@ namespace Zrcms\ContentCoreConfigDataSource;
 use Zrcms\Cache\Service\Cache;
 use Zrcms\ContentCore\Basic\Api\GetRegisterBasicComponents;
 use Zrcms\ContentCore\Basic\Api\Repository\FindBasicComponent;
+use Zrcms\ContentCore\Basic\Api\Repository\FindBasicComponentsBy;
 use Zrcms\ContentCore\Basic\Api\Repository\ReadBasicComponentRegistry;
 use Zrcms\ContentCore\Block\Api\GetRegisterBlockComponents;
 use Zrcms\ContentCore\Block\Api\PrepareBlockConfigBc;
@@ -48,8 +49,8 @@ class ModuleConfig
                             '1-' => SearchConfigList::class,
                         ],
                     ],
-                    FindBlockComponentsBy::class => [
-                        'class' => This\Basic\Api\Repository\FindBasicComponent::class,
+                    FindBasicComponentsBy::class => [
+                        'class' => This\Basic\Api\Repository\FindBasicComponentsBy::class,
                         'arguments' => [
                             '0-' => GetRegisterBasicComponents::class,
                             '1-' => SearchConfigList::class,

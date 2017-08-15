@@ -70,10 +70,7 @@ class ViewController
         }
 
         $additionalViewProperties = [
-            RequestedPage::PROPERTY_NAME => new RequestedPage(
-                $path,
-                null
-            )
+            RequestedPage::PROPERTY_PATH => $path,
         ];
 
         try {
