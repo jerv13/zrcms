@@ -11,7 +11,7 @@ use Zrcms\Param\Param;
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class HandleResponseDebug
+class HandleResponseDebug implements HandleResponse
 {
     /**
      * @param ServerRequestInterface $request
