@@ -2,8 +2,10 @@
 
 namespace Zrcms\Acl;
 
+use RcmUser\Service\RcmUserService;
 use Zrcms\Acl\Api\IsAllowed;
 use Zrcms\Acl\Api\IsAllowedAny;
+use Zrcms\Acl\Api\IsAllowedRcmUser;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -22,7 +24,15 @@ class ModuleConfig
                 'config_factories' => [
                     IsAllowed::class => [
                         'class' => IsAllowedAny::class,
+                    ],
+                    IsAllowedAny::class => [
+                        'class' => IsAllowedAny::class,
                         'arguments' => [],
+                    ],
+                    IsAllowedRcmUser::class => [
+                        'arguments' => [
+                            RcmUserService::class
+                        ],
                     ],
                 ],
             ],

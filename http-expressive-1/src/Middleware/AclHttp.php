@@ -4,13 +4,21 @@ namespace Zrcms\HttpExpressive1\Middleware;
 
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
+use Zend\Diactoros\Response\HtmlResponse;
 use Zrcms\Acl\Api\IsAllowed;
+use Zrcms\HttpResponseHandler\Api\HandleResponse;
+use Zrcms\HttpResponseHandler\Model\HandleResponseOptions;
 
 /**
  * @author James Jervis - https://github.com/jerv13
  */
 class AclHttp
 {
+    /**
+     * @var HandleResponse
+     */
+    protected $handleResponse;
+
     /**
      * @var IsAllowed
      */
@@ -27,15 +35,18 @@ class AclHttp
     protected $privilege;
 
     /**
-     * @param IsAllowed $isAllowed
-     * @param string    $resourceId
-     * @param null      $privilege
+     * @param HandleResponse $handleResponse
+     * @param IsAllowed      $isAllowed
+     * @param string         $resourceId
+     * @param null           $privilege
      */
     public function __construct(
+        HandleResponse $handleResponse,
         IsAllowed $isAllowed,
         string $resourceId,
         $privilege = null
     ) {
+        $this->handleResponse = $handleResponse;
         $this->isAllowed = $isAllowed;
         $this->resourceId = $resourceId;
         $this->privilege = $privilege;
@@ -57,7 +68,19 @@ class AclHttp
         callable $next = null
     ) {
         if (!$this->isAllowed->__invoke($request, $this->resourceId, $this->privilege)) {
+            $response = new HtmlResponse('NOT ALLOWED');
 
+            return $this->handleResponse->__invoke(
+                $request,
+                $response->withStatus(401, 'NOT ALLOWED'),
+                [
+                    HandleResponseOptions::MESSAGE
+                    => 'Not allowed for resource: ' . json_encode($this->resourceId)
+                        . ' with privilege: ' . json_encode($this->privilege)
+                ]
+            );
         }
+
+        return $next($request, $response);
     }
 }
