@@ -124,7 +124,8 @@ class GetViewLayoutMetaPageData implements GetViewLayoutTags
         $tagData = [
             'tag' => 'meta',
             'attributes' => [
-                'name' => 'keywords',
+                'name' => 'zrcms-page-data',
+                'property' => 'rcm:page', // @BC this is for old admin screens
                 'content' => json_encode($content),
             ],
         ];

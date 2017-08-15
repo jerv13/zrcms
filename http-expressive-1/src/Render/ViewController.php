@@ -53,7 +53,7 @@ class ViewController
         callable $next = null
     ) {
 
-        $queryParams = $request->getQueryParams();
+        //$queryParams = $request->getQueryParams();
 
         /* @todo TESTING ONLY *
          * if (!array_key_exists('zrcms', $queryParams)) {
@@ -64,10 +64,8 @@ class ViewController
          * }
          * /* end TESTING */
 
+        $request = $this->preparePath($request);
         $path = $request->getUri()->getPath();
-        if ($path === '/') {
-            $request = $request->withUri($request->getUri()->withPath('/index'));
-        }
 
         $additionalViewProperties = [
             RequestedPage::PROPERTY_PATH => $path,
@@ -77,7 +75,10 @@ class ViewController
             /** @var View $pageView */
             $pageView = $this->findViewByRequest->__invoke(
                 $request,
-                $additionalViewProperties
+                [
+                    FindViewByRequest::OPTION_ADDITIONAL_PROPERTIES
+                    => $additionalViewProperties
+                ]
             );
         } catch (SiteNotFoundException $exception) {
             // Call next, fallback controller can handle them
@@ -98,5 +99,22 @@ class ViewController
         );
 
         return new HtmlResponse($html);
+    }
+
+    /**
+     * @param ServerRequestInterface $request
+     *
+     * @return ServerRequestInterface
+     */
+    protected function preparePath(ServerRequestInterface $request)
+    {
+        $uri = $request->getUri();
+        $path = $uri->getPath();
+        if ($path === '/') {
+            $path = '/index';
+            $request = $request->withUri($uri->withPath($path));
+        }
+
+        return $request;
     }
 }

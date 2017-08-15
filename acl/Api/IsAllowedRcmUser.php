@@ -39,6 +39,8 @@ class IsAllowedRcmUser implements IsAllowed
         array $options = []
     ): bool
     {
+        // @todo This locks up due to issue in RCM user
+        // @todo issue with RcmUser\Acl\Service\AuthorizeService (416) $this->getEventManager()->trigger(
         // @todo This should utilize the request
         return $this->rcmUserService->isAllowed(
             $resourceId,

@@ -108,13 +108,6 @@ class ModuleConfig
                         => GetViewLayoutTagsHeadMeta::SERVICE_ALIAS,
 
                         'tags' => [
-                            // @todo TESTING ONLY
-                            [
-                                'attributes' => [
-                                    'name' => 'zrcms',
-                                    'content' => 'true'
-                                ],
-                            ],
                         ],
                     ],
 
