@@ -6,7 +6,6 @@ use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Zend\Diactoros\Response\HtmlResponse;
 use Zrcms\ContentCore\Page\Exception\PageNotFoundException;
-use Zrcms\ContentCore\PreparePagePath;
 use Zrcms\ContentCore\Site\Exception\SiteNotFoundException;
 use Zrcms\ContentCore\View\Api\Render\GetViewLayoutTags;
 use Zrcms\ContentCore\View\Api\Render\RenderView;
@@ -53,7 +52,6 @@ class ViewController
         ResponseInterface $response,
         callable $next = null
     ) {
-        $request = $this->preparePath($request);
         $path = $request->getUri()->getPath();
 
         $additionalViewProperties = [
@@ -90,15 +88,5 @@ class ViewController
         );
 
         return new HtmlResponse($html);
-    }
-
-    /**
-     * @param ServerRequestInterface $request
-     *
-     * @return ServerRequestInterface
-     */
-    protected function preparePath(ServerRequestInterface $request)
-    {
-        return PreparePagePath::alias($request);
     }
 }

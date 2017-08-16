@@ -9,7 +9,6 @@ use Zrcms\ContentCore\Page\Api\Repository\FindPageContainerCmsResourceVersionByS
 use Zrcms\ContentCore\Page\Api\Repository\FindPageContainerVersion;
 use Zrcms\ContentCore\Page\Exception\PageNotFoundException;
 use Zrcms\ContentCore\Page\Model\PageContainerCmsResourceVersion;
-use Zrcms\ContentCore\PreparePagePath;
 use Zrcms\ContentCore\Site\Api\Repository\FindSiteCmsResourceVersionByHost;
 use Zrcms\ContentCore\Site\Api\Repository\FindSiteVersion;
 use Zrcms\ContentCore\Site\Exception\SiteNotFoundException;
@@ -174,7 +173,7 @@ class FindViewByRequestBasic implements FindViewByRequest
             );
         }
 
-        $path = PreparePagePath::clean($uri->getPath());
+        $path = $uri->getPath();
 
         try {
             /** @var PageContainerCmsResourceVersion $pageContainerCmsResourceVersion */
