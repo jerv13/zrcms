@@ -12,6 +12,13 @@ class GetViewLayoutTags implements \Zrcms\ContentCore\View\Api\Render\GetViewLay
 {
     const XAMPLE_RENDER_TAG = 'xample';
 
+    /**
+     * @param Content                $view
+     * @param ServerRequestInterface $request
+     * @param array                  $options
+     *
+     * @return array
+     */
     public function __invoke(
         Content $view,
         ServerRequestInterface $request,

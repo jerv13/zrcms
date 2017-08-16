@@ -9,6 +9,7 @@ use Zrcms\ContentCore\Container\Api\Action\UnpublishContainerCmsResource;
 use Zrcms\ContentCore\Container\Api\Repository\FindContainerCmsResource;
 use Zrcms\ContentCore\Container\Api\Repository\FindContainerCmsResourcesBy;
 use Zrcms\ContentCore\Container\Api\Repository\FindContainerCmsResourcesBySitePaths;
+use Zrcms\ContentCore\Container\Api\Repository\FindContainerCmsResourceVersionsBySitePaths;
 use Zrcms\ContentCore\Container\Api\Repository\FindContainerVersion;
 use Zrcms\ContentCore\Container\Api\Repository\FindContainerVersionsBy;
 use Zrcms\ContentCore\Container\Api\Repository\InsertContainerVersion;
@@ -19,6 +20,7 @@ use Zrcms\ContentCore\Page\Api\Action\UnpublishPageContainerCmsResource;
 use Zrcms\ContentCore\Page\Api\Repository\FindPageContainerCmsResource;
 use Zrcms\ContentCore\Page\Api\Repository\FindPageContainerCmsResourceBySitePath;
 use Zrcms\ContentCore\Page\Api\Repository\FindPageContainerCmsResourcesBy;
+use Zrcms\ContentCore\Page\Api\Repository\FindPageContainerCmsResourceVersionBySitePath;
 use Zrcms\ContentCore\Page\Api\Repository\FindPageContainerVersion;
 use Zrcms\ContentCore\Page\Api\Repository\FindPageContainerVersionsBy;
 use Zrcms\ContentCore\Page\Api\Repository\InsertPageContainerVersion;
@@ -27,6 +29,7 @@ use Zrcms\ContentCore\Site\Api\Action\UnpublishSiteCmsResource;
 use Zrcms\ContentCore\Site\Api\Repository\FindSiteCmsResource;
 use Zrcms\ContentCore\Site\Api\Repository\FindSiteCmsResourceByHost;
 use Zrcms\ContentCore\Site\Api\Repository\FindSiteCmsResourcesBy;
+use Zrcms\ContentCore\Site\Api\Repository\FindSiteCmsResourceVersionByHost;
 use Zrcms\ContentCore\Site\Api\Repository\FindSiteVersion;
 use Zrcms\ContentCore\Site\Api\Repository\FindSiteVersionsBy;
 use Zrcms\ContentCore\Site\Api\Repository\InsertSiteVersion;
@@ -92,6 +95,12 @@ class ModuleConfig
                             '0-' => EntityManager::class,
                         ],
                     ],
+                    FindContainerCmsResourceVersionsBySitePaths::class => [
+                        'class' => This\Container\Api\Repository\FindContainerCmsResourceVersionsBySitePaths::class,
+                        'arguments' => [
+                            '0-' => EntityManager::class,
+                        ],
+                    ],
                     FindContainerVersion::class => [
                         'class' => This\Container\Api\Repository\FindContainerVersion::class,
                         'arguments' => [
@@ -144,6 +153,12 @@ class ModuleConfig
                             '0-' => EntityManager::class,
                         ],
                     ],
+                    FindPageContainerCmsResourceVersionBySitePath::class => [
+                        'class' => This\Page\Api\Repository\FindPageContainerCmsResourceVersionBySitePath::class,
+                        'arguments' => [
+                            '0-' => EntityManager::class,
+                        ],
+                    ],
                     FindPageContainerVersion::class => [
                         'class' => This\Page\Api\Repository\FindPageContainerVersion::class,
                         'arguments' => [
@@ -192,6 +207,12 @@ class ModuleConfig
                     ],
                     FindSiteCmsResourcesBy::class => [
                         'class' => This\Site\Api\Repository\FindSiteCmsResourcesBy::class,
+                        'arguments' => [
+                            '0-' => EntityManager::class,
+                        ],
+                    ],
+                    FindSiteCmsResourceVersionByHost::class => [
+                        'class' => This\Site\Api\Repository\FindSiteCmsResourceVersionByHost::class,
                         'arguments' => [
                             '0-' => EntityManager::class,
                         ],

@@ -5,12 +5,12 @@ namespace Zrcms\ContentCoreDoctrineDataSource\Container\Api\Repository;
 use Doctrine\ORM\EntityManager;
 use Zrcms\ContentCore\Container\Model\ContainerCmsResourceBasic;
 use Zrcms\ContentCore\Container\Model\ContainerCmsResourceVersion;
+use Zrcms\ContentCore\Container\Model\ContainerCmsResourceVersionBasic;
 use Zrcms\ContentCore\Container\Model\ContainerVersionBasic;
 use Zrcms\ContentCore\Container\Model\PropertiesContainerCmsResource;
 use Zrcms\ContentCoreDoctrineDataSource\Container\Entity\ContainerCmsResourceEntity;
 use Zrcms\ContentCoreDoctrineDataSource\Container\Entity\ContainerVersionEntity;
-use Zrcms\ContentDoctrine\Api\BasicCmsResourceTrait;
-use Zrcms\ContentDoctrine\Api\BasicContentVersionTrait;
+use Zrcms\ContentDoctrine\Api\BasicCmsResourceVersionTrait;
 use Zrcms\Param\Param;
 
 /**
@@ -19,8 +19,7 @@ use Zrcms\Param\Param;
 class FindContainerCmsResourceVersionsBySitePaths
     implements \Zrcms\ContentCore\Container\Api\Repository\FindContainerCmsResourceVersionsBySitePaths
 {
-    use BasicCmsResourceTrait;
-    use BasicContentVersionTrait;
+    use BasicCmsResourceVersionTrait;
 
     /**
      * @var EntityManager
@@ -33,49 +32,66 @@ class FindContainerCmsResourceVersionsBySitePaths
     protected $entityClassCmsResource;
 
     /**
-     * @var
+     * @var string
+     */
+    protected $entityClassContentVersion;
+
+    /**
+     * @var string
      */
     protected $classCmsResourceBasic;
 
     /**
-     * @todo WRITE ME
+     * @var string
+     */
+    protected $classContentVersionBasic;
+
+    /**
+     * @var
+     */
+    protected $classCmsResourceVersionBasic;
+
+    /**
      * @param EntityManager $entityManager
      */
     public function __construct(EntityManager $entityManager)
     {
         $this->entityManager = $entityManager;
         $this->entityClassCmsResource = ContainerCmsResourceEntity::class;
-        $this->entityClassContentVersion = ContainerVersionEntity::class;
         $this->classCmsResourceBasic = ContainerCmsResourceBasic::class;
+        $this->entityClassContentVersion = ContainerVersionEntity::class;
         $this->classContentVersionBasic = ContainerVersionBasic::class;
+        $this->classCmsResourceVersionBasic = ContainerCmsResourceVersionBasic::class;
     }
 
     /**
-     * @param string $siteCmsResourceId
-     * @param array  $containerCmsResourcePaths
+     * @param string $cmsResourceId
+     * @param array  $cmsResourcePaths
      * @param array  $options
      *
      * @return ContainerCmsResourceVersion[]
      */
     public function __invoke(
-        string $siteCmsResourceId,
-        array $containerCmsResourcePaths,
+        string $cmsResourceId,
+        array $cmsResourcePaths,
         array $options = []
     ): array
     {
-        $siteCmsResourceIdName = PropertiesContainerCmsResource::SITE_CMS_RESOURCE_ID;
+        $cmsResourceIdName = PropertiesContainerCmsResource::SITE_CMS_RESOURCE_ID;
 
         $pathParams = [
-            $siteCmsResourceId => 'siteCmsResourceId'
+            $cmsResourceId => 'cmsResourceId'
         ];
 
         // @todo Add prepared statements not concat
         $query = ""
-            . "SELECT container FROM {$this->entityClassCmsResource} container"
-            . " WHERE container.{$siteCmsResourceIdName} = :siteCmsResourceId";
+            . "SELECT resource, version FROM {$this->entityClassCmsResource} resource"
+            . " LEFT JOIN {$this->entityClassContentVersion} version"
+            . " WITH resource.contentVersionId = version.id"
+            . " WHERE resource.{$cmsResourceIdName} = :cmsResourceId";
 
         $query = $this->buildInQuery(
-            $containerCmsResourcePaths,
+            $cmsResourcePaths,
             $query,
             $pathParams
         );
@@ -89,41 +105,44 @@ class FindContainerCmsResourceVersionsBySitePaths
             $dQuery->setParameter($pathParam, $value);
         }
 
-        $containerCmsResources = $dQuery->getResult();
+        $results = $dQuery->getResult();
 
-        return $this->newBasicCmsResources(
+        return $this->newBasicCmsResourceVersions(
             $this->entityClassCmsResource,
             $this->classCmsResourceBasic,
-            $containerCmsResources
+            $this->entityClassContentVersion,
+            $this->classContentVersionBasic,
+            $this->classCmsResourceVersionBasic,
+            $results
         );
     }
 
     /**
-     * @param array  $containerCmsResourcePaths
+     * @param array  $cmsResourcePaths
      * @param string $query
      * @param array  $pathParams
      *
      * @return string
      */
     protected function buildInQuery(
-        array $containerCmsResourcePaths,
+        array $cmsResourcePaths,
         string $query,
         array &$pathParams
     ) {
-        if (empty($containerCmsResourcePaths)) {
+        if (empty($cmsResourcePaths)) {
             return '';
         }
-        $containerCmsResourcePathName = PropertiesContainerCmsResource::PATH;
+        $cmsResourcePathName = PropertiesContainerCmsResource::PATH;
 
-        $query = $query . " AND container.{$containerCmsResourcePathName} IN (";
+        $query = $query . " AND resource.{$cmsResourcePathName} IN (";
 
         $cnt = 0;
         $index = 0;
-        $length = count($containerCmsResourcePaths);
+        $length = count($cmsResourcePaths);
 
-        foreach ($containerCmsResourcePaths as $containerCmsResourcePath) {
+        foreach ($cmsResourcePaths as $cmsResourcePath) {
             // avoid duplicates
-            if (Param::has($pathParams, $containerCmsResourcePath)) {
+            if (Param::has($pathParams, $cmsResourcePath)) {
                 $index++;
                 continue;
             }
@@ -132,7 +151,7 @@ class FindContainerCmsResourceVersionsBySitePaths
 
             $query = $query . ":{$pathParam}";
 
-            $pathParams[$containerCmsResourcePath] = $pathParam;
+            $pathParams[$cmsResourcePath] = $pathParam;
 
             $cnt++;
             $index++;

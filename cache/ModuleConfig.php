@@ -93,6 +93,7 @@ class ModuleConfig
                     Cache::class => [
                         'class' => CacheArray::class,
                     ],
+                    CacheArray::class => [],
                 ],
             ],
         ];

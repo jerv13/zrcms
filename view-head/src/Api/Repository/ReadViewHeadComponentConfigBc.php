@@ -2,7 +2,7 @@
 
 namespace Zrcms\ViewHead\Api\Repository;
 
-use Zrcms\ContentCore\View\Api\Repository\ReadViewLayoutTagsComponentConfig;
+use Zrcms\ContentCore\View\Api\Component\ReadViewLayoutTagsComponentConfig;
 use Zrcms\ViewHead\Api\Render\GetViewLayoutTagsHeadLink;
 use Zrcms\ViewHead\Api\Render\GetViewLayoutTagsHeadMeta;
 use Zrcms\ViewHead\Api\Render\GetViewLayoutTagsHeadScript;

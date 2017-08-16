@@ -32,7 +32,7 @@ trait BasicContentVersionTrait
         }
 
         if (!is_a($classContentVersionBasic, ContentVersion::class, true)) {
-            throw new \Exception('Entity basic must be of type: ' . ContentVersion::class);
+            throw new \Exception('Class basic must be of type: ' . ContentVersion::class);
         }
 
         if (!is_a($entity, $entityClassContentVersion)) {

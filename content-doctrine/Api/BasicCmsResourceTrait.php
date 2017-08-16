@@ -35,7 +35,7 @@ trait BasicCmsResourceTrait
 
         if (!is_a($classCmsResourceBasic, CmsResource::class, true)) {
             throw new \Exception(
-                'Entity basic must be of type: ' . CmsResource::class
+                'Class basic must be of type: ' . CmsResource::class
             );
         }
 

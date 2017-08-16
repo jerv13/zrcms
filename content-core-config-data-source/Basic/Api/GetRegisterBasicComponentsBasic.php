@@ -5,7 +5,7 @@ namespace Zrcms\ContentCoreConfigDataSource\Basic\Api;
 use Zrcms\Cache\Service\Cache;
 use Zrcms\Content\Api\GetRegisterComponentsAbstract;
 use Zrcms\ContentCore\Basic\Api\GetRegisterBasicComponents;
-use Zrcms\ContentCore\Basic\Api\Repository\ReadBasicComponentRegistry;
+use Zrcms\ContentCore\Basic\Api\Component\ReadBasicComponentRegistry;
 use Zrcms\ContentCore\Basic\Model\BasicComponentBasic;
 use Zrcms\ContentCore\Basic\Model\PropertiesComponentBasic;
 use Zrcms\Param\Param;

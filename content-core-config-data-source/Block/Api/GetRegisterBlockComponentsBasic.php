@@ -6,7 +6,7 @@ use Zrcms\Cache\Service\Cache;
 use Zrcms\Content\Api\GetRegisterComponentsAbstract;
 use Zrcms\ContentCore\Block\Api\GetRegisterBlockComponents;
 use Zrcms\ContentCore\Block\Api\PrepareBlockConfigBc;
-use Zrcms\ContentCore\Block\Api\Repository\ReadBlockComponentRegistry;
+use Zrcms\ContentCore\Block\Api\Component\ReadBlockComponentRegistry;
 use Zrcms\ContentCore\Block\Model\BlockComponentBasic;
 
 /**

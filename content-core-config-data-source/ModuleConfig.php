@@ -6,21 +6,21 @@ use Zrcms\Cache\Service\Cache;
 use Zrcms\ContentCore\Basic\Api\GetRegisterBasicComponents;
 use Zrcms\ContentCore\Basic\Api\Repository\FindBasicComponent;
 use Zrcms\ContentCore\Basic\Api\Repository\FindBasicComponentsBy;
-use Zrcms\ContentCore\Basic\Api\Repository\ReadBasicComponentRegistry;
+use Zrcms\ContentCore\Basic\Api\Component\ReadBasicComponentRegistry;
 use Zrcms\ContentCore\Block\Api\GetRegisterBlockComponents;
 use Zrcms\ContentCore\Block\Api\PrepareBlockConfigBc;
 use Zrcms\ContentCore\Block\Api\Repository\FindBlockComponent;
 use Zrcms\ContentCore\Block\Api\Repository\FindBlockComponentsBy;
-use Zrcms\ContentCore\Block\Api\Repository\ReadBlockComponentRegistry;
+use Zrcms\ContentCore\Block\Api\Component\ReadBlockComponentRegistry;
 use Zrcms\ContentCore\Theme\Api\GetRegisterThemeComponents;
 use Zrcms\ContentCore\Theme\Api\Repository\FindThemeComponent;
 use Zrcms\ContentCore\Theme\Api\Repository\FindThemeComponentsBy;
-use Zrcms\ContentCore\Theme\Api\Repository\ReadLayoutComponentConfigJsonFile;
-use Zrcms\ContentCore\Theme\Api\Repository\ReadThemeComponentRegistry;
+use Zrcms\ContentCore\Theme\Api\Component\ReadLayoutComponentConfigJsonFile;
+use Zrcms\ContentCore\Theme\Api\Component\ReadThemeComponentRegistry;
 use Zrcms\ContentCore\View\Api\GetRegisterViewLayoutTagsComponents;
 use Zrcms\ContentCore\View\Api\Repository\FindViewLayoutTagsComponent;
 use Zrcms\ContentCore\View\Api\Repository\FindViewLayoutTagsComponentsBy;
-use Zrcms\ContentCore\View\Api\Repository\ReadViewLayoutTagsComponentRegistry;
+use Zrcms\ContentCore\View\Api\Component\ReadViewLayoutTagsComponentRegistry;
 use Zrcms\ContentCoreConfigDataSource as This;
 use Zrcms\ContentCoreConfigDataSource\Content\Api\SearchConfigList;
 
@@ -57,7 +57,7 @@ class ModuleConfig
                         ],
                     ],
                     ReadBasicComponentRegistry::class => [
-                        'factory' => This\Basic\Api\Repository\ReadBasicComponentRegistryBasicFactory::class,
+                        'factory' => This\Basic\Api\Component\ReadBasicComponentRegistryBasicFactory::class,
                     ],
                     GetRegisterBasicComponents::class => [
                         'class' => This\Basic\Api\GetRegisterBasicComponentsBasic::class,
@@ -85,7 +85,7 @@ class ModuleConfig
                     ],
                     ReadBlockComponentRegistry::class => [
                         // @BC 'factory' => This\Block\Api\Repository\ReadBlockComponentRegistryBasicFactory::class,
-                        'factory' => This\Block\Api\Repository\ReadBlockComponentRegistryBcFactory::class,
+                        'factory' => This\Block\Api\Component\ReadBlockComponentRegistryBcFactory::class,
                     ],
                     GetRegisterBlockComponents::class => [
                         'class' => This\Block\Api\GetRegisterBlockComponentsBasic::class,
@@ -121,7 +121,7 @@ class ModuleConfig
                         ],
                     ],
                     ReadThemeComponentRegistry::class => [
-                        'factory' => This\Theme\Api\Repository\ReadThemeComponentRegistryBasicFactory::class,
+                        'factory' => This\Theme\Api\Component\ReadThemeComponentRegistryBasicFactory::class,
                     ],
                     GetRegisterThemeComponents::class => [
                         'class' => This\Theme\Api\GetRegisterThemeComponentsBasic::class,
@@ -151,7 +151,7 @@ class ModuleConfig
                     ],
                     ReadViewLayoutTagsComponentRegistry::class . '1' => [
                         'factory'
-                        => This\View\Api\Repository\ReadViewLayoutTagsComponentRegistryBasicFactory::class,
+                        => This\View\Api\Component\ReadViewLayoutTagsComponentRegistryBasicFactory::class,
 
                     ],
                     GetRegisterViewLayoutTagsComponents::class => [

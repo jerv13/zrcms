@@ -1,6 +1,6 @@
 <?php
 
-namespace Zrcms\ContentCore\PageContainer\Model;
+namespace Zrcms\ContentCore\Page\Model;
 
 use Zrcms\Content\Model\CmsResourceVersion;
 

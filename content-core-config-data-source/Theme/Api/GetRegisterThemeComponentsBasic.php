@@ -8,7 +8,7 @@ use Zrcms\Content\Exception\PropertyMissingException;
 use Zrcms\Content\Model\ComponentConfigFields;
 use Zrcms\Content\Model\Trackable;
 use Zrcms\ContentCore\Theme\Api\GetRegisterThemeComponents;
-use Zrcms\ContentCore\Theme\Api\Repository\ReadLayoutComponentConfig;
+use Zrcms\ContentCore\Theme\Api\Component\ReadLayoutComponentConfig;
 use Zrcms\ContentCore\Theme\Model\LayoutComponentBasic;
 use Zrcms\ContentCore\Theme\Model\LayoutComponentConfigFields;
 use Zrcms\ContentCore\Theme\Model\PropertiesLayoutComponent;

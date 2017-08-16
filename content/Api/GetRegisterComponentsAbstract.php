@@ -3,7 +3,7 @@
 namespace Zrcms\Content\Api;
 
 use Zrcms\Cache\Service\Cache;
-use Zrcms\Content\Api\Repository\ReadComponentRegistry;
+use Zrcms\Content\Api\Component\ReadComponentRegistry;
 use Zrcms\Content\Model\Component;
 use Zrcms\Content\Model\ComponentConfigFields;
 use Zrcms\Content\Model\Trackable;
@@ -15,7 +15,7 @@ use Zrcms\Param\Param;
 abstract class GetRegisterComponentsAbstract implements GetRegisterComponents
 {
     /**
-     * @var
+     * @var ReadComponentRegistry
      */
     protected $readComponentRegistry;
 
@@ -38,6 +38,8 @@ abstract class GetRegisterComponentsAbstract implements GetRegisterComponents
     protected $cacheKey;
 
     /**
+     * @todo NOTE: Objects are being cached here, be careful
+     *
      * @param ReadComponentRegistry $readComponentRegistry
      * @param Cache                 $cache
      * @param string                $componentClass
