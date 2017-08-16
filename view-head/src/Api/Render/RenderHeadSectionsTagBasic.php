@@ -2,8 +2,13 @@
 
 namespace Zrcms\ViewHead\Api\Render;
 
-use Zrcms\Content\Model\Content;
+use Psr\Http\Message\ServerRequestInterface;
+use Zrcms\ContentCore\View\Api\Render\GetViewLayoutTags;
+use Zrcms\ContentCore\View\Model\ServiceAliasView;
+use Zrcms\ContentCore\View\Model\View;
 use Zrcms\Param\Param;
+use Zrcms\ServiceAlias\Api\GetServiceFromAlias;
+use Zrcms\ServiceAlias\ServiceCheck;
 use Zrcms\ViewHtmlTags\Api\Render\RenderTag;
 
 /**
@@ -17,83 +22,126 @@ class RenderHeadSectionsTagBasic implements RenderHeadSectionsTag
     protected $renderTag;
 
     /**
-     * @param RenderTag $renderTag
+     * @var GetServiceFromAlias
+     */
+    protected $getServiceFromAlias;
+
+    /**
+     * @var string
+     */
+    protected $serviceAliasNamespace;
+
+    /**
+     * @param RenderTag           $renderTag
+     * @param GetServiceFromAlias $getServiceFromAlias
      */
     public function __construct(
-        RenderTag $renderTag
+        RenderTag $renderTag,
+        GetServiceFromAlias $getServiceFromAlias
     ) {
         $this->renderTag = $renderTag;
+        $this->getServiceFromAlias = $getServiceFromAlias;
+        $this->serviceAliasNamespace = ServiceAliasView::NAMESPACE_COMPONENT_VIEW_LAYOUT_TAGS_GETTER;
     }
 
     /**
-     * @param Content $content
-     * @param array   $renderTags
-     * @param array   $options
+     * @param View                   $view
+     * @param ServerRequestInterface $request
+     * @param string                 $tag
+     * @param array                  $sections
+     * @param array                  $options
      *
      * @return string
      */
     public function __invoke(
-        Content $content,
-        array $renderTags,
+        View $view,
+        ServerRequestInterface $request,
+        string $tag,
+        array $sections,
         array $options = []
     ): string
     {
         $html = '';
-
-        $tag = Param::getRequired($renderTags, 'tag');
-        $sections = Param::getRequired($renderTags, 'sections');
-
-        $html .= $this->renderSections(
-            $content,
-            $tag,
-            $sections
-        );
-
-        return $html;
-    }
-
-    /**
-     * @param Content $content
-     * @param string  $tag
-     * @param array   $sections
-     *
-     * @return string
-     */
-    protected function renderSections(
-        Content $content,
-        string $tag,
-        array $sections
-    ): string
-    {
-        $html = '';
         foreach ($sections as $section) {
-            $html .= $this->renderSection($content, $tag, $section);
+            $html .= $this->renderSection($view, $request, $tag, $section);
         }
 
         return $html;
     }
 
     /**
-     * @param Content $content
-     * @param string  $tag
-     * @param array   $section
+     * @param View                   $view
+     * @param ServerRequestInterface $request
+     * @param string                 $tag
+     * @param array                  $section
+     * @param array                  $options
      *
      * @return string
      */
     protected function renderSection(
-        Content $content,
+        View $view,
+        ServerRequestInterface $request,
         string $tag,
-        array $section
+        array $section,
+        array $options = []
     ): string
     {
-        $html = '';
-        foreach ($section as $name => $attributes) {
-            $contentHtml = null;
+        $indent = Param::getString(
+            $options,
+            RenderTag::OPTION_INDENT,
+            '    '
+        );
+        $lineBreak = Param::getString(
+            $options,
+            RenderTag::OPTION_LINE_BREAK,
+            "\n"
+        );
 
-            if (array_key_exists('_content', $attributes)) {
-                $contentHtml = (string)$attributes['_content'];
-                unset($attributes['_content']);
+        $html = '';
+        /**
+         * @var string       $name
+         * @var array|string $attributes
+         */
+        foreach ($section as $name => $attributes) {
+            // literal - Render a string as it is in the config
+            if (array_key_exists('__literal', $attributes)) {
+                $html .= $indent . (string)$attributes['__literal'] . $lineBreak;
+                continue;
             }
+
+            // view-layout-tags-getter - Render from another tags getter
+            if (array_key_exists('__view-layout-tags-getter', $attributes)) {
+
+                /** @var GetViewLayoutTags $getViewLayoutTags */
+                $getViewLayoutTags = $this->getServiceFromAlias->__invoke(
+                    $this->serviceAliasNamespace,
+                    $attributes['__view-layout-tags-getter'],
+                    GetViewLayoutTags::class,
+                    ''
+                );
+
+                ServiceCheck::assertNotSelfReference($this, $getViewLayoutTags);
+
+                $viewLayoutTags = $getViewLayoutTags->__invoke(
+                    $view,
+                    $request,
+                    $options
+                );
+
+                foreach ($viewLayoutTags as $viewLayoutTagHtml) {
+                    $html .= $indent . $viewLayoutTagHtml . $lineBreak;
+                }
+
+                continue;
+            }
+
+            // general - Render from a tag configuration
+            $contentHtml = null;
+            if (array_key_exists('__content', $attributes)) {
+                $contentHtml = (string)$attributes['__content'];
+            }
+
+            $attributes = $this->cleanAttributes($attributes);
 
             $html .= $this->renderTag->__invoke(
                 [
@@ -101,11 +149,27 @@ class RenderHeadSectionsTagBasic implements RenderHeadSectionsTag
                     'attributes' => $attributes,
                     'content' => $contentHtml
                 ],
-                [RenderTag::OPTION_INDENT => '    ']
+                [RenderTag::OPTION_INDENT => $indent]
             );
         }
 
         return $html;
     }
 
+    /**
+     * @param $attributes
+     *
+     * @return mixed
+     */
+    protected function cleanAttributes($attributes)
+    {
+
+        foreach ($attributes as $key => $attribute) {
+            if (strpos($key, '__')) {
+                unset($attributes[$key]);
+            }
+        }
+
+        return $attributes;
+    }
 }

@@ -2,6 +2,7 @@
 
 namespace Zrcms\ViewHead;
 
+use Zrcms\Content\Model\PropertiesComponent;
 use Zrcms\ContentCore\View\Api\Repository\FindViewLayoutTagsComponent;
 use Zrcms\ContentCore\View\Model\PropertiesViewLayoutTagsComponent;
 use Zrcms\ContentCore\View\Model\ServiceAliasView;
@@ -17,6 +18,8 @@ use Zrcms\ViewHead\Api\Render\RenderHeadSectionsTag;
 use Zrcms\ViewHead\Api\Render\RenderHeadSectionsTagBasic;
 use Zrcms\ViewHead\Api\Repository\ReadViewHeadComponentConfigBc;
 use Zrcms\ViewHead\Api\Repository\ReadViewHeadComponentConfigBcFactory;
+use Zrcms\ViewHead\Model\HeadSectionComponent;
+use Zrcms\ViewHead\Model\PropertiesHeadSection;
 use Zrcms\ViewHtmlTags\Api\Render\RenderTag;
 use Zrcms\ViewHtmlTags\Api\Render\RenderTagBasic;
 use Zrcms\ViewHtmlTags\Api\Render\RenderTags;
@@ -72,6 +75,7 @@ class ModuleConfig
                         'class' => RenderHeadSectionsTagBasic::class,
                         'arguments' => [
                             '0-' => RenderTag::class,
+                            '1-' => GetServiceFromAlias::class,
                         ],
                     ],
                     RenderTag::class => [
@@ -90,10 +94,11 @@ class ModuleConfig
             ],
             'zrcms-components' => [
                 'view-layout-tags' => [
-                    GetViewLayoutTagsHeadAll::RENDER_TAG_ALL
-                    => __DIR__ . '/../config/head-all',
+                    /* GetViewLayoutTagsHeadAll::RENDER_TAG_ALL */
+                    'head-all' => __DIR__ . '/../config/head-all',
 
-                    GetViewLayoutTagsHeadMeta::RENDER_TAG_META => [
+                    /* GetViewLayoutTagsHeadMeta::RENDER_TAG_META */
+                    'head-meta' => [
 
                         ComponentRegistryFields::CONFIG_LOCATION
                         => GetViewLayoutTagsHeadMeta::RENDER_TAG_META,
@@ -126,16 +131,27 @@ class ModuleConfig
                         PropertiesViewLayoutTagsComponent::RENDER_TAGS_GETTER
                         => GetViewLayoutTagsHeadLink::SERVICE_ALIAS,
 
+                        PropertiesViewLayoutTagsComponent::COMPONENT_CLASS => HeadSectionComponent::class,
+
                         'tag' => 'link',
                         'sections' => [
                             'pre-config' => [
-                                /*
-                                'EXAMPLE' => [
-                                    '_content' => 'EXAMPLE',
+                                /* EXAMPLE
+                                // Basic
+                                '{name}' => [
+                                    '__content' => '.example {};',
                                     'href' => '/example/example.css',
                                     'media' => "screen,print",
                                     'rel' => "stylesheet",
                                     'type' => "text/css"
+                                ],
+                                // Embedded ViewLayoutTagsGetter
+                                '{name}' => [
+                                    '__view-layout-tags-getter' => '{view-layout-tag-getter-service-alias}',
+                                ],
+                                // Literal
+                                '{name}' => [
+                                    '__literal' => '{view-layout-tag-getter-service-alias}',
                                 ],
                                 */
                             ],
@@ -167,9 +183,28 @@ class ModuleConfig
                         PropertiesViewLayoutTagsComponent::RENDER_TAGS_GETTER
                         => GetViewLayoutTagsHeadScript::SERVICE_ALIAS,
 
+                        PropertiesViewLayoutTagsComponent::COMPONENT_CLASS => HeadSectionComponent::class,
+
                         'tag' => 'script',
                         'sections' => [
-                            'pre-config' => [],
+                            'pre-config' => [
+                                /* EXAMPLE
+                                // Basic
+                                '{name}' => [
+                                    '__content' => 'var example = null;',
+                                    'src' => '/example/example.js',
+                                    'type' => "text/javascript"
+                                ],
+                                // Embedded ViewLayoutTagsGetter
+                                '{name}' => [
+                                    '__view-layout-tags-getter' => '{view-layout-tag-getter-service-alias}',
+                                ],
+                                // Literal
+                                '{name}' => [
+                                    '__literal' => '{view-layout-tag-getter-service-alias}',
+                                ],
+                                */
+                            ],
                             'config' => [],
                             'post-config' => [],
                             'pre-libraries' => [],
@@ -181,12 +216,6 @@ class ModuleConfig
                             'pre-modules' => [],
                             'modules' => [],
                             'post-modules' => [],
-                        ],
-                        'additional-view-layout-tag-getters' => [
-                            [
-                                'position' => 'post-modules',
-                                'service-alias' => '',
-                            ]
                         ],
                     ],
                     GetViewLayoutTagsHeadTitle::RENDER_TAG_TITLE => __DIR__ . '/../config/head-title',

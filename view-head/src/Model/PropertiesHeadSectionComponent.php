@@ -2,14 +2,15 @@
 
 namespace Zrcms\ViewHead\Model;
 
+use Zrcms\ContentCore\View\Model\PropertiesViewLayoutTagsComponent;
+
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class PropertiesHeadSection extends \Zrcms\Content\Model\PropertiesContent
+class PropertiesHeadSectionComponent extends PropertiesViewLayoutTagsComponent
 {
     const TAG = 'tag';
     const SECTIONS = 'sections';
-
     /**
      * Default values
      *
@@ -17,6 +18,8 @@ class PropertiesHeadSection extends \Zrcms\Content\Model\PropertiesContent
      */
     protected $properties
         = [
-            self::ID => '',
+            self::NAME => '',
+            self::CONFIG_LOCATION => '',
+            self::RENDER_TAGS_GETTER => '',
         ];
 }

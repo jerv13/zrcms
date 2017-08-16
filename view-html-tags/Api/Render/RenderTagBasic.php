@@ -26,7 +26,8 @@ class RenderTagBasic implements RenderTag
         ];
 
     /**
-     * @param array $selfClosingTags
+     * @param array  $selfClosingTags
+     * @param string $encoding
      */
     public function __construct(
         array $selfClosingTags = [],
@@ -84,6 +85,7 @@ class RenderTagBasic implements RenderTag
      * @param array  $attributes
      * @param null   $contentHtml
      * @param string $indent
+     * @param string $lineBreak
      *
      * @return string
      */

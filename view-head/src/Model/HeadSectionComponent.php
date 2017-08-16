@@ -2,31 +2,41 @@
 
 namespace Zrcms\ViewHead\Model;
 
-use Zrcms\Content\Model\ContentAbstract;
+use Zrcms\ContentCore\View\Model\ViewLayoutTagsComponent;
+use Zrcms\ContentCore\View\Model\ViewLayoutTagsComponentAbstract;
 use Zrcms\Param\Param;
 
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class HeadSectionBasic extends ContentAbstract implements HeadSection
+class HeadSectionComponent extends ViewLayoutTagsComponentAbstract implements ViewLayoutTagsComponent
 {
     /**
-     * @param array $properties
+     * @param array  $properties
+     * @param string $createdByUserId
+     * @param string $createdReason
      */
-    public function __construct(array $properties)
-    {
+    public function __construct(
+        array $properties,
+        string $createdByUserId,
+        string $createdReason
+    ) {
         Param::assertHas(
             $properties,
-            PropertiesHeadSection::TAG
+            PropertiesHeadSectionComponent::TAG
         );
 
-        $properties[PropertiesHeadSection::SECTIONS] = Param::getArray(
+        $properties[PropertiesHeadSectionComponent::SECTIONS] = Param::getArray(
             $properties,
-            PropertiesHeadSection::SECTIONS,
+            PropertiesHeadSectionComponent::SECTIONS,
             []
         );
 
-        parent::__construct($properties);
+        parent::__construct(
+            $properties,
+            $createdByUserId,
+            $createdReason
+        );
     }
 
     /**
@@ -35,7 +45,7 @@ class HeadSectionBasic extends ContentAbstract implements HeadSection
     public function getTag(): string
     {
         return $this->getProperty(
-            PropertiesHeadSection::TAG
+            PropertiesHeadSectionComponent::TAG
         );
     }
 
@@ -45,7 +55,7 @@ class HeadSectionBasic extends ContentAbstract implements HeadSection
     public function getSections(): array
     {
         return $this->getProperty(
-            PropertiesHeadSection::SECTIONS,
+            PropertiesHeadSectionComponent::SECTIONS,
             []
         );
     }

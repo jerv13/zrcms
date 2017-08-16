@@ -6,10 +6,7 @@ use Psr\Http\Message\ServerRequestInterface;
 use Zrcms\Content\Model\Content;
 use Zrcms\ContentCore\View\Api\Repository\FindViewLayoutTagsComponent;
 use Zrcms\ContentCore\View\Model\View;
-use Zrcms\ContentCore\View\Model\ViewLayoutTagsComponent;
-use Zrcms\ViewHead\Model\HeadSection;
-use Zrcms\ViewHead\Model\HeadSectionBasic;
-use Zrcms\ViewHead\Model\PropertiesHeadSection;
+use Zrcms\ViewHead\Model\HeadSectionComponent;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -55,63 +52,24 @@ class GetViewLayoutTagsHeadScript implements GetViewLayoutTagsHead
         array $options = []
     ): array
     {
-        $headSection = $this->findHeadSection();
-
-        $renderTags = $this->getHeadSectionRenderTags(
-            $headSection,
-            $request
+        /** @var HeadSectionComponent $component */
+        $component = $this->findViewLayoutTagsComponent->__invoke(
+            self::RENDER_TAG_SCRIPT
         );
 
+        $tag = $component->getTag();
+        $sections = $component->getSections();
+
         $html = $this->renderHeadSectionsTag->__invoke(
-            $headSection,
-            $renderTags
+            $view,
+            $request,
+            $tag,
+            $sections,
+            $options
         );
 
         return [
             self::RENDER_TAG_SCRIPT => $html
         ];
-    }
-
-    /**
-     * This is just here to mimic the other service
-     *
-     * @param string|null $id
-     * @param array       $options
-     *
-     * @return HeadSection
-     */
-    protected function findHeadSection(
-        string $id = null,
-        array $options = []
-    ) {
-        /** @var ViewLayoutTagsComponent $getViewLayoutTagsHeadLinkComponent */
-        $component = $this->findViewLayoutTagsComponent->__invoke(
-            self::RENDER_TAG_SCRIPT
-        );
-
-        $properties = $component->getProperties();
-        $properties[PropertiesHeadSection::ID] = 'head-script:' . time();
-
-        // take the properties directly from the component
-        return new HeadSectionBasic(
-            $properties
-        );
-    }
-
-    /**
-     * This is just here to mimic the other service
-     *
-     * @param Content                $headSection
-     * @param ServerRequestInterface $request
-     * @param array                  $options
-     *
-     * @return array
-     */
-    protected function getHeadSectionRenderTags(
-        Content $headSection,
-        ServerRequestInterface $request,
-        array $options = []
-    ) {
-        return $headSection->getProperties();
     }
 }
