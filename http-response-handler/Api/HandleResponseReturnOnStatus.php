@@ -4,15 +4,20 @@ namespace Zrcms\HttpResponseHandler\Api;
 
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
-use Zend\Diactoros\Response\HtmlResponse;
-use Zrcms\HttpResponseHandler\Model\HandleResponseOptions;
-use Zrcms\Param\Param;
 
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class HandleResponseWithExceptionMessage implements HandleResponse
+class HandleResponseReturnOnStatus implements HandleResponse
 {
+    protected $successStatuses = [];
+
+    public function __construct(
+        $successStatuses = [200]
+    ) {
+        $this->successStatuses = $successStatuses;
+    }
+
     /**
      * @param ServerRequestInterface $request
      * @param ResponseInterface      $response
@@ -27,19 +32,11 @@ class HandleResponseWithExceptionMessage implements HandleResponse
         callable $next = null,
         array $options = []
     ) {
-        $exception = Param::get(
-            $options,
-            HandleResponseOptions::EXCEPTION
-        );
-
-        if ($exception instanceof \Exception) {
-            return new HtmlResponse(
-                $exception->getMessage(),
-                $response->getStatusCode(),
-                $response->getHeaders()
-            );
+        $status = $response->getStatusCode();
+        if (in_array($status, $this->successStatuses)) {
+            return $response;
         }
 
-        return $response;
+        return $next($request, $response);
     }
 }

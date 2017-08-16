@@ -9,5 +9,4 @@ use Zrcms\Content\Model\CmsResourceVersionAbstract;
  */
 class PageContainerCmsResourceVersionBasic extends CmsResourceVersionAbstract implements PageContainerCmsResourceVersion
 {
-
 }

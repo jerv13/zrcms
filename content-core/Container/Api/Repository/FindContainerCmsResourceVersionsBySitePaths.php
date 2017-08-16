@@ -2,6 +2,8 @@
 
 namespace Zrcms\ContentCore\Container\Api\Repository;
 
+use Zrcms\Content\Exception\CmsResourceNotExistsException;
+use Zrcms\Content\Exception\ContentVersionNotExistsException;
 use Zrcms\Content\Model\CmsResourceVersion;
 use Zrcms\ContentCore\Container\Model\ContainerCmsResourceVersion;
 
@@ -16,6 +18,8 @@ interface FindContainerCmsResourceVersionsBySitePaths
      * @param array  $options
      *
      * @return ContainerCmsResourceVersion[]|CmsResourceVersion[]|array
+     * @throws CmsResourceNotExistsException
+     * @throws ContentVersionNotExistsException
      */
     public function __invoke(
         string $siteCmsResourceId,

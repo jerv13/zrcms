@@ -36,6 +36,7 @@ use Zrcms\ContentCore\Site\Api\Repository\InsertSiteVersion;
 use Zrcms\ContentCore\Theme\Api\Repository\FindLayoutCmsResource;
 use Zrcms\ContentCore\Theme\Api\Repository\FindLayoutCmsResourceByThemeNameLayoutName;
 use Zrcms\ContentCore\Theme\Api\Repository\FindLayoutCmsResourcesBy;
+use Zrcms\ContentCore\Theme\Api\Repository\FindLayoutCmsResourceVersionByThemeNameLayoutName;
 use Zrcms\ContentCore\Theme\Api\Repository\FindLayoutVersion;
 use Zrcms\ContentCore\Theme\Api\Repository\FindLayoutVersionsBy;
 use Zrcms\ContentCore\Theme\Api\Repository\FindThemeComponent;
@@ -260,7 +261,7 @@ class ModuleConfig
                         'class' => This\Theme\Api\Repository\FindLayoutCmsResourceByThemeNameLayoutName::class,
                         'arguments' => [
                             '0-' => EntityManager::class,
-                            '1-' => FindThemeComponent::class, // @todo TEMP HACK
+                            '1-' => This\Theme\Api\FallbackToComponentLayoutCmsResource::class, // @todo TEMP HACK
                         ],
                     ],
                     FindLayoutCmsResourcesBy::class => [
@@ -269,11 +270,19 @@ class ModuleConfig
                             '0-' => EntityManager::class,
                         ],
                     ],
+                    FindLayoutCmsResourceVersionByThemeNameLayoutName::class => [
+                        'class' => This\Theme\Api\Repository\FindLayoutCmsResourceVersionByThemeNameLayoutName::class,
+                        'arguments' => [
+                            '0-' => EntityManager::class,
+                            '1-' => This\Theme\Api\FallbackToComponentLayoutCmsResource::class, // @todo TEMP HACK
+                            '2-' => This\Theme\Api\FallbackToComponentLayoutVersion::class, // @todo TEMP HACK
+                        ],
+                    ],
                     FindLayoutVersion::class => [
                         'class' => This\Theme\Api\Repository\FindLayoutVersion::class,
                         'arguments' => [
                             '0-' => EntityManager::class,
-                            '1-' => FindThemeComponent::class, // @todo TEMP HACK
+                            '1-' => This\Theme\Api\FallbackToComponentLayoutVersion::class, // @todo TEMP HACK
                         ],
                     ],
                     FindLayoutVersionsBy::class => [
@@ -288,6 +297,16 @@ class ModuleConfig
                             '0-' => EntityManager::class,
                         ],
                     ],
+                    This\Theme\Api\FallbackToComponentLayoutCmsResource::class => [
+                        'arguments' => [
+                            '0-' => FindThemeComponent::class,
+                        ],
+                    ],
+                    This\Theme\Api\FallbackToComponentLayoutVersion::class => [
+                        'arguments' => [
+                            '0-' => FindThemeComponent::class,
+                        ],
+                    ]
                 ],
             ],
             'doctrine' => [

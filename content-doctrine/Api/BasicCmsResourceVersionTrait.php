@@ -2,6 +2,8 @@
 
 namespace Zrcms\ContentDoctrine\Api;
 
+use Zrcms\Content\Exception\CmsResourceNotExistsException;
+use Zrcms\Content\Exception\ContentVersionNotExistsException;
 use Zrcms\Content\Model\CmsResourceVersion;
 
 /**
@@ -19,8 +21,12 @@ trait BasicCmsResourceVersionTrait
      * @param string $classContentVersionBasic
      * @param string $classCmsResourceVersionBasic
      * @param array  $result
+     * @param array  $cmsResourceSyncToProperties
+     * @param array  $contentVersionSyncToProperties
      *
      * @return CmsResourceVersion|null
+     * @throws CmsResourceNotExistsException
+     * @throws ContentVersionNotExistsException
      * @throws \Exception
      */
     protected function newBasicCmsResourceVersion(
@@ -29,7 +35,9 @@ trait BasicCmsResourceVersionTrait
         string $entityClassContentVersion,
         string $classContentVersionBasic,
         string $classCmsResourceVersionBasic,
-        array $result
+        array $result,
+        array $cmsResourceSyncToProperties = [],
+        array $contentVersionSyncToProperties = []
     ) {
         if (empty($result)) {
             return null;
@@ -41,16 +49,32 @@ trait BasicCmsResourceVersionTrait
             );
         }
 
+        if (empty($result[0])) {
+            throw new CmsResourceNotExistsException(
+                'CMS Resource does not exist: ' . $entityClassCmsResource
+            );
+        }
+
         $cmsResource = $this->newBasicCmsResource(
             $entityClassCmsResource,
             $classCmsResourceBasic,
-            $result[0]
+            $result[0],
+            $cmsResourceSyncToProperties
         );
+
+        if (empty($result[1])) {
+            throw new ContentVersionNotExistsException(
+                'Content version does not exist: ' . $entityClassContentVersion
+                . ' for CMS Resource ID: ' . $cmsResource->getId()
+                . ' with Content Version ID: ' . $cmsResource->getContentVersionId()
+            );
+        }
 
         $contentVersion = $this->newBasicContentVersion(
             $entityClassContentVersion,
             $classContentVersionBasic,
-            $result[1]
+            $result[1],
+            $contentVersionSyncToProperties
         );
 
         return new $classCmsResourceVersionBasic(
@@ -66,8 +90,10 @@ trait BasicCmsResourceVersionTrait
      * @param string $classContentVersionBasic
      * @param string $classCmsResourceVersionBasic
      * @param array  $results
+     * @param array  $cmsResourceSyncToProperties
+     * @param array  $contentVersionSyncToProperties
      *
-     * @return array
+     * @return CmsResourceVersion[]
      */
     protected function newBasicCmsResourceVersions(
         string $entityClassCmsResource,
@@ -75,14 +101,16 @@ trait BasicCmsResourceVersionTrait
         string $entityClassContentVersion,
         string $classContentVersionBasic,
         string $classCmsResourceVersionBasic,
-        array $results
+        array $results,
+        array $cmsResourceSyncToProperties = [],
+        array $contentVersionSyncToProperties = []
     ) {
         $basics = [];
 
         $index = 0;
         $count = count($results);
 
-        while ($index <= ($count-1)) {
+        while ($index <= ($count - 1)) {
             $result = [
                 $results[$index],
                 $results[$index + 1],
@@ -93,7 +121,9 @@ trait BasicCmsResourceVersionTrait
                 $entityClassContentVersion,
                 $classContentVersionBasic,
                 $classCmsResourceVersionBasic,
-                $result
+                $result,
+                $cmsResourceSyncToProperties,
+                $contentVersionSyncToProperties
             );
             $index = $index + 2;
         }

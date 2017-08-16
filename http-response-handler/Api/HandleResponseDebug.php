@@ -16,16 +16,17 @@ class HandleResponseDebug implements HandleResponse
     /**
      * @param ServerRequestInterface $request
      * @param ResponseInterface      $response
+     * @param callable|null          $next
      * @param array                  $options
      *
-     * @return ResponseInterface|HtmlResponse
+     * @return mixed
      */
     public function __invoke(
         ServerRequestInterface $request,
         ResponseInterface $response,
+        callable $next = null,
         array $options = []
-    ): ResponseInterface
-    {
+    ) {
         $message = Param::get(
             $options,
             HandleResponseOptions::MESSAGE,

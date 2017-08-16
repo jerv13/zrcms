@@ -17,7 +17,11 @@ use Zrcms\Param\Param;
  * @ORM\HasLifecycleCallbacks()
  * @ORM\Table(
  *     name="zrcms_core_page_container_resource",
- *     indexes={}
+ *     indexes={
+ *        @ORM\Index(name="contentVersionId", columns={"contentVersionId"}),
+ *        @ORM\Index(name="siteCmsResourceId", columns={"siteCmsResourceId"}),
+ *        @ORM\Index(name="path", columns={"path"})
+ *     }
  * )
  */
 class PageContainerCmsResourceEntity
@@ -125,5 +129,37 @@ class PageContainerCmsResourceEntity
             $createdByUserId,
             $createdReason
         );
+    }
+
+    /**
+     * @return string
+     */
+    public function getId(): string
+    {
+        return (string)$this->id;
+    }
+
+    /**
+     * @return string
+     */
+    public function getContentVersionId(): string
+    {
+        return $this->contentVersionId;
+    }
+
+    /**
+     * @return string
+     */
+    public function getSiteCmsResourceId(): string
+    {
+        return $this->siteCmsResourceId;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPath(): string
+    {
+        return $this->path;
     }
 }

@@ -11,17 +11,19 @@ use Zrcms\Content\Model\PropertiesCmsResource;
 trait BasicCmsResourceTrait
 {
     /**
-     * @param string      $entityClassCmsResource
-     * @param string      $classCmsResourceBasic
-     * @param CmsResource $entity
+     * @param string           $entityClassCmsResource
+     * @param string           $classCmsResourceBasic
+     * @param CmsResource|null $entity
+     * @param array            $cmsResourceSyncToProperties
      *
-     * @return CmsResource
+     * @return CmsResource|null
      * @throws \Exception
      */
     protected function newBasicCmsResource(
         string $entityClassCmsResource,
         string $classCmsResourceBasic,
-        $entity
+        $entity,
+        array $cmsResourceSyncToProperties = []
     ) {
         if (empty($entity)) {
             return null;
@@ -51,10 +53,10 @@ trait BasicCmsResourceTrait
             );
         }
 
-        $properties = $entity->getProperties();
-
-        // Sync ID back
-        $properties[PropertiesCmsResource::ID] = (string)$entity->getId();
+        $properties = $this->syncCmsResourceProperties(
+            $entity,
+            $cmsResourceSyncToProperties
+        );
 
         return new $classCmsResourceBasic(
             $properties,
@@ -64,16 +66,54 @@ trait BasicCmsResourceTrait
     }
 
     /**
+     * @param CmsResource $entity
+     * @param array       $cmsResourceSyncToProperties
+     *
+     * @return CmsResource[]
+     * @throws \Exception
+     */
+    protected function syncCmsResourceProperties(
+        CmsResource $entity,
+        array $cmsResourceSyncToProperties
+    ) {
+        // always sync
+        if (!array_key_exists(PropertiesCmsResource::ID, $cmsResourceSyncToProperties)) {
+            $contentVersionSyncToProperties[] = PropertiesCmsResource::ID;
+        }
+
+        if (!array_key_exists(PropertiesCmsResource::CONTENT_VERSION_ID, $cmsResourceSyncToProperties)) {
+            $contentVersionSyncToProperties[] = PropertiesCmsResource::CONTENT_VERSION_ID;
+        }
+        $properties = $entity->getProperties();
+
+        foreach ($cmsResourceSyncToProperties as $syncToProperty) {
+            $method = 'get' . ucfirst($syncToProperty);
+            if (!method_exists($entity, $method)) {
+                throw new \Exception(
+                    'Can not sync property: ' . $syncToProperty
+                    . ' for ' . get_class($entity)
+                );
+            }
+
+            $properties[$syncToProperty] = $entity->$method();
+        }
+
+        return $properties;
+    }
+
+    /**
      * @param string $entityClassCmsResource
      * @param string $classCmsResourceBasic
      * @param array  $entities
+     * @param array  $cmsResourceSyncToProperties
      *
-     * @return array
+     * @return CmsResource[]
      */
     protected function newBasicCmsResources(
         string $entityClassCmsResource,
         string $classCmsResourceBasic,
-        array $entities
+        array $entities,
+        array $cmsResourceSyncToProperties = []
     ) {
         $basics = [];
 
@@ -81,7 +121,8 @@ trait BasicCmsResourceTrait
             $basics[] = $this->newBasicCmsResource(
                 $entityClassCmsResource,
                 $classCmsResourceBasic,
-                $entity
+                $entity,
+                $cmsResourceSyncToProperties
             );
         }
 

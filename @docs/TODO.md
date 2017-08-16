@@ -4,9 +4,10 @@
 - Service to FindResourceVersion
     - return a CurrentVersionObject that has CmsResource and ContentVersion
     - NOTE: Should CmsResource interface contain no version and CmsResourceVersion have an ID and content
-
-- Page properties from rcm
-    - GetViewLayoutMetaPageData
+    
+- PAGE PATH:
+    - Export page paths as '/path' so we can remove PreparePagePath
+    - If paths have '/' then index pages can be renamed to '/' and remove ViewController::preparePath()
 
 - Add placeholder services (NOOP) services to service container config for Find CMS resource APIs
     

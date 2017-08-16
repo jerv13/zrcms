@@ -23,6 +23,7 @@ use Zrcms\HttpExpressive1\Render\ViewControllerFallbackPage;
 use Zrcms\HttpExpressive1\Render\ViewControllerTest;
 use Zrcms\HttpExpressive1\Render\ViewControllerTestFactory;
 use Zrcms\HttpResponseHandler\Api\HandleResponse;
+use Zrcms\HttpResponseHandler\Api\HandleResponseReturnOnStatus;
 use Zrcms\User\Api\GetUserIdByRequest;
 use Zrcms\ViewHtmlTags\Api\Render\RenderTag;
 
@@ -79,7 +80,7 @@ class ModuleConfig
                             FindViewByRequest::class,
                             GetViewLayoutTags::class,
                             RenderView::class,
-                            HandleResponse::class,
+                            HandleResponseReturnOnStatus::class,
                         ],
                     ],
                     ViewControllerFallbackPage::class => [

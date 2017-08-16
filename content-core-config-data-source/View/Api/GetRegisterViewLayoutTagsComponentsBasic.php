@@ -6,7 +6,7 @@ use Zrcms\Cache\Service\Cache;
 use Zrcms\Content\Api\GetRegisterComponentsAbstract;
 use Zrcms\ContentCore\View\Api\GetRegisterViewLayoutTagsComponents;
 use Zrcms\ContentCore\View\Model\ViewLayoutTagsComponentBasic;
-use Zrcms\ContentCoreConfigDataSource\View\Api\Repository\ReadViewLayoutTagsComponentRegistryBasic;
+use Zrcms\ContentCoreConfigDataSource\View\Api\Component\ReadViewLayoutTagsComponentRegistryBasic;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -19,9 +19,9 @@ class GetRegisterViewLayoutTagsComponentsBasic
 
     /**
      * @param ReadViewLayoutTagsComponentRegistryBasic $readComponentRegistry
-     * @param Cache                                          $cache
-     * @param string                                         $componentClass
-     * @param string                                         $cacheKey
+     * @param Cache                                    $cache
+     * @param string                                   $componentClass
+     * @param string                                   $cacheKey
      */
     public function __construct(
         ReadViewLayoutTagsComponentRegistryBasic $readComponentRegistry,
@@ -41,7 +41,7 @@ class GetRegisterViewLayoutTagsComponentsBasic
         array $options = []
     ): array
     {
-        $registry =  parent::__invoke($options);
+        $registry = parent::__invoke($options);
 
         return $registry;
     }

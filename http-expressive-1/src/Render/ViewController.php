@@ -6,6 +6,7 @@ use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Zend\Diactoros\Response\HtmlResponse;
 use Zrcms\ContentCore\Page\Exception\PageNotFoundException;
+use Zrcms\ContentCore\PreparePagePath;
 use Zrcms\ContentCore\Site\Exception\SiteNotFoundException;
 use Zrcms\ContentCore\View\Api\Render\GetViewLayoutTags;
 use Zrcms\ContentCore\View\Api\Render\RenderView;
@@ -52,18 +53,6 @@ class ViewController
         ResponseInterface $response,
         callable $next = null
     ) {
-
-        //$queryParams = $request->getQueryParams();
-
-        /* @todo TESTING ONLY *
-         * if (!array_key_exists('zrcms', $queryParams)) {
-         * return $next(
-         * $request,
-         * $response
-         * );
-         * }
-         * /* end TESTING */
-
         $request = $this->preparePath($request);
         $path = $request->getUri()->getPath();
 
@@ -82,9 +71,11 @@ class ViewController
             );
         } catch (SiteNotFoundException $exception) {
             // Call next, fallback controller can handle them
+            throw $exception;
             return $next($request, $response);
         } catch (PageNotFoundException $exception) {
             // Call next, fallback controller can handle them
+            throw $exception;
             return $next($request, $response);
         }
 
@@ -108,13 +99,6 @@ class ViewController
      */
     protected function preparePath(ServerRequestInterface $request)
     {
-        $uri = $request->getUri();
-        $path = $uri->getPath();
-        if ($path === '/') {
-            $path = '/index';
-            $request = $request->withUri($uri->withPath($path));
-        }
-
-        return $request;
+        return PreparePagePath::alias($request);
     }
 }

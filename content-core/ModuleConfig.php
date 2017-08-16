@@ -8,6 +8,11 @@ use Zrcms\ContentCore\Basic\Api\Component\ReadBasicComponentConfigApplicationCon
 use Zrcms\ContentCore\Basic\Api\Component\ReadBasicComponentConfigBasic;
 use Zrcms\ContentCore\Basic\Api\Component\ReadBasicComponentConfigJsonFile;
 use Zrcms\ContentCore\Basic\Model\ServiceAliasBasic;
+use Zrcms\ContentCore\Block\Api\Component\ReadBlockComponentConfig;
+use Zrcms\ContentCore\Block\Api\Component\ReadBlockComponentConfigBasic;
+use Zrcms\ContentCore\Block\Api\Component\ReadBlockComponentConfigBc;
+use Zrcms\ContentCore\Block\Api\Component\ReadBlockComponentConfigBcFactory;
+use Zrcms\ContentCore\Block\Api\Component\ReadBlockComponentConfigJsonFile;
 use Zrcms\ContentCore\Block\Api\GetBlockConfigFields;
 use Zrcms\ContentCore\Block\Api\GetBlockConfigFieldsBcSubstitution;
 use Zrcms\ContentCore\Block\Api\GetMergedConfig;
@@ -26,11 +31,6 @@ use Zrcms\ContentCore\Block\Api\Repository\FindBlockComponentsBy;
 use Zrcms\ContentCore\Block\Api\Repository\GetBlockData;
 use Zrcms\ContentCore\Block\Api\Repository\GetBlockDataBasic;
 use Zrcms\ContentCore\Block\Api\Repository\GetBlockDataNoop;
-use Zrcms\ContentCore\Block\Api\Component\ReadBlockComponentConfig;
-use Zrcms\ContentCore\Block\Api\Component\ReadBlockComponentConfigBasic;
-use Zrcms\ContentCore\Block\Api\Component\ReadBlockComponentConfigBc;
-use Zrcms\ContentCore\Block\Api\Component\ReadBlockComponentConfigBcFactory;
-use Zrcms\ContentCore\Block\Api\Component\ReadBlockComponentConfigJsonFile;
 use Zrcms\ContentCore\Block\Api\WrapRenderedBlockVersion;
 use Zrcms\ContentCore\Block\Api\WrapRenderedBlockVersionLegacy;
 use Zrcms\ContentCore\Block\Model\ServiceAliasBlock;
@@ -65,6 +65,7 @@ use Zrcms\ContentCore\Page\Api\Render\RenderPageContainerRows;
 use Zrcms\ContentCore\Page\Api\Repository\FindPageContainerCmsResource;
 use Zrcms\ContentCore\Page\Api\Repository\FindPageContainerCmsResourceBySitePath;
 use Zrcms\ContentCore\Page\Api\Repository\FindPageContainerCmsResourcesBy;
+use Zrcms\ContentCore\Page\Api\Repository\FindPageContainerCmsResourceVersionBySitePath;
 use Zrcms\ContentCore\Page\Api\Repository\FindPageContainerVersion;
 use Zrcms\ContentCore\Page\Api\Repository\FindPageContainerVersionsBy;
 use Zrcms\ContentCore\Page\Api\Repository\InsertPageContainerVersion;
@@ -74,9 +75,16 @@ use Zrcms\ContentCore\Site\Api\Action\UnpublishSiteCmsResource;
 use Zrcms\ContentCore\Site\Api\Repository\FindSiteCmsResource;
 use Zrcms\ContentCore\Site\Api\Repository\FindSiteCmsResourceByHost;
 use Zrcms\ContentCore\Site\Api\Repository\FindSiteCmsResourcesBy;
+use Zrcms\ContentCore\Site\Api\Repository\FindSiteCmsResourceVersionByHost;
 use Zrcms\ContentCore\Site\Api\Repository\FindSiteVersion;
 use Zrcms\ContentCore\Site\Api\Repository\FindSiteVersionsBy;
 use Zrcms\ContentCore\Site\Api\Repository\InsertSiteVersion;
+use Zrcms\ContentCore\Theme\Api\Component\ReadLayoutComponentConfig;
+use Zrcms\ContentCore\Theme\Api\Component\ReadLayoutComponentConfigBasic;
+use Zrcms\ContentCore\Theme\Api\Component\ReadLayoutComponentConfigJsonFile;
+use Zrcms\ContentCore\Theme\Api\Component\ReadThemeComponentConfig;
+use Zrcms\ContentCore\Theme\Api\Component\ReadThemeComponentConfigBasic;
+use Zrcms\ContentCore\Theme\Api\Component\ReadThemeComponentConfigJsonFile;
 use Zrcms\ContentCore\Theme\Api\Render\GetLayoutRenderTags;
 use Zrcms\ContentCore\Theme\Api\Render\GetLayoutRenderTagsBasic;
 use Zrcms\ContentCore\Theme\Api\Render\GetLayoutRenderTagsNoop;
@@ -86,21 +94,21 @@ use Zrcms\ContentCore\Theme\Api\Render\RenderLayoutMustache;
 use Zrcms\ContentCore\Theme\Api\Repository\FindLayoutCmsResource;
 use Zrcms\ContentCore\Theme\Api\Repository\FindLayoutCmsResourceByThemeNameLayoutName;
 use Zrcms\ContentCore\Theme\Api\Repository\FindLayoutCmsResourcesBy;
+use Zrcms\ContentCore\Theme\Api\Repository\FindLayoutCmsResourceVersionByThemeNameLayoutName;
 use Zrcms\ContentCore\Theme\Api\Repository\FindLayoutVersion;
 use Zrcms\ContentCore\Theme\Api\Repository\FindLayoutVersionsBy;
 use Zrcms\ContentCore\Theme\Api\Repository\FindThemeComponent;
 use Zrcms\ContentCore\Theme\Api\Repository\FindThemeComponentsBy;
 use Zrcms\ContentCore\Theme\Api\Repository\InsertLayoutVersion;
-use Zrcms\ContentCore\Theme\Api\Component\ReadLayoutComponentConfig;
-use Zrcms\ContentCore\Theme\Api\Component\ReadLayoutComponentConfigBasic;
-use Zrcms\ContentCore\Theme\Api\Component\ReadLayoutComponentConfigJsonFile;
-use Zrcms\ContentCore\Theme\Api\Component\ReadThemeComponentConfig;
-use Zrcms\ContentCore\Theme\Api\Component\ReadThemeComponentConfigBasic;
-use Zrcms\ContentCore\Theme\Api\Component\ReadThemeComponentConfigJsonFile;
 use Zrcms\ContentCore\Theme\Model\ServiceAliasLayout;
 use Zrcms\ContentCore\Theme\Model\ServiceAliasTheme;
 use Zrcms\ContentCore\View\Api\BuildView;
 use Zrcms\ContentCore\View\Api\BuildViewCompositeFactory;
+use Zrcms\ContentCore\View\Api\Component\ReadViewLayoutTagsComponentConfig;
+use Zrcms\ContentCore\View\Api\Component\ReadViewLayoutTagsComponentConfigApplicationConfig;
+use Zrcms\ContentCore\View\Api\Component\ReadViewLayoutTagsComponentConfigApplicationConfigFactory;
+use Zrcms\ContentCore\View\Api\Component\ReadViewLayoutTagsComponentConfigBasic;
+use Zrcms\ContentCore\View\Api\Component\ReadViewLayoutTagsComponentConfigJsonFile;
 use Zrcms\ContentCore\View\Api\GetLayoutName;
 use Zrcms\ContentCore\View\Api\GetLayoutNameBasic;
 use Zrcms\ContentCore\View\Api\Render\GetViewLayoutTags;
@@ -117,11 +125,6 @@ use Zrcms\ContentCore\View\Api\Repository\FindViewByRequest;
 use Zrcms\ContentCore\View\Api\Repository\FindViewByRequestBasic;
 use Zrcms\ContentCore\View\Api\Repository\FindViewLayoutTagsComponent;
 use Zrcms\ContentCore\View\Api\Repository\FindViewLayoutTagsComponentsBy;
-use Zrcms\ContentCore\View\Api\Component\ReadViewLayoutTagsComponentConfig;
-use Zrcms\ContentCore\View\Api\Component\ReadViewLayoutTagsComponentConfigApplicationConfig;
-use Zrcms\ContentCore\View\Api\Component\ReadViewLayoutTagsComponentConfigApplicationConfigFactory;
-use Zrcms\ContentCore\View\Api\Component\ReadViewLayoutTagsComponentConfigBasic;
-use Zrcms\ContentCore\View\Api\Component\ReadViewLayoutTagsComponentConfigJsonFile;
 use Zrcms\ContentCore\View\Model\ServiceAliasView;
 use Zrcms\ServiceAlias\Api\GetServiceFromAlias;
 
@@ -600,17 +603,14 @@ class ModuleConfig
                     FindViewByRequest::class => [
                         'class' => FindViewByRequestBasic::class,
                         'arguments' => [
-                            '0-' => FindSiteCmsResourceByHost::class,
-                            '1-' => FindSiteVersion::class,
-                            '2-' => FindPageContainerCmsResourceBySitePath::class,
-                            '3-' => FindPageContainerVersion::class,
-                            '4-' => FindLayoutCmsResourceByThemeNameLayoutName::class,
-                            '5-' => FindLayoutVersion::class,
-                            '6-' => GetLayoutName::class,
-                            '7-' => FindThemeComponent::class,
-                            '8-' => GetViewLayoutTags::class,
-                            '9-' => RenderView::class,
-                            '10-' => BuildView::class
+                            '0-' => FindSiteCmsResourceVersionByHost::class,
+                            '1-' => FindPageContainerCmsResourceVersionBySitePath::class,
+                            '2-' => FindLayoutCmsResourceVersionByThemeNameLayoutName::class,
+                            '3-' => GetLayoutName::class,
+                            '4-' => FindThemeComponent::class,
+                            '5-' => GetViewLayoutTags::class,
+                            '6-' => RenderView::class,
+                            '7-' => BuildView::class
                         ],
                     ],
                     FindViewLayoutTagsComponent::class => [

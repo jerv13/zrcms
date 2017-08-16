@@ -11,17 +11,19 @@ use Zrcms\Content\Model\PropertiesContentVersion;
 trait BasicContentVersionTrait
 {
     /**
-     * @param string         $entityClassContentVersion
-     * @param string         $classContentVersionBasic
-     * @param ContentVersion $entity
+     * @param string              $entityClassContentVersion
+     * @param string              $classContentVersionBasic
+     * @param ContentVersion|null $entity
+     * @param array               $contentVersionSyncToProperties
      *
-     * @return ContentVersion
+     * @return ContentVersion|null
      * @throws \Exception
      */
     protected function newBasicContentVersion(
         string $entityClassContentVersion,
         string $classContentVersionBasic,
-        $entity
+        $entity,
+        array $contentVersionSyncToProperties = []
     ) {
         if (empty($entity)) {
             return null;
@@ -43,10 +45,10 @@ trait BasicContentVersionTrait
             throw new \Exception('Entity must be of type: ' . ContentVersion::class);
         }
 
-        $properties = $entity->getProperties();
-
-        // Sync ID back
-        $properties[PropertiesContentVersion::ID] = (string)$entity->getId();
+        $properties = $this->syncContentVersionProperties(
+            $entity,
+            $contentVersionSyncToProperties
+        );
 
         return new $classContentVersionBasic(
             $properties,
@@ -56,16 +58,51 @@ trait BasicContentVersionTrait
     }
 
     /**
+     * @param ContentVersion $entity
+     * @param array          $contentVersionSyncToProperties
+     *
+     * @return array
+     * @throws \Exception
+     */
+    protected function syncContentVersionProperties(
+        ContentVersion $entity,
+        array $contentVersionSyncToProperties
+    ) {
+        // always sync
+        if (!array_key_exists(PropertiesContentVersion::ID, $contentVersionSyncToProperties)) {
+            $contentVersionSyncToProperties[] = PropertiesContentVersion::ID;
+        }
+
+        $properties = $entity->getProperties();
+
+        foreach ($contentVersionSyncToProperties as $syncToProperty) {
+            $method = 'get' . ucfirst($syncToProperty);
+            if (!method_exists($entity, $method)) {
+                throw new \Exception(
+                    'Can not sync property: ' . $syncToProperty
+                    . ' for ' . get_class($entity)
+                );
+            }
+
+            $properties[$syncToProperty] = $entity->$method();
+        }
+
+        return $properties;
+    }
+
+    /**
      * @param string $entityClassContentVersion
      * @param string $classContentVersionBasic
      * @param array  $entities
+     * @param array  $contentVersionSyncToProperties
      *
      * @return ContentVersion[]
      */
     protected function newBasicContentVersions(
         string $entityClassContentVersion,
         string $classContentVersionBasic,
-        array $entities
+        array $entities,
+        array $contentVersionSyncToProperties = []
     ) {
         $basics = [];
 
@@ -73,7 +110,8 @@ trait BasicContentVersionTrait
             $basics[] = $this->newBasicContentVersion(
                 $entityClassContentVersion,
                 $classContentVersionBasic,
-                $entity
+                $entity,
+                $contentVersionSyncToProperties
             );
         }
 

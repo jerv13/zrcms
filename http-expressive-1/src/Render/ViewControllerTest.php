@@ -10,6 +10,7 @@ use Zend\Diactoros\Response\JsonResponse;
 use Zrcms\Content\Api\CsmResourceToArray;
 use Zrcms\ContentCore\Page\Api\Render\GetPageContainerRenderTagsHtml;
 use Zrcms\ContentCore\Page\Api\Render\RenderPageContainerRows;
+use Zrcms\ContentCore\Page\Api\Repository\FindPageContainerCmsResourceVersionBySitePath;
 use Zrcms\ContentCore\Page\Model\PageContainerCmsResourceBasic;
 use Zrcms\ContentCore\Page\Model\PageContainerVersionBasic;
 use Zrcms\ContentCore\Page\Model\PropertiesPageContainerCmsResource;
@@ -71,11 +72,11 @@ class ViewControllerTest
         callable $next = null
     ) {
 
-        /** @var FindContainerCmsResourceVersionsBySitePaths $find */
-        $find = $this->serviceContainer->get(FindContainerCmsResourceVersionsBySitePaths::class);
+        /** @var FindPageContainerCmsResourceVersionBySitePath $find */
+        $find = $this->serviceContainer->get(FindPageContainerCmsResourceVersionBySitePath::class);
         $result = $find->__invoke(
             1,
-            ['guestTopNavigation', 'relivCountrySelector']
+            'index'
         );
 
         ddd(

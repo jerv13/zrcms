@@ -5,6 +5,7 @@ namespace Zrcms\HttpResponseHandler;
 use Zrcms\HttpResponseHandler\Api\HandleResponse;
 use Zrcms\HttpResponseHandler\Api\HandleResponseBasic;
 use Zrcms\HttpResponseHandler\Api\HandleResponseDebug;
+use Zrcms\HttpResponseHandler\Api\HandleResponseReturnOnStatus;
 use Zrcms\HttpResponseHandler\Api\HandleResponseWithExceptionMessage;
 
 /**
@@ -31,6 +32,7 @@ class ModuleConfig
                     ],
                     HandleResponseBasic::class => [],
                     HandleResponseDebug::class => [],
+                    HandleResponseReturnOnStatus::class => [],
                     HandleResponseWithExceptionMessage::class => [],
                 ],
             ],

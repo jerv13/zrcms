@@ -2,6 +2,8 @@
 
 namespace Zrcms\ContentCore\Theme\Api\Repository;
 
+use Zrcms\Content\Exception\CmsResourceNotExistsException;
+use Zrcms\Content\Exception\ContentVersionNotExistsException;
 use Zrcms\Content\Model\CmsResourceVersion;
 use Zrcms\ContentCore\Theme\Model\LayoutCmsResourceVersion;
 
@@ -16,6 +18,8 @@ interface FindLayoutCmsResourceVersionByThemeNameLayoutName
      * @param array  $options
      *
      * @return LayoutCmsResourceVersion|CmsResourceVersion|null
+     * @throws CmsResourceNotExistsException
+     * @throws ContentVersionNotExistsException
      */
     public function __invoke(
         string $themeName,

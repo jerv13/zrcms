@@ -17,7 +17,11 @@ use Zrcms\Param\Param;
  * @ORM\HasLifecycleCallbacks()
  * @ORM\Table(
  *     name="zrcms_core_layout_resource",
- *     indexes={}
+ *     indexes={
+ *        @ORM\Index(name="contentVersionId", columns={"contentVersionId"}),
+ *        @ORM\Index(name="themeName", columns={"themeName"}),
+ *        @ORM\Index(name="name", columns={"name"})
+ *     }
  * )
  */
 class LayoutCmsResourceEntity
@@ -125,5 +129,37 @@ class LayoutCmsResourceEntity
             $createdByUserId,
             $createdReason
         );
+    }
+
+    /**
+     * @return string
+     */
+    public function getId(): string
+    {
+        return (string)$this->id;
+    }
+
+    /**
+     * @return string
+     */
+    public function getContentVersionId(): string
+    {
+        return $this->contentVersionId;
+    }
+
+    /**
+     * @return string
+     */
+    public function getThemeName(): string
+    {
+        return $this->themeName;
+    }
+
+    /**
+     * @return string
+     */
+    public function getName(): string
+    {
+        return $this->name;
     }
 }

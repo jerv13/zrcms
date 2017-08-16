@@ -7,15 +7,15 @@ use Zrcms\Content\Api\GetRegisterComponentsAbstract;
 use Zrcms\Content\Exception\PropertyMissingException;
 use Zrcms\Content\Model\ComponentConfigFields;
 use Zrcms\Content\Model\Trackable;
-use Zrcms\ContentCore\Theme\Api\GetRegisterThemeComponents;
 use Zrcms\ContentCore\Theme\Api\Component\ReadLayoutComponentConfig;
+use Zrcms\ContentCore\Theme\Api\GetRegisterThemeComponents;
 use Zrcms\ContentCore\Theme\Model\LayoutComponentBasic;
 use Zrcms\ContentCore\Theme\Model\LayoutComponentConfigFields;
 use Zrcms\ContentCore\Theme\Model\PropertiesLayoutComponent;
 use Zrcms\ContentCore\Theme\Model\PropertiesThemeComponent;
 use Zrcms\ContentCore\Theme\Model\ThemeComponentBasic;
 use Zrcms\ContentCore\Theme\Model\ThemeComponentConfigFields;
-use Zrcms\ContentCoreConfigDataSource\Theme\Api\Repository\ReadThemeComponentRegistryBasic;
+use Zrcms\ContentCoreConfigDataSource\Theme\Api\Component\ReadThemeComponentRegistryBasic;
 use Zrcms\ContentCoreConfigDataSource\Theme\Model\ThemeComponentRegistryFields;
 use Zrcms\Param\Param;
 

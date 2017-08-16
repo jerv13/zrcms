@@ -17,7 +17,10 @@ use Zrcms\Param\Param;
  * @ORM\HasLifecycleCallbacks()
  * @ORM\Table(
  *     name="zrcms_core_site_resource",
- *     indexes={}
+ *     indexes={
+ *        @ORM\Index(name="contentVersionId", columns={"contentVersionId"}),
+ *        @ORM\Index(name="host", columns={"host"})
+ *     }
  * )
  */
 class SiteCmsResourceEntity
@@ -113,5 +116,29 @@ class SiteCmsResourceEntity
             $createdByUserId,
             $createdReason
         );
+    }
+
+    /**
+     * @return string
+     */
+    public function getId(): string
+    {
+        return (string)$this->id;
+    }
+
+    /**
+     * @return string
+     */
+    public function getContentVersionId(): string
+    {
+        return $this->contentVersionId;
+    }
+
+    /**
+     * @return string
+     */
+    public function getHost(): string
+    {
+        return $this->host;
     }
 }

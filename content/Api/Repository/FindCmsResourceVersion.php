@@ -2,6 +2,8 @@
 
 namespace Zrcms\Content\Api\Repository;
 
+use Zrcms\Content\Exception\CmsResourceNotExistsException;
+use Zrcms\Content\Exception\ContentVersionNotExistsException;
 use Zrcms\Content\Model\CmsResourceVersion;
 
 /**
@@ -14,6 +16,8 @@ interface FindCmsResourceVersion
      * @param array  $options
      *
      * @return CmsResourceVersion|null
+     * @throws CmsResourceNotExistsException
+     * @throws ContentVersionNotExistsException
      */
     public function __invoke(
         string $cmsResourceId,
