@@ -13,6 +13,7 @@ use Zrcms\ContentCore\Theme\Model\LayoutComponentBasic;
 use Zrcms\ContentCore\Theme\Model\LayoutComponentConfigFields;
 use Zrcms\ContentCore\Theme\Model\PropertiesLayoutComponent;
 use Zrcms\ContentCore\Theme\Model\PropertiesThemeComponent;
+use Zrcms\ContentCore\Theme\Model\ThemeComponent;
 use Zrcms\ContentCore\Theme\Model\ThemeComponentBasic;
 use Zrcms\ContentCore\Theme\Model\ThemeComponentConfigFields;
 use Zrcms\ContentCoreConfigDataSource\Theme\Api\Component\ReadThemeComponentRegistryBasic;
@@ -37,14 +38,12 @@ class GetRegisterThemeComponentsBasic
      * @param ReadThemeComponentRegistryBasic $readComponentRegistry
      * @param ReadLayoutComponentConfig       $readLayoutComponentConfig
      * @param Cache                           $cache
-     * @param string                          $componentClass
      * @param string                          $cacheKey
      */
     public function __construct(
         ReadThemeComponentRegistryBasic $readComponentRegistry,
         ReadLayoutComponentConfig $readLayoutComponentConfig,
         Cache $cache,
-        string $componentClass = ThemeComponentBasic::class,
         string $cacheKey = self::CACHE_KEY
     ) {
         $this->readLayoutComponentConfig = $readLayoutComponentConfig;
@@ -52,21 +51,10 @@ class GetRegisterThemeComponentsBasic
         parent::__construct(
             $readComponentRegistry,
             $cache,
-            $componentClass,
-            $cacheKey
+            $cacheKey,
+            ThemeComponentBasic::class,
+            ThemeComponent::class
         );
-    }
-
-    /**
-     * @param array $options
-     *
-     * @return array
-     */
-    public function __invoke(
-        array $options = []
-    ): array
-    {
-        return parent::__invoke($options);
     }
 
     /**

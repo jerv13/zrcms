@@ -9,8 +9,6 @@ use Zrcms\Content\Model\PropertiesComponent;
  */
 class PropertiesComponentBasic extends PropertiesComponent
 {
-    const COMPONENT_CLASS = 'componentClass';
-
     /**
      * Default values
      *

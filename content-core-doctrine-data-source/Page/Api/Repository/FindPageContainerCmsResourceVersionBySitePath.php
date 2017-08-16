@@ -79,7 +79,8 @@ class FindPageContainerCmsResourceVersionBySitePath
         string $pageContainerCmsResourcePath,
         array $options = []
     ) {
-        $cmsResourcePropertyName = PropertiesPageContainerCmsResource::ID;
+        $siteCmsResourceId = (int) $siteCmsResourceId;
+        $cmsResourcePropertyName = PropertiesPageContainerCmsResource::SITE_CMS_RESOURCE_ID;
         $pathPropertyName = PropertiesPageContainerCmsResource::PATH;
 
         // @todo Add prepared statements not concat
@@ -87,12 +88,12 @@ class FindPageContainerCmsResourceVersionBySitePath
             . "SELECT resource, version FROM {$this->entityClassCmsResource} resource"
             . " LEFT JOIN {$this->entityClassContentVersion} version"
             . " WITH resource.contentVersionId = version.id"
-            . " WHERE resource.{$cmsResourcePropertyName} = :cmsResourceId"
+            . " WHERE resource.{$cmsResourcePropertyName} = :siteCmsResourceId"
             . " AND resource.{$pathPropertyName} = :path";
 
         $dQuery = $this->entityManager->createQuery($query);
 
-        $dQuery->setParameter('cmsResourceId', $siteCmsResourceId);
+        $dQuery->setParameter('siteCmsResourceId', $siteCmsResourceId);
         $dQuery->setParameter('path', $pageContainerCmsResourcePath);
 
         $result = $dQuery->getResult();

@@ -69,11 +69,11 @@ class ViewController
             );
         } catch (SiteNotFoundException $exception) {
             // Call next, fallback controller can handle them
-            throw $exception;
+            //throw $exception;
             return $next($request, $response);
         } catch (PageNotFoundException $exception) {
             // Call next, fallback controller can handle them
-            throw $exception;
+            //throw $exception;
             return $next($request, $response);
         }
 

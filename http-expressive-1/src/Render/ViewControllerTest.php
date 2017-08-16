@@ -8,6 +8,7 @@ use Psr\Http\Message\ServerRequestInterface;
 use Zend\Diactoros\Response\HtmlResponse;
 use Zend\Diactoros\Response\JsonResponse;
 use Zrcms\Content\Api\CsmResourceToArray;
+use Zrcms\ContentCore\Basic\Api\Repository\FindBasicComponent;
 use Zrcms\ContentCore\Page\Api\Render\GetPageContainerRenderTagsHtml;
 use Zrcms\ContentCore\Page\Api\Render\RenderPageContainerRows;
 use Zrcms\ContentCore\Page\Api\Repository\FindPageContainerCmsResourceVersionBySitePath;
@@ -32,7 +33,6 @@ use Zrcms\ContentCore\View\Api\Render\RenderView;
 use Zrcms\ContentCore\View\Api\Repository\FindTagNamesByLayoutMustache;
 use Zrcms\ContentCore\View\Model\PropertiesView;
 use Zrcms\ContentCore\View\Model\ViewBasic;
-use Zrcms\ContentCore\Container\Api\Repository\FindContainerCmsResourceVersionsBySitePaths;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -72,11 +72,10 @@ class ViewControllerTest
         callable $next = null
     ) {
 
-        /** @var FindPageContainerCmsResourceVersionBySitePath $find */
-        $find = $this->serviceContainer->get(FindPageContainerCmsResourceVersionBySitePath::class);
+        /** @var FindBasicComponent $find */
+        $find = $this->serviceContainer->get(FindBasicComponent::class);
         $result = $find->__invoke(
-            1,
-            'index'
+            'zrcms-countries'
         );
 
         ddd(

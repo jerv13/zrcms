@@ -65,22 +65,22 @@ class FindContainerCmsResourceVersionsBySitePaths
     }
 
     /**
-     * @param string $cmsResourceId
+     * @param string $siteCmsResourceId
      * @param array  $cmsResourcePaths
      * @param array  $options
      *
      * @return ContainerCmsResourceVersion[]
      */
     public function __invoke(
-        string $cmsResourceId,
+        string $siteCmsResourceId,
         array $cmsResourcePaths,
         array $options = []
     ): array
     {
-        $cmsResourceIdName = PropertiesContainerCmsResource::SITE_CMS_RESOURCE_ID;
+        $siteCmsResourceIdName = PropertiesContainerCmsResource::SITE_CMS_RESOURCE_ID;
 
         $pathParams = [
-            $cmsResourceId => 'cmsResourceId'
+            $siteCmsResourceId => 'siteCmsResourceId'
         ];
 
         // @todo Add prepared statements not concat
@@ -88,7 +88,7 @@ class FindContainerCmsResourceVersionsBySitePaths
             . "SELECT resource, version FROM {$this->entityClassCmsResource} resource"
             . " LEFT JOIN {$this->entityClassContentVersion} version"
             . " WITH resource.contentVersionId = version.id"
-            . " WHERE resource.{$cmsResourceIdName} = :cmsResourceId";
+            . " WHERE resource.{$siteCmsResourceIdName} = :siteCmsResourceId";
 
         $query = $this->buildInQuery(
             $cmsResourcePaths,

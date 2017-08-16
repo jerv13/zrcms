@@ -181,7 +181,6 @@ class FindViewByRequestBasic implements FindViewByRequest
                 $siteCmsResourceVersion->getCmsResourceId(),
                 $path
             );
-
         } catch (CmsResourceNotExistsException $exception) {
             throw new SiteNotFoundException(
                 'Page resource not exists for host: (' . $uri->getHost() . ')'

@@ -4,11 +4,10 @@ namespace Zrcms\ContentCoreConfigDataSource\Basic\Api;
 
 use Zrcms\Cache\Service\Cache;
 use Zrcms\Content\Api\GetRegisterComponentsAbstract;
-use Zrcms\ContentCore\Basic\Api\GetRegisterBasicComponents;
 use Zrcms\ContentCore\Basic\Api\Component\ReadBasicComponentRegistry;
+use Zrcms\ContentCore\Basic\Api\GetRegisterBasicComponents;
+use Zrcms\ContentCore\Basic\Model\BasicComponent;
 use Zrcms\ContentCore\Basic\Model\BasicComponentBasic;
-use Zrcms\ContentCore\Basic\Model\PropertiesComponentBasic;
-use Zrcms\Param\Param;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -32,49 +31,9 @@ class GetRegisterBasicComponentsBasic
         parent::__construct(
             $readComponentRegistry,
             $cache,
+            $cacheKey,
             BasicComponentBasic::class,
-            $cacheKey
+            BasicComponent::class
         );
-    }
-
-    /**
-     * @param array $options
-     *
-     * @return array
-     */
-    public function __invoke(
-        array $options = []
-    ): array
-    {
-        $components =  parent::__invoke($options);
-
-        return $components;
-    }
-
-    /**
-     * @param array  $componentRegistry
-     * @param string $defaultComponentClass
-     *
-     * @return array
-     */
-    protected function buildComponentObjects(
-        array $componentRegistry,
-        string $defaultComponentClass
-    ) {
-        $configs = [];
-        foreach ($componentRegistry as $componentConfig) {
-            // Basic components might have special classes
-            $componentClass = Param::get(
-                $componentConfig,
-                PropertiesComponentBasic::COMPONENT_CLASS,
-                $defaultComponentClass
-            );
-            $configs[] = $this->buildComponentObject(
-                $componentConfig,
-                $componentClass
-            );
-        }
-
-        return $configs;
     }
 }

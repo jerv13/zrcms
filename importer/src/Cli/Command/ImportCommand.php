@@ -42,12 +42,6 @@ class ImportCommand extends Command
             ->setName('zrcms:import')
             // the short description shown while running "php bin/console list"
             ->setDescription('Imports data to ZRCMS.')
-//            ->addArgument(
-//                'file',
-//                InputArgument::REQUIRED,
-//                'JSON file to import'
-//            )
-
             ->addOption(
                 'file',
                 null,

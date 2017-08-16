@@ -153,7 +153,8 @@ class ModuleConfig
                         ],
                     ],
 
-                    GetViewLayoutTagsHeadScript::RENDER_TAG_SCRIPT => [
+                    /* GetViewLayoutTagsHeadScript::RENDER_TAG_SCRIPT */
+                    'head-script' => [
                         ComponentRegistryFields::CONFIG_LOCATION
                         => GetViewLayoutTagsHeadScript::RENDER_TAG_SCRIPT,
 
@@ -180,6 +181,12 @@ class ModuleConfig
                             'pre-modules' => [],
                             'modules' => [],
                             'post-modules' => [],
+                        ],
+                        'additional-view-layout-tag-getters' => [
+                            [
+                                'position' => 'post-modules',
+                                'service-alias' => '',
+                            ]
                         ],
                     ],
                     GetViewLayoutTagsHeadTitle::RENDER_TAG_TITLE => __DIR__ . '/../config/head-title',

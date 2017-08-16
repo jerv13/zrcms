@@ -6,6 +6,7 @@ use Zrcms\Cache\Service\Cache;
 use Zrcms\Content\Api\Component\ReadComponentRegistry;
 use Zrcms\Content\Model\Component;
 use Zrcms\Content\Model\ComponentConfigFields;
+use Zrcms\Content\Model\PropertiesComponent;
 use Zrcms\Content\Model\Trackable;
 use Zrcms\Param\Param;
 
@@ -30,31 +31,69 @@ abstract class GetRegisterComponentsAbstract implements GetRegisterComponents
     /**
      * @var string
      */
-    protected $componentClass;
+    protected $cacheKey;
 
     /**
      * @var string
      */
-    protected $cacheKey;
+    protected $defaultComponentClass;
+
+    /**
+     * @var string
+     */
+    protected $componentInterface;
 
     /**
      * @todo NOTE: Objects are being cached here, be careful
      *
      * @param ReadComponentRegistry $readComponentRegistry
      * @param Cache                 $cache
-     * @param string                $componentClass
      * @param string                $cacheKey
+     * @param string                $defaultComponentClass
+     * @param string                $componentInterface
+     *
+     * @throws \Exception
      */
     public function __construct(
         ReadComponentRegistry $readComponentRegistry,
         Cache $cache,
-        string $componentClass,
-        string $cacheKey
+        string $cacheKey,
+        string $defaultComponentClass,
+        string $componentInterface = Component::class
     ) {
         $this->readComponentRegistry = $readComponentRegistry;
         $this->cache = $cache;
-        $this->componentClass = $componentClass;
         $this->cacheKey = $cacheKey;
+        $this->defaultComponentClass = $defaultComponentClass;
+        $this->componentInterface = $componentInterface;
+
+        $this->assertValidClass(
+            $defaultComponentClass
+        );
+    }
+
+    /**
+     * @param array $options
+     *
+     * @return Component[]
+     */
+    public function __invoke(
+        array $options = []
+    ): array
+    {
+        if ($this->hasCache()) {
+            return $this->getCache();
+        }
+
+        $componentRegistry = $this->readComponentRegistry->__invoke();
+
+        $configs = $this->buildComponentObjects(
+            $componentRegistry
+        );
+
+        $this->setCache($configs);
+
+        return $configs;
     }
 
     /**
@@ -90,47 +129,34 @@ abstract class GetRegisterComponentsAbstract implements GetRegisterComponents
     }
 
     /**
-     * @param array $options
+     * @param string $componentClass
      *
-     * @return Component[]
+     * @return void
+     * @throws \Exception
      */
-    public function __invoke(
-        array $options = []
-    ): array
-    {
-        if ($this->hasCache()) {
-            return $this->getCache();
+    protected function assertValidClass(
+        string $componentClass
+    ) {
+        if (!is_a($componentClass, $this->componentInterface, true)) {
+            throw new \Exception(
+                $componentClass . ' must be a ' . $this->componentInterface
+            );
         }
-
-        $componentRegistry = $this->readComponentRegistry->__invoke();
-
-        $componentClass = $this->componentClass;
-
-        $configs = $this->buildComponentObjects(
-            $componentRegistry,
-            $componentClass
-        );
-
-        $this->setCache($configs);
-
-        return $configs;
     }
 
     /**
-     * @param array  $componentRegistry
-     * @param string $componentClass
+     * @param array $componentRegistry
      *
-     * @return array
+     * @return Component[]
      */
     protected function buildComponentObjects(
-        array $componentRegistry,
-        string $componentClass
+        array $componentRegistry
     ) {
         $configs = [];
         foreach ($componentRegistry as $componentConfig) {
+
             $configs[] = $this->buildComponentObject(
-                $componentConfig,
-                $componentClass
+                $componentConfig
             );
         }
 
@@ -138,17 +164,24 @@ abstract class GetRegisterComponentsAbstract implements GetRegisterComponents
     }
 
     /**
-     * @param array  $componentConfig
-     * @param string $componentClass
+     * @param array $componentConfig
      *
-     * @return mixed
+     * @return Component
      */
     protected function buildComponentObject(
-        array $componentConfig,
-        string $componentClass
+        array $componentConfig
     ) {
         $preparedConfig = $this->prepareConfig($componentConfig);
         $builtConfig = $this->buildSubComponents($preparedConfig);
+
+        // Components might have special classes
+        $componentClass = Param::get(
+            $componentConfig,
+            PropertiesComponent::COMPONENT_CLASS,
+            $this->defaultComponentClass
+        );
+
+        $this->assertValidClass($componentClass);
 
         return new $componentClass(
             $builtConfig,
