@@ -60,7 +60,9 @@ use Zrcms\ContentCore\Container\Model\ServiceAliasContainer;
 use Zrcms\ContentCore\Layout\Api\Action\PublishLayoutCmsResource;
 use Zrcms\ContentCore\Layout\Api\Action\UnpublishLayoutCmsResource;
 use Zrcms\ContentCore\Page\Api\Action\PublishPageContainerCmsResource;
+use Zrcms\ContentCore\Page\Api\Action\PublishPageTemplateCmsResource;
 use Zrcms\ContentCore\Page\Api\Action\UnpublishPageContainerCmsResource;
+use Zrcms\ContentCore\Page\Api\Action\UnpublishPageTemplateCmsResource;
 use Zrcms\ContentCore\Page\Api\Render\GetPageContainerRenderTags;
 use Zrcms\ContentCore\Page\Api\Render\GetPageContainerRenderTagsBasic;
 use Zrcms\ContentCore\Page\Api\Render\GetPageContainerRenderTagsBlocks;
@@ -381,10 +383,22 @@ class ModuleConfig
                             '0-' => ['literal' => PublishPageContainerCmsResource::class],
                         ],
                     ],
+                    PublishPageTemplateCmsResource::class => [
+                        'class' => ApiNoop::class,
+                        'arguments' => [
+                            '0-' => ['literal' => PublishPageTemplateCmsResource::class],
+                        ],
+                    ],
                     UnpublishPageContainerCmsResource::class => [
                         'class' => ApiNoop::class,
                         'arguments' => [
                             '0-' => ['literal' => UnpublishPageContainerCmsResource::class],
+                        ],
+                    ],
+                    UnpublishPageTemplateCmsResource::class => [
+                        'class' => ApiNoop::class,
+                        'arguments' => [
+                            '0-' => ['literal' => UnpublishPageTemplateCmsResource::class],
                         ],
                     ],
                     GetPageContainerRenderTags::class => [

@@ -16,7 +16,9 @@ use Zrcms\ContentCore\Container\Api\Repository\InsertContainerVersion;
 use Zrcms\ContentCore\Layout\Api\Action\PublishLayoutCmsResource;
 use Zrcms\ContentCore\Layout\Api\Action\UnpublishLayoutCmsResource;
 use Zrcms\ContentCore\Page\Api\Action\PublishPageContainerCmsResource;
+use Zrcms\ContentCore\Page\Api\Action\PublishPageTemplateCmsResource;
 use Zrcms\ContentCore\Page\Api\Action\UnpublishPageContainerCmsResource;
+use Zrcms\ContentCore\Page\Api\Action\UnpublishPageTemplateCmsResource;
 use Zrcms\ContentCore\Page\Api\Repository\FindPageContainerCmsResource;
 use Zrcms\ContentCore\Page\Api\Repository\FindPageContainerCmsResourceBySitePath;
 use Zrcms\ContentCore\Page\Api\Repository\FindPageContainerCmsResourcesBy;
@@ -130,8 +132,20 @@ class ModuleConfig
                             '0-' => EntityManager::class,
                         ],
                     ],
+                    PublishPageTemplateCmsResource::class => [
+                        'class' => This\Page\Api\Action\PublishPageTemplateCmsResource::class,
+                        'arguments' => [
+                            '0-' => EntityManager::class,
+                        ],
+                    ],
                     UnpublishPageContainerCmsResource::class => [
                         'class' => This\Page\Api\Action\UnPublishPageContainerCmsResource::class,
+                        'arguments' => [
+                            '0-' => EntityManager::class,
+                        ],
+                    ],
+                    UnpublishPageTemplateCmsResource::class => [
+                        'class' => This\Page\Api\Action\UnpublishPageTemplateCmsResource::class,
                         'arguments' => [
                             '0-' => EntityManager::class,
                         ],

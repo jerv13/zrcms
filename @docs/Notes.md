@@ -12,6 +12,7 @@ plugins 1.20.1
 message 1.20.1
 redirect-editor 1.20.1
 rcm-user 1.3.1
+i19n 1.20.3 -- todo tag
 
 git commit -am "Fix ACL resource"
 

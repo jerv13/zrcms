@@ -1,7 +1,8 @@
 @todo
 =====
 
-- Implement Content pattern for page templates
+- Implement Content pattern for page templates PageTemplateResource extends PageContainer
+    - Add NOOP services
     
 - BuildView should use a component, not config
     

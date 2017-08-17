@@ -4,19 +4,19 @@ namespace Zrcms\ContentCoreDoctrineDataSource\Page\Api\Action;
 
 use Doctrine\ORM\EntityManager;
 use Zrcms\Content\Model\CmsResource;
-use Zrcms\ContentCore\Page\Model\PageContainerCmsResource;
 use Zrcms\ContentCore\Page\Model\PageContainerCmsResourceBasic;
-use Zrcms\ContentCoreDoctrineDataSource\Page\Entity\PageContainerCmsResourceEntity;
-use Zrcms\ContentCoreDoctrineDataSource\Page\Entity\PageContainerCmsResourcePublishHistoryEntity;
+use Zrcms\ContentCore\Page\Model\PageTemplateCmsResource;
 use Zrcms\ContentCoreDoctrineDataSource\Page\Entity\PageContainerVersionEntity;
+use Zrcms\ContentCoreDoctrineDataSource\Page\Entity\PageTemplateCmsResourceEntity;
+use Zrcms\ContentCoreDoctrineDataSource\Page\Entity\PageTemplateCmsResourcePublishHistoryEntity;
 use Zrcms\ContentDoctrine\Api\Action\PublishCmsResource;
 
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class PublishPageContainerCmsResource
+class PublishPageTemplateCmsResource
     extends PublishCmsResource
-    implements \Zrcms\ContentCore\Page\Api\Action\PublishPageContainerCmsResource
+    implements \Zrcms\ContentCore\Page\Api\Action\PublishPageTemplateCmsResource
 {
     /**
      * @param EntityManager $entityManager
@@ -26,28 +26,28 @@ class PublishPageContainerCmsResource
     ) {
         parent::__construct(
             $entityManager,
-            PageContainerCmsResourceEntity::class,
-            PageContainerCmsResourcePublishHistoryEntity::class,
+            PageTemplateCmsResourceEntity::class,
+            PageTemplateCmsResourcePublishHistoryEntity::class,
             PageContainerVersionEntity::class,
             PageContainerCmsResourceBasic::class
         );
     }
 
     /**
-     * @param PageContainerCmsResource|CmsResource $pageContainerCmsResource
-     * @param string                               $publishedByUserId
-     * @param string                               $publishReason
+     * @param PageTemplateCmsResource|CmsResource $pageTemplateCmsResource
+     * @param string                              $publishedByUserId
+     * @param string                              $publishReason
      *
      * @return CmsResource
      */
     public function __invoke(
-        CmsResource $pageContainerCmsResource,
+        CmsResource $pageTemplateCmsResource,
         string $publishedByUserId,
         string $publishReason
     ): CmsResource
     {
         return parent::__invoke(
-            $pageContainerCmsResource,
+            $pageTemplateCmsResource,
             $publishedByUserId,
             $publishReason
         );

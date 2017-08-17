@@ -4,8 +4,8 @@ namespace Zrcms\ContentCoreDoctrineDataSource\Page\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Zrcms\ContentCore\Container\Model\ContainerCmsResourceAbstract;
-use Zrcms\ContentCore\Page\Model\PageContainerCmsResource;
-use Zrcms\ContentCore\Page\Model\PropertiesPageContainerCmsResource;
+use Zrcms\ContentCore\Page\Model\PageTemplateCmsResource;
+use Zrcms\ContentCore\Page\Model\PropertiesPageTemplateCmsResource;
 use Zrcms\ContentDoctrine\Entity\CmsResourceEntity;
 use Zrcms\ContentDoctrine\Entity\CmsResourceEntityTrait;
 use Zrcms\Param\Param;
@@ -16,7 +16,7 @@ use Zrcms\Param\Param;
  * @ORM\Entity()
  * @ORM\HasLifecycleCallbacks()
  * @ORM\Table(
- *     name="zrcms_core_page_container_resource",
+ *     name="zrcms_core_page_template_resource",
  *     indexes={
  *        @ORM\Index(name="contentVersionId", columns={"contentVersionId"}),
  *        @ORM\Index(name="siteCmsResourceId", columns={"siteCmsResourceId"}),
@@ -24,9 +24,9 @@ use Zrcms\Param\Param;
  *     }
  * )
  */
-class PageContainerCmsResourceEntity
+class PageTemplateCmsResourceEntity
     extends ContainerCmsResourceAbstract
-    implements PageContainerCmsResource, CmsResourceEntity
+    implements PageTemplateCmsResource, CmsResourceEntity
 {
     use CmsResourceEntityTrait;
 
@@ -106,22 +106,22 @@ class PageContainerCmsResourceEntity
     ) {
         $this->id = Param::getInt(
             $properties,
-            PropertiesPageContainerCmsResource::ID
+            PropertiesPageTemplateCmsResource::ID
         );
 
         $this->contentVersionId = Param::getInt(
             $properties,
-            PropertiesPageContainerCmsResource::CONTENT_VERSION_ID
+            PropertiesPageTemplateCmsResource::CONTENT_VERSION_ID
         );
 
         $this->siteCmsResourceId = Param::getInt(
             $properties,
-            PropertiesPageContainerCmsResource::SITE_CMS_RESOURCE_ID
+            PropertiesPageTemplateCmsResource::SITE_CMS_RESOURCE_ID
         );
 
         $this->path = Param::getString(
             $properties,
-            PropertiesPageContainerCmsResource::PATH
+            PropertiesPageTemplateCmsResource::PATH
         );
 
         parent::__construct(

@@ -3,11 +3,12 @@
 namespace Zrcms\ContentCoreDoctrineDataSource\Page\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Zrcms\ContentCore\Container\Model\ContainerCmsResourceAbstract;
-use Zrcms\ContentCore\Page\Model\PageContainerCmsResource;
-use Zrcms\ContentCore\Page\Model\PropertiesPageContainerCmsResource;
-use Zrcms\ContentDoctrine\Entity\CmsResourceEntity;
-use Zrcms\ContentDoctrine\Entity\CmsResourceEntityTrait;
+use Zrcms\Content\Model\PropertiesCmsResourcePublishHistory;
+use Zrcms\ContentCore\Page\Model\PageTemplateCmsResourcePublishHistory;
+use Zrcms\ContentCore\Page\Model\PageTemplateCmsResourcePublishHistoryAbstract;
+use Zrcms\ContentCore\Page\Model\PropertiesPageTemplateCmsResource;
+use Zrcms\ContentDoctrine\Entity\CmsResourcePublishHistoryEntity;
+use Zrcms\ContentDoctrine\Entity\CmsResourcePublishHistoryEntityTrait;
 use Zrcms\Param\Param;
 
 /**
@@ -16,19 +17,15 @@ use Zrcms\Param\Param;
  * @ORM\Entity()
  * @ORM\HasLifecycleCallbacks()
  * @ORM\Table(
- *     name="zrcms_core_page_container_resource",
- *     indexes={
- *        @ORM\Index(name="contentVersionId", columns={"contentVersionId"}),
- *        @ORM\Index(name="siteCmsResourceId", columns={"siteCmsResourceId"}),
- *        @ORM\Index(name="path", columns={"path"})
- *     }
+ *     name="zrcms_core_page_template_resource_publish_history",
+ *     indexes={}
  * )
  */
-class PageContainerCmsResourceEntity
-    extends ContainerCmsResourceAbstract
-    implements PageContainerCmsResource, CmsResourceEntity
+class PageTemplateCmsResourcePublishHistoryEntity
+    extends PageTemplateCmsResourcePublishHistoryAbstract
+    implements PageTemplateCmsResourcePublishHistory, CmsResourcePublishHistoryEntity
 {
-    use CmsResourceEntityTrait;
+    use CmsResourcePublishHistoryEntityTrait;
 
     /**
      * @var int
@@ -95,6 +92,13 @@ class PageContainerCmsResourceEntity
     protected $path;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(type="string")
+     */
+    protected $action;
+
+    /**
      * @param array  $properties
      * @param string $createdByUserId
      * @param string $createdReason
@@ -106,22 +110,27 @@ class PageContainerCmsResourceEntity
     ) {
         $this->id = Param::getInt(
             $properties,
-            PropertiesPageContainerCmsResource::ID
+            PropertiesPageTemplateCmsResource::ID
         );
 
         $this->contentVersionId = Param::getInt(
             $properties,
-            PropertiesPageContainerCmsResource::CONTENT_VERSION_ID
+            PropertiesPageTemplateCmsResource::CONTENT_VERSION_ID
         );
 
         $this->siteCmsResourceId = Param::getInt(
             $properties,
-            PropertiesPageContainerCmsResource::SITE_CMS_RESOURCE_ID
+            PropertiesPageTemplateCmsResource::SITE_CMS_RESOURCE_ID
         );
 
         $this->path = Param::getString(
             $properties,
-            PropertiesPageContainerCmsResource::PATH
+            PropertiesPageTemplateCmsResource::PATH
+        );
+
+        $this->action = Param::getString(
+            $properties,
+            PropertiesCmsResourcePublishHistory::ACTION
         );
 
         parent::__construct(
@@ -129,37 +138,5 @@ class PageContainerCmsResourceEntity
             $createdByUserId,
             $createdReason
         );
-    }
-
-    /**
-     * @return string
-     */
-    public function getId(): string
-    {
-        return (string)$this->id;
-    }
-
-    /**
-     * @return string
-     */
-    public function getContentVersionId(): string
-    {
-        return $this->contentVersionId;
-    }
-
-    /**
-     * @return string
-     */
-    public function getSiteCmsResourceId(): string
-    {
-        return $this->siteCmsResourceId;
-    }
-
-    /**
-     * @return string
-     */
-    public function getPath(): string
-    {
-        return $this->path;
     }
 }
