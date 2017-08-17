@@ -3,10 +3,18 @@
 
 - Implement Content pattern for page templates PageTemplateResource extends PageContainer
     - Add NOOP services
+    - Exporter needs updateing
+    
+- Redirects
+    - setup properties
+    - setup entities
+    - remove any host refs
     
 - BuildView should use a component, not config
     
 - Document the architecture and basics of how it works
+
+- Doctrine FindXXXsBy need to be made to work better with properties
     
 - Deal with properties
     - Property definitions need to be defined somehow that is easy to understand from code
