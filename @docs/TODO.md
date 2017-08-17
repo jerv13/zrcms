@@ -1,17 +1,9 @@
 @todo
 =====
 
-- Service to FindResourceVersion
-    - return a CurrentVersionObject that has CmsResource and ContentVersion
-    - NOTE: Should CmsResource interface contain no version and CmsResourceVersion have an ID and content
-
-- Add placeholder services (NOOP) services to service container config for Find CMS resource APIs
+- Implement Content pattern for page templates
     
--x View pipeline (BuildViewComposite) (allow others to use or add to the View at runtime)
-
--x Handlers for request status
-    -x This may require our own pipe
-    -x injectable middleware the says what to do on non-200 status codes
+- BuildView should use a component, not config
     
 - Document the architecture and basics of how it works
     
@@ -28,11 +20,6 @@
 - Check all component Properties and config values
     - Add getters where required
     
-- RCM User needs PSR7 request interface
-    - Get user from request
-    - IsAllowed PHP API
-    -
-    
 ## OPTIMIZATION: api (after FindResourceVersion implemented) ##
 
 - Optimize queries
@@ -47,3 +34,13 @@
 
 
 Zrcms\ContentCoreConfigDataSource\Block\Api\Component\ReadBlockComponent Zrcms\ContentCoreConfigDataSource\Block\Api\Component\ReadBlockComponent
+
+## DONE ##
+
+- Add placeholder services (NOOP) services to service container config for Find CMS resource APIs
+    
+-x View pipeline (BuildViewComposite) (allow others to use or add to the View at runtime)
+
+-x Handlers for request status
+    -x This may require our own pipe
+    -x injectable middleware the says what to do on non-200 status codes

@@ -10,6 +10,10 @@ use Zrcms\ContentCore\View\Model\View;
  */
 class BuildViewComposite implements BuildView
 {
+    /**
+     * @todo viewBuilders should come from a View builder component
+     * @var array
+     */
     protected $viewBuilders = [];
 
     /**

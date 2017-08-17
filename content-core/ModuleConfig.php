@@ -7,16 +7,21 @@ use Zrcms\ContentCore\Basic\Api\Component\ReadBasicComponentConfigApplicationCon
 use Zrcms\ContentCore\Basic\Api\Component\ReadBasicComponentConfigApplicationConfigFactory;
 use Zrcms\ContentCore\Basic\Api\Component\ReadBasicComponentConfigBasic;
 use Zrcms\ContentCore\Basic\Api\Component\ReadBasicComponentConfigJsonFile;
+use Zrcms\ContentCore\Basic\Api\Component\ReadBasicComponentRegistry;
+use Zrcms\ContentCore\Basic\Api\GetRegisterBasicComponents;
+use Zrcms\ContentCore\Basic\Api\Repository\FindBasicComponent;
 use Zrcms\ContentCore\Basic\Model\ServiceAliasBasic;
 use Zrcms\ContentCore\Block\Api\Component\ReadBlockComponentConfig;
 use Zrcms\ContentCore\Block\Api\Component\ReadBlockComponentConfigBasic;
 use Zrcms\ContentCore\Block\Api\Component\ReadBlockComponentConfigBc;
 use Zrcms\ContentCore\Block\Api\Component\ReadBlockComponentConfigBcFactory;
 use Zrcms\ContentCore\Block\Api\Component\ReadBlockComponentConfigJsonFile;
+use Zrcms\ContentCore\Block\Api\Component\ReadBlockComponentRegistry;
 use Zrcms\ContentCore\Block\Api\GetBlockConfigFields;
 use Zrcms\ContentCore\Block\Api\GetBlockConfigFieldsBcSubstitution;
 use Zrcms\ContentCore\Block\Api\GetMergedConfig;
 use Zrcms\ContentCore\Block\Api\GetMergedConfigBasic;
+use Zrcms\ContentCore\Block\Api\GetRegisterBlockComponents;
 use Zrcms\ContentCore\Block\Api\PrepareBlockConfig;
 use Zrcms\ContentCore\Block\Api\PrepareBlockConfigBc;
 use Zrcms\ContentCore\Block\Api\Render\GetBlockRenderTags;
@@ -45,6 +50,7 @@ use Zrcms\ContentCore\Container\Api\Render\RenderContainerRows;
 use Zrcms\ContentCore\Container\Api\Repository\FindContainerCmsResource;
 use Zrcms\ContentCore\Container\Api\Repository\FindContainerCmsResourcesBy;
 use Zrcms\ContentCore\Container\Api\Repository\FindContainerCmsResourcesBySitePaths;
+use Zrcms\ContentCore\Container\Api\Repository\FindContainerCmsResourceVersionsBySitePaths;
 use Zrcms\ContentCore\Container\Api\Repository\FindContainerVersion;
 use Zrcms\ContentCore\Container\Api\Repository\FindContainerVersionsBy;
 use Zrcms\ContentCore\Container\Api\Repository\InsertContainerVersion;
@@ -111,6 +117,7 @@ use Zrcms\ContentCore\View\Api\Component\ReadViewLayoutTagsComponentConfigBasic;
 use Zrcms\ContentCore\View\Api\Component\ReadViewLayoutTagsComponentConfigJsonFile;
 use Zrcms\ContentCore\View\Api\GetLayoutName;
 use Zrcms\ContentCore\View\Api\GetLayoutNameBasic;
+use Zrcms\ContentCore\View\Api\GetRegisterViewLayoutTagsComponents;
 use Zrcms\ContentCore\View\Api\Render\GetViewLayoutTags;
 use Zrcms\ContentCore\View\Api\Render\GetViewLayoutTagsBasic;
 use Zrcms\ContentCore\View\Api\Render\GetViewLayoutTagsContainers;
@@ -158,9 +165,45 @@ class ModuleConfig
                     ReadBasicComponentConfigJsonFile::class => [
                         'class' => ReadBasicComponentConfigJsonFile::class,
                     ],
+                    ReadBasicComponentRegistry::class => [
+                        'class' => ApiNoop::class,
+                        'arguments' => [
+                            '0-' => ['literal' => ReadBasicComponentRegistry::class],
+                        ],
+                    ],
+                    FindBasicComponent::class => [
+                        'class' => ApiNoop::class,
+                        'arguments' => [
+                            '0-' => ['literal' => FindBasicComponent::class],
+                        ],
+                    ],
+                    GetRegisterBasicComponents::class => [
+                        'class' => ApiNoop::class,
+                        'arguments' => [
+                            '0-' => ['literal' => GetRegisterBasicComponents::class],
+                        ],
+                    ],
                     /**
                      * Block ===========================================
                      */
+                    ReadBlockComponentConfig::class => [
+                        'class' => ReadBlockComponentConfigBasic::class,
+                        'arguments' => [
+                            '0-' => GetServiceFromAlias::class,
+                        ],
+                    ],
+                    ReadBlockComponentConfigBc::class => [
+                        'factory' => ReadBlockComponentConfigBcFactory::class
+                    ],
+                    ReadBlockComponentConfigJsonFile::class => [
+                        'class' => ReadBlockComponentConfigJsonFile::class,
+                    ],
+                    ReadBlockComponentRegistry::class => [
+                        'class' => ApiNoop::class,
+                        'arguments' => [
+                            '0-' => ['literal' => ReadBlockComponentRegistry::class],
+                        ],
+                    ],
                     GetBlockRenderTags::class => [
                         'class' => GetBlockRenderTagsBasic::class,
                         'arguments' => [
@@ -215,6 +258,12 @@ class ModuleConfig
                             '0-' => FindBlockComponent::class
                         ],
                     ],
+                    GetRegisterBlockComponents::class => [
+                        'class' => ApiNoop::class,
+                        'arguments' => [
+                            '0-' => ['literal' => GetRegisterBlockComponents::class],
+                        ],
+                    ],
                     PrepareBlockConfig::class => [
                         'class' => PrepareBlockConfigBc::class,
                         'arguments' => [
@@ -228,19 +277,6 @@ class ModuleConfig
                             '1-' => GetBlockConfigFieldsBcSubstitution::class,
                         ],
                     ],
-                    ReadBlockComponentConfig::class => [
-                        'class' => ReadBlockComponentConfigBasic::class,
-                        'arguments' => [
-                            '0-' => GetServiceFromAlias::class,
-                        ],
-                    ],
-                    ReadBlockComponentConfigBc::class => [
-                        'factory' => ReadBlockComponentConfigBcFactory::class
-                    ],
-                    ReadBlockComponentConfigJsonFile::class => [
-                        'class' => ReadBlockComponentConfigJsonFile::class,
-                    ],
-
                     WrapRenderedBlockVersion::class => [
                         'class' => WrapRenderedBlockVersionLegacy::class,
                         'arguments' => [
@@ -305,6 +341,12 @@ class ModuleConfig
                         'class' => ApiNoop::class,
                         'arguments' => [
                             '0-' => ['literal' => FindContainerCmsResourcesBySitePaths::class],
+                        ],
+                    ],
+                    FindContainerCmsResourceVersionsBySitePaths::class => [
+                        'class' => ApiNoop::class,
+                        'arguments' => [
+                            '0-' => ['literal' => FindContainerCmsResourceVersionsBySitePaths::class],
                         ],
                     ],
                     FindContainerVersion::class => [
@@ -390,6 +432,12 @@ class ModuleConfig
                             '0-' => ['literal' => FindPageContainerCmsResourcesBy::class],
                         ],
                     ],
+                    FindPageContainerCmsResourceVersionBySitePath::class => [
+                        'class' => ApiNoop::class,
+                        'arguments' => [
+                            '0-' => ['literal' => FindPageContainerCmsResourceVersionBySitePath::class],
+                        ],
+                    ],
                     FindPageContainerVersion::class => [
                         'class' => ApiNoop::class,
                         'arguments' => [
@@ -441,6 +489,12 @@ class ModuleConfig
                             '0-' => ['literal' => FindSiteCmsResourcesBy::class],
                         ],
                     ],
+                    FindSiteCmsResourceVersionByHost::class => [
+                        'class' => ApiNoop::class,
+                        'arguments' => [
+                            '0-' => ['literal' => FindSiteCmsResourceVersionByHost::class],
+                        ],
+                    ],
                     FindSiteVersion::class => [
                         'class' => ApiNoop::class,
                         'arguments' => [
@@ -475,6 +529,25 @@ class ModuleConfig
                             '0-' => ['literal' => UnpublishLayoutCmsResource::class],
                         ],
                     ],
+                    ReadLayoutComponentConfig::class => [
+                        'class' => ReadLayoutComponentConfigBasic::class,
+                        'arguments' => [
+                            '0-' => GetServiceFromAlias::class,
+                        ],
+                    ],
+                    ReadLayoutComponentConfigJsonFile::class => [
+                        'class' => ReadLayoutComponentConfigJsonFile::class,
+                    ],
+
+                    ReadThemeComponentConfig::class => [
+                        'class' => ReadThemeComponentConfigBasic::class,
+                        'arguments' => [
+                            '0-' => GetServiceFromAlias::class,
+                        ],
+                    ],
+                    ReadThemeComponentConfigJsonFile::class => [
+                        'class' => ReadThemeComponentConfigJsonFile::class,
+                    ],
                     GetLayoutRenderTags::class => [
                         'class' => GetLayoutRenderTagsBasic::class,
                         'arguments' => [
@@ -507,6 +580,12 @@ class ModuleConfig
                             '0-' => ['literal' => FindLayoutCmsResourcesBy::class],
                         ],
                     ],
+                    FindLayoutCmsResourceVersionByThemeNameLayoutName::class => [
+                        'class' => ApiNoop::class,
+                        'arguments' => [
+                            '0-' => ['literal' => FindLayoutCmsResourceVersionByThemeNameLayoutName::class],
+                        ],
+                    ],
                     FindLayoutVersion::class => [
                         'class' => ApiNoop::class,
                         'arguments' => [
@@ -537,29 +616,22 @@ class ModuleConfig
                             '0-' => ['literal' => InsertLayoutVersion::class],
                         ],
                     ],
-                    ReadLayoutComponentConfig::class => [
-                        'class' => ReadLayoutComponentConfigBasic::class,
-                        'arguments' => [
-                            '0-' => GetServiceFromAlias::class,
-                        ],
-                    ],
-                    ReadLayoutComponentConfigJsonFile::class => [
-                        'class' => ReadLayoutComponentConfigJsonFile::class,
-                    ],
-
-                    ReadThemeComponentConfig::class => [
-                        'class' => ReadThemeComponentConfigBasic::class,
-                        'arguments' => [
-                            '0-' => GetServiceFromAlias::class,
-                        ],
-                    ],
-                    ReadThemeComponentConfigJsonFile::class => [
-                        'class' => ReadThemeComponentConfigJsonFile::class,
-                    ],
 
                     /**
                      * View ===========================================
                      */
+                    ReadViewLayoutTagsComponentConfigApplicationConfig::class => [
+                        'factory' => ReadViewLayoutTagsComponentConfigApplicationConfigFactory::class,
+                    ],
+                    ReadViewLayoutTagsComponentConfig::class => [
+                        'class' => ReadViewLayoutTagsComponentConfigBasic::class,
+                        'arguments' => [
+                            '0-' => GetServiceFromAlias::class,
+                        ],
+                    ],
+                    ReadViewLayoutTagsComponentConfigJsonFile::class => [
+                        'class' => ReadViewLayoutTagsComponentConfigJsonFile::class,
+                    ],
                     GetViewLayoutTags::class => [
                         'class' => GetViewLayoutTagsBasic::class,
                         'arguments' => [
@@ -625,30 +697,27 @@ class ModuleConfig
                             '0-' => ['literal' => FindViewLayoutTagsComponent::class],
                         ],
                     ],
-                    ReadViewLayoutTagsComponentConfigApplicationConfig::class => [
-                        'factory' => ReadViewLayoutTagsComponentConfigApplicationConfigFactory::class,
-                    ],
-                    ReadViewLayoutTagsComponentConfig::class => [
-                        'class' => ReadViewLayoutTagsComponentConfigBasic::class,
-                        'arguments' => [
-                            '0-' => GetServiceFromAlias::class,
-                        ],
-                    ],
-                    ReadViewLayoutTagsComponentConfigJsonFile::class => [
-                        'class' => ReadViewLayoutTagsComponentConfigJsonFile::class,
-                    ],
                     BuildView::class => [
                         'factory' => BuildViewCompositeFactory::class,
                     ],
                     GetLayoutName::class => [
                         'class' => GetLayoutNameBasic::class
                     ],
+                    GetRegisterViewLayoutTagsComponents::class => [
+                        'class' => ApiNoop::class,
+                        'arguments' => [
+                            '0-' => ['literal' => GetRegisterViewLayoutTagsComponents::class],
+                        ],
+                    ],
                 ],
             ],
+            /**
+             * ===== Component registry =====
+             */
             'zrcms-components' => [
             ],
             /**
-             * Service Alias ===========================================
+             * ===== Service Alias =====
              */
             'zrcms-service-alias' => [
                 /**
@@ -755,6 +824,10 @@ class ModuleConfig
                     'mustache' => FindTagNamesByLayoutMustache::class
                 ],
             ],
+            /**
+             * @todo This should be a View builder component
+             * ===== View builders registry =====
+             */
             'zrcms-view-builders' => [
                 // 'key (optional)' => '{service-name}'
             ],
