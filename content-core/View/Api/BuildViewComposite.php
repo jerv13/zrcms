@@ -11,7 +11,7 @@ use Zrcms\ContentCore\View\Model\View;
 class BuildViewComposite implements BuildView
 {
     /**
-     * @todo viewBuilders should come from a View builder component
+     * @todo viewBuilders should come from a View component
      * @var array
      */
     protected $viewBuilders = [];

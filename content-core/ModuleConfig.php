@@ -723,7 +723,7 @@ class ModuleConfig
                 /**
                  * Basic ===========================================
                  */
-                /* 'zrcms.basic.component.config-reader' */
+                // 'zrcms.basic.component.config-reader'
                 ServiceAliasBasic::NAMESPACE_COMPONENT_CONFIG_READER => [
                     ReadBasicComponentConfigApplicationConfig::SERVICE_ALIAS
                     => ReadBasicComponentConfigApplicationConfig::class,
@@ -734,6 +734,7 @@ class ModuleConfig
                 /**
                  * Block ===========================================
                  */
+                // 'zrcms.block.component.config-reader'
                 ServiceAliasBlock::NAMESPACE_COMPONENT_CONFIG_READER => [
                     ReadBlockComponentConfigBc::SERVICE_ALIAS
                     => ReadBlockComponentConfigBc::class,
@@ -741,6 +742,7 @@ class ModuleConfig
                     ReadBlockComponentConfigJsonFile::SERVICE_ALIAS
                     => ReadBlockComponentConfigJsonFile::class,
                 ],
+                // 'zrcms.block.content.renderer'
                 ServiceAliasBlock::NAMESPACE_CONTENT_RENDERER => [
                     'mustache'
                     => RenderBlockMustache::class,
@@ -748,6 +750,7 @@ class ModuleConfig
                     RenderBlockBc::SERVICE_ALIAS
                     => RenderBlockBc::class,
                 ],
+                // 'zrcms.block.content.data-provider'
                 ServiceAliasBlock::NAMESPACE_CONTENT_DATA_PROVIDER => [
                     'noop'
                     => GetBlockDataNoop::class,
@@ -755,10 +758,12 @@ class ModuleConfig
                 /**
                  * Container ===========================================
                  */
+                // 'zrcms.container.content.render-tags-getter'
                 ServiceAliasContainer::NAMESPACE_CONTENT_RENDER_TAGS_GETTER => [
                     'blocks'
                     => GetContainerRenderTagsBlocks::class,
                 ],
+                // 'zrcms.container.content.renderer'
                 ServiceAliasContainer::NAMESPACE_CONTENT_RENDERER => [
                     'rows'
                     => RenderContainerRows::class,
@@ -767,6 +772,7 @@ class ModuleConfig
                 /**
                  * Page ===========================================
                  */
+                // 'zrcms.page.content.render-tags-getter'
                 ServiceAliasPageContainer::NAMESPACE_CONTENT_RENDER_TAGS_GETTER => [
                     'blocks'
                     => GetPageContainerRenderTagsBlocks::class,
@@ -774,6 +780,7 @@ class ModuleConfig
                     'html'
                     => GetPageContainerRenderTagsHtml::class,
                 ],
+                // 'zrcms.page.content.renderer'
                 ServiceAliasPageContainer::NAMESPACE_CONTENT_RENDERER => [
                     'rows'
                     => RenderPageContainerRows::class,
@@ -782,15 +789,17 @@ class ModuleConfig
                 /**
                  * Theme ===========================================
                  */
+                // 'zrcms.theme.component.config-reader'
                 ServiceAliasTheme::NAMESPACE_COMPONENT_CONFIG_READER => [
                     'json'
                     => ReadThemeComponentConfigJsonFile::class,
                 ],
-                // layout
+                // 'zrcms.layout.component.config-reader'
                 ServiceAliasLayout::NAMESPACE_COMPONENT_CONFIG_READER => [
                     'json'
                     => ReadLayoutComponentConfigJsonFile::class,
                 ],
+                // @todo IS THIS USED? 'zrcms.layout.content.render-tags-getter'
                 ServiceAliasLayout::NAMESPACE_CONTENT_RENDERER => [
                     'mustache'
                     => RenderLayoutMustache::class,
@@ -798,7 +807,7 @@ class ModuleConfig
                 /**
                  * View ===========================================
                  */
-                /* zrcms.view.content.view-layout-tags-getter */
+                // 'zrcms.view.content.view-layout-tags-getter'
                 ServiceAliasView::NAMESPACE_COMPONENT_VIEW_LAYOUT_TAGS_GETTER => [
                     GetViewLayoutTagsContainers::SERVICE_ALIAS
                     => GetViewLayoutTagsContainers::class,
@@ -807,7 +816,7 @@ class ModuleConfig
                     => GetViewLayoutTagsPage::class,
                 ],
 
-                /* zrcms.view.component.view-layout-tags-config-reader */
+                // 'zrcms.view.component.view-layout-tags-config-reader' */
                 ServiceAliasView::NAMESPACE_COMPONENT_VIEW_LAYOUT_TAGS_CONFIG_READER => [
                     'json'
                     => ReadViewLayoutTagsComponentConfigJsonFile::class,
@@ -815,17 +824,17 @@ class ModuleConfig
                     ReadViewLayoutTagsComponentConfigApplicationConfig::SERVICE_ALIAS
                     => ReadViewLayoutTagsComponentConfigApplicationConfig::class,
                 ],
-
+                // 'zrcms.view.content.renderer'
                 ServiceAliasView::NAMESPACE_CONTENT_RENDERER => [
                     'layout' => RenderViewLayout::class,
                 ],
-
+                // 'zrcms.view.layout.tag-name-parser'
                 ServiceAliasView::NAMESPACE_LAYOUT_TAG_NAME_PARSER => [
                     'mustache' => FindTagNamesByLayoutMustache::class
                 ],
             ],
             /**
-             * @todo This should be a View builder component
+             * @todo This should be a View component
              * ===== View builders registry =====
              */
             'zrcms-view-builders' => [
