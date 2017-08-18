@@ -71,7 +71,6 @@ class ViewControllerTest
         ResponseInterface $response,
         callable $next = null
     ) {
-
         /** @var FindBasicComponent $find */
         $find = $this->serviceContainer->get(FindBasicComponent::class);
         $result = $find->__invoke(

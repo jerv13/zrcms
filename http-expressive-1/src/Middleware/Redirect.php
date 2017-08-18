@@ -6,7 +6,7 @@ use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Zend\Diactoros\Response\RedirectResponse;
 use Zrcms\ContentCore\Site\Api\GetSiteCmsResourceVersionByRequest;
-use Zrcms\ContentCore\Site\Api\Repository\FindRedirectCmsResourceVersionBySiteRequestPath;
+use Zrcms\ContentRedirect\Api\Repository\FindRedirectCmsResourceVersionBySiteRequestPath;
 
 /**
  * @author James Jervis - https://github.com/jerv13

@@ -87,7 +87,7 @@ class RedirectCmsResourcePublishHistoryEntity
     /**
      * @var string
      *
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", nullable=true)
      */
     protected $siteCmsResourceId;
 
@@ -118,7 +118,7 @@ class RedirectCmsResourcePublishHistoryEntity
             PropertiesRedirectCmsResource::CONTENT_VERSION_ID
         );
 
-        $this->siteCmsResourceId = Param::getString(
+        $this->siteCmsResourceId = Param::get(
             $properties,
             PropertiesRedirectCmsResource::SITE_CMS_RESOURCE_ID
         );

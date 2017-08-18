@@ -60,6 +60,8 @@ class FindContentVersion
         ResponseInterface $response,
         callable $next = null
     ) {
+        // @todo $request->getAttribute('zrcms-acl-checked');
+
         $contentVersionId = $request->getAttribute('id');
 
         if (empty($contentVersionId)) {

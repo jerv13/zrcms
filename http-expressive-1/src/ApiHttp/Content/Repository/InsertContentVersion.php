@@ -78,6 +78,9 @@ class InsertContentVersion
         ResponseInterface $response,
         callable $next = null
     ) {
+        // @todo $request->getAttribute('zrcms-acl-checked');
+        // @todo $request->getAttribute('zrcms-input-validated');
+
         $properties = $request->getParsedBody();
 
         // @todo input validations

@@ -15,7 +15,9 @@
 
 - Need a way to clear caches on registries and component configs
 
-- Check Publish history entities, make sure they have the correct getters
+- Check ENTITIES 
+    - Publish history entities, make sure they have the correct getters
+    - Make sure all properties are getting synced back @see BasicCmsResourceTrait, BasicCmsResourceVersionTrait, BasicContentVersionTrait
     
 - BuildView should use a component, not config
     
