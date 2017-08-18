@@ -19,6 +19,11 @@ use Zrcms\ContentCore\Site\Model\PropertiesSiteCmsResource;
 use Zrcms\ContentCore\Site\Model\SiteCmsResource;
 use Zrcms\ContentCore\Site\Model\SiteCmsResourceBasic;
 use Zrcms\ContentCore\Site\Model\SiteVersionBasic;
+use Zrcms\ContentRedirect\Api\Action\PublishRedirectCmsResource;
+use Zrcms\ContentRedirect\Api\Repository\InsertRedirectVersion;
+use Zrcms\ContentRedirect\Model\PropertiesRedirectCmsResource;
+use Zrcms\ContentRedirect\Model\RedirectCmsResourceBasic;
+use Zrcms\ContentRedirect\Model\RedirectVersionBasic;
 
 class Import
 {
@@ -53,12 +58,22 @@ class Import
     protected $publishContainerCmsResource;
 
     /**
-     * @param InsertSiteVersion $insertSiteVersion
-     * @param PublishSiteCmsResource $publishSiteCmsResource
-     * @param InsertPageContainerVersion $insertPageContainerVersion
+     * @var InsertRedirectVersion
+     */
+    protected $insertRedirectVersion;
+
+    /**
+     * @var PublishRedirectCmsResource
+     */
+    protected $publishRedirectCmsResource;
+
+    /**
+     * @param InsertSiteVersion               $insertSiteVersion
+     * @param PublishSiteCmsResource          $publishSiteCmsResource
+     * @param InsertPageContainerVersion      $insertPageContainerVersion
      * @param PublishPageContainerCmsResource $publishPageContainerCmsResource
-     * @param InsertContainerVersion $insertContainerVersion
-     * @param PublishContainerCmsResource $publishContainerCmsResource
+     * @param InsertContainerVersion          $insertContainerVersion
+     * @param PublishContainerCmsResource     $publishContainerCmsResource
      */
     public function __construct(
         InsertSiteVersion $insertSiteVersion,
@@ -66,7 +81,9 @@ class Import
         InsertPageContainerVersion $insertPageContainerVersion,
         PublishPageContainerCmsResource $publishPageContainerCmsResource,
         InsertContainerVersion $insertContainerVersion,
-        PublishContainerCmsResource $publishContainerCmsResource
+        PublishContainerCmsResource $publishContainerCmsResource,
+        InsertRedirectVersion $insertRedirectVersion,
+        PublishRedirectCmsResource $publishRedirectCmsResource
     ) {
         $this->insertSiteVersion = $insertSiteVersion;
         $this->publishSiteCmsResource = $publishSiteCmsResource;
@@ -74,6 +91,8 @@ class Import
         $this->publishPageContainerCmsResource = $publishPageContainerCmsResource;
         $this->insertContainerVersion = $insertContainerVersion;
         $this->publishContainerCmsResource = $publishContainerCmsResource;
+        $this->insertRedirectVersion = $insertRedirectVersion;
+        $this->publishRedirectCmsResource = $publishRedirectCmsResource;
     }
 
     /**
@@ -90,18 +109,27 @@ class Import
 
         $createdReason = 'Import script ' . get_class($this);
 
+        $this->createRedirects(
+            $data['redirects'],
+            $createdByUserId,
+            $createdReason,
+            $logger
+        );
+
         $this->createSites(
             $data,
             $createdByUserId,
             $createdReason,
             $logger
         );
+
     }
 
     /**
-     * @param array $data
-     * @param string $createdByUserId
-     * @param string $createdReason
+     * @param array           $data
+     * @param string          $createdByUserId
+     * @param string          $createdReason
+     * @param LoggerInterface $logger
      *
      * @return void
      */
@@ -258,5 +286,55 @@ class Import
         string $createdReason
     ) {
         // @todo
+    }
+
+    /**
+     * @param array           $redirects
+     * @param string          $createdByUserId
+     * @param string          $createdReason
+     * @param LoggerInterface $logger
+     *
+     * @return void
+     */
+    protected function createRedirects(
+        array $redirects,
+        string $createdByUserId,
+        string $createdReason,
+        LoggerInterface $logger
+    ) {
+        foreach ($redirects as $redirect) {
+
+            $logger->debug(
+                'executing insertRedirectVersion('
+                . 'siteId:' . $redirect['siteId'] . ',requestPath:' . $redirect['requestPath']
+                . ')'
+            );
+            $version = $this->insertRedirectVersion->__invoke(
+                new RedirectVersionBasic(
+                    $redirect['properties'],
+                    $createdByUserId,
+                    $createdReason
+                )
+            );
+
+            $logger->debug(
+                'executing publishRedirectCmsResource('
+                . 'siteId:' . $redirect['siteId'] . ',requestPath:' . $redirect['requestPath']
+                . ')'
+            );
+            $publishedRedirectCmsResource = $this->publishRedirectCmsResource->__invoke(
+                new RedirectCmsResourceBasic(
+                    [
+                        PropertiesRedirectCmsResource::SITE_CMS_RESOURCE_ID => $redirect['siteId'],
+                        PropertiesRedirectCmsResource::REQUEST_PATH => $redirect['requestPath'],
+                        PropertiesRedirectCmsResource::CONTENT_VERSION_ID => $version->getId()
+                    ],
+                    $createdByUserId,
+                    $createdReason
+                ),
+                $createdByUserId,
+                $createdReason
+            );
+        }
     }
 }

@@ -33,43 +33,43 @@ class ModuleConfig
                      * Redirect ===========================================
                      */
                     PublishRedirectCmsResource::class => [
-                        'class' => This\Redirect\Api\Action\PublishRedirectCmsResource::class,
+                        'class' => This\Api\Action\PublishRedirectCmsResource::class,
                         'arguments' => [
                             '0-' => EntityManager::class,
                         ],
                     ],
                     UnpublishRedirectCmsResource::class => [
-                        'class' => This\Redirect\Api\Action\UnpublishRedirectCmsResource::class,
+                        'class' => This\Api\Action\UnpublishRedirectCmsResource::class,
                         'arguments' => [
                             '0-' => EntityManager::class,
                         ],
                     ],
                     FindRedirectCmsResource::class => [
-                        'class' => This\Redirect\Api\Repository\FindRedirectCmsResource::class,
+                        'class' => This\Api\Repository\FindRedirectCmsResource::class,
                         'arguments' => [
                             '0-' => EntityManager::class,
                         ],
                     ],
                     FindRedirectCmsResourcesBy::class => [
-                        'class' => This\Redirect\Api\Repository\FindRedirectCmsResourcesBy::class,
+                        'class' => This\Api\Repository\FindRedirectCmsResourcesBy::class,
                         'arguments' => [
                             '0-' => EntityManager::class,
                         ],
                     ],
                     FindRedirectVersion::class => [
-                        'class' => This\Redirect\Api\Repository\FindRedirectVersion::class,
+                        'class' => This\Api\Repository\FindRedirectVersion::class,
                         'arguments' => [
                             '0-' => EntityManager::class,
                         ],
                     ],
                     FindRedirectVersionsBy::class => [
-                        'class' => This\Redirect\Api\Repository\FindRedirectVersionsBy::class,
+                        'class' => This\Api\Repository\FindRedirectVersionsBy::class,
                         'arguments' => [
                             '0-' => EntityManager::class,
                         ],
                     ],
                     InsertRedirectVersion::class => [
-                        'class' => This\Redirect\Api\Repository\InsertRedirectVersion::class,
+                        'class' => This\Api\Repository\InsertRedirectVersion::class,
                         'arguments' => [
                             '0-' => EntityManager::class,
                         ],
