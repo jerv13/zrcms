@@ -10,7 +10,7 @@ use Zrcms\ContentCore\Site\Model\PropertiesSiteVersion;
 use Zrcms\ContentCore\Site\Model\SiteVersionBasic;
 use Zrcms\ContentCore\View\Api\Render\GetViewLayoutTags;
 use Zrcms\ContentCore\View\Api\Render\RenderView;
-use Zrcms\ContentCore\View\Api\Repository\FindViewByRequest;
+use Zrcms\ContentCore\View\Api\GetViewByRequest;
 use Zrcms\ContentCore\View\Model\ServiceAliasView;
 use Zrcms\ContentCoreConfigDataSource\Content\Model\ComponentRegistryFields;
 use Zrcms\HttpExpressive1\Api\View\Render\GetViewLayoutMetaPageData;
@@ -77,7 +77,7 @@ class ModuleConfig
                      */
                     ViewController::class => [
                         'arguments' => [
-                            FindViewByRequest::class,
+                            GetViewByRequest::class,
                             GetViewLayoutTags::class,
                             RenderView::class,
                             HandleResponseReturnOnStatus::class,

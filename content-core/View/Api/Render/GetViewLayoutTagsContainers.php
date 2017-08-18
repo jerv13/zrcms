@@ -10,7 +10,7 @@ use Zrcms\ContentCore\Container\Api\Repository\FindContainerCmsResourcesBySitePa
 use Zrcms\ContentCore\Container\Api\Repository\FindContainerVersion;
 use Zrcms\ContentCore\Container\Model\Container;
 use Zrcms\ContentCore\Container\Model\ContainerCmsResource;
-use Zrcms\ContentCore\View\Api\Repository\FindTagNamesByLayout;
+use Zrcms\ContentCore\View\Api\GetTagNamesByLayout;
 use Zrcms\ContentCore\View\Model\View;
 
 /**
@@ -22,9 +22,9 @@ class GetViewLayoutTagsContainers implements GetViewLayoutTags
     const SERVICE_ALIAS = 'containers';
 
     /**
-     * @var FindTagNamesByLayout
+     * @var GetTagNamesByLayout
      */
-    protected $findTagNamesByLayout;
+    protected $getTagNamesByLayout;
 
     /**
      * @var FindContainerCmsResourcesBySitePaths
@@ -47,20 +47,20 @@ class GetViewLayoutTagsContainers implements GetViewLayoutTags
     protected $renderContainer;
 
     /**
-     * @param FindTagNamesByLayout                 $findTagNamesByLayout
+     * @param GetTagNamesByLayout                 $getTagNamesByLayout
      * @param FindContainerCmsResourcesBySitePaths $findContainerCmsResourcesBySitePaths
      * @param FindContainerVersion                 $findContainerVersion
      * @param GetContainerRenderTags               $getContainerRenderTags
      * @param RenderContainer                      $renderContainer
      */
     public function __construct(
-        FindTagNamesByLayout $findTagNamesByLayout,
+        GetTagNamesByLayout $getTagNamesByLayout,
         FindContainerCmsResourcesBySitePaths $findContainerCmsResourcesBySitePaths,
         FindContainerVersion $findContainerVersion,
         GetContainerRenderTags $getContainerRenderTags,
         RenderContainer $renderContainer
     ) {
-        $this->findTagNamesByLayout = $findTagNamesByLayout;
+        $this->getTagNamesByLayout = $getTagNamesByLayout;
         $this->findContainerCmsResourcesBySitePaths = $findContainerCmsResourcesBySitePaths;
         $this->findContainerVersion = $findContainerVersion;
         $this->getContainerRenderTags = $getContainerRenderTags;
@@ -85,7 +85,7 @@ class GetViewLayoutTagsContainers implements GetViewLayoutTags
 
         $layout = $view->getLayout();
 
-        $layoutTags = $this->findTagNamesByLayout->__invoke(
+        $layoutTags = $this->getTagNamesByLayout->__invoke(
             $layout
         );
 

@@ -1,13 +1,14 @@
 <?php
 
-namespace Zrcms\ContentCoreDoctrineDataSource\Theme\Entity;
+namespace Zrcms\ContentRedirectDoctrineDataSource\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Zrcms\Content\Model\PropertiesCmsResourcePublishHistory;
-use Zrcms\ContentCore\Theme\Model\LayoutCmsResourcePublishHistory;
-use Zrcms\ContentCore\Theme\Model\LayoutCmsResourcePublishHistoryAbstract;
-use Zrcms\ContentDoctrine\Entity\CmsResourcePublishHistoryEntity;
-use Zrcms\ContentDoctrine\Entity\CmsResourcePublishHistoryEntityTrait;
+use Zrcms\Content\Model\PropertiesContent;
+use Zrcms\ContentRedirect\Model\PropertiesRedirectVersion;
+use Zrcms\ContentRedirect\Model\RedirectVersion;
+use Zrcms\ContentRedirect\Model\RedirectVersionAbstract;
+use Zrcms\ContentDoctrine\Entity\ContentEntity;
+use Zrcms\ContentDoctrine\Entity\ContentEntityTrait;
 use Zrcms\Param\Param;
 
 /**
@@ -16,18 +17,18 @@ use Zrcms\Param\Param;
  * @ORM\Entity()
  * @ORM\HasLifecycleCallbacks()
  * @ORM\Table(
- *     name="zrcms_core_layout_resource_publish_history",
+ *     name="zrcms_core_redirect_version",
  *     indexes={}
  * )
  */
-class LayoutCmsResourcePublishHistoryEntity
-    extends LayoutCmsResourcePublishHistoryAbstract
-    implements LayoutCmsResourcePublishHistory, CmsResourcePublishHistoryEntity
+class RedirectVersionEntity
+    extends RedirectVersionAbstract
+    implements RedirectVersion, ContentEntity
 {
-    use CmsResourcePublishHistoryEntityTrait;
+    use ContentEntityTrait;
 
     /**
-     * @var int
+     * @var string
      *
      * @ORM\Id
      * @ORM\Column(type="integer")
@@ -36,13 +37,7 @@ class LayoutCmsResourcePublishHistoryEntity
     protected $id;
 
     /**
-     * @var string
      *
-     * @ORM\Column(type="string")
-     */
-    protected $contentVersionId = null;
-
-    /**
      * @var array
      *
      * @ORM\Column(type="json_array")
@@ -77,11 +72,13 @@ class LayoutCmsResourcePublishHistoryEntity
     protected $createdReason;
 
     /**
+     * Theme name
+     *
      * @var string
      *
      * @ORM\Column(type="string")
      */
-    protected $action;
+    protected $redirectPath;
 
     /**
      * @param array  $properties
@@ -95,17 +92,12 @@ class LayoutCmsResourcePublishHistoryEntity
     ) {
         $this->id = Param::getInt(
             $properties,
-            PropertiesCmsResourcePublishHistory::ID
+            PropertiesRedirectVersion::ID
         );
 
-        $this->contentVersionId = Param::getInt(
+        $this->redirectPath = Param::getString(
             $properties,
-            PropertiesCmsResourcePublishHistory::CONTENT_VERSION_ID
-        );
-        
-        $this->action = Param::getString(
-            $properties,
-            PropertiesCmsResourcePublishHistory::ACTION
+            PropertiesRedirectVersion::REDIRECT_PATH
         );
 
         parent::__construct(
@@ -118,24 +110,8 @@ class LayoutCmsResourcePublishHistoryEntity
     /**
      * @return string
      */
-    public function getId(): string
+    public function getRedirectPath(): string
     {
-        return (string)$this->id;
-    }
-
-    /**
-     * @return string
-     */
-    public function getContentVersionId(): string
-    {
-        return $this->contentVersionId;
-    }
-
-    /**
-     * @return string
-     */
-    public function getAction(): string
-    {
-        return $this->action;
+        return $this->redirectPath;
     }
 }

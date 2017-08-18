@@ -30,7 +30,7 @@ use Zrcms\ContentCore\Theme\Model\PropertiesLayoutCmsResource;
 use Zrcms\ContentCore\Theme\Model\PropertiesLayoutVersion;
 use Zrcms\ContentCore\View\Api\Render\GetViewLayoutTags;
 use Zrcms\ContentCore\View\Api\Render\RenderView;
-use Zrcms\ContentCore\View\Api\Repository\FindTagNamesByLayoutMustache;
+use Zrcms\ContentCore\View\Api\GetTagNamesByLayoutMustache;
 use Zrcms\ContentCore\View\Model\PropertiesView;
 use Zrcms\ContentCore\View\Model\ViewBasic;
 
@@ -266,7 +266,7 @@ class ViewControllerTest
                 PropertiesLayoutVersion::RENDER_TAGS_GETTER
                 => GetLayoutRenderTagsNoop::class,
                 PropertiesLayoutVersion::RENDER_TAG_NAME_PARSER
-                => FindTagNamesByLayoutMustache::class,
+                => GetTagNamesByLayoutMustache::class,
                 PropertiesLayoutVersion::RENDERER
                 => RenderLayoutMustache::class,
             ],

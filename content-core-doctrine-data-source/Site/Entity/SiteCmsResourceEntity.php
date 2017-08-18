@@ -82,7 +82,7 @@ class SiteCmsResourceEntity
     /**
      * @var string
      *
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", unique=true, nullable=false)
      */
     protected $host;
 
@@ -104,6 +104,11 @@ class SiteCmsResourceEntity
         $this->contentVersionId = Param::getInt(
             $properties,
             PropertiesSiteCmsResource::CONTENT_VERSION_ID
+        );
+
+        Param::assertHas(
+            $properties,
+            PropertiesSiteCmsResource::HOST
         );
 
         $this->host = Param::getString(

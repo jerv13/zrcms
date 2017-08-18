@@ -1,14 +1,13 @@
 <?php
 
-namespace Zrcms\ContentCoreDoctrineDataSource\Site\Entity;
+namespace Zrcms\ContentRedirectDoctrineDataSource\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Zrcms\Content\Model\PropertiesCmsResourcePublishHistory;
-use Zrcms\ContentCore\Site\Model\PropertiesSiteCmsResource;
-use Zrcms\ContentCore\Site\Model\SiteCmsResourcePublishHistory;
-use Zrcms\ContentCore\Site\Model\SiteCmsResourcePublishHistoryAbstract;
-use Zrcms\ContentDoctrine\Entity\CmsResourcePublishHistoryEntity;
-use Zrcms\ContentDoctrine\Entity\CmsResourcePublishHistoryEntityTrait;
+use Zrcms\ContentRedirect\Model\PropertiesRedirectCmsResource;
+use Zrcms\ContentRedirect\Model\RedirectCmsResource;
+use Zrcms\ContentRedirect\Model\RedirectCmsResourceAbstract;
+use Zrcms\ContentDoctrine\Entity\CmsResourceEntity;
+use Zrcms\ContentDoctrine\Entity\CmsResourceEntityTrait;
 use Zrcms\Param\Param;
 
 /**
@@ -17,18 +16,21 @@ use Zrcms\Param\Param;
  * @ORM\Entity()
  * @ORM\HasLifecycleCallbacks()
  * @ORM\Table(
- *     name="zrcms_core_site_resource_publish_history",
- *     indexes={}
+ *     name="zrcms_core_redirect_resource",
+ *     indexes={
+ *        @ORM\Index(name="siteCmsResourceId", columns={"siteCmsResourceId"}),
+ *        @ORM\Index(name="requestPath", columns={"requestPath"})
+ *     }
  * )
  */
-class SiteCmsResourcePublishHistoryEntity
-    extends SiteCmsResourcePublishHistoryAbstract
-    implements SiteCmsResourcePublishHistory, CmsResourcePublishHistoryEntity
+class RedirectCmsResourceEntity
+    extends RedirectCmsResourceAbstract
+    implements RedirectCmsResource, CmsResourceEntity
 {
-    use CmsResourcePublishHistoryEntityTrait;
+    use CmsResourceEntityTrait;
 
     /**
-     * @var string
+     * @var int
      *
      * @ORM\Id
      * @ORM\Column(type="integer")
@@ -82,14 +84,14 @@ class SiteCmsResourcePublishHistoryEntity
      *
      * @ORM\Column(type="string")
      */
-    protected $action;
+    protected $siteCmsResourceId;
 
     /**
      * @var string
      *
      * @ORM\Column(type="string")
      */
-    protected $host;
+    protected $requestPath;
 
     /**
      * @param array  $properties
@@ -103,22 +105,22 @@ class SiteCmsResourcePublishHistoryEntity
     ) {
         $this->id = Param::getInt(
             $properties,
-            PropertiesSiteCmsResource::ID
+            PropertiesRedirectCmsResource::ID
         );
 
         $this->contentVersionId = Param::getInt(
             $properties,
-            PropertiesSiteCmsResource::CONTENT_VERSION_ID
+            PropertiesRedirectCmsResource::CONTENT_VERSION_ID
         );
 
-        $this->host = Param::getString(
+        $this->siteCmsResourceId = Param::getString(
             $properties,
-            PropertiesSiteCmsResource::HOST
+            PropertiesRedirectCmsResource::SITE_CMS_RESOURCE_ID
         );
 
-        $this->action = Param::getString(
+        $this->requestPath = Param::getString(
             $properties,
-            PropertiesCmsResourcePublishHistory::ACTION
+            PropertiesRedirectCmsResource::REQUEST_PATH
         );
 
         parent::__construct(
@@ -147,16 +149,16 @@ class SiteCmsResourcePublishHistoryEntity
     /**
      * @return string
      */
-    public function getAction(): string
+    public function getSiteCmsResourceId()
     {
-        return $this->action;
+        return $this->siteCmsResourceId;
     }
 
     /**
      * @return string
      */
-    public function getHost(): string
+    public function getRequestPath(): string
     {
-        return $this->host;
+        return $this->requestPath;
     }
 }

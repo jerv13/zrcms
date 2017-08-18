@@ -4,11 +4,16 @@
 - Implement Content pattern for page templates PageTemplateResource extends PageContainer
     - Add NOOP services
     - Exporter needs updateing
+    - Wire services
     
 - Redirects
     - setup properties
     - setup entities
     - remove any host refs
+
+- USE GetSiteCmsResourceVersionByRequest instead of FindSiteCmsResourceVersionByHost where possible
+
+- Check Publish history entities, make sure they have the correct getters
     
 - BuildView should use a component, not config
     

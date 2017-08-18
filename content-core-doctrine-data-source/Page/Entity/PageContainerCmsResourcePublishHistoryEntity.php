@@ -139,4 +139,36 @@ class PageContainerCmsResourcePublishHistoryEntity
             $createdReason
         );
     }
+
+    /**
+     * @return string
+     */
+    public function getId(): string
+    {
+        return (string)$this->id;
+    }
+
+    /**
+     * @return string
+     */
+    public function getContentVersionId(): string
+    {
+        return $this->contentVersionId;
+    }
+
+    /**
+     * @return string
+     */
+    public function getAction(): string
+    {
+        return $this->action;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPath(): string
+    {
+        return $this->path;
+    }
 }

@@ -127,11 +127,11 @@ use Zrcms\ContentCore\View\Api\Render\GetViewLayoutTagsPage;
 use Zrcms\ContentCore\View\Api\Render\RenderView;
 use Zrcms\ContentCore\View\Api\Render\RenderViewBasic;
 use Zrcms\ContentCore\View\Api\Render\RenderViewLayout;
-use Zrcms\ContentCore\View\Api\Repository\FindTagNamesByLayout;
-use Zrcms\ContentCore\View\Api\Repository\FindTagNamesByLayoutBasic;
-use Zrcms\ContentCore\View\Api\Repository\FindTagNamesByLayoutMustache;
-use Zrcms\ContentCore\View\Api\Repository\FindViewByRequest;
-use Zrcms\ContentCore\View\Api\Repository\FindViewByRequestBasic;
+use Zrcms\ContentCore\View\Api\GetTagNamesByLayout;
+use Zrcms\ContentCore\View\Api\GetTagNamesByLayoutBasic;
+use Zrcms\ContentCore\View\Api\GetTagNamesByLayoutMustache;
+use Zrcms\ContentCore\View\Api\GetViewByRequest;
+use Zrcms\ContentCore\View\Api\GetViewByRequestBasic;
 use Zrcms\ContentCore\View\Api\Repository\FindViewLayoutTagsComponent;
 use Zrcms\ContentCore\View\Api\Repository\FindViewLayoutTagsComponentsBy;
 use Zrcms\ContentCore\View\Model\ServiceAliasView;
@@ -655,7 +655,7 @@ class ModuleConfig
                     ],
                     GetViewLayoutTagsContainers::class => [
                         'arguments' => [
-                            '0-' => FindTagNamesByLayout::class,
+                            '0-' => GetTagNamesByLayout::class,
                             '1-' => FindContainerCmsResourcesBySitePaths::class,
                             '2-' => FindContainerVersion::class,
                             '3-' => GetContainerRenderTags::class,
@@ -679,15 +679,15 @@ class ModuleConfig
                             '0-' => RenderLayout::class,
                         ],
                     ],
-                    FindTagNamesByLayout::class => [
-                        'class' => FindTagNamesByLayoutBasic::class,
+                    GetTagNamesByLayout::class => [
+                        'class' => GetTagNamesByLayoutBasic::class,
                         'arguments' => [
                             '0-' => GetServiceFromAlias::class,
                         ],
                     ],
-                    FindTagNamesByLayoutMustache::class => [],
-                    FindViewByRequest::class => [
-                        'class' => FindViewByRequestBasic::class,
+                    GetTagNamesByLayoutMustache::class => [],
+                    GetViewByRequest::class => [
+                        'class' => GetViewByRequestBasic::class,
                         'arguments' => [
                             '0-' => FindSiteCmsResourceVersionByHost::class,
                             '1-' => FindPageContainerCmsResourceVersionBySitePath::class,
@@ -844,7 +844,7 @@ class ModuleConfig
                 ],
                 // 'zrcms.view.layout.tag-name-parser'
                 ServiceAliasView::NAMESPACE_LAYOUT_TAG_NAME_PARSER => [
-                    'mustache' => FindTagNamesByLayoutMustache::class
+                    'mustache' => GetTagNamesByLayoutMustache::class
                 ],
             ],
             /**

@@ -48,6 +48,8 @@
       "Zrcms\\ContentCountry\\": "content-country/",
       "Zrcms\\ContentDoctrine\\": "content-doctrine/",
       "Zrcms\\ContentLanguage\\": "content-language/",
+      "Zrcms\\ContentRedirect\\": "content-redirect/",
+      "Zrcms\\ContentRedirectDoctrineDataSource\\": "content-redirect-doctrine-data-source/",
       "Zrcms\\HttpExpressive1\\": "http-expressive-1/src/",
       "Zrcms\\HttpResponseHandler\\": "http-response-handler/",
       "Zrcms\\Importer\\": "importer/src/",

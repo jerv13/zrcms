@@ -9,7 +9,7 @@ use Zrcms\ContentCore\Page\Exception\PageNotFoundException;
 use Zrcms\ContentCore\Site\Exception\SiteNotFoundException;
 use Zrcms\ContentCore\View\Api\Render\GetViewLayoutTags;
 use Zrcms\ContentCore\View\Api\Render\RenderView;
-use Zrcms\ContentCore\View\Api\Repository\FindViewByRequest;
+use Zrcms\ContentCore\View\Api\GetViewByRequest;
 use Zrcms\ContentCore\View\Model\View;
 use Zrcms\HttpExpressive1\Model\RequestedPage;
 use Zrcms\HttpResponseHandler\Api\HandleResponse;
@@ -20,18 +20,18 @@ use Zrcms\HttpResponseHandler\Api\HandleResponse;
 class ViewController
 {
     /**
-     * @param FindViewByRequest $findViewByRequest
+     * @param GetViewByRequest $getViewByRequest
      * @param GetViewLayoutTags $getViewLayoutTags
      * @param RenderView        $renderView
      * @param HandleResponse    $handleResponse
      */
     public function __construct(
-        FindViewByRequest $findViewByRequest,
+        GetViewByRequest $getViewByRequest,
         GetViewLayoutTags $getViewLayoutTags,
         RenderView $renderView,
         HandleResponse $handleResponse
     ) {
-        $this->findViewByRequest = $findViewByRequest;
+        $this->getViewByRequest = $getViewByRequest;
         $this->getViewLayoutTags = $getViewLayoutTags;
         $this->renderView = $renderView;
         $this->handleResponse = $handleResponse;
@@ -60,10 +60,10 @@ class ViewController
 
         try {
             /** @var View $pageView */
-            $pageView = $this->findViewByRequest->__invoke(
+            $pageView = $this->getViewByRequest->__invoke(
                 $request,
                 [
-                    FindViewByRequest::OPTION_ADDITIONAL_PROPERTIES
+                    GetViewByRequest::OPTION_ADDITIONAL_PROPERTIES
                     => $additionalViewProperties
                 ]
             );

@@ -1,12 +1,12 @@
 <?php
 
-namespace Zrcms\ContentCoreDoctrineDataSource\Site\Entity;
+namespace Zrcms\ContentRedirectDoctrineDataSource\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Zrcms\Content\Model\PropertiesCmsResourcePublishHistory;
-use Zrcms\ContentCore\Site\Model\PropertiesSiteCmsResource;
-use Zrcms\ContentCore\Site\Model\SiteCmsResourcePublishHistory;
-use Zrcms\ContentCore\Site\Model\SiteCmsResourcePublishHistoryAbstract;
+use Zrcms\ContentRedirect\Model\PropertiesRedirectCmsResource;
+use Zrcms\ContentRedirect\Model\RedirectCmsResourcePublishHistory;
+use Zrcms\ContentRedirect\Model\RedirectCmsResourcePublishHistoryAbstract;
 use Zrcms\ContentDoctrine\Entity\CmsResourcePublishHistoryEntity;
 use Zrcms\ContentDoctrine\Entity\CmsResourcePublishHistoryEntityTrait;
 use Zrcms\Param\Param;
@@ -17,13 +17,13 @@ use Zrcms\Param\Param;
  * @ORM\Entity()
  * @ORM\HasLifecycleCallbacks()
  * @ORM\Table(
- *     name="zrcms_core_site_resource_publish_history",
+ *     name="zrcms_core_redirect_resource_publish_history",
  *     indexes={}
  * )
  */
-class SiteCmsResourcePublishHistoryEntity
-    extends SiteCmsResourcePublishHistoryAbstract
-    implements SiteCmsResourcePublishHistory, CmsResourcePublishHistoryEntity
+class RedirectCmsResourcePublishHistoryEntity
+    extends RedirectCmsResourcePublishHistoryAbstract
+    implements RedirectCmsResourcePublishHistory, CmsResourcePublishHistoryEntity
 {
     use CmsResourcePublishHistoryEntityTrait;
 
@@ -89,7 +89,14 @@ class SiteCmsResourcePublishHistoryEntity
      *
      * @ORM\Column(type="string")
      */
-    protected $host;
+    protected $siteCmsResourceId;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(type="string")
+     */
+    protected $requestPath;
 
     /**
      * @param array  $properties
@@ -103,17 +110,22 @@ class SiteCmsResourcePublishHistoryEntity
     ) {
         $this->id = Param::getInt(
             $properties,
-            PropertiesSiteCmsResource::ID
+            PropertiesRedirectCmsResource::ID
         );
 
         $this->contentVersionId = Param::getInt(
             $properties,
-            PropertiesSiteCmsResource::CONTENT_VERSION_ID
+            PropertiesRedirectCmsResource::CONTENT_VERSION_ID
         );
 
-        $this->host = Param::getString(
+        $this->siteCmsResourceId = Param::getString(
             $properties,
-            PropertiesSiteCmsResource::HOST
+            PropertiesRedirectCmsResource::SITE_CMS_RESOURCE_ID
+        );
+
+        $this->requestPath = Param::getString(
+            $properties,
+            PropertiesRedirectCmsResource::REQUEST_PATH
         );
 
         $this->action = Param::getString(
@@ -155,8 +167,16 @@ class SiteCmsResourcePublishHistoryEntity
     /**
      * @return string
      */
-    public function getHost(): string
+    public function getSiteCmsResourceId()
     {
-        return $this->host;
+        return $this->siteCmsResourceId;
+    }
+
+    /**
+     * @return string
+     */
+    public function getRequestPath(): string
+    {
+        return $this->requestPath;
     }
 }
