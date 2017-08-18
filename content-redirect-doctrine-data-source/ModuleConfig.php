@@ -75,21 +75,22 @@ class ModuleConfig
                         ],
                     ],
                 ],
-                'doctrine' => [
-                    'driver' => [
-                        'Zrcms\ContentRedirectDoctrineDataSource' => [
-                            'class' => AnnotationDriver::class,
-                            'cache' => 'array',
-                            'paths' => [
-                                __DIR__ . '/Entity'
-                            ]
-                        ],
-                        'orm_default' => [
-                            'drivers' => [
-                                'Zrcms\ContentRedirectDoctrineDataSource' => 'Zrcms\ContentRedirectDoctrineDataSource'
-                            ]
+            ],
+
+            'doctrine' => [
+                'driver' => [
+                    'Zrcms\ContentRedirectDoctrineDataSource' => [
+                        'class' => AnnotationDriver::class,
+                        'cache' => 'array',
+                        'paths' => [
+                            __DIR__ . '/Entity'
                         ]
                     ],
+                    'orm_default' => [
+                        'drivers' => [
+                            'Zrcms\ContentRedirectDoctrineDataSource' => 'Zrcms\ContentRedirectDoctrineDataSource'
+                        ]
+                    ]
                 ],
             ],
         ];

@@ -29,6 +29,8 @@ class ModulesConfig
             new \Zrcms\ContentCore\ModuleConfig(),
             new \Zrcms\ContentCountry\ModuleConfig(),
             new \Zrcms\ContentLanguage\ModuleConfig(),
+            new \Zrcms\ContentRedirect\ModuleConfig(),
+
             new \Zrcms\Importer\ModuleConfig(),
             new \Zrcms\Install\ModuleConfig(),
 
@@ -38,6 +40,8 @@ class ModulesConfig
 
             new \Zrcms\ContentCoreConfigDataSource\ModuleConfig(),
             new \Zrcms\ContentCoreDoctrineDataSource\ModuleConfig(),
+            new \Zrcms\ContentRedirectDoctrineDataSource\ModuleConfig(),
+
             new \Zrcms\HttpExpressive1\ModuleConfig(),
             new \Zrcms\HttpResponseHandler\ModuleConfig(),
 

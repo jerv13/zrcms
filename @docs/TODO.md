@@ -13,6 +13,8 @@
 
 - USE GetSiteCmsResourceVersionByRequest instead of FindSiteCmsResourceVersionByHost where possible
 
+- Need a way to clear caches on registries and component configs
+
 - Check Publish history entities, make sure they have the correct getters
     
 - BuildView should use a component, not config
