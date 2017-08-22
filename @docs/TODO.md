@@ -38,6 +38,11 @@
 - Check all component Properties and config values
     - Add getters where required
     
+## Clean up - Refactoring ##
+
+- Composition over Inheritance
+    - Might decouple a bit
+    
 ## OPTIMIZATION: api (after FindResourceVersion implemented) ##
 
 - Optimize queries
