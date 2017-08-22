@@ -11,16 +11,12 @@ class IsAllowedAny implements IsAllowed
 {
     /**
      * @param ServerRequestInterface $request
-     * @param string                 $resourceId
-     * @param null                   $privilege
      * @param array                  $options
      *
      * @return bool
      */
     public function __invoke(
         ServerRequestInterface $request,
-        string $resourceId,
-        $privilege = null,
         array $options = []
     ): bool
     {

@@ -5,6 +5,8 @@ namespace Zrcms\User;
 use RcmUser\Service\RcmUserService;
 use Zrcms\User\Api\GetUserIdByRequest;
 use Zrcms\User\Api\GetUserIdByRequestRcmUser;
+use Zrcms\User\Api\LogOut;
+use Zrcms\User\Api\LogOutRcmUser;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -30,6 +32,12 @@ class ModuleConfig
                             RcmUserService::class
                         ],
                     ],
+                    LogOut::class => [
+                        'class' => LogOutRcmUser::class,
+                        'arguments' => [
+                            RcmUserService::class
+                        ],
+                    ]
                 ],
             ],
         ];

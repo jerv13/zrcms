@@ -37,19 +37,16 @@ class AclHttp
     /**
      * @param HandleResponse $handleResponse
      * @param IsAllowed      $isAllowed
-     * @param string         $resourceId
-     * @param null           $privilege
+     * @param array          $aclOptions
      */
     public function __construct(
         HandleResponse $handleResponse,
         IsAllowed $isAllowed,
-        string $resourceId,
-        $privilege = null
+        array $aclOptions
     ) {
         $this->handleResponse = $handleResponse;
         $this->isAllowed = $isAllowed;
-        $this->resourceId = $resourceId;
-        $this->privilege = $privilege;
+        $this->aclOptions = $aclOptions;
     }
 
     /**
@@ -67,7 +64,7 @@ class AclHttp
         ResponseInterface $response,
         callable $next = null
     ) {
-        if (!$this->isAllowed->__invoke($request, $this->resourceId, $this->privilege)) {
+        if (!$this->isAllowed->__invoke($request, $this->aclOptions)) {
             $response = new HtmlResponse('NOT ALLOWED');
 
             return $this->handleResponse->__invoke(

@@ -73,6 +73,25 @@ class Param
      * @param string $key
      * @param null   $default
      *
+     * @return bool|null
+     */
+    public static function getBool(
+        array $params,
+        string $key,
+        $default = null
+    ) {
+        if (self::has($params, $key)) {
+            return (bool)$params[$key];
+        }
+
+        return $default;
+    }
+
+    /**
+     * @param array  $params
+     * @param string $key
+     * @param null   $default
+     *
      * @return string|null
      */
     public static function getString(

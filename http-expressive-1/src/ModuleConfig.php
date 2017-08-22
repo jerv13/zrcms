@@ -3,6 +3,7 @@
 namespace Zrcms\HttpExpressive1;
 
 use Zrcms\Acl\Api\IsAllowed;
+use Zrcms\Acl\Api\IsAllowedRcmUser;
 use Zrcms\Content\Api\ContentVersionToArray;
 use Zrcms\ContentCore\Basic\Api\Component\ReadBasicComponentConfigApplicationConfig;
 use Zrcms\ContentCore\Basic\Api\Repository\FindBasicComponent;
@@ -19,6 +20,7 @@ use Zrcms\HttpExpressive1\Api\View\Render\GetViewLayoutMetaPageData;
 use Zrcms\HttpExpressive1\ApiHttp\Site\Repository\FindSiteVersion;
 use Zrcms\HttpExpressive1\ApiHttp\Site\Repository\InsertSiteVersion;
 use Zrcms\HttpExpressive1\Middleware\AclHttp;
+use Zrcms\HttpExpressive1\Middleware\LogOut;
 use Zrcms\HttpExpressive1\Middleware\Redirect;
 use Zrcms\HttpExpressive1\Middleware\SetLocaleFromSite;
 use Zrcms\HttpExpressive1\Model\HttpExpressiveComponent;
@@ -49,7 +51,7 @@ class ModuleConfig
             'dependencies' => [
                 'config_factories' => [
                     /**
-                     * ApiHttp ===========================================
+                     * Api ===========================================
                      */
                     GetViewLayoutMetaPageData::class => [
                         'arguments' => [
@@ -81,6 +83,25 @@ class ModuleConfig
                     /**
                      * Middleware ===========================================
                      */
+                    /* EXAMPLE *
+                    AclHttp::class => [
+                        'arguments' => [
+                            HandleResponse::class,
+                            IsAllowedRcmUser::class,
+                            [
+                                'literal' => [
+                                    IsAllowedRcmUser::OPTION_RESOURCE_ID => 'admin',
+                                    IsAllowedRcmUser::OPTION_PRIVILEGE => 'read'
+                                ]
+                            ]
+                        ],
+                    ],
+                    /* */
+                    LogOut::class => [
+                        'arguments' => [
+                            \Zrcms\User\Api\LogOut::class,
+                        ],
+                    ],
                     Redirect::class => [
                         'arguments' => [
                             GetSiteCmsResourceVersionByRequest::class,

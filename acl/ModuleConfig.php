@@ -5,6 +5,7 @@ namespace Zrcms\Acl;
 use RcmUser\Service\RcmUserService;
 use Zrcms\Acl\Api\IsAllowed;
 use Zrcms\Acl\Api\IsAllowedAny;
+use Zrcms\Acl\Api\IsAllowedNone;
 use Zrcms\Acl\Api\IsAllowedRcmUser;
 
 /**
@@ -23,12 +24,11 @@ class ModuleConfig
             'dependencies' => [
                 'config_factories' => [
                     IsAllowed::class => [
+                        // @todo Default should be secure
                         'class' => IsAllowedAny::class,
                     ],
-                    IsAllowedAny::class => [
-                        'class' => IsAllowedAny::class,
-                        'arguments' => [],
-                    ],
+                    IsAllowedAny::class => [],
+                    IsAllowedNone::class => [],
                     IsAllowedRcmUser::class => [
                         'arguments' => [
                             RcmUserService::class

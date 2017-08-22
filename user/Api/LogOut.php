@@ -1,25 +1,22 @@
 <?php
 
-namespace Zrcms\Acl\Api;
+namespace Zrcms\User\Api;
 
 use Psr\Http\Message\ServerRequestInterface;
 
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class IsAllowedNone implements IsAllowed
+interface LogOut
 {
     /**
      * @param ServerRequestInterface $request
      * @param array                  $options
      *
-     * @return bool
+     * @return bool Success
      */
     public function __invoke(
         ServerRequestInterface $request,
         array $options = []
-    ): bool
-    {
-        return false;
-    }
+    ): bool;
 }
