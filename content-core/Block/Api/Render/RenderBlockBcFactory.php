@@ -3,6 +3,8 @@
 namespace Zrcms\ContentCore\Block\Api\Render;
 
 use Psr\Container\ContainerInterface;
+use ZrcmsRcmCompatibility\Rcm\Adapter\GetRcmPluginController;
+use ZrcmsRcmCompatibility\Rcm\Adapter\GetRcmViewRenderer;
 
 /**
  * @deprecated BC only
@@ -19,7 +21,8 @@ class RenderBlockBcFactory
         $serviceContainer
     ) {
         return new RenderBlockBc(
-            $serviceContainer
+            $serviceContainer->get(GetRcmPluginController::class),
+            $serviceContainer->get(GetRcmViewRenderer::class)
         );
     }
 }

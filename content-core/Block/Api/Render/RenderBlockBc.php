@@ -3,19 +3,18 @@
 namespace Zrcms\ContentCore\Block\Api\Render;
 
 use Psr\Container\ContainerInterface;
+use Rcm\Plugin\BaseController;
 use Rcm\Plugin\PluginInterface;
-use Zend\Expressive\ZendView\HelperPluginManagerFactory;
 use Zend\Http\PhpEnvironment\Request;
 use Zend\Http\Response;
 use Zend\Mvc\MvcEvent;
 use Zend\Stdlib\ResponseInterface;
 use Zend\View\Helper\Placeholder\Container;
-use Zend\View\Renderer\PhpRenderer;
-use Zend\View\Resolver\AggregateResolver;
-use Zend\View\Resolver\TemplatePathStack;
 use Zrcms\Content\Model\Content;
 use Zrcms\ContentCore\Block\Model\BlockVersion;
 use Zrcms\ContentCore\Block\Model\PropertiesBlock;
+use ZrcmsRcmCompatibility\Rcm\Adapter\GetRcmPluginController;
+use ZrcmsRcmCompatibility\Rcm\Adapter\GetRcmViewRenderer;
 
 /**
  * @deprecated BC only
@@ -26,56 +25,25 @@ class RenderBlockBc implements RenderBlock
     const SERVICE_ALIAS = 'bc';
 
     /**
-     * @var ContainerInterface
+     * @var GetRcmPluginController
      */
-    protected $serviceManager;
+    protected $getRcmPluginController;
 
     /**
-     * Constructor.
-     *
-     * @param ContainerInterface $serviceManager
+     * @var GetRcmViewRenderer
      */
-    public function __construct($serviceManager)
-    {
-        $this->serviceManager = $serviceManager;
-        //$this->renderer = $serviceManager->get('ViewRenderer');
-    }
+    protected $getRcmViewRenderer;
 
     /**
-     * @return PhpRenderer
+     * @param GetRcmPluginController $getRcmPluginController
+     * @param GetRcmViewRenderer     $getRcmViewRenderer
      */
-    protected function getRender()
-    {
-        $helperFactory = new HelperPluginManagerFactory();
-
-        $helperPluginManager = $helperFactory->__invoke($this->serviceManager);
-
-        $renderer = new PhpRenderer();
-
-        $config = $this->serviceManager->get('config');
-
-        // Configure it:
-        $resolver = new AggregateResolver();
-        //        $resolver->attach(
-        //            new TemplateMapResolver(include 'config/templates.php'),
-        //            100
-        //        );
-        $resolver->attach(
-            (new TemplatePathStack())
-                ->setPaths($config['view_manager']['template_path_stack'])
-        );
-        $renderer->setResolver($resolver);
-
-        $helperPluginManager->get('BasePath')->setBasePath('');
-
-        $renderer->setHelperPluginManager(
-            $helperPluginManager
-        );
-
-        // Inject:
-        //$renderer = new ZendViewRenderer($renderer);
-
-        return $renderer;
+    public function __construct(
+        GetRcmPluginController $getRcmPluginController,
+        GetRcmViewRenderer $getRcmViewRenderer
+    ) {
+        $this->getRcmPluginController = $getRcmPluginController;
+        $this->getRcmViewRenderer = $getRcmViewRenderer;
     }
 
     /**
@@ -92,7 +60,7 @@ class RenderBlockBc implements RenderBlock
     ): string
     {
         /** @var \Rcm\Plugin\PluginInterface $controller */
-        $controller = $this->getPluginController($blockVersion->getBlockComponentName());
+        $controller = $this->getRcmPluginController->__invoke($blockVersion->getBlockComponentName());
 
         $request = new Request();
         $response = new Response();
@@ -119,7 +87,7 @@ class RenderBlockBc implements RenderBlock
             return '';
         }
 
-        $renderer = $this->getRender();
+        $renderer = $this->getRcmViewRenderer->__invoke();
         /** @var \Zend\View\Helper\Headlink $headLink */
         $headLink = $renderer->plugin('headlink');
 
@@ -143,49 +111,6 @@ class RenderBlockBc implements RenderBlock
         $headScript->setContainer($oldScriptContainer);
 
         return $html;
-    }
-
-    /**
-     * Get an instantiated plugin controller
-     *
-     * @param $pluginName
-     *
-     * @return mixed
-     * @throws \Exception
-     */
-    public function getPluginController($pluginName)
-    {
-        /*
-         * Deprecated.  All controllers should come from the controller manager
-         * now and not the service manager.
-         *
-         * @todo Remove if statement once plugins have been converted.
-         */
-        if ($this->serviceManager->has($pluginName)) {
-            $serviceManager = $this->serviceManager;
-        } else {
-            $serviceManager = $this->serviceManager->get('ControllerLoader');
-        }
-
-        if (!$serviceManager->has($pluginName)) {
-            throw new \Exception(
-                "Plugin $pluginName is not loaded or configured. Check
-            config/application.config.php"
-            );
-        }
-
-        $pluginController = $serviceManager->get($pluginName);
-
-        //Plugin controllers must implement this interface
-        if (!$pluginController instanceof PluginInterface) {
-            throw new \Exception(
-                'Class "' . get_class($pluginController) . '" for plugin "'
-                . $pluginName . '" does not implement '
-                . '\Rcm\Plugin\PluginInterface'
-            );
-        }
-
-        return $pluginController;
     }
 
     /**
