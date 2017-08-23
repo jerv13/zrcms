@@ -29,31 +29,24 @@ class GetViewLayoutMetaPageData implements GetViewLayoutTags
     protected $isAllowed;
 
     /**
-     * @var string
+     * @var array
      */
-    protected $resourceId;
+    protected $aclOptions;
 
     /**
-     * @var null|string
-     */
-    protected $privilege;
-
     /**
-     * @param RenderTag   $renderTag
-     * @param IsAllowed   $isAllowed
-     * @param string      $resourceId
-     * @param string|null $privilege
+     * @param RenderTag $renderTag
+     * @param IsAllowed $isAllowed
+     * @param array     $aclOptions
      */
     public function __construct(
         RenderTag $renderTag,
         IsAllowed $isAllowed,
-        string $resourceId,
-        $privilege = null
+        array $aclOptions
     ) {
         $this->renderTag = $renderTag;
         $this->isAllowed = $isAllowed;
-        $this->resourceId = $resourceId;
-        $this->privilege = $privilege;
+        $this->aclOptions = $aclOptions;
     }
 
     /**
@@ -73,8 +66,7 @@ class GetViewLayoutMetaPageData implements GetViewLayoutTags
         // if admin
         $isAllowed = $this->isAllowed->__invoke(
             $request,
-            $this->resourceId,
-            $this->privilege
+            $this->aclOptions
         );
 
         if (!$isAllowed) {

@@ -2,7 +2,6 @@
 
 namespace Zrcms\HttpExpressive1;
 
-use Zrcms\Acl\Api\IsAllowed;
 use Zrcms\Acl\Api\IsAllowedRcmUser;
 use Zrcms\Content\Api\ContentVersionToArray;
 use Zrcms\ContentCore\Basic\Api\Component\ReadBasicComponentConfigApplicationConfig;
@@ -56,9 +55,13 @@ class ModuleConfig
                     GetViewLayoutMetaPageData::class => [
                         'arguments' => [
                             RenderTag::class,
-                            IsAllowed::class,
-                            ['literal' => 'site'],
-                            ['literal' => 'admin'],
+                            IsAllowedRcmUser::class,
+                            [
+                                'literal' => [
+                                    IsAllowedRcmUser::OPTION_RESOURCE_ID => 'sites',
+                                    IsAllowedRcmUser::OPTION_PRIVILEGE => 'admin',
+                                ]
+                            ],
                         ],
                     ],
                     /**
