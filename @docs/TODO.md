@@ -1,6 +1,8 @@
 @todo
 =====
 
+- Fix Unpublish to flag instead removing CmsResource - This will prevent orphans
+
 - Implement Content pattern for page templates PageTemplateResource extends PageContainer
     - Add NOOP services
     - Exporter needs updateing
