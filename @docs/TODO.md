@@ -2,6 +2,7 @@
 =====
 
 - Fix Unpublish to flag instead removing CmsResource - This will prevent orphans
+    - Investigate removing properties from CmsResources (might try a factory instead of constructor)
 
 - Implement Content pattern for page templates PageTemplateResource extends PageContainer
     - Add NOOP services
@@ -44,6 +45,12 @@
 
 - Composition over Inheritance
     - Might decouple a bit
+    
+## Abstract ACL for libraries ##
+
+- Each LIB should have and ACL abstraction
+- Write an injectable ACL and User service defaulting to RcmUser (decouple ACL and User)
+    - @see Redirect-editor
     
 ## OPTIMIZATION: api (after FindResourceVersion implemented) ##
 
