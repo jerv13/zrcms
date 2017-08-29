@@ -41,6 +41,13 @@
 - Check all component Properties and config values
     - Add getters where required
     
+## Features ##
+
+- Admin menus
+    - Standard menus for admins using the properties and/or field definitions
+    - include input-validations
+    - create js/ui lib
+    
 ## Clean up - Refactoring ##
 
 - Composition over Inheritance
