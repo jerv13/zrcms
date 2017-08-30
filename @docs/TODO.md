@@ -1,6 +1,8 @@
 @todo
 =====
 
+- APIs in http-expressive
+
 - Finish Zrcms\ContentDoctrine\Api\Repository\FindCmsResourceVersion
 
 - Implement Content pattern for page templates PageTemplateResource extends PageContainer
@@ -48,6 +50,9 @@
     
 ##### Investigate reducing properties (might try a factory instead of constructor) #####
 
+- Might make ContentVersion a property of the CmsResource instead of relationship
+    - Eliminate CmsResource for CmsResourceVersion
+    - Syncing Properties simpler
 - CmsResources (id, contentVersionId, published)
 - Content (id) do we still need ID?
 - ContentVersion (id)
