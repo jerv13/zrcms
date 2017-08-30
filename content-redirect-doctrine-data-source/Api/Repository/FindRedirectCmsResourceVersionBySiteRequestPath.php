@@ -17,6 +17,8 @@ use Zrcms\ContentRedirectDoctrineDataSource\Entity\RedirectCmsResourceEntity;
 use Zrcms\ContentRedirectDoctrineDataSource\Entity\RedirectVersionEntity;
 
 /**
+ * Find published CmsResource by site and request path
+ *
  * @author James Jervis - https://github.com/jerv13
  */
 class FindRedirectCmsResourceVersionBySiteRequestPath
@@ -85,6 +87,8 @@ class FindRedirectCmsResourceVersionBySiteRequestPath
     ) {
         $siteCmsResourceIdPropertyName = PropertiesRedirectCmsResource::SITE_CMS_RESOURCE_ID;
         $requestPathPropertyName = PropertiesRedirectCmsResource::REQUEST_PATH;
+        $publishedPropertyName = PropertiesRedirectCmsResource::PUBLISHED;
+
         // @todo Add prepared statements not concat
         $query = ""
             . "SELECT resource, version FROM {$this->entityClassCmsResource} resource"
@@ -93,6 +97,7 @@ class FindRedirectCmsResourceVersionBySiteRequestPath
             . " WHERE (resource.{$siteCmsResourceIdPropertyName} = :siteCmsResource"
             . " OR resource.{$siteCmsResourceIdPropertyName} IS NULL)"
             . " AND resource.{$requestPathPropertyName} = :requestPath"
+            . " AND resource.{$publishedPropertyName} = true"
             . " ORDER BY ASC resource.{$siteCmsResourceIdPropertyName}"
             . " LIMIT 1";
 

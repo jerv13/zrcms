@@ -8,6 +8,8 @@ use Zrcms\Content\Model\CmsResourceVersion;
 use Zrcms\ContentCore\Page\Model\PageContainerCmsResourceVersion;
 
 /**
+ * Find published CmsResource by site and path
+ *
  * @author James Jervis - https://github.com/jerv13
  */
 interface FindPageContainerCmsResourceVersionBySitePath

@@ -14,6 +14,8 @@ use Zrcms\ContentDoctrine\Api\ApiAbstract;
 use Zrcms\ContentDoctrine\Api\BasicCmsResourceVersionTrait;
 
 /**
+ * Find published CmsResource by host
+ *
  * @author James Jervis - https://github.com/jerv13
  */
 class FindSiteCmsResourceVersionByHost
@@ -77,13 +79,15 @@ class FindSiteCmsResourceVersionByHost
         array $options = []
     ) {
         $hostPropertyName = PropertiesSiteCmsResource::HOST;
+        $publishedPropertyName = PropertiesSiteCmsResource::PUBLISHED;
 
         // @todo Add prepared statements not concat
         $query = ""
             . "SELECT resource, version FROM {$this->entityClassCmsResource} resource"
             . " LEFT JOIN {$this->entityClassContentVersion} version"
             . " WITH resource.contentVersionId = version.id"
-            . " WHERE resource.{$hostPropertyName} = :host";
+            . " WHERE resource.{$hostPropertyName} = :host"
+            . " AND resource.{$publishedPropertyName} = true";
 
         $dQuery = $this->entityManager->createQuery($query);
 

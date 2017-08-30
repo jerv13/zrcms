@@ -7,6 +7,8 @@ use Zrcms\Content\Exception\ContentVersionNotExistsException;
 use Zrcms\ContentCore\Site\Model\SiteCmsResourceVersion;
 
 /**
+ * Find published CmsResource by host
+ *
  * @author James Jervis - https://github.com/jerv13
  */
 interface FindSiteCmsResourceVersionByHost

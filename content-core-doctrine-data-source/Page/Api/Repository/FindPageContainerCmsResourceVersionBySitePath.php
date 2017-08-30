@@ -15,6 +15,8 @@ use Zrcms\ContentDoctrine\Api\ApiAbstract;
 use Zrcms\ContentDoctrine\Api\BasicCmsResourceVersionTrait;
 
 /**
+ * Find published CmsResource by site and path
+ *
  * @author James Jervis - https://github.com/jerv13
  */
 class FindPageContainerCmsResourceVersionBySitePath
@@ -79,8 +81,9 @@ class FindPageContainerCmsResourceVersionBySitePath
         string $pageContainerCmsResourcePath,
         array $options = []
     ) {
-        $siteCmsResourceId = (int) $siteCmsResourceId;
-        $cmsResourcePropertyName = PropertiesPageContainerCmsResource::SITE_CMS_RESOURCE_ID;
+        $siteCmsResourceId = (int)$siteCmsResourceId;
+        $siteCmsResourcePropertyName = PropertiesPageContainerCmsResource::SITE_CMS_RESOURCE_ID;
+        $publishedPropertyName = PropertiesPageContainerCmsResource::PUBLISHED;
         $pathPropertyName = PropertiesPageContainerCmsResource::PATH;
 
         // @todo Add prepared statements not concat
@@ -88,8 +91,9 @@ class FindPageContainerCmsResourceVersionBySitePath
             . "SELECT resource, version FROM {$this->entityClassCmsResource} resource"
             . " LEFT JOIN {$this->entityClassContentVersion} version"
             . " WITH resource.contentVersionId = version.id"
-            . " WHERE resource.{$cmsResourcePropertyName} = :siteCmsResourceId"
-            . " AND resource.{$pathPropertyName} = :path";
+            . " WHERE resource.{$siteCmsResourcePropertyName} = :siteCmsResourceId"
+            . " AND resource.{$pathPropertyName} = :path"
+            . " AND resource.{$publishedPropertyName} = true";
 
         $dQuery = $this->entityManager->createQuery($query);
 

@@ -7,6 +7,8 @@ use Zrcms\Content\Exception\ContentVersionNotExistsException;
 use Zrcms\ContentRedirect\Model\RedirectCmsResourceVersion;
 
 /**
+ * Find published CmsResource by site and request path
+ *
  * @author James Jervis - https://github.com/jerv13
  */
 interface FindRedirectCmsResourceVersionBySiteRequestPath

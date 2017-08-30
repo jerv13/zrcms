@@ -16,6 +16,8 @@ use Zrcms\ContentCoreDoctrineDataSource\Theme\Entity\LayoutVersionEntity;
 use Zrcms\ContentDoctrine\Api\BasicCmsResourceVersionTrait;
 
 /**
+ * Find published CmsResource by theme name and layout name
+ *
  * @author James Jervis - https://github.com/jerv13
  */
 class FindLayoutCmsResourceVersionByThemeNameLayoutName
@@ -97,7 +99,8 @@ class FindLayoutCmsResourceVersionByThemeNameLayoutName
         array $options = []
     ) {
         $themeNamePropertyName = PropertiesLayoutCmsResource::THEME_NAME;
-        $layoutNamePropertyName = PropertiesLayoutCmsResource::THEME_NAME;
+        $layoutNamePropertyName = PropertiesLayoutCmsResource::NAME;
+        $publishedPropertyName = PropertiesLayoutCmsResource::PUBLISHED;
 
         // @todo Add prepared statements not concat
         $query = ""
@@ -105,7 +108,8 @@ class FindLayoutCmsResourceVersionByThemeNameLayoutName
             . " LEFT JOIN {$this->entityClassContentVersion} version"
             . " WITH resource.contentVersionId = version.id"
             . " WHERE resource.{$themeNamePropertyName} = :themeName"
-            . " AND resource.{$layoutNamePropertyName} = :name";
+            . " AND resource.{$layoutNamePropertyName} = :name"
+            . " AND resource.{$publishedPropertyName} = true";
 
         $dQuery = $this->entityManager->createQuery($query);
 

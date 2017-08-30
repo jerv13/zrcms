@@ -14,6 +14,8 @@ use Zrcms\ContentDoctrine\Api\BasicCmsResourceVersionTrait;
 use Zrcms\Param\Param;
 
 /**
+ * Find published CmsResource by site and paths
+ *
  * @author James Jervis - https://github.com/jerv13
  */
 class FindContainerCmsResourceVersionsBySitePaths
@@ -78,6 +80,7 @@ class FindContainerCmsResourceVersionsBySitePaths
     ): array
     {
         $siteCmsResourceIdName = PropertiesContainerCmsResource::SITE_CMS_RESOURCE_ID;
+        $publishedPropertyName = PropertiesContainerCmsResource::PUBLISHED;
 
         $pathParams = [
             $siteCmsResourceId => 'siteCmsResourceId'
@@ -88,7 +91,8 @@ class FindContainerCmsResourceVersionsBySitePaths
             . "SELECT resource, version FROM {$this->entityClassCmsResource} resource"
             . " LEFT JOIN {$this->entityClassContentVersion} version"
             . " WITH resource.contentVersionId = version.id"
-            . " WHERE resource.{$siteCmsResourceIdName} = :siteCmsResourceId";
+            . " WHERE resource.{$siteCmsResourceIdName} = :siteCmsResourceId"
+            . " AND resource.{$publishedPropertyName} = true";
 
         $query = $this->buildInQuery(
             $cmsResourcePaths,

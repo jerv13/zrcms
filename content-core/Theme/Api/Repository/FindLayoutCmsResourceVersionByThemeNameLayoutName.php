@@ -8,6 +8,8 @@ use Zrcms\Content\Model\CmsResourceVersion;
 use Zrcms\ContentCore\Theme\Model\LayoutCmsResourceVersion;
 
 /**
+ * Find published CmsResource by theme name and layout name
+ *
  * @author James Jervis - https://github.com/jerv13
  */
 interface FindLayoutCmsResourceVersionByThemeNameLayoutName
