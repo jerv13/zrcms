@@ -20,6 +20,7 @@ class PropertiesRedirectCmsResource extends PropertiesCmsResource
         = [
             self::ID => '',
             self::CONTENT_VERSION_ID => '',
+            self::PUBLISHED => true,
             self::SITE_CMS_RESOURCE_ID => '',
             self::REQUEST_PATH => '',
         ];

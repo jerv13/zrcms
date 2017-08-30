@@ -47,6 +47,13 @@ class LayoutCmsResourceEntity
     protected $contentVersionId = null;
 
     /**
+     * @var boolean
+     *
+     * @ORM\Column(type="boolean")
+     */
+    protected $published = true;
+
+    /**
      * @var array
      *
      * @ORM\Column(type="json_array")
@@ -104,25 +111,7 @@ class LayoutCmsResourceEntity
         string $createdByUserId,
         string $createdReason
     ) {
-        $this->id = Param::getInt(
-            $properties,
-            PropertiesLayoutCmsResource::ID
-        );
-
-        $this->contentVersionId = Param::getInt(
-            $properties,
-            PropertiesLayoutCmsResource::CONTENT_VERSION_ID
-        );
-
-        $this->themeName = Param::getString(
-            $properties,
-            PropertiesLayoutCmsResource::THEME_NAME
-        );
-
-        $this->name = Param::getString(
-            $properties,
-            PropertiesLayoutCmsResource::NAME
-        );
+        $this->updateProperties($properties);
 
         parent::__construct(
             $properties,
@@ -148,6 +137,14 @@ class LayoutCmsResourceEntity
     }
 
     /**
+     * @return bool
+     */
+    public function isPublished(): bool
+    {
+        return $this->published;
+    }
+
+    /**
      * @return string
      */
     public function getThemeName(): string
@@ -161,5 +158,41 @@ class LayoutCmsResourceEntity
     public function getName(): string
     {
         return $this->name;
+    }
+
+    /**
+     * @param array $properties
+     *
+     * @return void
+     */
+    public function updateProperties(
+        array $properties
+    ) {
+        $this->id = Param::getInt(
+            $properties,
+            PropertiesLayoutCmsResource::ID
+        );
+
+        $this->contentVersionId = Param::getInt(
+            $properties,
+            PropertiesLayoutCmsResource::CONTENT_VERSION_ID
+        );
+
+        $this->published = Param::getBool(
+            $properties,
+            PropertiesLayoutCmsResource::PUBLISHED
+        );
+
+        $this->themeName = Param::getString(
+            $properties,
+            PropertiesLayoutCmsResource::THEME_NAME
+        );
+
+        $this->name = Param::getString(
+            $properties,
+            PropertiesLayoutCmsResource::NAME
+        );
+
+        $this->properties = $properties;
     }
 }

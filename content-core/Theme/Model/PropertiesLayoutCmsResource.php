@@ -21,6 +21,7 @@ class PropertiesLayoutCmsResource extends PropertiesCmsResource
         = [
             self::ID => '',
             self::CONTENT_VERSION_ID => '',
+            self::PUBLISHED => true,
             self::THEME_NAME => '',
             self::NAME => '',
         ];

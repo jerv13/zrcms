@@ -3,11 +3,11 @@
 namespace Zrcms\ContentRedirectDoctrineDataSource\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Zrcms\ContentDoctrine\Entity\CmsResourceEntity;
+use Zrcms\ContentDoctrine\Entity\CmsResourceEntityTrait;
 use Zrcms\ContentRedirect\Model\PropertiesRedirectCmsResource;
 use Zrcms\ContentRedirect\Model\RedirectCmsResource;
 use Zrcms\ContentRedirect\Model\RedirectCmsResourceAbstract;
-use Zrcms\ContentDoctrine\Entity\CmsResourceEntity;
-use Zrcms\ContentDoctrine\Entity\CmsResourceEntityTrait;
 use Zrcms\Param\Param;
 
 /**
@@ -44,6 +44,13 @@ class RedirectCmsResourceEntity
      * @ORM\Column(type="string")
      */
     protected $contentVersionId = null;
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(type="boolean")
+     */
+    protected $published = true;
 
     /**
      * @var array
@@ -103,25 +110,7 @@ class RedirectCmsResourceEntity
         string $createdByUserId,
         string $createdReason
     ) {
-        $this->id = Param::getInt(
-            $properties,
-            PropertiesRedirectCmsResource::ID
-        );
-
-        $this->contentVersionId = Param::getInt(
-            $properties,
-            PropertiesRedirectCmsResource::CONTENT_VERSION_ID
-        );
-
-        $this->siteCmsResourceId = Param::get(
-            $properties,
-            PropertiesRedirectCmsResource::SITE_CMS_RESOURCE_ID
-        );
-
-        $this->requestPath = Param::getString(
-            $properties,
-            PropertiesRedirectCmsResource::REQUEST_PATH
-        );
+        $this->updateProperties($properties);
 
         parent::__construct(
             $properties,
@@ -147,6 +136,14 @@ class RedirectCmsResourceEntity
     }
 
     /**
+     * @return bool
+     */
+    public function isPublished(): bool
+    {
+        return $this->published;
+    }
+
+    /**
      * @return string
      */
     public function getSiteCmsResourceId()
@@ -160,5 +157,41 @@ class RedirectCmsResourceEntity
     public function getRequestPath(): string
     {
         return $this->requestPath;
+    }
+
+    /**
+     * @param array $properties
+     *
+     * @return void
+     */
+    public function updateProperties(
+        array $properties
+    ) {
+        $this->id = Param::getInt(
+            $properties,
+            PropertiesRedirectCmsResource::ID
+        );
+
+        $this->contentVersionId = Param::getInt(
+            $properties,
+            PropertiesRedirectCmsResource::CONTENT_VERSION_ID
+        );
+
+        $this->published = Param::getBool(
+            $properties,
+            PropertiesRedirectCmsResource::PUBLISHED
+        );
+
+        $this->siteCmsResourceId = Param::get(
+            $properties,
+            PropertiesRedirectCmsResource::SITE_CMS_RESOURCE_ID
+        );
+
+        $this->requestPath = Param::getString(
+            $properties,
+            PropertiesRedirectCmsResource::REQUEST_PATH
+        );
+
+        $this->properties = $properties;
     }
 }

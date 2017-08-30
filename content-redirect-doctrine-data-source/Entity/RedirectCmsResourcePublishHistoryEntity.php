@@ -4,11 +4,11 @@ namespace Zrcms\ContentRedirectDoctrineDataSource\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Zrcms\Content\Model\PropertiesCmsResourcePublishHistory;
+use Zrcms\ContentDoctrine\Entity\CmsResourcePublishHistoryEntity;
+use Zrcms\ContentDoctrine\Entity\CmsResourcePublishHistoryEntityTrait;
 use Zrcms\ContentRedirect\Model\PropertiesRedirectCmsResource;
 use Zrcms\ContentRedirect\Model\RedirectCmsResourcePublishHistory;
 use Zrcms\ContentRedirect\Model\RedirectCmsResourcePublishHistoryAbstract;
-use Zrcms\ContentDoctrine\Entity\CmsResourcePublishHistoryEntity;
-use Zrcms\ContentDoctrine\Entity\CmsResourcePublishHistoryEntityTrait;
 use Zrcms\Param\Param;
 
 /**
@@ -42,6 +42,13 @@ class RedirectCmsResourcePublishHistoryEntity
      * @ORM\Column(type="string")
      */
     protected $contentVersionId = null;
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(type="boolean")
+     */
+    protected $published = true;
 
     /**
      * @var array
@@ -118,6 +125,11 @@ class RedirectCmsResourcePublishHistoryEntity
             PropertiesRedirectCmsResource::CONTENT_VERSION_ID
         );
 
+        $this->published = Param::getBool(
+            $properties,
+            PropertiesRedirectCmsResource::PUBLISHED
+        );
+
         $this->siteCmsResourceId = Param::get(
             $properties,
             PropertiesRedirectCmsResource::SITE_CMS_RESOURCE_ID
@@ -154,6 +166,14 @@ class RedirectCmsResourcePublishHistoryEntity
     public function getContentVersionId(): string
     {
         return $this->contentVersionId;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isPublished(): bool
+    {
+        return $this->published;
     }
 
     /**

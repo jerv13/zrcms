@@ -19,18 +19,6 @@ trait CmsResourceEntityTrait
     }
 
     /**
-     * @param array $properties
-     *
-     * @return void
-     */
-    public function updateProperties(
-        array $properties
-    ) {
-        $this->properties = $properties;
-    }
-
-
-    /**
      * @return void
      *
      * @ORM\PrePersist
@@ -49,5 +37,7 @@ trait CmsResourceEntityTrait
     public function postPersist(LifecycleEventArgs $event)
     {
         $this->properties[PropertiesCmsResource::ID] = $this->id;
+        $this->properties[PropertiesCmsResource::CONTENT_VERSION_ID] = $this->contentVersionId;
+        $this->properties[PropertiesCmsResource::PUBLISHED] = $this->published;
     }
 }

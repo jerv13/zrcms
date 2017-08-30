@@ -21,7 +21,6 @@ abstract class ContainerCmsResourceAbstract extends CmsResourceAbstract implemen
         string $createdByUserId,
         string $createdReason
     ) {
-
         Param::assertHas(
             $properties,
             PropertiesContainerCmsResource::SITE_CMS_RESOURCE_ID,

@@ -13,8 +13,8 @@ interface UnpublishRedirectCmsResource extends UnpublishCmsResource
 {
     /**
      * @param RedirectCmsResource|CmsResource $RedirectCmsResource
-     * @param string                      $unpublishedByUserId
-     * @param string                      $unpublishReason
+     * @param string                          $unpublishedByUserId
+     * @param string                          $unpublishReason
      *
      * @return bool
      */

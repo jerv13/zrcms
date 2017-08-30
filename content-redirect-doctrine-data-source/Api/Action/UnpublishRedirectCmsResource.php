@@ -4,18 +4,18 @@ namespace Zrcms\ContentRedirectDoctrineDataSource\Api\Action;
 
 use Doctrine\ORM\EntityManager;
 use Zrcms\Content\Model\CmsResource;
+use Zrcms\ContentDoctrine\Api\Action\UnpublishCmsResource;
 use Zrcms\ContentRedirect\Model\RedirectCmsResource;
 use Zrcms\ContentRedirectDoctrineDataSource\Entity\RedirectCmsResourceEntity;
 use Zrcms\ContentRedirectDoctrineDataSource\Entity\RedirectCmsResourcePublishHistoryEntity;
 use Zrcms\ContentRedirectDoctrineDataSource\Entity\RedirectVersionEntity;
-use Zrcms\ContentDoctrine\Api\Action\UnpublishCmsResource;
 
 /**
  * @author James Jervis - https://github.com/jerv13
  */
 class UnpublishRedirectCmsResource
     extends UnpublishCmsResource
-    implements \Zrcms\Content\Api\Action\UnpublishCmsResource
+    implements \Zrcms\ContentRedirect\Api\Action\UnpublishRedirectCmsResource
 {
     /**
      * @param EntityManager $entityManager
@@ -33,8 +33,8 @@ class UnpublishRedirectCmsResource
 
     /**
      * @param RedirectCmsResource|CmsResource $redirectCmsResource
-     * @param string                           $unpublishedByUserId
-     * @param string                           $unpublishReason
+     * @param string                          $unpublishedByUserId
+     * @param string                          $unpublishReason
      *
      * @return bool
      */

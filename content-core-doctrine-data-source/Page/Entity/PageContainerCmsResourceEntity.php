@@ -47,6 +47,13 @@ class PageContainerCmsResourceEntity
     protected $contentVersionId = null;
 
     /**
+     * @var boolean
+     *
+     * @ORM\Column(type="boolean")
+     */
+    protected $published = true;
+
+    /**
      * @var array
      *
      * @ORM\Column(type="json_array")
@@ -104,25 +111,7 @@ class PageContainerCmsResourceEntity
         string $createdByUserId,
         string $createdReason
     ) {
-        $this->id = Param::getInt(
-            $properties,
-            PropertiesPageContainerCmsResource::ID
-        );
-
-        $this->contentVersionId = Param::getInt(
-            $properties,
-            PropertiesPageContainerCmsResource::CONTENT_VERSION_ID
-        );
-
-        $this->siteCmsResourceId = Param::getInt(
-            $properties,
-            PropertiesPageContainerCmsResource::SITE_CMS_RESOURCE_ID
-        );
-
-        $this->path = Param::getString(
-            $properties,
-            PropertiesPageContainerCmsResource::PATH
-        );
+        $this->updateProperties($properties);
 
         parent::__construct(
             $properties,
@@ -148,6 +137,14 @@ class PageContainerCmsResourceEntity
     }
 
     /**
+     * @return bool
+     */
+    public function isPublished(): bool
+    {
+        return $this->published;
+    }
+
+    /**
      * @return string
      */
     public function getSiteCmsResourceId(): string
@@ -161,5 +158,41 @@ class PageContainerCmsResourceEntity
     public function getPath(): string
     {
         return $this->path;
+    }
+
+    /**
+     * @param array $properties
+     *
+     * @return void
+     */
+    public function updateProperties(
+        array $properties
+    ) {
+        $this->id = Param::getInt(
+            $properties,
+            PropertiesPageContainerCmsResource::ID
+        );
+
+        $this->contentVersionId = Param::getInt(
+            $properties,
+            PropertiesPageContainerCmsResource::CONTENT_VERSION_ID
+        );
+
+        $this->published = Param::getBool(
+            $properties,
+            PropertiesPageContainerCmsResource::PUBLISHED
+        );
+
+        $this->siteCmsResourceId = Param::getInt(
+            $properties,
+            PropertiesPageContainerCmsResource::SITE_CMS_RESOURCE_ID
+        );
+
+        $this->path = Param::getString(
+            $properties,
+            PropertiesPageContainerCmsResource::PATH
+        );
+
+        $this->properties = $properties;
     }
 }

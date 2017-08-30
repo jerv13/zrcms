@@ -66,6 +66,12 @@ abstract class CmsResourceAbstract implements CmsResource
             )
         );
 
+        $properties[PropertiesCmsResource::PUBLISHED] = Param::getBool(
+            $properties,
+            PropertiesCmsResource::PUBLISHED,
+            true
+        );
+
         $this->properties = $properties;
 
         $this->setCreatedData(
@@ -93,6 +99,17 @@ abstract class CmsResourceAbstract implements CmsResource
         return $this->getProperty(
             PropertiesCmsResource::CONTENT_VERSION_ID,
             ''
+        );
+    }
+
+    /**
+     * @return bool
+     */
+    public function isPublished(): bool
+    {
+        return $this->getProperty(
+            PropertiesCmsResource::PUBLISHED,
+            true
         );
     }
 }

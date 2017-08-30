@@ -20,6 +20,7 @@ class PropertiesSiteCmsResource extends PropertiesCmsResource
         = [
             self::ID => '',
             self::CONTENT_VERSION_ID => '',
+            self::PUBLISHED => true,
             self::HOST => '',
         ];
 }

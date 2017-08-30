@@ -81,7 +81,7 @@ class ImportCommand extends Command
         $this->import->__invoke(
             $contents,
             $createdByUserId,
-            $logger
+            [Import::OPTIONS_LOGGER => $logger]
         );
 
         $output->writeln('COMPLETE');

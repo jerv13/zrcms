@@ -9,6 +9,7 @@ class PropertiesCmsResource extends PropertiesSettableAbstract implements Proper
 {
     const ID = 'id';
     const CONTENT_VERSION_ID = 'contentVersionId';
+    const PUBLISHED = 'published';
 
     /**
      * Default values
@@ -19,5 +20,6 @@ class PropertiesCmsResource extends PropertiesSettableAbstract implements Proper
         = [
             self::ID => '',
             self::CONTENT_VERSION_ID => '',
+            self::PUBLISHED => true,
         ];
 }

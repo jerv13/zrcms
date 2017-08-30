@@ -15,7 +15,7 @@ use Zrcms\ContentDoctrine\Api\Action\UnpublishCmsResource;
  */
 class UnpublishLayoutCmsResource
     extends UnpublishCmsResource
-    implements \Zrcms\Content\Api\Action\UnpublishCmsResource
+    implements \Zrcms\ContentCore\Layout\Api\Action\UnpublishLayoutCmsResource
 {
     /**
      * @param EntityManager $entityManager
@@ -33,8 +33,8 @@ class UnpublishLayoutCmsResource
 
     /**
      * @param LayoutCmsResource|CmsResource $layoutCmsResource
-     * @param string                           $unpublishedByUserId
-     * @param string                           $unpublishReason
+     * @param string                        $unpublishedByUserId
+     * @param string                        $unpublishReason
      *
      * @return bool
      */

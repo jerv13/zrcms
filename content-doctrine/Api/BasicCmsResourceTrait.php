@@ -84,6 +84,11 @@ trait BasicCmsResourceTrait
         if (!array_key_exists(PropertiesCmsResource::CONTENT_VERSION_ID, $cmsResourceSyncToProperties)) {
             $contentVersionSyncToProperties[] = PropertiesCmsResource::CONTENT_VERSION_ID;
         }
+
+        if (!array_key_exists(PropertiesCmsResource::PUBLISHED, $cmsResourceSyncToProperties)) {
+            $contentVersionSyncToProperties[] = PropertiesCmsResource::PUBLISHED;
+        }
+
         $properties = $entity->getProperties();
 
         foreach ($cmsResourceSyncToProperties as $syncToProperty) {

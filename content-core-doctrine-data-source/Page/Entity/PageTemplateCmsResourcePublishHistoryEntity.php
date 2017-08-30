@@ -44,6 +44,13 @@ class PageTemplateCmsResourcePublishHistoryEntity
     protected $contentVersionId = null;
 
     /**
+     * @var boolean
+     *
+     * @ORM\Column(type="boolean")
+     */
+    protected $published = true;
+
+    /**
      * @var array
      *
      * @ORM\Column(type="json_array")
@@ -118,6 +125,11 @@ class PageTemplateCmsResourcePublishHistoryEntity
             PropertiesPageTemplateCmsResource::CONTENT_VERSION_ID
         );
 
+        $this->published = Param::getBool(
+            $properties,
+            PropertiesPageTemplateCmsResource::PUBLISHED
+        );
+
         $this->siteCmsResourceId = Param::getInt(
             $properties,
             PropertiesPageTemplateCmsResource::SITE_CMS_RESOURCE_ID
@@ -154,6 +166,14 @@ class PageTemplateCmsResourcePublishHistoryEntity
     public function getContentVersionId(): string
     {
         return $this->contentVersionId;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isPublished(): bool
+    {
+        return $this->published;
     }
 
     /**

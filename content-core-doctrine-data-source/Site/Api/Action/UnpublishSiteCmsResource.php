@@ -5,6 +5,7 @@ namespace Zrcms\ContentCoreDoctrineDataSource\Site\Api\Action;
 use Doctrine\ORM\EntityManager;
 use Zrcms\Content\Model\CmsResource;
 use Zrcms\ContentCore\Site\Model\SiteCmsResource;
+use Zrcms\ContentCore\Site\Model\SiteCmsResourceBasic;
 use Zrcms\ContentCoreDoctrineDataSource\Site\Entity\SiteCmsResourceEntity;
 use Zrcms\ContentCoreDoctrineDataSource\Site\Entity\SiteCmsResourcePublishHistoryEntity;
 use Zrcms\ContentCoreDoctrineDataSource\Site\Entity\SiteVersionEntity;
@@ -15,7 +16,7 @@ use Zrcms\ContentDoctrine\Api\Action\UnpublishCmsResource;
  */
 class UnpublishSiteCmsResource
     extends UnpublishCmsResource
-    implements \Zrcms\Content\Api\Action\UnpublishCmsResource
+    implements \Zrcms\ContentCore\Site\Api\Action\UnpublishSiteCmsResource
 {
     /**
      * @param EntityManager $entityManager
@@ -33,8 +34,8 @@ class UnpublishSiteCmsResource
 
     /**
      * @param SiteCmsResource|CmsResource $siteCmsResource
-     * @param string                           $unpublishedByUserId
-     * @param string                           $unpublishReason
+     * @param string                      $unpublishedByUserId
+     * @param string                      $unpublishReason
      *
      * @return bool
      */

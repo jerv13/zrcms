@@ -7,8 +7,11 @@ use Zrcms\Content\Model\Action;
 use Zrcms\Content\Model\CmsResource;
 use Zrcms\Content\Model\CmsResourcePublishHistory;
 use Zrcms\Content\Model\ContentVersion;
+use Zrcms\Content\Model\PropertiesCmsResource;
 use Zrcms\Content\Model\PropertiesCmsResourcePublishHistory;
 use Zrcms\ContentDoctrine\Api\ApiAbstract;
+use Zrcms\ContentDoctrine\Api\BasicCmsResourceTrait;
+use Zrcms\ContentDoctrine\Entity\CmsResourceEntity;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -17,6 +20,8 @@ class UnpublishCmsResource
     extends ApiAbstract
     implements \Zrcms\Content\Api\Action\UnpublishCmsResource
 {
+    use BasicCmsResourceTrait;
+
     /**
      * @var EntityManager
      */
@@ -36,6 +41,11 @@ class UnpublishCmsResource
      * @var string
      */
     protected $entityClassContentVersion;
+
+    /**
+     * @var string
+     */
+    protected $classCmsResourceBasic;
 
     /**
      * @param EntityManager $entityManager
@@ -89,6 +99,7 @@ class UnpublishCmsResource
             $this->entityClassCmsResource
         );
 
+        /** @var CmsResourceEntity $existingCmsResource */
         $existingCmsResource = $repositoryCmsResource->find(
             $cmsResource->getId()
         );
@@ -101,7 +112,7 @@ class UnpublishCmsResource
         $cmsResourcePublishHistoryClass = $this->entityClassCmsResourcePublishHistory;
 
         $historyProperties = $cmsResource->getProperties();
-        $historyProperties[PropertiesCmsResourcePublishHistory::ACTION] = Action::PUBLISH_CMS_RESOURCE;
+        $historyProperties[PropertiesCmsResourcePublishHistory::ACTION] = Action::UNPUBLISH_CMS_RESOURCE;
 
         $newCmsResourcePublishHistory = new $cmsResourcePublishHistoryClass(
             $historyProperties,
@@ -109,7 +120,14 @@ class UnpublishCmsResource
             $unpublishReason
         );
 
-        $this->entityManager->remove($existingCmsResource);
+        $properties = $existingCmsResource->getProperties();
+
+        $properties[PropertiesCmsResource::PUBLISHED] = false;
+
+        $existingCmsResource->updateProperties(
+            $properties
+        );
+
         $this->entityManager->persist($newCmsResourcePublishHistory);
         $this->entityManager->flush($newCmsResourcePublishHistory);
         $this->entityManager->flush($existingCmsResource);

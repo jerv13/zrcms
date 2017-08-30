@@ -46,6 +46,13 @@ class SiteCmsResourceEntity
     protected $contentVersionId = null;
 
     /**
+     * @var boolean
+     *
+     * @ORM\Column(type="boolean")
+     */
+    protected $published = true;
+
+    /**
      * @var array
      *
      * @ORM\Column(type="json_array")
@@ -96,25 +103,7 @@ class SiteCmsResourceEntity
         string $createdByUserId,
         string $createdReason
     ) {
-        $this->id = Param::getInt(
-            $properties,
-            PropertiesSiteCmsResource::ID
-        );
-
-        $this->contentVersionId = Param::getInt(
-            $properties,
-            PropertiesSiteCmsResource::CONTENT_VERSION_ID
-        );
-
-        Param::assertHas(
-            $properties,
-            PropertiesSiteCmsResource::HOST
-        );
-
-        $this->host = Param::getString(
-            $properties,
-            PropertiesSiteCmsResource::HOST
-        );
+        $this->updateProperties($properties);
 
         parent::__construct(
             $properties,
@@ -140,10 +129,54 @@ class SiteCmsResourceEntity
     }
 
     /**
+     * @return bool
+     */
+    public function isPublished(): bool
+    {
+        return $this->published;
+    }
+
+    /**
      * @return string
      */
     public function getHost(): string
     {
         return $this->host;
+    }
+
+    /**
+     * @param array $properties
+     *
+     * @return void
+     */
+    public function updateProperties(
+        array $properties
+    ) {
+        $this->id = Param::getInt(
+            $properties,
+            PropertiesSiteCmsResource::ID
+        );
+
+        $this->contentVersionId = Param::getInt(
+            $properties,
+            PropertiesSiteCmsResource::CONTENT_VERSION_ID
+        );
+
+        $this->published = Param::getBool(
+            $properties,
+            PropertiesSiteCmsResource::PUBLISHED
+        );
+
+        Param::assertHas(
+            $properties,
+            PropertiesSiteCmsResource::HOST
+        );
+
+        $this->host = Param::getString(
+            $properties,
+            PropertiesSiteCmsResource::HOST
+        );
+
+        $this->properties = $properties;
     }
 }

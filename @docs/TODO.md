@@ -2,7 +2,11 @@
 =====
 
 - Fix Unpublish to flag instead removing CmsResource - This will prevent orphans
-    - Investigate removing properties from CmsResources (might try a factory instead of constructor)
+    - Fix repositories to find only published by default
+
+    
+    
+- Finish Zrcms\ContentDoctrine\Api\Repository\FindCmsResourceVersion
 
 - Implement Content pattern for page templates PageTemplateResource extends PageContainer
     - Add NOOP services
@@ -52,6 +56,12 @@
 
 - Composition over Inheritance
     - Might decouple a bit
+    
+- Investigate reducing properties (might try a factory instead of constructor)
+    - CmsResources (id, contentVersionId, published)
+    - Content (id) do we still need ID?
+    - ContentVersion (id)
+    - Component (name, configLocation)
     
 ## Abstract ACL for libraries ##
 

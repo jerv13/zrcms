@@ -5,7 +5,6 @@ namespace Zrcms\ContentDoctrine\Api\Repository;
 use Doctrine\ORM\EntityManager;
 use Zrcms\Content\Model\CmsResource;
 use Zrcms\Content\Model\CmsResourceVersion;
-use Zrcms\Content\Model\Content;
 use Zrcms\Content\Model\ContentVersion;
 use Zrcms\Content\Model\PropertiesCmsResource;
 use Zrcms\ContentDoctrine\Api\ApiAbstract;
@@ -89,7 +88,7 @@ class FindCmsResourceVersion
         $cmsResourceIdName = PropertiesCmsResource::ID;
 
         $queryParams = [
-            $cmsResourceId=> 'cmsResourceId'
+            $cmsResourceId => 'cmsResourceId'
         ];
 
         // @todo Add prepared statements not concat
@@ -97,7 +96,6 @@ class FindCmsResourceVersion
             . "SELECT resource FROM {$this->entityClassCmsResource} resource"
             . " WHERE resource.{$cmsResourceIdName} = :cmsResourceId"
             . " JOIN {$this->entityClassContentVersion} version WITH resource.contentVersionId =  version.id";
-
 
         $dQuery = $this->entityManager->createQuery($query);
 

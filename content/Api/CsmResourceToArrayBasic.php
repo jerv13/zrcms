@@ -39,6 +39,9 @@ class CsmResourceToArrayBasic implements CsmResourceToArray
             PropertiesCmsResource::CONTENT_VERSION_ID
             => $cmsResource->getContentVersionId(),
 
+            PropertiesCmsResource::PUBLISHED
+            => $cmsResource->isPublished(),
+
             Properties::NAME_PROPERTIES
             => $cmsResource->getProperties(),
 

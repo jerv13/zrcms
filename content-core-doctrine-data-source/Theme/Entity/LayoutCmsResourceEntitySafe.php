@@ -38,5 +38,11 @@ class LayoutCmsResourceEntitySafe extends LayoutCmsResourceEntity
             PropertiesLayoutCmsResource::CONTENT_VERSION_ID,
             ''
         );
+
+        $this->published = Param::getBool(
+            $properties,
+            PropertiesLayoutCmsResource::PUBLISHED,
+            true
+        );
     }
 }
