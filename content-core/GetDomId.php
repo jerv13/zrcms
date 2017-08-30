@@ -7,7 +7,7 @@ namespace Zrcms\ContentCore;
  */
 class GetDomId
 {
-    protected static $current = 1;
+    protected static $current = 0;
 
     /**
      * Generate practically unique IDs for use in the dom (per request)
@@ -16,7 +16,7 @@ class GetDomId
      */
     public static function invoke()
     {
-        if (self::$current = PHP_INT_MAX) {
+        if (self::$current == PHP_INT_MAX) {
             self::$current = 0;
         }
         self::$current++;
