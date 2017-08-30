@@ -14,6 +14,8 @@ use Zrcms\ContentDoctrine\Api\BasicCmsResourceTrait;
 use Zrcms\ContentDoctrine\Entity\CmsResourceEntity;
 
 /**
+ * Publish a new or existing CmsResource with new properties
+ *
  * @author James Jervis - https://github.com/jerv13
  */
 class PublishCmsResource
