@@ -3,8 +3,6 @@
 namespace Zrcms\ContentCoreDoctrineDataSource\Theme\Api\Action;
 
 use Doctrine\ORM\EntityManager;
-use Zrcms\Content\Model\CmsResource;
-use Zrcms\ContentCore\Theme\Model\LayoutCmsResource;
 use Zrcms\ContentCoreDoctrineDataSource\Theme\Entity\LayoutCmsResourceEntity;
 use Zrcms\ContentCoreDoctrineDataSource\Theme\Entity\LayoutCmsResourcePublishHistoryEntity;
 use Zrcms\ContentCoreDoctrineDataSource\Theme\Entity\LayoutVersionEntity;
@@ -32,20 +30,20 @@ class UnpublishLayoutCmsResource
     }
 
     /**
-     * @param LayoutCmsResource|CmsResource $layoutCmsResource
-     * @param string                        $unpublishedByUserId
-     * @param string                        $unpublishReason
+     * @param string $layoutCmsResourceId
+     * @param string $unpublishedByUserId
+     * @param string $unpublishReason
      *
      * @return bool
      */
     public function __invoke(
-        CmsResource $layoutCmsResource,
+        string $layoutCmsResourceId,
         string $unpublishedByUserId,
         string $unpublishReason
     ): bool
     {
         return parent::__invoke(
-            $layoutCmsResource,
+            $layoutCmsResourceId,
             $unpublishedByUserId,
             $unpublishReason
         );

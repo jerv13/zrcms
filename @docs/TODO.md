@@ -3,6 +3,9 @@
 
 - APIs in http-expressive
 
+- Move GetViewLayoutMetaPageData to view-head module
+    - NOTE: this is coupled to the render controller - so need find a way
+
 - Finish Zrcms\ContentDoctrine\Api\Repository\FindCmsResourceVersion
 
 - Implement Content pattern for page templates PageTemplateResource extends PageContainer
@@ -27,6 +30,16 @@
 - Doctrine FindXXXsBy need to be made to work better with properties
 
 - GetRegisterComponentsAbstract needs a default service name, not ReadComponentConfig
+
+- HandleResponse should be a pipe or composite
+
+    - Could these just be middleware???
+        - Could get options from request instead of passed in
+        - Could get handlers from route options
+    - If a handler returns a response, then return and done
+    - Else handlers should call next
+    - Allow handlers to be configured for pipe
+
     
 ## Features ##
 

@@ -6,10 +6,10 @@ use Zrcms\Content\Api\ContentToArray;
 use Zrcms\Content\Api\ContentToArrayBasic;
 use Zrcms\Content\Api\ContentVersionToArray;
 use Zrcms\Content\Api\ContentVersionToArrayBasic;
-use Zrcms\Content\Api\CsmResourcePublishHistoryToArray;
-use Zrcms\Content\Api\CsmResourcePublishHistoryToArrayBasic;
-use Zrcms\Content\Api\CsmResourceToArray;
-use Zrcms\Content\Api\CsmResourceToArrayBasic;
+use Zrcms\Content\Api\CmsResourcePublishHistoryToArray;
+use Zrcms\Content\Api\CmsResourcePublishHistoryToArrayBasic;
+use Zrcms\Content\Api\CmsResourceToArray;
+use Zrcms\Content\Api\CmsResourceToArrayBasic;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -32,11 +32,11 @@ class ModuleConfig
                     ContentVersionToArray::class => [
                         'class' => ContentVersionToArrayBasic::class
                     ],
-                    CsmResourcePublishHistoryToArray::class => [
-                        'class' => CsmResourcePublishHistoryToArrayBasic::class
+                    CmsResourcePublishHistoryToArray::class => [
+                        'class' => CmsResourcePublishHistoryToArrayBasic::class
                     ],
-                    CsmResourceToArray::class => [
-                        'class' => CsmResourceToArrayBasic::class
+                    CmsResourceToArray::class => [
+                        'class' => CmsResourceToArrayBasic::class
                     ],
                 ],
             ],

@@ -83,14 +83,14 @@ class UnpublishCmsResource
     /**
      * @todo use a Doctrine transaction
      *
-     * @param CmsResource $cmsResource
-     * @param string      $unpublishedByUserId
-     * @param string      $unpublishReason
+     * @param string $cmsResourceId
+     * @param string $unpublishedByUserId
+     * @param string $unpublishReason
      *
      * @return bool
      */
     public function __invoke(
-        CmsResource $cmsResource,
+        string $cmsResourceId,
         string $unpublishedByUserId,
         string $unpublishReason
     ): bool
@@ -101,7 +101,7 @@ class UnpublishCmsResource
 
         /** @var CmsResourceEntity $existingCmsResource */
         $existingCmsResource = $repositoryCmsResource->find(
-            $cmsResource->getId()
+            $cmsResourceId
         );
 
         if (empty($existingCmsResource)) {

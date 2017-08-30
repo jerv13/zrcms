@@ -1,30 +1,37 @@
 <?php
 
-namespace Zrcms\HttpExpressive1\ApiHttp\Content\Repository;
+namespace Zrcms\HttpExpressive1\ApiHttp\Content\Action;
 
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Zend\Diactoros\Response\JsonResponse;
-use Zrcms\Content\Api\ContentVersionToArray;
+use Zrcms\Content\Api\CmsResourceToArray;
 use Zrcms\HttpExpressive1\Model\ResponseCodes;
 use Zrcms\HttpResponseHandler\Api\HandleResponseApi;
 use Zrcms\HttpResponseHandler\Model\HandleResponseOptions;
+use Zrcms\User\Api\GetUserIdByRequest;
 
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class FindContentVersion
+class UnpublishCmsResource
 {
-    const SOURCE = 'find-content-version';
-    /**
-     * @var \Zrcms\Content\Api\Repository\FindContentVersion
-     */
-    protected $findContentVersion;
+    const SOURCE = 'unpublish-cms-resource';
 
     /**
-     * @var ContentVersionToArray
+     * @var \Zrcms\Content\Api\Action\UnpublishCmsResource
      */
-    protected $contentVersionToArray;
+    protected $unpublishCmsResource;
+
+    /**
+     * @var CmsResourceToArray
+     */
+    protected $cmsResourceToArray;
+
+    /**
+     * @var GetUserIdByRequest
+     */
+    protected $getUserIdByRequest;
 
     /**
      * @var HandleResponseApi
@@ -34,23 +41,34 @@ class FindContentVersion
     /**
      * @var string
      */
+    protected $cmsResourceClass;
+
+    /**
+     * @var string
+     */
     protected $name;
 
     /**
-     * @param \Zrcms\Content\Api\Repository\FindContentVersion $findContentVersion
-     * @param ContentVersionToArray                            $contentVersionToArray
-     * @param HandleResponseApi                                $handleResponseApi
-     * @param string                                           $name
+     * @param \Zrcms\Content\Api\Action\UnpublishCmsResource $unpublishCmsResource
+     * @param CmsResourceToArray                             $cmsResourceToArray
+     * @param GetUserIdByRequest                             $getUserIdByRequest
+     * @param HandleResponseApi                              $handleResponseApi
+     * @param string                                         $cmsResourceClass
+     * @param string                                         $name
      */
     public function __construct(
-        \Zrcms\Content\Api\Repository\FindContentVersion $findContentVersion,
-        ContentVersionToArray $contentVersionToArray,
+        \Zrcms\Content\Api\Action\UnpublishCmsResource $unpublishCmsResource,
+        CmsResourceToArray $cmsResourceToArray,
+        GetUserIdByRequest $getUserIdByRequest,
         HandleResponseApi $handleResponseApi,
+        string $cmsResourceClass,
         string $name
     ) {
-        $this->findContentVersion = $findContentVersion;
-        $this->contentVersionToArray = $contentVersionToArray;
+        $this->unpublishCmsResource = $unpublishCmsResource;
+        $this->cmsResourceToArray = $cmsResourceToArray;
+        $this->getUserIdByRequest = $getUserIdByRequest;
         $this->handleResponseApi = $handleResponseApi;
+        $this->cmsResourceClass = $cmsResourceClass;
         $this->name = $name;
     }
 
@@ -69,9 +87,9 @@ class FindContentVersion
         ResponseInterface $response,
         callable $next = null
     ) {
-        $contentVersionId = $request->getAttribute('id');
+        $cmsResourceId = (string)$request->getAttribute('id');
 
-        if (empty($contentVersionId)) {
+        if (empty($cmsResourceId)) {
             $response = new JsonResponse(
                 null,
                 400
@@ -94,14 +112,16 @@ class FindContentVersion
             );
         }
 
-        $contentVersion = $this->findContentVersion->__invoke(
-            $contentVersionId
+        $success = $this->unpublishCmsResource->__invoke(
+            $cmsResourceId,
+            $this->getUserIdByRequest->__invoke($request),
+            get_class($this)
         );
 
-        if (empty($contentVersion)) {
+        if (!$success) {
             $response = new JsonResponse(
-                null,
-                404
+                false,
+                400
             );
 
             return $this->handleResponseApi->__invoke(
@@ -111,9 +131,9 @@ class FindContentVersion
                 [
                     HandleResponseOptions::API_MESSAGES => [
                         'type' => $this->name,
-                        'value' => 'Not found for id: ' . $contentVersionId,
+                        'value' => 'Update failed',
                         'source' => self::SOURCE,
-                        'code' => ResponseCodes::NOT_FOUND,
+                        'code' => ResponseCodes::FAILED,
                         'primary' => true,
                         'params' => []
                     ]
@@ -121,12 +141,8 @@ class FindContentVersion
             );
         }
 
-        $result = $this->contentVersionToArray->__invoke(
-            $contentVersion
-        );
-
         return new JsonResponse(
-            $result
+            $success
         );
     }
 }

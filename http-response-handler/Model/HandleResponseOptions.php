@@ -9,4 +9,6 @@ class HandleResponseOptions
 {
     const EXCEPTION = 'exception';
     const MESSAGE = 'message';
+    const DATA = 'data';
+    const API_MESSAGES = 'apiMessages';
 }

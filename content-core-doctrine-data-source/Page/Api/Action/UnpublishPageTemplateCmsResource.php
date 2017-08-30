@@ -32,20 +32,20 @@ class UnpublishPageTemplateCmsResource
     }
 
     /**
-     * @param PageTemplateCmsResource|CmsResource $pageTemplateCmsResource
-     * @param string                               $unpublishedByUserId
-     * @param string                               $unpublishReason
+     * @param string $pageTemplateCmsResourceId
+     * @param string $unpublishedByUserId
+     * @param string $unpublishReason
      *
      * @return bool
      */
     public function __invoke(
-        CmsResource $pageTemplateCmsResource,
+        string $pageTemplateCmsResourceId,
         string $unpublishedByUserId,
         string $unpublishReason
     ): bool
     {
         return parent::__invoke(
-            $pageTemplateCmsResource,
+            $pageTemplateCmsResourceId,
             $unpublishedByUserId,
             $unpublishReason
         );

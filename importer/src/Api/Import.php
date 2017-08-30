@@ -288,7 +288,7 @@ class Import
                 );
 
                 $this->unpublishSiteCmsResource->__invoke(
-                    $publishedSiteCmsResource,
+                    $publishedSiteCmsResource->getId(),
                     $createdByUserId,
                     $createdReason
                 );
@@ -355,7 +355,7 @@ class Import
                 );
 
                 $this->unpublishPageContainerCmsResource->__invoke(
-                    $publishedPageContainerCmsResource,
+                    $publishedPageContainerCmsResource->getId(),
                     $createdByUserId,
                     $createdReason
                 );
@@ -422,7 +422,7 @@ class Import
                 );
 
                 $this->unpublishContainerCmsResource->__invoke(
-                    $publishedContainerCmsResource,
+                    $publishedContainerCmsResource->getId(),
                     $createdByUserId,
                     $createdReason
                 );
@@ -506,7 +506,7 @@ class Import
                 );
 
                 $this->unpublishRedirectCmsResource->__invoke(
-                    $publishedRedirectCmsResource,
+                    $publishedRedirectCmsResource->getId(),
                     $createdByUserId,
                     $createdReason
                 );

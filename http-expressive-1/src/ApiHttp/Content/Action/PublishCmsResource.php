@@ -1,12 +1,12 @@
 <?php
 
-namespace Zrcms\HttpExpressive1\ApiHttp\Content\Repository;
+namespace Zrcms\HttpExpressive1\ApiHttp\Content\Action;
 
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Zend\Diactoros\Response\JsonResponse;
-use Zrcms\Content\Api\ContentVersionToArray;
-use Zrcms\Content\Model\ContentVersion;
+use Zrcms\Content\Api\CmsResourceToArray;
+use Zrcms\Content\Model\CmsResource;
 use Zrcms\HttpExpressive1\Model\ResponseCodes;
 use Zrcms\HttpResponseHandler\Api\HandleResponseApi;
 use Zrcms\HttpResponseHandler\Model\HandleResponseOptions;
@@ -15,18 +15,19 @@ use Zrcms\User\Api\GetUserIdByRequest;
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class InsertContentVersion
+class PublishCmsResource
 {
-    const SOURCE = 'insert-content-version';
-    /**
-     * @var \Zrcms\Content\Api\Repository\InsertContentVersion
-     */
-    protected $insertContentVersion;
+    const SOURCE = 'publish-cms-resource';
 
     /**
-     * @var ContentVersionToArray
+     * @var \Zrcms\Content\Api\Action\PublishCmsResource
      */
-    protected $contentVersionToArray;
+    protected $publishCmsResource;
+
+    /**
+     * @var CmsResourceToArray
+     */
+    protected $cmsResourceToArray;
 
     /**
      * @var GetUserIdByRequest
@@ -41,7 +42,7 @@ class InsertContentVersion
     /**
      * @var string
      */
-    protected $contentVersionClass;
+    protected $cmsResourceClass;
 
     /**
      * @var string
@@ -49,26 +50,26 @@ class InsertContentVersion
     protected $name;
 
     /**
-     * @param \Zrcms\Content\Api\Repository\InsertContentVersion $insertContentVersion
-     * @param ContentVersionToArray                              $contentVersionToArray
-     * @param GetUserIdByRequest                                 $getUserIdByRequest
-     * @param HandleResponseApi                                  $handleResponseApi
-     * @param string                                             $contentVersionClass
-     * @param string                                             $name
+     * @param \Zrcms\Content\Api\Action\PublishCmsResource $publishCmsResource
+     * @param CmsResourceToArray                           $cmsResourceToArray
+     * @param GetUserIdByRequest                           $getUserIdByRequest
+     * @param HandleResponseApi                            $handleResponseApi
+     * @param string                                       $cmsResourceClass
+     * @param string                                       $name
      */
     public function __construct(
-        \Zrcms\Content\Api\Repository\InsertContentVersion $insertContentVersion,
-        ContentVersionToArray $contentVersionToArray,
+        \Zrcms\Content\Api\Action\PublishCmsResource $publishCmsResource,
+        CmsResourceToArray $cmsResourceToArray,
         GetUserIdByRequest $getUserIdByRequest,
         HandleResponseApi $handleResponseApi,
-        string $contentVersionClass,
+        string $cmsResourceClass,
         string $name
     ) {
-        $this->insertContentVersion = $insertContentVersion;
-        $this->contentVersionToArray = $contentVersionToArray;
+        $this->publishCmsResource = $publishCmsResource;
+        $this->cmsResourceToArray = $cmsResourceToArray;
         $this->getUserIdByRequest = $getUserIdByRequest;
         $this->handleResponseApi = $handleResponseApi;
-        $this->contentVersionClass = $contentVersionClass;
+        $this->cmsResourceClass = $cmsResourceClass;
         $this->name = $name;
     }
 
@@ -112,21 +113,23 @@ class InsertContentVersion
             );
         }
 
-        /** @var ContentVersion::class $contentVersionClass */
-        $contentVersionClass = $this->contentVersionClass;
+        /** @var CmsResource::class $cmsResourceClass */
+        $cmsResourceClass = $this->cmsResourceClass;
 
-        $contentVersion = new $contentVersionClass(
+        $cmsResource = new $cmsResourceClass(
             $properties,
             $this->getUserIdByRequest->__invoke($request),
             get_class($this)
         );
 
-        $newContentVersion = $this->insertContentVersion->__invoke(
-            $contentVersion
+        $newCmsResource = $this->publishCmsResource->__invoke(
+            $cmsResource,
+            $this->getUserIdByRequest->__invoke($request),
+            get_class($this)
         );
 
-        $result = $this->contentVersionToArray->__invoke(
-            $newContentVersion
+        $result = $this->cmsResourceToArray->__invoke(
+            $newCmsResource
         );
 
         return new JsonResponse(

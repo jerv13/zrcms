@@ -11,7 +11,7 @@ use Zrcms\ContentRedirect\Api\Repository\FindRedirectCmsResourceVersionBySiteReq
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class Redirect
+class ContentRedirect
 {
     /**
      * @var GetSiteCmsResourceVersionByRequest

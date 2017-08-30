@@ -3,8 +3,6 @@
 namespace Zrcms\ContentCore\Container\Api\Action;
 
 use Zrcms\Content\Api\Action\UnpublishCmsResource;
-use Zrcms\Content\Model\CmsResource;
-use Zrcms\ContentCore\Container\Model\ContainerCmsResource;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -12,14 +10,14 @@ use Zrcms\ContentCore\Container\Model\ContainerCmsResource;
 interface UnpublishContainerCmsResource extends UnpublishCmsResource
 {
     /**
-     * @param ContainerCmsResource|CmsResource $containerCmsResource
-     * @param string                           $unpublishedByUserId
-     * @param string                           $unpublishReason
+     * @param string $containerCmsResourceId
+     * @param string $unpublishedByUserId
+     * @param string $unpublishReason
      *
      * @return bool
      */
     public function __invoke(
-        CmsResource $containerCmsResource,
+        string $containerCmsResourceId,
         string $unpublishedByUserId,
         string $unpublishReason
     ): bool;

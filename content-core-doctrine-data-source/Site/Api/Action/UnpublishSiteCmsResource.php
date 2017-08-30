@@ -3,9 +3,6 @@
 namespace Zrcms\ContentCoreDoctrineDataSource\Site\Api\Action;
 
 use Doctrine\ORM\EntityManager;
-use Zrcms\Content\Model\CmsResource;
-use Zrcms\ContentCore\Site\Model\SiteCmsResource;
-use Zrcms\ContentCore\Site\Model\SiteCmsResourceBasic;
 use Zrcms\ContentCoreDoctrineDataSource\Site\Entity\SiteCmsResourceEntity;
 use Zrcms\ContentCoreDoctrineDataSource\Site\Entity\SiteCmsResourcePublishHistoryEntity;
 use Zrcms\ContentCoreDoctrineDataSource\Site\Entity\SiteVersionEntity;
@@ -33,20 +30,20 @@ class UnpublishSiteCmsResource
     }
 
     /**
-     * @param SiteCmsResource|CmsResource $siteCmsResource
-     * @param string                      $unpublishedByUserId
-     * @param string                      $unpublishReason
+     * @param string $siteCmsResourceId
+     * @param string $unpublishedByUserId
+     * @param string $unpublishReason
      *
      * @return bool
      */
     public function __invoke(
-        CmsResource $siteCmsResource,
+        string $siteCmsResourceId,
         string $unpublishedByUserId,
         string $unpublishReason
     ): bool
     {
         return parent::__invoke(
-            $siteCmsResource,
+            $siteCmsResourceId,
             $unpublishedByUserId,
             $unpublishReason
         );

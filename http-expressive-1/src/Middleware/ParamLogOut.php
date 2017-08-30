@@ -10,7 +10,7 @@ use Zrcms\Param\Param;
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class LogOut
+class ParamLogOut
 {
     const PARAM_LOGOUT = 'logout';
 

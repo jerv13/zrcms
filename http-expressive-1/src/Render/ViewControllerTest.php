@@ -7,7 +7,7 @@ use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Zend\Diactoros\Response\HtmlResponse;
 use Zend\Diactoros\Response\JsonResponse;
-use Zrcms\Content\Api\CsmResourceToArray;
+use Zrcms\Content\Api\CmsResourceToArray;
 use Zrcms\ContentCore\Basic\Api\Repository\FindBasicComponent;
 use Zrcms\ContentCore\Page\Api\Render\GetPageContainerRenderTagsHtml;
 use Zrcms\ContentCore\Page\Api\Render\RenderPageContainerRows;
@@ -135,8 +135,8 @@ class ViewControllerTest
             self::CREATED_REASON
         );
 
-        /** @var CsmResourceToArray $toArray */
-        $toArray = $this->serviceContainer->get(CsmResourceToArray::class);
+        /** @var CmsResourceToArray $toArray */
+        $toArray = $this->serviceContainer->get(CmsResourceToArray::class);
 
         return new JsonResponse(
             $toArray->__invoke($newSiteCmsResource)

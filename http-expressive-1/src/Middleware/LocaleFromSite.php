@@ -11,7 +11,7 @@ use Zrcms\Locale\Api\SetLocale;
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class SetLocaleFromSite
+class LocaleFromSite
 {
     /**
      * @var SetLocale

@@ -7,7 +7,7 @@ use Zrcms\Content\Model\CmsResourcePublishHistory;
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-interface CsmResourcePublishHistoryToArray
+interface CmsResourcePublishHistoryToArray
 {
     /**
      * @param CmsResourcePublishHistory $cmsResourcePublishHistory

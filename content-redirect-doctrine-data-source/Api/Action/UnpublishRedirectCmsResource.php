@@ -3,9 +3,7 @@
 namespace Zrcms\ContentRedirectDoctrineDataSource\Api\Action;
 
 use Doctrine\ORM\EntityManager;
-use Zrcms\Content\Model\CmsResource;
 use Zrcms\ContentDoctrine\Api\Action\UnpublishCmsResource;
-use Zrcms\ContentRedirect\Model\RedirectCmsResource;
 use Zrcms\ContentRedirectDoctrineDataSource\Entity\RedirectCmsResourceEntity;
 use Zrcms\ContentRedirectDoctrineDataSource\Entity\RedirectCmsResourcePublishHistoryEntity;
 use Zrcms\ContentRedirectDoctrineDataSource\Entity\RedirectVersionEntity;
@@ -32,20 +30,20 @@ class UnpublishRedirectCmsResource
     }
 
     /**
-     * @param RedirectCmsResource|CmsResource $redirectCmsResource
-     * @param string                          $unpublishedByUserId
-     * @param string                          $unpublishReason
+     * @param string $redirectCmsResourceId
+     * @param string $unpublishedByUserId
+     * @param string $unpublishReason
      *
      * @return bool
      */
     public function __invoke(
-        CmsResource $redirectCmsResource,
+        string $redirectCmsResourceId,
         string $unpublishedByUserId,
         string $unpublishReason
     ): bool
     {
         return parent::__invoke(
-            $redirectCmsResource,
+            $redirectCmsResourceId,
             $unpublishedByUserId,
             $unpublishReason
         );

@@ -2,8 +2,6 @@
 
 namespace Zrcms\Content\Api\Action;
 
-use Zrcms\Content\Model\CmsResource;
-
 /**
  * Unpublish a CmsResource and add an entry for Publish history
  *
@@ -12,14 +10,14 @@ use Zrcms\Content\Model\CmsResource;
 interface UnpublishCmsResource
 {
     /**
-     * @param CmsResource $cmsResource
-     * @param string      $unpublishedByUserId
-     * @param string      $unpublishReason
+     * @param string $cmsResourceId
+     * @param string $unpublishedByUserId
+     * @param string $unpublishReason
      *
      * @return bool
      */
     public function __invoke(
-        CmsResource $cmsResource,
+        string $cmsResourceId,
         string $unpublishedByUserId,
         string $unpublishReason
     ): bool;

@@ -14,7 +14,7 @@ class HandleResponseReturnOnStatus implements HandleResponse
     protected $successStatuses = [];
 
     public function __construct(
-        $successStatuses = [200]
+        array $successStatuses = [200]
     ) {
         $this->successStatuses = $successStatuses;
     }

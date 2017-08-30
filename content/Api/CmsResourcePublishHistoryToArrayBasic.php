@@ -13,7 +13,7 @@ use Zrcms\Param\Param;
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class CsmResourcePublishHistoryToArrayBasic implements CsmResourcePublishHistoryToArray
+class CmsResourcePublishHistoryToArrayBasic implements CmsResourcePublishHistoryToArray
 {
     /**
      * @param CmsResourcePublishHistory $cmsResourcePublishHistory

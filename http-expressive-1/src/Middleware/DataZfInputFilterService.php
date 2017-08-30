@@ -4,14 +4,16 @@ namespace Zrcms\HttpExpressive1\Middleware;
 
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
-use Reliv\RcmApiLib\Service\PsrResponseService;
+use Zend\Diactoros\Response\JsonResponse;
 use ZfInputFilterService\InputFilter\ServiceAwareFactory;
 use ZfInputFilterService\InputFilter\ServiceAwareInputFilter;
+use Zrcms\HttpResponseHandler\Api\HandleResponseApi;
+use Zrcms\HttpResponseHandler\Model\HandleResponseOptions;
 
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class ZfInputFilterServiceHttp
+class DataZfInputFilterService
 {
     /**
      * @var ServiceAwareFactory
@@ -24,23 +26,23 @@ class ZfInputFilterServiceHttp
     protected $inputFilterConfig;
 
     /**
-     * @var PsrResponseService
+     * @var HandleResponseApi
      */
-    protected $psrResponseService;
+    protected $handleResponse;
 
     /**
      * @param ServiceAwareFactory $factory
      * @param array               $inputFilterConfig
-     * @param PsrResponseService  $psrResponseService
+     * @param HandleResponseApi   $handleResponse
      */
     public function __construct(
         ServiceAwareFactory $factory,
         array $inputFilterConfig,
-        PsrResponseService $psrResponseService
+        HandleResponseApi $handleResponse
     ) {
         $this->factory = $factory;
         $this->inputFilterConfig = $inputFilterConfig;
-        $this->psrResponseService = $psrResponseService;
+        $this->handleResponse = $handleResponse;
     }
 
     /**
@@ -68,11 +70,18 @@ class ZfInputFilterServiceHttp
         $serviceAwareInputFilter->setData($data);
 
         if (!$serviceAwareInputFilter->isValid($data)) {
-            return $this->psrResponseService->getPsrApiResponse(
+            $response = new JsonResponse(
+                null,
+                400
+            );
+
+            return $this->handleResponse->__invoke(
+                $request,
                 $response,
-                $data,
-                400,
-                $serviceAwareInputFilter
+                $next,
+                [
+                    HandleResponseOptions::API_MESSAGES => $serviceAwareInputFilter
+                ]
             );
         }
 

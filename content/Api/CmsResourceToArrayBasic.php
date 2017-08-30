@@ -13,7 +13,7 @@ use Zrcms\Param\Param;
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class CsmResourceToArrayBasic implements CsmResourceToArray
+class CmsResourceToArrayBasic implements CmsResourceToArray
 {
     /**
      * @param CmsResource $cmsResource
