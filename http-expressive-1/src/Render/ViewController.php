@@ -7,12 +7,13 @@ use Psr\Http\Message\ServerRequestInterface;
 use Zend\Diactoros\Response\HtmlResponse;
 use Zrcms\ContentCore\Page\Exception\PageNotFoundException;
 use Zrcms\ContentCore\Site\Exception\SiteNotFoundException;
+use Zrcms\ContentCore\View\Api\GetViewByRequest;
 use Zrcms\ContentCore\View\Api\Render\GetViewLayoutTags;
 use Zrcms\ContentCore\View\Api\Render\RenderView;
-use Zrcms\ContentCore\View\Api\GetViewByRequest;
 use Zrcms\ContentCore\View\Model\View;
 use Zrcms\HttpExpressive1\Model\RequestedPage;
 use Zrcms\HttpResponseHandler\Api\HandleResponse;
+use Zrcms\HttpResponseHandler\Model\HandleResponseOptions;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -20,7 +21,7 @@ use Zrcms\HttpResponseHandler\Api\HandleResponse;
 class ViewController
 {
     /**
-     * @param GetViewByRequest $getViewByRequest
+     * @param GetViewByRequest  $getViewByRequest
      * @param GetViewLayoutTags $getViewLayoutTags
      * @param RenderView        $renderView
      * @param HandleResponse    $handleResponse
@@ -68,13 +69,39 @@ class ViewController
                 ]
             );
         } catch (SiteNotFoundException $exception) {
-            // Call next, fallback controller can handle them
-            //throw $exception;
-            return $next($request, $response);
+
+            $response = new HtmlResponse(
+                'SITE NOT FOUND',
+                404
+            );
+
+            // Note: inject the right handler for your use case
+            return $this->handleResponse->__invoke(
+                $request,
+                $response,
+                $next,
+                [
+                    HandleResponseOptions::MESSAGE
+                    => $exception->getMessage()
+                ]
+            );
         } catch (PageNotFoundException $exception) {
-            // Call next, fallback controller can handle them
-            //throw $exception;
-            return $next($request, $response);
+
+            $response = new HtmlResponse(
+                'PAGE NOT FOUND',
+                404
+            );
+
+            // Note: inject the right handler for your use case
+            return $this->handleResponse->__invoke(
+                $request,
+                $response,
+                $next,
+                [
+                    HandleResponseOptions::MESSAGE
+                    => $exception->getMessage()
+                ]
+            );
         }
 
         $viewRenderTags = $this->getViewLayoutTags->__invoke(

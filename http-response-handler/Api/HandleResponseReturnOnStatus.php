@@ -4,6 +4,7 @@ namespace Zrcms\HttpResponseHandler\Api;
 
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
+use Zend\Diactoros\Response;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -36,6 +37,8 @@ class HandleResponseReturnOnStatus implements HandleResponse
         if (in_array($status, $this->successStatuses)) {
             return $response;
         }
+        // clear any strangeness
+        $response = new Response();
 
         return $next($request, $response);
     }

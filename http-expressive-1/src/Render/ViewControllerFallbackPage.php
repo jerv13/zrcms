@@ -32,8 +32,8 @@ class ViewControllerFallbackPage
 
     /**
      * @param FindBasicComponent $findBasicComponent
-     * @param HandleResponse                $handleResponse
-     * @param ViewController                $viewController
+     * @param HandleResponse     $handleResponse
+     * @param ViewController     $viewController
      */
     public function __construct(
         FindBasicComponent $findBasicComponent,
@@ -84,6 +84,7 @@ class ViewControllerFallbackPage
             return $this->handleResponse->__invoke(
                 $request,
                 $response->withStatus(404, 'PAGE NOT FOUND'),
+                $next,
                 [
                     HandleResponseOptions::MESSAGE
                     => 'SitePropertyPagePath is not set for status: ' . $status
