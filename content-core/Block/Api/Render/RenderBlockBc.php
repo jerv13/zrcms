@@ -13,8 +13,8 @@ use Zend\View\Helper\Placeholder\Container;
 use Zrcms\Content\Model\Content;
 use Zrcms\ContentCore\Block\Model\BlockVersion;
 use Zrcms\ContentCore\Block\Model\PropertiesBlock;
-use ZrcmsRcmCompatibility\Rcm\Adapter\GetRcmPluginController;
-use ZrcmsRcmCompatibility\Rcm\Adapter\GetRcmViewRenderer;
+use ZrcmsRcmCompatibility\RcmAdapter\GetRcmPluginController;
+use ZrcmsRcmCompatibility\RcmAdapter\GetRcmViewRenderer;
 
 /**
  * @deprecated BC only

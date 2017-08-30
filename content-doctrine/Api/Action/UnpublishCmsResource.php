@@ -111,7 +111,10 @@ class UnpublishCmsResource
         /** @var CmsResourcePublishHistory::class $cmsResourcePublishHistoryClass */
         $cmsResourcePublishHistoryClass = $this->entityClassCmsResourcePublishHistory;
 
-        $historyProperties = $cmsResource->getProperties();
+        $properties = $existingCmsResource->getProperties();
+        $properties[PropertiesCmsResource::PUBLISHED] = false;
+
+        $historyProperties = $properties;
         $historyProperties[PropertiesCmsResourcePublishHistory::ACTION] = Action::UNPUBLISH_CMS_RESOURCE;
 
         $newCmsResourcePublishHistory = new $cmsResourcePublishHistoryClass(
@@ -119,10 +122,6 @@ class UnpublishCmsResource
             $unpublishedByUserId,
             $unpublishReason
         );
-
-        $properties = $existingCmsResource->getProperties();
-
-        $properties[PropertiesCmsResource::PUBLISHED] = false;
 
         $existingCmsResource->updateProperties(
             $properties

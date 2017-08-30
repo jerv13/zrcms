@@ -3,8 +3,8 @@
 namespace Zrcms\ContentCore\Block\Api\Render;
 
 use Psr\Container\ContainerInterface;
-use ZrcmsRcmCompatibility\Rcm\Adapter\GetRcmPluginController;
-use ZrcmsRcmCompatibility\Rcm\Adapter\GetRcmViewRenderer;
+use ZrcmsRcmCompatibility\RcmAdapter\GetRcmPluginController;
+use ZrcmsRcmCompatibility\RcmAdapter\GetRcmViewRenderer;
 
 /**
  * @deprecated BC only
