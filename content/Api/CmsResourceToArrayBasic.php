@@ -53,9 +53,6 @@ class CmsResourceToArrayBasic implements CmsResourceToArray
 
             TrackableProperties::CREATED_DATE
             => $cmsResource->getCreatedDate(),
-
-            TrackableProperties::CREATED_DATE_STRING
-            => $cmsResource->createdDateToString($dateFormat),
         ];
     }
 }

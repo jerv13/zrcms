@@ -17,7 +17,7 @@ use Zrcms\User\Api\GetUserIdByRequest;
  */
 class InsertContentVersion
 {
-    const SOURCE = 'insert-content-version';
+    const SOURCE = 'zrcms-insert-content-version';
     /**
      * @var \Zrcms\Content\Api\Repository\InsertContentVersion
      */

@@ -89,6 +89,13 @@ class RedirectCmsResourcePublishHistoryEntity
      *
      * @ORM\Column(type="string")
      */
+    protected $cmsResourceId;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(type="string")
+     */
     protected $action;
 
     /**
@@ -140,6 +147,11 @@ class RedirectCmsResourcePublishHistoryEntity
             PropertiesRedirectCmsResource::REQUEST_PATH
         );
 
+        $this->cmsResourceId = Param::getString(
+            $properties,
+            PropertiesCmsResourcePublishHistory::CMS_RESOURCE_ID
+        );
+
         $this->action = Param::getString(
             $properties,
             PropertiesCmsResourcePublishHistory::ACTION
@@ -182,6 +194,14 @@ class RedirectCmsResourcePublishHistoryEntity
     public function getAction(): string
     {
         return $this->action;
+    }
+
+    /**
+     * @return string
+     */
+    public function getCmsResourceId(): string
+    {
+        return $this->cmsResourceId;
     }
 
     /**

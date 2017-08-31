@@ -1,32 +1,32 @@
 <?php
 
-namespace Zrcms\HttpExpressive1\HttpApi\Content\Action;
+namespace Zrcms\HttpExpressive1\HttpApi\Content\Repository;
 
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Zend\Diactoros\Response\JsonResponse;
+use Zrcms\Content\Api\CmsResourceToArray;
 use Zrcms\Content\Model\PropertiesCmsResource;
 use Zrcms\HttpExpressive1\Model\ResponseCodes;
 use Zrcms\HttpResponseHandler\Api\HandleResponseApi;
 use Zrcms\HttpResponseHandler\Model\HandleResponseOptions;
-use Zrcms\User\Api\GetUserIdByRequest;
 
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class UnpublishCmsResource
+class FindCmsResource
 {
-    const SOURCE = 'zrcms-unpublish-cms-resource';
+    const SOURCE = 'zrcms-find-cms-resource';
 
     /**
-     * @var \Zrcms\Content\Api\Action\UnpublishCmsResource
+     * @var \Zrcms\Content\Api\Repository\FindCmsResource
      */
-    protected $unpublishCmsResource;
+    protected $findCmsResource;
 
     /**
-     * @var GetUserIdByRequest
+     * @var CmsResourceToArray
      */
-    protected $getUserIdByRequest;
+    protected $cmsResourceToArray;
 
     /**
      * @var HandleResponseApi
@@ -36,23 +36,31 @@ class UnpublishCmsResource
     /**
      * @var string
      */
+    protected $cmsResourceClass;
+
+    /**
+     * @var string
+     */
     protected $name;
 
     /**
-     * @param \Zrcms\Content\Api\Action\UnpublishCmsResource $unpublishCmsResource
-     * @param GetUserIdByRequest                             $getUserIdByRequest
-     * @param HandleResponseApi                              $handleResponseApi
-     * @param string                                         $name
+     * @param \Zrcms\Content\Api\Repository\FindCmsResource $findCmsResource
+     * @param CmsResourceToArray                            $cmsResourceToArray
+     * @param HandleResponseApi                             $handleResponseApi
+     * @param string                                        $cmsResourceClass
+     * @param string                                        $name
      */
     public function __construct(
-        \Zrcms\Content\Api\Action\UnpublishCmsResource $unpublishCmsResource,
-        GetUserIdByRequest $getUserIdByRequest,
+        \Zrcms\Content\Api\Repository\FindCmsResource $findCmsResource,
+        CmsResourceToArray $cmsResourceToArray,
         HandleResponseApi $handleResponseApi,
+        string $cmsResourceClass,
         string $name
     ) {
-        $this->unpublishCmsResource = $unpublishCmsResource;
-        $this->getUserIdByRequest = $getUserIdByRequest;
+        $this->findCmsResource = $findCmsResource;
+        $this->cmsResourceToArray = $cmsResourceToArray;
         $this->handleResponseApi = $handleResponseApi;
+        $this->cmsResourceClass = $cmsResourceClass;
         $this->name = $name;
     }
 
@@ -96,13 +104,11 @@ class UnpublishCmsResource
             );
         }
 
-        $success = $this->unpublishCmsResource->__invoke(
-            $cmsResourceId,
-            $this->getUserIdByRequest->__invoke($request),
-            get_class($this)
+        $cmsResource = $this->findCmsResource->__invoke(
+            $cmsResourceId
         );
 
-        if (!$success) {
+        if (empty($cmsResource)) {
             $response = new JsonResponse(
                 false,
                 400
@@ -123,8 +129,12 @@ class UnpublishCmsResource
             );
         }
 
+        $result = $this->cmsResourceToArray->__invoke(
+            $cmsResource
+        );
+
         $response = new JsonResponse(
-            $success
+            $result
         );
 
         return $this->handleResponseApi->__invoke(

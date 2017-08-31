@@ -11,22 +11,13 @@ interface Trackable
 {
     const UNKNOWN_USER_ID = 'unknown-user-id';
     const UNKNOWN_REASON = 'unknown-reason';
-    const DATE_FORMAT = 'D M d Y H:i:s O';
+    const DATE_FORMAT = 'Y-m-d H:i:s';
 
     /**
-     * @return \DateTime
+     * @return string
      * @throws TrackingException
      */
-    public function getCreatedDate(): \DateTime;
-
-    /**
-     * @param string $format
-     *
-     * @return string
-     */
-    public function createdDateToString(
-        string $format = Trackable::DATE_FORMAT
-    ): string;
+    public function getCreatedDate(): string;
 
     /**
      * @return string

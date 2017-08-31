@@ -1,6 +1,6 @@
 <?php
 
-namespace Zrcms\HttpExpressive1\Render;
+namespace Zrcms\HttpExpressive1\HttpRender;
 
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
@@ -74,12 +74,15 @@ class ViewController
                 404
             );
 
-            // Note: inject the right handler for your use case
             return $this->handleResponse->__invoke(
                 $response,
                 [
                     HandleResponseOptions::MESSAGE
-                    => $exception->getMessage()
+                    => $exception->getMessage(),
+                    HandleResponseOptions::NEXT
+                    => $next,
+                    HandleResponseOptions::REQUEST
+                    => $request
                 ]
             );
         } catch (PageNotFoundException $exception) {
@@ -88,12 +91,15 @@ class ViewController
                 404
             );
 
-            // Note: inject the right handler for your use case
             return $this->handleResponse->__invoke(
                 $response,
                 [
                     HandleResponseOptions::MESSAGE
-                    => $exception->getMessage()
+                    => $exception->getMessage(),
+                    HandleResponseOptions::NEXT
+                    => $next,
+                    HandleResponseOptions::REQUEST
+                    => $request
                 ]
             );
         }

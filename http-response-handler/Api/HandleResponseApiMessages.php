@@ -32,8 +32,8 @@ class HandleResponseApiMessages implements HandleResponseApi
     }
 
     /**
-     * @param ResponseInterface $response
-     * @param array             $options
+     * @param ResponseInterface|JsonResponse $response
+     * @param array                          $options
      *
      * @return ApiResponseInterface|PsrApiResponse
      * @throws CanNotHandleResponse
@@ -50,13 +50,7 @@ class HandleResponseApiMessages implements HandleResponseApi
             null
         );
 
-        $data = null;
-
-        $data = Param::get(
-            $options,
-            HandleResponseOptions::DATA,
-            $data
-        );
+        $data = $response->getPayload();
 
         return $this->psrResponseService->getPsrApiResponse(
             $response,
@@ -76,8 +70,7 @@ class HandleResponseApiMessages implements HandleResponseApi
     protected function assertCanHandleResponse(
         ResponseInterface $response,
         array $options = []
-    )
-    {
+    ) {
         if (!method_exists($response, 'getPayload')) {
             return;
         }

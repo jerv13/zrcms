@@ -53,9 +53,6 @@ class CmsResourcePublishHistoryToArrayBasic implements CmsResourcePublishHistory
 
             TrackableProperties::CREATED_DATE
             => $cmsResourcePublishHistory->getCreatedDate(),
-
-            TrackableProperties::CREATED_DATE_STRING
-            => $cmsResourcePublishHistory->createdDateToString($dateFormat),
         ];
     }
 }

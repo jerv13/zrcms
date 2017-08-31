@@ -72,14 +72,22 @@ class HandleResponseNextOnError implements HandleResponse
         $next,
         $request
     ) {
-        if (!in_array($status, $this->successStatuses)) {
-            return;
+        if (in_array($status, $this->successStatuses)) {
+            throw new CanNotHandleResponse(
+                "Success status received: {$status}"
+            );
         }
 
-        if (is_callable($next) && $request instanceof RequestInterface) {
-            return;
+        if (!is_callable($next)) {
+            throw new CanNotHandleResponse(
+                "Next is not callable"
+            );
         }
 
-        throw new CanNotHandleResponse();
+        if (!$request instanceof RequestInterface) {
+            throw new CanNotHandleResponse(
+                "Request is not valid"
+            );
+        }
     }
 }

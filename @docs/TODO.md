@@ -3,6 +3,8 @@
 
 - APIs in http-expressive
 
+- For publish and unpublish, extra properties (like host) should not be required if there is an existing resource
+
 - Move GetViewLayoutMetaPageData to view-head module
     - NOTE: this is coupled to the render controller - so need find a way
 
@@ -39,6 +41,8 @@
     - If a handler returns a response, then return and done
     - Else handlers should call next
     - Allow handlers to be configured for pipe
+    
+- Check and update all composer dependencies
 
     
 ## Features ##
@@ -49,6 +53,8 @@
     - create js/ui lib
     
 ## Clean up - Refactoring ##
+
+##### Convert Data objects to strings in UTC #####
 
 ##### Composition over Inheritance #####
 

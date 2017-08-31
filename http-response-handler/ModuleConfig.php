@@ -5,9 +5,11 @@ namespace Zrcms\HttpResponseHandler;
 use Reliv\RcmApiLib\Service\PsrResponseService;
 use Zrcms\HttpResponseHandler\Api\HandleResponse;
 use Zrcms\HttpResponseHandler\Api\HandleResponseApi;
+use Zrcms\HttpResponseHandler\Api\HandleResponseApiCompositeFactory;
 use Zrcms\HttpResponseHandler\Api\HandleResponseApiMessages;
 use Zrcms\HttpResponseHandler\Api\HandleResponseApiWithException;
 use Zrcms\HttpResponseHandler\Api\HandleResponseBasic;
+use Zrcms\HttpResponseHandler\Api\HandleResponseCompositeFactory;
 use Zrcms\HttpResponseHandler\Api\HandleResponseDebug;
 use Zrcms\HttpResponseHandler\Api\HandleResponseNextOnError;
 use Zrcms\HttpResponseHandler\Api\HandleResponseWithExceptionMessage;
@@ -31,11 +33,10 @@ class ModuleConfig
                      * Api ===========================================
                      */
                     HandleResponse::class => [
-                        // @todo USE THIS: 'class' => HandleResponseBasic::class,
-                        'class' => HandleResponseDebug::class,
+                        'factory' => HandleResponseCompositeFactory::class,
                     ],
                     HandleResponseApi::class => [
-                        'class' => HandleResponseApiMessages::class,
+                        'factory' => HandleResponseApiCompositeFactory::class,
                     ],
                     HandleResponseApiMessages::class => [
                         'arguments' => [

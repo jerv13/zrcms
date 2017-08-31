@@ -35,6 +35,16 @@ abstract class CmsResourcePublishHistoryAbstract
             )
         );
 
+        Param::assertHas(
+            $properties,
+            PropertiesCmsResourcePublishHistory::CMS_RESOURCE_ID,
+            PropertyMissingException::build(
+                PropertiesCmsResourcePublishHistory::CMS_RESOURCE_ID,
+                $properties,
+                get_class($this)
+            )
+        );
+
         parent::__construct(
             $properties,
             $publishedByUserId,
@@ -45,10 +55,21 @@ abstract class CmsResourcePublishHistoryAbstract
     /**
      * @return string
      */
-    public function getAction(): string
+    public function getCmsResourceId(): string
     {
         return $this->getProperty(
             PropertiesCmsResourcePublishHistory::ACTION,
+            ''
+        );
+    }
+
+    /**
+     * @return string
+     */
+    public function getAction(): string
+    {
+        return $this->getProperty(
+            PropertiesCmsResourcePublishHistory::CMS_RESOURCE_ID,
             ''
         );
     }

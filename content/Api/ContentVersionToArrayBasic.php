@@ -47,9 +47,6 @@ class ContentVersionToArrayBasic implements ContentVersionToArray
 
             TrackableProperties::CREATED_DATE
             => $contentVersion->getCreatedDate(),
-
-            TrackableProperties::CREATED_DATE_STRING
-            => $contentVersion->createdDateToString($dateFormat),
         ];
     }
 }

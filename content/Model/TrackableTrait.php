@@ -31,10 +31,10 @@ trait TrackableTrait
     protected $createdReason;
 
     /**
-     * @return \DateTime
+     * @return string
      * @throws TrackingException
      */
-    public function getCreatedDate(): \DateTime
+    public function getCreatedDate(): string
     {
         if (empty($this->createdDate)) {
             throw new TrackingException(
@@ -43,22 +43,6 @@ trait TrackableTrait
         }
 
         return $this->createdDate;
-    }
-
-    /**
-     * @param string $format
-     *
-     * @return string
-     */
-    public function createdDateToString(
-        string $format = Trackable::DATE_FORMAT
-    ): string
-    {
-        if (empty($this->createdDate)) {
-            return '';
-        }
-
-        return $this->createdDate->format($format);
     }
 
     /**
@@ -125,17 +109,6 @@ trait TrackableTrait
     }
 
     /**
-     * @return void
-     * @throws TrackingException
-     */
-    public function __clone()
-    {
-        throw new TrackingException(
-            'Cloning of tracking objects is not supported in ' . get_class($this)
-        );
-    }
-
-    /**
      * @param string $createdByUserId
      * @param string $createdReason
      *
@@ -173,7 +146,44 @@ trait TrackableTrait
             );
         }
 
-        $this->createdDate = new \DateTime();
+        // ALWAYS STORE UTC
+        $createdDateObject = new \DateTime(
+            'now',
+            new \DateTimeZone('UTC')
+        );
+
+        $this->createdDate = $createdDateObject->format(Trackable::DATE_FORMAT);
         $this->createdReason = $createdReason;
+    }
+
+
+    /**
+     * @return void
+     * @throws TrackingException
+     */
+    public function __clone()
+    {
+        throw new TrackingException(
+            'Cloning of tracking objects is not supported in ' . get_class($this)
+        );
+    }
+
+    /**
+     * @param string $dateString
+     * @param string $format
+     *
+     * @return \DateTime
+     */
+    public function __toDateTime(
+        string $dateString,
+        string $format = Trackable::DATE_FORMAT
+    ) {
+        $timezone = new \DateTimeZone('UTC');
+
+        return \DateTime::createFromFormat(
+            $format,
+            $dateString,
+            $timezone
+        );
     }
 }

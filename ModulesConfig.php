@@ -26,6 +26,7 @@ class ModulesConfig
             // Mid level
             new \Zrcms\Acl\ModuleConfig(),
             new \Zrcms\Locale\ModuleConfig(),
+            new \Zrcms\User\ModuleConfig(),
             new \Zrcms\ContentCore\ModuleConfig(),
             new \Zrcms\ContentCountry\ModuleConfig(),
             new \Zrcms\ContentLanguage\ModuleConfig(),
@@ -42,7 +43,7 @@ class ModulesConfig
             new \Zrcms\ContentCoreDoctrineDataSource\ModuleConfig(),
             new \Zrcms\ContentRedirectDoctrineDataSource\ModuleConfig(),
 
-            new \Zrcms\HttpExpressive1\ModuleConfig(),
+            new \Zrcms\HttpExpressive1\ModuleAllConfig(),
             new \Zrcms\HttpResponseHandler\ModuleConfig(),
 
             // @todo REMOVE Xample

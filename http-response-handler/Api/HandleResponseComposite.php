@@ -59,7 +59,10 @@ class HandleResponseComposite implements HandleResponse, HandleResponseApi
                 continue;
             }
 
-            return $handledResponse;
+            return $handledResponse->withAddedHeader(
+                'zrcms-response-handler',
+                get_class($responseHandler)
+            );
         }
 
         throw new CanNotHandleResponse('No handlers can handle response');

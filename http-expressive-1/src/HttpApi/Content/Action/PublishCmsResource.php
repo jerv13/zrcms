@@ -17,7 +17,7 @@ use Zrcms\User\Api\GetUserIdByRequest;
  */
 class PublishCmsResource
 {
-    const SOURCE = 'publish-cms-resource';
+    const SOURCE = 'zrcms-publish-cms-resource';
 
     /**
      * @var \Zrcms\Content\Api\Action\PublishCmsResource

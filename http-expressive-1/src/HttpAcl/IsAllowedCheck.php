@@ -6,6 +6,7 @@ use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Zend\Diactoros\Response\HtmlResponse;
 use Zrcms\Acl\Api\IsAllowed;
+use Zrcms\HttpExpressive1\Model\ResponseCodes;
 use Zrcms\HttpResponseHandler\Api\HandleResponse;
 use Zrcms\HttpResponseHandler\Model\HandleResponseOptions;
 
@@ -14,6 +15,8 @@ use Zrcms\HttpResponseHandler\Model\HandleResponseOptions;
  */
 class IsAllowedCheck
 {
+    const SOURCE = 'zrcms-is-allowed-check';
+
     /**
      * @var HandleResponse
      */
@@ -27,26 +30,29 @@ class IsAllowedCheck
     /**
      * @var string
      */
-    protected $resourceId;
+    protected $aclOptions;
 
     /**
-     * @var null|string
+     * @var string
      */
-    protected $privilege;
+    protected $name;
 
     /**
      * @param HandleResponse $handleResponse
      * @param IsAllowed      $isAllowed
      * @param array          $aclOptions
+     * @param string         $name
      */
     public function __construct(
         HandleResponse $handleResponse,
         IsAllowed $isAllowed,
-        array $aclOptions
+        array $aclOptions,
+        string $name
     ) {
         $this->handleResponse = $handleResponse;
         $this->isAllowed = $isAllowed;
         $this->aclOptions = $aclOptions;
+        $this->name = $name;
     }
 
     /**
@@ -71,8 +77,16 @@ class IsAllowedCheck
                 $response->withStatus(401, 'NOT ALLOWED'),
                 [
                     HandleResponseOptions::MESSAGE
-                    => 'Not allowed for resource: ' . json_encode($this->resourceId)
-                        . ' with privilege: ' . json_encode($this->privilege)
+                    => 'Not allowed for acl: ' . get_class($this->isAllowed)
+                        . ' with options: ' . json_encode($this->aclOptions),
+                    HandleResponseOptions::API_MESSAGES => [
+                        'type' => $this->name,
+                        'value' => 'Not allowed',
+                        'source' => self::SOURCE,
+                        'code' => ResponseCodes::NOT_ALLOWED,
+                        'primary' => true,
+                        'params' => []
+                    ]
                 ]
             );
         }

@@ -108,29 +108,53 @@ class UnpublishCmsResource
             return false;
         }
 
-        /** @var CmsResourcePublishHistory::class $cmsResourcePublishHistoryClass */
-        $cmsResourcePublishHistoryClass = $this->entityClassCmsResourcePublishHistory;
-
         $properties = $existingCmsResource->getProperties();
         $properties[PropertiesCmsResource::PUBLISHED] = false;
-
-        $historyProperties = $properties;
-        $historyProperties[PropertiesCmsResourcePublishHistory::ACTION] = Action::UNPUBLISH_CMS_RESOURCE;
-
-        $newCmsResourcePublishHistory = new $cmsResourcePublishHistoryClass(
-            $historyProperties,
-            $unpublishedByUserId,
-            $unpublishReason
-        );
 
         $existingCmsResource->updateProperties(
             $properties
         );
 
-        $this->entityManager->persist($newCmsResourcePublishHistory);
-        $this->entityManager->flush($newCmsResourcePublishHistory);
         $this->entityManager->flush($existingCmsResource);
 
+        $newCmsResourcePublishHistory = $this->buildHistory(
+            $existingCmsResource,
+            $unpublishedByUserId,
+            $unpublishReason
+        );
+
+        $this->entityManager->persist($newCmsResourcePublishHistory);
+        $this->entityManager->flush($newCmsResourcePublishHistory);
+
         return true;
+    }
+
+    /**
+     * @param CmsResource $cmsResource
+     * @param string      $unpublishedByUserId
+     * @param string      $unpublishReason
+     *
+     * @return CmsResourcePublishHistory
+     */
+    protected function buildHistory(
+        CmsResource $cmsResource,
+        string $unpublishedByUserId,
+        string $unpublishReason
+    ) {
+        $historyProperties = $cmsResource->getProperties();
+        $historyProperties[PropertiesCmsResourcePublishHistory::CMS_RESOURCE_ID]
+            = $cmsResource->getId();
+        $historyProperties[PropertiesCmsResourcePublishHistory::ACTION]
+            = Action::UNPUBLISH_CMS_RESOURCE;
+
+        /** @var CmsResourcePublishHistory::class $cmsResourcePublishHistoryClass */
+        $cmsResourcePublishHistoryClass = $this->entityClassCmsResourcePublishHistory;
+
+        /** @var CmsResourcePublishHistory $newCmsResourcePublishHistory */
+        return new $cmsResourcePublishHistoryClass(
+            $historyProperties,
+            $unpublishedByUserId,
+            $unpublishReason
+        );
     }
 }

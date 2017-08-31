@@ -48,13 +48,19 @@ class ImportCommand extends Command
                 InputOption::VALUE_REQUIRED,
                 'JSON file to import'
             )
+            ->addOption(
+                'sleep',
+                null,
+                InputOption::VALUE_OPTIONAL,
+                'JSON file to import'
+            )
             // the full command description shown when running the command with
             // the "--help" option
             ->setHelp('Example: zrcms:import --file data.json');
     }
 
     /**
-     * @param InputInterface $input
+     * @param InputInterface  $input
      * @param OutputInterface $output
      *
      * @return void
@@ -74,16 +80,35 @@ class ImportCommand extends Command
 
         $contents = file_get_contents($file);
 
-        $logger = new CallbackLogger(function ($message) use ($output) {
-            $output->writeln($message);
-        });
+        $logger = new CallbackLogger(
+            function ($message) use ($output) {
+                $output->writeln($message);
+            }
+        );
 
         $this->import->__invoke(
             $contents,
             $createdByUserId,
-            [Import::OPTIONS_LOGGER => $logger]
+            [
+                Import::OPTIONS_LOGGER => $logger,
+                'sleep' => $this->getSleep($input),
+            ]
         );
 
         $output->writeln('COMPLETE');
+    }
+
+    /**
+     * @param InputInterface $input
+     *
+     * @return int
+     */
+    protected function getSleep(InputInterface $input)
+    {
+        if ($input->hasOption('sleep')) {
+            return (int)$input->getOption('sleep');
+        }
+
+        return 0;
     }
 }

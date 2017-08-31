@@ -65,9 +65,9 @@ class ContainerCmsResourceEntity
      *
      * @var \DateTime
      *
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="datetime", name="createdDate")
      */
-    protected $createdDate;
+    protected $createdDateObject;
 
     /**
      * User ID of creator

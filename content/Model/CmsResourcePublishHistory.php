@@ -10,5 +10,10 @@ interface CmsResourcePublishHistory extends CmsResource
     /**
      * @return string
      */
+    public function getCmsResourceId(): string;
+
+    /**
+     * @return string
+     */
     public function getAction(): string;
 }

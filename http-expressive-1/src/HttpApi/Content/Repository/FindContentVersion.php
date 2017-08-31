@@ -15,7 +15,7 @@ use Zrcms\HttpResponseHandler\Model\HandleResponseOptions;
  */
 class FindContentVersion
 {
-    const SOURCE = 'find-content-version';
+    const SOURCE = 'zrcms-find-content-version';
     /**
      * @var \Zrcms\Content\Api\Repository\FindContentVersion
      */

@@ -88,6 +88,13 @@ class LayoutCmsResourcePublishHistoryEntity
      *
      * @ORM\Column(type="string")
      */
+    protected $cmsResourceId;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(type="string")
+     */
     protected $action;
 
     /**
@@ -113,6 +120,11 @@ class LayoutCmsResourcePublishHistoryEntity
         $this->published = Param::getBool(
             $properties,
             PropertiesCmsResourcePublishHistory::PUBLISHED
+        );
+
+        $this->cmsResourceId = Param::getString(
+            $properties,
+            PropertiesCmsResourcePublishHistory::CMS_RESOURCE_ID
         );
         
         $this->action = Param::getString(
@@ -149,6 +161,14 @@ class LayoutCmsResourcePublishHistoryEntity
     public function isPublished(): bool
     {
         return $this->published;
+    }
+
+    /**
+     * @return string
+     */
+    public function getCmsResourceId(): string
+    {
+        return $this->cmsResourceId;
     }
 
     /**

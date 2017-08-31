@@ -124,22 +124,6 @@ class PublishCmsResource
             $cmsResource->getId()
         );
 
-        /** @var CmsResourcePublishHistory::class $cmsResourcePublishHistoryClass */
-        $cmsResourcePublishHistoryClass = $this->entityClassCmsResourcePublishHistory;
-
-        $historyProperties = $cmsResource->getProperties();
-        $historyProperties[PropertiesCmsResourcePublishHistory::ACTION] = Action::PUBLISH_CMS_RESOURCE;
-
-        /** @var CmsResourcePublishHistory $newCmsResourcePublishHistory */
-        $newCmsResourcePublishHistory = new $cmsResourcePublishHistoryClass(
-            $historyProperties,
-            $publishedByUserId,
-            $publishReason
-        );
-
-        $this->entityManager->persist($newCmsResourcePublishHistory);
-        $this->entityManager->flush($newCmsResourcePublishHistory);
-
         $properties = $cmsResource->getProperties();
 
         $properties[PropertiesCmsResource::PUBLISHED] = true;
@@ -147,14 +131,16 @@ class PublishCmsResource
         if ($existingCmsResource) {
             return $this->update(
                 $existingCmsResource,
-                $properties
+                $properties,
+                $publishedByUserId,
+                $publishReason
             );
         }
 
         /** @var CmsResource::class $cmsResourceEntityClass */
         $cmsResourceEntityClass = $this->entityClassCmsResource;
 
-        /** @var CmsResource $newCmsResourceEntity */
+        /** @var CmsResourceEntity $newCmsResourceEntity */
         $newCmsResourceEntity = new $cmsResourceEntityClass(
             $properties,
             $publishReason,
@@ -164,6 +150,15 @@ class PublishCmsResource
         $this->entityManager->persist($newCmsResourceEntity);
         $this->entityManager->flush($newCmsResourceEntity);
 
+        $newCmsResourcePublishHistory = $this->buildHistory(
+            $newCmsResourceEntity,
+            $publishedByUserId,
+            $publishReason
+        );
+
+        $this->entityManager->persist($newCmsResourcePublishHistory);
+        $this->entityManager->flush($newCmsResourcePublishHistory);
+
         return $this->newBasicCmsResource(
             $this->entityClassCmsResource,
             $this->classCmsResourceBasic,
@@ -172,16 +167,47 @@ class PublishCmsResource
     }
 
     /**
+     * @param CmsResource $cmsResource
+     * @param string      $publishedByUserId
+     * @param string      $publishReason
+     *
+     * @return CmsResourcePublishHistory
+     */
+    protected function buildHistory(
+        CmsResource $cmsResource,
+        string $publishedByUserId,
+        string $publishReason
+    ) {
+        $historyProperties = $cmsResource->getProperties();
+        $historyProperties[PropertiesCmsResourcePublishHistory::CMS_RESOURCE_ID]
+            = $cmsResource->getId();
+        $historyProperties[PropertiesCmsResourcePublishHistory::ACTION]
+            = Action::PUBLISH_CMS_RESOURCE;
+
+        /** @var CmsResourcePublishHistory::class $cmsResourcePublishHistoryClass */
+        $cmsResourcePublishHistoryClass = $this->entityClassCmsResourcePublishHistory;
+
+        /** @var CmsResourcePublishHistory $newCmsResourcePublishHistory */
+        return new $cmsResourcePublishHistoryClass(
+            $historyProperties,
+            $publishedByUserId,
+            $publishReason
+        );
+    }
+
+    /**
      * @param CmsResourceEntity $existingCmsResource
      * @param array             $properties
-     * @param array             $options
+     * @param string            $publishedByUserId
+     * @param string            $publishReason
      *
      * @return CmsResource
      */
     protected function update(
         CmsResourceEntity $existingCmsResource,
         array $properties,
-        array $options = []
+        string $publishedByUserId,
+        string $publishReason
     ): CmsResource
     {
         $existingCmsResource->updateProperties(
@@ -189,6 +215,15 @@ class PublishCmsResource
         );
 
         $this->entityManager->flush($existingCmsResource);
+
+        $newCmsResourcePublishHistory = $this->buildHistory(
+            $existingCmsResource,
+            $publishedByUserId,
+            $publishReason
+        );
+
+        $this->entityManager->persist($newCmsResourcePublishHistory);
+        $this->entityManager->flush($newCmsResourcePublishHistory);
 
         return $this->newBasicCmsResource(
             $this->entityClassCmsResource,
