@@ -1,6 +1,6 @@
 <?php
 
-namespace Zrcms\HttpExpressive1\Middleware;
+namespace Zrcms\HttpExpressive1\HttpAlways;
 
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;

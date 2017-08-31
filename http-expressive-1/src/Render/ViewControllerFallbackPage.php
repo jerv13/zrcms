@@ -82,9 +82,7 @@ class ViewControllerFallbackPage
             $response = new HtmlResponse('PAGE NOT FOUND');
 
             return $this->handleResponse->__invoke(
-                $request,
                 $response->withStatus(404, 'PAGE NOT FOUND'),
-                $next,
                 [
                     HandleResponseOptions::MESSAGE
                     => 'SitePropertyPagePath is not set for status: ' . $status

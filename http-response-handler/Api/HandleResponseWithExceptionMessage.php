@@ -3,8 +3,8 @@
 namespace Zrcms\HttpResponseHandler\Api;
 
 use Psr\Http\Message\ResponseInterface;
-use Psr\Http\Message\ServerRequestInterface;
 use Zend\Diactoros\Response\HtmlResponse;
+use Zrcms\HttpResponseHandler\Exception\CanNotHandleResponse;
 use Zrcms\HttpResponseHandler\Model\HandleResponseOptions;
 use Zrcms\Param\Param;
 
@@ -14,17 +14,14 @@ use Zrcms\Param\Param;
 class HandleResponseWithExceptionMessage implements HandleResponse
 {
     /**
-     * @param ServerRequestInterface $request
-     * @param ResponseInterface      $response
-     * @param callable|null          $next
-     * @param array                  $options
+     * @param ResponseInterface $response
+     * @param array             $options
      *
-     * @return mixed
+     * @return HtmlResponse
+     * @throws CanNotHandleResponse
      */
     public function __invoke(
-        ServerRequestInterface $request,
         ResponseInterface $response,
-        callable $next = null,
         array $options = []
     ) {
         $exception = Param::get(
@@ -32,14 +29,28 @@ class HandleResponseWithExceptionMessage implements HandleResponse
             HandleResponseOptions::EXCEPTION
         );
 
+        $this->assertCanHandleResponse($exception);
+
+        return new HtmlResponse(
+            $exception->getMessage(),
+            $response->getStatusCode(),
+            $response->getHeaders()
+        );
+    }
+
+    /**
+     * @param \Exception|null $exception
+     *
+     * @return void
+     * @throws CanNotHandleResponse
+     */
+    public function assertCanHandleResponse(
+        $exception
+    ) {
         if ($exception instanceof \Exception) {
-            return new HtmlResponse(
-                $exception->getMessage(),
-                $response->getStatusCode(),
-                $response->getHeaders()
-            );
+            return;
         }
 
-        return $response;
+        throw new CanNotHandleResponse();
     }
 }

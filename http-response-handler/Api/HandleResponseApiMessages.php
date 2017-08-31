@@ -3,8 +3,11 @@
 namespace Zrcms\HttpResponseHandler\Api;
 
 use Psr\Http\Message\ResponseInterface;
-use Psr\Http\Message\ServerRequestInterface;
+use Reliv\RcmApiLib\Http\ApiResponseInterface;
+use Reliv\RcmApiLib\Http\PsrApiResponse;
 use Reliv\RcmApiLib\Service\PsrResponseService;
+use Zend\Diactoros\Response\JsonResponse;
+use Zrcms\HttpResponseHandler\Exception\CanNotHandleResponse;
 use Zrcms\HttpResponseHandler\Model\HandleResponseOptions;
 use Zrcms\Param\Param;
 
@@ -19,43 +22,27 @@ class HandleResponseApiMessages implements HandleResponseApi
     protected $psrResponseService;
 
     /**
-     * @var array
-     */
-    protected $successStatuses = [];
-
-    /**
      * @param PsrResponseService $psrResponseService
-     * @param array              $successStatuses
      */
     public function __construct(
-        PsrResponseService $psrResponseService,
-        array $successStatuses = [200]
+        PsrResponseService $psrResponseService
     ) {
 
         $this->psrResponseService = $psrResponseService;
-        $this->successStatuses = $successStatuses;
     }
 
     /**
-     * @param ServerRequestInterface $request
-     * @param ResponseInterface      $response
-     * @param callable|null          $next
-     * @param array                  $options
+     * @param ResponseInterface $response
+     * @param array             $options
      *
-     * @return mixed
+     * @return ApiResponseInterface|PsrApiResponse
+     * @throws CanNotHandleResponse
      */
     public function __invoke(
-        ServerRequestInterface $request,
         ResponseInterface $response,
-        callable $next = null,
         array $options = []
     ) {
-        $status = $response->getStatusCode();
-        if (in_array($status, $this->successStatuses)) {
-            return $response;
-        }
-
-        // @todo if not API response, return $next($request, $response);
+        $this->assertCanHandleResponse($response, $options);
 
         $apiMessagesData = Param::get(
             $options,
@@ -64,10 +51,6 @@ class HandleResponseApiMessages implements HandleResponseApi
         );
 
         $data = null;
-
-        if (method_exists($response, 'getPayload')) {
-            $data = $response->getPayload();
-        }
 
         $data = Param::get(
             $options,
@@ -78,8 +61,31 @@ class HandleResponseApiMessages implements HandleResponseApi
         return $this->psrResponseService->getPsrApiResponse(
             $response,
             $data,
-            $status,
+            $response->getStatusCode(),
             $apiMessagesData
         );
+    }
+
+    /**
+     * @param ResponseInterface $response
+     * @param array             $options
+     *
+     * @return void
+     * @throws CanNotHandleResponse
+     */
+    protected function assertCanHandleResponse(
+        ResponseInterface $response,
+        array $options = []
+    )
+    {
+        if (!method_exists($response, 'getPayload')) {
+            return;
+        }
+
+        if ($response instanceof JsonResponse) {
+            return;
+        }
+
+        throw new CanNotHandleResponse();
     }
 }

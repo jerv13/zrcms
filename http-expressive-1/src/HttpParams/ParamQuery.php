@@ -1,6 +1,6 @@
 <?php
 
-namespace Zrcms\HttpExpressive1\Middleware;
+namespace Zrcms\HttpExpressive1\HttpParams;
 
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
@@ -16,6 +16,13 @@ class ParamQuery
     const PARAM_ORDER_BY = 'orderby';
     const PARAM_LIMIT = 'limit';
     const PARAM_OFFSET = 'offset';
+
+    /**
+     * @todo Inject where validator and maybe where builder
+     */
+    public function __construct()
+    {
+    }
 
     /**
      * __invoke

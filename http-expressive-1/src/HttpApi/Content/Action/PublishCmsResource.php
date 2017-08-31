@@ -1,6 +1,6 @@
 <?php
 
-namespace Zrcms\HttpExpressive1\ApiHttp\Content\Action;
+namespace Zrcms\HttpExpressive1\HttpApi\Content\Action;
 
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
@@ -97,9 +97,7 @@ class PublishCmsResource
             );
 
             return $this->handleResponseApi->__invoke(
-                $request,
                 $response,
-                $next,
                 [
                     HandleResponseOptions::API_MESSAGES => [
                         'type' => $this->name,
@@ -132,8 +130,12 @@ class PublishCmsResource
             $newCmsResource
         );
 
-        return new JsonResponse(
+        $response = new JsonResponse(
             $result
+        );
+
+        return $this->handleResponseApi->__invoke(
+            $response
         );
     }
 }

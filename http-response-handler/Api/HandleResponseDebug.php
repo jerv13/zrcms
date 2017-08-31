@@ -3,8 +3,8 @@
 namespace Zrcms\HttpResponseHandler\Api;
 
 use Psr\Http\Message\ResponseInterface;
-use Psr\Http\Message\ServerRequestInterface;
 use Zend\Diactoros\Response\HtmlResponse;
+use Zrcms\HttpResponseHandler\Exception\CanNotHandleResponse;
 use Zrcms\HttpResponseHandler\Model\HandleResponseOptions;
 use Zrcms\Param\Param;
 
@@ -14,17 +14,28 @@ use Zrcms\Param\Param;
 class HandleResponseDebug implements HandleResponse
 {
     /**
-     * @param ServerRequestInterface $request
-     * @param ResponseInterface      $response
-     * @param callable|null          $next
-     * @param array                  $options
+     * @var bool
+     */
+    protected $debug;
+
+    /**
+     * @param bool $debug
+     */
+    public function __construct(
+        $debug = false
+    ) {
+        $this->debug = $debug;
+    }
+
+    /**
+     * @param ResponseInterface $response
+     * @param array             $options
      *
-     * @return mixed
+     * @return ResponseInterface|HtmlResponse
+     * @throws CanNotHandleResponse
      */
     public function __invoke(
-        ServerRequestInterface $request,
         ResponseInterface $response,
-        callable $next = null,
         array $options = []
     ) {
         $message = Param::get(
@@ -33,21 +44,34 @@ class HandleResponseDebug implements HandleResponse
             ''
         );
 
-        if (!empty($message)) {
+        $this->assertCanHandleResponse($message);
 
-            $stream = $response->getBody();
-            $stream->rewind();
-            $contents = $stream->getContents();
+        $stream = $response->getBody();
+        $stream->rewind();
+        $contents = $stream->getContents();
 
-            $contents = "<pre>{$message}</pre>\n\n{$contents}";
+        $contents = "<pre>{$message}</pre>\n\n{$contents}";
 
-            return new HtmlResponse(
-                $contents,
-                $response->getStatusCode(),
-                $response->getHeaders()
-            );
+        return new HtmlResponse(
+            $contents,
+            $response->getStatusCode(),
+            $response->getHeaders()
+        );
+    }
+
+    /**
+     * @param string|null $message
+     *
+     * @return void
+     * @throws CanNotHandleResponse
+     */
+    public function assertCanHandleResponse(
+        $message
+    ) {
+        if ($this->debug && !empty($message)) {
+            return;
         }
 
-        return $response;
+        throw new CanNotHandleResponse();
     }
 }

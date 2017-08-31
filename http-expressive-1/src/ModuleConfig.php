@@ -2,13 +2,14 @@
 
 namespace Zrcms\HttpExpressive1;
 
-use ZfInputFilterService\InputFilter\ServiceAwareFactory;
 use Zrcms\Acl\Api\IsAllowedRcmUser;
+use Zrcms\Content\Api\CmsResourceToArray;
 use Zrcms\Content\Api\ContentVersionToArray;
 use Zrcms\ContentCore\Basic\Api\Component\ReadBasicComponentConfigApplicationConfig;
 use Zrcms\ContentCore\Basic\Api\Repository\FindBasicComponent;
 use Zrcms\ContentCore\Site\Api\GetSiteCmsResourceVersionByRequest;
 use Zrcms\ContentCore\Site\Model\PropertiesSiteVersion;
+use Zrcms\ContentCore\Site\Model\SiteCmsResourceBasic;
 use Zrcms\ContentCore\Site\Model\SiteVersionBasic;
 use Zrcms\ContentCore\View\Api\GetViewByRequest;
 use Zrcms\ContentCore\View\Api\Render\GetViewLayoutTags;
@@ -16,16 +17,17 @@ use Zrcms\ContentCore\View\Api\Render\RenderView;
 use Zrcms\ContentCore\View\Model\ServiceAliasView;
 use Zrcms\ContentCoreConfigDataSource\Content\Model\ComponentRegistryFields;
 use Zrcms\ContentRedirectDoctrineDataSource\Api\Repository\FindRedirectCmsResourceVersionBySiteRequestPath;
+use Zrcms\HttpExpressive1\HttpAcl\IsAllowedCheck;
+use Zrcms\HttpExpressive1\HttpAlways\ContentRedirect;
+use Zrcms\HttpExpressive1\HttpAlways\LocaleFromSite;
+use Zrcms\HttpExpressive1\HttpAlways\ParamLogOut;
+use Zrcms\HttpExpressive1\HttpParams\ParamQuery;
+use Zrcms\HttpExpressive1\HttpValidator\SiteCmsResourcePublishZfInputFilterService;
 use Zrcms\HttpExpressive1\Api\View\Render\GetViewLayoutMetaPageData;
-use Zrcms\HttpExpressive1\ApiHttp\Site\Repository\FindSiteVersion;
-use Zrcms\HttpExpressive1\ApiHttp\Site\Repository\InsertSiteVersion;
-use Zrcms\HttpExpressive1\Middleware\AclHttp;
-use Zrcms\HttpExpressive1\Middleware\AttributesZfInputFilterService;
-use Zrcms\HttpExpressive1\Middleware\ContentRedirect;
-use Zrcms\HttpExpressive1\Middleware\DataZfInputFilterService;
-use Zrcms\HttpExpressive1\Middleware\LocaleFromSite;
-use Zrcms\HttpExpressive1\Middleware\ParamLogOut;
-use Zrcms\HttpExpressive1\Middleware\ParamQuery;
+use Zrcms\HttpExpressive1\HttpApi\Site\Action\PublishSiteCmsResource;
+use Zrcms\HttpExpressive1\HttpApi\Site\Action\UnpublishSiteCmsResource;
+use Zrcms\HttpExpressive1\HttpApi\Site\Repository\FindSiteVersion;
+use Zrcms\HttpExpressive1\HttpApi\Site\Repository\InsertSiteVersion;
 use Zrcms\HttpExpressive1\Model\HttpExpressiveComponent;
 use Zrcms\HttpExpressive1\Model\PropertiesHttpExpressiveComponent;
 use Zrcms\HttpExpressive1\Render\ViewController;
@@ -33,8 +35,8 @@ use Zrcms\HttpExpressive1\Render\ViewControllerFallbackPage;
 use Zrcms\HttpExpressive1\Render\ViewControllerTest;
 use Zrcms\HttpExpressive1\Render\ViewControllerTestFactory;
 use Zrcms\HttpResponseHandler\Api\HandleResponse;
-use Zrcms\HttpResponseHandler\Api\HandleResponseApiMessages;
-use Zrcms\HttpResponseHandler\Api\HandleResponseReturnOnStatus;
+use Zrcms\HttpResponseHandler\Api\HandleResponseApi;
+use Zrcms\HttpResponseHandler\Api\HandleResponseNextOnError;
 use Zrcms\Locale\Api\SetLocale;
 use Zrcms\User\Api\GetUserIdByRequest;
 use Zrcms\ViewHtmlTags\Api\Render\RenderTag;
@@ -72,11 +74,29 @@ class ModuleConfig
                     /**
                      * ApiHttp ===========================================
                      */
+                    PublishSiteCmsResource::class => [
+                        'arguments' => [
+                            \Zrcms\ContentCore\Site\Api\Action\PublishSiteCmsResource::class,
+                            CmsResourceToArray::class,
+                            GetUserIdByRequest::class,
+                            HandleResponseApi::class,
+                            ['literal' => SiteCmsResourceBasic::class],
+                            ['literal' => 'site.action.publish-cms-resource'],
+                        ],
+                    ],
+                    UnpublishSiteCmsResource::class => [
+                        'arguments' => [
+                            \Zrcms\ContentCore\Site\Api\Action\UnpublishSiteCmsResource::class,
+                            GetUserIdByRequest::class,
+                            HandleResponseApi::class,
+                            ['literal' => 'site.action.unpublish-cms-resource'],
+                        ],
+                    ],
                     FindSiteVersion::class => [
                         'arguments' => [
                             \Zrcms\ContentCore\Site\Api\Repository\FindSiteVersion::class,
                             ContentVersionToArray::class,
-                            ['literal' => 'site-repository-find-content-version'],
+                            ['literal' => 'site.repository.find-content-version'],
                         ],
                     ],
                     InsertSiteVersion::class => [
@@ -85,7 +105,7 @@ class ModuleConfig
                             ContentVersionToArray::class,
                             GetUserIdByRequest::class,
                             ['literal' => SiteVersionBasic::class],
-                            ['literal' => 'site-repository-insert-content-version'],
+                            ['literal' => 'site.repository.insert-content-version'],
                         ],
                     ],
                     /**
@@ -218,7 +238,7 @@ class ModuleConfig
                             GetViewByRequest::class,
                             GetViewLayoutTags::class,
                             RenderView::class,
-                            HandleResponseReturnOnStatus::class,
+                            HandleResponseNextOnError::class,
                         ],
                     ],
                     ViewControllerFallbackPage::class => [
@@ -244,11 +264,23 @@ class ModuleConfig
                 /**
                  * Site ===========================================
                  */
+                'zrcms.site.action.publish-cms-resource' => [
+                    'name' => 'zrcms.site.action.publish-cms-resource',
+                    'path' => '/zrcms/site/action/publish-cms-resource/{id}',
+                    'middleware' => [
+                        'acl' => IsAllowedCheck::class,
+                        'validator' => SiteCmsResourcePublishZfInputFilterService::class,
+                        'api' => PublishSiteCmsResource::class,
+                    ],
+                    'options' => [],
+                    'allowed_methods' => ['POST'],
+                ],
+
                 'zrcms.site.repository.find-content-version' => [
                     'name' => 'zrcms.site.repository.find-content-version',
                     'path' => '/zrcms/site/repository/find-content-version/{id}',
                     'middleware' => [
-                        'acl' => AclHttp::class,
+                        'acl' => IsAllowedCheck::class,
                         'api' => FindSiteVersion::class,
                     ],
                     'options' => [],

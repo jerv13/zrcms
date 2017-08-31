@@ -11,4 +11,6 @@ class HandleResponseOptions
     const MESSAGE = 'message';
     const DATA = 'data';
     const API_MESSAGES = 'apiMessages';
+    const NEXT = 'next';
+    const REQUEST = 'request';
 }

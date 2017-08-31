@@ -3,7 +3,7 @@
 namespace Zrcms\HttpResponseHandler\Api;
 
 use Psr\Http\Message\ResponseInterface;
-use Psr\Http\Message\ServerRequestInterface;
+use Zrcms\HttpResponseHandler\Exception\CanNotHandleResponse;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -11,17 +11,14 @@ use Psr\Http\Message\ServerRequestInterface;
 interface HandleResponse
 {
     /**
-     * @param ServerRequestInterface $request
-     * @param ResponseInterface      $response
-     * @param callable|null          $next
-     * @param array                  $options
+     * @param ResponseInterface $response
+     * @param array             $options
      *
-     * @return mixed
+     * @return ResponseInterface
+     * @throws CanNotHandleResponse
      */
     public function __invoke(
-        ServerRequestInterface $request,
         ResponseInterface $response,
-        callable $next = null,
         array $options = []
     );
 }

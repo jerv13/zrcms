@@ -1,6 +1,6 @@
 <?php
 
-namespace Zrcms\HttpExpressive1\ApiHttp\Content\Repository;
+namespace Zrcms\HttpExpressive1\HttpApi\Content\Repository;
 
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
@@ -96,9 +96,7 @@ class InsertContentVersion
             );
 
             return $this->handleResponseApi->__invoke(
-                $request,
                 $response,
-                $next,
                 [
                     HandleResponseOptions::API_MESSAGES => [
                         'type' => $this->name,
@@ -129,8 +127,12 @@ class InsertContentVersion
             $newContentVersion
         );
 
-        return new JsonResponse(
+        $response = new JsonResponse(
             $result
+        );
+
+        return $this->handleResponseApi->__invoke(
+            $response
         );
     }
 }

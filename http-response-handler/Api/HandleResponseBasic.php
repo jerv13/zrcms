@@ -3,25 +3,20 @@
 namespace Zrcms\HttpResponseHandler\Api;
 
 use Psr\Http\Message\ResponseInterface;
-use Psr\Http\Message\ServerRequestInterface;
 
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class HandleResponseBasic implements HandleResponse
+class HandleResponseBasic implements HandleResponse, HandleResponseApi
 {
     /**
-     * @param ServerRequestInterface $request
-     * @param ResponseInterface      $response
-     * @param callable|null          $next
-     * @param array                  $options
+     * @param ResponseInterface $response
+     * @param array             $options
      *
-     * @return mixed
+     * @return ResponseInterface
      */
     public function __invoke(
-        ServerRequestInterface $request,
         ResponseInterface $response,
-        callable $next = null,
         array $options = []
     ) {
         return $response;

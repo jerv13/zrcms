@@ -1,6 +1,6 @@
 <?php
 
-namespace Zrcms\HttpExpressive1\Middleware;
+namespace Zrcms\HttpExpressive1\HttpAcl;
 
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
@@ -12,7 +12,7 @@ use Zrcms\HttpResponseHandler\Model\HandleResponseOptions;
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class AclHttp
+class IsAllowedCheck
 {
     /**
      * @var HandleResponse
@@ -68,7 +68,6 @@ class AclHttp
             $response = new HtmlResponse('NOT ALLOWED');
 
             return $this->handleResponse->__invoke(
-                $request,
                 $response->withStatus(401, 'NOT ALLOWED'),
                 [
                     HandleResponseOptions::MESSAGE

@@ -1,6 +1,6 @@
 <?php
 
-namespace Zrcms\HttpExpressive1\Middleware;
+namespace Zrcms\HttpExpressive1\HttpValidator;
 
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
@@ -13,7 +13,7 @@ use Zrcms\HttpResponseHandler\Model\HandleResponseOptions;
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class DataZfInputFilterService
+class AttributesZfInputFilterService
 {
     /**
      * @var ServiceAwareFactory
@@ -60,25 +60,23 @@ class DataZfInputFilterService
         ResponseInterface $response,
         callable $next = null
     ) {
-        $data = $request->getParsedBody();
+        $attributes = $request->getAttributes();
 
         $serviceAwareInputFilter = new ServiceAwareInputFilter(
             $this->factory,
             $this->inputFilterConfig
         );
 
-        $serviceAwareInputFilter->setData($data);
+        $serviceAwareInputFilter->setData($attributes);
 
-        if (!$serviceAwareInputFilter->isValid($data)) {
+        if (!$serviceAwareInputFilter->isValid($attributes)) {
             $response = new JsonResponse(
                 null,
                 400
             );
 
             return $this->handleResponse->__invoke(
-                $request,
                 $response,
-                $next,
                 [
                     HandleResponseOptions::API_MESSAGES => $serviceAwareInputFilter
                 ]

@@ -69,7 +69,6 @@ class ViewController
                 ]
             );
         } catch (SiteNotFoundException $exception) {
-
             $response = new HtmlResponse(
                 'SITE NOT FOUND',
                 404
@@ -77,16 +76,13 @@ class ViewController
 
             // Note: inject the right handler for your use case
             return $this->handleResponse->__invoke(
-                $request,
                 $response,
-                $next,
                 [
                     HandleResponseOptions::MESSAGE
                     => $exception->getMessage()
                 ]
             );
         } catch (PageNotFoundException $exception) {
-
             $response = new HtmlResponse(
                 'PAGE NOT FOUND',
                 404
@@ -94,9 +90,7 @@ class ViewController
 
             // Note: inject the right handler for your use case
             return $this->handleResponse->__invoke(
-                $request,
                 $response,
-                $next,
                 [
                     HandleResponseOptions::MESSAGE
                     => $exception->getMessage()
@@ -114,6 +108,10 @@ class ViewController
             $viewRenderTags
         );
 
-        return new HtmlResponse($html);
+        $response = new HtmlResponse($html);
+
+        return $this->handleResponse->__invoke(
+            $response
+        );
     }
 }
