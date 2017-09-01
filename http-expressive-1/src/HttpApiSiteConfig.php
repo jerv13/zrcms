@@ -138,12 +138,6 @@ class HttpApiSiteConfig
                             HandleResponseApiMessages::class,
                         ],
                     ],
-                    SiteCmsResourceUnpublishZfInputFilterService::class => [
-                        'arguments' => [
-                            ServiceAwareFactory::class,
-                            HandleResponseApiMessages::class,
-                        ],
-                    ],
                 ],
             ],
             'routes' => [
