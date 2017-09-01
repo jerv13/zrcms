@@ -61,7 +61,7 @@ class ContainerCmsResourceEntity
     protected $properties = [];
 
     /**
-     * Date object was first created
+     * Date object was first created mapped to col createdDate
      *
      * @var \DateTime
      *

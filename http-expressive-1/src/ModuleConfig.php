@@ -5,7 +5,6 @@ namespace Zrcms\HttpExpressive1;
 use ZfInputFilterService\InputFilter\ServiceAwareFactory;
 use Zrcms\Acl\Api\IsAllowedRcmUser;
 use Zrcms\ContentCore\Basic\Api\Component\ReadBasicComponentConfigApplicationConfig;
-use Zrcms\ContentCore\Basic\Api\Repository\FindBasicComponent;
 use Zrcms\ContentCore\Site\Api\GetSiteCmsResourceVersionByRequest;
 use Zrcms\ContentCore\Site\Model\PropertiesSiteVersion;
 use Zrcms\ContentCore\View\Api\GetViewByRequest;
@@ -20,7 +19,6 @@ use Zrcms\HttpExpressive1\HttpAlways\LocaleFromSite;
 use Zrcms\HttpExpressive1\HttpAlways\ParamLogOut;
 use Zrcms\HttpExpressive1\HttpParams\ParamQuery;
 use Zrcms\HttpExpressive1\HttpRender\ViewController;
-use Zrcms\HttpExpressive1\HttpRender\ViewControllerFallbackPage;
 use Zrcms\HttpExpressive1\HttpRender\ViewControllerTest;
 use Zrcms\HttpExpressive1\HttpRender\ViewControllerTestFactory;
 use Zrcms\HttpExpressive1\HttpValidator\IdAttributeZfInputFilterService;
@@ -117,13 +115,6 @@ class ModuleConfig
                             GetViewLayoutTags::class,
                             RenderView::class,
                             HandleResponse::class,
-                        ],
-                    ],
-                    ViewControllerFallbackPage::class => [
-                        'arguments' => [
-                            FindBasicComponent::class,
-                            HandleResponse::class,
-                            ViewController::class,
                         ],
                     ],
                     ViewControllerTest::class => [

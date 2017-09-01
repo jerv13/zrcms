@@ -74,7 +74,7 @@ class ViewController
                 404
             );
 
-            return $this->handleResponse->__invoke(
+            return $this->handleResponse(
                 $response,
                 [
                     HandleResponseOptions::MESSAGE
@@ -82,7 +82,9 @@ class ViewController
                     HandleResponseOptions::NEXT
                     => $next,
                     HandleResponseOptions::REQUEST
-                    => $request
+                    => $request,
+                    HandleResponseOptions::RENDER_MIDDLEWARE
+                    => $this,
                 ]
             );
         } catch (PageNotFoundException $exception) {
@@ -91,7 +93,7 @@ class ViewController
                 404
             );
 
-            return $this->handleResponse->__invoke(
+            return $this->handleResponse(
                 $response,
                 [
                     HandleResponseOptions::MESSAGE
@@ -99,7 +101,9 @@ class ViewController
                     HandleResponseOptions::NEXT
                     => $next,
                     HandleResponseOptions::REQUEST
-                    => $request
+                    => $request,
+                    HandleResponseOptions::RENDER_MIDDLEWARE
+                    => $this,
                 ]
             );
         }
@@ -116,8 +120,24 @@ class ViewController
 
         $response = new HtmlResponse($html);
 
-        return $this->handleResponse->__invoke(
+        return $this->handleResponse(
             $response
+        );
+    }
+
+    /**
+     * @param ResponseInterface $response
+     * @param array             $options
+     *
+     * @return ResponseInterface
+     */
+    protected function handleResponse(
+        ResponseInterface $response,
+        array $options = []
+    ) {
+        return $this->handleResponse->__invoke(
+            $response,
+            $options
         );
     }
 }

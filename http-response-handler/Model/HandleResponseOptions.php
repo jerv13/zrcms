@@ -13,4 +13,5 @@ class HandleResponseOptions
     const API_MESSAGES = 'apiMessages';
     const NEXT = 'next';
     const REQUEST = 'request';
+    const RENDER_MIDDLEWARE = 'renderMiddleware';
 }

@@ -12,9 +12,17 @@ trait TrackableTrait
     /**
      * Date object was first created
      *
-     * @var \DateTime
+     * @var string
      */
     protected $createdDate;
+
+    /**
+     * Date object was first created
+     * NOTE: this is for internal use ONLY
+     *
+     * @var \DateTime
+     */
+    protected $createdDateObject;
 
     /**
      * User ID of creator
@@ -43,6 +51,24 @@ trait TrackableTrait
         }
 
         return $this->createdDate;
+    }
+
+    /**
+     * @return int
+     * @throws TrackingException
+     */
+    public function getCreatedTimestamp(): int
+    {
+        return $this->createdDateObject->format(Trackable::DATE_FORMAT_TIMESTAMP);
+    }
+
+    /**
+     * @return \DateTime
+     * @throws TrackingException
+     */
+    public function getCreatedDateObject(): \DateTime
+    {
+        return $this->createdDateObject;
     }
 
     /**
@@ -147,15 +173,14 @@ trait TrackableTrait
         }
 
         // ALWAYS STORE UTC
-        $createdDateObject = new \DateTime(
+        $this->createdDateObject = new \DateTime(
             'now',
             new \DateTimeZone('UTC')
         );
 
-        $this->createdDate = $createdDateObject->format(Trackable::DATE_FORMAT);
+        $this->createdDate = $this->createdDateObject->format(Trackable::DATE_FORMAT);
         $this->createdReason = $createdReason;
     }
-
 
     /**
      * @return void
@@ -165,25 +190,6 @@ trait TrackableTrait
     {
         throw new TrackingException(
             'Cloning of tracking objects is not supported in ' . get_class($this)
-        );
-    }
-
-    /**
-     * @param string $dateString
-     * @param string $format
-     *
-     * @return \DateTime
-     */
-    public function __toDateTime(
-        string $dateString,
-        string $format = Trackable::DATE_FORMAT
-    ) {
-        $timezone = new \DateTimeZone('UTC');
-
-        return \DateTime::createFromFormat(
-            $format,
-            $dateString,
-            $timezone
         );
     }
 }

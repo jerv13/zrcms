@@ -57,13 +57,13 @@ class LayoutCmsResourcePublishHistoryEntity
     protected $properties = [];
 
     /**
-     * Date object was first created
+     * Date object was first created mapped to col createdDate
      *
      * @var \DateTime
      *
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="datetime", name="createdDate")
      */
-    protected $createdDate;
+    protected $createdDateObject;
 
     /**
      * User ID of creator

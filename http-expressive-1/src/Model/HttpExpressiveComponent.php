@@ -58,24 +58,50 @@ class HttpExpressiveComponent extends BasicComponentAbstract implements Componen
     }
 
     /**
-     * @param int|string $status
-     * @param null       $default
+     * @param $status
      *
-     * @return mixed|null
+     * @return bool
      */
-    public function getSitePagePathProperty($status, $default = null)
+    public function hasStatusPage($status): bool
     {
-        $statusPropertyMap = Param::getArray(
+        $statusPages = Param::getArray(
             $this->properties,
             PropertiesHttpExpressiveComponent::STATUS_TO_SITE_PATH_PROPERTY,
             []
         );
 
         $status = (string)$status;
-        if (array_key_exists($status, $statusPropertyMap)) {
-            return $statusPropertyMap[$status];
+
+        return array_key_exists($status, $statusPages);
+    }
+
+    /**
+     * @param int|string $status
+     * @param null       $default
+     *
+     * @return mixed|null
+     */
+    public function findStatusPage($status, $default = null)
+    {
+        $statusPages = $this->getStatusPages();
+
+        $status = (string)$status;
+        if (array_key_exists($status, $statusPages)) {
+            return $statusPages[$status];
         }
 
         return $default;
+    }
+
+    /**
+     * @return array
+     */
+    public function getStatusPages(): array
+    {
+        return Param::getArray(
+            $this->properties,
+            PropertiesHttpExpressiveComponent::STATUS_TO_SITE_PATH_PROPERTY,
+            []
+        );
     }
 }

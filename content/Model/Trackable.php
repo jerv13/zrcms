@@ -11,13 +11,25 @@ interface Trackable
 {
     const UNKNOWN_USER_ID = 'unknown-user-id';
     const UNKNOWN_REASON = 'unknown-reason';
-    const DATE_FORMAT = 'Y-m-d H:i:s';
+    const DATE_FORMAT = \DateTime::ISO8601;
+    const DATE_FORMAT_TIMESTAMP = 'U';
 
     /**
      * @return string
      * @throws TrackingException
      */
     public function getCreatedDate(): string;
+
+    /**
+     * @return \DateTime
+     */
+    public function getCreatedDateObject(): \DateTime;
+
+    /**
+     * @return int
+     * @throws TrackingException
+     */
+    public function getCreatedTimestamp(): int;
 
     /**
      * @return string

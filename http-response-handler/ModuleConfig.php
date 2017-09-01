@@ -3,6 +3,7 @@
 namespace Zrcms\HttpResponseHandler;
 
 use Reliv\RcmApiLib\Service\PsrResponseService;
+use Zrcms\ContentCore\Basic\Api\Repository\FindBasicComponent;
 use Zrcms\HttpResponseHandler\Api\HandleResponse;
 use Zrcms\HttpResponseHandler\Api\HandleResponseApi;
 use Zrcms\HttpResponseHandler\Api\HandleResponseApiCompositeFactory;
@@ -12,6 +13,7 @@ use Zrcms\HttpResponseHandler\Api\HandleResponseBasic;
 use Zrcms\HttpResponseHandler\Api\HandleResponseCompositeFactory;
 use Zrcms\HttpResponseHandler\Api\HandleResponseDebug;
 use Zrcms\HttpResponseHandler\Api\HandleResponseNextOnError;
+use Zrcms\HttpResponseHandler\Api\HandleResponseStatusPage;
 use Zrcms\HttpResponseHandler\Api\HandleResponseWithExceptionMessage;
 
 /**
@@ -51,6 +53,12 @@ class ModuleConfig
                     HandleResponseBasic::class => [],
                     HandleResponseDebug::class => [],
                     HandleResponseNextOnError::class => [],
+                    HandleResponseStatusPage::class => [
+                        'arguments' => [
+                            FindBasicComponent::class,
+                            HandleResponse::class,
+                        ],
+                    ],
                     HandleResponseWithExceptionMessage::class => [],
                 ],
             ],
@@ -72,6 +80,13 @@ class ModuleConfig
                     'response-handler' => HandleResponseNextOnError::class,
                     'priority' => 200
                 ],
+
+                // NOTE: this will try to render a different page then the request page
+                //       Does NOT work with HandleResponseNextOnError
+                //HandleResponseStatusPage::class => [
+                //    'response-handler' => HandleResponseStatusPage::class,
+                //    'priority' => 200
+                //],
 
                 HandleResponseBasic::class => [
                     'response-handler' => HandleResponseBasic::class,

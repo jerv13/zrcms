@@ -120,11 +120,25 @@ class PublishCmsResource
             get_class($this)
         );
 
-        $newCmsResource = $this->publishCmsResource->__invoke(
-            $cmsResource,
-            $this->getUserIdByRequest->__invoke($request),
-            get_class($this)
-        );
+        try {
+            $newCmsResource = $this->publishCmsResource->__invoke(
+                $cmsResource,
+                $this->getUserIdByRequest->__invoke($request),
+                get_class($this)
+            );
+        } catch (\Exception $exception) {
+            $response = new JsonResponse(
+                null,
+                500
+            );
+
+            return $this->handleResponseApi->__invoke(
+                $response,
+                [
+                    HandleResponseOptions::API_MESSAGES => $exception
+                ]
+            );
+        }
 
         $result = $this->cmsResourceToArray->__invoke(
             $newCmsResource

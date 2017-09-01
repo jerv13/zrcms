@@ -10,6 +10,8 @@ use Zrcms\Content\Model\PropertiesCmsResource;
  */
 trait CmsResourceEntityTrait
 {
+    use TrackableEntityTrait;
+
     /**
      * @return string
      */
