@@ -9,6 +9,7 @@ use Zrcms\ContentCore\View\Model\View;
 use Zrcms\Param\Param;
 use Zrcms\ServiceAlias\Api\GetServiceFromAlias;
 use Zrcms\ServiceAlias\ServiceCheck;
+use Zrcms\ViewHead\Api\GetHeadSections;
 use Zrcms\ViewHtmlTags\Api\Render\RenderTag;
 
 /**
@@ -22,6 +23,11 @@ class RenderHeadSectionsTagBasic implements RenderHeadSectionsTag
     protected $renderTag;
 
     /**
+     * @var GetHeadSections
+     */
+    protected $getHeadSections;
+
+    /**
      * @var GetServiceFromAlias
      */
     protected $getServiceFromAlias;
@@ -33,13 +39,16 @@ class RenderHeadSectionsTagBasic implements RenderHeadSectionsTag
 
     /**
      * @param RenderTag           $renderTag
+     * @param GetHeadSections     $getHeadSections
      * @param GetServiceFromAlias $getServiceFromAlias
      */
     public function __construct(
         RenderTag $renderTag,
+        GetHeadSections $getHeadSections,
         GetServiceFromAlias $getServiceFromAlias
     ) {
         $this->renderTag = $renderTag;
+        $this->getHeadSections = $getHeadSections;
         $this->getServiceFromAlias = $getServiceFromAlias;
         $this->serviceAliasNamespace = ServiceAliasView::NAMESPACE_COMPONENT_VIEW_LAYOUT_TAGS_GETTER;
     }
@@ -61,9 +70,24 @@ class RenderHeadSectionsTagBasic implements RenderHeadSectionsTag
         array $options = []
     ): string
     {
+        $debug = Param::getBool($options, 'debug', true);
+        $orderedSections = $this->getHeadSections->__invoke();
         $html = '';
-        foreach ($sections as $section) {
-            $html .= $this->renderSection($view, $request, $tag, $section);
+
+        if ($debug) {
+            $debugHead = get_class($this);
+            $html .= "<!-- ==== {$debugHead} ==== -->\n";
+        }
+
+        foreach ($orderedSections as $sectionName) {
+            if ($debug) {
+                $debugSectionName = strtoupper($sectionName);
+                $html .= "    <!-- *** {$debugSectionName} *** -->\n";
+            }
+            if (!array_key_exists($sectionName, $sections)) {
+                continue;
+            }
+            $html .= $this->renderSection($view, $request, $tag, $sections[$sectionName]);
         }
 
         return $html;

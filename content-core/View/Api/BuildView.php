@@ -6,6 +6,8 @@ use Psr\Http\Message\ServerRequestInterface;
 use Zrcms\ContentCore\View\Model\View;
 
 /**
+ * @todo   This may NOT be needed, attributes can be passed in request
+ *
  * @author James Jervis - https://github.com/jerv13
  */
 interface BuildView

@@ -5,13 +5,9 @@ namespace Zrcms\HttpExpressive1\HttpRender;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Zend\Diactoros\Response\HtmlResponse;
-use Zrcms\ContentCore\Page\Exception\PageNotFoundException;
-use Zrcms\ContentCore\Site\Exception\SiteNotFoundException;
-use Zrcms\ContentCore\View\Api\GetViewByRequest;
 use Zrcms\ContentCore\View\Api\Render\GetViewLayoutTags;
 use Zrcms\ContentCore\View\Api\Render\RenderView;
-use Zrcms\ContentCore\View\Model\View;
-use Zrcms\HttpExpressive1\Model\RequestedPage;
+use Zrcms\HttpExpressive1\HttpAlways\RequestWithView;
 use Zrcms\HttpResponseHandler\Api\HandleResponse;
 use Zrcms\HttpResponseHandler\Model\HandleResponseOptions;
 
@@ -21,18 +17,15 @@ use Zrcms\HttpResponseHandler\Model\HandleResponseOptions;
 class ViewController
 {
     /**
-     * @param GetViewByRequest  $getViewByRequest
      * @param GetViewLayoutTags $getViewLayoutTags
      * @param RenderView        $renderView
      * @param HandleResponse    $handleResponse
      */
     public function __construct(
-        GetViewByRequest $getViewByRequest,
         GetViewLayoutTags $getViewLayoutTags,
         RenderView $renderView,
         HandleResponse $handleResponse
     ) {
-        $this->getViewByRequest = $getViewByRequest;
         $this->getViewLayoutTags = $getViewLayoutTags;
         $this->renderView = $renderView;
         $this->handleResponse = $handleResponse;
@@ -53,51 +46,21 @@ class ViewController
         ResponseInterface $response,
         callable $next = null
     ) {
-        $path = $request->getUri()->getPath();
+        $view = $request->getAttribute(
+            RequestWithView::ATTRIBUTE_VIEW
+        );
 
-        $additionalViewProperties = [
-            RequestedPage::PROPERTY_PATH => $path,
-        ];
-
-        try {
-            /** @var View $pageView */
-            $pageView = $this->getViewByRequest->__invoke(
-                $request,
-                [
-                    GetViewByRequest::OPTION_ADDITIONAL_PROPERTIES
-                    => $additionalViewProperties
-                ]
-            );
-        } catch (SiteNotFoundException $exception) {
+        if (empty($view)) {
             $response = new HtmlResponse(
-                'SITE NOT FOUND',
-                404
+                RequestWithView::ATTRIBUTE_HTTP_MESSAGE,
+                RequestWithView::ATTRIBUTE_HTTP_STATUS
             );
 
             return $this->handleResponse(
                 $response,
                 [
                     HandleResponseOptions::MESSAGE
-                    => $exception->getMessage(),
-                    HandleResponseOptions::NEXT
-                    => $next,
-                    HandleResponseOptions::REQUEST
-                    => $request,
-                    HandleResponseOptions::RENDER_MIDDLEWARE
-                    => $this,
-                ]
-            );
-        } catch (PageNotFoundException $exception) {
-            $response = new HtmlResponse(
-                'PAGE NOT FOUND',
-                404
-            );
-
-            return $this->handleResponse(
-                $response,
-                [
-                    HandleResponseOptions::MESSAGE
-                    => $exception->getMessage(),
+                    => $request->getAttribute(RequestWithView::ATTRIBUTE_MESSAGE),
                     HandleResponseOptions::NEXT
                     => $next,
                     HandleResponseOptions::REQUEST
@@ -109,12 +72,12 @@ class ViewController
         }
 
         $viewRenderTags = $this->getViewLayoutTags->__invoke(
-            $pageView,
+            $view,
             $request
         );
 
         $html = $this->renderView->__invoke(
-            $pageView,
+            $view,
             $viewRenderTags
         );
 

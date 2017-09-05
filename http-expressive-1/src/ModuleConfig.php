@@ -17,6 +17,7 @@ use Zrcms\HttpExpressive1\Api\View\Render\GetViewLayoutMetaPageData;
 use Zrcms\HttpExpressive1\HttpAlways\ContentRedirect;
 use Zrcms\HttpExpressive1\HttpAlways\LocaleFromSite;
 use Zrcms\HttpExpressive1\HttpAlways\ParamLogOut;
+use Zrcms\HttpExpressive1\HttpAlways\RequestWithView;
 use Zrcms\HttpExpressive1\HttpParams\ParamQuery;
 use Zrcms\HttpExpressive1\HttpRender\ViewController;
 use Zrcms\HttpExpressive1\HttpRender\ViewControllerTest;
@@ -101,6 +102,12 @@ class ModuleConfig
                         ],
                     ],
 
+                    RequestWithView::class => [
+                        'arguments' => [
+                            GetViewByRequest::class,
+                        ],
+                    ],
+
                     /**
                      * HttpParams ===========================================
                      */
@@ -111,7 +118,6 @@ class ModuleConfig
                      */
                     ViewController::class => [
                         'arguments' => [
-                            GetViewByRequest::class,
                             GetViewLayoutTags::class,
                             RenderView::class,
                             HandleResponse::class,

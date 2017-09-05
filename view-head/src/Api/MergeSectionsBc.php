@@ -15,6 +15,39 @@ class MergeSectionsBc
         ];
 
     /**
+     * @var array
+     */
+    protected static $oldKeysMap = [];
+
+    /**
+     * @return array
+     */
+    public static function getOldKeysMap()
+    {
+        if (empty(self::$oldKeysMap)) {
+            self::$oldKeysMap = array_flip(self::$newKeysMap);
+        }
+
+        return self::$oldKeysMap;
+    }
+
+    /**
+     * @param string $sectionName
+     *
+     * @return string
+     */
+    public static function getSectionName(string $sectionName)
+    {
+        $oldKeysMap = self::getOldKeysMap();
+
+        if (isset($oldKeysMap[$sectionName])) {
+            return $oldKeysMap[$sectionName];
+        }
+
+        return $sectionName;
+    }
+
+    /**
      * @param array $availableSections
      * @param array $availableSectionsBc
      *
@@ -122,6 +155,8 @@ class MergeSectionsBc
         $config = [];
 
         foreach ($applicationConfigBc['stylesheets'] as $section => $data) {
+            $sectionName = self::getSectionName($section);
+
             foreach ($data as $href => $options) {
                 $tagAttributes = [
                     'href' => $href,
@@ -135,8 +170,8 @@ class MergeSectionsBc
                     // @todo deal with BC conditionalStylesheet
                 }
 
-                if (!isset($config[$section])) {
-                    $config[$section] = [];
+                if (!isset($config[$sectionName])) {
+                    $config[$sectionName] = [];
                 }
 
                 if (!isset($options['rel'])) {
@@ -147,7 +182,7 @@ class MergeSectionsBc
                     $tagAttributes['type'] = 'text/css';
                 }
 
-                $config[$section][$href] = $tagAttributes;
+                $config[$sectionName][$href] = $tagAttributes;
             }
         }
 
@@ -168,6 +203,8 @@ class MergeSectionsBc
         $config = [];
 
         foreach ($applicationConfigBc['scripts'] as $section => $data) {
+            $sectionName = self::getSectionName($section);
+
             foreach ($data as $src => $options) {
                 $tagAttributes = [
                     'src' => $src,
@@ -185,11 +222,11 @@ class MergeSectionsBc
                     }
                 }
 
-                if (!isset($config[$section])) {
-                    $config[$section] = [];
+                if (!isset($config[$sectionName])) {
+                    $config[$sectionName] = [];
                 }
 
-                $config[$section][$src] = $tagAttributes;
+                $config[$sectionName][$src] = $tagAttributes;
             }
         }
 

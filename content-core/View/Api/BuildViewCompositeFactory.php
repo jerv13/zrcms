@@ -5,6 +5,8 @@ namespace Zrcms\ContentCore\View\Api;
 use Psr\Container\ContainerInterface;
 
 /**
+ * @todo   This may NOT be needed
+ *
  * @author James Jervis - https://github.com/jerv13
  */
 class BuildViewCompositeFactory

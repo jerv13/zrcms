@@ -7,6 +7,8 @@ use Zrcms\ContentCore\View\Model\PropertiesViewLayoutTagsComponent;
 use Zrcms\ContentCore\View\Model\ServiceAliasView;
 use Zrcms\ContentCoreConfigDataSource\Content\Model\ComponentRegistryFields;
 use Zrcms\ServiceAlias\Api\GetServiceFromAlias;
+use Zrcms\ViewHead\Api\GetHeadSections;
+use Zrcms\ViewHead\Api\GetHeadSectionsFactory;
 use Zrcms\ViewHead\Api\Render\GetViewLayoutTagsHead;
 use Zrcms\ViewHead\Api\Render\GetViewLayoutTagsHeadAll;
 use Zrcms\ViewHead\Api\Render\GetViewLayoutTagsHeadLink;
@@ -19,9 +21,7 @@ use Zrcms\ViewHead\Api\Repository\ReadViewHeadComponentConfigBc;
 use Zrcms\ViewHead\Api\Repository\ReadViewHeadComponentConfigBcFactory;
 use Zrcms\ViewHead\Model\HeadSectionComponent;
 use Zrcms\ViewHtmlTags\Api\Render\RenderTag;
-use Zrcms\ViewHtmlTags\Api\Render\RenderTagBasic;
 use Zrcms\ViewHtmlTags\Api\Render\RenderTags;
-use Zrcms\ViewHtmlTags\Api\Render\RenderTagsBasic;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -38,6 +38,9 @@ class ModuleConfig
         return [
             'dependencies' => [
                 'config_factories' => [
+                    /**
+                     * API ========================================
+                     */
                     GetViewLayoutTagsHead::class => [
                         'class' => GetViewLayoutTagsHeadAll::class,
                         'arguments' => [
@@ -73,17 +76,12 @@ class ModuleConfig
                         'class' => RenderHeadSectionsTagBasic::class,
                         'arguments' => [
                             '0-' => RenderTag::class,
-                            '1-' => GetServiceFromAlias::class,
+                            '1-' => GetHeadSections::class,
+                            '2-' => GetServiceFromAlias::class,
                         ],
                     ],
-                    RenderTag::class => [
-                        'class' => RenderTagBasic::class,
-                    ],
-                    RenderTags::class => [
-                        'class' => RenderTagsBasic::class,
-                        'arguments' => [
-                            '0-' => RenderTag::class,
-                        ],
+                    GetHeadSections::class => [
+                        'factory' => GetHeadSectionsFactory::class,
                     ],
                     ReadViewHeadComponentConfigBc::class => [
                         'factory' => ReadViewHeadComponentConfigBcFactory::class,
@@ -238,18 +236,54 @@ class ModuleConfig
              * This determines the order of the head sections, thus, loading order of scripts and css
              */
             'zrcms-head-available-sections' => [
-                'pre-config',
-                'config',
-                'post-config',
-                'pre-libraries',
-                'libraries',
-                'post-libraries',
-                'pre-core',
-                'core',
-                'post-core',
-                'pre-modules',
-                'modules',
-                'post-modules',
+                'pre-config' => [
+                    'name' => 'pre-config',
+                    'priority' => 1200
+                ],
+                'config' => [
+                    'name' => 'config',
+                    'priority' => 1100
+                ],
+                'post-config' => [
+                    'name' => 'post-config',
+                    'priority' => 1000
+                ],
+                'pre-libraries' => [
+                    'name' => 'pre-libraries',
+                    'priority' => 900
+                ],
+                'libraries' => [
+                    'name' => 'libraries',
+                    'priority' => 800
+                ],
+                'post-libraries' => [
+                    'name' => 'post-libraries',
+                    'priority' => 700
+                ],
+                'pre-core' => [
+                    'name' => 'pre-core',
+                    'priority' => 600
+                ],
+                'core' => [
+                    'name' => 'core',
+                    'priority' => 500
+                ],
+                'post-core' => [
+                    'name' => 'post-core',
+                    'priority' => 400
+                ],
+                'pre-modules' => [
+                    'name' => 'pre-modules',
+                    'priority' => 300
+                ],
+                'modules' => [
+                    'name' => 'modules',
+                    'priority' => 200
+                ],
+                'post-modules' => [
+                    'name' => 'post-modules',
+                    'priority' => 100
+                ],
             ],
         ];
     }
