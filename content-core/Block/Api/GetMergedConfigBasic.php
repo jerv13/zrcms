@@ -72,7 +72,7 @@ class GetMergedConfigBasic implements GetMergedConfig
                     $default[$key] = $changes[$key];
                 } else {
                     if (isset($default[$key])) {
-                        $default[$key] = $this->__invoke(
+                        $default[$key] = $this->merge(
                             $default[$key],
                             $changes[$key]
                         );

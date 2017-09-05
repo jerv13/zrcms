@@ -48,6 +48,42 @@ class PrepareBlockConfigBc implements PrepareBlockConfig
             if (array_key_exists($key, $blockConfigFieldsBcSubstitution)) {
                 $blockConfigBc[$blockConfigFieldsBcSubstitution[$key]] = $value;
             }
+            // Keeping the old values for BC
+            $blockConfigBc[$key] = $value;
+        }
+
+        // Set defaults
+        foreach ($blockConfigFields as $key => $value) {
+            if (!array_key_exists($key, $blockConfigBc)) {
+                $blockConfigBc[$key] = $value;
+            }
+        }
+
+        if (empty($blockConfigBc[BlockComponentConfigFields::DEFAULT_CONFIG])) {
+            $blockConfigBc[BlockComponentConfigFields::DEFAULT_CONFIG]
+                = $blockConfigBc[BlockComponentConfigFields::FIELDS];
+        }
+
+        return $blockConfigBc;
+    }
+
+    /**
+     * @deprecated
+     * @param array $blockConfig
+     *
+     * @return array
+     */
+    public function old(array $blockConfig): array
+    {
+        $blockConfigFields = $this->getBlockConfigFields->__invoke();
+        $blockConfigFieldsBcSubstitution = $this->getBlockConfigFieldsBcSubstitution->__invoke();
+
+        $blockConfigBc = [];
+
+        foreach ($blockConfig as $key => $value) {
+            if (array_key_exists($key, $blockConfigFieldsBcSubstitution)) {
+                $blockConfigBc[$blockConfigFieldsBcSubstitution[$key]] = $value;
+            }
         }
 
         $new = array_merge($blockConfigFields, $blockConfig);
@@ -58,6 +94,14 @@ class PrepareBlockConfigBc implements PrepareBlockConfig
             $new[BlockComponentConfigFields::DEFAULT_CONFIG] = $new[BlockComponentConfigFields::FIELDS];
         }
 
+        $t = $this->t($blockConfig);
+        var_dump(
+            'o', $blockConfig,
+            'n',$new,
+            't',$t
+        );
+
         return $new;
     }
+
 }

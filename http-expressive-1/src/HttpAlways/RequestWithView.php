@@ -51,6 +51,10 @@ class RequestWithView
             self::ATTRIBUTE_REQUEST_PATH => $path,
         ];
 
+        $status = 200;
+        $httpMessage = 'OK';
+        $message = '';
+
         try {
             /** @var View $view */
             $view = $this->getViewByRequest->__invoke(
@@ -60,10 +64,6 @@ class RequestWithView
                     => $additionalViewProperties
                 ]
             );
-
-            $status = 200;
-            $httpMessage = 'OK';
-            $message = '';
         } catch (SiteNotFoundException $exception) {
             $view = null;
             $status = 404;

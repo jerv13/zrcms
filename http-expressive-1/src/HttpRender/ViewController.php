@@ -52,8 +52,14 @@ class ViewController
 
         if (empty($view)) {
             $response = new HtmlResponse(
-                RequestWithView::ATTRIBUTE_HTTP_MESSAGE,
-                RequestWithView::ATTRIBUTE_HTTP_STATUS
+                $request->getAttribute(
+                    RequestWithView::ATTRIBUTE_HTTP_MESSAGE,
+                    'NOT FOUND'
+                ),
+                $request->getAttribute(
+                    RequestWithView::ATTRIBUTE_HTTP_STATUS,
+                    404
+                )
             );
 
             return $this->handleResponse(
