@@ -12,6 +12,7 @@ class ComponentRegistryFields
     const NAME = PropertiesComponent::NAME;
     const CONFIG_LOCATION = PropertiesComponent::CONFIG_LOCATION;
     const COMPONENT_CONFIG_READER = PropertiesComponent::COMPONENT_CONFIG_READER;
+    const COMPONENT_CLASS = PropertiesComponent::COMPONENT_CLASS;
 
     /**
      * Default values
@@ -23,5 +24,6 @@ class ComponentRegistryFields
             self::NAME => '',
             self::CONFIG_LOCATION => '',
             self::COMPONENT_CONFIG_READER => '',
+            self::COMPONENT_CLASS => '',
         ];
 }

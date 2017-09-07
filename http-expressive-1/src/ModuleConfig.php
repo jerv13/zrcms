@@ -5,6 +5,7 @@ namespace Zrcms\HttpExpressive1;
 use ZfInputFilterService\InputFilter\ServiceAwareFactory;
 use Zrcms\Acl\Api\IsAllowedAny;
 use Zrcms\ContentCore\Basic\Api\Component\ReadBasicComponentConfigApplicationConfig;
+use Zrcms\ContentCore\Basic\Api\Repository\FindBasicComponent;
 use Zrcms\ContentCore\Site\Api\GetSiteCmsResourceVersionByRequest;
 use Zrcms\ContentCore\Site\Model\PropertiesSiteVersion;
 use Zrcms\ContentCore\View\Api\GetViewByRequest;
@@ -13,21 +14,30 @@ use Zrcms\ContentCore\View\Api\Render\RenderView;
 use Zrcms\ContentCore\View\Model\ServiceAliasView;
 use Zrcms\ContentCoreConfigDataSource\Content\Model\ComponentRegistryFields;
 use Zrcms\ContentRedirect\Api\Repository\FindRedirectCmsResourceVersionBySiteRequestPath;
+use Zrcms\HttpExpressive1\Api\GetStatusPage;
+use Zrcms\HttpExpressive1\Api\GetStatusPageBasic;
 use Zrcms\HttpExpressive1\Api\View\Render\GetViewLayoutMetaPageData;
+use Zrcms\HttpExpressive1\HttpAcl\IsAllowedToViewPage;
 use Zrcms\HttpExpressive1\HttpAlways\ContentRedirect;
 use Zrcms\HttpExpressive1\HttpAlways\LocaleFromSite;
 use Zrcms\HttpExpressive1\HttpAlways\ParamLogOut;
+use Zrcms\HttpExpressive1\HttpAlways\RequestWithOriginalUri;
+use Zrcms\HttpExpressive1\HttpAlways\RequestWithViewRenderPage;
 use Zrcms\HttpExpressive1\HttpAlways\RequestWithView;
+use Zrcms\HttpExpressive1\HttpFinal\NotFoundStatusPage;
 use Zrcms\HttpExpressive1\HttpParams\ParamQuery;
-use Zrcms\HttpExpressive1\HttpRender\ViewController;
+use Zrcms\HttpExpressive1\HttpRender\RenderPage;
 use Zrcms\HttpExpressive1\HttpRender\ViewControllerTest;
 use Zrcms\HttpExpressive1\HttpRender\ViewControllerTestFactory;
+use Zrcms\HttpExpressive1\HttpResponseMutator\ResponseMutator;
+use Zrcms\HttpExpressive1\HttpResponseMutator\ResponseMutatorNoop;
+use Zrcms\HttpExpressive1\HttpResponseMutator\ResponseMutatorStatusPage;
 use Zrcms\HttpExpressive1\HttpValidator\IdAttributeZfInputFilterService;
 use Zrcms\HttpExpressive1\Model\HttpExpressiveComponent;
 use Zrcms\HttpExpressive1\Model\PropertiesHttpExpressiveComponent;
-use Zrcms\HttpResponseHandler\Api\HandleResponse;
 use Zrcms\HttpResponseHandler\Api\HandleResponseApi;
 use Zrcms\Locale\Api\SetLocale;
+use Zrcms\User\Api\LogOut;
 use Zrcms\ViewHtmlTags\Api\Render\RenderTag;
 
 /**
@@ -62,6 +72,14 @@ class ModuleConfig
                         ],
                     ],
 
+                    GetStatusPage::class => [
+                        'class' => GetStatusPageBasic::class,
+                        'arguments' => [
+                            GetSiteCmsResourceVersionByRequest::class,
+                            FindBasicComponent::class,
+                        ],
+                    ],
+
                     /**
                      * HttpAcl ===========================================
                      */
@@ -79,6 +97,8 @@ class ModuleConfig
                         ],
                     ],
                     /* */
+
+                    IsAllowedToViewPage::class => [],
 
                     /**
                      * HttpAlways ===========================================
@@ -99,13 +119,31 @@ class ModuleConfig
 
                     ParamLogOut::class => [
                         'arguments' => [
-                            \Zrcms\User\Api\LogOut::class,
+                            LogOut::class,
+                        ],
+                    ],
+
+                    RequestWithOriginalUri::class => [],
+
+                    RequestWithViewRenderPage::class => [
+                        'arguments' => [
+                            GetViewLayoutTags::class,
+                            RenderView::class,
                         ],
                     ],
 
                     RequestWithView::class => [
                         'arguments' => [
                             GetViewByRequest::class,
+                        ],
+                    ],
+                    /**
+                     * HttpFinal ===========================================
+                     */
+                    NotFoundStatusPage::class => [
+                        'arguments' => [
+                            GetStatusPage::class,
+                            RenderPage::class,
                         ],
                     ],
 
@@ -117,17 +155,36 @@ class ModuleConfig
                     /**
                      * HttpRender ===========================================
                      */
-                    ViewController::class => [
+                    RenderPage::class => [
                         'arguments' => [
+                            GetViewByRequest::class,
                             GetViewLayoutTags::class,
                             RenderView::class,
-                            HandleResponse::class,
                         ],
                     ],
                     ViewControllerTest::class => [
                         'factory' => ViewControllerTestFactory::class,
                     ],
 
+                    /**
+                     * ResponseMutator ===========================================
+                     */
+                    ResponseMutator::class => [
+                        //'class' => ResponseMutatorNoop::class,
+                        // @todo This should use ResponseMutatorStatusPage by default
+                        'class' => ResponseMutatorStatusPage::class,
+                        'arguments' => [
+                            GetStatusPage::class,
+                            RenderPage::class,
+                        ],
+                    ],
+                    ResponseMutatorNoop::class => [],
+                    ResponseMutatorStatusPage::class => [
+                        'arguments' => [
+                            GetStatusPage::class,
+                            RenderPage::class,
+                        ],
+                    ],
                     /**
                      * HttpValidator ===========================================
                      */
@@ -220,6 +277,10 @@ class ModuleConfig
                         ],
                     ],
                     /* */
+
+                    ApplicationZrcms::class => [
+                        'factory' => ApplicationZrcmsFullFactory::class,
+                    ],
                 ],
             ],
             'routes' => [
@@ -245,10 +306,13 @@ class ModuleConfig
                         ComponentRegistryFields::COMPONENT_CONFIG_READER
                         => ReadBasicComponentConfigApplicationConfig::SERVICE_ALIAS,
 
+                        ComponentRegistryFields::COMPONENT_CLASS
+                        => HttpExpressiveComponent::class,
+
                         /* Map of HTTP status to the name of a SiteVersion property with the corresponding path */
                         PropertiesHttpExpressiveComponent::STATUS_TO_SITE_PATH_PROPERTY => [
-                            '404' => PropertiesSiteVersion::NOT_FOUND_PAGE,
-                            '401' => PropertiesSiteVersion::NOT_AUTHORIZED_PAGE,
+                            '401' => '/not-authorized',
+                            '404' => '/not-found',
                         ],
                     ],
                 ],

@@ -1,6 +1,6 @@
 <?php
 
-namespace Zrcms\HttpExpressive1\HttpResponseMutator;
+namespace Zrcms\HttpExpressive1\HttpFinal;
 
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
@@ -10,7 +10,7 @@ use Zrcms\HttpExpressive1\HttpRender\RenderPage;
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class ResponseMutatorStatusPage implements ResponseMutator
+class NotFoundStatusPage
 {
     /**
      * @var GetStatusPage
@@ -23,23 +23,15 @@ class ResponseMutatorStatusPage implements ResponseMutator
     protected $renderPage;
 
     /**
-     * @var array
-     */
-    protected $validContentTypes;
-
-    /**
      * @param GetStatusPage $getStatusPage
      * @param RenderPage    $renderPage
-     * @param array         $validContentTypes
      */
     public function __construct(
         GetStatusPage $getStatusPage,
-        RenderPage $renderPage,
-        array $validContentTypes = ['text/html', 'application/xhtml+xml', 'text/xml', 'application/xml', '']
+        RenderPage $renderPage
     ) {
         $this->getStatusPage = $getStatusPage;
         $this->renderPage = $renderPage;
-        $this->validContentTypes = $validContentTypes;
     }
 
     /**
@@ -47,7 +39,7 @@ class ResponseMutatorStatusPage implements ResponseMutator
      *
      * @param ServerRequestInterface $request
      * @param ResponseInterface      $response
-     * @param array                  $options
+     * @param callable|null          $next
      *
      * @return ResponseInterface
      * @throws \Exception
@@ -55,20 +47,20 @@ class ResponseMutatorStatusPage implements ResponseMutator
     public function __invoke(
         ServerRequestInterface $request,
         ResponseInterface $response,
-        array $options = []
-    ): ResponseInterface
-    {
-        if (!$this->isValidContentType($response)) {
-            return $response;
-        }
-
+        $next = null
+    ) {
         $statusPage = $this->getStatusPage->__invoke(
             $request,
-            $response->getStatusCode()
+            404
         );
 
         if (empty($statusPage)) {
-            return $response;
+            $reason = 'NOT FOUND: UNHANDLED REQUEST';
+
+            return $response->withStatus(
+                404,
+                $reason
+            )->withAddedHeader('reason-phrase', $reason);
         }
 
         $uri = $request->getUri();
@@ -77,10 +69,11 @@ class ResponseMutatorStatusPage implements ResponseMutator
 
         $request->withUri($uri);
 
+        $reason = 'NOT FOUND: UNHANDLED REQUEST: 404 PAGE MISSING: ' . $statusPage;
         $finalResponse = $response->withStatus(
-            $response->getStatusCode(),
-            $response->getReasonPhrase()
-        );
+            404,
+            $reason
+        )->withAddedHeader('reason-phrase', $reason);
 
         return $this->renderPage->__invoke(
             $request->withUri($uri),
@@ -89,30 +82,5 @@ class ResponseMutatorStatusPage implements ResponseMutator
                 return $finalResponse;
             }
         );
-    }
-
-    /**
-     * @todo Optimize me
-     *
-     * @param ResponseInterface $response
-     *
-     * @return bool
-     */
-    protected function isValidContentType(ResponseInterface $response): bool
-    {
-        $contentTypeLine = $response->getHeaderLine('content-type');
-
-        $parts = explode(',', $contentTypeLine);
-
-        foreach ($parts as $part) {
-            $subParts = explode(';', $part);
-            foreach ($subParts as $subPart) {
-                if (in_array($subPart, $this->validContentTypes)) {
-                    return true;
-                }
-            }
-        }
-
-        return false;
     }
 }

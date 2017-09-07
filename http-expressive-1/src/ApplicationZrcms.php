@@ -53,13 +53,21 @@ class ApplicationZrcms extends Application
         ResponseInterface $response,
         callable $out = null
     ) {
+        if (!$out && (null === ($out = $this->getFinalHandler($response)))) {
+            $out = function ($req, $res) {
+                return $res->withStatus(
+                    404,
+                    'NOT FOUND: UNHANDLED RESPONSE'
+                );
+            };
+        }
+
         $result = parent::__invoke($request, $response, $out);
 
         if ($result instanceof ResponseInterface && $this->responseMutator) {
             return $this->responseMutator->__invoke(
                 $request,
-                $result,
-                $out
+                $result
             );
         }
 

@@ -6,6 +6,8 @@
 - Remove const Site:
     self::NOT_AUTHORIZED_PAGE => '',
     self::NOT_FOUND_PAGE => '',
+    ATTRIBUTE_HTTP_STATUS
+    ATTRIBUTE_HTTP_MESSAGE
 
 - ContentDoctrine SyncProperties needs to be done separately for CmsResourcePublishHistory
 

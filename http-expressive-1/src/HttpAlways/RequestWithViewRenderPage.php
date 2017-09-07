@@ -12,7 +12,7 @@ use Zrcms\HttpResponseHandler\Api\HandleResponse;
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class RenderPage
+class RequestWithViewRenderPage
 {
     /**
      * @param GetViewLayoutTags $getViewLayoutTags

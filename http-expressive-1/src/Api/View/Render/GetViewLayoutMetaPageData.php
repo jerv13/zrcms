@@ -3,12 +3,13 @@
 namespace Zrcms\HttpExpressive1\Api\View\Render;
 
 use Psr\Http\Message\ServerRequestInterface;
+use Psr\Http\Message\UriInterface;
 use Zrcms\Acl\Api\IsAllowed;
 use Zrcms\Content\Model\Content;
 use Zrcms\ContentCore\Site\Model\PropertiesSiteVersion;
 use Zrcms\ContentCore\View\Api\Render\GetViewLayoutTags;
 use Zrcms\ContentCore\View\Model\View;
-use Zrcms\HttpExpressive1\Model\RequestedPage;
+use Zrcms\HttpExpressive1\HttpAlways\RequestWithOriginalUri;
 use Zrcms\ViewHtmlTags\Api\Render\RenderTag;
 
 /**
@@ -34,7 +35,7 @@ class GetViewLayoutMetaPageData implements GetViewLayoutTags
     protected $aclOptions;
 
     /**
-    /**
+     * /**
      * @param RenderTag $renderTag
      * @param IsAllowed $isAllowed
      * @param array     $aclOptions
@@ -79,14 +80,14 @@ class GetViewLayoutMetaPageData implements GetViewLayoutTags
         $pageVersion = $view->getPage();
         $layoutResource = $view->getLayoutCmsResource();
 
-        /** @var RequestedPage $requestedPage */
-        $requestedPagePath = $view->getProperty(
-            RequestedPage::PROPERTY_PATH,
+        /** @var UriInterface $originalUri */
+        $originalUri = $request->getAttribute(
+            RequestWithOriginalUri::ATTRIBUTE_ORIGINAL_URI,
             null
         );
 
-        if (empty($requestedPagePath)) {
-            throw new \Exception('RequestedPage data is required to render');
+        if (empty($originalUri)) {
+            throw new \Exception('originalUri data is required to render');
         }
 
         // @BC for RCM
@@ -107,8 +108,8 @@ class GetViewLayoutMetaPageData implements GetViewLayoutTags
                 'siteId' => $siteResource->getId()
             ],
             'requestedPage' => [
-                'name' => $requestedPagePath,//BC
-                'path' => $requestedPagePath,
+                'name' => $originalUri->getPath(),//BC
+                'path' => $originalUri->getPath(),
                 'revision' => '', //BC
                 'type' => 'n' // @todo @pageType
             ]
@@ -121,7 +122,7 @@ class GetViewLayoutMetaPageData implements GetViewLayoutTags
                 'property' => 'rcm:page', // @BC this is for old admin screens
                 'site-id' => $siteResource->getId(),
                 'page-id' => $pageResource->getId(),
-                'page-requested-path' => $requestedPagePath,
+                'page-requested-path' => $originalUri->getPath(),
                 'page-path' => $pageResource->getPath(),
                 'theme' => $layoutResource->getThemeName(),
                 'layout' => $layoutResource->getName(),
