@@ -8,6 +8,7 @@ use Zrcms\ContentRedirect\Api\Action\PublishRedirectCmsResource;
 use Zrcms\ContentRedirect\Api\Action\UnpublishRedirectCmsResource;
 use Zrcms\ContentRedirect\Api\Repository\FindRedirectCmsResource;
 use Zrcms\ContentRedirect\Api\Repository\FindRedirectCmsResourcesBy;
+use Zrcms\ContentRedirect\Api\Repository\FindRedirectCmsResourceVersionBySiteRequestPath;
 use Zrcms\ContentRedirect\Api\Repository\FindRedirectVersion;
 use Zrcms\ContentRedirect\Api\Repository\FindRedirectVersionsBy;
 use Zrcms\ContentRedirect\Api\Repository\InsertRedirectVersion;
@@ -52,6 +53,12 @@ class ModuleConfig
                     ],
                     FindRedirectCmsResourcesBy::class => [
                         'class' => This\Api\Repository\FindRedirectCmsResourcesBy::class,
+                        'arguments' => [
+                            '0-' => EntityManager::class,
+                        ],
+                    ],
+                    FindRedirectCmsResourceVersionBySiteRequestPath::class => [
+                        'class' => This\Api\Repository\FindRedirectCmsResourceVersionBySiteRequestPath::class,
                         'arguments' => [
                             '0-' => EntityManager::class,
                         ],

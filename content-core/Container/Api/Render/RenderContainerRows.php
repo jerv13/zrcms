@@ -6,6 +6,7 @@ use Zrcms\Content\Model\Content;
 use Zrcms\ContentCore\Block\Api\Render\RenderBlock;
 use Zrcms\ContentCore\Container\Api\WrapRenderedContainer;
 use Zrcms\ContentCore\Container\Model\Container;
+use Zrcms\ContentCore\Container\Model\ContainerVersion;
 use Zrcms\Param\Param;
 
 class RenderContainerRows implements RenderContainer
@@ -33,7 +34,7 @@ class RenderContainerRows implements RenderContainer
     }
 
     /**
-     * @param Container|Content $container
+     * @param Container|ContainerVersion|Content $container
      * @param array             $renderTags ['render-tag' => '{html}']
      * @param array             $options
      *

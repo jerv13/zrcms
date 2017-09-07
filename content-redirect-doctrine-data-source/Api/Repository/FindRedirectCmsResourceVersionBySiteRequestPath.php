@@ -98,13 +98,13 @@ class FindRedirectCmsResourceVersionBySiteRequestPath
             . " OR resource.{$siteCmsResourceIdPropertyName} IS NULL)"
             . " AND resource.{$requestPathPropertyName} = :requestPath"
             . " AND resource.{$publishedPropertyName} = true"
-            . " ORDER BY ASC resource.{$siteCmsResourceIdPropertyName}"
-            . " LIMIT 1";
+            . " ORDER BY resource.{$siteCmsResourceIdPropertyName} ASC";
 
         $dQuery = $this->entityManager->createQuery($query);
 
         $dQuery->setParameter('siteCmsResource', $siteCmsResourceId);
         $dQuery->setParameter('requestPath', $requestPath);
+        $dQuery->setMaxResults(1);
 
         $result = $dQuery->getResult();
 

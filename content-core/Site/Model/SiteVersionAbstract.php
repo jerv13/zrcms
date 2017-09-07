@@ -69,4 +69,24 @@ abstract class SiteVersionAbstract extends ContentVersionAbstract implements Sit
             'en_US'
         );
     }
+
+    /**
+     * @param string     $httpStatus
+     * @param mixed|null $default
+     *
+     * @return string|null
+     */
+    public function findStatusPage(string $httpStatus, $default = null)
+    {
+        $statusPages = $this->getProperty(
+            PropertiesSiteVersion::STATUS_PAGES,
+            []
+        );
+
+        return Param::getString(
+            $statusPages,
+            $httpStatus,
+            $default
+        );
+    }
 }

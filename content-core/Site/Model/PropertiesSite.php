@@ -29,9 +29,13 @@ class PropertiesSite extends PropertiesContent
     // Login page path: 'login'
     const LOGIN_PAGE = 'loginPage';
     // Not authorized (401) page path: 'not-authorized'
+    /* @deprecated */
     const NOT_AUTHORIZED_PAGE = 'notAuthorizedPage';
     // Not found (404) page path: 'not-found
+    /* @deprecated */
     const NOT_FOUND_PAGE = 'notFoundPage';
+
+    const STATUS_PAGES = 'statusPages';
 
     // Path to favicon: '/images/favicon.ico'
     const FAVICON = 'favicon';
@@ -53,6 +57,10 @@ class PropertiesSite extends PropertiesContent
             self::LOGIN_PAGE => '',
             self::NOT_AUTHORIZED_PAGE => '',
             self::NOT_FOUND_PAGE => '',
+            self::STATUS_PAGES => [
+                '401' => '/not-authorized',
+                '404' => '/not-found'
+            ],
             self::FAVICON => '',
         ];
 }

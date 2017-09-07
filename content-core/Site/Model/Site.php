@@ -18,4 +18,12 @@ interface Site extends Content
      * @return string
      */
     public function getLocale(): string;
+
+    /**
+     * @param string     $httpStatus
+     * @param mixed|null $default
+     *
+     * @return string|null
+     */
+    public function findStatusPage(string $httpStatus, $default = null);
 }

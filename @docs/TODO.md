@@ -1,6 +1,19 @@
 @todo
 =====
 
+- TAG:
+    - RCM core 1.21.1
+    - RcmDynamicNavigation 1.22.0
+
+- ZrcmsPipe with response handler at the end
+
+- Remove const Site:
+    self::NOT_AUTHORIZED_PAGE => '',
+    self::NOT_FOUND_PAGE => '',
+
+- ContentDoctrine SyncProperties needs to be done separately for CmsResourcePublishHistory
+
+
 - APIs in http-expressive
 
 - For publish and unpublish, extra properties (like host) should not be required if there is an existing resource

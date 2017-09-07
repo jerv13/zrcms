@@ -3,6 +3,7 @@
 namespace Zrcms\ContentDoctrine\Api;
 
 use Zrcms\Content\Model\CmsResource;
+use Zrcms\Content\Model\CmsResourcePublishHistory;
 use Zrcms\Content\Model\PropertiesCmsResource;
 
 /**
@@ -11,10 +12,10 @@ use Zrcms\Content\Model\PropertiesCmsResource;
 trait BasicCmsResourceTrait
 {
     /**
-     * @param string           $entityClassCmsResource
-     * @param string           $classCmsResourceBasic
+     * @param string $entityClassCmsResource
+     * @param string $classCmsResourceBasic
      * @param CmsResource|null $entity
-     * @param array            $cmsResourceSyncToProperties
+     * @param array $cmsResourceSyncToProperties
      *
      * @return CmsResource|null
      * @throws \Exception
@@ -58,11 +59,13 @@ trait BasicCmsResourceTrait
             $cmsResourceSyncToProperties
         );
 
-        return new $classCmsResourceBasic(
+        $new = new $classCmsResourceBasic(
             $properties,
             $entity->getCreatedByUserId(),
             $entity->getCreatedReason()
         );
+
+        return $new;
     }
 
     /**
@@ -78,15 +81,21 @@ trait BasicCmsResourceTrait
     ) {
         // always sync
         if (!array_key_exists(PropertiesCmsResource::ID, $cmsResourceSyncToProperties)) {
-            $contentVersionSyncToProperties[] = PropertiesCmsResource::ID;
+            $cmsResourceSyncToProperties[] = PropertiesCmsResource::ID;
         }
 
         if (!array_key_exists(PropertiesCmsResource::CONTENT_VERSION_ID, $cmsResourceSyncToProperties)) {
-            $contentVersionSyncToProperties[] = PropertiesCmsResource::CONTENT_VERSION_ID;
+            $cmsResourceSyncToProperties[] = PropertiesCmsResource::CONTENT_VERSION_ID;
         }
 
-        if (!array_key_exists(PropertiesCmsResource::PUBLISHED, $cmsResourceSyncToProperties)) {
-            $contentVersionSyncToProperties[] = PropertiesCmsResource::PUBLISHED;
+        // @todo This is for publish only - needs to have it's own sync
+        if (is_a($entity, CmsResourcePublishHistory::class)
+            && !array_key_exists(
+                PropertiesCmsResource::PUBLISHED,
+                $cmsResourceSyncToProperties
+            )
+        ) {
+            $cmsResourceSyncToProperties[] = PropertiesCmsResource::PUBLISHED;
         }
 
         $properties = $entity->getProperties();

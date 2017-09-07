@@ -19,7 +19,7 @@ abstract class SiteAbstract extends ContentAbstract implements Site
     ) {
         Param::assertHas(
             $properties,
-            PropertiesSiteVersion::THEME_NAME,
+            PropertiesSite::THEME_NAME,
             PropertyMissingException::build(
                 PropertiesSiteVersion::THEME_NAME,
                 $properties,
@@ -29,7 +29,7 @@ abstract class SiteAbstract extends ContentAbstract implements Site
 
         Param::assertHas(
             $properties,
-            PropertiesSiteVersion::LOCALE,
+            PropertiesSite::LOCALE,
             PropertyMissingException::build(
                 PropertiesSiteVersion::LOCALE,
                 $properties,
@@ -48,7 +48,7 @@ abstract class SiteAbstract extends ContentAbstract implements Site
     public function getThemeName(): string
     {
         return $this->getProperty(
-            PropertiesSiteVersion::THEME_NAME,
+            PropertiesSite::THEME_NAME,
             ''
         );
     }
@@ -59,8 +59,28 @@ abstract class SiteAbstract extends ContentAbstract implements Site
     public function getLocale(): string
     {
         return $this->getProperty(
-            PropertiesSiteVersion::LOCALE,
+            PropertiesSite::LOCALE,
             ''
+        );
+    }
+
+    /**
+     * @param string     $httpStatus
+     * @param mixed|null $default
+     *
+     * @return string|null
+     */
+    public function findStatusPage(string $httpStatus, $default = null)
+    {
+        $statusPages = $this->getProperty(
+            PropertiesSite::STATUS_PAGES,
+            []
+        );
+
+        return Param::getString(
+            $statusPages,
+            $httpStatus,
+            $default
         );
     }
 }

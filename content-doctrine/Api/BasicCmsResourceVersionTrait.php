@@ -5,6 +5,7 @@ namespace Zrcms\ContentDoctrine\Api;
 use Zrcms\Content\Exception\CmsResourceNotExistsException;
 use Zrcms\Content\Exception\ContentVersionNotExistsException;
 use Zrcms\Content\Model\CmsResourceVersion;
+use Zrcms\ContentCore\Page\Model\PageContainerCmsResourceVersionBasic;
 
 /**
  * @author James Jervis - https://github.com/jerv13

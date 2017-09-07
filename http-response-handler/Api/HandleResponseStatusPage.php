@@ -12,6 +12,7 @@ use Zrcms\HttpResponseHandler\Model\HandleResponseOptions;
 use Zrcms\Param\Param;
 
 /**
+ * @deprecated
  * @author James Jervis - https://github.com/jerv13
  */
 class HandleResponseStatusPage implements HandleResponse

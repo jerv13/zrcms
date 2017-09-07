@@ -73,6 +73,8 @@ class GetContainerRenderTagsBlocks implements GetContainerRenderTags
 
         $blocks = $container->getBlockVersions();
 
+
+
         /** @var Block $block */
         foreach ($blocks as $block) {
             $rowNumber = $block->getRequiredLayoutProperty(
@@ -117,6 +119,9 @@ class GetContainerRenderTagsBlocks implements GetContainerRenderTags
 
             $renderedData[$rowNumber][$renderOrder] = $blockOuterHtml;
         }
+
+        // Sort by row number
+        ksort($renderedData);
 
         return $renderedData;
     }

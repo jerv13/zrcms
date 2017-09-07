@@ -26,6 +26,10 @@ class PropertiesSiteVersion extends PropertiesSite
             self::LOGIN_PAGE => '',
             self::NOT_AUTHORIZED_PAGE => '',
             self::NOT_FOUND_PAGE => '',
+            self::STATUS_PAGES => [
+                '401' => '/not-authorized',
+                '404' => '/not-found'
+            ],
             self::FAVICON => '',
         ];
 }

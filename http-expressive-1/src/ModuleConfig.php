@@ -3,7 +3,7 @@
 namespace Zrcms\HttpExpressive1;
 
 use ZfInputFilterService\InputFilter\ServiceAwareFactory;
-use Zrcms\Acl\Api\IsAllowedRcmUser;
+use Zrcms\Acl\Api\IsAllowedAny;
 use Zrcms\ContentCore\Basic\Api\Component\ReadBasicComponentConfigApplicationConfig;
 use Zrcms\ContentCore\Site\Api\GetSiteCmsResourceVersionByRequest;
 use Zrcms\ContentCore\Site\Model\PropertiesSiteVersion;
@@ -12,7 +12,7 @@ use Zrcms\ContentCore\View\Api\Render\GetViewLayoutTags;
 use Zrcms\ContentCore\View\Api\Render\RenderView;
 use Zrcms\ContentCore\View\Model\ServiceAliasView;
 use Zrcms\ContentCoreConfigDataSource\Content\Model\ComponentRegistryFields;
-use Zrcms\ContentRedirectDoctrineDataSource\Api\Repository\FindRedirectCmsResourceVersionBySiteRequestPath;
+use Zrcms\ContentRedirect\Api\Repository\FindRedirectCmsResourceVersionBySiteRequestPath;
 use Zrcms\HttpExpressive1\Api\View\Render\GetViewLayoutMetaPageData;
 use Zrcms\HttpExpressive1\HttpAlways\ContentRedirect;
 use Zrcms\HttpExpressive1\HttpAlways\LocaleFromSite;
@@ -51,11 +51,12 @@ class ModuleConfig
                     GetViewLayoutMetaPageData::class => [
                         'arguments' => [
                             RenderTag::class,
-                            IsAllowedRcmUser::class,
+                            // @todo Real ACL??
+                            IsAllowedAny::class,
                             [
                                 'literal' => [
-                                    IsAllowedRcmUser::OPTION_RESOURCE_ID => 'sites',
-                                    IsAllowedRcmUser::OPTION_PRIVILEGE => 'admin',
+                                    //IsAllowedRcmUser::OPTION_RESOURCE_ID => 'sites',
+                                    //IsAllowedRcmUser::OPTION_PRIVILEGE => 'admin',
                                 ]
                             ],
                         ],

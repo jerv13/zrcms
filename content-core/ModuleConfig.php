@@ -80,6 +80,7 @@ use Zrcms\ContentCore\Page\Api\Repository\InsertPageContainerVersion;
 use Zrcms\ContentCore\Page\Model\ServiceAliasPageContainer;
 use Zrcms\ContentCore\Site\Api\Action\PublishSiteCmsResource;
 use Zrcms\ContentCore\Site\Api\Action\UnpublishSiteCmsResource;
+use Zrcms\ContentCore\Site\Api\GetSiteCmsResourceVersionByRequest;
 use Zrcms\ContentCore\Site\Api\Repository\FindSiteCmsResource;
 use Zrcms\ContentCore\Site\Api\Repository\FindSiteCmsResourceByHost;
 use Zrcms\ContentCore\Site\Api\Repository\FindSiteCmsResourcesBy;
@@ -525,6 +526,12 @@ class ModuleConfig
                         'class' => ApiNoop::class,
                         'arguments' => [
                             '0-' => ['literal' => InsertSiteVersion::class],
+                        ],
+                    ],
+
+                    GetSiteCmsResourceVersionByRequest::class => [
+                        'arguments' => [
+                            '0-' => FindSiteCmsResourceVersionByHost::class,
                         ],
                     ],
 

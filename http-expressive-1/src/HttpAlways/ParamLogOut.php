@@ -6,6 +6,7 @@ use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Zend\Diactoros\Response\RedirectResponse;
 use Zrcms\Param\Param;
+use Zrcms\User\Api\LogOut;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -15,7 +16,7 @@ class ParamLogOut
     const PARAM_LOGOUT = 'logout';
 
     /**
-     * @var \Zrcms\User\Api\LogOut
+     * @var LogOut
      */
     protected $logout;
 
@@ -30,12 +31,12 @@ class ParamLogOut
     protected $headers = [];
 
     /**
-     * @param \Zrcms\User\Api\LogOut $logout
-     * @param int                    $redirectStatus
-     * @param array                  $headers
+     * @param LogOut $logout
+     * @param int    $redirectStatus
+     * @param array  $headers
      */
     public function __construct(
-        \Zrcms\User\Api\LogOut $logout,
+        LogOut $logout,
         int $redirectStatus = 302,
         array $headers = []
     ) {
@@ -72,8 +73,10 @@ class ParamLogOut
                 $request
             );
 
+            // @todo Preserve other query strings
+
             return new RedirectResponse(
-                $request->getUri(),
+                $request->getUri()->getPath(),
                 $this->redirectStatus,
                 $this->headers
             );

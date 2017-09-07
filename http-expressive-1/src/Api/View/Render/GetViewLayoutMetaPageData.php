@@ -77,6 +77,7 @@ class GetViewLayoutMetaPageData implements GetViewLayoutTags
         $siteVersion = $view->getSite();
         $pageResource = $view->getPageContainerCmsResource();
         $pageVersion = $view->getPage();
+        $layoutResource = $view->getLayoutCmsResource();
 
         /** @var RequestedPage $requestedPage */
         $requestedPagePath = $view->getProperty(
@@ -88,7 +89,7 @@ class GetViewLayoutMetaPageData implements GetViewLayoutTags
             throw new \Exception('RequestedPage data is required to render');
         }
 
-        // BC for RCM
+        // @BC for RCM
         $content = [
             'site' => [
                 'id' => $siteResource->getId(),
@@ -118,6 +119,12 @@ class GetViewLayoutMetaPageData implements GetViewLayoutTags
             'attributes' => [
                 'name' => 'zrcms-page-data',
                 'property' => 'rcm:page', // @BC this is for old admin screens
+                'site-id' => $siteResource->getId(),
+                'page-id' => $pageResource->getId(),
+                'page-requested-path' => $requestedPagePath,
+                'page-path' => $pageResource->getPath(),
+                'theme' => $layoutResource->getThemeName(),
+                'layout' => $layoutResource->getName(),
                 'content' => json_encode($content),
             ],
         ];

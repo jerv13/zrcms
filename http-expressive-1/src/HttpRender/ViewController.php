@@ -12,6 +12,7 @@ use Zrcms\HttpResponseHandler\Api\HandleResponse;
 use Zrcms\HttpResponseHandler\Model\HandleResponseOptions;
 
 /**
+ * @deprecated Use RenderPage
  * @author James Jervis - https://github.com/jerv13
  */
 class ViewController

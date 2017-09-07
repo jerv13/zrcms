@@ -85,12 +85,8 @@ class ContentRedirect
             return $next($request, $response);
         }
 
-        $uri = $uri->withPath(
-            $redirect->getVersion()->getRedirectPath()
-        );
-
         return new RedirectResponse(
-            $uri,
+            $redirect->getVersion()->getRedirectPath(),
             $this->redirectStatus,
             $this->headers
         );
