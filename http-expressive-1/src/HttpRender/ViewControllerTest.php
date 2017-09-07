@@ -95,10 +95,7 @@ class ViewControllerTest
                 => 'test:' . PropertiesSiteVersion::LOCALE,
                 PropertiesSiteVersion::LOGIN_PAGE
                 => 'test:' . PropertiesSiteVersion::LOGIN_PAGE,
-                PropertiesSiteVersion::NOT_AUTHORIZED_PAGE
-                => 'test:' . PropertiesSiteVersion::NOT_AUTHORIZED_PAGE,
-                PropertiesSiteVersion::NOT_FOUND_PAGE
-                => 'test:' . PropertiesSiteVersion::NOT_FOUND_PAGE,
+                PropertiesSiteVersion::STATUS_PAGES => [],
                 PropertiesSiteVersion::THEME_NAME
                 => 'test:' . PropertiesSiteVersion::THEME_NAME,
                 PropertiesSiteVersion::TITLE
@@ -186,10 +183,7 @@ class ViewControllerTest
                 => 'test:' . PropertiesSiteVersion::LOCALE,
                 PropertiesSiteVersion::LOGIN_PAGE
                 => 'test:' . PropertiesSiteVersion::LOGIN_PAGE,
-                PropertiesSiteVersion::NOT_AUTHORIZED_PAGE
-                => 'test:' . PropertiesSiteVersion::NOT_AUTHORIZED_PAGE,
-                PropertiesSiteVersion::NOT_FOUND_PAGE
-                => 'test:' . PropertiesSiteVersion::NOT_FOUND_PAGE,
+                PropertiesSiteVersion::STATUS_PAGES => [],
                 PropertiesSiteVersion::THEME_NAME
                 => 'test:' . PropertiesSiteVersion::THEME_NAME,
                 PropertiesSiteVersion::TITLE
