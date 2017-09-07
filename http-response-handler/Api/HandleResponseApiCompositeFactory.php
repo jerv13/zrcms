@@ -12,7 +12,7 @@ class HandleResponseApiCompositeFactory
     /**
      * @param ContainerInterface $serviceContainer
      *
-     * @return HandleResponseComposite
+     * @return HandleResponseApiComposite
      */
     public function __invoke(
         $serviceContainer
@@ -29,7 +29,7 @@ class HandleResponseApiCompositeFactory
             $queue->insert($handler, $priority);
         }
 
-        return new HandleResponseComposite(
+        return new HandleResponseApiComposite(
             $queue
         );
     }

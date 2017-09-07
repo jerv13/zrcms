@@ -4,6 +4,7 @@ namespace Zrcms\HttpExpressive1\HttpFinal;
 
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
+use Zend\Diactoros\Response\HtmlResponse;
 use Zrcms\HttpExpressive1\Api\GetStatusPage;
 use Zrcms\HttpExpressive1\HttpRender\RenderPage;
 
@@ -55,12 +56,11 @@ class NotFoundStatusPage
         );
 
         if (empty($statusPage)) {
-            $reason = 'NOT FOUND: UNHANDLED REQUEST';
-
-            return $response->withStatus(
+            return new HtmlResponse(
+                '',
                 404,
-                $reason
-            )->withAddedHeader('reason-phrase', $reason);
+                ['reason-phrase' => 'NOT FOUND: UNHANDLED REQUEST']
+            );
         }
 
         $uri = $request->getUri();
@@ -69,17 +69,15 @@ class NotFoundStatusPage
 
         $request->withUri($uri);
 
-        $reason = 'NOT FOUND: UNHANDLED REQUEST: 404 PAGE MISSING: ' . $statusPage;
-        $finalResponse = $response->withStatus(
-            404,
-            $reason
-        )->withAddedHeader('reason-phrase', $reason);
-
         return $this->renderPage->__invoke(
             $request->withUri($uri),
             $response,
-            function ($req, $res) use ($finalResponse) {
-                return $finalResponse;
+            function ($req, $res) use ($statusPage) {
+                return new HtmlResponse(
+                    '',
+                    404,
+                    ['reason-phrase' => 'NOT FOUND: UNHANDLED REQUEST: 404 PAGE MISSING: ' . $statusPage]
+                );
             }
         );
     }

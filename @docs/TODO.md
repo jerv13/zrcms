@@ -1,6 +1,13 @@
 @todo
 =====
 
+- Refactor ResponseHandler as http-api-response-formatter
+
+- Might make ContentVersion a property of the CmsResource instead of relationship
+    - Eliminate CmsResource for CmsResourceVersion
+    - Syncing Properties simpler
+    - CmsResources (id, contentVersionId, published)
+
 - ContentDoctrine SyncProperties needs to be done separately for CmsResourcePublishHistory
 
 - APIs in http-expressive
@@ -76,10 +83,6 @@
     
 ##### Investigate reducing properties (might try a factory instead of constructor) #####
 
-- Might make ContentVersion a property of the CmsResource instead of relationship
-    - Eliminate CmsResource for CmsResourceVersion
-    - Syncing Properties simpler
-- CmsResources (id, contentVersionId, published)
 - Content (id) do we still need ID?
 - ContentVersion (id)
 - Component (name, configLocation)

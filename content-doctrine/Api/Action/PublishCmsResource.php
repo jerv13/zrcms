@@ -143,7 +143,7 @@ class PublishCmsResource
         /** @var CmsResourceEntity $newCmsResourceEntity */
         $newCmsResourceEntity = new $cmsResourceEntityClass(
             $properties,
-            $publishReason,
+            $publishedByUserId,
             $publishReason
         );
 

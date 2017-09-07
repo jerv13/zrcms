@@ -3,18 +3,13 @@
 namespace Zrcms\HttpResponseHandler;
 
 use Reliv\RcmApiLib\Service\PsrResponseService;
-use Zrcms\ContentCore\Basic\Api\Repository\FindBasicComponent;
-use Zrcms\HttpResponseHandler\Api\HandleResponse;
 use Zrcms\HttpResponseHandler\Api\HandleResponseApi;
 use Zrcms\HttpResponseHandler\Api\HandleResponseApiCompositeFactory;
+use Zrcms\HttpResponseHandler\Api\HandleResponseApiDebug;
 use Zrcms\HttpResponseHandler\Api\HandleResponseApiMessages;
+use Zrcms\HttpResponseHandler\Api\HandleResponseApiNoop;
 use Zrcms\HttpResponseHandler\Api\HandleResponseApiWithException;
-use Zrcms\HttpResponseHandler\Api\HandleResponseBasic;
-use Zrcms\HttpResponseHandler\Api\HandleResponseCompositeFactory;
 use Zrcms\HttpResponseHandler\Api\HandleResponseDebug;
-use Zrcms\HttpResponseHandler\Api\HandleResponseNextOnError;
-use Zrcms\HttpResponseHandler\Api\HandleResponseStatusPage;
-use Zrcms\HttpResponseHandler\Api\HandleResponseWithExceptionMessage;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -34,65 +29,28 @@ class ModuleConfig
                     /**
                      * Api ===========================================
                      */
-                    HandleResponse::class => [
-                        'factory' => HandleResponseCompositeFactory::class,
-                    ],
                     HandleResponseApi::class => [
                         'factory' => HandleResponseApiCompositeFactory::class,
+                    ],
+                    HandleResponseApiDebug::class => [
+                        'arguments' => [
+                            ['literal' => (ini_get('display_errors') === 1 || ini_get('display_errors') === 'On')],
+                        ],
                     ],
                     HandleResponseApiMessages::class => [
                         'arguments' => [
                             PsrResponseService::class,
                         ],
                     ],
+                    HandleResponseApiNoop::class => [],
                     HandleResponseApiWithException::class => [
                         'arguments' => [
                             PsrResponseService::class,
                         ],
                     ],
-                    HandleResponseBasic::class => [],
-                    HandleResponseDebug::class => [],
-                    HandleResponseNextOnError::class => [],
-                    HandleResponseStatusPage::class => [
-                        'arguments' => [
-                            FindBasicComponent::class,
-                            HandleResponse::class,
-                        ],
-                    ],
-                    HandleResponseWithExceptionMessage::class => [],
                 ],
             ],
 
-            'zrcms-response-handlers' => [
-                HandleResponseDebug::class => [
-                    'response-handler' => HandleResponseDebug::class,
-                    'priority' => 1000
-                ],
-
-                HandleResponseWithExceptionMessage::class => [
-                    'response-handler' => HandleResponseWithExceptionMessage::class,
-                    'priority' => 800
-                ],
-
-                // NOTE: this will push the error response to the next middleware
-                //       if NEXT and REQUEST are set
-                HandleResponseNextOnError::class => [
-                    'response-handler' => HandleResponseNextOnError::class,
-                    'priority' => 200
-                ],
-
-                // NOTE: this will try to render a different page then the request page
-                //       Does NOT work with HandleResponseNextOnError
-                //HandleResponseStatusPage::class => [
-                //    'response-handler' => HandleResponseStatusPage::class,
-                //    'priority' => 200
-                //],
-
-                HandleResponseBasic::class => [
-                    'response-handler' => HandleResponseBasic::class,
-                    'priority' => 1
-                ],
-            ],
             'zrcms-response-handlers-api' => [
                 HandleResponseDebug::class => [
                     'response-handler' => HandleResponseDebug::class,
@@ -106,8 +64,8 @@ class ModuleConfig
                     'response-handler' => HandleResponseApiWithException::class,
                     'priority' => 800
                 ],
-                HandleResponseBasic::class => [
-                    'response-handler' => HandleResponseBasic::class,
+                HandleResponseApiNoop::class => [
+                    'response-handler' => HandleResponseApiNoop::class,
                     'priority' => 1
                 ],
             ],

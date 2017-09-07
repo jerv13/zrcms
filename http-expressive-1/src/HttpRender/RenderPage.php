@@ -11,9 +11,6 @@ use Zrcms\ContentCore\View\Api\GetViewByRequest;
 use Zrcms\ContentCore\View\Api\Render\GetViewLayoutTags;
 use Zrcms\ContentCore\View\Api\Render\RenderView;
 use Zrcms\ContentCore\View\Model\View;
-use Zrcms\HttpExpressive1\HttpAlways\RequestWithView;
-use Zrcms\HttpResponseHandler\Api\HandleResponse;
-use Zrcms\HttpResponseHandler\Model\HandleResponseOptions;
 
 /**
  * @author James Jervis - https://github.com/jerv13

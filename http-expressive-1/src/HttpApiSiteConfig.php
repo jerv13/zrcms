@@ -9,10 +9,10 @@ use Zrcms\Content\Api\CmsResourceToArray;
 use Zrcms\Content\Api\ContentVersionToArray;
 use Zrcms\ContentCore\Site\Model\SiteCmsResourceBasic;
 use Zrcms\ContentCore\Site\Model\SiteVersionBasic;
-use Zrcms\HttpExpressive1\HttpAcl\IsAllowedCheck;
-use Zrcms\HttpExpressive1\HttpAcl\IsAllowedSiteCmsResourceFind;
-use Zrcms\HttpExpressive1\HttpAcl\IsAllowedSitePublish;
-use Zrcms\HttpExpressive1\HttpAcl\IsAllowedSiteUnpublish;
+use Zrcms\HttpExpressive1\HttpApi\Site\Acl\IsAllowedFindContentVersion;
+use Zrcms\HttpExpressive1\HttpApi\Site\Acl\IsAllowedSiteCmsResourceFind;
+use Zrcms\HttpExpressive1\HttpApi\Site\Acl\IsAllowedSitePublish;
+use Zrcms\HttpExpressive1\HttpApi\Site\Acl\IsAllowedSiteUnpublish;
 use Zrcms\HttpExpressive1\HttpApi\Site\Action\PublishSiteCmsResource;
 use Zrcms\HttpExpressive1\HttpApi\Site\Action\UnpublishSiteCmsResource;
 use Zrcms\HttpExpressive1\HttpApi\Site\Repository\FindSiteCmsResource;
@@ -20,8 +20,6 @@ use Zrcms\HttpExpressive1\HttpApi\Site\Repository\FindSiteVersion;
 use Zrcms\HttpExpressive1\HttpApi\Site\Repository\InsertSiteVersion;
 use Zrcms\HttpExpressive1\HttpValidator\IdAttributeZfInputFilterService;
 use Zrcms\HttpExpressive1\HttpValidator\SiteCmsResourcePublishZfInputFilterService;
-use Zrcms\HttpExpressive1\HttpValidator\SiteCmsResourceUnpublishZfInputFilterService;
-use Zrcms\HttpResponseHandler\Api\HandleResponse;
 use Zrcms\HttpResponseHandler\Api\HandleResponseApi;
 use Zrcms\HttpResponseHandler\Api\HandleResponseApiMessages;
 use Zrcms\User\Api\GetUserIdByRequest;
@@ -44,9 +42,22 @@ class HttpApiSiteConfig
                     /**
                      * HttpAcl ===========================================
                      */
-                    IsAllowedSiteCmsResourceFind::class=> [
+                    IsAllowedFindContentVersion::class => [
                         'arguments' => [
-                            HandleResponse::class,
+                            HandleResponseApi::class,
+                            IsAllowedRcmUser::class,
+                            [
+                                'literal' => [
+                                    IsAllowedRcmUser::OPTION_RESOURCE_ID => 'sites',
+                                    IsAllowedRcmUser::OPTION_PRIVILEGE => 'admin'
+                                ]
+                            ],
+                            ['literal' => 'site-repository-find-cms-resource'],
+                        ],
+                    ],
+                    IsAllowedSiteCmsResourceFind::class => [
+                        'arguments' => [
+                            HandleResponseApi::class,
                             IsAllowedRcmUser::class,
                             [
                                 'literal' => [
@@ -59,7 +70,7 @@ class HttpApiSiteConfig
                     ],
                     IsAllowedSitePublish::class => [
                         'arguments' => [
-                            HandleResponse::class,
+                            HandleResponseApi::class,
                             IsAllowedRcmUser::class,
                             [
                                 'literal' => [
@@ -72,7 +83,7 @@ class HttpApiSiteConfig
                     ],
                     IsAllowedSiteUnpublish::class => [
                         'arguments' => [
-                            HandleResponse::class,
+                            HandleResponseApi::class,
                             IsAllowedRcmUser::class,
                             [
                                 'literal' => [
@@ -190,7 +201,7 @@ class HttpApiSiteConfig
                     'name' => 'zrcms.site.repository.find-content-version',
                     'path' => '/zrcms/site/repository/find-content-version/{id}',
                     'middleware' => [
-                        'acl' => IsAllowedCheck::class,
+                        'acl' => IsAllowedFindContentVersion::class,
                         'validator-attributes' => IdAttributeZfInputFilterService::class,
                         'api' => FindSiteVersion::class,
                     ],

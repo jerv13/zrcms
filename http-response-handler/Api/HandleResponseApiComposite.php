@@ -8,7 +8,7 @@ use Zrcms\HttpResponseHandler\Exception\CanNotHandleResponse;
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class HandleResponseComposite implements HandleResponse, HandleResponseApi
+class HandleResponseApiComposite implements HandleResponseApi
 {
     /**
      * @var array
@@ -16,7 +16,7 @@ class HandleResponseComposite implements HandleResponse, HandleResponseApi
     protected $responseHandlers = [];
 
     /**
-     * @param HandleResponse[]|\Traversable $responseHandlers
+     * @param HandleResponseApi[]|\Traversable $responseHandlers
      */
     public function __construct(
         $responseHandlers
@@ -27,12 +27,12 @@ class HandleResponseComposite implements HandleResponse, HandleResponseApi
     }
 
     /**
-     * @param HandleResponse $responseHandler
+     * @param HandleResponseApi $responseHandler
      *
      * @return void
      */
     protected function add(
-        HandleResponse $responseHandler
+        HandleResponseApi $responseHandler
     ) {
         $this->responseHandlers[] = $responseHandler;
     }
@@ -48,7 +48,7 @@ class HandleResponseComposite implements HandleResponse, HandleResponseApi
         ResponseInterface $response,
         array $options = []
     ) {
-        /** @var HandleResponse $responseHandler */
+        /** @var HandleResponseApi $responseHandler */
         foreach ($this->responseHandlers as $responseHandler) {
             try {
                 $handledResponse = $responseHandler->__invoke(

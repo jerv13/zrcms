@@ -18,11 +18,11 @@ ENV="local" bin/console orm:schema-tool:update --force
 Exporting from RCM:
 
 ```
-ENV="local" ./bin/console rcm:export --file ./data/export.json --limit 100 --pp 1
+ENV="local" ./bin/console rcm:export --file ./data/rcm-data.json --limit 100 --pp 1
 ```
 
 Importing to ZRCMS:
 
 ```
-ENV="local" ./bin/console zrcms:import --file ./data/export.json 
+ENV="local" ./bin/console zrcms:import --file ./data/rcm-data.json 
 ```

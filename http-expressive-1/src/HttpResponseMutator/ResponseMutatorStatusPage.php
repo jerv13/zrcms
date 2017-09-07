@@ -77,16 +77,11 @@ class ResponseMutatorStatusPage implements ResponseMutator
 
         $request->withUri($uri);
 
-        $finalResponse = $response->withStatus(
-            $response->getStatusCode(),
-            $response->getReasonPhrase()
-        );
-
         return $this->renderPage->__invoke(
             $request->withUri($uri),
             $response,
-            function ($req, $res) use ($finalResponse) {
-                return $finalResponse;
+            function ($req, $res) use ($response) {
+                return $response;
             }
         );
     }

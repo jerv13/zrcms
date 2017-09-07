@@ -7,7 +7,6 @@ use Psr\Http\Message\ServerRequestInterface;
 use Zend\Diactoros\Response\HtmlResponse;
 use Zrcms\ContentCore\View\Api\Render\GetViewLayoutTags;
 use Zrcms\ContentCore\View\Api\Render\RenderView;
-use Zrcms\HttpResponseHandler\Api\HandleResponse;
 
 /**
  * @author James Jervis - https://github.com/jerv13

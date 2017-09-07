@@ -4,6 +4,7 @@ namespace Zrcms\HttpResponseHandler\Api;
 
 use Psr\Http\Message\ResponseInterface;
 use Zend\Diactoros\Response\HtmlResponse;
+use Zend\Diactoros\Response\JsonResponse;
 use Zrcms\HttpResponseHandler\Exception\CanNotHandleResponse;
 use Zrcms\HttpResponseHandler\Model\HandleResponseOptions;
 use Zrcms\Param\Param;
@@ -11,7 +12,7 @@ use Zrcms\Param\Param;
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class HandleResponseDebug implements HandleResponse
+class HandleResponseApiDebug implements HandleResponseApi
 {
     /**
      * @var bool
@@ -28,7 +29,7 @@ class HandleResponseDebug implements HandleResponse
     }
 
     /**
-     * @param ResponseInterface $response
+     * @param JsonResponse|ResponseInterface $response
      * @param array             $options
      *
      * @return ResponseInterface|HtmlResponse
@@ -44,30 +45,44 @@ class HandleResponseDebug implements HandleResponse
             ''
         );
 
-        $this->assertCanHandleResponse($message);
+        $this->assertCanHandleResponse($response, $message);
 
-        $stream = $response->getBody();
-        $stream->rewind();
-        $contents = $stream->getContents();
+        $payLoad = $response->getPayload();
 
-        $contents = "<pre>{$message}</pre>\n\n{$contents}";
+        if(is_a($payLoad, \JsonSerializable::class)) {
+            $payLoad = $payLoad->jsonSerialize();
+        }
 
-        return new HtmlResponse(
-            $contents,
+        if(is_array($payLoad)) {
+            $payLoad['zrcms-debug'] = $message;
+        }
+
+        return new JsonResponse(
+            $payLoad,
             $response->getStatusCode(),
             $response->getHeaders()
         );
     }
 
     /**
-     * @param string|null $message
+     * @param ResponseInterface $response
+     * @param string            $message
      *
      * @return void
      * @throws CanNotHandleResponse
      */
     public function assertCanHandleResponse(
+        ResponseInterface $response,
         $message
     ) {
+        if (!method_exists($response, 'getPayload')) {
+            return;
+        }
+
+        if ($response instanceof JsonResponse) {
+            return;
+        }
+
         if ($this->debug && !empty($message)) {
             return;
         }
