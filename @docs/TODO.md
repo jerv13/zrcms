@@ -3,6 +3,7 @@
 
 - Tag:
     - rcm-core 1.21.2
+    - rcm-login 
 
 - Refactor ResponseHandler as http-api-response-formatter
 
