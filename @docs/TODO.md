@@ -97,6 +97,12 @@
 - Write an injectable ACL and User service defaulting to RcmUser (decouple ACL and User)
     - @see Redirect-editor
     
+    
+##### ResponseMutatorStatusPage ######
+
+- Needs to be split into services (might use service alias)
+- Needs to be optimized
+    
 ## OPTIMIZATION: api (after FindResourceVersion implemented) ##
 
 - Optimize queries

@@ -7,7 +7,6 @@ use Zrcms\Acl\Api\IsAllowedAny;
 use Zrcms\ContentCore\Basic\Api\Component\ReadBasicComponentConfigApplicationConfig;
 use Zrcms\ContentCore\Basic\Api\Repository\FindBasicComponent;
 use Zrcms\ContentCore\Site\Api\GetSiteCmsResourceVersionByRequest;
-use Zrcms\ContentCore\Site\Model\PropertiesSiteVersion;
 use Zrcms\ContentCore\View\Api\GetViewByRequest;
 use Zrcms\ContentCore\View\Api\Render\GetViewLayoutTags;
 use Zrcms\ContentCore\View\Api\Render\RenderView;
@@ -22,8 +21,8 @@ use Zrcms\HttpExpressive1\HttpAlways\ContentRedirect;
 use Zrcms\HttpExpressive1\HttpAlways\LocaleFromSite;
 use Zrcms\HttpExpressive1\HttpAlways\ParamLogOut;
 use Zrcms\HttpExpressive1\HttpAlways\RequestWithOriginalUri;
-use Zrcms\HttpExpressive1\HttpAlways\RequestWithViewRenderPage;
 use Zrcms\HttpExpressive1\HttpAlways\RequestWithView;
+use Zrcms\HttpExpressive1\HttpAlways\RequestWithViewRenderPage;
 use Zrcms\HttpExpressive1\HttpFinal\NotFoundStatusPage;
 use Zrcms\HttpExpressive1\HttpParams\ParamQuery;
 use Zrcms\HttpExpressive1\HttpRender\RenderPage;
@@ -311,8 +310,14 @@ class ModuleConfig
 
                         /* Map of HTTP status to the name of a SiteVersion property with the corresponding path */
                         PropertiesHttpExpressiveComponent::STATUS_TO_SITE_PATH_PROPERTY => [
-                            '401' => '/not-authorized',
-                            '404' => '/not-found',
+                            '401' => [
+                                'path' => '/not-authorized',
+                                'type' => 'render',
+                            ],
+                            '404' => [
+                                'path' => '/not-found',
+                                'type' => 'render',
+                            ],
                         ],
                     ],
                 ],

@@ -37,6 +37,14 @@ abstract class SiteAbstract extends ContentAbstract implements Site
             )
         );
 
+        $statusPages = Param::getArray(
+            $properties,
+            PropertiesSiteVersion::STATUS_PAGES,
+            []
+        );
+
+        $this->assertValidStatusPages($statusPages);
+
         parent::__construct(
             $properties
         );
@@ -73,14 +81,71 @@ abstract class SiteAbstract extends ContentAbstract implements Site
     public function findStatusPage(string $httpStatus, $default = null)
     {
         $statusPages = $this->getProperty(
-            PropertiesSite::STATUS_PAGES,
+            PropertiesSiteVersion::STATUS_PAGES,
             []
         );
 
-        return Param::getString(
+        return Param::getArray(
             $statusPages,
             $httpStatus,
             $default
         );
+    }
+
+    /**
+     * @param string|int $status
+     * @param null       $default
+     *
+     * @return string|null
+     */
+    public function findStatusPagePath($status, $default = null)
+    {
+        $statusPage = $this->findStatusPage($status, null);
+
+        if (empty($statusPage)) {
+            return $default;
+        }
+
+        return (string)$statusPage['path'];
+    }
+
+    /**
+     * @param string|int $status
+     * @param string     $default
+     *
+     * @return string|null
+     */
+    public function findStatusPageType($status, $default = 'render')
+    {
+        $statusPage = $this->findStatusPage($status, null);
+
+        if (empty($statusPage)) {
+            return $default;
+        }
+
+        return (string)$statusPage['type'];
+    }
+
+    /**
+     * @param array $statusPages
+     *
+     * @return void
+     * @throws \Exception
+     */
+    protected function assertValidStatusPages(array $statusPages)
+    {
+        foreach ($statusPages as $statusPage) {
+            if (!is_array($statusPage)) {
+                throw new \Exception('statusPage must be array: ' . json_encode($statusPage));
+            }
+
+            if (!array_key_exists('path', $statusPage)) {
+                throw new \Exception('path is required for a status page: ' . json_encode($statusPage));
+            }
+
+            if (!array_key_exists('type', $statusPage)) {
+                throw new \Exception('type is required for a status page: ' . json_encode($statusPage));
+            }
+        }
     }
 }

@@ -65,6 +65,5 @@ class GetStatusPageBasic implements GetStatusPage
         }
 
         return $statusPage;
-
     }
 }

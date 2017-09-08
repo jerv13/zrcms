@@ -31,6 +31,7 @@ class HttpExpressiveComponent extends BasicComponentAbstract implements Componen
         );
 
         $statusPropertyMap = $this->prepareStatusPropertyMap($statusPropertyMap);
+        $this->assertValidStatusPages($statusPropertyMap);
 
         $properties[PropertiesHttpExpressiveComponent::STATUS_TO_SITE_PATH_PROPERTY] = $statusPropertyMap;
 
@@ -51,7 +52,7 @@ class HttpExpressiveComponent extends BasicComponentAbstract implements Componen
     ) {
         $statusPropertyMapPrepared = [];
         foreach ($statusPropertyMap as $status => $siteProperty) {
-            $statusPropertyMapPrepared[(string)$status] = (string)$siteProperty;
+            $statusPropertyMapPrepared[(string)$status] = (array)$siteProperty;
         }
 
         return $statusPropertyMapPrepared;
@@ -86,11 +87,13 @@ class HttpExpressiveComponent extends BasicComponentAbstract implements Componen
         $statusPages = $this->getStatusPages();
 
         $status = (string)$status;
-        if (array_key_exists($status, $statusPages)) {
-            return $statusPages[$status];
-        }
+        $statusPage = Param::getArray(
+            $statusPages,
+            $status,
+            $default
+        );
 
-        return $default;
+        return $statusPage;
     }
 
     /**
@@ -98,10 +101,69 @@ class HttpExpressiveComponent extends BasicComponentAbstract implements Componen
      */
     public function getStatusPages(): array
     {
-        return Param::getArray(
+        $statusPages = Param::getArray(
             $this->properties,
             PropertiesHttpExpressiveComponent::STATUS_TO_SITE_PATH_PROPERTY,
             []
         );
+
+        return $statusPages;
+    }
+
+    /**
+     * @param string|int $status
+     * @param null       $default
+     *
+     * @return string|null
+     */
+    public function findStatusPagePath($status, $default = null)
+    {
+        $statusPage = $this->findStatusPage($status, null);
+
+        if (empty($statusPage)) {
+            return $default;
+        }
+
+        return (string)$statusPage['path'];
+    }
+
+    /**
+     * @param string|int $status
+     * @param string     $default
+     *
+     * @return string|null
+     */
+    public function findStatusPageType($status, $default = 'render')
+    {
+        $statusPage = $this->findStatusPage($status, null);
+
+        if (empty($statusPage)) {
+            return $default;
+        }
+
+        return (string)$statusPage['type'];
+    }
+
+    /**
+     * @param array $statusPages
+     *
+     * @return void
+     * @throws \Exception
+     */
+    protected function assertValidStatusPages(array $statusPages)
+    {
+        foreach ($statusPages as $statusPage) {
+            if (!is_array($statusPage)) {
+                throw new \Exception('statusPage must be array: ' . json_encode($statusPage));
+            }
+
+            if (!array_key_exists('path', $statusPage)) {
+                throw new \Exception('path is required for a status page: ' . json_encode($statusPage));
+            }
+
+            if (!array_key_exists('type', $statusPage)) {
+                throw new \Exception('type is required for a status page: ' . json_encode($statusPage));
+            }
+        }
     }
 }

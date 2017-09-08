@@ -26,8 +26,7 @@ class RequestWithOriginalUri
         ServerRequestInterface $request,
         ResponseInterface $response,
         callable $next = null
-    )
-    {
+    ) {
         $request = $request
             ->withAttribute(self::ATTRIBUTE_ORIGINAL_URI, $request->getUri());
 

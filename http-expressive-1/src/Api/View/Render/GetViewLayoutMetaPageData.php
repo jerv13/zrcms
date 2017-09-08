@@ -80,14 +80,10 @@ class GetViewLayoutMetaPageData implements GetViewLayoutTags
         $pageVersion = $view->getPage();
         $layoutResource = $view->getLayoutCmsResource();
 
-        /** @var UriInterface $originalUri */
-        $originalUri = $request->getAttribute(
-            RequestWithOriginalUri::ATTRIBUTE_ORIGINAL_URI,
-            null
-        );
+        $originalPath = $this->getOriginalPath($request);
 
-        if (empty($originalUri)) {
-            throw new \Exception('originalUri data is required to render');
+        if (empty($originalPath)) {
+            throw new \Exception('Original path is required to render');
         }
 
         // @BC for RCM
@@ -108,8 +104,8 @@ class GetViewLayoutMetaPageData implements GetViewLayoutTags
                 'siteId' => $siteResource->getId()
             ],
             'requestedPage' => [
-                'name' => $originalUri->getPath(),//BC
-                'path' => $originalUri->getPath(),
+                'name' => $originalPath,//BC
+                'path' => $originalPath,
                 'revision' => '', //BC
                 'type' => 'n' // @todo @pageType
             ]
@@ -122,7 +118,7 @@ class GetViewLayoutMetaPageData implements GetViewLayoutTags
                 'property' => 'rcm:page', // @BC this is for old admin screens
                 'site-id' => $siteResource->getId(),
                 'page-id' => $pageResource->getId(),
-                'page-requested-path' => $originalUri->getPath(),
+                'page-requested-path' => $originalPath,
                 'page-path' => $pageResource->getPath(),
                 'theme' => $layoutResource->getThemeName(),
                 'layout' => $layoutResource->getName(),
@@ -135,4 +131,23 @@ class GetViewLayoutMetaPageData implements GetViewLayoutTags
         ];
     }
 
+    /**
+     * @param ServerRequestInterface $request
+     *
+     * @return string
+     */
+    protected function getOriginalPath(
+        ServerRequestInterface $request
+    ) {
+        $originalUri = $request->getAttribute(
+            RequestWithOriginalUri::ATTRIBUTE_ORIGINAL_URI,
+            null
+        );
+
+        if ($originalUri instanceof UriInterface) {
+            return $originalUri->getPath();
+        }
+
+        return parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+    }
 }

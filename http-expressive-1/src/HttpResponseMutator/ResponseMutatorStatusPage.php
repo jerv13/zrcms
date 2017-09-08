@@ -4,6 +4,7 @@ namespace Zrcms\HttpExpressive1\HttpResponseMutator;
 
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
+use Zend\Diactoros\Response\RedirectResponse;
 use Zrcms\HttpExpressive1\Api\GetStatusPage;
 use Zrcms\HttpExpressive1\HttpRender\RenderPage;
 
@@ -12,6 +13,17 @@ use Zrcms\HttpExpressive1\HttpRender\RenderPage;
  */
 class ResponseMutatorStatusPage implements ResponseMutator
 {
+    /**
+     * @todo These should be config driven list of services
+     * @var array
+     */
+    protected $statusPageTypeMethods
+        = [
+            '_default' => 'renderStatusPage',
+            'redirect' => 'redirectStatusPage',
+            'render' => 'renderStatusPage',
+        ];
+
     /**
      * @var GetStatusPage
      */
@@ -73,16 +85,60 @@ class ResponseMutatorStatusPage implements ResponseMutator
 
         $uri = $request->getUri();
 
-        $uri = $uri->withPath($statusPage);
+        $newUri = $uri->withPath($statusPage['path']);
+        $newRequest = $request->withUri($newUri);
 
-        $request->withUri($uri);
+        $method = $this->statusPageTypeMethods['_default'];
 
+        if (array_key_exists($statusPage['type'], $this->statusPageTypeMethods)) {
+            $method = $this->statusPageTypeMethods[$statusPage['type']];
+        }
+
+        return $this->$method(
+            $newRequest,
+            $response
+        );
+    }
+
+    /**
+     * @todo This should be a separate, injectable API service
+     *
+     * @param ServerRequestInterface $newRequest
+     * @param ResponseInterface      $response
+     * @param array                  $options
+     *
+     * @return ResponseInterface
+     */
+    protected function renderStatusPage(
+        ServerRequestInterface $newRequest,
+        ResponseInterface $response,
+        array $options = []
+    ) {
         return $this->renderPage->__invoke(
-            $request->withUri($uri),
+            $newRequest,
             $response,
             function ($req, $res) use ($response) {
                 return $response;
             }
+        );
+    }
+
+    /**
+     * @todo This should be a separate, injectable API service
+     *
+     * @param ServerRequestInterface $newRequest
+     * @param ResponseInterface      $response
+     * @param array                  $options
+     *
+     * @return RedirectResponse
+     */
+    protected function redirectStatusPage(
+        ServerRequestInterface $newRequest,
+        ResponseInterface $response,
+        array $options = []
+    ) {
+        return new RedirectResponse(
+            $newRequest->getUri()->getPath()
         );
     }
 

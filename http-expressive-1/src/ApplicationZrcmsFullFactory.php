@@ -45,17 +45,9 @@ class ApplicationZrcmsFullFactory extends ApplicationFactory
         if ($container->has(NotFoundStatusPage::class)) {
             $finalHandler = $container->get(NotFoundStatusPage::class);
         } else {
-
             $finalHandler = !empty($config['zend-expressive']['raise_throwables'])
             ? $this->marshalNoopFinalHandler($container)
             : $this->marshalLegacyFinalHandler($container, $config);
-
-            //$finalHandler = function ($req, $res) {
-            //    return $res->withStatus(
-            //        404,
-            //        'NOT FOUND: UNHANDLED RESPONSE'
-            //    );
-            //};
         }
 
         $emitter = $container->has(EmitterInterface::class)
