@@ -13,8 +13,9 @@ use Zrcms\HttpExpressive1\HttpRender\RenderPage;
  */
 class ResponseMutatorStatusPage implements ResponseMutator
 {
+    const QUERY_PARAM_FROM = 'redirect-from';
     /**
-     * @todo These should be config driven list of services
+     * @todo These should be config driven list of ResponseMutator services
      * @var array
      */
     protected $statusPageTypeMethods
@@ -85,7 +86,15 @@ class ResponseMutatorStatusPage implements ResponseMutator
 
         $uri = $request->getUri();
 
-        $newUri = $uri->withPath($statusPage['path']);
+        $originalQuery = $uri->getQuery();
+
+        $fromQuery = self::QUERY_PARAM_FROM . '=' . urlencode($uri->getPath());
+
+        if (!empty($originalQuery)) {
+            $fromQuery = $originalQuery . '&' . $fromQuery;
+        }
+
+        $newUri = $uri->withPath($statusPage['path'])->withQuery($fromQuery);
         $newRequest = $request->withUri($newUri);
 
         $method = $this->statusPageTypeMethods['_default'];
@@ -101,7 +110,7 @@ class ResponseMutatorStatusPage implements ResponseMutator
     }
 
     /**
-     * @todo This should be a separate, injectable API service
+     * @todo This should be a separate, injectable ResponseMutator service
      *
      * @param ServerRequestInterface $newRequest
      * @param ResponseInterface      $response
@@ -124,7 +133,7 @@ class ResponseMutatorStatusPage implements ResponseMutator
     }
 
     /**
-     * @todo This should be a separate, injectable API service
+     * @todo This should be a separate, injectable ResponseMutator service
      *
      * @param ServerRequestInterface $newRequest
      * @param ResponseInterface      $response
@@ -138,7 +147,7 @@ class ResponseMutatorStatusPage implements ResponseMutator
         array $options = []
     ) {
         return new RedirectResponse(
-            $newRequest->getUri()->getPath()
+            $newRequest->getUri()
         );
     }
 
