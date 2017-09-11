@@ -5,7 +5,7 @@ namespace Zrcms\ContentRedirectDoctrineDataSource\Api\Repository;
 use Doctrine\ORM\EntityManager;
 use Zrcms\Content\Exception\CmsResourceNotExistsException;
 use Zrcms\Content\Model\CmsResource;
-use Zrcms\ContentDoctrine\Api\BasicCmsResourceTrait;
+use Zrcms\ContentDoctrine\Api\BuildBasicCmsResource;
 use Zrcms\ContentRedirect\Model\PropertiesRedirectCmsResource;
 use Zrcms\ContentRedirect\Model\RedirectCmsResource;
 use Zrcms\ContentRedirect\Model\RedirectCmsResourceBasic;
@@ -19,8 +19,6 @@ use Zrcms\ContentRedirectDoctrineDataSource\Entity\RedirectVersionEntity;
 class FindRedirectCmsResourceBySiteRequestPath
     implements \Zrcms\ContentRedirect\Api\Repository\FindRedirectCmsResourceBySiteRequestPath
 {
-    use BasicCmsResourceTrait;
-
     /**
      * @var EntityManager
      */
@@ -110,7 +108,7 @@ class FindRedirectCmsResourceBySiteRequestPath
             return null;
         }
 
-        return $this->newBasicCmsResource(
+        return BuildBasicCmsResource::invoke(
             $this->entityClassCmsResource,
             $this->classCmsResourceBasic,
             $this->entityClassContentVersion,

@@ -4,7 +4,7 @@ namespace Zrcms\ContentDoctrine\Api\Repository;
 
 use Zrcms\Content\Model\ContentVersion;
 use Zrcms\ContentDoctrine\Api\ApiAbstractContentVersion;
-use Zrcms\ContentDoctrine\Api\BasicContentVersionTrait;
+use Zrcms\ContentDoctrine\Api\BuildBasicContentVersion;
 use Zrcms\ContentDoctrine\Exception\IdMustBeEmptyException;
 
 /**
@@ -14,8 +14,6 @@ class InsertContentVersion
     extends ApiAbstractContentVersion
     implements \Zrcms\Content\Api\Repository\InsertContentVersion
 {
-    use BasicContentVersionTrait;
-
     /**
      * @param ContentVersion $contentVersion
      * @param array          $options
@@ -46,10 +44,11 @@ class InsertContentVersion
         $this->entityManager->persist($newContentVersion);
         $this->entityManager->flush($newContentVersion);
 
-        return $this->newBasicContentVersion(
+        return BuildBasicContentVersion::invoke(
             $this->entityClassContentVersion,
             $this->classContentVersionBasic,
-            $newContentVersion
+            $newContentVersion,
+            $this->contentVersionSyncToProperties
         );
     }
 }

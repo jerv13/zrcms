@@ -10,7 +10,7 @@ use Zrcms\Content\Model\ContentVersion;
 use Zrcms\Content\Model\PropertiesCmsResource;
 use Zrcms\Content\Model\PropertiesCmsResourcePublishHistory;
 use Zrcms\ContentDoctrine\Api\ApiAbstract;
-use Zrcms\ContentDoctrine\Api\BasicCmsResourceTrait;
+use Zrcms\ContentDoctrine\Api\BuildBasicCmsResource;
 use Zrcms\ContentDoctrine\Entity\CmsResourceEntity;
 
 /**
@@ -22,8 +22,6 @@ class PublishCmsResource
     extends ApiAbstract
     implements \Zrcms\Content\Api\Action\PublishCmsResource
 {
-    use BasicCmsResourceTrait;
-
     /**
      * @var EntityManager
      */
@@ -189,7 +187,7 @@ class PublishCmsResource
         $this->entityManager->persist($newCmsResourcePublishHistory);
         $this->entityManager->flush($newCmsResourcePublishHistory);
 
-        return $this->newBasicCmsResource(
+        return BuildBasicCmsResource::invoke(
             $this->entityClassCmsResource,
             $this->classCmsResourceBasic,
             $this->entityClassContentVersion,
@@ -201,14 +199,14 @@ class PublishCmsResource
     }
 
     /**
-     * @param CmsResource $cmsResource
-     * @param string      $publishedByUserId
-     * @param string      $publishReason
+     * @param CmsResourceEntity $cmsResource
+     * @param string            $publishedByUserId
+     * @param string            $publishReason
      *
      * @return CmsResourcePublishHistory
      */
     protected function buildHistory(
-        CmsResource $cmsResource,
+        CmsResourceEntity $cmsResource,
         string $publishedByUserId,
         string $publishReason
     ) {
@@ -259,7 +257,7 @@ class PublishCmsResource
         $this->entityManager->persist($newCmsResourcePublishHistory);
         $this->entityManager->flush($newCmsResourcePublishHistory);
 
-        return $this->newBasicCmsResource(
+        return BuildBasicCmsResource::invoke(
             $this->entityClassCmsResource,
             $this->classCmsResourceBasic,
             $this->entityClassContentVersion,

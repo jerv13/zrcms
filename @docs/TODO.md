@@ -1,14 +1,6 @@
 @todo
 =====
 
-- Might make ContentVersion a property of the CmsResource instead of relationship
-    - Eliminate CmsResource for CmsResourceVersion
-    - Syncing Properties simpler
-    - CmsResources (id, contentVersionId, published)
-    - impact
-        - PublishCmsResource
-        - Make sure HTTP APIs use id in array
-        
 - BasicCmsResourceTrait and BasicContentVersionTrait to callables or static builders
 
     

@@ -11,7 +11,7 @@ use Zrcms\ContentCore\Theme\Model\PropertiesLayoutCmsResource;
 use Zrcms\ContentCoreDoctrineDataSource\Theme\Api\FallbackToComponentLayoutCmsResource;
 use Zrcms\ContentCoreDoctrineDataSource\Theme\Entity\LayoutCmsResourceEntity;
 use Zrcms\ContentCoreDoctrineDataSource\Theme\Entity\LayoutVersionEntity;
-use Zrcms\ContentDoctrine\Api\BasicCmsResourceTrait;
+use Zrcms\ContentDoctrine\Api\BuildBasicCmsResource;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -19,8 +19,6 @@ use Zrcms\ContentDoctrine\Api\BasicCmsResourceTrait;
 class FindLayoutCmsResourceByThemeNameLayoutName
     implements \Zrcms\ContentCore\Theme\Api\Repository\FindLayoutCmsResourceByThemeNameLayoutName
 {
-    use BasicCmsResourceTrait;
-
     /**
      * @var EntityManager
      */
@@ -105,7 +103,8 @@ class FindLayoutCmsResourceByThemeNameLayoutName
             ]
         );
 
-        $layoutCmsResource = $this->newBasicCmsResource(
+        /** @var LayoutCmsResource $layoutCmsResource */
+        $layoutCmsResource = BuildBasicCmsResource::invoke(
             $this->entityClassCmsResource,
             $this->classCmsResourceBasic,
             $this->entityClassContentVersion,

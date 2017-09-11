@@ -9,7 +9,7 @@ use Zrcms\ContentCore\Container\Model\ContainerVersionBasic;
 use Zrcms\ContentCore\Container\Model\PropertiesContainerCmsResource;
 use Zrcms\ContentCoreDoctrineDataSource\Container\Entity\ContainerCmsResourceEntity;
 use Zrcms\ContentCoreDoctrineDataSource\Container\Entity\ContainerVersionEntity;
-use Zrcms\ContentDoctrine\Api\BasicCmsResourceTrait;
+use Zrcms\ContentDoctrine\Api\BuildBasicCmsResources;
 use Zrcms\Param\Param;
 
 /**
@@ -18,8 +18,6 @@ use Zrcms\Param\Param;
 class FindContainerCmsResourcesBySitePaths
     implements \Zrcms\ContentCore\Container\Api\Repository\FindContainerCmsResourcesBySitePaths
 {
-    use BasicCmsResourceTrait;
-
     /**
      * @var EntityManager
      */
@@ -112,7 +110,7 @@ class FindContainerCmsResourcesBySitePaths
 
         $containerCmsResources = $dQuery->getResult();
 
-        return $this->newBasicCmsResources(
+        return BuildBasicCmsResources::invoke(
             $this->entityClassCmsResource,
             $this->classCmsResourceBasic,
             $this->entityClassContentVersion,

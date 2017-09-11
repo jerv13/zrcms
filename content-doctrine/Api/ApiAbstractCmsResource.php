@@ -10,8 +10,6 @@ use Zrcms\Content\Model\CmsResource;
  */
 abstract class ApiAbstractCmsResource extends ApiAbstract
 {
-    use BasicCmsResourceTrait;
-
     /**
      * @var EntityManager
      */

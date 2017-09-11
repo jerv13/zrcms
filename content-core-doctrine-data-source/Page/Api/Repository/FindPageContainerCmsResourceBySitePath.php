@@ -10,7 +10,7 @@ use Zrcms\ContentCore\Page\Model\PageContainerVersionBasic;
 use Zrcms\ContentCore\Page\Model\PropertiesPageContainerCmsResource;
 use Zrcms\ContentCoreDoctrineDataSource\Page\Entity\PageContainerCmsResourceEntity;
 use Zrcms\ContentCoreDoctrineDataSource\Page\Entity\PageContainerVersionEntity;
-use Zrcms\ContentDoctrine\Api\BasicCmsResourceTrait;
+use Zrcms\ContentDoctrine\Api\BuildBasicCmsResource;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -18,8 +18,6 @@ use Zrcms\ContentDoctrine\Api\BasicCmsResourceTrait;
 class FindPageContainerCmsResourceBySitePath
     implements \Zrcms\ContentCore\Page\Api\Repository\FindPageContainerCmsResourceBySitePath
 {
-    use BasicCmsResourceTrait;
-
     /**
      * @var EntityManager
      */
@@ -95,7 +93,7 @@ class FindPageContainerCmsResourceBySitePath
             ]
         );
 
-        return $this->newBasicCmsResource(
+        return BuildBasicCmsResource::invoke(
             $this->entityClassCmsResource,
             $this->classCmsResourceBasic,
             $this->entityClassContentVersion,

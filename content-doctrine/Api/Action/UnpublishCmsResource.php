@@ -10,7 +10,6 @@ use Zrcms\Content\Model\ContentVersion;
 use Zrcms\Content\Model\PropertiesCmsResource;
 use Zrcms\Content\Model\PropertiesCmsResourcePublishHistory;
 use Zrcms\ContentDoctrine\Api\ApiAbstract;
-use Zrcms\ContentDoctrine\Api\BasicCmsResourceTrait;
 use Zrcms\ContentDoctrine\Entity\CmsResourceEntity;
 
 /**
@@ -20,8 +19,6 @@ class UnpublishCmsResource
     extends ApiAbstract
     implements \Zrcms\Content\Api\Action\UnpublishCmsResource
 {
-    use BasicCmsResourceTrait;
-
     /**
      * @var EntityManager
      */
@@ -130,14 +127,14 @@ class UnpublishCmsResource
     }
 
     /**
-     * @param CmsResource $cmsResource
-     * @param string      $unpublishedByUserId
-     * @param string      $unpublishReason
+     * @param CmsResourceEntity $cmsResource
+     * @param string            $unpublishedByUserId
+     * @param string            $unpublishReason
      *
      * @return CmsResourcePublishHistory
      */
     protected function buildHistory(
-        CmsResource $cmsResource,
+        CmsResourceEntity $cmsResource,
         string $unpublishedByUserId,
         string $unpublishReason
     ) {

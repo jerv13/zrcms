@@ -10,7 +10,7 @@ use Zrcms\ContentCore\Site\Model\SiteCmsResourceBasic;
 use Zrcms\ContentCore\Site\Model\SiteVersionBasic;
 use Zrcms\ContentCoreDoctrineDataSource\Site\Entity\SiteCmsResourceEntity;
 use Zrcms\ContentCoreDoctrineDataSource\Site\Entity\SiteVersionEntity;
-use Zrcms\ContentDoctrine\Api\BasicCmsResourceTrait;
+use Zrcms\ContentDoctrine\Api\BuildBasicCmsResource;
 use Zrcms\ContentDoctrine\Entity\CmsResourceEntity;
 
 /**
@@ -19,8 +19,6 @@ use Zrcms\ContentDoctrine\Entity\CmsResourceEntity;
 class FindSiteCmsResourceByHost
     implements \Zrcms\ContentCore\Site\Api\Repository\FindSiteCmsResourceByHost
 {
-    use BasicCmsResourceTrait;
-
     /**
      * @var EntityManager
      */
@@ -89,7 +87,7 @@ class FindSiteCmsResourceByHost
         /** @var SiteCmsResourceEntity|CmsResourceEntity $siteCmsResourceEntity */
         $siteCmsResourceEntity = $repository->findOneBy([PropertiesSiteCmsResource::HOST => $host]);
 
-        return $this->newBasicCmsResource(
+        return BuildBasicCmsResource::invoke(
             $this->entityClassCmsResource,
             $this->classCmsResourceBasic,
             $this->entityClassContentVersion,

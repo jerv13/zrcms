@@ -8,7 +8,6 @@ use Zrcms\ContentCore\Theme\Model\LayoutVersion;
 use Zrcms\ContentCore\Theme\Model\LayoutVersionBasic;
 use Zrcms\ContentCoreDoctrineDataSource\Theme\Api\FallbackToComponentLayoutVersion;
 use Zrcms\ContentCoreDoctrineDataSource\Theme\Entity\LayoutVersionEntity;
-use Zrcms\ContentDoctrine\Api\BasicContentVersionTrait;
 use Zrcms\ContentDoctrine\Api\Repository\FindContentVersion;
 
 /**
@@ -18,8 +17,6 @@ class FindLayoutVersion
     extends FindContentVersion
     implements \Zrcms\ContentCore\Theme\Api\Repository\FindLayoutVersion
 {
-    use BasicContentVersionTrait;
-
     /**
      * @var FallbackToComponentLayoutVersion
      */
