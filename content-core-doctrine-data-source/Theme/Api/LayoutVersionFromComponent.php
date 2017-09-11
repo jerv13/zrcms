@@ -9,7 +9,7 @@ use Zrcms\ContentCoreDoctrineDataSource\Theme\Entity\LayoutVersionEntitySafe;
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class VersionFromComponent
+class LayoutVersionFromComponent
 {
     /**
      * @param string          $id

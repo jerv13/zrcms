@@ -14,5 +14,5 @@ interface LayoutCmsResourcePublishHistory
     /**
      * @return LayoutVersion|ContentVersion
      */
-    public function getContentVersion(): ContentVersion;
+    public function getContentVersion();
 }

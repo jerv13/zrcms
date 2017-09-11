@@ -6,7 +6,9 @@ use Doctrine\ORM\EntityManager;
 use Zrcms\Content\Model\CmsResource;
 use Zrcms\ContentCore\Site\Model\SiteCmsResource;
 use Zrcms\ContentCore\Site\Model\SiteCmsResourceBasic;
+use Zrcms\ContentCore\Site\Model\SiteVersionBasic;
 use Zrcms\ContentCoreDoctrineDataSource\Site\Entity\SiteCmsResourceEntity;
+use Zrcms\ContentCoreDoctrineDataSource\Site\Entity\SiteVersionEntity;
 use Zrcms\ContentDoctrine\Api\Repository\FindCmsResource;
 
 /**
@@ -25,7 +27,11 @@ class FindSiteCmsResource
         parent::__construct(
             $entityManager,
             SiteCmsResourceEntity::class,
-            SiteCmsResourceBasic::class
+            SiteCmsResourceBasic::class,
+            SiteVersionEntity::class,
+            SiteVersionBasic::class,
+            [],
+            []
         );
     }
 

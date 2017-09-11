@@ -3,9 +3,7 @@
 namespace Zrcms\ContentCoreDoctrineDataSource\Site\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Zrcms\Content\Model\ContentVersion;
 use Zrcms\ContentCore\Site\Model\PropertiesSiteCmsResource;
-use Zrcms\ContentCore\Site\Model\SiteCmsResource;
 use Zrcms\ContentCore\Site\Model\SiteCmsResourceAbstract;
 use Zrcms\ContentDoctrine\Entity\CmsResourceEntity;
 use Zrcms\ContentDoctrine\Entity\CmsResourceEntityTrait;
@@ -26,7 +24,7 @@ use Zrcms\Param\Param;
  */
 class SiteCmsResourceEntity
     extends SiteCmsResourceAbstract
-    implements SiteCmsResource, CmsResourceEntity
+    implements CmsResourceEntity
 {
     use CmsResourceEntityTrait;
 
@@ -134,9 +132,9 @@ class SiteCmsResourceEntity
     }
 
     /**
-     * @return ContentVersion
+     * @return SiteVersionEntity
      */
-    public function getContentVersion(): ContentVersion
+    public function getContentVersion()
     {
         return $this->contentVersion;
     }

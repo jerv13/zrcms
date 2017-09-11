@@ -6,6 +6,7 @@ use Doctrine\ORM\EntityManager;
 use Zrcms\Content\Model\CmsResource;
 use Zrcms\ContentRedirect\Model\RedirectCmsResource;
 use Zrcms\ContentRedirect\Model\RedirectCmsResourceBasic;
+use Zrcms\ContentRedirect\Model\RedirectVersionBasic;
 use Zrcms\ContentRedirectDoctrineDataSource\Entity\RedirectCmsResourceEntity;
 use Zrcms\ContentRedirectDoctrineDataSource\Entity\RedirectCmsResourcePublishHistoryEntity;
 use Zrcms\ContentRedirectDoctrineDataSource\Entity\RedirectVersionEntity;
@@ -29,7 +30,10 @@ class PublishRedirectCmsResource
             RedirectCmsResourceEntity::class,
             RedirectCmsResourcePublishHistoryEntity::class,
             RedirectVersionEntity::class,
-            RedirectCmsResourceBasic::class
+            RedirectCmsResourceBasic::class,
+            RedirectVersionBasic::class,
+            [],
+            []
         );
     }
 

@@ -6,8 +6,10 @@ use Doctrine\ORM\EntityManager;
 use Zrcms\Content\Model\CmsResource;
 use Zrcms\ContentCore\Page\Model\PageContainerCmsResource;
 use Zrcms\ContentCore\Page\Model\PageContainerCmsResourceBasic;
+use Zrcms\ContentCore\Page\Model\PageContainerVersionBasic;
 use Zrcms\ContentCore\Page\Model\PropertiesPageContainerCmsResource;
 use Zrcms\ContentCoreDoctrineDataSource\Page\Entity\PageContainerCmsResourceEntity;
+use Zrcms\ContentCoreDoctrineDataSource\Page\Entity\PageContainerVersionEntity;
 use Zrcms\ContentDoctrine\Api\BasicCmsResourceTrait;
 
 /**
@@ -34,6 +36,26 @@ class FindPageContainerCmsResourceBySitePath
     protected $classCmsResourceBasic;
 
     /**
+     * @var string
+     */
+    protected $entityClassContentVersion;
+
+    /**
+     * @var string
+     */
+    protected $classContentVersionBasic;
+
+    /**
+     * @var array
+     */
+    protected $cmsResourceSyncToProperties = [];
+
+    /**
+     * @var array
+     */
+    protected $contentVersionSyncToProperties = [];
+
+    /**
      * @param EntityManager $entityManager
      */
     public function __construct(EntityManager $entityManager)
@@ -41,6 +63,12 @@ class FindPageContainerCmsResourceBySitePath
         $this->entityManager = $entityManager;
         $this->entityClassCmsResource = PageContainerCmsResourceEntity::class;
         $this->classCmsResourceBasic = PageContainerCmsResourceBasic::class;
+
+        $this->entityClassContentVersion = PageContainerVersionEntity::class;
+        $this->classContentVersionBasic = PageContainerVersionBasic::class;
+
+        $this->cmsResourceSyncToProperties = [];
+        $this->contentVersionSyncToProperties = [];
     }
 
     /**
@@ -59,8 +87,8 @@ class FindPageContainerCmsResourceBySitePath
             $this->entityClassCmsResource
         );
 
-        /** @var PageContainerCmsResource $pageContainerCmsResource */
-        $pageContainerCmsResource = $repository->findOneBy(
+        /** @var PageContainerCmsResourceEntity $pageContainerCmsResourceEntity */
+        $pageContainerCmsResourceEntity = $repository->findOneBy(
             [
                 PropertiesPageContainerCmsResource::SITE_CMS_RESOURCE_ID => $siteCmsResourceId,
                 PropertiesPageContainerCmsResource::PATH => $pageContainerCmsResourcePath,
@@ -70,7 +98,11 @@ class FindPageContainerCmsResourceBySitePath
         return $this->newBasicCmsResource(
             $this->entityClassCmsResource,
             $this->classCmsResourceBasic,
-            $pageContainerCmsResource
+            $this->entityClassContentVersion,
+            $this->classContentVersionBasic,
+            $pageContainerCmsResourceEntity,
+            $this->cmsResourceSyncToProperties,
+            $this->contentVersionSyncToProperties
         );
     }
 }

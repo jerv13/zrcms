@@ -6,6 +6,7 @@ use Doctrine\ORM\EntityManager;
 use Zrcms\Content\Model\CmsResource;
 use Zrcms\ContentCore\Container\Model\ContainerCmsResource;
 use Zrcms\ContentCore\Container\Model\ContainerCmsResourceBasic;
+use Zrcms\ContentCore\Container\Model\ContainerVersionBasic;
 use Zrcms\ContentCoreDoctrineDataSource\Container\Entity\ContainerCmsResourceEntity;
 use Zrcms\ContentCoreDoctrineDataSource\Container\Entity\ContainerCmsResourcePublishHistoryEntity;
 use Zrcms\ContentCoreDoctrineDataSource\Container\Entity\ContainerVersionEntity;
@@ -29,7 +30,10 @@ class PublishContainerCmsResource
             ContainerCmsResourceEntity::class,
             ContainerCmsResourcePublishHistoryEntity::class,
             ContainerVersionEntity::class,
-            ContainerCmsResourceBasic::class
+            ContainerCmsResourceBasic::class,
+            ContainerVersionBasic::class
+            [],
+            []
         );
     }
 

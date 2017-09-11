@@ -5,7 +5,9 @@ namespace Zrcms\ContentCoreDoctrineDataSource\Container\Api\Repository;
 use Doctrine\ORM\EntityManager;
 use Zrcms\ContentCore\Container\Model\ContainerCmsResource;
 use Zrcms\ContentCore\Container\Model\ContainerCmsResourceBasic;
+use Zrcms\ContentCore\Container\Model\ContainerVersionBasic;
 use Zrcms\ContentCoreDoctrineDataSource\Container\Entity\ContainerCmsResourceEntity;
+use Zrcms\ContentCoreDoctrineDataSource\Container\Entity\ContainerVersionEntity;
 use Zrcms\ContentDoctrine\Api\Repository\FindCmsResourcesBy;
 
 /**
@@ -23,7 +25,11 @@ class FindContainerCmsResourcesBy
         parent::__construct(
             $entityManager,
             ContainerCmsResourceEntity::class,
-            ContainerCmsResourceBasic::class
+            ContainerCmsResourceBasic::class,
+            ContainerVersionEntity::class,
+            ContainerVersionBasic::class,
+            [],
+            []
         );
     }
 

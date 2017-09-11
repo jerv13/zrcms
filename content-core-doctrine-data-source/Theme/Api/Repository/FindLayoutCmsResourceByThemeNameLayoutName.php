@@ -6,9 +6,11 @@ use Doctrine\ORM\EntityManager;
 use Zrcms\Content\Model\CmsResource;
 use Zrcms\ContentCore\Theme\Model\LayoutCmsResource;
 use Zrcms\ContentCore\Theme\Model\LayoutCmsResourceBasic;
+use Zrcms\ContentCore\Theme\Model\LayoutVersionBasic;
 use Zrcms\ContentCore\Theme\Model\PropertiesLayoutCmsResource;
 use Zrcms\ContentCoreDoctrineDataSource\Theme\Api\FallbackToComponentLayoutCmsResource;
 use Zrcms\ContentCoreDoctrineDataSource\Theme\Entity\LayoutCmsResourceEntity;
+use Zrcms\ContentCoreDoctrineDataSource\Theme\Entity\LayoutVersionEntity;
 use Zrcms\ContentDoctrine\Api\BasicCmsResourceTrait;
 
 /**
@@ -40,6 +42,26 @@ class FindLayoutCmsResourceByThemeNameLayoutName
     protected $classCmsResourceBasic;
 
     /**
+     * @var string
+     */
+    protected $entityClassContentVersion;
+
+    /**
+     * @var string
+     */
+    protected $classContentVersionBasic;
+
+    /**
+     * @var array
+     */
+    protected $cmsResourceSyncToProperties = [];
+
+    /**
+     * @var array
+     */
+    protected $contentVersionSyncToProperties = [];
+
+    /**
      * @param EntityManager                        $entityManager
      * @param FallbackToComponentLayoutCmsResource $fallbackToComponentLayoutCmsResource
      */
@@ -51,6 +73,12 @@ class FindLayoutCmsResourceByThemeNameLayoutName
         $this->fallbackToComponentLayoutCmsResource = $fallbackToComponentLayoutCmsResource;
         $this->entityClassCmsResource = LayoutCmsResourceEntity::class;
         $this->classCmsResourceBasic = LayoutCmsResourceBasic::class;
+
+        $this->entityClassContentVersion = LayoutVersionEntity::class;
+        $this->classContentVersionBasic = LayoutVersionBasic::class;
+
+        $this->cmsResourceSyncToProperties = [];
+        $this->contentVersionSyncToProperties = [];
     }
 
     /**
@@ -69,8 +97,8 @@ class FindLayoutCmsResourceByThemeNameLayoutName
             $this->entityClassCmsResource
         );
 
-        /** @var LayoutCmsResource $layoutCmsResource */
-        $layoutCmsResource = $repository->findOneBy(
+        /** @var LayoutCmsResourceEntity $layoutCmsResourceEntity */
+        $layoutCmsResourceEntity = $repository->findOneBy(
             [
                 PropertiesLayoutCmsResource::THEME_NAME => $themeName,
                 PropertiesLayoutCmsResource::NAME => $layoutName,
@@ -80,7 +108,11 @@ class FindLayoutCmsResourceByThemeNameLayoutName
         $layoutCmsResource = $this->newBasicCmsResource(
             $this->entityClassCmsResource,
             $this->classCmsResourceBasic,
-            $layoutCmsResource
+            $this->entityClassContentVersion,
+            $this->classContentVersionBasic,
+            $layoutCmsResourceEntity,
+            $this->cmsResourceSyncToProperties,
+            $this->contentVersionSyncToProperties
         );
 
         // @todo REMOVE FALLBACK?

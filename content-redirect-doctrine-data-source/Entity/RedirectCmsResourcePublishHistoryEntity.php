@@ -3,7 +3,6 @@
 namespace Zrcms\ContentRedirectDoctrineDataSource\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Zrcms\Content\Model\ContentVersion;
 use Zrcms\Content\Model\PropertiesCmsResourcePublishHistory;
 use Zrcms\ContentDoctrine\Entity\CmsResourcePublishHistoryEntity;
 use Zrcms\ContentDoctrine\Entity\CmsResourcePublishHistoryEntityTrait;
@@ -186,9 +185,9 @@ class RedirectCmsResourcePublishHistoryEntity
     }
 
     /**
-     * @return ContentVersion
+     * @return RedirectVersionEntity
      */
-    public function getContentVersion(): ContentVersion
+    public function getContentVersion()
     {
         return $this->contentVersion;
     }

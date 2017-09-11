@@ -9,9 +9,7 @@ use Zrcms\Param\Param;
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-abstract class PageContainerCmsResourcePublishHistoryAbstract
-    extends PageContainerCmsResourceAbstract
-    implements PageContainerCmsResourcePublishHistory
+abstract class PageContainerCmsResourcePublishHistoryAbstract extends PageContainerCmsResourceAbstract
 {
     /**
      * @param array  $properties

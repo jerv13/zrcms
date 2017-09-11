@@ -3,7 +3,6 @@
 namespace Zrcms\ContentRedirectDoctrineDataSource\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Zrcms\Content\Model\ContentVersion;
 use Zrcms\ContentDoctrine\Entity\CmsResourceEntity;
 use Zrcms\ContentDoctrine\Entity\CmsResourceEntityTrait;
 use Zrcms\ContentRedirect\Model\PropertiesRedirectCmsResource;
@@ -141,9 +140,9 @@ class RedirectCmsResourceEntity
     }
 
     /**
-     * @return ContentVersion
+     * @return RedirectVersionEntity
      */
-    public function getContentVersion(): ContentVersion
+    public function getContentVersion()
     {
         return $this->contentVersion;
     }

@@ -13,7 +13,7 @@ interface LayoutCmsResource extends CmsResource
     /**
      * @return LayoutVersion|ContentVersion
      */
-    public function getContentVersion(): ContentVersion;
+    public function getContentVersion();
 
     /**
      * @return string

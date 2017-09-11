@@ -5,7 +5,9 @@ namespace Zrcms\ContentCoreDoctrineDataSource\Theme\Api\Repository;
 use Doctrine\ORM\EntityManager;
 use Zrcms\ContentCore\Theme\Model\LayoutCmsResource;
 use Zrcms\ContentCore\Theme\Model\LayoutCmsResourceBasic;
+use Zrcms\ContentCore\Theme\Model\LayoutVersionBasic;
 use Zrcms\ContentCoreDoctrineDataSource\Theme\Entity\LayoutCmsResourceEntity;
+use Zrcms\ContentCoreDoctrineDataSource\Theme\Entity\LayoutVersionEntity;
 use Zrcms\ContentDoctrine\Api\Repository\FindCmsResourcesBy;
 
 /**
@@ -23,7 +25,11 @@ class FindLayoutCmsResourcesBy
         parent::__construct(
             $entityManager,
             LayoutCmsResourceEntity::class,
-            LayoutCmsResourceBasic::class
+            LayoutCmsResourceBasic::class,
+            LayoutVersionEntity::class,
+            LayoutVersionBasic::class,
+            [],
+            []
         );
     }
 

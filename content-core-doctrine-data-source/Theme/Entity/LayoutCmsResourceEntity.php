@@ -3,7 +3,6 @@
 namespace Zrcms\ContentCoreDoctrineDataSource\Theme\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Zrcms\Content\Model\ContentVersion;
 use Zrcms\ContentCore\Theme\Model\LayoutCmsResource;
 use Zrcms\ContentCore\Theme\Model\LayoutCmsResourceAbstract;
 use Zrcms\ContentCore\Theme\Model\PropertiesLayoutCmsResource;
@@ -142,9 +141,9 @@ class LayoutCmsResourceEntity
     }
 
     /**
-     * @return ContentVersion
+     * @return LayoutVersionEntity
      */
-    public function getContentVersion(): ContentVersion
+    public function getContentVersion()
     {
         return $this->contentVersion;
     }

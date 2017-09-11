@@ -14,5 +14,5 @@ interface SiteCmsResourcePublishHistory
     /**
      * @return SiteVersion|ContentVersion
      */
-    public function getContentVersion(): ContentVersion;
+    public function getContentVersion();
 }

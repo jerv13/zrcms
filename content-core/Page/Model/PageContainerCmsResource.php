@@ -13,5 +13,5 @@ interface PageContainerCmsResource extends ContainerCmsResource
     /**
      * @return PageContainerVersion|ContentVersion
      */
-    public function getContentVersion(): ContentVersion;
+    public function getContentVersion();
 }

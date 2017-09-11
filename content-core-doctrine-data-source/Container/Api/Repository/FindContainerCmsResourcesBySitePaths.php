@@ -5,8 +5,10 @@ namespace Zrcms\ContentCoreDoctrineDataSource\Container\Api\Repository;
 use Doctrine\ORM\EntityManager;
 use Zrcms\ContentCore\Container\Model\ContainerCmsResource;
 use Zrcms\ContentCore\Container\Model\ContainerCmsResourceBasic;
+use Zrcms\ContentCore\Container\Model\ContainerVersionBasic;
 use Zrcms\ContentCore\Container\Model\PropertiesContainerCmsResource;
 use Zrcms\ContentCoreDoctrineDataSource\Container\Entity\ContainerCmsResourceEntity;
+use Zrcms\ContentCoreDoctrineDataSource\Container\Entity\ContainerVersionEntity;
 use Zrcms\ContentDoctrine\Api\BasicCmsResourceTrait;
 use Zrcms\Param\Param;
 
@@ -34,6 +36,26 @@ class FindContainerCmsResourcesBySitePaths
     protected $classCmsResourceBasic;
 
     /**
+     * @var string
+     */
+    protected $entityClassContentVersion;
+
+    /**
+     * @var string
+     */
+    protected $classContentVersionBasic;
+
+    /**
+     * @var array
+     */
+    protected $cmsResourceSyncToProperties = [];
+
+    /**
+     * @var array
+     */
+    protected $contentVersionSyncToProperties = [];
+
+    /**
      * @param EntityManager $entityManager
      */
     public function __construct(EntityManager $entityManager)
@@ -41,6 +63,12 @@ class FindContainerCmsResourcesBySitePaths
         $this->entityManager = $entityManager;
         $this->entityClassCmsResource = ContainerCmsResourceEntity::class;
         $this->classCmsResourceBasic = ContainerCmsResourceBasic::class;
+
+        $this->entityClassContentVersion = ContainerVersionEntity::class;
+        $this->classContentVersionBasic = ContainerVersionBasic::class;
+
+        $this->cmsResourceSyncToProperties = [];
+        $this->contentVersionSyncToProperties = [];
     }
 
     /**
@@ -87,7 +115,11 @@ class FindContainerCmsResourcesBySitePaths
         return $this->newBasicCmsResources(
             $this->entityClassCmsResource,
             $this->classCmsResourceBasic,
-            $containerCmsResources
+            $this->entityClassContentVersion,
+            $this->classContentVersionBasic,
+            $containerCmsResources,
+            $this->cmsResourceSyncToProperties,
+            $this->contentVersionSyncToProperties
         );
     }
 

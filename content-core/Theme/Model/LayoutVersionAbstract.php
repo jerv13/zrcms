@@ -9,7 +9,7 @@ use Zrcms\Param\Param;
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class LayoutVersionAbstract extends ContentVersionAbstract implements LayoutVersion
+class LayoutVersionAbstract extends ContentVersionAbstract
 {
     /**
      * @param array  $properties

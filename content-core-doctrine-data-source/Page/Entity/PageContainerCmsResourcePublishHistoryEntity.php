@@ -186,9 +186,9 @@ class PageContainerCmsResourcePublishHistoryEntity
     }
 
     /**
-     * @return ContentVersion
+     * @return PageContainerVersionEntity
      */
-    public function getContentVersion(): ContentVersion
+    public function getContentVersion()
     {
         return $this->contentVersion;
     }

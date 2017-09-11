@@ -10,7 +10,7 @@ use Zrcms\Param\Param;
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-abstract class LayoutAbstract extends ContentAbstract implements Layout
+abstract class LayoutAbstract extends ContentAbstract
 {
     /**
      * @param array  $properties

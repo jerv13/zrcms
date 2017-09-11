@@ -8,7 +8,7 @@ use Zrcms\Param\Param;
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-abstract class ContentAbstract implements Content
+abstract class ContentAbstract
 {
     use ImmutableTrait;
     use PropertiesTrait;

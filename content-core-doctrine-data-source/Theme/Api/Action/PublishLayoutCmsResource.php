@@ -6,6 +6,7 @@ use Doctrine\ORM\EntityManager;
 use Zrcms\Content\Model\CmsResource;
 use Zrcms\ContentCore\Theme\Model\LayoutCmsResource;
 use Zrcms\ContentCore\Theme\Model\LayoutCmsResourceBasic;
+use Zrcms\ContentCore\Theme\Model\LayoutVersionBasic;
 use Zrcms\ContentCoreDoctrineDataSource\Theme\Entity\LayoutCmsResourceEntity;
 use Zrcms\ContentCoreDoctrineDataSource\Theme\Entity\LayoutCmsResourcePublishHistoryEntity;
 use Zrcms\ContentCoreDoctrineDataSource\Theme\Entity\LayoutVersionEntity;
@@ -29,7 +30,10 @@ class PublishLayoutCmsResource
             LayoutCmsResourceEntity::class,
             LayoutCmsResourcePublishHistoryEntity::class,
             LayoutVersionEntity::class,
-            LayoutCmsResourceBasic::class
+            LayoutCmsResourceBasic::class,
+            LayoutVersionBasic::class,
+            [],
+            []
         );
     }
 

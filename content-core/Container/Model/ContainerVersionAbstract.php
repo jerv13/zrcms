@@ -9,7 +9,7 @@ use Zrcms\Param\Param;
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-abstract class ContainerVersionAbstract extends ContentVersionAbstract implements ContainerVersion
+abstract class ContainerVersionAbstract extends ContentVersionAbstract
 {
     /**
      * @param array  $properties

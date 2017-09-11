@@ -5,32 +5,41 @@ namespace Zrcms\ContentDoctrine\Api;
 use Zrcms\Content\Model\CmsResource;
 use Zrcms\Content\Model\CmsResourcePublishHistory;
 use Zrcms\Content\Model\PropertiesCmsResource;
+use Zrcms\ContentDoctrine\Entity\CmsResourceEntity;
 
 /**
  * @author James Jervis - https://github.com/jerv13
  */
 trait BasicCmsResourceTrait
 {
+    use BasicContentVersionTrait;
+
     /**
-     * @param string $entityClassCmsResource
-     * @param string $classCmsResourceBasic
-     * @param CmsResource|null $entity
-     * @param array $cmsResourceSyncToProperties
+     * @param string            $entityClassCmsResource
+     * @param string            $classCmsResourceBasic
+     * @param string            $entityClassContentVersion
+     * @param string            $classContentVersionBasic
+     * @param CmsResourceEntity $entity
+     * @param array             $cmsResourceSyncToProperties
+     * @param array             $contentVersionSyncToProperties
      *
-     * @return CmsResource|null
+     * @return null
      * @throws \Exception
      */
     protected function newBasicCmsResource(
         string $entityClassCmsResource,
         string $classCmsResourceBasic,
+        string $entityClassContentVersion,
+        string $classContentVersionBasic,
         $entity,
-        array $cmsResourceSyncToProperties = []
+        array $cmsResourceSyncToProperties = [],
+        array $contentVersionSyncToProperties = []
     ) {
         if (empty($entity)) {
             return null;
         }
 
-        if (!is_a($entityClassCmsResource, CmsResource::class, true)) {
+        if (!is_a($entityClassCmsResource, CmsResourceEntity::class, true)) {
             throw new \Exception(
                 'Entity class must be of type: ' . CmsResource::class
             );
@@ -48,15 +57,22 @@ trait BasicCmsResourceTrait
             );
         }
 
-        if (!is_a($entity, CmsResource::class)) {
+        if (!is_a($entity, CmsResourceEntity::class)) {
             throw new \Exception(
-                'Entity must be of type: ' . CmsResource::class . ' got: ' . get_class($entity)
+                'Entity must be of type: ' . CmsResourceEntity::class . ' got: ' . get_class($entity)
             );
         }
 
         $properties = $this->syncCmsResourceProperties(
             $entity,
             $cmsResourceSyncToProperties
+        );
+
+        $properties[PropertiesCmsResource::CONTENT_VERSION] = $this->newBasicContentVersion(
+            $entityClassContentVersion,
+            $classContentVersionBasic,
+            $properties[PropertiesCmsResource::CONTENT_VERSION],
+            $contentVersionSyncToProperties
         );
 
         $new = new $classCmsResourceBasic(
@@ -69,14 +85,14 @@ trait BasicCmsResourceTrait
     }
 
     /**
-     * @param CmsResource $entity
-     * @param array       $cmsResourceSyncToProperties
+     * @param CmsResourceEntity $entity
+     * @param array             $cmsResourceSyncToProperties
      *
      * @return CmsResource[]
      * @throws \Exception
      */
     protected function syncCmsResourceProperties(
-        CmsResource $entity,
+        CmsResourceEntity $entity,
         array $cmsResourceSyncToProperties
     ) {
         // always sync
@@ -118,16 +134,22 @@ trait BasicCmsResourceTrait
     /**
      * @param string $entityClassCmsResource
      * @param string $classCmsResourceBasic
+     * @param string $entityClassContentVersion
+     * @param string $classContentVersionBasic
      * @param array  $entities
      * @param array  $cmsResourceSyncToProperties
+     * @param array  $contentVersionSyncToProperties
      *
      * @return CmsResource[]
      */
     protected function newBasicCmsResources(
         string $entityClassCmsResource,
         string $classCmsResourceBasic,
+        string $entityClassContentVersion,
+        string $classContentVersionBasic,
         array $entities,
-        array $cmsResourceSyncToProperties = []
+        array $cmsResourceSyncToProperties = [],
+        array $contentVersionSyncToProperties = []
     ) {
         $basics = [];
 
@@ -135,8 +157,11 @@ trait BasicCmsResourceTrait
             $basics[] = $this->newBasicCmsResource(
                 $entityClassCmsResource,
                 $classCmsResourceBasic,
+                $entityClassContentVersion,
+                $classContentVersionBasic,
                 $entity,
-                $cmsResourceSyncToProperties
+                $cmsResourceSyncToProperties,
+                $contentVersionSyncToProperties
             );
         }
 

@@ -5,6 +5,7 @@ namespace Zrcms\ContentCoreDoctrineDataSource\Page\Api\Action;
 use Doctrine\ORM\EntityManager;
 use Zrcms\Content\Model\CmsResource;
 use Zrcms\ContentCore\Page\Model\PageContainerCmsResourceBasic;
+use Zrcms\ContentCore\Page\Model\PageContainerVersionBasic;
 use Zrcms\ContentCore\Page\Model\PageTemplateCmsResource;
 use Zrcms\ContentCoreDoctrineDataSource\Page\Entity\PageContainerVersionEntity;
 use Zrcms\ContentCoreDoctrineDataSource\Page\Entity\PageTemplateCmsResourceEntity;
@@ -29,7 +30,10 @@ class PublishPageTemplateCmsResource
             PageTemplateCmsResourceEntity::class,
             PageTemplateCmsResourcePublishHistoryEntity::class,
             PageContainerVersionEntity::class,
-            PageContainerCmsResourceBasic::class
+            PageContainerCmsResourceBasic::class,
+            PageContainerVersionBasic::class,
+            [],
+            []
         );
     }
 

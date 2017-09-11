@@ -284,13 +284,16 @@ class ModuleConfig
                     This\Theme\Api\FallbackToComponentLayoutCmsResource::class => [
                         'arguments' => [
                             '0-' => FindThemeComponent::class,
+                            '1-' => This\Theme\Api\LayoutVersionFromComponent::class,
                         ],
                     ],
                     This\Theme\Api\FallbackToComponentLayoutVersion::class => [
                         'arguments' => [
                             '0-' => FindThemeComponent::class,
+                            '1-' => This\Theme\Api\LayoutVersionFromComponent::class,
                         ],
-                    ]
+                    ],
+                    This\Theme\Api\LayoutVersionFromComponent::class => [],
                 ],
             ],
             'doctrine' => [

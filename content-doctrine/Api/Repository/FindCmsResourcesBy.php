@@ -45,7 +45,11 @@ class FindCmsResourcesBy
         return $this->newBasicCmsResources(
             $this->entityClassCmsResource,
             $this->classCmsResourceBasic,
-            $entities
+            $this->entityClassContentVersion,
+            $this->classContentVersionBasic,
+            $entities,
+            $this->cmsResourceSyncToProperties,
+            $this->contentVersionSyncToProperties
         );
     }
 }

@@ -13,7 +13,7 @@ interface SiteCmsResource extends CmsResource
     /**
      * @return SiteVersion|ContentVersion
      */
-    public function getContentVersion(): ContentVersion;
+    public function getContentVersion();
 
     /**
      * @return string

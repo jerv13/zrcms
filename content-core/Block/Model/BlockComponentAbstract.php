@@ -8,7 +8,7 @@ use Zrcms\Param\Param;
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-abstract class BlockComponentAbstract extends ComponentAbstract implements BlockComponent
+abstract class BlockComponentAbstract extends ComponentAbstract
 {
     /**
      * @param array  $properties

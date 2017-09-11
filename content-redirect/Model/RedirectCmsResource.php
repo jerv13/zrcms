@@ -13,7 +13,7 @@ interface RedirectCmsResource extends CmsResource
     /**
      * @return RedirectVersion|ContentVersion
      */
-    public function getContentVersion(): ContentVersion;
+    public function getContentVersion();
 
     /**
      * if string, then applies to that site

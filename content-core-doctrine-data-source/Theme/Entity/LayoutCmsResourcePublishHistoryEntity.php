@@ -3,7 +3,6 @@
 namespace Zrcms\ContentCoreDoctrineDataSource\Theme\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Zrcms\Content\Model\ContentVersion;
 use Zrcms\Content\Model\PropertiesCmsResourcePublishHistory;
 use Zrcms\ContentCore\Theme\Model\LayoutCmsResourcePublishHistory;
 use Zrcms\ContentCore\Theme\Model\LayoutCmsResourcePublishHistoryAbstract;
@@ -139,7 +138,7 @@ class LayoutCmsResourcePublishHistoryEntity
             $properties,
             PropertiesCmsResourcePublishHistory::CMS_RESOURCE_ID
         );
-        
+
         $this->action = Param::getString(
             $properties,
             PropertiesCmsResourcePublishHistory::ACTION
@@ -161,9 +160,9 @@ class LayoutCmsResourcePublishHistoryEntity
     }
 
     /**
-     * @return ContentVersion
+     * @return LayoutVersionEntity
      */
-    public function getContentVersion(): ContentVersion
+    public function getContentVersion()
     {
         return $this->contentVersion;
     }

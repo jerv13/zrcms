@@ -9,7 +9,9 @@ use Zrcms\ContentDoctrine\Api\BasicCmsResourceTrait;
 use Zrcms\ContentRedirect\Model\PropertiesRedirectCmsResource;
 use Zrcms\ContentRedirect\Model\RedirectCmsResource;
 use Zrcms\ContentRedirect\Model\RedirectCmsResourceBasic;
+use Zrcms\ContentRedirect\Model\RedirectVersionBasic;
 use Zrcms\ContentRedirectDoctrineDataSource\Entity\RedirectCmsResourceEntity;
+use Zrcms\ContentRedirectDoctrineDataSource\Entity\RedirectVersionEntity;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -35,6 +37,26 @@ class FindRedirectCmsResourceBySiteRequestPath
     protected $classCmsResourceBasic;
 
     /**
+     * @var string
+     */
+    protected $entityClassContentVersion;
+
+    /**
+     * @var string
+     */
+    protected $classContentVersionBasic;
+
+    /**
+     * @var array
+     */
+    protected $cmsResourceSyncToProperties = [];
+
+    /**
+     * @var array
+     */
+    protected $contentVersionSyncToProperties = [];
+
+    /**
      * @param EntityManager $entityManager
      */
     public function __construct(EntityManager $entityManager)
@@ -42,6 +64,12 @@ class FindRedirectCmsResourceBySiteRequestPath
         $this->entityManager = $entityManager;
         $this->entityClassCmsResource = RedirectCmsResourceEntity::class;
         $this->classCmsResourceBasic = RedirectCmsResourceBasic::class;
+
+        $this->entityClassContentVersion = RedirectVersionEntity::class;
+        $this->classContentVersionBasic = RedirectVersionBasic::class;
+
+        $this->cmsResourceSyncToProperties = [];
+        $this->contentVersionSyncToProperties = [];
     }
 
     /**
@@ -85,7 +113,11 @@ class FindRedirectCmsResourceBySiteRequestPath
         return $this->newBasicCmsResource(
             $this->entityClassCmsResource,
             $this->classCmsResourceBasic,
-            $result[0]
+            $this->entityClassContentVersion,
+            $this->classContentVersionBasic,
+            $result[0],
+            $this->cmsResourceSyncToProperties,
+            $this->contentVersionSyncToProperties
         );
     }
 }

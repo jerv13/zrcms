@@ -7,7 +7,7 @@ use Zrcms\Param\Param;
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-abstract class ContentVersionAbstract implements ContentVersion
+abstract class ContentVersionAbstract
 {
     use ImmutableTrait;
     use PropertiesTrait;

@@ -10,7 +10,7 @@ use Zrcms\Param\Param;
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-abstract class LayoutCmsResourceAbstract extends CmsResourceAbstract implements LayoutCmsResource
+abstract class LayoutCmsResourceAbstract extends CmsResourceAbstract
 {
     /**
      * @param array  $properties

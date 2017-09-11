@@ -14,5 +14,5 @@ interface PageContainerCmsResourcePublishHistory
     /**
      * @return PageContainerVersion|ContentVersion
      */
-    public function getContentVersion(): ContentVersion;
+    public function getContentVersion();
 }

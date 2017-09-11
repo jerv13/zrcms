@@ -3,9 +3,7 @@
 namespace Zrcms\ContentCoreDoctrineDataSource\Site\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Zrcms\Content\Model\PropertiesContent;
 use Zrcms\ContentCore\Site\Model\PropertiesSiteVersion;
-use Zrcms\ContentCore\Site\Model\SiteVersion;
 use Zrcms\ContentCore\Site\Model\SiteVersionAbstract;
 use Zrcms\ContentDoctrine\Entity\ContentEntity;
 use Zrcms\ContentDoctrine\Entity\ContentEntityTrait;
@@ -23,7 +21,7 @@ use Zrcms\Param\Param;
  */
 class SiteVersionEntity
     extends SiteVersionAbstract
-    implements SiteVersion, ContentEntity
+    implements ContentEntity
 {
     use ContentEntityTrait;
 

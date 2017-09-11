@@ -7,8 +7,11 @@ use Zrcms\Content\Model\CmsResource;
 use Zrcms\ContentCore\Site\Model\PropertiesSiteCmsResource;
 use Zrcms\ContentCore\Site\Model\SiteCmsResource;
 use Zrcms\ContentCore\Site\Model\SiteCmsResourceBasic;
+use Zrcms\ContentCore\Site\Model\SiteVersionBasic;
 use Zrcms\ContentCoreDoctrineDataSource\Site\Entity\SiteCmsResourceEntity;
+use Zrcms\ContentCoreDoctrineDataSource\Site\Entity\SiteVersionEntity;
 use Zrcms\ContentDoctrine\Api\BasicCmsResourceTrait;
+use Zrcms\ContentDoctrine\Entity\CmsResourceEntity;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -34,6 +37,26 @@ class FindSiteCmsResourceByHost
     protected $classCmsResourceBasic;
 
     /**
+     * @var string
+     */
+    protected $entityClassContentVersion;
+
+    /**
+     * @var string
+     */
+    protected $classContentVersionBasic;
+
+    /**
+     * @var array
+     */
+    protected $cmsResourceSyncToProperties = [];
+
+    /**
+     * @var array
+     */
+    protected $contentVersionSyncToProperties = [];
+
+    /**
      * @param EntityManager $entityManager
      */
     public function __construct(EntityManager $entityManager)
@@ -41,6 +64,12 @@ class FindSiteCmsResourceByHost
         $this->entityManager = $entityManager;
         $this->entityClassCmsResource = SiteCmsResourceEntity::class;
         $this->classCmsResourceBasic = SiteCmsResourceBasic::class;
+
+        $this->entityClassContentVersion = SiteVersionEntity::class;
+        $this->classContentVersionBasic = SiteVersionBasic::class;
+
+        $this->cmsResourceSyncToProperties = [];
+        $this->contentVersionSyncToProperties = [];
     }
 
     /**
@@ -57,13 +86,17 @@ class FindSiteCmsResourceByHost
             $this->entityClassCmsResource
         );
 
-        /** @var SiteCmsResource|CmsResource $siteCmsResource */
-        $siteCmsResource = $repository->findOneBy([PropertiesSiteCmsResource::HOST => $host]);
+        /** @var SiteCmsResourceEntity|CmsResourceEntity $siteCmsResourceEntity */
+        $siteCmsResourceEntity = $repository->findOneBy([PropertiesSiteCmsResource::HOST => $host]);
 
         return $this->newBasicCmsResource(
             $this->entityClassCmsResource,
             $this->classCmsResourceBasic,
-            $siteCmsResource
+            $this->entityClassContentVersion,
+            $this->classContentVersionBasic,
+            $siteCmsResourceEntity,
+            $this->cmsResourceSyncToProperties,
+            $this->contentVersionSyncToProperties
         );
     }
 }

@@ -22,7 +22,7 @@ use Zrcms\Param\Param;
  */
 class PageContainerVersionEntity
     extends PageContainerVersionAbstract
-    implements PageContainerVersion, ContentEntity
+    implements ContentEntity
 {
     use ContentEntityTrait;
 

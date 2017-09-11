@@ -6,8 +6,10 @@ use Doctrine\ORM\EntityManager;
 use Zrcms\Content\Model\CmsResource;
 use Zrcms\ContentRedirect\Model\RedirectCmsResource;
 use Zrcms\ContentRedirect\Model\RedirectCmsResourceBasic;
+use Zrcms\ContentRedirect\Model\RedirectVersionBasic;
 use Zrcms\ContentRedirectDoctrineDataSource\Entity\RedirectCmsResourceEntity;
 use Zrcms\ContentDoctrine\Api\Repository\FindCmsResource;
+use Zrcms\ContentRedirectDoctrineDataSource\Entity\RedirectVersionEntity;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -25,7 +27,11 @@ class FindRedirectCmsResource
         parent::__construct(
             $entityManager,
             RedirectCmsResourceEntity::class,
-            RedirectCmsResourceBasic::class
+            RedirectCmsResourceBasic::class,
+            RedirectVersionEntity::class,
+            RedirectVersionBasic::class,
+            [],
+            []
         );
     }
 

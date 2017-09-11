@@ -14,5 +14,5 @@ interface RedirectCmsResourcePublishHistory
     /**
      * @return RedirectVersion|ContentVersion
      */
-    public function getContentVersion(): ContentVersion;
+    public function getContentVersion();
 }

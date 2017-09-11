@@ -3,13 +3,12 @@
 namespace Zrcms\Content\Model;
 
 use Zrcms\Content\Exception\ContentVersionNotExistsException;
-use Zrcms\Content\Exception\PropertyMissingException;
 use Zrcms\Param\Param;
 
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-abstract class CmsResourceAbstract implements CmsResource
+abstract class CmsResourceAbstract
 {
     use ImmutableTrait;
     use PropertiesTrait;
@@ -93,7 +92,7 @@ abstract class CmsResourceAbstract implements CmsResource
     /**
      * @return ContentVersion
      */
-    public function getContentVersion(): ContentVersion
+    public function getContentVersion()
     {
         return $this->getProperty(
             PropertiesCmsResource::CONTENT_VERSION,

@@ -4,6 +4,7 @@ namespace Zrcms\ContentDoctrine\Api;
 
 use Zrcms\Content\Model\ContentVersion;
 use Zrcms\Content\Model\PropertiesContentVersion;
+use Zrcms\ContentDoctrine\Entity\ContentEntity;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -11,10 +12,10 @@ use Zrcms\Content\Model\PropertiesContentVersion;
 trait BasicContentVersionTrait
 {
     /**
-     * @param string              $entityClassContentVersion
-     * @param string              $classContentVersionBasic
-     * @param ContentVersion|null $entity
-     * @param array               $contentVersionSyncToProperties
+     * @param string             $entityClassContentVersion
+     * @param string             $classContentVersionBasic
+     * @param ContentEntity|null $entity
+     * @param array              $contentVersionSyncToProperties
      *
      * @return ContentVersion|null
      * @throws \Exception
@@ -29,8 +30,8 @@ trait BasicContentVersionTrait
             return null;
         }
 
-        if (!is_a($entityClassContentVersion, ContentVersion::class, true)) {
-            throw new \Exception('Entity class must be of type: ' . ContentVersion::class);
+        if (!is_a($entityClassContentVersion, ContentEntity::class, true)) {
+            throw new \Exception('Entity class must be of type: ' . ContentEntity::class);
         }
 
         if (!is_a($classContentVersionBasic, ContentVersion::class, true)) {
@@ -41,8 +42,8 @@ trait BasicContentVersionTrait
             throw new \Exception('Entity must be of type: ' . $entityClassContentVersion);
         }
 
-        if (!is_a($entity, ContentVersion::class)) {
-            throw new \Exception('Entity must be of type: ' . ContentVersion::class);
+        if (!is_a($entity, ContentEntity::class)) {
+            throw new \Exception('Entity must be of type: ' . ContentEntity::class);
         }
 
         $properties = $this->syncContentVersionProperties(
@@ -58,14 +59,14 @@ trait BasicContentVersionTrait
     }
 
     /**
-     * @param ContentVersion $entity
-     * @param array          $contentVersionSyncToProperties
+     * @param ContentEntity $entity
+     * @param array         $contentVersionSyncToProperties
      *
      * @return array
      * @throws \Exception
      */
     protected function syncContentVersionProperties(
-        ContentVersion $entity,
+        ContentEntity $entity,
         array $contentVersionSyncToProperties
     ) {
         // always sync

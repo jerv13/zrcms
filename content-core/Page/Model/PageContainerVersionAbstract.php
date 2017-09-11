@@ -9,9 +9,7 @@ use Zrcms\Param\Param;
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-abstract class PageContainerVersionAbstract
-    extends ContainerVersionAbstract
-    implements PageContainerVersion
+abstract class PageContainerVersionAbstract extends ContainerVersionAbstract
 {
     /**
      * @param array  $properties

@@ -3,7 +3,6 @@
 namespace Zrcms\ContentCoreDoctrineDataSource\Site\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Zrcms\Content\Model\ContentVersion;
 use Zrcms\Content\Model\PropertiesCmsResourcePublishHistory;
 use Zrcms\ContentCore\Site\Model\PropertiesSiteCmsResource;
 use Zrcms\ContentCore\Site\Model\SiteCmsResourcePublishHistory;
@@ -174,9 +173,9 @@ class SiteCmsResourcePublishHistoryEntity
     }
 
     /**
-     * @return ContentVersion
+     * @return SiteVersionEntity
      */
-    public function getContentVersion(): ContentVersion
+    public function getContentVersion()
     {
         return $this->contentVersion;
     }

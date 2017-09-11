@@ -5,7 +5,7 @@ namespace Zrcms\Content\Model;
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-abstract class PropertiesSettableAbstract implements Properties
+abstract class PropertiesSettableAbstract
 {
     use PropertiesTrait;
 

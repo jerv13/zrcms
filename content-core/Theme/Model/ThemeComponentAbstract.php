@@ -10,7 +10,7 @@ use Zrcms\Param\Param;
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-abstract class ThemeComponentAbstract extends ComponentAbstract implements ThemeComponent
+abstract class ThemeComponentAbstract extends ComponentAbstract
 {
     /**
      * @param array  $properties

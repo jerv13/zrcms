@@ -8,6 +8,8 @@
     - impact
         - PublishCmsResource
         - Make sure HTTP APIs use id in array
+        
+- BasicCmsResourceTrait and BasicContentVersionTrait to callables or static builders
 
     
 - Refactor ResponseHandler as http-api-response-formatter

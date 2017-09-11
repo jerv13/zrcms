@@ -65,7 +65,7 @@ class NotFoundStatusPage
 
         $uri = $request->getUri();
 
-        $uri = $uri->withPath($statusPage);
+        $uri = $uri->withPath($statusPage['path']);
 
         $request->withUri($uri);
 

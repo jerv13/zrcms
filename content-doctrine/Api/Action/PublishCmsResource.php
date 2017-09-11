@@ -50,18 +50,39 @@ class PublishCmsResource
     protected $classCmsResourceBasic;
 
     /**
+     * @var string
+     */
+    protected $classContentVersionBasic;
+
+    /**
+     * @var array
+     */
+    protected $cmsResourceSyncToProperties = [];
+
+    /**
+     * @var array
+     */
+    protected $contentVersionSyncToProperties = [];
+
+    /**
      * @param EntityManager $entityManager
      * @param string        $entityClassCmsResource
      * @param string        $entityClassCmsResourcePublishHistory
      * @param string        $entityClassContentVersion
      * @param string        $classCmsResourceBasic
+     * @param string        $classContentVersionBasic
+     * @param array         $cmsResourceSyncToProperties
+     * @param array         $contentVersionSyncToProperties
      */
     public function __construct(
         EntityManager $entityManager,
         string $entityClassCmsResource,
         string $entityClassCmsResourcePublishHistory,
         string $entityClassContentVersion,
-        string $classCmsResourceBasic
+        string $classCmsResourceBasic,
+        string $classContentVersionBasic,
+        array $cmsResourceSyncToProperties = [],
+        array $contentVersionSyncToProperties = []
     ) {
         $this->assertValidEntityClass(
             $entityClassCmsResource,
@@ -83,6 +104,10 @@ class PublishCmsResource
         $this->entityClassCmsResource = $entityClassCmsResource;
         $this->entityClassContentVersion = $entityClassContentVersion;
         $this->classCmsResourceBasic = $classCmsResourceBasic;
+        $this->classContentVersionBasic = $classContentVersionBasic;
+
+        $this->cmsResourceSyncToProperties = $cmsResourceSyncToProperties;
+        $this->contentVersionSyncToProperties = $contentVersionSyncToProperties;
     }
 
     /**
@@ -167,7 +192,11 @@ class PublishCmsResource
         return $this->newBasicCmsResource(
             $this->entityClassCmsResource,
             $this->classCmsResourceBasic,
-            $newCmsResourceEntity
+            $this->entityClassContentVersion,
+            $this->classContentVersionBasic,
+            $newCmsResourceEntity,
+            $this->cmsResourceSyncToProperties,
+            $this->contentVersionSyncToProperties
         );
     }
 
@@ -233,7 +262,11 @@ class PublishCmsResource
         return $this->newBasicCmsResource(
             $this->entityClassCmsResource,
             $this->classCmsResourceBasic,
-            $existingCmsResource
+            $this->entityClassContentVersion,
+            $this->classContentVersionBasic,
+            $existingCmsResource,
+            $this->cmsResourceSyncToProperties,
+            $this->contentVersionSyncToProperties
         );
     }
 }

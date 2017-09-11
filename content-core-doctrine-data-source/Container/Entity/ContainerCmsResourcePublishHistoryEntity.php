@@ -10,6 +10,7 @@ use Zrcms\ContentCore\Container\Model\ContainerCmsResourcePublishHistoryAbstract
 use Zrcms\ContentCore\Container\Model\PropertiesContainerCmsResource;
 use Zrcms\ContentDoctrine\Entity\CmsResourcePublishHistoryEntity;
 use Zrcms\ContentDoctrine\Entity\CmsResourcePublishHistoryEntityTrait;
+use Zrcms\ContentDoctrine\Entity\ContentEntity;
 use Zrcms\Param\Param;
 
 /**
@@ -186,9 +187,9 @@ class ContainerCmsResourcePublishHistoryEntity
     }
 
     /**
-     * @return ContentVersion
+     * @return ContainerVersionEntity
      */
-    public function getContentVersion(): ContentVersion
+    public function getContentVersion()
     {
         return $this->contentVersion;
     }

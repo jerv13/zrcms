@@ -18,17 +18,17 @@ class FallbackToComponentLayoutVersion
     protected $findThemeComponent;
 
     /**
-     * @var VersionFromComponent
+     * @var LayoutVersionFromComponent
      */
     protected $versionFromComponent;
 
     /**
-     * @param FindThemeComponent   $findThemeComponent
-     * @param VersionFromComponent $versionFromComponent
+     * @param FindThemeComponent         $findThemeComponent
+     * @param LayoutVersionFromComponent $versionFromComponent
      */
     public function __construct(
         FindThemeComponent $findThemeComponent,
-        VersionFromComponent $versionFromComponent
+        LayoutVersionFromComponent $versionFromComponent
     ) {
         $this->findThemeComponent = $findThemeComponent;
         $this->versionFromComponent = $versionFromComponent;

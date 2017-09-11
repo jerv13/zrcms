@@ -10,9 +10,7 @@ use Zrcms\Param\Param;
  *
  * @author James Jervis - https://github.com/jerv13
  */
-abstract class CmsResourcePublishHistoryAbstract
-    extends CmsResourceAbstract
-    implements CmsResourcePublishHistory
+abstract class CmsResourcePublishHistoryAbstract extends CmsResourceAbstract
 {
     /**
      * @param array  $properties
