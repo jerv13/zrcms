@@ -19,7 +19,7 @@ class PropertiesCmsResourcePublishHistory extends PropertiesCmsResource
     protected $properties
         = [
             self::ID => '',
-            self::CONTENT_VERSION_ID => '',
+            self::CONTENT_VERSION => null,
             self::CMS_RESOURCE_ID => '',
             self::ACTION => '',
             self::PUBLISHED => true,

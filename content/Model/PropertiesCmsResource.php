@@ -9,10 +9,6 @@ class PropertiesCmsResource extends PropertiesSettableAbstract implements Proper
 {
     const ID = 'id';
     const CONTENT_VERSION = 'contentVersion';
-    /**
-     * @deprecated
-     */
-    const CONTENT_VERSION_ID = 'contentVersionId';
     const PUBLISHED = 'published';
 
     /**
@@ -23,7 +19,7 @@ class PropertiesCmsResource extends PropertiesSettableAbstract implements Proper
     protected $properties
         = [
             self::ID => '',
-            self::CONTENT_VERSION_ID => '',
+            self::CONTENT_VERSION => null,
             self::PUBLISHED => true,
         ];
 }

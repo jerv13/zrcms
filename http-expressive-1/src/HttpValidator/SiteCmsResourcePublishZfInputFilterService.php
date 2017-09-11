@@ -22,8 +22,9 @@ class SiteCmsResourcePublishZfInputFilterService extends DataZfInputFilterServic
             ],
         ],
 
-        PropertiesSiteCmsResource::CONTENT_VERSION_ID => [
-            'name' => PropertiesSiteCmsResource::CONTENT_VERSION_ID,
+        // @todo use sub filter ['id' => ['required' => true,...]]
+        PropertiesSiteCmsResource::CONTENT_VERSION => [
+            'name' => PropertiesSiteCmsResource::CONTENT_VERSION,
             'required' => true,
             'validators' => [
             ],

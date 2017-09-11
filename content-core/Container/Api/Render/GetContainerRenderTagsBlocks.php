@@ -73,8 +73,6 @@ class GetContainerRenderTagsBlocks implements GetContainerRenderTags
 
         $blocks = $container->getBlockVersions();
 
-
-
         /** @var Block $block */
         foreach ($blocks as $block) {
             $rowNumber = $block->getRequiredLayoutProperty(

@@ -11,7 +11,6 @@ use Zrcms\Content\Api\CmsResourceToArray;
 use Zrcms\ContentCore\Basic\Api\Repository\FindBasicComponent;
 use Zrcms\ContentCore\Page\Api\Render\GetPageContainerRenderTagsHtml;
 use Zrcms\ContentCore\Page\Api\Render\RenderPageContainerRows;
-use Zrcms\ContentCore\Page\Api\Repository\FindPageContainerCmsResourceVersionBySitePath;
 use Zrcms\ContentCore\Page\Model\PageContainerCmsResourceBasic;
 use Zrcms\ContentCore\Page\Model\PageContainerVersionBasic;
 use Zrcms\ContentCore\Page\Model\PropertiesPageContainerCmsResource;
@@ -114,8 +113,8 @@ class ViewControllerTest
 
         $siteCmsResource = new SiteCmsResourceBasic(
             [
-                PropertiesSiteCmsResource::CONTENT_VERSION_ID
-                => $newSiteVersion->getId(),
+                PropertiesSiteCmsResource::CONTENT_VERSION
+                => $newSiteVersion,
                 PropertiesSiteCmsResource::HOST
                 => 'test:' . PropertiesSiteCmsResource::HOST,
             ],
@@ -154,19 +153,6 @@ class ViewControllerTest
     ) {
         $additionalViewProperties = [];
 
-        $siteCmsResource = new SiteCmsResourceBasic(
-            [
-                PropertiesSiteCmsResource::ID
-                => 'test:' . PropertiesSiteCmsResource::ID,
-                PropertiesSiteCmsResource::CONTENT_VERSION_ID
-                => 'test:' . PropertiesSiteCmsResource::CONTENT_VERSION_ID,
-                PropertiesSiteCmsResource::HOST
-                => 'test:' . PropertiesSiteCmsResource::HOST,
-            ],
-            self::CREATED_BY_USER_ID,
-            self::CREATED_REASON
-        );
-
         $siteVersion = new SiteVersionBasic(
             [
                 PropertiesSiteVersion::ID
@@ -193,16 +179,14 @@ class ViewControllerTest
             self::CREATED_REASON
         );
 
-        $pageContainerCmsResource = new PageContainerCmsResourceBasic(
+        $siteCmsResource = new SiteCmsResourceBasic(
             [
-                PropertiesPageContainerCmsResource::ID
-                => 'test:' . PropertiesPageContainerCmsResource::ID,
-                PropertiesPageContainerCmsResource::CONTENT_VERSION_ID
-                => 'test:' . PropertiesPageContainerCmsResource::CONTENT_VERSION_ID,
-                PropertiesPageContainerCmsResource::SITE_CMS_RESOURCE_ID
-                => 'test:' . PropertiesPageContainerCmsResource::SITE_CMS_RESOURCE_ID,
-                PropertiesPageContainerCmsResource::PATH
-                => 'test:' . PropertiesPageContainerCmsResource::PATH,
+                PropertiesSiteCmsResource::ID
+                => 'test:' . PropertiesSiteCmsResource::ID,
+                PropertiesSiteCmsResource::CONTENT_VERSION
+                => $siteVersion,
+                PropertiesSiteCmsResource::HOST
+                => 'test:' . PropertiesSiteCmsResource::HOST,
             ],
             self::CREATED_BY_USER_ID,
             self::CREATED_REASON
@@ -231,20 +215,23 @@ class ViewControllerTest
             self::CREATED_REASON
         );
 
-        $layoutCmsResource = new LayoutCmsResourceBasic(
+
+        $pageContainerCmsResource = new PageContainerCmsResourceBasic(
             [
-                PropertiesLayoutCmsResource::ID
-                => 'test:' . PropertiesLayoutCmsResource::ID,
-                PropertiesLayoutCmsResource::CONTENT_VERSION_ID
-                => 'test:' . PropertiesLayoutCmsResource::CONTENT_VERSION_ID,
-                PropertiesLayoutCmsResource::NAME
-                => 'test:' . PropertiesLayoutCmsResource::NAME,
-                PropertiesLayoutCmsResource::THEME_NAME
-                => 'test:' . PropertiesLayoutCmsResource::THEME_NAME,
+                PropertiesPageContainerCmsResource::ID
+                => 'test:' . PropertiesPageContainerCmsResource::ID,
+                PropertiesPageContainerCmsResource::CONTENT_VERSION
+                => $pageContainerVersion,
+                PropertiesPageContainerCmsResource::SITE_CMS_RESOURCE_ID
+                => 'test:' . PropertiesPageContainerCmsResource::SITE_CMS_RESOURCE_ID,
+                PropertiesPageContainerCmsResource::PATH
+                => 'test:' . PropertiesPageContainerCmsResource::PATH,
             ],
             self::CREATED_BY_USER_ID,
             self::CREATED_REASON
         );
+
+
 
         $layout = new LayoutVersionBasic(
             [
@@ -267,14 +254,26 @@ class ViewControllerTest
             self::CREATED_REASON
         );
 
+        $layoutCmsResource = new LayoutCmsResourceBasic(
+            [
+                PropertiesLayoutCmsResource::ID
+                => 'test:' . PropertiesLayoutCmsResource::ID,
+                PropertiesLayoutCmsResource::CONTENT_VERSION
+                => $layout,
+                PropertiesLayoutCmsResource::NAME
+                => 'test:' . PropertiesLayoutCmsResource::NAME,
+                PropertiesLayoutCmsResource::THEME_NAME
+                => 'test:' . PropertiesLayoutCmsResource::THEME_NAME,
+            ],
+            self::CREATED_BY_USER_ID,
+            self::CREATED_REASON
+        );
+
         $properties = [
             PropertiesView::ID => 'test:' . PropertiesView::ID,
             PropertiesView::SITE_CMS_RESOURCE => $siteCmsResource,
-            PropertiesView::SITE => $siteVersion,
             PropertiesView::PAGE_CONTAINER_CMS_RESOURCE => $pageContainerCmsResource,
-            PropertiesView::PAGE => $pageContainerVersion,
             PropertiesView::LAYOUT_CMS_RESOURCE => $layoutCmsResource,
-            PropertiesView::LAYOUT => $layout,
         ];
 
         $additionalProperties = [

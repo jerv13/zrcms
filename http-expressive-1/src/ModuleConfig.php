@@ -6,13 +6,13 @@ use ZfInputFilterService\InputFilter\ServiceAwareFactory;
 use Zrcms\Acl\Api\IsAllowedAny;
 use Zrcms\ContentCore\Basic\Api\Component\ReadBasicComponentConfigApplicationConfig;
 use Zrcms\ContentCore\Basic\Api\Repository\FindBasicComponent;
-use Zrcms\ContentCore\Site\Api\GetSiteCmsResourceVersionByRequest;
+use Zrcms\ContentCore\Site\Api\GetSiteCmsResourceByRequest;
 use Zrcms\ContentCore\View\Api\GetViewByRequest;
 use Zrcms\ContentCore\View\Api\Render\GetViewLayoutTags;
 use Zrcms\ContentCore\View\Api\Render\RenderView;
 use Zrcms\ContentCore\View\Model\ServiceAliasView;
 use Zrcms\ContentCoreConfigDataSource\Content\Model\ComponentRegistryFields;
-use Zrcms\ContentRedirect\Api\Repository\FindRedirectCmsResourceVersionBySiteRequestPath;
+use Zrcms\ContentRedirect\Api\Repository\FindRedirectCmsResourceBySiteRequestPath;
 use Zrcms\HttpExpressive1\Api\GetStatusPage;
 use Zrcms\HttpExpressive1\Api\GetStatusPageBasic;
 use Zrcms\HttpExpressive1\Api\View\Render\GetViewLayoutMetaPageData;
@@ -74,7 +74,7 @@ class ModuleConfig
                     GetStatusPage::class => [
                         'class' => GetStatusPageBasic::class,
                         'arguments' => [
-                            GetSiteCmsResourceVersionByRequest::class,
+                            GetSiteCmsResourceByRequest::class,
                             FindBasicComponent::class,
                         ],
                     ],
@@ -104,15 +104,15 @@ class ModuleConfig
                      */
                     ContentRedirect::class => [
                         'arguments' => [
-                            GetSiteCmsResourceVersionByRequest::class,
-                            FindRedirectCmsResourceVersionBySiteRequestPath::class,
+                            GetSiteCmsResourceByRequest::class,
+                            FindRedirectCmsResourceBySiteRequestPath::class,
                         ],
                     ],
 
                     LocaleFromSite::class => [
                         'arguments' => [
                             SetLocale::class,
-                            GetSiteCmsResourceVersionByRequest::class
+                            GetSiteCmsResourceByRequest::class
                         ],
                     ],
 

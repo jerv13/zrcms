@@ -7,10 +7,4 @@ namespace Zrcms\ContentCore\Page\Model;
  */
 interface PageTemplateCmsResource extends PageContainerCmsResource
 {
-    /**
-     * PageContainerVersion::id
-     *
-     * @return string
-     */
-    public function getContentVersionId(): string;
 }

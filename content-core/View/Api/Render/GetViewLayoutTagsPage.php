@@ -54,7 +54,7 @@ class GetViewLayoutTagsPage implements GetViewLayoutTags
     ): array
     {
         /** @var PageContainerVersion $pageContainer */
-        $pageContainer = $view->getPage();
+        $pageContainer = $view->getPageContainerCmsResource()->getContentVersion();
 
         $pageRenderTags = $this->getPageContainerRenderTags->__invoke(
             $pageContainer,

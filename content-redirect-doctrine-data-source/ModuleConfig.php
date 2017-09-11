@@ -7,8 +7,8 @@ use Doctrine\ORM\Mapping\Driver\AnnotationDriver;
 use Zrcms\ContentRedirect\Api\Action\PublishRedirectCmsResource;
 use Zrcms\ContentRedirect\Api\Action\UnpublishRedirectCmsResource;
 use Zrcms\ContentRedirect\Api\Repository\FindRedirectCmsResource;
+use Zrcms\ContentRedirect\Api\Repository\FindRedirectCmsResourceBySiteRequestPath;
 use Zrcms\ContentRedirect\Api\Repository\FindRedirectCmsResourcesBy;
-use Zrcms\ContentRedirect\Api\Repository\FindRedirectCmsResourceVersionBySiteRequestPath;
 use Zrcms\ContentRedirect\Api\Repository\FindRedirectVersion;
 use Zrcms\ContentRedirect\Api\Repository\FindRedirectVersionsBy;
 use Zrcms\ContentRedirect\Api\Repository\InsertRedirectVersion;
@@ -51,14 +51,14 @@ class ModuleConfig
                             '0-' => EntityManager::class,
                         ],
                     ],
-                    FindRedirectCmsResourcesBy::class => [
-                        'class' => This\Api\Repository\FindRedirectCmsResourcesBy::class,
+                    FindRedirectCmsResourceBySiteRequestPath::class => [
+                        'class' => This\Api\Repository\FindRedirectCmsResourceBySiteRequestPath::class,
                         'arguments' => [
                             '0-' => EntityManager::class,
                         ],
                     ],
-                    FindRedirectCmsResourceVersionBySiteRequestPath::class => [
-                        'class' => This\Api\Repository\FindRedirectCmsResourceVersionBySiteRequestPath::class,
+                    FindRedirectCmsResourcesBy::class => [
+                        'class' => This\Api\Repository\FindRedirectCmsResourcesBy::class,
                         'arguments' => [
                             '0-' => EntityManager::class,
                         ],

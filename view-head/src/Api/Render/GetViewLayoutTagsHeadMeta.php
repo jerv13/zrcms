@@ -67,7 +67,7 @@ class GetViewLayoutTagsHeadMeta implements GetViewLayoutTagsHead
 
         // descriptions and keywords always from page then site
         /** @var PageContainerVersion $pageVersion */
-        $pageVersion = $view->getPage();
+        $pageVersion = $view->getPageContainerCmsResource()->getContentVersion();
 
         $tagsData[] = [
             //'tag' => 'meta',

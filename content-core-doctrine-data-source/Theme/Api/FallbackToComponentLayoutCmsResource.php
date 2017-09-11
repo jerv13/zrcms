@@ -5,7 +5,6 @@ namespace Zrcms\ContentCoreDoctrineDataSource\Theme\Api;
 use Zrcms\Content\Model\CmsResource;
 use Zrcms\ContentCore\Theme\Api\Repository\FindThemeComponent;
 use Zrcms\ContentCore\Theme\Model\LayoutCmsResource;
-use Zrcms\ContentCore\Theme\Model\LayoutCmsResourceBasic;
 use Zrcms\ContentCore\Theme\Model\PropertiesLayoutCmsResource;
 use Zrcms\ContentCore\Theme\Model\ThemeComponent;
 use Zrcms\ContentCoreDoctrineDataSource\Theme\Entity\LayoutCmsResourceEntitySafe;
@@ -22,12 +21,20 @@ class FallbackToComponentLayoutCmsResource
     protected $findThemeComponent;
 
     /**
-     * @param FindThemeComponent $findThemeComponent
+     * @var VersionFromComponent
+     */
+    protected $versionFromComponent;
+
+    /**
+     * @param FindThemeComponent   $findThemeComponent
+     * @param VersionFromComponent $versionFromComponent
      */
     public function __construct(
-        FindThemeComponent $findThemeComponent
+        FindThemeComponent $findThemeComponent,
+        VersionFromComponent $versionFromComponent
     ) {
         $this->findThemeComponent = $findThemeComponent;
+        $this->versionFromComponent = $versionFromComponent;
     }
 
     /**
@@ -69,9 +76,17 @@ class FallbackToComponentLayoutCmsResource
 
         $id = 'FALLBACK:-:' . $layoutComponent->getThemeName() . ':-:' . $layoutComponent->getName();
 
+        $layoutVersionId
+            = 'FALLBACK_VERSION:-:' . $layoutComponent->getThemeName() . ':-:' . $layoutComponent->getName();
+
+        $layoutVersion = $this->versionFromComponent->__invoke(
+            $layoutVersionId,
+            $layoutComponent
+        );
+
         $properties = [
             PropertiesLayoutCmsResource::ID => $id,
-            PropertiesLayoutCmsResource::CONTENT_VERSION_ID => $id,
+            PropertiesLayoutCmsResource::CONTENT_VERSION => $layoutVersion,
             PropertiesLayoutCmsResource::NAME => $layoutComponent->getName(),
             PropertiesLayoutCmsResource::THEME_NAME => $layoutComponent->getThemeName(),
         ];

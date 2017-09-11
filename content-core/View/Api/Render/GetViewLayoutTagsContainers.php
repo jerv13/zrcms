@@ -7,7 +7,6 @@ use Zrcms\Content\Model\Content;
 use Zrcms\ContentCore\Container\Api\Render\GetContainerRenderTags;
 use Zrcms\ContentCore\Container\Api\Render\RenderContainer;
 use Zrcms\ContentCore\Container\Api\Repository\FindContainerCmsResourcesBySitePaths;
-use Zrcms\ContentCore\Container\Api\Repository\FindContainerVersion;
 use Zrcms\ContentCore\Container\Model\Container;
 use Zrcms\ContentCore\Container\Model\ContainerCmsResource;
 use Zrcms\ContentCore\View\Api\GetTagNamesByLayout;
@@ -32,11 +31,6 @@ class GetViewLayoutTagsContainers implements GetViewLayoutTags
     protected $findContainerCmsResourcesBySitePaths;
 
     /**
-     * @var FindContainerVersion
-     */
-    protected $findContainerVersion;
-
-    /**
      * @var GetContainerRenderTags
      */
     protected $getContainerRenderTags;
@@ -47,22 +41,19 @@ class GetViewLayoutTagsContainers implements GetViewLayoutTags
     protected $renderContainer;
 
     /**
-     * @param GetTagNamesByLayout                 $getTagNamesByLayout
+     * @param GetTagNamesByLayout                  $getTagNamesByLayout
      * @param FindContainerCmsResourcesBySitePaths $findContainerCmsResourcesBySitePaths
-     * @param FindContainerVersion                 $findContainerVersion
      * @param GetContainerRenderTags               $getContainerRenderTags
      * @param RenderContainer                      $renderContainer
      */
     public function __construct(
         GetTagNamesByLayout $getTagNamesByLayout,
         FindContainerCmsResourcesBySitePaths $findContainerCmsResourcesBySitePaths,
-        FindContainerVersion $findContainerVersion,
         GetContainerRenderTags $getContainerRenderTags,
         RenderContainer $renderContainer
     ) {
         $this->getTagNamesByLayout = $getTagNamesByLayout;
         $this->findContainerCmsResourcesBySitePaths = $findContainerCmsResourcesBySitePaths;
-        $this->findContainerVersion = $findContainerVersion;
         $this->getContainerRenderTags = $getContainerRenderTags;
         $this->renderContainer = $renderContainer;
     }
@@ -83,7 +74,7 @@ class GetViewLayoutTagsContainers implements GetViewLayoutTags
     {
         $siteCmsResource = $view->getSiteCmsResource();
 
-        $layout = $view->getLayout();
+        $layout = $view->getLayoutCmsResource()->getContentVersion();
 
         $layoutTags = $this->getTagNamesByLayout->__invoke(
             $layout
@@ -104,9 +95,7 @@ class GetViewLayoutTagsContainers implements GetViewLayoutTags
         foreach ($containerCmsResources as $containerCmsResource) {
 
             /** @var Container $container */
-            $container = $this->findContainerVersion->__invoke(
-                $containerCmsResource->getContentVersionId()
-            );
+            $container = $containerCmsResource->getContentVersion();
 
             $containerRenderTags = $this->getContainerRenderTags->__invoke(
                 $container,

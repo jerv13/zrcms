@@ -2,6 +2,7 @@
 
 namespace Zrcms\ContentCore\Page\Model;
 
+use Zrcms\Content\Model\ContentVersion;
 use Zrcms\ContentCore\Container\Model\ContainerCmsResource;
 
 /**
@@ -9,5 +10,8 @@ use Zrcms\ContentCore\Container\Model\ContainerCmsResource;
  */
 interface PageContainerCmsResource extends ContainerCmsResource
 {
-
+    /**
+     * @return PageContainerVersion|ContentVersion
+     */
+    public function getContentVersion(): ContentVersion;
 }

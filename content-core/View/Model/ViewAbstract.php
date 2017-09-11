@@ -53,16 +53,6 @@ abstract class ViewAbstract extends ContentAbstract implements View
             )
         );
 
-        $this->site = Param::getRequired(
-            $properties,
-            PropertiesView::SITE,
-            PropertyMissingException::build(
-                PropertiesView::SITE,
-                $properties,
-                get_class($this)
-            )
-        );
-
         $this->pageContainerCmsResource = Param::getRequired(
             $properties,
             PropertiesView::PAGE_CONTAINER_CMS_RESOURCE,
@@ -73,31 +63,11 @@ abstract class ViewAbstract extends ContentAbstract implements View
             )
         );
 
-        $this->page = Param::getRequired(
-            $properties,
-            PropertiesView::PAGE,
-            PropertyMissingException::build(
-                PropertiesView::PAGE,
-                $properties,
-                get_class($this)
-            )
-        );
-
         $this->layoutCmsResource = Param::getRequired(
             $properties,
             PropertiesView::LAYOUT_CMS_RESOURCE,
             PropertyMissingException::build(
                 PropertiesView::LAYOUT_CMS_RESOURCE,
-                $properties,
-                get_class($this)
-            )
-        );
-
-        $this->layout = Param::getRequired(
-            $properties,
-            PropertiesView::LAYOUT,
-            PropertyMissingException::build(
-                PropertiesView::LAYOUT,
                 $properties,
                 get_class($this)
             )
@@ -117,14 +87,6 @@ abstract class ViewAbstract extends ContentAbstract implements View
     }
 
     /**
-     * @return Site
-     */
-    public function getSite(): Site
-    {
-        return $this->site;
-    }
-
-    /**
      * @return PageContainerCmsResource
      */
     public function getPageContainerCmsResource(): PageContainerCmsResource
@@ -133,26 +95,10 @@ abstract class ViewAbstract extends ContentAbstract implements View
     }
 
     /**
-     * @return Page
-     */
-    public function getPage(): Page
-    {
-        return $this->page;
-    }
-
-    /**
      * @return LayoutCmsResource
      */
     public function getLayoutCmsResource(): LayoutCmsResource
     {
         return $this->layoutCmsResource;
-    }
-
-    /**
-     * @return Layout
-     */
-    public function getLayout(): Layout
-    {
-        return $this->layout;
     }
 }

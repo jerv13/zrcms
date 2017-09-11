@@ -4,8 +4,8 @@ namespace Zrcms\HttpExpressive1\HttpAlways;
 
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
-use Zrcms\ContentCore\Site\Api\GetSiteCmsResourceVersionByRequest;
-use Zrcms\ContentCore\Site\Model\SiteCmsResourceVersion;
+use Zrcms\ContentCore\Site\Api\GetSiteCmsResourceByRequest;
+use Zrcms\ContentCore\Site\Model\SiteCmsResource;
 use Zrcms\Locale\Api\SetLocale;
 
 /**
@@ -19,20 +19,20 @@ class LocaleFromSite
     protected $setLocale;
 
     /**
-     * @var GetSiteCmsResourceVersionByRequest
+     * @var GetSiteCmsResourceByRequest
      */
-    protected $getSiteCmsResourceVersionByRequest;
+    protected $getSiteCmsResourceByRequest;
 
     /**
-     * @param SetLocale                          $setLocale
-     * @param GetSiteCmsResourceVersionByRequest $getSiteCmsResourceVersionByRequest
+     * @param SetLocale                   $setLocale
+     * @param GetSiteCmsResourceByRequest $getSiteCmsResourceByRequest
      */
     public function __construct(
         SetLocale $setLocale,
-        GetSiteCmsResourceVersionByRequest $getSiteCmsResourceVersionByRequest
+        GetSiteCmsResourceByRequest $getSiteCmsResourceByRequest
     ) {
         $this->setLocale = $setLocale;
-        $this->getSiteCmsResourceVersionByRequest = $getSiteCmsResourceVersionByRequest;
+        $this->getSiteCmsResourceByRequest = $getSiteCmsResourceByRequest;
     }
 
     /**
@@ -50,18 +50,18 @@ class LocaleFromSite
         ResponseInterface $response,
         callable $next = null
     ) {
-        /** @var SiteCmsResourceVersion $siteResourceVersion */
-        $siteResourceVersion = $this->getSiteCmsResourceVersionByRequest->__invoke(
+        /** @var SiteCmsResource $siteCmsResource */
+        $siteCmsResource = $this->getSiteCmsResourceByRequest->__invoke(
             $request
         );
 
-        if (empty($siteResourceVersion)) {
+        if (empty($siteCmsResource)) {
             $this->setLocale->__invoke(null);
 
             return $next($request, $response);
         }
 
-        $this->setLocale->__invoke($siteResourceVersion->getVersion()->getLocale());
+        $this->setLocale->__invoke($siteCmsResource->getContentVersion()->getLocale());
 
         return $next($request, $response);
     }

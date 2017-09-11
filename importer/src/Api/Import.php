@@ -256,7 +256,7 @@ class Import
                     [
                         PropertiesSiteCmsResource::ID => $site['id'],
                         PropertiesSiteCmsResource::HOST => $site['host'],
-                        PropertiesSiteCmsResource::CONTENT_VERSION_ID => $version->getId(),
+                        PropertiesSiteCmsResource::CONTENT_VERSION => $version,
                     ],
                     $createdByUserId,
                     $createdReason
@@ -339,7 +339,7 @@ class Import
                     [
                         PropertiesPageContainerCmsResource::SITE_CMS_RESOURCE_ID => $siteCmsResource->getId(),
                         PropertiesPageContainerCmsResource::PATH => $page['path'],
-                        PropertiesPageContainerCmsResource::CONTENT_VERSION_ID => $version->getId(),
+                        PropertiesPageContainerCmsResource::CONTENT_VERSION => $version,
                     ],
                     $createdByUserId,
                     $createdReason
@@ -406,7 +406,7 @@ class Import
                     [
                         PropertiesContainerCmsResource::SITE_CMS_RESOURCE_ID => $siteCmsResource->getId(),
                         PropertiesContainerCmsResource::PATH => $container['path'],
-                        PropertiesContainerCmsResource::CONTENT_VERSION_ID => $version->getId(),
+                        PropertiesContainerCmsResource::CONTENT_VERSION=> $version,
                     ],
                     $createdByUserId,
                     $createdReason
@@ -490,7 +490,7 @@ class Import
                     [
                         PropertiesRedirectCmsResource::SITE_CMS_RESOURCE_ID => $redirect['siteId'],
                         PropertiesRedirectCmsResource::REQUEST_PATH => $redirect['requestPath'],
-                        PropertiesRedirectCmsResource::CONTENT_VERSION_ID => $version->getId(),
+                        PropertiesRedirectCmsResource::CONTENT_VERSION => $version,
                         PropertiesRedirectCmsResource::PUBLISHED => Param::getBool($redirect, 'published', true),
                     ],
                     $createdByUserId,

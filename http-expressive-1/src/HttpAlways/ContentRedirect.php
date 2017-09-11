@@ -5,8 +5,8 @@ namespace Zrcms\HttpExpressive1\HttpAlways;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Zend\Diactoros\Response\RedirectResponse;
-use Zrcms\ContentCore\Site\Api\GetSiteCmsResourceVersionByRequest;
-use Zrcms\ContentRedirect\Api\Repository\FindRedirectCmsResourceVersionBySiteRequestPath;
+use Zrcms\ContentCore\Site\Api\GetSiteCmsResourceByRequest;
+use Zrcms\ContentRedirect\Api\Repository\FindRedirectCmsResourceBySiteRequestPath;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -14,14 +14,14 @@ use Zrcms\ContentRedirect\Api\Repository\FindRedirectCmsResourceVersionBySiteReq
 class ContentRedirect
 {
     /**
-     * @var GetSiteCmsResourceVersionByRequest
+     * @var GetSiteCmsResourceByRequest
      */
-    protected $getSiteCmsResourceVersionByRequest;
+    protected $getSiteCmsResourceByRequest;
 
     /**
-     * @var FindRedirectCmsResourceVersionBySiteRequestPath
+     * @var FindRedirectCmsResourceBySiteRequestPath
      */
-    protected $findRedirectCmsResourceVersionBySiteRequestPath;
+    protected $findRedirectCmsResourceBySiteRequestPath;
 
     /**
      * @var int
@@ -34,19 +34,19 @@ class ContentRedirect
     protected $headers = [];
 
     /**
-     * @param GetSiteCmsResourceVersionByRequest              $getSiteCmsResourceVersionByRequest
-     * @param FindRedirectCmsResourceVersionBySiteRequestPath $findRedirectCmsResourceVersionBySiteRequestPath
+     * @param GetSiteCmsResourceByRequest                     $getSiteCmsResourceByRequest
+     * @param FindRedirectCmsResourceBySiteRequestPath $findRedirectCmsResourceBySiteRequestPath
      * @param int                                             $redirectStatus
      * @param array                                           $headers
      */
     public function __construct(
-        GetSiteCmsResourceVersionByRequest $getSiteCmsResourceVersionByRequest,
-        FindRedirectCmsResourceVersionBySiteRequestPath $findRedirectCmsResourceVersionBySiteRequestPath,
+        GetSiteCmsResourceByRequest $getSiteCmsResourceByRequest,
+        FindRedirectCmsResourceBySiteRequestPath $findRedirectCmsResourceBySiteRequestPath,
         int $redirectStatus = 302,
         array $headers = []
     ) {
-        $this->getSiteCmsResourceVersionByRequest = $getSiteCmsResourceVersionByRequest;
-        $this->findRedirectCmsResourceVersionBySiteRequestPath = $findRedirectCmsResourceVersionBySiteRequestPath;
+        $this->getSiteCmsResourceByRequest = $getSiteCmsResourceByRequest;
+        $this->findRedirectCmsResourceBySiteRequestPath = $findRedirectCmsResourceBySiteRequestPath;
         $this->redirectStatus = $redirectStatus;
         $this->headers = $headers;
     }
@@ -66,18 +66,18 @@ class ContentRedirect
         ResponseInterface $response,
         callable $next = null
     ) {
-        $siteCmsResourceVersion = $this->getSiteCmsResourceVersionByRequest->__invoke(
+        $siteCmsResource = $this->getSiteCmsResourceByRequest->__invoke(
             $request
         );
 
-        if (empty($siteCmsResourceVersion)) {
+        if (empty($siteCmsResource)) {
             return $next($request, $response);
         }
 
         $uri = $request->getUri();
 
-        $redirect = $this->findRedirectCmsResourceVersionBySiteRequestPath->__invoke(
-            $siteCmsResourceVersion->getCmsResourceId(),
+        $redirectCmsResource = $this->findRedirectCmsResourceBySiteRequestPath->__invoke(
+            $siteCmsResource->getId(),
             $uri->getPath()
         );
 
@@ -86,7 +86,7 @@ class ContentRedirect
         }
 
         return new RedirectResponse(
-            $redirect->getVersion()->getRedirectPath(),
+            $redirectCmsResource->getContentVersion()->getRedirectPath(),
             $this->redirectStatus,
             $this->headers
         );

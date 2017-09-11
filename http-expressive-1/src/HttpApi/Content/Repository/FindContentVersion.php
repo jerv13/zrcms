@@ -69,9 +69,9 @@ class FindContentVersion
         ResponseInterface $response,
         callable $next = null
     ) {
-        $contentVersionId = $request->getAttribute('id');
+        $requestedContentVersionId = $request->getAttribute('id');
 
-        if (empty($contentVersionId)) {
+        if (empty($requestedContentVersionId)) {
             $response = new JsonResponse(
                 null,
                 400
@@ -93,7 +93,7 @@ class FindContentVersion
         }
 
         $contentVersion = $this->findContentVersion->__invoke(
-            $contentVersionId
+            $requestedContentVersionId
         );
 
         if (empty($contentVersion)) {
@@ -107,7 +107,7 @@ class FindContentVersion
                 [
                     HandleResponseOptions::API_MESSAGES => [
                         'type' => $this->name,
-                        'value' => 'Not found for id: ' . $contentVersionId,
+                        'value' => 'Not found for id: ' . $requestedContentVersionId,
                         'source' => self::SOURCE,
                         'code' => ResponseCodes::NOT_FOUND,
                         'primary' => true,

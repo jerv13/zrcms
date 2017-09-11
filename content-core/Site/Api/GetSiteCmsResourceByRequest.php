@@ -3,19 +3,19 @@
 namespace Zrcms\ContentCore\Site\Api;
 
 use Psr\Http\Message\ServerRequestInterface;
-use Zrcms\Content\Model\CmsResourceVersion;
-use Zrcms\ContentCore\Site\Model\SiteCmsResourceVersion;
-use Zrcms\ContentCoreDoctrineDataSource\Site\Api\Repository\FindSiteCmsResourceVersionByHost;
+use Zrcms\Content\Model\CmsResource;
+use Zrcms\ContentCore\Site\Model\SiteCmsResource;
+use Zrcms\ContentCoreDoctrineDataSource\Site\Api\Repository\FindSiteCmsResourceByHost;
 
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class GetSiteCmsResourceVersionByRequest
+class GetSiteCmsResourceByRequest
 {
     /**
-     * @var FindSiteCmsResourceVersionByHost
+     * @var FindSiteCmsResourceByHost
      */
-    protected $findSiteCmsResourceVersionByHost;
+    protected $findSiteCmsResourceByHost;
 
     /**
      * @todo Implement an expiration for long running services
@@ -25,19 +25,19 @@ class GetSiteCmsResourceVersionByRequest
     protected $cache = [];
 
     /**
-     * @param FindSiteCmsResourceVersionByHost $findSiteCmsResourceVersionByHost
+     * @param FindSiteCmsResourceByHost $findSiteCmsResourceByHost
      */
     public function __construct(
-        FindSiteCmsResourceVersionByHost $findSiteCmsResourceVersionByHost
+        FindSiteCmsResourceByHost $findSiteCmsResourceByHost
     ) {
-        $this->findSiteCmsResourceVersionByHost = $findSiteCmsResourceVersionByHost;
+        $this->findSiteCmsResourceByHost = $findSiteCmsResourceByHost;
     }
 
     /**
      * @param ServerRequestInterface $request
      * @param array                  $options
      *
-     * @return SiteCmsResourceVersion|CmsResourceVersion|null
+     * @return SiteCmsResource|CmsResource|null
      */
     public function __invoke(
         ServerRequestInterface $request,
@@ -51,12 +51,12 @@ class GetSiteCmsResourceVersionByRequest
             return $this->cache[$host];
         }
 
-        $siteCmsResourceVersion = $this->findSiteCmsResourceVersionByHost->__invoke(
+        $siteCmsResource = $this->findSiteCmsResourceByHost->__invoke(
             $host
         );
 
-        $this->cache[$host] = $siteCmsResourceVersion;
+        $this->cache[$host] = $siteCmsResource;
 
-        return $siteCmsResourceVersion;
+        return $siteCmsResource;
     }
 }

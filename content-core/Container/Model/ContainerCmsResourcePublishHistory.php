@@ -3,6 +3,7 @@
 namespace Zrcms\ContentCore\Container\Model;
 
 use Zrcms\Content\Model\CmsResourcePublishHistory;
+use Zrcms\Content\Model\ContentVersion;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -10,5 +11,8 @@ use Zrcms\Content\Model\CmsResourcePublishHistory;
 interface ContainerCmsResourcePublishHistory
     extends ContainerCmsResource, CmsResourcePublishHistory
 {
-
+    /**
+     * @return ContainerVersion|ContentVersion
+     */
+    public function getContentVersion(): ContentVersion;
 }

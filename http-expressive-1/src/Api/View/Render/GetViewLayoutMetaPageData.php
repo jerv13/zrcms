@@ -75,9 +75,9 @@ class GetViewLayoutMetaPageData implements GetViewLayoutTags
         }
 
         $siteResource = $view->getSiteCmsResource();
-        $siteVersion = $view->getSite();
+        $siteVersion = $siteResource->getContentVersion();
         $pageResource = $view->getPageContainerCmsResource();
-        $pageVersion = $view->getPage();
+        $pageVersion = $pageResource->getContentVersion();
         $layoutResource = $view->getLayoutCmsResource();
 
         $originalPath = $this->getOriginalPath($request);

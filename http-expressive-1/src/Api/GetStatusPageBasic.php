@@ -4,7 +4,7 @@ namespace Zrcms\HttpExpressive1\Api;
 
 use Psr\Http\Message\ServerRequestInterface;
 use Zrcms\ContentCore\Basic\Api\Repository\FindBasicComponent;
-use Zrcms\ContentCore\Site\Api\GetSiteCmsResourceVersionByRequest;
+use Zrcms\ContentCore\Site\Api\GetSiteCmsResourceByRequest;
 use Zrcms\HttpExpressive1\Model\HttpExpressiveComponent;
 
 /**
@@ -13,9 +13,9 @@ use Zrcms\HttpExpressive1\Model\HttpExpressiveComponent;
 class GetStatusPageBasic implements GetStatusPage
 {
     /**
-     * @var GetSiteCmsResourceVersionByRequest
+     * @var GetSiteCmsResourceByRequest
      */
-    protected $getSiteCmsResourceVersionByRequest;
+    protected $getSiteCmsResourceByRequest;
 
     /**
      * @var FindBasicComponent
@@ -23,14 +23,14 @@ class GetStatusPageBasic implements GetStatusPage
     protected $findBasicComponent;
 
     /**
-     * @param GetSiteCmsResourceVersionByRequest $getSiteCmsResourceVersionByRequest
-     * @param FindBasicComponent                 $findBasicComponent
+     * @param GetSiteCmsResourceByRequest $getSiteCmsResourceByRequest
+     * @param FindBasicComponent          $findBasicComponent
      */
     public function __construct(
-        GetSiteCmsResourceVersionByRequest $getSiteCmsResourceVersionByRequest,
+        GetSiteCmsResourceByRequest $getSiteCmsResourceByRequest,
         FindBasicComponent $findBasicComponent
     ) {
-        $this->getSiteCmsResourceVersionByRequest = $getSiteCmsResourceVersionByRequest;
+        $this->getSiteCmsResourceByRequest = $getSiteCmsResourceByRequest;
         $this->findBasicComponent = $findBasicComponent;
     }
 
@@ -53,11 +53,11 @@ class GetStatusPageBasic implements GetStatusPage
 
         $statusPage = $component->findStatusPage($status);
 
-        $siteResourceVersion = $this->getSiteCmsResourceVersionByRequest->__invoke($request);
+        $siteCmsResource = $this->getSiteCmsResourceByRequest->__invoke($request);
 
         // Try to get the $statusPage from site
-        if (!empty($siteResourceVersion)) {
-            $siteVersion = $siteResourceVersion->getVersion();
+        if (!empty($siteCmsResource)) {
+            $siteVersion = $siteCmsResource->getContentVersion();
             $statusPage = $siteVersion->findStatusPage(
                 $status,
                 $statusPage

@@ -105,13 +105,16 @@ class PublishCmsResource
             $this->entityClassContentVersion
         );
 
+        $requestedContentVersionId = $cmsResource->getContentVersion()->getId();
+
         $existingContentVersion = $repositoryContentVersion->find(
-            $cmsResource->getContentVersionId()
+            $requestedContentVersionId
         );
 
         if (empty($existingContentVersion)) {
+            // @todo We might create this instead of throwing
             throw new ContentVersionNotExistsException(
-                'No content version exists for content version ID: ' . $cmsResource->getContentVersionId()
+                'No content version exists for content version ID: ' . $requestedContentVersionId
             );
         }
 
@@ -119,8 +122,8 @@ class PublishCmsResource
             $this->entityClassCmsResource
         );
 
-        /** @var CmsResourceEntity $existingCmsResource */
-        $existingCmsResource = $repositoryCmsResource->find(
+        /** @var CmsResourceEntity $existingCmsResourceEntity */
+        $existingCmsResourceEntity = $repositoryCmsResource->find(
             $cmsResource->getId()
         );
 
@@ -128,9 +131,9 @@ class PublishCmsResource
 
         $properties[PropertiesCmsResource::PUBLISHED] = true;
 
-        if ($existingCmsResource) {
+        if ($existingCmsResourceEntity) {
             return $this->update(
-                $existingCmsResource,
+                $existingCmsResourceEntity,
                 $properties,
                 $publishedByUserId,
                 $publishReason

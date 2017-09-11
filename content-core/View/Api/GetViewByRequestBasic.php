@@ -5,21 +5,19 @@ namespace Zrcms\ContentCore\View\Api;
 use Psr\Http\Message\ServerRequestInterface;
 use Zrcms\Content\Exception\CmsResourceNotExistsException;
 use Zrcms\Content\Exception\ContentVersionNotExistsException;
-use Zrcms\ContentCore\Page\Api\Repository\FindPageContainerCmsResourceVersionBySitePath;
+use Zrcms\ContentCore\Page\Api\Repository\FindPageContainerCmsResourceBySitePath;
 use Zrcms\ContentCore\Page\Api\Repository\FindPageContainerVersion;
 use Zrcms\ContentCore\Page\Exception\PageNotFoundException;
-use Zrcms\ContentCore\Page\Model\PageContainerCmsResourceVersion;
-use Zrcms\ContentCore\Site\Api\Repository\FindSiteCmsResourceVersionByHost;
+use Zrcms\ContentCore\Page\Model\PageContainerCmsResource;
+use Zrcms\ContentCore\Site\Api\Repository\FindSiteCmsResourceByHost;
 use Zrcms\ContentCore\Site\Api\Repository\FindSiteVersion;
 use Zrcms\ContentCore\Site\Exception\SiteNotFoundException;
-use Zrcms\ContentCore\Site\Model\SiteCmsResourceVersion;
-use Zrcms\ContentCore\Theme\Api\Repository\FindLayoutCmsResourceVersionByThemeNameLayoutName;
+use Zrcms\ContentCore\Site\Model\SiteCmsResource;
+use Zrcms\ContentCore\Theme\Api\Repository\FindLayoutCmsResourceByThemeNameLayoutName;
 use Zrcms\ContentCore\Theme\Api\Repository\FindLayoutVersion;
 use Zrcms\ContentCore\Theme\Api\Repository\FindThemeComponent;
 use Zrcms\ContentCore\Theme\Exception\ThemeNotFoundException;
-use Zrcms\ContentCore\Theme\Model\LayoutCmsResourceVersion;
-use Zrcms\ContentCore\View\Api\BuildView;
-use Zrcms\ContentCore\View\Api\GetLayoutName;
+use Zrcms\ContentCore\Theme\Model\LayoutCmsResource;
 use Zrcms\ContentCore\View\Api\Render\GetViewLayoutTags;
 use Zrcms\ContentCore\View\Api\Render\RenderView;
 use Zrcms\ContentCore\View\Model\PropertiesView;
@@ -33,9 +31,9 @@ use Zrcms\Param\Param;
 class GetViewByRequestBasic implements GetViewByRequest
 {
     /**
-     * @var FindSiteCmsResourceVersionByHost
+     * @var FindSiteCmsResourceByHost
      */
-    protected $findSiteCmsResourceVersionByHost;
+    protected $findSiteCmsResourceByHost;
 
     /**
      * @var FindSiteVersion
@@ -43,9 +41,9 @@ class GetViewByRequestBasic implements GetViewByRequest
     protected $findSiteVersion;
 
     /**
-     * @var FindPageContainerCmsResourceVersionBySitePath
+     * @var FindPageContainerCmsResourceBySitePath
      */
-    protected $findPageContainerCmsResourceVersionBySitePath;
+    protected $findPageContainerCmsResourceBySitePath;
 
     /**
      * @var FindPageContainerVersion
@@ -53,9 +51,9 @@ class GetViewByRequestBasic implements GetViewByRequest
     protected $findPageContainerVersion;
 
     /**
-     * @var FindLayoutCmsResourceVersionByThemeNameLayoutName
+     * @var FindLayoutCmsResourceByThemeNameLayoutName
      */
-    protected $findLayoutCmsResourceVersionByThemeNameLayoutName;
+    protected $findLayoutCmsResourceByThemeNameLayoutName;
 
     /**
      * @var FindLayoutVersion
@@ -88,28 +86,28 @@ class GetViewByRequestBasic implements GetViewByRequest
     protected $buildView;
 
     /**
-     * @param FindSiteCmsResourceVersionByHost                  $findSiteCmsResourceVersionByHost
-     * @param FindPageContainerCmsResourceVersionBySitePath     $findPageContainerCmsResourceVersionBySitePath
-     * @param FindLayoutCmsResourceVersionByThemeNameLayoutName $findLayoutCmsResourceVersionByThemeNameLayoutName
-     * @param GetLayoutName                                     $getLayoutName
-     * @param FindThemeComponent                                $findThemeComponent
-     * @param GetViewLayoutTags                                 $getViewLayoutTags
-     * @param RenderView                                        $renderView
-     * @param BuildView                                         $buildView
+     * @param FindSiteCmsResourceByHost                  $findSiteCmsResourceByHost
+     * @param FindPageContainerCmsResourceBySitePath     $findPageContainerCmsResourceBySitePath
+     * @param FindLayoutCmsResourceByThemeNameLayoutName $findLayoutCmsResourceByThemeNameLayoutName
+     * @param GetLayoutName                              $getLayoutName
+     * @param FindThemeComponent                         $findThemeComponent
+     * @param GetViewLayoutTags                          $getViewLayoutTags
+     * @param RenderView                                 $renderView
+     * @param BuildView                                  $buildView
      */
     public function __construct(
-        FindSiteCmsResourceVersionByHost $findSiteCmsResourceVersionByHost,
-        FindPageContainerCmsResourceVersionBySitePath $findPageContainerCmsResourceVersionBySitePath,
-        FindLayoutCmsResourceVersionByThemeNameLayoutName $findLayoutCmsResourceVersionByThemeNameLayoutName,
+        FindSiteCmsResourceByHost $findSiteCmsResourceByHost,
+        FindPageContainerCmsResourceBySitePath $findPageContainerCmsResourceBySitePath,
+        FindLayoutCmsResourceByThemeNameLayoutName $findLayoutCmsResourceByThemeNameLayoutName,
         GetLayoutName $getLayoutName,
         FindThemeComponent $findThemeComponent,
         GetViewLayoutTags $getViewLayoutTags,
         RenderView $renderView,
         BuildView $buildView
     ) {
-        $this->findSiteCmsResourceVersionByHost = $findSiteCmsResourceVersionByHost;
-        $this->findPageContainerCmsResourceVersionBySitePath = $findPageContainerCmsResourceVersionBySitePath;
-        $this->findLayoutCmsResourceVersionByThemeNameLayoutName = $findLayoutCmsResourceVersionByThemeNameLayoutName;
+        $this->findSiteCmsResourceByHost = $findSiteCmsResourceByHost;
+        $this->findPageContainerCmsResourceBySitePath = $findPageContainerCmsResourceBySitePath;
+        $this->findLayoutCmsResourceByThemeNameLayoutName = $findLayoutCmsResourceByThemeNameLayoutName;
         $this->getLayoutName = $getLayoutName;
 
         $this->findThemeComponent = $findThemeComponent;
@@ -135,8 +133,8 @@ class GetViewByRequestBasic implements GetViewByRequest
         $uri = $request->getUri();
 
         try {
-            /** @var SiteCmsResourceVersion $siteCmsResourceVersion */
-            $siteCmsResourceVersion = $this->findSiteCmsResourceVersionByHost->__invoke(
+            /** @var SiteCmsResource $siteCmsResource */
+            $siteCmsResource = $this->findSiteCmsResourceByHost->__invoke(
                 $uri->getHost()
             );
         } catch (CmsResourceNotExistsException $exception) {
@@ -153,13 +151,13 @@ class GetViewByRequestBasic implements GetViewByRequest
             );
         }
 
-        if (empty($siteCmsResourceVersion)) {
+        if (empty($siteCmsResource)) {
             throw new SiteNotFoundException(
                 'Site not found for host: (' . $uri->getHost() . ')'
             );
         }
 
-        $themeName = $siteCmsResourceVersion->getVersion()->getThemeName();
+        $themeName = $siteCmsResource->getContentVersion()->getThemeName();
 
         $themeComponent = $this->findThemeComponent->__invoke(
             $themeName
@@ -168,17 +166,17 @@ class GetViewByRequestBasic implements GetViewByRequest
         if (empty($themeComponent)) {
             throw new ThemeNotFoundException(
                 'Theme not found (' . $themeName . ')'
-                . ' for host: (' . $siteCmsResourceVersion->getCmsResource()->getHost() . ')'
-                . ' with site ID: (' . $siteCmsResourceVersion->getCmsResourceId() . ')'
+                . ' for host: (' . $siteCmsResource->getHost() . ')'
+                . ' with site ID: (' . $siteCmsResource->getContentVersion()->getId() . ')'
             );
         }
 
         $path = $uri->getPath();
 
         try {
-            /** @var PageContainerCmsResourceVersion $pageContainerCmsResourceVersion */
-            $pageContainerCmsResourceVersion = $this->findPageContainerCmsResourceVersionBySitePath->__invoke(
-                $siteCmsResourceVersion->getCmsResourceId(),
+            /** @var PageContainerCmsResource $pageContainerCmsResource */
+            $pageContainerCmsResource = $this->findPageContainerCmsResourceBySitePath->__invoke(
+                $siteCmsResource->getId(),
                 $path
             );
         } catch (CmsResourceNotExistsException $exception) {
@@ -197,15 +195,15 @@ class GetViewByRequestBasic implements GetViewByRequest
             );
         }
 
-        if (empty($pageContainerCmsResourceVersion)) {
+        if (empty($pageContainerCmsResource)) {
             throw new PageNotFoundException(
                 'Page not found for host: (' . $uri->getHost() . ')'
                 . ' and page: (' . $path . ')'
             );
         }
 
-        $siteVersion = $siteCmsResourceVersion->getVersion();
-        $pageContainerVersion = $pageContainerCmsResourceVersion->getVersion();
+        $siteVersion = $siteCmsResource->getContentVersion();
+        $pageContainerVersion = $pageContainerCmsResource->getContentVersion();
 
         $layoutName = $this->getLayoutName->__invoke(
             $siteVersion,
@@ -213,8 +211,8 @@ class GetViewByRequestBasic implements GetViewByRequest
         );
 
         try {
-            /** @var LayoutCmsResourceVersion $layoutCmsResourceVersion */
-            $layoutCmsResourceVersion = $this->findLayoutCmsResourceVersionByThemeNameLayoutName->__invoke(
+            /** @var LayoutCmsResource $layoutCmsResource */
+            $layoutCmsResource = $this->findLayoutCmsResourceByThemeNameLayoutName->__invoke(
                 $themeName,
                 $layoutName
             );
@@ -238,7 +236,7 @@ class GetViewByRequestBasic implements GetViewByRequest
             );
         }
 
-        if (empty($layoutCmsResourceVersion)) {
+        if (empty($layoutCmsResource)) {
             throw new PageNotFoundException(
                 'Layout not found: (' . $layoutName . ')'
                 . ' with theme name: (' . $themeName . ')'
@@ -252,22 +250,14 @@ class GetViewByRequestBasic implements GetViewByRequest
             => 'basic',
 
             PropertiesView::SITE_CMS_RESOURCE
-            => $siteCmsResourceVersion->getCmsResource(),
-
-            PropertiesView::SITE
-            => $siteVersion,
+            => $siteCmsResource,
 
             PropertiesView::PAGE_CONTAINER_CMS_RESOURCE
-            => $pageContainerCmsResourceVersion->getCmsResource(),
-
-            PropertiesView::PAGE
-            => $pageContainerVersion,
+            => $pageContainerCmsResource,
 
             PropertiesView::LAYOUT_CMS_RESOURCE
-            => $layoutCmsResourceVersion->getCmsResource(),
+            => $layoutCmsResource,
 
-            PropertiesView::LAYOUT
-            => $layoutCmsResourceVersion->getVersion(),
         ];
 
         $additionalProperties = Param::get(

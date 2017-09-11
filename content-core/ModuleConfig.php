@@ -50,7 +50,6 @@ use Zrcms\ContentCore\Container\Api\Render\RenderContainerRows;
 use Zrcms\ContentCore\Container\Api\Repository\FindContainerCmsResource;
 use Zrcms\ContentCore\Container\Api\Repository\FindContainerCmsResourcesBy;
 use Zrcms\ContentCore\Container\Api\Repository\FindContainerCmsResourcesBySitePaths;
-use Zrcms\ContentCore\Container\Api\Repository\FindContainerCmsResourceVersionsBySitePaths;
 use Zrcms\ContentCore\Container\Api\Repository\FindContainerVersion;
 use Zrcms\ContentCore\Container\Api\Repository\FindContainerVersionsBy;
 use Zrcms\ContentCore\Container\Api\Repository\InsertContainerVersion;
@@ -73,18 +72,16 @@ use Zrcms\ContentCore\Page\Api\Render\RenderPageContainerRows;
 use Zrcms\ContentCore\Page\Api\Repository\FindPageContainerCmsResource;
 use Zrcms\ContentCore\Page\Api\Repository\FindPageContainerCmsResourceBySitePath;
 use Zrcms\ContentCore\Page\Api\Repository\FindPageContainerCmsResourcesBy;
-use Zrcms\ContentCore\Page\Api\Repository\FindPageContainerCmsResourceVersionBySitePath;
 use Zrcms\ContentCore\Page\Api\Repository\FindPageContainerVersion;
 use Zrcms\ContentCore\Page\Api\Repository\FindPageContainerVersionsBy;
 use Zrcms\ContentCore\Page\Api\Repository\InsertPageContainerVersion;
 use Zrcms\ContentCore\Page\Model\ServiceAliasPageContainer;
 use Zrcms\ContentCore\Site\Api\Action\PublishSiteCmsResource;
 use Zrcms\ContentCore\Site\Api\Action\UnpublishSiteCmsResource;
-use Zrcms\ContentCore\Site\Api\GetSiteCmsResourceVersionByRequest;
+use Zrcms\ContentCore\Site\Api\GetSiteCmsResourceByRequest;
 use Zrcms\ContentCore\Site\Api\Repository\FindSiteCmsResource;
 use Zrcms\ContentCore\Site\Api\Repository\FindSiteCmsResourceByHost;
 use Zrcms\ContentCore\Site\Api\Repository\FindSiteCmsResourcesBy;
-use Zrcms\ContentCore\Site\Api\Repository\FindSiteCmsResourceVersionByHost;
 use Zrcms\ContentCore\Site\Api\Repository\FindSiteVersion;
 use Zrcms\ContentCore\Site\Api\Repository\FindSiteVersionsBy;
 use Zrcms\ContentCore\Site\Api\Repository\InsertSiteVersion;
@@ -103,7 +100,6 @@ use Zrcms\ContentCore\Theme\Api\Render\RenderLayoutMustache;
 use Zrcms\ContentCore\Theme\Api\Repository\FindLayoutCmsResource;
 use Zrcms\ContentCore\Theme\Api\Repository\FindLayoutCmsResourceByThemeNameLayoutName;
 use Zrcms\ContentCore\Theme\Api\Repository\FindLayoutCmsResourcesBy;
-use Zrcms\ContentCore\Theme\Api\Repository\FindLayoutCmsResourceVersionByThemeNameLayoutName;
 use Zrcms\ContentCore\Theme\Api\Repository\FindLayoutVersion;
 use Zrcms\ContentCore\Theme\Api\Repository\FindLayoutVersionsBy;
 use Zrcms\ContentCore\Theme\Api\Repository\FindThemeComponent;
@@ -346,12 +342,6 @@ class ModuleConfig
                             '0-' => ['literal' => FindContainerCmsResourcesBySitePaths::class],
                         ],
                     ],
-                    FindContainerCmsResourceVersionsBySitePaths::class => [
-                        'class' => ApiNoop::class,
-                        'arguments' => [
-                            '0-' => ['literal' => FindContainerCmsResourceVersionsBySitePaths::class],
-                        ],
-                    ],
                     FindContainerVersion::class => [
                         'class' => ApiNoop::class,
                         'arguments' => [
@@ -447,12 +437,6 @@ class ModuleConfig
                             '0-' => ['literal' => FindPageContainerCmsResourcesBy::class],
                         ],
                     ],
-                    FindPageContainerCmsResourceVersionBySitePath::class => [
-                        'class' => ApiNoop::class,
-                        'arguments' => [
-                            '0-' => ['literal' => FindPageContainerCmsResourceVersionBySitePath::class],
-                        ],
-                    ],
                     FindPageContainerVersion::class => [
                         'class' => ApiNoop::class,
                         'arguments' => [
@@ -504,12 +488,6 @@ class ModuleConfig
                             '0-' => ['literal' => FindSiteCmsResourcesBy::class],
                         ],
                     ],
-                    FindSiteCmsResourceVersionByHost::class => [
-                        'class' => ApiNoop::class,
-                        'arguments' => [
-                            '0-' => ['literal' => FindSiteCmsResourceVersionByHost::class],
-                        ],
-                    ],
                     FindSiteVersion::class => [
                         'class' => ApiNoop::class,
                         'arguments' => [
@@ -529,9 +507,9 @@ class ModuleConfig
                         ],
                     ],
 
-                    GetSiteCmsResourceVersionByRequest::class => [
+                    GetSiteCmsResourceByRequest::class => [
                         'arguments' => [
-                            '0-' => FindSiteCmsResourceVersionByHost::class,
+                            '0-' => FindSiteCmsResourceByHost::class,
                         ],
                     ],
 
@@ -601,12 +579,6 @@ class ModuleConfig
                             '0-' => ['literal' => FindLayoutCmsResourcesBy::class],
                         ],
                     ],
-                    FindLayoutCmsResourceVersionByThemeNameLayoutName::class => [
-                        'class' => ApiNoop::class,
-                        'arguments' => [
-                            '0-' => ['literal' => FindLayoutCmsResourceVersionByThemeNameLayoutName::class],
-                        ],
-                    ],
                     FindLayoutVersion::class => [
                         'class' => ApiNoop::class,
                         'arguments' => [
@@ -664,9 +636,8 @@ class ModuleConfig
                         'arguments' => [
                             '0-' => GetTagNamesByLayout::class,
                             '1-' => FindContainerCmsResourcesBySitePaths::class,
-                            '2-' => FindContainerVersion::class,
-                            '3-' => GetContainerRenderTags::class,
-                            '4-' => RenderContainer::class,
+                            '2-' => GetContainerRenderTags::class,
+                            '3-' => RenderContainer::class,
                         ],
                     ],
                     GetViewLayoutTagsPage::class => [
@@ -696,9 +667,9 @@ class ModuleConfig
                     GetViewByRequest::class => [
                         'class' => GetViewByRequestBasic::class,
                         'arguments' => [
-                            '0-' => FindSiteCmsResourceVersionByHost::class,
-                            '1-' => FindPageContainerCmsResourceVersionBySitePath::class,
-                            '2-' => FindLayoutCmsResourceVersionByThemeNameLayoutName::class,
+                            '0-' => FindSiteCmsResourceByHost::class,
+                            '1-' => FindPageContainerCmsResourceBySitePath::class,
+                            '2-' => FindLayoutCmsResourceByThemeNameLayoutName::class,
                             '3-' => GetLayoutName::class,
                             '4-' => FindThemeComponent::class,
                             '5-' => GetViewLayoutTags::class,
