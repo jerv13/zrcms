@@ -54,9 +54,9 @@ class ContainerCmsResourceEntity
     protected $contentVersion;
 
     /**
-     * @var string
+     * @var int
      *
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="integer", nullable=true)
      */
     protected $contentVersionId = null;
 

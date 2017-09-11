@@ -54,7 +54,7 @@ class SiteCmsResourceEntity
     /**
      * @var string
      *
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="integer", nullable=true)
      */
     protected $contentVersionId = null;
 
