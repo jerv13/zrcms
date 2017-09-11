@@ -1,6 +1,16 @@
 @todo
 =====
 
+- Write implementation test
+    - for each content type (Container with block, PageContainer, Site, ThemeLayout, View)
+    - Get components
+    - create content
+    - publish content
+    - unpublish content
+    - re-publish content
+    - find resource and version
+    
+
 - Refactor ResponseHandler as http-api-response-formatter
 
 - ContentDoctrine SyncProperties needs to be done separately for CmsResourcePublishHistory
