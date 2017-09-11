@@ -3,8 +3,10 @@
 namespace Zrcms\ContentCoreDoctrineDataSource\Container\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Zrcms\Content\Model\ContentVersion;
 use Zrcms\ContentCore\Container\Model\ContainerCmsResource;
 use Zrcms\ContentCore\Container\Model\ContainerCmsResourceAbstract;
+use Zrcms\ContentCore\Container\Model\ContainerVersion;
 use Zrcms\ContentCore\Container\Model\PropertiesContainerCmsResource;
 use Zrcms\ContentDoctrine\Entity\CmsResourceEntity;
 use Zrcms\ContentDoctrine\Entity\CmsResourceEntityTrait;
@@ -40,9 +42,21 @@ class ContainerCmsResourceEntity
     protected $id;
 
     /**
+     * @var ContainerVersionEntity
+     *
+     * @ORM\OneToOne(targetEntity="ContainerVersionEntity")
+     * @ORM\JoinColumn(
+     *     name="contentVersionId",
+     *     referencedColumnName="id",
+     *     onDelete="SET NULL"
+     * )
+     */
+    protected $contentVersion;
+
+    /**
      * @var string
      *
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="integer")
      */
     protected $contentVersionId = null;
 
@@ -129,11 +143,19 @@ class ContainerCmsResourceEntity
     }
 
     /**
+     * @return ContentVersion
+     */
+    public function getContentVersion(): ContentVersion
+    {
+        return $this->contentVersion;
+    }
+
+    /**
      * @return string
      */
     public function getContentVersionId(): string
     {
-        return $this->contentVersionId;
+        return (string)$this->contentVersionId;
     }
 
     /**
@@ -173,9 +195,9 @@ class ContainerCmsResourceEntity
             PropertiesContainerCmsResource::ID
         );
 
-        $this->contentVersionId = Param::getInt(
+        $this->contentVersion = Param::get(
             $properties,
-            PropertiesContainerCmsResource::CONTENT_VERSION_ID
+            PropertiesContainerCmsResource::CONTENT_VERSION
         );
 
         $this->siteCmsResourceId = Param::getInt(

@@ -2,6 +2,7 @@
 
 namespace Zrcms\ContentCore\Page\Model;
 
+use Zrcms\Content\Exception\ContentVersionNotExistsException;
 use Zrcms\ContentCore\Container\Model\ContainerCmsResourceAbstract;
 use Zrcms\ContentCore\Page\Exception\InvalidPathException;
 use Zrcms\Param\Param;
@@ -42,5 +43,20 @@ class PageContainerCmsResourceAbstract
             $createdByUserId,
             $createdReason
         );
+    }
+
+    /**
+     * @param $contentVersion
+     *
+     * @return void
+     * @throws ContentVersionNotExistsException
+     */
+    protected function assertValidContentVersion($contentVersion)
+    {
+        if (!$contentVersion instanceof PageContainerVersion) {
+            throw new ContentVersionNotExistsException(
+                'Missing required: ' . PropertiesPageContainerCmsResource::CONTENT_VERSION
+            );
+        }
     }
 }

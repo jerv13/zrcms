@@ -2,6 +2,7 @@
 
 namespace Zrcms\ContentCore\Theme\Model;
 
+use Zrcms\Content\Exception\ContentVersionNotExistsException;
 use Zrcms\Content\Exception\PropertyMissingException;
 use Zrcms\Content\Model\CmsResourceAbstract;
 use Zrcms\Param\Param;
@@ -31,7 +32,6 @@ abstract class LayoutCmsResourceAbstract extends CmsResourceAbstract implements 
                 get_class($this)
             )
         );
-
 
         Param::assertHas(
             $properties,
@@ -70,5 +70,20 @@ abstract class LayoutCmsResourceAbstract extends CmsResourceAbstract implements 
             PropertiesLayoutCmsResource::NAME,
             ''
         );
+    }
+
+    /**
+     * @param $contentVersion
+     *
+     * @return void
+     * @throws ContentVersionNotExistsException
+     */
+    protected function assertValidContentVersion($contentVersion)
+    {
+        if (!$contentVersion instanceof LayoutVersion) {
+            throw new ContentVersionNotExistsException(
+                'Missing required: ' . PropertiesLayoutCmsResource::CONTENT_VERSION
+            );
+        }
     }
 }

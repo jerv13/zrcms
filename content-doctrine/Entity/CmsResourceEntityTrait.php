@@ -39,7 +39,7 @@ trait CmsResourceEntityTrait
     public function postPersist(LifecycleEventArgs $event)
     {
         $this->properties[PropertiesCmsResource::ID] = $this->id;
-        $this->properties[PropertiesCmsResource::CONTENT_VERSION_ID] = $this->contentVersionId;
+        $this->properties[PropertiesCmsResource::CONTENT_VERSION] = $this->contentVersion;
         $this->properties[PropertiesCmsResource::PUBLISHED] = $this->published;
     }
 }

@@ -33,10 +33,9 @@ class LayoutCmsResourceEntitySafe extends LayoutCmsResourceEntity
             ''
         );
 
-        $this->contentVersionId = Param::getString(
+        $this->contentVersion = Param::getRequired(
             $properties,
-            PropertiesLayoutCmsResource::CONTENT_VERSION_ID,
-            ''
+            PropertiesLayoutCmsResource::CONTENT_VERSION
         );
 
         $this->published = Param::getBool(

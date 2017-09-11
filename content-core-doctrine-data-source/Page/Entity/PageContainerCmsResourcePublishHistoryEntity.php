@@ -3,6 +3,7 @@
 namespace Zrcms\ContentCoreDoctrineDataSource\Page\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Zrcms\Content\Model\ContentVersion;
 use Zrcms\Content\Model\PropertiesCmsResourcePublishHistory;
 use Zrcms\ContentCore\Page\Model\PageContainerCmsResourcePublishHistory;
 use Zrcms\ContentCore\Page\Model\PageContainerCmsResourcePublishHistoryAbstract;
@@ -37,9 +38,21 @@ class PageContainerCmsResourcePublishHistoryEntity
     protected $id;
 
     /**
+     * @var PageContainerVersionEntity
+     *
+     * @ORM\OneToOne(targetEntity="PageContainerVersionEntity")
+     * @ORM\JoinColumn(
+     *     name="contentVersionId",
+     *     referencedColumnName="id",
+     *     onDelete="SET NULL"
+     * )
+     */
+    protected $contentVersion;
+
+    /**
      * @var string
      *
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="integer")
      */
     protected $contentVersionId = null;
 
@@ -127,9 +140,9 @@ class PageContainerCmsResourcePublishHistoryEntity
             PropertiesPageContainerCmsResource::ID
         );
 
-        $this->contentVersionId = Param::getInt(
+        $this->contentVersion = Param::get(
             $properties,
-            PropertiesPageContainerCmsResource::CONTENT_VERSION_ID
+            PropertiesPageContainerCmsResource::CONTENT_VERSION
         );
 
         $this->published = Param::getBool(
@@ -173,11 +186,19 @@ class PageContainerCmsResourcePublishHistoryEntity
     }
 
     /**
+     * @return ContentVersion
+     */
+    public function getContentVersion(): ContentVersion
+    {
+        return $this->contentVersion;
+    }
+
+    /**
      * @return string
      */
     public function getContentVersionId(): string
     {
-        return $this->contentVersionId;
+        return (string)$this->contentVersionId;
     }
 
     /**

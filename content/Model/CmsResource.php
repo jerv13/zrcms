@@ -24,9 +24,9 @@ interface CmsResource extends Immutable, Properties, Trackable
     public function getId(): string;
 
     /**
-     * @return string
+     * @return ContentVersion
      */
-    public function getContentVersionId(): string;
+    public function getContentVersion(): ContentVersion;
 
     /**
      * @return bool

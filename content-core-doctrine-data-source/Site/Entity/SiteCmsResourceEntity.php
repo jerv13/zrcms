@@ -3,6 +3,7 @@
 namespace Zrcms\ContentCoreDoctrineDataSource\Site\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Zrcms\Content\Model\ContentVersion;
 use Zrcms\ContentCore\Site\Model\PropertiesSiteCmsResource;
 use Zrcms\ContentCore\Site\Model\SiteCmsResource;
 use Zrcms\ContentCore\Site\Model\SiteCmsResourceAbstract;
@@ -39,9 +40,21 @@ class SiteCmsResourceEntity
     protected $id;
 
     /**
+     * @var SiteVersionEntity
+     *
+     * @ORM\OneToOne(targetEntity="SiteVersionEntity")
+     * @ORM\JoinColumn(
+     *     name="contentVersionId",
+     *     referencedColumnName="id",
+     *     onDelete="SET NULL"
+     * )
+     */
+    protected $contentVersion;
+
+    /**
      * @var string
      *
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="integer")
      */
     protected $contentVersionId = null;
 
@@ -121,11 +134,19 @@ class SiteCmsResourceEntity
     }
 
     /**
+     * @return ContentVersion
+     */
+    public function getContentVersion(): ContentVersion
+    {
+        return $this->contentVersion;
+    }
+
+    /**
      * @return string
      */
     public function getContentVersionId(): string
     {
-        return $this->contentVersionId;
+        return (string)$this->contentVersionId;
     }
 
     /**
@@ -157,9 +178,9 @@ class SiteCmsResourceEntity
             PropertiesSiteCmsResource::ID
         );
 
-        $this->contentVersionId = Param::getInt(
+        $this->contentVersion = Param::get(
             $properties,
-            PropertiesSiteCmsResource::CONTENT_VERSION_ID
+            PropertiesSiteCmsResource::CONTENT_VERSION
         );
 
         $this->published = Param::getBool(

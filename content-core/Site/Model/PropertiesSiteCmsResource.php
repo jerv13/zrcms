@@ -19,7 +19,7 @@ class PropertiesSiteCmsResource extends PropertiesCmsResource
     protected $properties
         = [
             self::ID => '',
-            self::CONTENT_VERSION_ID => '',
+            self::CONTENT_VERSION => null,
             self::PUBLISHED => true,
             self::HOST => '',
         ];

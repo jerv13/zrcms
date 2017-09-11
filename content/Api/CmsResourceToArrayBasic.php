@@ -3,18 +3,29 @@
 namespace Zrcms\Content\Api;
 
 use Zrcms\Content\Model\CmsResource;
-use Zrcms\Content\Model\OptionsToArray;
 use Zrcms\Content\Model\Properties;
 use Zrcms\Content\Model\PropertiesCmsResource;
-use Zrcms\Content\Model\Trackable;
 use Zrcms\Content\Model\TrackableProperties;
-use Zrcms\Param\Param;
 
 /**
  * @author James Jervis - https://github.com/jerv13
  */
 class CmsResourceToArrayBasic implements CmsResourceToArray
 {
+    /**
+     * @var ContentVersionToArray
+     */
+    protected $contentVersionToArray;
+
+    /**
+     * @param ContentVersionToArray $contentVersionToArray
+     */
+    public function __construct(
+        ContentVersionToArray $contentVersionToArray
+    ) {
+        $this->contentVersionToArray = $contentVersionToArray;
+    }
+
     /**
      * @param CmsResource $cmsResource
      * @param array       $options
@@ -26,18 +37,14 @@ class CmsResourceToArrayBasic implements CmsResourceToArray
         array $options = []
     ): array
     {
-        $dateFormat = Param::get(
-            $options,
-            OptionsToArray::CREATED_DATE_FORMAT,
-            Trackable::DATE_FORMAT
-        );
-
         return [
             PropertiesCmsResource::ID
             => $cmsResource->getId(),
 
-            PropertiesCmsResource::CONTENT_VERSION_ID
-            => $cmsResource->getContentVersionId(),
+            PropertiesCmsResource::CONTENT_VERSION
+            => $this->contentVersionToArray->__invoke(
+                $cmsResource->getContentVersion()
+            ),
 
             PropertiesCmsResource::PUBLISHED
             => $cmsResource->isPublished(),

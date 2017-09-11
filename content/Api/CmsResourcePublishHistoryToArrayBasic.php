@@ -3,18 +3,29 @@
 namespace Zrcms\Content\Api;
 
 use Zrcms\Content\Model\CmsResourcePublishHistory;
-use Zrcms\Content\Model\OptionsToArray;
 use Zrcms\Content\Model\Properties;
 use Zrcms\Content\Model\PropertiesCmsResourcePublishHistory;
-use Zrcms\Content\Model\Trackable;
 use Zrcms\Content\Model\TrackableProperties;
-use Zrcms\Param\Param;
 
 /**
  * @author James Jervis - https://github.com/jerv13
  */
 class CmsResourcePublishHistoryToArrayBasic implements CmsResourcePublishHistoryToArray
 {
+    /**
+     * @var ContentVersionToArray
+     */
+    protected $contentVersionToArray;
+
+    /**
+     * @param ContentVersionToArray $contentVersionToArray
+     */
+    public function __construct(
+        ContentVersionToArray $contentVersionToArray
+    ) {
+        $this->contentVersionToArray = $contentVersionToArray;
+    }
+
     /**
      * @param CmsResourcePublishHistory $cmsResourcePublishHistory
      * @param array                     $options
@@ -26,18 +37,14 @@ class CmsResourcePublishHistoryToArrayBasic implements CmsResourcePublishHistory
         array $options = []
     ): array
     {
-        $dateFormat = Param::get(
-            $options,
-            OptionsToArray::CREATED_DATE_FORMAT,
-            Trackable::DATE_FORMAT
-        );
-
         return [
             PropertiesCmsResourcePublishHistory::ID
             => $cmsResourcePublishHistory->getId(),
 
-            PropertiesCmsResourcePublishHistory::CONTENT_VERSION_ID
-            => $cmsResourcePublishHistory->getContentVersionId(),
+            PropertiesCmsResourcePublishHistory::CONTENT_VERSION
+            => $this->contentVersionToArray->__invoke(
+                $cmsResourcePublishHistory->getContentVersion()
+            ),
 
             PropertiesCmsResourcePublishHistory::ACTION
             => $cmsResourcePublishHistory->getAction(),

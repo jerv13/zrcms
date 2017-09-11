@@ -2,6 +2,7 @@
 
 namespace Zrcms\ContentRedirect\Model;
 
+use Zrcms\Content\Exception\ContentVersionNotExistsException;
 use Zrcms\Content\Model\CmsResourceAbstract;
 use Zrcms\Param\Param;
 
@@ -54,4 +55,18 @@ abstract class RedirectCmsResourceAbstract extends CmsResourceAbstract implement
         );
     }
 
+    /**
+     * @param $contentVersion
+     *
+     * @return void
+     * @throws ContentVersionNotExistsException
+     */
+    protected function assertValidContentVersion($contentVersion)
+    {
+        if (!$contentVersion instanceof RedirectVersion) {
+            throw new ContentVersionNotExistsException(
+                'Missing required: ' . PropertiesRedirectCmsResource::CONTENT_VERSION
+            );
+        }
+    }
 }

@@ -1,12 +1,64 @@
 @todo
 =====
 
-- Refactor ResponseHandler as http-api-response-formatter
-
 - Might make ContentVersion a property of the CmsResource instead of relationship
     - Eliminate CmsResource for CmsResourceVersion
     - Syncing Properties simpler
     - CmsResources (id, contentVersionId, published)
+    - impact
+        - entities
+        - repos
+        - PublishCmsResource
+        - assertValidContentVersion
+        - contentVersionId
+        - CmsResourcePublishHistoryToArrayBasic
+        - CmsResourcePublishHistoryToArrayBasic
+        
+     
+    /**
+     * @var ContainerVersionEntity
+     *
+     * @ORM\OneToOne(targetEntity="ContainerVersionEntity")
+     * @ORM\JoinColumn(
+     *     name="contentVersionId",
+     *     referencedColumnName="id",
+     *     onDelete="SET NULL"
+     * )
+     */
+    protected $contentVersion;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(type="integer")
+     */
+    protected $contentVersionId = null;
+
+    $this->contentVersion = Param::get(
+        $properties,
+        PropertiesContainerCmsResource::CONTENT_VERSION
+    );
+
+    /**
+     * @return ContentVersion
+     */
+    public function getContentVersion(): ContentVersion
+    {
+        return $this->contentVersion;
+    }
+    
+    /**
+     * @return string
+     */
+    public function getContentVersionId(): string
+    {
+        return (string)$this->contentVersionId;
+    }
+        
+
+    
+    
+- Refactor ResponseHandler as http-api-response-formatter
 
 - ContentDoctrine SyncProperties needs to be done separately for CmsResourcePublishHistory
 

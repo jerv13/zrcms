@@ -2,6 +2,7 @@
 
 namespace Zrcms\Content\Model;
 
+use Zrcms\Content\Exception\ContentVersionNotExistsException;
 use Zrcms\Content\Exception\PropertyMissingException;
 use Zrcms\Param\Param;
 
@@ -56,15 +57,13 @@ abstract class CmsResourceAbstract implements CmsResource
         }
         $this->new = false;
 
-        Param::assertHas(
+        $contentVersion = Param::get(
             $properties,
-            PropertiesCmsResource::CONTENT_VERSION_ID,
-            PropertyMissingException::build(
-                PropertiesCmsResource::CONTENT_VERSION_ID,
-                $properties,
-                get_class($this)
-            )
+            PropertiesCmsResource::CONTENT_VERSION,
+            null
         );
+
+        $this->assertValidContentVersion($contentVersion);
 
         $properties[PropertiesCmsResource::PUBLISHED] = Param::getBool(
             $properties,
@@ -92,13 +91,13 @@ abstract class CmsResourceAbstract implements CmsResource
     }
 
     /**
-     * @return string
+     * @return ContentVersion
      */
-    public function getContentVersionId(): string
+    public function getContentVersion(): ContentVersion
     {
         return $this->getProperty(
-            PropertiesCmsResource::CONTENT_VERSION_ID,
-            ''
+            PropertiesCmsResource::CONTENT_VERSION,
+            null
         );
     }
 
@@ -111,5 +110,20 @@ abstract class CmsResourceAbstract implements CmsResource
             PropertiesCmsResource::PUBLISHED,
             true
         );
+    }
+
+    /**
+     * @param $contentVersion
+     *
+     * @return void
+     * @throws ContentVersionNotExistsException
+     */
+    protected function assertValidContentVersion($contentVersion)
+    {
+        if (!$contentVersion instanceof ContentVersion) {
+            throw new ContentVersionNotExistsException(
+                'Missing required: ' . PropertiesCmsResource::CONTENT_VERSION
+            );
+        }
     }
 }

@@ -2,6 +2,7 @@
 
 namespace Zrcms\ContentCore\Container\Model;
 
+use Zrcms\Content\Exception\ContentVersionNotExistsException;
 use Zrcms\Content\Exception\PropertyMissingException;
 use Zrcms\Content\Model\CmsResourceAbstract;
 use Zrcms\Param\Param;
@@ -68,5 +69,20 @@ abstract class ContainerCmsResourceAbstract extends CmsResourceAbstract implemen
             PropertiesContainerCmsResource::PATH,
             ''
         );
+    }
+
+    /**
+     * @param $contentVersion
+     *
+     * @return void
+     * @throws ContentVersionNotExistsException
+     */
+    protected function assertValidContentVersion($contentVersion)
+    {
+        if (!$contentVersion instanceof ContainerVersion) {
+            throw new ContentVersionNotExistsException(
+                'Missing required: ' . PropertiesContainerCmsResource::CONTENT_VERSION
+            );
+        }
     }
 }

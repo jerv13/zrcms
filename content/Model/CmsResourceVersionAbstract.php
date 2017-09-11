@@ -3,6 +3,8 @@
 namespace Zrcms\Content\Model;
 
 /**
+ * @deprecated
+ *
  * @author James Jervis - https://github.com/jerv13
  */
 abstract class CmsResourceVersionAbstract implements CmsResourceVersion

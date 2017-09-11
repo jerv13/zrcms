@@ -33,10 +33,16 @@ class ModuleConfig
                         'class' => ContentVersionToArrayBasic::class
                     ],
                     CmsResourcePublishHistoryToArray::class => [
-                        'class' => CmsResourcePublishHistoryToArrayBasic::class
+                        'class' => CmsResourcePublishHistoryToArrayBasic::class,
+                        'arguments' => [
+                            ContentVersionToArray::class
+                        ],
                     ],
                     CmsResourceToArray::class => [
-                        'class' => CmsResourceToArrayBasic::class
+                        'class' => CmsResourceToArrayBasic::class,
+                        'arguments' => [
+                            ContentVersionToArray::class
+                        ],
                     ],
                 ],
             ],

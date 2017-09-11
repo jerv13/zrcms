@@ -84,8 +84,8 @@ trait BasicCmsResourceTrait
             $cmsResourceSyncToProperties[] = PropertiesCmsResource::ID;
         }
 
-        if (!array_key_exists(PropertiesCmsResource::CONTENT_VERSION_ID, $cmsResourceSyncToProperties)) {
-            $cmsResourceSyncToProperties[] = PropertiesCmsResource::CONTENT_VERSION_ID;
+        if (!array_key_exists(PropertiesCmsResource::CONTENT_VERSION, $cmsResourceSyncToProperties)) {
+            $cmsResourceSyncToProperties[] = PropertiesCmsResource::CONTENT_VERSION;
         }
 
         // @todo This is for publish only - needs to have it's own sync
