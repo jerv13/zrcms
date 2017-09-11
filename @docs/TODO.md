@@ -1,9 +1,6 @@
 @todo
 =====
 
-- BasicCmsResourceTrait and BasicContentVersionTrait to callables or static builders
-
-    
 - Refactor ResponseHandler as http-api-response-formatter
 
 - ContentDoctrine SyncProperties needs to be done separately for CmsResourcePublishHistory
