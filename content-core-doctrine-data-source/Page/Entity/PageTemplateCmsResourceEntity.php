@@ -43,7 +43,7 @@ class PageTemplateCmsResourceEntity
     /**
      * @var PageContainerVersionEntity
      *
-     * @ORM\OneToOne(targetEntity="PageContainerVersionEntity")
+     * @ORM\ManyToOne(targetEntity="PageContainerVersionEntity")
      * @ORM\JoinColumn(
      *     name="contentVersionId",
      *     referencedColumnName="id",

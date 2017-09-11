@@ -485,6 +485,7 @@ class Import
                 . ')',
                 $options
             );
+
             $publishedRedirectCmsResource = $this->publishRedirectCmsResource->__invoke(
                 new RedirectCmsResourceBasic(
                     [
@@ -499,6 +500,7 @@ class Import
                 $createdByUserId,
                 $createdReason
             );
+
             if (!Param::getBool($redirect, 'published', true)) {
                 $this->log(
                     'UNPUBLISH redirect ID: ' . $publishedRedirectCmsResource->getId(),

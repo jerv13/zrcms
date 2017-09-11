@@ -40,7 +40,7 @@ class RedirectCmsResourcePublishHistoryEntity
     /**
      * @var RedirectVersionEntity
      *
-     * @ORM\OneToOne(targetEntity="RedirectVersionEntity")
+     * @ORM\ManyToOne(targetEntity="RedirectVersionEntity")
      * @ORM\JoinColumn(
      *     name="contentVersionId",
      *     referencedColumnName="id",

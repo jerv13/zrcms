@@ -40,7 +40,7 @@ class SiteCmsResourcePublishHistoryEntity
     /**
      * @var SiteVersionEntity
      *
-     * @ORM\OneToOne(targetEntity="SiteVersionEntity")
+     * @ORM\ManyToOne(targetEntity="SiteVersionEntity")
      * @ORM\JoinColumn(
      *     name="contentVersionId",
      *     referencedColumnName="id",

@@ -43,7 +43,7 @@ class LayoutCmsResourceEntity
     /**
      * @var LayoutVersionEntity
      *
-     * @ORM\OneToOne(targetEntity="LayoutVersionEntity")
+     * @ORM\ManyToOne(targetEntity="LayoutVersionEntity")
      * @ORM\JoinColumn(
      *     name="contentVersionId",
      *     referencedColumnName="id",

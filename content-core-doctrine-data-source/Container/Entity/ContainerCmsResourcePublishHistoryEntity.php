@@ -40,7 +40,7 @@ class ContainerCmsResourcePublishHistoryEntity
     /**
      * @var ContainerVersionEntity
      *
-     * @ORM\OneToOne(targetEntity="ContainerVersionEntity")
+     * @ORM\ManyToOne(targetEntity="ContainerVersionEntity")
      * @ORM\JoinColumn(
      *     name="contentVersionId",
      *     referencedColumnName="id",

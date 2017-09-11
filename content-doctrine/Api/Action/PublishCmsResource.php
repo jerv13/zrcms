@@ -129,6 +129,8 @@ class PublishCmsResource
 
         $properties = $cmsResource->getProperties();
 
+        $properties[PropertiesCmsResource::CONTENT_VERSION] = $existingContentVersion;
+
         $properties[PropertiesCmsResource::PUBLISHED] = true;
 
         if ($existingCmsResourceEntity) {

@@ -12,13 +12,13 @@ use Zrcms\ContentRedirect\Model\RedirectVersion;
 interface InsertRedirectVersion extends InsertContentVersion
 {
     /**
-     * @param RedirectVersion|ContentVersion $RedirectVersion
+     * @param RedirectVersion|ContentVersion $redirectVersion
      * @param array                      $options
      *
      * @return ContentVersion
      */
     public function __invoke(
-        ContentVersion $RedirectVersion,
+        ContentVersion $redirectVersion,
         array $options = []
     ): ContentVersion;
 }
