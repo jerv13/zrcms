@@ -1,10 +1,6 @@
 @todo
 =====
 
-- Tag:
-    - rcm-core 1.21.2
-    - rcm-login 
-
 - Refactor ResponseHandler as http-api-response-formatter
 
 - Might make ContentVersion a property of the CmsResource instead of relationship
