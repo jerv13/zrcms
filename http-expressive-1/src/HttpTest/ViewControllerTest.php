@@ -27,9 +27,9 @@ use Zrcms\ContentCore\Theme\Model\LayoutCmsResourceBasic;
 use Zrcms\ContentCore\Theme\Model\LayoutVersionBasic;
 use Zrcms\ContentCore\Theme\Model\PropertiesLayoutCmsResource;
 use Zrcms\ContentCore\Theme\Model\PropertiesLayoutVersion;
+use Zrcms\ContentCore\View\Api\GetTagNamesByLayoutMustache;
 use Zrcms\ContentCore\View\Api\Render\GetViewLayoutTags;
 use Zrcms\ContentCore\View\Api\Render\RenderView;
-use Zrcms\ContentCore\View\Api\GetTagNamesByLayoutMustache;
 use Zrcms\ContentCore\View\Model\PropertiesView;
 use Zrcms\ContentCore\View\Model\ViewBasic;
 
@@ -56,16 +56,13 @@ class ViewControllerTest
     }
 
     /**
-     * __invoke
-     *
      * @param ServerRequestInterface $request
      * @param ResponseInterface      $response
      * @param callable|null          $next
      *
-     * @return ResponseInterface
-     * @throws \Exception
+     * @return JsonResponse
      */
-    public function __invoke(
+    public function test(
         ServerRequestInterface $request,
         ResponseInterface $response,
         callable $next = null
@@ -146,7 +143,7 @@ class ViewControllerTest
      *
      * @return HtmlResponse
      */
-    public function renderBasicView(
+    public function __invoke(
         ServerRequestInterface $request,
         ResponseInterface $response,
         callable $next = null
@@ -215,7 +212,6 @@ class ViewControllerTest
             self::CREATED_REASON
         );
 
-
         $pageContainerCmsResource = new PageContainerCmsResourceBasic(
             [
                 PropertiesPageContainerCmsResource::ID
@@ -225,7 +221,7 @@ class ViewControllerTest
                 PropertiesPageContainerCmsResource::SITE_CMS_RESOURCE_ID
                 => 'test:' . PropertiesPageContainerCmsResource::SITE_CMS_RESOURCE_ID,
                 PropertiesPageContainerCmsResource::PATH
-                => 'test:' . PropertiesPageContainerCmsResource::PATH,
+                => '/test-' . PropertiesPageContainerCmsResource::PATH,
             ],
             self::CREATED_BY_USER_ID,
             self::CREATED_REASON
@@ -242,7 +238,7 @@ class ViewControllerTest
                 PropertiesLayoutVersion::THEME_NAME
                 => 'test:' . PropertiesLayoutVersion::THEME_NAME,
                 PropertiesLayoutVersion::HTML
-                => file_get_contents(__DIR__ . '/../../../xample-module/theme/default.mustache'),
+                => file_get_contents(__DIR__ . '/../../../xample-component/theme/layout/primary/template.mustache'),
                 PropertiesLayoutVersion::RENDER_TAGS_GETTER
                 => GetLayoutRenderTagsNoop::class,
                 PropertiesLayoutVersion::RENDER_TAG_NAME_PARSER

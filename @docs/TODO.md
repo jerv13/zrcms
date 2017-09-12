@@ -67,6 +67,11 @@
     
 ## Clean up - Refactoring ##
 
+##### ApplicationZrcms #####
+
+- Decouple from Expressive and Stagility
+- issues with raiseThrowables and private bits (note - commented out on local)
+
 ##### GetViewLayoutTags interface could take on Request and us attributes #####
 
 - Might simplify the interface
@@ -95,17 +100,12 @@
 
 - Add getters where required
     
-##### Abstract ACL for libraries #####
+##### Abstract ACL for ALL libraries #####
 
 - Each LIB should have and ACL abstraction
 - Write an injectable ACL and User service defaulting to RcmUser (decouple ACL and User)
     - @see Redirect-editor
     
-    
-##### ResponseMutatorStatusPage ######
-
-- Needs to be split into services (might use service alias)
-- Needs to be optimized
     
 ## OPTIMIZATION: api (after FindResourceVersion implemented) ##
 

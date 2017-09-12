@@ -17,6 +17,8 @@ class ImplementationTestFactory
     public function __invoke(
         $serviceContainer
     ) {
-        return new ImplementationTest();
+        return new ImplementationTest(
+            $serviceContainer
+        );
     }
 }
