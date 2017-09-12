@@ -3,6 +3,7 @@
 namespace Zrcms\Acl\Api;
 
 use Psr\Http\Message\ServerRequestInterface;
+use Reliv\Server\Environment;
 use Zrcms\Param\Param;
 
 /**
@@ -37,7 +38,7 @@ class IsAllowedRelivServerEnvironment implements IsAllowed
         array $options = []
     ): bool
     {
-        $environment = \Reliv\Server\Environment::getInstance()->getName();
+        $environment = Environment::getInstance()->getName();
 
         $allowEnvironments = Param::getArray(
             $options,

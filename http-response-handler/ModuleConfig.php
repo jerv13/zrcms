@@ -52,10 +52,10 @@ class ModuleConfig
             ],
 
             'zrcms-response-handlers-api' => [
-                HandleResponseDebug::class => [
-                    'response-handler' => HandleResponseDebug::class,
-                    'priority' => 1200
-                ],
+                //HandleResponseApiDebug::class => [
+                //    'response-handler' => HandleResponseApiDebug::class,
+                //    'priority' => 1200
+                //],
                 HandleResponseApiMessages::class => [
                     'response-handler' => HandleResponseApiMessages::class,
                     'priority' => 1000

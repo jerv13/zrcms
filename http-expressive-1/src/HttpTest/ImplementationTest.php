@@ -39,7 +39,6 @@ class ImplementationTest
         ResponseInterface $response,
         callable $next = null
     ) {
-
         /* @todo Write this
             - for each content type (Container with block, PageContainer, Site, ThemeLayout, View)
             - Get components

@@ -3,6 +3,7 @@
 namespace Zrcms\Acl\Api;
 
 use Psr\Http\Message\ServerRequestInterface;
+use Reliv\Server\Environment;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -20,6 +21,6 @@ class IsAllowedRelivServerEnvironmentNoneProduction implements IsAllowed
         array $options = []
     ): bool
     {
-        return !\Reliv\Server\Environment::getInstance()->isProduction();
+        return !Environment::getInstance()->isProduction();
     }
 }
