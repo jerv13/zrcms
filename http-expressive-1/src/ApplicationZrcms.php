@@ -38,6 +38,8 @@ class ApplicationZrcms extends Application
     ) {
         $this->responseMutator = $responseMutator;
 
+        // $this->raiseThrowables();
+
         parent::__construct($router, $container, $finalHandler, $emitter);
     }
 

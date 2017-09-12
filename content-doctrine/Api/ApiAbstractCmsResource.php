@@ -4,6 +4,7 @@ namespace Zrcms\ContentDoctrine\Api;
 
 use Doctrine\ORM\EntityManager;
 use Zrcms\Content\Model\CmsResource;
+use Zrcms\ContentDoctrine\Entity\CmsResourceEntity;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -65,7 +66,7 @@ abstract class ApiAbstractCmsResource extends ApiAbstract
     ) {
         $this->assertValidEntityClass(
             $entityClassCmsResource,
-            CmsResource::class
+            CmsResourceEntity::class
         );
 
         $this->entityManager = $entityManager;

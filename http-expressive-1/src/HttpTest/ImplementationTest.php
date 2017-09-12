@@ -72,8 +72,8 @@ class ImplementationTest
 
                 ],
                 'contentVersion' => [
-                    PropertiesSiteVersion::ID
-                    => 'implementation-' . PropertiesSiteVersion::ID,
+                    //PropertiesSiteVersion::ID
+                    //=> 'implementation-' . PropertiesSiteVersion::ID,
                     PropertiesSiteVersion::COUNTRY_ISO3
                     => 'implementation-' . PropertiesSiteVersion::COUNTRY_ISO3,
                     PropertiesSiteVersion::FAVICON
@@ -216,11 +216,24 @@ class ImplementationTest
             $contentVersion
         );
 
+        $results[$testName]['testInsertContentVersion']['insertedClass']
+            = get_class($contentVersion);
+
         $results[$testName]['testInsertContentVersion']['inserted']
             = $this->contentVersionToArray->__invoke($contentVersion);
 
-        $results[$testName]['testInsertContentVersion']['insertResult']
+        $results[$testName]['testInsertContentVersion']['insertResultClass']
+            = get_class($newContentVersion);
+
+        $newContentVersionArray
             = $this->contentVersionToArray->__invoke($newContentVersion);
+
+        $results[$testName]['testInsertContentVersion']['insertResult']
+            = $newContentVersionArray;
+
+        $results[$testName]['testInsertContentVersion']['message'] = 'SUCCESS';
+
+        $results[$testName]['contentVersion'] = $newContentVersionArray;
 
         return $results;
     }

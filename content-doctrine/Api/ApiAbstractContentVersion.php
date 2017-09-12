@@ -4,6 +4,7 @@ namespace Zrcms\ContentDoctrine\Api;
 
 use Doctrine\ORM\EntityManager;
 use Zrcms\Content\Model\ContentVersion;
+use Zrcms\ContentDoctrine\Entity\ContentEntity;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -44,7 +45,7 @@ abstract class ApiAbstractContentVersion extends ApiAbstract
     ) {
         $this->assertValidEntityClass(
             $entityClassContentVersion,
-            ContentVersion::class
+            ContentEntity::class
         );
 
         $this->entityManager = $entityManager;
