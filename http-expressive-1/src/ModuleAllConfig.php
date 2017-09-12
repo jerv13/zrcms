@@ -19,6 +19,7 @@ class ModuleAllConfig
         $zrcmsModules = [
             new ModuleConfig(),
             new HttpApiSiteConfig(),
+            new HttpTestModuleConfig(),
         ];
 
         $configManager = new ConfigAggregator(

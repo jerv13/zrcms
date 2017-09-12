@@ -1,6 +1,6 @@
 <?php
 
-namespace Zrcms\HttpExpressive1\HttpRender;
+namespace Zrcms\HttpExpressive1\HttpTest;
 
 use Psr\Container\ContainerInterface;
 use Psr\Http\Message\ResponseInterface;

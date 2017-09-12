@@ -1,24 +1,22 @@
 <?php
 
-namespace Zrcms\HttpExpressive1\HttpRender;
+namespace Zrcms\HttpExpressive1\HttpTest;
 
 use Psr\Container\ContainerInterface;
 
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class ViewControllerTestFactory
+class ImplementationTestFactory
 {
     /**
      * @param ContainerInterface $serviceContainer
      *
-     * @return ViewControllerTest
+     * @return ImplementationTest
      */
     public function __invoke(
         $serviceContainer
     ) {
-        return new ViewControllerTest(
-            $serviceContainer
-        );
+        return new ImplementationTest();
     }
 }

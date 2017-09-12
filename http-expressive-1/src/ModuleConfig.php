@@ -26,8 +26,6 @@ use Zrcms\HttpExpressive1\HttpAlways\RequestWithViewRenderPage;
 use Zrcms\HttpExpressive1\HttpFinal\NotFoundStatusPage;
 use Zrcms\HttpExpressive1\HttpParams\ParamQuery;
 use Zrcms\HttpExpressive1\HttpRender\RenderPage;
-use Zrcms\HttpExpressive1\HttpRender\ViewControllerTest;
-use Zrcms\HttpExpressive1\HttpRender\ViewControllerTestFactory;
 use Zrcms\HttpExpressive1\HttpResponseMutator\ResponseMutator;
 use Zrcms\HttpExpressive1\HttpResponseMutator\ResponseMutatorNoop;
 use Zrcms\HttpExpressive1\HttpResponseMutator\ResponseMutatorStatusPage;
@@ -161,9 +159,6 @@ class ModuleConfig
                             RenderView::class,
                         ],
                     ],
-                    ViewControllerTest::class => [
-                        'factory' => ViewControllerTestFactory::class,
-                    ],
 
                     /**
                      * ResponseMutator ===========================================
@@ -184,6 +179,7 @@ class ModuleConfig
                             RenderPage::class,
                         ],
                     ],
+
                     /**
                      * HttpValidator ===========================================
                      */
@@ -280,15 +276,6 @@ class ModuleConfig
                     ApplicationZrcms::class => [
                         'factory' => ApplicationZrcmsFullFactory::class,
                     ],
-                ],
-            ],
-            'routes' => [
-                'zrcms.test-render' => [
-                    'name' => 'zrcms.test-render',
-                    'path' => '/zrcms/test-render',
-                    'middleware' => ViewControllerTest::class,
-                    'options' => [],
-                    'allowed_methods' => ['GET'],
                 ],
             ],
 

@@ -9,7 +9,6 @@
     - unpublish content
     - re-publish content
     - find resource and version
-    
 
 - Refactor ResponseHandler as http-api-response-formatter
 

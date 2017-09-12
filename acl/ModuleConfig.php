@@ -7,6 +7,9 @@ use Zrcms\Acl\Api\IsAllowed;
 use Zrcms\Acl\Api\IsAllowedAny;
 use Zrcms\Acl\Api\IsAllowedNone;
 use Zrcms\Acl\Api\IsAllowedRcmUser;
+use Zrcms\Acl\Api\IsAllowedRelivServerEnvironment;
+use Zrcms\Acl\Api\IsAllowedRelivServerEnvironmentNoneProduction;
+use Zrcms\Acl\Api\IsAllowedRelivServerEnvironmentProduction;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -34,6 +37,13 @@ class ModuleConfig
                             RcmUserService::class
                         ],
                     ],
+                    IsAllowedRelivServerEnvironment::class => [
+                        'arguments' => [
+                            ['literal' => []]
+                        ],
+                    ],
+                    IsAllowedRelivServerEnvironmentNoneProduction::class => [],
+                    IsAllowedRelivServerEnvironmentProduction::class => [],
                 ],
             ],
         ];

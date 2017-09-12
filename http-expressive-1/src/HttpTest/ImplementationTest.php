@@ -1,9 +1,10 @@
 <?php
 
-namespace Zrcms\HttpExpressive1\HttpRender;
+namespace Zrcms\HttpExpressive1\HttpTest;
 
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
+use Zend\Diactoros\Response\JsonResponse;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -11,7 +12,7 @@ use Psr\Http\Message\ServerRequestInterface;
 class ImplementationTest
 {
     public function __construct(
-        array $tests
+        array $tests = []
     ) {
         $this->tests = [
             'NAME' => [
@@ -49,5 +50,8 @@ class ImplementationTest
             - find resource and version
          */
 
+        return new JsonResponse(
+            ['todo' => 'write me']
+        );
     }
 }
