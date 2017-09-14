@@ -2,8 +2,6 @@
 
 namespace Zrcms\HttpExpressive1;
 
-use Reliv\RcmApiLib\Service\PsrResponseService;
-use ZfInputFilterService\InputFilter\ServiceAwareFactory;
 use Zrcms\Acl\Api\IsAllowedAny;
 use Zrcms\ContentCore\Basic\Api\Component\ReadBasicComponentConfigApplicationConfig;
 use Zrcms\ContentCore\Basic\Api\Repository\FindBasicComponent;
@@ -23,11 +21,8 @@ use Zrcms\HttpExpressive1\HttpAlways\ParamLogOut;
 use Zrcms\HttpExpressive1\HttpAlways\RequestWithOriginalUri;
 use Zrcms\HttpExpressive1\HttpAlways\RequestWithView;
 use Zrcms\HttpExpressive1\HttpAlways\RequestWithViewRenderPage;
-use Zrcms\HttpExpressive1\HttpApi\Params\ParamQuery;
-use Zrcms\HttpExpressive1\HttpApi\ResponseMutatorJsonRcmApiLibFormat;
-use Zrcms\HttpExpressive1\HttpApi\Validate\IdAttributeZfInputFilterService;
 use Zrcms\HttpExpressive1\HttpRender\FinalHandler\NotFoundStatusPage;
-use Zrcms\HttpExpressive1\HttpRender\IsAllowedToViewPage;
+use Zrcms\HttpExpressive1\HttpRender\Acl\IsAllowedToViewPage;
 use Zrcms\HttpExpressive1\HttpRender\RenderPage;
 use Zrcms\HttpExpressive1\HttpRender\ResponseMutatorNoop;
 use Zrcms\HttpExpressive1\HttpRender\ResponseMutatorStatusPage;
@@ -116,118 +111,6 @@ class ModuleConfig
                     ],
 
                     /**
-                     * HttpApi ===========================================
-                     */
-
-                    /* ACL EXAMPLE *
-                    IsAllowedCheckApi::class => [
-                        'arguments' => [
-                            IsAllowedRcmUser::class,
-                            [
-                                'literal' => [
-                                    IsAllowedRcmUser::OPTION_RESOURCE_ID => 'admin',
-                                    IsAllowedRcmUser::OPTION_PRIVILEGE => 'read'
-                                ]
-                            ]
-                        ],
-                    ],
-                    /* */
-                    ParamQuery::class => [],
-
-                    /* Attribute Validator EXAMPLE *
-                    AttributesZfInputFilterService::class => [
-                        'arguments' => [
-                            ServiceAwareFactory::class,
-                            [
-                                'literal' => [
-                                    // zf-input-filter-service config
-                                    'test1' => [
-                                        'name' => 'test1',
-                                        'required' => true,
-                                        'validators' => [
-                                            [
-                                                // Invoked
-                                                'name' => 'ZfInputFilterService\Validator\Test',
-                                                'options' => [
-                                                    'test' => 'validatorOptionInvoked',
-                                                    'messages' => [
-                                                        'TEST' => 'validatorMessageTemplateInvoked',
-                                                    ],
-                                                ],
-                                            ],
-                                            [
-                                                // Service
-                                                'name' => 'ZfInputFilterService\Validator\TestService',
-                                                'service' => true,
-                                                'options' => [
-                                                    'test' => 'validatorOptionService',
-                                                    'messages' => [
-                                                        'TEST' => 'validatorMessageTemplateService',
-                                                    ],
-                                                ],
-                                            ],
-                                        ],
-                                    ],
-                                ]
-                            ],
-                        ],
-                    ],
-                    /* */
-
-                    IdAttributeZfInputFilterService::class => [
-                        'arguments' => [
-                            ServiceAwareFactory::class,
-                            ['literal' => 'id'],
-                        ],
-                    ],
-
-                    /* Data Validator EXAMPLE *
-                    DataZfInputFilterService::class => [
-                        'arguments' => [
-                            ServiceAwareFactory::class,
-                            [
-                                'literal' => [
-                                    // zf-input-filter-service config
-                                    'test1' => [
-                                        'name' => 'test1',
-                                        'required' => true,
-                                        'validators' => [
-                                            [
-                                                // Invoked
-                                                'name' => 'ZfInputFilterService\Validator\Test',
-                                                'options' => [
-                                                    'test' => 'validatorOptionInvoked',
-                                                    'messages' => [
-                                                        'TEST' => 'validatorMessageTemplateInvoked',
-                                                    ],
-                                                ],
-                                            ],
-                                            [
-                                                // Service
-                                                'name' => 'ZfInputFilterService\Validator\TestService',
-                                                'service' => true,
-                                                'options' => [
-                                                    'test' => 'validatorOptionService',
-                                                    'messages' => [
-                                                        'TEST' => 'validatorMessageTemplateService',
-                                                    ],
-                                                ],
-                                            ],
-                                        ],
-                                    ],
-                                ]
-                            ],
-                        ],
-                    ],
-                    /* */
-
-                    ResponseMutatorJsonRcmApiLibFormat::class => [
-                        'arguments' => [
-                            PsrResponseService::class,
-                        ],
-                    ],
-
-                    /**
                      * HttpRender ===========================================
                      */
                     /* ACL EXAMPLE *
@@ -265,10 +148,6 @@ class ModuleConfig
                             GetStatusPage::class,
                             RenderPage::class,
                         ],
-                    ],
-
-                    ApplicationZrcms::class => [
-                        'factory' => ApplicationZrcmsFullFactory::class,
                     ],
                 ],
             ],

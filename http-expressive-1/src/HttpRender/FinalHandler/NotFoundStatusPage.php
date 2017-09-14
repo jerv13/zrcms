@@ -69,7 +69,7 @@ class NotFoundStatusPage
 
         $request->withUri($uri);
 
-        return $this->renderPage->__invoke(
+        $response = $this->renderPage->__invoke(
             $request->withUri($uri),
             $response,
             function ($req, $res) use ($statusPage) {
@@ -80,5 +80,7 @@ class NotFoundStatusPage
                 );
             }
         );
+
+        return $response->withAddedHeader('zrcms-final','NotFoundStatusPage');
     }
 }

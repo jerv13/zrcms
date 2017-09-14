@@ -1,6 +1,6 @@
 <?php
 
-namespace Zrcms\HttpExpressive1\HttpRender;
+namespace Zrcms\HttpExpressive1\HttpRender\Acl;
 
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;

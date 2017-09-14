@@ -3,24 +3,25 @@
 namespace Zrcms\ContentCoreConfigDataSource;
 
 use Zrcms\Cache\Service\Cache;
+use Zrcms\Content\Api\Component\ReadAllComponentConfigs;
+use Zrcms\ContentCore\Basic\Api\Component\ReadBasicComponentRegistry;
 use Zrcms\ContentCore\Basic\Api\GetRegisterBasicComponents;
 use Zrcms\ContentCore\Basic\Api\Repository\FindBasicComponent;
 use Zrcms\ContentCore\Basic\Api\Repository\FindBasicComponentsBy;
-use Zrcms\ContentCore\Basic\Api\Component\ReadBasicComponentRegistry;
+use Zrcms\ContentCore\Block\Api\Component\ReadBlockComponentRegistry;
 use Zrcms\ContentCore\Block\Api\GetRegisterBlockComponents;
 use Zrcms\ContentCore\Block\Api\PrepareBlockConfigBc;
 use Zrcms\ContentCore\Block\Api\Repository\FindBlockComponent;
 use Zrcms\ContentCore\Block\Api\Repository\FindBlockComponentsBy;
-use Zrcms\ContentCore\Block\Api\Component\ReadBlockComponentRegistry;
+use Zrcms\ContentCore\Theme\Api\Component\ReadLayoutComponentConfigJsonFile;
+use Zrcms\ContentCore\Theme\Api\Component\ReadThemeComponentRegistry;
 use Zrcms\ContentCore\Theme\Api\GetRegisterThemeComponents;
 use Zrcms\ContentCore\Theme\Api\Repository\FindThemeComponent;
 use Zrcms\ContentCore\Theme\Api\Repository\FindThemeComponentsBy;
-use Zrcms\ContentCore\Theme\Api\Component\ReadLayoutComponentConfigJsonFile;
-use Zrcms\ContentCore\Theme\Api\Component\ReadThemeComponentRegistry;
+use Zrcms\ContentCore\View\Api\Component\ReadViewLayoutTagsComponentRegistry;
 use Zrcms\ContentCore\View\Api\GetRegisterViewLayoutTagsComponents;
 use Zrcms\ContentCore\View\Api\Repository\FindViewLayoutTagsComponent;
 use Zrcms\ContentCore\View\Api\Repository\FindViewLayoutTagsComponentsBy;
-use Zrcms\ContentCore\View\Api\Component\ReadViewLayoutTagsComponentRegistry;
 use Zrcms\ContentCoreConfigDataSource as This;
 use Zrcms\ContentCoreConfigDataSource\Content\Api\SearchConfigList;
 
@@ -97,8 +98,11 @@ class ModuleConfig
                     ],
 
                     /**
-                     * Content (abstracts) ===========================================
+                     * Content (general) ===========================================
                      */
+                    ReadAllComponentConfigs::class => [
+                        'factory' => This\Content\Api\Component\ReadAllComponentConfigsFactory::class
+                    ],
                     SearchConfigList::class => [
                         'class' => SearchConfigList::class,
                     ],
@@ -149,7 +153,7 @@ class ModuleConfig
                             '1-' => SearchConfigList::class
                         ],
                     ],
-                    ReadViewLayoutTagsComponentRegistry::class . '1' => [
+                    ReadViewLayoutTagsComponentRegistry::class => [
                         'factory'
                         => This\View\Api\Component\ReadViewLayoutTagsComponentRegistryBasicFactory::class,
 
@@ -157,12 +161,22 @@ class ModuleConfig
                     GetRegisterViewLayoutTagsComponents::class => [
                         'class' => This\View\Api\GetRegisterViewLayoutTagsComponentsBasic::class,
                         'arguments' => [
-                            '0-' => ReadViewLayoutTagsComponentRegistry::class . '1',
+                            '0-' => ReadViewLayoutTagsComponentRegistry::class,
                             '1-' => Cache::class
                         ],
                     ],
                 ],
             ],
+            /**
+             * ===== ReadComponentRegistry service registry =====
+             */
+            'zrcms-component-registry-readers' => [
+                'basic' => ReadBasicComponentRegistry::class,
+                'blocks' => ReadBlockComponentRegistry::class,
+                'themes' => ReadThemeComponentRegistry::class,
+                'view-layout-tags' => ReadViewLayoutTagsComponentRegistry::class,
+            ],
+
             'zrcms-components' => [
                 'basic' => [
                     /*

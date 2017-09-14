@@ -86,9 +86,15 @@ class ResponseMutatorStatusPage
             return $response;
         }
 
+        $statusCode = $response->getStatusCode();
+
+        if (empty($response->getBody()->getContents())) {
+            $statusCode = 404;
+        };
+
         $statusPage = $this->getStatusPage->__invoke(
             $request,
-            $response->getStatusCode()
+            $statusCode
         );
 
         if (empty($statusPage)) {
@@ -114,10 +120,12 @@ class ResponseMutatorStatusPage
             $method = $this->statusPageTypeMethods[$statusPage['type']];
         }
 
-        return $this->$method(
+        $response = $this->$method(
             $newRequest,
             $response
         );
+
+        return $response->withAddedHeader('zrcms-response-mutator', 'ResponseMutatorStatusPage');
     }
 
     /**
@@ -131,6 +139,10 @@ class ResponseMutatorStatusPage
     {
         if (!IsValidContentType::invoke($response, $this->validContentTypes)) {
             return false;
+        }
+
+        if (empty($response->getBody()->getContents())) {
+            return true;
         }
 
         if (in_array($response->getStatusCode(), $this->statusBlackList)) {

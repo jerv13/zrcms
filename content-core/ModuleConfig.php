@@ -703,11 +703,7 @@ class ModuleConfig
                     ],
                 ],
             ],
-            /**
-             * ===== Component registry =====
-             */
-            'zrcms-components' => [
-            ],
+
             /**
              * ===== Service Alias =====
              */
