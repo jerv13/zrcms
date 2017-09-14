@@ -1,6 +1,9 @@
 @todo
 =====
 
+- APIs in http-expressive
+    - Test
+
 - Write implementation test
     - for each content type (Container with block, PageContainer, Site, ThemeLayout, View)
     - Get components
@@ -13,8 +16,6 @@
 - Refactor ResponseHandler as http-api-response-formatter
 
 - ContentDoctrine SyncProperties needs to be done separately for CmsResourcePublishHistory
-
-- APIs in http-expressive
 
 - For publish and unpublish, extra properties (like host) should not be required if there is an existing resource
 
