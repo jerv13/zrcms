@@ -16,9 +16,10 @@ use Zend\Expressive\Router\RouterInterface;
 use Zend\Stratigility\FinalHandler;
 use Zend\Stratigility\NoopFinalHandler;
 use Zrcms\HttpExpressive1\HttpFinal\NotFoundStatusPage;
-use Zrcms\HttpExpressive1\HttpResponseMutator\ResponseMutator;
+use Zrcms\HttpExpressive1\HttpRender\ResponseMutatorStatusPage;
 
 /**
+ * @deprecated
  * @see \Zend\Expressive\Container\ApplicationFactory
  */
 class ApplicationZrcmsFullFactory extends ApplicationFactory
@@ -46,16 +47,16 @@ class ApplicationZrcmsFullFactory extends ApplicationFactory
             $finalHandler = $container->get(NotFoundStatusPage::class);
         } else {
             $finalHandler = !empty($config['zend-expressive']['raise_throwables'])
-            ? $this->marshalNoopFinalHandler($container)
-            : $this->marshalLegacyFinalHandler($container, $config);
+                ? $this->marshalNoopFinalHandler($container)
+                : $this->marshalLegacyFinalHandler($container, $config);
         }
 
         $emitter = $container->has(EmitterInterface::class)
             ? $container->get(EmitterInterface::class)
             : null;
 
-        $responseMutator = $container->has(ResponseMutator::class)
-            ? $container->get(ResponseMutator::class)
+        $responseMutator = $container->has(ResponseMutatorStatusPage::class)
+            ? $container->get(ResponseMutatorStatusPage::class)
             : null;
 
         $app = new ApplicationZrcms(

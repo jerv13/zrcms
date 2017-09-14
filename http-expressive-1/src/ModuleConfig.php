@@ -2,6 +2,7 @@
 
 namespace Zrcms\HttpExpressive1;
 
+use Reliv\RcmApiLib\Service\PsrResponseService;
 use ZfInputFilterService\InputFilter\ServiceAwareFactory;
 use Zrcms\Acl\Api\IsAllowedAny;
 use Zrcms\ContentCore\Basic\Api\Component\ReadBasicComponentConfigApplicationConfig;
@@ -16,23 +17,22 @@ use Zrcms\ContentRedirect\Api\Repository\FindRedirectCmsResourceBySiteRequestPat
 use Zrcms\HttpExpressive1\Api\GetStatusPage;
 use Zrcms\HttpExpressive1\Api\GetStatusPageBasic;
 use Zrcms\HttpExpressive1\Api\View\Render\GetViewLayoutMetaPageData;
-use Zrcms\HttpExpressive1\HttpAcl\IsAllowedToViewPage;
 use Zrcms\HttpExpressive1\HttpAlways\ContentRedirect;
 use Zrcms\HttpExpressive1\HttpAlways\LocaleFromSite;
 use Zrcms\HttpExpressive1\HttpAlways\ParamLogOut;
 use Zrcms\HttpExpressive1\HttpAlways\RequestWithOriginalUri;
 use Zrcms\HttpExpressive1\HttpAlways\RequestWithView;
 use Zrcms\HttpExpressive1\HttpAlways\RequestWithViewRenderPage;
-use Zrcms\HttpExpressive1\HttpFinal\NotFoundStatusPage;
-use Zrcms\HttpExpressive1\HttpParams\ParamQuery;
+use Zrcms\HttpExpressive1\HttpApi\Params\ParamQuery;
+use Zrcms\HttpExpressive1\HttpApi\ResponseMutatorJsonRcmApiLibFormat;
+use Zrcms\HttpExpressive1\HttpApi\Validate\IdAttributeZfInputFilterService;
+use Zrcms\HttpExpressive1\HttpRender\FinalHandler\NotFoundStatusPage;
+use Zrcms\HttpExpressive1\HttpRender\IsAllowedToViewPage;
 use Zrcms\HttpExpressive1\HttpRender\RenderPage;
-use Zrcms\HttpExpressive1\HttpResponseMutator\ResponseMutator;
-use Zrcms\HttpExpressive1\HttpResponseMutator\ResponseMutatorNoop;
-use Zrcms\HttpExpressive1\HttpResponseMutator\ResponseMutatorStatusPage;
-use Zrcms\HttpExpressive1\HttpValidator\IdAttributeZfInputFilterService;
+use Zrcms\HttpExpressive1\HttpRender\ResponseMutatorNoop;
+use Zrcms\HttpExpressive1\HttpRender\ResponseMutatorStatusPage;
 use Zrcms\HttpExpressive1\Model\HttpExpressiveComponent;
 use Zrcms\HttpExpressive1\Model\PropertiesHttpExpressiveComponent;
-use Zrcms\HttpResponseHandler\Api\HandleResponseApi;
 use Zrcms\Locale\Api\SetLocale;
 use Zrcms\User\Api\LogOut;
 use Zrcms\ViewHtmlTags\Api\Render\RenderTag;
@@ -78,26 +78,6 @@ class ModuleConfig
                     ],
 
                     /**
-                     * HttpAcl ===========================================
-                     */
-                    /* ACL EXAMPLE *
-                    IsAllowedCheck::class => [
-                        'arguments' => [
-                            HandleResponse::class,
-                            IsAllowedRcmUser::class,
-                            [
-                                'literal' => [
-                                    IsAllowedRcmUser::OPTION_RESOURCE_ID => 'admin',
-                                    IsAllowedRcmUser::OPTION_PRIVILEGE => 'read'
-                                ]
-                            ]
-                        ],
-                    ],
-                    /* */
-
-                    IsAllowedToViewPage::class => [],
-
-                    /**
                      * HttpAlways ===========================================
                      */
                     ContentRedirect::class => [
@@ -134,55 +114,25 @@ class ModuleConfig
                             GetViewByRequest::class,
                         ],
                     ],
-                    /**
-                     * HttpFinal ===========================================
-                     */
-                    NotFoundStatusPage::class => [
-                        'arguments' => [
-                            GetStatusPage::class,
-                            RenderPage::class,
-                        ],
-                    ],
 
                     /**
-                     * HttpParams ===========================================
+                     * HttpApi ===========================================
                      */
+                    /* ACL EXAMPLE *
+                    IsAllowedCheckApi::class => [
+                        'arguments' => [
+                            IsAllowedRcmUser::class,
+                            [
+                                'literal' => [
+                                    IsAllowedRcmUser::OPTION_RESOURCE_ID => 'admin',
+                                    IsAllowedRcmUser::OPTION_PRIVILEGE => 'read'
+                                ]
+                            ]
+                        ],
+                    ],
+                    /* */
                     ParamQuery::class => [],
 
-                    /**
-                     * HttpRender ===========================================
-                     */
-                    RenderPage::class => [
-                        'arguments' => [
-                            GetViewByRequest::class,
-                            GetViewLayoutTags::class,
-                            RenderView::class,
-                        ],
-                    ],
-
-                    /**
-                     * ResponseMutator ===========================================
-                     */
-                    ResponseMutator::class => [
-                        //'class' => ResponseMutatorNoop::class,
-                        // @todo This should use ResponseMutatorStatusPage by default
-                        'class' => ResponseMutatorStatusPage::class,
-                        'arguments' => [
-                            GetStatusPage::class,
-                            RenderPage::class,
-                        ],
-                    ],
-                    ResponseMutatorNoop::class => [],
-                    ResponseMutatorStatusPage::class => [
-                        'arguments' => [
-                            GetStatusPage::class,
-                            RenderPage::class,
-                        ],
-                    ],
-
-                    /**
-                     * HttpValidator ===========================================
-                     */
                     /* Attribute Validator EXAMPLE *
                     AttributesZfInputFilterService::class => [
                         'arguments' => [
@@ -219,7 +169,6 @@ class ModuleConfig
                                     ],
                                 ]
                             ],
-                            HandleResponseApiMessages::class
                         ],
                     ],
                     /* */
@@ -227,7 +176,6 @@ class ModuleConfig
                     IdAttributeZfInputFilterService::class => [
                         'arguments' => [
                             ServiceAwareFactory::class,
-                            HandleResponseApi::class,
                             ['literal' => 'id'],
                         ],
                     ],
@@ -268,10 +216,55 @@ class ModuleConfig
                                     ],
                                 ]
                             ],
-                            HandleResponseApiMessages::class
                         ],
                     ],
                     /* */
+
+                    ResponseMutatorJsonRcmApiLibFormat::class => [
+                        'arguments' => [
+                            PsrResponseService::class,
+                        ],
+                    ],
+
+                    /**
+                     * HttpRender ===========================================
+                     */
+                    /* ACL EXAMPLE *
+                    IsAllowedCheck::class => [
+                        'arguments' => [
+                            IsAllowedRcmUser::class,
+                            [
+                                'literal' => [
+                                    IsAllowedRcmUser::OPTION_RESOURCE_ID => 'admin',
+                                    IsAllowedRcmUser::OPTION_PRIVILEGE => 'read'
+                                ]
+                            ]
+                        ],
+                    ],
+                    /* */
+                    IsAllowedToViewPage::class => [],
+
+                    NotFoundStatusPage::class => [
+                        'arguments' => [
+                            GetStatusPage::class,
+                            RenderPage::class,
+                        ],
+                    ],
+
+                    RenderPage::class => [
+                        'arguments' => [
+                            GetViewByRequest::class,
+                            GetViewLayoutTags::class,
+                            RenderView::class,
+                        ],
+                    ],
+                    ResponseMutatorNoop::class => [],
+                    ResponseMutatorStatusPage::class => [
+                        'arguments' => [
+                            GetStatusPage::class,
+                            RenderPage::class,
+                        ],
+                    ],
 
                     ApplicationZrcms::class => [
                         'factory' => ApplicationZrcmsFullFactory::class,

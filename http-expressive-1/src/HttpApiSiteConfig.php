@@ -9,19 +9,17 @@ use Zrcms\Content\Api\CmsResourceToArray;
 use Zrcms\Content\Api\ContentVersionToArray;
 use Zrcms\ContentCore\Site\Model\SiteCmsResourceBasic;
 use Zrcms\ContentCore\Site\Model\SiteVersionBasic;
-use Zrcms\HttpExpressive1\HttpApi\Site\Acl\IsAllowedFindContentVersion;
-use Zrcms\HttpExpressive1\HttpApi\Site\Acl\IsAllowedSiteCmsResourceFind;
-use Zrcms\HttpExpressive1\HttpApi\Site\Acl\IsAllowedSitePublish;
-use Zrcms\HttpExpressive1\HttpApi\Site\Acl\IsAllowedSiteUnpublish;
-use Zrcms\HttpExpressive1\HttpApi\Site\Action\PublishSiteCmsResource;
-use Zrcms\HttpExpressive1\HttpApi\Site\Action\UnpublishSiteCmsResource;
-use Zrcms\HttpExpressive1\HttpApi\Site\Repository\FindSiteCmsResource;
-use Zrcms\HttpExpressive1\HttpApi\Site\Repository\FindSiteVersion;
-use Zrcms\HttpExpressive1\HttpApi\Site\Repository\InsertSiteVersion;
-use Zrcms\HttpExpressive1\HttpValidator\IdAttributeZfInputFilterService;
-use Zrcms\HttpExpressive1\HttpValidator\SiteCmsResourcePublishZfInputFilterService;
-use Zrcms\HttpResponseHandler\Api\HandleResponseApi;
-use Zrcms\HttpResponseHandler\Api\HandleResponseApiMessages;
+use Zrcms\HttpExpressive1\HttpApi\Validate\IdAttributeZfInputFilterService;
+use Zrcms\HttpExpressive1\HttpApiSite\Acl\IsAllowedFindContentVersion;
+use Zrcms\HttpExpressive1\HttpApiSite\Acl\IsAllowedSiteCmsResourceFind;
+use Zrcms\HttpExpressive1\HttpApiSite\Acl\IsAllowedSitePublish;
+use Zrcms\HttpExpressive1\HttpApiSite\Acl\IsAllowedSiteUnpublish;
+use Zrcms\HttpExpressive1\HttpApiSite\Action\PublishSiteCmsResource;
+use Zrcms\HttpExpressive1\HttpApiSite\Action\UnpublishSiteCmsResource;
+use Zrcms\HttpExpressive1\HttpApiSite\Repository\FindSiteCmsResource;
+use Zrcms\HttpExpressive1\HttpApiSite\Repository\FindSiteVersion;
+use Zrcms\HttpExpressive1\HttpApiSite\Repository\InsertSiteVersion;
+use Zrcms\HttpExpressive1\HttpApiSite\Validate\SiteCmsResourcePublishZfInputFilterService;
 use Zrcms\User\Api\GetUserIdByRequest;
 
 /**
@@ -44,7 +42,6 @@ class HttpApiSiteConfig
                      */
                     IsAllowedFindContentVersion::class => [
                         'arguments' => [
-                            HandleResponseApi::class,
                             IsAllowedRcmUser::class,
                             [
                                 'literal' => [
@@ -57,7 +54,6 @@ class HttpApiSiteConfig
                     ],
                     IsAllowedSiteCmsResourceFind::class => [
                         'arguments' => [
-                            HandleResponseApi::class,
                             IsAllowedRcmUser::class,
                             [
                                 'literal' => [
@@ -70,7 +66,6 @@ class HttpApiSiteConfig
                     ],
                     IsAllowedSitePublish::class => [
                         'arguments' => [
-                            HandleResponseApi::class,
                             IsAllowedRcmUser::class,
                             [
                                 'literal' => [
@@ -83,7 +78,6 @@ class HttpApiSiteConfig
                     ],
                     IsAllowedSiteUnpublish::class => [
                         'arguments' => [
-                            HandleResponseApi::class,
                             IsAllowedRcmUser::class,
                             [
                                 'literal' => [
@@ -102,7 +96,6 @@ class HttpApiSiteConfig
                             \Zrcms\ContentCore\Site\Api\Action\PublishSiteCmsResource::class,
                             CmsResourceToArray::class,
                             GetUserIdByRequest::class,
-                            HandleResponseApi::class,
                             ['literal' => SiteCmsResourceBasic::class],
                             ['literal' => 'site-action-publish-cms-resource'],
                         ],
@@ -111,7 +104,6 @@ class HttpApiSiteConfig
                         'arguments' => [
                             \Zrcms\ContentCore\Site\Api\Action\UnpublishSiteCmsResource::class,
                             GetUserIdByRequest::class,
-                            HandleResponseApi::class,
                             ['literal' => 'site-action-unpublish-cms-resource'],
                         ],
                     ],
@@ -119,7 +111,6 @@ class HttpApiSiteConfig
                         'arguments' => [
                             \Zrcms\ContentCore\Site\Api\Repository\FindSiteCmsResource::class,
                             CmsResourceToArray::class,
-                            HandleResponseApi::class,
                             ['literal' => SiteCmsResourceBasic::class],
                             ['literal' => 'site-repository-find-cms-resource'],
                         ],
@@ -146,7 +137,6 @@ class HttpApiSiteConfig
                     SiteCmsResourcePublishZfInputFilterService::class => [
                         'arguments' => [
                             ServiceAwareFactory::class,
-                            HandleResponseApiMessages::class,
                         ],
                     ],
                 ],

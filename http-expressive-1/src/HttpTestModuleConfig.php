@@ -9,7 +9,6 @@ use Zrcms\HttpExpressive1\HttpTest\ImplementationTest;
 use Zrcms\HttpExpressive1\HttpTest\ImplementationTestFactory;
 use Zrcms\HttpExpressive1\HttpTest\ViewControllerTest;
 use Zrcms\HttpExpressive1\HttpTest\ViewControllerTestFactory;
-use Zrcms\HttpResponseHandler\Api\HandleResponseApi;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -31,7 +30,6 @@ class HttpTestModuleConfig
                      */
                     IsAllowedTest::class => [
                         'arguments' => [
-                            HandleResponseApi::class,
                             IsAllowedRelivServerEnvironmentNoneProduction::class,
                             ['literal' => []]
                         ],

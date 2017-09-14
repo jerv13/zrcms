@@ -8,15 +8,15 @@ use Psr\Http\Message\ServerRequestInterface;
 use Zend\Diactoros\Response\EmitterInterface;
 use Zend\Expressive\Application;
 use Zend\Expressive\Router\RouterInterface;
-use Zrcms\HttpExpressive1\HttpResponseMutator\ResponseMutator;
 
 /**
+ * @deprecated
  * @author James Jervis - https://github.com/jerv13
  */
 class ApplicationZrcms extends Application
 {
     /**
-     * @var ResponseMutator|null
+     * @var callable|null
      */
     protected $responseMutator = null;
 
@@ -27,7 +27,7 @@ class ApplicationZrcms extends Application
      *                                                 provided on invocation.
      * @param null|EmitterInterface   $emitter         Emitter to use when `run()` is
      *                                                 invoked.
-     * @param null|ResponseMutator    $responseMutator Handle Responses the ZRCMS way
+     * @param null|callable           $responseMutator Handle Responses the ZRCMS way
      */
     public function __construct(
         RouterInterface $router,
@@ -67,7 +67,7 @@ class ApplicationZrcms extends Application
         $result = parent::__invoke($request, $response, $out);
 
         if ($result instanceof ResponseInterface && $this->responseMutator) {
-            return $this->responseMutator->__invoke(
+            return $this->responseMutator(
                 $request,
                 $result
             );
