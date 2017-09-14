@@ -9,7 +9,7 @@ use Zrcms\HttpExpressive1\HttpApi\Validate\DataZfInputFilterService;
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class SiteCmsResourcePublishZfInputFilterService extends DataZfInputFilterService
+class PublishSiteCmsResourceZfInputFilterService extends DataZfInputFilterService
 {
     /**
      * @var array

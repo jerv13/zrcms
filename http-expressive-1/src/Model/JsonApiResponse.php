@@ -2,6 +2,7 @@
 
 namespace Zrcms\HttpExpressive1\Model;
 
+use Zend\Diactoros\Response;
 use Zend\Diactoros\Response\InjectContentTypeTrait;
 use Zend\Diactoros\Response\JsonResponse;
 use Zend\Diactoros\Stream;
@@ -9,7 +10,7 @@ use Zend\Diactoros\Stream;
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class JsonApiResponse extends JsonResponse
+class JsonApiResponse extends Response
 {
     use InjectContentTypeTrait;
 
@@ -67,9 +68,13 @@ class JsonApiResponse extends JsonResponse
         $encodingOptions = self::DEFAULT_JSON_FLAGS
     ) {
         $this->setPayload($data);
+        $this->setApiMessages($apiMessages);
+
         $this->encodingOptions = $encodingOptions;
 
-        $json = $this->jsonEncode($data, $this->encodingOptions);
+        $apiResult = $this->getApiResult();
+
+        $json = $this->jsonEncode($apiResult, $this->encodingOptions);
         $body = $this->createBodyFromJson($json);
 
         $headers = $this->injectContentType('application/json', $headers);
@@ -108,6 +113,23 @@ class JsonApiResponse extends JsonResponse
         }
 
         $this->apiMessages = $apiMessages;
+    }
+
+    /**
+     * @return array
+     */
+    public function getApiResult()
+    {
+        $apiMessages = $this->getApiMessages();
+
+        if (empty($apiMessage)) {
+            $apiMessages = [];
+        }
+
+        return [
+            'data' => $this->getPayload(),
+            'messages' => $apiMessages,
+        ];
     }
 
     /**
@@ -220,10 +242,7 @@ class JsonApiResponse extends JsonResponse
      */
     private function updateBodyFor(self $toUpdate)
     {
-        $apiResult = [
-            'data' => $toUpdate->payload,
-            'messages' => $toUpdate->apiMessages,
-        ];
+        $apiResult = $toUpdate->getApiResult();
         $json = $this->jsonEncode($apiResult, $toUpdate->encodingOptions);
         $body = $this->createBodyFromJson($json);
 

@@ -19,7 +19,7 @@ use Zrcms\HttpExpressive1\HttpApiSite\Action\UnpublishSiteCmsResource;
 use Zrcms\HttpExpressive1\HttpApiSite\Repository\FindSiteCmsResource;
 use Zrcms\HttpExpressive1\HttpApiSite\Repository\FindSiteVersion;
 use Zrcms\HttpExpressive1\HttpApiSite\Repository\InsertSiteVersion;
-use Zrcms\HttpExpressive1\HttpApiSite\Validate\SiteCmsResourcePublishZfInputFilterService;
+use Zrcms\HttpExpressive1\HttpApiSite\Validate\PublishSiteCmsResourceZfInputFilterService;
 use Zrcms\User\Api\GetUserIdByRequest;
 
 /**
@@ -38,7 +38,7 @@ class HttpApiSiteConfig
             'dependencies' => [
                 'config_factories' => [
                     /**
-                     * HttpAcl ===========================================
+                     * Acl ===========================================
                      */
                     IsAllowedFindContentVersion::class => [
                         'arguments' => [
@@ -89,7 +89,7 @@ class HttpApiSiteConfig
                         ],
                     ],
                     /**
-                     * HttpApi ===========================================
+                     * Action ===========================================
                      */
                     PublishSiteCmsResource::class => [
                         'arguments' => [
@@ -107,6 +107,9 @@ class HttpApiSiteConfig
                             ['literal' => 'site-action-unpublish-cms-resource'],
                         ],
                     ],
+                    /**
+                     * Repository ===========================================
+                     */
                     FindSiteCmsResource::class => [
                         'arguments' => [
                             \Zrcms\ContentCore\Site\Api\Repository\FindSiteCmsResource::class,
@@ -132,9 +135,9 @@ class HttpApiSiteConfig
                         ],
                     ],
                     /**
-                     * HttpValidator ===========================================
+                     * Validate ===========================================
                      */
-                    SiteCmsResourcePublishZfInputFilterService::class => [
+                    PublishSiteCmsResourceZfInputFilterService::class => [
                         'arguments' => [
                             ServiceAwareFactory::class,
                         ],
@@ -153,7 +156,7 @@ class HttpApiSiteConfig
                     'middleware' => [
                         'parser' => BodyParamsMiddleware::class,
                         'acl' => IsAllowedSitePublish::class,
-                        'validator-data' => SiteCmsResourcePublishZfInputFilterService::class,
+                        'validator-data' => PublishSiteCmsResourceZfInputFilterService::class,
                         'api' => PublishSiteCmsResource::class,
                     ],
                     'options' => [],
