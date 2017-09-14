@@ -2,14 +2,16 @@
 
 namespace Zrcms\Content;
 
-use Zrcms\Content\Api\ContentToArray;
-use Zrcms\Content\Api\ContentToArrayBasic;
-use Zrcms\Content\Api\ContentVersionToArray;
-use Zrcms\Content\Api\ContentVersionToArrayBasic;
 use Zrcms\Content\Api\CmsResourcePublishHistoryToArray;
 use Zrcms\Content\Api\CmsResourcePublishHistoryToArrayBasic;
 use Zrcms\Content\Api\CmsResourceToArray;
 use Zrcms\Content\Api\CmsResourceToArrayBasic;
+use Zrcms\Content\Api\ComponentToArray;
+use Zrcms\Content\Api\ComponentToArrayBasic;
+use Zrcms\Content\Api\ContentToArray;
+use Zrcms\Content\Api\ContentToArrayBasic;
+use Zrcms\Content\Api\ContentVersionToArray;
+use Zrcms\Content\Api\ContentVersionToArrayBasic;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -26,12 +28,6 @@ class ModuleConfig
         return [
             'dependencies' => [
                 'config_factories' => [
-                    ContentToArray::class => [
-                        'class' => ContentToArrayBasic::class
-                    ],
-                    ContentVersionToArray::class => [
-                        'class' => ContentVersionToArrayBasic::class
-                    ],
                     CmsResourcePublishHistoryToArray::class => [
                         'class' => CmsResourcePublishHistoryToArrayBasic::class,
                         'arguments' => [
@@ -43,6 +39,15 @@ class ModuleConfig
                         'arguments' => [
                             ContentVersionToArray::class
                         ],
+                    ],
+                    ComponentToArray::class => [
+                        'class' => ComponentToArrayBasic::class,
+                    ],
+                    ContentToArray::class => [
+                        'class' => ContentToArrayBasic::class
+                    ],
+                    ContentVersionToArray::class => [
+                        'class' => ContentVersionToArrayBasic::class
                     ],
                 ],
             ],

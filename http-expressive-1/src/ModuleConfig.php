@@ -118,6 +118,7 @@ class ModuleConfig
                     /**
                      * HttpApi ===========================================
                      */
+
                     /* ACL EXAMPLE *
                     IsAllowedCheckApi::class => [
                         'arguments' => [

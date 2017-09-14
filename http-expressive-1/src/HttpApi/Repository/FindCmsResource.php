@@ -29,28 +29,20 @@ class FindCmsResource
     /**
      * @var string
      */
-    protected $cmsResourceClass;
-
-    /**
-     * @var string
-     */
     protected $name;
 
     /**
      * @param \Zrcms\Content\Api\Repository\FindCmsResource $findCmsResource
      * @param CmsResourceToArray                            $cmsResourceToArray
-     * @param string                                        $cmsResourceClass
      * @param string                                        $name
      */
     public function __construct(
         \Zrcms\Content\Api\Repository\FindCmsResource $findCmsResource,
         CmsResourceToArray $cmsResourceToArray,
-        string $cmsResourceClass,
         string $name
     ) {
         $this->findCmsResource = $findCmsResource;
         $this->cmsResourceToArray = $cmsResourceToArray;
-        $this->cmsResourceClass = $cmsResourceClass;
         $this->name = $name;
     }
 
@@ -97,7 +89,7 @@ class FindCmsResource
         if (empty($cmsResource)) {
             $apiMessages = [
                 'type' => $this->name,
-                'value' => 'Update failed',
+                'value' => 'Find failed',
                 'source' => self::SOURCE,
                 'code' => ResponseCodes::FAILED,
                 'primary' => true,
@@ -105,7 +97,7 @@ class FindCmsResource
             ];
 
             return new JsonApiResponse(
-                false,
+                null,
                 $apiMessages,
                 400
             );

@@ -59,14 +59,16 @@
 - Check and update all composer dependencies
 
     
-## Features ##
+Features
+--------
 
 - Admin menus
     - Standard menus for admins using the properties and/or field definitions
     - include input-validations
     - create js/ui lib
     
-## Clean up - Refactoring ##
+Clean up - Refactoring
+----------------------
 
 ##### ApplicationZrcms #####
 
@@ -108,7 +110,8 @@
     - @see Redirect-editor
     
     
-## OPTIMIZATION: api (after FindResourceVersion implemented) ##
+OPTIMIZATION: api (after FindResourceVersion implemented)
+---------------------------------------------------------
 
 - Optimize queries
 - Add indexes

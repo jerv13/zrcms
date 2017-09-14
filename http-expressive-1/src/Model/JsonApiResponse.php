@@ -120,14 +120,14 @@ class JsonApiResponse extends Response
      */
     public function getApiResult()
     {
-        $apiMessages = $this->getApiMessages();
+        $apiMessages = $this->apiMessages;
 
-        if (empty($apiMessage)) {
+        if (empty($apiMessages)) {
             $apiMessages = [];
         }
 
         return [
-            'data' => $this->getPayload(),
+            'data' => $this->payload,
             'messages' => $apiMessages,
         ];
     }

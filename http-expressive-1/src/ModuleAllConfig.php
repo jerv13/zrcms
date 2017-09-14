@@ -18,6 +18,7 @@ class ModuleAllConfig
     {
         $zrcmsModules = [
             new ModuleConfig(),
+            new HttpApiBasicConfig(),
             new HttpApiSiteConfig(),
             new HttpTestModuleConfig(),
         ];

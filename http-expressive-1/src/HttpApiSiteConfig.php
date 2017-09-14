@@ -145,9 +145,6 @@ class HttpApiSiteConfig
                 ],
             ],
             'routes' => [
-                /**
-                 * Site ===========================================
-                 */
 
                 // Publish CmsResource
                 'zrcms.site.action.publish-cms-resource' => [
@@ -177,8 +174,8 @@ class HttpApiSiteConfig
                 ],
 
                 // Find CmsResource
-                'zrcms.site.repository.find-cms-resource' => [
-                    'name' => 'zrcms.site.repository.find-cms-resource',
+                'zrcms.site.repository.find-cms-resource.id' => [
+                    'name' => 'zrcms.site.repository.find-cms-resource.id',
                     'path' => '/zrcms/site/repository/find-cms-resource/{id}',
                     'middleware' => [
                         'acl' => IsAllowedSiteCmsResourceFind::class,
@@ -190,8 +187,8 @@ class HttpApiSiteConfig
                 ],
 
                 // Find ContentVersion
-                'zrcms.site.repository.find-content-version' => [
-                    'name' => 'zrcms.site.repository.find-content-version',
+                'zrcms.site.repository.find-content-version.id' => [
+                    'name' => 'zrcms.site.repository.find-content-version.id',
                     'path' => '/zrcms/site/repository/find-content-version/{id}',
                     'middleware' => [
                         'acl' => IsAllowedFindContentVersion::class,
