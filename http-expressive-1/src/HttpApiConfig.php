@@ -187,7 +187,7 @@ AttributesZfInputFilterService::class => [
                     'name' => 'zrcms.read-all-component-configs',
                     'path' => '/zrcms/read-all-component-configs',
                     'middleware' => [
-                        //'acl' => IsAllowedGetRegisterComponents::class,
+                        'acl' => IsAllowedReadAllComponentConfigs::class,
                         'api' => ReadAllComponentConfigs::class,
                     ],
                     'options' => [],

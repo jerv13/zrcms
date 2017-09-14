@@ -70,10 +70,10 @@ Features
 Clean up - Refactoring
 ----------------------
 
-##### ApplicationZrcms #####
+##### Component Simplify #####
 
-- Decouple from Expressive and Stagility
-- issues with raiseThrowables and private bits (note - commented out on local)
+- Instead of categories for components, we could have types
+  This could reduce or eliminate needing special repositories for each type
 
 ##### GetViewLayoutTags interface could take on Request and us attributes #####
 
