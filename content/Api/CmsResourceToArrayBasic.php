@@ -37,20 +37,24 @@ class CmsResourceToArrayBasic implements CmsResourceToArray
         array $options = []
     ): array
     {
+        $contentVersion = $this->contentVersionToArray->__invoke(
+            $cmsResource->getContentVersion()
+        );
+        $properties = $cmsResource->getProperties();
+        $properties[PropertiesCmsResource::CONTENT_VERSION] = $contentVersion;
+
         return [
             PropertiesCmsResource::ID
             => $cmsResource->getId(),
 
             PropertiesCmsResource::CONTENT_VERSION
-            => $this->contentVersionToArray->__invoke(
-                $cmsResource->getContentVersion()
-            ),
+            => $contentVersion,
 
             PropertiesCmsResource::PUBLISHED
             => $cmsResource->isPublished(),
 
             Properties::NAME_PROPERTIES
-            => $cmsResource->getProperties(),
+            => $properties,
 
             TrackableProperties::CREATED_BY_USER_ID
             => $cmsResource->getCreatedByUserId(),

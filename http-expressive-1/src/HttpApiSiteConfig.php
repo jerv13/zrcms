@@ -9,19 +9,17 @@ use Zrcms\Content\Api\CmsResourceToArray;
 use Zrcms\Content\Api\ContentVersionToArray;
 use Zrcms\ContentCore\Site\Model\SiteCmsResourceBasic;
 use Zrcms\ContentCore\Site\Model\SiteVersionBasic;
-use Zrcms\HttpExpressive1\HttpApi\Site\Acl\IsAllowedFindContentVersion;
-use Zrcms\HttpExpressive1\HttpApi\Site\Acl\IsAllowedSiteCmsResourceFind;
-use Zrcms\HttpExpressive1\HttpApi\Site\Acl\IsAllowedSitePublish;
-use Zrcms\HttpExpressive1\HttpApi\Site\Acl\IsAllowedSiteUnpublish;
-use Zrcms\HttpExpressive1\HttpApi\Site\Action\PublishSiteCmsResource;
-use Zrcms\HttpExpressive1\HttpApi\Site\Action\UnpublishSiteCmsResource;
-use Zrcms\HttpExpressive1\HttpApi\Site\Repository\FindSiteCmsResource;
-use Zrcms\HttpExpressive1\HttpApi\Site\Repository\FindSiteVersion;
-use Zrcms\HttpExpressive1\HttpApi\Site\Repository\InsertSiteVersion;
-use Zrcms\HttpExpressive1\HttpValidator\IdAttributeZfInputFilterService;
-use Zrcms\HttpExpressive1\HttpValidator\SiteCmsResourcePublishZfInputFilterService;
-use Zrcms\HttpResponseHandler\Api\HandleResponseApi;
-use Zrcms\HttpResponseHandler\Api\HandleResponseApiMessages;
+use Zrcms\HttpExpressive1\HttpApi\Validate\IdAttributeZfInputFilterService;
+use Zrcms\HttpExpressive1\HttpApiSite\Acl\IsAllowedFindContentVersion;
+use Zrcms\HttpExpressive1\HttpApiSite\Acl\IsAllowedSiteCmsResourceFind;
+use Zrcms\HttpExpressive1\HttpApiSite\Acl\IsAllowedSitePublish;
+use Zrcms\HttpExpressive1\HttpApiSite\Acl\IsAllowedSiteUnpublish;
+use Zrcms\HttpExpressive1\HttpApiSite\Action\PublishSiteCmsResource;
+use Zrcms\HttpExpressive1\HttpApiSite\Action\UnpublishSiteCmsResource;
+use Zrcms\HttpExpressive1\HttpApiSite\Repository\FindSiteCmsResource;
+use Zrcms\HttpExpressive1\HttpApiSite\Repository\FindSiteVersion;
+use Zrcms\HttpExpressive1\HttpApiSite\Repository\InsertSiteVersion;
+use Zrcms\HttpExpressive1\HttpApiSite\Validate\PublishSiteCmsResourceZfInputFilterService;
 use Zrcms\User\Api\GetUserIdByRequest;
 
 /**
@@ -40,11 +38,10 @@ class HttpApiSiteConfig
             'dependencies' => [
                 'config_factories' => [
                     /**
-                     * HttpAcl ===========================================
+                     * Acl ===========================================
                      */
                     IsAllowedFindContentVersion::class => [
                         'arguments' => [
-                            HandleResponseApi::class,
                             IsAllowedRcmUser::class,
                             [
                                 'literal' => [
@@ -57,7 +54,6 @@ class HttpApiSiteConfig
                     ],
                     IsAllowedSiteCmsResourceFind::class => [
                         'arguments' => [
-                            HandleResponseApi::class,
                             IsAllowedRcmUser::class,
                             [
                                 'literal' => [
@@ -70,7 +66,6 @@ class HttpApiSiteConfig
                     ],
                     IsAllowedSitePublish::class => [
                         'arguments' => [
-                            HandleResponseApi::class,
                             IsAllowedRcmUser::class,
                             [
                                 'literal' => [
@@ -83,7 +78,6 @@ class HttpApiSiteConfig
                     ],
                     IsAllowedSiteUnpublish::class => [
                         'arguments' => [
-                            HandleResponseApi::class,
                             IsAllowedRcmUser::class,
                             [
                                 'literal' => [
@@ -95,14 +89,13 @@ class HttpApiSiteConfig
                         ],
                     ],
                     /**
-                     * HttpApi ===========================================
+                     * Action ===========================================
                      */
                     PublishSiteCmsResource::class => [
                         'arguments' => [
                             \Zrcms\ContentCore\Site\Api\Action\PublishSiteCmsResource::class,
                             CmsResourceToArray::class,
                             GetUserIdByRequest::class,
-                            HandleResponseApi::class,
                             ['literal' => SiteCmsResourceBasic::class],
                             ['literal' => 'site-action-publish-cms-resource'],
                         ],
@@ -111,15 +104,16 @@ class HttpApiSiteConfig
                         'arguments' => [
                             \Zrcms\ContentCore\Site\Api\Action\UnpublishSiteCmsResource::class,
                             GetUserIdByRequest::class,
-                            HandleResponseApi::class,
                             ['literal' => 'site-action-unpublish-cms-resource'],
                         ],
                     ],
+                    /**
+                     * Repository ===========================================
+                     */
                     FindSiteCmsResource::class => [
                         'arguments' => [
                             \Zrcms\ContentCore\Site\Api\Repository\FindSiteCmsResource::class,
                             CmsResourceToArray::class,
-                            HandleResponseApi::class,
                             ['literal' => SiteCmsResourceBasic::class],
                             ['literal' => 'site-repository-find-cms-resource'],
                         ],
@@ -141,21 +135,16 @@ class HttpApiSiteConfig
                         ],
                     ],
                     /**
-                     * HttpValidator ===========================================
+                     * Validate ===========================================
                      */
-                    SiteCmsResourcePublishZfInputFilterService::class => [
+                    PublishSiteCmsResourceZfInputFilterService::class => [
                         'arguments' => [
                             ServiceAwareFactory::class,
-                            HandleResponseApiMessages::class,
                         ],
                     ],
                 ],
             ],
             'routes' => [
-                /**
-                 * Site ===========================================
-                 */
-
                 // Publish CmsResource
                 'zrcms.site.action.publish-cms-resource' => [
                     'name' => 'zrcms.site.action.publish-cms-resource',
@@ -163,7 +152,7 @@ class HttpApiSiteConfig
                     'middleware' => [
                         'parser' => BodyParamsMiddleware::class,
                         'acl' => IsAllowedSitePublish::class,
-                        'validator-data' => SiteCmsResourcePublishZfInputFilterService::class,
+                        'validator-data' => PublishSiteCmsResourceZfInputFilterService::class,
                         'api' => PublishSiteCmsResource::class,
                     ],
                     'options' => [],
@@ -184,8 +173,8 @@ class HttpApiSiteConfig
                 ],
 
                 // Find CmsResource
-                'zrcms.site.repository.find-cms-resource' => [
-                    'name' => 'zrcms.site.repository.find-cms-resource',
+                'zrcms.site.repository.find-cms-resource.id' => [
+                    'name' => 'zrcms.site.repository.find-cms-resource.id',
                     'path' => '/zrcms/site/repository/find-cms-resource/{id}',
                     'middleware' => [
                         'acl' => IsAllowedSiteCmsResourceFind::class,
@@ -197,8 +186,8 @@ class HttpApiSiteConfig
                 ],
 
                 // Find ContentVersion
-                'zrcms.site.repository.find-content-version' => [
-                    'name' => 'zrcms.site.repository.find-content-version',
+                'zrcms.site.repository.find-content-version.id' => [
+                    'name' => 'zrcms.site.repository.find-content-version.id',
                     'path' => '/zrcms/site/repository/find-content-version/{id}',
                     'middleware' => [
                         'acl' => IsAllowedFindContentVersion::class,

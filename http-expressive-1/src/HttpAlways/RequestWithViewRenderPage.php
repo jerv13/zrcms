@@ -58,8 +58,6 @@ class RequestWithViewRenderPage
             $viewRenderTags
         );
 
-        $response = new HtmlResponse($html);
-
-        return $response;
+        return new HtmlResponse($html);
     }
 }

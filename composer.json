@@ -32,7 +32,7 @@
     "rcm/api-lib": "^0.10",
     "reliv/zf-config-factories": "^4",
     "reliv/zf-input-filter-service": "^0.1",
-    "zendframework/zend-expressive": "^1.1.1 || 2.*"
+    "zendframework/zend-expressive": "^1.* || 2.*"
   },
   "require-dev": {
     "phpunit/phpunit": "5.*",
@@ -53,7 +53,6 @@
       "Zrcms\\ContentRedirect\\": "content-redirect/",
       "Zrcms\\ContentRedirectDoctrineDataSource\\": "content-redirect-doctrine-data-source/",
       "Zrcms\\HttpExpressive1\\": "http-expressive-1/src/",
-      "Zrcms\\HttpResponseHandler\\": "http-response-handler/",
       "Zrcms\\Importer\\": "importer/src/",
       "Zrcms\\Install\\": "install/src/",
       "Zrcms\\Locale\\": "locale/",

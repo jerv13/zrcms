@@ -37,20 +37,27 @@ class CmsResourcePublishHistoryToArrayBasic implements CmsResourcePublishHistory
         array $options = []
     ): array
     {
+        $contentVersion = $this->contentVersionToArray->__invoke(
+            $cmsResourcePublishHistory->getContentVersion()
+        );
+        $properties = $cmsResourcePublishHistory->getProperties();
+        $properties[PropertiesCmsResourcePublishHistory::CONTENT_VERSION] = $contentVersion;
+
         return [
             PropertiesCmsResourcePublishHistory::ID
             => $cmsResourcePublishHistory->getId(),
 
             PropertiesCmsResourcePublishHistory::CONTENT_VERSION
-            => $this->contentVersionToArray->__invoke(
-                $cmsResourcePublishHistory->getContentVersion()
-            ),
+            => $contentVersion,
+
+            PropertiesCmsResourcePublishHistory::PUBLISHED
+            => $cmsResourcePublishHistory->isPublished(),
 
             PropertiesCmsResourcePublishHistory::ACTION
             => $cmsResourcePublishHistory->getAction(),
 
             Properties::NAME_PROPERTIES
-            => $cmsResourcePublishHistory->getProperties(),
+            => $properties,
 
             TrackableProperties::CREATED_BY_USER_ID
             => $cmsResourcePublishHistory->getCreatedByUserId(),

@@ -1,6 +1,9 @@
 @todo
 =====
 
+- APIs in http-expressive
+    - Test
+
 - Write implementation test
     - for each content type (Container with block, PageContainer, Site, ThemeLayout, View)
     - Get components
@@ -13,8 +16,6 @@
 - Refactor ResponseHandler as http-api-response-formatter
 
 - ContentDoctrine SyncProperties needs to be done separately for CmsResourcePublishHistory
-
-- APIs in http-expressive
 
 - For publish and unpublish, extra properties (like host) should not be required if there is an existing resource
 
@@ -58,19 +59,21 @@
 - Check and update all composer dependencies
 
     
-## Features ##
+Features
+--------
 
 - Admin menus
     - Standard menus for admins using the properties and/or field definitions
     - include input-validations
     - create js/ui lib
     
-## Clean up - Refactoring ##
+Clean up - Refactoring
+----------------------
 
-##### ApplicationZrcms #####
+##### Component Simplify #####
 
-- Decouple from Expressive and Stagility
-- issues with raiseThrowables and private bits (note - commented out on local)
+- Instead of categories for components, we could have types
+  This could reduce or eliminate needing special repositories for each type
 
 ##### GetViewLayoutTags interface could take on Request and us attributes #####
 
@@ -107,7 +110,8 @@
     - @see Redirect-editor
     
     
-## OPTIMIZATION: api (after FindResourceVersion implemented) ##
+OPTIMIZATION: api (after FindResourceVersion implemented)
+---------------------------------------------------------
 
 - Optimize queries
 - Add indexes

@@ -2,39 +2,17 @@
 
 namespace Zrcms\HttpExpressive1;
 
-use ZfInputFilterService\InputFilter\ServiceAwareFactory;
 use Zrcms\Acl\Api\IsAllowedAny;
 use Zrcms\ContentCore\Basic\Api\Component\ReadBasicComponentConfigApplicationConfig;
 use Zrcms\ContentCore\Basic\Api\Repository\FindBasicComponent;
 use Zrcms\ContentCore\Site\Api\GetSiteCmsResourceByRequest;
-use Zrcms\ContentCore\View\Api\GetViewByRequest;
-use Zrcms\ContentCore\View\Api\Render\GetViewLayoutTags;
-use Zrcms\ContentCore\View\Api\Render\RenderView;
 use Zrcms\ContentCore\View\Model\ServiceAliasView;
 use Zrcms\ContentCoreConfigDataSource\Content\Model\ComponentRegistryFields;
-use Zrcms\ContentRedirect\Api\Repository\FindRedirectCmsResourceBySiteRequestPath;
 use Zrcms\HttpExpressive1\Api\GetStatusPage;
 use Zrcms\HttpExpressive1\Api\GetStatusPageBasic;
 use Zrcms\HttpExpressive1\Api\View\Render\GetViewLayoutMetaPageData;
-use Zrcms\HttpExpressive1\HttpAcl\IsAllowedToViewPage;
-use Zrcms\HttpExpressive1\HttpAlways\ContentRedirect;
-use Zrcms\HttpExpressive1\HttpAlways\LocaleFromSite;
-use Zrcms\HttpExpressive1\HttpAlways\ParamLogOut;
-use Zrcms\HttpExpressive1\HttpAlways\RequestWithOriginalUri;
-use Zrcms\HttpExpressive1\HttpAlways\RequestWithView;
-use Zrcms\HttpExpressive1\HttpAlways\RequestWithViewRenderPage;
-use Zrcms\HttpExpressive1\HttpFinal\NotFoundStatusPage;
-use Zrcms\HttpExpressive1\HttpParams\ParamQuery;
-use Zrcms\HttpExpressive1\HttpRender\RenderPage;
-use Zrcms\HttpExpressive1\HttpResponseMutator\ResponseMutator;
-use Zrcms\HttpExpressive1\HttpResponseMutator\ResponseMutatorNoop;
-use Zrcms\HttpExpressive1\HttpResponseMutator\ResponseMutatorStatusPage;
-use Zrcms\HttpExpressive1\HttpValidator\IdAttributeZfInputFilterService;
 use Zrcms\HttpExpressive1\Model\HttpExpressiveComponent;
 use Zrcms\HttpExpressive1\Model\PropertiesHttpExpressiveComponent;
-use Zrcms\HttpResponseHandler\Api\HandleResponseApi;
-use Zrcms\Locale\Api\SetLocale;
-use Zrcms\User\Api\LogOut;
 use Zrcms\ViewHtmlTags\Api\Render\RenderTag;
 
 /**
@@ -75,206 +53,6 @@ class ModuleConfig
                             GetSiteCmsResourceByRequest::class,
                             FindBasicComponent::class,
                         ],
-                    ],
-
-                    /**
-                     * HttpAcl ===========================================
-                     */
-                    /* ACL EXAMPLE *
-                    IsAllowedCheck::class => [
-                        'arguments' => [
-                            HandleResponse::class,
-                            IsAllowedRcmUser::class,
-                            [
-                                'literal' => [
-                                    IsAllowedRcmUser::OPTION_RESOURCE_ID => 'admin',
-                                    IsAllowedRcmUser::OPTION_PRIVILEGE => 'read'
-                                ]
-                            ]
-                        ],
-                    ],
-                    /* */
-
-                    IsAllowedToViewPage::class => [],
-
-                    /**
-                     * HttpAlways ===========================================
-                     */
-                    ContentRedirect::class => [
-                        'arguments' => [
-                            GetSiteCmsResourceByRequest::class,
-                            FindRedirectCmsResourceBySiteRequestPath::class,
-                        ],
-                    ],
-
-                    LocaleFromSite::class => [
-                        'arguments' => [
-                            SetLocale::class,
-                            GetSiteCmsResourceByRequest::class
-                        ],
-                    ],
-
-                    ParamLogOut::class => [
-                        'arguments' => [
-                            LogOut::class,
-                        ],
-                    ],
-
-                    RequestWithOriginalUri::class => [],
-
-                    RequestWithViewRenderPage::class => [
-                        'arguments' => [
-                            GetViewLayoutTags::class,
-                            RenderView::class,
-                        ],
-                    ],
-
-                    RequestWithView::class => [
-                        'arguments' => [
-                            GetViewByRequest::class,
-                        ],
-                    ],
-                    /**
-                     * HttpFinal ===========================================
-                     */
-                    NotFoundStatusPage::class => [
-                        'arguments' => [
-                            GetStatusPage::class,
-                            RenderPage::class,
-                        ],
-                    ],
-
-                    /**
-                     * HttpParams ===========================================
-                     */
-                    ParamQuery::class => [],
-
-                    /**
-                     * HttpRender ===========================================
-                     */
-                    RenderPage::class => [
-                        'arguments' => [
-                            GetViewByRequest::class,
-                            GetViewLayoutTags::class,
-                            RenderView::class,
-                        ],
-                    ],
-
-                    /**
-                     * ResponseMutator ===========================================
-                     */
-                    ResponseMutator::class => [
-                        //'class' => ResponseMutatorNoop::class,
-                        // @todo This should use ResponseMutatorStatusPage by default
-                        'class' => ResponseMutatorStatusPage::class,
-                        'arguments' => [
-                            GetStatusPage::class,
-                            RenderPage::class,
-                        ],
-                    ],
-                    ResponseMutatorNoop::class => [],
-                    ResponseMutatorStatusPage::class => [
-                        'arguments' => [
-                            GetStatusPage::class,
-                            RenderPage::class,
-                        ],
-                    ],
-
-                    /**
-                     * HttpValidator ===========================================
-                     */
-                    /* Attribute Validator EXAMPLE *
-                    AttributesZfInputFilterService::class => [
-                        'arguments' => [
-                            ServiceAwareFactory::class,
-                            [
-                                'literal' => [
-                                    // zf-input-filter-service config
-                                    'test1' => [
-                                        'name' => 'test1',
-                                        'required' => true,
-                                        'validators' => [
-                                            [
-                                                // Invoked
-                                                'name' => 'ZfInputFilterService\Validator\Test',
-                                                'options' => [
-                                                    'test' => 'validatorOptionInvoked',
-                                                    'messages' => [
-                                                        'TEST' => 'validatorMessageTemplateInvoked',
-                                                    ],
-                                                ],
-                                            ],
-                                            [
-                                                // Service
-                                                'name' => 'ZfInputFilterService\Validator\TestService',
-                                                'service' => true,
-                                                'options' => [
-                                                    'test' => 'validatorOptionService',
-                                                    'messages' => [
-                                                        'TEST' => 'validatorMessageTemplateService',
-                                                    ],
-                                                ],
-                                            ],
-                                        ],
-                                    ],
-                                ]
-                            ],
-                            HandleResponseApiMessages::class
-                        ],
-                    ],
-                    /* */
-
-                    IdAttributeZfInputFilterService::class => [
-                        'arguments' => [
-                            ServiceAwareFactory::class,
-                            HandleResponseApi::class,
-                            ['literal' => 'id'],
-                        ],
-                    ],
-
-                    /* Data Validator EXAMPLE *
-                    DataZfInputFilterService::class => [
-                        'arguments' => [
-                            ServiceAwareFactory::class,
-                            [
-                                'literal' => [
-                                    // zf-input-filter-service config
-                                    'test1' => [
-                                        'name' => 'test1',
-                                        'required' => true,
-                                        'validators' => [
-                                            [
-                                                // Invoked
-                                                'name' => 'ZfInputFilterService\Validator\Test',
-                                                'options' => [
-                                                    'test' => 'validatorOptionInvoked',
-                                                    'messages' => [
-                                                        'TEST' => 'validatorMessageTemplateInvoked',
-                                                    ],
-                                                ],
-                                            ],
-                                            [
-                                                // Service
-                                                'name' => 'ZfInputFilterService\Validator\TestService',
-                                                'service' => true,
-                                                'options' => [
-                                                    'test' => 'validatorOptionService',
-                                                    'messages' => [
-                                                        'TEST' => 'validatorMessageTemplateService',
-                                                    ],
-                                                ],
-                                            ],
-                                        ],
-                                    ],
-                                ]
-                            ],
-                            HandleResponseApiMessages::class
-                        ],
-                    ],
-                    /* */
-
-                    ApplicationZrcms::class => [
-                        'factory' => ApplicationZrcmsFullFactory::class,
                     ],
                 ],
             ],
