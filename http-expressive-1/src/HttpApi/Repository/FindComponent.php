@@ -99,7 +99,7 @@ class FindComponent
             return new JsonApiResponse(
                 null,
                 $apiMessages,
-                400
+                404
             );
         }
 

@@ -2,8 +2,10 @@
 
 namespace Zrcms\ContentRedirect\Model;
 
+use Zrcms\Content\Exception\ContentVersionInvalid;
 use Zrcms\Content\Exception\ContentVersionNotExistsException;
 use Zrcms\Content\Model\CmsResourceAbstract;
+use Zrcms\Content\Model\ContentVersion;
 use Zrcms\Param\Param;
 
 /**
@@ -12,11 +14,17 @@ use Zrcms\Param\Param;
 abstract class RedirectCmsResourceAbstract extends CmsResourceAbstract implements RedirectCmsResource
 {
     /**
-     * @param array  $properties
-     * @param string $createdByUserId
-     * @param string $createdReason
+     * @param string|null    $id
+     * @param bool           $published
+     * @param ContentVersion $contentVersion
+     * @param array          $properties
+     * @param string         $createdByUserId
+     * @param string         $createdReason
      */
     public function __construct(
+        $id,
+        bool $published,
+        ContentVersion $contentVersion,
         array $properties,
         string $createdByUserId,
         string $createdReason
@@ -27,6 +35,9 @@ abstract class RedirectCmsResourceAbstract extends CmsResourceAbstract implement
         );
 
         parent::__construct(
+            $id,
+            $published,
+            $contentVersion,
             $properties,
             $createdByUserId,
             $createdReason
@@ -59,13 +70,15 @@ abstract class RedirectCmsResourceAbstract extends CmsResourceAbstract implement
      * @param $contentVersion
      *
      * @return void
-     * @throws ContentVersionNotExistsException
+     * @throws ContentVersionInvalid
      */
     protected function assertValidContentVersion($contentVersion)
     {
         if (!$contentVersion instanceof RedirectVersion) {
-            throw new ContentVersionNotExistsException(
-                'Missing required: ' . PropertiesRedirectCmsResource::CONTENT_VERSION
+            throw new ContentVersionInvalid(
+                'ContentVersion must be instance of: ' . RedirectVersion::class
+                . ' got: ' . var_export($contentVersion, true)
+                . ' for: ' . get_class($this)
             );
         }
     }

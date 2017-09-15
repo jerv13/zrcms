@@ -5,7 +5,7 @@ namespace Zrcms\Content\Model;
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-interface ContentVersion extends Content, Trackable
+class ContentVersionBasic extends ContentVersionAbstract implements ContentVersion
 {
     /**
      * @param string|null $id
@@ -18,10 +18,12 @@ interface ContentVersion extends Content, Trackable
         array $properties,
         string $createdByUserId,
         string $createdReason
-    );
-
-    /**
-     * @return string
-     */
-    public function getId();
+    ) {
+        parent::__construct(
+            $id,
+            $properties,
+            $createdByUserId,
+            $createdReason
+        );
+    }
 }

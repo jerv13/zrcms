@@ -108,10 +108,6 @@ class JsonApiResponse extends Response
      */
     private function setApiMessages($apiMessages)
     {
-        if (is_object($apiMessages)) {
-            $apiMessages = clone $apiMessages;
-        }
-
         $this->apiMessages = $apiMessages;
     }
 

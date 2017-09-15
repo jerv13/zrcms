@@ -94,9 +94,11 @@ class HttpApiSiteConfig
                     PublishSiteCmsResource::class => [
                         'arguments' => [
                             \Zrcms\ContentCore\Site\Api\Action\PublishSiteCmsResource::class,
+                            \Zrcms\ContentCore\Site\Api\Repository\FindSiteVersion::class,
                             CmsResourceToArray::class,
                             GetUserIdByRequest::class,
                             ['literal' => SiteCmsResourceBasic::class],
+                            ['literal' => SiteVersionBasic::class],
                             ['literal' => 'site-action-publish-cms-resource'],
                         ],
                     ],

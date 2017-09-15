@@ -7,8 +7,11 @@ namespace Zrcms\Content\Model;
  */
 class PropertiesCmsResource extends PropertiesSettableAbstract implements Properties
 {
+    /** @deprecated */
     const ID = 'id';
+    /** @deprecated */
     const CONTENT_VERSION = 'contentVersion';
+    /** @deprecated */
     const PUBLISHED = 'published';
 
     /**

@@ -5,10 +5,10 @@ namespace Zrcms\Content\Model;
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-interface CmsResource extends Immutable, Properties, Trackable
+class CmsResourceBasic extends CmsResourceAbstract implements CmsResource
 {
     /**
-     * @param                $id
+     * @param string|null    $id
      * @param bool           $published
      * @param ContentVersion $contentVersion
      * @param array          $properties
@@ -22,20 +22,14 @@ interface CmsResource extends Immutable, Properties, Trackable
         array $properties,
         string $createdByUserId,
         string $createdReason
-    );
-
-    /**
-     * @return string
-     */
-    public function getId(): string;
-
-    /**
-     * @return ContentVersion
-     */
-    public function getContentVersion();
-
-    /**
-     * @return bool
-     */
-    public function isPublished(): bool;
+    ) {
+        parent::__construct(
+            $id,
+            $published,
+            $contentVersion,
+            $properties,
+            $createdByUserId,
+            $createdReason
+        );
+    }
 }

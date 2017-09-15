@@ -5,7 +5,10 @@ namespace Zrcms\HttpExpressive1\HttpApi\Action;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Zrcms\Content\Api\CmsResourceToArray;
+use Zrcms\Content\Api\Repository\FindContentVersion;
 use Zrcms\Content\Model\CmsResource;
+use Zrcms\Content\Model\PropertiesCmsResource;
+use Zrcms\Content\Model\PropertiesContentVersion;
 use Zrcms\HttpExpressive1\Model\JsonApiResponse;
 use Zrcms\HttpExpressive1\Model\ResponseCodes;
 use Zrcms\User\Api\GetUserIdByRequest;
@@ -21,6 +24,11 @@ class PublishCmsResource
      * @var \Zrcms\Content\Api\Action\PublishCmsResource
      */
     protected $publishCmsResource;
+
+    /**
+     * @var FindContentVersion
+     */
+    protected $findContentVersion;
 
     /**
      * @var CmsResourceToArray
@@ -40,26 +48,37 @@ class PublishCmsResource
     /**
      * @var string
      */
+    protected $contentVersionClass;
+
+    /**
+     * @var string
+     */
     protected $name;
 
     /**
      * @param \Zrcms\Content\Api\Action\PublishCmsResource $publishCmsResource
+     * @param FindContentVersion                           $findContentVersion
      * @param CmsResourceToArray                           $cmsResourceToArray
      * @param GetUserIdByRequest                           $getUserIdByRequest
      * @param string                                       $cmsResourceClass
+     * @param string                                       $contentVersionClass
      * @param string                                       $name
      */
     public function __construct(
         \Zrcms\Content\Api\Action\PublishCmsResource $publishCmsResource,
+        FindContentVersion $findContentVersion,
         CmsResourceToArray $cmsResourceToArray,
         GetUserIdByRequest $getUserIdByRequest,
         string $cmsResourceClass,
+        string $contentVersionClass,
         string $name
     ) {
         $this->publishCmsResource = $publishCmsResource;
         $this->cmsResourceToArray = $cmsResourceToArray;
+        $this->findContentVersion = $findContentVersion;
         $this->getUserIdByRequest = $getUserIdByRequest;
         $this->cmsResourceClass = $cmsResourceClass;
+        $this->contentVersionClass = $contentVersionClass;
         $this->name = $name;
     }
 
@@ -97,28 +116,73 @@ class PublishCmsResource
             );
         }
 
+        $createdByUserId = $this->getUserIdByRequest->__invoke($request);
+        $createdReason = get_class($this);
+
+        if (empty($createdByUserId)) {
+            $apiMessages = [
+                'type' => $this->name,
+                'value' => 'Valid user required to be logged in',
+                'source' => self::SOURCE,
+                'code' => ResponseCodes::VALID_USER_REQUIRED,
+                'primary' => true,
+                'params' => []
+            ];
+
+            return new JsonApiResponse(
+                null,
+                $apiMessages,
+                400
+            );
+        }
+
+        $requestedContentVersionId = $properties[PropertiesCmsResource::CONTENT_VERSION][PropertiesContentVersion::ID];
+
+        $contentVersion = $this->findContentVersion->__invoke(
+            $requestedContentVersionId
+        );
+
+        if (empty($contentVersion)) {
+            $apiMessages = [
+                'type' => $this->name,
+                'value' => 'Not found for id: ' . $requestedContentVersionId,
+                'source' => self::SOURCE,
+                'code' => ResponseCodes::NOT_FOUND,
+                'primary' => true,
+                'params' => []
+            ];
+
+            return new JsonApiResponse(
+                null,
+                $apiMessages,
+                404
+            );
+        }
+
+        $properties[PropertiesCmsResource::CONTENT_VERSION] = $contentVersion;
+
         /** @var CmsResource::class $cmsResourceClass */
         $cmsResourceClass = $this->cmsResourceClass;
 
         $cmsResource = new $cmsResourceClass(
             $properties,
-            $this->getUserIdByRequest->__invoke($request),
-            get_class($this)
+            $createdByUserId,
+            $createdReason
         );
 
-        try {
+//        try {
             $newCmsResource = $this->publishCmsResource->__invoke(
                 $cmsResource,
-                $this->getUserIdByRequest->__invoke($request),
-                get_class($this)
+                $createdByUserId,
+                $createdReason
             );
-        } catch (\Exception $exception) {
-            return new JsonApiResponse(
-                null,
-                $exception,
-                500
-            );
-        }
+//        } catch (\Exception $exception) {
+//            return new JsonApiResponse(
+//                null,
+//                $exception,
+//                500
+//            );
+//        }
 
         $result = $this->cmsResourceToArray->__invoke(
             $newCmsResource

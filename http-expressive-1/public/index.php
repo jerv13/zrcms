@@ -13,6 +13,6 @@ if (!$env) {
 $serviceContainer = require __DIR__ . '/../../../../../config/container.php';
 
 /** @var \Zend\Expressive\Application $app */
-$app = $container->get(\Zrcms\HttpExpressive1\ApplicationZrcms::class);
+$app = $container->get(\Zend\Expressive\Application::class);
 
 $app->run();

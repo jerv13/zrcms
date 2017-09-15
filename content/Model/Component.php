@@ -7,6 +7,15 @@ namespace Zrcms\Content\Model;
  */
 interface Component extends Immutable, Properties, Trackable
 {
+//    public function __construct(
+//        string $classification,
+//        string $name,
+//        string $configLocation,
+//        array $properties,
+//        string $createdByUserId,
+//        string $createdReason
+//    );
+
     /**
      * @param array  $properties
      * @param string $createdByUserId

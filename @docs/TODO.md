@@ -1,6 +1,40 @@
 @todo
 =====
 
+##### Investigate reducing properties (might try a factory instead of constructor) #####
+
+- Content (id) do we still need ID?
+- ContentVersion (id)
+- Component (name, configLocation)
+
+- FIX ENTITIES
+
+    use CmsResourcePublishHistoryEntityTrait;
+    
+    /**
+     * @param string|null       $id
+     * @param string            $action
+     * @param CmsResourceEntity $cmsResource
+     * @param string            $publishedByUserId
+     * @param string            $publishReason
+     */
+    public function __construct(
+        $id,
+        string $action,
+        CmsResourceEntity $cmsResource,
+        string $publishedByUserId,
+        string $publishReason
+    ) 
+        parent::__construct(
+            $id,
+            $action,
+            $cmsResource,
+            $publishedByUserId,
+            $publishedByUserId
+        );
+    }
+
+        
 - APIs in http-expressive
     - Test
 
@@ -92,12 +126,6 @@ Clean up - Refactoring
 - Property definitions might be injectable or validated
     - if we inject properties objects, the properties could be validated without needing hard coded checks (might not be good)
 - Properties need to be synced between Content and array
-    
-##### Investigate reducing properties (might try a factory instead of constructor) #####
-
-- Content (id) do we still need ID?
-- ContentVersion (id)
-- Component (name, configLocation)
     
 ##### Check all component Properties and config values #####
 

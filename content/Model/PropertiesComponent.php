@@ -7,8 +7,11 @@ namespace Zrcms\Content\Model;
  */
 class PropertiesComponent extends PropertiesSettableAbstract implements Properties
 {
+    /** @deprecated */
     const NAME = 'name';
+    /** @deprecated */
     const CONFIG_LOCATION = 'configLocation';
+
     const COMPONENT_CONFIG_READER = 'componentConfigReader';
     const COMPONENT_CLASS = 'componentClass';
 

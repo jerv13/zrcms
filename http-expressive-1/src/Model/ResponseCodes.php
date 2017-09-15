@@ -12,4 +12,5 @@ class ResponseCodes
     const ID_NOT_RECEIVED = 'id-not-received';
     const PROPERTIES_NOT_RECEIVED = 'properties-not-received';
     const NOT_ALLOWED = 'not-allowed';
+    const VALID_USER_REQUIRED = 'valid-user-required';
 }

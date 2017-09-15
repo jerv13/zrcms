@@ -7,6 +7,7 @@ namespace Zrcms\Content\Model;
  */
 class PropertiesContent extends PropertiesSettableAbstract implements Properties
 {
+    /** @deprecated */
     const ID = 'id';
 
     /**

@@ -9,8 +9,13 @@ use Zrcms\Content\Model\ContentVersion;
  * @author James Jervis - https://github.com/jerv13
  */
 interface RedirectCmsResourcePublishHistory
-    extends RedirectCmsResource, CmsResourcePublishHistory
+    extends CmsResourcePublishHistory
 {
+    /**
+     * @return RedirectCmsResource|CmsResource
+     */
+    public function getCmsResource();
+
     /**
      * @return RedirectVersion|ContentVersion
      */

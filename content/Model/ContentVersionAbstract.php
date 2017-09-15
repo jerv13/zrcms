@@ -2,8 +2,6 @@
 
 namespace Zrcms\Content\Model;
 
-use Zrcms\Param\Param;
-
 /**
  * @author James Jervis - https://github.com/jerv13
  */
@@ -12,6 +10,13 @@ abstract class ContentVersionAbstract
     use ImmutableTrait;
     use PropertiesTrait;
     use TrackableTrait;
+
+    /**
+     * ID
+     *
+     * @var string
+     */
+    protected $id;
 
     /**
      * @var array
@@ -40,11 +45,13 @@ abstract class ContentVersionAbstract
     protected $createdReason;
 
     /**
-     * @param array  $properties
-     * @param string $createdByUserId
-     * @param string $createdReason
+     * @param string|null $id
+     * @param array       $properties
+     * @param string      $createdByUserId
+     * @param string      $createdReason
      */
     public function __construct(
+        $id,
         array $properties,
         string $createdByUserId,
         string $createdReason
@@ -54,6 +61,8 @@ abstract class ContentVersionAbstract
             return;
         }
         $this->new = false;
+
+        $this->id = $id;
 
         $this->setCreatedData(
             $createdByUserId,
@@ -68,9 +77,6 @@ abstract class ContentVersionAbstract
      */
     public function getId(): string
     {
-        return $this->getProperty(
-            PropertiesContentVersion::ID,
-            ''
-        );
+        return $this->id;
     }
 }

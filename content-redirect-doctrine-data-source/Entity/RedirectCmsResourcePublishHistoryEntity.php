@@ -23,7 +23,7 @@ use Zrcms\Param\Param;
  */
 class RedirectCmsResourcePublishHistoryEntity
     extends RedirectCmsResourcePublishHistoryAbstract
-    implements RedirectCmsResourcePublishHistory, CmsResourcePublishHistoryEntity
+    implements CmsResourcePublishHistoryEntity
 {
     use CmsResourcePublishHistoryEntityTrait;
 
@@ -134,40 +134,7 @@ class RedirectCmsResourcePublishHistoryEntity
         string $createdByUserId,
         string $createdReason
     ) {
-        $this->id = Param::getInt(
-            $properties,
-            PropertiesRedirectCmsResource::ID
-        );
-
-        $this->contentVersion = Param::get(
-            $properties,
-            PropertiesRedirectCmsResource::CONTENT_VERSION
-        );
-
-        $this->published = Param::getBool(
-            $properties,
-            PropertiesRedirectCmsResource::PUBLISHED
-        );
-
-        $this->siteCmsResourceId = Param::get(
-            $properties,
-            PropertiesRedirectCmsResource::SITE_CMS_RESOURCE_ID
-        );
-
-        $this->requestPath = Param::getString(
-            $properties,
-            PropertiesRedirectCmsResource::REQUEST_PATH
-        );
-
-        $this->cmsResourceId = Param::getString(
-            $properties,
-            PropertiesCmsResourcePublishHistory::CMS_RESOURCE_ID
-        );
-
-        $this->action = Param::getString(
-            $properties,
-            PropertiesCmsResourcePublishHistory::ACTION
-        );
+        $this->updateProperties($properties);
 
         parent::__construct(
             $properties,
@@ -238,5 +205,51 @@ class RedirectCmsResourcePublishHistoryEntity
     public function getRequestPath(): string
     {
         return $this->requestPath;
+    }
+
+    /**
+     * @param array $properties
+     *
+     * @return void
+     */
+    public function updateProperties(
+        array $properties
+    ) {
+        $this->id = Param::getInt(
+            $properties,
+            PropertiesRedirectCmsResource::ID
+        );
+
+        $this->contentVersion = Param::get(
+            $properties,
+            PropertiesRedirectCmsResource::CONTENT_VERSION
+        );
+
+        $this->published = Param::getBool(
+            $properties,
+            PropertiesRedirectCmsResource::PUBLISHED
+        );
+
+        $this->siteCmsResourceId = Param::get(
+            $properties,
+            PropertiesRedirectCmsResource::SITE_CMS_RESOURCE_ID
+        );
+
+        $this->requestPath = Param::getString(
+            $properties,
+            PropertiesRedirectCmsResource::REQUEST_PATH
+        );
+
+        $this->cmsResourceId = Param::getString(
+            $properties,
+            PropertiesCmsResourcePublishHistory::CMS_RESOURCE_ID
+        );
+
+        $this->action = Param::getString(
+            $properties,
+            PropertiesCmsResourcePublishHistory::ACTION
+        );
+
+        $this->properties = $properties;
     }
 }

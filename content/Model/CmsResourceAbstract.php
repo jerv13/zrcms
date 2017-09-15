@@ -2,8 +2,8 @@
 
 namespace Zrcms\Content\Model;
 
+use Zrcms\Content\Exception\ContentVersionInvalid;
 use Zrcms\Content\Exception\ContentVersionNotExistsException;
-use Zrcms\Param\Param;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -13,6 +13,21 @@ abstract class CmsResourceAbstract
     use ImmutableTrait;
     use PropertiesTrait;
     use TrackableTrait;
+
+    /**
+     * @var null|string
+     */
+    protected $id = null;
+
+    /**
+     * @var bool
+     */
+    protected $published;
+
+    /**
+     * @var ContentVersion
+     */
+    protected $contentVersion;
 
     /**
      * @var array
@@ -41,11 +56,17 @@ abstract class CmsResourceAbstract
     protected $createdReason;
 
     /**
-     * @param array  $properties
-     * @param string $createdByUserId
-     * @param string $createdReason
+     * @param string|null    $id
+     * @param bool           $published
+     * @param ContentVersion $contentVersion
+     * @param array          $properties
+     * @param string         $createdByUserId
+     * @param string         $createdReason
      */
     public function __construct(
+        $id,
+        bool $published,
+        ContentVersion $contentVersion,
         array $properties,
         string $createdByUserId,
         string $createdReason
@@ -56,19 +77,13 @@ abstract class CmsResourceAbstract
         }
         $this->new = false;
 
-        $contentVersion = Param::get(
-            $properties,
-            PropertiesCmsResource::CONTENT_VERSION,
-            null
-        );
+        $this->id = $id;
+
+        $this->published = $published;
+
+        $this->contentVersion = $contentVersion;
 
         $this->assertValidContentVersion($contentVersion);
-
-        $properties[PropertiesCmsResource::PUBLISHED] = Param::getBool(
-            $properties,
-            PropertiesCmsResource::PUBLISHED,
-            true
-        );
 
         $this->properties = $properties;
 
@@ -83,10 +98,7 @@ abstract class CmsResourceAbstract
      */
     public function getId(): string
     {
-        return $this->getProperty(
-            PropertiesCmsResource::ID,
-            ''
-        );
+        return $this->id;
     }
 
     /**
@@ -94,10 +106,7 @@ abstract class CmsResourceAbstract
      */
     public function getContentVersion()
     {
-        return $this->getProperty(
-            PropertiesCmsResource::CONTENT_VERSION,
-            null
-        );
+        return $this->contentVersion;
     }
 
     /**
@@ -105,23 +114,22 @@ abstract class CmsResourceAbstract
      */
     public function isPublished(): bool
     {
-        return $this->getProperty(
-            PropertiesCmsResource::PUBLISHED,
-            true
-        );
+        return $this->published;
     }
 
     /**
      * @param $contentVersion
      *
      * @return void
-     * @throws ContentVersionNotExistsException
+     * @throws ContentVersionInvalid
      */
     protected function assertValidContentVersion($contentVersion)
     {
         if (!$contentVersion instanceof ContentVersion) {
-            throw new ContentVersionNotExistsException(
-                'Missing required: ' . PropertiesCmsResource::CONTENT_VERSION
+            throw new ContentVersionInvalid(
+                'ContentVersion must be instance of: ' . ContentVersion::class
+                . ' got: ' . var_export($contentVersion, true)
+                . ' for: ' . get_class($this)
             );
         }
     }

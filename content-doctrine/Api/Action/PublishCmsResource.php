@@ -6,12 +6,13 @@ use Zrcms\Content\Exception\ContentVersionNotExistsException;
 use Zrcms\Content\Model\Action;
 use Zrcms\Content\Model\CmsResource;
 use Zrcms\Content\Model\CmsResourcePublishHistory;
-use Zrcms\Content\Model\ContentVersion;
 use Zrcms\Content\Model\PropertiesCmsResource;
 use Zrcms\Content\Model\PropertiesCmsResourcePublishHistory;
 use Zrcms\ContentDoctrine\Api\ApiAbstract;
 use Zrcms\ContentDoctrine\Api\BuildBasicCmsResource;
 use Zrcms\ContentDoctrine\Entity\CmsResourceEntity;
+use Zrcms\ContentDoctrine\Entity\CmsResourcePublishHistoryEntity;
+use Zrcms\ContentDoctrine\Entity\ContentEntity;
 
 /**
  * Publish a new or existing CmsResource with new properties
@@ -84,17 +85,17 @@ class PublishCmsResource
     ) {
         $this->assertValidEntityClass(
             $entityClassCmsResource,
-            CmsResource::class
+            CmsResourceEntity::class
         );
 
         $this->assertValidEntityClass(
             $entityClassCmsResourcePublishHistory,
-            CmsResourcePublishHistory::class
+            CmsResourcePublishHistoryEntity::class
         );
 
         $this->assertValidEntityClass(
             $entityClassContentVersion,
-            ContentVersion::class
+            ContentEntity::class
         );
 
         $this->entityManager = $entityManager;
@@ -199,28 +200,31 @@ class PublishCmsResource
     }
 
     /**
-     * @param CmsResourceEntity $cmsResource
+     * @param CmsResourceEntity $cmsResourceEntity
      * @param string            $publishedByUserId
      * @param string            $publishReason
      *
      * @return CmsResourcePublishHistory
      */
     protected function buildHistory(
-        CmsResourceEntity $cmsResource,
+        CmsResourceEntity $cmsResourceEntity,
         string $publishedByUserId,
         string $publishReason
     ) {
-        $historyProperties = $cmsResource->getProperties();
+
+        $historyProperties = $cmsResourceEntity->getProperties();
         $historyProperties[PropertiesCmsResourcePublishHistory::CMS_RESOURCE_ID]
-            = $cmsResource->getId();
+            = $cmsResourceEntity->getId();
+        $historyProperties[PropertiesCmsResourcePublishHistory::CONTENT_VERSION]
+            = $cmsResourceEntity->getContentVersion();
         $historyProperties[PropertiesCmsResourcePublishHistory::ACTION]
             = Action::PUBLISH_CMS_RESOURCE;
 
-        /** @var CmsResourcePublishHistory::class $cmsResourcePublishHistoryClass */
-        $cmsResourcePublishHistoryClass = $this->entityClassCmsResourcePublishHistory;
+        /** @var CmsResourcePublishHistoryEntity::class $cmsResourcePublishHistoryEntityClass */
+        $cmsResourcePublishHistoryEntityClass = $this->entityClassCmsResourcePublishHistory;
 
         /** @var CmsResourcePublishHistory $newCmsResourcePublishHistory */
-        return new $cmsResourcePublishHistoryClass(
+        return new $cmsResourcePublishHistoryEntityClass(
             $historyProperties,
             $publishedByUserId,
             $publishReason

@@ -4,14 +4,9 @@ namespace Zrcms\ContentCoreDoctrineDataSource\Container\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Zrcms\Content\Model\ContentVersion;
-use Zrcms\ContentCore\Container\Model\ContainerCmsResource;
 use Zrcms\ContentCore\Container\Model\ContainerCmsResourceAbstract;
-use Zrcms\ContentCore\Container\Model\ContainerVersion;
-use Zrcms\ContentCore\Container\Model\PropertiesContainerCmsResource;
 use Zrcms\ContentDoctrine\Entity\CmsResourceEntity;
 use Zrcms\ContentDoctrine\Entity\CmsResourceEntityTrait;
-use Zrcms\ContentDoctrine\Entity\ContentEntity;
-use Zrcms\Param\Param;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -29,7 +24,7 @@ use Zrcms\Param\Param;
  */
 class ContainerCmsResourceEntity
     extends ContainerCmsResourceAbstract
-    implements ContainerCmsResource, CmsResourceEntity
+    implements CmsResourceEntity
 {
     use CmsResourceEntityTrait;
 
@@ -43,6 +38,13 @@ class ContainerCmsResourceEntity
     protected $id;
 
     /**
+     * @var int
+     *
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    protected $contentVersionId = null;
+
+    /**
      * @var ContainerVersionEntity
      *
      * @ORM\ManyToOne(targetEntity="ContainerVersionEntity")
@@ -53,13 +55,6 @@ class ContainerCmsResourceEntity
      * )
      */
     protected $contentVersion;
-
-    /**
-     * @var int
-     *
-     * @ORM\Column(type="integer", nullable=true)
-     */
-    protected $contentVersionId = null;
 
     /**
      * @var boolean
@@ -117,11 +112,17 @@ class ContainerCmsResourceEntity
     protected $path;
 
     /**
-     * @param array  $properties
-     * @param string $createdByUserId
-     * @param string $createdReason
+     * @param                $id
+     * @param bool           $published
+     * @param ContentVersion $contentVersion
+     * @param array          $properties
+     * @param string         $createdByUserId
+     * @param string         $createdReason
      */
     public function __construct(
+        $id,
+        bool $published,
+        ContentVersion $contentVersion,
         array $properties,
         string $createdByUserId,
         string $createdReason
@@ -129,6 +130,9 @@ class ContainerCmsResourceEntity
         $this->updateProperties($properties);
 
         parent::__construct(
+            $id,
+            $published,
+            $contentVersion,
             $properties,
             $createdByUserId,
             $createdReason
@@ -141,81 +145,5 @@ class ContainerCmsResourceEntity
     public function getId(): string
     {
         return (string)$this->id;
-    }
-
-    /**
-     * @return ContainerVersionEntity
-     */
-    public function getContentVersion()
-    {
-        return $this->contentVersion;
-    }
-
-    /**
-     * @return string
-     */
-    public function getContentVersionId(): string
-    {
-        return (string)$this->contentVersionId;
-    }
-
-    /**
-     * @return bool
-     */
-    public function isPublished(): bool
-    {
-        return $this->published;
-    }
-
-    /**
-     * @return string
-     */
-    public function getSiteCmsResourceId(): string
-    {
-        return $this->siteCmsResourceId;
-    }
-
-    /**
-     * @return string
-     */
-    public function getPath(): string
-    {
-        return $this->path;
-    }
-
-    /**
-     * @param array $properties
-     *
-     * @return void
-     */
-    public function updateProperties(
-        array $properties
-    ) {
-        $this->id = Param::getInt(
-            $properties,
-            PropertiesContainerCmsResource::ID
-        );
-
-        $this->contentVersion = Param::get(
-            $properties,
-            PropertiesContainerCmsResource::CONTENT_VERSION
-        );
-
-        $this->siteCmsResourceId = Param::getInt(
-            $properties,
-            PropertiesContainerCmsResource::SITE_CMS_RESOURCE_ID
-        );
-
-        $this->published = Param::getBool(
-            $properties,
-            PropertiesContainerCmsResource::PUBLISHED
-        );
-
-        $this->path = Param::getString(
-            $properties,
-            PropertiesContainerCmsResource::PATH
-        );
-
-        $this->properties = $properties;
     }
 }

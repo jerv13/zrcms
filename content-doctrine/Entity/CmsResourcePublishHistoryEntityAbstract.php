@@ -1,19 +1,23 @@
 <?php
 
-namespace Zrcms\Content\Model;
+namespace Zrcms\ContentDoctrine\Entity;
 
 use Zrcms\Content\Exception\CmsResourceInvalid;
+use Zrcms\Content\Model\ImmutableTrait;
+use Zrcms\Content\Model\PropertiesTrait;
+use Zrcms\Content\Model\TrackableTrait;
 
 /**
  * A history record of the state of
  *
  * @author James Jervis - https://github.com/jerv13
  */
-abstract class CmsResourcePublishHistoryAbstract
+abstract class CmsResourcePublishHistoryEntityAbstract
 {
     use ImmutableTrait;
     use PropertiesTrait;
     use TrackableTrait;
+    use CmsResourcePublishHistoryEntityTrait;
 
     /**
      * @var null|string
@@ -26,7 +30,7 @@ abstract class CmsResourcePublishHistoryAbstract
     protected $action;
 
     /**
-     * @var CmsResource
+     * @var CmsResourceEntity
      */
     protected $cmsResource;
 
@@ -36,21 +40,21 @@ abstract class CmsResourcePublishHistoryAbstract
     protected $cmsResourceProperties;
 
     /**
-     * @var ContentVersion
+     * @var ContentEntity
      */
     protected $contentVersion;
 
     /**
-     * @param string|null $id
-     * @param string      $action
-     * @param CmsResource $cmsResource
-     * @param string      $publishedByUserId
-     * @param string      $publishReason
+     * @param string|null       $id
+     * @param string            $action
+     * @param CmsResourceEntity $cmsResource
+     * @param string            $publishedByUserId
+     * @param string            $publishReason
      */
     public function __construct(
         $id,
         string $action,
-        CmsResource $cmsResource,
+        CmsResourceEntity $cmsResource,
         string $publishedByUserId,
         string $publishReason
     ) {
@@ -93,7 +97,7 @@ abstract class CmsResourcePublishHistoryAbstract
     }
 
     /**
-     * @return ContentVersion
+     * @return ContentEntity
      */
     public function getContentVersion()
     {
@@ -109,7 +113,7 @@ abstract class CmsResourcePublishHistoryAbstract
     }
 
     /**
-     * @return CmsResource
+     * @return CmsResourceEntity
      */
     public function getCmsResource()
     {
@@ -117,16 +121,16 @@ abstract class CmsResourcePublishHistoryAbstract
     }
 
     /**
-     * @param CmsResource $cmsResource
+     * @param CmsResourceEntity $cmsResource
      *
      * @return void
      * @throws CmsResourceInvalid
      */
     protected function assertValidCmsResource($cmsResource)
     {
-        if (!$cmsResource instanceof CmsResource) {
+        if (!$cmsResource instanceof CmsResourceEntity) {
             throw new CmsResourceInvalid(
-                'CmsResource must be instance of: ' . CmsResource::class
+                'CmsResource must be instance of: ' . CmsResourceEntity::class
                 . ' got: ' . var_export($cmsResource, true)
                 . ' for: ' . get_class($this)
             );

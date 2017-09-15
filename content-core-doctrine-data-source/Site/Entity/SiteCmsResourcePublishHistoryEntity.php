@@ -5,7 +5,6 @@ namespace Zrcms\ContentCoreDoctrineDataSource\Site\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Zrcms\Content\Model\PropertiesCmsResourcePublishHistory;
 use Zrcms\ContentCore\Site\Model\PropertiesSiteCmsResource;
-use Zrcms\ContentCore\Site\Model\SiteCmsResourcePublishHistory;
 use Zrcms\ContentCore\Site\Model\SiteCmsResourcePublishHistoryAbstract;
 use Zrcms\ContentDoctrine\Entity\CmsResourcePublishHistoryEntity;
 use Zrcms\ContentDoctrine\Entity\CmsResourcePublishHistoryEntityTrait;
@@ -23,7 +22,7 @@ use Zrcms\Param\Param;
  */
 class SiteCmsResourcePublishHistoryEntity
     extends SiteCmsResourcePublishHistoryAbstract
-    implements SiteCmsResourcePublishHistory, CmsResourcePublishHistoryEntity
+    implements CmsResourcePublishHistoryEntity
 {
     use CmsResourcePublishHistoryEntityTrait;
 
@@ -127,35 +126,7 @@ class SiteCmsResourcePublishHistoryEntity
         string $createdByUserId,
         string $createdReason
     ) {
-        $this->id = Param::getInt(
-            $properties,
-            PropertiesSiteCmsResource::ID
-        );
-
-        $this->contentVersion = Param::get(
-            $properties,
-            PropertiesSiteCmsResource::CONTENT_VERSION
-        );
-
-        $this->published = Param::getBool(
-            $properties,
-            PropertiesSiteCmsResource::PUBLISHED
-        );
-
-        $this->host = Param::getString(
-            $properties,
-            PropertiesSiteCmsResource::HOST
-        );
-
-        $this->cmsResourceId = Param::getString(
-            $properties,
-            PropertiesCmsResourcePublishHistory::CMS_RESOURCE_ID
-        );
-
-        $this->action = Param::getString(
-            $properties,
-            PropertiesCmsResourcePublishHistory::ACTION
-        );
+        $this->updateProperties($properties);
 
         parent::__construct(
             $properties,
@@ -218,5 +189,46 @@ class SiteCmsResourcePublishHistoryEntity
     public function getHost(): string
     {
         return $this->host;
+    }
+
+    /**
+     * @param array $properties
+     *
+     * @return void
+     */
+    public function updateProperties(
+        array $properties
+    ) {
+        $this->id = Param::getInt(
+            $properties,
+            PropertiesSiteCmsResource::ID
+        );
+
+        $this->contentVersion = Param::get(
+            $properties,
+            PropertiesSiteCmsResource::CONTENT_VERSION
+        );
+
+        $this->published = Param::getBool(
+            $properties,
+            PropertiesSiteCmsResource::PUBLISHED
+        );
+
+        $this->host = Param::getString(
+            $properties,
+            PropertiesSiteCmsResource::HOST
+        );
+
+        $this->cmsResourceId = Param::getString(
+            $properties,
+            PropertiesCmsResourcePublishHistory::CMS_RESOURCE_ID
+        );
+
+        $this->action = Param::getString(
+            $properties,
+            PropertiesCmsResourcePublishHistory::ACTION
+        );
+
+        $this->properties = $properties;
     }
 }

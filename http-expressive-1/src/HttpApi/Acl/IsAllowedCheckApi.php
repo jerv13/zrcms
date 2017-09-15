@@ -70,7 +70,7 @@ class IsAllowedCheckApi
                 'params' => []
 
             ];
-            $response = new JsonApiResponse(
+            return new JsonApiResponse(
                 [],
                 $apiMessages,
                 401

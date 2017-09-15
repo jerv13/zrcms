@@ -3,13 +3,21 @@
 namespace Zrcms\Content\Model;
 
 /**
+ * @deprecated
  * @author James Jervis - https://github.com/jerv13
  */
-class PropertiesCmsResourcePublishHistory extends PropertiesCmsResource
+class PropertiesCmsResourcePublishHistory
 {
+    /** @deprecated */
+    const ID = 'id';
+    /** @deprecated */
+    const CONTENT_VERSION = 'contentVersion';
+    /** @deprecated */
+    const PUBLISHED = 'published';
+    /** @deprecated */
     const CMS_RESOURCE_ID = 'cmsResourceId';
+    /** @deprecated */
     const ACTION = 'action';
-
 
     /**
      * Default values

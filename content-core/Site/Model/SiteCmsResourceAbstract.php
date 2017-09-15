@@ -2,9 +2,11 @@
 
 namespace Zrcms\ContentCore\Site\Model;
 
+use Zrcms\Content\Exception\ContentVersionInvalid;
 use Zrcms\Content\Exception\ContentVersionNotExistsException;
 use Zrcms\Content\Exception\PropertyMissingException;
 use Zrcms\Content\Model\CmsResourceAbstract;
+use Zrcms\Content\Model\ContentVersion;
 use Zrcms\Param\Param;
 
 /**
@@ -13,16 +15,21 @@ use Zrcms\Param\Param;
 abstract class SiteCmsResourceAbstract extends CmsResourceAbstract
 {
     /**
-     * @param array  $properties
-     * @param string $createdByUserId
-     * @param string $createdReason
+     * @param string|null    $id
+     * @param bool           $published
+     * @param ContentVersion $contentVersion
+     * @param array          $properties
+     * @param string         $createdByUserId
+     * @param string         $createdReason
      */
     public function __construct(
+        $id,
+        bool $published,
+        ContentVersion $contentVersion,
         array $properties,
         string $createdByUserId,
         string $createdReason
     ) {
-
         Param::assertHas(
             $properties,
             PropertiesSiteCmsResource::HOST,
@@ -34,6 +41,9 @@ abstract class SiteCmsResourceAbstract extends CmsResourceAbstract
         );
 
         parent::__construct(
+            $id,
+            $published,
+            $contentVersion,
             $properties,
             $createdByUserId,
             $createdReason
@@ -55,13 +65,15 @@ abstract class SiteCmsResourceAbstract extends CmsResourceAbstract
      * @param $contentVersion
      *
      * @return void
-     * @throws ContentVersionNotExistsException
+     * @throws ContentVersionInvalid
      */
     protected function assertValidContentVersion($contentVersion)
     {
         if (!$contentVersion instanceof SiteVersion) {
-            throw new ContentVersionNotExistsException(
-                'Missing required: ' . PropertiesSiteCmsResource::CONTENT_VERSION
+            throw new ContentVersionInvalid(
+                'ContentVersion must be instance of: ' . SiteVersion::class
+                . ' got: ' . var_export($contentVersion, true)
+                . ' for: ' . get_class($this)
             );
         }
     }

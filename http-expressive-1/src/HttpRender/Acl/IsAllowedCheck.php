@@ -60,7 +60,7 @@ class IsAllowedCheck
         callable $next = null
     ) {
         if (!$this->isAllowed->__invoke($request, $this->aclOptions)) {
-            $response = new HtmlResponse(
+            return new HtmlResponse(
                 'NOT ALLOWED',
                 401,
                 ['reason-phrase' => 'NOT ALLOWED: ' . self::SOURCE]

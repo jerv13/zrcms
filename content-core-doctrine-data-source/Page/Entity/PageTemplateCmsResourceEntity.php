@@ -3,7 +3,6 @@
 namespace Zrcms\ContentCoreDoctrineDataSource\Page\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Zrcms\Content\Model\ContentVersion;
 use Zrcms\ContentCore\Container\Model\ContainerCmsResourceAbstract;
 use Zrcms\ContentCore\Page\Model\PageTemplateCmsResource;
 use Zrcms\ContentCore\Page\Model\PropertiesPageTemplateCmsResource;

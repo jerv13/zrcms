@@ -10,4 +10,8 @@ use Zrcms\Content\Model\Trackable;
  */
 interface ContentEntity extends Entity, Properties, Trackable
 {
+    /**
+     * @return string
+     */
+    public function getId(): string;
 }

@@ -4,7 +4,6 @@ namespace Zrcms\ContentCoreDoctrineDataSource\Theme\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Zrcms\Content\Model\PropertiesCmsResourcePublishHistory;
-use Zrcms\ContentCore\Theme\Model\LayoutCmsResourcePublishHistory;
 use Zrcms\ContentCore\Theme\Model\LayoutCmsResourcePublishHistoryAbstract;
 use Zrcms\ContentDoctrine\Entity\CmsResourcePublishHistoryEntity;
 use Zrcms\ContentDoctrine\Entity\CmsResourcePublishHistoryEntityTrait;
@@ -22,7 +21,7 @@ use Zrcms\Param\Param;
  */
 class LayoutCmsResourcePublishHistoryEntity
     extends LayoutCmsResourcePublishHistoryAbstract
-    implements LayoutCmsResourcePublishHistory, CmsResourcePublishHistoryEntity
+    implements CmsResourcePublishHistoryEntity
 {
     use CmsResourcePublishHistoryEntityTrait;
 
@@ -119,30 +118,7 @@ class LayoutCmsResourcePublishHistoryEntity
         string $createdByUserId,
         string $createdReason
     ) {
-        $this->id = Param::getInt(
-            $properties,
-            PropertiesCmsResourcePublishHistory::ID
-        );
-
-        $this->contentVersion = Param::get(
-            $properties,
-            PropertiesCmsResourcePublishHistory::CONTENT_VERSION
-        );
-
-        $this->published = Param::getBool(
-            $properties,
-            PropertiesCmsResourcePublishHistory::PUBLISHED
-        );
-
-        $this->cmsResourceId = Param::getString(
-            $properties,
-            PropertiesCmsResourcePublishHistory::CMS_RESOURCE_ID
-        );
-
-        $this->action = Param::getString(
-            $properties,
-            PropertiesCmsResourcePublishHistory::ACTION
-        );
+        $this->updateProperties($properties);
 
         parent::__construct(
             $properties,
@@ -197,5 +173,41 @@ class LayoutCmsResourcePublishHistoryEntity
     public function getAction(): string
     {
         return $this->action;
+    }
+
+    /**
+     * @param array $properties
+     *
+     * @return void
+     */
+    public function updateProperties(
+        array $properties
+    ) {
+        $this->id = Param::getInt(
+            $properties,
+            PropertiesCmsResourcePublishHistory::ID
+        );
+
+        $this->contentVersion = Param::get(
+            $properties,
+            PropertiesCmsResourcePublishHistory::CONTENT_VERSION
+        );
+
+        $this->published = Param::getBool(
+            $properties,
+            PropertiesCmsResourcePublishHistory::PUBLISHED
+        );
+
+        $this->cmsResourceId = Param::getString(
+            $properties,
+            PropertiesCmsResourcePublishHistory::CMS_RESOURCE_ID
+        );
+
+        $this->action = Param::getString(
+            $properties,
+            PropertiesCmsResourcePublishHistory::ACTION
+        );
+
+        $this->properties = $properties;
     }
 }

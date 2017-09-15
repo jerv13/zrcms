@@ -22,7 +22,9 @@ abstract class ApiAbstract
             && !is_subclass_of($entityClass, $requiredEntityClass, true)
         ) {
             throw new InvalidEntityException(
-                'Invalid entityClass (' . $entityClass . '), entityClass must be a: ' . $requiredEntityClass
+                'Invalid entityClass (' . $entityClass . ')'
+                . ' entityClass must be a: ' . $requiredEntityClass
+                . ' for: ' . get_class($this)
             );
         }
     }
@@ -38,7 +40,9 @@ abstract class ApiAbstract
     {
         if (!is_a($entity, $entityClass)) {
             throw new InvalidEntityException(
-                'Invalid entity (' . get_class($entity) . '), entity must be of type: ' . $entityClass
+                'Invalid entity (' . get_class($entity) . ')'
+                . ' entity must be of type: ' . $entityClass
+                . ' for: ' . get_class($this)
             );
         }
     }

@@ -2,53 +2,52 @@
 
 namespace Zrcms\ContentRedirect\Model;
 
-use Zrcms\Content\Exception\PropertyMissingException;
-use Zrcms\Content\Model\PropertiesCmsResourcePublishHistory;
-use Zrcms\Param\Param;
+use Zrcms\Content\Exception\CmsResourceInvalid;
+use Zrcms\Content\Model\CmsResource;
+use Zrcms\Content\Model\CmsResourcePublishHistoryAbstract;
 
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-abstract class RedirectCmsResourcePublishHistoryAbstract
-    extends RedirectCmsResourceAbstract
-    implements RedirectCmsResourcePublishHistory
+abstract class RedirectCmsResourcePublishHistoryAbstract extends CmsResourcePublishHistoryAbstract
 {
     /**
-     * @param array  $properties
-     * @param string $publishedByUserId
-     * @param string $publishReason
+     * @param string|null                     $id
+     * @param string                          $action
+     * @param RedirectCmsResource|CmsResource $cmsResource
+     * @param string                          $publishedByUserId
+     * @param string                          $publishReason
      */
     public function __construct(
-        array $properties,
+        $id,
+        string $action,
+        CmsResource $cmsResource,
         string $publishedByUserId,
         string $publishReason
     ) {
-
-        Param::assertHas(
-            $properties,
-            PropertiesCmsResourcePublishHistory::ACTION,
-            PropertyMissingException::build(
-                PropertiesCmsResourcePublishHistory::ACTION,
-                $properties,
-                get_class($this)
-            )
-        );
-
         parent::__construct(
-            $properties,
+            $id,
+            $action,
+            $cmsResource,
             $publishedByUserId,
-            $publishReason
+            $publishedByUserId
         );
     }
 
     /**
-     * @return string
+     * @param CmsResource $cmsResource
+     *
+     * @return void
+     * @throws CmsResourceInvalid
      */
-    public function getAction(): string
+    protected function assertValidCmsResource($cmsResource)
     {
-        return $this->getProperty(
-            PropertiesCmsResourcePublishHistory::ACTION,
-            ''
-        );
+        if (!$cmsResource instanceof RedirectCmsResource) {
+            throw new CmsResourceInvalid(
+                'CmsResource must be instance of: ' . RedirectCmsResource::class
+                . ' got: ' . var_export($cmsResource, true)
+                . ' for: ' . get_class($this)
+            );
+        }
     }
 }
