@@ -88,7 +88,7 @@ class ResponseMutatorStatusPage
 
         $statusCode = $response->getStatusCode();
 
-        if (empty($response->getBody()->getContents())) {
+        if ($statusCode == 200 && empty($response->getBody()->getContents())) {
             $statusCode = 404;
         };
 

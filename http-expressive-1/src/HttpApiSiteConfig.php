@@ -145,7 +145,6 @@ class HttpApiSiteConfig
                 ],
             ],
             'routes' => [
-
                 // Publish CmsResource
                 'zrcms.site.action.publish-cms-resource' => [
                     'name' => 'zrcms.site.action.publish-cms-resource',
