@@ -3,6 +3,7 @@
 namespace Zrcms\ContentCoreDoctrineDataSource\Page\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Zrcms\Content\Exception\CmsResourceInvalid;
 use Zrcms\ContentDoctrine\Entity\CmsResourceEntity;
 use Zrcms\ContentDoctrine\Entity\CmsResourcePublishHistoryEntity;
 use Zrcms\ContentDoctrine\Entity\CmsResourcePublishHistoryEntityAbstract;
@@ -25,6 +26,85 @@ class PageContainerCmsResourcePublishHistoryEntity
     use CmsResourcePublishHistoryEntityTrait;
 
     /**
+     * @var int
+     *
+     * @ORM\Id
+     * @ORM\Column(type="integer")
+     * @ORM\GeneratedValue
+     */
+    protected $id;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(type="string")
+     */
+    protected $action;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    protected $cmsResourceId = null;
+
+    /**
+     * @var PageContainerCmsResourceEntity
+     *
+     * @ORM\ManyToOne(targetEntity="PageContainerCmsResourceEntity")
+     * @ORM\JoinColumn(
+     *     name="cmsResourceId",
+     *     referencedColumnName="id",
+     *     onDelete="SET NULL"
+     * )
+     */
+    protected $cmsResourceEntity;
+
+    /**
+     * @var array
+     *
+     * @ORM\Column(type="json_array")
+     */
+    protected $cmsResourceProperties;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    protected $contentVersionId = null;
+
+    /**
+     * @var PageContainerVersionEntity
+     *
+     * @ORM\ManyToOne(targetEntity="PageContainerVersionEntity")
+     * @ORM\JoinColumn(
+     *     name="contentVersionId",
+     *     referencedColumnName="id",
+     *     onDelete="SET NULL"
+     * )
+     */
+    protected $contentVersion;
+
+    /**
+     * Date object was first created mapped to col createdDate
+     *
+     * @var \DateTime
+     *
+     * @ORM\Column(type="datetime", name="createdDate")
+     */
+    protected $createdDateObject;
+
+    /**
+     * User ID of creator
+     *
+     * @var string
+     *
+     * @ORM\Column(type="string")
+     */
+    protected $createdByUserId;
+
+    /**
      * @var string
      *
      * @ORM\Column(type="string")
@@ -41,27 +121,27 @@ class PageContainerCmsResourcePublishHistoryEntity
     /**
      * @param string|null                                      $id
      * @param string                                           $action
-     * @param CmsResourceEntity|PageContainerCmsResourceEntity $cmsResource
+     * @param CmsResourceEntity|PageContainerCmsResourceEntity $cmsResourceEntity
      * @param string                                           $publishedByUserId
      * @param string                                           $publishReason
      */
     public function __construct(
         $id,
         string $action,
-        CmsResourceEntity $cmsResource,
+        CmsResourceEntity $cmsResourceEntity,
         string $publishedByUserId,
         string $publishReason
     ) {
-        $this->siteCmsResourceId = $cmsResource->getSiteCmsResourceId();
+        $this->siteCmsResourceId = $cmsResourceEntity->getSiteCmsResourceId();
 
-        $this->path = $cmsResource->getPath();
+        $this->path = $cmsResourceEntity->getPath();
 
         parent::__construct(
             $id,
             $action,
-            $cmsResource,
+            $cmsResourceEntity,
             $publishedByUserId,
-            $publishedByUserId
+            $publishReason
         );
     }
 
@@ -79,5 +159,22 @@ class PageContainerCmsResourcePublishHistoryEntity
     public function getPath(): string
     {
         return $this->path;
+    }
+
+    /**
+     * @param PageContainerCmsResourceEntity $cmsResource
+     *
+     * @return void
+     * @throws CmsResourceInvalid
+     */
+    protected function assertValidCmsResource($cmsResource)
+    {
+        if (!$cmsResource instanceof PageContainerCmsResourceEntity) {
+            throw new CmsResourceInvalid(
+                'CmsResource must be instance of: ' . PageContainerCmsResourceEntity::class
+                . ' got: ' . var_export($cmsResource, true)
+                . ' for: ' . get_class($this)
+            );
+        }
     }
 }

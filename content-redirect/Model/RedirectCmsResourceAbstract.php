@@ -3,7 +3,6 @@
 namespace Zrcms\ContentRedirect\Model;
 
 use Zrcms\Content\Exception\ContentVersionInvalid;
-use Zrcms\Content\Exception\ContentVersionNotExistsException;
 use Zrcms\Content\Model\CmsResourceAbstract;
 use Zrcms\Content\Model\ContentVersion;
 use Zrcms\Param\Param;
@@ -31,7 +30,7 @@ abstract class RedirectCmsResourceAbstract extends CmsResourceAbstract implement
     ) {
         Param::assertHas(
             $properties,
-            PropertiesRedirectCmsResource::REQUEST_PATH
+            FieldsRedirectCmsResource::REQUEST_PATH
         );
 
         parent::__construct(
@@ -50,7 +49,7 @@ abstract class RedirectCmsResourceAbstract extends CmsResourceAbstract implement
     public function getSiteCmsResourceId()
     {
         return $this->getProperty(
-            PropertiesRedirectCmsResource::SITE_CMS_RESOURCE_ID,
+            FieldsRedirectCmsResource::SITE_CMS_RESOURCE_ID,
             null
         );
     }
@@ -61,7 +60,7 @@ abstract class RedirectCmsResourceAbstract extends CmsResourceAbstract implement
     public function getRequestPath(): string
     {
         return $this->getProperty(
-            PropertiesRedirectCmsResource::REQUEST_PATH,
+            FieldsRedirectCmsResource::REQUEST_PATH,
             null
         );
     }

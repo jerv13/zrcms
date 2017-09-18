@@ -4,9 +4,9 @@ namespace Zrcms\Content\Api;
 
 use Zrcms\Cache\Service\Cache;
 use Zrcms\Content\Api\Component\ReadComponentRegistry;
+use Zrcms\Content\Fields\FieldsComponent;
+use Zrcms\Content\Fields\FieldsComponentConfig;
 use Zrcms\Content\Model\Component;
-use Zrcms\Content\Model\ComponentConfigFields;
-use Zrcms\Content\Model\PropertiesComponent;
 use Zrcms\Content\Model\Trackable;
 use Zrcms\Param\Param;
 
@@ -175,24 +175,38 @@ abstract class GetRegisterComponentsAbstract implements GetRegisterComponents
         $builtConfig = $this->buildSubComponents($preparedConfig);
 
         // Components might have special classes
+        /** @var Component::class $componentClass */
         $componentClass = Param::get(
             $componentConfig,
-            PropertiesComponent::COMPONENT_CLASS,
+            FieldsComponent::COMPONENT_CLASS,
             $this->defaultComponentClass
         );
 
         $this->assertValidClass($componentClass);
-
+        //@todo get classification correctly
         return new $componentClass(
+            Param::get(
+                $builtConfig,
+                FieldsComponentConfig::CLASSIFICATION,
+                '@TODO get classification correctly'
+            ),
+            Param::getRequired(
+                $builtConfig,
+                FieldsComponentConfig::NAME
+            ),
+            Param::getRequired(
+                $builtConfig,
+                FieldsComponentConfig::CONFIG_LOCATION
+            ),
             $builtConfig,
             Param::get(
                 $builtConfig,
-                ComponentConfigFields::CREATED_BY_USER_ID,
+                FieldsComponentConfig::CREATED_BY_USER_ID,
                 Trackable::UNKNOWN_USER_ID
             ),
             Param::get(
                 $builtConfig,
-                ComponentConfigFields::CREATED_REASON,
+                FieldsComponentConfig::CREATED_REASON,
                 Trackable::UNKNOWN_REASON
             )
         );

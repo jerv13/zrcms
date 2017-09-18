@@ -5,7 +5,7 @@ namespace Zrcms\HttpExpressive1\HttpApi\Repository;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Zrcms\Content\Api\ComponentToArray;
-use Zrcms\Content\Model\PropertiesComponent;
+use Zrcms\Content\Fields\FieldsComponent;
 use Zrcms\HttpExpressive1\Model\JsonApiResponse;
 use Zrcms\HttpExpressive1\Model\ResponseCodes;
 
@@ -62,7 +62,7 @@ class FindComponent
         callable $next = null
     ) {
         $componentName = (string)$request->getAttribute(
-            PropertiesComponent::NAME
+            FieldsComponent::NAME
         );
 
         if (empty($componentName)) {

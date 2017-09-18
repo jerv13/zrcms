@@ -8,7 +8,7 @@ use Zrcms\ContentCore\Block\Api\Component\ReadBlockComponentConfig;
 use Zrcms\ContentCore\Block\Api\Component\ReadBlockComponentConfigBc;
 use Zrcms\ContentCore\Block\Api\Component\ReadBlockComponentRegistry;
 use Zrcms\ContentCore\Block\Model\ServiceAliasBlock;
-use Zrcms\ContentCoreConfigDataSource\Block\Model\BlockComponentRegistryFields;
+use Zrcms\ContentCoreConfigDataSource\Block\Fields\FieldsBlockComponentRegistry;
 use Zrcms\ServiceAlias\Api\GetServiceFromAlias;
 
 /**
@@ -78,10 +78,10 @@ class ReadBlockComponentRegistryBc extends ReadComponentRegistryAbstract impleme
         $registryBcs = [];
         foreach ($pluginConfigsBc as $name => $pluginConfigBc) {
             $registryBc = [];
-            $registryBc[BlockComponentRegistryFields::COMPONENT_CONFIG_READER]
+            $registryBc[FieldsBlockComponentRegistry::COMPONENT_CONFIG_READER]
                 = ReadBlockComponentConfigBc::SERVICE_ALIAS;
-            $registryBc[BlockComponentRegistryFields::CONFIG_LOCATION] = $name;
-            $registryBc[BlockComponentRegistryFields::NAME] = $name;
+            $registryBc[FieldsBlockComponentRegistry::CONFIG_LOCATION] = $name;
+            $registryBc[FieldsBlockComponentRegistry::NAME] = $name;
             $registryBcs[] = $registryBc;
         }
 

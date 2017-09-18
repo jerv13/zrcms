@@ -3,7 +3,7 @@
 namespace Zrcms\ContentCoreDoctrineDataSource\Site\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Zrcms\ContentCore\Site\Model\PropertiesSiteVersion;
+use Zrcms\ContentCore\Site\Fields\FieldsSiteVersion;
 use Zrcms\ContentCore\Site\Model\SiteVersionAbstract;
 use Zrcms\ContentDoctrine\Entity\ContentEntity;
 use Zrcms\ContentDoctrine\Entity\ContentEntityTrait;
@@ -99,17 +99,17 @@ class SiteVersionEntity
     ) {
         $this->id = Param::getInt(
             $properties,
-            PropertiesSiteVersion::ID
+            FieldsSiteVersion::ID
         );
 
         $this->themeName = Param::getString(
             $properties,
-            PropertiesSiteVersion::THEME_NAME
+            FieldsSiteVersion::THEME_NAME
         );
 
         $this->locale = Param::getString(
             $properties,
-            PropertiesSiteVersion::LOCALE
+            FieldsSiteVersion::LOCALE
         );
 
         parent::__construct(

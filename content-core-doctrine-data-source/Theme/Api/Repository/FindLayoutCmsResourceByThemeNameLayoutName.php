@@ -7,7 +7,7 @@ use Zrcms\Content\Model\CmsResource;
 use Zrcms\ContentCore\Theme\Model\LayoutCmsResource;
 use Zrcms\ContentCore\Theme\Model\LayoutCmsResourceBasic;
 use Zrcms\ContentCore\Theme\Model\LayoutVersionBasic;
-use Zrcms\ContentCore\Theme\Model\PropertiesLayoutCmsResource;
+use Zrcms\ContentCore\Theme\Fields\FieldsLayoutCmsResource;
 use Zrcms\ContentCoreDoctrineDataSource\Theme\Api\FallbackToComponentLayoutCmsResource;
 use Zrcms\ContentCoreDoctrineDataSource\Theme\Entity\LayoutCmsResourceEntity;
 use Zrcms\ContentCoreDoctrineDataSource\Theme\Entity\LayoutVersionEntity;
@@ -98,8 +98,8 @@ class FindLayoutCmsResourceByThemeNameLayoutName
         /** @var LayoutCmsResourceEntity $layoutCmsResourceEntity */
         $layoutCmsResourceEntity = $repository->findOneBy(
             [
-                PropertiesLayoutCmsResource::THEME_NAME => $themeName,
-                PropertiesLayoutCmsResource::NAME => $layoutName,
+                FieldsLayoutCmsResource::THEME_NAME => $themeName,
+                FieldsLayoutCmsResource::NAME => $layoutName,
             ]
         );
 

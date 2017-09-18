@@ -4,7 +4,7 @@ namespace Zrcms\ContentCore\Page\Api\Render;
 
 use Zrcms\Content\Model\Content;
 use Zrcms\ContentCore\Page\Model\Page;
-use Zrcms\ContentCore\Page\Model\PropertiesPage;
+use Zrcms\ContentCore\Page\Fields\FieldsPage;
 use Zrcms\ContentCore\Page\Model\ServiceAliasPageContainer;
 use Zrcms\ServiceAlias\Api\GetServiceFromAlias;
 use Zrcms\ServiceAlias\ServiceCheck;
@@ -57,7 +57,7 @@ class RenderPageContainerBasic implements RenderPageContainer
     {
         // Get version renderer or use default
         $renderPageContainerServiceAlias = $pageContainer->getProperty(
-            PropertiesPage::RENDERER,
+            FieldsPage::RENDERER,
             ''
         );
 

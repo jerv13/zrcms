@@ -4,7 +4,7 @@ namespace Zrcms\ViewHead\Api\Render;
 
 use Psr\Http\Message\ServerRequestInterface;
 use Zrcms\Content\Model\Content;
-use Zrcms\ContentCore\Site\Model\PropertiesSite;
+use Zrcms\ContentCore\Site\Fields\FieldsSite;
 use Zrcms\ContentCore\View\Model\View;
 
 /**
@@ -36,7 +36,7 @@ class GetViewLayoutTagsHeadTitle implements GetViewLayoutTagsHead
         if (empty($title)) {
             $siteVersion = $view->getSiteCmsResource()->getContentVersion();
             $title = $siteVersion->getProperty(
-                PropertiesSite::TITLE
+                FieldsSite::TITLE
             );
         }
 

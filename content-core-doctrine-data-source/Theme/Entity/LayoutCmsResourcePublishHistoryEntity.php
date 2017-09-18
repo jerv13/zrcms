@@ -3,11 +3,11 @@
 namespace Zrcms\ContentCoreDoctrineDataSource\Theme\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Zrcms\Content\Model\PropertiesCmsResourcePublishHistory;
-use Zrcms\ContentCore\Theme\Model\LayoutCmsResourcePublishHistoryAbstract;
+use Zrcms\Content\Exception\CmsResourceInvalid;
+use Zrcms\ContentDoctrine\Entity\CmsResourceEntity;
 use Zrcms\ContentDoctrine\Entity\CmsResourcePublishHistoryEntity;
+use Zrcms\ContentDoctrine\Entity\CmsResourcePublishHistoryEntityAbstract;
 use Zrcms\ContentDoctrine\Entity\CmsResourcePublishHistoryEntityTrait;
-use Zrcms\Param\Param;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -20,7 +20,7 @@ use Zrcms\Param\Param;
  * )
  */
 class LayoutCmsResourcePublishHistoryEntity
-    extends LayoutCmsResourcePublishHistoryAbstract
+    extends CmsResourcePublishHistoryEntityAbstract
     implements CmsResourcePublishHistoryEntity
 {
     use CmsResourcePublishHistoryEntityTrait;
@@ -35,6 +35,46 @@ class LayoutCmsResourcePublishHistoryEntity
     protected $id;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(type="string")
+     */
+    protected $action;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    protected $cmsResourceId = null;
+
+    /**
+     * @var LayoutCmsResourceEntity
+     *
+     * @ORM\ManyToOne(targetEntity="LayoutCmsResourceEntity")
+     * @ORM\JoinColumn(
+     *     name="cmsResourceId",
+     *     referencedColumnName="id",
+     *     onDelete="SET NULL"
+     * )
+     */
+    protected $cmsResourceEntity;
+
+    /**
+     * @var array
+     *
+     * @ORM\Column(type="json_array")
+     */
+    protected $cmsResourceProperties;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    protected $contentVersionId = null;
+
+    /**
      * @var LayoutVersionEntity
      *
      * @ORM\ManyToOne(targetEntity="LayoutVersionEntity")
@@ -45,27 +85,6 @@ class LayoutCmsResourcePublishHistoryEntity
      * )
      */
     protected $contentVersion;
-
-    /**
-     * @var int
-     *
-     * @ORM\Column(type="integer", nullable=true))
-     */
-    protected $contentVersionId = null;
-
-    /**
-     * @var boolean
-     *
-     * @ORM\Column(type="boolean")
-     */
-    protected $published = true;
-
-    /**
-     * @var array
-     *
-     * @ORM\Column(type="json_array")
-     */
-    protected $properties = [];
 
     /**
      * Date object was first created mapped to col createdDate
@@ -86,128 +105,42 @@ class LayoutCmsResourcePublishHistoryEntity
     protected $createdByUserId;
 
     /**
-     * Short description of create reason
-     *
-     * @var string
-     *
-     * @ORM\Column(type="string")
-     */
-    protected $createdReason;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(type="string")
-     */
-    protected $cmsResourceId;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(type="string")
-     */
-    protected $action;
-
-    /**
-     * @param array  $properties
-     * @param string $createdByUserId
-     * @param string $createdReason
+     * @param string|null                               $id
+     * @param string                                    $action
+     * @param LayoutCmsResourceEntity|CmsResourceEntity $cmsResourceEntity
+     * @param string                                    $publishedByUserId
+     * @param string                                    $publishReason
      */
     public function __construct(
-        array $properties,
-        string $createdByUserId,
-        string $createdReason
+        $id,
+        string $action,
+        CmsResourceEntity $cmsResourceEntity,
+        string $publishedByUserId,
+        string $publishReason
     ) {
-        $this->updateProperties($properties);
-
         parent::__construct(
-            $properties,
-            $createdByUserId,
-            $createdReason
+            $id,
+            $action,
+            $cmsResourceEntity,
+            $publishedByUserId,
+            $publishReason
         );
     }
 
     /**
-     * @return string
-     */
-    public function getId(): string
-    {
-        return (string)$this->id;
-    }
-
-    /**
-     * @return LayoutVersionEntity
-     */
-    public function getContentVersion()
-    {
-        return $this->contentVersion;
-    }
-
-    /**
-     * @return string
-     */
-    public function getContentVersionId(): string
-    {
-        return (string)$this->contentVersionId;
-    }
-
-    /**
-     * @return bool
-     */
-    public function isPublished(): bool
-    {
-        return $this->published;
-    }
-
-    /**
-     * @return string
-     */
-    public function getCmsResourceId(): string
-    {
-        return $this->cmsResourceId;
-    }
-
-    /**
-     * @return string
-     */
-    public function getAction(): string
-    {
-        return $this->action;
-    }
-
-    /**
-     * @param array $properties
+     * @param LayoutCmsResourceEntity $cmsResource
      *
      * @return void
+     * @throws CmsResourceInvalid
      */
-    public function updateProperties(
-        array $properties
-    ) {
-        $this->id = Param::getInt(
-            $properties,
-            PropertiesCmsResourcePublishHistory::ID
-        );
-
-        $this->contentVersion = Param::get(
-            $properties,
-            PropertiesCmsResourcePublishHistory::CONTENT_VERSION
-        );
-
-        $this->published = Param::getBool(
-            $properties,
-            PropertiesCmsResourcePublishHistory::PUBLISHED
-        );
-
-        $this->cmsResourceId = Param::getString(
-            $properties,
-            PropertiesCmsResourcePublishHistory::CMS_RESOURCE_ID
-        );
-
-        $this->action = Param::getString(
-            $properties,
-            PropertiesCmsResourcePublishHistory::ACTION
-        );
-
-        $this->properties = $properties;
+    protected function assertValidCmsResource($cmsResource)
+    {
+        if (!$cmsResource instanceof LayoutCmsResourceEntity) {
+            throw new CmsResourceInvalid(
+                'CmsResource must be instance of: ' . LayoutCmsResourceEntity::class
+                . ' got: ' . var_export($cmsResource, true)
+                . ' for: ' . get_class($this)
+            );
+        }
     }
 }

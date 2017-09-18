@@ -9,7 +9,7 @@ interface Content extends Immutable, Properties
 {
     /**
      * @todo Content by default should not require IDs, this is BC stuff primarily
-     * @return string
+     * @return string|null
      */
     public function getId();
 }

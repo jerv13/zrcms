@@ -2,10 +2,10 @@
 
 namespace Zrcms\ContentCountry\Model;
 
+use Zrcms\Content\Model\ComponentAbstract;
 use Zrcms\ContentCore\Basic\Model\BasicComponent;
-use Zrcms\ContentCore\Basic\Model\BasicComponentAbstract;
 
-class CountriesComponent extends BasicComponentAbstract implements BasicComponent
+class CountriesComponent extends ComponentAbstract implements BasicComponent
 {
     /**
      * @return Country[]

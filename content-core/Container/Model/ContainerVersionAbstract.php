@@ -4,6 +4,7 @@ namespace Zrcms\ContentCore\Container\Model;
 
 use Zrcms\Content\Model\ContentVersionAbstract;
 use Zrcms\ContentCore\Container\Api\BuildBlockVersions;
+use Zrcms\ContentCore\Container\Fields\FieldsContainer;
 use Zrcms\Param\Param;
 
 /**
@@ -12,26 +13,29 @@ use Zrcms\Param\Param;
 abstract class ContainerVersionAbstract extends ContentVersionAbstract
 {
     /**
-     * @param array  $properties
-     * @param string $createdByUserId
-     * @param string $createdReason
+     * @param string|null $id
+     * @param array       $properties
+     * @param string      $createdByUserId
+     * @param string      $createdReason
      */
     public function __construct(
+        $id,
         array $properties,
         string $createdByUserId,
         string $createdReason
     ) {
         $blockVersions = Param::getArray(
             $properties,
-            PropertiesContainer::BLOCK_VERSIONS,
+            FieldsContainer::BLOCK_VERSIONS,
             []
         );
 
-        $properties[PropertiesContainer::BLOCK_VERSIONS] = BuildBlockVersions::prepare(
+        $properties[FieldsContainer::BLOCK_VERSIONS] = BuildBlockVersions::prepare(
             $blockVersions
         );
 
         parent::__construct(
+            $id,
             $properties,
             $createdByUserId,
             $createdReason
@@ -44,12 +48,15 @@ abstract class ContainerVersionAbstract extends ContentVersionAbstract
     public function getBlockVersions(): array
     {
         $blockVersions = $this->getProperty(
-            PropertiesContainer::BLOCK_VERSIONS,
+            FieldsContainer::BLOCK_VERSIONS,
             []
         );
 
+        /** @var ContainerVersion $containerVersion */
+        $containerVersion = $this;
+
         return BuildBlockVersions::invoke(
-            $this,
+            $containerVersion,
             $blockVersions
         );
     }

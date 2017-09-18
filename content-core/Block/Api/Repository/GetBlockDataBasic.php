@@ -5,7 +5,7 @@ namespace Zrcms\ContentCore\Block\Api\Repository;
 use Psr\Http\Message\ServerRequestInterface;
 use Zrcms\ContentCore\Block\Model\Block;
 use Zrcms\ContentCore\Block\Model\BlockComponent;
-use Zrcms\ContentCore\Block\Model\PropertiesBlockComponent;
+use Zrcms\ContentCore\Block\Fields\FieldsBlockComponent;
 use Zrcms\ContentCore\Block\Model\ServiceAliasBlock;
 use Zrcms\ServiceAlias\Api\GetServiceFromAlias;
 use Zrcms\ServiceAlias\ServiceCheck;
@@ -71,7 +71,7 @@ class GetBlockDataBasic implements GetBlockData
         );
 
         $getBlockDataServiceAlias = $blockComponent->getProperty(
-            PropertiesBlockComponent::DATA_PROVIDER,
+            FieldsBlockComponent::DATA_PROVIDER,
             ''
         );
 

@@ -3,7 +3,7 @@
 namespace Zrcms\ContentDoctrine\Api\Repository;
 
 use Zrcms\Content\Model\CmsResource;
-use Zrcms\Content\Model\PropertiesCmsResource;
+use Zrcms\Content\Fields\FieldsCmsResource;
 use Zrcms\ContentDoctrine\Api\ApiAbstractCmsResource;
 use Zrcms\ContentDoctrine\Api\BuildBasicCmsResources;
 
@@ -35,7 +35,7 @@ class FindCmsResourcesPublished
             $this->entityClassCmsResource
         );
 
-        $criteria[PropertiesCmsResource::PUBLISHED] = true;
+        $criteria[FieldsCmsResource::PUBLISHED] = true;
 
         $entities = $repository->findBy(
             $criteria,

@@ -18,7 +18,7 @@ use Zrcms\ContentCore\Site\Api\Action\UnpublishSiteCmsResource;
 use Zrcms\ContentCore\Site\Api\Repository\FindSiteCmsResource;
 use Zrcms\ContentCore\Site\Api\Repository\FindSiteVersion;
 use Zrcms\ContentCore\Site\Api\Repository\InsertSiteVersion;
-use Zrcms\ContentCore\Site\Model\PropertiesSiteVersion;
+use Zrcms\ContentCore\Site\Fields\FieldsSiteVersion;
 use Zrcms\ContentCore\Site\Model\SiteVersionBasic;
 use Zrcms\User\Api\GetUserIdByRequest;
 
@@ -74,19 +74,19 @@ class ImplementationTest
                 'contentVersion' => [
                     //PropertiesSiteVersion::ID
                     //=> 'implementation-' . PropertiesSiteVersion::ID,
-                    PropertiesSiteVersion::COUNTRY_ISO3
-                    => 'implementation-' . PropertiesSiteVersion::COUNTRY_ISO3,
-                    PropertiesSiteVersion::FAVICON
-                    => 'implementation-' . PropertiesSiteVersion::FAVICON,
-                    PropertiesSiteVersion::LANGUAGE_ISO_939_2T
-                    => 'implementation-' . PropertiesSiteVersion::LANGUAGE_ISO_939_2T,
-                    PropertiesSiteVersion::LAYOUT
-                    => 'implementation-' . PropertiesSiteVersion::LAYOUT,
-                    PropertiesSiteVersion::LOCALE
-                    => 'implementation-' . PropertiesSiteVersion::LOCALE,
-                    PropertiesSiteVersion::LOGIN_PAGE
-                    => 'implementation-' . PropertiesSiteVersion::LOGIN_PAGE,
-                    PropertiesSiteVersion::STATUS_PAGES => [
+                    FieldsSiteVersion::COUNTRY_ISO3
+                    => 'implementation-' . FieldsSiteVersion::COUNTRY_ISO3,
+                    FieldsSiteVersion::FAVICON
+                    => 'implementation-' . FieldsSiteVersion::FAVICON,
+                    FieldsSiteVersion::LANGUAGE_ISO_939_2T
+                    => 'implementation-' . FieldsSiteVersion::LANGUAGE_ISO_939_2T,
+                    FieldsSiteVersion::LAYOUT
+                    => 'implementation-' . FieldsSiteVersion::LAYOUT,
+                    FieldsSiteVersion::LOCALE
+                    => 'implementation-' . FieldsSiteVersion::LOCALE,
+                    FieldsSiteVersion::LOGIN_PAGE
+                    => 'implementation-' . FieldsSiteVersion::LOGIN_PAGE,
+                    FieldsSiteVersion::STATUS_PAGES => [
                         '404' => [
                             'path' => 'implementation-404',
                             'type' => 'render'
@@ -96,10 +96,10 @@ class ImplementationTest
                             'type' => 'redirect'
                         ],
                     ],
-                    PropertiesSiteVersion::THEME_NAME
-                    => 'implementation-' . PropertiesSiteVersion::THEME_NAME,
-                    PropertiesSiteVersion::TITLE
-                    => 'implementation-' . PropertiesSiteVersion::TITLE,
+                    FieldsSiteVersion::THEME_NAME
+                    => 'implementation-' . FieldsSiteVersion::THEME_NAME,
+                    FieldsSiteVersion::TITLE
+                    => 'implementation-' . FieldsSiteVersion::TITLE,
                 ],
                 'testActions' => [
                     'testInsertContentVersion',
@@ -204,6 +204,7 @@ class ImplementationTest
         $contentVersionClass = $test['class'][ContentVersion::class];
 
         $contentVersion = new $contentVersionClass(
+            'testID',
             $test['contentVersion'],
             $createdByUserId,
             $createdReason

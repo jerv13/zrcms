@@ -2,7 +2,7 @@
 
 namespace Zrcms\Content\Api\Component;
 
-use Zrcms\Content\Model\PropertiesComponent;
+use Zrcms\Content\Fields\FieldsComponent;
 use Zrcms\Param\Param;
 use Zrcms\ServiceAlias\Api\GetServiceFromAlias;
 use Zrcms\ServiceAlias\ServiceCheck;
@@ -56,7 +56,7 @@ abstract class ReadComponentConfigBasicAbstract implements ReadComponentConfig
     {
         $componentConfigReaderServiceAlias = Param::getString(
             $options,
-            PropertiesComponent::COMPONENT_CONFIG_READER,
+            FieldsComponent::COMPONENT_CONFIG_READER,
             ''
         );
 
@@ -75,7 +75,7 @@ abstract class ReadComponentConfigBasicAbstract implements ReadComponentConfig
             $options
         );
 
-        $config[PropertiesComponent::COMPONENT_CONFIG_READER] = $componentConfigReaderServiceAlias;
+        $config[FieldsComponent::COMPONENT_CONFIG_READER] = $componentConfigReaderServiceAlias;
 
         return $config;
     }

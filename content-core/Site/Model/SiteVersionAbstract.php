@@ -4,6 +4,7 @@ namespace Zrcms\ContentCore\Site\Model;
 
 use Zrcms\Content\Exception\PropertyMissingException;
 use Zrcms\Content\Model\ContentVersionAbstract;
+use Zrcms\ContentCore\Site\Fields\FieldsSiteVersion;
 use Zrcms\Param\Param;
 
 /**
@@ -12,20 +13,22 @@ use Zrcms\Param\Param;
 abstract class SiteVersionAbstract extends ContentVersionAbstract
 {
     /**
-     * @param array  $properties
-     * @param string $createdByUserId
-     * @param string $createdReason
+     * @param string|null $id
+     * @param array       $properties
+     * @param string      $createdByUserId
+     * @param string      $createdReason
      */
     public function __construct(
+        $id,
         array $properties,
         string $createdByUserId,
         string $createdReason
     ) {
         Param::assertHas(
             $properties,
-            PropertiesSiteVersion::THEME_NAME,
-            PropertyMissingException::build(
-                PropertiesSiteVersion::THEME_NAME,
+            FieldsSiteVersion::THEME_NAME,
+            PropertyMissingException::buildThrower(
+                FieldsSiteVersion::THEME_NAME,
                 $properties,
                 get_class($this)
             )
@@ -33,9 +36,9 @@ abstract class SiteVersionAbstract extends ContentVersionAbstract
 
         Param::assertHas(
             $properties,
-            PropertiesSiteVersion::LOCALE,
-            PropertyMissingException::build(
-                PropertiesSiteVersion::LOCALE,
+            FieldsSiteVersion::LOCALE,
+            PropertyMissingException::buildThrower(
+                FieldsSiteVersion::LOCALE,
                 $properties,
                 get_class($this)
             )
@@ -43,13 +46,14 @@ abstract class SiteVersionAbstract extends ContentVersionAbstract
 
         $statusPages = Param::getArray(
             $properties,
-            PropertiesSiteVersion::STATUS_PAGES,
+            FieldsSiteVersion::STATUS_PAGES,
             []
         );
 
         $this->assertValidStatusPages($statusPages);
 
         parent::__construct(
+            $id,
             $properties,
             $createdByUserId,
             $createdReason
@@ -62,7 +66,7 @@ abstract class SiteVersionAbstract extends ContentVersionAbstract
     public function getThemeName(): string
     {
         return $this->getProperty(
-            PropertiesSiteVersion::THEME_NAME,
+            FieldsSiteVersion::THEME_NAME,
             ''
         );
     }
@@ -73,7 +77,7 @@ abstract class SiteVersionAbstract extends ContentVersionAbstract
     public function getLocale(): string
     {
         return $this->getProperty(
-            PropertiesSiteVersion::LOCALE,
+            FieldsSiteVersion::LOCALE,
             'en_US'
         );
     }
@@ -87,7 +91,7 @@ abstract class SiteVersionAbstract extends ContentVersionAbstract
     public function findStatusPage(string $httpStatus, $default = null)
     {
         $statusPages = $this->getProperty(
-            PropertiesSiteVersion::STATUS_PAGES,
+            FieldsSiteVersion::STATUS_PAGES,
             []
         );
 

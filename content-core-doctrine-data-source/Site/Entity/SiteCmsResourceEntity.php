@@ -3,7 +3,7 @@
 namespace Zrcms\ContentCoreDoctrineDataSource\Site\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Zrcms\ContentCore\Site\Model\PropertiesSiteCmsResource;
+use Zrcms\ContentCore\Site\Fields\FieldsSiteCmsResource;
 use Zrcms\ContentCore\Site\Model\SiteCmsResourceAbstract;
 use Zrcms\ContentDoctrine\Entity\CmsResourceEntity;
 use Zrcms\ContentDoctrine\Entity\CmsResourceEntityTrait;
@@ -173,27 +173,27 @@ class SiteCmsResourceEntity
     ) {
         $this->id = Param::getInt(
             $properties,
-            PropertiesSiteCmsResource::ID
+            FieldsSiteCmsResource::ID
         );
 
         $this->contentVersion = Param::get(
             $properties,
-            PropertiesSiteCmsResource::CONTENT_VERSION
+            FieldsSiteCmsResource::CONTENT_VERSION
         );
 
         $this->published = Param::getBool(
             $properties,
-            PropertiesSiteCmsResource::PUBLISHED
+            FieldsSiteCmsResource::PUBLISHED
         );
 
         Param::assertHas(
             $properties,
-            PropertiesSiteCmsResource::HOST
+            FieldsSiteCmsResource::HOST
         );
 
         $this->host = Param::getString(
             $properties,
-            PropertiesSiteCmsResource::HOST
+            FieldsSiteCmsResource::HOST
         );
 
         $this->properties = $properties;

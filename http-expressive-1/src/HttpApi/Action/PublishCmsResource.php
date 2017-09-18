@@ -7,8 +7,8 @@ use Psr\Http\Message\ServerRequestInterface;
 use Zrcms\Content\Api\CmsResourceToArray;
 use Zrcms\Content\Api\Repository\FindContentVersion;
 use Zrcms\Content\Model\CmsResource;
-use Zrcms\Content\Model\PropertiesCmsResource;
-use Zrcms\Content\Model\PropertiesContentVersion;
+use Zrcms\Content\Fields\FieldsCmsResource;
+use Zrcms\Content\Fields\FieldsContentVersion;
 use Zrcms\HttpExpressive1\Model\JsonApiResponse;
 use Zrcms\HttpExpressive1\Model\ResponseCodes;
 use Zrcms\User\Api\GetUserIdByRequest;
@@ -136,7 +136,7 @@ class PublishCmsResource
             );
         }
 
-        $requestedContentVersionId = $properties[PropertiesCmsResource::CONTENT_VERSION][PropertiesContentVersion::ID];
+        $requestedContentVersionId = $properties[FieldsCmsResource::CONTENT_VERSION][FieldsContentVersion::ID];
 
         $contentVersion = $this->findContentVersion->__invoke(
             $requestedContentVersionId
@@ -159,7 +159,7 @@ class PublishCmsResource
             );
         }
 
-        $properties[PropertiesCmsResource::CONTENT_VERSION] = $contentVersion;
+        $properties[FieldsCmsResource::CONTENT_VERSION] = $contentVersion;
 
         /** @var CmsResource::class $cmsResourceClass */
         $cmsResourceClass = $this->cmsResourceClass;

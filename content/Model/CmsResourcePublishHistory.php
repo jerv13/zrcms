@@ -5,7 +5,7 @@ namespace Zrcms\Content\Model;
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-interface CmsResourcePublishHistory
+interface CmsResourcePublishHistory extends Immutable, Trackable
 {
     /**
      * @param string|null $id

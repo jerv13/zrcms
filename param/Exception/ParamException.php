@@ -37,6 +37,31 @@ class ParamException extends \Exception
     }
 
     /**
+     * @param string $propertyName
+     * @param array  $properties
+     * @param string $class
+     * @param array  $options
+     *
+     * @return \Closure
+     */
+    public static function buildThrower(
+        string $propertyName,
+        array $properties,
+        string $class,
+        array $options = []
+    ) {
+        $message = 'Required property (' . $propertyName . ') is missing '
+            . 'in: ' . $class;
+
+        return function () use ($message, $properties) {
+            throw new ParamException(
+                $message,
+                $properties
+            );
+        };
+    }
+
+    /**
      * @param string          $message
      * @param array           $properties
      * @param int             $code

@@ -2,15 +2,15 @@
 
 namespace Zrcms\ContentCoreDoctrineDataSource\Container\Entity;
 
-use Zrcms\ContentCore\Container\Model\PropertiesContainer;
-use Zrcms\ContentCore\Container\Model\PropertiesContainerVersion;
+use Zrcms\ContentCore\Container\Fields\FieldsContainer;
+use Zrcms\ContentCore\Container\Fields\FieldsContainerVersion;
 
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class PropertiesContainerVersionEntity extends PropertiesContainerVersion
+class FieldsContainerVersionEntity extends FieldsContainerVersion
 {
-    const BLOCK_VERSIONS = PropertiesContainer::BLOCK_VERSIONS;
+    const BLOCK_VERSIONS = FieldsContainer::BLOCK_VERSIONS;
 
     /**
      * Default values
@@ -19,7 +19,6 @@ class PropertiesContainerVersionEntity extends PropertiesContainerVersion
      */
     protected $properties
         = [
-            self::ID => '',
             self::RENDER_TAGS_GETTER => '',
             self::RENDERER => '',
             self::BLOCK_VERSIONS => [],

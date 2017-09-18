@@ -261,9 +261,9 @@ class Param
     }
 
     /**
-     * @param array           $params
-     * @param string          $key
-     * @param \Exception|null $exception
+     * @param array                    $params
+     * @param string                   $key
+     * @param callable|\Exception|null $exceptionThrower
      *
      * @return void
      * @throws ParamMissingException
@@ -272,14 +272,19 @@ class Param
     public static function assertHas(
         array $params,
         string $key,
-        $exception = null
+        $exceptionThrower = null
     ) {
         if (self::has($params, $key)) {
             return;
         }
 
-        if (is_a($exception, \Throwable::class)) {
-            self::throwError($exception);
+        if (is_callable($exceptionThrower)) {
+            $exceptionThrower();
+        }
+
+        // @deprecated
+        if (is_a($exceptionThrower, \Throwable::class)) {
+            self::throwError($exceptionThrower);
         }
 
         self::throwError(

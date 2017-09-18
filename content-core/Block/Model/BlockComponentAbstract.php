@@ -3,7 +3,7 @@
 namespace Zrcms\ContentCore\Block\Model;
 
 use Zrcms\Content\Model\ComponentAbstract;
-use Zrcms\Param\Param;
+use Zrcms\ContentCore\Block\Fields\FieldsBlockComponent;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -11,16 +11,25 @@ use Zrcms\Param\Param;
 abstract class BlockComponentAbstract extends ComponentAbstract
 {
     /**
+     * @param string $classification
+     * @param string $name
+     * @param string $configLocation
      * @param array  $properties
      * @param string $createdByUserId
      * @param string $createdReason
      */
     public function __construct(
-        array $properties = [],
+        string $classification,
+        string $name,
+        string $configLocation,
+        array $properties,
         string $createdByUserId,
         string $createdReason
     ) {
         parent::__construct(
+            $classification,
+            $name,
+            $configLocation,
             $properties,
             $createdByUserId,
             $createdReason
@@ -35,7 +44,7 @@ abstract class BlockComponentAbstract extends ComponentAbstract
     public function getDefaultConfig(): array
     {
         return $this->getProperty(
-            PropertiesBlockComponent::DEFAULT_CONFIG,
+            FieldsBlockComponent::DEFAULT_CONFIG,
             []
         );
     }
@@ -46,7 +55,7 @@ abstract class BlockComponentAbstract extends ComponentAbstract
     public function isCacheable(): bool
     {
         return $this->getProperty(
-            PropertiesBlockComponent::CACHEABLE,
+            FieldsBlockComponent::CACHEABLE,
             false
         );
     }

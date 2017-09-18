@@ -2,9 +2,6 @@
 
 namespace Zrcms\Content\Model;
 
-use Zrcms\Content\Exception\PropertyMissingException;
-use Zrcms\Param\Param;
-
 /**
  * @author James Jervis - https://github.com/jerv13
  */
@@ -13,6 +10,8 @@ abstract class ContentAbstract
     use ImmutableTrait;
     use PropertiesTrait;
 
+    protected $id = null;
+
     /**
      * @var array
      */
@@ -20,9 +19,11 @@ abstract class ContentAbstract
 
     /**
      * @param array $properties
+     * @param string|null  $id
      */
     public function __construct(
-        array $properties
+        array $properties,
+        $id = null
     ) {
         // Enforce immutability
         if (!$this->isNew()) {
@@ -30,15 +31,7 @@ abstract class ContentAbstract
         }
         $this->new = false;
 
-        Param::assertHas(
-            $properties,
-            PropertiesContentVersion::ID,
-            PropertyMissingException::build(
-                PropertiesContentVersion::ID,
-                $properties,
-                get_class($this)
-            )
-        );
+        $this->id = $id;
 
         $this->properties = $properties;
     }
@@ -48,9 +41,6 @@ abstract class ContentAbstract
      */
     public function getId(): string
     {
-        return $this->getProperty(
-            PropertiesContentVersion::ID,
-            ''
-        );
+        return $this->id;
     }
 }

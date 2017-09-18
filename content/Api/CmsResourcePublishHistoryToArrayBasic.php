@@ -4,7 +4,7 @@ namespace Zrcms\Content\Api;
 
 use Zrcms\Content\Model\CmsResourcePublishHistory;
 use Zrcms\Content\Model\Properties;
-use Zrcms\Content\Model\PropertiesCmsResourcePublishHistory;
+use Zrcms\Content\Fields\FieldsCmsResourcePublishHistory;
 use Zrcms\Content\Model\TrackableProperties;
 
 /**
@@ -18,12 +18,20 @@ class CmsResourcePublishHistoryToArrayBasic implements CmsResourcePublishHistory
     protected $contentVersionToArray;
 
     /**
+     * @var CmsResourceToArray
+     */
+    protected $cmsResourceToArray;
+
+    /**
      * @param ContentVersionToArray $contentVersionToArray
+     * @param CmsResourceToArray    $cmsResourceToArray
      */
     public function __construct(
-        ContentVersionToArray $contentVersionToArray
+        ContentVersionToArray $contentVersionToArray,
+        CmsResourceToArray $cmsResourceToArray
     ) {
         $this->contentVersionToArray = $contentVersionToArray;
+        $this->cmsResourceToArray = $cmsResourceToArray;
     }
 
     /**
@@ -37,27 +45,29 @@ class CmsResourcePublishHistoryToArrayBasic implements CmsResourcePublishHistory
         array $options = []
     ): array
     {
-        $contentVersion = $this->contentVersionToArray->__invoke(
+        $contentVersionArray = $this->contentVersionToArray->__invoke(
             $cmsResourcePublishHistory->getContentVersion()
         );
-        $properties = $cmsResourcePublishHistory->getProperties();
-        $properties[PropertiesCmsResourcePublishHistory::CONTENT_VERSION] = $contentVersion;
+
+        $cmsResourceArray = $this->cmsResourceToArray->__invoke(
+            $cmsResourcePublishHistory->getCmsResource()
+        );
 
         return [
-            PropertiesCmsResourcePublishHistory::ID
+            'id'
             => $cmsResourcePublishHistory->getId(),
 
-            PropertiesCmsResourcePublishHistory::CONTENT_VERSION
-            => $contentVersion,
-
-            PropertiesCmsResourcePublishHistory::PUBLISHED
-            => $cmsResourcePublishHistory->isPublished(),
-
-            PropertiesCmsResourcePublishHistory::ACTION
+            'action'
             => $cmsResourcePublishHistory->getAction(),
 
-            Properties::NAME_PROPERTIES
-            => $properties,
+            'cmsResource'
+            => $cmsResourceArray,
+
+            'cmsResourceProperties'
+            => $cmsResourcePublishHistory->getCmsResourceProperties(),
+
+            'contentVersion'
+            => $contentVersionArray,
 
             TrackableProperties::CREATED_BY_USER_ID
             => $cmsResourcePublishHistory->getCreatedByUserId(),

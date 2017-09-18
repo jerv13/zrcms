@@ -3,9 +3,9 @@
 namespace Zrcms\ViewHead;
 
 use Zrcms\ContentCore\View\Api\Repository\FindViewLayoutTagsComponent;
-use Zrcms\ContentCore\View\Model\PropertiesViewLayoutTagsComponent;
+use Zrcms\ContentCore\View\Fields\FieldsViewLayoutTagsComponent;
 use Zrcms\ContentCore\View\Model\ServiceAliasView;
-use Zrcms\ContentCoreConfigDataSource\Content\Model\ComponentRegistryFields;
+use Zrcms\ContentCoreConfigDataSource\Content\Fields\FieldsComponentRegistry;
 use Zrcms\ServiceAlias\Api\GetServiceFromAlias;
 use Zrcms\ViewHead\Api\GetHeadSections;
 use Zrcms\ViewHead\Api\GetHeadSectionsFactory;
@@ -96,16 +96,16 @@ class ModuleConfig
                     /* GetViewLayoutTagsHeadMeta::RENDER_TAG_META */
                     'head-meta' => [
 
-                        ComponentRegistryFields::CONFIG_LOCATION
+                        FieldsComponentRegistry::CONFIG_LOCATION
                         => GetViewLayoutTagsHeadMeta::RENDER_TAG_META,
 
-                        ComponentRegistryFields::COMPONENT_CONFIG_READER
+                        FieldsComponentRegistry::COMPONENT_CONFIG_READER
                         => ReadViewHeadComponentConfigBc::SERVICE_ALIAS,
 
-                        ComponentRegistryFields::NAME
+                        FieldsComponentRegistry::NAME
                         => GetViewLayoutTagsHeadMeta::RENDER_TAG_META,
 
-                        PropertiesViewLayoutTagsComponent::RENDER_TAGS_GETTER
+                        FieldsViewLayoutTagsComponent::RENDER_TAGS_GETTER
                         => GetViewLayoutTagsHeadMeta::SERVICE_ALIAS,
 
                         'tags' => [
@@ -115,19 +115,19 @@ class ModuleConfig
                     // GetViewLayoutTagsHeadLink::RENDER_TAG_LINK
                     'head-link' => [
 
-                        ComponentRegistryFields::CONFIG_LOCATION
+                        FieldsComponentRegistry::CONFIG_LOCATION
                         => GetViewLayoutTagsHeadLink::RENDER_TAG_LINK,
 
-                        ComponentRegistryFields::COMPONENT_CONFIG_READER
+                        FieldsComponentRegistry::COMPONENT_CONFIG_READER
                         => ReadViewHeadComponentConfigBc::SERVICE_ALIAS,
 
-                        ComponentRegistryFields::NAME
+                        FieldsComponentRegistry::NAME
                         => GetViewLayoutTagsHeadLink::RENDER_TAG_LINK,
 
-                        PropertiesViewLayoutTagsComponent::RENDER_TAGS_GETTER
+                        FieldsViewLayoutTagsComponent::RENDER_TAGS_GETTER
                         => GetViewLayoutTagsHeadLink::SERVICE_ALIAS,
 
-                        PropertiesViewLayoutTagsComponent::COMPONENT_CLASS => HeadSectionComponent::class,
+                        FieldsViewLayoutTagsComponent::COMPONENT_CLASS => HeadSectionComponent::class,
 
                         'tag' => 'link',
                         'sections' => [
@@ -167,19 +167,19 @@ class ModuleConfig
 
                     /* GetViewLayoutTagsHeadScript::RENDER_TAG_SCRIPT */
                     'head-script' => [
-                        ComponentRegistryFields::CONFIG_LOCATION
+                        FieldsComponentRegistry::CONFIG_LOCATION
                         => GetViewLayoutTagsHeadScript::RENDER_TAG_SCRIPT,
 
-                        ComponentRegistryFields::COMPONENT_CONFIG_READER
+                        FieldsComponentRegistry::COMPONENT_CONFIG_READER
                         => ReadViewHeadComponentConfigBc::SERVICE_ALIAS,
 
-                        ComponentRegistryFields::NAME
+                        FieldsComponentRegistry::NAME
                         => GetViewLayoutTagsHeadScript::RENDER_TAG_SCRIPT,
 
-                        PropertiesViewLayoutTagsComponent::RENDER_TAGS_GETTER
+                        FieldsViewLayoutTagsComponent::RENDER_TAGS_GETTER
                         => GetViewLayoutTagsHeadScript::SERVICE_ALIAS,
 
-                        PropertiesViewLayoutTagsComponent::COMPONENT_CLASS => HeadSectionComponent::class,
+                        FieldsViewLayoutTagsComponent::COMPONENT_CLASS => HeadSectionComponent::class,
 
                         'tag' => 'script',
                         'sections' => [

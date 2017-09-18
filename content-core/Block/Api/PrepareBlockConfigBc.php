@@ -2,7 +2,7 @@
 
 namespace Zrcms\ContentCore\Block\Api;
 
-use Zrcms\ContentCore\Block\Model\BlockComponentConfigFields;
+use Zrcms\ContentCore\Block\Fields\FieldsBlockComponentConfig;
 
 /**
  * @deprecated BC only
@@ -59,49 +59,11 @@ class PrepareBlockConfigBc implements PrepareBlockConfig
             }
         }
 
-        if (empty($blockConfigBc[BlockComponentConfigFields::DEFAULT_CONFIG])) {
-            $blockConfigBc[BlockComponentConfigFields::DEFAULT_CONFIG]
-                = $blockConfigBc[BlockComponentConfigFields::FIELDS];
+        if (empty($blockConfigBc[FieldsBlockComponentConfig::DEFAULT_CONFIG])) {
+            $blockConfigBc[FieldsBlockComponentConfig::DEFAULT_CONFIG]
+                = $blockConfigBc[FieldsBlockComponentConfig::FIELDS];
         }
 
         return $blockConfigBc;
     }
-
-    /**
-     * @deprecated
-     * @param array $blockConfig
-     *
-     * @return array
-     */
-    public function old(array $blockConfig): array
-    {
-        $blockConfigFields = $this->getBlockConfigFields->__invoke();
-        $blockConfigFieldsBcSubstitution = $this->getBlockConfigFieldsBcSubstitution->__invoke();
-
-        $blockConfigBc = [];
-
-        foreach ($blockConfig as $key => $value) {
-            if (array_key_exists($key, $blockConfigFieldsBcSubstitution)) {
-                $blockConfigBc[$blockConfigFieldsBcSubstitution[$key]] = $value;
-            }
-        }
-
-        $new = array_merge($blockConfigFields, $blockConfig);
-
-        $new = array_merge($blockConfigBc, $new);
-
-        if (empty($new[BlockComponentConfigFields::DEFAULT_CONFIG])) {
-            $new[BlockComponentConfigFields::DEFAULT_CONFIG] = $new[BlockComponentConfigFields::FIELDS];
-        }
-
-        $t = $this->t($blockConfig);
-        var_dump(
-            'o', $blockConfig,
-            'n',$new,
-            't',$t
-        );
-
-        return $new;
-    }
-
 }

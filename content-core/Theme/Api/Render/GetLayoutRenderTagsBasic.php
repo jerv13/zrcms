@@ -5,7 +5,7 @@ namespace Zrcms\ContentCore\Theme\Api\Render;
 use Psr\Http\Message\ServerRequestInterface;
 use Zrcms\Content\Model\Content;
 use Zrcms\ContentCore\Theme\Model\Layout;
-use Zrcms\ContentCore\Theme\Model\PropertiesLayout;
+use Zrcms\ContentCore\Theme\Fields\FieldsLayout;
 use Zrcms\ContentCore\Theme\Model\ServiceAliasLayout;
 use Zrcms\ServiceAlias\Api\GetServiceFromAlias;
 use Zrcms\ServiceAlias\ServiceCheck;
@@ -59,7 +59,7 @@ class GetLayoutRenderTagsBasic implements GetLayoutRenderTags
     ): array
     {
         $renderTagsGetterServiceAlias = $layout->getProperty(
-            PropertiesLayout::RENDER_TAGS_GETTER,
+            FieldsLayout::RENDER_TAGS_GETTER,
             ''
         );
 

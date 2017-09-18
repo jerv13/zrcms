@@ -4,6 +4,7 @@ namespace Zrcms\ContentCore\Page\Model;
 
 use Zrcms\Content\Exception\PropertyMissingException;
 use Zrcms\ContentCore\Container\Model\ContainerVersionAbstract;
+use Zrcms\ContentCore\Page\Fields\FieldsPageContainerVersion;
 use Zrcms\Param\Param;
 
 /**
@@ -12,20 +13,22 @@ use Zrcms\Param\Param;
 abstract class PageContainerVersionAbstract extends ContainerVersionAbstract
 {
     /**
-     * @param array  $properties
-     * @param string $createdByUserId
-     * @param string $createdReason
+     * @param string|null $id
+     * @param array       $properties
+     * @param string      $createdByUserId
+     * @param string      $createdReason
      */
     public function __construct(
+        $id,
         array $properties,
         string $createdByUserId,
         string $createdReason
     ) {
         Param::assertHas(
             $properties,
-            PropertiesPageContainerVersion::TITLE,
-            PropertyMissingException::build(
-                PropertiesPageContainerVersion::TITLE,
+            FieldsPageContainerVersion::TITLE,
+            PropertyMissingException::buildThrower(
+                FieldsPageContainerVersion::TITLE,
                 $properties,
                 get_class($this)
             )
@@ -33,15 +36,16 @@ abstract class PageContainerVersionAbstract extends ContainerVersionAbstract
 
         Param::assertHas(
             $properties,
-            PropertiesPageContainerVersion::KEYWORDS,
-            PropertyMissingException::build(
-                PropertiesPageContainerVersion::KEYWORDS,
+            FieldsPageContainerVersion::KEYWORDS,
+            PropertyMissingException::buildThrower(
+                FieldsPageContainerVersion::KEYWORDS,
                 $properties,
                 get_class($this)
             )
         );
 
         parent::__construct(
+            $id,
             $properties,
             $createdByUserId,
             $createdReason
@@ -54,7 +58,7 @@ abstract class PageContainerVersionAbstract extends ContainerVersionAbstract
     public function getTitle(): string
     {
         return $this->getProperty(
-            PropertiesPageContainerVersion::TITLE,
+            FieldsPageContainerVersion::TITLE,
             ''
         );
     }
@@ -65,7 +69,7 @@ abstract class PageContainerVersionAbstract extends ContainerVersionAbstract
     public function getDescription(): string
     {
         return $this->getProperty(
-            PropertiesPageContainerVersion::DESCRIPTION,
+            FieldsPageContainerVersion::DESCRIPTION,
             ''
         );
     }
@@ -76,7 +80,7 @@ abstract class PageContainerVersionAbstract extends ContainerVersionAbstract
     public function getKeywords(): string
     {
         return $this->getProperty(
-            PropertiesPageContainerVersion::KEYWORDS,
+            FieldsPageContainerVersion::KEYWORDS,
             ''
         );
     }

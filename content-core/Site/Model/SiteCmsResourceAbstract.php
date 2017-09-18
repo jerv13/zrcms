@@ -7,6 +7,7 @@ use Zrcms\Content\Exception\ContentVersionNotExistsException;
 use Zrcms\Content\Exception\PropertyMissingException;
 use Zrcms\Content\Model\CmsResourceAbstract;
 use Zrcms\Content\Model\ContentVersion;
+use Zrcms\ContentCore\Site\Fields\FieldsSiteCmsResource;
 use Zrcms\Param\Param;
 
 /**
@@ -32,9 +33,9 @@ abstract class SiteCmsResourceAbstract extends CmsResourceAbstract
     ) {
         Param::assertHas(
             $properties,
-            PropertiesSiteCmsResource::HOST,
-            PropertyMissingException::build(
-                PropertiesSiteCmsResource::HOST,
+            FieldsSiteCmsResource::HOST,
+            PropertyMissingException::buildThrower(
+                FieldsSiteCmsResource::HOST,
                 $properties,
                 get_class($this)
             )
@@ -56,7 +57,7 @@ abstract class SiteCmsResourceAbstract extends CmsResourceAbstract
     public function getHost(): string
     {
         return $this->getProperty(
-            PropertiesSiteCmsResource::HOST,
+            FieldsSiteCmsResource::HOST,
             ''
         );
     }

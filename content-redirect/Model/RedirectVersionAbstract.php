@@ -11,21 +11,24 @@ use Zrcms\Param\Param;
 abstract class RedirectVersionAbstract extends ContentVersionAbstract implements RedirectVersion
 {
     /**
-     * @param array  $properties
-     * @param string $createdByUserId
-     * @param string $createdReason
+     * @param string|null $id
+     * @param array       $properties
+     * @param string      $createdByUserId
+     * @param string      $createdReason
      */
     public function __construct(
+        $id,
         array $properties,
         string $createdByUserId,
         string $createdReason
     ) {
         Param::assertHas(
             $properties,
-            PropertiesRedirectVersion::REDIRECT_PATH
+            FieldsRedirectVersion::REDIRECT_PATH
         );
 
         parent::__construct(
+            $id,
             $properties,
             $createdByUserId,
             $createdReason
@@ -38,7 +41,7 @@ abstract class RedirectVersionAbstract extends ContentVersionAbstract implements
     public function getRedirectPath(): string
     {
         return $this->getProperty(
-            PropertiesRedirectVersion::REDIRECT_PATH,
+            FieldsRedirectVersion::REDIRECT_PATH,
             null
         );
     }

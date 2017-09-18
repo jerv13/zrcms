@@ -7,6 +7,7 @@ use Zrcms\Content\Exception\ContentVersionNotExistsException;
 use Zrcms\Content\Exception\PropertyMissingException;
 use Zrcms\Content\Model\CmsResourceAbstract;
 use Zrcms\Content\Model\ContentVersion;
+use Zrcms\ContentCore\Theme\Fields\FieldsLayoutCmsResource;
 use Zrcms\Param\Param;
 
 /**
@@ -33,9 +34,9 @@ abstract class LayoutCmsResourceAbstract extends CmsResourceAbstract
 
         Param::assertHas(
             $properties,
-            PropertiesLayoutCmsResource::THEME_NAME,
-            PropertyMissingException::build(
-                PropertiesLayoutCmsResource::THEME_NAME,
+            FieldsLayoutCmsResource::THEME_NAME,
+            PropertyMissingException::buildThrower(
+                FieldsLayoutCmsResource::THEME_NAME,
                 $properties,
                 get_class($this)
             )
@@ -43,9 +44,9 @@ abstract class LayoutCmsResourceAbstract extends CmsResourceAbstract
 
         Param::assertHas(
             $properties,
-            PropertiesLayoutCmsResource::NAME,
-            PropertyMissingException::build(
-                PropertiesLayoutCmsResource::NAME,
+            FieldsLayoutCmsResource::NAME,
+            PropertyMissingException::buildThrower(
+                FieldsLayoutCmsResource::NAME,
                 $properties,
                 get_class($this)
             )
@@ -67,7 +68,7 @@ abstract class LayoutCmsResourceAbstract extends CmsResourceAbstract
     public function getThemeName(): string
     {
         return $this->getProperty(
-            PropertiesLayoutCmsResource::THEME_NAME,
+            FieldsLayoutCmsResource::THEME_NAME,
             ''
         );
     }
@@ -78,7 +79,7 @@ abstract class LayoutCmsResourceAbstract extends CmsResourceAbstract
     public function getName(): string
     {
         return $this->getProperty(
-            PropertiesLayoutCmsResource::NAME,
+            FieldsLayoutCmsResource::NAME,
             ''
         );
     }

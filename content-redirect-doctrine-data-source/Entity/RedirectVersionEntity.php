@@ -3,8 +3,8 @@
 namespace Zrcms\ContentRedirectDoctrineDataSource\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Zrcms\Content\Model\PropertiesContent;
-use Zrcms\ContentRedirect\Model\PropertiesRedirectVersion;
+use Zrcms\Content\Fields\FieldsContent;
+use Zrcms\ContentRedirect\Fields\FieldsRedirectVersion;
 use Zrcms\ContentRedirect\Model\RedirectVersion;
 use Zrcms\ContentRedirect\Model\RedirectVersionAbstract;
 use Zrcms\ContentDoctrine\Entity\ContentEntity;
@@ -92,12 +92,12 @@ class RedirectVersionEntity
     ) {
         $this->id = Param::getInt(
             $properties,
-            PropertiesRedirectVersion::ID
+            FieldsRedirectVersion::ID
         );
 
         $this->redirectPath = Param::getString(
             $properties,
-            PropertiesRedirectVersion::REDIRECT_PATH
+            FieldsRedirectVersion::REDIRECT_PATH
         );
 
         parent::__construct(

@@ -2,12 +2,12 @@
 
 namespace Zrcms\ContentCoreDoctrineDataSource\Page\Entity;
 
-use Zrcms\ContentCoreDoctrineDataSource\Container\Entity\PropertiesContainerVersionEntity;
+use Zrcms\ContentCoreDoctrineDataSource\Container\Entity\FieldsContainerVersionEntity;
 
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class PropertiesPageContainerVersionEntity extends PropertiesContainerVersionEntity
+class PropertiesPageContainerVersionEntity extends FieldsContainerVersionEntity
 {
     /**
      * Default values

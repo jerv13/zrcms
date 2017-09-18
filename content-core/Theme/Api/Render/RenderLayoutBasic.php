@@ -4,7 +4,7 @@ namespace Zrcms\ContentCore\Theme\Api\Render;
 
 use Zrcms\Content\Model\Content;
 use Zrcms\ContentCore\Theme\Model\Layout;
-use Zrcms\ContentCore\Theme\Model\PropertiesLayout;
+use Zrcms\ContentCore\Theme\Fields\FieldsLayout;
 use Zrcms\ContentCore\Theme\Model\ServiceAliasLayout;
 use Zrcms\ServiceAlias\Api\GetServiceFromAlias;
 use Zrcms\ServiceAlias\ServiceCheck;
@@ -57,7 +57,7 @@ class RenderLayoutBasic implements RenderLayout
     ): string
     {
         $renderServiceAlias = $layout->getProperty(
-            PropertiesLayout::RENDERER,
+            FieldsLayout::RENDERER,
             ''
         );
 

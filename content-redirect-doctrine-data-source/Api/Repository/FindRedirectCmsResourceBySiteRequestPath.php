@@ -6,7 +6,7 @@ use Doctrine\ORM\EntityManager;
 use Zrcms\Content\Exception\CmsResourceNotExistsException;
 use Zrcms\Content\Model\CmsResource;
 use Zrcms\ContentDoctrine\Api\BuildBasicCmsResource;
-use Zrcms\ContentRedirect\Model\PropertiesRedirectCmsResource;
+use Zrcms\ContentRedirect\Fields\FieldsRedirectCmsResource;
 use Zrcms\ContentRedirect\Model\RedirectCmsResource;
 use Zrcms\ContentRedirect\Model\RedirectCmsResourceBasic;
 use Zrcms\ContentRedirect\Model\RedirectVersionBasic;
@@ -83,9 +83,9 @@ class FindRedirectCmsResourceBySiteRequestPath
         string $requestPath,
         array $options = []
     ) {
-        $siteCmsResourceIdPropertyName = PropertiesRedirectCmsResource::SITE_CMS_RESOURCE_ID;
-        $requestPathPropertyName = PropertiesRedirectCmsResource::REQUEST_PATH;
-        $publishedPropertyName = PropertiesRedirectCmsResource::PUBLISHED;
+        $siteCmsResourceIdPropertyName = FieldsRedirectCmsResource::SITE_CMS_RESOURCE_ID;
+        $requestPathPropertyName = FieldsRedirectCmsResource::REQUEST_PATH;
+        $publishedPropertyName = FieldsRedirectCmsResource::PUBLISHED;
 
         // @todo Add prepared statements not concat
         $query = ""

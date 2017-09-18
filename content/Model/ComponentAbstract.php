@@ -2,9 +2,6 @@
 
 namespace Zrcms\Content\Model;
 
-use Zrcms\Content\Exception\PropertyMissingException;
-use Zrcms\Param\Param;
-
 /**
  * @author James Jervis - https://github.com/jerv13
  */
@@ -15,16 +12,37 @@ abstract class ComponentAbstract
     use TrackableTrait;
 
     /**
+     * @var string
+     */
+    protected $classification;
+
+    /**
+     * @var string
+     */
+    protected $name;
+
+    /**
+     * @var string
+     */
+    protected $configLocation;
+
+    /**
      * @var array
      */
     protected $properties = [];
 
     /**
+     * @param string $classification
+     * @param string $name
+     * @param string $configLocation
      * @param array  $properties
      * @param string $createdByUserId
      * @param string $createdReason
      */
     public function __construct(
+        string $classification,
+        string $name,
+        string $configLocation,
         array $properties,
         string $createdByUserId,
         string $createdReason
@@ -35,26 +53,9 @@ abstract class ComponentAbstract
         }
         $this->new = false;
 
-        Param::assertHas(
-            $properties,
-            PropertiesComponent::NAME,
-            PropertyMissingException::build(
-                PropertiesComponent::NAME,
-                $properties,
-                get_class($this)
-            )
-        );
-
-        Param::assertHas(
-            $properties,
-            PropertiesComponent::CONFIG_LOCATION,
-            PropertyMissingException::build(
-                PropertiesComponent::CONFIG_LOCATION,
-                $properties,
-                get_class($this)
-            )
-        );
-
+        $this->classification = $classification;
+        $this->name = $name;
+        $this->configLocation = $configLocation;
         $this->properties = $properties;
 
         $this->setCreatedData(
@@ -66,12 +67,17 @@ abstract class ComponentAbstract
     /**
      * @return string
      */
+    public function getClassification(): string
+    {
+        return $this->classification;
+    }
+
+    /**
+     * @return string
+     */
     public function getName(): string
     {
-        return $this->getProperty(
-            PropertiesComponent::NAME,
-            ''
-        );
+        return $this->name;
     }
 
     /**
@@ -79,9 +85,6 @@ abstract class ComponentAbstract
      */
     public function getConfigLocation(): string
     {
-        return $this->getProperty(
-            PropertiesComponent::CONFIG_LOCATION,
-            ''
-        );
+        return $this->configLocation;
     }
 }

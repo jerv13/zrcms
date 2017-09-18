@@ -5,19 +5,19 @@ namespace Zrcms\ContentCoreConfigDataSource\Theme\Api;
 use Zrcms\Cache\Service\Cache;
 use Zrcms\Content\Api\GetRegisterComponentsAbstract;
 use Zrcms\Content\Exception\PropertyMissingException;
-use Zrcms\Content\Model\ComponentConfigFields;
+use Zrcms\Content\Fields\FieldsComponentConfig;
 use Zrcms\Content\Model\Trackable;
 use Zrcms\ContentCore\Theme\Api\Component\ReadLayoutComponentConfig;
 use Zrcms\ContentCore\Theme\Api\GetRegisterThemeComponents;
+use Zrcms\ContentCore\Theme\Fields\FieldsLayoutComponent;
+use Zrcms\ContentCore\Theme\Fields\FieldsThemeComponent;
 use Zrcms\ContentCore\Theme\Model\LayoutComponentBasic;
-use Zrcms\ContentCore\Theme\Model\LayoutComponentConfigFields;
-use Zrcms\ContentCore\Theme\Model\PropertiesLayoutComponent;
-use Zrcms\ContentCore\Theme\Model\PropertiesThemeComponent;
+use Zrcms\ContentCore\Theme\Fields\FieldsLayoutComponentConfig;
 use Zrcms\ContentCore\Theme\Model\ThemeComponent;
 use Zrcms\ContentCore\Theme\Model\ThemeComponentBasic;
-use Zrcms\ContentCore\Theme\Model\ThemeComponentConfigFields;
+use Zrcms\ContentCore\Theme\Fields\FieldsThemeComponentConfig;
 use Zrcms\ContentCoreConfigDataSource\Theme\Api\Component\ReadThemeComponentRegistryBasic;
-use Zrcms\ContentCoreConfigDataSource\Theme\Model\ThemeComponentRegistryFields;
+use Zrcms\ContentCoreConfigDataSource\Theme\Fields\FieldsThemeComponentRegistry;
 use Zrcms\Param\Param;
 
 /**
@@ -69,18 +69,18 @@ class GetRegisterThemeComponentsBasic
     {
         $layoutConfigLocations = Param::getArray(
             $themeComponentConfig,
-            ThemeComponentConfigFields::LAYOUT_LOCATIONS,
+            FieldsThemeComponentConfig::LAYOUT_LOCATIONS,
             []
         );
 
         $themeLocation = Param::getRequired(
             $themeComponentConfig,
-            ThemeComponentRegistryFields::CONFIG_LOCATION
+            FieldsThemeComponentRegistry::CONFIG_LOCATION
         );
 
         $themeName = Param::getRequired(
             $themeComponentConfig,
-            ThemeComponentConfigFields::NAME
+            FieldsThemeComponentConfig::NAME
         );
 
         $layoutComponentConfigs = [];
@@ -99,13 +99,13 @@ class GetRegisterThemeComponentsBasic
 
             $layoutComponentConfig = $this->readLayoutComponentConfig->__invoke($realLayoutLocation);
 
-            $layoutComponentConfig[PropertiesLayoutComponent::THEME_NAME] = $themeName;
+            $layoutComponentConfig[FieldsLayoutComponent::THEME_NAME] = $themeName;
 
             $templateFile = Param::getRequired(
                 $layoutComponentConfig,
-                LayoutComponentConfigFields::TEMPLATE_FILE,
-                PropertyMissingException::build(
-                    LayoutComponentConfigFields::TEMPLATE_FILE,
+                FieldsLayoutComponentConfig::TEMPLATE_FILE,
+                PropertyMissingException::buildThrower(
+                    FieldsLayoutComponentConfig::TEMPLATE_FILE,
                     $layoutComponentConfig,
                     get_class($this)
                 )
@@ -119,7 +119,7 @@ class GetRegisterThemeComponentsBasic
                 throw new \Exception('Layout template not found for ' . $templateFile);
             }
 
-            $layoutComponentConfig[PropertiesLayoutComponent::HTML] = file_get_contents($realTemplateFile);
+            $layoutComponentConfig[FieldsLayoutComponent::HTML] = file_get_contents($realTemplateFile);
 
             $layoutComponentConfigs[] = $layoutComponentConfig;
         }
@@ -132,18 +132,18 @@ class GetRegisterThemeComponentsBasic
                 $layoutComponentConfig,
                 Param::get(
                     $layoutComponentConfig,
-                    ComponentConfigFields::CREATED_BY_USER_ID,
+                    FieldsComponentConfig::CREATED_BY_USER_ID,
                     Trackable::UNKNOWN_USER_ID
                 ),
                 Param::get(
                     $layoutComponentConfig,
-                    ComponentConfigFields::CREATED_REASON,
+                    FieldsComponentConfig::CREATED_REASON,
                     Trackable::UNKNOWN_REASON
                 )
             );
         }
 
-        $themeComponentConfig[PropertiesThemeComponent::LAYOUT_VARIATIONS] = $layoutVariations;
+        $themeComponentConfig[FieldsThemeComponent::LAYOUT_VARIATIONS] = $layoutVariations;
 
         return $themeComponentConfig;
     }

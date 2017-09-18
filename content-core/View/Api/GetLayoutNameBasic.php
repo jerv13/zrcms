@@ -3,8 +3,8 @@
 namespace Zrcms\ContentCore\View\Api;
 
 use Zrcms\ContentCore\Page\Model\PageContainerVersion;
-use Zrcms\ContentCore\Page\Model\PropertiesPageContainerVersion;
-use Zrcms\ContentCore\Site\Model\PropertiesSiteVersion;
+use Zrcms\ContentCore\Page\Fields\FieldsPageContainerVersion;
+use Zrcms\ContentCore\Site\Fields\FieldsSiteVersion;
 use Zrcms\ContentCore\Site\Model\SiteVersion;
 use Zrcms\ContentCore\Theme\Model\LayoutComponent;
 
@@ -27,7 +27,7 @@ class GetLayoutNameBasic implements GetLayoutName
     ): string
     {
         $layoutName = $pageContainerVersion->getProperty(
-            PropertiesPageContainerVersion::LAYOUT
+            FieldsPageContainerVersion::LAYOUT
         );
 
         if (!empty($layoutName)) {
@@ -35,7 +35,7 @@ class GetLayoutNameBasic implements GetLayoutName
         }
 
         $layoutName = $siteVersion->getProperty(
-            PropertiesSiteVersion::LAYOUT
+            FieldsSiteVersion::LAYOUT
         );
 
         if (!empty($layoutName)) {

@@ -5,7 +5,7 @@ namespace Zrcms\ContentCoreDoctrineDataSource\Theme\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Zrcms\ContentCore\Theme\Model\LayoutCmsResource;
 use Zrcms\ContentCore\Theme\Model\LayoutCmsResourceAbstract;
-use Zrcms\ContentCore\Theme\Model\PropertiesLayoutCmsResource;
+use Zrcms\ContentCore\Theme\Fields\FieldsLayoutCmsResource;
 use Zrcms\ContentDoctrine\Entity\CmsResourceEntity;
 use Zrcms\ContentDoctrine\Entity\CmsResourceEntityTrait;
 use Zrcms\Param\Param;
@@ -190,27 +190,27 @@ class LayoutCmsResourceEntity
     ) {
         $this->id = Param::getInt(
             $properties,
-            PropertiesLayoutCmsResource::ID
+            FieldsLayoutCmsResource::ID
         );
 
         $this->contentVersion = Param::get(
             $properties,
-            PropertiesLayoutCmsResource::CONTENT_VERSION
+            FieldsLayoutCmsResource::CONTENT_VERSION
         );
 
         $this->published = Param::getBool(
             $properties,
-            PropertiesLayoutCmsResource::PUBLISHED
+            FieldsLayoutCmsResource::PUBLISHED
         );
 
         $this->themeName = Param::getString(
             $properties,
-            PropertiesLayoutCmsResource::THEME_NAME
+            FieldsLayoutCmsResource::THEME_NAME
         );
 
         $this->name = Param::getString(
             $properties,
-            PropertiesLayoutCmsResource::NAME
+            FieldsLayoutCmsResource::NAME
         );
 
         $this->properties = $properties;

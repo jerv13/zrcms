@@ -2,7 +2,7 @@
 
 namespace Zrcms\ContentCoreDoctrineDataSource\Theme\Entity;
 
-use Zrcms\ContentCore\Theme\Model\PropertiesLayoutVersion;
+use Zrcms\ContentCore\Theme\Fields\FieldsLayoutVersion;
 use Zrcms\Param\Param;
 
 /**
@@ -29,7 +29,7 @@ class LayoutVersionEntitySafe extends LayoutVersionEntity
 
         $this->id = Param::getString(
             $properties,
-            PropertiesLayoutVersion::ID,
+            FieldsLayoutVersion::ID,
             ''
         );
     }

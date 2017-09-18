@@ -7,7 +7,7 @@ use Zrcms\Content\Model\CmsResource;
 use Zrcms\ContentCore\Page\Model\PageContainerCmsResource;
 use Zrcms\ContentCore\Page\Model\PageContainerCmsResourceBasic;
 use Zrcms\ContentCore\Page\Model\PageContainerVersionBasic;
-use Zrcms\ContentCore\Page\Model\PropertiesPageContainerCmsResource;
+use Zrcms\ContentCore\Page\Fields\FieldsPageContainerCmsResource;
 use Zrcms\ContentCoreDoctrineDataSource\Page\Entity\PageContainerCmsResourceEntity;
 use Zrcms\ContentCoreDoctrineDataSource\Page\Entity\PageContainerVersionEntity;
 use Zrcms\ContentDoctrine\Api\BuildBasicCmsResource;
@@ -88,8 +88,8 @@ class FindPageContainerCmsResourceBySitePath
         /** @var PageContainerCmsResourceEntity $pageContainerCmsResourceEntity */
         $pageContainerCmsResourceEntity = $repository->findOneBy(
             [
-                PropertiesPageContainerCmsResource::SITE_CMS_RESOURCE_ID => $siteCmsResourceId,
-                PropertiesPageContainerCmsResource::PATH => $pageContainerCmsResourcePath,
+                FieldsPageContainerCmsResource::SITE_CMS_RESOURCE_ID => $siteCmsResourceId,
+                FieldsPageContainerCmsResource::PATH => $pageContainerCmsResourcePath,
             ]
         );
 

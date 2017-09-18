@@ -13,6 +13,7 @@ use Zrcms\ContentCore\Site\Model\Site;
 use Zrcms\ContentCore\Theme\Model\Layout;
 
 use Zrcms\ContentCore\Theme\Model\LayoutCmsResource;
+use Zrcms\ContentCore\View\Fields\FieldsView;
 use Zrcms\Param\Param;
 
 /**
@@ -45,9 +46,9 @@ abstract class ViewAbstract extends ContentAbstract implements View
 
         $this->siteCmsResource = Param::getRequired(
             $properties,
-            PropertiesView::SITE_CMS_RESOURCE,
-            PropertyMissingException::build(
-                PropertiesView::SITE_CMS_RESOURCE,
+            FieldsView::SITE_CMS_RESOURCE,
+            PropertyMissingException::buildThrower(
+                FieldsView::SITE_CMS_RESOURCE,
                 $properties,
                 get_class($this)
             )
@@ -55,9 +56,9 @@ abstract class ViewAbstract extends ContentAbstract implements View
 
         $this->pageContainerCmsResource = Param::getRequired(
             $properties,
-            PropertiesView::PAGE_CONTAINER_CMS_RESOURCE,
-            PropertyMissingException::build(
-                PropertiesView::PAGE_CONTAINER_CMS_RESOURCE,
+            FieldsView::PAGE_CONTAINER_CMS_RESOURCE,
+            PropertyMissingException::buildThrower(
+                FieldsView::PAGE_CONTAINER_CMS_RESOURCE,
                 $properties,
                 get_class($this)
             )
@@ -65,9 +66,9 @@ abstract class ViewAbstract extends ContentAbstract implements View
 
         $this->layoutCmsResource = Param::getRequired(
             $properties,
-            PropertiesView::LAYOUT_CMS_RESOURCE,
-            PropertyMissingException::build(
-                PropertiesView::LAYOUT_CMS_RESOURCE,
+            FieldsView::LAYOUT_CMS_RESOURCE,
+            PropertyMissingException::buildThrower(
+                FieldsView::LAYOUT_CMS_RESOURCE,
                 $properties,
                 get_class($this)
             )

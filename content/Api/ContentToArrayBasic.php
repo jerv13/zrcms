@@ -4,7 +4,7 @@ namespace Zrcms\Content\Api;
 
 use Zrcms\Content\Model\Content;
 use Zrcms\Content\Model\Properties;
-use Zrcms\Content\Model\PropertiesContent;
+use Zrcms\Content\Fields\FieldsContent;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -23,7 +23,7 @@ class ContentToArrayBasic implements ContentToArray
     ): array
     {
         return [
-            PropertiesContent::ID
+            FieldsContent::ID
             => $content->getId(),
 
             Properties::NAME_PROPERTIES

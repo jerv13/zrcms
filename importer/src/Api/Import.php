@@ -6,26 +6,26 @@ use Psr\Log\LoggerInterface;
 use Zrcms\ContentCore\Container\Api\Action\PublishContainerCmsResource;
 use Zrcms\ContentCore\Container\Api\Action\UnpublishContainerCmsResource;
 use Zrcms\ContentCore\Container\Api\Repository\InsertContainerVersion;
+use Zrcms\ContentCore\Container\Fields\FieldsContainerCmsResource;
 use Zrcms\ContentCore\Container\Model\ContainerCmsResourceBasic;
 use Zrcms\ContentCore\Container\Model\ContainerVersionBasic;
-use Zrcms\ContentCore\Container\Model\PropertiesContainerCmsResource;
 use Zrcms\ContentCore\Page\Api\Action\PublishPageContainerCmsResource;
 use Zrcms\ContentCore\Page\Api\Action\UnpublishPageContainerCmsResource;
 use Zrcms\ContentCore\Page\Api\Repository\InsertPageContainerVersion;
+use Zrcms\ContentCore\Page\Fields\FieldsPageContainerCmsResource;
 use Zrcms\ContentCore\Page\Model\PageContainerCmsResourceBasic;
 use Zrcms\ContentCore\Page\Model\PageContainerVersionBasic;
-use Zrcms\ContentCore\Page\Model\PropertiesPageContainerCmsResource;
 use Zrcms\ContentCore\Site\Api\Action\PublishSiteCmsResource;
 use Zrcms\ContentCore\Site\Api\Action\UnpublishSiteCmsResource;
 use Zrcms\ContentCore\Site\Api\Repository\InsertSiteVersion;
-use Zrcms\ContentCore\Site\Model\PropertiesSiteCmsResource;
+use Zrcms\ContentCore\Site\Fields\FieldsSiteCmsResource;
 use Zrcms\ContentCore\Site\Model\SiteCmsResource;
 use Zrcms\ContentCore\Site\Model\SiteCmsResourceBasic;
 use Zrcms\ContentCore\Site\Model\SiteVersionBasic;
 use Zrcms\ContentRedirect\Api\Action\PublishRedirectCmsResource;
 use Zrcms\ContentRedirect\Api\Action\UnpublishRedirectCmsResource;
 use Zrcms\ContentRedirect\Api\Repository\InsertRedirectVersion;
-use Zrcms\ContentRedirect\Model\PropertiesRedirectCmsResource;
+use Zrcms\ContentRedirect\Fields\FieldsRedirectCmsResource;
 use Zrcms\ContentRedirect\Model\RedirectCmsResourceBasic;
 use Zrcms\ContentRedirect\Model\RedirectVersionBasic;
 use Zrcms\Param\Param;
@@ -238,6 +238,7 @@ class Import
             );
             $version = $this->insertSiteVersion->__invoke(
                 new SiteVersionBasic(
+                    null,
                     $site['properties'],
                     $createdByUserId,
                     $createdReason
@@ -253,10 +254,11 @@ class Import
             );
             $publishedSiteCmsResource = $this->publishSiteCmsResource->__invoke(
                 new SiteCmsResourceBasic(
+                    $site['id'],
+                    true,
+                    $version,
                     [
-                        PropertiesSiteCmsResource::ID => $site['id'],
-                        PropertiesSiteCmsResource::HOST => $site['host'],
-                        PropertiesSiteCmsResource::CONTENT_VERSION => $version,
+                        FieldsSiteCmsResource::HOST => $site['host'],
                     ],
                     $createdByUserId,
                     $createdReason
@@ -322,6 +324,7 @@ class Import
             );
             $version = $this->insertPageContainerVersion->__invoke(
                 new PageContainerVersionBasic(
+                    null,
                     $page['properties'],
                     $createdByUserId,
                     $createdReason
@@ -336,10 +339,12 @@ class Import
             );
             $publishedPageContainerCmsResource = $this->publishPageContainerCmsResource->__invoke(
                 new PageContainerCmsResourceBasic(
+                    null,
+                    true,
+                    $version,
                     [
-                        PropertiesPageContainerCmsResource::SITE_CMS_RESOURCE_ID => $siteCmsResource->getId(),
-                        PropertiesPageContainerCmsResource::PATH => $page['path'],
-                        PropertiesPageContainerCmsResource::CONTENT_VERSION => $version,
+                        FieldsPageContainerCmsResource::SITE_CMS_RESOURCE_ID => $siteCmsResource->getId(),
+                        FieldsPageContainerCmsResource::PATH => $page['path'],
                     ],
                     $createdByUserId,
                     $createdReason
@@ -389,6 +394,7 @@ class Import
             );
             $version = $this->insertContainerVersion->__invoke(
                 new ContainerVersionBasic(
+                    null,
                     $container['properties'],
                     $createdByUserId,
                     $createdReason
@@ -403,10 +409,12 @@ class Import
             );
             $publishedContainerCmsResource = $this->publishContainerCmsResource->__invoke(
                 new ContainerCmsResourceBasic(
+                    null,
+                    true,
+                    $version,
                     [
-                        PropertiesContainerCmsResource::SITE_CMS_RESOURCE_ID => $siteCmsResource->getId(),
-                        PropertiesContainerCmsResource::PATH => $container['path'],
-                        PropertiesContainerCmsResource::CONTENT_VERSION=> $version,
+                        FieldsContainerCmsResource::SITE_CMS_RESOURCE_ID => $siteCmsResource->getId(),
+                        FieldsContainerCmsResource::PATH => $container['path'],
                     ],
                     $createdByUserId,
                     $createdReason
@@ -473,6 +481,7 @@ class Import
             );
             $version = $this->insertRedirectVersion->__invoke(
                 new RedirectVersionBasic(
+                    null,
                     $redirect['properties'],
                     $createdByUserId,
                     $createdReason
@@ -488,11 +497,12 @@ class Import
 
             $publishedRedirectCmsResource = $this->publishRedirectCmsResource->__invoke(
                 new RedirectCmsResourceBasic(
+                    null,
+                    true,
+                    $version,
                     [
-                        PropertiesRedirectCmsResource::SITE_CMS_RESOURCE_ID => $redirect['siteId'],
-                        PropertiesRedirectCmsResource::REQUEST_PATH => $redirect['requestPath'],
-                        PropertiesRedirectCmsResource::CONTENT_VERSION => $version,
-                        PropertiesRedirectCmsResource::PUBLISHED => Param::getBool($redirect, 'published', true),
+                        FieldsRedirectCmsResource::SITE_CMS_RESOURCE_ID => $redirect['siteId'],
+                        FieldsRedirectCmsResource::REQUEST_PATH => $redirect['requestPath'],
                     ],
                     $createdByUserId,
                     $createdReason

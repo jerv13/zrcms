@@ -6,7 +6,7 @@ use Zrcms\Content\Model\Content;
 use Zrcms\ContentCore\Block\Api\Repository\FindBlockComponent;
 use Zrcms\ContentCore\Block\Model\Block;
 use Zrcms\ContentCore\Block\Model\BlockComponent;
-use Zrcms\ContentCore\Block\Model\PropertiesBlockComponent;
+use Zrcms\ContentCore\Block\Fields\FieldsBlockComponent;
 use Zrcms\ContentCore\Block\Model\ServiceAliasBlock;
 use Zrcms\ServiceAlias\Api\GetServiceFromAlias;
 use Zrcms\ServiceAlias\ServiceCheck;
@@ -73,7 +73,7 @@ class RenderBlockBasic implements RenderBlock
 
         // Get version renderer or use default
         $renderServiceAlias = $blockComponent->getProperty(
-            PropertiesBlockComponent::RENDERER,
+            FieldsBlockComponent::RENDERER,
             ''
         );
 

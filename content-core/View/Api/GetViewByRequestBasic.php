@@ -20,7 +20,7 @@ use Zrcms\ContentCore\Theme\Exception\ThemeNotFoundException;
 use Zrcms\ContentCore\Theme\Model\LayoutCmsResource;
 use Zrcms\ContentCore\View\Api\Render\GetViewLayoutTags;
 use Zrcms\ContentCore\View\Api\Render\RenderView;
-use Zrcms\ContentCore\View\Model\PropertiesView;
+use Zrcms\ContentCore\View\Fields\FieldsView;
 use Zrcms\ContentCore\View\Model\View;
 use Zrcms\ContentCore\View\Model\ViewBasic;
 use Zrcms\Param\Param;
@@ -246,16 +246,16 @@ class GetViewByRequestBasic implements GetViewByRequest
         }
 
         $properties = [
-            PropertiesView::ID
+            FieldsView::ID
             => 'basic',
 
-            PropertiesView::SITE_CMS_RESOURCE
+            FieldsView::SITE_CMS_RESOURCE
             => $siteCmsResource,
 
-            PropertiesView::PAGE_CONTAINER_CMS_RESOURCE
+            FieldsView::PAGE_CONTAINER_CMS_RESOURCE
             => $pageContainerCmsResource,
 
-            PropertiesView::LAYOUT_CMS_RESOURCE
+            FieldsView::LAYOUT_CMS_RESOURCE
             => $layoutCmsResource,
 
         ];

@@ -5,7 +5,7 @@ namespace Zrcms\ContentCoreDoctrineDataSource\Theme\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Zrcms\ContentCore\Theme\Model\LayoutVersion;
 use Zrcms\ContentCore\Theme\Model\LayoutVersionAbstract;
-use Zrcms\ContentCore\Theme\Model\PropertiesLayoutVersion;
+use Zrcms\ContentCore\Theme\Fields\FieldsLayoutVersion;
 use Zrcms\ContentDoctrine\Entity\ContentEntity;
 use Zrcms\ContentDoctrine\Entity\ContentEntityTrait;
 use Zrcms\Param\Param;
@@ -89,12 +89,12 @@ class LayoutVersionEntity
     ) {
         $this->id = Param::getInt(
             $properties,
-            PropertiesLayoutVersion::ID
+            FieldsLayoutVersion::ID
         );
 
         $this->html = Param::getString(
             $properties,
-            PropertiesLayoutVersion::HTML
+            FieldsLayoutVersion::HTML
         );
 
         parent::__construct(

@@ -2,7 +2,7 @@
 
 namespace Zrcms\ContentCore\Block\Api;
 
-use Zrcms\ContentCore\Block\Model\BlockComponentConfigFields;
+use Zrcms\ContentCore\Block\Fields\FieldsBlockComponentConfig;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -14,13 +14,13 @@ class GetBlockConfigFieldsBcSubstitution
      */
     protected $bcFields
         = [
-            'name' => BlockComponentConfigFields::NAME,
-            'type' => BlockComponentConfigFields::CATEGORY,
-            'display' => BlockComponentConfigFields::LABEL,
-            'tooltip' => BlockComponentConfigFields::DESCRIPTION,
-            'icon' => BlockComponentConfigFields::ICON,
-            'canCache' => BlockComponentConfigFields::CACHEABLE,
-            'defaultInstanceConfig' => BlockComponentConfigFields::DEFAULT_CONFIG,
+            'name' => FieldsBlockComponentConfig::NAME,
+            'type' => FieldsBlockComponentConfig::CATEGORY,
+            'display' => FieldsBlockComponentConfig::LABEL,
+            'tooltip' => FieldsBlockComponentConfig::DESCRIPTION,
+            'icon' => FieldsBlockComponentConfig::ICON,
+            'canCache' => FieldsBlockComponentConfig::CACHEABLE,
+            'defaultInstanceConfig' => FieldsBlockComponentConfig::DEFAULT_CONFIG,
         ];
 
     /**

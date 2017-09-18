@@ -4,8 +4,8 @@ namespace Zrcms\ContentCore\Block\Api;
 
 use Zrcms\ContentCore\Block\Api\Repository\FindBlockComponent;
 use Zrcms\ContentCore\Block\Model\Block;
-use Zrcms\ContentCore\Block\Model\PropertiesBlock;
-use Zrcms\ContentCore\Block\Model\PropertiesBlockComponent;
+use Zrcms\ContentCore\Block\Fields\FieldsBlock;
+use Zrcms\ContentCore\Block\Fields\FieldsBlockComponent;
 
 class WrapRenderedBlockVersionLegacy implements WrapRenderedBlockVersion
 {
@@ -38,18 +38,18 @@ class WrapRenderedBlockVersionLegacy implements WrapRenderedBlockVersion
         );
 
         $rowNumber = $block->getRequiredLayoutProperty(
-            PropertiesBlock::LAYOUT_PROPERTIES_ROW_NUMBER
+            FieldsBlock::LAYOUT_PROPERTIES_ROW_NUMBER
         );
         $renderOrder = $block->getRequiredLayoutProperty(
-            PropertiesBlock::LAYOUT_PROPERTIES_RENDER_ORDER
+            FieldsBlock::LAYOUT_PROPERTIES_RENDER_ORDER
         );
         $columnClass = $block->getRequiredLayoutProperty(
-            PropertiesBlock::LAYOUT_PROPERTIES_COLUMN_CLASS
+            FieldsBlock::LAYOUT_PROPERTIES_COLUMN_CLASS
         );
 
         $id = $block->getId();
 
-        $editor = $blockComponent->getProperty(PropertiesBlockComponent::EDITOR, '');
+        $editor = $blockComponent->getProperty(FieldsBlockComponent::EDITOR, '');
 
         $componentName = $blockComponent->getName();
 

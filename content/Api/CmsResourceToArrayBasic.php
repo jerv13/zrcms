@@ -4,7 +4,7 @@ namespace Zrcms\Content\Api;
 
 use Zrcms\Content\Model\CmsResource;
 use Zrcms\Content\Model\Properties;
-use Zrcms\Content\Model\PropertiesCmsResource;
+use Zrcms\Content\Fields\FieldsCmsResource;
 use Zrcms\Content\Model\TrackableProperties;
 
 /**
@@ -41,16 +41,16 @@ class CmsResourceToArrayBasic implements CmsResourceToArray
             $cmsResource->getContentVersion()
         );
         $properties = $cmsResource->getProperties();
-        $properties[PropertiesCmsResource::CONTENT_VERSION] = $contentVersion;
+        $properties[FieldsCmsResource::CONTENT_VERSION] = $contentVersion;
 
         return [
-            PropertiesCmsResource::ID
+            FieldsCmsResource::ID
             => $cmsResource->getId(),
 
-            PropertiesCmsResource::CONTENT_VERSION
+            FieldsCmsResource::CONTENT_VERSION
             => $contentVersion,
 
-            PropertiesCmsResource::PUBLISHED
+            FieldsCmsResource::PUBLISHED
             => $cmsResource->isPublished(),
 
             Properties::NAME_PROPERTIES

@@ -4,6 +4,7 @@ namespace Zrcms\ContentCore\Block\Model;
 
 use Zrcms\Content\Exception\PropertyMissingException;
 use Zrcms\Content\Model\ContentAbstract;
+use Zrcms\ContentCore\Block\Fields\FieldsBlock;
 use Zrcms\Param\Param;
 
 /**
@@ -13,15 +14,17 @@ abstract class BlockAbstract extends ContentAbstract implements Block
 {
     /**
      * @param array $properties
+     * @param null  $id
      */
     public function __construct(
-        array $properties
+        array $properties,
+        $id = null
     ) {
         Param::assertHas(
             $properties,
-            PropertiesBlock::BLOCK_COMPONENT_NAME,
-            PropertyMissingException::build(
-                PropertiesBlock::BLOCK_COMPONENT_NAME,
+            FieldsBlock::BLOCK_COMPONENT_NAME,
+            PropertyMissingException::buildThrower(
+                FieldsBlock::BLOCK_COMPONENT_NAME,
                 $properties,
                 get_class($this)
             )
@@ -29,16 +32,17 @@ abstract class BlockAbstract extends ContentAbstract implements Block
 
         Param::assertHas(
             $properties,
-            PropertiesBlock::LAYOUT_PROPERTIES,
-            PropertyMissingException::build(
-                PropertiesBlock::LAYOUT_PROPERTIES,
+            FieldsBlock::LAYOUT_PROPERTIES,
+            PropertyMissingException::buildThrower(
+                FieldsBlock::LAYOUT_PROPERTIES,
                 $properties,
                 get_class($this)
             )
         );
 
         parent::__construct(
-            $properties
+            $properties,
+            $id
         );
     }
 
@@ -48,7 +52,7 @@ abstract class BlockAbstract extends ContentAbstract implements Block
     public function getBlockComponentName(): string
     {
         return $this->getProperty(
-            PropertiesBlock::BLOCK_COMPONENT_NAME,
+            FieldsBlock::BLOCK_COMPONENT_NAME,
             ''
         );
     }
@@ -60,7 +64,7 @@ abstract class BlockAbstract extends ContentAbstract implements Block
     public function getConfig(): array
     {
         return $this->getProperty(
-            PropertiesBlock::CONFIG,
+            FieldsBlock::CONFIG,
             []
         );
     }
@@ -88,7 +92,7 @@ abstract class BlockAbstract extends ContentAbstract implements Block
     public function getLayoutProperties(): array
     {
         return $this->getProperty(
-            PropertiesBlock::LAYOUT_PROPERTIES,
+            FieldsBlock::LAYOUT_PROPERTIES,
             []
         );
     }
@@ -122,7 +126,7 @@ abstract class BlockAbstract extends ContentAbstract implements Block
         return Param::getRequired(
             $layoutProperties,
             $name,
-            PropertyMissingException::build(
+            PropertyMissingException::buildThrower(
                 $name,
                 $layoutProperties,
                 get_class($this)

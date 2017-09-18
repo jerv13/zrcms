@@ -3,7 +3,7 @@
 namespace Zrcms\ContentDoctrine\Api;
 
 use Zrcms\Content\Model\CmsResourcePublishHistory;
-use Zrcms\Content\Model\PropertiesCmsResource;
+use Zrcms\Content\Fields\FieldsCmsResource;
 use Zrcms\ContentDoctrine\Entity\CmsResourceEntity;
 
 /**
@@ -23,22 +23,22 @@ class ExtractCmsResourceEntityProperties
         array $cmsResourceSyncToProperties
     ) {
         // always sync
-        if (!array_key_exists(PropertiesCmsResource::ID, $cmsResourceSyncToProperties)) {
-            $cmsResourceSyncToProperties[] = PropertiesCmsResource::ID;
+        if (!array_key_exists(FieldsCmsResource::ID, $cmsResourceSyncToProperties)) {
+            $cmsResourceSyncToProperties[] = FieldsCmsResource::ID;
         }
 
-        if (!array_key_exists(PropertiesCmsResource::CONTENT_VERSION, $cmsResourceSyncToProperties)) {
-            $cmsResourceSyncToProperties[] = PropertiesCmsResource::CONTENT_VERSION;
+        if (!array_key_exists(FieldsCmsResource::CONTENT_VERSION, $cmsResourceSyncToProperties)) {
+            $cmsResourceSyncToProperties[] = FieldsCmsResource::CONTENT_VERSION;
         }
 
         // @todo This is for publish only - needs to have it's own sync
         if (is_a($entity, CmsResourcePublishHistory::class)
             && !array_key_exists(
-                PropertiesCmsResource::PUBLISHED,
+                FieldsCmsResource::PUBLISHED,
                 $cmsResourceSyncToProperties
             )
         ) {
-            $cmsResourceSyncToProperties[] = PropertiesCmsResource::PUBLISHED;
+            $cmsResourceSyncToProperties[] = FieldsCmsResource::PUBLISHED;
         }
 
         $properties = $entity->getProperties();

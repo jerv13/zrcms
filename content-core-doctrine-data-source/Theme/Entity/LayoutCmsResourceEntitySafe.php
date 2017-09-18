@@ -2,7 +2,7 @@
 
 namespace Zrcms\ContentCoreDoctrineDataSource\Theme\Entity;
 
-use Zrcms\ContentCore\Theme\Model\PropertiesLayoutCmsResource;
+use Zrcms\ContentCore\Theme\Fields\FieldsLayoutCmsResource;
 use Zrcms\Param\Param;
 
 /**
@@ -29,18 +29,18 @@ class LayoutCmsResourceEntitySafe extends LayoutCmsResourceEntity
 
         $this->id = Param::getString(
             $properties,
-            PropertiesLayoutCmsResource::ID,
+            FieldsLayoutCmsResource::ID,
             ''
         );
 
         $this->contentVersion = Param::getRequired(
             $properties,
-            PropertiesLayoutCmsResource::CONTENT_VERSION
+            FieldsLayoutCmsResource::CONTENT_VERSION
         );
 
         $this->published = Param::getBool(
             $properties,
-            PropertiesLayoutCmsResource::PUBLISHED,
+            FieldsLayoutCmsResource::PUBLISHED,
             true
         );
     }

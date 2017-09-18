@@ -5,7 +5,7 @@ namespace Zrcms\HttpExpressive1\HttpApi\Repository;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Zrcms\Content\Api\CmsResourceToArray;
-use Zrcms\Content\Model\PropertiesCmsResource;
+use Zrcms\Content\Fields\FieldsCmsResource;
 use Zrcms\HttpExpressive1\Model\JsonApiResponse;
 use Zrcms\HttpExpressive1\Model\ResponseCodes;
 
@@ -62,7 +62,7 @@ class FindCmsResource
         callable $next = null
     ) {
         $cmsResourceId = (string)$request->getAttribute(
-            PropertiesCmsResource::ID
+            FieldsCmsResource::ID
         );
 
         if (empty($cmsResourceId)) {

@@ -3,7 +3,7 @@
 namespace Zrcms\Content\Api\Component;
 
 use Psr\Container\ContainerInterface;
-use Zrcms\Content\Model\PropertiesComponent;
+use Zrcms\Content\Fields\FieldsComponentConfig;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -40,7 +40,7 @@ abstract class ReadComponentConfigCallableAbstract implements ReadComponentConfi
 
         $config = $callableService->__invoke();
 
-        $config[PropertiesComponent::CONFIG_LOCATION] = $callableServiceName;
+        $config[FieldsComponentConfig::CONFIG_LOCATION] = $callableServiceName;
 
         return $config;
     }

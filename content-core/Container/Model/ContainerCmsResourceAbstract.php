@@ -6,6 +6,7 @@ use Zrcms\Content\Exception\ContentVersionInvalid;
 use Zrcms\Content\Exception\PropertyMissingException;
 use Zrcms\Content\Model\CmsResourceAbstract;
 use Zrcms\Content\Model\ContentVersion;
+use Zrcms\ContentCore\Container\Fields\FieldsContainerCmsResource;
 use Zrcms\Param\Param;
 
 /**
@@ -31,9 +32,9 @@ abstract class ContainerCmsResourceAbstract extends CmsResourceAbstract
     ) {
         Param::assertHas(
             $properties,
-            PropertiesContainerCmsResource::SITE_CMS_RESOURCE_ID,
-            PropertyMissingException::build(
-                PropertiesContainerCmsResource::SITE_CMS_RESOURCE_ID,
+            FieldsContainerCmsResource::SITE_CMS_RESOURCE_ID,
+            PropertyMissingException::buildThrower(
+                FieldsContainerCmsResource::SITE_CMS_RESOURCE_ID,
                 $properties,
                 get_class($this)
             )
@@ -41,9 +42,9 @@ abstract class ContainerCmsResourceAbstract extends CmsResourceAbstract
 
         Param::assertHas(
             $properties,
-            PropertiesContainerCmsResource::PATH,
-            PropertyMissingException::build(
-                PropertiesContainerCmsResource::PATH,
+            FieldsContainerCmsResource::PATH,
+            PropertyMissingException::buildThrower(
+                FieldsContainerCmsResource::PATH,
                 $properties,
                 get_class($this)
             )
@@ -65,7 +66,7 @@ abstract class ContainerCmsResourceAbstract extends CmsResourceAbstract
     public function getSiteCmsResourceId(): string
     {
         return $this->getProperty(
-            PropertiesContainerCmsResource::SITE_CMS_RESOURCE_ID,
+            FieldsContainerCmsResource::SITE_CMS_RESOURCE_ID,
             ''
         );
     }
@@ -76,7 +77,7 @@ abstract class ContainerCmsResourceAbstract extends CmsResourceAbstract
     public function getPath(): string
     {
         return $this->getProperty(
-            PropertiesContainerCmsResource::PATH,
+            FieldsContainerCmsResource::PATH,
             ''
         );
     }

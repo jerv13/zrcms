@@ -2,7 +2,7 @@
 
 namespace Zrcms\Content\Api\Component;
 
-use Zrcms\Content\Model\PropertiesComponent;
+use Zrcms\Content\Fields\FieldsComponentConfig;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -55,7 +55,7 @@ abstract class ReadComponentConfigJsonFileAbstract implements ReadComponentConfi
         if (json_last_error() !== JSON_ERROR_NONE) {
             throw new \Exception(get_class($this) . ' received invalid JSON from: ' . $realConfigFilePath);
         }
-        $config[PropertiesComponent::CONFIG_LOCATION] = $realDirectory;
+        $config[FieldsComponentConfig::CONFIG_LOCATION] = $realDirectory;
 
         return $config;
     }

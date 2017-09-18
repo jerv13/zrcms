@@ -2,6 +2,7 @@
 
 namespace Zrcms\ContentRedirect\Model;
 
+use Zrcms\Content\Model\CmsResource;
 use Zrcms\Content\Model\CmsResourcePublishHistory;
 use Zrcms\Content\Model\ContentVersion;
 

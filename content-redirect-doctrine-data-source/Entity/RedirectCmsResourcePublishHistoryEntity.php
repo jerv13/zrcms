@@ -3,12 +3,12 @@
 namespace Zrcms\ContentRedirectDoctrineDataSource\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Zrcms\Content\Model\PropertiesCmsResourcePublishHistory;
+use Zrcms\Content\Fields\FieldsCmsResourcePublishHistory;
+use Zrcms\ContentDoctrine\Entity\CmsResourceEntity;
 use Zrcms\ContentDoctrine\Entity\CmsResourcePublishHistoryEntity;
+use Zrcms\ContentDoctrine\Entity\CmsResourcePublishHistoryEntityAbstract;
 use Zrcms\ContentDoctrine\Entity\CmsResourcePublishHistoryEntityTrait;
-use Zrcms\ContentRedirect\Model\PropertiesRedirectCmsResource;
-use Zrcms\ContentRedirect\Model\RedirectCmsResourcePublishHistory;
-use Zrcms\ContentRedirect\Model\RedirectCmsResourcePublishHistoryAbstract;
+use Zrcms\ContentRedirect\Fields\FieldsRedirectCmsResource;
 use Zrcms\Param\Param;
 
 /**
@@ -22,19 +22,59 @@ use Zrcms\Param\Param;
  * )
  */
 class RedirectCmsResourcePublishHistoryEntity
-    extends RedirectCmsResourcePublishHistoryAbstract
+    extends CmsResourcePublishHistoryEntityAbstract
     implements CmsResourcePublishHistoryEntity
 {
     use CmsResourcePublishHistoryEntityTrait;
 
     /**
-     * @var string
+     * @var int
      *
      * @ORM\Id
      * @ORM\Column(type="integer")
      * @ORM\GeneratedValue
      */
     protected $id;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(type="string")
+     */
+    protected $action;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    protected $cmsResourceId = null;
+
+    /**
+     * @var RedirectCmsResourceEntity
+     *
+     * @ORM\ManyToOne(targetEntity="RedirectCmsResourceEntity")
+     * @ORM\JoinColumn(
+     *     name="cmsResourceId",
+     *     referencedColumnName="id",
+     *     onDelete="SET NULL"
+     * )
+     */
+    protected $cmsResourceEntity;
+
+    /**
+     * @var array
+     *
+     * @ORM\Column(type="json_array")
+     */
+    protected $cmsResourceProperties;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    protected $contentVersionId = null;
 
     /**
      * @var RedirectVersionEntity
@@ -47,27 +87,6 @@ class RedirectCmsResourcePublishHistoryEntity
      * )
      */
     protected $contentVersion;
-
-    /**
-     * @var int
-     *
-     * @ORM\Column(type="integer", nullable=true)
-     */
-    protected $contentVersionId = null;
-
-    /**
-     * @var boolean
-     *
-     * @ORM\Column(type="boolean")
-     */
-    protected $published = true;
-
-    /**
-     * @var array
-     *
-     * @ORM\Column(type="json_array")
-     */
-    protected $properties = [];
 
     /**
      * Date object was first created mapped to col createdDate
@@ -88,29 +107,6 @@ class RedirectCmsResourcePublishHistoryEntity
     protected $createdByUserId;
 
     /**
-     * Short description of create reason
-     *
-     * @var string
-     *
-     * @ORM\Column(type="string")
-     */
-    protected $createdReason;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(type="string")
-     */
-    protected $cmsResourceId;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(type="string")
-     */
-    protected $action;
-
-    /**
      * @var string
      *
      * @ORM\Column(type="string", nullable=true)
@@ -125,70 +121,29 @@ class RedirectCmsResourcePublishHistoryEntity
     protected $requestPath;
 
     /**
-     * @param array  $properties
-     * @param string $createdByUserId
-     * @param string $createdReason
+     * @param string|null                                 $id
+     * @param string                                      $action
+     * @param RedirectCmsResourceEntity|CmsResourceEntity $cmsResourceEntity
+     * @param string                                      $publishedByUserId
+     * @param string                                      $publishReason
      */
     public function __construct(
-        array $properties,
-        string $createdByUserId,
-        string $createdReason
+        $id,
+        string $action,
+        CmsResourceEntity $cmsResourceEntity,
+        string $publishedByUserId,
+        string $publishReason
     ) {
-        $this->updateProperties($properties);
+        $this->siteCmsResourceId = $cmsResourceEntity->getSiteCmsResourceId();
+        $this->requestPath = $cmsResourceEntity->getRequestPath();
 
         parent::__construct(
-            $properties,
-            $createdByUserId,
-            $createdReason
+            $id,
+            $action,
+            $cmsResourceEntity,
+            $publishedByUserId,
+            $publishReason
         );
-    }
-
-    /**
-     * @return string
-     */
-    public function getId(): string
-    {
-        return (string)$this->id;
-    }
-
-    /**
-     * @return RedirectVersionEntity
-     */
-    public function getContentVersion()
-    {
-        return $this->contentVersion;
-    }
-
-    /**
-     * @return string
-     */
-    public function getContentVersionId(): string
-    {
-        return (string)$this->contentVersionId;
-    }
-
-    /**
-     * @return bool
-     */
-    public function isPublished(): bool
-    {
-        return $this->published;
-    }
-
-    /**
-     * @return string
-     */
-    public function getAction(): string
-    {
-        return $this->action;
-    }
-
-    /**
-     * @return string
-     */
-    public function getCmsResourceId(): string
-    {
-        return $this->cmsResourceId;
     }
 
     /**
@@ -205,51 +160,5 @@ class RedirectCmsResourcePublishHistoryEntity
     public function getRequestPath(): string
     {
         return $this->requestPath;
-    }
-
-    /**
-     * @param array $properties
-     *
-     * @return void
-     */
-    public function updateProperties(
-        array $properties
-    ) {
-        $this->id = Param::getInt(
-            $properties,
-            PropertiesRedirectCmsResource::ID
-        );
-
-        $this->contentVersion = Param::get(
-            $properties,
-            PropertiesRedirectCmsResource::CONTENT_VERSION
-        );
-
-        $this->published = Param::getBool(
-            $properties,
-            PropertiesRedirectCmsResource::PUBLISHED
-        );
-
-        $this->siteCmsResourceId = Param::get(
-            $properties,
-            PropertiesRedirectCmsResource::SITE_CMS_RESOURCE_ID
-        );
-
-        $this->requestPath = Param::getString(
-            $properties,
-            PropertiesRedirectCmsResource::REQUEST_PATH
-        );
-
-        $this->cmsResourceId = Param::getString(
-            $properties,
-            PropertiesCmsResourcePublishHistory::CMS_RESOURCE_ID
-        );
-
-        $this->action = Param::getString(
-            $properties,
-            PropertiesCmsResourcePublishHistory::ACTION
-        );
-
-        $this->properties = $properties;
     }
 }

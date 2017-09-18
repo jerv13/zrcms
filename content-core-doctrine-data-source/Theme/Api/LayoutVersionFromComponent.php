@@ -3,7 +3,7 @@
 namespace Zrcms\ContentCoreDoctrineDataSource\Theme\Api;
 
 use Zrcms\ContentCore\Theme\Model\LayoutComponent;
-use Zrcms\ContentCore\Theme\Model\PropertiesLayoutVersion;
+use Zrcms\ContentCore\Theme\Fields\FieldsLayoutVersion;
 use Zrcms\ContentCoreDoctrineDataSource\Theme\Entity\LayoutVersionEntitySafe;
 
 /**
@@ -22,21 +22,18 @@ class LayoutVersionFromComponent
         LayoutComponent $layoutComponent
     ) {
         $properties = [
-            PropertiesLayoutVersion::ID => $id,
-            PropertiesLayoutVersion::NAME => $layoutComponent->getName(),
-            PropertiesLayoutVersion::THEME_NAME => $layoutComponent->getThemeName(),
-            PropertiesLayoutVersion::HTML => $layoutComponent->getHtml(),
-            PropertiesLayoutVersion::RENDER_TAGS_GETTER => $layoutComponent->getProperty(
-                PropertiesLayoutVersion::RENDER_TAGS_GETTER
+            FieldsLayoutVersion::ID => $id,
+            FieldsLayoutVersion::NAME => $layoutComponent->getName(),
+            FieldsLayoutVersion::THEME_NAME => $layoutComponent->getThemeName(),
+            FieldsLayoutVersion::HTML => $layoutComponent->getHtml(),
+            FieldsLayoutVersion::RENDER_TAG_NAME_PARSER => $layoutComponent->getProperty(
+                FieldsLayoutVersion::RENDER_TAG_NAME_PARSER
             ),
-            PropertiesLayoutVersion::RENDER_TAG_NAME_PARSER => $layoutComponent->getProperty(
-                PropertiesLayoutVersion::RENDER_TAG_NAME_PARSER
+            FieldsLayoutVersion::RENDERER => $layoutComponent->getProperty(
+                FieldsLayoutVersion::RENDERER
             ),
-            PropertiesLayoutVersion::RENDERER => $layoutComponent->getProperty(
-                PropertiesLayoutVersion::RENDERER
-            ),
-            PropertiesLayoutVersion::RENDER_TAGS_GETTER => $layoutComponent->getProperty(
-                PropertiesLayoutVersion::RENDER_TAGS_GETTER
+            FieldsLayoutVersion::RENDER_TAGS_GETTER => $layoutComponent->getProperty(
+                FieldsLayoutVersion::RENDER_TAGS_GETTER
             ),
         ];
 

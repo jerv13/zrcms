@@ -6,7 +6,7 @@ use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Message\UriInterface;
 use Zrcms\Acl\Api\IsAllowed;
 use Zrcms\Content\Model\Content;
-use Zrcms\ContentCore\Site\Model\PropertiesSiteVersion;
+use Zrcms\ContentCore\Site\Fields\FieldsSiteVersion;
 use Zrcms\ContentCore\View\Api\Render\GetViewLayoutTags;
 use Zrcms\ContentCore\View\Model\View;
 use Zrcms\HttpExpressive1\HttpAlways\RequestWithOriginalUri;
@@ -90,7 +90,7 @@ class GetViewLayoutMetaPageData implements GetViewLayoutTags
         $content = [
             'site' => [
                 'id' => $siteResource->getId(),
-                'title' => $siteVersion->getProperty(PropertiesSiteVersion::TITLE, '')
+                'title' => $siteVersion->getProperty(FieldsSiteVersion::TITLE, '')
             ],
             'page' => [
                 'revision' => $pageVersion->getId(),

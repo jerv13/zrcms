@@ -4,7 +4,7 @@ namespace Zrcms\HttpExpressive1\HttpApi\Action;
 
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
-use Zrcms\Content\Model\PropertiesCmsResource;
+use Zrcms\Content\Fields\FieldsCmsResource;
 use Zrcms\HttpExpressive1\Model\JsonApiResponse;
 use Zrcms\HttpExpressive1\Model\ResponseCodes;
 use Zrcms\User\Api\GetUserIdByRequest;
@@ -62,7 +62,7 @@ class UnpublishCmsResource
         callable $next = null
     ) {
         $cmsResourceId = (string)$request->getAttribute(
-            PropertiesCmsResource::ID
+            FieldsCmsResource::ID
         );
 
         if (empty($cmsResourceId)) {

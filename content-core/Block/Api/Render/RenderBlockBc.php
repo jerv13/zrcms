@@ -2,17 +2,14 @@
 
 namespace Zrcms\ContentCore\Block\Api\Render;
 
-use Psr\Container\ContainerInterface;
-use Rcm\Plugin\BaseController;
-use Rcm\Plugin\PluginInterface;
 use Zend\Http\PhpEnvironment\Request;
 use Zend\Http\Response;
 use Zend\Mvc\MvcEvent;
 use Zend\Stdlib\ResponseInterface;
 use Zend\View\Helper\Placeholder\Container;
 use Zrcms\Content\Model\Content;
+use Zrcms\ContentCore\Block\Fields\FieldsBlock;
 use Zrcms\ContentCore\Block\Model\BlockVersion;
-use Zrcms\ContentCore\Block\Model\PropertiesBlock;
 use ZrcmsRcmCompatibility\RcmAdapter\GetRcmPluginController;
 use ZrcmsRcmCompatibility\RcmAdapter\GetRcmViewRenderer;
 
@@ -76,8 +73,8 @@ class RenderBlockBc implements RenderBlock
         $controller->setResponse($response);
 
         $viewModel = $controller->renderInstance(
-            $renderTags[PropertiesBlock::RENDER_DATA_ID],
-            $renderTags[PropertiesBlock::RENDER_DATA_CONFIG]
+            $renderTags[FieldsBlock::RENDER_DATA_ID],
+            $renderTags[FieldsBlock::RENDER_DATA_CONFIG]
         );
 
         if ($viewModel instanceof ResponseInterface) {

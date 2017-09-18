@@ -7,12 +7,12 @@ use Zrcms\ContentCore\Basic\Api\Component\ReadBasicComponentConfigApplicationCon
 use Zrcms\ContentCore\Basic\Api\Repository\FindBasicComponent;
 use Zrcms\ContentCore\Site\Api\GetSiteCmsResourceByRequest;
 use Zrcms\ContentCore\View\Model\ServiceAliasView;
-use Zrcms\ContentCoreConfigDataSource\Content\Model\ComponentRegistryFields;
+use Zrcms\ContentCoreConfigDataSource\Content\Fields\FieldsComponentRegistry;
 use Zrcms\HttpExpressive1\Api\GetStatusPage;
 use Zrcms\HttpExpressive1\Api\GetStatusPageBasic;
 use Zrcms\HttpExpressive1\Api\View\Render\GetViewLayoutMetaPageData;
 use Zrcms\HttpExpressive1\Model\HttpExpressiveComponent;
-use Zrcms\HttpExpressive1\Model\PropertiesHttpExpressiveComponent;
+use Zrcms\HttpExpressive1\Model\FieldsHttpExpressiveComponent;
 use Zrcms\ViewHtmlTags\Api\Render\RenderTag;
 
 /**
@@ -61,20 +61,20 @@ class ModuleConfig
                 'basic' => [
                     /* 'zrcms-http-expressive-1' */
                     HttpExpressiveComponent::NAME => [
-                        ComponentRegistryFields::NAME
+                        FieldsComponentRegistry::NAME
                         => HttpExpressiveComponent::NAME,
 
-                        ComponentRegistryFields::CONFIG_LOCATION
+                        FieldsComponentRegistry::CONFIG_LOCATION
                         => HttpExpressiveComponent::NAME,
 
-                        ComponentRegistryFields::COMPONENT_CONFIG_READER
+                        FieldsComponentRegistry::COMPONENT_CONFIG_READER
                         => ReadBasicComponentConfigApplicationConfig::SERVICE_ALIAS,
 
-                        ComponentRegistryFields::COMPONENT_CLASS
+                        FieldsComponentRegistry::COMPONENT_CLASS
                         => HttpExpressiveComponent::class,
 
                         /* Map of HTTP status to the name of a SiteVersion property with the corresponding path */
-                        PropertiesHttpExpressiveComponent::STATUS_TO_SITE_PATH_PROPERTY => [
+                        FieldsHttpExpressiveComponent::STATUS_TO_SITE_PATH_PROPERTY => [
                             '401' => [
                                 'path' => '/not-authorized',
                                 'type' => 'render',

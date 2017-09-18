@@ -3,7 +3,7 @@
 namespace Zrcms\ContentCoreDoctrineDataSource\Container\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Zrcms\Content\Model\PropertiesContent;
+use Zrcms\Content\Fields\FieldsContent;
 use Zrcms\ContentCore\Container\Model\ContainerVersion;
 use Zrcms\ContentCore\Container\Model\ContainerVersionAbstract;
 use Zrcms\ContentDoctrine\Entity\ContentEntity;
@@ -88,16 +88,16 @@ class ContainerVersionEntity
     ) {
         $this->id = Param::getInt(
             $properties,
-            PropertiesContent::ID
+            FieldsContent::ID
         );
 
         $this->blockVersions = Param::getArray(
             $properties,
-            PropertiesContainerVersionEntity::BLOCK_VERSIONS,
+            FieldsContainerVersionEntity::BLOCK_VERSIONS,
             []
         );
 
-        Param::remove($properties, PropertiesContainerVersionEntity::BLOCK_VERSIONS);
+        Param::remove($properties, FieldsContainerVersionEntity::BLOCK_VERSIONS);
 
         parent::__construct(
             $properties,
@@ -112,7 +112,7 @@ class ContainerVersionEntity
     public function getProperties(): array
     {
         $properties = parent::getProperties();
-        $properties[PropertiesContainerVersionEntity::BLOCK_VERSIONS] = $this->getBlockVersions();
+        $properties[FieldsContainerVersionEntity::BLOCK_VERSIONS] = $this->getBlockVersions();
 
         return $properties;
     }

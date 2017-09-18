@@ -4,6 +4,7 @@ namespace Zrcms\ContentCore\Site\Model;
 
 use Zrcms\Content\Exception\PropertyMissingException;
 use Zrcms\Content\Model\ContentAbstract;
+use Zrcms\ContentCore\Site\Fields\FieldsSite;
 use Zrcms\Param\Param;
 
 /**
@@ -19,9 +20,9 @@ abstract class SiteAbstract extends ContentAbstract
     ) {
         Param::assertHas(
             $properties,
-            PropertiesSite::THEME_NAME,
-            PropertyMissingException::build(
-                PropertiesSiteVersion::THEME_NAME,
+            FieldsSite::THEME_NAME,
+            PropertyMissingException::buildThrower(
+                FieldsSite::THEME_NAME,
                 $properties,
                 get_class($this)
             )
@@ -29,9 +30,9 @@ abstract class SiteAbstract extends ContentAbstract
 
         Param::assertHas(
             $properties,
-            PropertiesSite::LOCALE,
-            PropertyMissingException::build(
-                PropertiesSiteVersion::LOCALE,
+            FieldsSite::LOCALE,
+            PropertyMissingException::buildThrower(
+                FieldsSite::LOCALE,
                 $properties,
                 get_class($this)
             )
@@ -39,7 +40,7 @@ abstract class SiteAbstract extends ContentAbstract
 
         $statusPages = Param::getArray(
             $properties,
-            PropertiesSiteVersion::STATUS_PAGES,
+            FieldsSite::STATUS_PAGES,
             []
         );
 
@@ -56,7 +57,7 @@ abstract class SiteAbstract extends ContentAbstract
     public function getThemeName(): string
     {
         return $this->getProperty(
-            PropertiesSite::THEME_NAME,
+            FieldsSite::THEME_NAME,
             ''
         );
     }
@@ -67,7 +68,7 @@ abstract class SiteAbstract extends ContentAbstract
     public function getLocale(): string
     {
         return $this->getProperty(
-            PropertiesSite::LOCALE,
+            FieldsSite::LOCALE,
             ''
         );
     }
@@ -81,7 +82,7 @@ abstract class SiteAbstract extends ContentAbstract
     public function findStatusPage(string $httpStatus, $default = null)
     {
         $statusPages = $this->getProperty(
-            PropertiesSiteVersion::STATUS_PAGES,
+            FieldsSite::STATUS_PAGES,
             []
         );
 

@@ -6,7 +6,7 @@ use Zrcms\Content\Model\TrackableProperties;
 use Zrcms\ContentCore\GetDomId;
 use Zrcms\ContentCore\Block\Model\BlockVersion;
 use Zrcms\ContentCore\Block\Model\BlockVersionBasic;
-use Zrcms\ContentCore\Block\Model\PropertiesBlockVersion;
+use Zrcms\ContentCore\Block\Fields\FieldsBlockVersion;
 use Zrcms\ContentCore\Container\Model\Container;
 use Zrcms\ContentCore\Container\Model\ContainerVersion;
 use Zrcms\ContentCore\Page\Model\PageContainerVersion;
@@ -42,13 +42,14 @@ class BuildBlockVersion
             $blockVersionData
         );
 
-        $blockVersionData[PropertiesBlockVersion::CONTAINER_VERSION_ID] = $containerVersion->getId();
+        $blockVersionData[FieldsBlockVersion::CONTAINER_VERSION_ID] = $containerVersion->getId();
 
-        $blockVersionData[PropertiesBlockVersion::ID] = GetDomId::invoke();
+        $id = GetDomId::invoke();
 
         $blockVersionData[TrackableProperties::CREATED_DATE] = $containerVersion->getCreatedDate();
 
         return new BlockVersionBasic(
+            $id,
             $blockVersionData,
             $containerVersion->getCreatedByUserId(),
             $containerVersion->getCreatedReason()
@@ -64,9 +65,7 @@ class BuildBlockVersion
         array $blockVersionData
     ): array
     {
-        $blockVersionData[PropertiesBlockVersion::CONTAINER_VERSION_ID] = '';
-
-        $blockVersionData[PropertiesBlockVersion::ID] = '';
+        $blockVersionData[FieldsBlockVersion::CONTAINER_VERSION_ID] = '';
 
         return $blockVersionData;
     }

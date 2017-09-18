@@ -5,7 +5,7 @@ namespace Zrcms\ContentCoreDoctrineDataSource\Page\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Zrcms\ContentCore\Container\Model\ContainerCmsResourceAbstract;
 use Zrcms\ContentCore\Page\Model\PageTemplateCmsResource;
-use Zrcms\ContentCore\Page\Model\PropertiesPageTemplateCmsResource;
+use Zrcms\ContentCore\Page\Fields\FieldsPageTemplateCmsResource;
 use Zrcms\ContentDoctrine\Entity\CmsResourceEntity;
 use Zrcms\ContentDoctrine\Entity\CmsResourceEntityTrait;
 use Zrcms\Param\Param;
@@ -190,27 +190,27 @@ class PageTemplateCmsResourceEntity
     ) {
         $this->id = Param::getInt(
             $properties,
-            PropertiesPageTemplateCmsResource::ID
+            FieldsPageTemplateCmsResource::ID
         );
 
         $this->contentVersion = Param::get(
             $properties,
-            PropertiesPageTemplateCmsResource::CONTENT_VERSION
+            FieldsPageTemplateCmsResource::CONTENT_VERSION
         );
 
         $this->published = Param::getBool(
             $properties,
-            PropertiesPageTemplateCmsResource::PUBLISHED
+            FieldsPageTemplateCmsResource::PUBLISHED
         );
 
         $this->siteCmsResourceId = Param::getInt(
             $properties,
-            PropertiesPageTemplateCmsResource::SITE_CMS_RESOURCE_ID
+            FieldsPageTemplateCmsResource::SITE_CMS_RESOURCE_ID
         );
 
         $this->path = Param::getString(
             $properties,
-            PropertiesPageTemplateCmsResource::PATH
+            FieldsPageTemplateCmsResource::PATH
         );
 
         $this->properties = $properties;

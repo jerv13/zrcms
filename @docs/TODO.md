@@ -7,32 +7,220 @@
 - ContentVersion (id)
 - Component (name, configLocation)
 
-- FIX ENTITIES
-
-    use CmsResourcePublishHistoryEntityTrait;
-    
     /**
-     * @param string|null       $id
-     * @param string            $action
-     * @param CmsResourceEntity $cmsResource
-     * @param string            $publishedByUserId
-     * @param string            $publishReason
+     * @param string $classification
+     * @param string $name
+     * @param string $configLocation
+     * @param array  $properties
+     * @param string $createdByUserId
+     * @param string $createdReason
+     */
+    public function __construct(
+        string $classification,
+        string $name,
+        string $configLocation,
+        array $properties,
+        string $createdByUserId,
+        string $createdReason
+    ) {
+            parent::__construct(
+                $classification,
+                $name,
+                $configLocation,
+                $properties,
+                $createdByUserId,
+                $createdReason
+            );
+        }
+    
+
+- ContentVersion
+
+    /**
+     * @param string|null $id
+     * @param array       $properties
+     * @param string      $createdByUserId
+     * @param string      $createdReason
      */
     public function __construct(
         $id,
-        string $action,
-        CmsResourceEntity $cmsResource,
-        string $publishedByUserId,
-        string $publishReason
-    ) 
+        array $properties,
+        string $createdByUserId,
+        string $createdReason
+    ) {
         parent::__construct(
             $id,
-            $action,
-            $cmsResource,
-            $publishedByUserId,
-            $publishedByUserId
+            $properties,
+            $createdByUserId,
+            $createdReason
         );
     }
+
+- CmsResource
+
+    /**
+     * @param string|null    $id
+     * @param bool           $published
+     * @param ContentVersion $contentVersion
+     * @param array          $properties
+     * @param string         $createdByUserId
+     * @param string         $createdReason
+     */
+    public function __construct(
+        $id,
+        bool $published,
+        ContentVersion $contentVersion,
+        array $properties,
+        string $createdByUserId,
+        string $createdReason
+    ) {
+        parent::__construct(
+            $id,
+            $published,
+            $contentVersion,
+            $properties,
+            $createdByUserId,
+            $createdReason
+        );
+    }
+
+    /**
+     * @param $contentVersion
+     *
+     * @return void
+     * @throws ContentVersionInvalid
+     */
+    protected function assertValidContentVersion($contentVersion)
+    {
+        if (!$contentVersion instanceof ContainerVersion) {
+            throw new ContentVersionInvalid(
+                'ContentVersion must be instance of: ' . ContainerVersion::class
+                . ' got: ' . var_export($contentVersion, true)
+                . ' for: ' . get_class($this)
+            );
+        }
+    }
+
+
+- CmsResourceEntity
+
+    CmsResourceEntityAbstract
+    
+    /**
+     * @param int|null      $id
+     * @param ContentEntity $contentEntity
+     * @param bool          $published
+     * @param array         $properties
+     * @param string        $createdByUserId
+     * @param string        $createdReason
+     */
+    public function __construct(
+        $id,
+        ContentEntity $contentEntity,
+        bool $published,
+        array $properties,
+        string $createdByUserId,
+        string $createdReason
+    ) {
+        parent::__construct(
+            $id,
+            $contentEntity,
+            $published,
+            $properties,
+            $createdByUserId,
+            $createdReason
+        );
+    }
+    
+        /**
+         * @var int
+         *
+         * @ORM\Id
+         * @ORM\Column(type="integer")
+         * @ORM\GeneratedValue
+         */
+        protected $id;
+        
+        /**
+         * @var boolean
+         *
+         * @ORM\Column(type="boolean")
+         */
+        protected $published = true;
+    
+        /**
+         * @var int
+         *
+         * @ORM\Column(type="integer", nullable=true)
+         */
+        protected $contentVersionId = null;
+    
+        /**
+         * @var ContainerVersionEntity
+         *
+         * @ORM\ManyToOne(targetEntity="ContainerVersionEntity")
+         * @ORM\JoinColumn(
+         *     name="contentVersionId",
+         *     referencedColumnName="id",
+         *     onDelete="SET NULL"
+         * )
+         */
+        protected $contentEntity;
+        
+        /**
+         * @var array
+         *
+         * @ORM\Column(type="json_array")
+         */
+        protected $properties = [];
+    
+        /**
+         * Date object was first created mapped to col createdDate
+         *
+         * @var \DateTime
+         *
+         * @ORM\Column(type="datetime", name="createdDate")
+         */
+        protected $createdDateObject;
+    
+        /**
+         * User ID of creator
+         *
+         * @var string
+         *
+         * @ORM\Column(type="string")
+         */
+        protected $createdByUserId;
+    
+        /**
+         * Short description of create reason
+         *
+         * @var string
+         *
+         * @ORM\Column(type="string")
+         */
+        protected $createdReason;
+    
+    
+    /**
+     * @param LifecycleEventArgs $event
+     * @ORM\PostPersist
+     *
+     * @return void
+     */
+    public function postPersist(LifecycleEventArgs $event)
+    {
+    }
+##### Switch to Fields #####
+
+- Remove static Properties classes for Fields classes
+- 'validator' => '{service}',
+- LikeFieldsContainerCmsResource
+- What about ComponentConfigFields (same?)
+
+
+
+
 
         
 - APIs in http-expressive

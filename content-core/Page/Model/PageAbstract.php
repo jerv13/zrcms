@@ -4,6 +4,7 @@ namespace Zrcms\ContentCore\Page\Model;
 
 use Zrcms\Content\Exception\PropertyMissingException;
 use Zrcms\Content\Model\ContentAbstract;
+use Zrcms\ContentCore\Page\Fields\FieldsPageContainerVersion;
 use Zrcms\Param\Param;
 
 /**
@@ -19,9 +20,9 @@ abstract class PageAbstract extends ContentAbstract
     ) {
         Param::assertHas(
             $properties,
-            PropertiesPageContainerVersion::TITLE,
-            PropertyMissingException::build(
-                PropertiesPageContainerVersion::TITLE,
+            FieldsPageContainerVersion::TITLE,
+            PropertyMissingException::buildThrower(
+                FieldsPageContainerVersion::TITLE,
                 $properties,
                 get_class($this)
             )
@@ -29,9 +30,9 @@ abstract class PageAbstract extends ContentAbstract
 
         Param::assertHas(
             $properties,
-            PropertiesPageContainerVersion::KEYWORDS,
-            PropertyMissingException::build(
-                PropertiesPageContainerVersion::KEYWORDS,
+            FieldsPageContainerVersion::KEYWORDS,
+            PropertyMissingException::buildThrower(
+                FieldsPageContainerVersion::KEYWORDS,
                 $properties,
                 get_class($this)
             )
@@ -48,7 +49,7 @@ abstract class PageAbstract extends ContentAbstract
     public function getTitle(): string
     {
         return $this->getProperty(
-            PropertiesPageContainerVersion::TITLE,
+            FieldsPageContainerVersion::TITLE,
             ''
         );
     }
@@ -59,7 +60,7 @@ abstract class PageAbstract extends ContentAbstract
     public function getDescription(): string
     {
         return $this->getProperty(
-            PropertiesPageContainerVersion::DESCRIPTION,
+            FieldsPageContainerVersion::DESCRIPTION,
             ''
         );
     }
@@ -70,7 +71,7 @@ abstract class PageAbstract extends ContentAbstract
     public function getKeywords(): string
     {
         return $this->getProperty(
-            PropertiesPageContainerVersion::KEYWORDS,
+            FieldsPageContainerVersion::KEYWORDS,
             ''
         );
     }

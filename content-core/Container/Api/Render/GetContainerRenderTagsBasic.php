@@ -5,7 +5,7 @@ namespace Zrcms\ContentCore\Container\Api\Render;
 use Psr\Http\Message\ServerRequestInterface;
 use Zrcms\Content\Model\Content;
 use Zrcms\ContentCore\Container\Model\Container;
-use Zrcms\ContentCore\Container\Model\PropertiesContainer;
+use Zrcms\ContentCore\Container\Fields\FieldsContainer;
 use Zrcms\ContentCore\Container\Model\ServiceAliasContainer;
 use Zrcms\ServiceAlias\Api\GetServiceFromAlias;
 use Zrcms\ServiceAlias\ServiceCheck;
@@ -58,7 +58,7 @@ class GetContainerRenderTagsBasic implements GetContainerRenderTags
     ): array
     {
         $getContainerRenderTagsServiceAlias = $container->getProperty(
-            PropertiesContainer::RENDER_TAGS_GETTER,
+            FieldsContainer::RENDER_TAGS_GETTER,
             ''
         );
 

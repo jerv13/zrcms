@@ -14,28 +14,36 @@ class HttpExpressiveComponent extends BasicComponentAbstract implements Componen
     const NAME = 'zrcms-http-expressive-1';
 
     /**
+     * @param string $classification
+     * @param string $name
+     * @param string $configLocation
      * @param array  $properties
      * @param string $createdByUserId
      * @param string $createdReason
      */
     public function __construct(
+        string $classification,
+        string $name,
+        string $configLocation,
         array $properties,
         string $createdByUserId,
         string $createdReason
     ) {
-
         $statusPropertyMap = Param::getArray(
             $properties,
-            PropertiesHttpExpressiveComponent::STATUS_TO_SITE_PATH_PROPERTY,
+            FieldsHttpExpressiveComponent::STATUS_TO_SITE_PATH_PROPERTY,
             []
         );
 
         $statusPropertyMap = $this->prepareStatusPropertyMap($statusPropertyMap);
         $this->assertValidStatusPages($statusPropertyMap);
 
-        $properties[PropertiesHttpExpressiveComponent::STATUS_TO_SITE_PATH_PROPERTY] = $statusPropertyMap;
+        $properties[FieldsHttpExpressiveComponent::STATUS_TO_SITE_PATH_PROPERTY] = $statusPropertyMap;
 
         parent::__construct(
+            $classification,
+            $name,
+            $configLocation,
             $properties,
             $createdByUserId,
             $createdReason
@@ -67,7 +75,7 @@ class HttpExpressiveComponent extends BasicComponentAbstract implements Componen
     {
         $statusPages = Param::getArray(
             $this->properties,
-            PropertiesHttpExpressiveComponent::STATUS_TO_SITE_PATH_PROPERTY,
+            FieldsHttpExpressiveComponent::STATUS_TO_SITE_PATH_PROPERTY,
             []
         );
 
@@ -103,7 +111,7 @@ class HttpExpressiveComponent extends BasicComponentAbstract implements Componen
     {
         $statusPages = Param::getArray(
             $this->properties,
-            PropertiesHttpExpressiveComponent::STATUS_TO_SITE_PATH_PROPERTY,
+            FieldsHttpExpressiveComponent::STATUS_TO_SITE_PATH_PROPERTY,
             []
         );
 

@@ -2,10 +2,10 @@
 
 namespace Zrcms\ContentCoreConfigDataSource\Content\Api\Repository;
 
-use Zrcms\Content\Model\Component;
 use Zrcms\Content\Api\GetRegisterComponents;
+use Zrcms\Content\Fields\FieldsComponentConfig;
+use Zrcms\Content\Model\Component;
 use Zrcms\ContentCoreConfigDataSource\Content\Api\SearchConfigList;
-use Zrcms\Content\Model\ComponentConfigFields;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -24,7 +24,7 @@ abstract class FindComponentAbstract implements \Zrcms\Content\Api\Repository\Fi
 
     /**
      * @param GetRegisterComponents $getRegisterComponents
-     * @param SearchConfigList    $searchConfigList
+     * @param SearchConfigList      $searchConfigList
      */
     public function __construct(
         GetRegisterComponents $getRegisterComponents,
@@ -48,7 +48,7 @@ abstract class FindComponentAbstract implements \Zrcms\Content\Api\Repository\Fi
 
         $result = $this->searchConfigList->__invoke(
             $components,
-            [ComponentConfigFields::NAME => $name]
+            [FieldsComponentConfig::NAME => $name]
         );
 
         if (count($result) > 0) {

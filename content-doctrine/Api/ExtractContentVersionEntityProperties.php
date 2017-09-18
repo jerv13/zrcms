@@ -2,7 +2,7 @@
 
 namespace Zrcms\ContentDoctrine\Api;
 
-use Zrcms\Content\Model\PropertiesContentVersion;
+use Zrcms\Content\Fields\FieldsContentVersion;
 use Zrcms\ContentDoctrine\Entity\ContentEntity;
 
 /**
@@ -22,8 +22,8 @@ class ExtractContentVersionEntityProperties
         array $contentVersionSyncToProperties
     ) {
         // always sync
-        if (!array_key_exists(PropertiesContentVersion::ID, $contentVersionSyncToProperties)) {
-            $contentVersionSyncToProperties[] = PropertiesContentVersion::ID;
+        if (!array_key_exists(FieldsContentVersion::ID, $contentVersionSyncToProperties)) {
+            $contentVersionSyncToProperties[] = FieldsContentVersion::ID;
         }
 
         $properties = $entity->getProperties();

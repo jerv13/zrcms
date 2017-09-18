@@ -5,7 +5,7 @@ namespace Zrcms\ContentCoreDoctrineDataSource\Page\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Zrcms\ContentCore\Page\Model\PageContainerVersion;
 use Zrcms\ContentCore\Page\Model\PageContainerVersionAbstract;
-use Zrcms\ContentCore\Page\Model\PropertiesPageContainerVersion;
+use Zrcms\ContentCore\Page\Fields\FieldsPageContainerVersion;
 use Zrcms\ContentDoctrine\Entity\ContentEntity;
 use Zrcms\ContentDoctrine\Entity\ContentEntityTrait;
 use Zrcms\Param\Param;
@@ -102,17 +102,17 @@ class PageContainerVersionEntity
     ) {
         $this->id = Param::getInt(
             $properties,
-            PropertiesPageContainerVersion::ID
+            FieldsPageContainerVersion::ID
         );
 
         $this->title = Param::getString(
             $properties,
-            PropertiesPageContainerVersion::TITLE
+            FieldsPageContainerVersion::TITLE
         );
 
         $this->keywords = Param::getString(
             $properties,
-            PropertiesPageContainerVersion::KEYWORDS
+            FieldsPageContainerVersion::KEYWORDS
         );
 
         $this->blockVersions = Param::getArray(

@@ -7,7 +7,7 @@ use Zrcms\Content\Model\Content;
 use Zrcms\ContentCore\Block\Api\GetMergedConfig;
 use Zrcms\ContentCore\Block\Api\Repository\GetBlockData;
 use Zrcms\ContentCore\Block\Model\Block;
-use Zrcms\ContentCore\Block\Model\PropertiesBlock;
+use Zrcms\ContentCore\Block\Fields\FieldsBlock;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -54,13 +54,13 @@ class GetBlockRenderTagsBasic implements GetBlockRenderTags
         );
 
         return [
-            PropertiesBlock::RENDER_DATA_ID
+            FieldsBlock::RENDER_DATA_ID
             => $block->getId(),
 
-            PropertiesBlock::RENDER_DATA_CONFIG
+            FieldsBlock::RENDER_DATA_CONFIG
             => $config,
 
-            PropertiesBlock::RENDER_DATA_DATA
+            FieldsBlock::RENDER_DATA_DATA
             => $this->getBlockData->__invoke(
                 $block,
                 $request

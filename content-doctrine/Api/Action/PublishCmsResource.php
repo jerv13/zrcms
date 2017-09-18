@@ -6,8 +6,8 @@ use Zrcms\Content\Exception\ContentVersionNotExistsException;
 use Zrcms\Content\Model\Action;
 use Zrcms\Content\Model\CmsResource;
 use Zrcms\Content\Model\CmsResourcePublishHistory;
-use Zrcms\Content\Model\PropertiesCmsResource;
-use Zrcms\Content\Model\PropertiesCmsResourcePublishHistory;
+use Zrcms\Content\Fields\FieldsCmsResource;
+use Zrcms\Content\Fields\FieldsCmsResourcePublishHistory;
 use Zrcms\ContentDoctrine\Api\ApiAbstract;
 use Zrcms\ContentDoctrine\Api\BuildBasicCmsResource;
 use Zrcms\ContentDoctrine\Entity\CmsResourceEntity;
@@ -153,9 +153,9 @@ class PublishCmsResource
 
         $properties = $cmsResource->getProperties();
 
-        $properties[PropertiesCmsResource::CONTENT_VERSION] = $existingContentVersion;
+        $properties[FieldsCmsResource::CONTENT_VERSION] = $existingContentVersion;
 
-        $properties[PropertiesCmsResource::PUBLISHED] = true;
+        $properties[FieldsCmsResource::PUBLISHED] = true;
 
         if ($existingCmsResourceEntity) {
             return $this->update(
@@ -213,11 +213,11 @@ class PublishCmsResource
     ) {
 
         $historyProperties = $cmsResourceEntity->getProperties();
-        $historyProperties[PropertiesCmsResourcePublishHistory::CMS_RESOURCE_ID]
+        $historyProperties[FieldsCmsResourcePublishHistory::CMS_RESOURCE_ID]
             = $cmsResourceEntity->getId();
-        $historyProperties[PropertiesCmsResourcePublishHistory::CONTENT_VERSION]
+        $historyProperties[FieldsCmsResourcePublishHistory::CONTENT_VERSION]
             = $cmsResourceEntity->getContentVersion();
-        $historyProperties[PropertiesCmsResourcePublishHistory::ACTION]
+        $historyProperties[FieldsCmsResourcePublishHistory::ACTION]
             = Action::PUBLISH_CMS_RESOURCE;
 
         /** @var CmsResourcePublishHistoryEntity::class $cmsResourcePublishHistoryEntityClass */

@@ -6,7 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Zrcms\Content\Model\ContentVersion;
 use Zrcms\ContentCore\Container\Model\ContainerCmsResourceAbstract;
 use Zrcms\ContentCore\Page\Model\PageContainerCmsResource;
-use Zrcms\ContentCore\Page\Model\PropertiesPageContainerCmsResource;
+use Zrcms\ContentCore\Page\Fields\FieldsPageContainerCmsResource;
 use Zrcms\ContentDoctrine\Entity\CmsResourceEntity;
 use Zrcms\ContentDoctrine\Entity\CmsResourceEntityTrait;
 use Zrcms\Param\Param;
@@ -191,27 +191,27 @@ class PageContainerCmsResourceEntity
     ) {
         $this->id = Param::getInt(
             $properties,
-            PropertiesPageContainerCmsResource::ID
+            FieldsPageContainerCmsResource::ID
         );
 
         $this->contentVersion = Param::get(
             $properties,
-            PropertiesPageContainerCmsResource::CONTENT_VERSION
+            FieldsPageContainerCmsResource::CONTENT_VERSION
         );
 
         $this->published = Param::getBool(
             $properties,
-            PropertiesPageContainerCmsResource::PUBLISHED
+            FieldsPageContainerCmsResource::PUBLISHED
         );
 
         $this->siteCmsResourceId = Param::getInt(
             $properties,
-            PropertiesPageContainerCmsResource::SITE_CMS_RESOURCE_ID
+            FieldsPageContainerCmsResource::SITE_CMS_RESOURCE_ID
         );
 
         $this->path = Param::getString(
             $properties,
-            PropertiesPageContainerCmsResource::PATH
+            FieldsPageContainerCmsResource::PATH
         );
 
         $this->properties = $properties;

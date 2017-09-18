@@ -4,6 +4,7 @@ namespace Zrcms\ContentCore\Block\Model;
 
 use Zrcms\Content\Exception\PropertyMissingException;
 use Zrcms\Content\Model\ContentVersionAbstract;
+use Zrcms\ContentCore\Block\Fields\FieldsBlockVersion;
 use Zrcms\Param\Param;
 
 /**
@@ -12,20 +13,22 @@ use Zrcms\Param\Param;
 abstract class BlockVersionAbstract extends ContentVersionAbstract
 {
     /**
-     * @param array  $properties
-     * @param string $createdByUserId
-     * @param string $createdReason
+     * @param string|null $id
+     * @param array       $properties
+     * @param string      $createdByUserId
+     * @param string      $createdReason
      */
     public function __construct(
+        $id,
         array $properties,
         string $createdByUserId,
         string $createdReason
     ) {
         Param::assertHas(
             $properties,
-            PropertiesBlockVersion::BLOCK_COMPONENT_NAME,
-            PropertyMissingException::build(
-                PropertiesBlockVersion::BLOCK_COMPONENT_NAME,
+            FieldsBlockVersion::BLOCK_COMPONENT_NAME,
+            PropertyMissingException::buildThrower(
+                FieldsBlockVersion::BLOCK_COMPONENT_NAME,
                 $properties,
                 get_class($this)
             )
@@ -33,9 +36,9 @@ abstract class BlockVersionAbstract extends ContentVersionAbstract
 
         Param::assertHas(
             $properties,
-            PropertiesBlockVersion::LAYOUT_PROPERTIES,
-            PropertyMissingException::build(
-                PropertiesBlockVersion::LAYOUT_PROPERTIES,
+            FieldsBlockVersion::LAYOUT_PROPERTIES,
+            PropertyMissingException::buildThrower(
+                FieldsBlockVersion::LAYOUT_PROPERTIES,
                 $properties,
                 get_class($this)
             )
@@ -43,15 +46,16 @@ abstract class BlockVersionAbstract extends ContentVersionAbstract
 
         Param::assertHas(
             $properties,
-            PropertiesBlockVersion::CONTAINER_VERSION_ID,
-            PropertyMissingException::build(
-                PropertiesBlockVersion::CONTAINER_VERSION_ID,
+            FieldsBlockVersion::CONTAINER_VERSION_ID,
+            PropertyMissingException::buildThrower(
+                FieldsBlockVersion::CONTAINER_VERSION_ID,
                 $properties,
                 get_class($this)
             )
         );
 
         parent::__construct(
+            $id,
             $properties,
             $createdByUserId,
             $createdReason
@@ -64,7 +68,7 @@ abstract class BlockVersionAbstract extends ContentVersionAbstract
     public function getBlockComponentName(): string
     {
         return $this->getProperty(
-            PropertiesBlockVersion::BLOCK_COMPONENT_NAME,
+            FieldsBlockVersion::BLOCK_COMPONENT_NAME,
             ''
         );
     }
@@ -76,7 +80,7 @@ abstract class BlockVersionAbstract extends ContentVersionAbstract
     public function getConfig(): array
     {
         return $this->getProperty(
-            PropertiesBlockVersion::CONFIG,
+            FieldsBlockVersion::CONFIG,
             []
         );
     }
@@ -104,7 +108,7 @@ abstract class BlockVersionAbstract extends ContentVersionAbstract
     public function getLayoutProperties(): array
     {
         return $this->getProperty(
-            PropertiesBlockVersion::LAYOUT_PROPERTIES,
+            FieldsBlockVersion::LAYOUT_PROPERTIES,
             []
         );
     }
@@ -138,7 +142,7 @@ abstract class BlockVersionAbstract extends ContentVersionAbstract
         return Param::getRequired(
             $layoutProperties,
             $name,
-            PropertyMissingException::build(
+            PropertyMissingException::buildThrower(
                 $name,
                 $layoutProperties,
                 get_class($this)
@@ -152,7 +156,7 @@ abstract class BlockVersionAbstract extends ContentVersionAbstract
     public function getContainerVersionId(): string
     {
         return $this->getProperty(
-            PropertiesBlockVersion::CONTAINER_VERSION_ID,
+            FieldsBlockVersion::CONTAINER_VERSION_ID,
             ''
         );
     }

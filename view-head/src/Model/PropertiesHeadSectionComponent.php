@@ -2,12 +2,12 @@
 
 namespace Zrcms\ViewHead\Model;
 
-use Zrcms\ContentCore\View\Model\PropertiesViewLayoutTagsComponent;
+use Zrcms\ContentCore\View\Fields\FieldsViewLayoutTagsComponent;
 
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class PropertiesHeadSectionComponent extends PropertiesViewLayoutTagsComponent
+class PropertiesHeadSectionComponent extends FieldsViewLayoutTagsComponent
 {
     const TAG = 'tag';
     const SECTIONS = 'sections';

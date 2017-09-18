@@ -5,7 +5,7 @@ namespace Zrcms\Content\Api;
 use Zrcms\Content\Model\ContentVersion;
 use Zrcms\Content\Model\OptionsToArray;
 use Zrcms\Content\Model\Properties;
-use Zrcms\Content\Model\PropertiesContent;
+use Zrcms\Content\Fields\FieldsContent;
 use Zrcms\Content\Model\Trackable;
 use Zrcms\Content\Model\TrackableProperties;
 use Zrcms\Param\Param;
@@ -33,9 +33,6 @@ class ContentVersionToArrayBasic implements ContentVersionToArray
         );
 
         return [
-            PropertiesContent::ID
-            => $contentVersion->getId(),
-
             Properties::NAME_PROPERTIES
             => $contentVersion->getProperties(),
 

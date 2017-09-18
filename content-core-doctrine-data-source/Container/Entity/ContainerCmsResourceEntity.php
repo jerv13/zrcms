@@ -2,11 +2,12 @@
 
 namespace Zrcms\ContentCoreDoctrineDataSource\Container\Entity;
 
+use Doctrine\ORM\Event\LifecycleEventArgs;
 use Doctrine\ORM\Mapping as ORM;
-use Zrcms\Content\Model\ContentVersion;
-use Zrcms\ContentCore\Container\Model\ContainerCmsResourceAbstract;
 use Zrcms\ContentDoctrine\Entity\CmsResourceEntity;
+use Zrcms\ContentDoctrine\Entity\CmsResourceEntityAbstract;
 use Zrcms\ContentDoctrine\Entity\CmsResourceEntityTrait;
+use Zrcms\ContentDoctrine\Entity\ContentEntity;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -23,11 +24,9 @@ use Zrcms\ContentDoctrine\Entity\CmsResourceEntityTrait;
  * )
  */
 class ContainerCmsResourceEntity
-    extends ContainerCmsResourceAbstract
+    extends CmsResourceEntityAbstract
     implements CmsResourceEntity
 {
-    use CmsResourceEntityTrait;
-
     /**
      * @var int
      *
@@ -36,6 +35,13 @@ class ContainerCmsResourceEntity
      * @ORM\GeneratedValue
      */
     protected $id;
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(type="boolean")
+     */
+    protected $published = true;
 
     /**
      * @var int
@@ -54,14 +60,7 @@ class ContainerCmsResourceEntity
      *     onDelete="SET NULL"
      * )
      */
-    protected $contentVersion;
-
-    /**
-     * @var boolean
-     *
-     * @ORM\Column(type="boolean")
-     */
-    protected $published = true;
+    protected $contentEntity;
 
     /**
      * @var array
@@ -112,27 +111,25 @@ class ContainerCmsResourceEntity
     protected $path;
 
     /**
-     * @param                $id
-     * @param bool           $published
-     * @param ContentVersion $contentVersion
-     * @param array          $properties
-     * @param string         $createdByUserId
-     * @param string         $createdReason
+     * @param int|null      $id
+     * @param ContentEntity $contentEntity
+     * @param bool          $published
+     * @param array         $properties
+     * @param string        $createdByUserId
+     * @param string        $createdReason
      */
     public function __construct(
         $id,
+        ContentEntity $contentEntity,
         bool $published,
-        ContentVersion $contentVersion,
         array $properties,
         string $createdByUserId,
         string $createdReason
     ) {
-        $this->updateProperties($properties);
-
         parent::__construct(
             $id,
+            $contentEntity,
             $published,
-            $contentVersion,
             $properties,
             $createdByUserId,
             $createdReason
@@ -140,10 +137,13 @@ class ContainerCmsResourceEntity
     }
 
     /**
-     * @return string
+     * @return void
+     *
+     * @ORM\PostPersist
      */
-    public function getId(): string
+    public function postPersist(LifecycleEventArgs $event)
     {
-        return (string)$this->id;
+        $this->properties['siteCmsResourceId'] = $this->siteCmsResourceId;
+        $this->properties['path'] = $this->path;
     }
 }

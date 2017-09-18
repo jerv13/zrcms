@@ -5,7 +5,7 @@ namespace Zrcms\ContentRedirectDoctrineDataSource\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Zrcms\ContentDoctrine\Entity\CmsResourceEntity;
 use Zrcms\ContentDoctrine\Entity\CmsResourceEntityTrait;
-use Zrcms\ContentRedirect\Model\PropertiesRedirectCmsResource;
+use Zrcms\ContentRedirect\Fields\FieldsRedirectCmsResource;
 use Zrcms\ContentRedirect\Model\RedirectCmsResource;
 use Zrcms\ContentRedirect\Model\RedirectCmsResourceAbstract;
 use Zrcms\Param\Param;
@@ -189,27 +189,27 @@ class RedirectCmsResourceEntity
     ) {
         $this->id = Param::getInt(
             $properties,
-            PropertiesRedirectCmsResource::ID
+            FieldsRedirectCmsResource::ID
         );
 
         $this->contentVersion = Param::get(
             $properties,
-            PropertiesRedirectCmsResource::CONTENT_VERSION
+            FieldsRedirectCmsResource::CONTENT_VERSION
         );
 
         $this->published = Param::getBool(
             $properties,
-            PropertiesRedirectCmsResource::PUBLISHED
+            FieldsRedirectCmsResource::PUBLISHED
         );
 
         $this->siteCmsResourceId = Param::get(
             $properties,
-            PropertiesRedirectCmsResource::SITE_CMS_RESOURCE_ID
+            FieldsRedirectCmsResource::SITE_CMS_RESOURCE_ID
         );
 
         $this->requestPath = Param::getString(
             $properties,
-            PropertiesRedirectCmsResource::REQUEST_PATH
+            FieldsRedirectCmsResource::REQUEST_PATH
         );
 
         $this->properties = $properties;

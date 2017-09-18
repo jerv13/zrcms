@@ -8,7 +8,7 @@ use Zrcms\ContentCore\Block\Api\Render\GetBlockRenderTags;
 use Zrcms\ContentCore\Block\Api\Render\RenderBlock;
 use Zrcms\ContentCore\Block\Api\WrapRenderedBlockVersion;
 use Zrcms\ContentCore\Block\Model\Block;
-use Zrcms\ContentCore\Block\Model\PropertiesBlock;
+use Zrcms\ContentCore\Block\Fields\FieldsBlock;
 use Zrcms\ContentCore\Container\Api\WrapRenderedContainer;
 use Zrcms\ContentCore\Container\Model\Container;
 
@@ -76,11 +76,11 @@ class GetContainerRenderTagsBlocks implements GetContainerRenderTags
         /** @var Block $block */
         foreach ($blocks as $block) {
             $rowNumber = $block->getRequiredLayoutProperty(
-                PropertiesBlock::LAYOUT_PROPERTIES_ROW_NUMBER
+                FieldsBlock::LAYOUT_PROPERTIES_ROW_NUMBER
             );
 
             $renderOrder = $block->getRequiredLayoutProperty(
-                PropertiesBlock::LAYOUT_PROPERTIES_RENDER_ORDER
+                FieldsBlock::LAYOUT_PROPERTIES_RENDER_ORDER
             );
 
             if (!array_key_exists($rowNumber, $renderedData)) {

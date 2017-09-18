@@ -2,12 +2,13 @@
 
 namespace Zrcms\HttpExpressive1\Model;
 
-use Zrcms\ContentCore\Basic\Model\PropertiesComponentBasic;
+use Zrcms\ContentCore\Basic\Fields\FieldsComponentBasic;
 
 /**
+ * @deprecated
  * @author James Jervis - https://github.com/jerv13
  */
-class PropertiesHttpExpressiveComponent extends PropertiesComponentBasic
+class FieldsHttpExpressiveComponent extends FieldsComponentBasic
 {
     const STATUS_TO_SITE_PATH_PROPERTY = 'status-to-site-page-path-property-map';
 

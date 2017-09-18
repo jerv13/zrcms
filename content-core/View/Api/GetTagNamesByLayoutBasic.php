@@ -3,7 +3,7 @@
 namespace Zrcms\ContentCore\View\Api;
 
 use Zrcms\ContentCore\Theme\Model\Layout;
-use Zrcms\ContentCore\Theme\Model\PropertiesLayout;
+use Zrcms\ContentCore\Theme\Fields\FieldsLayout;
 use Zrcms\ContentCore\View\Model\ServiceAliasView;
 use Zrcms\ServiceAlias\Api\GetServiceFromAlias;
 use Zrcms\ServiceAlias\ServiceCheck;
@@ -54,7 +54,7 @@ class GetTagNamesByLayoutBasic implements GetTagNamesByLayout
     ): array
     {
         $findTagNamesServiceAlias = $layout->getDefaultIfEmptyProperty(
-            PropertiesLayout::RENDER_TAG_NAME_PARSER,
+            FieldsLayout::RENDER_TAG_NAME_PARSER,
             ''
         );
 

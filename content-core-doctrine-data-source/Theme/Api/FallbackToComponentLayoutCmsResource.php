@@ -5,7 +5,7 @@ namespace Zrcms\ContentCoreDoctrineDataSource\Theme\Api;
 use Zrcms\Content\Model\CmsResource;
 use Zrcms\ContentCore\Theme\Api\Repository\FindThemeComponent;
 use Zrcms\ContentCore\Theme\Model\LayoutCmsResource;
-use Zrcms\ContentCore\Theme\Model\PropertiesLayoutCmsResource;
+use Zrcms\ContentCore\Theme\Fields\FieldsLayoutCmsResource;
 use Zrcms\ContentCore\Theme\Model\ThemeComponent;
 use Zrcms\ContentCoreDoctrineDataSource\Theme\Entity\LayoutCmsResourceEntitySafe;
 
@@ -85,10 +85,10 @@ class FallbackToComponentLayoutCmsResource
         );
 
         $properties = [
-            PropertiesLayoutCmsResource::ID => $id,
-            PropertiesLayoutCmsResource::CONTENT_VERSION => $layoutVersion,
-            PropertiesLayoutCmsResource::NAME => $layoutComponent->getName(),
-            PropertiesLayoutCmsResource::THEME_NAME => $layoutComponent->getThemeName(),
+            FieldsLayoutCmsResource::ID => $id,
+            FieldsLayoutCmsResource::CONTENT_VERSION => $layoutVersion,
+            FieldsLayoutCmsResource::NAME => $layoutComponent->getName(),
+            FieldsLayoutCmsResource::THEME_NAME => $layoutComponent->getThemeName(),
         ];
 
         return new LayoutCmsResourceEntitySafe(

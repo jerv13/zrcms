@@ -11,26 +11,26 @@ use Zrcms\Content\Api\CmsResourceToArray;
 use Zrcms\ContentCore\Basic\Api\Repository\FindBasicComponent;
 use Zrcms\ContentCore\Page\Api\Render\GetPageContainerRenderTagsHtml;
 use Zrcms\ContentCore\Page\Api\Render\RenderPageContainerRows;
+use Zrcms\ContentCore\Page\Fields\FieldsPageContainerCmsResource;
+use Zrcms\ContentCore\Page\Fields\FieldsPageContainerVersion;
 use Zrcms\ContentCore\Page\Model\PageContainerCmsResourceBasic;
 use Zrcms\ContentCore\Page\Model\PageContainerVersionBasic;
-use Zrcms\ContentCore\Page\Model\PropertiesPageContainerCmsResource;
-use Zrcms\ContentCore\Page\Model\PropertiesPageContainerVersion;
 use Zrcms\ContentCore\Site\Api\Action\PublishSiteCmsResource;
 use Zrcms\ContentCore\Site\Api\Repository\InsertSiteVersion;
-use Zrcms\ContentCore\Site\Model\PropertiesSiteCmsResource;
-use Zrcms\ContentCore\Site\Model\PropertiesSiteVersion;
+use Zrcms\ContentCore\Site\Fields\FieldsSiteCmsResource;
+use Zrcms\ContentCore\Site\Fields\FieldsSiteVersion;
 use Zrcms\ContentCore\Site\Model\SiteCmsResourceBasic;
 use Zrcms\ContentCore\Site\Model\SiteVersionBasic;
 use Zrcms\ContentCore\Theme\Api\Render\GetLayoutRenderTagsNoop;
 use Zrcms\ContentCore\Theme\Api\Render\RenderLayoutMustache;
+use Zrcms\ContentCore\Theme\Fields\FieldsLayoutCmsResource;
+use Zrcms\ContentCore\Theme\Fields\FieldsLayoutVersion;
 use Zrcms\ContentCore\Theme\Model\LayoutCmsResourceBasic;
 use Zrcms\ContentCore\Theme\Model\LayoutVersionBasic;
-use Zrcms\ContentCore\Theme\Model\PropertiesLayoutCmsResource;
-use Zrcms\ContentCore\Theme\Model\PropertiesLayoutVersion;
 use Zrcms\ContentCore\View\Api\GetTagNamesByLayoutMustache;
 use Zrcms\ContentCore\View\Api\Render\GetViewLayoutTags;
 use Zrcms\ContentCore\View\Api\Render\RenderView;
-use Zrcms\ContentCore\View\Model\PropertiesView;
+use Zrcms\ContentCore\View\Fields\FieldsView;
 use Zrcms\ContentCore\View\Model\ViewBasic;
 
 /**
@@ -79,23 +79,23 @@ class ViewControllerTest
 
         $siteVersion = new SiteVersionBasic(
             [
-                PropertiesSiteVersion::COUNTRY_ISO3
-                => 'test1:' . PropertiesSiteVersion::COUNTRY_ISO3,
-                PropertiesSiteVersion::FAVICON
-                => 'test:' . PropertiesSiteVersion::FAVICON,
-                PropertiesSiteVersion::LANGUAGE_ISO_939_2T
-                => 'test:' . PropertiesSiteVersion::LANGUAGE_ISO_939_2T,
-                PropertiesSiteVersion::LAYOUT
-                => 'test:' . PropertiesSiteVersion::LAYOUT,
-                PropertiesSiteVersion::LOCALE
-                => 'test:' . PropertiesSiteVersion::LOCALE,
-                PropertiesSiteVersion::LOGIN_PAGE
-                => 'test:' . PropertiesSiteVersion::LOGIN_PAGE,
-                PropertiesSiteVersion::STATUS_PAGES => [],
-                PropertiesSiteVersion::THEME_NAME
-                => 'test:' . PropertiesSiteVersion::THEME_NAME,
-                PropertiesSiteVersion::TITLE
-                => 'test:' . PropertiesSiteVersion::TITLE,
+                FieldsSiteVersion::COUNTRY_ISO3
+                => 'test1:' . FieldsSiteVersion::COUNTRY_ISO3,
+                FieldsSiteVersion::FAVICON
+                => 'test:' . FieldsSiteVersion::FAVICON,
+                FieldsSiteVersion::LANGUAGE_ISO_939_2T
+                => 'test:' . FieldsSiteVersion::LANGUAGE_ISO_939_2T,
+                FieldsSiteVersion::LAYOUT
+                => 'test:' . FieldsSiteVersion::LAYOUT,
+                FieldsSiteVersion::LOCALE
+                => 'test:' . FieldsSiteVersion::LOCALE,
+                FieldsSiteVersion::LOGIN_PAGE
+                => 'test:' . FieldsSiteVersion::LOGIN_PAGE,
+                FieldsSiteVersion::STATUS_PAGES => [],
+                FieldsSiteVersion::THEME_NAME
+                => 'test:' . FieldsSiteVersion::THEME_NAME,
+                FieldsSiteVersion::TITLE
+                => 'test:' . FieldsSiteVersion::TITLE,
             ],
             self::CREATED_BY_USER_ID,
             self::CREATED_REASON
@@ -110,10 +110,10 @@ class ViewControllerTest
 
         $siteCmsResource = new SiteCmsResourceBasic(
             [
-                PropertiesSiteCmsResource::CONTENT_VERSION
+                FieldsSiteCmsResource::CONTENT_VERSION
                 => $newSiteVersion,
-                PropertiesSiteCmsResource::HOST
-                => 'test:' . PropertiesSiteCmsResource::HOST,
+                FieldsSiteCmsResource::HOST
+                => 'test:' . FieldsSiteCmsResource::HOST,
             ],
             self::CREATED_BY_USER_ID,
             self::CREATED_REASON
@@ -151,61 +151,58 @@ class ViewControllerTest
         $additionalViewProperties = [];
 
         $siteVersion = new SiteVersionBasic(
+            'testID',
             [
-                PropertiesSiteVersion::ID
-                => 'test:' . PropertiesSiteVersion::ID,
-                PropertiesSiteVersion::COUNTRY_ISO3
-                => 'test:' . PropertiesSiteVersion::COUNTRY_ISO3,
-                PropertiesSiteVersion::FAVICON
-                => 'test:' . PropertiesSiteVersion::FAVICON,
-                PropertiesSiteVersion::LANGUAGE_ISO_939_2T
-                => 'test:' . PropertiesSiteVersion::LANGUAGE_ISO_939_2T,
-                PropertiesSiteVersion::LAYOUT
-                => 'test:' . PropertiesSiteVersion::LAYOUT,
-                PropertiesSiteVersion::LOCALE
-                => 'test:' . PropertiesSiteVersion::LOCALE,
-                PropertiesSiteVersion::LOGIN_PAGE
-                => 'test:' . PropertiesSiteVersion::LOGIN_PAGE,
-                PropertiesSiteVersion::STATUS_PAGES => [],
-                PropertiesSiteVersion::THEME_NAME
-                => 'test:' . PropertiesSiteVersion::THEME_NAME,
-                PropertiesSiteVersion::TITLE
-                => 'test:' . PropertiesSiteVersion::TITLE,
+                FieldsSiteVersion::COUNTRY_ISO3
+                => 'test:' . FieldsSiteVersion::COUNTRY_ISO3,
+                FieldsSiteVersion::FAVICON
+                => 'test:' . FieldsSiteVersion::FAVICON,
+                FieldsSiteVersion::LANGUAGE_ISO_939_2T
+                => 'test:' . FieldsSiteVersion::LANGUAGE_ISO_939_2T,
+                FieldsSiteVersion::LAYOUT
+                => 'test:' . FieldsSiteVersion::LAYOUT,
+                FieldsSiteVersion::LOCALE
+                => 'test:' . FieldsSiteVersion::LOCALE,
+                FieldsSiteVersion::LOGIN_PAGE
+                => 'test:' . FieldsSiteVersion::LOGIN_PAGE,
+                FieldsSiteVersion::STATUS_PAGES => [],
+                FieldsSiteVersion::THEME_NAME
+                => 'test:' . FieldsSiteVersion::THEME_NAME,
+                FieldsSiteVersion::TITLE
+                => 'test:' . FieldsSiteVersion::TITLE,
             ],
             self::CREATED_BY_USER_ID,
             self::CREATED_REASON
         );
 
         $siteCmsResource = new SiteCmsResourceBasic(
+            'testID',
+            true,
+            $siteVersion,
             [
-                PropertiesSiteCmsResource::ID
-                => 'test:' . PropertiesSiteCmsResource::ID,
-                PropertiesSiteCmsResource::CONTENT_VERSION
-                => $siteVersion,
-                PropertiesSiteCmsResource::HOST
-                => 'test:' . PropertiesSiteCmsResource::HOST,
+                FieldsSiteCmsResource::HOST
+                => 'test:' . FieldsSiteCmsResource::HOST,
             ],
             self::CREATED_BY_USER_ID,
             self::CREATED_REASON
         );
 
         $pageContainerVersion = new PageContainerVersionBasic(
+            'testID',
             [
-                PropertiesPageContainerVersion::ID
-                => 'test:' . PropertiesPageContainerVersion::ID,
-                PropertiesPageContainerVersion::TITLE
-                => 'test:' . PropertiesPageContainerVersion::TITLE,
-                PropertiesPageContainerVersion::DESCRIPTION
-                => 'test:' . PropertiesPageContainerVersion::DESCRIPTION,
-                PropertiesPageContainerVersion::KEYWORDS
-                => 'test:' . PropertiesPageContainerVersion::KEYWORDS,
-                PropertiesPageContainerVersion::LAYOUT
-                => 'test:' . PropertiesPageContainerVersion::LAYOUT,
-                PropertiesPageContainerVersion::PRE_RENDERED_HTML
-                => 'test:' . PropertiesPageContainerVersion::PRE_RENDERED_HTML,
-                PropertiesPageContainerVersion::RENDER_TAGS_GETTER
+                FieldsPageContainerVersion::TITLE
+                => 'test:' . FieldsPageContainerVersion::TITLE,
+                FieldsPageContainerVersion::DESCRIPTION
+                => 'test:' . FieldsPageContainerVersion::DESCRIPTION,
+                FieldsPageContainerVersion::KEYWORDS
+                => 'test:' . FieldsPageContainerVersion::KEYWORDS,
+                FieldsPageContainerVersion::LAYOUT
+                => 'test:' . FieldsPageContainerVersion::LAYOUT,
+                FieldsPageContainerVersion::PRE_RENDERED_HTML
+                => 'test:' . FieldsPageContainerVersion::PRE_RENDERED_HTML,
+                FieldsPageContainerVersion::RENDER_TAGS_GETTER
                 => GetPageContainerRenderTagsHtml::class,
-                PropertiesPageContainerVersion::RENDERER
+                FieldsPageContainerVersion::RENDERER
                 => RenderPageContainerRows::class,
             ],
             self::CREATED_BY_USER_ID,
@@ -213,37 +210,33 @@ class ViewControllerTest
         );
 
         $pageContainerCmsResource = new PageContainerCmsResourceBasic(
+            'testID',
+            true,
+            $pageContainerVersion,
             [
-                PropertiesPageContainerCmsResource::ID
-                => 'test:' . PropertiesPageContainerCmsResource::ID,
-                PropertiesPageContainerCmsResource::CONTENT_VERSION
-                => $pageContainerVersion,
-                PropertiesPageContainerCmsResource::SITE_CMS_RESOURCE_ID
-                => 'test:' . PropertiesPageContainerCmsResource::SITE_CMS_RESOURCE_ID,
-                PropertiesPageContainerCmsResource::PATH
-                => '/test-' . PropertiesPageContainerCmsResource::PATH,
+                FieldsPageContainerCmsResource::SITE_CMS_RESOURCE_ID
+                => 'test:' . FieldsPageContainerCmsResource::SITE_CMS_RESOURCE_ID,
+                FieldsPageContainerCmsResource::PATH
+                => '/test-' . FieldsPageContainerCmsResource::PATH,
             ],
             self::CREATED_BY_USER_ID,
             self::CREATED_REASON
         );
 
-
-
         $layout = new LayoutVersionBasic(
+            'testID',
             [
-                PropertiesLayoutVersion::ID
-                => 'test:' . PropertiesLayoutVersion::ID,
-                PropertiesLayoutVersion::NAME
-                => 'test:' . PropertiesLayoutVersion::NAME,
-                PropertiesLayoutVersion::THEME_NAME
-                => 'test:' . PropertiesLayoutVersion::THEME_NAME,
-                PropertiesLayoutVersion::HTML
+                FieldsLayoutVersion::NAME
+                => 'test:' . FieldsLayoutVersion::NAME,
+                FieldsLayoutVersion::THEME_NAME
+                => 'test:' . FieldsLayoutVersion::THEME_NAME,
+                FieldsLayoutVersion::HTML
                 => file_get_contents(__DIR__ . '/../../../xample-component/theme/layout/primary/template.mustache'),
-                PropertiesLayoutVersion::RENDER_TAGS_GETTER
+                FieldsLayoutVersion::RENDER_TAGS_GETTER
                 => GetLayoutRenderTagsNoop::class,
-                PropertiesLayoutVersion::RENDER_TAG_NAME_PARSER
+                FieldsLayoutVersion::RENDER_TAG_NAME_PARSER
                 => GetTagNamesByLayoutMustache::class,
-                PropertiesLayoutVersion::RENDERER
+                FieldsLayoutVersion::RENDERER
                 => RenderLayoutMustache::class,
             ],
             self::CREATED_BY_USER_ID,
@@ -251,25 +244,23 @@ class ViewControllerTest
         );
 
         $layoutCmsResource = new LayoutCmsResourceBasic(
+            'testID',
+            true,
+            $layout,
             [
-                PropertiesLayoutCmsResource::ID
-                => 'test:' . PropertiesLayoutCmsResource::ID,
-                PropertiesLayoutCmsResource::CONTENT_VERSION
-                => $layout,
-                PropertiesLayoutCmsResource::NAME
-                => 'test:' . PropertiesLayoutCmsResource::NAME,
-                PropertiesLayoutCmsResource::THEME_NAME
-                => 'test:' . PropertiesLayoutCmsResource::THEME_NAME,
+                FieldsLayoutCmsResource::NAME
+                => 'test:' . FieldsLayoutCmsResource::NAME,
+                FieldsLayoutCmsResource::THEME_NAME
+                => 'test:' . FieldsLayoutCmsResource::THEME_NAME,
             ],
             self::CREATED_BY_USER_ID,
             self::CREATED_REASON
         );
 
         $properties = [
-            PropertiesView::ID => 'test:' . PropertiesView::ID,
-            PropertiesView::SITE_CMS_RESOURCE => $siteCmsResource,
-            PropertiesView::PAGE_CONTAINER_CMS_RESOURCE => $pageContainerCmsResource,
-            PropertiesView::LAYOUT_CMS_RESOURCE => $layoutCmsResource,
+            FieldsView::SITE_CMS_RESOURCE => $siteCmsResource,
+            FieldsView::PAGE_CONTAINER_CMS_RESOURCE => $pageContainerCmsResource,
+            FieldsView::LAYOUT_CMS_RESOURCE => $layoutCmsResource,
         ];
 
         $additionalProperties = [

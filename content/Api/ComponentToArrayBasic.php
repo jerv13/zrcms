@@ -3,7 +3,7 @@
 namespace Zrcms\Content\Api;
 
 use Zrcms\Content\Model\Component;
-use Zrcms\Content\Model\PropertiesComponent;
+use Zrcms\Content\Fields\FieldsComponent;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -22,10 +22,10 @@ class ComponentToArrayBasic implements ComponentToArray
     ): array
     {
         return [
-            PropertiesComponent::NAME
+            FieldsComponent::NAME
             => $component->getName(),
 
-            PropertiesComponent::NAME_PROPERTIES
+            FieldsComponent::NAME_PROPERTIES
             => $component->getProperties()
         ];
     }

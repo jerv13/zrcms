@@ -4,6 +4,7 @@ namespace Zrcms\ContentCore\Theme\Model;
 
 use Zrcms\Content\Exception\PropertyMissingException;
 use Zrcms\Content\Model\ComponentAbstract;
+use Zrcms\ContentCore\Theme\Fields\FieldsLayoutComponent;
 use Zrcms\Param\Param;
 
 /**
@@ -12,21 +13,26 @@ use Zrcms\Param\Param;
 abstract class LayoutComponentAbstract extends ComponentAbstract
 {
     /**
+     * @param string $classification
+     * @param string $name
+     * @param string $configLocation
      * @param array  $properties
      * @param string $createdByUserId
      * @param string $createdReason
      */
     public function __construct(
+        string $classification,
+        string $name,
+        string $configLocation,
         array $properties,
         string $createdByUserId,
         string $createdReason
     ) {
-
         Param::assertHas(
             $properties,
-            PropertiesLayoutComponent::THEME_NAME,
-            PropertyMissingException::build(
-                PropertiesLayoutComponent::THEME_NAME,
+            FieldsLayoutComponent::THEME_NAME,
+            PropertyMissingException::buildThrower(
+                FieldsLayoutComponent::THEME_NAME,
                 $properties,
                 get_class($this)
             )
@@ -34,15 +40,18 @@ abstract class LayoutComponentAbstract extends ComponentAbstract
 
         Param::assertHas(
             $properties,
-            PropertiesLayoutComponent::HTML,
-            PropertyMissingException::build(
-                PropertiesLayoutComponent::HTML,
+            FieldsLayoutComponent::HTML,
+            PropertyMissingException::buildThrower(
+                FieldsLayoutComponent::HTML,
                 $properties,
                 get_class($this)
             )
         );
 
         parent::__construct(
+            $classification,
+            $name,
+            $configLocation,
             $properties,
             $createdByUserId,
             $createdReason
@@ -55,7 +64,7 @@ abstract class LayoutComponentAbstract extends ComponentAbstract
     public function getThemeName(): string
     {
         return $this->getProperty(
-            PropertiesLayoutComponent::THEME_NAME,
+            FieldsLayoutComponent::THEME_NAME,
             ''
         );
     }
@@ -66,7 +75,7 @@ abstract class LayoutComponentAbstract extends ComponentAbstract
     public function getHtml(): string
     {
         return $this->getProperty(
-            PropertiesLayoutComponent::HTML,
+            FieldsLayoutComponent::HTML,
             ''
         );
     }

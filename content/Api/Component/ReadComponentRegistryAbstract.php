@@ -3,8 +3,8 @@
 namespace Zrcms\Content\Api\Component;
 
 use Zrcms\Cache\Service\Cache;
-use Zrcms\Content\Model\ComponentConfigFields;
-use Zrcms\ContentCoreConfigDataSource\Content\Model\ComponentRegistryFields;
+use Zrcms\Content\Fields\FieldsComponentConfig;
+use Zrcms\ContentCoreConfigDataSource\Content\Fields\FieldsComponentRegistry;
 use Zrcms\Param\Param;
 use Zrcms\ServiceAlias\Api\GetServiceFromAlias;
 
@@ -126,7 +126,7 @@ abstract class ReadComponentRegistryAbstract implements ReadComponentRegistry
                 $componentOptions = $configLocation;
                 $configLocation = Param::getRequired(
                     $componentOptions,
-                    ComponentRegistryFields::CONFIG_LOCATION,
+                    FieldsComponentRegistry::CONFIG_LOCATION,
                     new \Exception(
                         'Component location is required for: ' //. json_encode($configLocation, 0, 2)
                         . ' in ' . $componentName
@@ -135,13 +135,13 @@ abstract class ReadComponentRegistryAbstract implements ReadComponentRegistry
 
                 $readComponentConfigServiceAlias = Param::get(
                     $componentOptions,
-                    ComponentRegistryFields::COMPONENT_CONFIG_READER,
+                    FieldsComponentRegistry::COMPONENT_CONFIG_READER,
                     ''
                 );
 
                 $componentName = Param::get(
                     $componentOptions,
-                    ComponentRegistryFields::NAME,
+                    FieldsComponentRegistry::NAME,
                     $componentNameOptional
                 );
             }
@@ -162,7 +162,7 @@ abstract class ReadComponentRegistryAbstract implements ReadComponentRegistry
             if (!is_string($componentName)) {
 
                 throw new \Exception(
-                    'Component ' . ComponentConfigFields::NAME . ' is required and must be string for: '
+                    'Component ' . FieldsComponentConfig::NAME . ' is required and must be string for: '
                 //. json_encode($componentConfig, 0, 2)
                 );
             }

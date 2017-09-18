@@ -5,7 +5,7 @@ namespace Zrcms\ContentCore\Page\Api\Render;
 use Psr\Http\Message\ServerRequestInterface;
 use Zrcms\Content\Model\Content;
 use Zrcms\ContentCore\Page\Model\Page;
-use Zrcms\ContentCore\Page\Model\PropertiesPage;
+use Zrcms\ContentCore\Page\Fields\FieldsPage;
 use Zrcms\ContentCore\Page\Model\ServiceAliasPageContainer;
 use Zrcms\ServiceAlias\Api\GetServiceFromAlias;
 use Zrcms\ServiceAlias\ServiceCheck;
@@ -60,7 +60,7 @@ class GetPageContainerRenderTagsBasic implements GetPageContainerRenderTags
     {
         // Get version renderer or use default
         $getPageContainerRenderTagsServiceAlias = $pageContainer->getProperty(
-            PropertiesPage::RENDER_TAGS_GETTER,
+            FieldsPage::RENDER_TAGS_GETTER,
             ''
         );
 

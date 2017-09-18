@@ -6,7 +6,7 @@ use Doctrine\ORM\EntityManager;
 use Zrcms\ContentCore\Container\Model\ContainerCmsResource;
 use Zrcms\ContentCore\Container\Model\ContainerCmsResourceBasic;
 use Zrcms\ContentCore\Container\Model\ContainerVersionBasic;
-use Zrcms\ContentCore\Container\Model\PropertiesContainerCmsResource;
+use Zrcms\ContentCore\Container\Fields\FieldsContainerCmsResource;
 use Zrcms\ContentCoreDoctrineDataSource\Container\Entity\ContainerCmsResourceEntity;
 use Zrcms\ContentCoreDoctrineDataSource\Container\Entity\ContainerVersionEntity;
 use Zrcms\ContentDoctrine\Api\BuildBasicCmsResources;
@@ -82,7 +82,7 @@ class FindContainerCmsResourcesBySitePaths
         array $options = []
     ): array
     {
-        $siteCmsResourceIdName = PropertiesContainerCmsResource::SITE_CMS_RESOURCE_ID;
+        $siteCmsResourceIdName = FieldsContainerCmsResource::SITE_CMS_RESOURCE_ID;
 
         $pathParams = [
             $siteCmsResourceId => 'siteCmsResourceId'
@@ -136,7 +136,7 @@ class FindContainerCmsResourcesBySitePaths
         if (empty($containerCmsResourcePaths)) {
             return '';
         }
-        $containerCmsResourcePathName = PropertiesContainerCmsResource::PATH;
+        $containerCmsResourcePathName = FieldsContainerCmsResource::PATH;
 
         $query = $query . " AND container.{$containerCmsResourcePathName} IN (";
 

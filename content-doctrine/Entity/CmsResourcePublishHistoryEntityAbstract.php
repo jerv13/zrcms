@@ -15,7 +15,6 @@ use Zrcms\Content\Model\TrackableTrait;
 abstract class CmsResourcePublishHistoryEntityAbstract
 {
     use ImmutableTrait;
-    use PropertiesTrait;
     use TrackableTrait;
     use CmsResourcePublishHistoryEntityTrait;
 
@@ -32,7 +31,7 @@ abstract class CmsResourcePublishHistoryEntityAbstract
     /**
      * @var CmsResourceEntity
      */
-    protected $cmsResource;
+    protected $cmsResourceEntity;
 
     /**
      * @var array
@@ -47,14 +46,14 @@ abstract class CmsResourcePublishHistoryEntityAbstract
     /**
      * @param string|null       $id
      * @param string            $action
-     * @param CmsResourceEntity $cmsResource
+     * @param CmsResourceEntity $cmsResourceEntity
      * @param string            $publishedByUserId
      * @param string            $publishReason
      */
     public function __construct(
         $id,
         string $action,
-        CmsResourceEntity $cmsResource,
+        CmsResourceEntity $cmsResourceEntity,
         string $publishedByUserId,
         string $publishReason
     ) {
@@ -68,11 +67,11 @@ abstract class CmsResourcePublishHistoryEntityAbstract
 
         $this->action = $action;
 
-        $this->cmsResource = $cmsResource;
+        $this->cmsResourceEntity = $cmsResourceEntity;
 
-        $this->cmsResourceProperties = $cmsResource->getProperties();
+        $this->cmsResourceProperties = $cmsResourceEntity->getProperties();
 
-        $this->contentVersion = $cmsResource->getContentVersion();
+        $this->contentVersion = $cmsResourceEntity->getContentVersion();
 
         $this->setCreatedData(
             $publishedByUserId,
@@ -85,7 +84,7 @@ abstract class CmsResourcePublishHistoryEntityAbstract
      */
     public function getId(): string
     {
-        return $this->id;
+        return (string)$this->id;
     }
 
     /**
@@ -117,7 +116,7 @@ abstract class CmsResourcePublishHistoryEntityAbstract
      */
     public function getCmsResource()
     {
-        return $this->cmsResource;
+        return $this->cmsResourceEntity;
     }
 
     /**

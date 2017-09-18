@@ -4,6 +4,7 @@ namespace Zrcms\ContentDoctrine\Entity;
 
 use Zrcms\Content\Exception\TrackingException;
 use Zrcms\Content\Model\Trackable;
+use Zrcms\Content\Model\TrackableTrait;
 use Zrcms\ContentDoctrine\Exception\MissingCreatedDateObjectProperty;
 
 /**
@@ -13,6 +14,8 @@ use Zrcms\ContentDoctrine\Exception\MissingCreatedDateObjectProperty;
  */
 trait TrackableEntityTrait
 {
+    use TrackableTrait;
+
     /**
      * @return string
      * @throws TrackingException
@@ -33,5 +36,16 @@ trait TrackableEntityTrait
         }
 
         return $this->createdDateObject->format(Trackable::DATE_FORMAT);
+    }
+
+    /**
+     * @return void
+     *
+     * @ORM\PrePersist
+     */
+    public function prePersist()
+    {
+        // Expects class to implement Trackable
+        $this->assertHasTrackingData();
     }
 }

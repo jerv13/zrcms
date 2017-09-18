@@ -4,7 +4,7 @@ namespace Zrcms\ContentCore\Container\Api\Render;
 
 use Zrcms\Content\Model\Content;
 use Zrcms\ContentCore\Container\Model\Container;
-use Zrcms\ContentCore\Container\Model\PropertiesContainer;
+use Zrcms\ContentCore\Container\Fields\FieldsContainer;
 use Zrcms\ContentCore\Container\Model\ServiceAliasContainer;
 use Zrcms\ServiceAlias\Api\GetServiceFromAlias;
 use Zrcms\ServiceAlias\ServiceCheck;
@@ -54,7 +54,7 @@ class RenderContainerBasic implements RenderContainer
     {
         // Get version renderer or use default
         $renderContainerServiceAlias = $container->getProperty(
-            PropertiesContainer::RENDERER,
+            FieldsContainer::RENDERER,
             ''
         );
 

@@ -2,7 +2,7 @@
 
 namespace Zrcms\Content\Api\Component;
 
-use Zrcms\Content\Model\PropertiesComponent;
+use Zrcms\Content\Fields\FieldsComponentConfig;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -41,7 +41,7 @@ abstract class ReadComponentConfigPhpFileAbstract implements ReadComponentConfig
         /** @var array $config */
         $config = include($configFilePath);
 
-        $config[PropertiesComponent::CONFIG_LOCATION] = $directory;
+        $config[FieldsComponentConfig::CONFIG_LOCATION] = $directory;
 
         return $config;
     }

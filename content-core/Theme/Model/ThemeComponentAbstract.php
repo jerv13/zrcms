@@ -5,6 +5,7 @@ namespace Zrcms\ContentCore\Theme\Model;
 use Zrcms\Content\Exception\PropertyMissingException;
 use Zrcms\Content\Model\ComponentAbstract;
 use Zrcms\ContentCore\Theme\Exception\DefaultLayoutMissingException;
+use Zrcms\ContentCore\Theme\Fields\FieldsThemeComponent;
 use Zrcms\Param\Param;
 
 /**
@@ -13,20 +14,26 @@ use Zrcms\Param\Param;
 abstract class ThemeComponentAbstract extends ComponentAbstract
 {
     /**
+     * @param string $classification
+     * @param string $name
+     * @param string $configLocation
      * @param array  $properties
      * @param string $createdByUserId
      * @param string $createdReason
      */
     public function __construct(
+        string $classification,
+        string $name,
+        string $configLocation,
         array $properties,
         string $createdByUserId,
         string $createdReason
     ) {
         Param::assertHas(
             $properties,
-            PropertiesThemeComponent::LAYOUT_VARIATIONS,
-            PropertyMissingException::build(
-                PropertiesThemeComponent::LAYOUT_VARIATIONS,
+            FieldsThemeComponent::LAYOUT_VARIATIONS,
+            PropertyMissingException::buildThrower(
+                FieldsThemeComponent::LAYOUT_VARIATIONS,
                 $properties,
                 get_class($this)
             )
@@ -34,14 +41,17 @@ abstract class ThemeComponentAbstract extends ComponentAbstract
 
         $layoutVariations = Param::getArray(
             $properties,
-            PropertiesThemeComponent::LAYOUT_VARIATIONS,
+            FieldsThemeComponent::LAYOUT_VARIATIONS,
             []
         );
 
         // avoid setting them twice
-        Param::remove($properties, PropertiesThemeComponent::LAYOUT_VARIATIONS);
+        Param::remove($properties, FieldsThemeComponent::LAYOUT_VARIATIONS);
 
         parent::__construct(
+            $classification,
+            $name,
+            $configLocation,
             $properties,
             $createdByUserId,
             $createdReason
@@ -66,7 +76,7 @@ abstract class ThemeComponentAbstract extends ComponentAbstract
     public function getPrimaryLayoutName()
     {
         return $this->getProperty(
-            PropertiesThemeComponent::PRIMARY_LAYOUT_NAME,
+            FieldsThemeComponent::PRIMARY_LAYOUT_NAME,
             LayoutComponent::PRIMARY_NAME
         );
     }
@@ -90,7 +100,7 @@ abstract class ThemeComponentAbstract extends ComponentAbstract
     public function getLayoutVariations(): array
     {
         return $this->getProperty(
-            PropertiesThemeComponent::LAYOUT_VARIATIONS,
+            FieldsThemeComponent::LAYOUT_VARIATIONS,
             []
         );
     }
@@ -153,7 +163,7 @@ abstract class ThemeComponentAbstract extends ComponentAbstract
     {
         $layoutVariations = Param::getArray(
             $this->properties,
-            PropertiesThemeComponent::LAYOUT_VARIATIONS,
+            FieldsThemeComponent::LAYOUT_VARIATIONS,
             []
         );
 
@@ -165,7 +175,7 @@ abstract class ThemeComponentAbstract extends ComponentAbstract
 
         $this->properties = Param::set(
             $this->properties,
-            PropertiesThemeComponent::LAYOUT_VARIATIONS,
+            FieldsThemeComponent::LAYOUT_VARIATIONS,
             $layoutVariations
         );
     }

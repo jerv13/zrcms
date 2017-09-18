@@ -10,14 +10,24 @@ use Zrcms\Content\Model\Trackable;
  */
 interface CmsResourceEntity extends Entity, Properties, Trackable
 {
-    //    public function construct(
-//        $id,
-//        ContentVersion $contentVersion,
-//        bool $published,
-//        array $properties,
-//        string $createdByUserId,
-//        string $createdReason
-//    );
+    /**
+     * @param int|null      $id
+     * @param ContentEntity $contentEntity
+     * @param bool          $published
+     * @param array         $properties
+     * @param string        $createdByUserId
+     * @param string        $createdReason
+     *
+     * @return mixed
+     */
+    public function __construct(
+        $id,
+        ContentEntity $contentEntity,
+        bool $published,
+        array $properties,
+        string $createdByUserId,
+        string $createdReason
+    );
 
     /**
      * @return string
@@ -27,7 +37,7 @@ interface CmsResourceEntity extends Entity, Properties, Trackable
     /**
      * @return ContentEntity
      */
-    public function getContentVersion();
+    public function getContentEntity();
 
     /**
      * @return bool
@@ -35,13 +45,13 @@ interface CmsResourceEntity extends Entity, Properties, Trackable
     public function isPublished(): bool;
 
     /**
-     * Sync array of properties to object properties
+     * Sync array of properties to object properties and set properties
      *
      * @param array $properties
      *
      * @return void
      */
-    public function updateProperties(
+    public function setProperties(
         array $properties
     );
 }

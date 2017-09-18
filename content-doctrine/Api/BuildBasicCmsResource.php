@@ -3,7 +3,7 @@
 namespace Zrcms\ContentDoctrine\Api;
 
 use Zrcms\Content\Model\CmsResource;
-use Zrcms\Content\Model\PropertiesCmsResource;
+use Zrcms\Content\Fields\FieldsCmsResource;
 use Zrcms\ContentDoctrine\Entity\CmsResourceEntity;
 
 /**
@@ -65,10 +65,10 @@ class BuildBasicCmsResource
             $cmsResourceSyncToProperties
         );
 
-        $properties[PropertiesCmsResource::CONTENT_VERSION] = BuildBasicContentVersion::invoke(
+        $properties[FieldsCmsResource::CONTENT_VERSION] = BuildBasicContentVersion::invoke(
             $entityClassContentVersion,
             $classContentVersionBasic,
-            $properties[PropertiesCmsResource::CONTENT_VERSION],
+            $properties[FieldsCmsResource::CONTENT_VERSION],
             $contentVersionSyncToProperties
         );
 

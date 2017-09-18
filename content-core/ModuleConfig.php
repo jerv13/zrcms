@@ -782,11 +782,6 @@ class ModuleConfig
                     'json'
                     => ReadThemeComponentConfigJsonFile::class,
                 ],
-                // 'zrcms.layout.component.config-reader'
-                ServiceAliasLayout::NAMESPACE_COMPONENT_CONFIG_READER => [
-                    'json'
-                    => ReadLayoutComponentConfigJsonFile::class,
-                ],
                 // @todo IS THIS USED? 'zrcms.layout.content.render-tags-getter'
                 ServiceAliasLayout::NAMESPACE_CONTENT_RENDERER => [
                     'mustache'

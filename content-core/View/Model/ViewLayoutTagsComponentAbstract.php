@@ -4,6 +4,7 @@ namespace Zrcms\ContentCore\View\Model;
 
 use Zrcms\Content\Exception\PropertyMissingException;
 use Zrcms\Content\Model\ComponentAbstract;
+use Zrcms\ContentCore\View\Fields\FieldsViewLayoutTagsComponent;
 use Zrcms\Param\Param;
 
 /**
@@ -12,26 +13,35 @@ use Zrcms\Param\Param;
 abstract class ViewLayoutTagsComponentAbstract extends ComponentAbstract
 {
     /**
+     * @param string $classification
+     * @param string $name
+     * @param string $configLocation
      * @param array  $properties
      * @param string $createdByUserId
      * @param string $createdReason
      */
     public function __construct(
-        array $properties = [],
+        string $classification,
+        string $name,
+        string $configLocation,
+        array $properties,
         string $createdByUserId,
         string $createdReason
     ) {
         Param::assertHas(
             $properties,
-            PropertiesViewLayoutTagsComponent::RENDER_TAGS_GETTER,
-            PropertyMissingException::build(
-                PropertiesViewLayoutTagsComponent::RENDER_TAGS_GETTER,
+            FieldsViewLayoutTagsComponent::RENDER_TAGS_GETTER,
+            PropertyMissingException::buildThrower(
+                FieldsViewLayoutTagsComponent::RENDER_TAGS_GETTER,
                 $properties,
                 get_class($this)
             )
         );
 
         parent::__construct(
+            $classification,
+            $name,
+            $configLocation,
             $properties,
             $createdByUserId,
             $createdReason
@@ -45,7 +55,7 @@ abstract class ViewLayoutTagsComponentAbstract extends ComponentAbstract
     {
         return Param::getString(
             $this->properties,
-            PropertiesViewLayoutTagsComponent::RENDER_TAGS_GETTER,
+            FieldsViewLayoutTagsComponent::RENDER_TAGS_GETTER,
             ''
         );
     }

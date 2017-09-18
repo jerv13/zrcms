@@ -7,8 +7,8 @@ use Zrcms\Content\Model\Action;
 use Zrcms\Content\Model\CmsResource;
 use Zrcms\Content\Model\CmsResourcePublishHistory;
 use Zrcms\Content\Model\ContentVersion;
-use Zrcms\Content\Model\PropertiesCmsResource;
-use Zrcms\Content\Model\PropertiesCmsResourcePublishHistory;
+use Zrcms\Content\Fields\FieldsCmsResource;
+use Zrcms\Content\Fields\FieldsCmsResourcePublishHistory;
 use Zrcms\ContentDoctrine\Api\ApiAbstract;
 use Zrcms\ContentDoctrine\Entity\CmsResourceEntity;
 
@@ -106,7 +106,7 @@ class UnpublishCmsResource
         }
 
         $properties = $existingCmsResource->getProperties();
-        $properties[PropertiesCmsResource::PUBLISHED] = false;
+        $properties[FieldsCmsResource::PUBLISHED] = false;
 
         $existingCmsResource->updateProperties(
             $properties
@@ -139,9 +139,9 @@ class UnpublishCmsResource
         string $unpublishReason
     ) {
         $historyProperties = $cmsResource->getProperties();
-        $historyProperties[PropertiesCmsResourcePublishHistory::CMS_RESOURCE_ID]
+        $historyProperties[FieldsCmsResourcePublishHistory::CMS_RESOURCE_ID]
             = $cmsResource->getId();
-        $historyProperties[PropertiesCmsResourcePublishHistory::ACTION]
+        $historyProperties[FieldsCmsResourcePublishHistory::ACTION]
             = Action::UNPUBLISH_CMS_RESOURCE;
 
         /** @var CmsResourcePublishHistory::class $cmsResourcePublishHistoryClass */
