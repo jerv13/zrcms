@@ -57,17 +57,17 @@ abstract class CmsResourceEntityAbstract
     protected $createdReason;
 
     /**
-     * @param int|null      $id
-     * @param ContentEntity $contentEntity
+     * @param string|null   $id
      * @param bool          $published
+     * @param ContentEntity $contentEntity
      * @param array         $properties
      * @param string        $createdByUserId
      * @param string        $createdReason
      */
     public function __construct(
         $id,
-        ContentEntity $contentEntity,
         bool $published,
+        ContentEntity $contentEntity,
         array $properties,
         string $createdByUserId,
         string $createdReason

@@ -85,7 +85,6 @@ class FindRedirectCmsResourceBySiteRequestPath
     ) {
         $siteCmsResourceIdPropertyName = FieldsRedirectCmsResource::SITE_CMS_RESOURCE_ID;
         $requestPathPropertyName = FieldsRedirectCmsResource::REQUEST_PATH;
-        $publishedPropertyName = FieldsRedirectCmsResource::PUBLISHED;
 
         // @todo Add prepared statements not concat
         $query = ""
@@ -93,7 +92,7 @@ class FindRedirectCmsResourceBySiteRequestPath
             . " WHERE (resource.{$siteCmsResourceIdPropertyName} = :siteCmsResource"
             . " OR resource.{$siteCmsResourceIdPropertyName} IS NULL)"
             . " AND resource.{$requestPathPropertyName} = :requestPath"
-            . " AND resource.{$publishedPropertyName} = true"
+            . " AND resource.published = true"
             . " ORDER BY resource.{$siteCmsResourceIdPropertyName} ASC";
 
         $dQuery = $this->entityManager->createQuery($query);

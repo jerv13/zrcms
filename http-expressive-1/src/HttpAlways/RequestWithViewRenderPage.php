@@ -53,6 +53,8 @@ class RequestWithViewRenderPage
             $request
         );
 
+
+
         $html = $this->renderView->__invoke(
             $view,
             $viewRenderTags

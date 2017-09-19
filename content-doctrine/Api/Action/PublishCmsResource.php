@@ -3,16 +3,13 @@ namespace Zrcms\ContentDoctrine\Api\Action;
 
 use Doctrine\ORM\EntityManager;
 use Zrcms\Content\Exception\ContentVersionNotExistsException;
-use Zrcms\Content\Fields\FieldsCmsResourcePublishHistory;
 use Zrcms\Content\Model\Action;
 use Zrcms\Content\Model\CmsResource;
 use Zrcms\Content\Model\CmsResourcePublishHistory;
-use Zrcms\Content\Model\CmsResourcePublishHistoryBasic;
 use Zrcms\ContentDoctrine\Api\ApiAbstract;
 use Zrcms\ContentDoctrine\Api\BuildBasicCmsResource;
 use Zrcms\ContentDoctrine\Entity\CmsResourceEntity;
 use Zrcms\ContentDoctrine\Entity\CmsResourcePublishHistoryEntity;
-use Zrcms\ContentDoctrine\Entity\CmsResourcePublishHistoryEntityBasic;
 use Zrcms\ContentDoctrine\Entity\ContentEntity;
 
 /**

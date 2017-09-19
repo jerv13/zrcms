@@ -246,9 +246,6 @@ class GetViewByRequestBasic implements GetViewByRequest
         }
 
         $properties = [
-            FieldsView::ID
-            => 'basic',
-
             FieldsView::SITE_CMS_RESOURCE
             => $siteCmsResource,
 
@@ -257,7 +254,6 @@ class GetViewByRequestBasic implements GetViewByRequest
 
             FieldsView::LAYOUT_CMS_RESOURCE
             => $layoutCmsResource,
-
         ];
 
         $additionalProperties = Param::get(

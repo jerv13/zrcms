@@ -129,6 +129,15 @@ class GetRegisterThemeComponentsBasic
         foreach ($layoutComponentConfigs as $layoutComponentConfig) {
 
             $layoutVariations[] = new LayoutComponentBasic(
+                'theme-layout',
+                Param::getRequired(
+                    $layoutComponentConfig,
+                    FieldsComponentConfig::NAME
+                ),
+                Param::getRequired(
+                    $layoutComponentConfig,
+                    FieldsComponentConfig::CONFIG_LOCATION
+                ),
                 $layoutComponentConfig,
                 Param::get(
                     $layoutComponentConfig,

@@ -11,8 +11,8 @@ use Zrcms\ContentCoreConfigDataSource\Content\Fields\FieldsComponentRegistry;
 use Zrcms\HttpExpressive1\Api\GetStatusPage;
 use Zrcms\HttpExpressive1\Api\GetStatusPageBasic;
 use Zrcms\HttpExpressive1\Api\View\Render\GetViewLayoutMetaPageData;
+use Zrcms\HttpExpressive1\Fields\FieldsHttpExpressiveComponent;
 use Zrcms\HttpExpressive1\Model\HttpExpressiveComponent;
-use Zrcms\HttpExpressive1\Model\FieldsHttpExpressiveComponent;
 use Zrcms\ViewHtmlTags\Api\Render\RenderTag;
 
 /**
@@ -73,7 +73,7 @@ class ModuleConfig
                         FieldsComponentRegistry::COMPONENT_CLASS
                         => HttpExpressiveComponent::class,
 
-                        /* Map of HTTP status to the name of a SiteVersion property with the corresponding path */
+                        /* Map of HTTP status to the path and a type */
                         FieldsHttpExpressiveComponent::STATUS_TO_SITE_PATH_PROPERTY => [
                             '401' => [
                                 'path' => '/not-authorized',

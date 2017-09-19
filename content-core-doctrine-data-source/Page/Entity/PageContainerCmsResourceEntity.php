@@ -6,8 +6,8 @@ use Doctrine\ORM\Event\LifecycleEventArgs;
 use Doctrine\ORM\Mapping as ORM;
 use Zrcms\Content\Exception\PropertyMissingException;
 use Zrcms\ContentCore\Page\Fields\FieldsPageContainerCmsResource;
-use Zrcms\ContentCoreDoctrineDataSource\Container\Entity\ContainerCmsResourceEntity;
 use Zrcms\ContentDoctrine\Entity\CmsResourceEntity;
+use Zrcms\ContentDoctrine\Entity\CmsResourceEntityAbstract;
 use Zrcms\ContentDoctrine\Entity\ContentEntity;
 use Zrcms\Param\Param;
 
@@ -26,7 +26,7 @@ use Zrcms\Param\Param;
  * )
  */
 class PageContainerCmsResourceEntity
-    extends ContainerCmsResourceEntity
+    extends CmsResourceEntityAbstract
     implements CmsResourceEntity
 {
     /**
@@ -114,16 +114,16 @@ class PageContainerCmsResourceEntity
 
     /**
      * @param int|null                                 $id
-     * @param PageContainerVersionEntity|ContentEntity $contentVersion
      * @param bool                                     $published
+     * @param PageContainerVersionEntity|ContentEntity $contentVersion
      * @param array                                    $properties
      * @param string                                   $createdByUserId
      * @param string                                   $createdReason
      */
     public function __construct(
         $id,
-        ContentEntity $contentVersion,
         bool $published,
+        ContentEntity $contentVersion,
         array $properties,
         string $createdByUserId,
         string $createdReason
@@ -132,8 +132,8 @@ class PageContainerCmsResourceEntity
 
         parent::__construct(
             $id,
-            $contentVersion,
             $published,
+            $contentVersion,
             $properties,
             $createdByUserId,
             $createdReason

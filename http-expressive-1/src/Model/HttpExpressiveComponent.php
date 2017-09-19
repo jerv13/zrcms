@@ -2,14 +2,15 @@
 
 namespace Zrcms\HttpExpressive1\Model;
 
-use Zrcms\Content\Model\Component;
+use Zrcms\ContentCore\Basic\Model\BasicComponent;
 use Zrcms\ContentCore\Basic\Model\BasicComponentAbstract;
+use Zrcms\HttpExpressive1\Fields\FieldsHttpExpressiveComponent;
 use Zrcms\Param\Param;
 
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class HttpExpressiveComponent extends BasicComponentAbstract implements Component
+class HttpExpressiveComponent extends BasicComponentAbstract implements BasicComponent
 {
     const NAME = 'zrcms-http-expressive-1';
 

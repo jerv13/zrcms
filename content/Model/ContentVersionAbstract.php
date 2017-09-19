@@ -77,6 +77,6 @@ abstract class ContentVersionAbstract
      */
     public function getId(): string
     {
-        return $this->id;
+        return (string)$this->id;
     }
 }

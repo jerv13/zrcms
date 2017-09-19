@@ -12,7 +12,7 @@ use Zrcms\ContentCore\Theme\Fields\FieldsThemeComponent;
 class FieldsThemeComponentConfig extends FieldsComponentConfig
 {
     const PRIMARY_LAYOUT = FieldsThemeComponent::PRIMARY_LAYOUT_NAME;
-    const LAYOUT_LOCATIONS = FieldsThemeComponent::LAYOUT_VARIATIONS;
+    const LAYOUT_LOCATIONS = 'layoutLocations';
 
     /**
      * @var array

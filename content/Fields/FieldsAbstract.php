@@ -46,7 +46,7 @@ class FieldsAbstract
      */
     public function __construct(array $fieldsConfig)
     {
-        $defaultFieldsConfig = $this->getDefaultConfig();
+        $defaultFieldsConfig = $this->getDefaultFieldsConfig();
         // Default config
         foreach ($defaultFieldsConfig as $fieldConfig) {
             $field = FieldBasic::build($fieldConfig);
@@ -116,7 +116,7 @@ class FieldsAbstract
     /**
      * @return array
      */
-    public function getDefaultConfig(): array
+    public function getFieldsConfig(): array
     {
         return $this->fieldsConfig;
     }

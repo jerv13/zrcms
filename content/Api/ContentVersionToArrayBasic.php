@@ -33,7 +33,10 @@ class ContentVersionToArrayBasic implements ContentVersionToArray
         );
 
         return [
-            Properties::NAME_PROPERTIES
+            'id'
+            => $contentVersion->getId(),
+
+            'properties'
             => $contentVersion->getProperties(),
 
             TrackableProperties::CREATED_BY_USER_ID

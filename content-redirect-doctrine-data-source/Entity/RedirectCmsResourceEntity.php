@@ -112,17 +112,17 @@ class RedirectCmsResourceEntity
     protected $requestPath;
 
     /**
-     * @param int|null                                 $id
+     * @param int|null                            $id
+     * @param bool                                $published
      * @param RedirectVersionEntity|ContentEntity $contentEntity
-     * @param bool                                     $published
-     * @param array                                    $properties
-     * @param string                                   $createdByUserId
-     * @param string                                   $createdReason
+     * @param array                               $properties
+     * @param string                              $createdByUserId
+     * @param string                              $createdReason
      */
     public function __construct(
         $id,
-        ContentEntity $contentEntity,
         bool $published,
+        ContentEntity $contentEntity,
         array $properties,
         string $createdByUserId,
         string $createdReason
@@ -131,8 +131,8 @@ class RedirectCmsResourceEntity
 
         parent::__construct(
             $id,
-            $contentEntity,
             $published,
+            $contentEntity,
             $properties,
             $createdByUserId,
             $createdReason

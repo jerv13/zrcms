@@ -23,10 +23,9 @@ class ContentToArrayBasic implements ContentToArray
     ): array
     {
         return [
-            FieldsContent::ID
-            => $content->getId(),
+            'id' => $content->getId(),
 
-            Properties::NAME_PROPERTIES
+            'properties'
             => $content->getProperties()
         ];
     }

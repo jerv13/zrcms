@@ -34,7 +34,7 @@ interface Fields
     /**
      * @return array
      */
-    public function getDefaultConfig(): array;
+    public function getFieldsConfig(): array;
 
     /**
      * @param array $fieldValues ['{field-name}' => {fieldValue}]

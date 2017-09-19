@@ -28,7 +28,7 @@ class FieldsThemeComponent extends FieldsComponent
             [
                 'name' => self::LAYOUT_VARIATIONS,
                 'type' => 'array',
-                'label' => 'Layout Variations',
+                'label' => 'Layout Variation Locations',
                 'required' => true,
                 'default' => [],
                 'options' => [],

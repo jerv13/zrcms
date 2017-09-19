@@ -3,7 +3,7 @@
 namespace Zrcms\Content\Api;
 
 use Zrcms\Content\Model\Component;
-use Zrcms\Content\Fields\FieldsComponent;
+use Zrcms\Content\Model\TrackableProperties;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -22,11 +22,26 @@ class ComponentToArrayBasic implements ComponentToArray
     ): array
     {
         return [
-            FieldsComponent::NAME
+            'classification'
+            => $component->getClassification(),
+
+            'name'
             => $component->getName(),
 
-            FieldsComponent::NAME_PROPERTIES
-            => $component->getProperties()
+            'configLocation'
+            => $component->getConfigLocation(),
+
+            'properties'
+            => $component->getProperties(),
+
+            TrackableProperties::CREATED_BY_USER_ID
+            => $component->getCreatedByUserId(),
+
+            TrackableProperties::CREATED_REASON
+            => $component->getCreatedReason(),
+
+            TrackableProperties::CREATED_DATE
+            => $component->getCreatedDate(),
         ];
     }
 }

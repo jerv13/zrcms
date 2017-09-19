@@ -5,6 +5,7 @@ namespace Zrcms\ContentDoctrine\Api\Repository;
 use Zrcms\Content\Model\ContentVersion;
 use Zrcms\ContentDoctrine\Api\ApiAbstractContentVersion;
 use Zrcms\ContentDoctrine\Api\BuildBasicContentVersion;
+use Zrcms\ContentDoctrine\Entity\ContentEntity;
 use Zrcms\ContentDoctrine\Exception\IdMustBeEmptyException;
 
 /**
@@ -26,7 +27,7 @@ class InsertContentVersion
         array $options = []
     ): ContentVersion
     {
-        /** @var ContentVersion::class $contentVersionEntityClass */
+        /** @var ContentEntity::class $contentVersionEntityClass */
         $contentVersionEntityClass = $this->entityClassContentVersion;
 
         if (!empty($contentVersion->getId())) {
@@ -37,6 +38,7 @@ class InsertContentVersion
         }
 
         $newContentVersion = new $contentVersionEntityClass(
+            $contentVersion->getId(),
             $contentVersion->getProperties(),
             $contentVersion->getCreatedByUserId(),
             $contentVersion->getCreatedReason()

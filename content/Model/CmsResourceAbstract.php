@@ -3,7 +3,6 @@
 namespace Zrcms\Content\Model;
 
 use Zrcms\Content\Exception\ContentVersionInvalid;
-use Zrcms\Content\Exception\ContentVersionNotExistsException;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -98,7 +97,7 @@ abstract class CmsResourceAbstract
      */
     public function getId(): string
     {
-        return $this->id;
+        return (string)$this->id;
     }
 
     /**

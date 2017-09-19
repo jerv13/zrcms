@@ -11,25 +11,6 @@ use Zrcms\Content\Model\Trackable;
 interface CmsResourceEntity extends Entity, Properties, Trackable
 {
     /**
-     * @param int|null      $id
-     * @param ContentEntity $contentEntity
-     * @param bool          $published
-     * @param array         $properties
-     * @param string        $createdByUserId
-     * @param string        $createdReason
-     *
-     * @return mixed
-     */
-    public function __construct(
-        $id,
-        ContentEntity $contentEntity,
-        bool $published,
-        array $properties,
-        string $createdByUserId,
-        string $createdReason
-    );
-
-    /**
      * @return string
      */
     public function getId(): string;

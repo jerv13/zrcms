@@ -114,16 +114,16 @@ class LayoutCmsResourceEntity
 
     /**
      * @param int|null                          $id
-     * @param LayoutVersionEntity|ContentEntity $contentEntity
      * @param bool                              $published
+     * @param LayoutVersionEntity|ContentEntity $contentEntity
      * @param array                             $properties
      * @param string                            $createdByUserId
      * @param string                            $createdReason
      */
     public function __construct(
         $id,
-        ContentEntity $contentEntity,
         bool $published,
+        ContentEntity $contentEntity,
         array $properties,
         string $createdByUserId,
         string $createdReason
@@ -132,8 +132,8 @@ class LayoutCmsResourceEntity
 
         parent::__construct(
             $id,
-            $contentEntity,
             $published,
+            $contentEntity,
             $properties,
             $createdByUserId,
             $createdReason

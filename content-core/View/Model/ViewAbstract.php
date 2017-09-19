@@ -5,13 +5,8 @@ namespace Zrcms\ContentCore\View\Model;
 use Zrcms\Content\Exception\PropertyMissingException;
 use Zrcms\Content\Model\ContentAbstract;
 use Zrcms\Content\Model\PropertiesTrait;
-
-use Zrcms\ContentCore\Page\Model\Page;
 use Zrcms\ContentCore\Page\Model\PageContainerCmsResource;
 use Zrcms\ContentCore\Site\Model\SiteCmsResource;
-use Zrcms\ContentCore\Site\Model\Site;
-use Zrcms\ContentCore\Theme\Model\Layout;
-
 use Zrcms\ContentCore\Theme\Model\LayoutCmsResource;
 use Zrcms\ContentCore\View\Fields\FieldsView;
 use Zrcms\Param\Param;
@@ -73,7 +68,7 @@ abstract class ViewAbstract extends ContentAbstract implements View
                 get_class($this)
             )
         );
-        
+
         parent::__construct(
             $properties
         );

@@ -106,16 +106,16 @@ class SiteCmsResourceEntity
 
     /**
      * @param int|null                        $id
-     * @param SiteVersionEntity|ContentEntity $contentVersion
      * @param bool                            $published
+     * @param SiteVersionEntity|ContentEntity $contentVersion
      * @param array                           $properties
      * @param string                          $createdByUserId
      * @param string                          $createdReason
      */
     public function __construct(
         $id,
-        ContentEntity $contentVersion,
         bool $published,
+        ContentEntity $contentVersion,
         array $properties,
         string $createdByUserId,
         string $createdReason
@@ -124,8 +124,8 @@ class SiteCmsResourceEntity
 
         parent::__construct(
             $id,
-            $contentVersion,
             $published,
+            $contentVersion,
             $properties,
             $createdByUserId,
             $createdReason

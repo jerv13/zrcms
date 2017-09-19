@@ -104,6 +104,10 @@
 
 - x CmsResourceEntity
 
+
+        $id,
+        bool $publishe
+
 - x CmsResourcePublishHistoryEntity
 
 - ContentEntity

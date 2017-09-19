@@ -8,21 +8,6 @@ namespace Zrcms\ContentDoctrine\Entity;
 interface CmsResourcePublishHistoryEntity
 {
     /**
-     * @param string|null       $id
-     * @param string            $action
-     * @param CmsResourceEntity $cmsResource
-     * @param string            $publishedByUserId
-     * @param string            $publishReason
-     */
-    public function __construct(
-        $id,
-        string $action,
-        CmsResourceEntity $cmsResource,
-        string $publishedByUserId,
-        string $publishReason
-    );
-
-    /**
      * @return string
      */
     public function getId(): string;

@@ -9,6 +9,8 @@ use Zrcms\Content\Model\CmsResourcePublishHistory;
 use Zrcms\Content\Model\ContentVersion;
 use Zrcms\ContentDoctrine\Api\ApiAbstract;
 use Zrcms\ContentDoctrine\Entity\CmsResourceEntity;
+use Zrcms\ContentDoctrine\Entity\CmsResourcePublishHistoryEntity;
+use Zrcms\ContentDoctrine\Entity\ContentEntity;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -56,17 +58,17 @@ class UnpublishCmsResource
     ) {
         $this->assertValidEntityClass(
             $entityClassCmsResource,
-            CmsResource::class
+            CmsResourceEntity::class
         );
 
         $this->assertValidEntityClass(
             $entityClassCmsResourcePublishHistory,
-            CmsResourcePublishHistory::class
+            CmsResourcePublishHistoryEntity::class
         );
 
         $this->assertValidEntityClass(
             $entityClassContentVersion,
-            ContentVersion::class
+            ContentEntity::class
         );
 
         $this->entityManager = $entityManager;

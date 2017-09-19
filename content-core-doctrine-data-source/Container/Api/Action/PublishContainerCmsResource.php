@@ -31,7 +31,7 @@ class PublishContainerCmsResource
             ContainerCmsResourcePublishHistoryEntity::class,
             ContainerVersionEntity::class,
             ContainerCmsResourceBasic::class,
-            ContainerVersionBasic::class
+            ContainerVersionBasic::class,
             [],
             []
         );

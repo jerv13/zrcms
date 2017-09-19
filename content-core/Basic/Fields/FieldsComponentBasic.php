@@ -1,6 +1,6 @@
 <?php
 
-namespace Zrcms\ContentCore\Fields\Model;
+namespace Zrcms\ContentCore\Basic\Fields;
 
 use Zrcms\Content\Fields\FieldsComponent;
 

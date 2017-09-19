@@ -4,13 +4,9 @@ namespace Zrcms\ContentCoreDoctrineDataSource\Page\Entity;
 
 use Doctrine\Common\Persistence\Event\LifecycleEventArgs;
 use Doctrine\ORM\Mapping as ORM;
-use Zrcms\ContentCore\Container\Model\ContainerVersionAbstract;
-use Zrcms\ContentCore\Page\Model\PageContainerVersion;
-use Zrcms\ContentCore\Page\Model\PageContainerVersionAbstract;
 use Zrcms\ContentCore\Page\Fields\FieldsPageContainerVersion;
 use Zrcms\ContentDoctrine\Entity\ContentEntity;
 use Zrcms\ContentDoctrine\Entity\ContentEntityAbstract;
-use Zrcms\ContentDoctrine\Entity\ContentEntityTrait;
 use Zrcms\Param\Param;
 
 /**
