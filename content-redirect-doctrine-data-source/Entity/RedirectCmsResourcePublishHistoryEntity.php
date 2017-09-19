@@ -3,13 +3,9 @@
 namespace Zrcms\ContentRedirectDoctrineDataSource\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Zrcms\Content\Fields\FieldsCmsResourcePublishHistory;
 use Zrcms\ContentDoctrine\Entity\CmsResourceEntity;
 use Zrcms\ContentDoctrine\Entity\CmsResourcePublishHistoryEntity;
 use Zrcms\ContentDoctrine\Entity\CmsResourcePublishHistoryEntityAbstract;
-use Zrcms\ContentDoctrine\Entity\CmsResourcePublishHistoryEntityTrait;
-use Zrcms\ContentRedirect\Fields\FieldsRedirectCmsResource;
-use Zrcms\Param\Param;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -25,8 +21,6 @@ class RedirectCmsResourcePublishHistoryEntity
     extends CmsResourcePublishHistoryEntityAbstract
     implements CmsResourcePublishHistoryEntity
 {
-    use CmsResourcePublishHistoryEntityTrait;
-
     /**
      * @var int
      *
@@ -105,6 +99,15 @@ class RedirectCmsResourcePublishHistoryEntity
      * @ORM\Column(type="string")
      */
     protected $createdByUserId;
+
+    /**
+     * Short description of create reason
+     *
+     * @var string
+     *
+     * @ORM\Column(type="string")
+     */
+    protected $createdReason;
 
     /**
      * @var string

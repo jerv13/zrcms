@@ -2,11 +2,11 @@
 
 namespace Zrcms\ContentCoreDoctrineDataSource\Site\Entity;
 
+use Doctrine\ORM\Event\LifecycleEventArgs;
 use Doctrine\ORM\Mapping as ORM;
 use Zrcms\ContentCore\Site\Fields\FieldsSiteVersion;
 use Zrcms\ContentCore\Site\Model\SiteVersionAbstract;
 use Zrcms\ContentDoctrine\Entity\ContentEntity;
-use Zrcms\ContentDoctrine\Entity\ContentEntityTrait;
 use Zrcms\Param\Param;
 
 /**
@@ -23,8 +23,6 @@ class SiteVersionEntity
     extends SiteVersionAbstract
     implements ContentEntity
 {
-    use ContentEntityTrait;
-
     /**
      * @var string
      *
@@ -88,20 +86,17 @@ class SiteVersionEntity
     protected $locale;
 
     /**
-     * @param array  $properties
-     * @param string $createdByUserId
-     * @param string $createdReason
+     * @param string|null $id
+     * @param array       $properties
+     * @param string      $createdByUserId
+     * @param string      $createdReason
      */
     public function __construct(
+        $id,
         array $properties,
         string $createdByUserId,
         string $createdReason
     ) {
-        $this->id = Param::getInt(
-            $properties,
-            FieldsSiteVersion::ID
-        );
-
         $this->themeName = Param::getString(
             $properties,
             FieldsSiteVersion::THEME_NAME
@@ -113,9 +108,37 @@ class SiteVersionEntity
         );
 
         parent::__construct(
+            $id,
             $properties,
             $createdByUserId,
             $createdReason
         );
+    }
+
+    /**
+     * @return string
+     */
+    public function getThemeName(): string
+    {
+        return $this->themeName;
+    }
+
+    /**
+     * @return string
+     */
+    public function getLocale(): string
+    {
+        return $this->locale;
+    }
+
+    /**
+     * @return void
+     *
+     * @ORM\PostPersist
+     */
+    public function postPersist(LifecycleEventArgs $event)
+    {
+        $this->properties[FieldsSiteVersion::THEME_NAME] = $this->themeName;
+        $this->properties[FieldsSiteVersion::LOCALE] = $this->locale;
     }
 }

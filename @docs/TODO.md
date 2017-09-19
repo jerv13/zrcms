@@ -102,115 +102,37 @@
     }
 
 
-- CmsResourceEntity
+- x CmsResourceEntity
 
-    CmsResourceEntityAbstract
-    
+- x CmsResourcePublishHistoryEntity
+
+- ContentEntity
+
+    extends ContentEntityAbstract 
+    implements ContentEntity
+
     /**
-     * @param int|null      $id
-     * @param ContentEntity $contentEntity
-     * @param bool          $published
-     * @param array         $properties
-     * @param string        $createdByUserId
-     * @param string        $createdReason
+     * @param string|null $id
+     * @param array       $properties
+     * @param string      $createdByUserId
+     * @param string      $createdReason
      */
     public function __construct(
         $id,
-        ContentEntity $contentEntity,
-        bool $published,
         array $properties,
         string $createdByUserId,
         string $createdReason
     ) {
         parent::__construct(
             $id,
-            $contentEntity,
-            $published,
             $properties,
             $createdByUserId,
             $createdReason
         );
     }
     
-        /**
-         * @var int
-         *
-         * @ORM\Id
-         * @ORM\Column(type="integer")
-         * @ORM\GeneratedValue
-         */
-        protected $id;
-        
-        /**
-         * @var boolean
-         *
-         * @ORM\Column(type="boolean")
-         */
-        protected $published = true;
     
-        /**
-         * @var int
-         *
-         * @ORM\Column(type="integer", nullable=true)
-         */
-        protected $contentVersionId = null;
-    
-        /**
-         * @var ContainerVersionEntity
-         *
-         * @ORM\ManyToOne(targetEntity="ContainerVersionEntity")
-         * @ORM\JoinColumn(
-         *     name="contentVersionId",
-         *     referencedColumnName="id",
-         *     onDelete="SET NULL"
-         * )
-         */
-        protected $contentEntity;
-        
-        /**
-         * @var array
-         *
-         * @ORM\Column(type="json_array")
-         */
-        protected $properties = [];
-    
-        /**
-         * Date object was first created mapped to col createdDate
-         *
-         * @var \DateTime
-         *
-         * @ORM\Column(type="datetime", name="createdDate")
-         */
-        protected $createdDateObject;
-    
-        /**
-         * User ID of creator
-         *
-         * @var string
-         *
-         * @ORM\Column(type="string")
-         */
-        protected $createdByUserId;
-    
-        /**
-         * Short description of create reason
-         *
-         * @var string
-         *
-         * @ORM\Column(type="string")
-         */
-        protected $createdReason;
-    
-    
-    /**
-     * @param LifecycleEventArgs $event
-     * @ORM\PostPersist
-     *
-     * @return void
-     */
-    public function postPersist(LifecycleEventArgs $event)
-    {
-    }
+
 ##### Switch to Fields #####
 
 - Remove static Properties classes for Fields classes

@@ -7,7 +7,6 @@ use Zrcms\Content\Exception\CmsResourceInvalid;
 use Zrcms\ContentDoctrine\Entity\CmsResourceEntity;
 use Zrcms\ContentDoctrine\Entity\CmsResourcePublishHistoryEntity;
 use Zrcms\ContentDoctrine\Entity\CmsResourcePublishHistoryEntityAbstract;
-use Zrcms\ContentDoctrine\Entity\CmsResourcePublishHistoryEntityTrait;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -23,8 +22,6 @@ class SiteCmsResourcePublishHistoryEntity
     extends CmsResourcePublishHistoryEntityAbstract
     implements CmsResourcePublishHistoryEntity
 {
-    use CmsResourcePublishHistoryEntityTrait;
-
     /**
      * @var int
      *
@@ -103,6 +100,15 @@ class SiteCmsResourcePublishHistoryEntity
      * @ORM\Column(type="string")
      */
     protected $createdByUserId;
+
+    /**
+     * Short description of create reason
+     *
+     * @var string
+     *
+     * @ORM\Column(type="string")
+     */
+    protected $createdReason;
 
     /**
      * @var string

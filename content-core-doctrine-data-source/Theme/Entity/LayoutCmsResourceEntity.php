@@ -2,12 +2,13 @@
 
 namespace Zrcms\ContentCoreDoctrineDataSource\Theme\Entity;
 
+use Doctrine\ORM\Event\LifecycleEventArgs;
 use Doctrine\ORM\Mapping as ORM;
-use Zrcms\ContentCore\Theme\Model\LayoutCmsResource;
-use Zrcms\ContentCore\Theme\Model\LayoutCmsResourceAbstract;
+use Zrcms\Content\Exception\PropertyMissingException;
 use Zrcms\ContentCore\Theme\Fields\FieldsLayoutCmsResource;
 use Zrcms\ContentDoctrine\Entity\CmsResourceEntity;
-use Zrcms\ContentDoctrine\Entity\CmsResourceEntityTrait;
+use Zrcms\ContentDoctrine\Entity\CmsResourceEntityAbstract;
+use Zrcms\ContentDoctrine\Entity\ContentEntity;
 use Zrcms\Param\Param;
 
 /**
@@ -25,11 +26,9 @@ use Zrcms\Param\Param;
  * )
  */
 class LayoutCmsResourceEntity
-    extends LayoutCmsResourceAbstract
-    implements LayoutCmsResource, CmsResourceEntity
+    extends CmsResourceEntityAbstract
+    implements CmsResourceEntity
 {
-    use CmsResourceEntityTrait;
-
     /**
      * @var int
      *
@@ -38,6 +37,20 @@ class LayoutCmsResourceEntity
      * @ORM\GeneratedValue
      */
     protected $id;
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(type="boolean")
+     */
+    protected $published = true;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    protected $contentVersionId = null;
 
     /**
      * @var LayoutVersionEntity
@@ -50,20 +63,6 @@ class LayoutCmsResourceEntity
      * )
      */
     protected $contentVersion;
-
-    /**
-     * @var int
-     *
-     * @ORM\Column(type="integer", nullable=true)
-     */
-    protected $contentVersionId = null;
-
-    /**
-     * @var boolean
-     *
-     * @ORM\Column(type="boolean")
-     */
-    protected $published = true;
 
     /**
      * @var array
@@ -114,11 +113,17 @@ class LayoutCmsResourceEntity
     protected $name;
 
     /**
-     * @param array  $properties
-     * @param string $createdByUserId
-     * @param string $createdReason
+     * @param int|null                          $id
+     * @param LayoutVersionEntity|ContentEntity $contentEntity
+     * @param bool                              $published
+     * @param array                             $properties
+     * @param string                            $createdByUserId
+     * @param string                            $createdReason
      */
     public function __construct(
+        $id,
+        ContentEntity $contentEntity,
+        bool $published,
         array $properties,
         string $createdByUserId,
         string $createdReason
@@ -126,42 +131,13 @@ class LayoutCmsResourceEntity
         $this->setProperties($properties);
 
         parent::__construct(
+            $id,
+            $contentEntity,
+            $published,
             $properties,
             $createdByUserId,
             $createdReason
         );
-    }
-
-    /**
-     * @return string
-     */
-    public function getId(): string
-    {
-        return (string)$this->id;
-    }
-
-    /**
-     * @return LayoutVersionEntity
-     */
-    public function getContentVersion()
-    {
-        return $this->contentVersion;
-    }
-
-    /**
-     * @return string
-     */
-    public function getContentVersionId(): string
-    {
-        return (string)$this->contentVersionId;
-    }
-
-    /**
-     * @return bool
-     */
-    public function isPublished(): bool
-    {
-        return $this->published;
     }
 
     /**
@@ -185,34 +161,52 @@ class LayoutCmsResourceEntity
      *
      * @return void
      */
-    public function updateProperties(
+    public function setProperties(
         array $properties
     ) {
-        $this->id = Param::getInt(
+        Param::assertHas(
             $properties,
-            FieldsLayoutCmsResource::ID
-        );
-
-        $this->contentVersion = Param::get(
-            $properties,
-            FieldsLayoutCmsResource::CONTENT_VERSION
-        );
-
-        $this->published = Param::getBool(
-            $properties,
-            FieldsLayoutCmsResource::PUBLISHED
+            FieldsLayoutCmsResource::THEME_NAME,
+            PropertyMissingException::buildThrower(
+                FieldsLayoutCmsResource::THEME_NAME,
+                $properties,
+                get_class($this)
+            )
         );
 
         $this->themeName = Param::getString(
             $properties,
-            FieldsLayoutCmsResource::THEME_NAME
+            FieldsLayoutCmsResource::THEME_NAME,
+            ''
+        );
+
+        Param::assertHas(
+            $properties,
+            FieldsLayoutCmsResource::NAME,
+            PropertyMissingException::buildThrower(
+                FieldsLayoutCmsResource::NAME,
+                $properties,
+                get_class($this)
+            )
         );
 
         $this->name = Param::getString(
             $properties,
-            FieldsLayoutCmsResource::NAME
+            FieldsLayoutCmsResource::NAME,
+            ''
         );
 
-        $this->properties = $properties;
+        parent::setProperties($properties);
+    }
+
+    /**
+     * @return void
+     *
+     * @ORM\PostPersist
+     */
+    public function postPersist(LifecycleEventArgs $event)
+    {
+        $this->properties[FieldsLayoutCmsResource::THEME_NAME] = $this->themeName;
+        $this->properties[FieldsLayoutCmsResource::NAME] = $this->name;
     }
 }

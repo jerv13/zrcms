@@ -2,12 +2,14 @@
 
 namespace Zrcms\ContentCoreDoctrineDataSource\Page\Entity;
 
+use Doctrine\ORM\Event\LifecycleEventArgs;
 use Doctrine\ORM\Mapping as ORM;
-use Zrcms\ContentCore\Container\Model\ContainerCmsResourceAbstract;
-use Zrcms\ContentCore\Page\Model\PageTemplateCmsResource;
+use Zrcms\Content\Exception\PropertyMissingException;
 use Zrcms\ContentCore\Page\Fields\FieldsPageTemplateCmsResource;
+use Zrcms\ContentCoreDoctrineDataSource\Container\Entity\ContainerCmsResourceEntity;
 use Zrcms\ContentDoctrine\Entity\CmsResourceEntity;
 use Zrcms\ContentDoctrine\Entity\CmsResourceEntityTrait;
+use Zrcms\ContentDoctrine\Entity\ContentEntity;
 use Zrcms\Param\Param;
 
 /**
@@ -25,11 +27,9 @@ use Zrcms\Param\Param;
  * )
  */
 class PageTemplateCmsResourceEntity
-    extends ContainerCmsResourceAbstract
-    implements PageTemplateCmsResource, CmsResourceEntity
+    extends ContainerCmsResourceEntity
+    implements CmsResourceEntity
 {
-    use CmsResourceEntityTrait;
-
     /**
      * @var int
      *
@@ -38,6 +38,20 @@ class PageTemplateCmsResourceEntity
      * @ORM\GeneratedValue
      */
     protected $id;
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(type="boolean")
+     */
+    protected $published = true;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    protected $contentVersionId = null;
 
     /**
      * @var PageContainerVersionEntity
@@ -50,20 +64,6 @@ class PageTemplateCmsResourceEntity
      * )
      */
     protected $contentVersion;
-
-    /**
-     * @var int
-     *
-     * @ORM\Column(type="integer", nullable=true)
-     */
-    protected $contentVersionId = null;
-
-    /**
-     * @var boolean
-     *
-     * @ORM\Column(type="boolean")
-     */
-    protected $published = true;
 
     /**
      * @var array
@@ -114,11 +114,17 @@ class PageTemplateCmsResourceEntity
     protected $path;
 
     /**
-     * @param array  $properties
-     * @param string $createdByUserId
-     * @param string $createdReason
+     * @param int|null                                 $id
+     * @param PageContainerVersionEntity|ContentEntity $contentVersion
+     * @param bool                                     $published
+     * @param array                                    $properties
+     * @param string                                   $createdByUserId
+     * @param string                                   $createdReason
      */
     public function __construct(
+        $id,
+        ContentEntity $contentVersion,
+        bool $published,
         array $properties,
         string $createdByUserId,
         string $createdReason
@@ -126,42 +132,13 @@ class PageTemplateCmsResourceEntity
         $this->setProperties($properties);
 
         parent::__construct(
+            $id,
+            $contentVersion,
+            $published,
             $properties,
             $createdByUserId,
             $createdReason
         );
-    }
-
-    /**
-     * @return string
-     */
-    public function getId(): string
-    {
-        return (string)$this->id;
-    }
-
-    /**
-     * @return PageContainerVersionEntity
-     */
-    public function getContentVersion()
-    {
-        return $this->contentVersion;
-    }
-
-    /**
-     * @return string
-     */
-    public function getContentVersionId(): string
-    {
-        return (string)$this->contentVersionId;
-    }
-
-    /**
-     * @return bool
-     */
-    public function isPublished(): bool
-    {
-        return $this->published;
     }
 
     /**
@@ -185,34 +162,52 @@ class PageTemplateCmsResourceEntity
      *
      * @return void
      */
-    public function updateProperties(
+    public function setProperties(
         array $properties
     ) {
-        $this->id = Param::getInt(
+        Param::assertHas(
             $properties,
-            FieldsPageTemplateCmsResource::ID
+            FieldsPageTemplateCmsResource::SITE_CMS_RESOURCE_ID,
+            PropertyMissingException::buildThrower(
+                FieldsPageTemplateCmsResource::SITE_CMS_RESOURCE_ID,
+                $properties,
+                get_class($this)
+            )
         );
 
-        $this->contentVersion = Param::get(
+        $this->siteCmsResourceId = Param::getString(
             $properties,
-            FieldsPageTemplateCmsResource::CONTENT_VERSION
+            FieldsPageTemplateCmsResource::SITE_CMS_RESOURCE_ID,
+            ''
         );
 
-        $this->published = Param::getBool(
+        Param::assertHas(
             $properties,
-            FieldsPageTemplateCmsResource::PUBLISHED
-        );
-
-        $this->siteCmsResourceId = Param::getInt(
-            $properties,
-            FieldsPageTemplateCmsResource::SITE_CMS_RESOURCE_ID
+            FieldsPageTemplateCmsResource::PATH,
+            PropertyMissingException::buildThrower(
+                FieldsPageTemplateCmsResource::PATH,
+                $properties,
+                get_class($this)
+            )
         );
 
         $this->path = Param::getString(
             $properties,
-            FieldsPageTemplateCmsResource::PATH
+            FieldsPageTemplateCmsResource::PATH,
+            ''
         );
 
-        $this->properties = $properties;
+        parent::setProperties($properties);
+    }
+
+    /**
+     * @return void
+     *
+     * @ORM\PostPersist
+     */
+    public function postPersist(LifecycleEventArgs $event)
+    {
+        $this->properties[FieldsPageTemplateCmsResource::SITE_CMS_RESOURCE_ID] = $this->siteCmsResourceId;
+        $this->properties[FieldsPageTemplateCmsResource::PATH] = $this->path;
     }
 }

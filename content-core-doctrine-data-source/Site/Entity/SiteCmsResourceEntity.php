@@ -2,11 +2,13 @@
 
 namespace Zrcms\ContentCoreDoctrineDataSource\Site\Entity;
 
+use Doctrine\ORM\Event\LifecycleEventArgs;
 use Doctrine\ORM\Mapping as ORM;
+use Zrcms\Content\Exception\PropertyMissingException;
 use Zrcms\ContentCore\Site\Fields\FieldsSiteCmsResource;
-use Zrcms\ContentCore\Site\Model\SiteCmsResourceAbstract;
 use Zrcms\ContentDoctrine\Entity\CmsResourceEntity;
-use Zrcms\ContentDoctrine\Entity\CmsResourceEntityTrait;
+use Zrcms\ContentDoctrine\Entity\CmsResourceEntityAbstract;
+use Zrcms\ContentDoctrine\Entity\ContentEntity;
 use Zrcms\Param\Param;
 
 /**
@@ -23,11 +25,9 @@ use Zrcms\Param\Param;
  * )
  */
 class SiteCmsResourceEntity
-    extends SiteCmsResourceAbstract
+    extends CmsResourceEntityAbstract
     implements CmsResourceEntity
 {
-    use CmsResourceEntityTrait;
-
     /**
      * @var int
      *
@@ -36,6 +36,20 @@ class SiteCmsResourceEntity
      * @ORM\GeneratedValue
      */
     protected $id;
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(type="boolean")
+     */
+    protected $published = true;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    protected $contentVersionId = null;
 
     /**
      * @var SiteVersionEntity
@@ -48,20 +62,6 @@ class SiteCmsResourceEntity
      * )
      */
     protected $contentVersion;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(type="integer", nullable=true)
-     */
-    protected $contentVersionId = null;
-
-    /**
-     * @var boolean
-     *
-     * @ORM\Column(type="boolean")
-     */
-    protected $published = true;
 
     /**
      * @var array
@@ -105,11 +105,17 @@ class SiteCmsResourceEntity
     protected $host;
 
     /**
-     * @param array  $properties
-     * @param string $createdByUserId
-     * @param string $createdReason
+     * @param int|null                        $id
+     * @param SiteVersionEntity|ContentEntity $contentVersion
+     * @param bool                            $published
+     * @param array                           $properties
+     * @param string                          $createdByUserId
+     * @param string                          $createdReason
      */
     public function __construct(
+        $id,
+        ContentEntity $contentVersion,
+        bool $published,
         array $properties,
         string $createdByUserId,
         string $createdReason
@@ -117,42 +123,13 @@ class SiteCmsResourceEntity
         $this->setProperties($properties);
 
         parent::__construct(
+            $id,
+            $contentVersion,
+            $published,
             $properties,
             $createdByUserId,
             $createdReason
         );
-    }
-
-    /**
-     * @return string
-     */
-    public function getId(): string
-    {
-        return (string)$this->id;
-    }
-
-    /**
-     * @return SiteVersionEntity
-     */
-    public function getContentVersion()
-    {
-        return $this->contentVersion;
-    }
-
-    /**
-     * @return string
-     */
-    public function getContentVersionId(): string
-    {
-        return (string)$this->contentVersionId;
-    }
-
-    /**
-     * @return bool
-     */
-    public function isPublished(): bool
-    {
-        return $this->published;
     }
 
     /**
@@ -168,34 +145,35 @@ class SiteCmsResourceEntity
      *
      * @return void
      */
-    public function updateProperties(
+    public function setProperties(
         array $properties
     ) {
-        $this->id = Param::getInt(
-            $properties,
-            FieldsSiteCmsResource::ID
-        );
-
-        $this->contentVersion = Param::get(
-            $properties,
-            FieldsSiteCmsResource::CONTENT_VERSION
-        );
-
-        $this->published = Param::getBool(
-            $properties,
-            FieldsSiteCmsResource::PUBLISHED
-        );
-
         Param::assertHas(
             $properties,
-            FieldsSiteCmsResource::HOST
+            FieldsSiteCmsResource::HOST,
+            PropertyMissingException::buildThrower(
+                FieldsSiteCmsResource::HOST,
+                $properties,
+                get_class($this)
+            )
         );
 
         $this->host = Param::getString(
             $properties,
-            FieldsSiteCmsResource::HOST
+            FieldsSiteCmsResource::HOST,
+            ''
         );
 
-        $this->properties = $properties;
+        parent::setProperties($properties);
+    }
+
+    /**
+     * @return void
+     *
+     * @ORM\PostPersist
+     */
+    public function postPersist(LifecycleEventArgs $event)
+    {
+        $this->properties[FieldsSiteCmsResource::HOST] = $this->host;
     }
 }

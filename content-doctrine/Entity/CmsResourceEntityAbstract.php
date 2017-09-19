@@ -28,7 +28,7 @@ abstract class CmsResourceEntityAbstract
     /**
      * @var ContentEntity
      */
-    protected $contentEntity;
+    protected $contentVersion;
 
     /**
      * @var array
@@ -82,7 +82,7 @@ abstract class CmsResourceEntityAbstract
 
         $this->published = $published;
 
-        $this->contentEntity = $contentEntity;
+        $this->contentVersion = $contentEntity;
 
         $this->assertValidContentVersion($contentEntity);
 
@@ -107,7 +107,7 @@ abstract class CmsResourceEntityAbstract
      */
     public function getContentVersion()
     {
-        return $this->contentEntity;
+        return $this->contentVersion;
     }
 
     /**

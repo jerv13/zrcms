@@ -7,7 +7,6 @@ use Zrcms\Content\Exception\CmsResourceInvalid;
 use Zrcms\ContentDoctrine\Entity\CmsResourceEntity;
 use Zrcms\ContentDoctrine\Entity\CmsResourcePublishHistoryEntity;
 use Zrcms\ContentDoctrine\Entity\CmsResourcePublishHistoryEntityAbstract;
-use Zrcms\ContentDoctrine\Entity\CmsResourcePublishHistoryEntityTrait;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -23,8 +22,6 @@ class LayoutCmsResourcePublishHistoryEntity
     extends CmsResourcePublishHistoryEntityAbstract
     implements CmsResourcePublishHistoryEntity
 {
-    use CmsResourcePublishHistoryEntityTrait;
-
     /**
      * @var int
      *
@@ -105,6 +102,29 @@ class LayoutCmsResourcePublishHistoryEntity
     protected $createdByUserId;
 
     /**
+     * Short description of create reason
+     *
+     * @var string
+     *
+     * @ORM\Column(type="string")
+     */
+    protected $createdReason;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(type="string")
+     */
+    protected $themeName;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(type="string")
+     */
+    protected $name;
+
+    /**
      * @param string|null                               $id
      * @param string                                    $action
      * @param LayoutCmsResourceEntity|CmsResourceEntity $cmsResourceEntity
@@ -118,6 +138,9 @@ class LayoutCmsResourcePublishHistoryEntity
         string $publishedByUserId,
         string $publishReason
     ) {
+        $this->themeName = $cmsResourceEntity->getThemeName();
+        $this->name = $cmsResourceEntity->getName();
+
         parent::__construct(
             $id,
             $action,
@@ -125,6 +148,22 @@ class LayoutCmsResourcePublishHistoryEntity
             $publishedByUserId,
             $publishReason
         );
+    }
+
+    /**
+     * @return string
+     */
+    public function getThemeName(): string
+    {
+        return $this->themeName;
+    }
+
+    /**
+     * @return string
+     */
+    public function getName(): string
+    {
+        return $this->name;
     }
 
     /**

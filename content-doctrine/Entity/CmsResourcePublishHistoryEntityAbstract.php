@@ -64,6 +64,8 @@ abstract class CmsResourcePublishHistoryEntityAbstract
 
         $this->action = $action;
 
+        $this->assertValidCmsResource($cmsResourceEntity);
+
         $this->cmsResourceEntity = $cmsResourceEntity;
 
         $this->cmsResourceProperties = $cmsResourceEntity->getProperties();

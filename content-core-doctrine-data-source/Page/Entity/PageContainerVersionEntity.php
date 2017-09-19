@@ -2,11 +2,14 @@
 
 namespace Zrcms\ContentCoreDoctrineDataSource\Page\Entity;
 
+use Doctrine\Common\Persistence\Event\LifecycleEventArgs;
 use Doctrine\ORM\Mapping as ORM;
+use Zrcms\ContentCore\Container\Model\ContainerVersionAbstract;
 use Zrcms\ContentCore\Page\Model\PageContainerVersion;
 use Zrcms\ContentCore\Page\Model\PageContainerVersionAbstract;
 use Zrcms\ContentCore\Page\Fields\FieldsPageContainerVersion;
 use Zrcms\ContentDoctrine\Entity\ContentEntity;
+use Zrcms\ContentDoctrine\Entity\ContentEntityAbstract;
 use Zrcms\ContentDoctrine\Entity\ContentEntityTrait;
 use Zrcms\Param\Param;
 
@@ -21,11 +24,9 @@ use Zrcms\Param\Param;
  * )
  */
 class PageContainerVersionEntity
-    extends PageContainerVersionAbstract
+    extends ContentEntityAbstract
     implements ContentEntity
 {
-    use ContentEntityTrait;
-
     /**
      * @var int
      *
@@ -91,20 +92,17 @@ class PageContainerVersionEntity
     protected $blockVersions = [];
 
     /**
-     * @param array  $properties
-     * @param string $createdByUserId
-     * @param string $createdReason
+     * @param string|null $id
+     * @param array       $properties
+     * @param string      $createdByUserId
+     * @param string      $createdReason
      */
     public function __construct(
+        $id,
         array $properties,
         string $createdByUserId,
         string $createdReason
     ) {
-        $this->id = Param::getInt(
-            $properties,
-            FieldsPageContainerVersion::ID
-        );
-
         $this->title = Param::getString(
             $properties,
             FieldsPageContainerVersion::TITLE
@@ -117,13 +115,14 @@ class PageContainerVersionEntity
 
         $this->blockVersions = Param::getArray(
             $properties,
-            PropertiesPageContainerVersionEntity::BLOCK_VERSIONS,
+            FieldsPageContainerVersion::BLOCK_VERSIONS,
             []
         );
 
-        Param::remove($properties, PropertiesPageContainerVersionEntity::BLOCK_VERSIONS);
+        Param::remove($properties, FieldsPageContainerVersion::BLOCK_VERSIONS);
 
         parent::__construct(
+            $id,
             $properties,
             $createdByUserId,
             $createdReason
@@ -136,7 +135,7 @@ class PageContainerVersionEntity
     public function getProperties(): array
     {
         $properties = parent::getProperties();
-        $properties[PropertiesPageContainerVersionEntity::BLOCK_VERSIONS] = $this->getBlockVersions();
+        $properties[FieldsPageContainerVersion::BLOCK_VERSIONS] = $this->getBlockVersions();
 
         return $properties;
     }
@@ -147,5 +146,16 @@ class PageContainerVersionEntity
     public function getBlockVersions(): array
     {
         return $this->blockVersions;
+    }
+
+    /**
+     * @return void
+     *
+     * @ORM\PostPersist
+     */
+    public function postPersist(LifecycleEventArgs $event)
+    {
+        $this->properties[FieldsPageContainerVersion::TITLE] = $this->title;
+        $this->properties[FieldsPageContainerVersion::KEYWORDS] = $this->keywords;
     }
 }

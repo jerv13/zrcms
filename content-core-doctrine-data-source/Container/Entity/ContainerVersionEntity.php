@@ -3,11 +3,9 @@
 namespace Zrcms\ContentCoreDoctrineDataSource\Container\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Zrcms\Content\Fields\FieldsContent;
-use Zrcms\ContentCore\Container\Model\ContainerVersion;
-use Zrcms\ContentCore\Container\Model\ContainerVersionAbstract;
+use Zrcms\ContentCore\Container\Fields\FieldsContainerVersion;
 use Zrcms\ContentDoctrine\Entity\ContentEntity;
-use Zrcms\ContentDoctrine\Entity\ContentEntityTrait;
+use Zrcms\ContentDoctrine\Entity\ContentEntityAbstract;
 use Zrcms\Param\Param;
 
 /**
@@ -21,11 +19,9 @@ use Zrcms\Param\Param;
  * )
  */
 class ContainerVersionEntity
-    extends ContainerVersionAbstract
+    extends ContentEntityAbstract
     implements ContentEntity
 {
-    use ContentEntityTrait;
-
     /**
      * @var int
      *
@@ -77,29 +73,27 @@ class ContainerVersionEntity
     protected $blockVersions = [];
 
     /**
-     * @param array  $properties
-     * @param string $createdByUserId
-     * @param string $createdReason
+     * @param string|null $id
+     * @param array       $properties
+     * @param string      $createdByUserId
+     * @param string      $createdReason
      */
     public function __construct(
+        $id,
         array $properties,
         string $createdByUserId,
         string $createdReason
     ) {
-        $this->id = Param::getInt(
-            $properties,
-            FieldsContent::ID
-        );
-
         $this->blockVersions = Param::getArray(
             $properties,
-            FieldsContainerVersionEntity::BLOCK_VERSIONS,
+            FieldsContainerVersion::BLOCK_VERSIONS,
             []
         );
 
-        Param::remove($properties, FieldsContainerVersionEntity::BLOCK_VERSIONS);
+        Param::remove($properties, FieldsContainerVersion::BLOCK_VERSIONS);
 
         parent::__construct(
+            $id,
             $properties,
             $createdByUserId,
             $createdReason
@@ -112,7 +106,7 @@ class ContainerVersionEntity
     public function getProperties(): array
     {
         $properties = parent::getProperties();
-        $properties[FieldsContainerVersionEntity::BLOCK_VERSIONS] = $this->getBlockVersions();
+        $properties[FieldsContainerVersion::BLOCK_VERSIONS] = $this->getBlockVersions();
 
         return $properties;
     }

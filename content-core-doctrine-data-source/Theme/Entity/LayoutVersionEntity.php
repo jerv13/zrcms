@@ -2,12 +2,13 @@
 
 namespace Zrcms\ContentCoreDoctrineDataSource\Theme\Entity;
 
+use Doctrine\ORM\Event\LifecycleEventArgs;
 use Doctrine\ORM\Mapping as ORM;
 use Zrcms\ContentCore\Theme\Model\LayoutVersion;
 use Zrcms\ContentCore\Theme\Model\LayoutVersionAbstract;
 use Zrcms\ContentCore\Theme\Fields\FieldsLayoutVersion;
 use Zrcms\ContentDoctrine\Entity\ContentEntity;
-use Zrcms\ContentDoctrine\Entity\ContentEntityTrait;
+use Zrcms\ContentDoctrine\Entity\ContentEntityAbstract;
 use Zrcms\Param\Param;
 
 /**
@@ -21,11 +22,9 @@ use Zrcms\Param\Param;
  * )
  */
 class LayoutVersionEntity
-    extends LayoutVersionAbstract
-    implements LayoutVersion, ContentEntity
+    extends ContentEntityAbstract
+    implements ContentEntity
 {
-    use ContentEntityTrait;
-
     /**
      * @var int
      *
@@ -78,29 +77,46 @@ class LayoutVersionEntity
     protected $html;
 
     /**
-     * @param array  $properties
-     * @param string $createdByUserId
-     * @param string $createdReason
+     * @param string|null $id
+     * @param array       $properties
+     * @param string      $createdByUserId
+     * @param string      $createdReason
      */
     public function __construct(
+        $id,
         array $properties,
         string $createdByUserId,
         string $createdReason
     ) {
-        $this->id = Param::getInt(
-            $properties,
-            FieldsLayoutVersion::ID
-        );
-
         $this->html = Param::getString(
             $properties,
-            FieldsLayoutVersion::HTML
+            FieldsLayoutVersion::HTML,
+            ''
         );
 
         parent::__construct(
+            $id,
             $properties,
             $createdByUserId,
             $createdReason
         );
+    }
+
+    /**
+     * @return string
+     */
+    public function getHtml(): string
+    {
+        return $this->html;
+    }
+
+    /**
+     * @return void
+     *
+     * @ORM\PostPersist
+     */
+    public function postPersist(LifecycleEventArgs $event)
+    {
+        $this->properties[FieldsLayoutVersion::HTML] = $this->html;
     }
 }

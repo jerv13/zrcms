@@ -4,9 +4,12 @@ namespace Zrcms\ContentCoreDoctrineDataSource\Container\Entity;
 
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use Doctrine\ORM\Mapping as ORM;
+use Zrcms\Content\Exception\PropertyMissingException;
+use Zrcms\ContentCore\Container\Fields\FieldsContainerCmsResource;
 use Zrcms\ContentDoctrine\Entity\CmsResourceEntity;
 use Zrcms\ContentDoctrine\Entity\CmsResourceEntityAbstract;
 use Zrcms\ContentDoctrine\Entity\ContentEntity;
+use Zrcms\Param\Param;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -59,7 +62,7 @@ class ContainerCmsResourceEntity
      *     onDelete="SET NULL"
      * )
      */
-    protected $contentEntity;
+    protected $contentVersion;
 
     /**
      * @var array
@@ -110,29 +113,90 @@ class ContainerCmsResourceEntity
     protected $path;
 
     /**
-     * @param int|null      $id
-     * @param ContentEntity $contentEntity
-     * @param bool          $published
-     * @param array         $properties
-     * @param string        $createdByUserId
-     * @param string        $createdReason
+     * @param int|null                             $id
+     * @param ContainerVersionEntity|ContentEntity $contentVersion
+     * @param bool                                 $published
+     * @param array                                $properties
+     * @param string                               $createdByUserId
+     * @param string                               $createdReason
      */
     public function __construct(
         $id,
-        ContentEntity $contentEntity,
+        ContentEntity $contentVersion,
         bool $published,
         array $properties,
         string $createdByUserId,
         string $createdReason
     ) {
+        $this->setProperties($properties);
+
         parent::__construct(
             $id,
-            $contentEntity,
+            $contentVersion,
             $published,
             $properties,
             $createdByUserId,
             $createdReason
         );
+    }
+
+    /**
+     * @return string
+     */
+    public function getSiteCmsResourceId(): string
+    {
+        return $this->siteCmsResourceId;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPath(): string
+    {
+        return $this->path;
+    }
+
+    /**
+     * @param array $properties
+     *
+     * @return void
+     */
+    public function setProperties(
+        array $properties
+    ) {
+        Param::assertHas(
+            $properties,
+            FieldsContainerCmsResource::SITE_CMS_RESOURCE_ID,
+            PropertyMissingException::buildThrower(
+                FieldsContainerCmsResource::SITE_CMS_RESOURCE_ID,
+                $properties,
+                get_class($this)
+            )
+        );
+
+        $this->siteCmsResourceId = Param::getString(
+            $properties,
+            FieldsContainerCmsResource::SITE_CMS_RESOURCE_ID,
+            ''
+        );
+
+        Param::assertHas(
+            $properties,
+            FieldsContainerCmsResource::PATH,
+            PropertyMissingException::buildThrower(
+                FieldsContainerCmsResource::PATH,
+                $properties,
+                get_class($this)
+            )
+        );
+
+        $this->path = Param::getString(
+            $properties,
+            FieldsContainerCmsResource::PATH,
+            ''
+        );
+
+        parent::setProperties($properties);
     }
 
     /**
@@ -142,7 +206,7 @@ class ContainerCmsResourceEntity
      */
     public function postPersist(LifecycleEventArgs $event)
     {
-        $this->properties['siteCmsResourceId'] = $this->siteCmsResourceId;
-        $this->properties['path'] = $this->path;
+        $this->properties[FieldsContainerCmsResource::SITE_CMS_RESOURCE_ID] = $this->siteCmsResourceId;
+        $this->properties[FieldsContainerCmsResource::PATH] = $this->path;
     }
 }

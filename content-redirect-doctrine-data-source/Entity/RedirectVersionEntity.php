@@ -2,13 +2,11 @@
 
 namespace Zrcms\ContentRedirectDoctrineDataSource\Entity;
 
+use Doctrine\ORM\Event\LifecycleEventArgs;
 use Doctrine\ORM\Mapping as ORM;
-use Zrcms\Content\Fields\FieldsContent;
-use Zrcms\ContentRedirect\Fields\FieldsRedirectVersion;
-use Zrcms\ContentRedirect\Model\RedirectVersion;
-use Zrcms\ContentRedirect\Model\RedirectVersionAbstract;
 use Zrcms\ContentDoctrine\Entity\ContentEntity;
-use Zrcms\ContentDoctrine\Entity\ContentEntityTrait;
+use Zrcms\ContentDoctrine\Entity\ContentEntityAbstract;
+use Zrcms\ContentRedirect\Fields\FieldsRedirectVersion;
 use Zrcms\Param\Param;
 
 /**
@@ -22,11 +20,9 @@ use Zrcms\Param\Param;
  * )
  */
 class RedirectVersionEntity
-    extends RedirectVersionAbstract
-    implements RedirectVersion, ContentEntity
+    extends ContentEntityAbstract
+    implements ContentEntity
 {
-    use ContentEntityTrait;
-
     /**
      * @var string
      *
@@ -81,26 +77,24 @@ class RedirectVersionEntity
     protected $redirectPath;
 
     /**
-     * @param array  $properties
-     * @param string $createdByUserId
-     * @param string $createdReason
+     * @param string|null $id
+     * @param array       $properties
+     * @param string      $createdByUserId
+     * @param string      $createdReason
      */
     public function __construct(
+        $id,
         array $properties,
         string $createdByUserId,
         string $createdReason
     ) {
-        $this->id = Param::getInt(
-            $properties,
-            FieldsRedirectVersion::ID
-        );
-
         $this->redirectPath = Param::getString(
             $properties,
             FieldsRedirectVersion::REDIRECT_PATH
         );
 
         parent::__construct(
+            $id,
             $properties,
             $createdByUserId,
             $createdReason
@@ -113,5 +107,15 @@ class RedirectVersionEntity
     public function getRedirectPath(): string
     {
         return $this->redirectPath;
+    }
+
+    /**
+     * @return void
+     *
+     * @ORM\PostPersist
+     */
+    public function postPersist(LifecycleEventArgs $event)
+    {
+        $this->properties[FieldsRedirectVersion::REDIRECT_PATH] = $this->redirectPath;
     }
 }
