@@ -6,7 +6,6 @@ use Doctrine\ORM\Event\LifecycleEventArgs;
 use Doctrine\ORM\Mapping as ORM;
 use Zrcms\ContentDoctrine\Entity\CmsResourceEntity;
 use Zrcms\ContentDoctrine\Entity\CmsResourceEntityAbstract;
-use Zrcms\ContentDoctrine\Entity\CmsResourceEntityTrait;
 use Zrcms\ContentDoctrine\Entity\ContentEntity;
 
 /**

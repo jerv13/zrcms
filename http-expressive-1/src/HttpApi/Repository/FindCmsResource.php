@@ -62,7 +62,7 @@ class FindCmsResource
         callable $next = null
     ) {
         $cmsResourceId = (string)$request->getAttribute(
-            FieldsCmsResource::ID
+            'id'
         );
 
         if (empty($cmsResourceId)) {

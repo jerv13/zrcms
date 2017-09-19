@@ -3,6 +3,7 @@
 namespace Zrcms\ContentDoctrine\Api;
 
 use Zrcms\Content\Model\ContentVersion;
+use Zrcms\Content\Model\ContentVersionBasic;
 use Zrcms\ContentDoctrine\Entity\ContentEntity;
 
 /**
@@ -13,7 +14,7 @@ class BuildBasicContentVersion
     /**
      * @param string             $entityClassContentVersion
      * @param string             $classContentVersionBasic
-     * @param ContentEntity|null $entity
+     * @param ContentEntity|null $contentEntity
      * @param array              $contentVersionSyncToProperties
      *
      * @return ContentVersion|null
@@ -22,10 +23,10 @@ class BuildBasicContentVersion
     public static function invoke(
         string $entityClassContentVersion,
         string $classContentVersionBasic,
-        $entity,
+        $contentEntity,
         array $contentVersionSyncToProperties = []
     ) {
-        if (empty($entity)) {
+        if (empty($contentEntity)) {
             return null;
         }
 
@@ -37,30 +38,31 @@ class BuildBasicContentVersion
             throw new \Exception('Class basic must be of type: ' . ContentVersion::class);
         }
 
-        if (!is_a($entity, $entityClassContentVersion)) {
+        if (!is_a($contentEntity, $entityClassContentVersion)) {
             throw new \Exception('Entity must be of type: ' . $entityClassContentVersion);
         }
 
-        if (!is_a($entity, ContentEntity::class)) {
+        if (!is_a($contentEntity, ContentEntity::class)) {
             throw new \Exception('Entity must be of type: ' . ContentEntity::class);
         }
 
         $properties = ExtractContentVersionEntityProperties::invoke(
-            $entity,
+            $contentEntity,
             $contentVersionSyncToProperties
         );
 
         return new $classContentVersionBasic(
+            $contentEntity->getId(),
             $properties,
-            $entity->getCreatedByUserId(),
-            $entity->getCreatedReason()
+            $contentEntity->getCreatedByUserId(),
+            $contentEntity->getCreatedReason()
         );
     }
 
     /**
      * @param string             $entityClassContentVersion
      * @param string             $classContentVersionBasic
-     * @param ContentEntity|null $entity
+     * @param ContentEntity|null $contentEntity
      * @param array              $contentVersionSyncToProperties
      *
      * @return ContentVersion|null
@@ -69,13 +71,13 @@ class BuildBasicContentVersion
     public function __invoke(
         string $entityClassContentVersion,
         string $classContentVersionBasic,
-        $entity,
+        $contentEntity,
         array $contentVersionSyncToProperties = []
     ) {
         return self::invoke(
             $entityClassContentVersion,
             $classContentVersionBasic,
-            $entity,
+            $contentEntity,
             $contentVersionSyncToProperties
         );
     }

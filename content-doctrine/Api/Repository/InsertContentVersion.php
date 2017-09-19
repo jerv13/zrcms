@@ -26,16 +26,17 @@ class InsertContentVersion
         array $options = []
     ): ContentVersion
     {
-        /** @var ContentVersion::class $entityClass */
-        $entityClass = $this->entityClassContentVersion;
+        /** @var ContentVersion::class $contentVersionEntityClass */
+        $contentVersionEntityClass = $this->entityClassContentVersion;
 
         if (!empty($contentVersion->getId())) {
             throw new IdMustBeEmptyException(
-                "ID may not be set on create for {$entityClass} with id " . $contentVersion->getId()
+                "ID may not be set on create for {$contentVersionEntityClass} with id "
+                . $contentVersion->getId()
             );
         }
 
-        $newContentVersion = new $entityClass(
+        $newContentVersion = new $contentVersionEntityClass(
             $contentVersion->getProperties(),
             $contentVersion->getCreatedByUserId(),
             $contentVersion->getCreatedReason()

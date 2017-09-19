@@ -4,8 +4,6 @@ namespace Zrcms\ContentDoctrine\Entity;
 
 use Zrcms\Content\Exception\CmsResourceInvalid;
 use Zrcms\Content\Model\ImmutableTrait;
-use Zrcms\Content\Model\PropertiesTrait;
-use Zrcms\Content\Model\TrackableTrait;
 
 /**
  * A history record of the state of
@@ -15,8 +13,7 @@ use Zrcms\Content\Model\TrackableTrait;
 abstract class CmsResourcePublishHistoryEntityAbstract
 {
     use ImmutableTrait;
-    use TrackableTrait;
-    use CmsResourcePublishHistoryEntityTrait;
+    use TrackableEntityTrait;
 
     /**
      * @var null|string

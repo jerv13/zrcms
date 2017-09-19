@@ -3,6 +3,7 @@
 namespace Zrcms\ContentDoctrine\Api;
 
 use Zrcms\Content\Model\CmsResource;
+use Zrcms\ContentDoctrine\Entity\CmsResourceEntity;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -10,13 +11,13 @@ use Zrcms\Content\Model\CmsResource;
 class BuildBasicCmsResources
 {
     /**
-     * @param string $entityClassCmsResource
-     * @param string $classCmsResourceBasic
-     * @param string $entityClassContentVersion
-     * @param string $classContentVersionBasic
-     * @param array  $entities
-     * @param array  $cmsResourceSyncToProperties
-     * @param array  $contentVersionSyncToProperties
+     * @param string              $entityClassCmsResource
+     * @param string              $classCmsResourceBasic
+     * @param string              $entityClassContentVersion
+     * @param string              $classContentVersionBasic
+     * @param CmsResourceEntity[] $cmsResourceEntities
+     * @param array               $cmsResourceSyncToProperties
+     * @param array               $contentVersionSyncToProperties
      *
      * @return CmsResource[]
      */
@@ -25,19 +26,19 @@ class BuildBasicCmsResources
         string $classCmsResourceBasic,
         string $entityClassContentVersion,
         string $classContentVersionBasic,
-        array $entities,
+        array $cmsResourceEntities,
         array $cmsResourceSyncToProperties = [],
         array $contentVersionSyncToProperties = []
     ) {
         $basics = [];
 
-        foreach ($entities as $entity) {
+        foreach ($cmsResourceEntities as $cmsResourceEntity) {
             $basics[] = BuildBasicCmsResource::invoke(
                 $entityClassCmsResource,
                 $classCmsResourceBasic,
                 $entityClassContentVersion,
                 $classContentVersionBasic,
-                $entity,
+                $cmsResourceEntity,
                 $cmsResourceSyncToProperties,
                 $contentVersionSyncToProperties
             );
@@ -47,13 +48,13 @@ class BuildBasicCmsResources
     }
 
     /**
-     * @param string $entityClassCmsResource
-     * @param string $classCmsResourceBasic
-     * @param string $entityClassContentVersion
-     * @param string $classContentVersionBasic
-     * @param array  $entities
-     * @param array  $cmsResourceSyncToProperties
-     * @param array  $contentVersionSyncToProperties
+     * @param string              $entityClassCmsResource
+     * @param string              $classCmsResourceBasic
+     * @param string              $entityClassContentVersion
+     * @param string              $classContentVersionBasic
+     * @param CmsResourceEntity[] $cmsResourceEntities
+     * @param array               $cmsResourceSyncToProperties
+     * @param array               $contentVersionSyncToProperties
      *
      * @return CmsResource[]
      */
@@ -62,7 +63,7 @@ class BuildBasicCmsResources
         string $classCmsResourceBasic,
         string $entityClassContentVersion,
         string $classContentVersionBasic,
-        array $entities,
+        array $cmsResourceEntities,
         array $cmsResourceSyncToProperties = [],
         array $contentVersionSyncToProperties = []
     ) {
@@ -71,7 +72,7 @@ class BuildBasicCmsResources
             $classCmsResourceBasic,
             $entityClassContentVersion,
             $classContentVersionBasic,
-            $entities,
+            $cmsResourceEntities,
             $cmsResourceSyncToProperties,
             $contentVersionSyncToProperties
         );

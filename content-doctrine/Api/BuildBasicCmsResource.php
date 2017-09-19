@@ -3,7 +3,6 @@
 namespace Zrcms\ContentDoctrine\Api;
 
 use Zrcms\Content\Model\CmsResource;
-use Zrcms\Content\Fields\FieldsCmsResource;
 use Zrcms\ContentDoctrine\Entity\CmsResourceEntity;
 
 /**
@@ -16,7 +15,7 @@ class BuildBasicCmsResource
      * @param string                 $classCmsResourceBasic
      * @param string                 $entityClassContentVersion
      * @param string                 $classContentVersionBasic
-     * @param CmsResourceEntity|null $entity
+     * @param CmsResourceEntity|null $cmsResourceEntity
      * @param array                  $cmsResourceSyncToProperties
      * @param array                  $contentVersionSyncToProperties
      *
@@ -28,11 +27,11 @@ class BuildBasicCmsResource
         string $classCmsResourceBasic,
         string $entityClassContentVersion,
         string $classContentVersionBasic,
-        $entity,
+        $cmsResourceEntity,
         array $cmsResourceSyncToProperties = [],
         array $contentVersionSyncToProperties = []
     ) {
-        if (empty($entity)) {
+        if (empty($cmsResourceEntity)) {
             return null;
         }
 
@@ -48,34 +47,37 @@ class BuildBasicCmsResource
             );
         }
 
-        if (!is_a($entity, $entityClassCmsResource)) {
+        if (!is_a($cmsResourceEntity, $entityClassCmsResource)) {
             throw new \Exception(
-                'Entity must be of type: ' . $entityClassCmsResource . ' got: ' . get_class($entity)
+                'Entity must be of type: ' . $entityClassCmsResource . ' got: ' . get_class($cmsResourceEntity)
             );
         }
 
-        if (!is_a($entity, CmsResourceEntity::class)) {
+        if (!is_a($cmsResourceEntity, CmsResourceEntity::class)) {
             throw new \Exception(
-                'Entity must be of type: ' . CmsResourceEntity::class . ' got: ' . get_class($entity)
+                'Entity must be of type: ' . CmsResourceEntity::class . ' got: ' . get_class($cmsResourceEntity)
             );
         }
 
         $properties = ExtractCmsResourceEntityProperties::invoke(
-            $entity,
+            $cmsResourceEntity,
             $cmsResourceSyncToProperties
         );
 
-        $properties[FieldsCmsResource::CONTENT_VERSION] = BuildBasicContentVersion::invoke(
+        $contentVersion = BuildBasicContentVersion::invoke(
             $entityClassContentVersion,
             $classContentVersionBasic,
-            $properties[FieldsCmsResource::CONTENT_VERSION],
+            $cmsResourceEntity->getContentVersion(),
             $contentVersionSyncToProperties
         );
 
         $new = new $classCmsResourceBasic(
+            $cmsResourceEntity->getId(),
+            $cmsResourceEntity->isPublished(),
+            $contentVersion,
             $properties,
-            $entity->getCreatedByUserId(),
-            $entity->getCreatedReason()
+            $cmsResourceEntity->getCreatedByUserId(),
+            $cmsResourceEntity->getCreatedReason()
         );
 
         return $new;
@@ -86,7 +88,7 @@ class BuildBasicCmsResource
      * @param string                 $classCmsResourceBasic
      * @param string                 $entityClassContentVersion
      * @param string                 $classContentVersionBasic
-     * @param CmsResourceEntity|null $entity
+     * @param CmsResourceEntity|null $cmsResourceEntity
      * @param array                  $cmsResourceSyncToProperties
      * @param array                  $contentVersionSyncToProperties
      *
@@ -97,7 +99,7 @@ class BuildBasicCmsResource
         string $classCmsResourceBasic,
         string $entityClassContentVersion,
         string $classContentVersionBasic,
-        $entity,
+        $cmsResourceEntity,
         array $cmsResourceSyncToProperties = [],
         array $contentVersionSyncToProperties = []
     ) {
@@ -106,7 +108,7 @@ class BuildBasicCmsResource
             $classCmsResourceBasic,
             $entityClassContentVersion,
             $classContentVersionBasic,
-            $entity,
+            $cmsResourceEntity,
             $cmsResourceSyncToProperties,
             $contentVersionSyncToProperties
         );

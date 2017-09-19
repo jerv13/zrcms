@@ -9,6 +9,7 @@ use Zrcms\Content\Api\Repository\FindContentVersion;
 use Zrcms\Content\Model\CmsResource;
 use Zrcms\Content\Fields\FieldsCmsResource;
 use Zrcms\Content\Fields\FieldsContentVersion;
+use Zrcms\Content\Model\CmsResourceBasic;
 use Zrcms\HttpExpressive1\Model\JsonApiResponse;
 use Zrcms\HttpExpressive1\Model\ResponseCodes;
 use Zrcms\User\Api\GetUserIdByRequest;
@@ -97,9 +98,9 @@ class PublishCmsResource
         ResponseInterface $response,
         callable $next = null
     ) {
-        $properties = $request->getParsedBody();
+        $requestData = $request->getParsedBody();
 
-        if (empty($properties)) {
+        if (empty($requestData)) {
             $apiMessages = [
                 'type' => $this->name,
                 'value' => 'Data not received',
@@ -136,7 +137,7 @@ class PublishCmsResource
             );
         }
 
-        $requestedContentVersionId = $properties[FieldsCmsResource::CONTENT_VERSION][FieldsContentVersion::ID];
+        $requestedContentVersionId = $requestData['contentVersion']['id'];
 
         $contentVersion = $this->findContentVersion->__invoke(
             $requestedContentVersionId
@@ -158,14 +159,14 @@ class PublishCmsResource
                 404
             );
         }
-
-        $properties[FieldsCmsResource::CONTENT_VERSION] = $contentVersion;
-
         /** @var CmsResource::class $cmsResourceClass */
         $cmsResourceClass = $this->cmsResourceClass;
 
         $cmsResource = new $cmsResourceClass(
-            $properties,
+            $requestData['id'],
+            true,
+            $contentVersion,
+            $requestData['properties'],
             $createdByUserId,
             $createdReason
         );

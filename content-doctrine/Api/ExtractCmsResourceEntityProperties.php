@@ -22,25 +22,6 @@ class ExtractCmsResourceEntityProperties
         CmsResourceEntity $entity,
         array $cmsResourceSyncToProperties
     ) {
-        // always sync
-        if (!array_key_exists(FieldsCmsResource::ID, $cmsResourceSyncToProperties)) {
-            $cmsResourceSyncToProperties[] = FieldsCmsResource::ID;
-        }
-
-        if (!array_key_exists(FieldsCmsResource::CONTENT_VERSION, $cmsResourceSyncToProperties)) {
-            $cmsResourceSyncToProperties[] = FieldsCmsResource::CONTENT_VERSION;
-        }
-
-        // @todo This is for publish only - needs to have it's own sync
-        if (is_a($entity, CmsResourcePublishHistory::class)
-            && !array_key_exists(
-                FieldsCmsResource::PUBLISHED,
-                $cmsResourceSyncToProperties
-            )
-        ) {
-            $cmsResourceSyncToProperties[] = FieldsCmsResource::PUBLISHED;
-        }
-
         $properties = $entity->getProperties();
 
         foreach ($cmsResourceSyncToProperties as $syncToProperty) {

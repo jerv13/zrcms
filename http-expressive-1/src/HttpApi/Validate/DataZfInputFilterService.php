@@ -48,16 +48,16 @@ class DataZfInputFilterService
         ResponseInterface $response,
         callable $next = null
     ) {
-        $data = $request->getParsedBody();
+        $requestData = $request->getParsedBody();
 
         $serviceAwareInputFilter = new ServiceAwareInputFilter(
             $this->factory,
             $this->inputFilterConfig
         );
 
-        $serviceAwareInputFilter->setData($data);
+        $serviceAwareInputFilter->setData($requestData);
 
-        if (!$serviceAwareInputFilter->isValid($data)) {
+        if (!$serviceAwareInputFilter->isValid($requestData)) {
             return new JsonApiResponse(
                 null,
                 $serviceAwareInputFilter,

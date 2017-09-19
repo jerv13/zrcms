@@ -3,6 +3,7 @@
 namespace Zrcms\ContentRedirect\Model;
 
 use Zrcms\Content\Model\ContentVersionAbstract;
+use Zrcms\ContentRedirect\Fields\FieldsRedirectVersion;
 use Zrcms\Param\Param;
 
 /**

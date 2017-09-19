@@ -37,12 +37,19 @@ interface CmsResourceEntity extends Entity, Properties, Trackable
     /**
      * @return ContentEntity
      */
-    public function getContentEntity();
+    public function getContentVersion();
 
     /**
      * @return bool
      */
     public function isPublished(): bool;
+
+    /**
+     * @param bool $published
+     *
+     * @return void
+     */
+    public function setPublished(bool $published);
 
     /**
      * Sync array of properties to object properties and set properties

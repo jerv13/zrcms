@@ -5,6 +5,7 @@ namespace Zrcms\ContentRedirect\Model;
 use Zrcms\Content\Exception\ContentVersionInvalid;
 use Zrcms\Content\Model\CmsResourceAbstract;
 use Zrcms\Content\Model\ContentVersion;
+use Zrcms\ContentRedirect\Fields\FieldsRedirectCmsResource;
 use Zrcms\Param\Param;
 
 /**

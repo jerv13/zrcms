@@ -35,7 +35,7 @@ class FindCmsResourcesPublished
             $this->entityClassCmsResource
         );
 
-        $criteria[FieldsCmsResource::PUBLISHED] = true;
+        $criteria['published'] = true;
 
         $entities = $repository->findBy(
             $criteria,

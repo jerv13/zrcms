@@ -62,7 +62,7 @@ class FindComponent
         callable $next = null
     ) {
         $componentName = (string)$request->getAttribute(
-            FieldsComponent::NAME
+            'name'
         );
 
         if (empty($componentName)) {

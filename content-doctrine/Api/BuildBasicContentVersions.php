@@ -3,6 +3,7 @@
 namespace Zrcms\ContentDoctrine\Api;
 
 use Zrcms\Content\Model\ContentVersion;
+use Zrcms\ContentDoctrine\Entity\ContentEntity;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -10,26 +11,26 @@ use Zrcms\Content\Model\ContentVersion;
 class BuildBasicContentVersions
 {
     /**
-     * @param string $entityClassContentVersion
-     * @param string $classContentVersionBasic
-     * @param array  $entities
-     * @param array  $contentVersionSyncToProperties
+     * @param string          $entityClassContentVersion
+     * @param string          $classContentVersionBasic
+     * @param ContentEntity[] $contentEntities
+     * @param array           $contentVersionSyncToProperties
      *
      * @return ContentVersion[]
      */
     public static function invoke(
         string $entityClassContentVersion,
         string $classContentVersionBasic,
-        array $entities,
+        array $contentEntities,
         array $contentVersionSyncToProperties = []
     ) {
         $basics = [];
 
-        foreach ($entities as $entity) {
+        foreach ($contentEntities as $contentEntity) {
             $basics[] = BuildBasicContentVersion::invoke(
                 $entityClassContentVersion,
                 $classContentVersionBasic,
-                $entity,
+                $contentEntity,
                 $contentVersionSyncToProperties
             );
         }
@@ -38,23 +39,23 @@ class BuildBasicContentVersions
     }
 
     /**
-     * @param string $entityClassContentVersion
-     * @param string $classContentVersionBasic
-     * @param array  $entities
-     * @param array  $contentVersionSyncToProperties
+     * @param string          $entityClassContentVersion
+     * @param string          $classContentVersionBasic
+     * @param ContentEntity[] $contentEntities
+     * @param array           $contentVersionSyncToProperties
      *
      * @return ContentVersion[]
      */
     public function __invoke(
         string $entityClassContentVersion,
         string $classContentVersionBasic,
-        array $entities,
+        array $contentEntities,
         array $contentVersionSyncToProperties = []
     ) {
         return self::invoke(
             $entityClassContentVersion,
             $classContentVersionBasic,
-            $entities,
+            $contentEntities,
             $contentVersionSyncToProperties
         );
     }

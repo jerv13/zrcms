@@ -9,7 +9,7 @@ use Zrcms\Content\Model\PropertiesTrait;
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class CmsResourceEntityAbstract
+abstract class CmsResourceEntityAbstract
 {
     use ImmutableTrait;
     use PropertiesTrait;
@@ -105,7 +105,7 @@ class CmsResourceEntityAbstract
     /**
      * @return ContentEntity
      */
-    public function getContentEntity()
+    public function getContentVersion()
     {
         return $this->contentEntity;
     }
@@ -116,6 +116,16 @@ class CmsResourceEntityAbstract
     public function isPublished(): bool
     {
         return $this->published;
+    }
+
+    /**
+     * @param bool $published
+     *
+     * @return void
+     */
+    public function setPublished(bool $published)
+    {
+        $this->published = $published;
     }
 
     /**

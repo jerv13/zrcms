@@ -2,6 +2,7 @@
 
 namespace Zrcms\ContentDoctrine\Entity;
 
+use Doctrine\ORM\Mapping as ORM;
 use Zrcms\Content\Exception\TrackingException;
 use Zrcms\Content\Model\Trackable;
 use Zrcms\Content\Model\TrackableTrait;
@@ -45,7 +46,6 @@ trait TrackableEntityTrait
      */
     public function prePersist()
     {
-        // Expects class to implement Trackable
         $this->assertHasTrackingData();
     }
 }

@@ -114,7 +114,7 @@ class SiteCmsResourceEntity
         string $createdByUserId,
         string $createdReason
     ) {
-        $this->updateProperties($properties);
+        $this->setProperties($properties);
 
         parent::__construct(
             $properties,

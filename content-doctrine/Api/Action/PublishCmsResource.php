@@ -3,15 +3,16 @@ namespace Zrcms\ContentDoctrine\Api\Action;
 
 use Doctrine\ORM\EntityManager;
 use Zrcms\Content\Exception\ContentVersionNotExistsException;
+use Zrcms\Content\Fields\FieldsCmsResourcePublishHistory;
 use Zrcms\Content\Model\Action;
 use Zrcms\Content\Model\CmsResource;
 use Zrcms\Content\Model\CmsResourcePublishHistory;
-use Zrcms\Content\Fields\FieldsCmsResource;
-use Zrcms\Content\Fields\FieldsCmsResourcePublishHistory;
+use Zrcms\Content\Model\CmsResourcePublishHistoryBasic;
 use Zrcms\ContentDoctrine\Api\ApiAbstract;
 use Zrcms\ContentDoctrine\Api\BuildBasicCmsResource;
 use Zrcms\ContentDoctrine\Entity\CmsResourceEntity;
 use Zrcms\ContentDoctrine\Entity\CmsResourcePublishHistoryEntity;
+use Zrcms\ContentDoctrine\Entity\CmsResourcePublishHistoryEntityBasic;
 use Zrcms\ContentDoctrine\Entity\ContentEntity;
 
 /**
@@ -153,10 +154,6 @@ class PublishCmsResource
 
         $properties = $cmsResource->getProperties();
 
-        $properties[FieldsCmsResource::CONTENT_VERSION] = $existingContentVersion;
-
-        $properties[FieldsCmsResource::PUBLISHED] = true;
-
         if ($existingCmsResourceEntity) {
             return $this->update(
                 $existingCmsResourceEntity,
@@ -171,6 +168,9 @@ class PublishCmsResource
 
         /** @var CmsResourceEntity $newCmsResourceEntity */
         $newCmsResourceEntity = new $cmsResourceEntityClass(
+            $cmsResource->getId(),
+            true,
+            $existingContentVersion,
             $properties,
             $publishedByUserId,
             $publishReason
@@ -211,21 +211,14 @@ class PublishCmsResource
         string $publishedByUserId,
         string $publishReason
     ) {
-
-        $historyProperties = $cmsResourceEntity->getProperties();
-        $historyProperties[FieldsCmsResourcePublishHistory::CMS_RESOURCE_ID]
-            = $cmsResourceEntity->getId();
-        $historyProperties[FieldsCmsResourcePublishHistory::CONTENT_VERSION]
-            = $cmsResourceEntity->getContentVersion();
-        $historyProperties[FieldsCmsResourcePublishHistory::ACTION]
-            = Action::PUBLISH_CMS_RESOURCE;
-
         /** @var CmsResourcePublishHistoryEntity::class $cmsResourcePublishHistoryEntityClass */
         $cmsResourcePublishHistoryEntityClass = $this->entityClassCmsResourcePublishHistory;
 
         /** @var CmsResourcePublishHistory $newCmsResourcePublishHistory */
         return new $cmsResourcePublishHistoryEntityClass(
-            $historyProperties,
+            null,
+            Action::PUBLISH_CMS_RESOURCE,
+            $cmsResourceEntity,
             $publishedByUserId,
             $publishReason
         );
@@ -246,7 +239,7 @@ class PublishCmsResource
         string $publishReason
     ): CmsResource
     {
-        $existingCmsResource->updateProperties(
+        $existingCmsResource->setProperties(
             $properties
         );
 

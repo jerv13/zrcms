@@ -77,9 +77,9 @@ class InsertContentVersion
         ResponseInterface $response,
         callable $next = null
     ) {
-        $properties = $request->getParsedBody();
+        $requestData = $request->getParsedBody();
 
-        if (empty($properties)) {
+        if (empty($requestData)) {
             $apiMessages = [
                 'type' => $this->name,
                 'value' => 'Data not received',
@@ -100,7 +100,7 @@ class InsertContentVersion
         $contentVersionClass = $this->contentVersionClass;
 
         $contentVersion = new $contentVersionClass(
-            $properties,
+            $requestData,
             $this->getUserIdByRequest->__invoke($request),
             get_class($this)
         );
