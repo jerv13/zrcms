@@ -254,7 +254,7 @@ class Import
         foreach ($data['sites'] as $site) {
             $this->log(
                 LogLevel::INFO,
-                'executing insertSiteVersion('
+                'Insert SiteVersion('
                 . 'siteId:' . $site['id']
                 . ',host:' . $site['host']
                 . ')',
@@ -271,7 +271,7 @@ class Import
 
             $this->log(
                 LogLevel::INFO,
-                'executing publishSiteCmsResource('
+                'Publish SiteCmsResource('
                 . 'siteId:' . $site['id']
                 . ',host:' . $site['host']
                 . ')',
@@ -319,7 +319,7 @@ class Import
             if (!Param::getBool($site, 'published', true)) {
                 $this->log(
                     LogLevel::WARNING,
-                    'UNPUBLISH site ID: ' . $publishedSiteCmsResource->getId(),
+                    'UNPUBLISH SiteCmsResource ID: ' . $publishedSiteCmsResource->getId(),
                     $options
                 );
 
@@ -352,7 +352,7 @@ class Import
 
             $this->log(
                 LogLevel::INFO,
-                'executing insertPageContainerVersion('
+                'Insert PageContainerVersion('
                 . 'siteId:' . $page['siteId'] . ',path:' . $page['path']
                 . ')',
                 $options
@@ -368,7 +368,7 @@ class Import
 
             $this->log(
                 LogLevel::INFO,
-                'executing publishPageContainerCmsResource('
+                'Publish PageContainerCmsResource('
                 . 'siteId:' . $page['siteId'] . ',path:' . $page['path']
                 . ')',
                 $options
@@ -392,7 +392,7 @@ class Import
             if (!Param::getBool($page, 'published', true)) {
                 $this->log(
                     LogLevel::WARNING,
-                    'UNPUBLISH page ID: ' . $publishedPageContainerCmsResource->getId(),
+                    'UNPUBLISH PageContainerCmsResource ID: ' . $publishedPageContainerCmsResource->getId(),
                     $options
                 );
 
@@ -425,7 +425,7 @@ class Import
 
             $this->log(
                 LogLevel::INFO,
-                'executing insertPageContainerVersion('
+                'Insert PageContainerVersion('
                 . 'siteId:' . $page['siteId'] . ',path:' . $page['path']
                 . ')',
                 $options
@@ -441,7 +441,7 @@ class Import
 
             $this->log(
                 LogLevel::INFO,
-                'executing publishPageTemplateCmsResource('
+                'Publish PageTemplateCmsResource('
                 . 'siteId:' . $page['siteId'] . ',path:' . $page['path']
                 . ')',
                 $options
@@ -465,7 +465,7 @@ class Import
             if (!Param::getBool($page, 'published', true)) {
                 $this->log(
                     LogLevel::WARNING,
-                    'UNPUBLISH page ID: ' . $publishedPageTemplateCmsResource->getId(),
+                    'UNPUBLISH PageTemplateCmsResource ID: ' . $publishedPageTemplateCmsResource->getId(),
                     $options
                 );
 
@@ -498,7 +498,7 @@ class Import
 
             $this->log(
                 LogLevel::INFO,
-                'executing insertContainerVersion('
+                'Insert ContainerVersion('
                 . 'siteId:' . $container['siteId'] . ',path:' . $container['path']
                 . ')',
                 $options
@@ -514,7 +514,7 @@ class Import
 
             $this->log(
                 LogLevel::INFO,
-                'executing publishContainerCmsResource('
+                'Publish ContainerCmsResource('
                 . 'siteId:' . $container['siteId'] . ',path:' . $container['path']
                 . ')',
                 $options
@@ -538,7 +538,7 @@ class Import
             if (!Param::getBool($container, 'published', true)) {
                 $this->log(
                     LogLevel::WARNING,
-                    'UNPUBLISH container ID: ' . $publishedContainerCmsResource->getId(),
+                    'UNPUBLISH ContainerCmsResource ID: ' . $publishedContainerCmsResource->getId(),
                     $options
                 );
 
@@ -588,7 +588,7 @@ class Import
 
             $this->log(
                 LogLevel::INFO,
-                'executing insertRedirectVersion('
+                'Insert RedirectVersion('
                 . 'siteId:' . $redirect['siteId'] . ',requestPath:' . $redirect['requestPath']
                 . ')',
                 $options
@@ -604,7 +604,7 @@ class Import
 
             $this->log(
                 LogLevel::INFO,
-                'executing publishRedirectCmsResource('
+                'Publish RedirectCmsResource('
                 . 'siteId:' . $redirect['siteId'] . ',requestPath:' . $redirect['requestPath']
                 . ')',
                 $options
@@ -629,7 +629,7 @@ class Import
             if (!Param::getBool($redirect, 'published', true)) {
                 $this->log(
                     LogLevel::WARNING,
-                    'UNPUBLISH redirect ID: ' . $publishedRedirectCmsResource->getId(),
+                    'UNPUBLISH RedirectCmsResource ID: ' . $publishedRedirectCmsResource->getId(),
                     $options
                 );
 
