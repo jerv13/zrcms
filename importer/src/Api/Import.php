@@ -251,12 +251,18 @@ class Import
         string $createdReason,
         array $options = []
     ) {
+        $this->log(
+            LogLevel::INFO,
+            'Import Sites:',
+            $options
+        );
+
         foreach ($data['sites'] as $site) {
             $this->log(
                 LogLevel::INFO,
-                'Insert SiteVersion('
-                . 'siteId:' . $site['id']
-                . ',host:' . $site['host']
+                'Import Site: ('
+                . 'siteId: ' . $site['id']
+                . ',host: ' . $site['host']
                 . ')',
                 $options
             );
@@ -269,14 +275,6 @@ class Import
                 )
             );
 
-            $this->log(
-                LogLevel::INFO,
-                'Publish SiteCmsResource('
-                . 'siteId:' . $site['id']
-                . ',host:' . $site['host']
-                . ')',
-                $options
-            );
             $publishedSiteCmsResource = $this->publishSiteCmsResource->__invoke(
                 new SiteCmsResourceBasic(
                     $site['id'],
@@ -348,15 +346,15 @@ class Import
         string $createdReason,
         array $options = []
     ) {
-        foreach ($pages as $page) {
+        $this->log(
+            LogLevel::INFO,
+            'Import Pages: ('
+            . 'siteId:' . $siteCmsResource->getId()
+            . ')',
+            $options
+        );
 
-            $this->log(
-                LogLevel::INFO,
-                'Insert PageContainerVersion('
-                . 'siteId:' . $page['siteId'] . ',path:' . $page['path']
-                . ')',
-                $options
-            );
+        foreach ($pages as $page) {
             $version = $this->insertPageContainerVersion->__invoke(
                 new PageContainerVersionBasic(
                     null,
@@ -366,13 +364,6 @@ class Import
                 )
             );
 
-            $this->log(
-                LogLevel::INFO,
-                'Publish PageContainerCmsResource('
-                . 'siteId:' . $page['siteId'] . ',path:' . $page['path']
-                . ')',
-                $options
-            );
             $publishedPageContainerCmsResource = $this->publishPageContainerCmsResource->__invoke(
                 new PageContainerCmsResourceBasic(
                     null,
@@ -421,15 +412,15 @@ class Import
         string $createdReason,
         array $options = []
     ) {
-        foreach ($pages as $page) {
+        $this->log(
+            LogLevel::INFO,
+            'Import Page Templates: ('
+            . 'siteId: ' . $siteCmsResource->getId()
+            . ')',
+            $options
+        );
 
-            $this->log(
-                LogLevel::INFO,
-                'Insert PageContainerVersion('
-                . 'siteId:' . $page['siteId'] . ',path:' . $page['path']
-                . ')',
-                $options
-            );
+        foreach ($pages as $page) {
             $version = $this->insertPageContainerVersion->__invoke(
                 new PageContainerVersionBasic(
                     null,
@@ -439,13 +430,6 @@ class Import
                 )
             );
 
-            $this->log(
-                LogLevel::INFO,
-                'Publish PageTemplateCmsResource('
-                . 'siteId:' . $page['siteId'] . ',path:' . $page['path']
-                . ')',
-                $options
-            );
             $publishedPageTemplateCmsResource = $this->publishPageTemplateCmsResource->__invoke(
                 new PageTemplateCmsResourceBasic(
                     null,
@@ -494,15 +478,15 @@ class Import
         string $createdReason,
         array $options = []
     ) {
-        foreach ($containers as $container) {
+        $this->log(
+            LogLevel::INFO,
+            'Import Containers: ('
+            . 'siteId: ' . $siteCmsResource->getId()
+            . ')',
+            $options
+        );
 
-            $this->log(
-                LogLevel::INFO,
-                'Insert ContainerVersion('
-                . 'siteId:' . $container['siteId'] . ',path:' . $container['path']
-                . ')',
-                $options
-            );
+        foreach ($containers as $container) {
             $version = $this->insertContainerVersion->__invoke(
                 new ContainerVersionBasic(
                     null,
@@ -512,13 +496,6 @@ class Import
                 )
             );
 
-            $this->log(
-                LogLevel::INFO,
-                'Publish ContainerCmsResource('
-                . 'siteId:' . $container['siteId'] . ',path:' . $container['path']
-                . ')',
-                $options
-            );
             $publishedContainerCmsResource = $this->publishContainerCmsResource->__invoke(
                 new ContainerCmsResourceBasic(
                     null,
@@ -584,15 +561,13 @@ class Import
         string $createdReason,
         array $options = []
     ) {
-        foreach ($redirects as $redirect) {
+        $this->log(
+            LogLevel::INFO,
+            'Import Redirects: ',
+            $options
+        );
 
-            $this->log(
-                LogLevel::INFO,
-                'Insert RedirectVersion('
-                . 'siteId:' . $redirect['siteId'] . ',requestPath:' . $redirect['requestPath']
-                . ')',
-                $options
-            );
+        foreach ($redirects as $redirect) {
             $version = $this->insertRedirectVersion->__invoke(
                 new RedirectVersionBasic(
                     null,
@@ -600,14 +575,6 @@ class Import
                     $createdByUserId,
                     $createdReason
                 )
-            );
-
-            $this->log(
-                LogLevel::INFO,
-                'Publish RedirectCmsResource('
-                . 'siteId:' . $redirect['siteId'] . ',requestPath:' . $redirect['requestPath']
-                . ')',
-                $options
             );
 
             $publishedRedirectCmsResource = $this->publishRedirectCmsResource->__invoke(
