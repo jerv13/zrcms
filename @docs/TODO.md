@@ -1,11 +1,5 @@
 @todo
 =====
-
-- Milestone 1
-    - Convert google analyitics
-    - No SITE ref
-    - Use API abstracions
-    - Move to middleware if possible
         
 - APIs in http-expressive
     - Test

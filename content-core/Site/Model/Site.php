@@ -23,7 +23,7 @@ interface Site extends Content
      * @param string     $httpStatus
      * @param mixed|null $default
      *
-     * @return string|null
+     * @return array
      */
     public function findStatusPage(string $httpStatus, $default = null);
 }

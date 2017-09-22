@@ -3,11 +3,11 @@
 namespace Zrcms\ContentRedirectDoctrineDataSource\Api\Repository;
 
 use Doctrine\ORM\EntityManager;
+use Zrcms\ContentDoctrine\Api\Repository\FindCmsResourcesBy;
 use Zrcms\ContentRedirect\Model\RedirectCmsResource;
 use Zrcms\ContentRedirect\Model\RedirectCmsResourceBasic;
 use Zrcms\ContentRedirect\Model\RedirectVersionBasic;
 use Zrcms\ContentRedirectDoctrineDataSource\Entity\RedirectCmsResourceEntity;
-use Zrcms\ContentDoctrine\Api\Repository\FindCmsResourcesBy;
 use Zrcms\ContentRedirectDoctrineDataSource\Entity\RedirectVersionEntity;
 
 /**
@@ -15,7 +15,7 @@ use Zrcms\ContentRedirectDoctrineDataSource\Entity\RedirectVersionEntity;
  */
 class FindRedirectCmsResourcesBy
     extends FindCmsResourcesBy
-    implements \Zrcms\Content\Api\Repository\FindCmsResourcesBy
+    implements \Zrcms\ContentRedirect\Api\Repository\FindRedirectCmsResourcesBy
 {
     /**
      * @param EntityManager $entityManager

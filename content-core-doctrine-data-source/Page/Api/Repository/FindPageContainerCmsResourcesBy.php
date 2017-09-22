@@ -15,7 +15,7 @@ use Zrcms\ContentDoctrine\Api\Repository\FindCmsResourcesBy;
  */
 class FindPageContainerCmsResourcesBy
     extends FindCmsResourcesBy
-    implements \Zrcms\Content\Api\Repository\FindCmsResourcesBy
+    implements \Zrcms\ContentCore\Page\Api\Repository\FindPageContainerCmsResourcesBy
 {
     /**
      * @param EntityManager $entityManager

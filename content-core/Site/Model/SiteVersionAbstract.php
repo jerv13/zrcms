@@ -86,7 +86,7 @@ abstract class SiteVersionAbstract extends ContentVersionAbstract
      * @param string     $httpStatus
      * @param mixed|null $default
      *
-     * @return string|null
+     * @return array
      */
     public function findStatusPage(string $httpStatus, $default = null)
     {

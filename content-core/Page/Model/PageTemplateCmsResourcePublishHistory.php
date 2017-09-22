@@ -3,14 +3,13 @@
 namespace Zrcms\ContentCore\Page\Model;
 
 use Zrcms\Content\Model\CmsResource;
-use Zrcms\Content\Model\CmsResourcePublishHistory;
 use Zrcms\Content\Model\ContentVersion;
 
 /**
  * @author James Jervis - https://github.com/jerv13
  */
 interface PageTemplateCmsResourcePublishHistory
-    extends CmsResourcePublishHistory
+    extends PageContainerCmsResourcePublishHistory
 {
     /**
      * @return PageTemplateCmsResource|CmsResource
