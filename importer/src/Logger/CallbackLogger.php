@@ -2,9 +2,7 @@
 
 namespace Zrcms\Importer\Logger;
 
-use Doctrine\ORM\EntityManager;
 use Psr\Log\LoggerInterface;
-use Vista\Entity\VistaRequestResponseLog;
 
 class CallbackLogger implements LoggerInterface
 {
@@ -12,6 +10,7 @@ class CallbackLogger implements LoggerInterface
 
     /**
      * CallbackLogger constructor.
+     *
      * @param callable $logMessage
      */
     public function __construct(callable $logMessageCallback)
@@ -23,7 +22,7 @@ class CallbackLogger implements LoggerInterface
      * System is unusable.
      *
      * @param string $message
-     * @param array $context
+     * @param array  $context
      *
      * @return null
      */
@@ -39,7 +38,7 @@ class CallbackLogger implements LoggerInterface
      * trigger the SMS alerts and wake you up.
      *
      * @param string $message
-     * @param array $context
+     * @param array  $context
      *
      * @return null
      */
@@ -54,7 +53,7 @@ class CallbackLogger implements LoggerInterface
      * Example: Application component unavailable, unexpected exception.
      *
      * @param string $message
-     * @param array $context
+     * @param array  $context
      *
      * @return null
      */
@@ -68,7 +67,7 @@ class CallbackLogger implements LoggerInterface
      * be logged and monitored.
      *
      * @param string $message
-     * @param array $context
+     * @param array  $context
      *
      * @return null
      */
@@ -84,7 +83,7 @@ class CallbackLogger implements LoggerInterface
      * that are not necessarily wrong.
      *
      * @param string $message
-     * @param array $context
+     * @param array  $context
      *
      * @return null
      */
@@ -97,7 +96,7 @@ class CallbackLogger implements LoggerInterface
      * Normal but significant events.
      *
      * @param string $message
-     * @param array $context
+     * @param array  $context
      *
      * @return null
      */
@@ -112,7 +111,7 @@ class CallbackLogger implements LoggerInterface
      * Example: User logs in, SQL logs.
      *
      * @param string $message
-     * @param array $context
+     * @param array  $context
      *
      * @return null
      */
@@ -125,7 +124,7 @@ class CallbackLogger implements LoggerInterface
      * Detailed debug information.
      *
      * @param string $message
-     * @param array $context
+     * @param array  $context
      *
      * @return null
      */
@@ -137,9 +136,9 @@ class CallbackLogger implements LoggerInterface
     /**
      * Logs with an arbitrary level.
      *
-     * @param mixed $level
+     * @param mixed  $level
      * @param string $message
-     * @param array $context
+     * @param array  $context
      *
      * @return null
      */

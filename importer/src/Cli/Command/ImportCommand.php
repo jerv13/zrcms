@@ -8,6 +8,7 @@ use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Zrcms\Importer\Api\Import;
 use Zrcms\Importer\Logger\CallbackLogger;
+use Zrcms\Importer\Logger\CliLogger;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -80,10 +81,8 @@ class ImportCommand extends Command
 
         $contents = file_get_contents($file);
 
-        $logger = new CallbackLogger(
-            function ($message) use ($output) {
-                $output->writeln($message);
-            }
+        $logger = new CliLogger(
+            $output
         );
 
         $this->import->__invoke(

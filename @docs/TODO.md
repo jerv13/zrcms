@@ -1,6 +1,13 @@
 @todo
 =====
-        
+
+- PageDataService
+
+
+- Rename
+    - CmsResourcePublishHistory to CmsResourceHistory
+    - Repository to CsmResource, Component, ContentVersion respectivly
+      
 - APIs in http-expressive
     - Test
 

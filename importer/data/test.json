@@ -1,1 +1,33 @@
-{}
+{
+  "id": "{int|string}",
+  "host": "{string}",
+  "published": "{bool}",
+  "properties": {
+    "theme": "{string}",
+    "locale": "{string}",
+    "languageIso9392t": "{string}",
+    "countryIso3": "{string}",
+    "favIcon": "{string}",
+    "loginPage": "{string}",
+    "statusPages": {
+      "401": {
+        "path": "{string}",
+        "type": "redirect"
+      },
+      "404": {
+        "path": "{string}",
+        "type": "render"
+      }
+    },
+    "title": "{string}"
+  },
+  "pages": [
+
+  ],
+  "pageTemplates": [
+
+  ],
+  "containers": [
+
+  ]
+}

@@ -3,6 +3,7 @@
 namespace Zrcms\Importer\Api;
 
 use Psr\Log\LoggerInterface;
+use Psr\Log\LogLevel;
 use Zrcms\ContentCore\Container\Api\Action\PublishContainerCmsResource;
 use Zrcms\ContentCore\Container\Api\Action\UnpublishContainerCmsResource;
 use Zrcms\ContentCore\Container\Api\Repository\InsertContainerVersion;
@@ -10,11 +11,15 @@ use Zrcms\ContentCore\Container\Fields\FieldsContainerCmsResource;
 use Zrcms\ContentCore\Container\Model\ContainerCmsResourceBasic;
 use Zrcms\ContentCore\Container\Model\ContainerVersionBasic;
 use Zrcms\ContentCore\Page\Api\Action\PublishPageContainerCmsResource;
+use Zrcms\ContentCore\Page\Api\Action\PublishPageTemplateCmsResource;
 use Zrcms\ContentCore\Page\Api\Action\UnpublishPageContainerCmsResource;
+use Zrcms\ContentCore\Page\Api\Action\UnpublishPageTemplateCmsResource;
 use Zrcms\ContentCore\Page\Api\Repository\InsertPageContainerVersion;
 use Zrcms\ContentCore\Page\Fields\FieldsPageContainerCmsResource;
+use Zrcms\ContentCore\Page\Fields\FieldsPageTemplateCmsResource;
 use Zrcms\ContentCore\Page\Model\PageContainerCmsResourceBasic;
 use Zrcms\ContentCore\Page\Model\PageContainerVersionBasic;
+use Zrcms\ContentCore\Page\Model\PageTemplateCmsResourceBasic;
 use Zrcms\ContentCore\Site\Api\Action\PublishSiteCmsResource;
 use Zrcms\ContentCore\Site\Api\Action\UnpublishSiteCmsResource;
 use Zrcms\ContentCore\Site\Api\Repository\InsertSiteVersion;
@@ -67,6 +72,16 @@ class Import
     protected $unpublishPageContainerCmsResource;
 
     /**
+     * @var PublishPageTemplateCmsResource
+     */
+    protected $publishPageTemplateCmsResource;
+
+    /**
+     * @var UnpublishPageTemplateCmsResource
+     */
+    protected $unpublishPageTemplateCmsResource;
+
+    /**
      * @var InsertContainerVersion
      */
     protected $insertContainerVersion;
@@ -103,6 +118,8 @@ class Import
      * @param InsertPageContainerVersion        $insertPageContainerVersion
      * @param PublishPageContainerCmsResource   $publishPageContainerCmsResource
      * @param UnpublishPageContainerCmsResource $unpublishPageContainerCmsResource
+     * @param PublishPageTemplateCmsResource    $publishPageTemplateCmsResource
+     * @param UnpublishPageTemplateCmsResource  $unpublishPageTemplateCmsResource
      * @param InsertContainerVersion            $insertContainerVersion
      * @param PublishContainerCmsResource       $publishContainerCmsResource
      * @param UnpublishContainerCmsResource     $unpublishContainerCmsResource
@@ -117,6 +134,8 @@ class Import
         InsertPageContainerVersion $insertPageContainerVersion,
         PublishPageContainerCmsResource $publishPageContainerCmsResource,
         UnpublishPageContainerCmsResource $unpublishPageContainerCmsResource,
+        PublishPageTemplateCmsResource $publishPageTemplateCmsResource,
+        UnpublishPageTemplateCmsResource $unpublishPageTemplateCmsResource,
         InsertContainerVersion $insertContainerVersion,
         PublishContainerCmsResource $publishContainerCmsResource,
         UnpublishContainerCmsResource $unpublishContainerCmsResource,
@@ -131,6 +150,9 @@ class Import
         $this->insertPageContainerVersion = $insertPageContainerVersion;
         $this->publishPageContainerCmsResource = $publishPageContainerCmsResource;
         $this->unpublishPageContainerCmsResource = $unpublishPageContainerCmsResource;
+
+        $this->publishPageTemplateCmsResource = $publishPageTemplateCmsResource;
+        $this->unpublishPageTemplateCmsResource = $unpublishPageTemplateCmsResource;
 
         $this->insertContainerVersion = $insertContainerVersion;
         $this->publishContainerCmsResource = $publishContainerCmsResource;
@@ -200,6 +222,7 @@ class Import
      * @return void
      */
     protected function log(
+        string $level,
         string $message,
         array $options
     ) {
@@ -209,7 +232,7 @@ class Import
         );
 
         if ($logger instanceof LoggerInterface) {
-            $logger->debug($message);
+            $logger->log($level, $message);
             $this->sleep($options);
         }
     }
@@ -230,6 +253,7 @@ class Import
     ) {
         foreach ($data['sites'] as $site) {
             $this->log(
+                LogLevel::INFO,
                 'executing insertSiteVersion('
                 . 'siteId:' . $site['id']
                 . ',host:' . $site['host']
@@ -246,6 +270,7 @@ class Import
             );
 
             $this->log(
+                LogLevel::INFO,
                 'executing publishSiteCmsResource('
                 . 'siteId:' . $site['id']
                 . ',host:' . $site['host']
@@ -275,6 +300,14 @@ class Import
                 $options
             );
 
+            $this->createPageTemplates(
+                $publishedSiteCmsResource,
+                $site['pageTemplates'],
+                $createdByUserId,
+                $createdReason,
+                $options
+            );
+
             $this->createContainers(
                 $publishedSiteCmsResource,
                 $site['containers'],
@@ -285,6 +318,7 @@ class Import
 
             if (!Param::getBool($site, 'published', true)) {
                 $this->log(
+                    LogLevel::WARNING,
                     'UNPUBLISH site ID: ' . $publishedSiteCmsResource->getId(),
                     $options
                 );
@@ -317,6 +351,7 @@ class Import
         foreach ($pages as $page) {
 
             $this->log(
+                LogLevel::INFO,
                 'executing insertPageContainerVersion('
                 . 'siteId:' . $page['siteId'] . ',path:' . $page['path']
                 . ')',
@@ -332,6 +367,7 @@ class Import
             );
 
             $this->log(
+                LogLevel::INFO,
                 'executing publishPageContainerCmsResource('
                 . 'siteId:' . $page['siteId'] . ',path:' . $page['path']
                 . ')',
@@ -355,12 +391,86 @@ class Import
 
             if (!Param::getBool($page, 'published', true)) {
                 $this->log(
+                    LogLevel::WARNING,
                     'UNPUBLISH page ID: ' . $publishedPageContainerCmsResource->getId(),
                     $options
                 );
 
                 $this->unpublishPageContainerCmsResource->__invoke(
                     $publishedPageContainerCmsResource->getId(),
+                    $createdByUserId,
+                    $createdReason
+                );
+            }
+        }
+    }
+
+    /**
+     * @param SiteCmsResource $siteCmsResource
+     * @param array           $pages
+     * @param string          $createdByUserId
+     * @param string          $createdReason
+     * @param array           $options
+     *
+     * @return void
+     */
+    protected function createPageTemplates(
+        SiteCmsResource $siteCmsResource,
+        array $pages,
+        string $createdByUserId,
+        string $createdReason,
+        array $options = []
+    ) {
+        foreach ($pages as $page) {
+
+            $this->log(
+                LogLevel::INFO,
+                'executing insertPageContainerVersion('
+                . 'siteId:' . $page['siteId'] . ',path:' . $page['path']
+                . ')',
+                $options
+            );
+            $version = $this->insertPageContainerVersion->__invoke(
+                new PageContainerVersionBasic(
+                    null,
+                    $page['properties'],
+                    $createdByUserId,
+                    $createdReason
+                )
+            );
+
+            $this->log(
+                LogLevel::INFO,
+                'executing publishPageTemplateCmsResource('
+                . 'siteId:' . $page['siteId'] . ',path:' . $page['path']
+                . ')',
+                $options
+            );
+            $publishedPageTemplateCmsResource = $this->publishPageTemplateCmsResource->__invoke(
+                new PageTemplateCmsResourceBasic(
+                    null,
+                    true,
+                    $version,
+                    [
+                        FieldsPageTemplateCmsResource::SITE_CMS_RESOURCE_ID => $siteCmsResource->getId(),
+                        FieldsPageTemplateCmsResource::PATH => $page['path'],
+                    ],
+                    $createdByUserId,
+                    $createdReason
+                ),
+                $createdByUserId,
+                $createdReason
+            );
+
+            if (!Param::getBool($page, 'published', true)) {
+                $this->log(
+                    LogLevel::WARNING,
+                    'UNPUBLISH page ID: ' . $publishedPageTemplateCmsResource->getId(),
+                    $options
+                );
+
+                $this->unpublishPageTemplateCmsResource->__invoke(
+                    $publishedPageTemplateCmsResource->getId(),
                     $createdByUserId,
                     $createdReason
                 );
@@ -387,6 +497,7 @@ class Import
         foreach ($containers as $container) {
 
             $this->log(
+                LogLevel::INFO,
                 'executing insertContainerVersion('
                 . 'siteId:' . $container['siteId'] . ',path:' . $container['path']
                 . ')',
@@ -402,6 +513,7 @@ class Import
             );
 
             $this->log(
+                LogLevel::INFO,
                 'executing publishContainerCmsResource('
                 . 'siteId:' . $container['siteId'] . ',path:' . $container['path']
                 . ')',
@@ -425,6 +537,7 @@ class Import
 
             if (!Param::getBool($container, 'published', true)) {
                 $this->log(
+                    LogLevel::WARNING,
                     'UNPUBLISH container ID: ' . $publishedContainerCmsResource->getId(),
                     $options
                 );
@@ -474,6 +587,7 @@ class Import
         foreach ($redirects as $redirect) {
 
             $this->log(
+                LogLevel::INFO,
                 'executing insertRedirectVersion('
                 . 'siteId:' . $redirect['siteId'] . ',requestPath:' . $redirect['requestPath']
                 . ')',
@@ -489,6 +603,7 @@ class Import
             );
 
             $this->log(
+                LogLevel::INFO,
                 'executing publishRedirectCmsResource('
                 . 'siteId:' . $redirect['siteId'] . ',requestPath:' . $redirect['requestPath']
                 . ')',
@@ -513,6 +628,7 @@ class Import
 
             if (!Param::getBool($redirect, 'published', true)) {
                 $this->log(
+                    LogLevel::WARNING,
                     'UNPUBLISH redirect ID: ' . $publishedRedirectCmsResource->getId(),
                     $options
                 );
