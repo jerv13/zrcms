@@ -13,6 +13,7 @@ use Zrcms\HttpExpressive1\HttpAlways\ParamLogOut;
 use Zrcms\HttpExpressive1\HttpAlways\RequestWithOriginalUri;
 use Zrcms\HttpExpressive1\HttpAlways\RequestWithView;
 use Zrcms\HttpExpressive1\HttpAlways\RequestWithViewRenderPage;
+use Zrcms\HttpExpressive1\HttpAlways\SiteExists;
 use Zrcms\Locale\Api\SetLocale;
 use Zrcms\User\Api\LogOut;
 
@@ -63,6 +64,12 @@ class HttpAlwaysConfig
                     RequestWithView::class => [
                         'arguments' => [
                             GetViewByRequest::class,
+                        ],
+                    ],
+
+                    SiteExists::class => [
+                        'arguments' => [
+                            GetSiteCmsResourceByRequest::class,
                         ],
                     ],
                 ],
