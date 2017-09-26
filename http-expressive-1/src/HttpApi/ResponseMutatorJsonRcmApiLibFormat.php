@@ -4,7 +4,7 @@ namespace Zrcms\HttpExpressive1\HttpApi;
 
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
-use Reliv\RcmApiLib\Service\PsrResponseService;
+use Reliv\RcmApiLib\Api\ApiResponse\NewPsrResponseWithTranslatedMessages;
 use Zend\Diactoros\Response\JsonResponse;
 use Zrcms\HttpExpressive1\Api\IsValidContentType;
 use Zrcms\HttpExpressive1\Model\JsonApiResponse;
@@ -15,9 +15,9 @@ use Zrcms\HttpExpressive1\Model\JsonApiResponse;
 class ResponseMutatorJsonRcmApiLibFormat
 {
     /**
-     * @var PsrResponseService
+     * @var NewPsrResponseWithTranslatedMessages
      */
-    protected $psrResponseService;
+    protected $newPsrResponseWithTranslatedMessages;
 
     /**
      * @var array
@@ -25,14 +25,14 @@ class ResponseMutatorJsonRcmApiLibFormat
     protected $validContentTypes;
 
     /**
-     * @param PsrResponseService $psrResponseService
+     * @param NewPsrResponseWithTranslatedMessages $newPsrResponseWithTranslatedMessages
      * @param array              $validContentTypes
      */
     public function __construct(
-        PsrResponseService $psrResponseService,
+        NewPsrResponseWithTranslatedMessages $newPsrResponseWithTranslatedMessages,
         array $validContentTypes = ['application/json', 'json']
     ) {
-        $this->psrResponseService = $psrResponseService;
+        $this->newPsrResponseWithTranslatedMessages = $newPsrResponseWithTranslatedMessages;
         $this->validContentTypes = $validContentTypes;
     }
 
@@ -60,11 +60,11 @@ class ResponseMutatorJsonRcmApiLibFormat
 
         $apiMessagesData = $response->getApiMessages();
 
-        return $this->psrResponseService->getPsrApiResponse(
-            $response,
+        return $this->newPsrResponseWithTranslatedMessages->__invoke(
             $data,
             $response->getStatusCode(),
-            $apiMessagesData
+            $apiMessagesData,
+            $response->getHeaders()
         );
     }
 
