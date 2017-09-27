@@ -117,6 +117,11 @@ use Zrcms\ContentCore\View\Api\Component\ReadViewLayoutTagsComponentConfigJsonFi
 use Zrcms\ContentCore\View\Api\GetLayoutName;
 use Zrcms\ContentCore\View\Api\GetLayoutNameBasic;
 use Zrcms\ContentCore\View\Api\GetRegisterViewLayoutTagsComponents;
+use Zrcms\ContentCore\View\Api\GetTagNamesByLayout;
+use Zrcms\ContentCore\View\Api\GetTagNamesByLayoutBasic;
+use Zrcms\ContentCore\View\Api\GetTagNamesByLayoutMustache;
+use Zrcms\ContentCore\View\Api\GetViewByRequest;
+use Zrcms\ContentCore\View\Api\GetViewByRequestBasic;
 use Zrcms\ContentCore\View\Api\Render\GetViewLayoutTags;
 use Zrcms\ContentCore\View\Api\Render\GetViewLayoutTagsBasic;
 use Zrcms\ContentCore\View\Api\Render\GetViewLayoutTagsContainers;
@@ -124,11 +129,6 @@ use Zrcms\ContentCore\View\Api\Render\GetViewLayoutTagsPage;
 use Zrcms\ContentCore\View\Api\Render\RenderView;
 use Zrcms\ContentCore\View\Api\Render\RenderViewBasic;
 use Zrcms\ContentCore\View\Api\Render\RenderViewLayout;
-use Zrcms\ContentCore\View\Api\GetTagNamesByLayout;
-use Zrcms\ContentCore\View\Api\GetTagNamesByLayoutBasic;
-use Zrcms\ContentCore\View\Api\GetTagNamesByLayoutMustache;
-use Zrcms\ContentCore\View\Api\GetViewByRequest;
-use Zrcms\ContentCore\View\Api\GetViewByRequestBasic;
 use Zrcms\ContentCore\View\Api\Repository\FindViewLayoutTagsComponent;
 use Zrcms\ContentCore\View\Api\Repository\FindViewLayoutTagsComponentsBy;
 use Zrcms\ContentCore\View\Model\ServiceAliasView;
@@ -447,6 +447,12 @@ class ModuleConfig
                         'class' => ApiNoop::class,
                         'arguments' => [
                             '0-' => ['literal' => FindPageContainerVersionsBy::class],
+                        ],
+                    ],
+                    FindPageTemplateCmsResourceBySitePath::class => [
+                        'class' => ApiNoop::class,
+                        'arguments' => [
+                            '0-' => ['literal' => FindPageTemplateCmsResourceBySitePath::class],
                         ],
                     ],
                     InsertPageContainerVersion::class => [

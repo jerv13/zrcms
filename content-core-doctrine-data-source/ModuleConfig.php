@@ -23,6 +23,7 @@ use Zrcms\ContentCore\Page\Api\Repository\FindPageContainerCmsResourceBySitePath
 use Zrcms\ContentCore\Page\Api\Repository\FindPageContainerCmsResourcesBy;
 use Zrcms\ContentCore\Page\Api\Repository\FindPageContainerVersion;
 use Zrcms\ContentCore\Page\Api\Repository\FindPageContainerVersionsBy;
+use Zrcms\ContentCore\Page\Api\Repository\FindPageTemplateCmsResourceBySitePath;
 use Zrcms\ContentCore\Page\Api\Repository\InsertPageContainerVersion;
 use Zrcms\ContentCore\Site\Api\Action\PublishSiteCmsResource;
 use Zrcms\ContentCore\Site\Api\Action\UnpublishSiteCmsResource;
@@ -166,6 +167,12 @@ class ModuleConfig
                     ],
                     FindPageContainerVersionsBy::class => [
                         'class' => This\Page\Api\Repository\FindPageContainerVersionsBy::class,
+                        'arguments' => [
+                            '0-' => EntityManager::class,
+                        ],
+                    ],
+                    FindPageTemplateCmsResourceBySitePath::class => [
+                        'class' => This\Page\Api\Repository\FindPageTemplateCmsResourceBySitePath::class,
                         'arguments' => [
                             '0-' => EntityManager::class,
                         ],
