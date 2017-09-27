@@ -81,7 +81,7 @@ class ContentRedirect
             $uri->getPath()
         );
 
-        if (empty($redirect)) {
+        if (empty($redirectCmsResource)) {
             return $next($request, $response);
         }
 
