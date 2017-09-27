@@ -2,7 +2,6 @@
 
 namespace Zrcms\ContentRedirect\Api\Repository;
 
-use Zrcms\Content\Exception\CmsResourceNotExistsException;
 use Zrcms\ContentRedirect\Model\RedirectCmsResource;
 
 /**
@@ -15,14 +14,15 @@ interface FindRedirectCmsResourceBySiteRequestPath
     /**
      * @param string $siteCmsResourceId
      * @param string $requestPath
+     * @param bool   $published
      * @param array  $options
      *
      * @return RedirectCmsResource|null
-     * @throws CmsResourceNotExistsException
      */
     public function __invoke(
         string $siteCmsResourceId,
         string $requestPath,
+        bool $published = true,
         array $options = []
     );
 }

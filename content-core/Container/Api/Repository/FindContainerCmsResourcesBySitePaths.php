@@ -12,6 +12,7 @@ interface FindContainerCmsResourcesBySitePaths
     /**
      * @param string $siteCmsResourceId
      * @param array  $containerCmsResourcePaths
+     * @param bool   $published
      * @param array  $options
      *
      * @return ContainerCmsResource[]
@@ -19,6 +20,7 @@ interface FindContainerCmsResourcesBySitePaths
     public function __invoke(
         string $siteCmsResourceId,
         array $containerCmsResourcePaths,
+        bool $published = true,
         array $options = []
     ): array;
 }

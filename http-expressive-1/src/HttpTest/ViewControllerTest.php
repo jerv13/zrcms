@@ -148,8 +148,6 @@ class ViewControllerTest
         ResponseInterface $response,
         callable $next = null
     ) {
-        $additionalViewProperties = [];
-
         $siteVersion = new SiteVersionBasic(
             'testID',
             [

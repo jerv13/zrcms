@@ -2,7 +2,6 @@
 
 namespace Zrcms\ContentCore\Page\Api\Repository;
 
-use Zrcms\Content\Model\CmsResource;
 use Zrcms\ContentCore\Page\Model\PageContainerCmsResource;
 
 /**
@@ -13,13 +12,15 @@ interface FindPageTemplateCmsResourceBySitePath
     /**
      * @param string $siteCmsResourceId
      * @param string $pageContainerCmsResourcePath
+     * @param bool   $published
      * @param array  $options
      *
-     * @return PageContainerCmsResource|CmsResource|null
+     * @return PageContainerCmsResource|null
      */
     public function __invoke(
         string $siteCmsResourceId,
         string $pageContainerCmsResourcePath,
+        bool $published = true,
         array $options = []
     );
 }

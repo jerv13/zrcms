@@ -72,12 +72,14 @@ class FindSiteCmsResourceByHost
 
     /**
      * @param string $host
+     * @param bool   $published
      * @param array  $options
      *
-     * @return SiteCmsResource|CmsResource|null
+     * @return SiteCmsResource|CmsResource
      */
     public function __invoke(
         string $host,
+        bool $published = true,
         array $options = []
     ) {
         $repository = $this->entityManager->getRepository(
@@ -85,7 +87,12 @@ class FindSiteCmsResourceByHost
         );
 
         /** @var SiteCmsResourceEntity|CmsResourceEntity $siteCmsResourceEntity */
-        $siteCmsResourceEntity = $repository->findOneBy([FieldsSiteCmsResource::HOST => $host]);
+        $siteCmsResourceEntity = $repository->findOneBy(
+            [
+                FieldsSiteCmsResource::HOST => $host,
+                'published' => $published,
+            ]
+        );
 
         return BuildBasicCmsResource::invoke(
             $this->entityClassCmsResource,

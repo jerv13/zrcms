@@ -11,12 +11,14 @@ interface FindSiteCmsResourceByHost
 {
     /**
      * @param string $host
+     * @param bool   $published
      * @param array  $options
      *
      * @return SiteCmsResource|null
      */
     public function __invoke(
         string $host,
+        bool $published = true,
         array $options = []
     );
 }

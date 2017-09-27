@@ -73,14 +73,15 @@ class FindRedirectCmsResourceBySiteRequestPath
     /**
      * @param string $siteCmsResourceId
      * @param string $requestPath
+     * @param bool   $published
      * @param array  $options
      *
      * @return RedirectCmsResource|CmsResource|null
-     * @throws CmsResourceNotExistsException
      */
     public function __invoke(
         string $siteCmsResourceId,
         string $requestPath,
+        bool $published = true,
         array $options = []
     ) {
         $siteCmsResourceIdPropertyName = FieldsRedirectCmsResource::SITE_CMS_RESOURCE_ID;
@@ -92,13 +93,14 @@ class FindRedirectCmsResourceBySiteRequestPath
             . " WHERE (resource.{$siteCmsResourceIdPropertyName} = :siteCmsResource"
             . " OR resource.{$siteCmsResourceIdPropertyName} IS NULL)"
             . " AND resource.{$requestPathPropertyName} = :requestPath"
-            . " AND resource.published = true"
+            . " AND resource.published = :published"
             . " ORDER BY resource.{$siteCmsResourceIdPropertyName} ASC";
 
         $dQuery = $this->entityManager->createQuery($query);
 
         $dQuery->setParameter('siteCmsResource', $siteCmsResourceId);
         $dQuery->setParameter('requestPath', $requestPath);
+        $dQuery->setParameter('published', $published);
         $dQuery->setMaxResults(1);
 
         $result = $dQuery->getResult();

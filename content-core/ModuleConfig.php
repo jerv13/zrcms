@@ -74,6 +74,8 @@ use Zrcms\ContentCore\Page\Api\Repository\FindPageContainerCmsResourceBySitePath
 use Zrcms\ContentCore\Page\Api\Repository\FindPageContainerCmsResourcesBy;
 use Zrcms\ContentCore\Page\Api\Repository\FindPageContainerVersion;
 use Zrcms\ContentCore\Page\Api\Repository\FindPageContainerVersionsBy;
+use Zrcms\ContentCore\Page\Api\Repository\FindPageTemplateCmsResourceBySitePath;
+use Zrcms\ContentCore\Page\Api\Repository\FindPageTemplateCmsResourcesBy;
 use Zrcms\ContentCore\Page\Api\Repository\InsertPageContainerVersion;
 use Zrcms\ContentCore\Page\Model\ServiceAliasPageContainer;
 use Zrcms\ContentCore\Site\Api\Action\PublishSiteCmsResource;
@@ -453,6 +455,12 @@ class ModuleConfig
                         'class' => ApiNoop::class,
                         'arguments' => [
                             '0-' => ['literal' => FindPageTemplateCmsResourceBySitePath::class],
+                        ],
+                    ],
+                    FindPageTemplateCmsResourcesBy::class => [
+                        'class' => ApiNoop::class,
+                        'arguments' => [
+                            '0-' => ['literal' => FindPageTemplateCmsResourcesBy::class],
                         ],
                     ],
                     InsertPageContainerVersion::class => [

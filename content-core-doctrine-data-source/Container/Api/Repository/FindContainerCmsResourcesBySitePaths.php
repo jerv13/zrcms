@@ -72,6 +72,7 @@ class FindContainerCmsResourcesBySitePaths
     /**
      * @param string $siteCmsResourceId
      * @param array  $containerCmsResourcePaths
+     * @param bool   $published
      * @param array  $options
      *
      * @return ContainerCmsResource[]
@@ -79,19 +80,19 @@ class FindContainerCmsResourcesBySitePaths
     public function __invoke(
         string $siteCmsResourceId,
         array $containerCmsResourcePaths,
+        bool $published = true,
         array $options = []
     ): array
     {
         $siteCmsResourceIdName = FieldsContainerCmsResource::SITE_CMS_RESOURCE_ID;
 
-        $pathParams = [
-            $siteCmsResourceId => 'siteCmsResourceId'
-        ];
+        $pathParams = [];
 
         // @todo Add prepared statements not concat
         $query = ""
             . "SELECT container FROM {$this->entityClassCmsResource} container"
-            . " WHERE container.{$siteCmsResourceIdName} = :siteCmsResourceId";
+            . " WHERE container.{$siteCmsResourceIdName} = :containerSiteCmsResourceId"
+            . " AND container.published = :containerPublished";
 
         $query = $this->buildInQuery(
             $containerCmsResourcePaths,
@@ -107,6 +108,9 @@ class FindContainerCmsResourcesBySitePaths
         foreach ($pathParams as $value => $pathParam) {
             $dQuery->setParameter($pathParam, $value);
         }
+
+        $dQuery->setParameter('containerSiteCmsResourceId', $siteCmsResourceId );
+        $dQuery->setParameter('containerPublished', $published );
 
         $containerCmsResources = $dQuery->getResult();
 

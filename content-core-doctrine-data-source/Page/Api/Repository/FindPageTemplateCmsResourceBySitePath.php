@@ -72,6 +72,7 @@ class FindPageTemplateCmsResourceBySitePath
     /**
      * @param string $siteCmsResourceId
      * @param string $pageTemplateCmsResourcePath
+     * @param bool   $published
      * @param array  $options
      *
      * @return PageTemplateCmsResource|CmsResource|null
@@ -79,6 +80,7 @@ class FindPageTemplateCmsResourceBySitePath
     public function __invoke(
         string $siteCmsResourceId,
         string $pageTemplateCmsResourcePath,
+        bool $published = true,
         array $options = []
     ) {
         $repository = $this->entityManager->getRepository(
@@ -90,6 +92,7 @@ class FindPageTemplateCmsResourceBySitePath
             [
                 FieldsPageTemplateCmsResource::SITE_CMS_RESOURCE_ID => $siteCmsResourceId,
                 FieldsPageTemplateCmsResource::PATH => $pageTemplateCmsResourcePath,
+                'published' => $published
             ]
         );
 

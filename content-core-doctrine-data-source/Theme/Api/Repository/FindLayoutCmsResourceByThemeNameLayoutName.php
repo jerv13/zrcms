@@ -82,6 +82,7 @@ class FindLayoutCmsResourceByThemeNameLayoutName
     /**
      * @param string $themeName
      * @param string $layoutName
+     * @param bool   $published
      * @param array  $options
      *
      * @return LayoutCmsResource|CmsResource|null
@@ -89,6 +90,7 @@ class FindLayoutCmsResourceByThemeNameLayoutName
     public function __invoke(
         string $themeName,
         string $layoutName,
+        bool $published = true,
         array $options = []
     ) {
         $repository = $this->entityManager->getRepository(
@@ -100,6 +102,7 @@ class FindLayoutCmsResourceByThemeNameLayoutName
             [
                 FieldsLayoutCmsResource::THEME_NAME => $themeName,
                 FieldsLayoutCmsResource::NAME => $layoutName,
+                'published' => $published
             ]
         );
 

@@ -2,7 +2,6 @@
 
 namespace Zrcms\ContentCore\Theme\Api\Repository;
 
-use Zrcms\Content\Model\CmsResource;
 use Zrcms\ContentCore\Theme\Model\LayoutCmsResource;
 
 /**
@@ -13,13 +12,15 @@ interface FindLayoutCmsResourceByThemeNameLayoutName
     /**
      * @param string $themeName
      * @param string $layoutName
+     * @param bool   $published
      * @param array  $options
      *
-     * @return LayoutCmsResource|CmsResource|null
+     * @return LayoutCmsResource|null
      */
     public function __invoke(
         string $themeName,
         string $layoutName,
+        bool $published = true,
         array $options = []
     );
 }
