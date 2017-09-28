@@ -160,6 +160,7 @@ class ResponseMutatorThemeLayoutWrapper
 
         $contents = $body->getContents();
 
+        // @todo this need to be improved, only wrap if there is not complete HTML
         if (stripos($contents, '<html') !== false) {
             return false;
         }
