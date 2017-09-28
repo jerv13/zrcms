@@ -5,7 +5,14 @@ namespace Zrcms\HttpExpressive1\HttpRender;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Zend\Diactoros\Response\HtmlResponse;
+use Zrcms\ContentCore\Page\Exception\PageNotFoundException;
+use Zrcms\ContentCore\Site\Exception\SiteNotFoundException;
+use Zrcms\ContentCore\View\Api\GetViewByRequestHtmlPage;
+use Zrcms\ContentCore\View\Api\Render\GetViewLayoutTags;
+use Zrcms\ContentCore\View\Api\Render\RenderView;
+use Zrcms\ContentCore\View\Model\View;
 use Zrcms\HttpExpressive1\Api\IsValidContentType;
+use Zrcms\HttpExpressive1\Http\ZrcmsHtmlResponse;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -13,24 +20,37 @@ use Zrcms\HttpExpressive1\Api\IsValidContentType;
 class ResponseMutatorThemeLayoutWrapper
 {
     /**
-     * @var RenderPage
+     * @var GetViewByRequestHtmlPage
      */
-    protected $renderPage;
-
+    protected $getViewByRequestHtmlPage;
+    /**
+     * @var GetViewLayoutTags
+     */
+    protected $getViewLayoutTags;
+    /**
+     * @var RenderView
+     */
+    protected $renderView;
     /**
      * @var array
      */
     protected $validContentTypes;
 
     /**
-     * @param RenderPage    $renderPage
-     * @param array         $validContentTypes
+     * @param GetViewByRequestHtmlPage $getViewByRequestHtmlPage
+     * @param GetViewLayoutTags        $getViewLayoutTags
+     * @param RenderView               $renderView
+     * @param array                    $validContentTypes
      */
     public function __construct(
-        RenderPage $renderPage,
+        GetViewByRequestHtmlPage $getViewByRequestHtmlPage,
+        GetViewLayoutTags $getViewLayoutTags,
+        RenderView $renderView,
         array $validContentTypes = ['text/html', 'application/xhtml+xml', 'text/xml', 'application/xml']
     ) {
-        $this->renderPage = $renderPage;
+        $this->getViewByRequestHtmlPage = $getViewByRequestHtmlPage;
+        $this->getViewLayoutTags = $getViewLayoutTags;
+        $this->renderView = $renderView;
         $this->validContentTypes = $validContentTypes;
     }
 
@@ -56,9 +76,65 @@ class ResponseMutatorThemeLayoutWrapper
             return $response;
         }
 
-        // @todo write me
+        $options = $this->getProperties($response);
 
-        return $response;
+        try {
+            /** @var View $view */
+            $view = $this->getViewByRequestHtmlPage->__invoke(
+                $request,
+                $options
+            );
+        } catch (SiteNotFoundException $exception) {
+            return new HtmlResponse(
+                'NOT FOUND',
+                404,
+                ['reason-phrase', 'NOT FOUND: SITE']
+            );
+        } catch (PageNotFoundException $exception) {
+            return new HtmlResponse(
+                'NOT FOUND',
+                404,
+                ['reason-phrase', 'NOT FOUND: PAGE']
+            );
+        }
+
+        if (empty($view)) {
+            return new HtmlResponse(
+                'NOT FOUND',
+                404,
+                ['reason-phrase', 'NOT FOUND: NO VIEW']
+            );
+        }
+
+        $viewRenderTags = $this->getViewLayoutTags->__invoke(
+            $view,
+            $request
+        );
+
+        $html = $this->renderView->__invoke(
+            $view,
+            $viewRenderTags
+        );
+
+        $body = $response->getBody();
+        $body->rewind();
+        $body->write($html);
+
+        return $response->withBody($body);
+    }
+
+    protected function getProperties(ResponseInterface $response)
+    {
+        $properties = [];
+        if ($response instanceof ZrcmsHtmlResponse) {
+            $properties = $response->getProperties();
+        }
+
+        $body = $response->getBody();
+
+        $properties[GetViewByRequestHtmlPage::OPTION_HTML] = $body->getContents();
+
+        return $properties;
     }
 
     /**

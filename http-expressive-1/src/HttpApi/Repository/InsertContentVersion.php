@@ -6,7 +6,7 @@ use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Zrcms\Content\Api\ContentVersionToArray;
 use Zrcms\Content\Model\ContentVersion;
-use Zrcms\HttpExpressive1\Model\JsonApiResponse;
+use Zrcms\HttpExpressive1\Http\JsonApiResponse;
 use Zrcms\HttpExpressive1\Model\ResponseCodes;
 use Zrcms\User\Api\GetUserIdByRequest;
 

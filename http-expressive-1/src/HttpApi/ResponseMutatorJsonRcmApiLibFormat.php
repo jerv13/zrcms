@@ -7,7 +7,7 @@ use Psr\Http\Message\ServerRequestInterface;
 use Reliv\RcmApiLib\Api\ApiResponse\NewPsrResponseWithTranslatedMessages;
 use Zend\Diactoros\Response\JsonResponse;
 use Zrcms\HttpExpressive1\Api\IsValidContentType;
-use Zrcms\HttpExpressive1\Model\JsonApiResponse;
+use Zrcms\HttpExpressive1\Http\JsonApiResponse;
 
 /**
  * @author James Jervis - https://github.com/jerv13

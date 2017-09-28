@@ -3,7 +3,6 @@
 namespace Zrcms\ContentCore\Page\Model;
 
 use Zrcms\Content\Exception\ContentVersionInvalid;
-use Zrcms\Content\Exception\ContentVersionNotExistsException;
 use Zrcms\Content\Model\ContentVersion;
 use Zrcms\ContentCore\Container\Model\ContainerCmsResourceAbstract;
 use Zrcms\ContentCore\Page\Exception\InvalidPathException;

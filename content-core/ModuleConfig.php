@@ -124,6 +124,7 @@ use Zrcms\ContentCore\View\Api\GetTagNamesByLayoutBasic;
 use Zrcms\ContentCore\View\Api\GetTagNamesByLayoutMustache;
 use Zrcms\ContentCore\View\Api\GetViewByRequest;
 use Zrcms\ContentCore\View\Api\GetViewByRequestBasic;
+use Zrcms\ContentCore\View\Api\GetViewByRequestHtmlPage;
 use Zrcms\ContentCore\View\Api\Render\GetViewLayoutTags;
 use Zrcms\ContentCore\View\Api\Render\GetViewLayoutTagsBasic;
 use Zrcms\ContentCore\View\Api\Render\GetViewLayoutTagsContainers;
@@ -687,8 +688,18 @@ class ModuleConfig
                             '3-' => GetLayoutName::class,
                             '4-' => FindThemeComponent::class,
                             '5-' => GetViewLayoutTags::class,
-                            '6-' => RenderView::class,
-                            '7-' => BuildView::class
+                            '6-' => BuildView::class
+                        ],
+                    ],
+                    GetViewByRequestHtmlPage::class => [
+                        'arguments' => [
+                            '0-' => FindSiteCmsResourceByHost::class,
+                            '1-' => FindPageContainerCmsResourceBySitePath::class,
+                            '2-' => FindLayoutCmsResourceByThemeNameLayoutName::class,
+                            '3-' => GetLayoutName::class,
+                            '4-' => FindThemeComponent::class,
+                            '5-' => GetViewLayoutTags::class,
+                            '6-' => BuildView::class,
                         ],
                     ],
                     FindViewLayoutTagsComponent::class => [

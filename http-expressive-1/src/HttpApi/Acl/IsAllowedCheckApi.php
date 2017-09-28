@@ -5,7 +5,7 @@ namespace Zrcms\HttpExpressive1\HttpApi\Acl;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Zrcms\Acl\Api\IsAllowed;
-use Zrcms\HttpExpressive1\Model\JsonApiResponse;
+use Zrcms\HttpExpressive1\Http\JsonApiResponse;
 use Zrcms\HttpExpressive1\Model\ResponseCodes;
 
 /**

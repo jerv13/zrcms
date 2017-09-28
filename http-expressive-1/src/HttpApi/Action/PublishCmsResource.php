@@ -10,7 +10,7 @@ use Zrcms\Content\Model\CmsResource;
 use Zrcms\Content\Fields\FieldsCmsResource;
 use Zrcms\Content\Fields\FieldsContentVersion;
 use Zrcms\Content\Model\CmsResourceBasic;
-use Zrcms\HttpExpressive1\Model\JsonApiResponse;
+use Zrcms\HttpExpressive1\Http\JsonApiResponse;
 use Zrcms\HttpExpressive1\Model\ResponseCodes;
 use Zrcms\User\Api\GetUserIdByRequest;
 

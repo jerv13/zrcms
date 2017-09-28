@@ -4,7 +4,7 @@ namespace Zrcms\HttpExpressive1\HttpApi\Action;
 
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
-use Zrcms\HttpExpressive1\Model\JsonApiResponse;
+use Zrcms\HttpExpressive1\Http\JsonApiResponse;
 use Zrcms\HttpExpressive1\Model\ResponseCodes;
 use Zrcms\User\Api\GetUserIdByRequest;
 

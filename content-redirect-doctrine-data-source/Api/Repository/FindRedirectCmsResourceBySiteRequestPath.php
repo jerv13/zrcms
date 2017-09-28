@@ -3,7 +3,6 @@
 namespace Zrcms\ContentRedirectDoctrineDataSource\Api\Repository;
 
 use Doctrine\ORM\EntityManager;
-use Zrcms\Content\Exception\CmsResourceNotExistsException;
 use Zrcms\Content\Model\CmsResource;
 use Zrcms\ContentDoctrine\Api\BuildBasicCmsResource;
 use Zrcms\ContentRedirect\Fields\FieldsRedirectCmsResource;

@@ -3,9 +3,12 @@
 namespace Zrcms\ContentCore\View\Api;
 
 use Psr\Http\Message\ServerRequestInterface;
+use Zrcms\Content\Model\Trackable;
 use Zrcms\ContentCore\Page\Api\Repository\FindPageContainerCmsResourceBySitePath;
 use Zrcms\ContentCore\Page\Exception\PageNotFoundException;
-use Zrcms\ContentCore\Page\Model\PageContainerCmsResource;
+use Zrcms\ContentCore\Page\Fields\FieldsPageContainerVersion;
+use Zrcms\ContentCore\Page\Model\PageContainerCmsResourceBasic;
+use Zrcms\ContentCore\Page\Model\PageContainerVersionBasic;
 use Zrcms\ContentCore\Site\Api\Repository\FindSiteCmsResourceByHost;
 use Zrcms\ContentCore\Site\Exception\SiteNotFoundException;
 use Zrcms\ContentCore\Site\Model\SiteCmsResource;
@@ -23,8 +26,17 @@ use Zrcms\Param\Param;
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class GetViewByRequestBasic implements GetViewByRequest
+class GetViewByRequestHtmlPage implements GetViewByRequest
 {
+    const OPTION_TITLE = FieldsPageContainerVersion::TITLE;
+    const OPTION_DESCRIPTION = FieldsPageContainerVersion::DESCRIPTION;
+    const OPTION_KEYWORDS = FieldsPageContainerVersion::KEYWORDS;
+    const OPTION_HTML = FieldsPageContainerVersion::PRE_RENDERED_HTML;
+    const OPTION_LAYOUT = FieldsPageContainerVersion::LAYOUT;
+    const OPTION_RENDER_TAGS_GETTER = FieldsPageContainerVersion::RENDER_TAGS_GETTER;
+    const OPTION_RENDERER = FieldsPageContainerVersion::RENDERER;
+    const OPTION_BLOCK_VERSIONS = FieldsPageContainerVersion::BLOCK_VERSIONS;
+
     /**
      * @var FindSiteCmsResourceByHost
      */
@@ -61,6 +73,21 @@ class GetViewByRequestBasic implements GetViewByRequest
     protected $buildView;
 
     /**
+     * @var string
+     */
+    protected  $defaultTitle = '';
+
+    /**
+     * @var string
+     */
+    protected  $defaultDescription = '';
+
+    /**
+     * @var string
+     */
+    protected  $defaultKeywords = '';
+
+    /**
      * @param FindSiteCmsResourceByHost                  $findSiteCmsResourceByHost
      * @param FindPageContainerCmsResourceBySitePath     $findPageContainerCmsResourceBySitePath
      * @param FindLayoutCmsResourceByThemeNameLayoutName $findLayoutCmsResourceByThemeNameLayoutName
@@ -68,6 +95,9 @@ class GetViewByRequestBasic implements GetViewByRequest
      * @param FindThemeComponent                         $findThemeComponent
      * @param GetViewLayoutTags                          $getViewLayoutTags
      * @param BuildView                                  $buildView
+     * @param string                                     $defaultTitle
+     * @param string                                     $defaultDescription
+     * @param string                                     $defaultKeywords
      */
     public function __construct(
         FindSiteCmsResourceByHost $findSiteCmsResourceByHost,
@@ -76,7 +106,10 @@ class GetViewByRequestBasic implements GetViewByRequest
         GetLayoutName $getLayoutName,
         FindThemeComponent $findThemeComponent,
         GetViewLayoutTags $getViewLayoutTags,
-        BuildView $buildView
+        BuildView $buildView,
+        string $defaultTitle = '',
+        string $defaultDescription = '',
+        string $defaultKeywords = ''
     ) {
         $this->findSiteCmsResourceByHost = $findSiteCmsResourceByHost;
         $this->findPageContainerCmsResourceBySitePath = $findPageContainerCmsResourceBySitePath;
@@ -86,6 +119,9 @@ class GetViewByRequestBasic implements GetViewByRequest
         $this->findThemeComponent = $findThemeComponent;
         $this->getViewLayoutTags = $getViewLayoutTags;
         $this->buildView = $buildView;
+        $this->defaultTitle = $defaultTitle;
+        $this->defaultDescription = $defaultDescription;
+        $this->defaultKeywords = $defaultKeywords;
     }
 
     /**
@@ -116,6 +152,8 @@ class GetViewByRequestBasic implements GetViewByRequest
             );
         }
 
+        $siteVersion = $siteCmsResource->getContentVersion();
+
         $themeName = $siteCmsResource->getContentVersion()->getThemeName();
 
         $themeComponent = $this->findThemeComponent->__invoke(
@@ -130,23 +168,55 @@ class GetViewByRequestBasic implements GetViewByRequest
             );
         }
 
-        $path = $uri->getPath();
+        $html = Param::getString($options, self::OPTION_HTML, null);
 
-        /** @var PageContainerCmsResource $pageContainerCmsResource */
-        $pageContainerCmsResource = $this->findPageContainerCmsResourceBySitePath->__invoke(
-            $siteCmsResource->getId(),
-            $path
-        );
-
-        if (empty($pageContainerCmsResource)) {
+        if ($html === null) {
             throw new PageNotFoundException(
                 'Page not found for host: (' . $uri->getHost() . ')'
-                . ' and page: (' . $path . ')'
+                . ' with empty html page'
             );
         }
 
-        $siteVersion = $siteCmsResource->getContentVersion();
-        $pageContainerVersion = $pageContainerCmsResource->getContentVersion();
+        $pageContainerVersion = new PageContainerVersionBasic(
+            $uri->getPath(),
+            [
+                FieldsPageContainerVersion::TITLE
+                => Param::getString($options, self::OPTION_TITLE, $this->defaultTitle),
+
+                FieldsPageContainerVersion::DESCRIPTION
+                => Param::getString($options, self::OPTION_DESCRIPTION, $this->defaultDescription),
+
+                FieldsPageContainerVersion::KEYWORDS
+                => Param::getString($options, self::OPTION_KEYWORDS, $this->defaultKeywords),
+
+                FieldsPageContainerVersion::LAYOUT
+                => Param::getString($options, self::OPTION_LAYOUT, null),
+
+                FieldsPageContainerVersion::PRE_RENDERED_HTML
+                => Param::getString($options, self::OPTION_HTML, ''),
+
+                // DEFAULT: 'html' AKA GetPageContainerRenderTagsHtml
+                FieldsPageContainerVersion::RENDER_TAGS_GETTER
+                => Param::getString($options, self::OPTION_RENDER_TAGS_GETTER, 'html'),
+
+                FieldsPageContainerVersion::RENDERER
+                => Param::getString($options, self::OPTION_RENDERER, null),
+
+                FieldsPageContainerVersion::BLOCK_VERSIONS
+                => Param::getArray($options, self::OPTION_BLOCK_VERSIONS, []),
+            ],
+            Trackable::UNKNOWN_USER_ID,
+            'Render HTML: ' . get_class($this)
+        );
+
+        $pageContainerCmsResource = new PageContainerCmsResourceBasic(
+            $uri->getPath(),
+            true,
+            $pageContainerVersion,
+            [],
+            Trackable::UNKNOWN_USER_ID,
+            'Render HTML: ' . get_class($this)
+        );
 
         $layoutName = $this->getLayoutName->__invoke(
             $siteVersion,

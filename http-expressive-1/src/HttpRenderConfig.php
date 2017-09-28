@@ -3,6 +3,7 @@
 namespace Zrcms\HttpExpressive1;
 
 use Zrcms\ContentCore\View\Api\GetViewByRequest;
+use Zrcms\ContentCore\View\Api\GetViewByRequestHtmlPage;
 use Zrcms\ContentCore\View\Api\Render\GetViewLayoutTags;
 use Zrcms\ContentCore\View\Api\Render\RenderView;
 use Zrcms\HttpExpressive1\Api\GetStatusPage;
@@ -12,6 +13,7 @@ use Zrcms\HttpExpressive1\HttpRender\FinalHandler\NotFoundStatusPage;
 use Zrcms\HttpExpressive1\HttpRender\RenderPage;
 use Zrcms\HttpExpressive1\HttpRender\ResponseMutatorNoop;
 use Zrcms\HttpExpressive1\HttpRender\ResponseMutatorStatusPage;
+use Zrcms\HttpExpressive1\HttpRender\ResponseMutatorThemeLayoutWrapper;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -73,6 +75,13 @@ class HttpRenderConfig
                         'arguments' => [
                             GetStatusPage::class,
                             RenderPage::class,
+                        ],
+                    ],
+                    ResponseMutatorThemeLayoutWrapper::class => [
+                        'arguments' => [
+                            GetViewByRequestHtmlPage::class,
+                            GetViewLayoutTags::class,
+                            RenderView::class,
                         ],
                     ],
                 ],

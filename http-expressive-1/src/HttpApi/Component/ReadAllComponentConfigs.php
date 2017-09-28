@@ -4,7 +4,7 @@ namespace Zrcms\HttpExpressive1\HttpApi\Component;
 
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
-use Zrcms\HttpExpressive1\Model\JsonApiResponse;
+use Zrcms\HttpExpressive1\Http\JsonApiResponse;
 
 /**
  * @author James Jervis - https://github.com/jerv13

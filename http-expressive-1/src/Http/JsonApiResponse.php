@@ -1,6 +1,6 @@
 <?php
 
-namespace Zrcms\HttpExpressive1\Model;
+namespace Zrcms\HttpExpressive1\Http;
 
 use Zend\Diactoros\Response;
 use Zend\Diactoros\Response\InjectContentTypeTrait;

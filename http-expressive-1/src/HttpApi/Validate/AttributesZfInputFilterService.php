@@ -6,7 +6,7 @@ use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use ZfInputFilterService\InputFilter\ServiceAwareFactory;
 use ZfInputFilterService\InputFilter\ServiceAwareInputFilter;
-use Zrcms\HttpExpressive1\Model\JsonApiResponse;
+use Zrcms\HttpExpressive1\Http\JsonApiResponse;
 
 /**
  * @author James Jervis - https://github.com/jerv13
