@@ -5,6 +5,7 @@ namespace Zrcms\HttpExpressive1\HttpRender;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Zend\Diactoros\Response\HtmlResponse;
+use Zend\Diactoros\Stream;
 use Zrcms\ContentCore\Page\Exception\PageNotFoundException;
 use Zrcms\ContentCore\Site\Exception\SiteNotFoundException;
 use Zrcms\ContentCore\View\Api\GetViewByRequestHtmlPage;
@@ -116,11 +117,12 @@ class ResponseMutatorThemeLayoutWrapper
             $viewRenderTags
         );
 
-        $body = $response->getBody();
-        $body->rewind();
+        $body = new Stream('php://temp', 'wb+');
         $body->write($html);
+        $body->rewind();
 
-        return $response->withBody($body);
+        return $response->withBody($body)
+            ->withAddedHeader('zrcms-response-mutator', 'ResponseMutatorThemeLayoutWrapper');
     }
 
     protected function getProperties(ResponseInterface $response)
@@ -131,8 +133,11 @@ class ResponseMutatorThemeLayoutWrapper
         }
 
         $body = $response->getBody();
+        $body->rewind();
 
-        $properties[GetViewByRequestHtmlPage::OPTION_HTML] = $body->getContents();
+        $contents = $body->getContents();
+
+        $properties[GetViewByRequestHtmlPage::OPTION_HTML] = $contents;
 
         return $properties;
     }
@@ -150,7 +155,10 @@ class ResponseMutatorThemeLayoutWrapper
             return false;
         }
 
-        $contents = $response->getBody()->getContents();
+        $body = $response->getBody();
+        $body->rewind();
+
+        $contents = $body->getContents();
 
         if (stripos($contents, '<html') !== false) {
             return false;
