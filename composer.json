@@ -52,7 +52,7 @@
       "Zrcms\\ContentLanguage\\": "content-language/",
       "Zrcms\\ContentRedirect\\": "content-redirect/",
       "Zrcms\\ContentRedirectDoctrineDataSource\\": "content-redirect-doctrine-data-source/",
-      "Zrcms\\HttpExpressive1\\": "http-expressive-1/src/",
+      "Zrcms\\HttpExpressive\\": "http-expressive/src/",
       "Zrcms\\Importer\\": "importer/src/",
       "Zrcms\\Install\\": "install/src/",
       "Zrcms\\Locale\\": "locale/",

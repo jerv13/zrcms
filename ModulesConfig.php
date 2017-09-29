@@ -43,7 +43,7 @@ class ModulesConfig
             new \Zrcms\ContentCoreDoctrineDataSource\ModuleConfig(),
             new \Zrcms\ContentRedirectDoctrineDataSource\ModuleConfig(),
 
-            new \Zrcms\HttpExpressive1\ModuleAllConfig(),
+            new \Zrcms\HttpExpressive\ModuleAllConfig(),
 
             // @todo REMOVE Xample
             new \Zrcms\XampleComponent\ModuleConfig(),

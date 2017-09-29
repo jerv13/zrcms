@@ -87,7 +87,7 @@ Clean up - Refactoring
 ##### GetViewLayoutTags interface could take on Request and us attributes #####
 
 - Might simplify the interface
-- View can be an attribute (see Zrcms\HttpExpressive1\HttpAlways\RequestWithView)
+- View can be an attribute (see Zrcms\HttpExpressive\HttpAlways\RequestWithView)
 - View does NOT have to be Content can be simple data model
 - View could have ->addProperty()
 
