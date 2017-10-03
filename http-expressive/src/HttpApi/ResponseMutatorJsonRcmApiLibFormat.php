@@ -5,6 +5,7 @@ namespace Zrcms\HttpExpressive\HttpApi;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Reliv\RcmApiLib\Api\ApiResponse\NewPsrResponseWithTranslatedMessages;
+use Reliv\RcmApiLib\Http\PsrApiResponse;
 use Zend\Diactoros\Response\JsonResponse;
 use Zrcms\HttpExpressive\Api\IsValidContentType;
 use Zrcms\HttpExpressive\Http\JsonApiResponse;
@@ -26,7 +27,7 @@ class ResponseMutatorJsonRcmApiLibFormat
 
     /**
      * @param NewPsrResponseWithTranslatedMessages $newPsrResponseWithTranslatedMessages
-     * @param array              $validContentTypes
+     * @param array                                $validContentTypes
      */
     public function __construct(
         NewPsrResponseWithTranslatedMessages $newPsrResponseWithTranslatedMessages,
@@ -58,12 +59,12 @@ class ResponseMutatorJsonRcmApiLibFormat
 
         $data = $response->getPayload();
 
-        $apiMessagesData = $response->getApiMessages();
+        $apiMessageData = $response->getApiMessages();
 
         return $this->newPsrResponseWithTranslatedMessages->__invoke(
             $data,
             $response->getStatusCode(),
-            $apiMessagesData,
+            $apiMessageData,
             $response->getHeaders()
         );
     }
@@ -86,6 +87,12 @@ class ResponseMutatorJsonRcmApiLibFormat
         }
 
         if (!method_exists($response, 'getApiMessages')) {
+            return false;
+        }
+
+        if ($response instanceof PsrApiResponse) {
+            // @todo might translate and hydrate these here,
+            // @todo but it is likely they were translated and hydrated before
             return false;
         }
 
