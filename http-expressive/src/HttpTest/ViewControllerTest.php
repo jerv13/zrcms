@@ -7,6 +7,7 @@ use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Zend\Diactoros\Response\HtmlResponse;
 use Zend\Diactoros\Response\JsonResponse;
+use Zend\Expressive\Router\RouteResult;
 use Zrcms\Content\Api\CmsResourceToArray;
 use Zrcms\ContentCore\Basic\Api\Repository\FindBasicComponent;
 use Zrcms\ContentCore\Page\Api\Render\GetPageContainerRenderTagsHtml;
@@ -148,6 +149,15 @@ class ViewControllerTest
         ResponseInterface $response,
         callable $next = null
     ) {
+        /** @var RouteResult $routeResult */
+        $routeResult = $request->getAttribute(RouteResult::class);
+
+        $route = $routeResult->getMatchedRoute();
+
+        ddd(
+            $route->getOptions()
+        );
+
         $siteVersion = new SiteVersionBasic(
             'testID',
             [

@@ -56,7 +56,9 @@ class HttpTestModuleConfig
                         'acl' => IsAllowedTest::class,
                         'render' => ViewControllerTest::class,
                     ],
-                    'options' => [],
+                    'options' => [
+                        'test-opt' => 'MEEE'
+                    ],
                     'allowed_methods' => ['GET'],
                 ],
 
