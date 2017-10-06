@@ -55,6 +55,13 @@ class FindSiteCmsResourceByHost
     protected $contentVersionSyncToProperties = [];
 
     /**
+     * @todo Implement an expiration for long running services
+     *
+     * @var array
+     */
+    protected $cache = [];
+
+    /**
      * @param EntityManager $entityManager
      */
     public function __construct(EntityManager $entityManager)
@@ -82,6 +89,11 @@ class FindSiteCmsResourceByHost
         bool $published = true,
         array $options = []
     ) {
+        // basic caching
+        if (array_key_exists($host, $this->cache)) {
+            return $this->cache[$host];
+        }
+
         $repository = $this->entityManager->getRepository(
             $this->entityClassCmsResource
         );
@@ -94,7 +106,7 @@ class FindSiteCmsResourceByHost
             ]
         );
 
-        return BuildBasicCmsResource::invoke(
+        $siteCmsResource = BuildBasicCmsResource::invoke(
             $this->entityClassCmsResource,
             $this->classCmsResourceBasic,
             $this->entityClassContentVersion,
@@ -103,5 +115,9 @@ class FindSiteCmsResourceByHost
             $this->cmsResourceSyncToProperties,
             $this->contentVersionSyncToProperties
         );
+
+        $this->cache[$host] = $siteCmsResource;
+
+        return $siteCmsResource;
     }
 }
