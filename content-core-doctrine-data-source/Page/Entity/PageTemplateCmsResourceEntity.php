@@ -4,7 +4,7 @@ namespace Zrcms\ContentCoreDoctrineDataSource\Page\Entity;
 
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use Doctrine\ORM\Mapping as ORM;
-use Zrcms\Content\Exception\PropertyMissingException;
+use Zrcms\Content\Exception\PropertyMissing;
 use Zrcms\ContentCore\Page\Fields\FieldsPageTemplateCmsResource;
 use Zrcms\ContentDoctrine\Entity\CmsResourceEntity;
 use Zrcms\ContentDoctrine\Entity\CmsResourceEntityAbstract;
@@ -168,7 +168,7 @@ class PageTemplateCmsResourceEntity
         Param::assertHas(
             $properties,
             FieldsPageTemplateCmsResource::SITE_CMS_RESOURCE_ID,
-            PropertyMissingException::buildThrower(
+            PropertyMissing::buildThrower(
                 FieldsPageTemplateCmsResource::SITE_CMS_RESOURCE_ID,
                 $properties,
                 get_class($this)
@@ -184,7 +184,7 @@ class PageTemplateCmsResourceEntity
         Param::assertHas(
             $properties,
             FieldsPageTemplateCmsResource::PATH,
-            PropertyMissingException::buildThrower(
+            PropertyMissing::buildThrower(
                 FieldsPageTemplateCmsResource::PATH,
                 $properties,
                 get_class($this)

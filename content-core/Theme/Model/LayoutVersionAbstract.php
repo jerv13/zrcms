@@ -2,7 +2,7 @@
 
 namespace Zrcms\ContentCore\Theme\Model;
 
-use Zrcms\Content\Exception\PropertyMissingException;
+use Zrcms\Content\Exception\PropertyMissing;
 use Zrcms\Content\Model\ContentVersionAbstract;
 use Zrcms\ContentCore\Theme\Fields\FieldsLayoutVersion;
 use Zrcms\Param\Param;
@@ -27,7 +27,7 @@ class LayoutVersionAbstract extends ContentVersionAbstract
         Param::assertHas(
             $properties,
             FieldsLayoutVersion::HTML,
-            PropertyMissingException::buildThrower(
+            PropertyMissing::buildThrower(
                 FieldsLayoutVersion::HTML,
                 $properties,
                 get_class($this)

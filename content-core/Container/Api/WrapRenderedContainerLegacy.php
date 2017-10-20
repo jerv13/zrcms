@@ -2,13 +2,14 @@
 
 namespace Zrcms\ContentCore\Container\Api;
 
+use Zrcms\ContentCore\Container\Fields\FieldsContainer;
 use Zrcms\ContentCore\Container\Model\Container;
 use Zrcms\ContentCore\Page\Model\PageContainerVersion;
 
 class WrapRenderedContainerLegacy implements WrapRenderedContainer
 {
     /**
-     * @param string                         $innerHtml
+     * @param string $innerHtml
      * @param PageContainerVersion|Container $container
      *
      * @return string
@@ -21,7 +22,10 @@ class WrapRenderedContainerLegacy implements WrapRenderedContainer
     {
         $isPageContainer = $container instanceof PageContainerVersion;
 
-        return "\n<div class=\"container-fluid rcmContainer\""
+        // @todo REMOVE class: rcmContainer
+        return "\n"
+        . '<div class=\"container-fluid rcmContainer section-container '
+        . $container->getProperty(FieldsContainer::HTML_NAME, '') . '"'
         . ' data-container-version-id="' . $container->getId() . '" '
 //        . ' data-containerid="' . $container->getId() . '" ' //WARNING THIS MAY NOT BE WHAT RCM ADMIN EXPECTS
         . ($isPageContainer ? ' data-ispagecontainer="Y"' : '')

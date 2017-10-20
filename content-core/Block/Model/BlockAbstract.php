@@ -2,7 +2,7 @@
 
 namespace Zrcms\ContentCore\Block\Model;
 
-use Zrcms\Content\Exception\PropertyMissingException;
+use Zrcms\Content\Exception\PropertyMissing;
 use Zrcms\Content\Model\ContentAbstract;
 use Zrcms\ContentCore\Block\Fields\FieldsBlock;
 use Zrcms\Param\Param;
@@ -23,7 +23,7 @@ abstract class BlockAbstract extends ContentAbstract implements Block
         Param::assertHas(
             $properties,
             FieldsBlock::BLOCK_COMPONENT_NAME,
-            PropertyMissingException::buildThrower(
+            PropertyMissing::buildThrower(
                 FieldsBlock::BLOCK_COMPONENT_NAME,
                 $properties,
                 get_class($this)
@@ -33,7 +33,7 @@ abstract class BlockAbstract extends ContentAbstract implements Block
         Param::assertHas(
             $properties,
             FieldsBlock::LAYOUT_PROPERTIES,
-            PropertyMissingException::buildThrower(
+            PropertyMissing::buildThrower(
                 FieldsBlock::LAYOUT_PROPERTIES,
                 $properties,
                 get_class($this)
@@ -126,7 +126,7 @@ abstract class BlockAbstract extends ContentAbstract implements Block
         return Param::getRequired(
             $layoutProperties,
             $name,
-            PropertyMissingException::buildThrower(
+            PropertyMissing::buildThrower(
                 $name,
                 $layoutProperties,
                 get_class($this)

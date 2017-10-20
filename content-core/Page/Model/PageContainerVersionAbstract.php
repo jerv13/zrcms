@@ -2,9 +2,11 @@
 
 namespace Zrcms\ContentCore\Page\Model;
 
-use Zrcms\Content\Exception\PropertyMissingException;
+use Zrcms\Content\Exception\PropertyInvalid;
+use Zrcms\Content\Exception\PropertyMissing;
 use Zrcms\ContentCore\Container\Model\ContainerVersionAbstract;
 use Zrcms\ContentCore\Page\Fields\FieldsPageContainerVersion;
+use Zrcms\ContentCore\StringToHtmlClassName;
 use Zrcms\Param\Param;
 
 /**
@@ -27,7 +29,7 @@ abstract class PageContainerVersionAbstract extends ContainerVersionAbstract
         Param::assertHas(
             $properties,
             FieldsPageContainerVersion::TITLE,
-            PropertyMissingException::buildThrower(
+            PropertyMissing::buildThrower(
                 FieldsPageContainerVersion::TITLE,
                 $properties,
                 get_class($this)
@@ -37,12 +39,14 @@ abstract class PageContainerVersionAbstract extends ContainerVersionAbstract
         Param::assertHas(
             $properties,
             FieldsPageContainerVersion::KEYWORDS,
-            PropertyMissingException::buildThrower(
+            PropertyMissing::buildThrower(
                 FieldsPageContainerVersion::KEYWORDS,
                 $properties,
                 get_class($this)
             )
         );
+
+        $this->assertValidProperties($properties);
 
         parent::__construct(
             $id,
@@ -83,5 +87,35 @@ abstract class PageContainerVersionAbstract extends ContainerVersionAbstract
             FieldsPageContainerVersion::KEYWORDS,
             ''
         );
+    }
+
+    /**
+     * @param array $properties
+     *
+     * @return void
+     * @throws PropertyInvalid
+     */
+    public function assertValidProperties(array $properties)
+    {
+        Param::assertNotEmpty(
+            $properties,
+            FieldsPageContainerVersion::HTML_NAME,
+            PropertyMissing::buildThrower(
+                FieldsPageContainerVersion::HTML_NAME,
+                $properties,
+                get_class($this)
+            )
+        );
+
+        $htmlName = $properties[FieldsPageContainerVersion::HTML_NAME];
+        $validHtmlName = StringToHtmlClassName::invoke($htmlName);
+
+        if ($htmlName !== $validHtmlName) {
+            throw new PropertyInvalid(
+                'Property (' . FieldsPageContainerVersion::HTML_NAME . ') must be in valid format:'
+                . ' expected: (' . $validHtmlName . ')'
+                . ' got: (' . $htmlName . ')'
+            );
+        }
     }
 }

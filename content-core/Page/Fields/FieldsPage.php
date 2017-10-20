@@ -45,6 +45,14 @@ class FieldsPage extends FieldsContainer
                 'options' => [],
             ],
             [
+                'name' => self::HTML_NAME,
+                'type' => 'string',
+                'label' => 'Name for page-container tag',
+                'required' => true,
+                'default' => self::DEFAULT_HTML_NAME,
+                'options' => [],
+            ],
+            [
                 'name' => self::TITLE,
                 'type' => 'text',
                 'label' => 'Title',

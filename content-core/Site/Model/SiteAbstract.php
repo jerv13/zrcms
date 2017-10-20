@@ -2,7 +2,7 @@
 
 namespace Zrcms\ContentCore\Site\Model;
 
-use Zrcms\Content\Exception\PropertyMissingException;
+use Zrcms\Content\Exception\PropertyMissing;
 use Zrcms\Content\Model\ContentAbstract;
 use Zrcms\ContentCore\Site\Fields\FieldsSite;
 use Zrcms\Param\Param;
@@ -21,7 +21,7 @@ abstract class SiteAbstract extends ContentAbstract
         Param::assertHas(
             $properties,
             FieldsSite::THEME_NAME,
-            PropertyMissingException::buildThrower(
+            PropertyMissing::buildThrower(
                 FieldsSite::THEME_NAME,
                 $properties,
                 get_class($this)
@@ -31,7 +31,7 @@ abstract class SiteAbstract extends ContentAbstract
         Param::assertHas(
             $properties,
             FieldsSite::LOCALE,
-            PropertyMissingException::buildThrower(
+            PropertyMissing::buildThrower(
                 FieldsSite::LOCALE,
                 $properties,
                 get_class($this)

@@ -2,7 +2,7 @@
 
 namespace Zrcms\ContentCore\Block\Model;
 
-use Zrcms\Content\Exception\PropertyMissingException;
+use Zrcms\Content\Exception\PropertyMissing;
 use Zrcms\Content\Model\ContentVersionAbstract;
 use Zrcms\ContentCore\Block\Fields\FieldsBlockVersion;
 use Zrcms\Param\Param;
@@ -27,7 +27,7 @@ abstract class BlockVersionAbstract extends ContentVersionAbstract
         Param::assertHas(
             $properties,
             FieldsBlockVersion::BLOCK_COMPONENT_NAME,
-            PropertyMissingException::buildThrower(
+            PropertyMissing::buildThrower(
                 FieldsBlockVersion::BLOCK_COMPONENT_NAME,
                 $properties,
                 get_class($this)
@@ -37,7 +37,7 @@ abstract class BlockVersionAbstract extends ContentVersionAbstract
         Param::assertHas(
             $properties,
             FieldsBlockVersion::LAYOUT_PROPERTIES,
-            PropertyMissingException::buildThrower(
+            PropertyMissing::buildThrower(
                 FieldsBlockVersion::LAYOUT_PROPERTIES,
                 $properties,
                 get_class($this)
@@ -47,7 +47,7 @@ abstract class BlockVersionAbstract extends ContentVersionAbstract
         Param::assertHas(
             $properties,
             FieldsBlockVersion::CONTAINER_VERSION_ID,
-            PropertyMissingException::buildThrower(
+            PropertyMissing::buildThrower(
                 FieldsBlockVersion::CONTAINER_VERSION_ID,
                 $properties,
                 get_class($this)
@@ -142,7 +142,7 @@ abstract class BlockVersionAbstract extends ContentVersionAbstract
         return Param::getRequired(
             $layoutProperties,
             $name,
-            PropertyMissingException::buildThrower(
+            PropertyMissing::buildThrower(
                 $name,
                 $layoutProperties,
                 get_class($this)

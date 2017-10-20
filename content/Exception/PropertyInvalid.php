@@ -5,7 +5,7 @@ namespace Zrcms\Content\Exception;
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class ContentVersionNotExistsException extends \Exception
+class PropertyInvalid extends \Exception
 {
 
 }

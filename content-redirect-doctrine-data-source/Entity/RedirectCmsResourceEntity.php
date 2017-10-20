@@ -4,7 +4,7 @@ namespace Zrcms\ContentRedirectDoctrineDataSource\Entity;
 
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use Doctrine\ORM\Mapping as ORM;
-use Zrcms\Content\Exception\PropertyMissingException;
+use Zrcms\Content\Exception\PropertyMissing;
 use Zrcms\ContentDoctrine\Entity\CmsResourceEntity;
 use Zrcms\ContentDoctrine\Entity\CmsResourceEntityAbstract;
 use Zrcms\ContentDoctrine\Entity\ContentEntity;
@@ -166,7 +166,7 @@ class RedirectCmsResourceEntity
         Param::assertHas(
             $properties,
             FieldsRedirectCmsResource::SITE_CMS_RESOURCE_ID,
-            PropertyMissingException::buildThrower(
+            PropertyMissing::buildThrower(
                 FieldsRedirectCmsResource::SITE_CMS_RESOURCE_ID,
                 $properties,
                 get_class($this)
@@ -182,7 +182,7 @@ class RedirectCmsResourceEntity
         Param::assertHas(
             $properties,
             FieldsRedirectCmsResource::REQUEST_PATH,
-            PropertyMissingException::buildThrower(
+            PropertyMissing::buildThrower(
                 FieldsRedirectCmsResource::REQUEST_PATH,
                 $properties,
                 get_class($this)

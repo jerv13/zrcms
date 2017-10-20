@@ -4,7 +4,7 @@ namespace Zrcms\ContentCoreDoctrineDataSource\Theme\Entity;
 
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use Doctrine\ORM\Mapping as ORM;
-use Zrcms\Content\Exception\PropertyMissingException;
+use Zrcms\Content\Exception\PropertyMissing;
 use Zrcms\ContentCore\Theme\Fields\FieldsLayoutCmsResource;
 use Zrcms\ContentDoctrine\Entity\CmsResourceEntity;
 use Zrcms\ContentDoctrine\Entity\CmsResourceEntityAbstract;
@@ -167,7 +167,7 @@ class LayoutCmsResourceEntity
         Param::assertHas(
             $properties,
             FieldsLayoutCmsResource::THEME_NAME,
-            PropertyMissingException::buildThrower(
+            PropertyMissing::buildThrower(
                 FieldsLayoutCmsResource::THEME_NAME,
                 $properties,
                 get_class($this)
@@ -183,7 +183,7 @@ class LayoutCmsResourceEntity
         Param::assertHas(
             $properties,
             FieldsLayoutCmsResource::NAME,
-            PropertyMissingException::buildThrower(
+            PropertyMissing::buildThrower(
                 FieldsLayoutCmsResource::NAME,
                 $properties,
                 get_class($this)

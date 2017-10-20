@@ -2,7 +2,7 @@
 
 namespace Zrcms\ContentCore\View\Model;
 
-use Zrcms\Content\Exception\PropertyMissingException;
+use Zrcms\Content\Exception\PropertyMissing;
 use Zrcms\Content\Model\ComponentAbstract;
 use Zrcms\ContentCore\View\Fields\FieldsViewLayoutTagsComponent;
 use Zrcms\Param\Param;
@@ -31,7 +31,7 @@ abstract class ViewLayoutTagsComponentAbstract extends ComponentAbstract
         Param::assertHas(
             $properties,
             FieldsViewLayoutTagsComponent::RENDER_TAGS_GETTER,
-            PropertyMissingException::buildThrower(
+            PropertyMissing::buildThrower(
                 FieldsViewLayoutTagsComponent::RENDER_TAGS_GETTER,
                 $properties,
                 get_class($this)

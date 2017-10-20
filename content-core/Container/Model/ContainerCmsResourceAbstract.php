@@ -3,7 +3,7 @@
 namespace Zrcms\ContentCore\Container\Model;
 
 use Zrcms\Content\Exception\ContentVersionInvalid;
-use Zrcms\Content\Exception\PropertyMissingException;
+use Zrcms\Content\Exception\PropertyMissing;
 use Zrcms\Content\Model\CmsResourceAbstract;
 use Zrcms\Content\Model\ContentVersion;
 use Zrcms\ContentCore\Container\Fields\FieldsContainerCmsResource;
@@ -15,12 +15,12 @@ use Zrcms\Param\Param;
 abstract class ContainerCmsResourceAbstract extends CmsResourceAbstract
 {
     /**
-     * @param string|null    $id
-     * @param bool           $published
-     * @param ContentVersion $contentVersion
-     * @param array          $properties
-     * @param string         $createdByUserId
-     * @param string         $createdReason
+     * @param string|null                     $id
+     * @param bool                            $published
+     * @param ContainerVersion|ContentVersion $contentVersion
+     * @param array                           $properties
+     * @param string                          $createdByUserId
+     * @param string                          $createdReason
      */
     public function __construct(
         $id,
@@ -33,7 +33,7 @@ abstract class ContainerCmsResourceAbstract extends CmsResourceAbstract
         Param::assertHas(
             $properties,
             FieldsContainerCmsResource::SITE_CMS_RESOURCE_ID,
-            PropertyMissingException::buildThrower(
+            PropertyMissing::buildThrower(
                 FieldsContainerCmsResource::SITE_CMS_RESOURCE_ID,
                 $properties,
                 get_class($this)
@@ -43,7 +43,7 @@ abstract class ContainerCmsResourceAbstract extends CmsResourceAbstract
         Param::assertHas(
             $properties,
             FieldsContainerCmsResource::PATH,
-            PropertyMissingException::buildThrower(
+            PropertyMissing::buildThrower(
                 FieldsContainerCmsResource::PATH,
                 $properties,
                 get_class($this)

@@ -3,7 +3,7 @@
 namespace Zrcms\ContentCore\Site\Model;
 
 use Zrcms\Content\Exception\ContentVersionInvalid;
-use Zrcms\Content\Exception\PropertyMissingException;
+use Zrcms\Content\Exception\PropertyMissing;
 use Zrcms\Content\Model\CmsResourceAbstract;
 use Zrcms\Content\Model\ContentVersion;
 use Zrcms\ContentCore\Site\Fields\FieldsSiteCmsResource;
@@ -33,7 +33,7 @@ abstract class SiteCmsResourceAbstract extends CmsResourceAbstract
         Param::assertHas(
             $properties,
             FieldsSiteCmsResource::HOST,
-            PropertyMissingException::buildThrower(
+            PropertyMissing::buildThrower(
                 FieldsSiteCmsResource::HOST,
                 $properties,
                 get_class($this)

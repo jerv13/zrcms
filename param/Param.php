@@ -2,9 +2,9 @@
 
 namespace Zrcms\Param;
 
-use Zrcms\Param\Exception\IllegalParamException;
+use Zrcms\Param\Exception\IllegalParam;
 use Zrcms\Param\Exception\ParamException;
-use Zrcms\Param\Exception\ParamMissingException;
+use Zrcms\Param\Exception\ParamMissing;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -131,7 +131,7 @@ class Param
      * @param \Exception|null $exception
      *
      * @return mixed
-     * @throws ParamMissingException
+     * @throws ParamMissing
      * @throws \Exception
      */
     public static function getRequired(
@@ -225,7 +225,7 @@ class Param
      * @param null   $exception
      *
      * @return mixed
-     * @throws ParamMissingException
+     * @throws ParamMissing
      * @throws \Exception
      */
     public static function getAndRemoveRequired(
@@ -261,12 +261,45 @@ class Param
     }
 
     /**
+     * @param array                        $params
+     * @param string                       $key
+     * @param callable|ParamException|null $exceptionThrower
+     *
+     * @return void
+     */
+    public static function assertNotEmpty(
+        array $params,
+        string $key,
+        $exceptionThrower = null
+    ) {
+        self::assertHas(
+            $params,
+            $key,
+            $exceptionThrower
+        );
+
+        $value = self::get(
+            $params,
+            $key,
+            null
+        );
+
+        if (empty($value)) {
+            self::throwParamException(
+                $exceptionThrower,
+                ParamMissing::class,
+                "Property ({$key}) is missing and is required and can not be empty"
+            );
+        }
+    }
+
+    /**
      * @param array                    $params
      * @param string                   $key
      * @param callable|\Exception|null $exceptionThrower
      *
      * @return void
-     * @throws ParamMissingException
+     * @throws ParamMissing
      * @throws \Exception
      */
     public static function assertHas(
@@ -278,66 +311,72 @@ class Param
             return;
         }
 
-        if (is_callable($exceptionThrower)) {
-            $exceptionThrower();
-        }
-
-        // @deprecated
-        if (is_a($exceptionThrower, \Throwable::class)) {
-            self::throwError($exceptionThrower);
-        }
-
-        self::throwError(
-            new ParamMissingException(
-                "Required property ({$key}) is missing and is required"
-            )
+        self::throwParamException(
+            $exceptionThrower,
+            ParamMissing::class,
+            "Property ({$key}) is missing and is required"
         );
     }
 
     /**
-     * @param array  $params
-     * @param string $key
-     * @param null   $exception
+     * @param array                        $params
+     * @param string                       $key
+     * @param callable|ParamException|null $exceptionThrower
      *
      * @return void
-     * @throws IllegalParamException
+     * @throws IllegalParam
      * @throws \Throwable
      */
     public static function assertNotHas(
         array $params,
         string $key,
-        $exception = null
+        $exceptionThrower = null
     ) {
         if (!self::has($params, $key)) {
             return;
         }
 
-        if (is_a($exception, \Throwable::class)) {
-            self::throwError($exception);
-        }
-
-        self::throwError(
-            new IllegalParamException(
-                "Illegal property ({$key}) is was found"
-            )
+        self::throwParamException(
+            $exceptionThrower,
+            IllegalParam::class,
+            "Illegal property ({$key}) is was found"
         );
     }
 
     /**
-     * @param \Throwable|ParamException $error
+     * @param callable|ParamException|null $exceptionThrower
+     * @param string                       $defaultParamExceptionClass ParamException ::class
+     * @param string                       $defaultMessage
      *
      * @return void
-     * @throws \Throwable|ParamException
+     * @throws ParamException|\Throwable
      */
-    public static function throwError(\Throwable $error)
-    {
-        if (self::$debug && is_a($error, ParamException::class)) {
+    public static function throwParamException(
+        $exceptionThrower,
+        $defaultParamExceptionClass = ParamException::class,
+        $defaultMessage = 'There was an error with a param'
+    ) {
+        if (is_callable($exceptionThrower)) {
+            $exceptionThrower();
+
+            return;
+        }
+
+        if (empty($exceptionThrower)) {
+            $exceptionThrower = new $defaultParamExceptionClass($defaultMessage);
+        }
+
+        if (self::$debug && is_a($exceptionThrower, ParamException::class)) {
             echo "<pre>\n";
             echo "DEBUG: " . self::class . "\n\n";
-            print_r($error->getProperties());
+            print_r($exceptionThrower->getProperties());
             echo "</pre>\n";
         }
 
-        throw $error;
+        if (is_a($exceptionThrower, \Throwable::class)) {
+            throw $exceptionThrower;
+        }
+
+        die($defaultMessage);
     }
 }

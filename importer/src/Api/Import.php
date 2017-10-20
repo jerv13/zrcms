@@ -8,6 +8,7 @@ use Zrcms\ContentCore\Container\Api\Action\PublishContainerCmsResource;
 use Zrcms\ContentCore\Container\Api\Action\UnpublishContainerCmsResource;
 use Zrcms\ContentCore\Container\Api\Repository\InsertContainerVersion;
 use Zrcms\ContentCore\Container\Fields\FieldsContainerCmsResource;
+use Zrcms\ContentCore\Container\Fields\FieldsContainerVersion;
 use Zrcms\ContentCore\Container\Model\ContainerCmsResourceBasic;
 use Zrcms\ContentCore\Container\Model\ContainerVersionBasic;
 use Zrcms\ContentCore\Page\Api\Action\PublishPageContainerCmsResource;
@@ -16,6 +17,7 @@ use Zrcms\ContentCore\Page\Api\Action\UnpublishPageContainerCmsResource;
 use Zrcms\ContentCore\Page\Api\Action\UnpublishPageTemplateCmsResource;
 use Zrcms\ContentCore\Page\Api\Repository\InsertPageContainerVersion;
 use Zrcms\ContentCore\Page\Fields\FieldsPageContainerCmsResource;
+use Zrcms\ContentCore\Page\Fields\FieldsPageContainerVersion;
 use Zrcms\ContentCore\Page\Fields\FieldsPageTemplateCmsResource;
 use Zrcms\ContentCore\Page\Model\PageContainerCmsResourceBasic;
 use Zrcms\ContentCore\Page\Model\PageContainerVersionBasic;
@@ -27,6 +29,7 @@ use Zrcms\ContentCore\Site\Fields\FieldsSiteCmsResource;
 use Zrcms\ContentCore\Site\Model\SiteCmsResource;
 use Zrcms\ContentCore\Site\Model\SiteCmsResourceBasic;
 use Zrcms\ContentCore\Site\Model\SiteVersionBasic;
+use Zrcms\ContentCore\StringToHtmlClassName;
 use Zrcms\ContentRedirect\Api\Action\PublishRedirectCmsResource;
 use Zrcms\ContentRedirect\Api\Action\UnpublishRedirectCmsResource;
 use Zrcms\ContentRedirect\Api\Repository\InsertRedirectVersion;
@@ -421,6 +424,16 @@ class Import
         );
 
         foreach ($pages as $page) {
+            $htmlName = Param::getString(
+                $page['properties'],
+                FieldsPageContainerVersion::HTML_NAME,
+                ''
+            );
+
+            $page['properties'][FieldsPageContainerVersion::HTML_NAME] = StringToHtmlClassName::invoke(
+                $htmlName
+            );
+
             $version = $this->insertPageContainerVersion->__invoke(
                 new PageContainerVersionBasic(
                     null,
@@ -487,6 +500,16 @@ class Import
         );
 
         foreach ($containers as $container) {
+            $htmlName = Param::getString(
+                $container['properties'],
+                FieldsContainerVersion::HTML_NAME,
+                ''
+            );
+
+            $container['properties'][FieldsContainerVersion::HTML_NAME] = StringToHtmlClassName::invoke(
+                $htmlName
+            );
+
             $version = $this->insertContainerVersion->__invoke(
                 new ContainerVersionBasic(
                     null,

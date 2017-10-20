@@ -3,13 +3,13 @@
 
 - PageDataService
 
-
 - Rename
     - CmsResourcePublishHistory to CmsResourceHistory
     - Repository to CsmResource, Component, ContentVersion respectivly
       
 - APIs in http-expressive
     - Test
+    - Container an Page HTTP APIs need to deal with FieldsContainer::HTML_NAME
 
 - Write implementation test
     - for each content type (Container with block, PageContainer, Site, ThemeLayout, View)
@@ -53,18 +53,10 @@
 - Doctrine FindXXXsBy need to be made to work better with properties
 
 - GetRegisterComponentsAbstract needs a default service name, not ReadComponentConfig
-
-- HandleResponse should be a pipe or composite
-
-    - Could these just be middleware???
-        - Could get options from request instead of passed in
-        - Could get handlers from route options
-    - If a handler returns a response, then return and done
-    - Else handlers should call next
-    - Allow handlers to be configured for pipe
     
 - Check and update all composer dependencies
 
+- Trackable Date is not constructor injected which cause issues for low-level services
     
 Features
 --------

@@ -2,9 +2,11 @@
 
 namespace Zrcms\ContentCore\Page\Model;
 
-use Zrcms\Content\Exception\PropertyMissingException;
+use Zrcms\Content\Exception\PropertyInvalid;
+use Zrcms\Content\Exception\PropertyMissing;
 use Zrcms\Content\Model\ContentAbstract;
-use Zrcms\ContentCore\Page\Fields\FieldsPageContainerVersion;
+use Zrcms\ContentCore\Page\Fields\FieldsPage;
+use Zrcms\ContentCore\StringToHtmlClassName;
 use Zrcms\Param\Param;
 
 /**
@@ -20,9 +22,9 @@ abstract class PageAbstract extends ContentAbstract
     ) {
         Param::assertHas(
             $properties,
-            FieldsPageContainerVersion::TITLE,
-            PropertyMissingException::buildThrower(
-                FieldsPageContainerVersion::TITLE,
+            FieldsPage::TITLE,
+            PropertyMissing::buildThrower(
+                FieldsPage::TITLE,
                 $properties,
                 get_class($this)
             )
@@ -30,13 +32,15 @@ abstract class PageAbstract extends ContentAbstract
 
         Param::assertHas(
             $properties,
-            FieldsPageContainerVersion::KEYWORDS,
-            PropertyMissingException::buildThrower(
-                FieldsPageContainerVersion::KEYWORDS,
+            FieldsPage::KEYWORDS,
+            PropertyMissing::buildThrower(
+                FieldsPage::KEYWORDS,
                 $properties,
                 get_class($this)
             )
         );
+
+        $this->assertValidProperties($properties);
 
         parent::__construct(
             $properties
@@ -49,7 +53,7 @@ abstract class PageAbstract extends ContentAbstract
     public function getTitle(): string
     {
         return $this->getProperty(
-            FieldsPageContainerVersion::TITLE,
+            FieldsPage::TITLE,
             ''
         );
     }
@@ -60,7 +64,7 @@ abstract class PageAbstract extends ContentAbstract
     public function getDescription(): string
     {
         return $this->getProperty(
-            FieldsPageContainerVersion::DESCRIPTION,
+            FieldsPage::DESCRIPTION,
             ''
         );
     }
@@ -71,8 +75,38 @@ abstract class PageAbstract extends ContentAbstract
     public function getKeywords(): string
     {
         return $this->getProperty(
-            FieldsPageContainerVersion::KEYWORDS,
+            FieldsPage::KEYWORDS,
             ''
         );
+    }
+
+    /**
+     * @param array $properties
+     *
+     * @return void
+     * @throws PropertyInvalid
+     */
+    public function assertValidProperties(array $properties)
+    {
+        Param::assertNotEmpty(
+            $properties,
+            FieldsPage::HTML_NAME,
+            PropertyMissing::buildThrower(
+                FieldsPage::HTML_NAME,
+                $properties,
+                get_class($this)
+            )
+        );
+
+        $htmlName = $properties[FieldsPage::HTML_NAME];
+        $validHtmlName = StringToHtmlClassName::invoke($htmlName);
+
+        if ($htmlName !== $validHtmlName) {
+            throw new PropertyInvalid(
+                'Property (' . FieldsPage::HTML_NAME . ') must be in valid format:'
+                . ' expected: (' . $validHtmlName . ')'
+                . ' got: (' . $htmlName . ')'
+            );
+        }
     }
 }

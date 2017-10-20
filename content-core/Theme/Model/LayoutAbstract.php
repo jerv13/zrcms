@@ -2,7 +2,7 @@
 
 namespace Zrcms\ContentCore\Theme\Model;
 
-use Zrcms\Content\Exception\PropertyMissingException;
+use Zrcms\Content\Exception\PropertyMissing;
 use Zrcms\Content\Model\Content;
 use Zrcms\Content\Model\ContentAbstract;
 use Zrcms\ContentCore\Theme\Fields\FieldsLayout;
@@ -23,7 +23,7 @@ abstract class LayoutAbstract extends ContentAbstract
         Param::assertHas(
             $properties,
             FieldsLayout::HTML,
-            PropertyMissingException::buildThrower(
+            PropertyMissing::buildThrower(
                 FieldsLayout::HTML,
                 $properties,
                 get_class($this)

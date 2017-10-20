@@ -2,7 +2,7 @@
 namespace Zrcms\ContentDoctrine\Api\Action;
 
 use Doctrine\ORM\EntityManager;
-use Zrcms\Content\Exception\ContentVersionNotExistsException;
+use Zrcms\Content\Exception\ContentVersionNotExists;
 use Zrcms\Content\Model\Action;
 use Zrcms\Content\Model\CmsResource;
 use Zrcms\Content\Model\CmsResourcePublishHistory;
@@ -115,7 +115,7 @@ class PublishCmsResource
      * @param string      $publishReason
      *
      * @return CmsResource
-     * @throws ContentVersionNotExistsException
+     * @throws ContentVersionNotExists
      */
     public function __invoke(
         CmsResource $cmsResource,
@@ -135,7 +135,7 @@ class PublishCmsResource
 
         if (empty($existingContentVersion)) {
             // @todo We might create this instead of throwing
-            throw new ContentVersionNotExistsException(
+            throw new ContentVersionNotExists(
                 'No content version exists for content version ID: ' . $requestedContentVersionId
             );
         }

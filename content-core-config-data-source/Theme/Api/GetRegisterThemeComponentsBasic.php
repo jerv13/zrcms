@@ -4,7 +4,7 @@ namespace Zrcms\ContentCoreConfigDataSource\Theme\Api;
 
 use Zrcms\Cache\Service\Cache;
 use Zrcms\Content\Api\GetRegisterComponentsAbstract;
-use Zrcms\Content\Exception\PropertyMissingException;
+use Zrcms\Content\Exception\PropertyMissing;
 use Zrcms\Content\Fields\FieldsComponentConfig;
 use Zrcms\Content\Model\Trackable;
 use Zrcms\ContentCore\Theme\Api\Component\ReadLayoutComponentConfig;
@@ -104,7 +104,7 @@ class GetRegisterThemeComponentsBasic
             $templateFile = Param::getRequired(
                 $layoutComponentConfig,
                 FieldsLayoutComponentConfig::TEMPLATE_FILE,
-                PropertyMissingException::buildThrower(
+                PropertyMissing::buildThrower(
                     FieldsLayoutComponentConfig::TEMPLATE_FILE,
                     $layoutComponentConfig,
                     get_class($this)

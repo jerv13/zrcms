@@ -3,7 +3,7 @@
 namespace Zrcms\ContentCore\Theme\Model;
 
 use Zrcms\Content\Exception\ContentVersionInvalid;
-use Zrcms\Content\Exception\PropertyMissingException;
+use Zrcms\Content\Exception\PropertyMissing;
 use Zrcms\Content\Model\CmsResourceAbstract;
 use Zrcms\Content\Model\ContentVersion;
 use Zrcms\ContentCore\Theme\Fields\FieldsLayoutCmsResource;
@@ -34,7 +34,7 @@ abstract class LayoutCmsResourceAbstract extends CmsResourceAbstract
         Param::assertHas(
             $properties,
             FieldsLayoutCmsResource::THEME_NAME,
-            PropertyMissingException::buildThrower(
+            PropertyMissing::buildThrower(
                 FieldsLayoutCmsResource::THEME_NAME,
                 $properties,
                 get_class($this)
@@ -44,7 +44,7 @@ abstract class LayoutCmsResourceAbstract extends CmsResourceAbstract
         Param::assertHas(
             $properties,
             FieldsLayoutCmsResource::NAME,
-            PropertyMissingException::buildThrower(
+            PropertyMissing::buildThrower(
                 FieldsLayoutCmsResource::NAME,
                 $properties,
                 get_class($this)

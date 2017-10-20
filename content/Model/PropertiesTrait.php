@@ -2,7 +2,7 @@
 
 namespace Zrcms\Content\Model;
 
-use Zrcms\Content\Exception\PropertyMissingException;
+use Zrcms\Content\Exception\PropertyMissing;
 use Zrcms\Param\Param;
 
 /**
@@ -44,7 +44,7 @@ trait PropertiesTrait
      * @param string $name
      *
      * @return mixed
-     * @throws PropertyMissingException
+     * @throws PropertyMissing
      */
     public function getPropertyRequired(
         string $name
@@ -54,7 +54,7 @@ trait PropertiesTrait
         return Param::getRequired(
             $this->getProperties(),
             $name,
-            new PropertyMissingException(
+            new PropertyMissing(
                 "Required property ({$name}) is missing in: {$class}"
             )
         );
