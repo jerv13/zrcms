@@ -424,16 +424,6 @@ class Import
         );
 
         foreach ($pages as $page) {
-            $htmlName = Param::getString(
-                $page['properties'],
-                FieldsPageContainerVersion::HTML_NAME,
-                ''
-            );
-
-            $page['properties'][FieldsPageContainerVersion::HTML_NAME] = StringToHtmlClassName::invoke(
-                $htmlName
-            );
-
             $version = $this->insertPageContainerVersion->__invoke(
                 new PageContainerVersionBasic(
                     null,
@@ -500,16 +490,6 @@ class Import
         );
 
         foreach ($containers as $container) {
-            $htmlName = Param::getString(
-                $container['properties'],
-                FieldsContainerVersion::HTML_NAME,
-                ''
-            );
-
-            $container['properties'][FieldsContainerVersion::HTML_NAME] = StringToHtmlClassName::invoke(
-                $htmlName
-            );
-
             $version = $this->insertContainerVersion->__invoke(
                 new ContainerVersionBasic(
                     null,

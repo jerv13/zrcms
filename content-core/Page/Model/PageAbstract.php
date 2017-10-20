@@ -40,8 +40,6 @@ abstract class PageAbstract extends ContentAbstract
             )
         );
 
-        $this->assertValidProperties($properties);
-
         parent::__construct(
             $properties
         );
@@ -78,35 +76,5 @@ abstract class PageAbstract extends ContentAbstract
             FieldsPage::KEYWORDS,
             ''
         );
-    }
-
-    /**
-     * @param array $properties
-     *
-     * @return void
-     * @throws PropertyInvalid
-     */
-    public function assertValidProperties(array $properties)
-    {
-        Param::assertNotEmpty(
-            $properties,
-            FieldsPage::HTML_NAME,
-            PropertyMissing::buildThrower(
-                FieldsPage::HTML_NAME,
-                $properties,
-                get_class($this)
-            )
-        );
-
-        $htmlName = $properties[FieldsPage::HTML_NAME];
-        $validHtmlName = StringToHtmlClassName::invoke($htmlName);
-
-        if ($htmlName !== $validHtmlName) {
-            throw new PropertyInvalid(
-                'Property (' . FieldsPage::HTML_NAME . ') must be in valid format:'
-                . ' expected: (' . $validHtmlName . ')'
-                . ' got: (' . $htmlName . ')'
-            );
-        }
     }
 }

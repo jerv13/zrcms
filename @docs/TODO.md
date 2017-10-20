@@ -3,13 +3,12 @@
 
 - PageDataService
 
-- Rename
+- Rename Directories
     - CmsResourcePublishHistory to CmsResourceHistory
-    - Repository to CsmResource, Component, ContentVersion respectivly
+    - Repository to CsmResource, Component, ContentVersion respectively
       
 - APIs in http-expressive
     - Test
-    - Container an Page HTTP APIs need to deal with FieldsContainer::HTML_NAME
 
 - Write implementation test
     - for each content type (Container with block, PageContainer, Site, ThemeLayout, View)

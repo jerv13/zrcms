@@ -3,11 +3,9 @@
 namespace Zrcms\ContentCore\Container\Model;
 
 use Zrcms\Content\Exception\PropertyInvalid;
-use Zrcms\Content\Exception\PropertyMissing;
 use Zrcms\Content\Model\ContentVersionAbstract;
 use Zrcms\ContentCore\Container\Api\BuildBlockVersions;
 use Zrcms\ContentCore\Container\Fields\FieldsContainerVersion;
-use Zrcms\ContentCore\StringToHtmlClassName;
 use Zrcms\Param\Param;
 
 /**
@@ -39,8 +37,6 @@ abstract class ContainerVersionAbstract extends ContentVersionAbstract
             $blockVersions
         );
 
-        $this->assertValidProperties($properties);
-
         parent::__construct(
             $id,
             $properties,
@@ -66,35 +62,5 @@ abstract class ContainerVersionAbstract extends ContentVersionAbstract
             $containerVersion,
             $blockVersions
         );
-    }
-
-    /**
-     * @param array $properties
-     *
-     * @return void
-     * @throws PropertyInvalid
-     */
-    public function assertValidProperties(array $properties)
-    {
-        Param::assertNotEmpty(
-            $properties,
-            FieldsContainerVersion::HTML_NAME,
-            PropertyMissing::buildThrower(
-                FieldsContainerVersion::HTML_NAME,
-                $properties,
-                get_class($this)
-            )
-        );
-
-        $htmlName = $properties[FieldsContainerVersion::HTML_NAME];
-        $validHtmlName = StringToHtmlClassName::invoke($htmlName);
-
-        if ($htmlName !== $validHtmlName) {
-            throw new PropertyInvalid(
-                'Property (' . FieldsContainerVersion::HTML_NAME . ') must be in valid format:'
-                . ' expected: (' . $validHtmlName . ')'
-                . ' got: (' . $htmlName . ')'
-            );
-        }
     }
 }

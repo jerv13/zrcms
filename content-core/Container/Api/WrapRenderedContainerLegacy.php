@@ -24,8 +24,7 @@ class WrapRenderedContainerLegacy implements WrapRenderedContainer
 
         // @todo REMOVE class: rcmContainer
         return "\n"
-        . '<div class=\"container-fluid rcmContainer section-container '
-        . $container->getProperty(FieldsContainer::HTML_NAME, '') . '"'
+        . '<div class=\"container-fluid rcmContainer section-container"'
         . ' data-container-version-id="' . $container->getId() . '" '
 //        . ' data-containerid="' . $container->getId() . '" ' //WARNING THIS MAY NOT BE WHAT RCM ADMIN EXPECTS
         . ($isPageContainer ? ' data-ispagecontainer="Y"' : '')

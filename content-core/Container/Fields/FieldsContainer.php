@@ -13,12 +13,10 @@ class FieldsContainer extends FieldsContent implements Fields
     const RENDER_TAGS_GETTER = 'renderTagsGetter';
     const RENDERER = 'renderer';
     const BLOCK_VERSIONS = 'blockVersions';
-    const HTML_NAME = 'htmlName';
 
     const DEFAULT_RENDER_TAGS_GETTER = 'blocks';
     const DEFAULT_RENDERER = 'rows';
     const DEFAULT_BLOCK_VERSIONS = [];
-    const DEFAULT_HTML_NAME = '';
 
     /**
      * @var array
@@ -47,14 +45,6 @@ class FieldsContainer extends FieldsContent implements Fields
                 'label' => 'Block Versions',
                 'required' => false,
                 'default' => self::DEFAULT_BLOCK_VERSIONS,
-                'options' => [],
-            ],
-            [
-                'name' => self::HTML_NAME,
-                'type' => 'string',
-                'label' => 'Name for container tag',
-                'required' => true,
-                'default' => self::DEFAULT_HTML_NAME,
                 'options' => [],
             ],
         ];

@@ -32,8 +32,6 @@ abstract class ContainerAbstract extends ContentAbstract
             $blockVersions
         );
 
-        $this->assertValidProperties($properties);
-
         parent::__construct($properties);
     }
 
@@ -54,35 +52,5 @@ abstract class ContainerAbstract extends ContentAbstract
             $containerVersion,
             $blockVersions
         );
-    }
-
-    /**
-     * @param array $properties
-     *
-     * @return void
-     * @throws PropertyInvalid
-     */
-    public function assertValidProperties(array $properties)
-    {
-        Param::assertNotEmpty(
-            $properties,
-            FieldsContainer::HTML_NAME,
-            PropertyMissing::buildThrower(
-                FieldsContainer::HTML_NAME,
-                $properties,
-                get_class($this)
-            )
-        );
-
-        $htmlName = $properties[FieldsContainer::HTML_NAME];
-        $validHtmlName = StringToHtmlClassName::invoke($htmlName);
-
-        if ($htmlName !== $validHtmlName) {
-            throw new PropertyInvalid(
-                'Property (' . FieldsContainer::HTML_NAME . ') must be in valid format:'
-                . ' expected: (' . $validHtmlName . ')'
-                . ' got: (' . $htmlName . ')'
-            );
-        }
     }
 }
