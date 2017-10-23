@@ -58,7 +58,7 @@ $app->pipe(
 );
 
 $app->pipe(
-    \Cart\Zrcms\HttpAlways\RequestWithViewProductPage::class
+    \Reliv\Cart\Zrcms\HttpAlways\RequestWithViewProductPage::class
 );
 
 $app->pipe(
