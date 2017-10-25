@@ -53,20 +53,28 @@ class WrapRenderedBlockVersionLegacy implements WrapRenderedBlockVersion
 
         $componentName = $blockComponent->getName();
 
+        // @todo REMOVE rcmPlugin and rcmPluginContainer class
+        // @todo REMOVE data-rcm... attributes
         return "\n"
-        . '<div class="zrcms-block rcmPlugin ' . $componentName . ' ' . $columnClass . '" '
-        . 'data-rcmpluginname="' . $componentName . '" '
-        . 'data-rcmplugindefaultclass="rcmPlugin ' . $componentName . '" '
-        . 'data-rcmplugincolumnclass="' . $columnClass . '" '
-        . 'data-rcmpluginrownumber="' . $rowNumber . '" '
-        . 'data-rcmpluginrenderordernumber="' . $renderOrder . '" '
-        . 'data-rcmplugininstanceid="' . $id . '" '
-        . 'data-rcmpluginwrapperid="' . $id . '" ' //Deprecated
-        . 'data-rcmsitewideplugin="" ' //Deprecated
-        . 'data-rcmplugindisplayname="" ' //Deprecated
-        . 'data-block-editor="' . $editor . '">'
+        . '<div class="content-block rcmPlugin ' . $componentName . ' ' . $columnClass . '"'
+        . ' block-name="' . $componentName . '"'
+        . ' default-class="content-block rcmPlugin ' . $componentName . '"'
+        . ' column-class="' . $columnClass . '"'
+        . ' row-number="' . $rowNumber . '"'
+        . ' render-order="' . $renderOrder . '"'
+        . ' instance-id="' . $id . '"'
+        . ' data-rcmpluginname="' . $componentName . '"'
+        . ' data-rcmplugindefaultclass="content-block rcmPlugin ' . $componentName . '"'
+        . ' data-rcmplugincolumnclass="' . $columnClass . '"'
+        . ' data-rcmpluginrownumber="' . $rowNumber . '"'
+        . ' data-rcmpluginrenderordernumber="' . $renderOrder . '"'
+        . ' data-rcmplugininstanceid="' . $id . '"'
+        . ' data-rcmpluginwrapperid="' . $id . '"' //Deprecated
+        . ' data-rcmsitewideplugin=""' //Deprecated
+        . ' data-rcmplugindisplayname=""' //Deprecated
+        . ' data-block-editor="' . $editor . '">'
         . "\n"
-        . ' <div class="rcmPluginContainer">'
+        . ' <div class="content-block-container rcmPluginContainer">'
         . $innerHtml
         . ' </div>'
         . "\n"
