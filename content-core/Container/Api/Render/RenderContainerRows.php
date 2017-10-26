@@ -48,7 +48,7 @@ class RenderContainerRows implements RenderContainer
     {
         $comment = Param::get(
             $options,
-            'containerType',
+            'comment',
             'container'
         );
 

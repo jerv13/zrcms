@@ -4,10 +4,10 @@ namespace Zrcms\ContentCoreDoctrineDataSource\Page\Api\Action;
 
 use Doctrine\ORM\EntityManager;
 use Zrcms\Content\Model\CmsResource;
-use Zrcms\ContentCore\Page\Model\PageContainerCmsResourceBasic;
-use Zrcms\ContentCore\Page\Model\PageContainerVersionBasic;
+use Zrcms\ContentCore\Page\Model\PageCmsResourceBasic;
+use Zrcms\ContentCore\Page\Model\PageVersionBasic;
 use Zrcms\ContentCore\Page\Model\PageTemplateCmsResource;
-use Zrcms\ContentCoreDoctrineDataSource\Page\Entity\PageContainerVersionEntity;
+use Zrcms\ContentCoreDoctrineDataSource\Page\Entity\PageVersionEntity;
 use Zrcms\ContentCoreDoctrineDataSource\Page\Entity\PageTemplateCmsResourceEntity;
 use Zrcms\ContentCoreDoctrineDataSource\Page\Entity\PageTemplateCmsResourcePublishHistoryEntity;
 use Zrcms\ContentDoctrine\Api\Action\PublishCmsResource;
@@ -29,9 +29,9 @@ class PublishPageTemplateCmsResource
             $entityManager,
             PageTemplateCmsResourceEntity::class,
             PageTemplateCmsResourcePublishHistoryEntity::class,
-            PageContainerVersionEntity::class,
-            PageContainerCmsResourceBasic::class,
-            PageContainerVersionBasic::class,
+            PageVersionEntity::class,
+            PageCmsResourceBasic::class,
+            PageVersionBasic::class,
             [],
             []
         );

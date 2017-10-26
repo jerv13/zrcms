@@ -3,7 +3,7 @@
 namespace Zrcms\ContentCore\View\Model;
 
 use Zrcms\Content\Model\Content;
-use Zrcms\ContentCore\Page\Model\PageContainerCmsResource;
+use Zrcms\ContentCore\Page\Model\PageCmsResource;
 use Zrcms\ContentCore\Site\Model\SiteCmsResource;
 use Zrcms\ContentCore\Theme\Model\LayoutCmsResource;
 
@@ -20,9 +20,9 @@ interface View extends Content
     public function getSiteCmsResource(): SiteCmsResource;
 
     /**
-     * @return PageContainerCmsResource
+     * @return PageCmsResource
      */
-    public function getPageContainerCmsResource(): PageContainerCmsResource;
+    public function getPageCmsResource(): PageCmsResource;
 
     /**
      * @return LayoutCmsResource

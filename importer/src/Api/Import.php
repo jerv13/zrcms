@@ -11,16 +11,16 @@ use Zrcms\ContentCore\Container\Fields\FieldsContainerCmsResource;
 use Zrcms\ContentCore\Container\Fields\FieldsContainerVersion;
 use Zrcms\ContentCore\Container\Model\ContainerCmsResourceBasic;
 use Zrcms\ContentCore\Container\Model\ContainerVersionBasic;
-use Zrcms\ContentCore\Page\Api\Action\PublishPageContainerCmsResource;
+use Zrcms\ContentCore\Page\Api\Action\PublishPageCmsResource;
 use Zrcms\ContentCore\Page\Api\Action\PublishPageTemplateCmsResource;
-use Zrcms\ContentCore\Page\Api\Action\UnpublishPageContainerCmsResource;
+use Zrcms\ContentCore\Page\Api\Action\UnpublishPageCmsResource;
 use Zrcms\ContentCore\Page\Api\Action\UnpublishPageTemplateCmsResource;
-use Zrcms\ContentCore\Page\Api\Repository\InsertPageContainerVersion;
-use Zrcms\ContentCore\Page\Fields\FieldsPageContainerCmsResource;
-use Zrcms\ContentCore\Page\Fields\FieldsPageContainerVersion;
+use Zrcms\ContentCore\Page\Api\Repository\InsertPageVersion;
+use Zrcms\ContentCore\Page\Fields\FieldsPageCmsResource;
+use Zrcms\ContentCore\Page\Fields\FieldsPageVersion;
 use Zrcms\ContentCore\Page\Fields\FieldsPageTemplateCmsResource;
-use Zrcms\ContentCore\Page\Model\PageContainerCmsResourceBasic;
-use Zrcms\ContentCore\Page\Model\PageContainerVersionBasic;
+use Zrcms\ContentCore\Page\Model\PageCmsResourceBasic;
+use Zrcms\ContentCore\Page\Model\PageVersionBasic;
 use Zrcms\ContentCore\Page\Model\PageTemplateCmsResourceBasic;
 use Zrcms\ContentCore\Site\Api\Action\PublishSiteCmsResource;
 use Zrcms\ContentCore\Site\Api\Action\UnpublishSiteCmsResource;
@@ -60,19 +60,19 @@ class Import
     protected $unpublishSiteCmsResource;
 
     /**
-     * @var InsertPageContainerVersion
+     * @var InsertPageVersion
      */
-    protected $insertPageContainerVersion;
+    protected $insertPageVersion;
 
     /**
-     * @var PublishPageContainerCmsResource
+     * @var PublishPageCmsResource
      */
-    protected $publishPageContainerCmsResource;
+    protected $publishPageCmsResource;
 
     /**
-     * @var UnpublishPageContainerCmsResource
+     * @var UnpublishPageCmsResource
      */
-    protected $unpublishPageContainerCmsResource;
+    protected $unpublishPageCmsResource;
 
     /**
      * @var PublishPageTemplateCmsResource
@@ -115,28 +115,28 @@ class Import
     protected $unpublishRedirectCmsResource;
 
     /**
-     * @param InsertSiteVersion                 $insertSiteVersion
-     * @param PublishSiteCmsResource            $publishSiteCmsResource
-     * @param UnpublishSiteCmsResource          $unpublishSiteCmsResource
-     * @param InsertPageContainerVersion        $insertPageContainerVersion
-     * @param PublishPageContainerCmsResource   $publishPageContainerCmsResource
-     * @param UnpublishPageContainerCmsResource $unpublishPageContainerCmsResource
-     * @param PublishPageTemplateCmsResource    $publishPageTemplateCmsResource
-     * @param UnpublishPageTemplateCmsResource  $unpublishPageTemplateCmsResource
-     * @param InsertContainerVersion            $insertContainerVersion
-     * @param PublishContainerCmsResource       $publishContainerCmsResource
-     * @param UnpublishContainerCmsResource     $unpublishContainerCmsResource
-     * @param InsertRedirectVersion             $insertRedirectVersion
-     * @param PublishRedirectCmsResource        $publishRedirectCmsResource
-     * @param UnpublishRedirectCmsResource      $unpublishRedirectCmsResource
+     * @param InsertSiteVersion                $insertSiteVersion
+     * @param PublishSiteCmsResource           $publishSiteCmsResource
+     * @param UnpublishSiteCmsResource         $unpublishSiteCmsResource
+     * @param InsertPageVersion                $insertPageVersion
+     * @param PublishPageCmsResource           $publishPageCmsResource
+     * @param UnpublishPageCmsResource         $unpublishPageCmsResource
+     * @param PublishPageTemplateCmsResource   $publishPageTemplateCmsResource
+     * @param UnpublishPageTemplateCmsResource $unpublishPageTemplateCmsResource
+     * @param InsertContainerVersion           $insertContainerVersion
+     * @param PublishContainerCmsResource      $publishContainerCmsResource
+     * @param UnpublishContainerCmsResource    $unpublishContainerCmsResource
+     * @param InsertRedirectVersion            $insertRedirectVersion
+     * @param PublishRedirectCmsResource       $publishRedirectCmsResource
+     * @param UnpublishRedirectCmsResource     $unpublishRedirectCmsResource
      */
     public function __construct(
         InsertSiteVersion $insertSiteVersion,
         PublishSiteCmsResource $publishSiteCmsResource,
         UnpublishSiteCmsResource $unpublishSiteCmsResource,
-        InsertPageContainerVersion $insertPageContainerVersion,
-        PublishPageContainerCmsResource $publishPageContainerCmsResource,
-        UnpublishPageContainerCmsResource $unpublishPageContainerCmsResource,
+        InsertPageVersion $insertPageVersion,
+        PublishPageCmsResource $publishPageCmsResource,
+        UnpublishPageCmsResource $unpublishPageCmsResource,
         PublishPageTemplateCmsResource $publishPageTemplateCmsResource,
         UnpublishPageTemplateCmsResource $unpublishPageTemplateCmsResource,
         InsertContainerVersion $insertContainerVersion,
@@ -150,9 +150,9 @@ class Import
         $this->publishSiteCmsResource = $publishSiteCmsResource;
         $this->unpublishSiteCmsResource = $unpublishSiteCmsResource;
 
-        $this->insertPageContainerVersion = $insertPageContainerVersion;
-        $this->publishPageContainerCmsResource = $publishPageContainerCmsResource;
-        $this->unpublishPageContainerCmsResource = $unpublishPageContainerCmsResource;
+        $this->insertPageVersion = $insertPageVersion;
+        $this->publishPageCmsResource = $publishPageCmsResource;
+        $this->unpublishPageCmsResource = $unpublishPageCmsResource;
 
         $this->publishPageTemplateCmsResource = $publishPageTemplateCmsResource;
         $this->unpublishPageTemplateCmsResource = $unpublishPageTemplateCmsResource;
@@ -358,8 +358,8 @@ class Import
         );
 
         foreach ($pages as $page) {
-            $version = $this->insertPageContainerVersion->__invoke(
-                new PageContainerVersionBasic(
+            $version = $this->insertPageVersion->__invoke(
+                new PageVersionBasic(
                     null,
                     $page['properties'],
                     $createdByUserId,
@@ -367,14 +367,14 @@ class Import
                 )
             );
 
-            $publishedPageContainerCmsResource = $this->publishPageContainerCmsResource->__invoke(
-                new PageContainerCmsResourceBasic(
+            $publishedPageCmsResource = $this->publishPageCmsResource->__invoke(
+                new PageCmsResourceBasic(
                     null,
                     true,
                     $version,
                     [
-                        FieldsPageContainerCmsResource::SITE_CMS_RESOURCE_ID => $siteCmsResource->getId(),
-                        FieldsPageContainerCmsResource::PATH => $page['path'],
+                        FieldsPageCmsResource::SITE_CMS_RESOURCE_ID => $siteCmsResource->getId(),
+                        FieldsPageCmsResource::PATH => $page['path'],
                     ],
                     $createdByUserId,
                     $createdReason
@@ -386,12 +386,12 @@ class Import
             if (!Param::getBool($page, 'published', true)) {
                 $this->log(
                     LogLevel::WARNING,
-                    'UNPUBLISH PageContainerCmsResource ID: ' . $publishedPageContainerCmsResource->getId(),
+                    'UNPUBLISH PageCmsResource ID: ' . $publishedPageCmsResource->getId(),
                     $options
                 );
 
-                $this->unpublishPageContainerCmsResource->__invoke(
-                    $publishedPageContainerCmsResource->getId(),
+                $this->unpublishPageCmsResource->__invoke(
+                    $publishedPageCmsResource->getId(),
                     $createdByUserId,
                     $createdReason
                 );
@@ -424,8 +424,8 @@ class Import
         );
 
         foreach ($pages as $page) {
-            $version = $this->insertPageContainerVersion->__invoke(
-                new PageContainerVersionBasic(
+            $version = $this->insertPageVersion->__invoke(
+                new PageVersionBasic(
                     null,
                     $page['properties'],
                     $createdByUserId,

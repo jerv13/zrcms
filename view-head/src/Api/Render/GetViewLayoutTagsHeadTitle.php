@@ -29,7 +29,7 @@ class GetViewLayoutTagsHeadTitle implements GetViewLayoutTagsHead
         array $options = []
     ): array
     {
-        $pageVersion = $view->getPageContainerCmsResource()->getContentVersion();
+        $pageVersion = $view->getPageCmsResource()->getContentVersion();
 
         $title = $pageVersion->getTitle();
 

@@ -10,7 +10,7 @@ use Zrcms\Content\Fields\FieldsContent;
 class FieldsView extends FieldsContent
 {
     const SITE_CMS_RESOURCE = 'siteCmsResource';
-    const PAGE_CONTAINER_CMS_RESOURCE = 'pageContainerCmsResource';
+    const PAGE_CONTAINER_CMS_RESOURCE = 'pageCmsResource';
     const LAYOUT_CMS_RESOURCE = 'themeLayoutCmsResource';
     const RENDERER = 'renderer';
 
@@ -30,7 +30,7 @@ class FieldsView extends FieldsContent
             [
                 'name' => self::PAGE_CONTAINER_CMS_RESOURCE,
                 'type' => 'object',
-                'label' => 'PageContainerCmsResource',
+                'label' => 'PageCmsResource',
                 'required' => true,
                 'default' => null,
                 'options' => [],

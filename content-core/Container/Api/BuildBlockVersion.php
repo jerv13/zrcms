@@ -9,7 +9,7 @@ use Zrcms\ContentCore\Block\Model\BlockVersionBasic;
 use Zrcms\ContentCore\Block\Fields\FieldsBlockVersion;
 use Zrcms\ContentCore\Container\Model\Container;
 use Zrcms\ContentCore\Container\Model\ContainerVersion;
-use Zrcms\ContentCore\Page\Model\PageContainerVersion;
+use Zrcms\ContentCore\Page\Model\PageVersion;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -22,7 +22,7 @@ class BuildBlockVersion
     protected static $typeMap
         = [
             Container::class => self::TYPE_CONTAINER,
-            PageContainerVersion::class => self::TYPE_PAGE_CONTAINER
+            PageVersion::class => self::TYPE_PAGE_CONTAINER
         ];
 
     /**

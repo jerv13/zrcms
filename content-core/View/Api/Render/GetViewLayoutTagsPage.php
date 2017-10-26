@@ -4,9 +4,8 @@ namespace Zrcms\ContentCore\View\Api\Render;
 
 use Psr\Http\Message\ServerRequestInterface;
 use Zrcms\Content\Model\Content;
-use Zrcms\ContentCore\Page\Api\Render\GetPageContainerRenderTags;
-use Zrcms\ContentCore\Page\Api\Render\RenderPageContainer;
-use Zrcms\ContentCore\Page\Model\PageContainerVersion;
+use Zrcms\ContentCore\Page\Api\Render\GetPageRenderTags;
+use Zrcms\ContentCore\Page\Model\PageVersion;
 use Zrcms\ContentCore\View\Model\View;
 
 /**
@@ -14,29 +13,21 @@ use Zrcms\ContentCore\View\Model\View;
  */
 class GetViewLayoutTagsPage implements GetViewLayoutTags
 {
-    const RENDER_TAG_PAGE = '[page]';
+    const RENDER_TAG_PAGE = 'page';
     const SERVICE_ALIAS = 'page';
 
     /**
-     * @var GetPageContainerRenderTags
+     * @var GetPageRenderTags
      */
-    protected $getPageContainerRenderTags;
+    protected $getPageRenderTags;
 
     /**
-     * @var RenderPageContainer
-     */
-    protected $renderPageContainer;
-
-    /**
-     * @param GetPageContainerRenderTags $getPageContainerRenderTags
-     * @param RenderPageContainer        $renderPageContainer
+     * @param GetPageRenderTags $getPageRenderTags
      */
     public function __construct(
-        GetPageContainerRenderTags $getPageContainerRenderTags,
-        RenderPageContainer $renderPageContainer
+        GetPageRenderTags $getPageRenderTags
     ) {
-        $this->getPageContainerRenderTags = $getPageContainerRenderTags;
-        $this->renderPageContainer = $renderPageContainer;
+        $this->getPageRenderTags = $getPageRenderTags;
     }
 
     /**
@@ -53,23 +44,16 @@ class GetViewLayoutTagsPage implements GetViewLayoutTags
         array $options = []
     ): array
     {
-        /** @var PageContainerVersion $pageContainer */
-        $pageContainer = $view->getPageContainerCmsResource()->getContentVersion();
+        /** @var PageVersion $page */
+        $page = $view->getPageCmsResource()->getContentVersion();
 
-        $pageRenderTags = $this->getPageContainerRenderTags->__invoke(
-            $pageContainer,
+        $pageRenderTags = $this->getPageRenderTags->__invoke(
+            $page,
             $request
         );
 
-        $html = $this->renderPageContainer->__invoke(
-            $pageContainer,
-            $pageRenderTags
-        );
-
-        $html = "<!-- <[page]> -->\n" . $html . "\n<!-- </[page]> -->";
-
         return [
-            self::RENDER_TAG_PAGE => $html
+            self::RENDER_TAG_PAGE => $pageRenderTags
         ];
     }
 }

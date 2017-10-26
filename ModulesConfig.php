@@ -2,6 +2,8 @@
 
 namespace Zrcms;
 
+use Zend\ConfigAggregator\ConfigAggregator;
+
 /**
  * @author James Jervis - https://github.com/jerv13
  */
@@ -49,7 +51,7 @@ class ModulesConfig
             new \Zrcms\XampleComponent\ModuleConfig(),
         ];
 
-        $configManager = new \Zend\ConfigAggregator\ConfigAggregator(
+        $configManager = new ConfigAggregator(
             $zrcmsModules
         );
 

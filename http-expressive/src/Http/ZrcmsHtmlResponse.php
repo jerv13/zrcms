@@ -5,7 +5,7 @@ namespace Zrcms\HttpExpressive\Http;
 use Psr\Http\Message\StreamInterface;
 use Zend\Diactoros\Response\HtmlResponse;
 use Zrcms\Content\Model\PropertiesTrait;
-use Zrcms\ContentCore\Page\Fields\FieldsPageContainerVersion;
+use Zrcms\ContentCore\Page\Fields\FieldsPageVersion;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -14,13 +14,12 @@ class ZrcmsHtmlResponse extends HtmlResponse
 {
     use PropertiesTrait;
 
-    const PROPERTY_TITLE = FieldsPageContainerVersion::TITLE;
-    const PROPERTY_DESCRIPTION = FieldsPageContainerVersion::DESCRIPTION;
-    const PROPERTY_KEYWORDS = FieldsPageContainerVersion::KEYWORDS;
-    const PROPERTY_LAYOUT = FieldsPageContainerVersion::LAYOUT;
-    const PROPERTY_RENDER_TAGS_GETTER = FieldsPageContainerVersion::RENDER_TAGS_GETTER;
-    const PROPERTY_RENDERER = FieldsPageContainerVersion::RENDERER;
-    const PROPERTY_BLOCK_VERSIONS = FieldsPageContainerVersion::BLOCK_VERSIONS;
+    const PROPERTY_TITLE = FieldsPageVersion::TITLE;
+    const PROPERTY_DESCRIPTION = FieldsPageVersion::DESCRIPTION;
+    const PROPERTY_KEYWORDS = FieldsPageVersion::KEYWORDS;
+    const PROPERTY_LAYOUT = FieldsPageVersion::LAYOUT;
+    const PROPERTY_RENDER_TAGS_GETTER = FieldsPageVersion::RENDER_TAGS_GETTER;
+    const PROPERTY_BLOCK_VERSIONS = FieldsPageVersion::BLOCK_VERSIONS;
 
     /**
      * @var array

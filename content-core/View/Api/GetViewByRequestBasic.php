@@ -3,9 +3,9 @@
 namespace Zrcms\ContentCore\View\Api;
 
 use Psr\Http\Message\ServerRequestInterface;
-use Zrcms\ContentCore\Page\Api\Repository\FindPageContainerCmsResourceBySitePath;
+use Zrcms\ContentCore\Page\Api\Repository\FindPageCmsResourceBySitePath;
 use Zrcms\ContentCore\Page\Exception\PageNotFoundException;
-use Zrcms\ContentCore\Page\Model\PageContainerCmsResource;
+use Zrcms\ContentCore\Page\Model\PageCmsResource;
 use Zrcms\ContentCore\Site\Api\Repository\FindSiteCmsResourceByHost;
 use Zrcms\ContentCore\Site\Exception\SiteNotFoundException;
 use Zrcms\ContentCore\Site\Model\SiteCmsResource;
@@ -31,9 +31,9 @@ class GetViewByRequestBasic implements GetViewByRequest
     protected $findSiteCmsResourceByHost;
 
     /**
-     * @var FindPageContainerCmsResourceBySitePath
+     * @var FindPageCmsResourceBySitePath
      */
-    protected $findPageContainerCmsResourceBySitePath;
+    protected $findPageCmsResourceBySitePath;
 
     /**
      * @var FindLayoutCmsResourceByThemeNameLayoutName
@@ -62,7 +62,7 @@ class GetViewByRequestBasic implements GetViewByRequest
 
     /**
      * @param FindSiteCmsResourceByHost                  $findSiteCmsResourceByHost
-     * @param FindPageContainerCmsResourceBySitePath     $findPageContainerCmsResourceBySitePath
+     * @param FindPageCmsResourceBySitePath              $findPageCmsResourceBySitePath
      * @param FindLayoutCmsResourceByThemeNameLayoutName $findLayoutCmsResourceByThemeNameLayoutName
      * @param GetLayoutName                              $getLayoutName
      * @param FindThemeComponent                         $findThemeComponent
@@ -71,7 +71,7 @@ class GetViewByRequestBasic implements GetViewByRequest
      */
     public function __construct(
         FindSiteCmsResourceByHost $findSiteCmsResourceByHost,
-        FindPageContainerCmsResourceBySitePath $findPageContainerCmsResourceBySitePath,
+        FindPageCmsResourceBySitePath $findPageCmsResourceBySitePath,
         FindLayoutCmsResourceByThemeNameLayoutName $findLayoutCmsResourceByThemeNameLayoutName,
         GetLayoutName $getLayoutName,
         FindThemeComponent $findThemeComponent,
@@ -79,7 +79,7 @@ class GetViewByRequestBasic implements GetViewByRequest
         BuildView $buildView
     ) {
         $this->findSiteCmsResourceByHost = $findSiteCmsResourceByHost;
-        $this->findPageContainerCmsResourceBySitePath = $findPageContainerCmsResourceBySitePath;
+        $this->findPageCmsResourceBySitePath = $findPageCmsResourceBySitePath;
         $this->findLayoutCmsResourceByThemeNameLayoutName = $findLayoutCmsResourceByThemeNameLayoutName;
         $this->getLayoutName = $getLayoutName;
 
@@ -132,13 +132,13 @@ class GetViewByRequestBasic implements GetViewByRequest
 
         $path = $uri->getPath();
 
-        /** @var PageContainerCmsResource $pageContainerCmsResource */
-        $pageContainerCmsResource = $this->findPageContainerCmsResourceBySitePath->__invoke(
+        /** @var PageCmsResource $pageCmsResource */
+        $pageCmsResource = $this->findPageCmsResourceBySitePath->__invoke(
             $siteCmsResource->getId(),
             $path
         );
 
-        if (empty($pageContainerCmsResource)) {
+        if (empty($pageCmsResource)) {
             throw new PageNotFoundException(
                 'Page not found for host: (' . $uri->getHost() . ')'
                 . ' and page: (' . $path . ')'
@@ -146,11 +146,11 @@ class GetViewByRequestBasic implements GetViewByRequest
         }
 
         $siteVersion = $siteCmsResource->getContentVersion();
-        $pageContainerVersion = $pageContainerCmsResource->getContentVersion();
+        $pageVersion = $pageCmsResource->getContentVersion();
 
         $layoutName = $this->getLayoutName->__invoke(
             $siteVersion,
-            $pageContainerVersion
+            $pageVersion
         );
 
         /** @var LayoutCmsResource $layoutCmsResource */
@@ -164,7 +164,7 @@ class GetViewByRequestBasic implements GetViewByRequest
                 'Layout not found: (' . $layoutName . ')'
                 . ' with theme name: (' . $themeName . ')'
                 . ' for site version ID: (' . $siteVersion->getId() . ')'
-                . ' and page version ID: (' . $pageContainerVersion->getId() . ')'
+                . ' and page version ID: (' . $pageVersion->getId() . ')'
             );
         }
 
@@ -173,7 +173,7 @@ class GetViewByRequestBasic implements GetViewByRequest
             => $siteCmsResource,
 
             FieldsView::PAGE_CONTAINER_CMS_RESOURCE
-            => $pageContainerCmsResource,
+            => $pageCmsResource,
 
             FieldsView::LAYOUT_CMS_RESOURCE
             => $layoutCmsResource,

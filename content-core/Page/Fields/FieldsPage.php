@@ -3,6 +3,7 @@
 namespace Zrcms\ContentCore\Page\Fields;
 
 use Zrcms\ContentCore\Container\Fields\FieldsContainer;
+use Zrcms\ContentCore\Page\Model\Page;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -13,37 +14,23 @@ class FieldsPage extends FieldsContainer
     const DESCRIPTION = 'description';
     const KEYWORDS = 'keywords';
     const LAYOUT = 'layout';
+    const CONTAINER_DATA = 'containerData';
     const PRE_RENDERED_HTML = 'html';
+
+    const RENDER_TAGS_GETTER = 'renderTagsGetter';
+    /**
+     * @deprecated
+     */
+    const RENDERER = 'renderer';
+
+    const DEFAULT_RENDER_TAGS_GETTER = 'blocks';
+    const DEFAULT_RENDERER = 'rows';
 
     /**
      * @var array
      */
     protected $defaultFieldsConfig
         = [
-            [
-                'name' => self::RENDER_TAGS_GETTER,
-                'type' => 'zrcms-service',
-                'label' => 'Render Tags Getter (GetRenderTags)',
-                'required' => false,
-                'default' => 'blocks',
-                'options' => [],
-            ],
-            [
-                'name' => self::RENDERER,
-                'type' => 'zrcms-service',
-                'label' => 'Renderer',
-                'required' => false,
-                'default' => 'rows',
-                'options' => [],
-            ],
-            [
-                'name' => self::BLOCK_VERSIONS,
-                'type' => 'array',
-                'label' => 'Block Versions',
-                'required' => false,
-                'default' => [],
-                'options' => [],
-            ],
             [
                 'name' => self::TITLE,
                 'type' => 'text',
@@ -77,11 +64,31 @@ class FieldsPage extends FieldsContainer
                 'options' => [],
             ],
             [
+                'name' => self::CONTAINER_DATA,
+                'type' => 'array',
+                'label' => 'Container Data',
+                'required' => true,
+                'default' => [
+                    Page::DEFAULT_CONTAINER_NAME => [
+                        FieldsContainer::BLOCK_VERSIONS => [],
+                    ],
+                ],
+                'options' => [],
+            ],
+            [
                 'name' => self::PRE_RENDERED_HTML,
                 'type' => 'text',
                 'label' => 'Pre-rendered HTML',
                 'required' => false,
                 'default' => null,
+                'options' => [],
+            ],
+            [
+                'name' => self::RENDER_TAGS_GETTER,
+                'type' => 'zrcms-service',
+                'label' => 'Render Tags Getter (GetRenderTags)',
+                'required' => false,
+                'default' => self::DEFAULT_RENDER_TAGS_GETTER,
                 'options' => [],
             ],
         ];

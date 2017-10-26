@@ -54,9 +54,9 @@ class PageTemplateCmsResourceEntity
     protected $contentVersionId = null;
 
     /**
-     * @var PageContainerVersionEntity
+     * @var PageVersionEntity
      *
-     * @ORM\ManyToOne(targetEntity="PageContainerVersionEntity")
+     * @ORM\ManyToOne(targetEntity="PageVersionEntity")
      * @ORM\JoinColumn(
      *     name="contentVersionId",
      *     referencedColumnName="id",
@@ -114,12 +114,12 @@ class PageTemplateCmsResourceEntity
     protected $path;
 
     /**
-     * @param int|null                                 $id
-     * @param bool                                     $published
-     * @param PageContainerVersionEntity|ContentEntity $contentVersion
-     * @param array                                    $properties
-     * @param string                                   $createdByUserId
-     * @param string                                   $createdReason
+     * @param int|null                        $id
+     * @param bool                            $published
+     * @param PageVersionEntity|ContentEntity $contentVersion
+     * @param array                           $properties
+     * @param string                          $createdByUserId
+     * @param string                          $createdReason
      */
     public function __construct(
         $id,

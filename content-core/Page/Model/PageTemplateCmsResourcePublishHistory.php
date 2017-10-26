@@ -9,7 +9,7 @@ use Zrcms\Content\Model\ContentVersion;
  * @author James Jervis - https://github.com/jerv13
  */
 interface PageTemplateCmsResourcePublishHistory
-    extends PageContainerCmsResourcePublishHistory
+    extends PageCmsResourcePublishHistory
 {
     /**
      * @return PageTemplateCmsResource|CmsResource
@@ -17,7 +17,7 @@ interface PageTemplateCmsResourcePublishHistory
     public function getCmsResource();
 
     /**
-     * @return PageContainerVersion|ContentVersion
+     * @return PageVersion|ContentVersion
      */
     public function getContentVersion();
 }

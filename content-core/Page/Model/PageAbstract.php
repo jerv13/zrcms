@@ -2,11 +2,12 @@
 
 namespace Zrcms\ContentCore\Page\Model;
 
-use Zrcms\Content\Exception\PropertyInvalid;
 use Zrcms\Content\Exception\PropertyMissing;
 use Zrcms\Content\Model\ContentAbstract;
+use Zrcms\ContentCore\Container\Model\Container;
+use Zrcms\ContentCore\Container\Model\ContainerBasic;
+use Zrcms\ContentCore\Container\Model\ContainerVersionBasic;
 use Zrcms\ContentCore\Page\Fields\FieldsPage;
-use Zrcms\ContentCore\StringToHtmlClassName;
 use Zrcms\Param\Param;
 
 /**
@@ -38,6 +39,18 @@ abstract class PageAbstract extends ContentAbstract
                 $properties,
                 get_class($this)
             )
+        );
+
+        $containerData = Param::getArray(
+            $properties,
+            FieldsPage::CONTAINER_DATA,
+            []
+        );
+
+        $containerData[Page::DEFAULT_CONTAINER_NAME] = Param::getArray(
+            $containerData,
+            Page::DEFAULT_CONTAINER_NAME,
+            []
         );
 
         parent::__construct(
@@ -75,6 +88,72 @@ abstract class PageAbstract extends ContentAbstract
         return $this->getProperty(
             FieldsPage::KEYWORDS,
             ''
+        );
+    }
+
+    /**
+     * @return array
+     */
+    public function getContainersData(): array
+    {
+        return $this->getProperty(
+            FieldsPage::CONTAINER_DATA,
+            []
+        );
+    }
+
+    /**
+     * @param string $name
+     *
+     * @return array|null
+     */
+    public function findContainerData(string $name = Page::DEFAULT_CONTAINER_NAME)
+    {
+        $containersData = $this->getContainersData();
+
+        return Param::get(
+            $containersData,
+            $name,
+            null
+        );
+    }
+
+    /**
+     * @return Container[]
+     */
+    public function getContainers(): array
+    {
+        $containers = [];
+        $containersData = $this->getContainersData();
+
+        foreach ($containersData as $containerName => $containerData) {
+            $containers[$containerName] = $this->findContainer($containerName);
+        }
+
+        return $containers;
+    }
+
+    /**
+     * @param string $name
+     *
+     * @return Container|null
+     */
+    public function findContainer(string $name = Page::DEFAULT_CONTAINER_NAME)
+    {
+        $containersData = $this->getContainersData();
+
+        $containerData = Param::get(
+            $containersData,
+            $name,
+            null
+        );
+
+        if (empty($containerData)) {
+            return null;
+        }
+
+        return new ContainerBasic(
+            $containerData
         );
     }
 }

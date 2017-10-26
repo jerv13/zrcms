@@ -5,10 +5,10 @@ namespace Zrcms\ContentCoreDoctrineDataSource\Page\Api\Repository;
 use Doctrine\ORM\EntityManager;
 use Zrcms\Content\Model\CmsResource;
 use Zrcms\ContentCore\Page\Fields\FieldsPageTemplateCmsResource;
-use Zrcms\ContentCore\Page\Model\PageContainerVersionBasic;
+use Zrcms\ContentCore\Page\Model\PageVersionBasic;
 use Zrcms\ContentCore\Page\Model\PageTemplateCmsResource;
 use Zrcms\ContentCore\Page\Model\PageTemplateCmsResourceBasic;
-use Zrcms\ContentCoreDoctrineDataSource\Page\Entity\PageContainerVersionEntity;
+use Zrcms\ContentCoreDoctrineDataSource\Page\Entity\PageVersionEntity;
 use Zrcms\ContentCoreDoctrineDataSource\Page\Entity\PageTemplateCmsResourceEntity;
 use Zrcms\ContentDoctrine\Api\BuildBasicCmsResource;
 
@@ -62,8 +62,8 @@ class FindPageTemplateCmsResourceBySitePath
         $this->entityClassCmsResource = PageTemplateCmsResourceEntity::class;
         $this->classCmsResourceBasic = PageTemplateCmsResourceBasic::class;
 
-        $this->entityClassContentVersion = PageContainerVersionEntity::class;
-        $this->classContentVersionBasic = PageContainerVersionBasic::class;
+        $this->entityClassContentVersion = PageVersionEntity::class;
+        $this->classContentVersionBasic = PageVersionBasic::class;
 
         $this->cmsResourceSyncToProperties = [];
         $this->contentVersionSyncToProperties = [];

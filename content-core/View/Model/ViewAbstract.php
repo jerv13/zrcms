@@ -5,7 +5,7 @@ namespace Zrcms\ContentCore\View\Model;
 use Zrcms\Content\Exception\PropertyMissing;
 use Zrcms\Content\Model\ContentAbstract;
 use Zrcms\Content\Model\PropertiesTrait;
-use Zrcms\ContentCore\Page\Model\PageContainerCmsResource;
+use Zrcms\ContentCore\Page\Model\PageCmsResource;
 use Zrcms\ContentCore\Site\Model\SiteCmsResource;
 use Zrcms\ContentCore\Theme\Model\LayoutCmsResource;
 use Zrcms\ContentCore\View\Fields\FieldsView;
@@ -24,7 +24,7 @@ abstract class ViewAbstract extends ContentAbstract implements View
 
     protected $site;
 
-    protected $pageContainerCmsResource;
+    protected $pageCmsResource;
 
     protected $page;
 
@@ -49,7 +49,7 @@ abstract class ViewAbstract extends ContentAbstract implements View
             )
         );
 
-        $this->pageContainerCmsResource = Param::getRequired(
+        $this->pageCmsResource = Param::getRequired(
             $properties,
             FieldsView::PAGE_CONTAINER_CMS_RESOURCE,
             PropertyMissing::buildThrower(
@@ -83,11 +83,11 @@ abstract class ViewAbstract extends ContentAbstract implements View
     }
 
     /**
-     * @return PageContainerCmsResource
+     * @return PageCmsResource
      */
-    public function getPageContainerCmsResource(): PageContainerCmsResource
+    public function getPageCmsResource(): PageCmsResource
     {
-        return $this->pageContainerCmsResource;
+        return $this->pageCmsResource;
     }
 
     /**

@@ -3,7 +3,7 @@
 namespace Zrcms\ContentCore\Page\Api\Repository;
 
 use Zrcms\Content\Api\Repository\FindCmsResourcesBy;
-use Zrcms\ContentCore\Page\Model\PageContainerCmsResource;
+use Zrcms\ContentCore\Page\Model\PageCmsResource;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -17,7 +17,7 @@ interface FindPageTemplateCmsResourcesBy extends FindCmsResourcesBy
      * @param null|int   $offset
      * @param array      $options
      *
-     * @return PageContainerCmsResource[]
+     * @return PageCmsResource[]
      */
     public function __invoke(
         array $criteria,

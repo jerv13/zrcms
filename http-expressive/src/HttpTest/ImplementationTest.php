@@ -125,7 +125,7 @@ class ImplementationTest
         callable $next = null
     ) {
         /* @todo Write this
-         * - for each content type (Container with block, PageContainer, Site, ThemeLayout, View)
+         * - for each content type (Container with block, Page, Site, ThemeLayout, View)
          * - Get components
          * - create content
          * - publish content

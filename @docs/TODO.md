@@ -1,6 +1,10 @@
 @todo
 =====
 
+- Multi Page container rendering
+    - Containers path can be changed to name
+    - PageCmsResource PageCmsResource
+
 - PageDataService
 
 - Rename Directories
@@ -11,7 +15,7 @@
     - Test
 
 - Write implementation test
-    - for each content type (Container with block, PageContainer, Site, ThemeLayout, View)
+    - for each content type (Container with block, Page, Site, ThemeLayout, View)
     - Get components
     - create content
     - publish content
@@ -30,7 +34,7 @@
 
 - Finish Zrcms\ContentDoctrine\Api\Repository\FindCmsResourceVersion
 
-- Implement Content pattern for page templates PageTemplateResource extends PageContainer
+- Implement Content pattern for page templates PageTemplateResource extends Page
     - Add NOOP services
     - Exporter needs updateing
     - Wire services
@@ -56,6 +60,7 @@
 - Check and update all composer dependencies
 
 - Trackable Date is not constructor injected which cause issues for low-level services
+    - Needs to be able to be set at construct, auto set if null
     
 Features
 --------

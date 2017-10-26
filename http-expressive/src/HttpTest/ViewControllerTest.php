@@ -10,12 +10,11 @@ use Zend\Diactoros\Response\JsonResponse;
 use Zend\Expressive\Router\RouteResult;
 use Zrcms\Content\Api\CmsResourceToArray;
 use Zrcms\ContentCore\Basic\Api\Repository\FindBasicComponent;
-use Zrcms\ContentCore\Page\Api\Render\GetPageContainerRenderTagsHtml;
-use Zrcms\ContentCore\Page\Api\Render\RenderPageContainerRows;
-use Zrcms\ContentCore\Page\Fields\FieldsPageContainerCmsResource;
-use Zrcms\ContentCore\Page\Fields\FieldsPageContainerVersion;
-use Zrcms\ContentCore\Page\Model\PageContainerCmsResourceBasic;
-use Zrcms\ContentCore\Page\Model\PageContainerVersionBasic;
+use Zrcms\ContentCore\Page\Api\Render\GetPageRenderTagsHtml;
+use Zrcms\ContentCore\Page\Fields\FieldsPageCmsResource;
+use Zrcms\ContentCore\Page\Fields\FieldsPageVersion;
+use Zrcms\ContentCore\Page\Model\PageCmsResourceBasic;
+use Zrcms\ContentCore\Page\Model\PageVersionBasic;
 use Zrcms\ContentCore\Site\Api\Action\PublishSiteCmsResource;
 use Zrcms\ContentCore\Site\Api\Repository\InsertSiteVersion;
 use Zrcms\ContentCore\Site\Fields\FieldsSiteCmsResource;
@@ -195,37 +194,35 @@ class ViewControllerTest
             self::CREATED_REASON
         );
 
-        $pageContainerVersion = new PageContainerVersionBasic(
+        $pageVersion = new PageVersionBasic(
             'testID',
             [
-                FieldsPageContainerVersion::TITLE
-                => 'test:' . FieldsPageContainerVersion::TITLE,
-                FieldsPageContainerVersion::DESCRIPTION
-                => 'test:' . FieldsPageContainerVersion::DESCRIPTION,
-                FieldsPageContainerVersion::KEYWORDS
-                => 'test:' . FieldsPageContainerVersion::KEYWORDS,
-                FieldsPageContainerVersion::LAYOUT
-                => 'test:' . FieldsPageContainerVersion::LAYOUT,
-                FieldsPageContainerVersion::PRE_RENDERED_HTML
-                => 'test:' . FieldsPageContainerVersion::PRE_RENDERED_HTML,
-                FieldsPageContainerVersion::RENDER_TAGS_GETTER
-                => GetPageContainerRenderTagsHtml::class,
-                FieldsPageContainerVersion::RENDERER
-                => RenderPageContainerRows::class,
+                FieldsPageVersion::TITLE
+                => 'test:' . FieldsPageVersion::TITLE,
+                FieldsPageVersion::DESCRIPTION
+                => 'test:' . FieldsPageVersion::DESCRIPTION,
+                FieldsPageVersion::KEYWORDS
+                => 'test:' . FieldsPageVersion::KEYWORDS,
+                FieldsPageVersion::LAYOUT
+                => 'test:' . FieldsPageVersion::LAYOUT,
+                FieldsPageVersion::PRE_RENDERED_HTML
+                => 'test:' . FieldsPageVersion::PRE_RENDERED_HTML,
+                FieldsPageVersion::RENDER_TAGS_GETTER
+                => GetPageRenderTagsHtml::class,
             ],
             self::CREATED_BY_USER_ID,
             self::CREATED_REASON
         );
 
-        $pageContainerCmsResource = new PageContainerCmsResourceBasic(
+        $pageCmsResource = new PageCmsResourceBasic(
             'testID',
             true,
-            $pageContainerVersion,
+            $pageVersion,
             [
-                FieldsPageContainerCmsResource::SITE_CMS_RESOURCE_ID
-                => 'test:' . FieldsPageContainerCmsResource::SITE_CMS_RESOURCE_ID,
-                FieldsPageContainerCmsResource::PATH
-                => '/test-' . FieldsPageContainerCmsResource::PATH,
+                FieldsPageCmsResource::SITE_CMS_RESOURCE_ID
+                => 'test:' . FieldsPageCmsResource::SITE_CMS_RESOURCE_ID,
+                FieldsPageCmsResource::PATH
+                => '/test-' . FieldsPageCmsResource::PATH,
             ],
             self::CREATED_BY_USER_ID,
             self::CREATED_REASON
@@ -267,7 +264,7 @@ class ViewControllerTest
 
         $properties = [
             FieldsView::SITE_CMS_RESOURCE => $siteCmsResource,
-            FieldsView::PAGE_CONTAINER_CMS_RESOURCE => $pageContainerCmsResource,
+            FieldsView::PAGE_CONTAINER_CMS_RESOURCE => $pageCmsResource,
             FieldsView::LAYOUT_CMS_RESOURCE => $layoutCmsResource,
         ];
 

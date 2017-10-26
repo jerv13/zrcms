@@ -2,8 +2,8 @@
 
 namespace Zrcms\ContentCore\View\Api;
 
-use Zrcms\ContentCore\Page\Model\PageContainerVersion;
-use Zrcms\ContentCore\Page\Fields\FieldsPageContainerVersion;
+use Zrcms\ContentCore\Page\Model\PageVersion;
+use Zrcms\ContentCore\Page\Fields\FieldsPageVersion;
 use Zrcms\ContentCore\Site\Fields\FieldsSiteVersion;
 use Zrcms\ContentCore\Site\Model\SiteVersion;
 use Zrcms\ContentCore\Theme\Model\LayoutComponent;
@@ -14,20 +14,20 @@ use Zrcms\ContentCore\Theme\Model\LayoutComponent;
 class GetLayoutNameBasic implements GetLayoutName
 {
     /**
-     * @param SiteVersion          $siteVersion
-     * @param PageContainerVersion $pageContainerVersion
-     * @param array                $options
+     * @param SiteVersion $siteVersion
+     * @param PageVersion $pageVersion
+     * @param array       $options
      *
      * @return string
      */
     public function __invoke(
         SiteVersion $siteVersion,
-        PageContainerVersion $pageContainerVersion,
+        PageVersion $pageVersion,
         array $options = []
     ): string
     {
-        $layoutName = $pageContainerVersion->getProperty(
-            FieldsPageContainerVersion::LAYOUT
+        $layoutName = $pageVersion->getProperty(
+            FieldsPageVersion::LAYOUT
         );
 
         if (!empty($layoutName)) {

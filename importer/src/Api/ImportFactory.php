@@ -6,11 +6,11 @@ use Psr\Container\ContainerInterface;
 use Zrcms\ContentCore\Container\Api\Action\PublishContainerCmsResource;
 use Zrcms\ContentCore\Container\Api\Action\UnpublishContainerCmsResource;
 use Zrcms\ContentCore\Container\Api\Repository\InsertContainerVersion;
-use Zrcms\ContentCore\Page\Api\Action\PublishPageContainerCmsResource;
+use Zrcms\ContentCore\Page\Api\Action\PublishPageCmsResource;
 use Zrcms\ContentCore\Page\Api\Action\PublishPageTemplateCmsResource;
-use Zrcms\ContentCore\Page\Api\Action\UnpublishPageContainerCmsResource;
+use Zrcms\ContentCore\Page\Api\Action\UnpublishPageCmsResource;
 use Zrcms\ContentCore\Page\Api\Action\UnpublishPageTemplateCmsResource;
-use Zrcms\ContentCore\Page\Api\Repository\InsertPageContainerVersion;
+use Zrcms\ContentCore\Page\Api\Repository\InsertPageVersion;
 use Zrcms\ContentCore\Site\Api\Action\PublishSiteCmsResource;
 use Zrcms\ContentCore\Site\Api\Action\UnpublishSiteCmsResource;
 use Zrcms\ContentCore\Site\Api\Repository\InsertSiteVersion;
@@ -35,9 +35,9 @@ class ImportFactory
             $serviceContainer->get(InsertSiteVersion::class),
             $serviceContainer->get(PublishSiteCmsResource::class),
             $serviceContainer->get(UnpublishSiteCmsResource::class),
-            $serviceContainer->get(InsertPageContainerVersion::class),
-            $serviceContainer->get(PublishPageContainerCmsResource::class),
-            $serviceContainer->get(UnpublishPageContainerCmsResource::class),
+            $serviceContainer->get(InsertPageVersion::class),
+            $serviceContainer->get(PublishPageCmsResource::class),
+            $serviceContainer->get(UnpublishPageCmsResource::class),
             $serviceContainer->get(PublishPageTemplateCmsResource::class),
             $serviceContainer->get(UnpublishPageTemplateCmsResource::class),
             $serviceContainer->get(InsertContainerVersion::class),

@@ -4,17 +4,17 @@ namespace Zrcms\ContentCoreDoctrineDataSource\Page\Api\Repository;
 
 use Doctrine\ORM\EntityManager;
 use Zrcms\Content\Model\ContentVersion;
-use Zrcms\ContentCore\Page\Model\PageContainerVersion;
-use Zrcms\ContentCore\Page\Model\PageContainerVersionBasic;
-use Zrcms\ContentCoreDoctrineDataSource\Page\Entity\PageContainerVersionEntity;
+use Zrcms\ContentCore\Page\Model\PageVersion;
+use Zrcms\ContentCore\Page\Model\PageVersionBasic;
+use Zrcms\ContentCoreDoctrineDataSource\Page\Entity\PageVersionEntity;
 use Zrcms\ContentDoctrine\Api\Repository\InsertContentVersion;
 
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class InsertPageContainerVersion
+class InsertPageVersion
     extends InsertContentVersion
-    implements \Zrcms\ContentCore\Page\Api\Repository\InsertPageContainerVersion
+    implements \Zrcms\ContentCore\Page\Api\Repository\InsertPageVersion
 {
     /**
      * @param EntityManager $entityManager
@@ -24,24 +24,24 @@ class InsertPageContainerVersion
     ) {
         parent::__construct(
             $entityManager,
-            PageContainerVersionEntity::class,
-            PageContainerVersionBasic::class
+            PageVersionEntity::class,
+            PageVersionBasic::class
         );
     }
 
     /**
-     * @param PageContainerVersion|ContentVersion $pageContainerVersion
-     * @param array                           $options
+     * @param PageVersion|ContentVersion $pageVersion
+     * @param array                      $options
      *
      * @return ContentVersion
      */
     public function __invoke(
-        ContentVersion $pageContainerVersion,
+        ContentVersion $pageVersion,
         array $options = []
     ): ContentVersion
     {
         return parent::__invoke(
-            $pageContainerVersion,
+            $pageVersion,
             $options
         );
     }

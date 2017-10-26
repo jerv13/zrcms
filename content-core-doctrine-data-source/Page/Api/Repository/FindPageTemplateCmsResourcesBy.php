@@ -3,10 +3,10 @@
 namespace Zrcms\ContentCoreDoctrineDataSource\Page\Api\Repository;
 
 use Doctrine\ORM\EntityManager;
-use Zrcms\ContentCore\Page\Model\PageContainerVersionBasic;
+use Zrcms\ContentCore\Page\Model\PageVersionBasic;
 use Zrcms\ContentCore\Page\Model\PageTemplateCmsResource;
 use Zrcms\ContentCore\Page\Model\PageTemplateCmsResourceBasic;
-use Zrcms\ContentCoreDoctrineDataSource\Page\Entity\PageContainerVersionEntity;
+use Zrcms\ContentCoreDoctrineDataSource\Page\Entity\PageVersionEntity;
 use Zrcms\ContentCoreDoctrineDataSource\Page\Entity\PageTemplateCmsResourceEntity;
 use Zrcms\ContentDoctrine\Api\Repository\FindCmsResourcesBy;
 
@@ -26,8 +26,8 @@ class FindPageTemplateCmsResourcesBy
             $entityManager,
             PageTemplateCmsResourceEntity::class,
             PageTemplateCmsResourceBasic::class,
-            PageContainerVersionEntity::class,
-            PageContainerVersionBasic::class,
+            PageVersionEntity::class,
+            PageVersionBasic::class,
             [],
             []
         );

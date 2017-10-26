@@ -5,7 +5,7 @@ namespace Zrcms\ContentCore\Page\Api\Action;
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-interface UnpublishPageTemplateCmsResource extends UnpublishPageContainerCmsResource
+interface UnpublishPageTemplateCmsResource extends UnpublishPageCmsResource
 {
     /**
      * @param string $pageTemplateCmsResourceId

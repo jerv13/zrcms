@@ -4,7 +4,7 @@ namespace Zrcms\ViewHead\Api\Render;
 
 use Psr\Http\Message\ServerRequestInterface;
 use Zrcms\Content\Model\Content;
-use Zrcms\ContentCore\Page\Model\PageContainerVersion;
+use Zrcms\ContentCore\Page\Model\PageVersion;
 use Zrcms\ContentCore\View\Api\Repository\FindViewLayoutTagsComponent;
 use Zrcms\ContentCore\View\Model\View;
 use Zrcms\ContentCore\View\Model\ViewLayoutTagsComponent;
@@ -66,8 +66,8 @@ class GetViewLayoutTagsHeadMeta implements GetViewLayoutTagsHead
         );
 
         // descriptions and keywords always from page then site
-        /** @var PageContainerVersion $pageVersion */
-        $pageVersion = $view->getPageContainerCmsResource()->getContentVersion();
+        /** @var PageVersion $pageVersion */
+        $pageVersion = $view->getPageCmsResource()->getContentVersion();
 
         $tagsData[] = [
             //'tag' => 'meta',
