@@ -2,7 +2,6 @@
 
 namespace Zrcms\ContentCore\Container\Api;
 
-use Zrcms\ContentCore\Container\Fields\FieldsContainer;
 use Zrcms\ContentCore\Container\Model\Container;
 use Zrcms\ContentCore\Page\Model\PageVersion;
 
@@ -25,13 +24,13 @@ class WrapRenderedContainerLegacy implements WrapRenderedContainer
         // @todo REMOVE class: rcmContainer
         return "\n"
         . '<div class="content-container container-fluid rcmContainer"'
-        . ' container-version-id="' . $container->getId() . '" '
+        . ' container-version-id="' . $container->getId() . '"'
         . ($isPage ? ' is-page-container="true"' : '')
-        . ' data-container-version-id="' . $container->getId() . '" '
+        . ' data-container-version-id="' . $container->getId() . '"'
 //        . ' data-containerid="' . $container->getId() . '" ' //WARNING THIS MAY NOT BE WHAT RCM ADMIN EXPECTS
         . ($isPage ? ' data-ispage="Y"' : '')
-        // . 'data-container="????" '
-        // . 'id="' . $container->getUid()
+        // . ' data-container="????" '
+        // . ' id="' . $container->getUid()
         . ">\n"
         . $innerHtml
         . "\n</div>\n";
