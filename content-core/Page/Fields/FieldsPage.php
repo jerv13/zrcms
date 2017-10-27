@@ -14,7 +14,7 @@ class FieldsPage extends FieldsContainer
     const DESCRIPTION = 'description';
     const KEYWORDS = 'keywords';
     const LAYOUT = 'layout';
-    const CONTAINER_DATA = 'containerData';
+    const CONTAINERS_DATA = 'containersData';
     const PRE_RENDERED_HTML = 'html';
 
     const RENDER_TAGS_GETTER = 'renderTagsGetter';
@@ -64,7 +64,7 @@ class FieldsPage extends FieldsContainer
                 'options' => [],
             ],
             [
-                'name' => self::CONTAINER_DATA,
+                'name' => self::CONTAINERS_DATA,
                 'type' => 'array',
                 'label' => 'Container Data',
                 'required' => true,

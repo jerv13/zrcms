@@ -97,7 +97,7 @@ abstract class PageAbstract extends ContentAbstract
     public function getContainersData(): array
     {
         return $this->getProperty(
-            FieldsPage::CONTAINER_DATA,
+            FieldsPage::CONTAINERS_DATA,
             []
         );
     }

@@ -15,7 +15,7 @@ use Zrcms\Param\Param;
  * @ORM\Entity()
  * @ORM\HasLifecycleCallbacks()
  * @ORM\Table(
- *     name="zrcms_core_page_container_version",
+ *     name="zrcms_core_page_version",
  *     indexes={}
  * )
  */

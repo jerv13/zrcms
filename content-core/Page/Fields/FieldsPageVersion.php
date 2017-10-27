@@ -48,7 +48,7 @@ class FieldsPageVersion extends FieldsPage
                 'options' => [],
             ],
             [
-                'name' => self::CONTAINER_DATA,
+                'name' => self::CONTAINERS_DATA,
                 'type' => 'array',
                 'label' => 'Container Data',
                 'required' => true,

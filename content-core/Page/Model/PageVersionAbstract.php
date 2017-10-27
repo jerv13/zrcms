@@ -94,7 +94,7 @@ abstract class PageVersionAbstract extends ContentVersionAbstract
     public function getContainersData(): array
     {
         return $this->getProperty(
-            FieldsPageVersion::CONTAINER_DATA,
+            FieldsPageVersion::CONTAINERS_DATA,
             []
         );
     }
