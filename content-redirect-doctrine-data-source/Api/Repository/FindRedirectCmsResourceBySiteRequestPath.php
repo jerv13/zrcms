@@ -90,7 +90,8 @@ class FindRedirectCmsResourceBySiteRequestPath
         $query = ""
             . "SELECT resource FROM {$this->entityClassCmsResource} resource"
             . " WHERE (resource.{$siteCmsResourceIdPropertyName} = :siteCmsResource"
-            . " OR resource.{$siteCmsResourceIdPropertyName} IS NULL)"
+            // NOTE: siteCmsResource is a string, so empty is equivalent to NULL
+            . " OR resource.{$siteCmsResourceIdPropertyName} = '')"
             . " AND resource.{$requestPathPropertyName} = :requestPath"
             . " AND resource.published = :published"
             . " ORDER BY resource.{$siteCmsResourceIdPropertyName} ASC";
