@@ -21,6 +21,8 @@ use Zrcms\ContentCore\Block\Api\Render\RenderBlock;
 use Zrcms\ContentCore\Block\Api\Render\RenderBlockBasic;
 use Zrcms\ContentCore\Block\Api\Render\RenderBlockBc;
 use Zrcms\ContentCore\Block\Api\Render\RenderBlockBcFactory;
+use Zrcms\ContentCore\Block\Api\Render\RenderBlockMissing;
+use Zrcms\ContentCore\Block\Api\Render\RenderBlockMissingComment;
 use Zrcms\ContentCore\Block\Api\Render\RenderBlockMustache;
 use Zrcms\ContentCore\Block\Api\Repository\FindBlockComponent;
 use Zrcms\ContentCore\Block\Api\Repository\FindBlockComponentsBy;
@@ -75,10 +77,15 @@ class ModuleConfigBlock
                         'arguments' => [
                             '0-' => GetServiceFromAlias::class,
                             '1-' => FindBlockComponent::class,
+                            '2-' => RenderBlockMissing::class,
+                            '3-' => ['literal' => RenderBlockMustache::class],
                         ],
                     ],
                     RenderBlockBc::class => [
                         'factory' => RenderBlockBcFactory::class,
+                    ],
+                    RenderBlockMissing::class => [
+                        'class' => RenderBlockMissingComment::class
                     ],
                     RenderBlockMustache::class => [
                         'arguments' => [
@@ -158,10 +165,10 @@ class ModuleConfigBlock
                 ],
                 // 'zrcms.block.content.renderer'
                 ServiceAliasBlock::NAMESPACE_CONTENT_RENDERER => [
-                    'mustache'
+                    'mustache' // RenderBlockMustache::SERVICE_ALIAS
                     => RenderBlockMustache::class,
 
-                    RenderBlockBc::SERVICE_ALIAS
+                    'bc' // RenderBlockBc::SERVICE_ALIAS
                     => RenderBlockBc::class,
                 ],
                 // 'zrcms.block.content.data-provider'

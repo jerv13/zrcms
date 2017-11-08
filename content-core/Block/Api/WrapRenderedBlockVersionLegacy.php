@@ -3,6 +3,7 @@
 namespace Zrcms\ContentCore\Block\Api;
 
 use Zrcms\ContentCore\Block\Api\Repository\FindBlockComponent;
+use Zrcms\ContentCore\Block\Exception\BlockComponentMissing;
 use Zrcms\ContentCore\Block\Model\Block;
 use Zrcms\ContentCore\Block\Fields\FieldsBlock;
 use Zrcms\ContentCore\Block\Fields\FieldsBlockComponent;
@@ -27,15 +28,21 @@ class WrapRenderedBlockVersionLegacy implements WrapRenderedBlockVersion
      * @param Block  $block
      *
      * @return string
+     * @throws BlockComponentMissing
      */
     public function __invoke(
         string $innerHtml,
         Block $block
-    ): string
-    {
+    ): string {
         $blockComponent = $this->findBlockComponent->__invoke(
             $block->getBlockComponentName()
         );
+
+        if (empty($blockComponent)) {
+            throw new BlockComponentMissing(
+                'Block: ' . $block->getBlockComponentName() . ' is missing'
+            );
+        }
 
         $rowNumber = $block->getRequiredLayoutProperty(
             FieldsBlock::LAYOUT_PROPERTIES_ROW_NUMBER

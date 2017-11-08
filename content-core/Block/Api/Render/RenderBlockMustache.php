@@ -6,6 +6,7 @@ use Phly\Mustache\Mustache;
 use Phly\Mustache\Resolver\DefaultResolver;
 use Zrcms\Content\Model\Content;
 use Zrcms\ContentCore\Block\Api\Repository\FindBlockComponent;
+use Zrcms\ContentCore\Block\Exception\BlockComponentMissing;
 use Zrcms\ContentCore\Block\Model\Block;
 use Zrcms\ContentCore\Block\Model\BlockComponent;
 
@@ -14,6 +15,8 @@ use Zrcms\ContentCore\Block\Model\BlockComponent;
  */
 class RenderBlockMustache implements RenderBlock
 {
+    const SERVICE_ALIAS = 'mustache';
+
     /**
      * @var FindBlockComponent
      */
@@ -34,17 +37,23 @@ class RenderBlockMustache implements RenderBlock
      * @param array         $options
      *
      * @return string
+     * @throws BlockComponentMissing
      */
     public function __invoke(
         Content $block,
         array $renderTags,
         array $options = []
-    ): string
-    {
+    ): string {
         /** @var BlockComponent $blockComponent */
         $blockComponent = $this->findBlockComponent->__invoke(
             $block->getBlockComponentName()
         );
+
+        if (empty($blockComponent)) {
+            throw new BlockComponentMissing(
+                "BlockComponent not found: (" . $block->getBlockComponentName() . ")"
+            );
+        }
 
         $resolver = new DefaultResolver();
         $resolver->addTemplatePath($blockComponent->getConfigLocation());

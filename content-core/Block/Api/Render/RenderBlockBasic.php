@@ -4,9 +4,9 @@ namespace Zrcms\ContentCore\Block\Api\Render;
 
 use Zrcms\Content\Model\Content;
 use Zrcms\ContentCore\Block\Api\Repository\FindBlockComponent;
+use Zrcms\ContentCore\Block\Fields\FieldsBlockComponent;
 use Zrcms\ContentCore\Block\Model\Block;
 use Zrcms\ContentCore\Block\Model\BlockComponent;
-use Zrcms\ContentCore\Block\Fields\FieldsBlockComponent;
 use Zrcms\ContentCore\Block\Model\ServiceAliasBlock;
 use Zrcms\ServiceAlias\Api\GetServiceFromAlias;
 use Zrcms\ServiceAlias\ServiceCheck;
@@ -32,6 +32,11 @@ class RenderBlockBasic implements RenderBlock
     protected $serviceAliasNamespace;
 
     /**
+     * @var RenderBlockMissing
+     */
+    protected $renderBlockMissing;
+
+    /**
      * @var string
      */
     protected $defaultRenderServiceName;
@@ -39,16 +44,19 @@ class RenderBlockBasic implements RenderBlock
     /**
      * @param GetServiceFromAlias $getServiceFromAlias
      * @param FindBlockComponent  $findBlockComponent
+     * @param RenderBlockMissing  $renderBlockMissing
      * @param string              $defaultRenderServiceName
      */
     public function __construct(
         GetServiceFromAlias $getServiceFromAlias,
         FindBlockComponent $findBlockComponent,
+        RenderBlockMissing $renderBlockMissing,
         string $defaultRenderServiceName = RenderBlockMustache::class
     ) {
         $this->getServiceFromAlias = $getServiceFromAlias;
         $this->serviceAliasNamespace = ServiceAliasBlock::NAMESPACE_CONTENT_RENDERER;
         $this->findBlockComponent = $findBlockComponent;
+        $this->renderBlockMissing = $renderBlockMissing;
         $this->defaultRenderServiceName = $defaultRenderServiceName;
     }
 
@@ -64,12 +72,19 @@ class RenderBlockBasic implements RenderBlock
         Content $block,
         array $renderTags,
         array $options = []
-    ): string
-    {
+    ): string {
         /** @var BlockComponent $blockComponent */
         $blockComponent = $this->findBlockComponent->__invoke(
             $block->getBlockComponentName()
         );
+
+        if (empty($blockComponent)) {
+            return $this->renderBlockMissing->__invoke(
+                $block,
+                $renderTags,
+                $options
+            );
+        }
 
         // Get version renderer or use default
         $renderServiceAlias = $blockComponent->getProperty(

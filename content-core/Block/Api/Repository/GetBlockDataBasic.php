@@ -3,6 +3,7 @@
 namespace Zrcms\ContentCore\Block\Api\Repository;
 
 use Psr\Http\Message\ServerRequestInterface;
+use Zrcms\ContentCore\Block\Exception\BlockComponentMissing;
 use Zrcms\ContentCore\Block\Model\Block;
 use Zrcms\ContentCore\Block\Model\BlockComponent;
 use Zrcms\ContentCore\Block\Fields\FieldsBlockComponent;
@@ -57,18 +58,23 @@ class GetBlockDataBasic implements GetBlockData
      * @param array                  $options
      *
      * @return array
-     * @throws \Exception
+     * @throws BlockComponentMissing|\Exception
      */
     public function __invoke(
         Block $block,
         ServerRequestInterface $request,
         array $options = []
-    ) : array
-    {
+    ) : array {
         /** @var BlockComponent $blockComponent */
         $blockComponent = $this->findBlockComponent->__invoke(
             $block->getBlockComponentName()
         );
+
+        if (empty($blockComponent)) {
+            throw new BlockComponentMissing(
+                "BlockComponent not found: (" . $block->getBlockComponentName() . ")"
+            );
+        }
 
         $getBlockDataServiceAlias = $blockComponent->getProperty(
             FieldsBlockComponent::DATA_PROVIDER,
