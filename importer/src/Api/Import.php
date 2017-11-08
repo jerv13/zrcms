@@ -216,6 +216,7 @@ class Import
     }
 
     /**
+     * @param string $level
      * @param string $message
      * @param array  $options
      *
@@ -262,7 +263,7 @@ class Import
                 LogLevel::INFO,
                 'Import Site: ('
                 . 'siteId: ' . $site['id']
-                . ',host: ' . $site['host']
+                . ' ,host: ' . $site['host']
                 . ')',
                 $options
             );
