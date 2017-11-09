@@ -356,6 +356,11 @@ class Import
         );
 
         foreach ($pages as $page) {
+            $this->log(
+                LogLevel::INFO,
+                'Import Page: ' . $page['path'],
+                $options
+            );
             $version = $this->insertPageVersion->__invoke(
                 new PageVersionBasic(
                     null,
@@ -422,6 +427,12 @@ class Import
         );
 
         foreach ($pages as $page) {
+            $this->log(
+                LogLevel::INFO,
+                'Import Page Template: ' . $page['path'],
+                $options
+            );
+
             $version = $this->insertPageVersion->__invoke(
                 new PageVersionBasic(
                     null,
@@ -488,6 +499,11 @@ class Import
         );
 
         foreach ($containers as $container) {
+            $this->log(
+                LogLevel::INFO,
+                'Import Container: ' . $container['path'],
+                $options
+            );
             $version = $this->insertContainerVersion->__invoke(
                 new ContainerVersionBasic(
                     null,
@@ -569,6 +585,11 @@ class Import
         );
 
         foreach ($redirects as $redirect) {
+            $this->log(
+                LogLevel::INFO,
+                'Import Redirect: ' . $redirect['requestPath'],
+                $options
+            );
             $version = $this->insertRedirectVersion->__invoke(
                 new RedirectVersionBasic(
                     null,
