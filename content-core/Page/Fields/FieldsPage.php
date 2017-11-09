@@ -2,13 +2,15 @@
 
 namespace Zrcms\ContentCore\Page\Fields;
 
+use Zrcms\Content\Fields\Fields;
+use Zrcms\Content\Fields\FieldsContent;
 use Zrcms\ContentCore\Container\Fields\FieldsContainer;
 use Zrcms\ContentCore\Page\Model\Page;
 
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class FieldsPage extends FieldsContainer
+class FieldsPage extends FieldsContent implements Fields
 {
     const TITLE = 'title';
     const DESCRIPTION = 'description';

@@ -4,6 +4,7 @@ namespace Zrcms\ContentCoreDoctrineDataSource\Page\Entity;
 
 use Doctrine\Common\Persistence\Event\LifecycleEventArgs;
 use Doctrine\ORM\Mapping as ORM;
+use Zrcms\ContentCore\Page\Api\PreparePageContainerData;
 use Zrcms\ContentCore\Page\Fields\FieldsPageVersion;
 use Zrcms\ContentDoctrine\Entity\ContentEntity;
 use Zrcms\ContentDoctrine\Entity\ContentEntityAbstract;
@@ -85,7 +86,12 @@ class PageVersionEntity
      *
      * @ORM\Column(type="json_array")
      */
-    protected $blockVersions = [];
+    protected $containersData = [];
+
+    /**
+     * @var null|string
+     */
+    public $tempId = null;
 
     /**
      * @param string|null $id
@@ -99,6 +105,8 @@ class PageVersionEntity
         string $createdByUserId,
         string $createdReason
     ) {
+        $this->tempId = $id;
+
         $this->title = Param::getString(
             $properties,
             FieldsPageVersion::TITLE
@@ -109,13 +117,13 @@ class PageVersionEntity
             FieldsPageVersion::KEYWORDS
         );
 
-        $this->blockVersions = Param::getArray(
+        $this->containersData = Param::getArray(
             $properties,
-            FieldsPageVersion::BLOCK_VERSIONS,
+            FieldsPageVersion::CONTAINERS_DATA,
             []
         );
 
-        Param::remove($properties, FieldsPageVersion::BLOCK_VERSIONS);
+        Param::remove($properties, FieldsPageVersion::CONTAINERS_DATA);
 
         parent::__construct(
             $id,
@@ -131,27 +139,56 @@ class PageVersionEntity
     public function getProperties(): array
     {
         $properties = parent::getProperties();
-        $properties[FieldsPageVersion::BLOCK_VERSIONS] = $this->getBlockVersions();
+        $properties[FieldsPageVersion::CONTAINERS_DATA] = $this->getContainersData();
 
         return $properties;
     }
 
     /**
-     * @return array
+     * @param array $containersData
+     *
+     * @return void
      */
-    public function getBlockVersions(): array
+    public function setContainersData(array $containersData)
     {
-        return $this->blockVersions;
+        $this->containersData = $containersData;
     }
 
     /**
+     * @return array
+     */
+    public function getContainersData(): array
+    {
+        return $this->containersData;
+    }
+
+    /**
+     * @param LifecycleEventArgs $eventArgs
+     *
      * @return void
      *
      * @ORM\PostPersist
      */
-    public function postPersist(LifecycleEventArgs $event)
+    public function postPersist(LifecycleEventArgs $eventArgs)
     {
         $this->properties[FieldsPageVersion::TITLE] = $this->title;
         $this->properties[FieldsPageVersion::KEYWORDS] = $this->keywords;
+
+        if ($this->tempId == $this->id) {
+            return;
+        }
+
+        $this->tempId = $this->id;
+
+        $containersData = PreparePageContainerData::invoke(
+            $this->id,
+            $this->containersData
+        );
+
+        $eventArgs->getObject()->setContainersData($containersData);
+
+        $this->containersData = $containersData;
+
+        $eventArgs->getObjectManager()->flush();
     }
 }

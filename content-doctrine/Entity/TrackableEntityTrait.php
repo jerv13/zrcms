@@ -2,6 +2,7 @@
 
 namespace Zrcms\ContentDoctrine\Entity;
 
+use Doctrine\Common\Persistence\Event\LifecycleEventArgs;
 use Doctrine\ORM\Mapping as ORM;
 use Zrcms\Content\Exception\TrackingException;
 use Zrcms\Content\Model\Trackable;
@@ -44,7 +45,7 @@ trait TrackableEntityTrait
      *
      * @ORM\PrePersist
      */
-    public function prePersist()
+    public function prePersist(LifecycleEventArgs $eventArgs)
     {
         $this->assertHasTrackingData();
     }

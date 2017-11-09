@@ -19,7 +19,7 @@ class ZrcmsHtmlResponse extends HtmlResponse
     const PROPERTY_KEYWORDS = FieldsPageVersion::KEYWORDS;
     const PROPERTY_LAYOUT = FieldsPageVersion::LAYOUT;
     const PROPERTY_RENDER_TAGS_GETTER = FieldsPageVersion::RENDER_TAGS_GETTER;
-    const PROPERTY_BLOCK_VERSIONS = FieldsPageVersion::BLOCK_VERSIONS;
+    const PROPERTY_CONTAINERS_DATA= FieldsPageVersion::CONTAINERS_DATA;
 
     /**
      * @var array

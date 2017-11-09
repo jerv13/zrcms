@@ -20,47 +20,19 @@ class BuildBlockVersions
     public static function invoke(
         $containerVersion,
         array $blockVersionsData
-    ): array
-    {
+    ): array {
         if (empty($containerVersion)) {
             return [];
         }
 
         $blockVersions = [];
 
-        $index = 0;
         foreach ($blockVersionsData as $blockVersionData) {
 
             $blockVersions[] = BuildBlockVersion::invoke(
                 $containerVersion,
-                $blockVersionData,
-                $index
-            );
-
-            $index++;
-        }
-
-        return $blockVersions;
-    }
-
-    /**
-     * @param array $blockVersionsData
-     *
-     * @return array
-     */
-    public static function prepare(
-        array $blockVersionsData
-    ) {
-        $blockVersions = [];
-
-        $index = 0;
-        foreach ($blockVersionsData as $blockVersionData) {
-
-            $blockVersions[] = BuildBlockVersion::prepare(
                 $blockVersionData
             );
-
-            $index++;
         }
 
         return $blockVersions;

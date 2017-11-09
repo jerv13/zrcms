@@ -2,7 +2,9 @@
 
 namespace Zrcms\ContentCoreDoctrineDataSource\Container\Entity;
 
+use Doctrine\Common\Persistence\Event\LifecycleEventArgs;
 use Doctrine\ORM\Mapping as ORM;
+use Zrcms\ContentCore\Container\Api\PrepareBlockVersionsData;
 use Zrcms\ContentCore\Container\Fields\FieldsContainerVersion;
 use Zrcms\ContentDoctrine\Entity\ContentEntity;
 use Zrcms\ContentDoctrine\Entity\ContentEntityAbstract;
@@ -73,6 +75,11 @@ class ContainerVersionEntity
     protected $blockVersions = [];
 
     /**
+     * @var null|string
+     */
+    public $tempId = null;
+
+    /**
      * @param string|null $id
      * @param array       $properties
      * @param string      $createdByUserId
@@ -84,6 +91,8 @@ class ContainerVersionEntity
         string $createdByUserId,
         string $createdReason
     ) {
+        $this->tempId = $id;
+
         $this->blockVersions = Param::getArray(
             $properties,
             FieldsContainerVersion::BLOCK_VERSIONS,
@@ -112,10 +121,47 @@ class ContainerVersionEntity
     }
 
     /**
+     * @param array $blockVersions
+     *
+     * @return void
+     */
+    public function setBlockVersions(array $blockVersions)
+    {
+        $this->blockVersions = $blockVersions;
+    }
+
+    /**
      * @return array
      */
     public function getBlockVersions(): array
     {
         return $this->blockVersions;
+    }
+
+    /**
+     * @param LifecycleEventArgs $eventArgs
+     *
+     * @return void
+     *
+     * @ORM\PostPersist
+     */
+    public function postPersist(LifecycleEventArgs $eventArgs)
+    {
+        if ($this->tempId == $this->id) {
+            return;
+        }
+
+        $this->tempId = $this->id;
+
+        $blockVersions = PrepareBlockVersionsData::invoke(
+            $this->blockVersions,
+            $this->id
+        );
+
+        $eventArgs->getObject()->setBlockVersions($blockVersions);
+
+        $this->blockVersions = $blockVersions;
+
+        $eventArgs->getObjectManager()->flush();
     }
 }

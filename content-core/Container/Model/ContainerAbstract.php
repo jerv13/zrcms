@@ -3,11 +3,11 @@
 namespace Zrcms\ContentCore\Container\Model;
 
 use Zrcms\Content\Exception\PropertyInvalid;
-use Zrcms\Content\Exception\PropertyMissing;
 use Zrcms\Content\Model\ContentAbstract;
 use Zrcms\ContentCore\Container\Api\BuildBlockVersions;
+use Zrcms\ContentCore\Container\Api\PrepareBlockVersionsData;
 use Zrcms\ContentCore\Container\Fields\FieldsContainer;
-use Zrcms\ContentCore\StringToHtmlClassName;
+use Zrcms\ContentCore\GetGuidV4;
 use Zrcms\Param\Param;
 
 /**
@@ -28,11 +28,14 @@ abstract class ContainerAbstract extends ContentAbstract
             []
         );
 
-        $properties[FieldsContainer::BLOCK_VERSIONS] = BuildBlockVersions::prepare(
-            $blockVersions
+        $id = GetGuidV4::invoke();
+
+        $properties[FieldsContainer::BLOCK_VERSIONS] = PrepareBlockVersionsData::invoke(
+            $blockVersions,
+            $id
         );
 
-        parent::__construct($properties);
+        parent::__construct($properties, $id);
     }
 
     /**

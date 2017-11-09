@@ -42,9 +42,6 @@ class GetMergedConfigBasic implements GetMergedConfig
         if (empty($bockComponent)) {
             // bockComponent my have been removed, so we return only the config we know
             return $block->getConfig();
-            // throw new BlockComponentMissing(
-            //"BlockComponent not found: (" . $block->getBlockComponentName() . ")"
-            //);
         }
 
         return $this->merge($bockComponent->getDefaultConfig(), $block->getConfig());

@@ -4,9 +4,13 @@ namespace Zrcms\ContentCore\Page\Model;
 
 use Zrcms\Content\Exception\PropertyMissing;
 use Zrcms\Content\Model\ContentVersionAbstract;
+use Zrcms\ContentCore\Container\Fields\FieldsContainer;
+use Zrcms\ContentCore\Container\Fields\FieldsContainerVersion;
 use Zrcms\ContentCore\Container\Model\Container;
 use Zrcms\ContentCore\Container\Model\ContainerVersion;
 use Zrcms\ContentCore\Container\Model\ContainerVersionBasic;
+use Zrcms\ContentCore\Page\Api\BuildPageContainerVersionId;
+use Zrcms\ContentCore\Page\Api\PreparePageContainerData;
 use Zrcms\ContentCore\Page\Fields\FieldsPageVersion;
 use Zrcms\Param\Param;
 
@@ -45,6 +49,17 @@ abstract class PageVersionAbstract extends ContentVersionAbstract
                 $properties,
                 get_class($this)
             )
+        );
+
+        $containersData = Param::getArray(
+            $properties,
+            FieldsPageVersion::CONTAINERS_DATA,
+            []
+        );
+
+        $properties[FieldsPageVersion::CONTAINERS_DATA] = PreparePageContainerData::invoke(
+            $id,
+            $containersData
         );
 
         parent::__construct(
@@ -149,7 +164,10 @@ abstract class PageVersionAbstract extends ContentVersionAbstract
             return null;
         }
 
-        $id = $this->getId() . ':' . $name;
+        $id = BuildPageContainerVersionId::invoke(
+            $this->getId(),
+            $name
+        );
 
         return new ContainerVersionBasic(
             $id,

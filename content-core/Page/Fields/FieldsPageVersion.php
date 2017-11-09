@@ -2,13 +2,14 @@
 
 namespace Zrcms\ContentCore\Page\Fields;
 
+use Zrcms\Content\Fields\Fields;
 use Zrcms\ContentCore\Container\Fields\FieldsContainer;
 use Zrcms\ContentCore\Page\Model\Page;
 
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class FieldsPageVersion extends FieldsPage
+class FieldsPageVersion extends FieldsPage implements Fields
 {
     /**
      * @var array

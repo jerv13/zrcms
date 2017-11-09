@@ -71,9 +71,8 @@ class GetBlockDataBasic implements GetBlockData
         );
 
         if (empty($blockComponent)) {
-            throw new BlockComponentMissing(
-                "BlockComponent not found: (" . $block->getBlockComponentName() . ")"
-            );
+            // bockComponent my have been removed, so we return nothing
+            return [];
         }
 
         $getBlockDataServiceAlias = $blockComponent->getProperty(

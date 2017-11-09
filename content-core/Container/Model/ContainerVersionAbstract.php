@@ -5,6 +5,7 @@ namespace Zrcms\ContentCore\Container\Model;
 use Zrcms\Content\Exception\PropertyInvalid;
 use Zrcms\Content\Model\ContentVersionAbstract;
 use Zrcms\ContentCore\Container\Api\BuildBlockVersions;
+use Zrcms\ContentCore\Container\Api\PrepareBlockVersionsData;
 use Zrcms\ContentCore\Container\Fields\FieldsContainerVersion;
 use Zrcms\Param\Param;
 
@@ -33,8 +34,9 @@ abstract class ContainerVersionAbstract extends ContentVersionAbstract
             []
         );
 
-        $properties[FieldsContainerVersion::BLOCK_VERSIONS] = BuildBlockVersions::prepare(
-            $blockVersions
+        $properties[FieldsContainerVersion::BLOCK_VERSIONS] = PrepareBlockVersionsData::invoke(
+            $blockVersions,
+            $id
         );
 
         parent::__construct(

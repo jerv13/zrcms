@@ -7,6 +7,8 @@ use Zrcms\Content\Model\ContentAbstract;
 use Zrcms\ContentCore\Container\Model\Container;
 use Zrcms\ContentCore\Container\Model\ContainerBasic;
 use Zrcms\ContentCore\Container\Model\ContainerVersionBasic;
+use Zrcms\ContentCore\GetGuidV4;
+use Zrcms\ContentCore\Page\Api\PreparePageContainerData;
 use Zrcms\ContentCore\Page\Fields\FieldsPage;
 use Zrcms\Param\Param;
 
@@ -41,20 +43,22 @@ abstract class PageAbstract extends ContentAbstract
             )
         );
 
-        $containerData = Param::getArray(
+        $id = GetGuidV4::invoke();
+
+        $containersData = Param::getArray(
             $properties,
-            FieldsPage::CONTAINER_DATA,
+            FieldsPage::CONTAINERS_DATA,
             []
         );
 
-        $containerData[Page::DEFAULT_CONTAINER_NAME] = Param::getArray(
-            $containerData,
-            Page::DEFAULT_CONTAINER_NAME,
-            []
+        $properties[FieldsPage::CONTAINERS_DATA] = PreparePageContainerData::invoke(
+            $id,
+            $containersData
         );
 
         parent::__construct(
-            $properties
+            $properties,
+            $id
         );
     }
 

@@ -39,9 +39,8 @@ class WrapRenderedBlockVersionLegacy implements WrapRenderedBlockVersion
         );
 
         if (empty($blockComponent)) {
-            throw new BlockComponentMissing(
-                'Block: ' . $block->getBlockComponentName() . ' is missing'
-            );
+            // bockComponent my have been removed, so we return innerHtml
+            return $innerHtml;
         }
 
         $rowNumber = $block->getRequiredLayoutProperty(

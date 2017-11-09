@@ -35,7 +35,7 @@ class GetViewByRequestHtmlPage implements GetViewByRequest
     const OPTION_HTML = FieldsPageVersion::PRE_RENDERED_HTML;
     const OPTION_LAYOUT = FieldsPageVersion::LAYOUT;
     const OPTION_RENDER_TAGS_GETTER = FieldsPageVersion::RENDER_TAGS_GETTER;
-    const OPTION_BLOCK_VERSIONS = FieldsPageVersion::BLOCK_VERSIONS;
+    const OPTION_CONTAINERS_DATA = FieldsPageVersion::CONTAINERS_DATA;
 
     /**
      * @var FindSiteCmsResourceByHost
@@ -199,8 +199,8 @@ class GetViewByRequestHtmlPage implements GetViewByRequest
                 FieldsPageVersion::RENDER_TAGS_GETTER
                 => Param::getString($options, self::OPTION_RENDER_TAGS_GETTER, 'html'),
 
-                FieldsPageVersion::BLOCK_VERSIONS
-                => Param::getArray($options, self::OPTION_BLOCK_VERSIONS, []),
+                FieldsPageVersion::CONTAINERS_DATA
+                => Param::getArray($options, self::OPTION_CONTAINERS_DATA, []),
             ],
             Trackable::UNKNOWN_USER_ID,
             'Render HTML: ' . get_class($this)
