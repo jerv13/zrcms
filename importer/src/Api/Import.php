@@ -267,6 +267,7 @@ class Import
                 . ')',
                 $options
             );
+
             $version = $this->insertSiteVersion->__invoke(
                 new SiteVersionBasic(
                     null,
@@ -361,6 +362,7 @@ class Import
                 'Import Page: ' . $page['path'],
                 $options
             );
+
             $version = $this->insertPageVersion->__invoke(
                 new PageVersionBasic(
                     null,
@@ -504,6 +506,7 @@ class Import
                 'Import Container: ' . $container['path'],
                 $options
             );
+
             $version = $this->insertContainerVersion->__invoke(
                 new ContainerVersionBasic(
                     null,
@@ -590,6 +593,7 @@ class Import
                 'Import Redirect: ' . $redirect['requestPath'],
                 $options
             );
+
             $version = $this->insertRedirectVersion->__invoke(
                 new RedirectVersionBasic(
                     null,
