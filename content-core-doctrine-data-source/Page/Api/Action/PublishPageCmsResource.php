@@ -8,7 +8,7 @@ use Zrcms\ContentCore\Page\Model\PageCmsResource;
 use Zrcms\ContentCore\Page\Model\PageCmsResourceBasic;
 use Zrcms\ContentCore\Page\Model\PageVersionBasic;
 use Zrcms\ContentCoreDoctrineDataSource\Page\Entity\PageCmsResourceEntity;
-use Zrcms\ContentCoreDoctrineDataSource\Page\Entity\PageCmsResourcePublishHistoryEntity;
+use Zrcms\ContentCoreDoctrineDataSource\Page\Entity\PageCmsResourceHistoryEntity;
 use Zrcms\ContentCoreDoctrineDataSource\Page\Entity\PageVersionEntity;
 use Zrcms\ContentDoctrine\Api\Action\PublishCmsResource;
 
@@ -28,7 +28,7 @@ class PublishPageCmsResource
         parent::__construct(
             $entityManager,
             PageCmsResourceEntity::class,
-            PageCmsResourcePublishHistoryEntity::class,
+            PageCmsResourceHistoryEntity::class,
             PageVersionEntity::class,
             PageCmsResourceBasic::class,
             PageVersionBasic::class,

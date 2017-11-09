@@ -5,7 +5,7 @@ namespace Zrcms\ContentCoreDoctrineDataSource\Page\Api\Action;
 use Doctrine\ORM\EntityManager;
 use Zrcms\ContentCoreDoctrineDataSource\Page\Entity\PageVersionEntity;
 use Zrcms\ContentCoreDoctrineDataSource\Page\Entity\PageTemplateCmsResourceEntity;
-use Zrcms\ContentCoreDoctrineDataSource\Page\Entity\PageTemplateCmsResourcePublishHistoryEntity;
+use Zrcms\ContentCoreDoctrineDataSource\Page\Entity\PageTemplateCmsResourceHistoryEntity;
 use Zrcms\ContentDoctrine\Api\Action\UnpublishCmsResource;
 
 /**
@@ -24,7 +24,7 @@ class UnpublishPageTemplateCmsResource
         parent::__construct(
             $entityManager,
             PageTemplateCmsResourceEntity::class,
-            PageTemplateCmsResourcePublishHistoryEntity::class,
+            PageTemplateCmsResourceHistoryEntity::class,
             PageVersionEntity::class
         );
     }

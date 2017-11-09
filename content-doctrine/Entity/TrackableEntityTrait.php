@@ -4,7 +4,7 @@ namespace Zrcms\ContentDoctrine\Entity;
 
 use Doctrine\Common\Persistence\Event\LifecycleEventArgs;
 use Doctrine\ORM\Mapping as ORM;
-use Zrcms\Content\Exception\TrackingException;
+use Zrcms\Content\Exception\TrackingInvalid;
 use Zrcms\Content\Model\Trackable;
 use Zrcms\Content\Model\TrackableTrait;
 use Zrcms\ContentDoctrine\Exception\MissingCreatedDateObjectProperty;
@@ -20,7 +20,7 @@ trait TrackableEntityTrait
 
     /**
      * @return string
-     * @throws TrackingException
+     * @throws TrackingInvalid
      * @throws MissingCreatedDateObjectProperty
      */
     public function getCreatedDate(): string
@@ -32,7 +32,7 @@ trait TrackableEntityTrait
         }
 
         if (empty($this->createdDateObject) || !$this->createdDateObject instanceof \DateTime) {
-            throw new TrackingException(
+            throw new TrackingInvalid(
                 'Value not set for createdDate in ' . get_class($this)
             );
         }
@@ -47,6 +47,6 @@ trait TrackableEntityTrait
      */
     public function prePersist(LifecycleEventArgs $eventArgs)
     {
-        $this->assertHasTrackingData();
+        $this->assertHasCreatedData();
     }
 }

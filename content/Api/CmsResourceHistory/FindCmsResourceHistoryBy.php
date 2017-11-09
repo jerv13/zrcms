@@ -2,7 +2,7 @@
 
 namespace Zrcms\Content\Api\CmsResourceHistory;
 
-use Zrcms\Content\Model\CmsResourcePublishHistory;
+use Zrcms\Content\Model\CmsResourceHistory;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -16,7 +16,7 @@ interface FindCmsResourceHistoryBy
      * @param null       $offset
      * @param array      $options
      *
-     * @return CmsResourcePublishHistory[]
+     * @return CmsResourceHistory[]
      */
     public function __invoke(
         array $criteria,

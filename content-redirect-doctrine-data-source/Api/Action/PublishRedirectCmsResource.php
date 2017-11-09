@@ -8,7 +8,7 @@ use Zrcms\ContentRedirect\Model\RedirectCmsResource;
 use Zrcms\ContentRedirect\Model\RedirectCmsResourceBasic;
 use Zrcms\ContentRedirect\Model\RedirectVersionBasic;
 use Zrcms\ContentRedirectDoctrineDataSource\Entity\RedirectCmsResourceEntity;
-use Zrcms\ContentRedirectDoctrineDataSource\Entity\RedirectCmsResourcePublishHistoryEntity;
+use Zrcms\ContentRedirectDoctrineDataSource\Entity\RedirectCmsResourceHistoryEntity;
 use Zrcms\ContentRedirectDoctrineDataSource\Entity\RedirectVersionEntity;
 use Zrcms\ContentDoctrine\Api\Action\PublishCmsResource;
 
@@ -28,7 +28,7 @@ class PublishRedirectCmsResource
         parent::__construct(
             $entityManager,
             RedirectCmsResourceEntity::class,
-            RedirectCmsResourcePublishHistoryEntity::class,
+            RedirectCmsResourceHistoryEntity::class,
             RedirectVersionEntity::class,
             RedirectCmsResourceBasic::class,
             RedirectVersionBasic::class,

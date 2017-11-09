@@ -3,7 +3,7 @@
 namespace Zrcms\ContentCore\Container\Api\CmsResourceHistory;
 
 use Zrcms\Content\Api\CmsResourceHistory\FindCmsResourceHistoryBy;
-use Zrcms\ContentCore\Container\Model\ContainerCmsResourcePublishHistory;
+use Zrcms\ContentCore\Container\Model\ContainerCmsResourceHistory;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -17,7 +17,7 @@ interface FindContainerCmsResourceHistoryBy extends FindCmsResourceHistoryBy
      * @param null       $offset
      * @param array      $options
      *
-     * @return ContainerCmsResourcePublishHistory[]
+     * @return ContainerCmsResourceHistory[]
      */
     public function __invoke(
         array $criteria,

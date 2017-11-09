@@ -5,7 +5,7 @@ namespace Zrcms\ContentRedirectDoctrineDataSource\Api\Action;
 use Doctrine\ORM\EntityManager;
 use Zrcms\ContentDoctrine\Api\Action\UnpublishCmsResource;
 use Zrcms\ContentRedirectDoctrineDataSource\Entity\RedirectCmsResourceEntity;
-use Zrcms\ContentRedirectDoctrineDataSource\Entity\RedirectCmsResourcePublishHistoryEntity;
+use Zrcms\ContentRedirectDoctrineDataSource\Entity\RedirectCmsResourceHistoryEntity;
 use Zrcms\ContentRedirectDoctrineDataSource\Entity\RedirectVersionEntity;
 
 /**
@@ -24,7 +24,7 @@ class UnpublishRedirectCmsResource
         parent::__construct(
             $entityManager,
             RedirectCmsResourceEntity::class,
-            RedirectCmsResourcePublishHistoryEntity::class,
+            RedirectCmsResourceHistoryEntity::class,
             RedirectVersionEntity::class
         );
     }

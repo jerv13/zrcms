@@ -4,7 +4,7 @@ namespace Zrcms\ContentCoreDoctrineDataSource\Theme\Api\Action;
 
 use Doctrine\ORM\EntityManager;
 use Zrcms\ContentCoreDoctrineDataSource\Theme\Entity\LayoutCmsResourceEntity;
-use Zrcms\ContentCoreDoctrineDataSource\Theme\Entity\LayoutCmsResourcePublishHistoryEntity;
+use Zrcms\ContentCoreDoctrineDataSource\Theme\Entity\LayoutCmsResourceHistoryEntity;
 use Zrcms\ContentCoreDoctrineDataSource\Theme\Entity\LayoutVersionEntity;
 use Zrcms\ContentDoctrine\Api\Action\UnpublishCmsResource;
 
@@ -24,7 +24,7 @@ class UnpublishLayoutCmsResource
         parent::__construct(
             $entityManager,
             LayoutCmsResourceEntity::class,
-            LayoutCmsResourcePublishHistoryEntity::class,
+            LayoutCmsResourceHistoryEntity::class,
             LayoutVersionEntity::class
         );
     }

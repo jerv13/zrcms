@@ -5,11 +5,11 @@ namespace Zrcms\ContentDoctrine\Api\Action;
 use Doctrine\ORM\EntityManager;
 use Zrcms\Content\Model\Action;
 use Zrcms\Content\Model\CmsResource;
-use Zrcms\Content\Model\CmsResourcePublishHistory;
+use Zrcms\Content\Model\CmsResourceHistory;
 use Zrcms\Content\Model\ContentVersion;
 use Zrcms\ContentDoctrine\Api\ApiAbstract;
 use Zrcms\ContentDoctrine\Entity\CmsResourceEntity;
-use Zrcms\ContentDoctrine\Entity\CmsResourcePublishHistoryEntity;
+use Zrcms\ContentDoctrine\Entity\CmsResourceHistoryEntity;
 use Zrcms\ContentDoctrine\Entity\ContentEntity;
 
 /**
@@ -32,7 +32,7 @@ class UnpublishCmsResource
     /**
      * @var string
      */
-    protected $entityClassCmsResourcePublishHistory;
+    protected $entityClassCmsResourceHistory;
 
     /**
      * @var string
@@ -47,13 +47,13 @@ class UnpublishCmsResource
     /**
      * @param EntityManager $entityManager
      * @param string        $entityClassCmsResource
-     * @param string        $entityClassCmsResourcePublishHistory
+     * @param string        $entityClassCmsResourceHistory
      * @param string        $entityClassContentVersion
      */
     public function __construct(
         EntityManager $entityManager,
         string $entityClassCmsResource,
-        string $entityClassCmsResourcePublishHistory,
+        string $entityClassCmsResourceHistory,
         string $entityClassContentVersion
     ) {
         $this->assertValidEntityClass(
@@ -62,8 +62,8 @@ class UnpublishCmsResource
         );
 
         $this->assertValidEntityClass(
-            $entityClassCmsResourcePublishHistory,
-            CmsResourcePublishHistoryEntity::class
+            $entityClassCmsResourceHistory,
+            CmsResourceHistoryEntity::class
         );
 
         $this->assertValidEntityClass(
@@ -72,7 +72,7 @@ class UnpublishCmsResource
         );
 
         $this->entityManager = $entityManager;
-        $this->entityClassCmsResourcePublishHistory = $entityClassCmsResourcePublishHistory;
+        $this->entityClassCmsResourceHistory = $entityClassCmsResourceHistory;
         $this->entityClassCmsResource = $entityClassCmsResource;
         $this->entityClassContentVersion = $entityClassContentVersion;
     }
@@ -109,14 +109,14 @@ class UnpublishCmsResource
 
         $this->entityManager->flush($existingCmsResource);
 
-        $newCmsResourcePublishHistory = $this->buildHistory(
+        $newCmsResourceHistory = $this->buildHistory(
             $existingCmsResource,
             $unpublishedByUserId,
             $unpublishReason
         );
 
-        $this->entityManager->persist($newCmsResourcePublishHistory);
-        $this->entityManager->flush($newCmsResourcePublishHistory);
+        $this->entityManager->persist($newCmsResourceHistory);
+        $this->entityManager->flush($newCmsResourceHistory);
 
         return true;
     }
@@ -126,17 +126,17 @@ class UnpublishCmsResource
      * @param string            $unpublishedByUserId
      * @param string            $unpublishReason
      *
-     * @return CmsResourcePublishHistory
+     * @return CmsResourceHistory
      */
     protected function buildHistory(
         CmsResourceEntity $cmsResourceEntity,
         string $unpublishedByUserId,
         string $unpublishReason
     ) {
-        /** @var CmsResourcePublishHistory::class $cmsResourcePublishHistoryClass */
-        $cmsResourcePublishHistoryEntityClass = $this->entityClassCmsResourcePublishHistory;
+        /** @var CmsResourceHistory::class $cmsResourceHistoryClass */
+        $cmsResourceHistoryEntityClass = $this->entityClassCmsResourceHistory;
 
-        return new $cmsResourcePublishHistoryEntityClass(
+        return new $cmsResourceHistoryEntityClass(
             null,
             Action::UNPUBLISH_CMS_RESOURCE,
             $cmsResourceEntity,

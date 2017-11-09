@@ -8,7 +8,7 @@
 - PageDataService
 
 - Rename Directories
-    - CmsResourcePublishHistory to CmsResourceHistory
+    - CmsResourceHistory to CmsResourceHistory
     - Repository to CsmResource, Component, ContentVersion respectively
       
 - APIs in http-expressive
@@ -25,7 +25,7 @@
 
 - Refactor ResponseHandler as http-api-response-formatter
 
-- ContentDoctrine SyncProperties needs to be done separately for CmsResourcePublishHistory
+- ContentDoctrine SyncProperties needs to be done separately for CmsResourceHistory
 
 - For publish and unpublish, extra properties (like host) should not be required if there is an existing resource
 

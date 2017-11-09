@@ -8,7 +8,7 @@ use Zrcms\ContentCore\Theme\Model\LayoutCmsResource;
 use Zrcms\ContentCore\Theme\Model\LayoutCmsResourceBasic;
 use Zrcms\ContentCore\Theme\Model\LayoutVersionBasic;
 use Zrcms\ContentCoreDoctrineDataSource\Theme\Entity\LayoutCmsResourceEntity;
-use Zrcms\ContentCoreDoctrineDataSource\Theme\Entity\LayoutCmsResourcePublishHistoryEntity;
+use Zrcms\ContentCoreDoctrineDataSource\Theme\Entity\LayoutCmsResourceHistoryEntity;
 use Zrcms\ContentCoreDoctrineDataSource\Theme\Entity\LayoutVersionEntity;
 use Zrcms\ContentDoctrine\Api\Action\PublishCmsResource;
 
@@ -28,7 +28,7 @@ class PublishLayoutCmsResource
         parent::__construct(
             $entityManager,
             LayoutCmsResourceEntity::class,
-            LayoutCmsResourcePublishHistoryEntity::class,
+            LayoutCmsResourceHistoryEntity::class,
             LayoutVersionEntity::class,
             LayoutCmsResourceBasic::class,
             LayoutVersionBasic::class,

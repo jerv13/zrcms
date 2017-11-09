@@ -4,7 +4,7 @@ namespace Zrcms\ContentCoreDoctrineDataSource\Container\Api\Action;
 
 use Doctrine\ORM\EntityManager;
 use Zrcms\ContentCoreDoctrineDataSource\Container\Entity\ContainerCmsResourceEntity;
-use Zrcms\ContentCoreDoctrineDataSource\Container\Entity\ContainerCmsResourcePublishHistoryEntity;
+use Zrcms\ContentCoreDoctrineDataSource\Container\Entity\ContainerCmsResourceHistoryEntity;
 use Zrcms\ContentCoreDoctrineDataSource\Container\Entity\ContainerVersionEntity;
 use Zrcms\ContentDoctrine\Api\Action\UnpublishCmsResource;
 
@@ -24,7 +24,7 @@ class UnpublishContainerCmsResource
         parent::__construct(
             $entityManager,
             ContainerCmsResourceEntity::class,
-            ContainerCmsResourcePublishHistoryEntity::class,
+            ContainerCmsResourceHistoryEntity::class,
             ContainerVersionEntity::class
         );
     }

@@ -2,8 +2,8 @@
 
 namespace Zrcms\Content;
 
-use Zrcms\Content\Api\CmsResourcePublishHistoryToArray;
-use Zrcms\Content\Api\CmsResourcePublishHistoryToArrayBasic;
+use Zrcms\Content\Api\CmsResourceHistoryToArray;
+use Zrcms\Content\Api\CmsResourceHistoryToArrayBasic;
 use Zrcms\Content\Api\CmsResourceToArray;
 use Zrcms\Content\Api\CmsResourceToArrayBasic;
 use Zrcms\Content\Api\ComponentToArray;
@@ -28,8 +28,8 @@ class ModuleConfig
         return [
             'dependencies' => [
                 'config_factories' => [
-                    CmsResourcePublishHistoryToArray::class => [
-                        'class' => CmsResourcePublishHistoryToArrayBasic::class,
+                    CmsResourceHistoryToArray::class => [
+                        'class' => CmsResourceHistoryToArrayBasic::class,
                         'arguments' => [
                             ContentVersionToArray::class
                         ],

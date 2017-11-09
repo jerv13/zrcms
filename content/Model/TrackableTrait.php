@@ -2,7 +2,7 @@
 
 namespace Zrcms\Content\Model;
 
-use Zrcms\Content\Exception\TrackingException;
+use Zrcms\Content\Exception\TrackingInvalid;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -40,12 +40,12 @@ trait TrackableTrait
 
     /**
      * @return string
-     * @throws TrackingException
+     * @throws TrackingInvalid
      */
     public function getCreatedDate(): string
     {
         if (empty($this->createdDate)) {
-            throw new TrackingException(
+            throw new TrackingInvalid(
                 'Value not set for createdDate in ' . get_class($this)
             );
         }
@@ -55,7 +55,7 @@ trait TrackableTrait
 
     /**
      * @return int
-     * @throws TrackingException
+     * @throws TrackingInvalid
      */
     public function getCreatedTimestamp(): int
     {
@@ -64,7 +64,7 @@ trait TrackableTrait
 
     /**
      * @return \DateTime
-     * @throws TrackingException
+     * @throws TrackingInvalid
      */
     public function getCreatedDateObject(): \DateTime
     {
@@ -73,12 +73,12 @@ trait TrackableTrait
 
     /**
      * @return string
-     * @throws TrackingException
+     * @throws TrackingInvalid
      */
     public function getCreatedByUserId(): string
     {
         if (empty($this->createdByUserId)) {
-            throw new TrackingException(
+            throw new TrackingInvalid(
                 'Value not set for createdByUserId in ' . get_class($this)
             );
         }
@@ -88,12 +88,12 @@ trait TrackableTrait
 
     /**
      * @return string
-     * @throws TrackingException
+     * @throws TrackingInvalid
      */
     public function getCreatedReason(): string
     {
         if (empty($this->createdReason)) {
-            throw new TrackingException(
+            throw new TrackingInvalid(
                 'Value not set for createdReason in ' . get_class($this)
             );
         }
@@ -104,31 +104,31 @@ trait TrackableTrait
     /**
      * @return bool
      */
-    public function hasTrackingData()
+    public function hasCreatedData()
     {
         return (!empty($this->createdDate) && !empty($this->createdByUserId) && empty($this->createdReason));
     }
 
     /**
      * @return void
-     * @throws TrackingException
+     * @throws TrackingInvalid
      */
-    public function assertHasTrackingData()
+    public function assertHasCreatedData()
     {
         if (empty($this->createdDate)) {
-            throw new TrackingException(
+            throw new TrackingInvalid(
                 'Value not set for createdDate in ' . get_class($this)
             );
         }
 
         if (empty($this->createdByUserId)) {
-            throw new TrackingException(
+            throw new TrackingInvalid(
                 'Value not set for createdByUserId in ' . get_class($this)
             );
         }
 
         if (empty($this->createdReason)) {
-            throw new TrackingException(
+            throw new TrackingInvalid(
                 'Value not set for createdReason in ' . get_class($this)
             );
         }
@@ -139,7 +139,7 @@ trait TrackableTrait
      * @param string $createdReason
      *
      * @return void
-     * @throws TrackingException
+     * @throws TrackingInvalid
      */
     protected function setCreatedData(
         string $createdByUserId,
@@ -147,19 +147,19 @@ trait TrackableTrait
     ) {
         // invalid
         if (empty($createdByUserId)) {
-            throw new TrackingException(
+            throw new TrackingInvalid(
                 'Invalid createdByUserId in ' . get_class($this)
             );
         }
 
         if (empty($createdReason)) {
-            throw new TrackingException(
+            throw new TrackingInvalid(
                 'Invalid createdReason in ' . get_class($this)
             );
         }
 
         if (!empty($this->createdByUserId)) {
-            throw new TrackingException(
+            throw new TrackingInvalid(
                 'Can not change createdByUserId in ' . get_class($this)
             );
         }
@@ -167,7 +167,7 @@ trait TrackableTrait
         $this->createdByUserId = $createdByUserId;
 
         if (!empty($this->createdDate)) {
-            throw new TrackingException(
+            throw new TrackingInvalid(
                 'Can not change createdDate in ' . get_class($this)
             );
         }
@@ -184,11 +184,11 @@ trait TrackableTrait
 
     /**
      * @return void
-     * @throws TrackingException
+     * @throws TrackingInvalid
      */
     public function __clone()
     {
-        throw new TrackingException(
+        throw new TrackingInvalid(
             'Cloning of tracking objects is not supported in ' . get_class($this)
         );
     }

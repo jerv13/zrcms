@@ -2,8 +2,6 @@
 
 namespace Zrcms\ContentDoctrine\Api;
 
-use Zrcms\Content\Model\CmsResourcePublishHistory;
-use Zrcms\Content\Fields\FieldsCmsResource;
 use Zrcms\ContentDoctrine\Entity\CmsResourceEntity;
 
 /**

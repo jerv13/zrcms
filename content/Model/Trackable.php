@@ -2,7 +2,7 @@
 
 namespace Zrcms\Content\Model;
 
-use Zrcms\Content\Exception\TrackingException;
+use Zrcms\Content\Exception\TrackingInvalid;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -16,7 +16,7 @@ interface Trackable
 
     /**
      * @return string
-     * @throws TrackingException
+     * @throws TrackingInvalid
      */
     public function getCreatedDate(): string;
 
@@ -27,13 +27,13 @@ interface Trackable
 
     /**
      * @return int
-     * @throws TrackingException
+     * @throws TrackingInvalid
      */
     public function getCreatedTimestamp(): int;
 
     /**
      * @return string
-     * @throws TrackingException
+     * @throws TrackingInvalid
      */
     public function getCreatedByUserId(): string;
 
@@ -45,11 +45,11 @@ interface Trackable
     /**
      * @return bool
      */
-    public function hasTrackingData();
+    public function hasCreatedData();
 
     /**
      * @return void
-     * @throws TrackingException
+     * @throws TrackingInvalid
      */
-    public function assertHasTrackingData();
+    public function assertHasCreatedData();
 }
