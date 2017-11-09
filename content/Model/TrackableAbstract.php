@@ -10,16 +10,19 @@ abstract class TrackableAbstract implements Trackable
     use TrackableTrait;
 
     /**
-     * @param string $createdByUserId <tracking>
-     * @param string $createdReason   <tracking>
+     * @param string      $createdByUserId
+     * @param string      $createdReason
+     * @param string|null $createdDate
      */
     public function __construct(
         string $createdByUserId,
-        string $createdReason
+        string $createdReason,
+        string $createdDate = null
     ) {
         $this->setCreatedData(
             $createdByUserId,
-            $createdReason
+            $createdReason,
+            $createdDate
         );
     }
 }

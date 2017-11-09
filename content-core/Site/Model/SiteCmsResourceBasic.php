@@ -10,28 +10,28 @@ use Zrcms\Content\Model\ContentVersion;
 class SiteCmsResourceBasic extends SiteCmsResourceAbstract implements SiteCmsResource
 {
     /**
-     * @param null|string    $id
+     * @param string|null    $id
      * @param bool           $published
-     * @param ContentVersion $contentVersion
-     * @param array          $properties
+     * @param SiteVersion|ContentVersion $contentVersion
      * @param string         $createdByUserId
      * @param string         $createdReason
+     * @param string|null    $createdDate
      */
     public function __construct(
         $id,
         bool $published,
         ContentVersion $contentVersion,
-        array $properties,
         string $createdByUserId,
-        string $createdReason
+        string $createdReason,
+        string $createdDate = null
     ) {
         parent::__construct(
             $id,
             $published,
             $contentVersion,
-            $properties,
             $createdByUserId,
-            $createdReason
+            $createdReason,
+            $createdDate
         );
     }
 }

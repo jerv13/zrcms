@@ -16,7 +16,6 @@ class BuildBasicCmsResources
      * @param string              $entityClassContentVersion
      * @param string              $classContentVersionBasic
      * @param CmsResourceEntity[] $cmsResourceEntities
-     * @param array               $cmsResourceSyncToProperties
      * @param array               $contentVersionSyncToProperties
      *
      * @return CmsResource[]
@@ -27,7 +26,6 @@ class BuildBasicCmsResources
         string $entityClassContentVersion,
         string $classContentVersionBasic,
         array $cmsResourceEntities,
-        array $cmsResourceSyncToProperties = [],
         array $contentVersionSyncToProperties = []
     ) {
         $basics = [];
@@ -39,7 +37,6 @@ class BuildBasicCmsResources
                 $entityClassContentVersion,
                 $classContentVersionBasic,
                 $cmsResourceEntity,
-                $cmsResourceSyncToProperties,
                 $contentVersionSyncToProperties
             );
         }
@@ -53,7 +50,6 @@ class BuildBasicCmsResources
      * @param string              $entityClassContentVersion
      * @param string              $classContentVersionBasic
      * @param CmsResourceEntity[] $cmsResourceEntities
-     * @param array               $cmsResourceSyncToProperties
      * @param array               $contentVersionSyncToProperties
      *
      * @return CmsResource[]
@@ -64,7 +60,6 @@ class BuildBasicCmsResources
         string $entityClassContentVersion,
         string $classContentVersionBasic,
         array $cmsResourceEntities,
-        array $cmsResourceSyncToProperties = [],
         array $contentVersionSyncToProperties = []
     ) {
         return self::invoke(
@@ -73,7 +68,6 @@ class BuildBasicCmsResources
             $entityClassContentVersion,
             $classContentVersionBasic,
             $cmsResourceEntities,
-            $cmsResourceSyncToProperties,
             $contentVersionSyncToProperties
         );
     }

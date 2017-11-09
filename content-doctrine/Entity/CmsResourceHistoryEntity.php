@@ -23,11 +23,6 @@ interface CmsResourceHistoryEntity
     public function getCmsResource();
 
     /**
-     * @return array
-     */
-    public function getCmsResourceProperties(): array;
-
-    /**
      * @return ContentEntity
      */
     public function getContentVersion();

@@ -7,7 +7,6 @@ use Zrcms\Content\Model\CmsResource;
 use Zrcms\ContentCore\Theme\Model\LayoutCmsResource;
 use Zrcms\ContentCore\Theme\Model\LayoutCmsResourceBasic;
 use Zrcms\ContentCore\Theme\Model\LayoutVersionBasic;
-use Zrcms\ContentCore\Theme\Fields\FieldsLayoutCmsResource;
 use Zrcms\ContentCoreDoctrineDataSource\Theme\Api\FallbackToComponentLayoutCmsResource;
 use Zrcms\ContentCoreDoctrineDataSource\Theme\Entity\LayoutCmsResourceEntity;
 use Zrcms\ContentCoreDoctrineDataSource\Theme\Entity\LayoutVersionEntity;
@@ -52,11 +51,6 @@ class FindLayoutCmsResourceByThemeNameLayoutName
     /**
      * @var array
      */
-    protected $cmsResourceSyncToProperties = [];
-
-    /**
-     * @var array
-     */
     protected $contentVersionSyncToProperties = [];
 
     /**
@@ -75,7 +69,6 @@ class FindLayoutCmsResourceByThemeNameLayoutName
         $this->entityClassContentVersion = LayoutVersionEntity::class;
         $this->classContentVersionBasic = LayoutVersionBasic::class;
 
-        $this->cmsResourceSyncToProperties = [];
         $this->contentVersionSyncToProperties = [];
     }
 
@@ -100,8 +93,8 @@ class FindLayoutCmsResourceByThemeNameLayoutName
         /** @var LayoutCmsResourceEntity $layoutCmsResourceEntity */
         $layoutCmsResourceEntity = $repository->findOneBy(
             [
-                FieldsLayoutCmsResource::THEME_NAME => $themeName,
-                FieldsLayoutCmsResource::NAME => $layoutName,
+                'themeName' => $themeName,
+                'name' => $layoutName,
                 'published' => $published
             ]
         );
@@ -113,7 +106,6 @@ class FindLayoutCmsResourceByThemeNameLayoutName
             $this->entityClassContentVersion,
             $this->classContentVersionBasic,
             $layoutCmsResourceEntity,
-            $this->cmsResourceSyncToProperties,
             $this->contentVersionSyncToProperties
         );
 

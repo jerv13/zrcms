@@ -3,61 +3,40 @@
 namespace Zrcms\ContentCore\Theme\Model;
 
 use Zrcms\Content\Exception\ContentVersionInvalid;
-use Zrcms\Content\Exception\PropertyMissing;
 use Zrcms\Content\Model\CmsResourceAbstract;
 use Zrcms\Content\Model\ContentVersion;
-use Zrcms\ContentCore\Theme\Fields\FieldsLayoutCmsResource;
-use Zrcms\Param\Param;
 
 /**
  * @author James Jervis - https://github.com/jerv13
  */
 abstract class LayoutCmsResourceAbstract extends CmsResourceAbstract
 {
+    protected $themeName;
+    protected $name;
+
     /**
-     * @param string|null    $id
-     * @param bool           $published
-     * @param ContentVersion $contentVersion
-     * @param array          $properties
-     * @param string         $createdByUserId
-     * @param string         $createdReason
+     * @param string|null                  $id
+     * @param bool                         $published
+     * @param LayoutVersion|ContentVersion $contentVersion
+     * @param string                       $createdByUserId
+     * @param string                       $createdReason
+     * @param string|null                  $createdDate
      */
     public function __construct(
         $id,
         bool $published,
         ContentVersion $contentVersion,
-        array $properties,
         string $createdByUserId,
-        string $createdReason
+        string $createdReason,
+        string $createdDate = null
     ) {
-
-        Param::assertHas(
-            $properties,
-            FieldsLayoutCmsResource::THEME_NAME,
-            PropertyMissing::buildThrower(
-                FieldsLayoutCmsResource::THEME_NAME,
-                $properties,
-                get_class($this)
-            )
-        );
-
-        Param::assertHas(
-            $properties,
-            FieldsLayoutCmsResource::NAME,
-            PropertyMissing::buildThrower(
-                FieldsLayoutCmsResource::NAME,
-                $properties,
-                get_class($this)
-            )
-        );
-
         parent::__construct(
             $id,
             $published,
             $contentVersion,
-            $properties,
             $createdByUserId,
-            $createdReason
+            $createdReason,
+            $createdDate
         );
     }
 
@@ -66,10 +45,7 @@ abstract class LayoutCmsResourceAbstract extends CmsResourceAbstract
      */
     public function getThemeName(): string
     {
-        return $this->getProperty(
-            FieldsLayoutCmsResource::THEME_NAME,
-            ''
-        );
+        return $this->themeName;
     }
 
     /**
@@ -77,14 +53,36 @@ abstract class LayoutCmsResourceAbstract extends CmsResourceAbstract
      */
     public function getName(): string
     {
-        return $this->getProperty(
-            FieldsLayoutCmsResource::NAME,
-            ''
+        return $this->name;
+    }
+
+    /**
+     * @param LayoutVersion|ContentVersion $contentVersion
+     * @param string                       $modifiedByUserId
+     * @param string                       $modifiedReason
+     * @param string                       $modifiedDate
+     *
+     * @return void
+     */
+    public function setContentVersion(
+        ContentVersion $contentVersion,
+        string $modifiedByUserId,
+        string $modifiedReason,
+        string $modifiedDate
+    ) {
+        $this->themeName = $contentVersion->getThemeName();
+        $this->name = $contentVersion->getName();
+
+        parent::setContentVersion(
+            $contentVersion,
+            $modifiedByUserId,
+            $modifiedReason,
+            $modifiedDate
         );
     }
 
     /**
-     * @param $contentVersion
+     * @param LayoutVersion $contentVersion
      *
      * @return void
      * @throws ContentVersionInvalid
@@ -96,6 +94,18 @@ abstract class LayoutCmsResourceAbstract extends CmsResourceAbstract
                 'ContentVersion must be instance of: ' . LayoutVersion::class
                 . ' got: ' . var_export($contentVersion, true)
                 . ' for: ' . get_class($this)
+            );
+        }
+
+        if (empty($contentVersion->getThemeName())) {
+            throw new ContentVersionInvalid(
+                'ThemeName can not be empty'
+            );
+        }
+
+        if (empty($contentVersion->getThemeName())) {
+            throw new ContentVersionInvalid(
+                'Name can not be empty'
             );
         }
     }

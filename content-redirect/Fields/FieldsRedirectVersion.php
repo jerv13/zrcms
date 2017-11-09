@@ -9,6 +9,8 @@ use Zrcms\Content\Fields\FieldsContent;
  */
 class FieldsRedirectVersion extends FieldsContent
 {
+    const SITE_CMS_RESOURCE_ID = 'siteCmsResourceId';
+    const REQUEST_PATH = 'requestPath';
     const REDIRECT_PATH = 'redirectPath';
 
     /**
@@ -16,6 +18,22 @@ class FieldsRedirectVersion extends FieldsContent
      */
     protected $defaultFieldsConfig
         = [
+            [
+                'name' => self::SITE_CMS_RESOURCE_ID,
+                'type' => 'id',
+                'label' => 'Site CmsResourceId',
+                'required' => true,
+                'default' => '',
+                'options' => [],
+            ],
+            [
+                'name' => self::REQUEST_PATH,
+                'type' => 'text',
+                'label' => 'Request Path',
+                'required' => true,
+                'default' => '',
+                'options' => [],
+            ],
             [
                 'name' => self::REDIRECT_PATH,
                 'type' => 'text',

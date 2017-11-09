@@ -4,12 +4,11 @@ namespace Zrcms\ContentCoreDoctrineDataSource\Page\Api\Repository;
 
 use Doctrine\ORM\EntityManager;
 use Zrcms\Content\Model\CmsResource;
-use Zrcms\ContentCore\Page\Fields\FieldsPageTemplateCmsResource;
-use Zrcms\ContentCore\Page\Model\PageVersionBasic;
 use Zrcms\ContentCore\Page\Model\PageTemplateCmsResource;
 use Zrcms\ContentCore\Page\Model\PageTemplateCmsResourceBasic;
-use Zrcms\ContentCoreDoctrineDataSource\Page\Entity\PageVersionEntity;
+use Zrcms\ContentCore\Page\Model\PageVersionBasic;
 use Zrcms\ContentCoreDoctrineDataSource\Page\Entity\PageTemplateCmsResourceEntity;
+use Zrcms\ContentCoreDoctrineDataSource\Page\Entity\PageVersionEntity;
 use Zrcms\ContentDoctrine\Api\BuildBasicCmsResource;
 
 /**
@@ -46,11 +45,6 @@ class FindPageTemplateCmsResourceBySitePath
     /**
      * @var array
      */
-    protected $cmsResourceSyncToProperties = [];
-
-    /**
-     * @var array
-     */
     protected $contentVersionSyncToProperties = [];
 
     /**
@@ -65,7 +59,6 @@ class FindPageTemplateCmsResourceBySitePath
         $this->entityClassContentVersion = PageVersionEntity::class;
         $this->classContentVersionBasic = PageVersionBasic::class;
 
-        $this->cmsResourceSyncToProperties = [];
         $this->contentVersionSyncToProperties = [];
     }
 
@@ -90,8 +83,8 @@ class FindPageTemplateCmsResourceBySitePath
         /** @var PageTemplateCmsResourceEntity $pageTemplateCmsResourceEntity */
         $pageTemplateCmsResourceEntity = $repository->findOneBy(
             [
-                FieldsPageTemplateCmsResource::SITE_CMS_RESOURCE_ID => $siteCmsResourceId,
-                FieldsPageTemplateCmsResource::PATH => $pageTemplateCmsResourcePath,
+                'siteCmsResourceId' => $siteCmsResourceId,
+                'path' => $pageTemplateCmsResourcePath,
                 'published' => $published
             ]
         );
@@ -102,7 +95,6 @@ class FindPageTemplateCmsResourceBySitePath
             $this->entityClassContentVersion,
             $this->classContentVersionBasic,
             $pageTemplateCmsResourceEntity,
-            $this->cmsResourceSyncToProperties,
             $this->contentVersionSyncToProperties
         );
     }

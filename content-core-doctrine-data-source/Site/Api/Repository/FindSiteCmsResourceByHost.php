@@ -4,7 +4,6 @@ namespace Zrcms\ContentCoreDoctrineDataSource\Site\Api\Repository;
 
 use Doctrine\ORM\EntityManager;
 use Zrcms\Content\Model\CmsResource;
-use Zrcms\ContentCore\Site\Fields\FieldsSiteCmsResource;
 use Zrcms\ContentCore\Site\Model\SiteCmsResource;
 use Zrcms\ContentCore\Site\Model\SiteCmsResourceBasic;
 use Zrcms\ContentCore\Site\Model\SiteVersionBasic;
@@ -47,11 +46,6 @@ class FindSiteCmsResourceByHost
     /**
      * @var array
      */
-    protected $cmsResourceSyncToProperties = [];
-
-    /**
-     * @var array
-     */
     protected $contentVersionSyncToProperties = [];
 
     /**
@@ -73,7 +67,6 @@ class FindSiteCmsResourceByHost
         $this->entityClassContentVersion = SiteVersionEntity::class;
         $this->classContentVersionBasic = SiteVersionBasic::class;
 
-        $this->cmsResourceSyncToProperties = [];
         $this->contentVersionSyncToProperties = [];
     }
 
@@ -101,7 +94,7 @@ class FindSiteCmsResourceByHost
         /** @var SiteCmsResourceEntity|CmsResourceEntity $siteCmsResourceEntity */
         $siteCmsResourceEntity = $repository->findOneBy(
             [
-                FieldsSiteCmsResource::HOST => $host,
+                'host' => $host,
                 'published' => $published,
             ]
         );
@@ -112,7 +105,6 @@ class FindSiteCmsResourceByHost
             $this->entityClassContentVersion,
             $this->classContentVersionBasic,
             $siteCmsResourceEntity,
-            $this->cmsResourceSyncToProperties,
             $this->contentVersionSyncToProperties
         );
 

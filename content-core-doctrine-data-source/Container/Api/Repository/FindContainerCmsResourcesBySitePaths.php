@@ -46,11 +46,6 @@ class FindContainerCmsResourcesBySitePaths
     /**
      * @var array
      */
-    protected $cmsResourceSyncToProperties = [];
-
-    /**
-     * @var array
-     */
     protected $contentVersionSyncToProperties = [];
 
     /**
@@ -65,7 +60,6 @@ class FindContainerCmsResourcesBySitePaths
         $this->entityClassContentVersion = ContainerVersionEntity::class;
         $this->classContentVersionBasic = ContainerVersionBasic::class;
 
-        $this->cmsResourceSyncToProperties = [];
         $this->contentVersionSyncToProperties = [];
     }
 
@@ -82,16 +76,13 @@ class FindContainerCmsResourcesBySitePaths
         array $containerCmsResourcePaths,
         bool $published = true,
         array $options = []
-    ): array
-    {
-        $siteCmsResourceIdName = FieldsContainerCmsResource::SITE_CMS_RESOURCE_ID;
-
+    ): array {
         $pathParams = [];
 
         // @todo Add prepared statements not concat
         $query = ""
             . "SELECT container FROM {$this->entityClassCmsResource} container"
-            . " WHERE container.{$siteCmsResourceIdName} = :containerSiteCmsResourceId"
+            . " WHERE container.siteCmsResourceId = :containerSiteCmsResourceId"
             . " AND container.published = :containerPublished";
 
         $query = $this->buildInQuery(
@@ -120,7 +111,6 @@ class FindContainerCmsResourcesBySitePaths
             $this->entityClassContentVersion,
             $this->classContentVersionBasic,
             $containerCmsResources,
-            $this->cmsResourceSyncToProperties,
             $this->contentVersionSyncToProperties
         );
     }

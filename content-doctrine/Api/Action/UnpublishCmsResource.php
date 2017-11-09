@@ -4,9 +4,7 @@ namespace Zrcms\ContentDoctrine\Api\Action;
 
 use Doctrine\ORM\EntityManager;
 use Zrcms\Content\Model\Action;
-use Zrcms\Content\Model\CmsResource;
 use Zrcms\Content\Model\CmsResourceHistory;
-use Zrcms\Content\Model\ContentVersion;
 use Zrcms\ContentDoctrine\Api\ApiAbstract;
 use Zrcms\ContentDoctrine\Entity\CmsResourceEntity;
 use Zrcms\ContentDoctrine\Entity\CmsResourceHistoryEntity;
@@ -80,18 +78,19 @@ class UnpublishCmsResource
     /**
      * @todo use a Doctrine transaction
      *
-     * @param string $cmsResourceId
-     * @param string $unpublishedByUserId
-     * @param string $unpublishReason
+     * @param string      $cmsResourceId
+     * @param string      $unpublishedByUserId
+     * @param string      $unpublishReason
+     * @param string|null $unpublishDate
      *
      * @return bool
      */
     public function __invoke(
         string $cmsResourceId,
         string $unpublishedByUserId,
-        string $unpublishReason
-    ): bool
-    {
+        string $unpublishReason,
+        string $unpublishDate = null
+    ): bool {
         $repositoryCmsResource = $this->entityManager->getRepository(
             $this->entityClassCmsResource
         );
@@ -105,7 +104,13 @@ class UnpublishCmsResource
             return false;
         }
 
-        $existingCmsResource->setPublished(false);
+        $existingCmsResource->update(
+            false,
+            $existingCmsResource->getContentEntity(),
+            $unpublishedByUserId,
+            $unpublishReason,
+            $unpublishDate
+        );
 
         $this->entityManager->flush($existingCmsResource);
 

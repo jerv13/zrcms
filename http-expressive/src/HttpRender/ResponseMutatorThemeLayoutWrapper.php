@@ -6,8 +6,8 @@ use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Zend\Diactoros\Response\HtmlResponse;
 use Zend\Diactoros\Stream;
-use Zrcms\ContentCore\Page\Exception\PageNotFoundException;
-use Zrcms\ContentCore\Site\Exception\SiteNotFoundException;
+use Zrcms\ContentCore\Page\Exception\PageNotFound;
+use Zrcms\ContentCore\Site\Exception\SiteNotFound;
 use Zrcms\ContentCore\View\Api\GetViewByRequestHtmlPage;
 use Zrcms\ContentCore\View\Api\Render\GetViewLayoutTags;
 use Zrcms\ContentCore\View\Api\Render\RenderView;
@@ -85,13 +85,13 @@ class ResponseMutatorThemeLayoutWrapper
                 $request,
                 $options
             );
-        } catch (SiteNotFoundException $exception) {
+        } catch (SiteNotFound $exception) {
             return new HtmlResponse(
                 'NOT FOUND',
                 404,
                 ['reason-phrase', 'NOT FOUND: SITE']
             );
-        } catch (PageNotFoundException $exception) {
+        } catch (PageNotFound $exception) {
             return new HtmlResponse(
                 'NOT FOUND',
                 404,

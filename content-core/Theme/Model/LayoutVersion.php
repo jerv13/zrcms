@@ -12,5 +12,15 @@ interface LayoutVersion extends Layout, ContentVersion
     /**
      * @return string
      */
+    public function getThemeName(): string;
+
+    /**
+     * @return string
+     */
+    public function getName(): string;
+
+    /**
+     * @return string
+     */
     public function getHtml(): string;
 }

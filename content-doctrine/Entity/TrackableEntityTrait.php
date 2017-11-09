@@ -2,7 +2,6 @@
 
 namespace Zrcms\ContentDoctrine\Entity;
 
-use Doctrine\Common\Persistence\Event\LifecycleEventArgs;
 use Doctrine\ORM\Mapping as ORM;
 use Zrcms\Content\Exception\TrackingInvalid;
 use Zrcms\Content\Model\Trackable;
@@ -10,7 +9,7 @@ use Zrcms\Content\Model\TrackableTrait;
 use Zrcms\ContentDoctrine\Exception\MissingCreatedDateObjectProperty;
 
 /**
- * @see \Zrcms\Content\Model\TrackableTrait
+ * @see    \Zrcms\Content\Model\TrackableTrait
  *
  * @author James Jervis - https://github.com/jerv13
  */
@@ -38,15 +37,5 @@ trait TrackableEntityTrait
         }
 
         return $this->createdDateObject->format(Trackable::DATE_FORMAT);
-    }
-
-    /**
-     * @return void
-     *
-     * @ORM\PrePersist
-     */
-    public function prePersist(LifecycleEventArgs $eventArgs)
-    {
-        $this->assertHasCreatedData();
     }
 }

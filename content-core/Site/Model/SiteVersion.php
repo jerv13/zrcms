@@ -9,4 +9,8 @@ use Zrcms\Content\Model\ContentVersion;
  */
 interface SiteVersion extends Site, ContentVersion
 {
+    /**
+     * @return string
+     */
+    public function getHost(): string;
 }

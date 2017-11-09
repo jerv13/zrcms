@@ -2,6 +2,8 @@
 
 namespace Zrcms\Content\Model;
 
+use Doctrine\Common\Persistence\Event\LifecycleEventArgs;
+
 /**
  * @author James Jervis - https://github.com/jerv13
  */
@@ -49,12 +51,14 @@ abstract class ContentVersionAbstract
      * @param array       $properties
      * @param string      $createdByUserId
      * @param string      $createdReason
+     * @param string|null $createdDate
      */
     public function __construct(
         $id,
         array $properties,
         string $createdByUserId,
-        string $createdReason
+        string $createdReason,
+        string $createdDate = null
     ) {
         // Enforce immutability
         if (!$this->isNew()) {
@@ -66,7 +70,8 @@ abstract class ContentVersionAbstract
 
         $this->setCreatedData(
             $createdByUserId,
-            $createdReason
+            $createdReason,
+            $createdDate
         );
 
         $this->properties = $properties;

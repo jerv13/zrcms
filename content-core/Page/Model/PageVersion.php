@@ -9,4 +9,13 @@ use Zrcms\Content\Model\ContentVersion;
  */
 interface PageVersion extends Page, ContentVersion
 {
+    /**
+     * @return string
+     */
+    public function getSiteCmsResourceId(): string;
+
+    /**
+     * @return string
+     */
+    public function getPath(): string;
 }

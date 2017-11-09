@@ -63,9 +63,6 @@ class CmsResourceHistoryToArrayBasic implements CmsResourceHistoryToArray
             'cmsResource'
             => $cmsResourceArray,
 
-            'cmsResourceProperties'
-            => $cmsResourceHistory->getCmsResourceProperties(),
-
             'contentVersion'
             => $contentVersionArray,
 

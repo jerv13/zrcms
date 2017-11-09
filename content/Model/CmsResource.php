@@ -5,23 +5,23 @@ namespace Zrcms\Content\Model;
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-interface CmsResource extends Immutable, Properties, Trackable
+interface CmsResource extends TrackableModify
 {
     /**
-     * @param                $id
+     * @param string|null    $id
      * @param bool           $published
      * @param ContentVersion $contentVersion
-     * @param array          $properties
      * @param string         $createdByUserId
      * @param string         $createdReason
+     * @param string|null    $createdDate
      */
     public function __construct(
         $id,
         bool $published,
         ContentVersion $contentVersion,
-        array $properties,
         string $createdByUserId,
-        string $createdReason
+        string $createdReason,
+        string $createdDate = null
     );
 
     /**
@@ -30,12 +30,47 @@ interface CmsResource extends Immutable, Properties, Trackable
     public function getId(): string;
 
     /**
+     * @return bool
+     */
+    public function isPublished(): bool;
+
+    /**
+     * @param bool   $published
+     * @param string $modifiedByUserId
+     * @param string $modifiedReason
+     * @param string $modifiedDate
+     *
+     * @return void
+     */
+    public function setPublished(
+        bool $published,
+        string $modifiedByUserId,
+        string $modifiedReason,
+        string $modifiedDate
+    );
+
+    /**
+     * @return ContentVersion
+     */
+    public function getContentVersionId();
+
+    /**
      * @return ContentVersion
      */
     public function getContentVersion();
 
     /**
-     * @return bool
+     * @param ContentVersion $contentVersion
+     * @param string         $modifiedByUserId
+     * @param string         $modifiedReason
+     * @param string         $modifiedDate
+     *
+     * @return void
      */
-    public function isPublished(): bool;
+    public function setContentVersion(
+        ContentVersion $contentVersion,
+        string $modifiedByUserId,
+        string $modifiedReason,
+        string $modifiedDate
+    );
 }

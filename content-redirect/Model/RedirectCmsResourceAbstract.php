@@ -5,42 +5,38 @@ namespace Zrcms\ContentRedirect\Model;
 use Zrcms\Content\Exception\ContentVersionInvalid;
 use Zrcms\Content\Model\CmsResourceAbstract;
 use Zrcms\Content\Model\ContentVersion;
-use Zrcms\ContentRedirect\Fields\FieldsRedirectCmsResource;
-use Zrcms\Param\Param;
 
 /**
  * @author James Jervis - https://github.com/jerv13
  */
 abstract class RedirectCmsResourceAbstract extends CmsResourceAbstract implements RedirectCmsResource
 {
+    protected $siteCmsResourceId;
+    protected $requestPath;
+
     /**
-     * @param string|null    $id
-     * @param bool           $published
-     * @param ContentVersion $contentVersion
-     * @param array          $properties
-     * @param string         $createdByUserId
-     * @param string         $createdReason
+     * @param string|null                    $id
+     * @param bool                           $published
+     * @param RedirectVersion|ContentVersion $contentVersion
+     * @param string                         $createdByUserId
+     * @param string                         $createdReason
+     * @param string|null                    $createdDate
      */
     public function __construct(
         $id,
         bool $published,
         ContentVersion $contentVersion,
-        array $properties,
         string $createdByUserId,
-        string $createdReason
+        string $createdReason,
+        string $createdDate = null
     ) {
-        Param::assertHas(
-            $properties,
-            FieldsRedirectCmsResource::REQUEST_PATH
-        );
-
         parent::__construct(
             $id,
             $published,
             $contentVersion,
-            $properties,
             $createdByUserId,
-            $createdReason
+            $createdReason,
+            $createdDate
         );
     }
 
@@ -49,10 +45,7 @@ abstract class RedirectCmsResourceAbstract extends CmsResourceAbstract implement
      */
     public function getSiteCmsResourceId()
     {
-        return $this->getProperty(
-            FieldsRedirectCmsResource::SITE_CMS_RESOURCE_ID,
-            null
-        );
+        return $this->siteCmsResourceId;
     }
 
     /**
@@ -60,14 +53,36 @@ abstract class RedirectCmsResourceAbstract extends CmsResourceAbstract implement
      */
     public function getRequestPath(): string
     {
-        return $this->getProperty(
-            FieldsRedirectCmsResource::REQUEST_PATH,
-            null
+        return $this->requestPath;
+    }
+
+    /**
+     * @param RedirectVersion|ContentVersion $contentVersion
+     * @param string                         $modifiedByUserId
+     * @param string                         $modifiedReason
+     * @param string                         $modifiedDate
+     *
+     * @return void
+     */
+    public function setContentVersion(
+        ContentVersion $contentVersion,
+        string $modifiedByUserId,
+        string $modifiedReason,
+        string $modifiedDate
+    ) {
+        $this->siteCmsResourceId = $contentVersion->getSiteCmsResourceId();
+        $this->requestPath = $contentVersion->getRequestPath();
+
+        parent::setContentVersion(
+            $contentVersion,
+            $modifiedByUserId,
+            $modifiedReason,
+            $modifiedDate
         );
     }
 
     /**
-     * @param $contentVersion
+     * @param RedirectVersion $contentVersion
      *
      * @return void
      * @throws ContentVersionInvalid
@@ -79,6 +94,12 @@ abstract class RedirectCmsResourceAbstract extends CmsResourceAbstract implement
                 'ContentVersion must be instance of: ' . RedirectVersion::class
                 . ' got: ' . var_export($contentVersion, true)
                 . ' for: ' . get_class($this)
+            );
+        }
+
+        if (empty($contentVersion->getRequestPath())) {
+            throw new ContentVersionInvalid(
+                'RequestPath can not be empty'
             );
         }
     }

@@ -10,28 +10,28 @@ use Zrcms\Content\Model\ContentVersion;
 class ContainerCmsResourceBasic extends ContainerCmsResourceAbstract implements ContainerCmsResource
 {
     /**
-     * @param null|string    $id
-     * @param bool           $published
-     * @param ContentVersion $contentVersion
-     * @param array          $properties
-     * @param string         $createdByUserId
-     * @param string         $createdReason
+     * @param string|null                     $id
+     * @param bool                            $published
+     * @param ContainerVersion|ContentVersion $contentVersion
+     * @param string                          $createdByUserId
+     * @param string                          $createdReason
+     * @param string|null                     $createdDate
      */
     public function __construct(
         $id,
         bool $published,
         ContentVersion $contentVersion,
-        array $properties,
         string $createdByUserId,
-        string $createdReason
+        string $createdReason,
+        string $createdDate = null
     ) {
         parent::__construct(
             $id,
             $published,
             $contentVersion,
-            $properties,
             $createdByUserId,
-            $createdReason
+            $createdReason,
+            $createdDate
         );
     }
 }

@@ -3,7 +3,6 @@
 namespace Zrcms\ContentDoctrine\Api\Repository;
 
 use Zrcms\Content\Model\CmsResource;
-use Zrcms\Content\Fields\FieldsCmsResource;
 use Zrcms\ContentDoctrine\Api\ApiAbstractCmsResource;
 use Zrcms\ContentDoctrine\Api\BuildBasicCmsResources;
 
@@ -50,7 +49,6 @@ class FindCmsResourcesPublished
             $this->entityClassContentVersion,
             $this->classContentVersionBasic,
             $entities,
-            $this->cmsResourceSyncToProperties,
             $this->contentVersionSyncToProperties
         );
     }

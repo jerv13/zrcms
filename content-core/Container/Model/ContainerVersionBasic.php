@@ -8,22 +8,25 @@ namespace Zrcms\ContentCore\Container\Model;
 class ContainerVersionBasic extends ContainerVersionAbstract implements ContainerVersion
 {
     /**
-     * @param null|string $id
+     * @param string|null $id
      * @param array       $properties
      * @param string      $createdByUserId
      * @param string      $createdReason
+     * @param string|null $createdDate
      */
     public function __construct(
         $id,
         array $properties,
         string $createdByUserId,
-        string $createdReason
+        string $createdReason,
+        string $createdDate = null
     ) {
         parent::__construct(
             $id,
             $properties,
             $createdByUserId,
-            $createdReason
+            $createdReason,
+            $createdDate
         );
     }
 }

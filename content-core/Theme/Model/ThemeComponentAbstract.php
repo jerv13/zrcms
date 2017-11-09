@@ -4,7 +4,7 @@ namespace Zrcms\ContentCore\Theme\Model;
 
 use Zrcms\Content\Exception\PropertyMissing;
 use Zrcms\Content\Model\ComponentAbstract;
-use Zrcms\ContentCore\Theme\Exception\DefaultLayoutMissingException;
+use Zrcms\ContentCore\Theme\Exception\DefaultLayoutMissing;
 use Zrcms\ContentCore\Theme\Fields\FieldsThemeComponent;
 use Zrcms\Param\Param;
 
@@ -63,7 +63,7 @@ abstract class ThemeComponentAbstract extends ComponentAbstract
         Param::assertHas(
             $this->getLayoutVariations(),
             $this->getPrimaryLayoutName(),
-            new DefaultLayoutMissingException(
+            new DefaultLayoutMissing(
                 'Primary layout (' . $this->getPrimaryLayoutName() . ') '
                 . 'is missing for theme ' . $this->getName()
             )
@@ -83,7 +83,7 @@ abstract class ThemeComponentAbstract extends ComponentAbstract
 
     /**
      * @return LayoutComponent
-     * @throws DefaultLayoutMissingException
+     * @throws DefaultLayoutMissing
      */
     public function getPrimaryLayout()
     {

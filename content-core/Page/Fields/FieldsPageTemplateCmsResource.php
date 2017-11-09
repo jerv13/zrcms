@@ -6,6 +6,7 @@ use Zrcms\Content\Fields\Fields;
 use Zrcms\Content\Fields\FieldsAbstract;
 
 /**
+ * @deprecated
  * @author James Jervis - https://github.com/jerv13
  */
 class FieldsPageTemplateCmsResource extends FieldsAbstract implements Fields 

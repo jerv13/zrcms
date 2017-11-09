@@ -9,9 +9,7 @@ use Zrcms\Content\Exception\ContentVersionInvalid;
  */
 abstract class CmsResourceAbstract
 {
-    use ImmutableTrait;
-    use PropertiesTrait;
-    use TrackableTrait;
+    use TrackableModifyTrait;
 
     /**
      * @var null|string
@@ -29,18 +27,6 @@ abstract class CmsResourceAbstract
     protected $contentVersion;
 
     /**
-     * @var array
-     */
-    protected $properties = [];
-
-    /**
-     * Date object was first created
-     *
-     * @var \DateTime
-     */
-    protected $createdDate;
-
-    /**
      * User ID of creator
      *
      * @var string
@@ -55,40 +41,48 @@ abstract class CmsResourceAbstract
     protected $createdReason;
 
     /**
+     * Date object was first created
+     *
+     * @var \DateTime
+     */
+    protected $createdDate;
+
+    /**
      * @param string|null    $id
      * @param bool           $published
      * @param ContentVersion $contentVersion
-     * @param array          $properties
      * @param string         $createdByUserId
      * @param string         $createdReason
+     * @param string|null    $createdDate
      */
     public function __construct(
         $id,
         bool $published,
         ContentVersion $contentVersion,
-        array $properties,
         string $createdByUserId,
-        string $createdReason
+        string $createdReason,
+        string $createdDate = null
     ) {
-        // Enforce immutability
-        if (!$this->isNew()) {
-            return;
-        }
-        $this->new = false;
-
         $this->id = $id;
 
-        $this->published = $published;
+        $this->setContentVersion(
+            $contentVersion,
+            $createdByUserId,
+            $createdReason,
+            $createdDate
+        );
 
-        $this->contentVersion = $contentVersion;
-
-        $this->assertValidContentVersion($contentVersion);
-
-        $this->properties = $properties;
+        $this->setPublished(
+            $published,
+            $createdByUserId,
+            $createdReason,
+            $createdDate
+        );
 
         $this->setCreatedData(
             $createdByUserId,
-            $createdReason
+            $createdReason,
+            $createdDate
         );
     }
 
@@ -101,11 +95,26 @@ abstract class CmsResourceAbstract
     }
 
     /**
-     * @return ContentVersion
+     * @param bool   $published
+     * @param string $modifiedByUserId
+     * @param string $modifiedReason
+     * @param string $modifiedDate
+     *
+     * @return void
      */
-    public function getContentVersion()
-    {
-        return $this->contentVersion;
+    public function setPublished(
+        bool $published,
+        string $modifiedByUserId,
+        string $modifiedReason,
+        string $modifiedDate = null
+    ) {
+        $this->setModifiedData(
+            $modifiedByUserId,
+            $modifiedReason,
+            $modifiedDate
+        );
+
+        $this->published = $published;
     }
 
     /**
@@ -114,6 +123,51 @@ abstract class CmsResourceAbstract
     public function isPublished(): bool
     {
         return $this->published;
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getContentVersionId()
+    {
+        if (!empty($this->contentVersion)) {
+            return $this->contentVersion->getId();
+        }
+
+        return null;
+    }
+
+    /**
+     * @return ContentVersion
+     */
+    public function getContentVersion()
+    {
+        return $this->contentVersion;
+    }
+
+    /**
+     * @param ContentVersion $contentVersion
+     * @param string         $modifiedByUserId
+     * @param string         $modifiedReason
+     * @param string         $modifiedDate
+     *
+     * @return void
+     */
+    public function setContentVersion(
+        ContentVersion $contentVersion,
+        string $modifiedByUserId,
+        string $modifiedReason,
+        string $modifiedDate
+    ) {
+        $this->assertValidContentVersion($contentVersion);
+
+        $this->setModifiedData(
+            $modifiedByUserId,
+            $modifiedReason,
+            $modifiedDate
+        );
+
+        $this->contentVersion = $contentVersion;
     }
 
     /**

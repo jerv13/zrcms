@@ -2,18 +2,14 @@
 
 namespace Zrcms\ContentDoctrine\Entity;
 
-use Zrcms\Content\Exception\ContentVersionInvalid;
-use Zrcms\Content\Model\ImmutableTrait;
-use Zrcms\Content\Model\PropertiesTrait;
+use Doctrine\Common\Persistence\Event\LifecycleEventArgs;
 
 /**
  * @author James Jervis - https://github.com/jerv13
  */
 abstract class CmsResourceEntityAbstract
 {
-    use ImmutableTrait;
-    use PropertiesTrait;
-    use TrackableEntityTrait;
+    use TrackableModifyEntityTrait;
 
     /**
      * @var null|int
@@ -31,66 +27,91 @@ abstract class CmsResourceEntityAbstract
     protected $contentVersion;
 
     /**
-     * @var array
-     */
-    protected $properties = [];
-
-    /**
-     * Date object was first created
-     *
-     * @var \DateTime
-     */
-    protected $createdDate;
-
-    /**
-     * User ID of creator
-     *
      * @var string
      */
     protected $createdByUserId;
 
     /**
-     * Short description of create reason
-     *
      * @var string
      */
     protected $createdReason;
 
     /**
+     * @var \DateTime
+     */
+    protected $createdDateObject;
+
+    /**
+     * @var string
+     */
+    protected $modifiedByUserId;
+
+    /**
+     * @var string
+     */
+    protected $modifiedReason;
+
+    /**
+     * @var \DateTime
+     */
+    protected $modifiedDateObject;
+
+    /**
      * @param string|null   $id
      * @param bool          $published
-     * @param ContentEntity $contentEntity
-     * @param array         $properties
+     * @param ContentEntity $contentVersion
      * @param string        $createdByUserId
      * @param string        $createdReason
+     * @param string|null   $createdDate
      */
     public function __construct(
         $id,
         bool $published,
-        ContentEntity $contentEntity,
-        array $properties,
+        ContentEntity $contentVersion,
         string $createdByUserId,
-        string $createdReason
+        string $createdReason,
+        string $createdDate = null
     ) {
-        // Enforce immutability
-        if (!$this->isNew()) {
-            return;
-        }
-        $this->new = false;
-
         $this->id = $id;
-
-        $this->published = $published;
-
-        $this->contentVersion = $contentEntity;
-
-        $this->assertValidContentVersion($contentEntity);
-
-        $this->setProperties($properties);
 
         $this->setCreatedData(
             $createdByUserId,
-            $createdReason
+            $createdReason,
+            $createdDate
+        );
+
+        $this->update(
+            $published,
+            $contentVersion,
+            $createdByUserId,
+            $createdReason,
+            $createdDate
+        );
+    }
+
+    /**
+     * @param bool          $published
+     * @param ContentEntity $contentVersion
+     * @param string        $modifiedByUserId
+     * @param string        $modifiedReason
+     * @param string|null   $modifiedDate
+     *
+     * @return void
+     */
+    public function update(
+        bool $published,
+        ContentEntity $contentVersion,
+        string $modifiedByUserId,
+        string $modifiedReason,
+        string $modifiedDate = null
+    ) {
+        $this->published = $published;
+        $this->contentVersion = $contentVersion;
+
+        $this->setModifiedData(
+            $modifiedByUserId,
+            $modifiedReason,
+            $modifiedDate
         );
     }
 
@@ -103,14 +124,6 @@ abstract class CmsResourceEntityAbstract
     }
 
     /**
-     * @return ContentEntity
-     */
-    public function getContentVersion()
-    {
-        return $this->contentVersion;
-    }
-
-    /**
      * @return bool
      */
     public function isPublished(): bool
@@ -119,42 +132,23 @@ abstract class CmsResourceEntityAbstract
     }
 
     /**
-     * @param bool $published
-     *
-     * @return void
+     * @return ContentEntity
      */
-    public function setPublished(bool $published)
+    public function getContentEntity()
     {
-        $this->published = $published;
+        return $this->contentVersion;
     }
 
     /**
-     * Sync array of properties to object properties
-     *
-     * @param array $properties
+     * @param LifecycleEventArgs $eventArgs
      *
      * @return void
-     */
-    public function setProperties(
-        array $properties
-    ) {
-        $this->properties = $properties;
-    }
-
-    /**
-     * @param ContentEntity $contentEntity
      *
-     * @return void
-     * @throws ContentVersionInvalid
+     * @ORM\PrePersist
      */
-    protected function assertValidContentVersion($contentEntity)
+    public function prePersist(LifecycleEventArgs $eventArgs)
     {
-        if (!$contentEntity instanceof ContentEntity) {
-            throw new ContentVersionInvalid(
-                'ContentEntity must be instance of: ' . ContentEntity::class
-                . ' got: ' . var_export($contentEntity, true)
-                . ' for: ' . get_class($this)
-            );
-        }
+        $this->assertHasCreatedData();
+        $this->assertHasModifiedData();
     }
 }

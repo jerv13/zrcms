@@ -19,14 +19,14 @@ abstract class ContainerVersionAbstract extends ContentVersionAbstract
      * @param array       $properties
      * @param string      $createdByUserId
      * @param string      $createdReason
-     *
-     * @throws PropertyInvalid
+     * @param string|null $createdDate
      */
     public function __construct(
         $id,
         array $properties,
         string $createdByUserId,
-        string $createdReason
+        string $createdReason,
+        string $createdDate = null
     ) {
         $blockVersions = Param::getArray(
             $properties,
@@ -39,11 +39,22 @@ abstract class ContainerVersionAbstract extends ContentVersionAbstract
             $id
         );
 
+        Param::assertNotEmpty(
+            $properties,
+            FieldsContainerVersion::SITE_CMS_RESOURCE_ID
+        );
+
+        Param::assertNotEmpty(
+            $properties,
+            FieldsContainerVersion::PATH
+        );
+
         parent::__construct(
             $id,
             $properties,
             $createdByUserId,
-            $createdReason
+            $createdReason,
+            $createdDate
         );
     }
 
@@ -63,6 +74,26 @@ abstract class ContainerVersionAbstract extends ContentVersionAbstract
         return BuildBlockVersions::invoke(
             $containerVersion,
             $blockVersions
+        );
+    }
+
+    /**
+     * @return string
+     */
+    public function getSiteCmsResourceId(): string
+    {
+        return $this->getProperty(
+            FieldsContainerVersion::SITE_CMS_RESOURCE_ID
+        );
+    }
+
+    /**
+     * @return string
+     */
+    public function getPath(): string
+    {
+        return $this->getProperty(
+            FieldsContainerVersion::PATH
         );
     }
 }

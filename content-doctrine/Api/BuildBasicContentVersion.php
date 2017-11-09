@@ -3,7 +3,6 @@
 namespace Zrcms\ContentDoctrine\Api;
 
 use Zrcms\Content\Model\ContentVersion;
-use Zrcms\Content\Model\ContentVersionBasic;
 use Zrcms\ContentDoctrine\Entity\ContentEntity;
 
 /**

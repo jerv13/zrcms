@@ -135,15 +135,17 @@ trait TrackableTrait
     }
 
     /**
-     * @param string $createdByUserId
-     * @param string $createdReason
+     * @param string      $createdByUserId
+     * @param string      $createdReason
+     * @param string|null $createdDate
      *
      * @return void
      * @throws TrackingInvalid
      */
     protected function setCreatedData(
         string $createdByUserId,
-        string $createdReason
+        string $createdReason,
+        string $createdDate = null
     ) {
         // invalid
         if (empty($createdByUserId)) {
@@ -173,12 +175,23 @@ trait TrackableTrait
         }
 
         // ALWAYS STORE UTC
-        $this->createdDateObject = new \DateTime(
-            'now',
-            new \DateTimeZone('UTC')
-        );
+        $timezone = new \DateTimeZone('UTC');
 
-        $this->createdDate = $this->createdDateObject->format(Trackable::DATE_FORMAT);
+        if ($createdDate === null) {
+            $createdDateObject = new \DateTime(
+                'now',
+                $timezone
+            );
+        } else {
+            $createdDateObject = \DateTime::createFromFormat(
+                $createdDate,
+                $timezone
+            );
+        }
+        
+        $this->createdDateObject = $createdDateObject;
+
+        $this->createdDate = $createdDateObject->format(Trackable::DATE_FORMAT);
         $this->createdReason = $createdReason;
     }
 

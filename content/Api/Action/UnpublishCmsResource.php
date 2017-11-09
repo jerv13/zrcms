@@ -10,15 +10,17 @@ namespace Zrcms\Content\Api\Action;
 interface UnpublishCmsResource
 {
     /**
-     * @param string $cmsResourceId
-     * @param string $unpublishedByUserId
-     * @param string $unpublishReason
+     * @param string      $cmsResourceId
+     * @param string      $unpublishedByUserId
+     * @param string      $unpublishReason
+     * @param string|null $unpublishDate
      *
      * @return bool
      */
     public function __invoke(
         string $cmsResourceId,
         string $unpublishedByUserId,
-        string $unpublishReason
+        string $unpublishReason,
+        string $unpublishDate = null
     ): bool;
 }

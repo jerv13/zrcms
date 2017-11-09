@@ -4,8 +4,8 @@ namespace Zrcms\HttpExpressive\HttpAlways;
 
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
-use Zrcms\ContentCore\Page\Exception\PageNotFoundException;
-use Zrcms\ContentCore\Site\Exception\SiteNotFoundException;
+use Zrcms\ContentCore\Page\Exception\PageNotFound;
+use Zrcms\ContentCore\Site\Exception\SiteNotFound;
 use Zrcms\ContentCore\View\Api\GetViewByRequest;
 use Zrcms\ContentCore\View\Model\View;
 
@@ -53,10 +53,10 @@ class RequestWithView
             $view = $this->getViewByRequest->__invoke(
                 $request
             );
-        } catch (SiteNotFoundException $exception) {
+        } catch (SiteNotFound $exception) {
             $view = null;
             $message = $exception->getMessage();
-        } catch (PageNotFoundException $exception) {
+        } catch (PageNotFound $exception) {
             $view = null;
             $message = $exception->getMessage();
         }

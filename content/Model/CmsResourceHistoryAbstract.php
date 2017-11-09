@@ -31,11 +31,6 @@ abstract class CmsResourceHistoryAbstract
     protected $cmsResource;
 
     /**
-     * @var array
-     */
-    protected $cmsResourceProperties;
-
-    /**
      * @var ContentVersion
      */
     protected $contentVersion;
@@ -65,8 +60,6 @@ abstract class CmsResourceHistoryAbstract
         $this->action = $action;
 
         $this->cmsResource = $cmsResource;
-
-        $this->cmsResourceProperties = $cmsResource->getProperties();
 
         $this->contentVersion = $cmsResource->getContentVersion();
 
@@ -98,14 +91,6 @@ abstract class CmsResourceHistoryAbstract
     public function getContentVersion()
     {
         return $this->contentVersion;
-    }
-
-    /**
-     * @return array
-     */
-    public function getCmsResourceProperties(): array
-    {
-        return $this->cmsResourceProperties;
     }
 
     /**

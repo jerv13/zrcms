@@ -6,6 +6,7 @@ use Doctrine\ORM\EntityManager;
 use Zrcms\Content\Model\CmsResource;
 use Zrcms\ContentDoctrine\Api\BuildBasicCmsResource;
 use Zrcms\ContentRedirect\Fields\FieldsRedirectCmsResource;
+use Zrcms\ContentRedirect\Fields\FieldsRedirectVersion;
 use Zrcms\ContentRedirect\Model\RedirectCmsResource;
 use Zrcms\ContentRedirect\Model\RedirectCmsResourceBasic;
 use Zrcms\ContentRedirect\Model\RedirectVersionBasic;
@@ -83,18 +84,15 @@ class FindRedirectCmsResourceBySiteRequestPath
         bool $published = true,
         array $options = []
     ) {
-        $siteCmsResourceIdPropertyName = FieldsRedirectCmsResource::SITE_CMS_RESOURCE_ID;
-        $requestPathPropertyName = FieldsRedirectCmsResource::REQUEST_PATH;
-
         // @todo Add prepared statements not concat
         $query = ""
             . "SELECT resource FROM {$this->entityClassCmsResource} resource"
-            . " WHERE (resource.{$siteCmsResourceIdPropertyName} = :siteCmsResource"
+            . " WHERE (resource.siteCmsResourceId = :siteCmsResource"
             // NOTE: siteCmsResource is a string, so empty is equivalent to NULL
-            . " OR resource.{$siteCmsResourceIdPropertyName} = '')"
-            . " AND resource.{$requestPathPropertyName} = :requestPath"
+            . " OR resource.siteCmsResourceId = '')"
+            . " AND resource.requestPath = :requestPath"
             . " AND resource.published = :published"
-            . " ORDER BY resource.{$siteCmsResourceIdPropertyName} ASC";
+            . " ORDER BY resource.siteCmsResourceId ASC";
 
         $dQuery = $this->entityManager->createQuery($query);
 
@@ -115,7 +113,6 @@ class FindRedirectCmsResourceBySiteRequestPath
             $this->entityClassContentVersion,
             $this->classContentVersionBasic,
             $result[0],
-            $this->cmsResourceSyncToProperties,
             $this->contentVersionSyncToProperties
         );
     }

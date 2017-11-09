@@ -17,13 +17,25 @@ class LayoutVersionAbstract extends ContentVersionAbstract
      * @param array       $properties
      * @param string      $createdByUserId
      * @param string      $createdReason
+     * @param string|null $createdDate
      */
     public function __construct(
         $id,
         array $properties,
         string $createdByUserId,
-        string $createdReason
+        string $createdReason,
+        string $createdDate = null
     ) {
+        Param::assertNotEmpty(
+            $properties,
+            FieldsLayoutVersion::THEME_NAME
+        );
+
+        Param::assertNotEmpty(
+            $properties,
+            FieldsLayoutVersion::NAME
+        );
+
         Param::assertHas(
             $properties,
             FieldsLayoutVersion::HTML,
@@ -38,7 +50,30 @@ class LayoutVersionAbstract extends ContentVersionAbstract
             $id,
             $properties,
             $createdByUserId,
-            $createdReason
+            $createdReason,
+            $createdDate
+        );
+    }
+
+    /**
+     * @return string
+     */
+    public function getThemeName(): string
+    {
+        return $this->getProperty(
+            FieldsLayoutVersion::THEME_NAME,
+            ''
+        );
+    }
+
+    /**
+     * @return string
+     */
+    public function getName(): string
+    {
+        return $this->getProperty(
+            FieldsLayoutVersion::NAME,
+            ''
         );
     }
 

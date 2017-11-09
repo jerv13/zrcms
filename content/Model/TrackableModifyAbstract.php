@@ -1,29 +1,31 @@
 <?php
 
-namespace Zrcms\ContentCore\Site\Model;
+namespace Zrcms\Content\Model;
 
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class SiteVersionBasic extends SiteVersionAbstract implements SiteVersion
+abstract class TrackableModifyAbstract extends TrackableAbstract implements Trackable
 {
+    use TrackableModifyTrait;
+
     /**
-     * @param string|null $id
-     * @param array       $properties
      * @param string      $createdByUserId
      * @param string      $createdReason
      * @param string|null $createdDate
      */
     public function __construct(
-        $id,
-        array $properties,
         string $createdByUserId,
         string $createdReason,
         string $createdDate = null
     ) {
+        $this->setModifiedData(
+            $createdByUserId,
+            $createdReason,
+            $createdDate
+        );
+
         parent::__construct(
-            $id,
-            $properties,
             $createdByUserId,
             $createdReason,
             $createdDate

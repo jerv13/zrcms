@@ -3,6 +3,7 @@
 namespace Zrcms\ContentDoctrine\Api;
 
 use Zrcms\Content\Model\CmsResource;
+use Zrcms\Content\Model\CmsResourceBasic;
 use Zrcms\ContentDoctrine\Entity\CmsResourceEntity;
 
 /**
@@ -16,7 +17,6 @@ class BuildBasicCmsResource
      * @param string                 $entityClassContentVersion
      * @param string                 $classContentVersionBasic
      * @param CmsResourceEntity|null $cmsResourceEntity
-     * @param array                  $cmsResourceSyncToProperties
      * @param array                  $contentVersionSyncToProperties
      *
      * @return CmsResource
@@ -28,7 +28,6 @@ class BuildBasicCmsResource
         string $entityClassContentVersion,
         string $classContentVersionBasic,
         $cmsResourceEntity,
-        array $cmsResourceSyncToProperties = [],
         array $contentVersionSyncToProperties = []
     ) {
         if (empty($cmsResourceEntity)) {
@@ -59,11 +58,6 @@ class BuildBasicCmsResource
             );
         }
 
-        $properties = ExtractCmsResourceEntityProperties::invoke(
-            $cmsResourceEntity,
-            $cmsResourceSyncToProperties
-        );
-
         $contentVersion = BuildBasicContentVersion::invoke(
             $entityClassContentVersion,
             $classContentVersionBasic,
@@ -75,9 +69,9 @@ class BuildBasicCmsResource
             $cmsResourceEntity->getId(),
             $cmsResourceEntity->isPublished(),
             $contentVersion,
-            $properties,
             $cmsResourceEntity->getCreatedByUserId(),
-            $cmsResourceEntity->getCreatedReason()
+            $cmsResourceEntity->getCreatedReason(),
+            $cmsResourceEntity->getCreatedDate()
         );
 
         return $new;
@@ -89,7 +83,6 @@ class BuildBasicCmsResource
      * @param string                 $entityClassContentVersion
      * @param string                 $classContentVersionBasic
      * @param CmsResourceEntity|null $cmsResourceEntity
-     * @param array                  $cmsResourceSyncToProperties
      * @param array                  $contentVersionSyncToProperties
      *
      * @return CmsResource
@@ -100,7 +93,6 @@ class BuildBasicCmsResource
         string $entityClassContentVersion,
         string $classContentVersionBasic,
         $cmsResourceEntity,
-        array $cmsResourceSyncToProperties = [],
         array $contentVersionSyncToProperties = []
     ) {
         return self::invoke(
@@ -109,7 +101,6 @@ class BuildBasicCmsResource
             $entityClassContentVersion,
             $classContentVersionBasic,
             $cmsResourceEntity,
-            $cmsResourceSyncToProperties,
             $contentVersionSyncToProperties
         );
     }

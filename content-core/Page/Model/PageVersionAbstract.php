@@ -4,11 +4,10 @@ namespace Zrcms\ContentCore\Page\Model;
 
 use Zrcms\Content\Exception\PropertyMissing;
 use Zrcms\Content\Model\ContentVersionAbstract;
-use Zrcms\ContentCore\Container\Fields\FieldsContainer;
-use Zrcms\ContentCore\Container\Fields\FieldsContainerVersion;
 use Zrcms\ContentCore\Container\Model\Container;
 use Zrcms\ContentCore\Container\Model\ContainerVersion;
 use Zrcms\ContentCore\Container\Model\ContainerVersionBasic;
+use Zrcms\ContentCore\Page\Api\AssertValidPath;
 use Zrcms\ContentCore\Page\Api\BuildPageContainerVersionId;
 use Zrcms\ContentCore\Page\Api\PreparePageContainerData;
 use Zrcms\ContentCore\Page\Fields\FieldsPageVersion;
@@ -24,13 +23,32 @@ abstract class PageVersionAbstract extends ContentVersionAbstract
      * @param array       $properties
      * @param string      $createdByUserId
      * @param string      $createdReason
+     * @param string|null $createdDate
      */
     public function __construct(
         $id,
         array $properties,
         string $createdByUserId,
-        string $createdReason
+        string $createdReason,
+        string $createdDate = null
     ) {
+        Param::assertNotEmpty(
+            $properties,
+            FieldsPageVersion::SITE_CMS_RESOURCE_ID
+        );
+
+        Param::assertNotEmpty(
+            $properties,
+            FieldsPageVersion::PATH
+        );
+
+        AssertValidPath::invoke(
+            Param::getString(
+                $properties,
+                FieldsPageVersion::PATH
+            )
+        );
+
         Param::assertHas(
             $properties,
             FieldsPageVersion::TITLE,
@@ -66,7 +84,28 @@ abstract class PageVersionAbstract extends ContentVersionAbstract
             $id,
             $properties,
             $createdByUserId,
-            $createdReason
+            $createdReason,
+            $createdDate
+        );
+    }
+
+    /**
+     * @return string
+     */
+    public function getSiteCmsResourceId(): string
+    {
+        return $this->getProperty(
+            FieldsPageVersion::SITE_CMS_RESOURCE_ID
+        );
+    }
+
+    /**
+     * @return string
+     */
+    public function getPath(): string
+    {
+        return $this->getProperty(
+            FieldsPageVersion::PATH
         );
     }
 

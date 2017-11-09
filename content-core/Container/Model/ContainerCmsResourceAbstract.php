@@ -3,60 +3,42 @@
 namespace Zrcms\ContentCore\Container\Model;
 
 use Zrcms\Content\Exception\ContentVersionInvalid;
-use Zrcms\Content\Exception\PropertyMissing;
 use Zrcms\Content\Model\CmsResourceAbstract;
 use Zrcms\Content\Model\ContentVersion;
-use Zrcms\ContentCore\Container\Fields\FieldsContainerCmsResource;
-use Zrcms\Param\Param;
 
 /**
  * @author James Jervis - https://github.com/jerv13
  */
 abstract class ContainerCmsResourceAbstract extends CmsResourceAbstract
 {
+    protected $siteCmsResourceId;
+    protected $path;
+
     /**
-     * @param string|null                     $id
+     * @param null|string                     $id
      * @param bool                            $published
      * @param ContainerVersion|ContentVersion $contentVersion
-     * @param array                           $properties
      * @param string                          $createdByUserId
      * @param string                          $createdReason
+     * @param string|null                     $createdDate
+     *
+     * @throws ContentVersionInvalid
      */
     public function __construct(
         $id,
         bool $published,
         ContentVersion $contentVersion,
-        array $properties,
         string $createdByUserId,
-        string $createdReason
+        string $createdReason,
+        string $createdDate = null
     ) {
-        Param::assertHas(
-            $properties,
-            FieldsContainerCmsResource::SITE_CMS_RESOURCE_ID,
-            PropertyMissing::buildThrower(
-                FieldsContainerCmsResource::SITE_CMS_RESOURCE_ID,
-                $properties,
-                get_class($this)
-            )
-        );
-
-        Param::assertHas(
-            $properties,
-            FieldsContainerCmsResource::PATH,
-            PropertyMissing::buildThrower(
-                FieldsContainerCmsResource::PATH,
-                $properties,
-                get_class($this)
-            )
-        );
-
         parent::__construct(
             $id,
             $published,
             $contentVersion,
-            $properties,
             $createdByUserId,
-            $createdReason
+            $createdReason,
+            $createdDate
         );
     }
 
@@ -65,10 +47,7 @@ abstract class ContainerCmsResourceAbstract extends CmsResourceAbstract
      */
     public function getSiteCmsResourceId(): string
     {
-        return $this->getProperty(
-            FieldsContainerCmsResource::SITE_CMS_RESOURCE_ID,
-            ''
-        );
+        return $this->siteCmsResourceId;
     }
 
     /**
@@ -76,14 +55,36 @@ abstract class ContainerCmsResourceAbstract extends CmsResourceAbstract
      */
     public function getPath(): string
     {
-        return $this->getProperty(
-            FieldsContainerCmsResource::PATH,
-            ''
+        return $this->path;
+    }
+
+    /**
+     * @param ContainerVersion|ContentVersion $contentVersion
+     * @param string                          $modifiedByUserId
+     * @param string                          $modifiedReason
+     * @param string                          $modifiedDate
+     *
+     * @return void
+     */
+    public function setContentVersion(
+        ContentVersion $contentVersion,
+        string $modifiedByUserId,
+        string $modifiedReason,
+        string $modifiedDate
+    ) {
+        $this->siteCmsResourceId = $contentVersion->getSiteCmsResourceId();
+        $this->path = $contentVersion->getPath();
+
+        parent::setContentVersion(
+            $contentVersion,
+            $modifiedByUserId,
+            $modifiedReason,
+            $modifiedDate
         );
     }
 
     /**
-     * @param $contentVersion
+     * @param ContainerVersion $contentVersion
      *
      * @return void
      * @throws ContentVersionInvalid
@@ -95,6 +96,18 @@ abstract class ContainerCmsResourceAbstract extends CmsResourceAbstract
                 'ContentVersion must be instance of: ' . ContainerVersion::class
                 . ' got: ' . var_export($contentVersion, true)
                 . ' for: ' . get_class($this)
+            );
+        }
+
+        if (empty($contentVersion->getSiteCmsResourceId())) {
+            throw new ContentVersionInvalid(
+                'SiteCmsResourceId can not be empty'
+            );
+        }
+
+        if (empty($contentVersion->getPath())) {
+            throw new ContentVersionInvalid(
+                'Path can not be empty'
             );
         }
     }

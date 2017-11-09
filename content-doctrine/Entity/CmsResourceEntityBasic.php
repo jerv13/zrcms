@@ -8,28 +8,28 @@ namespace Zrcms\ContentDoctrine\Entity;
 class CmsResourceEntityBasic extends CmsResourceEntityAbstract implements CmsResourceEntity
 {
     /**
-     * @param int|null      $id
+     * @param string|null   $id
      * @param bool          $published
-     * @param ContentEntity $contentEntity
-     * @param array         $properties
+     * @param ContentEntity $contentVersion
      * @param string        $createdByUserId
      * @param string        $createdReason
+     * @param string|null   $createdDate
      */
     public function __construct(
         $id,
         bool $published,
-        ContentEntity $contentEntity,
-        array $properties,
+        ContentEntity $contentVersion,
         string $createdByUserId,
-        string $createdReason
+        string $createdReason,
+        string $createdDate = null
     ) {
         parent::__construct(
             $id,
             $published,
-            $contentEntity,
-            $properties,
+            $contentVersion,
             $createdByUserId,
-            $createdReason
+            $createdReason,
+            $createdDate
         );
     }
 }

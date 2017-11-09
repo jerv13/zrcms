@@ -38,10 +38,7 @@ class InsertContentVersion
         }
 
         $newContentVersion = new $contentVersionEntityClass(
-            $contentVersion->getId(),
-            $contentVersion->getProperties(),
-            $contentVersion->getCreatedByUserId(),
-            $contentVersion->getCreatedReason()
+            $contentVersion
         );
 
         $this->entityManager->persist($newContentVersion);

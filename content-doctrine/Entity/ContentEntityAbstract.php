@@ -2,6 +2,7 @@
 
 namespace Zrcms\ContentDoctrine\Entity;
 
+use Doctrine\Common\Persistence\Event\LifecycleEventArgs;
 use Zrcms\Content\Model\ImmutableTrait;
 use Zrcms\Content\Model\PropertiesTrait;
 
@@ -15,8 +16,6 @@ class ContentEntityAbstract
     use TrackableEntityTrait;
 
     /**
-     * ID
-     *
      * @var string
      */
     protected $id;
@@ -27,37 +26,33 @@ class ContentEntityAbstract
     protected $properties = [];
 
     /**
-     * Date object was first created
-     *
-     * @var \DateTime
-     */
-    protected $createdDate;
-
-    /**
-     * User ID of creator
-     *
      * @var string
      */
     protected $createdByUserId;
 
     /**
-     * Short description of create reason
-     *
      * @var string
      */
     protected $createdReason;
+
+    /**
+     * @var \DateTime
+     */
+    protected $createdDateObject;
 
     /**
      * @param string|null $id
      * @param array       $properties
      * @param string      $createdByUserId
      * @param string      $createdReason
+     * @param string|null $createdDate
      */
     public function __construct(
         $id,
         array $properties,
         string $createdByUserId,
-        string $createdReason
+        string $createdReason,
+        string $createdDate = null
     ) {
         // Enforce immutability
         if (!$this->isNew()) {
@@ -66,13 +61,13 @@ class ContentEntityAbstract
         $this->new = false;
 
         $this->id = $id;
+        $this->properties = $properties;
 
         $this->setCreatedData(
             $createdByUserId,
-            $createdReason
+            $createdReason,
+            $createdDate
         );
-
-        $this->properties = $properties;
     }
 
     /**
@@ -81,5 +76,17 @@ class ContentEntityAbstract
     public function getId(): string
     {
         return $this->id;
+    }
+
+    /**
+     * @param LifecycleEventArgs $eventArgs
+     *
+     * @return void
+     *
+     * @ORM\PrePersist
+     */
+    public function prePersist(LifecycleEventArgs $eventArgs)
+    {
+        $this->assertHasCreatedData();
     }
 }

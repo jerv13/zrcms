@@ -31,11 +31,6 @@ abstract class CmsResourceHistoryEntityAbstract
     protected $cmsResourceEntity;
 
     /**
-     * @var array
-     */
-    protected $cmsResourceProperties;
-
-    /**
      * @var ContentEntity
      */
     protected $contentVersion;
@@ -68,8 +63,6 @@ abstract class CmsResourceHistoryEntityAbstract
 
         $this->cmsResourceEntity = $cmsResourceEntity;
 
-        $this->cmsResourceProperties = $cmsResourceEntity->getProperties();
-
         $this->contentVersion = $cmsResourceEntity->getContentVersion();
 
         $this->setCreatedData(
@@ -100,14 +93,6 @@ abstract class CmsResourceHistoryEntityAbstract
     public function getContentVersion()
     {
         return $this->contentVersion;
-    }
-
-    /**
-     * @return array
-     */
-    public function getCmsResourceProperties(): array
-    {
-        return $this->cmsResourceProperties;
     }
 
     /**

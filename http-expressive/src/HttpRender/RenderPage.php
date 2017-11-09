@@ -5,8 +5,8 @@ namespace Zrcms\HttpExpressive\HttpRender;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Zend\Diactoros\Response\HtmlResponse;
-use Zrcms\ContentCore\Page\Exception\PageNotFoundException;
-use Zrcms\ContentCore\Site\Exception\SiteNotFoundException;
+use Zrcms\ContentCore\Page\Exception\PageNotFound;
+use Zrcms\ContentCore\Site\Exception\SiteNotFound;
 use Zrcms\ContentCore\View\Api\GetViewByRequest;
 use Zrcms\ContentCore\View\Api\Render\GetViewLayoutTags;
 use Zrcms\ContentCore\View\Api\Render\RenderView;
@@ -55,13 +55,13 @@ class RenderPage
             $view = $this->getViewByRequest->__invoke(
                 $request
             );
-        } catch (SiteNotFoundException $exception) {
+        } catch (SiteNotFound $exception) {
             return new HtmlResponse(
                 'NOT FOUND',
                 404,
                 ['reason-phrase', 'NOT FOUND: SITE']
             );
-        } catch (PageNotFoundException $exception) {
+        } catch (PageNotFound $exception) {
             return new HtmlResponse(
                 'NOT FOUND',
                 404,

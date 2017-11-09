@@ -16,15 +16,17 @@ use Zrcms\Content\Model\CmsResource;
 interface PublishCmsResource
 {
     /**
-     * @param CmsResource $cmsResource (updated or new CmsResource)
+     * @param CmsResource $cmsResource
      * @param string      $publishedByUserId
      * @param string      $publishReason
+     * @param string|null $publishDate
      *
      * @return CmsResource
      */
     public function __invoke(
         CmsResource $cmsResource,
         string $publishedByUserId,
-        string $publishReason
+        string $publishReason,
+        string $publishDate = null
     ): CmsResource;
 }

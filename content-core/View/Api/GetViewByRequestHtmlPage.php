@@ -5,18 +5,18 @@ namespace Zrcms\ContentCore\View\Api;
 use Psr\Http\Message\ServerRequestInterface;
 use Zrcms\Content\Model\Trackable;
 use Zrcms\ContentCore\Page\Api\Repository\FindPageCmsResourceBySitePath;
-use Zrcms\ContentCore\Page\Exception\PageNotFoundException;
+use Zrcms\ContentCore\Page\Exception\PageNotFound;
 use Zrcms\ContentCore\Page\Fields\FieldsPageCmsResource;
 use Zrcms\ContentCore\Page\Fields\FieldsPageVersion;
 use Zrcms\ContentCore\Page\Model\PageCmsResourceBasic;
 use Zrcms\ContentCore\Page\Model\PageVersionBasic;
 use Zrcms\ContentCore\Site\Api\Repository\FindSiteCmsResourceByHost;
-use Zrcms\ContentCore\Site\Exception\SiteNotFoundException;
+use Zrcms\ContentCore\Site\Exception\SiteNotFound;
 use Zrcms\ContentCore\Site\Model\SiteCmsResource;
 use Zrcms\ContentCore\Theme\Api\Repository\FindLayoutCmsResourceByThemeNameLayoutName;
 use Zrcms\ContentCore\Theme\Api\Repository\FindThemeComponent;
-use Zrcms\ContentCore\Theme\Exception\LayoutNotFoundException;
-use Zrcms\ContentCore\Theme\Exception\ThemeNotFoundException;
+use Zrcms\ContentCore\Theme\Exception\LayoutNotFound;
+use Zrcms\ContentCore\Theme\Exception\ThemeNotFound;
 use Zrcms\ContentCore\Theme\Model\LayoutCmsResource;
 use Zrcms\ContentCore\View\Api\Render\GetViewLayoutTags;
 use Zrcms\ContentCore\View\Fields\FieldsView;
@@ -129,10 +129,10 @@ class GetViewByRequestHtmlPage implements GetViewByRequest
      * @param array                  $options
      *
      * @return View
-     * @throws LayoutNotFoundException
-     * @throws PageNotFoundException
-     * @throws SiteNotFoundException
-     * @throws ThemeNotFoundException
+     * @throws LayoutNotFound
+     * @throws PageNotFound
+     * @throws SiteNotFound
+     * @throws ThemeNotFound
      */
     public function __invoke(
         ServerRequestInterface $request,
@@ -147,7 +147,7 @@ class GetViewByRequestHtmlPage implements GetViewByRequest
         );
 
         if (empty($siteCmsResource)) {
-            throw new SiteNotFoundException(
+            throw new SiteNotFound(
                 'Site not found for host: (' . $uri->getHost() . ')'
             );
         }
@@ -161,17 +161,17 @@ class GetViewByRequestHtmlPage implements GetViewByRequest
         );
 
         if (empty($themeComponent)) {
-            throw new ThemeNotFoundException(
+            throw new ThemeNotFound(
                 'Theme not found (' . $themeName . ')'
                 . ' for host: (' . $siteCmsResource->getHost() . ')'
-                . ' with site ID: (' . $siteCmsResource->getContentVersion()->getId() . ')'
+                . ' with site ID: (' . (string)$siteCmsResource->getContentVersionId() . ')'
             );
         }
 
         $html = Param::getString($options, self::OPTION_HTML, null);
 
         if ($html === null) {
-            throw new PageNotFoundException(
+            throw new PageNotFound(
                 'Page not found for host: (' . $uri->getHost() . ')'
                 . ' with empty html page'
             );
@@ -230,7 +230,7 @@ class GetViewByRequestHtmlPage implements GetViewByRequest
         );
 
         if (empty($layoutCmsResource)) {
-            throw new LayoutNotFoundException(
+            throw new LayoutNotFound(
                 'Layout not found: (' . $layoutName . ')'
                 . ' with theme name: (' . $themeName . ')'
                 . ' for site version ID: (' . $siteVersion->getId() . ')'

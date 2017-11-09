@@ -2,23 +2,36 @@
 
 namespace Zrcms\ContentDoctrine\Entity;
 
-use Zrcms\Content\Model\Properties;
-use Zrcms\Content\Model\Trackable;
+use Zrcms\Content\Model\TrackableModify;
 
 /**
+ * Mimic CmsResource
+ *
  * @author James Jervis - https://github.com/jerv13
  */
-interface CmsResourceEntity extends Entity, Properties, Trackable
+interface CmsResourceEntity extends Entity, TrackableModify
 {
+    /**
+     * @param bool          $published
+     * @param ContentEntity $contentVersion
+     * @param string        $modifiedByUserId
+     * @param string        $modifiedReason
+     * @param string|null   $modifiedDate
+     *
+     * @return void
+     */
+    public function update(
+        bool $published,
+        ContentEntity $contentVersion,
+        string $modifiedByUserId,
+        string $modifiedReason,
+        string $modifiedDate = null
+    );
+
     /**
      * @return string
      */
     public function getId(): string;
-
-    /**
-     * @return ContentEntity
-     */
-    public function getContentVersion();
 
     /**
      * @return bool
@@ -26,20 +39,7 @@ interface CmsResourceEntity extends Entity, Properties, Trackable
     public function isPublished(): bool;
 
     /**
-     * @param bool $published
-     *
-     * @return void
+     * @return ContentEntity
      */
-    public function setPublished(bool $published);
-
-    /**
-     * Sync array of properties to object properties and set properties
-     *
-     * @param array $properties
-     *
-     * @return void
-     */
-    public function setProperties(
-        array $properties
-    );
+    public function getContentEntity();
 }

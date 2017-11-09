@@ -35,7 +35,6 @@ class FindCmsResource
             $this->entityClassContentVersion,
             $this->classContentVersionBasic,
             $entity,
-            $this->cmsResourceSyncToProperties,
             $this->contentVersionSyncToProperties
         );
     }

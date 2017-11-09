@@ -38,11 +38,6 @@ interface CmsResourceHistory extends Immutable, Trackable
     public function getCmsResource();
 
     /**
-     * @return array
-     */
-    public function getCmsResourceProperties(): array;
-
-    /**
      * @return ContentVersion
      */
     public function getContentVersion();

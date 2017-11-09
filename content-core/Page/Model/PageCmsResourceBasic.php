@@ -12,26 +12,26 @@ class PageCmsResourceBasic extends PageCmsResourceAbstract implements PageCmsRes
     /**
      * @param null|string                $id
      * @param bool                       $published
-     * @param ContentVersion|PageVersion $contentVersion
-     * @param array                      $properties
+     * @param PageVersion|ContentVersion $contentVersion
      * @param string                     $createdByUserId
      * @param string                     $createdReason
+     * @param string|null                $createdDate
      */
     public function __construct(
         $id,
         bool $published,
         ContentVersion $contentVersion,
-        array $properties,
         string $createdByUserId,
-        string $createdReason
+        string $createdReason,
+        string $createdDate = null
     ) {
         parent::__construct(
             $id,
             $published,
             $contentVersion,
-            $properties,
             $createdByUserId,
-            $createdReason
+            $createdReason,
+            $createdDate
         );
     }
 }

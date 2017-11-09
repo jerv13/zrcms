@@ -17,13 +17,20 @@ abstract class SiteVersionAbstract extends ContentVersionAbstract
      * @param array       $properties
      * @param string      $createdByUserId
      * @param string      $createdReason
+     * @param string|null $createdDate
      */
     public function __construct(
         $id,
         array $properties,
         string $createdByUserId,
-        string $createdReason
+        string $createdReason,
+        string $createdDate = null
     ) {
+        Param::assertNotEmpty(
+            $properties,
+            FieldsSiteVersion::HOST
+        );
+
         Param::assertHas(
             $properties,
             FieldsSiteVersion::THEME_NAME,
@@ -56,7 +63,19 @@ abstract class SiteVersionAbstract extends ContentVersionAbstract
             $id,
             $properties,
             $createdByUserId,
-            $createdReason
+            $createdReason,
+            $createdDate
+        );
+    }
+
+    /**
+     * @return string
+     */
+    public function getHost(): string
+    {
+        return $this->getProperty(
+            FieldsSiteVersion::HOST,
+            ''
         );
     }
 

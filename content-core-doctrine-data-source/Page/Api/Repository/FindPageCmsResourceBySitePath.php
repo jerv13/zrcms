@@ -7,7 +7,6 @@ use Zrcms\Content\Model\CmsResource;
 use Zrcms\ContentCore\Page\Model\PageCmsResource;
 use Zrcms\ContentCore\Page\Model\PageCmsResourceBasic;
 use Zrcms\ContentCore\Page\Model\PageVersionBasic;
-use Zrcms\ContentCore\Page\Fields\FieldsPageCmsResource;
 use Zrcms\ContentCoreDoctrineDataSource\Page\Entity\PageCmsResourceEntity;
 use Zrcms\ContentCoreDoctrineDataSource\Page\Entity\PageVersionEntity;
 use Zrcms\ContentDoctrine\Api\BuildBasicCmsResource;
@@ -46,11 +45,6 @@ class FindPageCmsResourceBySitePath
     /**
      * @var array
      */
-    protected $cmsResourceSyncToProperties = [];
-
-    /**
-     * @var array
-     */
     protected $contentVersionSyncToProperties = [];
 
     /**
@@ -65,7 +59,6 @@ class FindPageCmsResourceBySitePath
         $this->entityClassContentVersion = PageVersionEntity::class;
         $this->classContentVersionBasic = PageVersionBasic::class;
 
-        $this->cmsResourceSyncToProperties = [];
         $this->contentVersionSyncToProperties = [];
     }
 
@@ -90,8 +83,8 @@ class FindPageCmsResourceBySitePath
         /** @var PageCmsResourceEntity $pageCmsResourceEntity */
         $pageCmsResourceEntity = $repository->findOneBy(
             [
-                FieldsPageCmsResource::SITE_CMS_RESOURCE_ID => $siteCmsResourceId,
-                FieldsPageCmsResource::PATH => $pageCmsResourcePath,
+                'siteCmsResourceId' => $siteCmsResourceId,
+                'path' => $pageCmsResourcePath,
                 'published' => $published
             ]
         );
@@ -102,7 +95,6 @@ class FindPageCmsResourceBySitePath
             $this->entityClassContentVersion,
             $this->classContentVersionBasic,
             $pageCmsResourceEntity,
-            $this->cmsResourceSyncToProperties,
             $this->contentVersionSyncToProperties
         );
     }
