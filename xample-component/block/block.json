@@ -8,5 +8,11 @@
   "cache": false,
   "editor": "",
   "fields": [
+    {
+      "name": "xampleText",
+      "type": "text",
+      "label": "xampleText",
+      "default": ""
+    }
   ]
 }

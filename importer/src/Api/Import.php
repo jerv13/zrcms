@@ -174,6 +174,8 @@ class Import
         string $createdByUserId,
         array $options = []
     ) {
+        $startTime = time();
+
         $data = json_decode($json, true);
 
         $createdReason = 'Import script ' . get_class($this);
@@ -192,6 +194,11 @@ class Import
             $options
         );
 
+        $this->log(
+            LogLevel::INFO,
+            'Import COMPLETE in ' . time() - $startTime . 'seconds',
+            $options
+        );
     }
 
     /**
@@ -260,7 +267,7 @@ class Import
                 LogLevel::INFO,
                 'Import Site: ('
                 . 'siteId: ' . $site['id']
-                . ' ,host: ' . $site['properties']['host']
+                . ', host: ' . $site['properties']['host']
                 . ')',
                 $options
             );
@@ -345,7 +352,7 @@ class Import
         $this->log(
             LogLevel::INFO,
             'Import Pages: ('
-            . 'siteId:' . $siteCmsResource->getId()
+            . 'siteId: ' . $siteCmsResource->getId()
             . ')',
             $options
         );

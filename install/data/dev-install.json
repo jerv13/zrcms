@@ -1,0 +1,152 @@
+{
+  "sites": [
+    {
+      "id": 1,
+      "published": true,
+      "properties": {
+        "host": "localhost",
+        "theme": "xample-theme",
+        "locale": "en_US",
+        "languageIso9392t": "eng",
+        "countryIso3": "USA",
+        "favIcon": "\/favicon.ico",
+        "loginPage": "\/login",
+        "statusPages": {
+          "401": {
+            "path": "\/login",
+            "type": "redirect"
+          },
+          "404": {
+            "path": "\/not-found",
+            "type": "render"
+          }
+        },
+        "title": "Reliv International"
+      },
+      "pages": [
+        {
+          "id": 1,
+          "published": true,
+          "properties": {
+            "path": "\/",
+            "title": "Home",
+            "description": "Home",
+            "keywords": "home",
+            "layout": "primary",
+            "containersData": {
+              "content": {
+                "blockVersions": [
+                  {
+                    "blockComponentName": "XampleBlock",
+                    "id": 1,
+                    "config": {},
+                    "layoutProperties": {
+                      "renderOrder": 0,
+                      "rowNumber": 0,
+                      "columnClass": "col-sm-12 col-xs-12"
+                    }
+                  }
+                ]
+              },
+              "content-two": {
+                "blockVersions": [
+                  {
+                    "blockComponentName": "XampleBlock",
+                    "id": 1,
+                    "config": {},
+                    "layoutProperties": {
+                      "renderOrder": 0,
+                      "rowNumber": 0,
+                      "columnClass": "col-sm-12 col-xs-12"
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        }
+      ],
+      "pageTemplates": [
+        {
+          "id": 1,
+          "published": true,
+          "properties": {
+            "path": "\/",
+            "title": "Home Template",
+            "description": "Home Template",
+            "keywords": "home-template",
+            "layout": "primary",
+            "containersData": {
+              "content": {
+                "blockVersions": [
+                  {
+                    "blockComponentName": "XampleBlock",
+                    "id": 1,
+                    "config": {
+                      "xampleText": "Hello Content!"
+                    },
+                    "layoutProperties": {
+                      "renderOrder": 0,
+                      "rowNumber": 0,
+                      "columnClass": "col-sm-12 col-xs-12"
+                    }
+                  }
+                ]
+              },
+              "content-two": {
+                "blockVersions": [
+                  {
+                    "blockComponentName": "XampleBlock",
+                    "id": 1,
+                    "config": {
+                      "xampleText": "Hello Content Two!"
+                    },
+                    "layoutProperties": {
+                      "renderOrder": 0,
+                      "rowNumber": 0,
+                      "columnClass": "col-sm-12 col-xs-12"
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        }
+      ],
+      "containers": [
+        {
+          "id": 1,
+          "published": true,
+          "properties": {
+            "path": "header",
+            "blockVersions": [
+              {
+                "blockComponentName": "XampleBlock",
+                "id": 1,
+                "config": {
+                  "xampleText": "Hello header!!"
+                },
+                "layoutProperties": {
+                  "renderOrder": 0,
+                  "rowNumber": 0,
+                  "columnClass": "col-sm-12 col-xs-12"
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "redirects": [
+    {
+      "id": 1,
+      "published": true,
+      "properties": {
+        "requestPath": "\/login",
+        "siteCmsResourceId": "1",
+        "redirectPath": "\/"
+      }
+    }
+  ]
+}
