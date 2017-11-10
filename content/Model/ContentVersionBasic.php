@@ -19,7 +19,7 @@ class ContentVersionBasic extends ContentVersionAbstract implements ContentVersi
         array $properties,
         string $createdByUserId,
         string $createdReason,
-        string $createdDate = null
+        $createdDate = null
     ) {
         parent::__construct(
             $id,

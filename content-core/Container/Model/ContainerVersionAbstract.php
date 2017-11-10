@@ -26,7 +26,7 @@ abstract class ContainerVersionAbstract extends ContentVersionAbstract
         array $properties,
         string $createdByUserId,
         string $createdReason,
-        string $createdDate = null
+        $createdDate = null
     ) {
         $blockVersions = Param::getArray(
             $properties,

@@ -28,7 +28,7 @@ abstract class RedirectCmsResourceAbstract extends CmsResourceAbstract implement
         ContentVersion $contentVersion,
         string $createdByUserId,
         string $createdReason,
-        string $createdDate = null
+        $createdDate = null
     ) {
         parent::__construct(
             $id,
@@ -68,7 +68,7 @@ abstract class RedirectCmsResourceAbstract extends CmsResourceAbstract implement
         ContentVersion $contentVersion,
         string $modifiedByUserId,
         string $modifiedReason,
-        string $modifiedDate
+        $modifiedDate = null
     ) {
         $this->siteCmsResourceId = $contentVersion->getSiteCmsResourceId();
         $this->requestPath = $contentVersion->getRequestPath();

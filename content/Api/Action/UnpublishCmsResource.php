@@ -21,6 +21,6 @@ interface UnpublishCmsResource
         string $cmsResourceId,
         string $unpublishedByUserId,
         string $unpublishReason,
-        string $unpublishDate = null
+        $unpublishDate = null
     ): bool;
 }

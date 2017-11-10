@@ -30,7 +30,6 @@ class FindRedirectCmsResource
             RedirectCmsResourceBasic::class,
             RedirectVersionEntity::class,
             RedirectVersionBasic::class,
-            [],
             []
         );
     }

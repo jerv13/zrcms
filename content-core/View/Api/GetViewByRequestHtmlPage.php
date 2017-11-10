@@ -6,7 +6,6 @@ use Psr\Http\Message\ServerRequestInterface;
 use Zrcms\Content\Model\Trackable;
 use Zrcms\ContentCore\Page\Api\Repository\FindPageCmsResourceBySitePath;
 use Zrcms\ContentCore\Page\Exception\PageNotFound;
-use Zrcms\ContentCore\Page\Fields\FieldsPageCmsResource;
 use Zrcms\ContentCore\Page\Fields\FieldsPageVersion;
 use Zrcms\ContentCore\Page\Model\PageCmsResourceBasic;
 use Zrcms\ContentCore\Page\Model\PageVersionBasic;
@@ -75,17 +74,17 @@ class GetViewByRequestHtmlPage implements GetViewByRequest
     /**
      * @var string
      */
-    protected  $defaultTitle = '';
+    protected $defaultTitle = '';
 
     /**
      * @var string
      */
-    protected  $defaultDescription = '';
+    protected $defaultDescription = '';
 
     /**
      * @var string
      */
-    protected  $defaultKeywords = '';
+    protected $defaultKeywords = '';
 
     /**
      * @param FindSiteCmsResourceByHost                  $findSiteCmsResourceByHost
@@ -201,6 +200,8 @@ class GetViewByRequestHtmlPage implements GetViewByRequest
 
                 FieldsPageVersion::CONTAINERS_DATA
                 => Param::getArray($options, self::OPTION_CONTAINERS_DATA, []),
+                FieldsPageVersion::PATH => $uri->getPath(),
+                FieldsPageVersion::SITE_CMS_RESOURCE_ID => $siteCmsResource->getId(),
             ],
             Trackable::UNKNOWN_USER_ID,
             'Render HTML: ' . get_class($this)
@@ -210,10 +211,6 @@ class GetViewByRequestHtmlPage implements GetViewByRequest
             $uri->getPath(),
             true,
             $pageVersion,
-            [
-                FieldsPageCmsResource::PATH => $uri->getPath(),
-                FieldsPageCmsResource::SITE_CMS_RESOURCE_ID => $siteCmsResource->getId(),
-            ],
             Trackable::UNKNOWN_USER_ID,
             'Render HTML: ' . get_class($this)
         );

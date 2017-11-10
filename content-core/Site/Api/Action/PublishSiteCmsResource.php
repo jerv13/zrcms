@@ -15,12 +15,14 @@ interface PublishSiteCmsResource extends PublishCmsResource
      * @param SiteCmsResource|CmsResource $siteCmsResource
      * @param string                      $publishedByUserId
      * @param string                      $publishReason
+     * @param string|null                 $publishDate
      *
      * @return SiteCmsResource|CmsResource
      */
     public function __invoke(
         CmsResource $siteCmsResource,
         string $publishedByUserId,
-        string $publishReason
+        string $publishReason,
+        $publishDate = null
     ): CmsResource;
 }

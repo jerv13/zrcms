@@ -17,7 +17,7 @@ abstract class TrackableModifyAbstract extends TrackableAbstract implements Trac
     public function __construct(
         string $createdByUserId,
         string $createdReason,
-        string $createdDate = null
+        $createdDate = null
     ) {
         $this->setModifiedData(
             $createdByUserId,

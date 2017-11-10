@@ -39,11 +39,6 @@ abstract class ApiAbstractCmsResource extends ApiAbstract
     /**
      * @var array
      */
-    protected $cmsResourceSyncToProperties = [];
-
-    /**
-     * @var array
-     */
     protected $contentVersionSyncToProperties = [];
 
     /**
@@ -52,7 +47,6 @@ abstract class ApiAbstractCmsResource extends ApiAbstract
      * @param string        $classCmsResourceBasic
      * @param string        $entityClassContentVersion
      * @param string        $classContentVersionBasic
-     * @param array         $cmsResourceSyncToProperties
      * @param array         $contentVersionSyncToProperties
      */
     public function __construct(
@@ -61,7 +55,6 @@ abstract class ApiAbstractCmsResource extends ApiAbstract
         string $classCmsResourceBasic,
         string $entityClassContentVersion,
         string $classContentVersionBasic,
-        array $cmsResourceSyncToProperties = [],
         array $contentVersionSyncToProperties = []
     ) {
         $this->assertValidEntityClass(
@@ -76,7 +69,6 @@ abstract class ApiAbstractCmsResource extends ApiAbstract
         $this->entityClassContentVersion = $entityClassContentVersion;
         $this->classContentVersionBasic = $classContentVersionBasic;
 
-        $this->cmsResourceSyncToProperties = $cmsResourceSyncToProperties;
         $this->contentVersionSyncToProperties = $contentVersionSyncToProperties;
     }
 }

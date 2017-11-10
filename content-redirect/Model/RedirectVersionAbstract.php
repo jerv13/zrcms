@@ -26,7 +26,7 @@ abstract class RedirectVersionAbstract extends ContentVersionAbstract implements
         array $properties,
         string $createdByUserId,
         string $createdReason,
-        string $createdDate = null
+        $createdDate = null
     ) {
         Param::assertNotEmpty(
             $properties,

@@ -54,7 +54,8 @@ class BuildBasicContentVersion
             $contentEntity->getId(),
             $properties,
             $contentEntity->getCreatedByUserId(),
-            $contentEntity->getCreatedReason()
+            $contentEntity->getCreatedReason(),
+            $contentEntity->getCreatedDate()
         );
     }
 

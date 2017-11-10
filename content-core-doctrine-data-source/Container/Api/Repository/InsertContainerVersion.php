@@ -33,7 +33,7 @@ class InsertContainerVersion
      * @param ContainerVersion|ContentVersion $containerVersion
      * @param array                           $options
      *
-     * @return ContentVersion
+     * @return ContainerVersion|ContentVersion
      */
     public function __invoke(
         ContentVersion $containerVersion,

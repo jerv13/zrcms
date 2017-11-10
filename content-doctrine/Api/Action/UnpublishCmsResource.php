@@ -4,7 +4,6 @@ namespace Zrcms\ContentDoctrine\Api\Action;
 
 use Doctrine\ORM\EntityManager;
 use Zrcms\Content\Model\Action;
-use Zrcms\Content\Model\CmsResourceHistory;
 use Zrcms\ContentDoctrine\Api\ApiAbstract;
 use Zrcms\ContentDoctrine\Entity\CmsResourceEntity;
 use Zrcms\ContentDoctrine\Entity\CmsResourceHistoryEntity;
@@ -89,8 +88,9 @@ class UnpublishCmsResource
         string $cmsResourceId,
         string $unpublishedByUserId,
         string $unpublishReason,
-        string $unpublishDate = null
-    ): bool {
+        $unpublishDate = null
+    ): bool
+    {
         $repositoryCmsResource = $this->entityManager->getRepository(
             $this->entityClassCmsResource
         );
@@ -101,12 +101,12 @@ class UnpublishCmsResource
         );
 
         if (empty($existingCmsResource)) {
+            // no existing, can not unpublish
             return false;
         }
 
-        $existingCmsResource->update(
+        $existingCmsResource->setPublished(
             false,
-            $existingCmsResource->getContentEntity(),
             $unpublishedByUserId,
             $unpublishReason,
             $unpublishDate
@@ -117,7 +117,8 @@ class UnpublishCmsResource
         $newCmsResourceHistory = $this->buildHistory(
             $existingCmsResource,
             $unpublishedByUserId,
-            $unpublishReason
+            $unpublishReason,
+            $unpublishDate
         );
 
         $this->entityManager->persist($newCmsResourceHistory);
@@ -130,15 +131,17 @@ class UnpublishCmsResource
      * @param CmsResourceEntity $cmsResourceEntity
      * @param string            $unpublishedByUserId
      * @param string            $unpublishReason
+     * @param string|null       $unpublishDate
      *
-     * @return CmsResourceHistory
+     * @return CmsResourceHistoryEntity
      */
     protected function buildHistory(
         CmsResourceEntity $cmsResourceEntity,
         string $unpublishedByUserId,
-        string $unpublishReason
-    ) {
-        /** @var CmsResourceHistory::class $cmsResourceHistoryClass */
+        string $unpublishReason,
+        $unpublishDate = null
+    ):CmsResourceHistoryEntity {
+        /** @var CmsResourceHistoryEntity::class $cmsResourceHistoryClass */
         $cmsResourceHistoryEntityClass = $this->entityClassCmsResourceHistory;
 
         return new $cmsResourceHistoryEntityClass(
@@ -146,7 +149,8 @@ class UnpublishCmsResource
             Action::UNPUBLISH_CMS_RESOURCE,
             $cmsResourceEntity,
             $unpublishedByUserId,
-            $unpublishReason
+            $unpublishReason,
+            $unpublishDate
         );
     }
 }

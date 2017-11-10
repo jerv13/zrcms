@@ -12,23 +12,6 @@ use Zrcms\Content\Model\TrackableModify;
 interface CmsResourceEntity extends Entity, TrackableModify
 {
     /**
-     * @param bool          $published
-     * @param ContentEntity $contentVersion
-     * @param string        $modifiedByUserId
-     * @param string        $modifiedReason
-     * @param string|null   $modifiedDate
-     *
-     * @return void
-     */
-    public function update(
-        bool $published,
-        ContentEntity $contentVersion,
-        string $modifiedByUserId,
-        string $modifiedReason,
-        string $modifiedDate = null
-    );
-
-    /**
      * @return string
      */
     public function getId(): string;
@@ -39,7 +22,42 @@ interface CmsResourceEntity extends Entity, TrackableModify
     public function isPublished(): bool;
 
     /**
+     * @param bool        $published
+     * @param string      $modifiedByUserId
+     * @param string      $modifiedReason
+     * @param string|null $modifiedDate
+     *
+     * @return void
+     */
+    public function setPublished(
+        bool $published,
+        string $modifiedByUserId,
+        string $modifiedReason,
+        $modifiedDate = null
+    );
+
+    /**
      * @return ContentEntity
      */
-    public function getContentEntity();
+    public function getContentVersionId();
+
+    /**
+     * @return ContentEntity
+     */
+    public function getContentVersion();
+
+    /**
+     * @param ContentEntity $contentVersion
+     * @param string        $modifiedByUserId
+     * @param string        $modifiedReason
+     * @param string|null   $modifiedDate
+     *
+     * @return void
+     */
+    public function setContentVersion(
+        ContentEntity $contentVersion,
+        string $modifiedByUserId,
+        string $modifiedReason,
+        $modifiedDate = null
+    );
 }

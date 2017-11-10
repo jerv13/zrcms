@@ -6,7 +6,6 @@ use Doctrine\ORM\EntityManager;
 use Zrcms\ContentCore\Container\Model\ContainerCmsResource;
 use Zrcms\ContentCore\Container\Model\ContainerCmsResourceBasic;
 use Zrcms\ContentCore\Container\Model\ContainerVersionBasic;
-use Zrcms\ContentCore\Container\Fields\FieldsContainerCmsResource;
 use Zrcms\ContentCoreDoctrineDataSource\Container\Entity\ContainerCmsResourceEntity;
 use Zrcms\ContentCoreDoctrineDataSource\Container\Entity\ContainerVersionEntity;
 use Zrcms\ContentDoctrine\Api\BuildBasicCmsResources;
@@ -76,7 +75,8 @@ class FindContainerCmsResourcesBySitePaths
         array $containerCmsResourcePaths,
         bool $published = true,
         array $options = []
-    ): array {
+    ): array
+    {
         $pathParams = [];
 
         // @todo Add prepared statements not concat
@@ -100,8 +100,8 @@ class FindContainerCmsResourcesBySitePaths
             $dQuery->setParameter($pathParam, $value);
         }
 
-        $dQuery->setParameter('containerSiteCmsResourceId', $siteCmsResourceId );
-        $dQuery->setParameter('containerPublished', $published );
+        $dQuery->setParameter('containerSiteCmsResourceId', $siteCmsResourceId);
+        $dQuery->setParameter('containerPublished', $published);
 
         $containerCmsResources = $dQuery->getResult();
 
@@ -130,9 +130,8 @@ class FindContainerCmsResourcesBySitePaths
         if (empty($containerCmsResourcePaths)) {
             return '';
         }
-        $containerCmsResourcePathName = FieldsContainerCmsResource::PATH;
 
-        $query = $query . " AND container.{$containerCmsResourcePathName} IN (";
+        $query = $query . " AND container.path IN (";
 
         $cnt = 0;
         $index = 0;

@@ -145,7 +145,7 @@ trait TrackableTrait
     protected function setCreatedData(
         string $createdByUserId,
         string $createdReason,
-        string $createdDate = null
+        $createdDate = null
     ) {
         // invalid
         if (empty($createdByUserId)) {
@@ -177,13 +177,14 @@ trait TrackableTrait
         // ALWAYS STORE UTC
         $timezone = new \DateTimeZone('UTC');
 
-        if ($createdDate === null) {
+        if (!is_string($createdDate)) {
             $createdDateObject = new \DateTime(
                 'now',
                 $timezone
             );
         } else {
             $createdDateObject = \DateTime::createFromFormat(
+                Trackable::DATE_FORMAT,
                 $createdDate,
                 $timezone
             );

@@ -12,6 +12,8 @@ use Zrcms\Content\Model\ContentVersion;
 abstract class SiteCmsResourceAbstract extends CmsResourceAbstract
 {
     protected $host;
+    protected $themeName;
+    protected $locale;
 
     /**
      * @param string|null                $id
@@ -27,7 +29,7 @@ abstract class SiteCmsResourceAbstract extends CmsResourceAbstract
         ContentVersion $contentVersion,
         string $createdByUserId,
         string $createdReason,
-        string $createdDate = null
+        $createdDate = null
     ) {
         parent::__construct(
             $id,
@@ -48,10 +50,26 @@ abstract class SiteCmsResourceAbstract extends CmsResourceAbstract
     }
 
     /**
+     * @return string
+     */
+    public function getThemeName(): string
+    {
+        return $this->themeName;
+    }
+
+    /**
+     * @return string
+     */
+    public function getLocale(): string
+    {
+        return $this->locale;
+    }
+
+    /**
      * @param SiteVersion|ContentVersion $contentVersion
      * @param string                     $modifiedByUserId
      * @param string                     $modifiedReason
-     * @param string                     $modifiedDate
+     * @param string|null                $modifiedDate
      *
      * @return void
      */
@@ -59,9 +77,11 @@ abstract class SiteCmsResourceAbstract extends CmsResourceAbstract
         ContentVersion $contentVersion,
         string $modifiedByUserId,
         string $modifiedReason,
-        string $modifiedDate
+        $modifiedDate = null
     ) {
         $this->host = $contentVersion->getHost();
+        $this->themeName = $contentVersion->getThemeName();
+        $this->locale = $contentVersion->getLocale();
 
         parent::setContentVersion(
             $contentVersion,
@@ -90,6 +110,18 @@ abstract class SiteCmsResourceAbstract extends CmsResourceAbstract
         if (empty($contentVersion->getHost())) {
             throw new ContentVersionInvalid(
                 'Host can not be empty'
+            );
+        }
+
+        if (empty($contentVersion->getThemeName())) {
+            throw new ContentVersionInvalid(
+                'ThemeName can not be empty'
+            );
+        }
+
+        if (empty($contentVersion->getLocale())) {
+            throw new ContentVersionInvalid(
+                'Locale can not be empty'
             );
         }
     }

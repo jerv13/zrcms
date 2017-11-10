@@ -12,13 +12,4 @@ use Zrcms\Content\Model\ContentVersion;
 interface SiteCmsResourceHistory
     extends CmsResourceHistory
 {
-    /**
-     * @return SiteCmsResource|CmsResource
-     */
-    public function getCmsResource();
-
-    /**
-     * @return SiteVersion|ContentVersion
-     */
-    public function getContentVersion();
 }

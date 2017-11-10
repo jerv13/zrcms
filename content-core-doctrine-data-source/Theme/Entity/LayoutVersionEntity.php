@@ -2,14 +2,10 @@
 
 namespace Zrcms\ContentCoreDoctrineDataSource\Theme\Entity;
 
-use Doctrine\ORM\Event\LifecycleEventArgs;
 use Doctrine\ORM\Mapping as ORM;
-use Zrcms\ContentCore\Theme\Model\LayoutVersion;
-use Zrcms\ContentCore\Theme\Model\LayoutVersionAbstract;
 use Zrcms\ContentCore\Theme\Fields\FieldsLayoutVersion;
 use Zrcms\ContentDoctrine\Entity\ContentEntity;
 use Zrcms\ContentDoctrine\Entity\ContentEntityAbstract;
-use Zrcms\Param\Param;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -43,15 +39,6 @@ class LayoutVersionEntity
     protected $properties = [];
 
     /**
-     * Date object was first created mapped to col createdDate
-     *
-     * @var \DateTime
-     *
-     * @ORM\Column(type="datetime", name="createdDate")
-     */
-    protected $createdDateObject;
-
-    /**
      * User ID of creator
      *
      * @var string
@@ -70,35 +57,56 @@ class LayoutVersionEntity
     protected $createdReason;
 
     /**
-     * @var string
+     * Date object was first created mapped to col createdDate
      *
-     * @ORM\Column(type="text")
+     * @var \DateTime
+     *
+     * @ORM\Column(type="datetime", name="createdDate")
      */
-    protected $html;
+    protected $createdDateObject;
 
     /**
-     * @param string|null $id
+     * @param null|string $id
      * @param array       $properties
      * @param string      $createdByUserId
      * @param string      $createdReason
+     * @param string|null $createdDate
      */
     public function __construct(
         $id,
         array $properties,
         string $createdByUserId,
-        string $createdReason
+        string $createdReason,
+        $createdDate = null
     ) {
-        $this->html = Param::getString(
-            $properties,
-            FieldsLayoutVersion::HTML,
-            ''
-        );
-
         parent::__construct(
             $id,
             $properties,
             $createdByUserId,
-            $createdReason
+            $createdReason,
+            $createdDate
+        );
+    }
+
+    /**
+     * @return string
+     */
+    public function getThemeName(): string
+    {
+        return $this->getProperty(
+            FieldsLayoutVersion::THEME_NAME,
+            ''
+        );
+    }
+
+    /**
+     * @return string
+     */
+    public function getName(): string
+    {
+        return $this->getProperty(
+            FieldsLayoutVersion::NAME,
+            ''
         );
     }
 
@@ -107,16 +115,9 @@ class LayoutVersionEntity
      */
     public function getHtml(): string
     {
-        return $this->html;
-    }
-
-    /**
-     * @return void
-     *
-     * @ORM\PostPersist
-     */
-    public function postPersist(LifecycleEventArgs $event)
-    {
-        $this->properties[FieldsLayoutVersion::HTML] = $this->html;
+        return (string)$this->getProperty(
+            FieldsLayoutVersion::HTML,
+            ''
+        );
     }
 }

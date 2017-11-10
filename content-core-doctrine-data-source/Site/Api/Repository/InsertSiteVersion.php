@@ -33,7 +33,7 @@ class InsertSiteVersion
      * @param SiteVersion|ContentVersion $siteVersion
      * @param array                           $options
      *
-     * @return ContentVersion
+     * @return SiteVersion|ContentVersion
      */
     public function __invoke(
         ContentVersion $siteVersion,

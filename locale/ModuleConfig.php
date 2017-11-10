@@ -2,6 +2,7 @@
 
 namespace Zrcms\Locale;
 
+use Zrcms\Locale\Api\DefaultLocal;
 use Zrcms\Locale\Api\SetLocale;
 use Zrcms\Locale\Api\SetLocaleBasicFactory;
 
@@ -26,7 +27,7 @@ class ModuleConfig
 
                 ],
             ],
-            'zrcms-locale-default' => 'en_US'
+            'zrcms-locale-default' => DefaultLocal::get()
         ];
     }
 }

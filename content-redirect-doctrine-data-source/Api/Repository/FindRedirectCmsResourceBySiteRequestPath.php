@@ -5,8 +5,6 @@ namespace Zrcms\ContentRedirectDoctrineDataSource\Api\Repository;
 use Doctrine\ORM\EntityManager;
 use Zrcms\Content\Model\CmsResource;
 use Zrcms\ContentDoctrine\Api\BuildBasicCmsResource;
-use Zrcms\ContentRedirect\Fields\FieldsRedirectCmsResource;
-use Zrcms\ContentRedirect\Fields\FieldsRedirectVersion;
 use Zrcms\ContentRedirect\Model\RedirectCmsResource;
 use Zrcms\ContentRedirect\Model\RedirectCmsResourceBasic;
 use Zrcms\ContentRedirect\Model\RedirectVersionBasic;
@@ -47,11 +45,6 @@ class FindRedirectCmsResourceBySiteRequestPath
     /**
      * @var array
      */
-    protected $cmsResourceSyncToProperties = [];
-
-    /**
-     * @var array
-     */
     protected $contentVersionSyncToProperties = [];
 
     /**
@@ -66,7 +59,6 @@ class FindRedirectCmsResourceBySiteRequestPath
         $this->entityClassContentVersion = RedirectVersionEntity::class;
         $this->classContentVersionBasic = RedirectVersionBasic::class;
 
-        $this->cmsResourceSyncToProperties = [];
         $this->contentVersionSyncToProperties = [];
     }
 

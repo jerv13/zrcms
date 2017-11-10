@@ -2,6 +2,7 @@
 
 namespace Zrcms\ContentDoctrine\Entity;
 
+use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Persistence\Event\LifecycleEventArgs;
 use Zrcms\Content\Model\ImmutableTrait;
 use Zrcms\Content\Model\PropertiesTrait;
@@ -52,7 +53,7 @@ class ContentEntityAbstract
         array $properties,
         string $createdByUserId,
         string $createdReason,
-        string $createdDate = null
+        $createdDate = null
     ) {
         // Enforce immutability
         if (!$this->isNew()) {

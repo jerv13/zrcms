@@ -28,7 +28,6 @@ class FindPageTemplateCmsResourcesBy
             PageTemplateCmsResourceBasic::class,
             PageVersionEntity::class,
             PageVersionBasic::class,
-            [],
             []
         );
     }

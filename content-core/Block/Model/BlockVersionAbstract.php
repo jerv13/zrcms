@@ -13,16 +13,18 @@ use Zrcms\Param\Param;
 abstract class BlockVersionAbstract extends ContentVersionAbstract
 {
     /**
-     * @param string|null $id
+     * @param null|string $id
      * @param array       $properties
      * @param string      $createdByUserId
      * @param string      $createdReason
+     * @param null        $createdDate
      */
     public function __construct(
         $id,
         array $properties,
         string $createdByUserId,
-        string $createdReason
+        string $createdReason,
+        $createdDate = null
     ) {
         Param::assertHas(
             $properties,
@@ -58,7 +60,8 @@ abstract class BlockVersionAbstract extends ContentVersionAbstract
             $id,
             $properties,
             $createdByUserId,
-            $createdReason
+            $createdReason,
+            $createdDate
         );
     }
 

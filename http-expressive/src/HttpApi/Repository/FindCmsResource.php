@@ -5,7 +5,6 @@ namespace Zrcms\HttpExpressive\HttpApi\Repository;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Zrcms\Content\Api\CmsResourceToArray;
-use Zrcms\Content\Fields\FieldsCmsResource;
 use Zrcms\HttpExpressive\Http\JsonApiResponse;
 use Zrcms\HttpExpressive\Model\ResponseCodes;
 

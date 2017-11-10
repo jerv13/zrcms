@@ -12,25 +12,28 @@ use Zrcms\Content\Model\CmsResourceHistoryAbstract;
 abstract class RedirectCmsResourceHistoryAbstract extends CmsResourceHistoryAbstract
 {
     /**
-     * @param string|null                     $id
-     * @param string                          $action
+     * @param null|string $id
+     * @param string      $action
      * @param RedirectCmsResource|CmsResource $cmsResource
-     * @param string                          $publishedByUserId
-     * @param string                          $publishReason
+     * @param string      $publishedByUserId
+     * @param string      $publishReason
+     * @param string|null $publishDate
      */
     public function __construct(
         $id,
         string $action,
         CmsResource $cmsResource,
         string $publishedByUserId,
-        string $publishReason
+        string $publishReason,
+        $publishDate = null
     ) {
         parent::__construct(
             $id,
             $action,
             $cmsResource,
             $publishedByUserId,
-            $publishedByUserId
+            $publishedByUserId,
+            $publishDate
         );
     }
 

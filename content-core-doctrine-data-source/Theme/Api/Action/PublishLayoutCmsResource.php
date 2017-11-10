@@ -32,28 +32,30 @@ class PublishLayoutCmsResource
             LayoutVersionEntity::class,
             LayoutCmsResourceBasic::class,
             LayoutVersionBasic::class,
-            [],
             []
         );
     }
 
     /**
      * @param LayoutCmsResource|CmsResource $layoutCmsResource
-     * @param string                           $publishedByUserId
-     * @param string                           $publishReason
+     * @param string                        $publishedByUserId
+     * @param string                        $publishReason
+     * @param string|null                   $publishDate
      *
      * @return CmsResource
      */
     public function __invoke(
         CmsResource $layoutCmsResource,
         string $publishedByUserId,
-        string $publishReason
+        string $publishReason,
+        $publishDate = null
     ): CmsResource
     {
         return parent::__invoke(
             $layoutCmsResource,
             $publishedByUserId,
-            $publishReason
+            $publishReason,
+            $publishDate
         );
     }
 }

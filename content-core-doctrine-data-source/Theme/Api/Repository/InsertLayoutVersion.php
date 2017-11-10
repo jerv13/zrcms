@@ -33,7 +33,7 @@ class InsertLayoutVersion
      * @param LayoutVersion|ContentVersion $layoutVersion
      * @param array                           $options
      *
-     * @return ContentVersion
+     * @return LayoutVersion|ContentVersion
      */
     public function __invoke(
         ContentVersion $layoutVersion,

@@ -3,8 +3,6 @@
 namespace Zrcms\Content\Api;
 
 use Zrcms\Content\Model\CmsResourceHistory;
-use Zrcms\Content\Model\Properties;
-use Zrcms\Content\Fields\FieldsCmsResourceHistory;
 use Zrcms\Content\Model\TrackableProperties;
 
 /**
@@ -36,7 +34,7 @@ class CmsResourceHistoryToArrayBasic implements CmsResourceHistoryToArray
 
     /**
      * @param CmsResourceHistory $cmsResourceHistory
-     * @param array                     $options
+     * @param array              $options
      *
      * @return array
      */

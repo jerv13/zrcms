@@ -2,14 +2,11 @@
 
 namespace Zrcms\ContentRedirectDoctrineDataSource\Entity;
 
-use Doctrine\ORM\Event\LifecycleEventArgs;
 use Doctrine\ORM\Mapping as ORM;
-use Zrcms\Content\Exception\PropertyMissing;
+use Zrcms\Content\Exception\ContentVersionInvalid;
 use Zrcms\ContentDoctrine\Entity\CmsResourceEntity;
 use Zrcms\ContentDoctrine\Entity\CmsResourceEntityAbstract;
 use Zrcms\ContentDoctrine\Entity\ContentEntity;
-use Zrcms\ContentRedirect\Fields\FieldsRedirectCmsResource;
-use Zrcms\Param\Param;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -64,22 +61,6 @@ class RedirectCmsResourceEntity
     protected $contentVersion;
 
     /**
-     * @var array
-     *
-     * @ORM\Column(type="json_array")
-     */
-    protected $properties = [];
-
-    /**
-     * Date object was first created mapped to col createdDate
-     *
-     * @var \DateTime
-     *
-     * @ORM\Column(type="datetime", name="createdDate")
-     */
-    protected $createdDateObject;
-
-    /**
      * User ID of creator
      *
      * @var string
@@ -98,6 +79,36 @@ class RedirectCmsResourceEntity
     protected $createdReason;
 
     /**
+     * Date object was first created mapped to col createdDate
+     *
+     * @var \DateTime
+     *
+     * @ORM\Column(type="datetime", name="createdDate")
+     */
+    protected $createdDateObject;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(type="string")
+     */
+    protected $modifiedByUserId;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(type="string")
+     */
+    protected $modifiedReason;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(type="datetime", name="modifiedDateDate")
+     */
+    protected $modifiedDateObject;
+
+    /**
      * @var string
      *
      * @ORM\Column(type="string", nullable=true)
@@ -112,30 +123,28 @@ class RedirectCmsResourceEntity
     protected $requestPath;
 
     /**
-     * @param int|null                            $id
+     * @param null|string                         $id
      * @param bool                                $published
-     * @param RedirectVersionEntity|ContentEntity $contentEntity
-     * @param array                               $properties
+     * @param RedirectVersionEntity|ContentEntity $contentVersion
      * @param string                              $createdByUserId
      * @param string                              $createdReason
+     * @param string|null                         $createdDate
      */
     public function __construct(
         $id,
         bool $published,
-        ContentEntity $contentEntity,
-        array $properties,
+        ContentEntity $contentVersion,
         string $createdByUserId,
-        string $createdReason
+        string $createdReason,
+        $createdDate = null
     ) {
-        $this->setProperties($properties);
-
         parent::__construct(
             $id,
             $published,
-            $contentEntity,
-            $properties,
+            $contentVersion,
             $createdByUserId,
-            $createdReason
+            $createdReason,
+            $createdDate
         );
     }
 
@@ -156,56 +165,50 @@ class RedirectCmsResourceEntity
     }
 
     /**
-     * @param array $properties
+     * @param RedirectVersionEntity|ContentEntity $contentVersion
+     * @param string                              $modifiedByUserId
+     * @param string                              $modifiedReason
+     * @param string                              $modifiedDate
      *
      * @return void
      */
-    public function setProperties(
-        array $properties
+    public function setContentVersion(
+        ContentEntity $contentVersion,
+        string $modifiedByUserId,
+        string $modifiedReason,
+        $modifiedDate = null
     ) {
-        Param::assertHas(
-            $properties,
-            FieldsRedirectCmsResource::SITE_CMS_RESOURCE_ID,
-            PropertyMissing::buildThrower(
-                FieldsRedirectCmsResource::SITE_CMS_RESOURCE_ID,
-                $properties,
-                get_class($this)
-            )
-        );
+        $this->siteCmsResourceId = $contentVersion->getSiteCmsResourceId();
+        $this->requestPath = $contentVersion->getRequestPath();
 
-        $this->siteCmsResourceId = Param::getString(
-            $properties,
-            FieldsRedirectCmsResource::SITE_CMS_RESOURCE_ID,
-            ''
+        parent::setContentVersion(
+            $contentVersion,
+            $modifiedByUserId,
+            $modifiedReason,
+            $modifiedDate
         );
-
-        Param::assertHas(
-            $properties,
-            FieldsRedirectCmsResource::REQUEST_PATH,
-            PropertyMissing::buildThrower(
-                FieldsRedirectCmsResource::REQUEST_PATH,
-                $properties,
-                get_class($this)
-            )
-        );
-
-        $this->requestPath = Param::getString(
-            $properties,
-            FieldsRedirectCmsResource::REQUEST_PATH,
-            ''
-        );
-
-        parent::setProperties($properties);
     }
 
     /**
-     * @return void
+     * @param RedirectVersionEntity $contentVersion
      *
-     * @ORM\PostPersist
+     * @return void
+     * @throws ContentVersionInvalid
      */
-    public function postPersist(LifecycleEventArgs $event)
+    protected function assertValidContentVersion($contentVersion)
     {
-        $this->properties[FieldsRedirectCmsResource::SITE_CMS_RESOURCE_ID] = $this->siteCmsResourceId;
-        $this->properties[FieldsRedirectCmsResource::REQUEST_PATH] = $this->requestPath;
+        if (!$contentVersion instanceof RedirectVersionEntity) {
+            throw new ContentVersionInvalid(
+                'ContentVersion must be instance of: ' . RedirectVersionEntity::class
+                . ' got: ' . var_export($contentVersion, true)
+                . ' for: ' . get_class($this)
+            );
+        }
+
+        if (empty($contentVersion->getRequestPath())) {
+            throw new ContentVersionInvalid(
+                'RequestPath can not be empty'
+            );
+        }
     }
 }

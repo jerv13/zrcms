@@ -30,22 +30,25 @@ class UnpublishContainerCmsResource
     }
 
     /**
-     * @param string $containerCmsResourceId
-     * @param string $unpublishedByUserId
-     * @param string $unpublishReason
+     * @param string      $containerCmsResourceId
+     * @param string      $unpublishedByUserId
+     * @param string      $unpublishReason
+     * @param string|null $unpublishDate
      *
      * @return bool
      */
     public function __invoke(
         string $containerCmsResourceId,
         string $unpublishedByUserId,
-        string $unpublishReason
+        string $unpublishReason,
+        $unpublishDate = null
     ): bool
     {
         return parent::__invoke(
             $containerCmsResourceId,
             $unpublishedByUserId,
-            $unpublishReason
+            $unpublishReason,
+            $unpublishDate
         );
     }
 }

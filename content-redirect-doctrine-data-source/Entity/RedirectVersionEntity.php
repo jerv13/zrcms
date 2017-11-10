@@ -2,12 +2,10 @@
 
 namespace Zrcms\ContentRedirectDoctrineDataSource\Entity;
 
-use Doctrine\ORM\Event\LifecycleEventArgs;
 use Doctrine\ORM\Mapping as ORM;
 use Zrcms\ContentDoctrine\Entity\ContentEntity;
 use Zrcms\ContentDoctrine\Entity\ContentEntityAbstract;
 use Zrcms\ContentRedirect\Fields\FieldsRedirectVersion;
-use Zrcms\Param\Param;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -41,15 +39,6 @@ class RedirectVersionEntity
     protected $properties = [];
 
     /**
-     * Date object was first created mapped to col createdDate
-     *
-     * @var \DateTime
-     *
-     * @ORM\Column(type="datetime", name="createdDate")
-     */
-    protected $createdDateObject;
-
-    /**
      * User ID of creator
      *
      * @var string
@@ -68,36 +57,59 @@ class RedirectVersionEntity
     protected $createdReason;
 
     /**
-     * Theme name
+     * Date object was first created mapped to col createdDate
      *
-     * @var string
+     * @var \DateTime
      *
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="datetime", name="createdDate")
      */
-    protected $redirectPath;
+    protected $createdDateObject;
 
     /**
-     * @param string|null $id
+     * @param null|string $id
      * @param array       $properties
      * @param string      $createdByUserId
      * @param string      $createdReason
+     * @param string|null $createdDate
      */
     public function __construct(
         $id,
         array $properties,
         string $createdByUserId,
-        string $createdReason
+        string $createdReason,
+        $createdDate = null
     ) {
-        $this->redirectPath = Param::getString(
-            $properties,
-            FieldsRedirectVersion::REDIRECT_PATH
-        );
-
         parent::__construct(
             $id,
             $properties,
             $createdByUserId,
-            $createdReason
+            $createdReason,
+            $createdDate
+        );
+    }
+
+    /**
+     * if string, then applies to that site
+     * if null, then applies to ALL sites
+     *
+     * @return string|null
+     */
+    public function getSiteCmsResourceId()
+    {
+        return $this->getProperty(
+            FieldsRedirectVersion::SITE_CMS_RESOURCE_ID,
+            null
+        );
+    }
+
+    /**
+     * @return string
+     */
+    public function getRequestPath(): string
+    {
+        return $this->getProperty(
+            FieldsRedirectVersion::REQUEST_PATH,
+            null
         );
     }
 
@@ -106,16 +118,9 @@ class RedirectVersionEntity
      */
     public function getRedirectPath(): string
     {
-        return $this->redirectPath;
-    }
-
-    /**
-     * @return void
-     *
-     * @ORM\PostPersist
-     */
-    public function postPersist(LifecycleEventArgs $event)
-    {
-        $this->properties[FieldsRedirectVersion::REDIRECT_PATH] = $this->redirectPath;
+        return $this->getProperty(
+            FieldsRedirectVersion::REDIRECT_PATH,
+            null
+        );
     }
 }

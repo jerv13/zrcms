@@ -21,7 +21,7 @@ class CmsResourceEntityBasic extends CmsResourceEntityAbstract implements CmsRes
         ContentEntity $contentVersion,
         string $createdByUserId,
         string $createdReason,
-        string $createdDate = null
+        $createdDate = null
     ) {
         parent::__construct(
             $id,

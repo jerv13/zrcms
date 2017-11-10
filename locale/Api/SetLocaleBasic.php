@@ -16,8 +16,11 @@ class SetLocaleBasic implements SetLocale
      * @param string $defaultLocale
      */
     public function __construct(
-        string $defaultLocale = 'en_US'
+        string $defaultLocale = null
     ) {
+        if ($defaultLocale === null) {
+            $defaultLocale = DefaultLocal::get();
+        }
         $this->defaultLocale = $defaultLocale;
     }
 

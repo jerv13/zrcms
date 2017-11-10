@@ -11,12 +11,13 @@ use Zrcms\ContentCore\Block\Fields\FieldsBlockComponent;
 abstract class BlockComponentAbstract extends ComponentAbstract
 {
     /**
-     * @param string $classification
-     * @param string $name
-     * @param string $configLocation
-     * @param array  $properties
-     * @param string $createdByUserId
-     * @param string $createdReason
+     * @param string      $classification
+     * @param string      $name
+     * @param string      $configLocation
+     * @param array       $properties
+     * @param string      $createdByUserId
+     * @param string      $createdReason
+     * @param string|null $createdDate
      */
     public function __construct(
         string $classification,
@@ -24,7 +25,8 @@ abstract class BlockComponentAbstract extends ComponentAbstract
         string $configLocation,
         array $properties,
         string $createdByUserId,
-        string $createdReason
+        string $createdReason,
+        $createdDate = null
     ) {
         parent::__construct(
             $classification,
@@ -32,7 +34,8 @@ abstract class BlockComponentAbstract extends ComponentAbstract
             $configLocation,
             $properties,
             $createdByUserId,
-            $createdReason
+            $createdReason,
+            $createdDate
         );
     }
 

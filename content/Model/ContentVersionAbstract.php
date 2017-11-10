@@ -58,7 +58,7 @@ abstract class ContentVersionAbstract
         array $properties,
         string $createdByUserId,
         string $createdReason,
-        string $createdDate = null
+        $createdDate = null
     ) {
         // Enforce immutability
         if (!$this->isNew()) {

@@ -102,7 +102,7 @@ class PublishCmsResource
     /**
      * @todo use a Doctrine transaction
      *
-     * @param CmsResource $cmsResourceRequest
+     * @param CmsResource $cmsResource
      * @param string      $publishedByUserId
      * @param string      $publishReason
      * @param string|null $publishDate
@@ -111,50 +111,58 @@ class PublishCmsResource
      * @throws ContentVersionNotExists
      */
     public function __invoke(
-        CmsResource $cmsResourceRequest,
+        CmsResource $cmsResource,
         string $publishedByUserId,
         string $publishReason,
-        string $publishDate = null
+        $publishDate = null
     ): CmsResource {
         $contentEntity = $this->fetchContentEntity(
-            $cmsResourceRequest
+            $cmsResource
         );
 
         if (empty($contentEntity)) {
-            $contentEntity = $this->newContentEntity($cmsResourceRequest);
+            $contentEntity = $this->newContentEntity($cmsResource);
+            $this->entityManager->persist($contentEntity);
+            $this->entityManager->flush($contentEntity);
         }
 
         $cmsResourceEntity = $this->fetchCmsResourceEntity(
-            $cmsResourceRequest
+            $cmsResource
         );
 
         if (empty($cmsResourceEntity)) {
             $cmsResourceEntity = $this->newCmsResourceEntity(
-                $cmsResourceRequest,
+                $cmsResource,
                 $contentEntity
             );
+            $this->entityManager->persist($cmsResourceEntity);
         }
 
-        $cmsResourceEntity->update(
-            true,
+        $cmsResourceEntity->setContentVersion(
             $contentEntity,
             $publishedByUserId,
             $publishReason,
             $publishDate
         );
 
-        $this->entityManager->persist($cmsResourceEntity);
-        $this->entityManager->flush($cmsResourceEntity);
-
-        $newCmsResourceHistory = $this->buildHistory(
-            $cmsResourceEntity,
-            $cmsResourceRequest,
+        $cmsResourceEntity->setPublished(
+            true,
             $publishedByUserId,
-            $publishReason
+            $publishReason,
+            $publishDate
         );
 
-        $this->entityManager->persist($newCmsResourceHistory);
-        $this->entityManager->flush($newCmsResourceHistory);
+        $this->entityManager->flush($cmsResourceEntity);
+
+        $cmsResourceHistoryEntity = $this->buildHistory(
+            $cmsResourceEntity,
+            $publishedByUserId,
+            $publishReason,
+            $publishDate
+        );
+
+        $this->entityManager->persist($cmsResourceHistoryEntity);
+        $this->entityManager->flush($cmsResourceHistoryEntity);
 
         return BuildBasicCmsResource::invoke(
             $this->entityClassCmsResource,
@@ -167,14 +175,14 @@ class PublishCmsResource
     }
 
     /**
-     * @param CmsResource $cmsResourceRequest
+     * @param CmsResource $cmsResource
      *
      * @return null|CmsResourceEntity
      */
     protected function fetchCmsResourceEntity(
-        CmsResource $cmsResourceRequest
+        CmsResource $cmsResource
     ) {
-        $cmsResourceId = $cmsResourceRequest->getId();
+        $cmsResourceId = $cmsResource->getId();
 
         if (empty($cmsResourceId)) {
             return null;
@@ -196,43 +204,39 @@ class PublishCmsResource
     }
 
     /**
-     * @param CmsResource   $cmsResourceRequest
+     * @param CmsResource   $cmsResource
      * @param ContentEntity $contentEntity
      *
      * @return CmsResourceEntity
      */
     protected function newCmsResourceEntity(
-        CmsResource $cmsResourceRequest,
+        CmsResource $cmsResource,
         ContentEntity $contentEntity
-    ): CmsResourceEntity
-    {
+    ): CmsResourceEntity {
         $entityClass = $this->entityClassCmsResource;
 
         /** @var CmsResourceEntity $cmsResourceEntity */
         $cmsResourceEntity = new $entityClass(
-            $cmsResourceRequest->getId(),
-            $cmsResourceRequest,
+            $cmsResource->getId(),
+            true,
             $contentEntity,
-            $cmsResourceRequest->getCreatedByUserId(),
-            $cmsResourceRequest->getCreatedReason(),
-            $cmsResourceRequest->getCreatedDate()
+            $cmsResource->getCreatedByUserId(),
+            $cmsResource->getCreatedReason(),
+            $cmsResource->getCreatedDate()
         );
-
-        $this->entityManager->persist($cmsResourceEntity);
-        $this->entityManager->flush($cmsResourceEntity);
 
         return $cmsResourceEntity;
     }
 
     /**
-     * @param CmsResource $cmsResourceRequest
+     * @param CmsResource $cmsResource
      *
      * @return null|ContentEntity
      */
     protected function fetchContentEntity(
-        CmsResource $cmsResourceRequest
+        CmsResource $cmsResource
     ) {
-        $contentVersionId = $cmsResourceRequest->getContentVersionId();
+        $contentVersionId = $cmsResource->getContentVersionId();
 
         if (empty($contentVersionId)) {
             return null;
@@ -254,15 +258,14 @@ class PublishCmsResource
     }
 
     /**
-     * @param CmsResource $cmsResourceRequest
+     * @param CmsResource $cmsResource
      *
      * @return ContentEntity
      */
     protected function newContentEntity(
-        CmsResource $cmsResourceRequest
-    ): ContentEntity
-    {
-        $contentVersion = $cmsResourceRequest->getContentVersion();
+        CmsResource $cmsResource
+    ): ContentEntity {
+        $contentVersion = $cmsResource->getContentVersion();
 
         $entityClass = $this->entityClassContentVersion;
 
@@ -275,78 +278,33 @@ class PublishCmsResource
             $contentVersion->getCreatedDate()
         );
 
-        $this->entityManager->persist($contentEntity);
-        $this->entityManager->flush($contentEntity);
-
         return $contentEntity;
     }
 
     /**
      * @param CmsResourceEntity $cmsResourceEntity
-     * @param CmsResource       $cmsResourceRequest
      * @param string            $publishedByUserId
      * @param string            $publishReason
+     * @param string|null            $publishDate
      *
-     * @return CmsResourceHistory
+     * @return CmsResourceHistoryEntity
      */
     protected function buildHistory(
         CmsResourceEntity $cmsResourceEntity,
-        CmsResource $cmsResourceRequest,
         string $publishedByUserId,
-        string $publishReason
-    ) {
+        string $publishReason,
+        $publishDate = null
+    ):CmsResourceHistoryEntity {
         /** @var CmsResourceHistoryEntity::class $cmsResourceHistoryEntityClass */
         $cmsResourceHistoryEntityClass = $this->entityClassCmsResourceHistory;
 
-        /** @var CmsResourceHistory $newCmsResourceHistory */
         return new $cmsResourceHistoryEntityClass(
             null,
             Action::PUBLISH_CMS_RESOURCE,
             $cmsResourceEntity,
             $publishedByUserId,
-            $publishReason
-        );
-    }
-
-    /**
-     * @param CmsResourceEntity $existingCmsResource
-     * @param CmsResource       $cmsResourceRequest
-     * @param string            $publishedByUserId
-     * @param string            $publishReason
-     *
-     * @return CmsResource
-     */
-    protected function update(
-        CmsResourceEntity $existingCmsResource,
-        CmsResource $cmsResourceRequest,
-        string $publishedByUserId,
-        string $publishReason
-    ): CmsResource
-    {
-        $existingCmsResource->update(
-            $cmsResourceRequest->isPublished(),
-            $this->entityClassContentVersion
-        );
-
-        $this->entityManager->flush($existingCmsResource);
-
-        $newCmsResourceHistory = $this->buildHistory(
-            $existingCmsResource,
-            $cmsResourceRequest,
-            $publishedByUserId,
-            $publishReason
-        );
-
-        $this->entityManager->persist($newCmsResourceHistory);
-        $this->entityManager->flush($newCmsResourceHistory);
-
-        return BuildBasicCmsResource::invoke(
-            $this->entityClassCmsResource,
-            $this->classCmsResourceBasic,
-            $this->entityClassContentVersion,
-            $this->classContentVersionBasic,
-            $existingCmsResource,
-            $this->contentVersionSyncToProperties
+            $publishReason,
+            $publishDate
         );
     }
 }

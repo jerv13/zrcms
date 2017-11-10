@@ -28,7 +28,6 @@ class FindContainerCmsResourcesBy
             ContainerCmsResourceBasic::class,
             ContainerVersionEntity::class,
             ContainerVersionBasic::class,
-            [],
             []
         );
     }

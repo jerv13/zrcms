@@ -2,14 +2,11 @@
 
 namespace Zrcms\ContentCoreDoctrineDataSource\Theme\Entity;
 
-use Doctrine\ORM\Event\LifecycleEventArgs;
 use Doctrine\ORM\Mapping as ORM;
-use Zrcms\Content\Exception\PropertyMissing;
-use Zrcms\ContentCore\Theme\Fields\FieldsLayoutCmsResource;
+use Zrcms\Content\Exception\ContentVersionInvalid;
 use Zrcms\ContentDoctrine\Entity\CmsResourceEntity;
 use Zrcms\ContentDoctrine\Entity\CmsResourceEntityAbstract;
 use Zrcms\ContentDoctrine\Entity\ContentEntity;
-use Zrcms\Param\Param;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -65,22 +62,6 @@ class LayoutCmsResourceEntity
     protected $contentVersion;
 
     /**
-     * @var array
-     *
-     * @ORM\Column(type="json_array")
-     */
-    protected $properties = [];
-
-    /**
-     * Date object was first created mapped to col createdDate
-     *
-     * @var \DateTime
-     *
-     * @ORM\Column(type="datetime", name="createdDate")
-     */
-    protected $createdDateObject;
-
-    /**
      * User ID of creator
      *
      * @var string
@@ -99,6 +80,36 @@ class LayoutCmsResourceEntity
     protected $createdReason;
 
     /**
+     * Date object was first created mapped to col createdDate
+     *
+     * @var \DateTime
+     *
+     * @ORM\Column(type="datetime", name="createdDate")
+     */
+    protected $createdDateObject;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(type="string")
+     */
+    protected $modifiedByUserId;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(type="string")
+     */
+    protected $modifiedReason;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(type="datetime", name="modifiedDateDate")
+     */
+    protected $modifiedDateObject;
+
+    /**
      * @var string
      *
      * @ORM\Column(type="string")
@@ -113,30 +124,35 @@ class LayoutCmsResourceEntity
     protected $name;
 
     /**
-     * @param int|null                          $id
+     * @var string
+     *
+     * @ORM\Column(type="text")
+     */
+    protected $html;
+
+    /**
+     * @param null|string                       $id
      * @param bool                              $published
-     * @param LayoutVersionEntity|ContentEntity $contentEntity
-     * @param array                             $properties
+     * @param LayoutVersionEntity|ContentEntity $contentVersion
      * @param string                            $createdByUserId
      * @param string                            $createdReason
+     * @param string|null                       $createdDate
      */
     public function __construct(
         $id,
         bool $published,
-        ContentEntity $contentEntity,
-        array $properties,
+        ContentEntity $contentVersion,
         string $createdByUserId,
-        string $createdReason
+        string $createdReason,
+        $createdDate = null
     ) {
-        $this->setProperties($properties);
-
         parent::__construct(
             $id,
             $published,
-            $contentEntity,
-            $properties,
+            $contentVersion,
             $createdByUserId,
-            $createdReason
+            $createdReason,
+            $createdDate
         );
     }
 
@@ -157,56 +173,65 @@ class LayoutCmsResourceEntity
     }
 
     /**
-     * @param array $properties
-     *
-     * @return void
+     * @return string
      */
-    public function setProperties(
-        array $properties
-    ) {
-        Param::assertHas(
-            $properties,
-            FieldsLayoutCmsResource::THEME_NAME,
-            PropertyMissing::buildThrower(
-                FieldsLayoutCmsResource::THEME_NAME,
-                $properties,
-                get_class($this)
-            )
-        );
-
-        $this->themeName = Param::getString(
-            $properties,
-            FieldsLayoutCmsResource::THEME_NAME,
-            ''
-        );
-
-        Param::assertHas(
-            $properties,
-            FieldsLayoutCmsResource::NAME,
-            PropertyMissing::buildThrower(
-                FieldsLayoutCmsResource::NAME,
-                $properties,
-                get_class($this)
-            )
-        );
-
-        $this->name = Param::getString(
-            $properties,
-            FieldsLayoutCmsResource::NAME,
-            ''
-        );
-
-        parent::setProperties($properties);
+    public function getHtml(): string
+    {
+        return $this->html;
     }
 
     /**
-     * @return void
+     * @param LayoutVersionEntity|ContentEntity $contentVersion
+     * @param string                            $modifiedByUserId
+     * @param string                            $modifiedReason
+     * @param string|null                       $modifiedDate
      *
-     * @ORM\PostPersist
+     * @return void
      */
-    public function postPersist(LifecycleEventArgs $event)
+    public function setContentVersion(
+        ContentEntity $contentVersion,
+        string $modifiedByUserId,
+        string $modifiedReason,
+        $modifiedDate = null
+    ) {
+        $this->themeName = $contentVersion->getThemeName();
+        $this->name = $contentVersion->getName();
+        $this->html = $contentVersion->getHtml();
+
+        parent::setContentVersion(
+            $contentVersion,
+            $modifiedByUserId,
+            $modifiedReason,
+            $modifiedDate
+        );
+    }
+
+    /**
+     * @param LayoutVersionEntity $contentVersion
+     *
+     * @return void
+     * @throws ContentVersionInvalid
+     */
+    protected function assertValidContentVersion($contentVersion)
     {
-        $this->properties[FieldsLayoutCmsResource::THEME_NAME] = $this->themeName;
-        $this->properties[FieldsLayoutCmsResource::NAME] = $this->name;
+        if (!$contentVersion instanceof LayoutVersionEntity) {
+            throw new ContentVersionInvalid(
+                'ContentVersion must be instance of: ' . LayoutVersionEntity::class
+                . ' got: ' . var_export($contentVersion, true)
+                . ' for: ' . get_class($this)
+            );
+        }
+
+        if (empty($contentVersion->getThemeName())) {
+            throw new ContentVersionInvalid(
+                'ThemeName can not be empty'
+            );
+        }
+
+        if (empty($contentVersion->getName())) {
+            throw new ContentVersionInvalid(
+                'Name can not be empty'
+            );
+        }
     }
 }

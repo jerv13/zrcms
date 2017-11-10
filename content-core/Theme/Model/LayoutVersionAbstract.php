@@ -24,7 +24,7 @@ class LayoutVersionAbstract extends ContentVersionAbstract
         array $properties,
         string $createdByUserId,
         string $createdReason,
-        string $createdDate = null
+        $createdDate = null
     ) {
         Param::assertNotEmpty(
             $properties,
@@ -82,7 +82,7 @@ class LayoutVersionAbstract extends ContentVersionAbstract
      */
     public function getHtml(): string
     {
-        return $this->getProperty(
+        return (string)$this->getProperty(
             FieldsLayoutVersion::HTML,
             ''
         );

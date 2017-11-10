@@ -27,6 +27,6 @@ interface PublishCmsResource
         CmsResource $cmsResource,
         string $publishedByUserId,
         string $publishReason,
-        string $publishDate = null
+        $publishDate = null
     ): CmsResource;
 }

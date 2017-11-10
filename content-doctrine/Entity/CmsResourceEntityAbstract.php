@@ -3,6 +3,8 @@
 namespace Zrcms\ContentDoctrine\Entity;
 
 use Doctrine\Common\Persistence\Event\LifecycleEventArgs;
+use Doctrine\ORM\Mapping as ORM;
+use Zrcms\Content\Exception\ContentVersionInvalid;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -70,48 +72,28 @@ abstract class CmsResourceEntityAbstract
         ContentEntity $contentVersion,
         string $createdByUserId,
         string $createdReason,
-        string $createdDate = null
+        $createdDate = null
     ) {
         $this->id = $id;
 
-        $this->setCreatedData(
-            $createdByUserId,
-            $createdReason,
-            $createdDate
-        );
-
-        $this->update(
-            $published,
+        $this->setContentVersion(
             $contentVersion,
             $createdByUserId,
             $createdReason,
             $createdDate
         );
-    }
 
-    /**
-     * @param bool          $published
-     * @param ContentEntity $contentVersion
-     * @param string        $modifiedByUserId
-     * @param string        $modifiedReason
-     * @param string|null   $modifiedDate
-     *
-     * @return void
-     */
-    public function update(
-        bool $published,
-        ContentEntity $contentVersion,
-        string $modifiedByUserId,
-        string $modifiedReason,
-        string $modifiedDate = null
-    ) {
-        $this->published = $published;
-        $this->contentVersion = $contentVersion;
+        $this->setPublished(
+            $published,
+            $createdByUserId,
+            $createdReason,
+            $createdDate
+        );
 
-        $this->setModifiedData(
-            $modifiedByUserId,
-            $modifiedReason,
-            $modifiedDate
+        $this->setCreatedData(
+            $createdByUserId,
+            $createdReason,
+            $createdDate
         );
     }
 
@@ -124,6 +106,29 @@ abstract class CmsResourceEntityAbstract
     }
 
     /**
+     * @param bool   $published
+     * @param string $modifiedByUserId
+     * @param string $modifiedReason
+     * @param string $modifiedDate
+     *
+     * @return void
+     */
+    public function setPublished(
+        bool $published,
+        string $modifiedByUserId,
+        string $modifiedReason,
+        $modifiedDate = null
+    ) {
+        $this->setModifiedData(
+            $modifiedByUserId,
+            $modifiedReason,
+            $modifiedDate
+        );
+
+        $this->published = $published;
+    }
+
+    /**
      * @return bool
      */
     public function isPublished(): bool
@@ -132,11 +137,65 @@ abstract class CmsResourceEntityAbstract
     }
 
     /**
+     * @return null|string
+     */
+    public function getContentVersionId()
+    {
+        if (!empty($this->contentVersion)) {
+            return $this->contentVersion->getId();
+        }
+
+        return null;
+    }
+
+    /**
      * @return ContentEntity
      */
-    public function getContentEntity()
+    public function getContentVersion()
     {
         return $this->contentVersion;
+    }
+
+    /**
+     * @param ContentEntity $contentVersion
+     * @param string        $modifiedByUserId
+     * @param string        $modifiedReason
+     * @param string|null   $modifiedDate
+     *
+     * @return void
+     */
+    public function setContentVersion(
+        ContentEntity $contentVersion,
+        string $modifiedByUserId,
+        string $modifiedReason,
+        $modifiedDate = null
+    ) {
+        $this->assertValidContentVersion($contentVersion);
+
+        $this->setModifiedData(
+            $modifiedByUserId,
+            $modifiedReason,
+            $modifiedDate
+        );
+
+        $this->contentVersion = $contentVersion;
+    }
+
+    /**
+     * @param $contentVersion
+     *
+     * @return void
+     * @throws ContentVersionInvalid
+     */
+    protected function assertValidContentVersion($contentVersion)
+    {
+        if (!$contentVersion instanceof ContentEntity) {
+            throw new ContentVersionInvalid(
+                'ContentVersion must be instance of: ' . ContentEntity::class
+                . ' got: ' . var_export($contentVersion, true)
+                . ' for: ' . get_class($this)
+            );
+        }
     }
 
     /**

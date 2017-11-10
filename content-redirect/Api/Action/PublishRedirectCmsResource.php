@@ -15,12 +15,14 @@ interface PublishRedirectCmsResource extends PublishCmsResource
      * @param RedirectCmsResource|CmsResource $RedirectCmsResource
      * @param string                      $publishedByUserId
      * @param string                      $publishReason
+     * @param string|null $publishDate
      *
      * @return RedirectCmsResource|CmsResource
      */
     public function __invoke(
         CmsResource $RedirectCmsResource,
         string $publishedByUserId,
-        string $publishReason
+        string $publishReason,
+        $publishDate = null
     ): CmsResource;
 }

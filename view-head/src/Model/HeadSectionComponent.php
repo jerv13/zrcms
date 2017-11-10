@@ -18,6 +18,7 @@ class HeadSectionComponent extends ViewLayoutTagsComponentAbstract implements Vi
      * @param array  $properties
      * @param string $createdByUserId
      * @param string $createdReason
+     * @param null   $createdDate
      */
     public function __construct(
         string $classification,
@@ -25,7 +26,8 @@ class HeadSectionComponent extends ViewLayoutTagsComponentAbstract implements Vi
         string $configLocation,
         array $properties,
         string $createdByUserId,
-        string $createdReason
+        string $createdReason,
+        $createdDate = null
     ) {
         Param::assertHas(
             $properties,
@@ -44,7 +46,8 @@ class HeadSectionComponent extends ViewLayoutTagsComponentAbstract implements Vi
             $configLocation,
             $properties,
             $createdByUserId,
-            $createdReason
+            $createdReason,
+            $createdDate
         );
     }
 

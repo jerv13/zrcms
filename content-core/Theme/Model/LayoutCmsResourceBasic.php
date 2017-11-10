@@ -23,7 +23,7 @@ class LayoutCmsResourceBasic extends LayoutCmsResourceAbstract implements Layout
         ContentVersion $contentVersion,
         string $createdByUserId,
         string $createdReason,
-        string $createdDate = null
+        $createdDate = null
     ) {
         parent::__construct(
             $id,

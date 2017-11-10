@@ -19,7 +19,7 @@ class PageVersionBasic extends PageVersionAbstract implements PageVersion
         array $properties,
         string $createdByUserId,
         string $createdReason,
-        string $createdDate = null
+        $createdDate = null
     ) {
         parent::__construct(
             $id,

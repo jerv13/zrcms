@@ -10,15 +10,17 @@ use Zrcms\Content\Api\Action\UnpublishCmsResource;
 interface UnpublishRedirectCmsResource extends UnpublishCmsResource
 {
     /**
-     * @param string $redirectCmsResourceId
-     * @param string $unpublishedByUserId
-     * @param string $unpublishReason
+     * @param string      $redirectCmsResourceId
+     * @param string      $unpublishedByUserId
+     * @param string      $unpublishReason
+     * @param string|null $unpublishDate
      *
      * @return bool
      */
     public function __invoke(
         string $redirectCmsResourceId,
         string $unpublishedByUserId,
-        string $unpublishReason
+        string $unpublishReason,
+        $unpublishDate = null
     ): bool;
 }

@@ -32,12 +32,13 @@ abstract class ComponentAbstract
     protected $properties = [];
 
     /**
-     * @param string $classification
-     * @param string $name
-     * @param string $configLocation
-     * @param array  $properties
-     * @param string $createdByUserId
-     * @param string $createdReason
+     * @param string      $classification
+     * @param string      $name
+     * @param string      $configLocation
+     * @param array       $properties
+     * @param string      $createdByUserId
+     * @param string      $createdReason
+     * @param string|null $createdDate
      */
     public function __construct(
         string $classification,
@@ -45,7 +46,8 @@ abstract class ComponentAbstract
         string $configLocation,
         array $properties,
         string $createdByUserId,
-        string $createdReason
+        string $createdReason,
+        $createdDate = null
     ) {
         // Enforce immutability
         if (!$this->isNew()) {
@@ -60,7 +62,8 @@ abstract class ComponentAbstract
 
         $this->setCreatedData(
             $createdByUserId,
-            $createdReason
+            $createdReason,
+            $createdDate
         );
     }
 

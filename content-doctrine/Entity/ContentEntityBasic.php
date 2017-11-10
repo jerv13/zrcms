@@ -2,21 +2,31 @@
 
 namespace Zrcms\ContentDoctrine\Entity;
 
-use Zrcms\Content\Model\ContentVersion;
-
 /**
  * @author James Jervis - https://github.com/jerv13
  */
 class ContentEntityBasic extends ContentEntityAbstract implements ContentEntity
 {
     /**
-     * @param ContentVersion $contentVersion
+     * @param string|null $id
+     * @param array       $properties
+     * @param string      $createdByUserId
+     * @param string      $createdReason
+     * @param string|null $createdDate
      */
     public function __construct(
-        ContentVersion $contentVersion
+        $id,
+        array $properties,
+        string $createdByUserId,
+        string $createdReason,
+        $createdDate = null
     ) {
         parent::__construct(
-            $contentVersion
+            $id,
+            $properties,
+            $createdByUserId,
+            $createdReason,
+            $createdDate
         );
     }
 }

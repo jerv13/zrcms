@@ -367,10 +367,12 @@ class Param
         }
 
         if (self::$debug && is_a($exceptionThrower, ParamException::class)) {
-            echo "<pre>\n";
-            echo "DEBUG: " . self::class . "\n\n";
-            print_r($exceptionThrower->getProperties());
-            echo "</pre>\n";
+            var_dump(
+                "\n<pre>\n"
+                . "DEBUG: " . self::class . "\n\n"
+                . print_r($exceptionThrower->getProperties())
+                . "\n</pre>\n"
+            );
         }
 
         if (is_a($exceptionThrower, \Throwable::class)) {

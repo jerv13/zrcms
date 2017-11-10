@@ -41,15 +41,6 @@ class ContainerVersionEntity
     protected $properties = null;
 
     /**
-     * Date object was first created mapped to col createdDate
-     *
-     * @var \DateTime
-     *
-     * @ORM\Column(type="datetime", name="createdDate")
-     */
-    protected $createdDateObject;
-
-    /**
      * User ID of creator
      *
      * @var string
@@ -68,6 +59,17 @@ class ContainerVersionEntity
     protected $createdReason;
 
     /**
+     * Date object was first created mapped to col createdDate
+     *
+     * @var \DateTime
+     *
+     * @ORM\Column(type="datetime", name="createdDate")
+     */
+    protected $createdDateObject;
+
+    /**
+     * @todo this does not need to be stored in it's own column
+     *
      * @var array
      *
      * @ORM\Column(type="json_array")
@@ -84,12 +86,14 @@ class ContainerVersionEntity
      * @param array       $properties
      * @param string      $createdByUserId
      * @param string      $createdReason
+     * @param string|null $createdDate
      */
     public function __construct(
         $id,
         array $properties,
         string $createdByUserId,
-        string $createdReason
+        string $createdReason,
+        $createdDate = null
     ) {
         $this->tempId = $id;
 
@@ -101,11 +105,22 @@ class ContainerVersionEntity
 
         Param::remove($properties, FieldsContainerVersion::BLOCK_VERSIONS);
 
+        Param::assertNotEmpty(
+            $properties,
+            FieldsContainerVersion::SITE_CMS_RESOURCE_ID
+        );
+
+        Param::assertNotEmpty(
+            $properties,
+            FieldsContainerVersion::PATH
+        );
+
         parent::__construct(
             $id,
             $properties,
             $createdByUserId,
-            $createdReason
+            $createdReason,
+            $createdDate
         );
     }
 
@@ -121,6 +136,8 @@ class ContainerVersionEntity
     }
 
     /**
+     * @todo This should be protected
+     *
      * @param array $blockVersions
      *
      * @return void
@@ -128,6 +145,26 @@ class ContainerVersionEntity
     public function setBlockVersions(array $blockVersions)
     {
         $this->blockVersions = $blockVersions;
+    }
+
+    /**
+     * @return string
+     */
+    public function getSiteCmsResourceId(): string
+    {
+        return $this->getProperty(
+            FieldsContainerVersion::SITE_CMS_RESOURCE_ID
+        );
+    }
+
+    /**
+     * @return string
+     */
+    public function getPath(): string
+    {
+        return $this->getProperty(
+            FieldsContainerVersion::PATH
+        );
     }
 
     /**

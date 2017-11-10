@@ -17,7 +17,7 @@ abstract class TrackableAbstract implements Trackable
     public function __construct(
         string $createdByUserId,
         string $createdReason,
-        string $createdDate = null
+        $createdDate = null
     ) {
         $this->setCreatedData(
             $createdByUserId,

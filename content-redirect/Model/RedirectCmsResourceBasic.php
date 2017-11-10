@@ -23,7 +23,7 @@ class RedirectCmsResourceBasic extends RedirectCmsResourceAbstract implements Re
         ContentVersion $contentVersion,
         string $createdByUserId,
         string $createdReason,
-        string $createdDate = null
+        $createdDate = null
     ) {
         parent::__construct(
             $id,

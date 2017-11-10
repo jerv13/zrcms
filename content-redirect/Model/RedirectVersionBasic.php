@@ -19,7 +19,7 @@ class RedirectVersionBasic extends RedirectVersionAbstract implements RedirectVe
         array $properties,
         string $createdByUserId,
         string $createdReason,
-        string $createdDate = null
+        $createdDate = null
     ) {
         parent::__construct(
             $id,

@@ -42,8 +42,7 @@ class FindLayoutVersionsBy
         $limit = null,
         $offset = null,
         array $options = []
-    ): array
-    {
+    ): array {
         return parent::__invoke(
             $criteria,
             $orderBy,

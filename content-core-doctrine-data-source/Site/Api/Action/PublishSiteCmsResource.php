@@ -32,28 +32,30 @@ class PublishSiteCmsResource
             SiteVersionEntity::class,
             SiteCmsResourceBasic::class,
             SiteVersionBasic::class,
-            [],
             []
         );
     }
 
     /**
      * @param SiteCmsResource|CmsResource $siteCmsResource
-     * @param string                           $publishedByUserId
-     * @param string                           $publishReason
+     * @param string                      $publishedByUserId
+     * @param string                      $publishReason
+     * @param string|null                 $publishDate
      *
      * @return CmsResource
      */
     public function __invoke(
         CmsResource $siteCmsResource,
         string $publishedByUserId,
-        string $publishReason
+        string $publishReason,
+        $publishDate = null
     ): CmsResource
     {
         return parent::__invoke(
             $siteCmsResource,
             $publishedByUserId,
-            $publishReason
+            $publishReason,
+            $publishDate
         );
     }
 }

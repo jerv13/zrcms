@@ -41,15 +41,6 @@ class PageVersionEntity
     protected $properties = [];
 
     /**
-     * Date object was first created mapped to col createdDate
-     *
-     * @var \DateTime
-     *
-     * @ORM\Column(type="datetime", name="createdDate")
-     */
-    protected $createdDateObject;
-
-    /**
      * User ID of creator
      *
      * @var string
@@ -68,6 +59,15 @@ class PageVersionEntity
     protected $createdReason;
 
     /**
+     * Date object was first created mapped to col createdDate
+     *
+     * @var \DateTime
+     *
+     * @ORM\Column(type="datetime", name="createdDate")
+     */
+    protected $createdDateObject;
+
+    /**
      * @var string
      *
      * @ORM\Column(type="string")
@@ -82,6 +82,8 @@ class PageVersionEntity
     protected $keywords;
 
     /**
+     * @todo this does not need to be stored in it's own column
+     *
      * @var array
      *
      * @ORM\Column(type="json_array")
@@ -94,17 +96,24 @@ class PageVersionEntity
     public $tempId = null;
 
     /**
-     * @param string|null $id
+     * @param null|string $id
      * @param array       $properties
      * @param string      $createdByUserId
      * @param string      $createdReason
+     * @param string|null $createdDate
      */
     public function __construct(
         $id,
         array $properties,
         string $createdByUserId,
-        string $createdReason
+        string $createdReason,
+        $createdDate = null
     ) {
+        if(is_object($id)) {
+            throw new \Exception(
+                'got ' . get_class($id)
+            );
+        }
         $this->tempId = $id;
 
         $this->title = Param::getString(
@@ -125,11 +134,22 @@ class PageVersionEntity
 
         Param::remove($properties, FieldsPageVersion::CONTAINERS_DATA);
 
+        Param::assertNotEmpty(
+            $properties,
+            FieldsPageVersion::SITE_CMS_RESOURCE_ID
+        );
+
+        Param::assertNotEmpty(
+            $properties,
+            FieldsPageVersion::PATH
+        );
+
         parent::__construct(
             $id,
             $properties,
             $createdByUserId,
-            $createdReason
+            $createdReason,
+            $createdDate
         );
     }
 
@@ -145,6 +165,28 @@ class PageVersionEntity
     }
 
     /**
+     * @return string
+     */
+    public function getSiteCmsResourceId(): string
+    {
+        return $this->getProperty(
+            FieldsPageVersion::SITE_CMS_RESOURCE_ID
+        );
+    }
+
+    /**
+     * @return string
+     */
+    public function getPath(): string
+    {
+        return $this->getProperty(
+            FieldsPageVersion::PATH
+        );
+    }
+
+    /**
+     * @todo This should be protected
+     *
      * @param array $containersData
      *
      * @return void
@@ -171,9 +213,6 @@ class PageVersionEntity
      */
     public function postPersist(LifecycleEventArgs $eventArgs)
     {
-        $this->properties[FieldsPageVersion::TITLE] = $this->title;
-        $this->properties[FieldsPageVersion::KEYWORDS] = $this->keywords;
-
         if ($this->tempId == $this->id) {
             return;
         }

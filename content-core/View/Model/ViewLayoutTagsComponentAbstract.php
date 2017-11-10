@@ -19,6 +19,7 @@ abstract class ViewLayoutTagsComponentAbstract extends ComponentAbstract
      * @param array  $properties
      * @param string $createdByUserId
      * @param string $createdReason
+     * @param string|null   $createdDate
      */
     public function __construct(
         string $classification,
@@ -26,7 +27,8 @@ abstract class ViewLayoutTagsComponentAbstract extends ComponentAbstract
         string $configLocation,
         array $properties,
         string $createdByUserId,
-        string $createdReason
+        string $createdReason,
+        $createdDate = null
     ) {
         Param::assertHas(
             $properties,
@@ -44,7 +46,8 @@ abstract class ViewLayoutTagsComponentAbstract extends ComponentAbstract
             $configLocation,
             $properties,
             $createdByUserId,
-            $createdReason
+            $createdReason,
+            $createdDate
         );
     }
 

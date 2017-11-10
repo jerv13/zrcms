@@ -2,14 +2,11 @@
 
 namespace Zrcms\ContentCoreDoctrineDataSource\Site\Entity;
 
-use Doctrine\ORM\Event\LifecycleEventArgs;
 use Doctrine\ORM\Mapping as ORM;
-use Zrcms\Content\Exception\PropertyMissing;
-use Zrcms\ContentCore\Site\Fields\FieldsSiteCmsResource;
+use Zrcms\Content\Exception\ContentVersionInvalid;
 use Zrcms\ContentDoctrine\Entity\CmsResourceEntity;
 use Zrcms\ContentDoctrine\Entity\CmsResourceEntityAbstract;
 use Zrcms\ContentDoctrine\Entity\ContentEntity;
-use Zrcms\Param\Param;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -64,22 +61,6 @@ class SiteCmsResourceEntity
     protected $contentVersion;
 
     /**
-     * @var array
-     *
-     * @ORM\Column(type="json_array")
-     */
-    protected $properties = [];
-
-    /**
-     * Date object was first created mapped to col createdDate
-     *
-     * @var \DateTime
-     *
-     * @ORM\Column(type="datetime", name="createdDate")
-     */
-    protected $createdDateObject;
-
-    /**
      * User ID of creator
      *
      * @var string
@@ -98,6 +79,36 @@ class SiteCmsResourceEntity
     protected $createdReason;
 
     /**
+     * Date object was first created mapped to col createdDate
+     *
+     * @var \DateTime
+     *
+     * @ORM\Column(type="datetime", name="createdDate")
+     */
+    protected $createdDateObject;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(type="string")
+     */
+    protected $modifiedByUserId;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(type="string")
+     */
+    protected $modifiedReason;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(type="datetime", name="modifiedDateDate")
+     */
+    protected $modifiedDateObject;
+
+    /**
      * @var string
      *
      * @ORM\Column(type="string", unique=true, nullable=false)
@@ -105,30 +116,68 @@ class SiteCmsResourceEntity
     protected $host;
 
     /**
-     * @param int|null                        $id
+     * @var string
+     *
+     * @ORM\Column(type="string")
+     */
+    protected $themeName;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(type="string")
+     */
+    protected $locale;
+
+    /**
+     * @param null|string                     $id
      * @param bool                            $published
      * @param SiteVersionEntity|ContentEntity $contentVersion
-     * @param array                           $properties
      * @param string                          $createdByUserId
      * @param string                          $createdReason
+     * @param string|null                     $createdDate
      */
     public function __construct(
         $id,
         bool $published,
         ContentEntity $contentVersion,
-        array $properties,
         string $createdByUserId,
-        string $createdReason
+        string $createdReason,
+        $createdDate = null
     ) {
-        $this->setProperties($properties);
-
         parent::__construct(
             $id,
             $published,
             $contentVersion,
-            $properties,
             $createdByUserId,
-            $createdReason
+            $createdReason,
+            $createdDate
+        );
+    }
+
+    /**
+     * @param SiteVersionEntity|ContentEntity $contentVersion
+     * @param string                          $modifiedByUserId
+     * @param string                          $modifiedReason
+     * @param string|null                     $modifiedDate
+     *
+     * @return void
+     */
+    public function setContentVersion(
+        ContentEntity $contentVersion,
+        string $modifiedByUserId,
+        string $modifiedReason,
+        $modifiedDate = null
+    ) {
+        $this->host = $contentVersion->getHost();
+        $this->themeName = $contentVersion->getThemeName();
+        $this->locale = $contentVersion->getLocale();
+
+        parent::setContentVersion(
+            $contentVersion,
+            $modifiedByUserId,
+            $modifiedReason,
+            $modifiedDate
         );
     }
 
@@ -141,39 +190,53 @@ class SiteCmsResourceEntity
     }
 
     /**
-     * @param array $properties
-     *
-     * @return void
+     * @return string
      */
-    public function setProperties(
-        array $properties
-    ) {
-        Param::assertHas(
-            $properties,
-            FieldsSiteCmsResource::HOST,
-            PropertyMissing::buildThrower(
-                FieldsSiteCmsResource::HOST,
-                $properties,
-                get_class($this)
-            )
-        );
-
-        $this->host = Param::getString(
-            $properties,
-            FieldsSiteCmsResource::HOST,
-            ''
-        );
-
-        parent::setProperties($properties);
+    public function getThemeName(): string
+    {
+        return $this->themeName;
     }
 
     /**
-     * @return void
-     *
-     * @ORM\PostPersist
+     * @return string
      */
-    public function postPersist(LifecycleEventArgs $event)
+    public function getLocale(): string
     {
-        $this->properties[FieldsSiteCmsResource::HOST] = $this->host;
+        return $this->locale;
+    }
+
+    /**
+     * @param SiteVersionEntity $contentVersion
+     *
+     * @return void
+     * @throws ContentVersionInvalid
+     */
+    protected function assertValidContentVersion($contentVersion)
+    {
+        if (!$contentVersion instanceof SiteVersionEntity) {
+            throw new ContentVersionInvalid(
+                'ContentVersion must be instance of: ' . SiteVersionEntity::class
+                . ' got: ' . var_export($contentVersion, true)
+                . ' for: ' . get_class($this)
+            );
+        }
+
+        if (empty($contentVersion->getHost())) {
+            throw new ContentVersionInvalid(
+                'Host can not be empty'
+            );
+        }
+
+        if (empty($contentVersion->getThemeName())) {
+            throw new ContentVersionInvalid(
+                'ThemeName can not be empty'
+            );
+        }
+
+        if (empty($contentVersion->getLocale())) {
+            throw new ContentVersionInvalid(
+                'Locale can not be empty'
+            );
+        }
     }
 }

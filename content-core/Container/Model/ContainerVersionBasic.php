@@ -19,7 +19,7 @@ class ContainerVersionBasic extends ContainerVersionAbstract implements Containe
         array $properties,
         string $createdByUserId,
         string $createdReason,
-        string $createdDate = null
+        $createdDate = null
     ) {
         parent::__construct(
             $id,

@@ -32,7 +32,7 @@ class PageCmsResourceAbstract extends ContainerCmsResourceAbstract
         ContentVersion $contentVersion,
         string $createdByUserId,
         string $createdReason,
-        string $createdDate = null
+        $createdDate = null
     ) {
         parent::__construct(
             $id,
@@ -64,7 +64,7 @@ class PageCmsResourceAbstract extends ContainerCmsResourceAbstract
      * @param PageVersion|ContentVersion $contentVersion
      * @param string                     $modifiedByUserId
      * @param string                     $modifiedReason
-     * @param string                     $modifiedDate
+     * @param string|null                $modifiedDate
      *
      * @return void
      */
@@ -72,7 +72,7 @@ class PageCmsResourceAbstract extends ContainerCmsResourceAbstract
         ContentVersion $contentVersion,
         string $modifiedByUserId,
         string $modifiedReason,
-        string $modifiedDate
+        $modifiedDate = null
     ) {
         $this->siteCmsResourceId = $contentVersion->getSiteCmsResourceId();
         $this->path = $contentVersion->getPath();

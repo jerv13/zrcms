@@ -7,7 +7,7 @@ use Psr\Log\LogLevel;
 use Zrcms\ContentCore\Container\Api\Action\PublishContainerCmsResource;
 use Zrcms\ContentCore\Container\Api\Action\UnpublishContainerCmsResource;
 use Zrcms\ContentCore\Container\Api\Repository\InsertContainerVersion;
-use Zrcms\ContentCore\Container\Fields\FieldsContainerCmsResource;
+use Zrcms\ContentCore\Container\Fields\FieldsContainerVersion;
 use Zrcms\ContentCore\Container\Model\ContainerCmsResourceBasic;
 use Zrcms\ContentCore\Container\Model\ContainerVersionBasic;
 use Zrcms\ContentCore\Page\Api\Action\PublishPageCmsResource;
@@ -15,22 +15,19 @@ use Zrcms\ContentCore\Page\Api\Action\PublishPageTemplateCmsResource;
 use Zrcms\ContentCore\Page\Api\Action\UnpublishPageCmsResource;
 use Zrcms\ContentCore\Page\Api\Action\UnpublishPageTemplateCmsResource;
 use Zrcms\ContentCore\Page\Api\Repository\InsertPageVersion;
-use Zrcms\ContentCore\Page\Fields\FieldsPageCmsResource;
-use Zrcms\ContentCore\Page\Fields\FieldsPageTemplateCmsResource;
+use Zrcms\ContentCore\Page\Fields\FieldsPageVersion;
 use Zrcms\ContentCore\Page\Model\PageCmsResourceBasic;
 use Zrcms\ContentCore\Page\Model\PageTemplateCmsResourceBasic;
 use Zrcms\ContentCore\Page\Model\PageVersionBasic;
 use Zrcms\ContentCore\Site\Api\Action\PublishSiteCmsResource;
 use Zrcms\ContentCore\Site\Api\Action\UnpublishSiteCmsResource;
 use Zrcms\ContentCore\Site\Api\Repository\InsertSiteVersion;
-use Zrcms\ContentCore\Site\Fields\FieldsSiteCmsResource;
 use Zrcms\ContentCore\Site\Model\SiteCmsResource;
 use Zrcms\ContentCore\Site\Model\SiteCmsResourceBasic;
 use Zrcms\ContentCore\Site\Model\SiteVersionBasic;
 use Zrcms\ContentRedirect\Api\Action\PublishRedirectCmsResource;
 use Zrcms\ContentRedirect\Api\Action\UnpublishRedirectCmsResource;
 use Zrcms\ContentRedirect\Api\Repository\InsertRedirectVersion;
-use Zrcms\ContentRedirect\Fields\FieldsRedirectCmsResource;
 use Zrcms\ContentRedirect\Model\RedirectCmsResourceBasic;
 use Zrcms\ContentRedirect\Model\RedirectVersionBasic;
 use Zrcms\Param\Param;
@@ -263,7 +260,7 @@ class Import
                 LogLevel::INFO,
                 'Import Site: ('
                 . 'siteId: ' . $site['id']
-                . ' ,host: ' . $site['host']
+                . ' ,host: ' . $site['properties']['host']
                 . ')',
                 $options
             );
@@ -282,9 +279,6 @@ class Import
                     $site['id'],
                     true,
                     $version,
-                    [
-                        FieldsSiteCmsResource::HOST => $site['host'],
-                    ],
                     $createdByUserId,
                     $createdReason
                 ),
@@ -359,9 +353,11 @@ class Import
         foreach ($pages as $page) {
             $this->log(
                 LogLevel::INFO,
-                'Import Page: ' . $page['path'],
+                'Import Page: ' . $page['properties']['path'],
                 $options
             );
+
+            $page['properties'][FieldsPageVersion::SITE_CMS_RESOURCE_ID] = $siteCmsResource->getId();
 
             $version = $this->insertPageVersion->__invoke(
                 new PageVersionBasic(
@@ -377,10 +373,6 @@ class Import
                     null,
                     true,
                     $version,
-                    [
-                        FieldsPageCmsResource::SITE_CMS_RESOURCE_ID => $siteCmsResource->getId(),
-                        FieldsPageCmsResource::PATH => $page['path'],
-                    ],
                     $createdByUserId,
                     $createdReason
                 ),
@@ -406,7 +398,7 @@ class Import
 
     /**
      * @param SiteCmsResource $siteCmsResource
-     * @param array           $pages
+     * @param array           $pageTemplates
      * @param string          $createdByUserId
      * @param string          $createdReason
      * @param array           $options
@@ -415,7 +407,7 @@ class Import
      */
     protected function createPageTemplates(
         SiteCmsResource $siteCmsResource,
-        array $pages,
+        array $pageTemplates,
         string $createdByUserId,
         string $createdReason,
         array $options = []
@@ -428,17 +420,19 @@ class Import
             $options
         );
 
-        foreach ($pages as $page) {
+        foreach ($pageTemplates as $pageTemplate) {
             $this->log(
                 LogLevel::INFO,
-                'Import Page Template: ' . $page['path'],
+                'Import Page Template: ' . $pageTemplate['properties']['path'],
                 $options
             );
+
+            $pageTemplate['properties'][FieldsPageVersion::SITE_CMS_RESOURCE_ID] = $siteCmsResource->getId();
 
             $version = $this->insertPageVersion->__invoke(
                 new PageVersionBasic(
                     null,
-                    $page['properties'],
+                    $pageTemplate['properties'],
                     $createdByUserId,
                     $createdReason
                 )
@@ -449,10 +443,6 @@ class Import
                     null,
                     true,
                     $version,
-                    [
-                        FieldsPageTemplateCmsResource::SITE_CMS_RESOURCE_ID => $siteCmsResource->getId(),
-                        FieldsPageTemplateCmsResource::PATH => $page['path'],
-                    ],
                     $createdByUserId,
                     $createdReason
                 ),
@@ -460,7 +450,7 @@ class Import
                 $createdReason
             );
 
-            if (!Param::getBool($page, 'published', true)) {
+            if (!Param::getBool($pageTemplate, 'published', true)) {
                 $this->log(
                     LogLevel::WARNING,
                     'UNPUBLISH PageTemplateCmsResource ID: ' . $publishedPageTemplateCmsResource->getId(),
@@ -470,7 +460,8 @@ class Import
                 $this->unpublishPageTemplateCmsResource->__invoke(
                     $publishedPageTemplateCmsResource->getId(),
                     $createdByUserId,
-                    $createdReason
+                    $createdReason,
+                    null
                 );
             }
         }
@@ -503,9 +494,11 @@ class Import
         foreach ($containers as $container) {
             $this->log(
                 LogLevel::INFO,
-                'Import Container: ' . $container['path'],
+                'Import Container: ' . $container['properties']['path'],
                 $options
             );
+
+            $container['properties'][FieldsContainerVersion::SITE_CMS_RESOURCE_ID] = $siteCmsResource->getId();
 
             $version = $this->insertContainerVersion->__invoke(
                 new ContainerVersionBasic(
@@ -521,10 +514,6 @@ class Import
                     null,
                     true,
                     $version,
-                    [
-                        FieldsContainerCmsResource::SITE_CMS_RESOURCE_ID => $siteCmsResource->getId(),
-                        FieldsContainerCmsResource::PATH => $container['path'],
-                    ],
                     $createdByUserId,
                     $createdReason
                 ),
@@ -590,7 +579,7 @@ class Import
         foreach ($redirects as $redirect) {
             $this->log(
                 LogLevel::INFO,
-                'Import Redirect: ' . $redirect['requestPath'],
+                'Import Redirect: ' . $redirect['properties']['requestPath'],
                 $options
             );
 
@@ -608,10 +597,6 @@ class Import
                     null,
                     true,
                     $version,
-                    [
-                        FieldsRedirectCmsResource::SITE_CMS_RESOURCE_ID => $redirect['siteId'],
-                        FieldsRedirectCmsResource::REQUEST_PATH => $redirect['requestPath'],
-                    ],
                     $createdByUserId,
                     $createdReason
                 ),

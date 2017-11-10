@@ -10,25 +10,28 @@ class CmsResourceHistoryEntityBasic
     implements CmsResourceHistoryEntity
 {
     /**
-     * @param null|string       $id
+     * @param string|null       $id
      * @param string            $action
      * @param CmsResourceEntity $cmsResourceEntity
      * @param string            $publishedByUserId
      * @param string            $publishReason
+     * @param string|null       $publishDate
      */
     public function __construct(
         $id,
         string $action,
         CmsResourceEntity $cmsResourceEntity,
         string $publishedByUserId,
-        string $publishReason
+        string $publishReason,
+        $publishDate = null
     ) {
         parent::__construct(
             $id,
             $action,
             $cmsResourceEntity,
             $publishedByUserId,
-            $publishReason
+            $publishReason,
+            $publishDate
         );
     }
 }

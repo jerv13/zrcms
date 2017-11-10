@@ -24,4 +24,9 @@ interface LayoutCmsResource extends CmsResource
      * @return string
      */
     public function getName(): string;
+
+    /**
+     * @return string
+     */
+    public function getHtml(): string;
 }

@@ -32,7 +32,6 @@ class PublishContainerCmsResource
             ContainerVersionEntity::class,
             ContainerCmsResourceBasic::class,
             ContainerVersionBasic::class,
-            [],
             []
         );
     }
@@ -41,19 +40,22 @@ class PublishContainerCmsResource
      * @param ContainerCmsResource|CmsResource $containerCmsResource
      * @param string                           $publishedByUserId
      * @param string                           $publishReason
+     * @param string|null                      $publishDate
      *
      * @return CmsResource
      */
     public function __invoke(
         CmsResource $containerCmsResource,
         string $publishedByUserId,
-        string $publishReason
+        string $publishReason,
+        $publishDate = null
     ): CmsResource
     {
         return parent::__invoke(
             $containerCmsResource,
             $publishedByUserId,
-            $publishReason
+            $publishReason,
+            $publishDate
         );
     }
 }

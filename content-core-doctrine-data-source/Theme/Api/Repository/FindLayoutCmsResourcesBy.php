@@ -28,7 +28,6 @@ class FindLayoutCmsResourcesBy
             LayoutCmsResourceBasic::class,
             LayoutVersionEntity::class,
             LayoutVersionBasic::class,
-            [],
             []
         );
     }

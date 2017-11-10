@@ -2,12 +2,11 @@
 
 namespace Zrcms\ContentCoreDoctrineDataSource\Site\Entity;
 
-use Doctrine\ORM\Event\LifecycleEventArgs;
 use Doctrine\ORM\Mapping as ORM;
 use Zrcms\ContentCore\Site\Fields\FieldsSiteVersion;
-use Zrcms\ContentCore\Site\Model\SiteVersionAbstract;
 use Zrcms\ContentDoctrine\Entity\ContentEntity;
-use Zrcms\Param\Param;
+use Zrcms\ContentDoctrine\Entity\ContentEntityAbstract;
+use Zrcms\Locale\Api\DefaultLocal;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -20,7 +19,7 @@ use Zrcms\Param\Param;
  * )
  */
 class SiteVersionEntity
-    extends SiteVersionAbstract
+    extends ContentEntityAbstract
     implements ContentEntity
 {
     /**
@@ -41,15 +40,6 @@ class SiteVersionEntity
     protected $properties = [];
 
     /**
-     * Date object was first created mapped to col createdDate
-     *
-     * @var \DateTime
-     *
-     * @ORM\Column(type="datetime", name="createdDate")
-     */
-    protected $createdDateObject;
-
-    /**
      * User ID of creator
      *
      * @var string
@@ -68,50 +58,45 @@ class SiteVersionEntity
     protected $createdReason;
 
     /**
-     * Theme name
+     * Date object was first created mapped to col createdDate
      *
-     * @var string
+     * @var \DateTime
      *
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="datetime", name="createdDate")
      */
-    protected $themeName;
+    protected $createdDateObject;
 
     /**
-     * Locale used for translations and formatting
-     *
-     * @var string
-     *
-     * @ORM\Column(type="string")
-     */
-    protected $locale;
-
-    /**
-     * @param string|null $id
+     * @param null|string $id
      * @param array       $properties
      * @param string      $createdByUserId
      * @param string      $createdReason
+     * @param string|null $createdDate
      */
     public function __construct(
         $id,
         array $properties,
         string $createdByUserId,
-        string $createdReason
+        string $createdReason,
+        $createdDate = null
     ) {
-        $this->themeName = Param::getString(
-            $properties,
-            FieldsSiteVersion::THEME_NAME
-        );
-
-        $this->locale = Param::getString(
-            $properties,
-            FieldsSiteVersion::LOCALE
-        );
-
         parent::__construct(
             $id,
             $properties,
             $createdByUserId,
-            $createdReason
+            $createdReason,
+            $createdDate
+        );
+    }
+
+    /**
+     * @return string
+     */
+    public function getHost(): string
+    {
+        return $this->getProperty(
+            FieldsSiteVersion::HOST,
+            ''
         );
     }
 
@@ -120,7 +105,10 @@ class SiteVersionEntity
      */
     public function getThemeName(): string
     {
-        return $this->themeName;
+        return $this->getProperty(
+            FieldsSiteVersion::THEME_NAME,
+            ''
+        );
     }
 
     /**
@@ -128,17 +116,9 @@ class SiteVersionEntity
      */
     public function getLocale(): string
     {
-        return $this->locale;
-    }
-
-    /**
-     * @return void
-     *
-     * @ORM\PostPersist
-     */
-    public function postPersist(LifecycleEventArgs $event)
-    {
-        $this->properties[FieldsSiteVersion::THEME_NAME] = $this->themeName;
-        $this->properties[FieldsSiteVersion::LOCALE] = $this->locale;
+        return $this->getProperty(
+            FieldsSiteVersion::LOCALE,
+            DefaultLocal::get()
+        );
     }
 }

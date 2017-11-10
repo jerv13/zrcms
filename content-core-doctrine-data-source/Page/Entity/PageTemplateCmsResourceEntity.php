@@ -2,15 +2,12 @@
 
 namespace Zrcms\ContentCoreDoctrineDataSource\Page\Entity;
 
-use Doctrine\ORM\Event\LifecycleEventArgs;
 use Doctrine\ORM\Mapping as ORM;
-use Zrcms\Content\Exception\PropertyMissing;
-use Zrcms\ContentCore\Page\Fields\FieldsPageTemplateCmsResource;
+use Zrcms\Content\Exception\ContentVersionInvalid;
+use Zrcms\ContentCore\Page\Api\AssertValidPath;
 use Zrcms\ContentDoctrine\Entity\CmsResourceEntity;
 use Zrcms\ContentDoctrine\Entity\CmsResourceEntityAbstract;
-use Zrcms\ContentDoctrine\Entity\CmsResourceEntityTrait;
 use Zrcms\ContentDoctrine\Entity\ContentEntity;
-use Zrcms\Param\Param;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -66,22 +63,6 @@ class PageTemplateCmsResourceEntity
     protected $contentVersion;
 
     /**
-     * @var array
-     *
-     * @ORM\Column(type="json_array")
-     */
-    protected $properties = [];
-
-    /**
-     * Date object was first created mapped to col createdDate
-     *
-     * @var \DateTime
-     *
-     * @ORM\Column(type="datetime", name="createdDate")
-     */
-    protected $createdDateObject;
-
-    /**
      * User ID of creator
      *
      * @var string
@@ -100,6 +81,36 @@ class PageTemplateCmsResourceEntity
     protected $createdReason;
 
     /**
+     * Date object was first created mapped to col createdDate
+     *
+     * @var \DateTime
+     *
+     * @ORM\Column(type="datetime", name="createdDate")
+     */
+    protected $createdDateObject;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(type="string")
+     */
+    protected $modifiedByUserId;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(type="string")
+     */
+    protected $modifiedReason;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(type="datetime", name="modifiedDateDate")
+     */
+    protected $modifiedDateObject;
+
+    /**
      * @var string
      *
      * @ORM\Column(type="string")
@@ -114,30 +125,28 @@ class PageTemplateCmsResourceEntity
     protected $path;
 
     /**
-     * @param int|null                        $id
+     * @param null|string                     $id
      * @param bool                            $published
      * @param PageVersionEntity|ContentEntity $contentVersion
-     * @param array                           $properties
      * @param string                          $createdByUserId
      * @param string                          $createdReason
+     * @param string|null                     $createdDate
      */
     public function __construct(
         $id,
         bool $published,
         ContentEntity $contentVersion,
-        array $properties,
         string $createdByUserId,
-        string $createdReason
+        string $createdReason,
+        $createdDate = null
     ) {
-        $this->setProperties($properties);
-
         parent::__construct(
             $id,
             $published,
             $contentVersion,
-            $properties,
             $createdByUserId,
-            $createdReason
+            $createdReason,
+            $createdDate
         );
     }
 
@@ -158,56 +167,58 @@ class PageTemplateCmsResourceEntity
     }
 
     /**
-     * @param array $properties
+     * @param PageVersionEntity|ContentEntity $contentVersion
+     * @param string                          $modifiedByUserId
+     * @param string                          $modifiedReason
+     * @param string|null                     $modifiedDate
      *
      * @return void
      */
-    public function setProperties(
-        array $properties
+    public function setContentVersion(
+        ContentEntity $contentVersion,
+        string $modifiedByUserId,
+        string $modifiedReason,
+        $modifiedDate = null
     ) {
-        Param::assertHas(
-            $properties,
-            FieldsPageTemplateCmsResource::SITE_CMS_RESOURCE_ID,
-            PropertyMissing::buildThrower(
-                FieldsPageTemplateCmsResource::SITE_CMS_RESOURCE_ID,
-                $properties,
-                get_class($this)
-            )
-        );
+        $this->siteCmsResourceId = $contentVersion->getSiteCmsResourceId();
+        $this->path = $contentVersion->getPath();
 
-        $this->siteCmsResourceId = Param::getString(
-            $properties,
-            FieldsPageTemplateCmsResource::SITE_CMS_RESOURCE_ID,
-            ''
+        parent::setContentVersion(
+            $contentVersion,
+            $modifiedByUserId,
+            $modifiedReason,
+            $modifiedDate
         );
-
-        Param::assertHas(
-            $properties,
-            FieldsPageTemplateCmsResource::PATH,
-            PropertyMissing::buildThrower(
-                FieldsPageTemplateCmsResource::PATH,
-                $properties,
-                get_class($this)
-            )
-        );
-
-        $this->path = Param::getString(
-            $properties,
-            FieldsPageTemplateCmsResource::PATH,
-            ''
-        );
-
-        parent::setProperties($properties);
     }
 
     /**
-     * @return void
+     * @param PageVersionEntity $contentVersion
      *
-     * @ORM\PostPersist
+     * @return void
+     * @throws ContentVersionInvalid
      */
-    public function postPersist(LifecycleEventArgs $event)
+    protected function assertValidContentVersion($contentVersion)
     {
-        $this->properties[FieldsPageTemplateCmsResource::SITE_CMS_RESOURCE_ID] = $this->siteCmsResourceId;
-        $this->properties[FieldsPageTemplateCmsResource::PATH] = $this->path;
+        if (!$contentVersion instanceof PageVersionEntity) {
+            throw new ContentVersionInvalid(
+                'ContentVersion must be instance of: ' . PageVersionEntity::class
+                . ' got: ' . var_export($contentVersion, true)
+                . ' for: ' . get_class($this)
+            );
+        }
+
+        if (empty($contentVersion->getSiteCmsResourceId())) {
+            throw new ContentVersionInvalid(
+                'SiteCmsResourceId can not be empty'
+            );
+        }
+
+        if (empty($contentVersion->getPath())) {
+            throw new ContentVersionInvalid(
+                'Path can not be empty'
+            );
+        }
+
+        AssertValidPath::invoke($contentVersion->getPath());
     }
 }

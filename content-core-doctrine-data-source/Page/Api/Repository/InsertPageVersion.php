@@ -33,7 +33,7 @@ class InsertPageVersion
      * @param PageVersion|ContentVersion $pageVersion
      * @param array                      $options
      *
-     * @return ContentVersion
+     * @return PageVersion|ContentVersion
      */
     public function __invoke(
         ContentVersion $pageVersion,

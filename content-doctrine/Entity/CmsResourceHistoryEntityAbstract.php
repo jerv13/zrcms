@@ -2,6 +2,8 @@
 
 namespace Zrcms\ContentDoctrine\Entity;
 
+use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Persistence\Event\LifecycleEventArgs;
 use Zrcms\Content\Exception\CmsResourceInvalid;
 use Zrcms\Content\Model\ImmutableTrait;
 
@@ -41,13 +43,15 @@ abstract class CmsResourceHistoryEntityAbstract
      * @param CmsResourceEntity $cmsResourceEntity
      * @param string            $publishedByUserId
      * @param string            $publishReason
+     * @param string|null       $publishDate
      */
     public function __construct(
         $id,
         string $action,
         CmsResourceEntity $cmsResourceEntity,
         string $publishedByUserId,
-        string $publishReason
+        string $publishReason,
+        $publishDate = null
     ) {
         // Enforce immutability
         if (!$this->isNew()) {
@@ -67,7 +71,8 @@ abstract class CmsResourceHistoryEntityAbstract
 
         $this->setCreatedData(
             $publishedByUserId,
-            $publishReason
+            $publishReason,
+            $publishDate
         );
     }
 
@@ -88,11 +93,15 @@ abstract class CmsResourceHistoryEntityAbstract
     }
 
     /**
-     * @return ContentEntity
+     * @return string
      */
-    public function getContentVersion()
+    public function getCmsResourceId(): string
     {
-        return $this->contentVersion;
+        if (!empty($this->cmsResource)) {
+            return $this->cmsResource->getId();
+        }
+
+        return '';
     }
 
     /**
@@ -101,6 +110,26 @@ abstract class CmsResourceHistoryEntityAbstract
     public function getCmsResource()
     {
         return $this->cmsResourceEntity;
+    }
+
+    /**
+     * @return string
+     */
+    public function getContentVersionId(): string
+    {
+        if (!empty($this->contentVersion)) {
+            return $this->contentVersion->getId();
+        }
+
+        return '';
+    }
+
+    /**
+     * @return ContentEntity
+     */
+    public function getContentVersion()
+    {
+        return $this->contentVersion;
     }
 
     /**
@@ -118,5 +147,17 @@ abstract class CmsResourceHistoryEntityAbstract
                 . ' for: ' . get_class($this)
             );
         }
+    }
+
+    /**
+     * @param LifecycleEventArgs $eventArgs
+     *
+     * @return void
+     *
+     * @ORM\PrePersist
+     */
+    public function prePersist(LifecycleEventArgs $eventArgs)
+    {
+        $this->assertHasCreatedData();
     }
 }

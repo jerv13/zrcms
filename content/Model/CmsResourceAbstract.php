@@ -61,7 +61,7 @@ abstract class CmsResourceAbstract
         ContentVersion $contentVersion,
         string $createdByUserId,
         string $createdReason,
-        string $createdDate = null
+        $createdDate = null
     ) {
         $this->id = $id;
 
@@ -95,10 +95,10 @@ abstract class CmsResourceAbstract
     }
 
     /**
-     * @param bool   $published
-     * @param string $modifiedByUserId
-     * @param string $modifiedReason
-     * @param string $modifiedDate
+     * @param bool        $published
+     * @param string      $modifiedByUserId
+     * @param string      $modifiedReason
+     * @param string|null $modifiedDate
      *
      * @return void
      */
@@ -106,7 +106,7 @@ abstract class CmsResourceAbstract
         bool $published,
         string $modifiedByUserId,
         string $modifiedReason,
-        string $modifiedDate = null
+        $modifiedDate = null
     ) {
         $this->setModifiedData(
             $modifiedByUserId,
@@ -126,15 +126,15 @@ abstract class CmsResourceAbstract
     }
 
     /**
-     * @return null|string
+     * @return string
      */
-    public function getContentVersionId()
+    public function getContentVersionId(): string
     {
         if (!empty($this->contentVersion)) {
             return $this->contentVersion->getId();
         }
 
-        return null;
+        return '';
     }
 
     /**
@@ -157,7 +157,7 @@ abstract class CmsResourceAbstract
         ContentVersion $contentVersion,
         string $modifiedByUserId,
         string $modifiedReason,
-        string $modifiedDate
+        $modifiedDate = null
     ) {
         $this->assertValidContentVersion($contentVersion);
 

@@ -19,7 +19,7 @@ interface ContentVersion extends Content, Trackable
         array $properties,
         string $createdByUserId,
         string $createdReason,
-        string $createdDate = null
+        $createdDate = null
     );
 
     /**

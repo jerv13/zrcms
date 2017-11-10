@@ -58,13 +58,6 @@ class PageCmsResourceHistoryEntity
     protected $cmsResourceEntity;
 
     /**
-     * @var array
-     *
-     * @ORM\Column(type="json_array")
-     */
-    protected $cmsResourceProperties;
-
-    /**
      * @var int
      *
      * @ORM\Column(type="integer", nullable=true)
@@ -82,15 +75,6 @@ class PageCmsResourceHistoryEntity
      * )
      */
     protected $contentVersion;
-
-    /**
-     * Date object was first created mapped to col createdDate
-     *
-     * @var \DateTime
-     *
-     * @ORM\Column(type="datetime", name="createdDate")
-     */
-    protected $createdDateObject;
 
     /**
      * User ID of creator
@@ -111,60 +95,38 @@ class PageCmsResourceHistoryEntity
     protected $createdReason;
 
     /**
-     * @var string
+     * Date object was first created mapped to col createdDate
      *
-     * @ORM\Column(type="string")
+     * @var \DateTime
+     *
+     * @ORM\Column(type="datetime", name="createdDate")
      */
-    protected $siteCmsResourceId;
+    protected $createdDateObject;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(type="string")
-     */
-    protected $path;
-
-    /**
-     * @param string|null                             $id
+     * @param null|string                             $id
      * @param string                                  $action
-     * @param CmsResourceEntity|PageCmsResourceEntity $cmsResourceEntity
+     * @param PageCmsResourceEntity|CmsResourceEntity $cmsResourceEntity
      * @param string                                  $publishedByUserId
      * @param string                                  $publishReason
+     * @param string|null                             $publishDate
      */
     public function __construct(
         $id,
         string $action,
         CmsResourceEntity $cmsResourceEntity,
         string $publishedByUserId,
-        string $publishReason
+        string $publishReason,
+        $publishDate = null
     ) {
-        $this->siteCmsResourceId = $cmsResourceEntity->getSiteCmsResourceId();
-
-        $this->path = $cmsResourceEntity->getPath();
-
         parent::__construct(
             $id,
             $action,
             $cmsResourceEntity,
             $publishedByUserId,
-            $publishReason
+            $publishReason,
+            $publishDate
         );
-    }
-
-    /**
-     * @return string
-     */
-    public function getSiteCmsResourceId(): string
-    {
-        return $this->siteCmsResourceId;
-    }
-
-    /**
-     * @return string
-     */
-    public function getPath(): string
-    {
-        return $this->path;
     }
 
     /**

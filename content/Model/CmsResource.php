@@ -21,7 +21,7 @@ interface CmsResource extends TrackableModify
         ContentVersion $contentVersion,
         string $createdByUserId,
         string $createdReason,
-        string $createdDate = null
+        $createdDate = null
     );
 
     /**
@@ -35,10 +35,10 @@ interface CmsResource extends TrackableModify
     public function isPublished(): bool;
 
     /**
-     * @param bool   $published
-     * @param string $modifiedByUserId
-     * @param string $modifiedReason
-     * @param string $modifiedDate
+     * @param bool        $published
+     * @param string      $modifiedByUserId
+     * @param string      $modifiedReason
+     * @param string|null $modifiedDate
      *
      * @return void
      */
@@ -46,13 +46,13 @@ interface CmsResource extends TrackableModify
         bool $published,
         string $modifiedByUserId,
         string $modifiedReason,
-        string $modifiedDate
+        $modifiedDate = null
     );
 
     /**
-     * @return ContentVersion
+     * @return string
      */
-    public function getContentVersionId();
+    public function getContentVersionId(): string;
 
     /**
      * @return ContentVersion
@@ -63,7 +63,7 @@ interface CmsResource extends TrackableModify
      * @param ContentVersion $contentVersion
      * @param string         $modifiedByUserId
      * @param string         $modifiedReason
-     * @param string         $modifiedDate
+     * @param string|null    $modifiedDate
      *
      * @return void
      */
@@ -71,6 +71,6 @@ interface CmsResource extends TrackableModify
         ContentVersion $contentVersion,
         string $modifiedByUserId,
         string $modifiedReason,
-        string $modifiedDate
+        $modifiedDate = null
     );
 }

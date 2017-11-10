@@ -3,7 +3,6 @@
 namespace Zrcms\HttpExpressive\HttpApiSite\Validate;
 
 use ZfInputFilterService\InputFilter\ServiceAwareFactory;
-use Zrcms\ContentCore\Site\Fields\FieldsSiteCmsResource;
 use Zrcms\HttpExpressive\HttpApi\Validate\DataZfInputFilterService;
 
 /**
@@ -16,24 +15,17 @@ class PublishSiteCmsResourceZfInputFilterService extends DataZfInputFilterServic
      */
     protected $inputFilterConfig
         = [
-            FieldsSiteCmsResource::ID => [
-                'name' => FieldsSiteCmsResource::ID,
+            'id' => [
+                'name' => 'id',
                 'required' => false,
                 'validators' => [
                 ],
             ],
 
             // @todo use sub filter ['id' => ['required' => true,...]]
-            FieldsSiteCmsResource::CONTENT_VERSION => [
-                'name' => FieldsSiteCmsResource::CONTENT_VERSION,
+            'contentVersion' => [
+                'name' => 'contentVersion',
                 'required' => true,
-                'validators' => [
-                ],
-            ],
-
-            FieldsSiteCmsResource::HOST => [
-                'name' => FieldsSiteCmsResource::HOST,
-                'required' => false,
                 'validators' => [
                 ],
             ],

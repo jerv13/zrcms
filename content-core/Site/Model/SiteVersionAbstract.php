@@ -5,6 +5,7 @@ namespace Zrcms\ContentCore\Site\Model;
 use Zrcms\Content\Exception\PropertyMissing;
 use Zrcms\Content\Model\ContentVersionAbstract;
 use Zrcms\ContentCore\Site\Fields\FieldsSiteVersion;
+use Zrcms\Locale\Api\DefaultLocal;
 use Zrcms\Param\Param;
 
 /**
@@ -24,7 +25,7 @@ abstract class SiteVersionAbstract extends ContentVersionAbstract
         array $properties,
         string $createdByUserId,
         string $createdReason,
-        string $createdDate = null
+        $createdDate = null
     ) {
         Param::assertNotEmpty(
             $properties,
@@ -97,7 +98,7 @@ abstract class SiteVersionAbstract extends ContentVersionAbstract
     {
         return $this->getProperty(
             FieldsSiteVersion::LOCALE,
-            'en_US'
+            DefaultLocal::get()
         );
     }
 

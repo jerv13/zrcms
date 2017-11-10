@@ -41,13 +41,15 @@ abstract class CmsResourceHistoryAbstract
      * @param CmsResource $cmsResource
      * @param string      $publishedByUserId
      * @param string      $publishReason
+     * @param string|null $publishDate
      */
     public function __construct(
         $id,
         string $action,
         CmsResource $cmsResource,
         string $publishedByUserId,
-        string $publishReason
+        string $publishReason,
+        $publishDate = null
     ) {
         // Enforce immutability
         if (!$this->isNew()) {
@@ -65,7 +67,8 @@ abstract class CmsResourceHistoryAbstract
 
         $this->setCreatedData(
             $publishedByUserId,
-            $publishReason
+            $publishReason,
+            $publishDate
         );
     }
 
@@ -86,11 +89,15 @@ abstract class CmsResourceHistoryAbstract
     }
 
     /**
-     * @return ContentVersion
+     * @return string
      */
-    public function getContentVersion()
+    public function getCmsResourceId(): string
     {
-        return $this->contentVersion;
+        if (!empty($this->cmsResource)) {
+            return $this->cmsResource->getId();
+        }
+
+        return '';
     }
 
     /**
@@ -99,6 +106,26 @@ abstract class CmsResourceHistoryAbstract
     public function getCmsResource()
     {
         return $this->cmsResource;
+    }
+
+    /**
+     * @return string
+     */
+    public function getContentVersionId(): string
+    {
+        if (!empty($this->contentVersion)) {
+            return $this->contentVersion->getId();
+        }
+
+        return '';
+    }
+
+    /**
+     * @return ContentVersion
+     */
+    public function getContentVersion()
+    {
+        return $this->contentVersion;
     }
 
     /**

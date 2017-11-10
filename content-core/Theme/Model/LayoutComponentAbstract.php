@@ -13,12 +13,13 @@ use Zrcms\Param\Param;
 abstract class LayoutComponentAbstract extends ComponentAbstract
 {
     /**
-     * @param string $classification
-     * @param string $name
-     * @param string $configLocation
-     * @param array  $properties
-     * @param string $createdByUserId
-     * @param string $createdReason
+     * @param string      $classification
+     * @param string      $name
+     * @param string      $configLocation
+     * @param array       $properties
+     * @param string      $createdByUserId
+     * @param string      $createdReason
+     * @param string|null $createdDate
      */
     public function __construct(
         string $classification,
@@ -26,7 +27,8 @@ abstract class LayoutComponentAbstract extends ComponentAbstract
         string $configLocation,
         array $properties,
         string $createdByUserId,
-        string $createdReason
+        string $createdReason,
+        $createdDate = null
     ) {
         Param::assertHas(
             $properties,
@@ -54,7 +56,8 @@ abstract class LayoutComponentAbstract extends ComponentAbstract
             $configLocation,
             $properties,
             $createdByUserId,
-            $createdReason
+            $createdReason,
+            $createdDate
         );
     }
 

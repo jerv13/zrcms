@@ -13,6 +13,7 @@ abstract class LayoutCmsResourceAbstract extends CmsResourceAbstract
 {
     protected $themeName;
     protected $name;
+    protected $html;
 
     /**
      * @param string|null                  $id
@@ -28,7 +29,7 @@ abstract class LayoutCmsResourceAbstract extends CmsResourceAbstract
         ContentVersion $contentVersion,
         string $createdByUserId,
         string $createdReason,
-        string $createdDate = null
+        $createdDate = null
     ) {
         parent::__construct(
             $id,
@@ -57,10 +58,18 @@ abstract class LayoutCmsResourceAbstract extends CmsResourceAbstract
     }
 
     /**
+     * @return string
+     */
+    public function getHtml(): string
+    {
+        return $this->html;
+    }
+
+    /**
      * @param LayoutVersion|ContentVersion $contentVersion
      * @param string                       $modifiedByUserId
      * @param string                       $modifiedReason
-     * @param string                       $modifiedDate
+     * @param string|null                  $modifiedDate
      *
      * @return void
      */
@@ -68,7 +77,7 @@ abstract class LayoutCmsResourceAbstract extends CmsResourceAbstract
         ContentVersion $contentVersion,
         string $modifiedByUserId,
         string $modifiedReason,
-        string $modifiedDate
+        $modifiedDate = null
     ) {
         $this->themeName = $contentVersion->getThemeName();
         $this->name = $contentVersion->getName();
@@ -103,7 +112,7 @@ abstract class LayoutCmsResourceAbstract extends CmsResourceAbstract
             );
         }
 
-        if (empty($contentVersion->getThemeName())) {
+        if (empty($contentVersion->getName())) {
             throw new ContentVersionInvalid(
                 'Name can not be empty'
             );

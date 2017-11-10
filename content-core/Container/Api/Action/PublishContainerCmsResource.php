@@ -15,12 +15,14 @@ interface PublishContainerCmsResource extends PublishCmsResource
      * @param ContainerCmsResource|CmsResource $containerCmsResource
      * @param string                           $publishedByUserId
      * @param string                           $publishReason
+     * @param string|null                      $publishDate
      *
-     * @return CmsResource
+     * @return ContainerCmsResource|CmsResource
      */
     public function __invoke(
         CmsResource $containerCmsResource,
         string $publishedByUserId,
-        string $publishReason
+        string $publishReason,
+        $publishDate = null
     ): CmsResource;
 }

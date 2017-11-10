@@ -147,7 +147,7 @@ trait TrackableModifyTrait
     protected function setModifiedData(
         string $modifiedByUserId,
         string $modifiedReason,
-        string $modifiedDate = null
+        $modifiedDate = null
     ) {
         // invalid
         if (empty($modifiedByUserId)) {
@@ -167,13 +167,14 @@ trait TrackableModifyTrait
         // ALWAYS STORE UTC
         $timezone = new \DateTimeZone('UTC');
 
-        if ($modifiedDate === null) {
+        if (!is_string($modifiedDate)) {
             $modifiedDateObject = new \DateTime(
                 'now',
                 $timezone
             );
         } else {
             $modifiedDateObject = \DateTime::createFromFormat(
+                Trackable::DATE_FORMAT,
                 $modifiedDate,
                 $timezone
             );

@@ -30,7 +30,6 @@ class FindSiteCmsResource
             SiteCmsResourceBasic::class,
             SiteVersionEntity::class,
             SiteVersionBasic::class,
-            [],
             []
         );
     }

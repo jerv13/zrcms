@@ -4,6 +4,7 @@ namespace Zrcms\ContentCore\Page\Model;
 
 use Zrcms\Content\Exception\PropertyMissing;
 use Zrcms\Content\Model\ContentVersionAbstract;
+use Zrcms\ContentCore\Container\Fields\FieldsContainerVersion;
 use Zrcms\ContentCore\Container\Model\Container;
 use Zrcms\ContentCore\Container\Model\ContainerVersion;
 use Zrcms\ContentCore\Container\Model\ContainerVersionBasic;
@@ -30,7 +31,7 @@ abstract class PageVersionAbstract extends ContentVersionAbstract
         array $properties,
         string $createdByUserId,
         string $createdReason,
-        string $createdDate = null
+        $createdDate = null
     ) {
         Param::assertNotEmpty(
             $properties,
@@ -207,6 +208,9 @@ abstract class PageVersionAbstract extends ContentVersionAbstract
             $this->getId(),
             $name
         );
+
+        $containerData[FieldsContainerVersion::SITE_CMS_RESOURCE_ID] = $this->getSiteCmsResourceId();
+        $containerData[FieldsContainerVersion::PATH] = $name;
 
         return new ContainerVersionBasic(
             $id,

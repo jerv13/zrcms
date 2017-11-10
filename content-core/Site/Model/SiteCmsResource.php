@@ -19,4 +19,14 @@ interface SiteCmsResource extends CmsResource
      * @return string
      */
     public function getHost(): string;
+
+    /**
+     * @return string
+     */
+    public function getThemeName(): string;
+
+    /**
+     * @return string
+     */
+    public function getLocale(): string;
 }

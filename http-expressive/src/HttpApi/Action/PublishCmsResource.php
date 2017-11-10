@@ -7,9 +7,6 @@ use Psr\Http\Message\ServerRequestInterface;
 use Zrcms\Content\Api\CmsResourceToArray;
 use Zrcms\Content\Api\Repository\FindContentVersion;
 use Zrcms\Content\Model\CmsResource;
-use Zrcms\Content\Fields\FieldsCmsResource;
-use Zrcms\Content\Fields\FieldsContentVersion;
-use Zrcms\Content\Model\CmsResourceBasic;
 use Zrcms\HttpExpressive\Http\JsonApiResponse;
 use Zrcms\HttpExpressive\Model\ResponseCodes;
 use Zrcms\User\Api\GetUserIdByRequest;
@@ -172,11 +169,11 @@ class PublishCmsResource
         );
 
 //        try {
-            $newCmsResource = $this->publishCmsResource->__invoke(
-                $cmsResource,
-                $createdByUserId,
-                $createdReason
-            );
+        $newCmsResource = $this->publishCmsResource->__invoke(
+            $cmsResource,
+            $createdByUserId,
+            $createdReason
+        );
 //        } catch (\Exception $exception) {
 //            return new JsonApiResponse(
 //                null,

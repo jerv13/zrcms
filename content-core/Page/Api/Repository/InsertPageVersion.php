@@ -15,7 +15,7 @@ interface InsertPageVersion extends InsertContainerVersion
      * @param PageVersionBasic|ContentVersion $pageVersion
      * @param array                           $options
      *
-     * @return ContentVersion
+     * @return PageVersionBasic|ContentVersion
      */
     public function __invoke(
         ContentVersion $pageVersion,

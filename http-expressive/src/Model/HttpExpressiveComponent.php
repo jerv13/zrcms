@@ -15,12 +15,13 @@ class HttpExpressiveComponent extends BasicComponentAbstract implements BasicCom
     const NAME = 'zrcms-http-expressive-1';
 
     /**
-     * @param string $classification
-     * @param string $name
-     * @param string $configLocation
-     * @param array  $properties
-     * @param string $createdByUserId
-     * @param string $createdReason
+     * @param string      $classification
+     * @param string      $name
+     * @param string      $configLocation
+     * @param array       $properties
+     * @param string      $createdByUserId
+     * @param string      $createdReason
+     * @param string|null $createdDate
      */
     public function __construct(
         string $classification,
@@ -28,7 +29,8 @@ class HttpExpressiveComponent extends BasicComponentAbstract implements BasicCom
         string $configLocation,
         array $properties,
         string $createdByUserId,
-        string $createdReason
+        string $createdReason,
+        $createdDate = null
     ) {
         $statusPropertyMap = Param::getArray(
             $properties,
@@ -47,7 +49,8 @@ class HttpExpressiveComponent extends BasicComponentAbstract implements BasicCom
             $configLocation,
             $properties,
             $createdByUserId,
-            $createdReason
+            $createdReason,
+            $createdDate
         );
     }
 

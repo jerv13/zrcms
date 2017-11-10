@@ -11,19 +11,16 @@ use Zend\Expressive\Router\RouteResult;
 use Zrcms\Content\Api\CmsResourceToArray;
 use Zrcms\ContentCore\Basic\Api\Repository\FindBasicComponent;
 use Zrcms\ContentCore\Page\Api\Render\GetPageRenderTagsHtml;
-use Zrcms\ContentCore\Page\Fields\FieldsPageCmsResource;
 use Zrcms\ContentCore\Page\Fields\FieldsPageVersion;
 use Zrcms\ContentCore\Page\Model\PageCmsResourceBasic;
 use Zrcms\ContentCore\Page\Model\PageVersionBasic;
 use Zrcms\ContentCore\Site\Api\Action\PublishSiteCmsResource;
 use Zrcms\ContentCore\Site\Api\Repository\InsertSiteVersion;
-use Zrcms\ContentCore\Site\Fields\FieldsSiteCmsResource;
 use Zrcms\ContentCore\Site\Fields\FieldsSiteVersion;
 use Zrcms\ContentCore\Site\Model\SiteCmsResourceBasic;
 use Zrcms\ContentCore\Site\Model\SiteVersionBasic;
 use Zrcms\ContentCore\Theme\Api\Render\GetLayoutRenderTagsNoop;
 use Zrcms\ContentCore\Theme\Api\Render\RenderLayoutMustache;
-use Zrcms\ContentCore\Theme\Fields\FieldsLayoutCmsResource;
 use Zrcms\ContentCore\Theme\Fields\FieldsLayoutVersion;
 use Zrcms\ContentCore\Theme\Model\LayoutCmsResourceBasic;
 use Zrcms\ContentCore\Theme\Model\LayoutVersionBasic;
@@ -78,6 +75,7 @@ class ViewControllerTest
         );
 
         $siteVersion = new SiteVersionBasic(
+            'testId',
             [
                 FieldsSiteVersion::COUNTRY_ISO3
                 => 'test1:' . FieldsSiteVersion::COUNTRY_ISO3,
@@ -96,6 +94,8 @@ class ViewControllerTest
                 => 'test:' . FieldsSiteVersion::THEME_NAME,
                 FieldsSiteVersion::TITLE
                 => 'test:' . FieldsSiteVersion::TITLE,
+                FieldsSiteVersion::HOST
+                => 'test:' . FieldsSiteVersion::HOST,
             ],
             self::CREATED_BY_USER_ID,
             self::CREATED_REASON
@@ -109,12 +109,9 @@ class ViewControllerTest
         );
 
         $siteCmsResource = new SiteCmsResourceBasic(
-            [
-                FieldsSiteCmsResource::CONTENT_VERSION
-                => $newSiteVersion,
-                FieldsSiteCmsResource::HOST
-                => 'test:' . FieldsSiteCmsResource::HOST,
-            ],
+            'testId',
+            true,
+            $newSiteVersion,
             self::CREATED_BY_USER_ID,
             self::CREATED_REASON
         );
@@ -177,21 +174,21 @@ class ViewControllerTest
                 => 'test:' . FieldsSiteVersion::THEME_NAME,
                 FieldsSiteVersion::TITLE
                 => 'test:' . FieldsSiteVersion::TITLE,
+                FieldsSiteVersion::HOST
+                => '/test/' . FieldsSiteVersion::HOST,
             ],
             self::CREATED_BY_USER_ID,
-            self::CREATED_REASON
+            self::CREATED_REASON,
+            null
         );
 
         $siteCmsResource = new SiteCmsResourceBasic(
             'testID',
             true,
             $siteVersion,
-            [
-                FieldsSiteCmsResource::HOST
-                => 'test:' . FieldsSiteCmsResource::HOST,
-            ],
             self::CREATED_BY_USER_ID,
-            self::CREATED_REASON
+            self::CREATED_REASON,
+            null
         );
 
         $pageVersion = new PageVersionBasic(
@@ -209,23 +206,23 @@ class ViewControllerTest
                 => 'test:' . FieldsPageVersion::PRE_RENDERED_HTML,
                 FieldsPageVersion::RENDER_TAGS_GETTER
                 => GetPageRenderTagsHtml::class,
+                FieldsPageVersion::SITE_CMS_RESOURCE_ID
+                => 'test:' . FieldsPageVersion::SITE_CMS_RESOURCE_ID,
+                FieldsPageVersion::PATH
+                => '/test-' . FieldsPageVersion::PATH,
             ],
             self::CREATED_BY_USER_ID,
-            self::CREATED_REASON
+            self::CREATED_REASON,
+            null
         );
 
         $pageCmsResource = new PageCmsResourceBasic(
             'testID',
             true,
             $pageVersion,
-            [
-                FieldsPageCmsResource::SITE_CMS_RESOURCE_ID
-                => 'test:' . FieldsPageCmsResource::SITE_CMS_RESOURCE_ID,
-                FieldsPageCmsResource::PATH
-                => '/test-' . FieldsPageCmsResource::PATH,
-            ],
             self::CREATED_BY_USER_ID,
-            self::CREATED_REASON
+            self::CREATED_REASON,
+            null
         );
 
         $layout = new LayoutVersionBasic(
@@ -243,23 +240,23 @@ class ViewControllerTest
                 => GetTagNamesByLayoutMustache::class,
                 FieldsLayoutVersion::RENDERER
                 => RenderLayoutMustache::class,
+                FieldsLayoutVersion::NAME
+                => 'test:' . FieldsLayoutVersion::NAME,
+                FieldsLayoutVersion::THEME_NAME
+                => 'test:' . FieldsLayoutVersion::THEME_NAME,
             ],
             self::CREATED_BY_USER_ID,
-            self::CREATED_REASON
+            self::CREATED_REASON,
+            null
         );
 
         $layoutCmsResource = new LayoutCmsResourceBasic(
             'testID',
             true,
             $layout,
-            [
-                FieldsLayoutCmsResource::NAME
-                => 'test:' . FieldsLayoutCmsResource::NAME,
-                FieldsLayoutCmsResource::THEME_NAME
-                => 'test:' . FieldsLayoutCmsResource::THEME_NAME,
-            ],
             self::CREATED_BY_USER_ID,
-            self::CREATED_REASON
+            self::CREATED_REASON,
+            null
         );
 
         $properties = [

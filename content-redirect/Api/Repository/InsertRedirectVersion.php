@@ -15,7 +15,7 @@ interface InsertRedirectVersion extends InsertContentVersion
      * @param RedirectVersion|ContentVersion $redirectVersion
      * @param array                      $options
      *
-     * @return ContentVersion
+     * @return RedirectVersion|ContentVersion
      */
     public function __invoke(
         ContentVersion $redirectVersion,

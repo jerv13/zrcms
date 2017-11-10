@@ -58,13 +58,6 @@ class LayoutCmsResourceHistoryEntity
     protected $cmsResourceEntity;
 
     /**
-     * @var array
-     *
-     * @ORM\Column(type="json_array")
-     */
-    protected $cmsResourceProperties;
-
-    /**
      * @var int
      *
      * @ORM\Column(type="integer", nullable=true)
@@ -82,15 +75,6 @@ class LayoutCmsResourceHistoryEntity
      * )
      */
     protected $contentVersion;
-
-    /**
-     * Date object was first created mapped to col createdDate
-     *
-     * @var \DateTime
-     *
-     * @ORM\Column(type="datetime", name="createdDate")
-     */
-    protected $createdDateObject;
 
     /**
      * User ID of creator
@@ -111,36 +95,30 @@ class LayoutCmsResourceHistoryEntity
     protected $createdReason;
 
     /**
-     * @var string
+     * Date object was first created mapped to col createdDate
      *
-     * @ORM\Column(type="string")
+     * @var \DateTime
+     *
+     * @ORM\Column(type="datetime", name="createdDate")
      */
-    protected $themeName;
+    protected $createdDateObject;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(type="string")
-     */
-    protected $name;
-
-    /**
-     * @param string|null                               $id
+     * @param null|string                               $id
      * @param string                                    $action
      * @param LayoutCmsResourceEntity|CmsResourceEntity $cmsResourceEntity
      * @param string                                    $publishedByUserId
      * @param string                                    $publishReason
+     * @param string|null                               $publishDate
      */
     public function __construct(
         $id,
         string $action,
         CmsResourceEntity $cmsResourceEntity,
         string $publishedByUserId,
-        string $publishReason
+        string $publishReason,
+        $publishDate = null
     ) {
-        $this->themeName = $cmsResourceEntity->getThemeName();
-        $this->name = $cmsResourceEntity->getName();
-
         parent::__construct(
             $id,
             $action,
@@ -148,22 +126,6 @@ class LayoutCmsResourceHistoryEntity
             $publishedByUserId,
             $publishReason
         );
-    }
-
-    /**
-     * @return string
-     */
-    public function getThemeName(): string
-    {
-        return $this->themeName;
-    }
-
-    /**
-     * @return string
-     */
-    public function getName(): string
-    {
-        return $this->name;
     }
 
     /**

@@ -4,7 +4,6 @@ namespace Zrcms\ContentCoreDoctrineDataSource\Theme\Api;
 
 use Zrcms\Content\Model\CmsResource;
 use Zrcms\ContentCore\Theme\Api\Repository\FindThemeComponent;
-use Zrcms\ContentCore\Theme\Fields\FieldsLayoutCmsResource;
 use Zrcms\ContentCore\Theme\Model\LayoutCmsResource;
 use Zrcms\ContentCore\Theme\Model\LayoutCmsResourceBasic;
 use Zrcms\ContentCore\Theme\Model\ThemeComponent;
@@ -84,18 +83,13 @@ class FallbackToComponentLayoutCmsResource
             $layoutComponent
         );
 
-        $properties = [
-            FieldsLayoutCmsResource::NAME => $layoutComponent->getName(),
-            FieldsLayoutCmsResource::THEME_NAME => $layoutComponent->getThemeName(),
-        ];
-
         return new LayoutCmsResourceBasic(
             $id,
             true,
             $layoutVersion,
-            $properties,
             $layoutComponent->getCreatedByUserId(),
-            $layoutComponent->getCreatedReason()
+            $layoutComponent->getCreatedReason(),
+            $layoutComponent->getCreatedDate()
         );
     }
 }
