@@ -89,13 +89,13 @@ class ResponseMutatorThemeLayoutWrapper
             return new HtmlResponse(
                 'NOT FOUND',
                 404,
-                ['reason-phrase', 'NOT FOUND: SITE']
+                ['reason-phrase' => 'NOT FOUND: SITE']
             );
         } catch (PageNotFound $exception) {
             return new HtmlResponse(
                 'NOT FOUND',
                 404,
-                ['reason-phrase', 'NOT FOUND: PAGE']
+                ['reason-phrase' => 'NOT FOUND: PAGE']
             );
         }
 
@@ -103,7 +103,7 @@ class ResponseMutatorThemeLayoutWrapper
             return new HtmlResponse(
                 'NOT FOUND',
                 404,
-                ['reason-phrase', 'NOT FOUND: NO VIEW']
+                ['reason-phrase' => 'NOT FOUND: NO VIEW']
             );
         }
 
