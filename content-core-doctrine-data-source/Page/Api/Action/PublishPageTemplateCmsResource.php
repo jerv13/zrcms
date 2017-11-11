@@ -49,8 +49,8 @@ class PublishPageTemplateCmsResource
         string $publishedByUserId,
         string $publishReason,
         $publishDate = null
-    ): CmsResource
-    {
+    ): CmsResource {
+        // @todo check if published page template of same path and site exist before continuing
         return parent::__invoke(
             $pageTemplateCmsResource,
             $publishedByUserId,

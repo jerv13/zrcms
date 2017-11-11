@@ -49,8 +49,8 @@ class PublishRedirectCmsResource
         string $publishedByUserId,
         string $publishReason,
         $publishDate = null
-    ): CmsResource
-    {
+    ): CmsResource {
+        // @todo check if published Redirect of same requestPath and siteCmsResourceId exist before continuing
         return parent::__invoke(
             $redirectCmsResource,
             $publishedByUserId,

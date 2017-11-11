@@ -49,8 +49,8 @@ class PublishContainerCmsResource
         string $publishedByUserId,
         string $publishReason,
         $publishDate = null
-    ): CmsResource
-    {
+    ): CmsResource {
+        // @todo check if published Container of same path and siteCmsResourceId exist before continuing
         return parent::__invoke(
             $containerCmsResource,
             $publishedByUserId,

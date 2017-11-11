@@ -49,8 +49,8 @@ class PublishLayoutCmsResource
         string $publishedByUserId,
         string $publishReason,
         $publishDate = null
-    ): CmsResource
-    {
+    ): CmsResource {
+        // @todo check if published Layout of same themName and name exist before continuing
         return parent::__invoke(
             $layoutCmsResource,
             $publishedByUserId,
