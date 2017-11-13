@@ -3,8 +3,6 @@
 namespace Zrcms\Content\Api;
 
 use Zrcms\Content\Model\Content;
-use Zrcms\Content\Model\Properties;
-use Zrcms\Content\Fields\FieldsContent;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -20,8 +18,7 @@ class ContentToArrayBasic implements ContentToArray
     public function __invoke(
         Content $content,
         array $options = []
-    ): array
-    {
+    ): array {
         return [
             'id' => $content->getId(),
 

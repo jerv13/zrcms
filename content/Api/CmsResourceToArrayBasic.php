@@ -3,7 +3,6 @@
 namespace Zrcms\Content\Api;
 
 use Zrcms\Content\Model\CmsResource;
-use Zrcms\Content\Model\Properties;
 use Zrcms\Content\Model\TrackableProperties;
 
 /**
@@ -34,8 +33,7 @@ class CmsResourceToArrayBasic implements CmsResourceToArray
     public function __invoke(
         CmsResource $cmsResource,
         array $options = []
-    ): array
-    {
+    ): array {
         $contentVersion = $this->contentVersionToArray->__invoke(
             $cmsResource->getContentVersion()
         );
@@ -44,14 +42,14 @@ class CmsResourceToArrayBasic implements CmsResourceToArray
             'id'
             => $cmsResource->getId(),
 
+            'contentVersionId'
+            => $cmsResource->getContentVersionId(),
+
             'contentVersion'
             => $contentVersion,
 
             'published'
             => $cmsResource->isPublished(),
-
-            Properties::NAME_PROPERTIES
-            => $cmsResource->getProperties(),
 
             TrackableProperties::CREATED_BY_USER_ID
             => $cmsResource->getCreatedByUserId(),

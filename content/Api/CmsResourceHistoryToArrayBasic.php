@@ -41,8 +41,7 @@ class CmsResourceHistoryToArrayBasic implements CmsResourceHistoryToArray
     public function __invoke(
         CmsResourceHistory $cmsResourceHistory,
         array $options = []
-    ): array
-    {
+    ): array {
         $contentVersionArray = $this->contentVersionToArray->__invoke(
             $cmsResourceHistory->getContentVersion()
         );
@@ -58,8 +57,14 @@ class CmsResourceHistoryToArrayBasic implements CmsResourceHistoryToArray
             'action'
             => $cmsResourceHistory->getAction(),
 
+            'cmsResourceId'
+            => $cmsResourceHistory->getCmsResourceId(),
+
             'cmsResource'
             => $cmsResourceArray,
+
+            'contentVersionId'
+            => $cmsResourceHistory->getContentVersionId(),
 
             'contentVersion'
             => $contentVersionArray,

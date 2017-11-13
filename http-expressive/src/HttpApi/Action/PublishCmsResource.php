@@ -163,24 +163,25 @@ class PublishCmsResource
             $requestData['id'],
             true,
             $contentVersion,
-            $requestData['properties'],
             $createdByUserId,
-            $createdReason
+            $createdReason,
+            null
         );
 
-//        try {
-        $newCmsResource = $this->publishCmsResource->__invoke(
-            $cmsResource,
-            $createdByUserId,
-            $createdReason
-        );
-//        } catch (\Exception $exception) {
-//            return new JsonApiResponse(
-//                null,
-//                $exception,
-//                500
-//            );
-//        }
+        try {
+            $newCmsResource = $this->publishCmsResource->__invoke(
+                $cmsResource,
+                $createdByUserId,
+                $createdReason,
+                null
+            );
+        } catch (\Exception $exception) {
+            return new JsonApiResponse(
+                null,
+                $exception,
+                500
+            );
+        }
 
         $result = $this->cmsResourceToArray->__invoke(
             $newCmsResource
