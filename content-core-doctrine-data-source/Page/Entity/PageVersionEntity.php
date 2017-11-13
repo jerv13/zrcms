@@ -100,7 +100,9 @@ class PageVersionEntity
      * @param array       $properties
      * @param string      $createdByUserId
      * @param string      $createdReason
-     * @param string|null $createdDate
+     * @param null        $createdDate
+     *
+     * @throws \Exception
      */
     public function __construct(
         $id,
