@@ -179,7 +179,7 @@ class PublishCmsResource
             return new JsonApiResponse(
                 null,
                 $exception,
-                400
+                500
             );
         }
 
