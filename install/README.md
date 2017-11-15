@@ -9,6 +9,7 @@ Install Application
 - Install skeleton with core dependencies
 - Add config for DB connection (doctrine) config (secrets)
 - Test connections
+- Create admin account
 - Import some default data (or import file) to create sites and pages
 - Multi-server syncing: 
     - might use GIT for this
