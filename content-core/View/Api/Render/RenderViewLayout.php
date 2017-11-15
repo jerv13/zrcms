@@ -36,8 +36,7 @@ class RenderViewLayout implements RenderView, RenderLayout
         Content $view,
         array $renderTags,
         array $options = []
-    ): string
-    {
+    ): string {
         return $this->renderLayout->__invoke(
             $view->getLayoutCmsResource()->getContentVersion(),
             $renderTags,
