@@ -21,7 +21,7 @@ class ZrcmsHtmlResponse extends HtmlResponse
     const PROPERTY_RENDER_TAGS_GETTER = FieldsPageVersion::RENDER_TAGS_GETTER;
     const PROPERTY_CONTAINERS_DATA = FieldsPageVersion::CONTAINERS_DATA;
     const PROPERTY_RENDER_LAYOUT = 'render-layout';
-    
+
     const DEFAULT_RENDER_LAYOUT = true;
 
     /**
