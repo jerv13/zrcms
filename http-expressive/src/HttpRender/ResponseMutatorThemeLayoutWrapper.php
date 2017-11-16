@@ -155,11 +155,6 @@ class ResponseMutatorThemeLayoutWrapper
     protected function canHandleResponse(
         ResponseInterface $response
     ):bool {
-        // @todo What can we do to determine if we nee to render layout or not
-        //       This breaks the default rendering for generic app pages
-        //       But not doing this breaks plain html assets
-        // NOTE: We must require ZrcmsHtmlResponse because there is
-        //       no other way to determine if the layout should be rendered
         if (!$response instanceof ZrcmsHtmlResponse) {
             return false;
         }
