@@ -177,16 +177,6 @@ class ResponseMutatorThemeLayoutWrapper
             return false;
         }
 
-        $body = $response->getBody();
-        $body->rewind();
-
-        $contents = $body->getContents();
-
-        // @todo this need to be improved, only wrap if there is not complete HTML
-        if (stripos($contents, '<html') !== false) {
-            return false;
-        }
-
         return true;
     }
 }
