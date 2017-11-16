@@ -17,6 +17,6 @@ class BuildPageContainerVersionId
         string $pageContentId,
         string $containerName
     ):string {
-        return 'page.' . $pageContentId . '.container.' . $containerName;
+        return 'page-version.' . $pageContentId . '.container.' . $containerName;
     }
 }

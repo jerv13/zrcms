@@ -19,7 +19,9 @@ class ZrcmsHtmlResponse extends HtmlResponse
     const PROPERTY_KEYWORDS = FieldsPageVersion::KEYWORDS;
     const PROPERTY_LAYOUT = FieldsPageVersion::LAYOUT;
     const PROPERTY_RENDER_TAGS_GETTER = FieldsPageVersion::RENDER_TAGS_GETTER;
-    const PROPERTY_CONTAINERS_DATA= FieldsPageVersion::CONTAINERS_DATA;
+    const PROPERTY_CONTAINERS_DATA = FieldsPageVersion::CONTAINERS_DATA;
+    const PROPERTY_RENDER_LAYOUT = 'render-layout';
+    const DEFAULT_RENDER_LAYOUT = true;
 
     /**
      * @var array
@@ -28,7 +30,7 @@ class ZrcmsHtmlResponse extends HtmlResponse
 
     /**
      * Create a ZRCMS HTML response.
-     * 
+     *
      * @param StreamInterface|string $html
      * @param int                    $status
      * @param array                  $headers
@@ -58,6 +60,7 @@ class ZrcmsHtmlResponse extends HtmlResponse
     {
         $new = clone $this;
         $new->properties = $properties;
+
         return $new;
     }
 
@@ -71,6 +74,22 @@ class ZrcmsHtmlResponse extends HtmlResponse
     {
         $new = clone $this;
         $new->properties[$key] = $value;
+
         return $new;
+    }
+
+    /**
+     * @param string $key
+     * @param null   $default
+     *
+     * @return mixed|null
+     */
+    public function getProperty(string $key, $default = null)
+    {
+        if (array_key_exists($key, $this->properties)) {
+            return $this->properties[$key];
+        }
+
+        return $default;
     }
 }
