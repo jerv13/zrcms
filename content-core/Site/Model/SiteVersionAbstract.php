@@ -85,7 +85,7 @@ abstract class SiteVersionAbstract extends ContentVersionAbstract
      */
     public function getThemeName(): string
     {
-        return $this->getProperty(
+        return (string)$this->getProperty(
             FieldsSiteVersion::THEME_NAME,
             ''
         );
@@ -96,7 +96,7 @@ abstract class SiteVersionAbstract extends ContentVersionAbstract
      */
     public function getLocale(): string
     {
-        return $this->getProperty(
+        return (string)$this->getProperty(
             FieldsSiteVersion::LOCALE,
             DefaultLocal::get()
         );
