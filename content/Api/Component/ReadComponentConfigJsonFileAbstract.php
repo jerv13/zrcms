@@ -45,10 +45,13 @@ abstract class ReadComponentConfigJsonFileAbstract implements ReadComponentConfi
         $realConfigFilePath = realpath($configFilePath);
 
         if (empty($realConfigFilePath)) {
-            throw new \Exception("File is not valid: ({$directory})");
+            throw new \Exception(
+                "File path is not valid: ({$directory}). Path can NOT contain the file name"
+            );
         }
 
         $configFileContents = file_get_contents($realConfigFilePath);
+
         /** @var array $config */
         $config = json_decode($configFileContents, true, 512, JSON_BIGINT_AS_STRING);
 

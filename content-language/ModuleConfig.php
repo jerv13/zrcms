@@ -18,7 +18,7 @@ class ModuleConfig
         return [
             'zrcms-components' => [
                 'basic' => [
-                    'zrcms-languages' => __DIR__ . '/'
+                    'zrcms-languages' => __DIR__
                 ]
             ],
         ];
