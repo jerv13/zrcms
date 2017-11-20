@@ -19,7 +19,7 @@ use Zrcms\ContentDoctrine\Entity\ContentEntity;
  *     indexes={
  *        @ORM\Index(name="contentVersionId", columns={"contentVersionId"}),
  *        @ORM\Index(name="siteCmsResourceId", columns={"siteCmsResourceId"}),
- *        @ORM\Index(name="path", columns={"path"})
+ *        @ORM\Index(name="pageCmsResourceId", columns={"pageCmsResourceId"})
  *     }
  * )
  */
@@ -31,8 +31,7 @@ class PageDraftCmsResourceEntity
      * @var int
      *
      * @ORM\Id
-     * @ORM\Column(type="integer")
-     * @ORM\GeneratedValue
+     * @ORM\Column(type="string")
      */
     protected $id;
 
@@ -46,7 +45,7 @@ class PageDraftCmsResourceEntity
     /**
      * @var int
      *
-     * @ORM\Column(type="integer", nullable=true)
+     * @ORM\Column(type="string", nullable=true)
      */
     protected $contentVersionId = null;
 

@@ -1,6 +1,12 @@
 @todo
 =====
 
+Save	Bob create a new page draft for 201820182018.reliv.com/cats (draft version #7)
+Publish	Bob published a page draft to 201820182018.reliv.com/cats (draft version #7, site #7, page #2)
+Delete	Bob deleted page 201820182018.reliv.com/fish (site #7, page #3)
+Move	Bob moved page #2 from 201820182018.reliv.com/cats to 201820182018.reliv.com/dogs (site #7)
+New     
+
 - Publish and Unpublish CmsResource can simply be Upsert.
 
 - Multi Page container rendering

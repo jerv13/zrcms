@@ -26,8 +26,7 @@ class LayoutCmsResourceHistoryEntity
      * @var int
      *
      * @ORM\Id
-     * @ORM\Column(type="integer")
-     * @ORM\GeneratedValue
+     * @ORM\Column(type="string")
      */
     protected $id;
 
@@ -41,7 +40,7 @@ class LayoutCmsResourceHistoryEntity
     /**
      * @var int
      *
-     * @ORM\Column(type="integer", nullable=true)
+     * @ORM\Column(type="string", nullable=true)
      */
     protected $cmsResourceId = null;
 
@@ -60,7 +59,7 @@ class LayoutCmsResourceHistoryEntity
     /**
      * @var int
      *
-     * @ORM\Column(type="integer", nullable=true)
+     * @ORM\Column(type="string", nullable=true)
      */
     protected $contentVersionId = null;
 

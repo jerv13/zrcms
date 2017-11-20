@@ -10,6 +10,8 @@ DROP TABLE IF EXISTS `zrcms_core_page_resource_history`;
 DROP TABLE IF EXISTS `zrcms_core_page_version`;
 DROP TABLE IF EXISTS `zrcms_core_page_template_resource`;
 DROP TABLE IF EXISTS `zrcms_core_page_template_resource_history`;
+DROP TABLE IF EXISTS `zrcms_core_page_draft_resource`;
+DROP TABLE IF EXISTS `zrcms_core_page_draft_resource_history`;
 DROP TABLE IF EXISTS `zrcms_core_redirect_resource`;
 DROP TABLE IF EXISTS `zrcms_core_redirect_resource_history`;
 DROP TABLE IF EXISTS `zrcms_core_redirect_version`;

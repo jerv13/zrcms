@@ -3,6 +3,7 @@
 namespace Zrcms\Content\Model;
 
 use Doctrine\Common\Persistence\Event\LifecycleEventArgs;
+use Zrcms\ContentCore\GetGuidV4;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -65,6 +66,10 @@ abstract class ContentVersionAbstract
             return;
         }
         $this->new = false;
+
+        if (empty($id)) {
+            $id = GetGuidV4::invoke();
+        }
 
         $this->id = $id;
 

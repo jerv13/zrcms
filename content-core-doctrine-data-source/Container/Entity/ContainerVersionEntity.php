@@ -6,6 +6,7 @@ use Doctrine\Common\Persistence\Event\LifecycleEventArgs;
 use Doctrine\ORM\Mapping as ORM;
 use Zrcms\ContentCore\Container\Api\PrepareBlockVersionsData;
 use Zrcms\ContentCore\Container\Fields\FieldsContainerVersion;
+use Zrcms\ContentCore\GetGuidV4;
 use Zrcms\ContentDoctrine\Entity\ContentEntity;
 use Zrcms\ContentDoctrine\Entity\ContentEntityAbstract;
 use Zrcms\Param\Param;
@@ -28,8 +29,7 @@ class ContainerVersionEntity
      * @var int
      *
      * @ORM\Id
-     * @ORM\Column(type="integer")
-     * @ORM\GeneratedValue
+     * @ORM\Column(type="string")
      */
     protected $id;
 
@@ -95,8 +95,6 @@ class ContainerVersionEntity
         string $createdReason,
         $createdDate = null
     ) {
-        $this->tempId = $id;
-
         $this->blockVersions = Param::getArray(
             $properties,
             FieldsContainerVersion::BLOCK_VERSIONS,
@@ -122,6 +120,8 @@ class ContainerVersionEntity
             $createdReason,
             $createdDate
         );
+
+        $this->tempId = $this->id;
     }
 
     /**
@@ -176,6 +176,7 @@ class ContainerVersionEntity
     }
 
     /**
+     * @todo This should not be needed the the added GUID in construct
      * @param LifecycleEventArgs $eventArgs
      *
      * @return void

@@ -7,7 +7,5 @@ namespace Zrcms\Content\Model;
  */
 interface Action
 {
-    const PUBLISH_CMS_RESOURCE = 'publish';
-    const UNPUBLISH_CMS_RESOURCE = 'unpublish';
-    const CONTENT_CHANGE = 'content-change';
+
 }

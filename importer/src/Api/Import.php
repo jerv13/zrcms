@@ -308,7 +308,7 @@ class Import
         foreach ($pages as $page) {
             $this->log(
                 LogLevel::INFO,
-                'Import Page: ' . $page['properties']['path'],
+                'Import Page: ' . $page['properties']['path'] . ' ID: ' . $page['id'],
                 $options
             );
 
@@ -318,7 +318,7 @@ class Import
 
             $publishedPageCmsResource = $this->upsertPageCmsResource->__invoke(
                 new PageCmsResourceBasic(
-                    null,
+                    $page['id'],
                     $published,
                     new PageVersionBasic(
                         null,
@@ -380,7 +380,7 @@ class Import
 
             $publishedPageTemplateCmsResource = $this->upsertPageTemplateCmsResource->__invoke(
                 new PageTemplateCmsResourceBasic(
-                    null,
+                    $pageTemplate['id'],
                     $published,
                     new PageVersionBasic(
                         null,
@@ -442,7 +442,7 @@ class Import
 
             $publishedContainerCmsResource = $this->upsertContainerCmsResource->__invoke(
                 new ContainerCmsResourceBasic(
-                    null,
+                    $container['id'],
                     $published,
                     new ContainerVersionBasic(
                         null,
@@ -517,7 +517,7 @@ class Import
 
             $publishedRedirectCmsResource = $this->upsertRedirectCmsResource->__invoke(
                 new RedirectCmsResourceBasic(
-                    null,
+                    $redirect['id'],
                     $published,
                     new RedirectVersionBasic(
                         null,

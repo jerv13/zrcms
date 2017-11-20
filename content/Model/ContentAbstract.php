@@ -2,6 +2,8 @@
 
 namespace Zrcms\Content\Model;
 
+use Zrcms\ContentCore\GetGuidV4;
+
 /**
  * @author James Jervis - https://github.com/jerv13
  */
@@ -30,6 +32,10 @@ abstract class ContentAbstract
             return;
         }
         $this->new = false;
+
+        if (empty($id)) {
+            $id = GetGuidV4::invoke();
+        }
 
         $this->id = $id;
 

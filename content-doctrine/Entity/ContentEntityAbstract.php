@@ -6,6 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Persistence\Event\LifecycleEventArgs;
 use Zrcms\Content\Model\ImmutableTrait;
 use Zrcms\Content\Model\PropertiesTrait;
+use Zrcms\ContentCore\GetGuidV4;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -60,6 +61,10 @@ class ContentEntityAbstract
             return;
         }
         $this->new = false;
+
+        if (empty($id)) {
+            $id = GetGuidV4::invoke();
+        }
 
         $this->id = $id;
         $this->properties = $properties;

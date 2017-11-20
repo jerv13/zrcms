@@ -10,6 +10,8 @@ TRUNCATE `zrcms_core_page_resource_history`;
 TRUNCATE `zrcms_core_page_version`;
 TRUNCATE `zrcms_core_page_template_resource`;
 TRUNCATE `zrcms_core_page_template_resource_history`;
+TRUNCATE `zrcms_core_page_draft_resource`;
+TRUNCATE `zrcms_core_page_draft_resource_history`;
 TRUNCATE `zrcms_core_redirect_resource`;
 TRUNCATE `zrcms_core_redirect_resource_history`;
 TRUNCATE `zrcms_core_redirect_version`;

@@ -7,6 +7,7 @@ use Zrcms\ContentCore\Container\Api\CmsResource\UpsertContainerCmsResource;
 use Zrcms\ContentCore\Page\Api\CmsResource\UpsertPageCmsResource;
 use Zrcms\ContentCore\Page\Api\CmsResource\UpsertPageTemplateCmsResource;
 use Zrcms\ContentCore\Site\Api\CmsResource\UpsertSiteCmsResource;
+use Zrcms\ContentCore\Site\Api\Repository\FindSiteCmsResource;
 use Zrcms\ContentRedirect\Api\CmsResource\UpsertRedirectCmsResource;
 
 /**
@@ -23,6 +24,7 @@ class ImportFactory
         $serviceContainer
     ) {
         return new Import(
+            $serviceContainer->get(FindSiteCmsResource::class),
             $serviceContainer->get(UpsertSiteCmsResource::class),
             $serviceContainer->get(UpsertPageCmsResource::class),
             $serviceContainer->get(UpsertPageTemplateCmsResource::class),

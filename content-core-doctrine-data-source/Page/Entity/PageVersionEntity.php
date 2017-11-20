@@ -4,6 +4,7 @@ namespace Zrcms\ContentCoreDoctrineDataSource\Page\Entity;
 
 use Doctrine\Common\Persistence\Event\LifecycleEventArgs;
 use Doctrine\ORM\Mapping as ORM;
+use Zrcms\ContentCore\GetGuidV4;
 use Zrcms\ContentCore\Page\Api\PreparePageContainerData;
 use Zrcms\ContentCore\Page\Fields\FieldsPageVersion;
 use Zrcms\ContentDoctrine\Entity\ContentEntity;
@@ -28,8 +29,8 @@ class PageVersionEntity
      * @var int
      *
      * @ORM\Id
-     * @ORM\Column(type="integer")
-     * @ORM\GeneratedValue
+     * @ORM\Column(type="string")
+     * /////ORM\GeneratedValue
      */
     protected $id;
 
@@ -111,13 +112,6 @@ class PageVersionEntity
         string $createdReason,
         $createdDate = null
     ) {
-        if(is_object($id)) {
-            throw new \Exception(
-                'got ' . get_class($id)
-            );
-        }
-        $this->tempId = $id;
-
         $this->title = Param::getString(
             $properties,
             FieldsPageVersion::TITLE
@@ -153,6 +147,8 @@ class PageVersionEntity
             $createdReason,
             $createdDate
         );
+
+        $this->tempId = $this->id;
     }
 
     /**

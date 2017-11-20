@@ -3,6 +3,7 @@
 namespace Zrcms\Content\Model;
 
 use Zrcms\Content\Exception\CmsResourceInvalid;
+use Zrcms\ContentCore\GetGuidV4;
 
 /**
  * A history record of the state of
@@ -56,6 +57,10 @@ abstract class CmsResourceHistoryAbstract
             return;
         }
         $this->new = false;
+
+        if (empty($id)) {
+            $id = GetGuidV4::invoke();
+        }
 
         $this->id = $id;
 

@@ -3,7 +3,7 @@
 namespace Zrcms\ContentDoctrine\Api\CmsResource;
 
 use Doctrine\ORM\EntityManager;
-use Zrcms\Content\Model\Action;
+use Zrcms\Content\Model\ActionCmsResource;
 use Zrcms\Content\Model\CmsResource;
 use Zrcms\ContentDoctrine\Api\ApiAbstract;
 use Zrcms\ContentDoctrine\Api\BuildBasicCmsResource;
@@ -123,8 +123,6 @@ class UpsertCmsResource
             $isNewContent = true;
         }
 
-        $isNewCmsResource = false;
-
         $cmsResourceEntity = $this->fetchCmsResourceEntity(
             $cmsResource
         );
@@ -135,7 +133,6 @@ class UpsertCmsResource
                 $contentEntity
             );
             $this->entityManager->persist($cmsResourceEntity);
-            $isNewCmsResource = true;
         }
 
         $publishedStateChanged = ($cmsResource->isPublished() !== $cmsResourceEntity->isPublished());
@@ -160,31 +157,20 @@ class UpsertCmsResource
 
         $this->entityManager->flush($cmsResourceEntity);
 
-        if ($isNewContent || $isNewCmsResource) {
-            $cmsResourceHistoryEntity = $this->buildHistory(
-                $cmsResourceEntity,
-                Action::CONTENT_CHANGE,
-                $modifiedByUserId,
-                $modifiedReason,
-                $modifiedDate
-            );
-            $this->entityManager->persist($cmsResourceHistoryEntity);
-            $this->entityManager->flush($cmsResourceHistoryEntity);
-        }
+        $action = ActionCmsResource::invoke(
+            $cmsResource->isPublished(),
+            $isNewContent
+        );
 
-        if ($publishedStateChanged || $isNewCmsResource) {
-            $action = ($cmsResourceEntity->isPublished()
-                ? Action::PUBLISH_CMS_RESOURCE : Action::UNPUBLISH_CMS_RESOURCE);
-            $cmsResourceHistoryEntity = $this->buildHistory(
-                $cmsResourceEntity,
-                $action,
-                $modifiedByUserId,
-                $modifiedReason,
-                $modifiedDate
-            );
-            $this->entityManager->persist($cmsResourceHistoryEntity);
-            $this->entityManager->flush($cmsResourceHistoryEntity);
-        }
+        $cmsResourceHistoryEntity = $this->buildHistory(
+            $cmsResourceEntity,
+            $action,
+            $modifiedByUserId,
+            $modifiedReason,
+            $modifiedDate
+        );
+        $this->entityManager->persist($cmsResourceHistoryEntity);
+        $this->entityManager->flush($cmsResourceHistoryEntity);
 
         return BuildBasicCmsResource::invoke(
             $this->entityClassCmsResource,
@@ -194,7 +180,6 @@ class UpsertCmsResource
             $cmsResourceEntity,
             $this->contentVersionSyncToProperties
         );
-
     }
 
     /**
@@ -227,7 +212,7 @@ class UpsertCmsResource
     }
 
     /**
-     * @param CmsResource $cmsResource
+     * @param CmsResource   $cmsResource
      * @param ContentEntity $contentEntity
      *
      * @return CmsResourceEntity
@@ -321,7 +306,8 @@ class UpsertCmsResource
         string $modifiedByUserId,
         string $modifiedReason,
         $modifiedDate = null
-    ):CmsResourceHistoryEntity {
+    ):CmsResourceHistoryEntity
+    {
         /** @var CmsResourceHistoryEntity::class $cmsResourceHistoryEntityClass */
         $cmsResourceHistoryEntityClass = $this->entityClassCmsResourceHistory;
 

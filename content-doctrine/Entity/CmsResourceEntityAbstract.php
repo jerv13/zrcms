@@ -5,6 +5,7 @@ namespace Zrcms\ContentDoctrine\Entity;
 use Doctrine\Common\Persistence\Event\LifecycleEventArgs;
 use Doctrine\ORM\Mapping as ORM;
 use Zrcms\Content\Exception\ContentVersionInvalid;
+use Zrcms\ContentCore\GetGuidV4;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -74,6 +75,10 @@ abstract class CmsResourceEntityAbstract
         string $createdReason,
         $createdDate = null
     ) {
+        if (empty($id)) {
+            $id = GetGuidV4::invoke();
+        }
+
         $this->id = $id;
 
         $this->setContentVersion(

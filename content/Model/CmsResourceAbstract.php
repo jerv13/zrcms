@@ -3,6 +3,7 @@
 namespace Zrcms\Content\Model;
 
 use Zrcms\Content\Exception\ContentVersionInvalid;
+use Zrcms\ContentCore\GetGuidV4;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -63,6 +64,10 @@ abstract class CmsResourceAbstract
         string $createdReason,
         $createdDate = null
     ) {
+        if (empty($id)) {
+            $id = GetGuidV4::invoke();
+        }
+
         $this->id = $id;
 
         $this->setContentVersion(

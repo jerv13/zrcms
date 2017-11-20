@@ -26,8 +26,7 @@ class SiteVersionEntity
      * @var string
      *
      * @ORM\Id
-     * @ORM\Column(type="integer")
-     * @ORM\GeneratedValue
+     * @ORM\Column(type="string")
      */
     protected $id;
 

@@ -6,6 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Persistence\Event\LifecycleEventArgs;
 use Zrcms\Content\Exception\CmsResourceInvalid;
 use Zrcms\Content\Model\ImmutableTrait;
+use Zrcms\ContentCore\GetGuidV4;
 
 /**
  * A history record of the state of
@@ -58,6 +59,10 @@ abstract class CmsResourceHistoryEntityAbstract
             return;
         }
         $this->new = false;
+
+        if (empty($id)) {
+            $id = GetGuidV4::invoke();
+        }
 
         $this->id = $id;
 

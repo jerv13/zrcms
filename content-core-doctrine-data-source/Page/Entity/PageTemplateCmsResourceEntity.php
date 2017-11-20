@@ -31,8 +31,7 @@ class PageTemplateCmsResourceEntity
      * @var int
      *
      * @ORM\Id
-     * @ORM\Column(type="integer")
-     * @ORM\GeneratedValue
+     * @ORM\Column(type="string")
      */
     protected $id;
 
@@ -46,7 +45,7 @@ class PageTemplateCmsResourceEntity
     /**
      * @var int
      *
-     * @ORM\Column(type="integer", nullable=true)
+     * @ORM\Column(type="string", nullable=true)
      */
     protected $contentVersionId = null;
 
