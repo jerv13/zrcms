@@ -6,15 +6,13 @@ use Psr\Container\ContainerInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Zend\Diactoros\Response\JsonResponse;
-use Zrcms\Content\Api\Action\PublishCmsResource;
-use Zrcms\Content\Api\Action\UnpublishCmsResource;
+use Zrcms\Content\Api\CmsResource\UpsertCmsResource;
 use Zrcms\Content\Api\ContentVersionToArray;
 use Zrcms\Content\Api\Repository\FindCmsResource;
 use Zrcms\Content\Api\Repository\FindContentVersion;
 use Zrcms\Content\Api\Repository\InsertContentVersion;
 use Zrcms\Content\Model\ContentVersion;
-use Zrcms\ContentCore\Site\Api\Action\PublishSiteCmsResource;
-use Zrcms\ContentCore\Site\Api\Action\UnpublishSiteCmsResource;
+use Zrcms\ContentCore\Site\Api\CmsResource\UpsertSiteCmsResource;
 use Zrcms\ContentCore\Site\Api\Repository\FindSiteCmsResource;
 use Zrcms\ContentCore\Site\Api\Repository\FindSiteVersion;
 use Zrcms\ContentCore\Site\Api\Repository\InsertSiteVersion;
@@ -59,8 +57,7 @@ class ImplementationTest
         $this->tests = [
             'site' => [
                 'api' => [
-                    PublishCmsResource::class => PublishSiteCmsResource::class,
-                    UnpublishCmsResource::class => UnpublishSiteCmsResource::class,
+                    UpsertCmsResource::class => UpsertSiteCmsResource::class,
                     FindCmsResource::class => FindSiteCmsResource::class,
                     FindContentVersion::class => FindSiteVersion::class,
                     InsertContentVersion::class => InsertSiteVersion::class,
@@ -128,9 +125,7 @@ class ImplementationTest
          * - for each content type (Container with block, Page, Site, ThemeLayout, View)
          * - Get components
          * - create content
-         * - publish content
-         * - unpublish content
-         * - re-publish content
+         * - upsert content
          * - find resource and version
          */
 
@@ -138,7 +133,7 @@ class ImplementationTest
             $request
         );
 
-        if(empty($createdByUserId)) {
+        if (empty($createdByUserId)) {
             throw new \Exception(
                 'Must be valid user for implementation test'
             );
@@ -244,12 +239,7 @@ class ImplementationTest
 
     }
 
-    public function testResourcePublish(string $testName, array $test, array $results)
-    {
-
-    }
-
-    public function testResourceUnpublish(string $testName, array $test, array $results)
+    public function testResourceUpsert(string $testName, array $test, array $results)
     {
 
     }

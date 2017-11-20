@@ -4,8 +4,6 @@ namespace Zrcms\ContentRedirectDoctrineDataSource;
 
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Mapping\Driver\AnnotationDriver;
-use Zrcms\ContentRedirect\Api\Action\PublishRedirectCmsResource;
-use Zrcms\ContentRedirect\Api\Action\UnpublishRedirectCmsResource;
 use Zrcms\ContentRedirect\Api\CmsResource\UpsertRedirectCmsResource;
 use Zrcms\ContentRedirect\Api\Repository\FindRedirectCmsResource;
 use Zrcms\ContentRedirect\Api\Repository\FindRedirectCmsResourceBySiteRequestPath;
@@ -30,22 +28,6 @@ class ModuleConfig
         return [
             'dependencies' => [
                 'config_factories' => [
-
-                    /**
-                     * Redirect ===========================================
-                     */
-                    PublishRedirectCmsResource::class => [
-                        'class' => This\Api\Action\PublishRedirectCmsResource::class,
-                        'arguments' => [
-                            '0-' => EntityManager::class,
-                        ],
-                    ],
-                    UnpublishRedirectCmsResource::class => [
-                        'class' => This\Api\Action\UnpublishRedirectCmsResource::class,
-                        'arguments' => [
-                            '0-' => EntityManager::class,
-                        ],
-                    ],
                     UpsertRedirectCmsResource::class => [
                         'class' => This\Api\CmsResource\UpsertRedirectCmsResource::class,
                         'arguments' => [

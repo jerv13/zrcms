@@ -7,8 +7,6 @@ Delete	Bob deleted page 201820182018.reliv.com/fish (site #7, page #3)
 Move	Bob moved page #2 from 201820182018.reliv.com/cats to 201820182018.reliv.com/dogs (site #7)
 New     
 
-- Publish and Unpublish CmsResource can simply be Upsert.
-
 - Multi Page container rendering
     - Containers path can be changed to name
     - PageCmsResource PageCmsResource

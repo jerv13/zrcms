@@ -14,7 +14,7 @@ use Zrcms\ContentCore\Page\Api\Render\GetPageRenderTagsHtml;
 use Zrcms\ContentCore\Page\Fields\FieldsPageVersion;
 use Zrcms\ContentCore\Page\Model\PageCmsResourceBasic;
 use Zrcms\ContentCore\Page\Model\PageVersionBasic;
-use Zrcms\ContentCore\Site\Api\Action\PublishSiteCmsResource;
+use Zrcms\ContentCore\Site\Api\CmsResource\UpsertSiteCmsResource;
 use Zrcms\ContentCore\Site\Api\Repository\InsertSiteVersion;
 use Zrcms\ContentCore\Site\Fields\FieldsSiteVersion;
 use Zrcms\ContentCore\Site\Model\SiteCmsResourceBasic;
@@ -116,10 +116,10 @@ class ViewControllerTest
             self::CREATED_REASON
         );
 
-        /** @var PublishSiteCmsResource $publishSiteCmsResource */
-        $publishSiteCmsResource = $this->serviceContainer->get(PublishSiteCmsResource::class);
+        /** @var UpsertSiteCmsResource $upsertSiteCmsResource */
+        $upsertSiteCmsResource = $this->serviceContainer->get(UpsertSiteCmsResource::class);
 
-        $newSiteCmsResource = $publishSiteCmsResource->__invoke(
+        $newSiteCmsResource = $upsertSiteCmsResource->__invoke(
             $siteCmsResource,
             self::CREATED_BY_USER_ID,
             self::CREATED_REASON

@@ -4,10 +4,6 @@ namespace Zrcms\ContentCoreDoctrineDataSource;
 
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Mapping\Driver\AnnotationDriver;
-use Zrcms\ContentCore\Page\Api\Action\PublishPageCmsResource;
-use Zrcms\ContentCore\Page\Api\Action\PublishPageTemplateCmsResource;
-use Zrcms\ContentCore\Page\Api\Action\UnpublishPageCmsResource;
-use Zrcms\ContentCore\Page\Api\Action\UnpublishPageTemplateCmsResource;
 use Zrcms\ContentCore\Page\Api\CmsResource\UpsertPageCmsResource;
 use Zrcms\ContentCore\Page\Api\CmsResource\UpsertPageDraftCmsResource;
 use Zrcms\ContentCore\Page\Api\CmsResource\UpsertPageTemplateCmsResource;
@@ -31,30 +27,6 @@ class ModuleConfigPage
         return [
             'dependencies' => [
                 'config_factories' => [
-                    PublishPageCmsResource::class => [
-                        'class' => This\Page\Api\Action\PublishPageCmsResource::class,
-                        'arguments' => [
-                            '0-' => EntityManager::class,
-                        ],
-                    ],
-                    PublishPageTemplateCmsResource::class => [
-                        'class' => This\Page\Api\Action\PublishPageTemplateCmsResource::class,
-                        'arguments' => [
-                            '0-' => EntityManager::class,
-                        ],
-                    ],
-                    UnpublishPageCmsResource::class => [
-                        'class' => This\Page\Api\Action\UnPublishPageCmsResource::class,
-                        'arguments' => [
-                            '0-' => EntityManager::class,
-                        ],
-                    ],
-                    UnpublishPageTemplateCmsResource::class => [
-                        'class' => This\Page\Api\Action\UnpublishPageTemplateCmsResource::class,
-                        'arguments' => [
-                            '0-' => EntityManager::class,
-                        ],
-                    ],
                     UpsertPageCmsResource::class => [
                         'class' => This\Page\Api\CmsResource\UpsertPageCmsResource::class,
                         'arguments' => [

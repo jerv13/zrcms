@@ -4,8 +4,6 @@ namespace Zrcms\ContentCoreDoctrineDataSource;
 
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Mapping\Driver\AnnotationDriver;
-use Zrcms\ContentCore\Container\Api\Action\PublishContainerCmsResource;
-use Zrcms\ContentCore\Container\Api\Action\UnpublishContainerCmsResource;
 use Zrcms\ContentCore\Container\Api\CmsResource\UpsertContainerCmsResource;
 use Zrcms\ContentCore\Container\Api\Repository\FindContainerCmsResource;
 use Zrcms\ContentCore\Container\Api\Repository\FindContainerCmsResourcesBy;
@@ -25,14 +23,8 @@ class ModuleConfigContainer
         return [
             'dependencies' => [
                 'config_factories' => [
-                    PublishContainerCmsResource::class => [
-                        'class' => This\Container\Api\Action\PublishContainerCmsResource::class,
-                        'arguments' => [
-                            '0-' => EntityManager::class,
-                        ],
-                    ],
-                    UnpublishContainerCmsResource::class => [
-                        'class' => This\Container\Api\Action\UnpublishContainerCmsResource::class,
+                    UpsertContainerCmsResource::class => [
+                        'class' => This\Container\Api\CmsResource\UpsertContainerCmsResource::class,
                         'arguments' => [
                             '0-' => EntityManager::class,
                         ],

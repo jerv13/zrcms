@@ -2,8 +2,7 @@
 
 namespace Zrcms\ContentCore;
 
-use Zrcms\ContentCore\Site\Api\Action\PublishSiteCmsResource;
-use Zrcms\ContentCore\Site\Api\Action\UnpublishSiteCmsResource;
+use Zrcms\ContentCore\Site\Api\CmsResource\UpsertSiteCmsResource;
 use Zrcms\ContentCore\Site\Api\GetSiteCmsResourceByRequest;
 use Zrcms\ContentCore\Site\Api\Repository\FindSiteCmsResource;
 use Zrcms\ContentCore\Site\Api\Repository\FindSiteCmsResourceByHost;
@@ -28,16 +27,10 @@ class ModuleConfigSite
                     /**
                      * Site ===========================================
                      */
-                    PublishSiteCmsResource::class => [
+                    UpsertSiteCmsResource::class => [
                         'class' => ApiNoop::class,
                         'arguments' => [
-                            '0-' => ['literal' => PublishSiteCmsResource::class],
-                        ],
-                    ],
-                    UnpublishSiteCmsResource::class => [
-                        'class' => ApiNoop::class,
-                        'arguments' => [
-                            '0-' => ['literal' => UnpublishSiteCmsResource::class],
+                            '0-' => ['literal' => UpsertSiteCmsResource::class],
                         ],
                     ],
                     FindSiteCmsResource::class => [
