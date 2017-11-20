@@ -63,7 +63,8 @@
       "Zrcms\\ViewAssets\\": "view-assets/",
       "Zrcms\\ViewHead\\": "view-head/src/",
       "Zrcms\\ViewHtmlTags\\": "view-html-tags/",
-      "Zrcms\\XampleComponent\\": "xample-component/src/"
+      "Zrcms\\XampleComponent\\": "xample-component/src/",
+      "Zrcms\\ChangeLogDoctrine\\": "change-log-doctrine/",
     }
   },
   "suggest": {

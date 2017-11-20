@@ -47,6 +47,8 @@ class ModulesConfig
 
             new \Zrcms\HttpExpressive\ModuleAllConfig(),
 
+            new \Zrcms\ChangeLogDoctrine\ModuleConfig(),
+
             // @todo REMOVE Xample
             new \Zrcms\XampleComponent\ModuleConfig(),
         ];
