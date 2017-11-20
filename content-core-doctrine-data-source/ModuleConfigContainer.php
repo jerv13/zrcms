@@ -6,6 +6,7 @@ use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Mapping\Driver\AnnotationDriver;
 use Zrcms\ContentCore\Container\Api\Action\PublishContainerCmsResource;
 use Zrcms\ContentCore\Container\Api\Action\UnpublishContainerCmsResource;
+use Zrcms\ContentCore\Container\Api\CmsResource\UpsertContainerCmsResource;
 use Zrcms\ContentCore\Container\Api\Repository\FindContainerCmsResource;
 use Zrcms\ContentCore\Container\Api\Repository\FindContainerCmsResourcesBy;
 use Zrcms\ContentCore\Container\Api\Repository\FindContainerCmsResourcesBySitePaths;
@@ -32,6 +33,12 @@ class ModuleConfigContainer
                     ],
                     UnpublishContainerCmsResource::class => [
                         'class' => This\Container\Api\Action\UnpublishContainerCmsResource::class,
+                        'arguments' => [
+                            '0-' => EntityManager::class,
+                        ],
+                    ],
+                    UpsertContainerCmsResource::class => [
+                        'class' => This\Container\Api\CmsResource\UpsertContainerCmsResource::class,
                         'arguments' => [
                             '0-' => EntityManager::class,
                         ],

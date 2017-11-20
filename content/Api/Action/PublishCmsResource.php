@@ -5,6 +5,7 @@ namespace Zrcms\Content\Api\Action;
 use Zrcms\Content\Model\CmsResource;
 
 /**
+ * @deprecated Use UpsertCmsResource
  * If ContentVersion does not exist, throw ContentVersionNotExistsException
  * Unpublish (delete) CmsResource if exists
  * Create CmsResource (or recreate) WARNING: foreign keys constraints can not be used

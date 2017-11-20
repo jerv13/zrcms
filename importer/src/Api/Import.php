@@ -4,30 +4,22 @@ namespace Zrcms\Importer\Api;
 
 use Psr\Log\LoggerInterface;
 use Psr\Log\LogLevel;
-use Zrcms\ContentCore\Container\Api\Action\PublishContainerCmsResource;
-use Zrcms\ContentCore\Container\Api\Action\UnpublishContainerCmsResource;
-use Zrcms\ContentCore\Container\Api\Repository\InsertContainerVersion;
+use Zrcms\ContentCore\Container\Api\CmsResource\UpsertContainerCmsResource;
 use Zrcms\ContentCore\Container\Fields\FieldsContainerVersion;
 use Zrcms\ContentCore\Container\Model\ContainerCmsResourceBasic;
 use Zrcms\ContentCore\Container\Model\ContainerVersionBasic;
-use Zrcms\ContentCore\Page\Api\Action\PublishPageCmsResource;
-use Zrcms\ContentCore\Page\Api\Action\PublishPageTemplateCmsResource;
-use Zrcms\ContentCore\Page\Api\Action\UnpublishPageCmsResource;
-use Zrcms\ContentCore\Page\Api\Action\UnpublishPageTemplateCmsResource;
-use Zrcms\ContentCore\Page\Api\Repository\InsertPageVersion;
+use Zrcms\ContentCore\Page\Api\CmsResource\UpsertPageCmsResource;
+use Zrcms\ContentCore\Page\Api\CmsResource\UpsertPageTemplateCmsResource;
 use Zrcms\ContentCore\Page\Fields\FieldsPageVersion;
 use Zrcms\ContentCore\Page\Model\PageCmsResourceBasic;
 use Zrcms\ContentCore\Page\Model\PageTemplateCmsResourceBasic;
 use Zrcms\ContentCore\Page\Model\PageVersionBasic;
-use Zrcms\ContentCore\Site\Api\Action\PublishSiteCmsResource;
-use Zrcms\ContentCore\Site\Api\Action\UnpublishSiteCmsResource;
-use Zrcms\ContentCore\Site\Api\Repository\InsertSiteVersion;
+use Zrcms\ContentCore\Site\Api\CmsResource\UpsertSiteCmsResource;
+use Zrcms\ContentCore\Site\Api\Repository\FindSiteCmsResource;
 use Zrcms\ContentCore\Site\Model\SiteCmsResource;
 use Zrcms\ContentCore\Site\Model\SiteCmsResourceBasic;
 use Zrcms\ContentCore\Site\Model\SiteVersionBasic;
-use Zrcms\ContentRedirect\Api\Action\PublishRedirectCmsResource;
-use Zrcms\ContentRedirect\Api\Action\UnpublishRedirectCmsResource;
-use Zrcms\ContentRedirect\Api\Repository\InsertRedirectVersion;
+use Zrcms\ContentRedirect\Api\CmsResource\UpsertRedirectCmsResource;
 use Zrcms\ContentRedirect\Model\RedirectCmsResourceBasic;
 use Zrcms\ContentRedirect\Model\RedirectVersionBasic;
 use Zrcms\Param\Param;
@@ -36,128 +28,62 @@ class Import
 {
     const OPTIONS_LOGGER = 'logger';
     const OPTIONS_SLEEP = 'sleep';
+    const OPTIONS_SKIP_DUPLICATES = 'skip-duplicates';
     protected $defaultSleep = 0;
+    protected $defaultSkipDuplicates = true;
 
     /**
-     * @var InsertSiteVersion
+     * @var FindSiteCmsResource
      */
-    protected $insertSiteVersion;
+    protected $findSiteCmsResource;
 
     /**
-     * @var PublishSiteCmsResource
+     * @var UpsertSiteCmsResource
      */
-    protected $publishSiteCmsResource;
+    protected $upsertSiteCmsResource;
 
     /**
-     * @var UnpublishSiteCmsResource
+     * @var UpsertPageCmsResource
      */
-    protected $unpublishSiteCmsResource;
+    protected $upsertPageCmsResource;
 
     /**
-     * @var InsertPageVersion
+     * @var UpsertPageTemplateCmsResource
      */
-    protected $insertPageVersion;
+    protected $upsertPageTemplateCmsResource;
 
     /**
-     * @var PublishPageCmsResource
+     * @var UpsertContainerCmsResource
      */
-    protected $publishPageCmsResource;
+    protected $upsertContainerCmsResource;
 
     /**
-     * @var UnpublishPageCmsResource
+     * @var UpsertRedirectCmsResource
      */
-    protected $unpublishPageCmsResource;
+    protected $upsertRedirectCmsResource;
 
     /**
-     * @var PublishPageTemplateCmsResource
-     */
-    protected $publishPageTemplateCmsResource;
-
-    /**
-     * @var UnpublishPageTemplateCmsResource
-     */
-    protected $unpublishPageTemplateCmsResource;
-
-    /**
-     * @var InsertContainerVersion
-     */
-    protected $insertContainerVersion;
-
-    /**
-     * @var PublishContainerCmsResource
-     */
-    protected $publishContainerCmsResource;
-
-    /**
-     * @var UnpublishContainerCmsResource
-     */
-    protected $unpublishContainerCmsResource;
-
-    /**
-     * @var InsertRedirectVersion
-     */
-    protected $insertRedirectVersion;
-
-    /**
-     * @var PublishRedirectCmsResource
-     */
-    protected $publishRedirectCmsResource;
-
-    /**
-     * @var UnpublishRedirectCmsResource
-     */
-    protected $unpublishRedirectCmsResource;
-
-    /**
-     * @param InsertSiteVersion                $insertSiteVersion
-     * @param PublishSiteCmsResource           $publishSiteCmsResource
-     * @param UnpublishSiteCmsResource         $unpublishSiteCmsResource
-     * @param InsertPageVersion                $insertPageVersion
-     * @param PublishPageCmsResource           $publishPageCmsResource
-     * @param UnpublishPageCmsResource         $unpublishPageCmsResource
-     * @param PublishPageTemplateCmsResource   $publishPageTemplateCmsResource
-     * @param UnpublishPageTemplateCmsResource $unpublishPageTemplateCmsResource
-     * @param InsertContainerVersion           $insertContainerVersion
-     * @param PublishContainerCmsResource      $publishContainerCmsResource
-     * @param UnpublishContainerCmsResource    $unpublishContainerCmsResource
-     * @param InsertRedirectVersion            $insertRedirectVersion
-     * @param PublishRedirectCmsResource       $publishRedirectCmsResource
-     * @param UnpublishRedirectCmsResource     $unpublishRedirectCmsResource
+     * @param FindSiteCmsResource           $findSiteCmsResource
+     * @param UpsertSiteCmsResource         $upsertSiteCmsResource
+     * @param UpsertPageCmsResource         $upsertPageCmsResource
+     * @param UpsertPageTemplateCmsResource $upsertPageTemplateCmsResource
+     * @param UpsertContainerCmsResource    $upsertContainerCmsResource
+     * @param UpsertRedirectCmsResource     $upsertRedirectCmsResource
      */
     public function __construct(
-        InsertSiteVersion $insertSiteVersion,
-        PublishSiteCmsResource $publishSiteCmsResource,
-        UnpublishSiteCmsResource $unpublishSiteCmsResource,
-        InsertPageVersion $insertPageVersion,
-        PublishPageCmsResource $publishPageCmsResource,
-        UnpublishPageCmsResource $unpublishPageCmsResource,
-        PublishPageTemplateCmsResource $publishPageTemplateCmsResource,
-        UnpublishPageTemplateCmsResource $unpublishPageTemplateCmsResource,
-        InsertContainerVersion $insertContainerVersion,
-        PublishContainerCmsResource $publishContainerCmsResource,
-        UnpublishContainerCmsResource $unpublishContainerCmsResource,
-        InsertRedirectVersion $insertRedirectVersion,
-        PublishRedirectCmsResource $publishRedirectCmsResource,
-        UnpublishRedirectCmsResource $unpublishRedirectCmsResource
+        FindSiteCmsResource $findSiteCmsResource,
+        UpsertSiteCmsResource $upsertSiteCmsResource,
+        UpsertPageCmsResource $upsertPageCmsResource,
+        UpsertPageTemplateCmsResource $upsertPageTemplateCmsResource,
+        UpsertContainerCmsResource $upsertContainerCmsResource,
+        UpsertRedirectCmsResource $upsertRedirectCmsResource
     ) {
-        $this->insertSiteVersion = $insertSiteVersion;
-        $this->publishSiteCmsResource = $publishSiteCmsResource;
-        $this->unpublishSiteCmsResource = $unpublishSiteCmsResource;
-
-        $this->insertPageVersion = $insertPageVersion;
-        $this->publishPageCmsResource = $publishPageCmsResource;
-        $this->unpublishPageCmsResource = $unpublishPageCmsResource;
-
-        $this->publishPageTemplateCmsResource = $publishPageTemplateCmsResource;
-        $this->unpublishPageTemplateCmsResource = $unpublishPageTemplateCmsResource;
-
-        $this->insertContainerVersion = $insertContainerVersion;
-        $this->publishContainerCmsResource = $publishContainerCmsResource;
-        $this->unpublishContainerCmsResource = $unpublishContainerCmsResource;
-
-        $this->insertRedirectVersion = $insertRedirectVersion;
-        $this->publishRedirectCmsResource = $publishRedirectCmsResource;
-        $this->unpublishRedirectCmsResource = $unpublishRedirectCmsResource;
+        $this->findSiteCmsResource = $findSiteCmsResource;
+        $this->upsertSiteCmsResource = $upsertSiteCmsResource;
+        $this->upsertPageCmsResource = $upsertPageCmsResource;
+        $this->upsertPageTemplateCmsResource = $upsertPageTemplateCmsResource;
+        $this->upsertContainerCmsResource = $upsertContainerCmsResource;
+        $this->upsertRedirectCmsResource = $upsertRedirectCmsResource;
     }
 
     /**
@@ -220,6 +146,20 @@ class Import
     }
 
     /**
+     * @param array $options
+     *
+     * @return bool
+     */
+    protected function skipDuplicates(array $options): bool
+    {
+        return Param::getBool(
+            $options,
+            self::OPTIONS_SKIP_DUPLICATES,
+            $this->defaultSkipDuplicates
+        );
+    }
+
+    /**
      * @param string $level
      * @param string $message
      * @param array  $options
@@ -263,6 +203,22 @@ class Import
         );
 
         foreach ($data['sites'] as $site) {
+            $existing = $this->findSiteCmsResource->__invoke(
+                $site['id']
+            );
+
+            if (!empty($existing) && $this->skipDuplicates($options)) {
+                $this->log(
+                    LogLevel::WARNING,
+                    'SKIP Site - Already exists: ('
+                    . 'siteId: ' . $site['id']
+                    . ', host: ' . $site['properties']['host']
+                    . ')',
+                    $options
+                );
+                continue;
+            }
+
             $this->log(
                 LogLevel::INFO,
                 'Import Site: ('
@@ -272,20 +228,18 @@ class Import
                 $options
             );
 
-            $version = $this->insertSiteVersion->__invoke(
-                new SiteVersionBasic(
-                    null,
-                    $site['properties'],
-                    $createdByUserId,
-                    $createdReason
-                )
-            );
+            $published = Param::getBool($site, 'published', true);
 
-            $publishedSiteCmsResource = $this->publishSiteCmsResource->__invoke(
+            $publishedSiteCmsResource = $this->upsertSiteCmsResource->__invoke(
                 new SiteCmsResourceBasic(
                     $site['id'],
-                    true,
-                    $version,
+                    $published,
+                    new SiteVersionBasic(
+                        null,
+                        $site['properties'],
+                        $createdByUserId,
+                        $createdReason
+                    ),
                     $createdByUserId,
                     $createdReason
                 ),
@@ -317,17 +271,11 @@ class Import
                 $options
             );
 
-            if (!Param::getBool($site, 'published', true)) {
+            if (!$published) {
                 $this->log(
                     LogLevel::WARNING,
                     'UNPUBLISH SiteCmsResource ID: ' . $publishedSiteCmsResource->getId(),
                     $options
-                );
-
-                $this->unpublishSiteCmsResource->__invoke(
-                    $publishedSiteCmsResource->getId(),
-                    $createdByUserId,
-                    $createdReason
                 );
             }
         }
@@ -366,20 +314,18 @@ class Import
 
             $page['properties'][FieldsPageVersion::SITE_CMS_RESOURCE_ID] = $siteCmsResource->getId();
 
-            $version = $this->insertPageVersion->__invoke(
-                new PageVersionBasic(
-                    null,
-                    $page['properties'],
-                    $createdByUserId,
-                    $createdReason
-                )
-            );
+            $published = Param::getBool($page, 'published', true);
 
-            $publishedPageCmsResource = $this->publishPageCmsResource->__invoke(
+            $publishedPageCmsResource = $this->upsertPageCmsResource->__invoke(
                 new PageCmsResourceBasic(
                     null,
-                    true,
-                    $version,
+                    $published,
+                    new PageVersionBasic(
+                        null,
+                        $page['properties'],
+                        $createdByUserId,
+                        $createdReason
+                    ),
                     $createdByUserId,
                     $createdReason
                 ),
@@ -387,17 +333,11 @@ class Import
                 $createdReason
             );
 
-            if (!Param::getBool($page, 'published', true)) {
+            if (!$published) {
                 $this->log(
                     LogLevel::WARNING,
                     'UNPUBLISH PageCmsResource ID: ' . $publishedPageCmsResource->getId(),
                     $options
-                );
-
-                $this->unpublishPageCmsResource->__invoke(
-                    $publishedPageCmsResource->getId(),
-                    $createdByUserId,
-                    $createdReason
                 );
             }
         }
@@ -436,20 +376,18 @@ class Import
 
             $pageTemplate['properties'][FieldsPageVersion::SITE_CMS_RESOURCE_ID] = $siteCmsResource->getId();
 
-            $version = $this->insertPageVersion->__invoke(
-                new PageVersionBasic(
-                    null,
-                    $pageTemplate['properties'],
-                    $createdByUserId,
-                    $createdReason
-                )
-            );
+            $published = Param::getBool($pageTemplate, 'published', true);
 
-            $publishedPageTemplateCmsResource = $this->publishPageTemplateCmsResource->__invoke(
+            $publishedPageTemplateCmsResource = $this->upsertPageTemplateCmsResource->__invoke(
                 new PageTemplateCmsResourceBasic(
                     null,
-                    true,
-                    $version,
+                    $published,
+                    new PageVersionBasic(
+                        null,
+                        $pageTemplate['properties'],
+                        $createdByUserId,
+                        $createdReason
+                    ),
                     $createdByUserId,
                     $createdReason
                 ),
@@ -457,18 +395,11 @@ class Import
                 $createdReason
             );
 
-            if (!Param::getBool($pageTemplate, 'published', true)) {
+            if (!$published) {
                 $this->log(
                     LogLevel::WARNING,
                     'UNPUBLISH PageTemplateCmsResource ID: ' . $publishedPageTemplateCmsResource->getId(),
                     $options
-                );
-
-                $this->unpublishPageTemplateCmsResource->__invoke(
-                    $publishedPageTemplateCmsResource->getId(),
-                    $createdByUserId,
-                    $createdReason,
-                    null
                 );
             }
         }
@@ -507,20 +438,18 @@ class Import
 
             $container['properties'][FieldsContainerVersion::SITE_CMS_RESOURCE_ID] = $siteCmsResource->getId();
 
-            $version = $this->insertContainerVersion->__invoke(
-                new ContainerVersionBasic(
-                    null,
-                    $container['properties'],
-                    $createdByUserId,
-                    $createdReason
-                )
-            );
+            $published = Param::getBool($container, 'published', true);
 
-            $publishedContainerCmsResource = $this->publishContainerCmsResource->__invoke(
+            $publishedContainerCmsResource = $this->upsertContainerCmsResource->__invoke(
                 new ContainerCmsResourceBasic(
                     null,
-                    true,
-                    $version,
+                    $published,
+                    new ContainerVersionBasic(
+                        null,
+                        $container['properties'],
+                        $createdByUserId,
+                        $createdReason
+                    ),
                     $createdByUserId,
                     $createdReason
                 ),
@@ -528,17 +457,11 @@ class Import
                 $createdReason
             );
 
-            if (!Param::getBool($container, 'published', true)) {
+            if (!$published) {
                 $this->log(
                     LogLevel::WARNING,
                     'UNPUBLISH ContainerCmsResource ID: ' . $publishedContainerCmsResource->getId(),
                     $options
-                );
-
-                $this->unpublishContainerCmsResource->__invoke(
-                    $publishedContainerCmsResource->getId(),
-                    $createdByUserId,
-                    $createdReason
                 );
             }
         }
@@ -590,20 +513,18 @@ class Import
                 $options
             );
 
-            $version = $this->insertRedirectVersion->__invoke(
-                new RedirectVersionBasic(
-                    null,
-                    $redirect['properties'],
-                    $createdByUserId,
-                    $createdReason
-                )
-            );
+            $published = Param::getBool($redirect, 'published', true);
 
-            $publishedRedirectCmsResource = $this->publishRedirectCmsResource->__invoke(
+            $publishedRedirectCmsResource = $this->upsertRedirectCmsResource->__invoke(
                 new RedirectCmsResourceBasic(
                     null,
-                    true,
-                    $version,
+                    $published,
+                    new RedirectVersionBasic(
+                        null,
+                        $redirect['properties'],
+                        $createdByUserId,
+                        $createdReason
+                    ),
                     $createdByUserId,
                     $createdReason
                 ),
@@ -611,17 +532,11 @@ class Import
                 $createdReason
             );
 
-            if (!Param::getBool($redirect, 'published', true)) {
+            if (!$published) {
                 $this->log(
                     LogLevel::WARNING,
                     'UNPUBLISH RedirectCmsResource ID: ' . $publishedRedirectCmsResource->getId(),
                     $options
-                );
-
-                $this->unpublishRedirectCmsResource->__invoke(
-                    $publishedRedirectCmsResource->getId(),
-                    $createdByUserId,
-                    $createdReason
                 );
             }
         }

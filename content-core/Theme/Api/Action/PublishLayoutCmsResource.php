@@ -7,6 +7,7 @@ use Zrcms\Content\Model\CmsResource;
 use Zrcms\ContentCore\Theme\Model\LayoutCmsResource;
 
 /**
+ * @deprecated
  * @author James Jervis - https://github.com/jerv13
  */
 interface PublishLayoutCmsResource extends PublishCmsResource

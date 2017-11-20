@@ -1,11 +1,11 @@
 <?php
+
 namespace Zrcms\ContentDoctrine\Api\Action;
 
 use Doctrine\ORM\EntityManager;
 use Zrcms\Content\Exception\ContentVersionNotExists;
 use Zrcms\Content\Model\Action;
 use Zrcms\Content\Model\CmsResource;
-use Zrcms\Content\Model\CmsResourceHistory;
 use Zrcms\ContentDoctrine\Api\ApiAbstract;
 use Zrcms\ContentDoctrine\Api\BuildBasicCmsResource;
 use Zrcms\ContentDoctrine\Entity\CmsResourceEntity;
@@ -13,6 +13,7 @@ use Zrcms\ContentDoctrine\Entity\CmsResourceHistoryEntity;
 use Zrcms\ContentDoctrine\Entity\ContentEntity;
 
 /**
+ * @deprecated Use UpsertCmsResource
  * Publish a new or existing CmsResource with new properties
  *
  * @author James Jervis - https://github.com/jerv13

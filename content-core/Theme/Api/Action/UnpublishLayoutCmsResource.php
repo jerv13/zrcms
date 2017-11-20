@@ -5,6 +5,7 @@ namespace Zrcms\ContentCore\Layout\Api\Action;
 use Zrcms\Content\Api\Action\UnpublishCmsResource;
 
 /**
+ * @deprecated
  * @author James Jervis - https://github.com/jerv13
  */
 interface UnpublishLayoutCmsResource extends UnpublishCmsResource

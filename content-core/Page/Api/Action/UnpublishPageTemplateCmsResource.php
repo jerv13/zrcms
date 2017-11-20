@@ -3,6 +3,7 @@
 namespace Zrcms\ContentCore\Page\Api\Action;
 
 /**
+ * @deprecated
  * @author James Jervis - https://github.com/jerv13
  */
 interface UnpublishPageTemplateCmsResource extends UnpublishPageCmsResource

@@ -7,6 +7,7 @@ use Zrcms\Content\Model\CmsResource;
 use Zrcms\ContentCore\Container\Model\ContainerCmsResource;
 
 /**
+ * @deprecated
  * @author James Jervis - https://github.com/jerv13
  */
 interface PublishContainerCmsResource extends PublishCmsResource

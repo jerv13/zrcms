@@ -10,6 +10,7 @@ use Zrcms\ContentDoctrine\Entity\CmsResourceHistoryEntity;
 use Zrcms\ContentDoctrine\Entity\ContentEntity;
 
 /**
+ * @deprecated Use UpsertCmsResource
  * @author James Jervis - https://github.com/jerv13
  */
 class UnpublishCmsResource

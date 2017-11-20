@@ -14,6 +14,9 @@ class FieldsPageVersion extends FieldsPage implements Fields
     const SITE_CMS_RESOURCE_ID = 'siteCmsResourceId';
     const PATH = 'path';
 
+    /** For Drafts */
+    const PAGE_CMS_RESOURCE_ID = 'pageCmsResourceId';
+
     /**
      * @var array
      */
@@ -85,6 +88,14 @@ class FieldsPageVersion extends FieldsPage implements Fields
                 'label' => 'Render Tags Getter (GetRenderTags)',
                 'required' => false,
                 'default' => self::DEFAULT_RENDER_TAGS_GETTER,
+                'options' => [],
+            ],
+            [
+                'name' => self::PAGE_CMS_RESOURCE_ID,
+                'type' => 'id',
+                'label' => 'Page CmsResourceId',
+                'required' => false,
+                'default' => '',
                 'options' => [],
             ],
         ];

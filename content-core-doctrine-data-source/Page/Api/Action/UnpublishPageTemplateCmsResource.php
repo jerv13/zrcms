@@ -9,6 +9,7 @@ use Zrcms\ContentCoreDoctrineDataSource\Page\Entity\PageTemplateCmsResourceHisto
 use Zrcms\ContentDoctrine\Api\Action\UnpublishCmsResource;
 
 /**
+ * @deprecated
  * @author James Jervis - https://github.com/jerv13
  */
 class UnpublishPageTemplateCmsResource

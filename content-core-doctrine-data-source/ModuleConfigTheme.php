@@ -6,6 +6,7 @@ use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Mapping\Driver\AnnotationDriver;
 use Zrcms\ContentCore\Layout\Api\Action\PublishLayoutCmsResource;
 use Zrcms\ContentCore\Layout\Api\Action\UnpublishLayoutCmsResource;
+use Zrcms\ContentCore\Layout\Api\CmsResource\UpsertLayoutCmsResource;
 use Zrcms\ContentCore\Theme\Api\Repository\FindLayoutCmsResource;
 use Zrcms\ContentCore\Theme\Api\Repository\FindLayoutCmsResourceByThemeNameLayoutName;
 use Zrcms\ContentCore\Theme\Api\Repository\FindLayoutCmsResourcesBy;
@@ -33,6 +34,12 @@ class ModuleConfigTheme
                     ],
                     UnpublishLayoutCmsResource::class => [
                         'class' => This\Theme\Api\Action\UnpublishLayoutCmsResource::class,
+                        'arguments' => [
+                            '0-' => EntityManager::class,
+                        ],
+                    ],
+                    UpsertLayoutCmsResource::class => [
+                        'class' => This\Theme\Api\CmsResource\UpsertLayoutCmsResource::class,
                         'arguments' => [
                             '0-' => EntityManager::class,
                         ],

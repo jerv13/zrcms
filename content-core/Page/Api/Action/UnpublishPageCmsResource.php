@@ -5,6 +5,7 @@ namespace Zrcms\ContentCore\Page\Api\Action;
 use Zrcms\ContentCore\Container\Api\Action\UnpublishContainerCmsResource;
 
 /**
+ * @deprecated
  * @author James Jervis - https://github.com/jerv13
  */
 interface UnpublishPageCmsResource extends UnpublishContainerCmsResource

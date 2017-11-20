@@ -8,6 +8,9 @@ use Zrcms\ContentCore\Page\Api\Action\PublishPageCmsResource;
 use Zrcms\ContentCore\Page\Api\Action\PublishPageTemplateCmsResource;
 use Zrcms\ContentCore\Page\Api\Action\UnpublishPageCmsResource;
 use Zrcms\ContentCore\Page\Api\Action\UnpublishPageTemplateCmsResource;
+use Zrcms\ContentCore\Page\Api\CmsResource\UpsertPageCmsResource;
+use Zrcms\ContentCore\Page\Api\CmsResource\UpsertPageDraftCmsResource;
+use Zrcms\ContentCore\Page\Api\CmsResource\UpsertPageTemplateCmsResource;
 use Zrcms\ContentCore\Page\Api\Repository\FindPageCmsResource;
 use Zrcms\ContentCore\Page\Api\Repository\FindPageCmsResourceBySitePath;
 use Zrcms\ContentCore\Page\Api\Repository\FindPageCmsResourcesBy;
@@ -48,6 +51,24 @@ class ModuleConfigPage
                     ],
                     UnpublishPageTemplateCmsResource::class => [
                         'class' => This\Page\Api\Action\UnpublishPageTemplateCmsResource::class,
+                        'arguments' => [
+                            '0-' => EntityManager::class,
+                        ],
+                    ],
+                    UpsertPageCmsResource::class => [
+                        'class' => This\Page\Api\CmsResource\UpsertPageCmsResource::class,
+                        'arguments' => [
+                            '0-' => EntityManager::class,
+                        ],
+                    ],
+                    UpsertPageTemplateCmsResource::class => [
+                        'class' => This\Page\Api\CmsResource\UpsertPageTemplateCmsResource::class,
+                        'arguments' => [
+                            '0-' => EntityManager::class,
+                        ],
+                    ],
+                    UpsertPageDraftCmsResource::class => [
+                        'class' => This\Page\Api\CmsResource\UpsertPageDraftCmsResource::class,
                         'arguments' => [
                             '0-' => EntityManager::class,
                         ],

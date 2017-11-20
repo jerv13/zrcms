@@ -9,6 +9,7 @@ use Zrcms\ContentRedirectDoctrineDataSource\Entity\RedirectCmsResourceHistoryEnt
 use Zrcms\ContentRedirectDoctrineDataSource\Entity\RedirectVersionEntity;
 
 /**
+ * @deprecated
  * @author James Jervis - https://github.com/jerv13
  */
 class UnpublishRedirectCmsResource

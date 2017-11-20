@@ -1,6 +1,8 @@
 @todo
 =====
 
+- Publish and Unpublish CmsResource can simply be Upsert.
+
 - Multi Page container rendering
     - Containers path can be changed to name
     - PageCmsResource PageCmsResource

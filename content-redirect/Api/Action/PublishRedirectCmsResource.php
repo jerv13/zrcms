@@ -7,6 +7,7 @@ use Zrcms\Content\Model\CmsResource;
 use Zrcms\ContentRedirect\Model\RedirectCmsResource;
 
 /**
+ * @deprecated
  * @author James Jervis - https://github.com/jerv13
  */
 interface PublishRedirectCmsResource extends PublishCmsResource

@@ -3,15 +3,15 @@
 namespace Zrcms\ContentCore\Page\Model;
 
 use Zrcms\Content\Exception\ContentVersionInvalid;
+use Zrcms\Content\Model\CmsResourceAbstract;
 use Zrcms\Content\Model\ContentVersion;
-use Zrcms\ContentCore\Container\Model\ContainerCmsResourceAbstract;
 use Zrcms\ContentCore\Page\Api\AssertValidPath;
 use Zrcms\ContentCore\Page\Exception\InvalidPath;
 
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class PageCmsResourceAbstract extends ContainerCmsResourceAbstract
+class PageCmsResourceAbstract extends CmsResourceAbstract
 {
     protected $siteCmsResourceId;
     protected $path;

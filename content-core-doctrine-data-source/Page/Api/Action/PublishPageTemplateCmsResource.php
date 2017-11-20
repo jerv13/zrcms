@@ -13,6 +13,7 @@ use Zrcms\ContentCoreDoctrineDataSource\Page\Entity\PageVersionEntity;
 use Zrcms\ContentDoctrine\Api\Action\PublishCmsResource;
 
 /**
+ * @deprecated
  * @author James Jervis - https://github.com/jerv13
  */
 class PublishPageTemplateCmsResource
