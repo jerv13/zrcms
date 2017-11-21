@@ -6,7 +6,6 @@ use Doctrine\ORM\EntityManager;
 use Zrcms\Acl\Api\IsAllowedRcmUser;
 use Zrcms\ChangeLog\Acl\IsAllowedReadChangeLog;
 use Zrcms\ChangeLog\Api\ChangeLogEventToString;
-use Zrcms\ChangeLog\Api\GetContentChangeLogByDateRange;
 use Zrcms\ChangeLog\Api\GetContentChangeLogByDateRangeBasic;
 use Zrcms\ChangeLog\Controller\ChangeLogHtml;
 use Zrcms\ContentCore\Site\Api\Repository\FindSiteCmsResource;
