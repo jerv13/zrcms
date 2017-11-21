@@ -5,6 +5,7 @@ namespace Zrcms\ContentCoreDoctrineDataSource\Theme\Api\ChangeLog;
 use Doctrine\ORM\EntityManager;
 use Zrcms\ChangeLog\Api\ChangeLogEvent;
 use Zrcms\Content\Model\ActionCmsResource;
+use Zrcms\ContentCore\Theme\Fields\FieldsLayoutVersion;
 use Zrcms\ContentCoreDoctrineDataSource\Base\Api\ChangeLog\BaseGetChangeLogByDateRange;
 use Zrcms\ContentCoreDoctrineDataSource\Theme\Entity\LayoutCmsResourceHistoryEntity;
 use Zrcms\ContentCoreDoctrineDataSource\Theme\Entity\LayoutVersionEntity;
@@ -44,8 +45,7 @@ class GetChangeLogByDateRange extends AbstractGetChangeLogByDateRange
         $event->setActionName('created');
         $event->setResourceId($version->getId());
         $event->setResourceTypeName('layout draft version');
-
-//        $event->setResourceName($version->getId()); //@TODO figure out how to get the layout name here
+        $event->setResourceName('for ' . $properties[FieldsLayoutVersion::NAME]);
 
         return $event;
     }
@@ -86,7 +86,7 @@ class GetChangeLogByDateRange extends AbstractGetChangeLogByDateRange
         $event->setActionName($actionDescription);
         $event->setResourceId($cmsResource->getId());
         $event->setResourceTypeName('layout');
-//        $event->setResourceName($cmsResource->getId()); //@TODO figure out how to get the layout name here
+        $event->setResourceName($cmsResource->getName());
         $event->setMetaData([
             'contentVersionId' => $historyItem->getContentVersionId()
         ]);
