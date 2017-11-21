@@ -3,7 +3,7 @@
 namespace Zrcms\ContentCoreDoctrineDataSource\Shared\Api\ChangeLog;
 
 use Doctrine\ORM\EntityManager;
-use Zrcms\ChangeLog\Api\ChangeLogEvent;
+use Zrcms\Content\Model\ChangeLogEvent;
 use Zrcms\Content\Model\ActionCmsResource;
 use Zrcms\Content\Api\GetChangeLogByDateRange;
 use Zrcms\ContentCoreDoctrineDataSource\Page\Entity\PageCmsResourceHistoryEntity;
