@@ -5,7 +5,7 @@ namespace Zrcms\ChangeLog\Api;
 interface GetChangeLogByDateRange
 {
     /**
-     * Important - Implementors of this interface to not have to return the events in an order. Its up to the caller
+     * Important - Implementors of this interface do not have to return the events in any order. Its up to the caller
      * to sort them after calling this function.
      *
      * @param \DateTime $greaterThanDate
