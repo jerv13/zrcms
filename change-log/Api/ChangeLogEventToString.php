@@ -3,6 +3,7 @@
 
 namespace Zrcms\ChangeLog\Api;
 
+use Zrcms\Content\Model\ChangeLogEvent;
 use Zrcms\ContentCore\Site\Api\Repository\FindSiteCmsResource;
 
 class ChangeLogEventToString

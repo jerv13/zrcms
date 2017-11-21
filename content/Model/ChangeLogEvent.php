@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Zrcms\ChangeLog\Api;
+namespace Zrcms\Content\Model;
 
 
 class ChangeLogEvent
