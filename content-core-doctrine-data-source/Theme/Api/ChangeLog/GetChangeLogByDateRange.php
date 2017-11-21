@@ -1,11 +1,16 @@
 <?php
 
-namespace Zrcms\ContentCoreDoctrineDataSource\Page\Api\ChangeLog;
+namespace Zrcms\ContentCoreDoctrineDataSource\Theme\Api\ChangeLog;
 
 use Doctrine\ORM\EntityManager;
 use Zrcms\ChangeLog\Api\ChangeLogEvent;
 use Zrcms\Content\Model\ActionCmsResource;
+use Zrcms\ContentCore\Theme\Fields\FieldsLayoutVersion;
 use Zrcms\ContentCoreDoctrineDataSource\Base\Api\ChangeLog\BaseGetChangeLogByDateRange;
+use Zrcms\ContentCoreDoctrineDataSource\Theme\Entity\LayoutCmsResourceHistoryEntity;
+use Zrcms\ContentCoreDoctrineDataSource\Theme\Entity\LayoutVersionEntity;
+use Zrcms\ContentCoreDoctrineDataSource\Theme\Entity\ThemeCmsResourceHistoryEntity;
+use Zrcms\ContentCoreDoctrineDataSource\Theme\Entity\ThemeVersionEntity;
 use Zrcms\ContentCoreDoctrineDataSource\Page\Entity\PageCmsResourceHistoryEntity;
 use Zrcms\ContentCoreDoctrineDataSource\Page\Entity\PageVersionEntity;
 use Zrcms\ContentCoreDoctrineDataSource\Shared\Api\ChangeLog\AbstractGetChangeLogByDateRange;
@@ -17,16 +22,16 @@ class GetChangeLogByDateRange extends AbstractGetChangeLogByDateRange
 
     protected function getResourceHistoryEntityName(): string
     {
-        return PageCmsResourceHistoryEntity::class;
+        return LayoutCmsResourceHistoryEntity::class;
     }
 
     protected function getVersionEntityName(): string
     {
-        return PageVersionEntity::class;
+        return LayoutVersionEntity::class;
     }
 
     /**
-     * @param PageVersionEntity $version
+     * @param LayoutVersionEntity $version
      * @return ChangeLogEvent
      */
     protected function versionRowToChangeLogEvent($version): ChangeLogEvent
@@ -39,17 +44,14 @@ class GetChangeLogByDateRange extends AbstractGetChangeLogByDateRange
         $event->setActionId('create');
         $event->setActionName('created');
         $event->setResourceId($version->getId());
-        $event->setResourceTypeName('page draft version');
-        $event->setResourceName('for ' . $properties['path']);
-        $event->setMetaData([
-            'siteCmsResourceId' => $version->getSiteCmsResourceId(),
-        ]);
+        $event->setResourceTypeName('layout draft version');
+        $event->setResourceName('for ' . $properties[FieldsLayoutVersion::NAME]);
 
         return $event;
     }
 
     /**
-     * @param PageCmsResourceHistoryEntity $historyItem
+     * @param LayoutCmsResourceHistoryEntity $historyItem
      * @return ChangeLogEvent
      * @throws \Exception
      */
@@ -83,10 +85,9 @@ class GetChangeLogByDateRange extends AbstractGetChangeLogByDateRange
         $event->setActionId($historyItem->getAction());
         $event->setActionName($actionDescription);
         $event->setResourceId($cmsResource->getId());
-        $event->setResourceTypeName('page');
-        $event->setResourceName($cmsResource->getPath());
+        $event->setResourceTypeName('layout');
+        $event->setResourceName($cmsResource->getName());
         $event->setMetaData([
-            'siteCmsResourceId' => $cmsResource->getSiteCmsResourceId(),
             'contentVersionId' => $historyItem->getContentVersionId()
         ]);
 

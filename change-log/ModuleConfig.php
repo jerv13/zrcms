@@ -6,10 +6,14 @@ use Doctrine\ORM\EntityManager;
 use Zrcms\Acl\Api\IsAllowedRcmUser;
 use Zrcms\ChangeLog\Acl\IsAllowedReadChangeLog;
 use Zrcms\ChangeLog\Api\ChangeLogEventToString;
-use Zrcms\ChangeLog\Api\GetContentChangeLogByDateRange;
 use Zrcms\ChangeLog\Api\GetContentChangeLogByDateRangeBasic;
 use Zrcms\ChangeLog\Controller\ChangeLogHtml;
 use Zrcms\ContentCore\Site\Api\Repository\FindSiteCmsResource;
+use Zrcms\ContentCoreDoctrineDataSource\Page\Api\ChangeLog\GetChangeLogByDateRange as PageGetChangeLogByDateRange;
+use Zrcms\ContentCoreDoctrineDataSource\Container\Api\ChangeLog\GetChangeLogByDateRange as ContainerGetChangeLogByDateRange;
+use Zrcms\ContentCoreDoctrineDataSource\Site\Api\ChangeLog\GetChangeLogByDateRange as SiteGetChangeLogByDateRange;
+use Zrcms\ContentCoreDoctrineDataSource\Theme\Api\ChangeLog\GetChangeLogByDateRange as ThemeGetChangeLogByDateRange;
+use Zrcms\ContentRedirectDoctrineDataSource\Api\ChangeLog\GetChangeLogByDateRange as RedirectGetChangeLogByDateRange;
 
 class ModuleConfig
 {
@@ -26,7 +30,8 @@ class ModuleConfig
                     'name' => '/zrcms/change-log/html',
                     'path' => '/zrcms/change-log/html',
                     'middleware' => [
-//                        IsAllowedReadChangeLog::class, //@TODO uncomment this line and get ACL working on this
+                        //@TODO make this redirect to login page if not logged in
+                        IsAllowedReadChangeLog::class,
                         ChangeLogHtml::class,
                     ],
                     'options' => [],
@@ -44,12 +49,11 @@ class ModuleConfig
                     GetContentChangeLogByDateRange::class => [
                         'class' => GetContentChangeLogByDateRangeBasic::class,
                         'calls' => [
-                            [
-                                'addSubordinate',
-                                [
-                                    'Zrcms\ContentCore\Page\Api\ChangeLog\GetChangeLogByDateRange'
-                                ]
-                            ],
+                            ['addSubordinate', [PageGetChangeLogByDateRange::class]],
+                            ['addSubordinate', [ContainerGetChangeLogByDateRange::class]],
+                            ['addSubordinate', [SiteGetChangeLogByDateRange::class]],
+                            ['addSubordinate', [ThemeGetChangeLogByDateRange::class]],
+                            ['addSubordinate', [RedirectGetChangeLogByDateRange::class]],
                         ]
                     ],
                     ChangeLogEventToString::class => [
@@ -68,6 +72,27 @@ class ModuleConfig
                                 ]
                             ],
                             ['literal' => 'change-log-read']
+                        ],
+                    ],
+                ],
+            ],
+            'RcmUser' => [
+                'Acl\Config' => [
+                    'ResourceProviders' => [
+                        'change-log-resources' => [
+                            'change-log' => [
+                                'resourceId' => 'change-log',
+                                'parentResourceId' => null,
+                                'privileges' => [
+                                    'read',
+                                    'update',
+                                    'create',
+                                    'delete',
+                                    'execute',
+                                ],
+                                'name' => 'Change log access',
+                                'description' => 'Change log access',
+                            ],
                         ],
                     ],
                 ],

@@ -1,11 +1,13 @@
 <?php
 
-namespace Zrcms\ContentCoreDoctrineDataSource\Page\Api\ChangeLog;
+namespace Zrcms\ContentCoreDoctrineDataSource\Site\Api\ChangeLog;
 
 use Doctrine\ORM\EntityManager;
 use Zrcms\ChangeLog\Api\ChangeLogEvent;
 use Zrcms\Content\Model\ActionCmsResource;
 use Zrcms\ContentCoreDoctrineDataSource\Base\Api\ChangeLog\BaseGetChangeLogByDateRange;
+use Zrcms\ContentCoreDoctrineDataSource\Site\Entity\SiteCmsResourceHistoryEntity;
+use Zrcms\ContentCoreDoctrineDataSource\Site\Entity\SiteVersionEntity;
 use Zrcms\ContentCoreDoctrineDataSource\Page\Entity\PageCmsResourceHistoryEntity;
 use Zrcms\ContentCoreDoctrineDataSource\Page\Entity\PageVersionEntity;
 use Zrcms\ContentCoreDoctrineDataSource\Shared\Api\ChangeLog\AbstractGetChangeLogByDateRange;
@@ -17,16 +19,16 @@ class GetChangeLogByDateRange extends AbstractGetChangeLogByDateRange
 
     protected function getResourceHistoryEntityName(): string
     {
-        return PageCmsResourceHistoryEntity::class;
+        return SiteCmsResourceHistoryEntity::class;
     }
 
     protected function getVersionEntityName(): string
     {
-        return PageVersionEntity::class;
+        return SiteVersionEntity::class;
     }
 
     /**
-     * @param PageVersionEntity $version
+     * @param SiteVersionEntity $version
      * @return ChangeLogEvent
      */
     protected function versionRowToChangeLogEvent($version): ChangeLogEvent
@@ -39,17 +41,14 @@ class GetChangeLogByDateRange extends AbstractGetChangeLogByDateRange
         $event->setActionId('create');
         $event->setActionName('created');
         $event->setResourceId($version->getId());
-        $event->setResourceTypeName('page draft version');
-        $event->setResourceName('for ' . $properties['path']);
-        $event->setMetaData([
-            'siteCmsResourceId' => $version->getSiteCmsResourceId(),
-        ]);
+        $event->setResourceTypeName('site draft version');
+        $event->setResourceName('for ' . $properties['host']);
 
         return $event;
     }
 
     /**
-     * @param PageCmsResourceHistoryEntity $historyItem
+     * @param SiteCmsResourceHistoryEntity $historyItem
      * @return ChangeLogEvent
      * @throws \Exception
      */
@@ -83,10 +82,9 @@ class GetChangeLogByDateRange extends AbstractGetChangeLogByDateRange
         $event->setActionId($historyItem->getAction());
         $event->setActionName($actionDescription);
         $event->setResourceId($cmsResource->getId());
-        $event->setResourceTypeName('page');
-        $event->setResourceName($cmsResource->getPath());
+        $event->setResourceTypeName('site');
+        $event->setResourceName($cmsResource->getHost());
         $event->setMetaData([
-            'siteCmsResourceId' => $cmsResource->getSiteCmsResourceId(),
             'contentVersionId' => $historyItem->getContentVersionId()
         ]);
 

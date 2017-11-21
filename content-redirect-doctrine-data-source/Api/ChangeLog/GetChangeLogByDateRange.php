@@ -1,8 +1,9 @@
 <?php
 
-namespace Zrcms\ContentCoreDoctrineDataSource\Page\Api\ChangeLog;
+namespace Zrcms\ContentRedirectDoctrineDataSource\Api\ChangeLog;
 
 use Doctrine\ORM\EntityManager;
+use DoctrineORMModule\Proxy\__CG__\Zrcms\ContentRedirectDoctrineDataSource\Entity\RedirectCmsResourceEntity;
 use Zrcms\ChangeLog\Api\ChangeLogEvent;
 use Zrcms\Content\Model\ActionCmsResource;
 use Zrcms\ContentCoreDoctrineDataSource\Base\Api\ChangeLog\BaseGetChangeLogByDateRange;
@@ -10,6 +11,8 @@ use Zrcms\ContentCoreDoctrineDataSource\Page\Entity\PageCmsResourceHistoryEntity
 use Zrcms\ContentCoreDoctrineDataSource\Page\Entity\PageVersionEntity;
 use Zrcms\ContentCoreDoctrineDataSource\Shared\Api\ChangeLog\AbstractGetChangeLogByDateRange;
 use Zrcms\ContentDoctrine\Entity\CmsResourceHistoryEntity;
+use Zrcms\ContentRedirectDoctrineDataSource\Entity\RedirectCmsResourceHistoryEntity;
+use Zrcms\ContentRedirectDoctrineDataSource\Entity\RedirectVersionEntity;
 
 class GetChangeLogByDateRange extends AbstractGetChangeLogByDateRange
 {
@@ -17,16 +20,16 @@ class GetChangeLogByDateRange extends AbstractGetChangeLogByDateRange
 
     protected function getResourceHistoryEntityName(): string
     {
-        return PageCmsResourceHistoryEntity::class;
+        return RedirectCmsResourceHistoryEntity::class;
     }
 
     protected function getVersionEntityName(): string
     {
-        return PageVersionEntity::class;
+        return RedirectVersionEntity::class;
     }
 
     /**
-     * @param PageVersionEntity $version
+     * @param RedirectVersionEntity $version
      * @return ChangeLogEvent
      */
     protected function versionRowToChangeLogEvent($version): ChangeLogEvent
@@ -39,22 +42,27 @@ class GetChangeLogByDateRange extends AbstractGetChangeLogByDateRange
         $event->setActionId('create');
         $event->setActionName('created');
         $event->setResourceId($version->getId());
-        $event->setResourceTypeName('page draft version');
-        $event->setResourceName('for ' . $properties['path']);
-        $event->setMetaData([
-            'siteCmsResourceId' => $version->getSiteCmsResourceId(),
-        ]);
+        $event->setResourceTypeName('redirect draft version');
+        $event->setResourceName('for ' . $version->getRequestPath());
+        $metaData = [];
+        if (!empty($version->getSiteCmsResourceId())) {
+            $metaData['siteCmsResourceId'] = $version->getSiteCmsResourceId();
+        }
+        $event->setMetaData($metaData);
 
         return $event;
     }
 
     /**
-     * @param PageCmsResourceHistoryEntity $historyItem
+     * @param RedirectCmsResourceHistoryEntity $historyItem
      * @return ChangeLogEvent
      * @throws \Exception
      */
     protected function resourceHistoryRowToChangeLogEvent($historyItem): ChangeLogEvent
     {
+        /**
+         * @var $cmsResource RedirectCmsResourceEntity
+         */
         $cmsResource = $historyItem->getCmsResource();
 
         $contentVersionId = $historyItem->getContentVersionId();
@@ -83,12 +91,13 @@ class GetChangeLogByDateRange extends AbstractGetChangeLogByDateRange
         $event->setActionId($historyItem->getAction());
         $event->setActionName($actionDescription);
         $event->setResourceId($cmsResource->getId());
-        $event->setResourceTypeName('page');
-        $event->setResourceName($cmsResource->getPath());
-        $event->setMetaData([
-            'siteCmsResourceId' => $cmsResource->getSiteCmsResourceId(),
-            'contentVersionId' => $historyItem->getContentVersionId()
-        ]);
+        $event->setResourceTypeName('redirect');
+        $event->setResourceName($cmsResource->getRequestPath());
+        $metaData = ['contentVersionId' => $historyItem->getContentVersionId()];
+        if (!empty($historyItem->getContentVersion()->getSiteCmsResourceId())) {
+            $metaData['siteCmsResourceId'] = $historyItem->getContentVersion()->getSiteCmsResourceId();
+        }
+        $event->setMetaData($metaData);
 
         return $event;
     }
