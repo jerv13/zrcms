@@ -9,9 +9,6 @@ use Zrcms\ChangeLog\Api\ChangeLogEventToString;
 use Zrcms\ChangeLog\Api\GetContentChangeLogByDateRange;
 use Zrcms\ChangeLog\Api\GetContentChangeLogByDateRangeBasic;
 use Zrcms\ChangeLog\Controller\ChangeLogHtml;
-use Zrcms\ChangeLog\Service\RowDescriberZrcmsCmsResource;
-use Zrcms\ChangeLog\Service\RowDescriberZrcmsContentVersion;
-use Zrcms\ChangeLog\Service\RowDescriberZrcmsResource;
 use Zrcms\ContentCore\Site\Api\Repository\FindSiteCmsResource;
 
 class ModuleConfig
