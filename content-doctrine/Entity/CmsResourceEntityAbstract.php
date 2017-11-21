@@ -146,8 +146,8 @@ abstract class CmsResourceEntityAbstract
      */
     public function getContentVersionId()
     {
-        if (!empty($this->contentVersion)) {
-            return $this->contentVersion->getId();
+        if (!empty($this->getContentVersion())) {
+            return $this->getContentVersion()->getId();
         }
 
         return null;

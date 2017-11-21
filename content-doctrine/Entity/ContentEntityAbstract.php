@@ -85,6 +85,14 @@ class ContentEntityAbstract
     }
 
     /**
+     * @return array
+     */
+    public function getProperties(): array
+    {
+        return $this->properties;
+    }
+
+    /**
      * @param LifecycleEventArgs $eventArgs
      *
      * @return void
