@@ -39,12 +39,12 @@ abstract class CmsResourceHistoryEntityAbstract
     protected $contentVersion;
 
     /**
-     * @param string|null       $id
-     * @param string            $action
+     * @param string|null $id
+     * @param string $action
      * @param CmsResourceEntity $cmsResourceEntity
-     * @param string            $publishedByUserId
-     * @param string            $publishReason
-     * @param string|null       $publishDate
+     * @param string $publishedByUserId
+     * @param string $publishReason
+     * @param string|null $publishDate
      */
     public function __construct(
         $id,

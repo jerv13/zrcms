@@ -4,6 +4,10 @@ namespace Zrcms\ContentCoreDoctrineDataSource;
 
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Mapping\Driver\AnnotationDriver;
+use Zrcms\ContentCore\Page\Api\Action\PublishPageCmsResource;
+use Zrcms\ContentCore\Page\Api\Action\PublishPageTemplateCmsResource;
+use Zrcms\ContentCore\Page\Api\Action\UnpublishPageCmsResource;
+use Zrcms\ContentCore\Page\Api\Action\UnpublishPageTemplateCmsResource;
 use Zrcms\ContentCore\Page\Api\CmsResource\UpsertPageCmsResource;
 use Zrcms\ContentCore\Page\Api\CmsResource\UpsertPageDraftCmsResource;
 use Zrcms\ContentCore\Page\Api\CmsResource\UpsertPageTemplateCmsResource;
@@ -27,6 +31,14 @@ class ModuleConfigPage
         return [
             'dependencies' => [
                 'config_factories' => [
+                    'Zrcms\ContentCore\Page\Api\ChangeLog\GetChangeLogByDateRange' => [
+                        'class' => 'Zrcms\ContentCoreDoctrineDataSource\Page\Api\ChangeLog\GetChangeLogByDateRange',
+                        'arguments' => [
+                            EntityManager::class,
+                            ['literal' => This\Page\Entity\PageCmsResourceHistoryEntity::class],
+                            ['literal' => This\Page\Entity\PageVersionEntity::class],
+                        ]
+                    ],
                     UpsertPageCmsResource::class => [
                         'class' => This\Page\Api\CmsResource\UpsertPageCmsResource::class,
                         'arguments' => [
