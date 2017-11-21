@@ -39,12 +39,12 @@ abstract class CmsResourceHistoryEntityAbstract
     protected $contentVersion;
 
     /**
-     * @param string|null       $id
-     * @param string            $action
+     * @param string|null $id
+     * @param string $action
      * @param CmsResourceEntity $cmsResourceEntity
-     * @param string            $publishedByUserId
-     * @param string            $publishReason
-     * @param string|null       $publishDate
+     * @param string $publishedByUserId
+     * @param string $publishReason
+     * @param string|null $publishDate
      */
     public function __construct(
         $id,
@@ -102,8 +102,8 @@ abstract class CmsResourceHistoryEntityAbstract
      */
     public function getCmsResourceId(): string
     {
-        if (!empty($this->cmsResource)) {
-            return $this->cmsResource->getId();
+        if (!empty($this->getCmsResource())) {
+            return $this->getCmsResource()->getId();
         }
 
         return '';
@@ -122,8 +122,8 @@ abstract class CmsResourceHistoryEntityAbstract
      */
     public function getContentVersionId(): string
     {
-        if (!empty($this->contentVersion)) {
-            return $this->contentVersion->getId();
+        if (!empty($this->getContentVersion())) {
+            return $this->getContentVersion()->getId();
         }
 
         return '';
