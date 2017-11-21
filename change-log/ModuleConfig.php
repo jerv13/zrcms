@@ -21,6 +21,18 @@ class ModuleConfig
     public function __invoke()
     {
         return [
+            'routes' => [//@TODO should this be somewhere else?
+                '/zrcms/change-log/html' => [
+                    'name' => '/zrcms/change-log/html',
+                    'path' => '/zrcms/change-log/html',
+                    'middleware' => [
+//                        IsAllowedReadChangeLog::class, //@TODO uncomment this line and get ACL working on this
+                        ChangeLogHtml::class,
+                    ],
+                    'options' => [],
+                    'allowed_methods' => ['GET'],
+                ],
+            ],
             'dependencies' => [
                 'config_factories' => [
                     ChangeLogHtml::class => [
