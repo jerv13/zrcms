@@ -4,16 +4,18 @@ namespace Zrcms\ChangeLog;
 
 use Doctrine\ORM\EntityManager;
 use Zrcms\Acl\Api\IsAllowedRcmUser;
-use Zrcms\ChangeLog\Acl\IsAllowedReadChangeLog;
+use Zrcms\ChangeLog\Middleware\IsAllowedReadChangeLog;
 use Zrcms\ChangeLog\Api\ChangeLogEventToString;
 use Zrcms\ChangeLog\Api\GetContentChangeLogByDateRangeBasic;
-use Zrcms\ChangeLog\Controller\ChangeLogHtml;
+use Zrcms\ChangeLog\Api\GetContentChangeLogComposite;
+use Zrcms\ChangeLog\Middleware\ChangeLogHtml;
+use Zrcms\Content\Api\GetChangeLogByDateRange;
 use Zrcms\ContentCore\Site\Api\Repository\FindSiteCmsResource;
-use Zrcms\ContentCoreDoctrineDataSource\Page\Api\ChangeLog\GetChangeLogByDateRange as PageGetChangeLogByDateRange;
-use Zrcms\ContentCoreDoctrineDataSource\Container\Api\ChangeLog\GetChangeLogByDateRange as ContainerGetChangeLogByDateRange;
-use Zrcms\ContentCoreDoctrineDataSource\Site\Api\ChangeLog\GetChangeLogByDateRange as SiteGetChangeLogByDateRange;
-use Zrcms\ContentCoreDoctrineDataSource\Theme\Api\ChangeLog\GetChangeLogByDateRange as ThemeGetChangeLogByDateRange;
-use Zrcms\ContentRedirectDoctrineDataSource\Api\ChangeLog\GetChangeLogByDateRange as RedirectGetChangeLogByDateRange;
+use Zrcms\ContentCore\Page\Api\ChangeLog\GetChangeLogByDateRange as PageGetChangeLogByDateRange;
+use Zrcms\ContentCore\Container\Api\ChangeLog\GetChangeLogByDateRange as ContainerGetChangeLogByDateRange;
+use Zrcms\ContentCore\Site\Api\ChangeLog\GetChangeLogByDateRange as SiteGetChangeLogByDateRange;
+use Zrcms\ContentCore\Theme\Api\ChangeLog\GetChangeLogByDateRange as ThemeGetChangeLogByDateRange;
+use Zrcms\ContentRedirect\Api\ChangeLog\GetChangeLogByDateRange as RedirectGetChangeLogByDateRange;
 
 class ModuleConfig
 {
@@ -25,7 +27,7 @@ class ModuleConfig
     public function __invoke()
     {
         return [
-            'routes' => [//@TODO should this be somewhere else?
+            'routes' => [
                 '/zrcms/change-log/html' => [
                     'name' => '/zrcms/change-log/html',
                     'path' => '/zrcms/change-log/html',
@@ -42,12 +44,12 @@ class ModuleConfig
                 'config_factories' => [
                     ChangeLogHtml::class => [
                         'arguments' => [
-                            GetContentChangeLogByDateRange::class,
+                            GetChangeLogByDateRange::class,
                             ChangeLogEventToString::class
                         ]
                     ],
-                    GetContentChangeLogByDateRange::class => [
-                        'class' => GetContentChangeLogByDateRangeBasic::class,
+                    GetChangeLogByDateRange::class => [
+                        'class' => GetContentChangeLogComposite::class,
                         'calls' => [
                             ['addSubordinate', [PageGetChangeLogByDateRange::class]],
                             ['addSubordinate', [ContainerGetChangeLogByDateRange::class]],
