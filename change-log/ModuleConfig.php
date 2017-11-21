@@ -13,6 +13,7 @@ use Zrcms\ContentCoreDoctrineDataSource\Page\Api\ChangeLog\GetChangeLogByDateRan
 use Zrcms\ContentCoreDoctrineDataSource\Container\Api\ChangeLog\GetChangeLogByDateRange as ContainerGetChangeLogByDateRange;
 use Zrcms\ContentCoreDoctrineDataSource\Site\Api\ChangeLog\GetChangeLogByDateRange as SiteGetChangeLogByDateRange;
 use Zrcms\ContentCoreDoctrineDataSource\Theme\Api\ChangeLog\GetChangeLogByDateRange as ThemeGetChangeLogByDateRange;
+use Zrcms\ContentRedirectDoctrineDataSource\Api\ChangeLog\GetChangeLogByDateRange as RedirectGetChangeLogByDateRange;
 
 class ModuleConfig
 {
@@ -52,6 +53,7 @@ class ModuleConfig
                             ['addSubordinate', [ContainerGetChangeLogByDateRange::class]],
                             ['addSubordinate', [SiteGetChangeLogByDateRange::class]],
                             ['addSubordinate', [ThemeGetChangeLogByDateRange::class]],
+                            ['addSubordinate', [RedirectGetChangeLogByDateRange::class]],
                         ]
                     ],
                     ChangeLogEventToString::class => [

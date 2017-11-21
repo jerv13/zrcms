@@ -28,6 +28,9 @@ class ModuleConfig
         return [
             'dependencies' => [
                 'config_factories' => [
+                    This\Api\ChangeLog\GetChangeLogByDateRange::class => [
+                        'arguments' => [EntityManager::class]
+                    ],
                     UpsertRedirectCmsResource::class => [
                         'class' => This\Api\CmsResource\UpsertRedirectCmsResource::class,
                         'arguments' => [
