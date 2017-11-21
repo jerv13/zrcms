@@ -16,4 +16,11 @@ interface Container extends Content
      * @return BlockVersion[]
      */
     public function getBlockVersions(): array;
+
+    /**
+     * @param string $id
+     *
+     * @return BlockVersion|null
+     */
+    public function findBlockVersion(string $id);
 }
