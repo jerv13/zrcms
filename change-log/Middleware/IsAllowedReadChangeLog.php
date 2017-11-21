@@ -1,6 +1,6 @@
 <?php
 
-namespace Zrcms\ChangeLog\Acl;
+namespace Zrcms\ChangeLog\Middleware;
 
 use Zrcms\HttpExpressive\HttpApi\Acl\IsAllowedCheckApi;
 

@@ -8,6 +8,7 @@ use Zrcms\ContentCore\Page\Api\Action\PublishPageCmsResource;
 use Zrcms\ContentCore\Page\Api\Action\PublishPageTemplateCmsResource;
 use Zrcms\ContentCore\Page\Api\Action\UnpublishPageCmsResource;
 use Zrcms\ContentCore\Page\Api\Action\UnpublishPageTemplateCmsResource;
+use Zrcms\ContentCore\Page\Api\ChangeLog\GetChangeLogByDateRange;
 use Zrcms\ContentCore\Page\Api\CmsResource\UpsertPageCmsResource;
 use Zrcms\ContentCore\Page\Api\CmsResource\UpsertPageDraftCmsResource;
 use Zrcms\ContentCore\Page\Api\CmsResource\UpsertPageTemplateCmsResource;
@@ -31,7 +32,8 @@ class ModuleConfigPage
         return [
             'dependencies' => [
                 'config_factories' => [
-                    This\Page\Api\ChangeLog\GetChangeLogByDateRange::class => [
+                    GetChangeLogByDateRange::class => [
+                        'class' => This\Page\Api\ChangeLog\GetChangeLogByDateRange::class,
                         'arguments' => [EntityManager::class]
                     ],
                     UpsertPageCmsResource::class => [

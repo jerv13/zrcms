@@ -3,9 +3,10 @@
 namespace Zrcms\ChangeLog\Api;
 
 use Interop\Container\ContainerInterface;
+use Zrcms\Content\Api\GetChangeLogByDateRange;
 use Zrcms\ContentCore\Site\Api\Repository\FindSiteCmsResource;
 
-class GetContentChangeLogByDateRangeBasic implements GetChangeLogByDateRange
+class GetContentChangeLogComposite implements GetChangeLogByDateRange
 {
     protected $subordanites;
 
@@ -23,14 +24,13 @@ class GetContentChangeLogByDateRangeBasic implements GetChangeLogByDateRange
             );
         }
 
+        //Sort the items by date descending
         usort($changeLogEvents, function (ChangeLogEvent $a, ChangeLogEvent $b) {
             return $a->getDateTime() < $b->getDateTime();
         });
 
         return $changeLogEvents;
     }
-
-
 
     public function addSubordinate(GetChangeLogByDateRange $getChangeLogByDateRange)
     {

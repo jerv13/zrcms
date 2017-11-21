@@ -1,6 +1,7 @@
 <?php
 
-namespace Zrcms\ChangeLog\Api;
+namespace Zrcms\Content\Api;
+
 
 interface GetChangeLogByDateRange
 {

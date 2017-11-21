@@ -1,6 +1,6 @@
 <?php
 
-namespace Zrcms\ChangeLog\Controller;
+namespace Zrcms\ChangeLog\Middleware;
 
 use Interop\Http\ServerMiddleware\DelegateInterface;
 use Interop\Http\ServerMiddleware\MiddlewareInterface;
@@ -9,7 +9,7 @@ use Psr\Http\Message\ServerRequestInterface;
 use Zend\Diactoros\Response\HtmlResponse;
 use Zrcms\Acl\Api\IsAllowedRcmUser;
 use Zrcms\ChangeLog\Api\ChangeLogEventToString;
-use Zrcms\ChangeLog\Api\GetChangeLogByDateRange;
+use Zrcms\Content\Api\GetChangeLogByDateRange;
 
 /**
  * This outputs the change log as an HTML table.

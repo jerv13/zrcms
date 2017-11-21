@@ -5,11 +5,12 @@ namespace Zrcms\ContentCoreDoctrineDataSource\Shared\Api\ChangeLog;
 use Doctrine\ORM\EntityManager;
 use Zrcms\ChangeLog\Api\ChangeLogEvent;
 use Zrcms\Content\Model\ActionCmsResource;
+use Zrcms\Content\Api\GetChangeLogByDateRange;
 use Zrcms\ContentCoreDoctrineDataSource\Page\Entity\PageCmsResourceHistoryEntity;
 use Zrcms\ContentCoreDoctrineDataSource\Page\Entity\PageVersionEntity;
 use Zrcms\ContentDoctrine\Entity\CmsResourceHistoryEntity;
 
-abstract class AbstractGetChangeLogByDateRange implements \Zrcms\ChangeLog\Api\GetChangeLogByDateRange
+abstract class AbstractGetChangeLogByDateRange implements GetChangeLogByDateRange
 {
     protected $entityManger;
 
