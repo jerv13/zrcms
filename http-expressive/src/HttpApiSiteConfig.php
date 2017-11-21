@@ -10,6 +10,7 @@ use Zrcms\Content\Api\ContentVersionToArray;
 use Zrcms\ContentCore\Site\Api\CmsResource\UpsertSiteCmsResource;
 use Zrcms\ContentCore\Site\Model\SiteCmsResourceBasic;
 use Zrcms\ContentCore\Site\Model\SiteVersionBasic;
+use Zrcms\HttpExpressive\HttpApi\Acl\IsAllowedCheckApi;
 use Zrcms\HttpExpressive\HttpApi\Validate\IdAttributeZfInputFilterService;
 use Zrcms\HttpExpressive\HttpApiSite\Acl\IsAllowedFindContentVersion;
 use Zrcms\HttpExpressive\HttpApiSite\Acl\IsAllowedSiteCmsResourceFind;

@@ -4,6 +4,8 @@ namespace Zrcms\ContentCore\Container\Model;
 
 use Zrcms\Content\Exception\PropertyInvalid;
 use Zrcms\Content\Model\ContentAbstract;
+use Zrcms\ContentCore\Block\Model\BlockVersion;
+use Zrcms\ContentCore\Container\Api\BuildBlockVersion;
 use Zrcms\ContentCore\Container\Api\BuildBlockVersions;
 use Zrcms\ContentCore\Container\Api\PrepareBlockVersionsData;
 use Zrcms\ContentCore\Container\Fields\FieldsContainer;
@@ -39,7 +41,7 @@ abstract class ContainerAbstract extends ContentAbstract
     }
 
     /**
-     * @return array
+     * @return BlockVersion[]
      */
     public function getBlockVersions(): array
     {
@@ -55,5 +57,32 @@ abstract class ContainerAbstract extends ContentAbstract
             $containerVersion,
             $blockVersions
         );
+    }
+
+    /**
+     * @param string $id
+     *
+     * @return BlockVersion|null
+     */
+    public function getBlockVersion(string $id)
+    {
+        $blockVersionsData = $this->getProperty(
+            FieldsContainer::BLOCK_VERSIONS,
+            []
+        );
+
+        /** @var ContainerVersion $containerVersion */
+        $containerVersion = $this;
+
+        foreach ($blockVersionsData as $blockVersionData) {
+            if ($blockVersionData['id'] == $id) {
+                return BuildBlockVersion::invoke(
+                    $containerVersion,
+                    $blockVersionData
+                );
+            }
+        }
+
+        return null;
     }
 }
