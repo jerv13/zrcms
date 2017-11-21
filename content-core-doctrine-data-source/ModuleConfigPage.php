@@ -31,13 +31,8 @@ class ModuleConfigPage
         return [
             'dependencies' => [
                 'config_factories' => [
-                    'Zrcms\ContentCore\Page\Api\ChangeLog\GetChangeLogByDateRange' => [
-                        'class' => 'Zrcms\ContentCoreDoctrineDataSource\Page\Api\ChangeLog\GetChangeLogByDateRange',
-                        'arguments' => [
-                            EntityManager::class,
-                            ['literal' => This\Page\Entity\PageCmsResourceHistoryEntity::class],
-                            ['literal' => This\Page\Entity\PageVersionEntity::class],
-                        ]
+                    This\Page\Api\ChangeLog\GetChangeLogByDateRange::class => [
+                        'arguments' => [EntityManager::class]
                     ],
                     UpsertPageCmsResource::class => [
                         'class' => This\Page\Api\CmsResource\UpsertPageCmsResource::class,

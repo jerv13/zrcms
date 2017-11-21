@@ -23,6 +23,9 @@ class ModuleConfigContainer
         return [
             'dependencies' => [
                 'config_factories' => [
+                    This\Container\Api\ChangeLog\GetChangeLogByDateRange::class => [
+                        'arguments' => [EntityManager::class]
+                    ],
                     UpsertContainerCmsResource::class => [
                         'class' => This\Container\Api\CmsResource\UpsertContainerCmsResource::class,
                         'arguments' => [
