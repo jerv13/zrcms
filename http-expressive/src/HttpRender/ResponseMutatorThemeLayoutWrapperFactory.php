@@ -21,7 +21,7 @@ class ResponseMutatorThemeLayoutWrapperFactory
     {
         $config = $serviceContainer->get('config');
 
-        $pageLayoutConfig = $config['zrcms-http-render-layout-pages'];
+        $pageLayoutConfig = $config['zrcms-http-render-layout-for-path'];
 
         return new ResponseMutatorThemeLayoutWrapper(
             $serviceContainer->get(GetViewByRequestHtmlPage::class),

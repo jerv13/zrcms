@@ -82,8 +82,8 @@ class HttpRenderConfig
                     ],
                 ],
             ],
-            'zrcms-http-render-layout-pages' => [
-                /** ['/my-page' => {bool:addLayout}] */
+            'zrcms-http-render-layout-for-path' => [
+                /** ['/my-path' => {bool:addLayout}] */
             ],
         ];
     }
