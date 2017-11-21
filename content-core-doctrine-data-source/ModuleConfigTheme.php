@@ -24,6 +24,9 @@ class ModuleConfigTheme
         return [
             'dependencies' => [
                 'config_factories' => [
+                    This\Theme\Api\ChangeLog\GetChangeLogByDateRange::class => [
+                        'arguments' => [EntityManager::class]
+                    ],
                     UpsertLayoutCmsResource::class => [
                         'class' => This\Theme\Api\CmsResource\UpsertLayoutCmsResource::class,
                         'arguments' => [

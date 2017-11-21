@@ -23,6 +23,9 @@ class ModuleConfigSite
         return [
             'dependencies' => [
                 'config_factories' => [
+                    This\Site\Api\ChangeLog\GetChangeLogByDateRange::class => [
+                        'arguments' => [EntityManager::class]
+                    ],
                     UpsertSiteCmsResource::class => [
                         'class' => This\Site\Api\CmsResource\UpsertSiteCmsResource::class,
                         'arguments' => [

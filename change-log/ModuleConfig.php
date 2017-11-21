@@ -11,6 +11,8 @@ use Zrcms\ChangeLog\Controller\ChangeLogHtml;
 use Zrcms\ContentCore\Site\Api\Repository\FindSiteCmsResource;
 use Zrcms\ContentCoreDoctrineDataSource\Page\Api\ChangeLog\GetChangeLogByDateRange as PageGetChangeLogByDateRange;
 use Zrcms\ContentCoreDoctrineDataSource\Container\Api\ChangeLog\GetChangeLogByDateRange as ContainerGetChangeLogByDateRange;
+use Zrcms\ContentCoreDoctrineDataSource\Site\Api\ChangeLog\GetChangeLogByDateRange as SiteGetChangeLogByDateRange;
+use Zrcms\ContentCoreDoctrineDataSource\Theme\Api\ChangeLog\GetChangeLogByDateRange as ThemeGetChangeLogByDateRange;
 
 class ModuleConfig
 {
@@ -48,6 +50,8 @@ class ModuleConfig
                         'calls' => [
                             ['addSubordinate', [PageGetChangeLogByDateRange::class]],
                             ['addSubordinate', [ContainerGetChangeLogByDateRange::class]],
+                            ['addSubordinate', [SiteGetChangeLogByDateRange::class]],
+                            ['addSubordinate', [ThemeGetChangeLogByDateRange::class]],
                         ]
                     ],
                     ChangeLogEventToString::class => [
