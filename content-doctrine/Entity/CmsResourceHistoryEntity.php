@@ -2,12 +2,12 @@
 
 namespace Zrcms\ContentDoctrine\Entity;
 
-use Zrcms\Content\Exception\ContentVersionExists;
+use Zrcms\Content\Model\Trackable;
 
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-interface CmsResourceHistoryEntity
+interface CmsResourceHistoryEntity extends Entity, Trackable
 {
     /**
      * @return string

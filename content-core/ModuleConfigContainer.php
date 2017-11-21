@@ -5,8 +5,7 @@ namespace Zrcms\ContentCore;
 use Zrcms\ContentCore\Block\Api\Render\GetBlockRenderTags;
 use Zrcms\ContentCore\Block\Api\Render\RenderBlock;
 use Zrcms\ContentCore\Block\Api\WrapRenderedBlockVersion;
-use Zrcms\ContentCore\Container\Api\Action\PublishContainerCmsResource;
-use Zrcms\ContentCore\Container\Api\Action\UnpublishContainerCmsResource;
+use Zrcms\ContentCore\Container\Api\CmsResource\UpsertContainerCmsResource;
 use Zrcms\ContentCore\Container\Api\Render\GetContainerRenderTags;
 use Zrcms\ContentCore\Container\Api\Render\GetContainerRenderTagsBasic;
 use Zrcms\ContentCore\Container\Api\Render\GetContainerRenderTagsBlocks;
@@ -37,16 +36,10 @@ class ModuleConfigContainer
         return [
             'dependencies' => [
                 'config_factories' => [
-                    PublishContainerCmsResource::class => [
+                    UpsertContainerCmsResource::class => [
                         'class' => ApiNoop::class,
                         'arguments' => [
-                            '0-' => ['literal' => PublishContainerCmsResource::class],
-                        ],
-                    ],
-                    UnpublishContainerCmsResource::class => [
-                        'class' => ApiNoop::class,
-                        'arguments' => [
-                            '0-' => ['literal' => UnpublishContainerCmsResource::class],
+                            '0-' => ['literal' => UpsertContainerCmsResource::class],
                         ],
                     ],
                     GetContainerRenderTags::class => [

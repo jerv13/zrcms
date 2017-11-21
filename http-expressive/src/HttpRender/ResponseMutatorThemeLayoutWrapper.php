@@ -14,6 +14,7 @@ use Zrcms\ContentCore\View\Api\Render\RenderView;
 use Zrcms\ContentCore\View\Model\View;
 use Zrcms\HttpExpressive\Api\IsValidContentType;
 use Zrcms\HttpExpressive\Http\ZrcmsHtmlResponse;
+use Zrcms\Param\Param;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -32,27 +33,28 @@ class ResponseMutatorThemeLayoutWrapper
      * @var RenderView
      */
     protected $renderView;
+
     /**
      * @var array
      */
-    protected $validContentTypes;
+    protected $pageLayoutConfig;
 
     /**
      * @param GetViewByRequestHtmlPage $getViewByRequestHtmlPage
      * @param GetViewLayoutTags        $getViewLayoutTags
      * @param RenderView               $renderView
-     * @param array                    $validContentTypes
+     * @param array                    $pageLayoutConfig
      */
     public function __construct(
         GetViewByRequestHtmlPage $getViewByRequestHtmlPage,
         GetViewLayoutTags $getViewLayoutTags,
         RenderView $renderView,
-        array $validContentTypes = ['text/html', 'application/xhtml+xml', 'text/xml', 'application/xml', '']
+        array $pageLayoutConfig = []
     ) {
         $this->getViewByRequestHtmlPage = $getViewByRequestHtmlPage;
         $this->getViewLayoutTags = $getViewLayoutTags;
         $this->renderView = $renderView;
-        $this->validContentTypes = $validContentTypes;
+        $this->pageLayoutConfig = $pageLayoutConfig;
     }
 
     /**
@@ -73,7 +75,7 @@ class ResponseMutatorThemeLayoutWrapper
         /** @var HtmlResponse|ZrcmsHtmlResponse $response */
         $response = $next($request, $response);
 
-        if (!$this->canHandleResponse($response)) {
+        if (!$this->canHandleResponse($request, $response)) {
             return $response;
         }
 
@@ -148,30 +150,29 @@ class ResponseMutatorThemeLayoutWrapper
     }
 
     /**
-     * @param ResponseInterface $response
+     * @param ServerRequestInterface $request
+     * @param ResponseInterface      $response
      *
      * @return bool
      */
     protected function canHandleResponse(
+        ServerRequestInterface $request,
         ResponseInterface $response
-    ):bool {
-        if (!$response instanceof ZrcmsHtmlResponse) {
-            return false;
+    ):bool
+    {
+        if ($response instanceof ZrcmsHtmlResponse) {
+            $renderLayout = $response->getProperty(
+                ZrcmsHtmlResponse::PROPERTY_RENDER_LAYOUT,
+                ZrcmsHtmlResponse::DEFAULT_RENDER_LAYOUT
+            );
+
+            return $renderLayout;
         }
 
-        $renderLayout = $response->getProperty(
-            ZrcmsHtmlResponse::PROPERTY_RENDER_LAYOUT,
-            ZrcmsHtmlResponse::DEFAULT_RENDER_LAYOUT
+        return Param::getBool(
+            $this->pageLayoutConfig,
+            $request->getUri()->getPath(),
+            false
         );
-
-        if (!$renderLayout) {
-            return false;
-        }
-
-        if (!IsValidContentType::invoke($response, $this->validContentTypes)) {
-            return false;
-        }
-
-        return true;
     }
 }

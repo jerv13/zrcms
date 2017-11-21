@@ -39,30 +39,6 @@ class ModuleConfigPage
                             ['literal' => This\Page\Entity\PageVersionEntity::class],
                         ]
                     ],
-                    PublishPageCmsResource::class => [
-                        'class' => This\Page\Api\Action\PublishPageCmsResource::class,
-                        'arguments' => [
-                            '0-' => EntityManager::class,
-                        ],
-                    ],
-                    PublishPageTemplateCmsResource::class => [
-                        'class' => This\Page\Api\Action\PublishPageTemplateCmsResource::class,
-                        'arguments' => [
-                            '0-' => EntityManager::class,
-                        ],
-                    ],
-                    UnpublishPageCmsResource::class => [
-                        'class' => This\Page\Api\Action\UnPublishPageCmsResource::class,
-                        'arguments' => [
-                            '0-' => EntityManager::class,
-                        ],
-                    ],
-                    UnpublishPageTemplateCmsResource::class => [
-                        'class' => This\Page\Api\Action\UnpublishPageTemplateCmsResource::class,
-                        'arguments' => [
-                            '0-' => EntityManager::class,
-                        ],
-                    ],
                     UpsertPageCmsResource::class => [
                         'class' => This\Page\Api\CmsResource\UpsertPageCmsResource::class,
                         'arguments' => [

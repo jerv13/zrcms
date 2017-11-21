@@ -98,8 +98,8 @@ abstract class CmsResourceHistoryAbstract
      */
     public function getCmsResourceId(): string
     {
-        if (!empty($this->cmsResource)) {
-            return $this->cmsResource->getId();
+        if (!empty($this->getCmsResource())) {
+            return $this->getCmsResource()->getId();
         }
 
         return '';
@@ -118,8 +118,8 @@ abstract class CmsResourceHistoryAbstract
      */
     public function getContentVersionId(): string
     {
-        if (!empty($this->contentVersion)) {
-            return $this->contentVersion->getId();
+        if (!empty($this->getContentVersion())) {
+            return $this->getContentVersion()->getId();
         }
 
         return '';

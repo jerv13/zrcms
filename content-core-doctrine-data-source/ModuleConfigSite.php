@@ -4,8 +4,6 @@ namespace Zrcms\ContentCoreDoctrineDataSource;
 
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Mapping\Driver\AnnotationDriver;
-use Zrcms\ContentCore\Site\Api\Action\PublishSiteCmsResource;
-use Zrcms\ContentCore\Site\Api\Action\UnpublishSiteCmsResource;
 use Zrcms\ContentCore\Site\Api\CmsResource\UpsertSiteCmsResource;
 use Zrcms\ContentCore\Site\Api\Repository\FindSiteCmsResource;
 use Zrcms\ContentCore\Site\Api\Repository\FindSiteCmsResourceByHost;
@@ -25,18 +23,6 @@ class ModuleConfigSite
         return [
             'dependencies' => [
                 'config_factories' => [
-                    PublishSiteCmsResource::class => [
-                        'class' => This\Site\Api\Action\PublishSiteCmsResource::class,
-                        'arguments' => [
-                            '0-' => EntityManager::class,
-                        ],
-                    ],
-                    UnpublishSiteCmsResource::class => [
-                        'class' => This\Site\Api\Action\UnpublishSiteCmsResource::class,
-                        'arguments' => [
-                            '0-' => EntityManager::class,
-                        ],
-                    ],
                     UpsertSiteCmsResource::class => [
                         'class' => This\Site\Api\CmsResource\UpsertSiteCmsResource::class,
                         'arguments' => [

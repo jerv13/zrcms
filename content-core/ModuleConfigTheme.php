@@ -2,8 +2,7 @@
 
 namespace Zrcms\ContentCore;
 
-use Zrcms\ContentCore\Layout\Api\Action\PublishLayoutCmsResource;
-use Zrcms\ContentCore\Layout\Api\Action\UnpublishLayoutCmsResource;
+use Zrcms\ContentCore\Layout\Api\CmsResource\UpsertLayoutCmsResource;
 use Zrcms\ContentCore\Theme\Api\Component\ReadLayoutComponentConfig;
 use Zrcms\ContentCore\Theme\Api\Component\ReadLayoutComponentConfigBasic;
 use Zrcms\ContentCore\Theme\Api\Component\ReadLayoutComponentConfigJsonFile;
@@ -41,16 +40,10 @@ class ModuleConfigTheme
         return [
             'dependencies' => [
                 'config_factories' => [
-                    PublishLayoutCmsResource::class => [
+                    UpsertLayoutCmsResource::class => [
                         'class' => ApiNoop::class,
                         'arguments' => [
-                            '0-' => ['literal' => PublishLayoutCmsResource::class],
-                        ],
-                    ],
-                    UnpublishLayoutCmsResource::class => [
-                        'class' => ApiNoop::class,
-                        'arguments' => [
-                            '0-' => ['literal' => UnpublishLayoutCmsResource::class],
+                            '0-' => ['literal' => UpsertLayoutCmsResource::class],
                         ],
                     ],
                     ReadLayoutComponentConfig::class => [

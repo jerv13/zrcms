@@ -4,10 +4,9 @@ namespace Zrcms\ContentCore;
 
 use Zrcms\ContentCore\Container\Api\Render\GetContainerRenderTags;
 use Zrcms\ContentCore\Container\Api\Render\RenderContainer;
-use Zrcms\ContentCore\Page\Api\Action\PublishPageCmsResource;
-use Zrcms\ContentCore\Page\Api\Action\PublishPageTemplateCmsResource;
-use Zrcms\ContentCore\Page\Api\Action\UnpublishPageCmsResource;
-use Zrcms\ContentCore\Page\Api\Action\UnpublishPageTemplateCmsResource;
+use Zrcms\ContentCore\Page\Api\CmsResource\UpsertPageCmsResource;
+use Zrcms\ContentCore\Page\Api\CmsResource\UpsertPageDraftCmsResource;
+use Zrcms\ContentCore\Page\Api\CmsResource\UpsertPageTemplateCmsResource;
 use Zrcms\ContentCore\Page\Api\Render\GetPageRenderTags;
 use Zrcms\ContentCore\Page\Api\Render\GetPageRenderTagsBasic;
 use Zrcms\ContentCore\Page\Api\Render\GetPageRenderTagsContainers;
@@ -36,28 +35,22 @@ class ModuleConfigPage
         return [
             'dependencies' => [
                 'config_factories' => [
-                    PublishPageCmsResource::class => [
+                    UpsertPageCmsResource::class => [
                         'class' => ApiNoop::class,
                         'arguments' => [
-                            '0-' => ['literal' => PublishPageCmsResource::class],
+                            '0-' => ['literal' => UpsertPageCmsResource::class],
                         ],
                     ],
-                    PublishPageTemplateCmsResource::class => [
+                    UpsertPageTemplateCmsResource::class => [
                         'class' => ApiNoop::class,
                         'arguments' => [
-                            '0-' => ['literal' => PublishPageTemplateCmsResource::class],
+                            '0-' => ['literal' => UpsertPageTemplateCmsResource::class],
                         ],
                     ],
-                    UnpublishPageCmsResource::class => [
+                    UpsertPageDraftCmsResource::class => [
                         'class' => ApiNoop::class,
                         'arguments' => [
-                            '0-' => ['literal' => UnpublishPageCmsResource::class],
-                        ],
-                    ],
-                    UnpublishPageTemplateCmsResource::class => [
-                        'class' => ApiNoop::class,
-                        'arguments' => [
-                            '0-' => ['literal' => UnpublishPageTemplateCmsResource::class],
+                            '0-' => ['literal' => UpsertPageDraftCmsResource::class],
                         ],
                     ],
                     GetPageRenderTags::class => [

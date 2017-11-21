@@ -3,7 +3,6 @@
 namespace Zrcms\HttpExpressive;
 
 use Zrcms\ContentCore\View\Api\GetViewByRequest;
-use Zrcms\ContentCore\View\Api\GetViewByRequestHtmlPage;
 use Zrcms\ContentCore\View\Api\Render\GetViewLayoutTags;
 use Zrcms\ContentCore\View\Api\Render\RenderView;
 use Zrcms\HttpExpressive\Api\GetStatusPage;
@@ -14,6 +13,7 @@ use Zrcms\HttpExpressive\HttpRender\RenderPage;
 use Zrcms\HttpExpressive\HttpRender\ResponseMutatorNoop;
 use Zrcms\HttpExpressive\HttpRender\ResponseMutatorStatusPage;
 use Zrcms\HttpExpressive\HttpRender\ResponseMutatorThemeLayoutWrapper;
+use Zrcms\HttpExpressive\HttpRender\ResponseMutatorThemeLayoutWrapperFactory;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -78,13 +78,12 @@ class HttpRenderConfig
                         ],
                     ],
                     ResponseMutatorThemeLayoutWrapper::class => [
-                        'arguments' => [
-                            GetViewByRequestHtmlPage::class,
-                            GetViewLayoutTags::class,
-                            RenderView::class,
-                        ],
+                        'factory' => ResponseMutatorThemeLayoutWrapperFactory::class,
                     ],
                 ],
+            ],
+            'zrcms-http-render-layout-for-path' => [
+                /** ['/my-path' => {bool:addLayout}] */
             ],
         ];
     }
