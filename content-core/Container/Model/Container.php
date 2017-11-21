@@ -22,5 +22,5 @@ interface Container extends Content
      *
      * @return BlockVersion|null
      */
-    public function getBlockVersion(string $id);
+    public function findBlockVersion(string $id);
 }

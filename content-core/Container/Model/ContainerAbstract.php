@@ -64,7 +64,7 @@ abstract class ContainerAbstract extends ContentAbstract
      *
      * @return BlockVersion|null
      */
-    public function getBlockVersion(string $id)
+    public function findBlockVersion(string $id)
     {
         $blockVersionsData = $this->getProperty(
             FieldsContainer::BLOCK_VERSIONS,
