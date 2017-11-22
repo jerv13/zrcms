@@ -35,16 +35,17 @@ class ChangeLogList implements MiddlewareInterface
     public function process(ServerRequestInterface $request, DelegateInterface $delegate)
     {
         $queryParams = $request->getQueryParams();
-        $filteredDays = filter_var(
+        $days = filter_var(
             isset($queryParams['days']) ? $queryParams['days'] : $this->defaultNumberOfDays, FILTER_VALIDATE_INT
         );
 
         $greaterThanYear = new \DateTime();
-        $greaterThanYear = $greaterThanYear->sub(new \DateInterval('P' . $filteredDays . 'D'));
+        $greaterThanYear = $greaterThanYear->sub(new \DateInterval('P' . $days . 'D'));
         $lessThanYear = new \DateTime();
         $humanReadableEvents = $this->getHumanReadableChangeLogByDateRange->__invoke($greaterThanYear, $lessThanYear);
 
-        $description = 'Change log events from ' . $greaterThanYear->format('c') . ' to ' . $lessThanYear->format('c');
+        $description = 'Content change log events for ' . $days . ' days'
+            . ' from ' . $greaterThanYear->format('c') . ' to ' . $lessThanYear->format('c');
 
         $contentType = isset($queryParams['content-type'])
             ? html_entity_decode($queryParams['content-type'])
