@@ -39,6 +39,10 @@ class ChangeLogList implements MiddlewareInterface
             isset($queryParams['days']) ? $queryParams['days'] : $this->defaultNumberOfDays, FILTER_VALIDATE_INT
         );
 
+        if (!$days) {
+            return new HtmlResponse('400 Bad Request - Invalid "days" param', 400);
+        }
+
         $greaterThanYear = new \DateTime();
         $greaterThanYear = $greaterThanYear->sub(new \DateInterval('P' . $days . 'D'));
         $lessThanYear = new \DateTime();
@@ -62,7 +66,7 @@ class ChangeLogList implements MiddlewareInterface
                 return $this->makeCsvResponse($description, $humanReadableEvents);
                 break;
             default:
-                return new HtmlResponse('Unsupported content type', 400);
+                return new HtmlResponse('400 Bad Request - Invalid "content-type" param', 400);
         }
     }
 
