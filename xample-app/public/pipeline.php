@@ -15,7 +15,7 @@ $app->pipe(
 );
 
 $app->pipe(
-    \Zrcms\HttpRcmApiLib\ResponseMutatorJsonRcmApiLibFormat::class
+    \Zrcms\HttpRcmApiLib\Middleware\ResponseMutatorJsonRcmApiLibFormat::class
 );
 
 $app->pipe(
@@ -25,7 +25,7 @@ $app->pipe(
 $app->pipe(ServerUrlMiddleware::class);
 
 $app->pipe(
-    \Zrcms\HttpViewRender\Request\SiteExists::class
+    \Zrcms\HttpSiteExists\Middleware\SiteExists::class
 );
 
 $app->pipe(

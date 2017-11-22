@@ -5,7 +5,7 @@ namespace Zrcms\HttpStatusPages\Api;
 use Psr\Http\Message\ServerRequestInterface;
 use Zrcms\ContentCore\Basic\Api\Repository\FindBasicComponent;
 use Zrcms\ContentCore\Site\Api\GetSiteCmsResourceByRequest;
-use Zrcms\HttpStatusPages\Model\HttpExpressiveComponent;
+use Zrcms\HttpStatusPages\Model\HttpStatusPagesComponent;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -46,9 +46,9 @@ class GetStatusPageBasic implements GetStatusPage
     ) {
         $status = (string)$status;
 
-        /** @var HttpExpressiveComponent $component */
+        /** @var HttpStatusPagesComponent $component */
         $component = $this->findBasicComponent->__invoke(
-            HttpExpressiveComponent::NAME
+            HttpStatusPagesComponent::NAME
         );
 
         $statusPage = $component->findStatusPage($status);

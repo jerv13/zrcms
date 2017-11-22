@@ -11,6 +11,7 @@ use Zrcms\HttpStatusPages\Api\GetStatusPageBasic;
 use Zrcms\HttpStatusPages\Fields\FieldsHttpStatusPagesComponent;
 use Zrcms\HttpStatusPages\Model\HttpStatusPagesComponent;
 use Zrcms\HttpStatusPages\Middleware\ResponseMutatorStatusPage;
+use Zrcms\HttpViewRender\Response\RenderPage;
 
 /**
  * @author James Jervis - https://github.com/jerv13
