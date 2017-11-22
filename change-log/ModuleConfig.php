@@ -4,6 +4,8 @@ namespace Zrcms\ChangeLog;
 
 use Doctrine\ORM\EntityManager;
 use Zrcms\Acl\Api\IsAllowedRcmUser;
+use Zrcms\ChangeLog\Api\GetHumanReadableChangeLogByDateRange;
+use Zrcms\ChangeLog\Middleware\ChangeLogList;
 use Zrcms\ChangeLog\Middleware\IsAllowedReadChangeLog;
 use Zrcms\ChangeLog\Api\ChangeLogEventToString;
 use Zrcms\ChangeLog\Api\GetContentChangeLogByDateRangeBasic;
@@ -28,13 +30,14 @@ class ModuleConfig
     {
         return [
             'routes' => [
-                '/zrcms/change-log/html' => [
-                    'name' => '/zrcms/change-log/html',
-                    'path' => '/zrcms/change-log/html',
+                '/zrcms/change-log' => [
+                    'name' => '/zrcms/change-log',
+                    //Usage Note: For a friendly HTML UI, try adding ?days=30&content-type=text%2Fhtml
+                    'path' => '/zrcms/change-log',
                     'middleware' => [
                         //@TODO make this redirect to login page if not logged in
                         IsAllowedReadChangeLog::class,
-                        ChangeLogHtml::class,
+                        ChangeLogList::class,
                     ],
                     'options' => [],
                     'allowed_methods' => ['GET'],
@@ -42,7 +45,12 @@ class ModuleConfig
             ],
             'dependencies' => [
                 'config_factories' => [
-                    ChangeLogHtml::class => [
+                    ChangeLogList::class => [
+                        'arguments' => [
+                            GetHumanReadableChangeLogByDateRange::class
+                        ]
+                    ],
+                    GetHumanReadableChangeLogByDateRange::class => [
                         'arguments' => [
                             GetChangeLogByDateRange::class,
                             ChangeLogEventToString::class
