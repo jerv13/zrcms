@@ -1,6 +1,9 @@
 <?php
 
-namespace Zrcms\ViewAssets;
+namespace Zrcms\HttpUser;
+
+use Zrcms\HttpUser\Middleware\ParamLogOut;
+use Zrcms\User\Api\LogOut;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -8,8 +11,6 @@ namespace Zrcms\ViewAssets;
 class ModuleConfig
 {
     /**
-     * __invoke
-     *
      * @return array
      */
     public function __invoke()
@@ -17,6 +18,11 @@ class ModuleConfig
         return [
             'dependencies' => [
                 'config_factories' => [
+                    ParamLogOut::class => [
+                        'arguments' => [
+                            LogOut::class,
+                        ],
+                    ],
                 ],
             ],
         ];

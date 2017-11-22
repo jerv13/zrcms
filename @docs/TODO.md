@@ -3,14 +3,22 @@
 
 - Rename http-expressive to http, http-core and others maybe
 
-- Multi Page container rendering
-    - Containers path can be changed to name
-    - PageCmsResource PageCmsResource
+- content-language and content-country are components - rename them
+    zrcms-language
+    zrcms-country
+    
+- Component Simplify #####
 
-- PageDataService
+    - Use the 'classification' to categories component type (blocks, etc...)
+    - Instead of categories for components, we could have types
+      This could reduce or eliminate needing special repositories for each type
 
-- Rename Directories
-    - CmsResourceHistory to CmsResourceHistory
+- PageDataService or LayoutDataService
+    - get all the data for a specific page
+    - will need the render tags too
+    
+
+- Rename Directories Use model as directory
     - Repository to CsmResource, Component, ContentVersion respectively
       
 - APIs in http-expressive
@@ -25,17 +33,6 @@
     - re-publish content
     - find resource and version
 
-- Refactor ResponseHandler as http-api-response-formatter
-
-- ContentDoctrine SyncProperties needs to be done separately for CmsResourceHistory
-
-- For publish and unpublish, extra properties (like host) should not be required if there is an existing resource
-
-- Move GetViewLayoutMetaPageData to view-head module
-    - NOTE: this is coupled to the render controller - so need find a way
-
-- Finish Zrcms\ContentDoctrine\Api\Repository\FindCmsResourceVersion
-
 - Implement Content pattern for page templates PageTemplateResource extends Page
     - Add NOOP services
     - Exporter needs updateing
@@ -43,14 +40,8 @@
     
 - Add NOOP services where needed 
 
-- USE GetSiteCmsResourceVersionByRequest instead of FindSiteCmsResourceVersionByHost where possible
-
 - Need a way to clear caches on registries and component configs
 
-- Check ENTITIES 
-    - Publish history entities, make sure they have the correct getters
-    - Make sure all properties are getting synced back @see BasicCmsResourceTrait, BasicCmsResourceVersionTrait, BasicContentVersionTrait
-    
 - BuildView should use a component, not config
     
 - Document the architecture and basics of how it works
@@ -60,9 +51,6 @@
 - GetRegisterComponentsAbstract needs a default service name, not ReadComponentConfig
     
 - Check and update all composer dependencies
-
-- Trackable Date is not constructor injected which cause issues for low-level services
-    - Needs to be able to be set at construct, auto set if null
     
 Features
 --------
@@ -75,17 +63,10 @@ Features
 Clean up - Refactoring
 ----------------------
 
-##### Component Simplify #####
-
-- Use the 'classification' to categories component type (blocks, etc...)
-- Instead of categories for components, we could have types
-  This could reduce or eliminate needing special repositories for each type
-
-
 ##### GetViewLayoutTags interface could take on Request and us attributes #####
 
 - Might simplify the interface
-- View can be an attribute (see Zrcms\HttpExpressive\HttpAlways\RequestWithView)
+- View can be an attribute (see Zrcms\HttpViewRender\Request\RequestWithView)
 - View does NOT have to be Content can be simple data model
 - View could have ->addProperty()
 

@@ -1,4 +1,0 @@
-HTTP API
-========
-
-- Endpoint middleware

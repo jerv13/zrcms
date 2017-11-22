@@ -2,7 +2,7 @@
 
 namespace Zrcms\ChangeLog\Middleware;
 
-use Zrcms\HttpExpressive\HttpApi\Acl\IsAllowedCheckApi;
+use Zrcms\HttpContent\Acl\IsAllowedCheckApi;
 
 class IsAllowedReadChangeLog extends IsAllowedCheckApi
 {

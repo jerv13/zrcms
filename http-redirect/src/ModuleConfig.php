@@ -1,6 +1,8 @@
 <?php
 
-namespace Zrcms\ViewAssets;
+namespace Zrcms\HttpRedirect;
+
+use Zrcms\ContentCore\Site\Api\GetSiteCmsResourceByRequest;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -8,8 +10,6 @@ namespace Zrcms\ViewAssets;
 class ModuleConfig
 {
     /**
-     * __invoke
-     *
      * @return array
      */
     public function __invoke()
@@ -17,6 +17,11 @@ class ModuleConfig
         return [
             'dependencies' => [
                 'config_factories' => [
+                    SiteExists::class => [
+                        'arguments' => [
+                            GetSiteCmsResourceByRequest::class,
+                        ],
+                    ],
                 ],
             ],
         ];

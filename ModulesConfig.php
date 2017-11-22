@@ -45,7 +45,17 @@ class ModulesConfig
             new \Zrcms\ContentCoreDoctrineDataSource\ModuleConfig(),
             new \Zrcms\ContentRedirectDoctrineDataSource\ModuleConfig(),
 
-            new \Zrcms\HttpExpressive\ModuleAllConfig(),
+            new \Zrcms\Http\ModuleConfig(),
+            new \Zrcms\HttpContent\ModuleConfig(),
+            new \Zrcms\HttpContentSite\ModuleConfig(),
+            new \Zrcms\HttpLocale\ModuleConfig(),
+            new \Zrcms\HttpRcmApiLib\ModuleConfig(),
+            new \Zrcms\HttpRedirect\ModuleConfig(),
+            new \Zrcms\HttpSiteExists\ModuleConfig(),
+            new \Zrcms\HttpStatusPages\ModuleConfig(),
+            new \Zrcms\HttpTest\ModuleConfig(),
+            new \Zrcms\HttpUser\ModuleConfig(),
+            new \Zrcms\HttpViewRender\ModuleConfig(),
 
             new \Zrcms\ChangeLog\ModuleConfig(),
 
