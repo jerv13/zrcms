@@ -5,8 +5,8 @@ namespace Zrcms\HttpContentSite;
 use Zend\Expressive\Helper\BodyParams\BodyParamsMiddleware;
 use ZfInputFilterService\InputFilter\ServiceAwareFactory;
 use Zrcms\Acl\Api\IsAllowedRcmUser;
-use Zrcms\Content\Api\CmsResourceToArray;
-use Zrcms\Content\Api\ContentVersionToArray;
+use Zrcms\Content\Api\CmsResource\CmsResourceToArray;
+use Zrcms\Content\Api\Content\ContentVersionToArray;
 use Zrcms\ContentCore\Site\Api\CmsResource\UpsertSiteCmsResource;
 use Zrcms\ContentCore\Site\Model\SiteCmsResourceBasic;
 use Zrcms\ContentCore\Site\Model\SiteVersionBasic;
@@ -92,7 +92,7 @@ class ModuleConfig
                      */
                     FindSiteCmsResource::class => [
                         'arguments' => [
-                            \Zrcms\ContentCore\Site\Api\Repository\FindSiteCmsResource::class,
+                            \Zrcms\ContentCore\Site\Api\CmsResource\FindSiteCmsResource::class,
                             CmsResourceToArray::class,
                             ['literal' => SiteCmsResourceBasic::class],
                             ['literal' => 'site-repository-find-cms-resource'],
@@ -100,14 +100,14 @@ class ModuleConfig
                     ],
                     FindSiteVersion::class => [
                         'arguments' => [
-                            \Zrcms\ContentCore\Site\Api\Repository\FindSiteVersion::class,
+                            \Zrcms\ContentCore\Site\Api\Content\FindSiteVersion::class,
                             ContentVersionToArray::class,
                             ['literal' => 'site-repository-find-content-version'],
                         ],
                     ],
                     InsertSiteVersion::class => [
                         'arguments' => [
-                            \Zrcms\Content\Api\Repository\InsertContentVersion::class,
+                            \Zrcms\Content\Api\Content\InsertContentVersion::class,
                             ContentVersionToArray::class,
                             GetUserIdByRequest::class,
                             ['literal' => SiteVersionBasic::class],

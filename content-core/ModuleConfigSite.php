@@ -4,12 +4,12 @@ namespace Zrcms\ContentCore;
 
 use Zrcms\ContentCore\Site\Api\CmsResource\UpsertSiteCmsResource;
 use Zrcms\ContentCore\Site\Api\GetSiteCmsResourceByRequest;
-use Zrcms\ContentCore\Site\Api\Repository\FindSiteCmsResource;
-use Zrcms\ContentCore\Site\Api\Repository\FindSiteCmsResourceByHost;
-use Zrcms\ContentCore\Site\Api\Repository\FindSiteCmsResourcesBy;
-use Zrcms\ContentCore\Site\Api\Repository\FindSiteVersion;
-use Zrcms\ContentCore\Site\Api\Repository\FindSiteVersionsBy;
-use Zrcms\ContentCore\Site\Api\Repository\InsertSiteVersion;
+use Zrcms\ContentCore\Site\Api\CmsResource\FindSiteCmsResource;
+use Zrcms\ContentCore\Site\Api\CmsResource\FindSiteCmsResourceByHost;
+use Zrcms\ContentCore\Site\Api\CmsResource\FindSiteCmsResourcesBy;
+use Zrcms\ContentCore\Site\Api\Content\FindSiteVersion;
+use Zrcms\ContentCore\Site\Api\Content\FindSiteVersionsBy;
+use Zrcms\ContentCore\Site\Api\Content\InsertSiteVersion;
 
 /**
  * @author James Jervis - https://github.com/jerv13

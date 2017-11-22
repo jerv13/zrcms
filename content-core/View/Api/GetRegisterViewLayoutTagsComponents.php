@@ -2,7 +2,7 @@
 
 namespace Zrcms\ContentCore\View\Api;
 
-use Zrcms\Content\Api\GetRegisterComponents;
+use Zrcms\Content\Api\Component\GetRegisterComponents;
 
 /**
  * @author James Jervis - https://github.com/jerv13

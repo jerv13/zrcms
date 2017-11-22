@@ -4,8 +4,8 @@ namespace Zrcms\HttpContent;
 
 use ZfInputFilterService\InputFilter\ServiceAwareFactory;
 use Zrcms\Acl\Api\IsAllowedRcmUser;
-use Zrcms\Content\Api\ComponentToArray;
-use Zrcms\ContentCore\Basic\Api\Repository\FindBasicComponent;
+use Zrcms\Content\Api\Component\ComponentToArray;
+use Zrcms\ContentCore\Basic\Api\Component\FindBasicComponent;
 use Zrcms\HttpContent\Acl\IsAllowedFindBasicComponent;
 use Zrcms\HttpContent\Acl\IsAllowedReadAllComponentConfigs;
 use Zrcms\HttpContent\Component\FindComponentBasic;

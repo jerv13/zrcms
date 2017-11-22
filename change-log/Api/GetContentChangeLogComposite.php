@@ -2,10 +2,8 @@
 
 namespace Zrcms\ChangeLog\Api;
 
-use Interop\Container\ContainerInterface;
-use Zrcms\Content\Api\GetChangeLogByDateRange;
+use Zrcms\Content\Api\ChangeLog\GetChangeLogByDateRange;
 use Zrcms\Content\Model\ChangeLogEvent;
-use Zrcms\ContentCore\Site\Api\Repository\FindSiteCmsResource;
 
 class GetContentChangeLogComposite implements GetChangeLogByDateRange
 {
@@ -26,9 +24,12 @@ class GetContentChangeLogComposite implements GetChangeLogByDateRange
         }
 
         //Sort the items by date descending
-        usort($changeLogEvents, function (ChangeLogEvent $a, ChangeLogEvent $b) {
-            return $a->getDateTime() < $b->getDateTime();
-        });
+        usort(
+            $changeLogEvents,
+            function (ChangeLogEvent $a, ChangeLogEvent $b) {
+                return $a->getDateTime() < $b->getDateTime();
+            }
+        );
 
         return $changeLogEvents;
     }

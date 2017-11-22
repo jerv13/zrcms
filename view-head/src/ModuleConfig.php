@@ -2,7 +2,7 @@
 
 namespace Zrcms\ViewHead;
 
-use Zrcms\ContentCore\View\Api\Repository\FindViewLayoutTagsComponent;
+use Zrcms\ContentCore\View\Api\Component\FindViewLayoutTagsComponent;
 use Zrcms\ContentCore\View\Fields\FieldsViewLayoutTagsComponent;
 use Zrcms\ContentCore\View\Model\ServiceAliasView;
 use Zrcms\ContentCoreConfigDataSource\Content\Fields\FieldsComponentRegistry;
@@ -17,8 +17,8 @@ use Zrcms\ViewHead\Api\Render\GetViewLayoutTagsHeadScript;
 use Zrcms\ViewHead\Api\Render\GetViewLayoutTagsHeadTitle;
 use Zrcms\ViewHead\Api\Render\RenderHeadSectionsTag;
 use Zrcms\ViewHead\Api\Render\RenderHeadSectionsTagBasic;
-use Zrcms\ViewHead\Api\Repository\ReadViewHeadComponentConfigBc;
-use Zrcms\ViewHead\Api\Repository\ReadViewHeadComponentConfigBcFactory;
+use Zrcms\ViewHead\Api\Component\ReadViewHeadComponentConfigBc;
+use Zrcms\ViewHead\Api\Component\ReadViewHeadComponentConfigBcFactory;
 use Zrcms\ViewHead\Model\HeadSectionComponent;
 use Zrcms\ViewHtmlTags\Api\Render\RenderTag;
 use Zrcms\ViewHtmlTags\Api\Render\RenderTags;

@@ -3,25 +3,10 @@
 namespace Zrcms\ContentCoreConfigDataSource;
 
 use Zrcms\Cache\Service\Cache;
-use Zrcms\Content\Api\Component\ReadAllComponentConfigs;
+use Zrcms\ContentCore\Basic\Api\Component\FindBasicComponent;
+use Zrcms\ContentCore\Basic\Api\Component\FindBasicComponentsBy;
+use Zrcms\ContentCore\Basic\Api\Component\GetRegisterBasicComponents;
 use Zrcms\ContentCore\Basic\Api\Component\ReadBasicComponentRegistry;
-use Zrcms\ContentCore\Basic\Api\GetRegisterBasicComponents;
-use Zrcms\ContentCore\Basic\Api\Repository\FindBasicComponent;
-use Zrcms\ContentCore\Basic\Api\Repository\FindBasicComponentsBy;
-use Zrcms\ContentCore\Block\Api\Component\ReadBlockComponentRegistry;
-use Zrcms\ContentCore\Block\Api\GetRegisterBlockComponents;
-use Zrcms\ContentCore\Block\Api\PrepareBlockConfigBc;
-use Zrcms\ContentCore\Block\Api\Repository\FindBlockComponent;
-use Zrcms\ContentCore\Block\Api\Repository\FindBlockComponentsBy;
-use Zrcms\ContentCore\Theme\Api\Component\ReadLayoutComponentConfigJsonFile;
-use Zrcms\ContentCore\Theme\Api\Component\ReadThemeComponentRegistry;
-use Zrcms\ContentCore\Theme\Api\GetRegisterThemeComponents;
-use Zrcms\ContentCore\Theme\Api\Repository\FindThemeComponent;
-use Zrcms\ContentCore\Theme\Api\Repository\FindThemeComponentsBy;
-use Zrcms\ContentCore\View\Api\Component\ReadViewLayoutTagsComponentRegistry;
-use Zrcms\ContentCore\View\Api\GetRegisterViewLayoutTagsComponents;
-use Zrcms\ContentCore\View\Api\Repository\FindViewLayoutTagsComponent;
-use Zrcms\ContentCore\View\Api\Repository\FindViewLayoutTagsComponentsBy;
 use Zrcms\ContentCoreConfigDataSource as This;
 use Zrcms\ContentCoreConfigDataSource\Content\Api\SearchConfigList;
 
@@ -39,14 +24,14 @@ class ModuleConfigBasic
             'dependencies' => [
                 'config_factories' => [
                     FindBasicComponent::class => [
-                        'class' => This\Basic\Api\Repository\FindBasicComponent::class,
+                        'class' => This\Basic\Api\Component\FindBasicComponent::class,
                         'arguments' => [
                             '0-' => GetRegisterBasicComponents::class,
                             '1-' => SearchConfigList::class,
                         ],
                     ],
                     FindBasicComponentsBy::class => [
-                        'class' => This\Basic\Api\Repository\FindBasicComponentsBy::class,
+                        'class' => This\Basic\Api\Component\FindBasicComponentsBy::class,
                         'arguments' => [
                             '0-' => GetRegisterBasicComponents::class,
                             '1-' => SearchConfigList::class,
@@ -56,7 +41,7 @@ class ModuleConfigBasic
                         'factory' => This\Basic\Api\Component\ReadBasicComponentRegistryBasicFactory::class,
                     ],
                     GetRegisterBasicComponents::class => [
-                        'class' => This\Basic\Api\GetRegisterBasicComponentsBasic::class,
+                        'class' => This\Basic\Api\Component\GetRegisterBasicComponentsBasic::class,
                         'arguments' => [
                             '0-' => ReadBasicComponentRegistry::class,
                             '1-' => Cache::class,

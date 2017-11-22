@@ -8,8 +8,8 @@ use Zrcms\ContentCore\Basic\Api\Component\ReadBasicComponentConfigApplicationCon
 use Zrcms\ContentCore\Basic\Api\Component\ReadBasicComponentConfigBasic;
 use Zrcms\ContentCore\Basic\Api\Component\ReadBasicComponentConfigJsonFile;
 use Zrcms\ContentCore\Basic\Api\Component\ReadBasicComponentRegistry;
-use Zrcms\ContentCore\Basic\Api\GetRegisterBasicComponents;
-use Zrcms\ContentCore\Basic\Api\Repository\FindBasicComponent;
+use Zrcms\ContentCore\Basic\Api\Component\GetRegisterBasicComponents;
+use Zrcms\ContentCore\Basic\Api\Component\FindBasicComponent;
 use Zrcms\ContentCore\Basic\Model\ServiceAliasBasic;
 use Zrcms\ServiceAlias\Api\GetServiceFromAlias;
 

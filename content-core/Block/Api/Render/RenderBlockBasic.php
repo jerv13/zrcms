@@ -3,7 +3,7 @@
 namespace Zrcms\ContentCore\Block\Api\Render;
 
 use Zrcms\Content\Model\Content;
-use Zrcms\ContentCore\Block\Api\Repository\FindBlockComponent;
+use Zrcms\ContentCore\Block\Api\Component\FindBlockComponent;
 use Zrcms\ContentCore\Block\Fields\FieldsBlockComponent;
 use Zrcms\ContentCore\Block\Model\Block;
 use Zrcms\ContentCore\Block\Model\BlockComponent;

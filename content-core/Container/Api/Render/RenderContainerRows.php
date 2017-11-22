@@ -4,7 +4,7 @@ namespace Zrcms\ContentCore\Container\Api\Render;
 
 use Zrcms\Content\Model\Content;
 use Zrcms\ContentCore\Block\Api\Render\RenderBlock;
-use Zrcms\ContentCore\Container\Api\WrapRenderedContainer;
+use Zrcms\ContentCore\Container\Api\Render\WrapRenderedContainer;
 use Zrcms\ContentCore\Container\Model\Container;
 use Zrcms\ContentCore\Container\Model\ContainerVersion;
 use Zrcms\Param\Param;

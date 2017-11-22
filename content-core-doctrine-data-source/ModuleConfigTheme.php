@@ -6,13 +6,13 @@ use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Mapping\Driver\AnnotationDriver;
 use Zrcms\ContentCore\Layout\Api\CmsResource\UpsertLayoutCmsResource;
 use Zrcms\ContentCore\Theme\Api\ChangeLog\GetChangeLogByDateRange;
-use Zrcms\ContentCore\Theme\Api\Repository\FindLayoutCmsResource;
-use Zrcms\ContentCore\Theme\Api\Repository\FindLayoutCmsResourceByThemeNameLayoutName;
-use Zrcms\ContentCore\Theme\Api\Repository\FindLayoutCmsResourcesBy;
-use Zrcms\ContentCore\Theme\Api\Repository\FindLayoutVersion;
-use Zrcms\ContentCore\Theme\Api\Repository\FindLayoutVersionsBy;
-use Zrcms\ContentCore\Theme\Api\Repository\FindThemeComponent;
-use Zrcms\ContentCore\Theme\Api\Repository\InsertLayoutVersion;
+use Zrcms\ContentCore\Theme\Api\CmsResource\FindLayoutCmsResource;
+use Zrcms\ContentCore\Theme\Api\CmsResource\FindLayoutCmsResourceByThemeNameLayoutName;
+use Zrcms\ContentCore\Theme\Api\CmsResource\FindLayoutCmsResourcesBy;
+use Zrcms\ContentCore\Theme\Api\Content\FindLayoutVersion;
+use Zrcms\ContentCore\Theme\Api\Content\FindLayoutVersionsBy;
+use Zrcms\ContentCore\Theme\Api\Component\FindThemeComponent;
+use Zrcms\ContentCore\Theme\Api\Content\InsertLayoutVersion;
 use Zrcms\ContentCoreDoctrineDataSource as This;
 
 /**
@@ -36,39 +36,39 @@ class ModuleConfigTheme
                         ],
                     ],
                     FindLayoutCmsResource::class => [
-                        'class' => This\Theme\Api\Repository\FindLayoutCmsResource::class,
+                        'class' => This\Theme\Api\CmsResource\FindLayoutCmsResource::class,
                         'arguments' => [
                             '0-' => EntityManager::class,
                         ],
                     ],
                     FindLayoutCmsResourceByThemeNameLayoutName::class => [
-                        'class' => This\Theme\Api\Repository\FindLayoutCmsResourceByThemeNameLayoutName::class,
+                        'class' => This\Theme\Api\CmsResource\FindLayoutCmsResourceByThemeNameLayoutName::class,
                         'arguments' => [
                             '0-' => EntityManager::class,
                             '1-' => This\Theme\Api\FallbackToComponentLayoutCmsResource::class, // @todo TEMP HACK
                         ],
                     ],
                     FindLayoutCmsResourcesBy::class => [
-                        'class' => This\Theme\Api\Repository\FindLayoutCmsResourcesBy::class,
+                        'class' => This\Theme\Api\CmsResource\FindLayoutCmsResourcesBy::class,
                         'arguments' => [
                             '0-' => EntityManager::class,
                         ],
                     ],
                     FindLayoutVersion::class => [
-                        'class' => This\Theme\Api\Repository\FindLayoutVersion::class,
+                        'class' => This\Theme\Api\Content\FindLayoutVersion::class,
                         'arguments' => [
                             '0-' => EntityManager::class,
                             '1-' => This\Theme\Api\FallbackToComponentLayoutVersion::class, // @todo TEMP HACK
                         ],
                     ],
                     FindLayoutVersionsBy::class => [
-                        'class' => This\Theme\Api\Repository\FindLayoutVersionsBy::class,
+                        'class' => This\Theme\Api\Content\FindLayoutVersionsBy::class,
                         'arguments' => [
                             '0-' => EntityManager::class,
                         ],
                     ],
                     InsertLayoutVersion::class => [
-                        'class' => This\Theme\Api\Repository\InsertLayoutVersion::class,
+                        'class' => This\Theme\Api\Content\InsertLayoutVersion::class,
                         'arguments' => [
                             '0-' => EntityManager::class,
                         ],

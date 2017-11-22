@@ -2,7 +2,7 @@
 
 namespace Zrcms\ContentCoreDoctrineDataSource\Theme\Api;
 
-use Zrcms\ContentCore\Theme\Api\Repository\FindThemeComponent;
+use Zrcms\ContentCore\Theme\Api\Component\FindThemeComponent;
 use Zrcms\ContentCore\Theme\Model\LayoutVersion;
 use Zrcms\ContentCore\Theme\Model\ThemeComponent;
 

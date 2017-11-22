@@ -4,7 +4,7 @@ namespace Zrcms\ContentCore\View\Api\Render;
 
 use Psr\Http\Message\ServerRequestInterface;
 use Zrcms\Content\Model\Content;
-use Zrcms\ContentCore\View\Api\Repository\FindViewLayoutTagsComponentsBy;
+use Zrcms\ContentCore\View\Api\Component\FindViewLayoutTagsComponentsBy;
 use Zrcms\ContentCore\View\Model\ServiceAliasView;
 use Zrcms\ContentCore\View\Model\View;
 use Zrcms\ContentCore\View\Model\ViewLayoutTagsComponent;

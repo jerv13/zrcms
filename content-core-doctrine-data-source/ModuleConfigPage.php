@@ -12,14 +12,14 @@ use Zrcms\ContentCore\Page\Api\ChangeLog\GetChangeLogByDateRange;
 use Zrcms\ContentCore\Page\Api\CmsResource\UpsertPageCmsResource;
 use Zrcms\ContentCore\Page\Api\CmsResource\UpsertPageDraftCmsResource;
 use Zrcms\ContentCore\Page\Api\CmsResource\UpsertPageTemplateCmsResource;
-use Zrcms\ContentCore\Page\Api\Repository\FindPageCmsResource;
-use Zrcms\ContentCore\Page\Api\Repository\FindPageCmsResourceBySitePath;
-use Zrcms\ContentCore\Page\Api\Repository\FindPageCmsResourcesBy;
-use Zrcms\ContentCore\Page\Api\Repository\FindPageTemplateCmsResourceBySitePath;
-use Zrcms\ContentCore\Page\Api\Repository\FindPageTemplateCmsResourcesBy;
-use Zrcms\ContentCore\Page\Api\Repository\FindPageVersion;
-use Zrcms\ContentCore\Page\Api\Repository\FindPageVersionsBy;
-use Zrcms\ContentCore\Page\Api\Repository\InsertPageVersion;
+use Zrcms\ContentCore\Page\Api\CmsResource\FindPageCmsResource;
+use Zrcms\ContentCore\Page\Api\CmsResource\FindPageCmsResourceBySitePath;
+use Zrcms\ContentCore\Page\Api\CmsResource\FindPageCmsResourcesBy;
+use Zrcms\ContentCore\Page\Api\CmsResource\FindPageTemplateCmsResourceBySitePath;
+use Zrcms\ContentCore\Page\Api\CmsResource\FindPageTemplateCmsResourcesBy;
+use Zrcms\ContentCore\Page\Api\Content\FindPageVersion;
+use Zrcms\ContentCore\Page\Api\Content\FindPageVersionsBy;
+use Zrcms\ContentCore\Page\Api\Content\InsertPageVersion;
 use Zrcms\ContentCoreDoctrineDataSource as This;
 
 /**
@@ -55,49 +55,49 @@ class ModuleConfigPage
                         ],
                     ],
                     FindPageCmsResource::class => [
-                        'class' => This\Page\Api\Repository\FindPageCmsResource::class,
+                        'class' => This\Page\Api\CmsResource\FindPageCmsResource::class,
                         'arguments' => [
                             '0-' => EntityManager::class,
                         ],
                     ],
                     FindPageCmsResourceBySitePath::class => [
-                        'class' => This\Page\Api\Repository\FindPageCmsResourceBySitePath::class,
+                        'class' => This\Page\Api\CmsResource\FindPageCmsResourceBySitePath::class,
                         'arguments' => [
                             '0-' => EntityManager::class,
                         ],
                     ],
                     FindPageCmsResourcesBy::class => [
-                        'class' => This\Page\Api\Repository\FindPageCmsResourcesBy::class,
+                        'class' => This\Page\Api\CmsResource\FindPageCmsResourcesBy::class,
                         'arguments' => [
                             '0-' => EntityManager::class,
                         ],
                     ],
                     FindPageVersion::class => [
-                        'class' => This\Page\Api\Repository\FindPageVersion::class,
+                        'class' => This\Page\Api\Content\FindPageVersion::class,
                         'arguments' => [
                             '0-' => EntityManager::class,
                         ],
                     ],
                     FindPageVersionsBy::class => [
-                        'class' => This\Page\Api\Repository\FindPageVersionsBy::class,
+                        'class' => This\Page\Api\Content\FindPageVersionsBy::class,
                         'arguments' => [
                             '0-' => EntityManager::class,
                         ],
                     ],
                     FindPageTemplateCmsResourceBySitePath::class => [
-                        'class' => This\Page\Api\Repository\FindPageTemplateCmsResourceBySitePath::class,
+                        'class' => This\Page\Api\CmsResource\FindPageTemplateCmsResourceBySitePath::class,
                         'arguments' => [
                             '0-' => EntityManager::class,
                         ],
                     ],
                     FindPageTemplateCmsResourcesBy::class => [
-                        'class' => This\Page\Api\Repository\FindPageTemplateCmsResourcesBy::class,
+                        'class' => This\Page\Api\CmsResource\FindPageTemplateCmsResourcesBy::class,
                         'arguments' => [
                             '0-' => EntityManager::class,
                         ],
                     ],
                     InsertPageVersion::class => [
-                        'class' => This\Page\Api\Repository\InsertPageVersion::class,
+                        'class' => This\Page\Api\Content\InsertPageVersion::class,
                         'arguments' => [
                             '0-' => EntityManager::class,
                         ],

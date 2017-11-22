@@ -3,14 +3,14 @@
 namespace Zrcms\ContentCore\View\Api;
 
 use Psr\Http\Message\ServerRequestInterface;
-use Zrcms\ContentCore\Page\Api\Repository\FindPageCmsResourceBySitePath;
+use Zrcms\ContentCore\Page\Api\CmsResource\FindPageCmsResourceBySitePath;
 use Zrcms\ContentCore\Page\Exception\PageNotFound;
 use Zrcms\ContentCore\Page\Model\PageCmsResource;
-use Zrcms\ContentCore\Site\Api\Repository\FindSiteCmsResourceByHost;
+use Zrcms\ContentCore\Site\Api\CmsResource\FindSiteCmsResourceByHost;
 use Zrcms\ContentCore\Site\Exception\SiteNotFound;
 use Zrcms\ContentCore\Site\Model\SiteCmsResource;
-use Zrcms\ContentCore\Theme\Api\Repository\FindLayoutCmsResourceByThemeNameLayoutName;
-use Zrcms\ContentCore\Theme\Api\Repository\FindThemeComponent;
+use Zrcms\ContentCore\Theme\Api\CmsResource\FindLayoutCmsResourceByThemeNameLayoutName;
+use Zrcms\ContentCore\Theme\Api\Component\FindThemeComponent;
 use Zrcms\ContentCore\Theme\Exception\LayoutNotFound;
 use Zrcms\ContentCore\Theme\Exception\ThemeNotFound;
 use Zrcms\ContentCore\Theme\Model\LayoutCmsResource;

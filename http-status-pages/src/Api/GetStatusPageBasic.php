@@ -3,7 +3,7 @@
 namespace Zrcms\HttpStatusPages\Api;
 
 use Psr\Http\Message\ServerRequestInterface;
-use Zrcms\ContentCore\Basic\Api\Repository\FindBasicComponent;
+use Zrcms\ContentCore\Basic\Api\Component\FindBasicComponent;
 use Zrcms\ContentCore\Site\Api\GetSiteCmsResourceByRequest;
 use Zrcms\HttpStatusPages\Model\HttpStatusPagesComponent;
 

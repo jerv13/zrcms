@@ -6,12 +6,12 @@ use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Mapping\Driver\AnnotationDriver;
 use Zrcms\ContentCore\Container\Api\ChangeLog\GetChangeLogByDateRange;
 use Zrcms\ContentCore\Container\Api\CmsResource\UpsertContainerCmsResource;
-use Zrcms\ContentCore\Container\Api\Repository\FindContainerCmsResource;
-use Zrcms\ContentCore\Container\Api\Repository\FindContainerCmsResourcesBy;
-use Zrcms\ContentCore\Container\Api\Repository\FindContainerCmsResourcesBySitePaths;
-use Zrcms\ContentCore\Container\Api\Repository\FindContainerVersion;
-use Zrcms\ContentCore\Container\Api\Repository\FindContainerVersionsBy;
-use Zrcms\ContentCore\Container\Api\Repository\InsertContainerVersion;
+use Zrcms\ContentCore\Container\Api\CmsResource\FindContainerCmsResource;
+use Zrcms\ContentCore\Container\Api\CmsResource\FindContainerCmsResourcesBy;
+use Zrcms\ContentCore\Container\Api\CmsResource\FindContainerCmsResourcesBySitePaths;
+use Zrcms\ContentCore\Container\Api\Content\FindContainerVersion;
+use Zrcms\ContentCore\Container\Api\Content\FindContainerVersionsBy;
+use Zrcms\ContentCore\Container\Api\Content\InsertContainerVersion;
 use Zrcms\ContentCoreDoctrineDataSource as This;
 
 /**
@@ -41,37 +41,37 @@ class ModuleConfigContainer
                         ],
                     ],
                     FindContainerCmsResource::class => [
-                        'class' => This\Container\Api\Repository\FindContainerCmsResource::class,
+                        'class' => This\Container\Api\CmsResource\FindContainerCmsResource::class,
                         'arguments' => [
                             '0-' => EntityManager::class,
                         ],
                     ],
                     FindContainerCmsResourcesBy::class => [
-                        'class' => This\Container\Api\Repository\FindContainerCmsResourcesBy::class,
+                        'class' => This\Container\Api\CmsResource\FindContainerCmsResourcesBy::class,
                         'arguments' => [
                             '0-' => EntityManager::class,
                         ],
                     ],
                     FindContainerCmsResourcesBySitePaths::class => [
-                        'class' => This\Container\Api\Repository\FindContainerCmsResourcesBySitePaths::class,
+                        'class' => This\Container\Api\CmsResource\FindContainerCmsResourcesBySitePaths::class,
                         'arguments' => [
                             '0-' => EntityManager::class,
                         ],
                     ],
                     FindContainerVersion::class => [
-                        'class' => This\Container\Api\Repository\FindContainerVersion::class,
+                        'class' => This\Container\Api\Content\FindContainerVersion::class,
                         'arguments' => [
                             '0-' => EntityManager::class,
                         ],
                     ],
                     FindContainerVersionsBy::class => [
-                        'class' => This\Container\Api\Repository\FindContainerVersionsBy::class,
+                        'class' => This\Container\Api\Content\FindContainerVersionsBy::class,
                         'arguments' => [
                             '0-' => EntityManager::class,
                         ],
                     ],
                     InsertContainerVersion::class => [
-                        'class' => This\Container\Api\Repository\InsertContainerVersion::class,
+                        'class' => This\Container\Api\Content\InsertContainerVersion::class,
                         'arguments' => [
                             '0-' => EntityManager::class,
                         ],

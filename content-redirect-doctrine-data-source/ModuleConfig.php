@@ -6,12 +6,12 @@ use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Mapping\Driver\AnnotationDriver;
 use Zrcms\ContentRedirect\Api\ChangeLog\GetChangeLogByDateRange;
 use Zrcms\ContentRedirect\Api\CmsResource\UpsertRedirectCmsResource;
-use Zrcms\ContentRedirect\Api\Repository\FindRedirectCmsResource;
-use Zrcms\ContentRedirect\Api\Repository\FindRedirectCmsResourceBySiteRequestPath;
-use Zrcms\ContentRedirect\Api\Repository\FindRedirectCmsResourcesBy;
-use Zrcms\ContentRedirect\Api\Repository\FindRedirectVersion;
-use Zrcms\ContentRedirect\Api\Repository\FindRedirectVersionsBy;
-use Zrcms\ContentRedirect\Api\Repository\InsertRedirectVersion;
+use Zrcms\ContentRedirect\Api\CmsResource\FindRedirectCmsResource;
+use Zrcms\ContentRedirect\Api\CmsResource\FindRedirectCmsResourceBySiteRequestPath;
+use Zrcms\ContentRedirect\Api\CmsResource\FindRedirectCmsResourcesBy;
+use Zrcms\ContentRedirect\Api\Content\FindRedirectVersion;
+use Zrcms\ContentRedirect\Api\Content\FindRedirectVersionsBy;
+use Zrcms\ContentRedirect\Api\Content\InsertRedirectVersion;
 use Zrcms\ContentRedirectDoctrineDataSource as This;
 
 /**
@@ -40,37 +40,37 @@ class ModuleConfig
                         ],
                     ],
                     FindRedirectCmsResource::class => [
-                        'class' => This\Api\Repository\FindRedirectCmsResource::class,
+                        'class' => This\Api\CmsResource\FindRedirectCmsResource::class,
                         'arguments' => [
                             '0-' => EntityManager::class,
                         ],
                     ],
                     FindRedirectCmsResourceBySiteRequestPath::class => [
-                        'class' => This\Api\Repository\FindRedirectCmsResourceBySiteRequestPath::class,
+                        'class' => This\Api\CmsResource\FindRedirectCmsResourceBySiteRequestPath::class,
                         'arguments' => [
                             '0-' => EntityManager::class,
                         ],
                     ],
                     FindRedirectCmsResourcesBy::class => [
-                        'class' => This\Api\Repository\FindRedirectCmsResourcesBy::class,
+                        'class' => This\Api\CmsResource\FindRedirectCmsResourcesBy::class,
                         'arguments' => [
                             '0-' => EntityManager::class,
                         ],
                     ],
                     FindRedirectVersion::class => [
-                        'class' => This\Api\Repository\FindRedirectVersion::class,
+                        'class' => This\Api\Content\FindRedirectVersion::class,
                         'arguments' => [
                             '0-' => EntityManager::class,
                         ],
                     ],
                     FindRedirectVersionsBy::class => [
-                        'class' => This\Api\Repository\FindRedirectVersionsBy::class,
+                        'class' => This\Api\Content\FindRedirectVersionsBy::class,
                         'arguments' => [
                             '0-' => EntityManager::class,
                         ],
                     ],
                     InsertRedirectVersion::class => [
-                        'class' => This\Api\Repository\InsertRedirectVersion::class,
+                        'class' => This\Api\Content\InsertRedirectVersion::class,
                         'arguments' => [
                             '0-' => EntityManager::class,
                         ],

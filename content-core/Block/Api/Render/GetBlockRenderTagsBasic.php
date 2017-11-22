@@ -5,7 +5,7 @@ namespace Zrcms\ContentCore\Block\Api\Render;
 use Psr\Http\Message\ServerRequestInterface;
 use Zrcms\Content\Model\Content;
 use Zrcms\ContentCore\Block\Api\GetMergedConfig;
-use Zrcms\ContentCore\Block\Api\Repository\GetBlockData;
+use Zrcms\ContentCore\Block\Api\GetBlockData;
 use Zrcms\ContentCore\Block\Model\Block;
 use Zrcms\ContentCore\Block\Fields\FieldsBlock;
 

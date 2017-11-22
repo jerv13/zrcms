@@ -2,7 +2,7 @@
 
 namespace Zrcms\ContentCore\Page\Api\ChangeLog;
 
-interface GetChangeLogByDateRange extends \Zrcms\Content\Api\GetChangeLogByDateRange
+interface GetChangeLogByDateRange extends \Zrcms\Content\Api\ChangeLog\GetChangeLogByDateRange
 {
 
 }

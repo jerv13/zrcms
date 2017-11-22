@@ -5,7 +5,7 @@ namespace Zrcms\ContentCore\Site\Api;
 use Psr\Http\Message\ServerRequestInterface;
 use Zrcms\Content\Model\CmsResource;
 use Zrcms\ContentCore\Site\Model\SiteCmsResource;
-use Zrcms\ContentCoreDoctrineDataSource\Site\Api\Repository\FindSiteCmsResourceByHost;
+use Zrcms\ContentCoreDoctrineDataSource\Site\Api\CmsResource\FindSiteCmsResourceByHost;
 
 /**
  * @author James Jervis - https://github.com/jerv13

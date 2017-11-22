@@ -2,16 +2,11 @@
 
 namespace Zrcms\ContentCoreDoctrineDataSource\Site\Api\ChangeLog;
 
-use Doctrine\ORM\EntityManager;
-use Zrcms\Content\Model\ChangeLogEvent;
 use Zrcms\Content\Model\ActionCmsResource;
-use Zrcms\ContentCoreDoctrineDataSource\Base\Api\ChangeLog\BaseGetChangeLogByDateRange;
+use Zrcms\Content\Model\ChangeLogEvent;
+use Zrcms\ContentDoctrine\Api\ChangeLog\AbstractGetChangeLogByDateRange;
 use Zrcms\ContentCoreDoctrineDataSource\Site\Entity\SiteCmsResourceHistoryEntity;
 use Zrcms\ContentCoreDoctrineDataSource\Site\Entity\SiteVersionEntity;
-use Zrcms\ContentCoreDoctrineDataSource\Page\Entity\PageCmsResourceHistoryEntity;
-use Zrcms\ContentCoreDoctrineDataSource\Page\Entity\PageVersionEntity;
-use Zrcms\ContentCoreDoctrineDataSource\Shared\Api\ChangeLog\AbstractGetChangeLogByDateRange;
-use Zrcms\ContentDoctrine\Entity\CmsResourceHistoryEntity;
 
 class GetChangeLogByDateRange extends AbstractGetChangeLogByDateRange
 {
@@ -29,6 +24,7 @@ class GetChangeLogByDateRange extends AbstractGetChangeLogByDateRange
 
     /**
      * @param SiteVersionEntity $version
+     *
      * @return ChangeLogEvent
      */
     protected function versionRowToChangeLogEvent($version): ChangeLogEvent
@@ -49,6 +45,7 @@ class GetChangeLogByDateRange extends AbstractGetChangeLogByDateRange
 
     /**
      * @param SiteCmsResourceHistoryEntity $historyItem
+     *
      * @return ChangeLogEvent
      * @throws \Exception
      */
@@ -84,9 +81,11 @@ class GetChangeLogByDateRange extends AbstractGetChangeLogByDateRange
         $event->setResourceId($cmsResource->getId());
         $event->setResourceTypeName('site');
         $event->setResourceName($cmsResource->getHost());
-        $event->setMetaData([
-            'contentVersionId' => $historyItem->getContentVersionId()
-        ]);
+        $event->setMetaData(
+            [
+                'contentVersionId' => $historyItem->getContentVersionId()
+            ]
+        );
 
         return $event;
     }

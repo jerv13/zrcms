@@ -6,12 +6,12 @@ use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Mapping\Driver\AnnotationDriver;
 use Zrcms\ContentCore\Site\Api\ChangeLog\GetChangeLogByDateRange;
 use Zrcms\ContentCore\Site\Api\CmsResource\UpsertSiteCmsResource;
-use Zrcms\ContentCore\Site\Api\Repository\FindSiteCmsResource;
-use Zrcms\ContentCore\Site\Api\Repository\FindSiteCmsResourceByHost;
-use Zrcms\ContentCore\Site\Api\Repository\FindSiteCmsResourcesBy;
-use Zrcms\ContentCore\Site\Api\Repository\FindSiteVersion;
-use Zrcms\ContentCore\Site\Api\Repository\FindSiteVersionsBy;
-use Zrcms\ContentCore\Site\Api\Repository\InsertSiteVersion;
+use Zrcms\ContentCore\Site\Api\CmsResource\FindSiteCmsResource;
+use Zrcms\ContentCore\Site\Api\CmsResource\FindSiteCmsResourceByHost;
+use Zrcms\ContentCore\Site\Api\CmsResource\FindSiteCmsResourcesBy;
+use Zrcms\ContentCore\Site\Api\Content\FindSiteVersion;
+use Zrcms\ContentCore\Site\Api\Content\FindSiteVersionsBy;
+use Zrcms\ContentCore\Site\Api\Content\InsertSiteVersion;
 use Zrcms\ContentCoreDoctrineDataSource as This;
 
 /**
@@ -35,37 +35,37 @@ class ModuleConfigSite
                         ],
                     ],
                     FindSiteCmsResource::class => [
-                        'class' => This\Site\Api\Repository\FindSiteCmsResource::class,
+                        'class' => This\Site\Api\CmsResource\FindSiteCmsResource::class,
                         'arguments' => [
                             '0-' => EntityManager::class,
                         ],
                     ],
                     FindSiteCmsResourceByHost::class => [
-                        'class' => This\Site\Api\Repository\FindSiteCmsResourceByHost::class,
+                        'class' => This\Site\Api\CmsResource\FindSiteCmsResourceByHost::class,
                         'arguments' => [
                             '0-' => EntityManager::class,
                         ],
                     ],
                     FindSiteCmsResourcesBy::class => [
-                        'class' => This\Site\Api\Repository\FindSiteCmsResourcesBy::class,
+                        'class' => This\Site\Api\CmsResource\FindSiteCmsResourcesBy::class,
                         'arguments' => [
                             '0-' => EntityManager::class,
                         ],
                     ],
                     FindSiteVersion::class => [
-                        'class' => This\Site\Api\Repository\FindSiteVersion::class,
+                        'class' => This\Site\Api\Content\FindSiteVersion::class,
                         'arguments' => [
                             '0-' => EntityManager::class,
                         ],
                     ],
                     FindSiteVersionsBy::class => [
-                        'class' => This\Site\Api\Repository\FindSiteVersionsBy::class,
+                        'class' => This\Site\Api\Content\FindSiteVersionsBy::class,
                         'arguments' => [
                             '0-' => EntityManager::class,
                         ],
                     ],
                     InsertSiteVersion::class => [
-                        'class' => This\Site\Api\Repository\InsertSiteVersion::class,
+                        'class' => This\Site\Api\Content\InsertSiteVersion::class,
                         'arguments' => [
                             '0-' => EntityManager::class,
                         ],

@@ -8,7 +8,7 @@ use Zrcms\Content\Model\ActionCmsResource;
 use Zrcms\ContentCoreDoctrineDataSource\Base\Api\ChangeLog\BaseGetChangeLogByDateRange;
 use Zrcms\ContentCoreDoctrineDataSource\Page\Entity\PageCmsResourceHistoryEntity;
 use Zrcms\ContentCoreDoctrineDataSource\Page\Entity\PageVersionEntity;
-use Zrcms\ContentCoreDoctrineDataSource\Shared\Api\ChangeLog\AbstractGetChangeLogByDateRange;
+use Zrcms\ContentDoctrine\Api\ChangeLog\AbstractGetChangeLogByDateRange;
 use Zrcms\ContentDoctrine\Entity\CmsResourceHistoryEntity;
 
 class GetChangeLogByDateRange extends AbstractGetChangeLogByDateRange

@@ -6,7 +6,7 @@ use Psr\Http\Message\ServerRequestInterface;
 use Zrcms\Content\Model\Content;
 use Zrcms\ContentCore\Container\Api\Render\GetContainerRenderTags;
 use Zrcms\ContentCore\Container\Api\Render\RenderContainer;
-use Zrcms\ContentCore\Container\Api\Repository\FindContainerCmsResourcesBySitePaths;
+use Zrcms\ContentCore\Container\Api\CmsResource\FindContainerCmsResourcesBySitePaths;
 use Zrcms\ContentCore\Container\Model\Container;
 use Zrcms\ContentCore\Container\Model\ContainerCmsResource;
 use Zrcms\ContentCore\View\Api\GetTagNamesByLayout;

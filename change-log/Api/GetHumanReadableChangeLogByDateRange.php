@@ -4,7 +4,7 @@
 namespace Zrcms\ChangeLog\Api;
 
 
-use Zrcms\Content\Api\GetChangeLogByDateRange;
+use Zrcms\Content\Api\ChangeLog\GetChangeLogByDateRange;
 
 class GetHumanReadableChangeLogByDateRange
 {

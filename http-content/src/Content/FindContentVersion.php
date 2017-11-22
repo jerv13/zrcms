@@ -5,7 +5,7 @@ namespace Zrcms\HttpContent\Content;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Zend\Diactoros\Response\JsonResponse;
-use Zrcms\Content\Api\ContentVersionToArray;
+use Zrcms\Content\Api\Content\ContentVersionToArray;
 use Zrcms\Http\Response\ZrcmsJsonResponse;
 use Zrcms\HttpViewRender\Model\ResponseCodes;
 
@@ -16,7 +16,7 @@ class FindContentVersion
 {
     const SOURCE = 'zrcms-find-content-version';
     /**
-     * @var \Zrcms\Content\Api\Repository\FindContentVersion
+     * @var \Zrcms\Content\Api\Content\FindContentVersion
      */
     protected $findContentVersion;
 
@@ -31,12 +31,12 @@ class FindContentVersion
     protected $name;
 
     /**
-     * @param \Zrcms\Content\Api\Repository\FindContentVersion $findContentVersion
+     * @param \Zrcms\Content\Api\Content\FindContentVersion $findContentVersion
      * @param ContentVersionToArray                            $contentVersionToArray
      * @param string                                           $name
      */
     public function __construct(
-        \Zrcms\Content\Api\Repository\FindContentVersion $findContentVersion,
+        \Zrcms\Content\Api\Content\FindContentVersion $findContentVersion,
         ContentVersionToArray $contentVersionToArray,
         string $name
     ) {

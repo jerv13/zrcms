@@ -3,7 +3,7 @@
 namespace Zrcms\ContentCoreDoctrineDataSource\Theme\Api;
 
 use Zrcms\Content\Model\CmsResource;
-use Zrcms\ContentCore\Theme\Api\Repository\FindThemeComponent;
+use Zrcms\ContentCore\Theme\Api\Component\FindThemeComponent;
 use Zrcms\ContentCore\Theme\Model\LayoutCmsResource;
 use Zrcms\ContentCore\Theme\Model\LayoutCmsResourceBasic;
 use Zrcms\ContentCore\Theme\Model\ThemeComponent;

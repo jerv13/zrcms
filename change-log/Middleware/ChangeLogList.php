@@ -11,7 +11,7 @@ use Zend\Diactoros\Response\HtmlResponse;
 use Zrcms\Acl\Api\IsAllowedRcmUser;
 use Zrcms\ChangeLog\Api\ChangeLogEventToString;
 use Zrcms\ChangeLog\Api\GetHumanReadableChangeLogByDateRange;
-use Zrcms\Content\Api\GetChangeLogByDateRange;
+use Zrcms\Content\Api\ChangeLog\GetChangeLogByDateRange;
 
 /**
  * This outputs the change log as an HTML table.

@@ -2,16 +2,16 @@
 
 namespace Zrcms\Content;
 
-use Zrcms\Content\Api\CmsResourceHistoryToArray;
-use Zrcms\Content\Api\CmsResourceHistoryToArrayBasic;
-use Zrcms\Content\Api\CmsResourceToArray;
-use Zrcms\Content\Api\CmsResourceToArrayBasic;
-use Zrcms\Content\Api\ComponentToArray;
-use Zrcms\Content\Api\ComponentToArrayBasic;
-use Zrcms\Content\Api\ContentToArray;
-use Zrcms\Content\Api\ContentToArrayBasic;
-use Zrcms\Content\Api\ContentVersionToArray;
-use Zrcms\Content\Api\ContentVersionToArrayBasic;
+use Zrcms\Content\Api\CmsResourceHistory\CmsResourceHistoryToArray;
+use Zrcms\Content\Api\CmsResourceHistory\CmsResourceHistoryToArrayBasic;
+use Zrcms\Content\Api\CmsResource\CmsResourceToArray;
+use Zrcms\Content\Api\CmsResource\CmsResourceToArrayBasic;
+use Zrcms\Content\Api\Component\ComponentToArray;
+use Zrcms\Content\Api\Component\ComponentToArrayBasic;
+use Zrcms\Content\Api\Content\ContentToArray;
+use Zrcms\Content\Api\Content\ContentToArrayBasic;
+use Zrcms\Content\Api\Content\ContentVersionToArray;
+use Zrcms\Content\Api\Content\ContentVersionToArrayBasic;
 
 /**
  * @author James Jervis - https://github.com/jerv13

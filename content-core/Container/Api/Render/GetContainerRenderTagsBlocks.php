@@ -6,10 +6,10 @@ use Psr\Http\Message\ServerRequestInterface;
 use Zrcms\Content\Model\Content;
 use Zrcms\ContentCore\Block\Api\Render\GetBlockRenderTags;
 use Zrcms\ContentCore\Block\Api\Render\RenderBlock;
-use Zrcms\ContentCore\Block\Api\WrapRenderedBlockVersion;
+use Zrcms\ContentCore\Block\Api\Render\WrapRenderedBlockVersion;
 use Zrcms\ContentCore\Block\Model\Block;
 use Zrcms\ContentCore\Block\Fields\FieldsBlock;
-use Zrcms\ContentCore\Container\Api\WrapRenderedContainer;
+use Zrcms\ContentCore\Container\Api\Render\WrapRenderedContainer;
 use Zrcms\ContentCore\Container\Model\Container;
 
 /**

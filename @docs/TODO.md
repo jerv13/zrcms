@@ -1,7 +1,9 @@
 @todo
 =====
 
-- Rename http-expressive to http, http-core and others maybe
+- Rename Directories Use model as directory
+    - Repository to CsmResource, Component, ContentVersion respectively
+    - Find 'as This' and check
 
 - content-language and content-country are components - rename them
     zrcms-language
@@ -18,8 +20,7 @@
     - will need the render tags too
     
 
-- Rename Directories Use model as directory
-    - Repository to CsmResource, Component, ContentVersion respectively
+
       
 - APIs in http-expressive
     - Test
