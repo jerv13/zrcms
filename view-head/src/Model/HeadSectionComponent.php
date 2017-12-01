@@ -12,7 +12,7 @@ use Zrcms\Param\Param;
 class HeadSectionComponent extends ViewLayoutTagsComponentAbstract implements ViewLayoutTagsComponent
 {
     /**
-     * @param string $classification
+     * @param string $category
      * @param string $name
      * @param string $configLocation
      * @param array  $properties
@@ -21,7 +21,7 @@ class HeadSectionComponent extends ViewLayoutTagsComponentAbstract implements Vi
      * @param null   $createdDate
      */
     public function __construct(
-        string $classification,
+        string $category,
         string $name,
         string $configLocation,
         array $properties,
@@ -41,7 +41,7 @@ class HeadSectionComponent extends ViewLayoutTagsComponentAbstract implements Vi
         );
 
         parent::__construct(
-            $classification,
+            $category,
             $name,
             $configLocation,
             $properties,

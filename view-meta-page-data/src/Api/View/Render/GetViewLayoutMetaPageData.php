@@ -62,8 +62,7 @@ class GetViewLayoutMetaPageData implements GetViewLayoutTags
         Content $view,
         ServerRequestInterface $request,
         array $options = []
-    ): array
-    {
+    ): array {
         // if admin
         $isAllowed = $this->isAllowed->__invoke(
             $request,

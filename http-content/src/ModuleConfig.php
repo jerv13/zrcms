@@ -185,7 +185,7 @@ class ModuleConfig
 
                     ReadAllComponentConfigs::class => [
                         'arguments' => [
-                            \Zrcms\Content\Api\Component\ReadAllComponentConfigs::class,
+                            \Zrcms\Content\Api\Component\ReadAllComponentConfigsBasic::class,
                         ],
                     ],
                 ],

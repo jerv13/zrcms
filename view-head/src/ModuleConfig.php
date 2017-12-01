@@ -5,7 +5,7 @@ namespace Zrcms\ViewHead;
 use Zrcms\ContentCore\View\Api\Component\FindViewLayoutTagsComponent;
 use Zrcms\ContentCore\View\Fields\FieldsViewLayoutTagsComponent;
 use Zrcms\ContentCore\View\Model\ServiceAliasView;
-use Zrcms\ContentCoreConfigDataSource\Content\Fields\FieldsComponentRegistry;
+use Zrcms\Content\Fields\FieldsComponentRegistry;
 use Zrcms\ServiceAlias\Api\GetServiceFromAlias;
 use Zrcms\ViewHead\Api\GetHeadSections;
 use Zrcms\ViewHead\Api\GetHeadSectionsFactory;

@@ -1,10 +1,8 @@
 <?php
 
-namespace Zrcms\ContentCoreConfigDataSource\Content\Api\Component;
+namespace Zrcms\Content\Api\Component;
 
 use Zrcms\Content\Model\Component;
-use Zrcms\Content\Api\Component\GetRegisterComponents;
-use Zrcms\ContentCoreConfigDataSource\Content\Api\SearchConfigList;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -17,17 +15,17 @@ abstract class FindComponentsByAbstract implements \Zrcms\Content\Api\Component\
     protected $getRegisterComponents;
 
     /**
-     * @var SearchConfigList
+     * @var SearchComponentListBasic
      */
     protected $searchConfigList;
 
     /**
-     * @param GetRegisterComponents $getRegisterComponents
-     * @param SearchConfigList    $searchConfigList
+     * @param GetRegisterComponents    $getRegisterComponents
+     * @param SearchComponentListBasic $searchConfigList
      */
     public function __construct(
         GetRegisterComponents $getRegisterComponents,
-        SearchConfigList $searchConfigList
+        SearchComponentListBasic $searchConfigList
     ) {
         $this->getRegisterComponents = $getRegisterComponents;
         $this->searchConfigList = $searchConfigList;
@@ -49,8 +47,7 @@ abstract class FindComponentsByAbstract implements \Zrcms\Content\Api\Component\
         $limit = null,
         $offset = null,
         array $options = []
-    ): array
-    {
+    ): array {
         // @todo implement these
         if ($orderBy !== null || $limit !== null || $offset !== null) {
             throw new \Exception('orderBy, limit and offset not yet implemented');

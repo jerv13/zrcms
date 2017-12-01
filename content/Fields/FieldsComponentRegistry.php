@@ -1,11 +1,7 @@
 <?php
 
-namespace Zrcms\ContentCoreConfigDataSource\Content\Fields;
+namespace Zrcms\Content\Fields;
 
-use Zrcms\Content\Fields\Fields;
-use Zrcms\Content\Fields\FieldsAbstract;
-use Zrcms\Content\Fields\FieldsComponent;
-use Zrcms\Content\Fields\FieldsComponentConfig;
 use Zrcms\Content\Model\ComponentBasic;
 
 /**

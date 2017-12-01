@@ -8,7 +8,7 @@ namespace Zrcms\Content\Model;
 interface Component extends Immutable, Properties, Trackable
 {
     /**
-     * @param string      $classification
+     * @param string      $category
      * @param string      $name
      * @param string      $configLocation
      * @param array       $properties
@@ -17,7 +17,7 @@ interface Component extends Immutable, Properties, Trackable
      * @param string|null $createdDate
      */
     public function __construct(
-        string $classification,
+        string $category,
         string $name,
         string $configLocation,
         array $properties,
@@ -29,7 +29,7 @@ interface Component extends Immutable, Properties, Trackable
     /**
      * @return string
      */
-    public function getClassification(): string;
+    public function getCategory(): string;
 
     /**
      * @return string

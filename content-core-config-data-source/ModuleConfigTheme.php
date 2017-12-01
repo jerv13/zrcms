@@ -9,7 +9,7 @@ use Zrcms\ContentCore\Theme\Api\Component\GetRegisterThemeComponents;
 use Zrcms\ContentCore\Theme\Api\Component\ReadLayoutComponentConfigJsonFile;
 use Zrcms\ContentCore\Theme\Api\Component\ReadThemeComponentRegistry;
 use Zrcms\ContentCoreConfigDataSource as This;
-use Zrcms\ContentCoreConfigDataSource\Content\Api\SearchConfigList;
+use Zrcms\Content\Api\Component\SearchComponentListBasic;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -28,14 +28,14 @@ class ModuleConfigTheme
                         'class' => This\Theme\Api\Component\FindThemeComponent::class,
                         'arguments' => [
                             '0-' => GetRegisterThemeComponents::class,
-                            '1-' => SearchConfigList::class
+                            '1-' => SearchComponentListBasic::class
                         ],
                     ],
                     FindThemeComponentsBy::class => [
                         'class' => This\Theme\Api\Component\FindThemeComponentsBy::class,
                         'arguments' => [
                             '0-' => GetRegisterThemeComponents::class,
-                            '1-' => SearchConfigList::class
+                            '1-' => SearchComponentListBasic::class
                         ],
                     ],
                     ReadThemeComponentRegistry::class => [

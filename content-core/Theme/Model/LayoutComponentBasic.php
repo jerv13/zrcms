@@ -8,7 +8,7 @@ namespace Zrcms\ContentCore\Theme\Model;
 class LayoutComponentBasic extends LayoutComponentAbstract implements LayoutComponent
 {
     /**
-     * @param string      $classification
+     * @param string      $category
      * @param string      $name
      * @param string      $configLocation
      * @param array       $properties
@@ -17,7 +17,7 @@ class LayoutComponentBasic extends LayoutComponentAbstract implements LayoutComp
      * @param string|null $createdDate
      */
     public function __construct(
-        string $classification,
+        string $category,
         string $name,
         string $configLocation,
         array $properties,
@@ -26,7 +26,7 @@ class LayoutComponentBasic extends LayoutComponentAbstract implements LayoutComp
         $createdDate = null
     ) {
         parent::__construct(
-            $classification,
+            $category,
             $name,
             $configLocation,
             $properties,

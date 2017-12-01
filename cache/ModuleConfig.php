@@ -96,6 +96,10 @@ class ModuleConfig
                     CacheArray::class => [],
                 ],
             ],
+            /** Register caches so global clears can be applied */
+            'zrcms-caches' => [
+                // @todo Implement this
+            ],
         ];
     }
 }

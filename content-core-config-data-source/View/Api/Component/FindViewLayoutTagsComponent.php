@@ -6,7 +6,7 @@ use Zrcms\Content\Model\Component;
 use Zrcms\ContentCore\View\Model\ViewLayoutTagsComponent;
 use Zrcms\Content\Api\Component\GetRegisterComponents;
 use Zrcms\ContentCoreConfigDataSource\Content\Api\Component\FindComponentAbstract;
-use Zrcms\ContentCoreConfigDataSource\Content\Api\SearchConfigList;
+use Zrcms\Content\Api\Component\SearchComponentListBasic;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -16,12 +16,12 @@ class FindViewLayoutTagsComponent
     implements \Zrcms\ContentCore\View\Api\Component\FindViewLayoutTagsComponent
 {
     /**
-     * @param GetRegisterComponents $getRegisterComponents
-     * @param SearchConfigList    $searchConfigList
+     * @param GetRegisterComponents    $getRegisterComponents
+     * @param SearchComponentListBasic $searchConfigList
      */
     public function __construct(
         GetRegisterComponents $getRegisterComponents,
-        SearchConfigList $searchConfigList
+        SearchComponentListBasic $searchConfigList
     ) {
         parent::__construct(
             $getRegisterComponents,

@@ -1,24 +1,24 @@
 <?php
 
-namespace Zrcms\ContentCoreConfigDataSource\Content\Api;
+namespace Zrcms\Content\Api\Component;
 
 use Zrcms\Content\Model\Component;
 
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class SearchConfigList
+class SearchComponentListBasic implements SearchComponentList
 {
     /**
-     * @param array $components
-     * @param array $criteria
+     * @param Component[] $components
+     * @param array       $criteria
      *
      * @return array
      */
     public function __invoke(
         array $components,
         array $criteria = []
-    ) {
+    ): array {
         $result = [];
 
         foreach ($components as $component) {

@@ -1,16 +1,14 @@
 <?php
 
-namespace Zrcms\ContentCoreConfigDataSource\Content\Api\Component;
+namespace Zrcms\Content\Api\Component;
 
-use Zrcms\Content\Api\Component\GetRegisterComponents;
 use Zrcms\Content\Fields\FieldsComponentConfig;
 use Zrcms\Content\Model\Component;
-use Zrcms\ContentCoreConfigDataSource\Content\Api\SearchConfigList;
 
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-abstract class FindComponentAbstract implements \Zrcms\Content\Api\Component\FindComponent
+abstract class FindComponentAbstract implements FindComponent
 {
     /**
      * @var GetRegisterComponents
@@ -18,20 +16,20 @@ abstract class FindComponentAbstract implements \Zrcms\Content\Api\Component\Fin
     protected $getRegisterComponents;
 
     /**
-     * @var SearchConfigList
+     * @var SearchComponentListBasic
      */
-    protected $searchConfigList;
+    protected $searchComponentList;
 
     /**
      * @param GetRegisterComponents $getRegisterComponents
-     * @param SearchConfigList      $searchConfigList
+     * @param SearchComponentList   $searchComponentList
      */
     public function __construct(
         GetRegisterComponents $getRegisterComponents,
-        SearchConfigList $searchConfigList
+        SearchComponentList $searchComponentList
     ) {
         $this->getRegisterComponents = $getRegisterComponents;
-        $this->searchConfigList = $searchConfigList;
+        $this->searchComponentList = $searchComponentList;
     }
 
     /**
@@ -46,7 +44,7 @@ abstract class FindComponentAbstract implements \Zrcms\Content\Api\Component\Fin
     ) {
         $components = $this->getRegisterComponents->__invoke();
 
-        $result = $this->searchConfigList->__invoke(
+        $result = $this->searchComponentList->__invoke(
             $components,
             [FieldsComponentConfig::NAME => $name]
         );

@@ -8,7 +8,7 @@ use Zrcms\ContentCore\View\Api\GetRegisterViewLayoutTagsComponents;
 use Zrcms\ContentCore\View\Api\Component\FindViewLayoutTagsComponent;
 use Zrcms\ContentCore\View\Api\Component\FindViewLayoutTagsComponentsBy;
 use Zrcms\ContentCoreConfigDataSource as This;
-use Zrcms\ContentCoreConfigDataSource\Content\Api\SearchConfigList;
+use Zrcms\Content\Api\Component\SearchComponentListBasic;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -27,14 +27,14 @@ class ModuleConfigView
                         'class' => This\View\Api\Component\FindViewLayoutTagsComponent::class,
                         'arguments' => [
                             '0-' => GetRegisterViewLayoutTagsComponents::class,
-                            '1-' => SearchConfigList::class
+                            '1-' => SearchComponentListBasic::class
                         ],
                     ],
                     FindViewLayoutTagsComponentsBy::class => [
                         'class' => This\View\Api\Component\FindViewLayoutTagsComponentsBy::class,
                         'arguments' => [
                             '0-' => GetRegisterViewLayoutTagsComponents::class,
-                            '1-' => SearchConfigList::class
+                            '1-' => SearchComponentListBasic::class
                         ],
                     ],
                     ReadViewLayoutTagsComponentRegistry::class => [

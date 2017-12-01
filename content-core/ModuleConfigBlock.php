@@ -3,7 +3,7 @@
 namespace Zrcms\ContentCore;
 
 use Zrcms\ContentCore\Block\Api\Component\ReadBlockComponentConfig;
-use Zrcms\ContentCore\Block\Api\Component\ReadBlockComponentConfigBasic;
+use Zrcms\ContentCore\Block\Api\Component\ReadBlockComponentConfigByStrategy;
 use Zrcms\ContentCore\Block\Api\Component\ReadBlockComponentConfigBc;
 use Zrcms\ContentCore\Block\Api\Component\ReadBlockComponentConfigBcFactory;
 use Zrcms\ContentCore\Block\Api\Component\ReadBlockComponentConfigJsonFile;
@@ -48,7 +48,7 @@ class ModuleConfigBlock
             'dependencies' => [
                 'config_factories' => [
                     ReadBlockComponentConfig::class => [
-                        'class' => ReadBlockComponentConfigBasic::class,
+                        'class' => ReadBlockComponentConfigByStrategy::class,
                         'arguments' => [
                             '0-' => GetServiceFromAlias::class,
                         ],

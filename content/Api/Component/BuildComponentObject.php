@@ -2,19 +2,21 @@
 
 namespace Zrcms\Content\Api\Component;
 
+use Zrcms\Content\Model\Component;
+
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-interface ReadAllComponentConfigs
+interface BuildComponentObject
 {
     /**
-     * Return a name spaced list of all component configs
-     *
+     * @param array $componentConfig
      * @param array $options
      *
-     * @return array
+     * @return Component
      */
     public function __invoke(
+        array $componentConfig,
         array $options = []
-    ): array;
+    ): Component;
 }

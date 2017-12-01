@@ -2,15 +2,15 @@
 
 namespace Zrcms\ContentCore\Basic\Api\Component;
 
-use Zrcms\Content\Api\Component\ReadComponentConfigBasicAbstract;
+use Zrcms\Content\Api\Component\ReadComponentConfigByStrategyAbstract;
 use Zrcms\ContentCore\Basic\Model\ServiceAliasBasic;
 use Zrcms\ServiceAlias\Api\GetServiceFromAlias;
 
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class ReadBasicComponentConfigBasic
-    extends ReadComponentConfigBasicAbstract
+class ReadBasicComponentConfigByStrategy
+    extends ReadComponentConfigByStrategyAbstract
     implements ReadBasicComponentConfig
 {
     /**

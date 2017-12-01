@@ -1,26 +1,39 @@
 @todo
 =====
+8903 support pin
 
-- Rename Directories Use model as directory
-    - Repository to CsmResource, Component, ContentVersion respectively
-    - Find 'as This' and check
-
-- content-language and content-country are components - rename them
-    zrcms-language
-    zrcms-country
-    
 - Component Simplify #####
 
-    - Use the 'classification' to categories component type (blocks, etc...)
+    - Use the 'category' to categories component type (blocks, etc...)
     - Instead of categories for components, we could have types
-      This could reduce or eliminate needing special repositories for each type
+        This could reduce or eliminate needing special repositories for each type
+    
+    - Fix paths to configs (config locations) 
+        - the name on the config files is not forced, so we need to add them along with path
+    - Blocks and themes have special needs for BuildComponentConfigs
+        - There is an issue with the BC stuff as i can not be determined without a config for the Builder
+        - Might need to allow them as separate services instead of builders
+            - prepareConfig
+            - 
+
+- Find service that end in "Basic" that determine the service to use and rename to ByStrategy
+- content-core, content-core-doctrine-data-source (split), content-language and content-country rename
+    content-language
+    content-country
+    content-core-block
+    content-core-container
+    content-core-page
+    content-core-site
+    content-core-theme
+    content-core-view
+      
+- Start zrcms-admin
+
+- Add services to js
 
 - PageDataService or LayoutDataService
     - get all the data for a specific page
     - will need the render tags too
-    
-
-
       
 - APIs in http-expressive
     - Test
@@ -33,11 +46,6 @@
     - unpublish content
     - re-publish content
     - find resource and version
-
-- Implement Content pattern for page templates PageTemplateResource extends Page
-    - Add NOOP services
-    - Exporter needs updateing
-    - Wire services
     
 - Add NOOP services where needed 
 
@@ -64,7 +72,7 @@ Features
 Clean up - Refactoring
 ----------------------
 
-##### GetViewLayoutTags interface could take on Request and us attributes #####
+##### GetViewLayoutTags interface could take on Request and use attributes #####
 
 - Might simplify the interface
 - View can be an attribute (see Zrcms\HttpViewRender\Request\RequestWithView)
@@ -74,23 +82,6 @@ Clean up - Refactoring
 ##### Composition over Inheritance #####
 
 - Might decouple a bit
-
-##### Deal with properties #####
-
-- Property definitions need to be defined somehow that is easy to understand from code
-- Property definitions might be injectable or validated
-    - if we inject properties objects, the properties could be validated without needing hard coded checks (might not be good)
-- Properties need to be synced between Content and array
-    
-##### Check all component Properties and config values #####
-
-- Add getters where required
-    
-##### Abstract ACL for ALL libraries #####
-
-- Each LIB should have and ACL abstraction
-- Write an injectable ACL and User service defaulting to RcmUser (decouple ACL and User)
-    - @see Redirect-editor
     
     
 OPTIMIZATION: api (after FindResourceVersion implemented)

@@ -7,7 +7,7 @@ use Zrcms\Content\Fields\FieldsComponentConfig;
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-abstract class ReadComponentConfigPhpFileAbstract implements ReadComponentConfig
+abstract class ReadComponentConfigPhpFileAbstract
 {
     /**
      * @var string
@@ -24,24 +24,27 @@ abstract class ReadComponentConfigPhpFileAbstract implements ReadComponentConfig
     }
 
     /**
-     * @param string $directory
+     * @param string $phpFilePath
      * @param array  $options
      *
      * @return array
-     * @throws \Exception
      */
     public function __invoke(
-        string $directory,
+        string $phpFilePath,
         array $options = []
-    ): array
-    {
-        $directory = realpath($directory);
-        $configFilePath = realpath($directory . '/' . $this->phpFileName);
+    ): array {
+        $realConfigFilePath = realpath($phpFilePath);
+
+        if (empty($realConfigFilePath)) {
+            throw new \Exception(
+                "JSON file path is not valid: ({$phpFilePath})"
+            );
+        }
 
         /** @var array $config */
-        $config = include($configFilePath);
+        $config = include($realConfigFilePath);
 
-        $config[FieldsComponentConfig::CONFIG_LOCATION] = $directory;
+        $config[FieldsComponentConfig::CONFIG_LOCATION] = $realConfigFilePath;
 
         return $config;
     }

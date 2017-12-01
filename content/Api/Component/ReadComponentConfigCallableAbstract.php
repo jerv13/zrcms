@@ -8,7 +8,7 @@ use Zrcms\Content\Fields\FieldsComponentConfig;
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-abstract class ReadComponentConfigCallableAbstract implements ReadComponentConfig
+abstract class ReadComponentConfigCallableAbstract
 {
     /**
      * @var ContainerInterface
@@ -34,8 +34,7 @@ abstract class ReadComponentConfigCallableAbstract implements ReadComponentConfi
     public function __invoke(
         string $callableServiceName,
         array $options = []
-    ): array
-    {
+    ): array {
         $callableService = $this->serviceContainer->get($callableServiceName);
 
         $config = $callableService->__invoke();

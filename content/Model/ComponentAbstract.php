@@ -14,7 +14,7 @@ abstract class ComponentAbstract
     /**
      * @var string
      */
-    protected $classification;
+    protected $category;
 
     /**
      * @var string
@@ -32,7 +32,7 @@ abstract class ComponentAbstract
     protected $properties = [];
 
     /**
-     * @param string      $classification
+     * @param string      $category
      * @param string      $name
      * @param string      $configLocation
      * @param array       $properties
@@ -41,7 +41,7 @@ abstract class ComponentAbstract
      * @param string|null $createdDate
      */
     public function __construct(
-        string $classification,
+        string $category,
         string $name,
         string $configLocation,
         array $properties,
@@ -55,7 +55,7 @@ abstract class ComponentAbstract
         }
         $this->new = false;
 
-        $this->classification = $classification;
+        $this->category = $category;
         $this->name = $name;
         $this->configLocation = $configLocation;
         $this->properties = $properties;
@@ -70,9 +70,9 @@ abstract class ComponentAbstract
     /**
      * @return string
      */
-    public function getClassification(): string
+    public function getCategory(): string
     {
-        return $this->classification;
+        return $this->category;
     }
 
     /**

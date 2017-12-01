@@ -46,7 +46,6 @@ class ModuleConfig
             new ArrayProvider($config),
             new ModuleConfigBasic(),
             new ModuleConfigBlock(),
-            new ModuleConfigContent(),
             new ModuleConfigTheme(),
             new ModuleConfigView(),
         ];

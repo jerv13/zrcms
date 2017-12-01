@@ -5,7 +5,7 @@ namespace Zrcms\Content\Api\Component;
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-abstract class ReadComponentConfigApplicationConfigAbstract implements ReadComponentConfig
+abstract class ReadComponentConfigApplicationConfigAbstract
 {
     /**
      * @var array
@@ -31,8 +31,7 @@ abstract class ReadComponentConfigApplicationConfigAbstract implements ReadCompo
     public function __invoke(
         string $configKey,
         array $options = []
-    ): array
-    {
+    ): array {
         if (!array_key_exists($configKey, $this->applicationConfig)) {
             throw new \Exception("Config key ({$configKey}) not found");
         }

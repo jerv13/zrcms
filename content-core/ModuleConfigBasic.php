@@ -5,7 +5,7 @@ namespace Zrcms\ContentCore;
 use Zrcms\ContentCore\Basic\Api\Component\ReadBasicComponentConfig;
 use Zrcms\ContentCore\Basic\Api\Component\ReadBasicComponentConfigApplicationConfig;
 use Zrcms\ContentCore\Basic\Api\Component\ReadBasicComponentConfigApplicationConfigFactory;
-use Zrcms\ContentCore\Basic\Api\Component\ReadBasicComponentConfigBasic;
+use Zrcms\ContentCore\Basic\Api\Component\ReadBasicComponentConfigByStrategy;
 use Zrcms\ContentCore\Basic\Api\Component\ReadBasicComponentConfigJsonFile;
 use Zrcms\ContentCore\Basic\Api\Component\ReadBasicComponentRegistry;
 use Zrcms\ContentCore\Basic\Api\Component\GetRegisterBasicComponents;
@@ -30,7 +30,7 @@ class ModuleConfigBasic
                         'factory' => ReadBasicComponentConfigApplicationConfigFactory::class,
                     ],
                     ReadBasicComponentConfig::class => [
-                        'class' => ReadBasicComponentConfigBasic::class,
+                        'class' => ReadBasicComponentConfigByStrategy::class,
                         'arguments' => [
                             '0-' => GetServiceFromAlias::class,
                         ],

@@ -15,7 +15,7 @@ class HttpStatusPagesComponent extends BasicComponentAbstract implements BasicCo
     const NAME = 'zrcms-http-expressive-1';
 
     /**
-     * @param string      $classification
+     * @param string      $category
      * @param string      $name
      * @param string      $configLocation
      * @param array       $properties
@@ -24,7 +24,7 @@ class HttpStatusPagesComponent extends BasicComponentAbstract implements BasicCo
      * @param string|null $createdDate
      */
     public function __construct(
-        string $classification,
+        string $category,
         string $name,
         string $configLocation,
         array $properties,
@@ -44,7 +44,7 @@ class HttpStatusPagesComponent extends BasicComponentAbstract implements BasicCo
         $properties[FieldsHttpStatusPagesComponent::STATUS_TO_SITE_PATH_PROPERTY] = $statusPropertyMap;
 
         parent::__construct(
-            $classification,
+            $category,
             $name,
             $configLocation,
             $properties,

@@ -9,7 +9,7 @@ use Zrcms\ContentCore\Block\Api\PrepareBlockConfigBc;
 use Zrcms\ContentCore\Block\Api\Component\FindBlockComponent;
 use Zrcms\ContentCore\Block\Api\Component\FindBlockComponentsBy;
 use Zrcms\ContentCoreConfigDataSource as This;
-use Zrcms\ContentCoreConfigDataSource\Content\Api\SearchConfigList;
+use Zrcms\Content\Api\Component\SearchComponentListBasic;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -28,14 +28,14 @@ class ModuleConfigBlock
                         'class' => This\Block\Api\Component\FindBlockComponent::class,
                         'arguments' => [
                             '0-' => GetRegisterBlockComponents::class,
-                            '1-' => SearchConfigList::class,
+                            '1-' => SearchComponentListBasic::class,
                         ],
                     ],
                     FindBlockComponentsBy::class => [
                         'class' => This\Block\Api\Component\FindBlockComponentsBy::class,
                         'arguments' => [
                             '0-' => GetRegisterBlockComponents::class,
-                            '1-' => SearchConfigList::class,
+                            '1-' => SearchComponentListBasic::class,
                         ],
                     ],
                     ReadBlockComponentRegistry::class => [

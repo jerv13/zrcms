@@ -7,7 +7,7 @@ use Zrcms\Content\Fields\FieldsComponentConfig;
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-abstract class ReadComponentConfigJsonFileAbstract implements ReadComponentConfig
+abstract class ReadComponentConfigJsonFileAbstract
 {
     /**
      * @var string
@@ -24,29 +24,21 @@ abstract class ReadComponentConfigJsonFileAbstract implements ReadComponentConfi
     }
 
     /**
-     * @param string $directory
+     * @param string $jsonFilePath
      * @param array  $options
      *
      * @return array
      * @throws \Exception
      */
     public function __invoke(
-        string $directory,
+        string $jsonFilePath,
         array $options = []
-    ): array
-    {
-        $realDirectory = realpath($directory);
-
-        if (empty($realDirectory)) {
-            throw new \Exception("Directory is not valid: ({$directory})");
-        }
-
-        $configFilePath = $directory . '/' . $this->jsonFileName;
-        $realConfigFilePath = realpath($configFilePath);
+    ): array {
+        $realConfigFilePath = realpath($jsonFilePath);
 
         if (empty($realConfigFilePath)) {
             throw new \Exception(
-                "File path is not valid: ({$directory}). Path can NOT contain the file name"
+                "JSON file path is not valid: ({$jsonFilePath})"
             );
         }
 
@@ -58,7 +50,7 @@ abstract class ReadComponentConfigJsonFileAbstract implements ReadComponentConfi
         if (json_last_error() !== JSON_ERROR_NONE) {
             throw new \Exception(get_class($this) . ' received invalid JSON from: ' . $realConfigFilePath);
         }
-        $config[FieldsComponentConfig::CONFIG_LOCATION] = $realDirectory;
+        $config[FieldsComponentConfig::CONFIG_LOCATION] = $realConfigFilePath;
 
         return $config;
     }

@@ -2,7 +2,7 @@
 
 namespace Zrcms\ContentCoreConfigDataSource\View\Fields;
 
-use Zrcms\ContentCoreConfigDataSource\Content\Fields\FieldsComponentRegistry;
+use Zrcms\Content\Fields\FieldsComponentRegistry;
 
 /**
  * @author James Jervis - https://github.com/jerv13

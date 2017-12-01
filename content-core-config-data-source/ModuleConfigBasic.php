@@ -8,7 +8,7 @@ use Zrcms\ContentCore\Basic\Api\Component\FindBasicComponentsBy;
 use Zrcms\ContentCore\Basic\Api\Component\GetRegisterBasicComponents;
 use Zrcms\ContentCore\Basic\Api\Component\ReadBasicComponentRegistry;
 use Zrcms\ContentCoreConfigDataSource as This;
-use Zrcms\ContentCoreConfigDataSource\Content\Api\SearchConfigList;
+use Zrcms\Content\Api\Component\SearchComponentListBasic;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -27,14 +27,14 @@ class ModuleConfigBasic
                         'class' => This\Basic\Api\Component\FindBasicComponent::class,
                         'arguments' => [
                             '0-' => GetRegisterBasicComponents::class,
-                            '1-' => SearchConfigList::class,
+                            '1-' => SearchComponentListBasic::class,
                         ],
                     ],
                     FindBasicComponentsBy::class => [
                         'class' => This\Basic\Api\Component\FindBasicComponentsBy::class,
                         'arguments' => [
                             '0-' => GetRegisterBasicComponents::class,
-                            '1-' => SearchConfigList::class,
+                            '1-' => SearchComponentListBasic::class,
                         ],
                     ],
                     ReadBasicComponentRegistry::class => [

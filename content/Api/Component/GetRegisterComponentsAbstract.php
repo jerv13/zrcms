@@ -3,12 +3,7 @@
 namespace Zrcms\Content\Api\Component;
 
 use Zrcms\Cache\Service\Cache;
-use Zrcms\Content\Api\Component\ReadComponentRegistry;
-use Zrcms\Content\Fields\FieldsComponent;
-use Zrcms\Content\Fields\FieldsComponentConfig;
 use Zrcms\Content\Model\Component;
-use Zrcms\Content\Model\Trackable;
-use Zrcms\Param\Param;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -21,8 +16,12 @@ abstract class GetRegisterComponentsAbstract implements GetRegisterComponents
     protected $readComponentRegistry;
 
     /**
-     * @todo Should we cache here??
-     * Note: This cache is storing objects
+     * @var BuildComponentObject
+     */
+    protected $buildComponentObject;
+
+    /**
+     * @todo Note: This cache is storing objects
      *
      * @var Cache
      */
@@ -34,42 +33,21 @@ abstract class GetRegisterComponentsAbstract implements GetRegisterComponents
     protected $cacheKey;
 
     /**
-     * @var string
-     */
-    protected $defaultComponentClass;
-
-    /**
-     * @var string
-     */
-    protected $componentInterface;
-
-    /**
-     * @todo NOTE: Objects are being cached here, be careful
-     *
      * @param ReadComponentRegistry $readComponentRegistry
+     * @param BuildComponentObject  $buildComponentObject
      * @param Cache                 $cache
      * @param string                $cacheKey
-     * @param string                $defaultComponentClass
-     * @param string                $componentInterface
-     *
-     * @throws \Exception
      */
     public function __construct(
         ReadComponentRegistry $readComponentRegistry,
+        BuildComponentObject $buildComponentObject,
         Cache $cache,
-        string $cacheKey,
-        string $defaultComponentClass,
-        string $componentInterface = Component::class
+        string $cacheKey
     ) {
         $this->readComponentRegistry = $readComponentRegistry;
+        $this->buildComponentObject = $buildComponentObject;
         $this->cache = $cache;
         $this->cacheKey = $cacheKey;
-        $this->defaultComponentClass = $defaultComponentClass;
-        $this->componentInterface = $componentInterface;
-
-        $this->assertValidClass(
-            $defaultComponentClass
-        );
     }
 
     /**
@@ -79,8 +57,7 @@ abstract class GetRegisterComponentsAbstract implements GetRegisterComponents
      */
     public function __invoke(
         array $options = []
-    ): array
-    {
+    ): array {
         if ($this->hasCache()) {
             return $this->getCache();
         }
@@ -92,6 +69,24 @@ abstract class GetRegisterComponentsAbstract implements GetRegisterComponents
         );
 
         $this->setCache($configs);
+
+        return $configs;
+    }
+
+    /**
+     * @param array $componentRegistry
+     *
+     * @return Component[]
+     */
+    protected function buildComponentObjects(
+        array $componentRegistry
+    ) {
+        $configs = [];
+        foreach ($componentRegistry as $componentConfig) {
+            $configs[] = $this->buildComponentObject->__invoke(
+                $componentConfig
+            );
+        }
 
         return $configs;
     }
@@ -126,111 +121,5 @@ abstract class GetRegisterComponentsAbstract implements GetRegisterComponents
     protected function setCache($configs)
     {
         $this->cache->set($this->cacheKey, $configs);
-    }
-
-    /**
-     * @param string $componentClass
-     *
-     * @return void
-     * @throws \Exception
-     */
-    protected function assertValidClass(
-        string $componentClass
-    ) {
-        if (!is_a($componentClass, $this->componentInterface, true)) {
-            throw new \Exception(
-                $componentClass . ' must be a ' . $this->componentInterface
-            );
-        }
-    }
-
-    /**
-     * @param array $componentRegistry
-     *
-     * @return Component[]
-     */
-    protected function buildComponentObjects(
-        array $componentRegistry
-    ) {
-        $configs = [];
-        foreach ($componentRegistry as $componentConfig) {
-
-            $configs[] = $this->buildComponentObject(
-                $componentConfig
-            );
-        }
-
-        return $configs;
-    }
-
-    /**
-     * @param array $componentConfig
-     *
-     * @return Component
-     */
-    protected function buildComponentObject(
-        array $componentConfig
-    ) {
-        $preparedConfig = $this->prepareConfig($componentConfig);
-        $builtConfig = $this->buildSubComponents($preparedConfig);
-
-        // Components might have special classes
-        /** @var Component::class $componentClass */
-        $componentClass = Param::get(
-            $componentConfig,
-            FieldsComponent::COMPONENT_CLASS,
-            $this->defaultComponentClass
-        );
-
-        $this->assertValidClass($componentClass);
-        //@todo get classification correctly
-        return new $componentClass(
-            Param::get(
-                $builtConfig,
-                FieldsComponentConfig::CLASSIFICATION,
-                '@TODO get classification correctly'
-            ),
-            Param::getRequired(
-                $builtConfig,
-                FieldsComponentConfig::NAME
-            ),
-            Param::getRequired(
-                $builtConfig,
-                FieldsComponentConfig::CONFIG_LOCATION
-            ),
-            $builtConfig,
-            Param::get(
-                $builtConfig,
-                FieldsComponentConfig::CREATED_BY_USER_ID,
-                Trackable::UNKNOWN_USER_ID
-            ),
-            Param::get(
-                $builtConfig,
-                FieldsComponentConfig::CREATED_REASON,
-                Trackable::UNKNOWN_REASON
-            )
-        );
-    }
-
-    /**
-     * @param array $componentConfig
-     *
-     * @return array
-     */
-    protected function prepareConfig(array $componentConfig): array
-    {
-        // over-ride to prepare config
-        return $componentConfig;
-    }
-
-    /**
-     * @param array $componentConfig
-     *
-     * @return array
-     */
-    protected function buildSubComponents(array $componentConfig): array
-    {
-        // over-ride to build sub-components
-        return $componentConfig;
     }
 }

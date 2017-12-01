@@ -16,7 +16,7 @@ use Zrcms\ContentCore\View\Api\BuildViewCompositeFactory;
 use Zrcms\ContentCore\View\Api\Component\ReadViewLayoutTagsComponentConfig;
 use Zrcms\ContentCore\View\Api\Component\ReadViewLayoutTagsComponentConfigApplicationConfig;
 use Zrcms\ContentCore\View\Api\Component\ReadViewLayoutTagsComponentConfigApplicationConfigFactory;
-use Zrcms\ContentCore\View\Api\Component\ReadViewLayoutTagsComponentConfigBasic;
+use Zrcms\ContentCore\View\Api\Component\ReadViewLayoutTagsComponentConfigByStrategy;
 use Zrcms\ContentCore\View\Api\Component\ReadViewLayoutTagsComponentConfigJsonFile;
 use Zrcms\ContentCore\View\Api\GetLayoutName;
 use Zrcms\ContentCore\View\Api\GetLayoutNameBasic;
@@ -56,7 +56,7 @@ class ModuleConfigView
                         'factory' => ReadViewLayoutTagsComponentConfigApplicationConfigFactory::class,
                     ],
                     ReadViewLayoutTagsComponentConfig::class => [
-                        'class' => ReadViewLayoutTagsComponentConfigBasic::class,
+                        'class' => ReadViewLayoutTagsComponentConfigByStrategy::class,
                         'arguments' => [
                             '0-' => GetServiceFromAlias::class,
                         ],

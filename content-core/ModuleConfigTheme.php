@@ -4,10 +4,10 @@ namespace Zrcms\ContentCore;
 
 use Zrcms\ContentCore\Layout\Api\CmsResource\UpsertLayoutCmsResource;
 use Zrcms\ContentCore\Theme\Api\Component\ReadLayoutComponentConfig;
-use Zrcms\ContentCore\Theme\Api\Component\ReadLayoutComponentConfigBasic;
+use Zrcms\ContentCore\Theme\Api\Component\ReadLayoutComponentConfigByStrategy;
 use Zrcms\ContentCore\Theme\Api\Component\ReadLayoutComponentConfigJsonFile;
 use Zrcms\ContentCore\Theme\Api\Component\ReadThemeComponentConfig;
-use Zrcms\ContentCore\Theme\Api\Component\ReadThemeComponentConfigBasic;
+use Zrcms\ContentCore\Theme\Api\Component\ReadThemeComponentConfigByStrategy;
 use Zrcms\ContentCore\Theme\Api\Component\ReadThemeComponentConfigJsonFile;
 use Zrcms\ContentCore\Theme\Api\Render\GetLayoutRenderTags;
 use Zrcms\ContentCore\Theme\Api\Render\GetLayoutRenderTagsBasic;
@@ -47,7 +47,7 @@ class ModuleConfigTheme
                         ],
                     ],
                     ReadLayoutComponentConfig::class => [
-                        'class' => ReadLayoutComponentConfigBasic::class,
+                        'class' => ReadLayoutComponentConfigByStrategy::class,
                         'arguments' => [
                             '0-' => GetServiceFromAlias::class,
                         ],
@@ -57,7 +57,7 @@ class ModuleConfigTheme
                     ],
 
                     ReadThemeComponentConfig::class => [
-                        'class' => ReadThemeComponentConfigBasic::class,
+                        'class' => ReadThemeComponentConfigByStrategy::class,
                         'arguments' => [
                             '0-' => GetServiceFromAlias::class,
                         ],

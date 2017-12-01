@@ -10,7 +10,7 @@ use Zrcms\ServiceAlias\ServiceCheck;
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-abstract class ReadComponentConfigBasicAbstract implements ReadComponentConfig
+abstract class ReadComponentConfigByStrategyAbstract
 {
     /**
      * @var GetServiceFromAlias
@@ -20,7 +20,7 @@ abstract class ReadComponentConfigBasicAbstract implements ReadComponentConfig
     /**
      * @var string
      */
-    protected $serviceAliasNamespace;
+    protected $configReaderServiceAliasNamespace;
 
     /**
      * @var string
@@ -29,16 +29,16 @@ abstract class ReadComponentConfigBasicAbstract implements ReadComponentConfig
 
     /**
      * @param GetServiceFromAlias $getServiceFromAlias
-     * @param string              $serviceAliasNamespace
+     * @param string              $configReaderServiceAliasNamespace
      * @param string              $defaultComponentConfigReaderServiceName
      */
     public function __construct(
         GetServiceFromAlias $getServiceFromAlias,
-        string $serviceAliasNamespace,
+        string $configReaderServiceAliasNamespace,
         string $defaultComponentConfigReaderServiceName
     ) {
         $this->getServiceFromAlias = $getServiceFromAlias;
-        $this->serviceAliasNamespace = $serviceAliasNamespace;
+        $this->configReaderServiceAliasNamespace = $configReaderServiceAliasNamespace;
         $this->defaultComponentConfigReaderServiceName = $defaultComponentConfigReaderServiceName;
     }
 
@@ -52,8 +52,7 @@ abstract class ReadComponentConfigBasicAbstract implements ReadComponentConfig
     public function __invoke(
         string $location,
         array $options = []
-    ): array
-    {
+    ): array {
         $componentConfigReaderServiceAlias = Param::getString(
             $options,
             FieldsComponent::COMPONENT_CONFIG_READER,
@@ -62,7 +61,7 @@ abstract class ReadComponentConfigBasicAbstract implements ReadComponentConfig
 
         /** @var ReadComponentConfig $readComponentConfig */
         $readComponentConfig = $this->getServiceFromAlias->__invoke(
-            $this->serviceAliasNamespace,
+            $this->configReaderServiceAliasNamespace,
             $componentConfigReaderServiceAlias,
             ReadComponentConfig::class,
             $this->defaultComponentConfigReaderServiceName

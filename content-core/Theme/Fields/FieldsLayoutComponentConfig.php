@@ -22,9 +22,9 @@ class FieldsLayoutComponentConfig extends FieldsComponentConfig
     protected $defaultFieldsConfig
         = [
             [
-                'name' => self::CLASSIFICATION,
+                'name' => self::CATEGORY,
                 'type' => 'text',
-                'label' => 'Component Classification',
+                'label' => 'Component Category',
                 'required' => true,
                 'default' => '',
                 'options' => [],

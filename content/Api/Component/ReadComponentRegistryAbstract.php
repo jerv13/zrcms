@@ -4,14 +4,14 @@ namespace Zrcms\Content\Api\Component;
 
 use Zrcms\Cache\Service\Cache;
 use Zrcms\Content\Fields\FieldsComponentConfig;
-use Zrcms\ContentCoreConfigDataSource\Content\Fields\FieldsComponentRegistry;
+use Zrcms\Content\Fields\FieldsComponentRegistry;
 use Zrcms\Param\Param;
 use Zrcms\ServiceAlias\Api\GetServiceFromAlias;
 
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-abstract class ReadComponentRegistryAbstract implements ReadComponentRegistry
+abstract class ReadComponentRegistryAbstract
 {
     /**
      * @var array
@@ -107,8 +107,7 @@ abstract class ReadComponentRegistryAbstract implements ReadComponentRegistry
      */
     public function __invoke(
         array $options = []
-    ): array
-    {
+    ): array {
         if ($this->hasCache()) {
             return $this->getCache();
         }
@@ -160,7 +159,6 @@ abstract class ReadComponentRegistryAbstract implements ReadComponentRegistry
             );
 
             if (!is_string($componentName)) {
-
                 throw new \Exception(
                     'Component ' . FieldsComponentConfig::NAME . ' is required and must be string for: '
                 //. json_encode($componentConfig, 0, 2)
