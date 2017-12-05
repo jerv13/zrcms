@@ -1,5 +1,5 @@
 {
-  "category": "view-layout-tags",
+  "type": "view-layout-tag",
   "name": "xample-view-layout-tags-getter",
   "renderTagsGetter": "xample"
 }

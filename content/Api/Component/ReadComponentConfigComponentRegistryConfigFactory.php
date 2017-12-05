@@ -7,18 +7,22 @@ use Psr\Container\ContainerInterface;
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class ReadComponentConfigApplicationConfigFactory
+class ReadComponentConfigComponentRegistryConfigFactory
 {
     /**
      * @param ContainerInterface $serviceContainer
      *
-     * @return ReadComponentConfigApplicationConfig
+     * @return ReadComponentConfigComponentRegistryConfig
      */
     public function __invoke(
         $serviceContainer
     ) {
-        return new ReadComponentConfigApplicationConfig(
-            $serviceContainer->get('config')
+        $config = $serviceContainer->get('config');
+
+        $registry = $config['zrcms-components'];
+
+        return new ReadComponentConfigComponentRegistryConfig(
+            $registry
         );
     }
 }

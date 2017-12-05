@@ -13,7 +13,7 @@ use Zrcms\Param\Param;
 abstract class ViewLayoutTagsComponentAbstract extends ComponentAbstract
 {
     /**
-     * @param string $category
+     * @param string $type
      * @param string $name
      * @param string $configLocation
      * @param array  $properties
@@ -22,7 +22,7 @@ abstract class ViewLayoutTagsComponentAbstract extends ComponentAbstract
      * @param string|null   $createdDate
      */
     public function __construct(
-        string $category,
+        string $type,
         string $name,
         string $configLocation,
         array $properties,
@@ -41,7 +41,7 @@ abstract class ViewLayoutTagsComponentAbstract extends ComponentAbstract
         );
 
         parent::__construct(
-            $category,
+            $type,
             $name,
             $configLocation,
             $properties,

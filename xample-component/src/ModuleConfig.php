@@ -2,6 +2,7 @@
 
 namespace Zrcms\XampleComponent;
 
+use Zrcms\Content\Fields\FieldsComponentRegistry;
 use Zrcms\ContentCore\View\Model\ServiceAliasView;
 use Zrcms\XampleComponent\View\Api\Render\GetViewLayoutTags;
 
@@ -24,17 +25,20 @@ class ModuleConfig
                 ],
             ],
             'zrcms-components' => [
-                'blocks' => [
-                    'xample'
-                    => __DIR__ . '/../block/block.json',
+                'block.zrcms-xample' => [
+                    FieldsComponentRegistry::TYPE => 'block',
+                    FieldsComponentRegistry::NAME => 'zrcms-xample',
+                    FieldsComponentRegistry::CONFIG_LOCATION => __DIR__ . '/../block/block.json',
                 ],
-                'themes' => [
-                    'xample-theme'
-                    => __DIR__ . '/../theme/theme.json',
+                'theme.zrcms-xample' => [
+                    FieldsComponentRegistry::TYPE => 'theme',
+                    FieldsComponentRegistry::NAME => 'zrcms-xample',
+                    FieldsComponentRegistry::CONFIG_LOCATION => __DIR__ . '/../theme/theme.json',
                 ],
-                'view-layout-tags' => [
-                    'xample' // GetViewLayoutTags::XAMPLE_RENDER_TAG
-                    => __DIR__ . '/../view-layout-tags/view-layout-tags.json',
+                'view-layout-tag.zrcms-xample' => [
+                    FieldsComponentRegistry::TYPE => 'view-layout-tag',
+                    FieldsComponentRegistry::NAME => 'zrcms-xample',
+                    FieldsComponentRegistry::CONFIG_LOCATION => __DIR__ . '/../view-layout-tags/view-layout-tags.json',
                 ],
             ],
 

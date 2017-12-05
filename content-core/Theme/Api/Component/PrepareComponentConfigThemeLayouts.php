@@ -3,16 +3,16 @@
 namespace Zrcms\ContentCore\Theme\Api\Component;
 
 use Zrcms\Content\Api\Component\PrepareComponentConfig;
-use Zrcms\Content\Api\Component\ReadComponentConfig;
+use Zrcms\Content\Api\Component\ReadComponentConfigJsonFile;
 use Zrcms\Content\Exception\PropertyMissing;
 use Zrcms\Content\Fields\FieldsComponentConfig;
+use Zrcms\Content\Fields\FieldsComponentRegistry;
 use Zrcms\Content\Model\Trackable;
 use Zrcms\ContentCore\Theme\Fields\FieldsLayoutComponent;
 use Zrcms\ContentCore\Theme\Fields\FieldsLayoutComponentConfig;
 use Zrcms\ContentCore\Theme\Fields\FieldsThemeComponent;
 use Zrcms\ContentCore\Theme\Fields\FieldsThemeComponentConfig;
 use Zrcms\ContentCore\Theme\Model\LayoutComponentBasic;
-use Zrcms\ContentCoreConfigDataSource\Theme\Fields\FieldsThemeComponentRegistry;
 use Zrcms\Param\Param;
 
 /**
@@ -23,7 +23,8 @@ class PrepareComponentConfigThemeLayouts implements PrepareComponentConfig
     protected $readComponentConfig;
 
     /**
-     * @param ReadComponentConfig $readComponentConfig
+     * @todo JSON is the only expected reader, this forces the JSON format, this should be addressed
+     * @param ReadComponentConfig|ReadComponentConfigJsonFile $readComponentConfig
      */
     public function __construct(
         ReadComponentConfig $readComponentConfig
@@ -51,7 +52,7 @@ class PrepareComponentConfigThemeLayouts implements PrepareComponentConfig
 
         $themeLocation = Param::getRequired(
             $themeComponentConfig,
-            FieldsThemeComponentRegistry::CONFIG_LOCATION
+            FieldsComponentRegistry::CONFIG_LOCATION
         );
 
         $themeName = Param::getRequired(

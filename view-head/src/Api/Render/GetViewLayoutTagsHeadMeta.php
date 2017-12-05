@@ -3,9 +3,9 @@
 namespace Zrcms\ViewHead\Api\Render;
 
 use Psr\Http\Message\ServerRequestInterface;
+use Zrcms\Content\Api\Component\FindComponent;
 use Zrcms\Content\Model\Content;
 use Zrcms\ContentCore\Page\Model\PageVersion;
-use Zrcms\ContentCore\View\Api\Component\FindViewLayoutTagsComponent;
 use Zrcms\ContentCore\View\Model\View;
 use Zrcms\ContentCore\View\Model\ViewLayoutTagsComponent;
 use Zrcms\ViewHtmlTags\Api\Render\RenderTag;
@@ -20,9 +20,9 @@ class GetViewLayoutTagsHeadMeta implements GetViewLayoutTagsHead
     const SERVICE_ALIAS = 'head-meta';
 
     /**
-     * @var FindViewLayoutTagsComponent
+     * @var FindComponent
      */
-    protected $findViewLayoutTagsComponent;
+    protected $findComponent;
 
     /**
      * @var RenderTags
@@ -30,14 +30,14 @@ class GetViewLayoutTagsHeadMeta implements GetViewLayoutTagsHead
     protected $renderTags;
 
     /**
-     * @param FindViewLayoutTagsComponent $findViewLayoutTagsComponent
+     * @param FindComponent $findComponent
      * @param RenderTags                  $renderTags
      */
     public function __construct(
-        FindViewLayoutTagsComponent $findViewLayoutTagsComponent,
+        FindComponent $findComponent,
         RenderTags $renderTags
     ) {
-        $this->findViewLayoutTagsComponent = $findViewLayoutTagsComponent;
+        $this->findComponent = $findComponent;
         $this->renderTags = $renderTags;
     }
 
@@ -56,7 +56,8 @@ class GetViewLayoutTagsHeadMeta implements GetViewLayoutTagsHead
     ): array
     {
         /** @var ViewLayoutTagsComponent $getViewLayoutTagsHeadLinkComponent */
-        $component = $this->findViewLayoutTagsComponent->__invoke(
+        $component = $this->findComponent->__invoke(
+            'view-layout-tag',
             self::RENDER_TAG_META
         );
 

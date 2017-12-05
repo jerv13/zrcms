@@ -4,33 +4,46 @@
 
 - Component Simplify #####
 
-    - Use the 'type' to categorize components (blocks, etc...)
-    - Instead of categories for components, we could have types
-        This could reduce or eliminate needing special repositories for each type
-    
     - Fix paths to configs (config locations) 
         - the name on the config files is not forced, so we need to add them along with path
+        
     - Blocks and themes have special needs for BuildComponentConfigs
         - There is an issue with the BC stuff as i can not be determined without a config for the Builder
         - Might need to allow them as separate services instead of builders
             - prepareConfig
             - 
             
+    - Layouts are strange
+    - Component locations have file-names
+            
     - See about simplifying all common patterns (content, resource, etc...)?
     
         - CONFIG EXAMPLE:
-        [
+        'page' => [
             'type' => 'page',
             'change-log' => [],
-            'component' => [],
-            'csm-resource' => [
-                {service-name} => {service}
+            'component' => [
+                
+            ],
+            'csm-resource.find-by' => [
+                'service' => FindCmsResourceByDoctrine,
+                'arguments' => [
+                    
+                ],
             ],
             'content' => [],
-            'render' => [],
-            
-            
+            'content-version' => [],
+            'render' => [],  
         ]
+        
+        - Usage EXAMPLE:
+        
+            ZrcmsApi('page.cms-resource.find-by', ['x' => 'c'])
+            
+                    FieldsComponentRegistry::TYPE => '',
+                    FieldsComponentRegistry::NAME => '',
+                    FieldsComponentRegistry::CONFIG_LOCATION 
+                    => __DIR__ . '/',
 
 - Find service that end in "Basic" that determine the service to use and rename to ByStrategy
 - content-core, content-core-doctrine-data-source (split), content-language and content-country rename

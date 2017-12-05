@@ -4,8 +4,8 @@ namespace Zrcms\ContentCore\Block\Api\Render;
 
 use Phly\Mustache\Mustache;
 use Phly\Mustache\Resolver\DefaultResolver;
+use Zrcms\Content\Api\Component\FindComponent;
 use Zrcms\Content\Model\Content;
-use Zrcms\ContentCore\Block\Api\Component\FindBlockComponent;
 use Zrcms\ContentCore\Block\Exception\BlockComponentMissing;
 use Zrcms\ContentCore\Block\Model\Block;
 use Zrcms\ContentCore\Block\Model\BlockComponent;
@@ -18,17 +18,17 @@ class RenderBlockMustache implements RenderBlock
     const SERVICE_ALIAS = 'mustache';
 
     /**
-     * @var FindBlockComponent
+     * @var FindComponent
      */
-    protected $findBlockComponent;
+    protected $findComponent;
 
     /**
-     * @param FindBlockComponent $findBlockComponent
+     * @param FindComponent $findComponent
      */
     public function __construct(
-        FindBlockComponent $findBlockComponent
+        FindComponent $findComponent
     ) {
-        $this->findBlockComponent = $findBlockComponent;
+        $this->findComponent = $findComponent;
     }
 
     /**
@@ -45,7 +45,8 @@ class RenderBlockMustache implements RenderBlock
         array $options = []
     ): string {
         /** @var BlockComponent $blockComponent */
-        $blockComponent = $this->findBlockComponent->__invoke(
+        $blockComponent = $this->findComponent->__invoke(
+            'block',
             $block->getBlockComponentName()
         );
 

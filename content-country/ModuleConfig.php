@@ -2,6 +2,8 @@
 
 namespace Zrcms\ContentCountry;
 
+use Zrcms\Content\Fields\FieldsComponentRegistry;
+
 /**
  * @author James Jervis - https://github.com/jerv13
  */
@@ -16,10 +18,12 @@ class ModuleConfig
     {
         return [
             'zrcms-components' => [
-                'basic' => [
-                    'zrcms-countries' => __DIR__
-                ]
-            ]
+                'basic.zrcms-countries' => [
+                    FieldsComponentRegistry::TYPE => 'basic',
+                    FieldsComponentRegistry::NAME => 'zrcms-countries',
+                    FieldsComponentRegistry::CONFIG_LOCATION => __DIR__ . '/basic.json'
+                ],
+            ],
         ];
     }
 }

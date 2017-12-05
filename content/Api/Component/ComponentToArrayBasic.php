@@ -22,8 +22,8 @@ class ComponentToArrayBasic implements ComponentToArray
     ): array
     {
         return [
-            'category'
-            => $component->getCategory(),
+            'type'
+            => $component->getType(),
 
             'name'
             => $component->getName(),

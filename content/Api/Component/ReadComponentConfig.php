@@ -8,13 +8,13 @@ namespace Zrcms\Content\Api\Component;
 interface ReadComponentConfig
 {
     /**
-     * @param string $location (directory or location)
+     * @param string $componentConfigLocation (directory or location)
      * @param array  $options
      *
      * @return array
      */
     public function __invoke(
-        string $location,
+        string $componentConfigLocation,
         array $options = []
     ): array;
 }

@@ -3,8 +3,9 @@
 namespace Zrcms\ContentCore\View\Api\Render;
 
 use Psr\Http\Message\ServerRequestInterface;
+use Zrcms\Content\Api\Component\FindComponentsBy;
+use Zrcms\Content\Fields\FieldsComponentConfig;
 use Zrcms\Content\Model\Content;
-use Zrcms\ContentCore\View\Api\Component\FindViewLayoutTagsComponentsBy;
 use Zrcms\ContentCore\View\Model\ServiceAliasView;
 use Zrcms\ContentCore\View\Model\View;
 use Zrcms\ContentCore\View\Model\ViewLayoutTagsComponent;
@@ -27,21 +28,21 @@ class GetViewLayoutTagsBasic implements GetViewLayoutTags
     protected $serviceAliasNamespace;
 
     /**
-     * @var FindViewLayoutTagsComponentsBy
+     * @var FindComponentsBy
      */
-    protected $findViewLayoutTagsComponentsBy;
+    protected $findComponentsBy;
 
     /**
      * @param GetServiceFromAlias            $getServiceFromAlias
-     * @param FindViewLayoutTagsComponentsBy $findViewLayoutTagsComponentsBy
+     * @param FindComponentsBy $findComponentsBy
      */
     public function __construct(
         GetServiceFromAlias $getServiceFromAlias,
-        FindViewLayoutTagsComponentsBy $findViewLayoutTagsComponentsBy
+        FindComponentsBy $findComponentsBy
     ) {
         $this->getServiceFromAlias = $getServiceFromAlias;
         $this->serviceAliasNamespace = ServiceAliasView::ZRCMS_COMPONENT_VIEW_LAYOUT_TAGS_GETTER;
-        $this->findViewLayoutTagsComponentsBy = $findViewLayoutTagsComponentsBy;
+        $this->findComponentsBy = $findComponentsBy;
     }
 
     /**
@@ -56,8 +57,7 @@ class GetViewLayoutTagsBasic implements GetViewLayoutTags
         Content $view,
         ServerRequestInterface $request,
         array $options = []
-    ): array
-    {
+    ): array {
         // @todo always injecting page and containers always?
         $viewLayoutTagsGetterServiceAliases = [
             GetViewLayoutTagsContainers::RENDER_TAG_CONTAINER => GetViewLayoutTagsContainers::SERVICE_ALIAS,
@@ -65,7 +65,9 @@ class GetViewLayoutTagsBasic implements GetViewLayoutTags
         ];
 
         // @todo only get layout components that have paths in the layout
-        $viewLayoutTagsComponents = $this->findViewLayoutTagsComponentsBy->__invoke([]);
+        $viewLayoutTagsComponents = $this->findComponentsBy->__invoke(
+            [FieldsComponentConfig::TYPE]
+        );
 
         /** @var ViewLayoutTagsComponent $viewLayoutTagsComponent */
         foreach ($viewLayoutTagsComponents as $viewLayoutTagsComponent) {

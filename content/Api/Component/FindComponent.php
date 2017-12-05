@@ -10,14 +10,14 @@ use Zrcms\Content\Model\Component;
 interface FindComponent
 {
     /**
-     * @param string $category
+     * @param string $type
      * @param string $name
      * @param array  $options
      *
      * @return Component|null
      */
     public function __invoke(
-        string $category,
+        string $type,
         string $name,
         array $options = []
     );

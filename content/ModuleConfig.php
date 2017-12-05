@@ -18,12 +18,16 @@ use Zrcms\Content\Api\Component\FindComponentsBy;
 use Zrcms\Content\Api\Component\FindComponentsByBasic;
 use Zrcms\Content\Api\Component\GetRegisterComponents;
 use Zrcms\Content\Api\Component\GetRegisterComponentsBasic;
+use Zrcms\Content\Api\Component\PrepareComponentConfig;
+use Zrcms\Content\Api\Component\PrepareComponentConfigNoop;
 use Zrcms\Content\Api\Component\ReadComponentConfig;
 use Zrcms\Content\Api\Component\ReadComponentConfigApplicationConfig;
 use Zrcms\Content\Api\Component\ReadComponentConfigApplicationConfigFactory;
 use Zrcms\Content\Api\Component\ReadComponentConfigByStrategy;
 use Zrcms\Content\Api\Component\ReadComponentConfigCallable;
 use Zrcms\Content\Api\Component\ReadComponentConfigCallableFactory;
+use Zrcms\Content\Api\Component\ReadComponentConfigComponentRegistryConfig;
+use Zrcms\Content\Api\Component\ReadComponentConfigComponentRegistryConfigFactory;
 use Zrcms\Content\Api\Component\ReadComponentConfigJsonFile;
 use Zrcms\Content\Api\Component\ReadComponentConfigPhpFile;
 use Zrcms\Content\Api\Component\ReadComponentRegistry;
@@ -34,6 +38,9 @@ use Zrcms\Content\Api\Content\ContentToArray;
 use Zrcms\Content\Api\Content\ContentToArrayBasic;
 use Zrcms\Content\Api\Content\ContentVersionToArray;
 use Zrcms\Content\Api\Content\ContentVersionToArrayBasic;
+use Zrcms\Content\Api\GetTypeValue;
+use Zrcms\Content\Api\GetTypeValueBasicFactory;
+use Zrcms\Content\Model\Component;
 use Zrcms\Content\Model\ComponentBasic;
 use Zrcms\Content\Model\ServiceAliasComponent;
 use Zrcms\ServiceAlias\Api\GetServiceFromAlias;
@@ -81,6 +88,7 @@ class ModuleConfig
                     ],
                     BuildComponentObjectDefault::class => [
                         'arguments' => [
+                            GetTypeValue::class,
                             ['literal' => ComponentBasic::class]
                         ],
                     ],
@@ -110,6 +118,13 @@ class ModuleConfig
                             ['literal' => GetRegisterComponentsBasic::CACHE_KEY]
                         ],
                     ],
+                    PrepareComponentConfig::class => [
+                        'class' => PrepareComponentConfigNoop::class
+                    ],
+                    PrepareComponentConfigNoop::class => [
+                        'class' => PrepareComponentConfigNoop::class
+                    ],
+
                     /** DEFAULT */
                     ReadComponentConfig::class => [
                         'class' => ReadComponentConfigByStrategy::class,
@@ -132,6 +147,9 @@ class ModuleConfig
                     ReadComponentConfigCallable::class => [
                         'factory' => ReadComponentConfigCallableFactory::class,
                     ],
+                    ReadComponentConfigComponentRegistryConfig::class => [
+                        'factory' => ReadComponentConfigComponentRegistryConfigFactory::class,
+                    ],
                     ReadComponentConfigJsonFile::class => [],
                     ReadComponentConfigPhpFile::class => [],
                     ReadComponentRegistry::class => [
@@ -150,12 +168,20 @@ class ModuleConfig
                     ContentVersionToArray::class => [
                         'class' => ContentVersionToArrayBasic::class
                     ],
+
+                    /**
+                     * General
+                     */
+                    GetTypeValue::class => [
+                        'factory' => GetTypeValueBasicFactory::class,
+                    ]
                 ],
             ],
 
-            'zrcms-component-object-builder' => [
-                /** {component-category} => BuildComponentObject */
-            ],
+            /**
+             * ===== ZRCMS Components =====
+             */
+            'zrcms-components' => [],
 
             /**
              * ===== Service Alias =====
@@ -169,11 +195,28 @@ class ModuleConfig
                     ReadComponentConfigCallable::SERVICE_ALIAS
                     => ReadComponentConfigCallable::class,
 
+                    ReadComponentConfigComponentRegistryConfig::SERVICE_ALIAS
+                    => ReadComponentConfigComponentRegistryConfig::class,
+
                     ReadComponentConfigJsonFile::SERVICE_ALIAS
                     => ReadComponentConfigJsonFile::class,
 
                     ReadComponentConfigPhpFile::SERVICE_ALIAS
                     => ReadComponentConfigPhpFile::class,
+                ],
+            ],
+
+            /**
+             * ===== ZRCMS Types =====
+             */
+            'zrcms-types' => [
+                /* Default services and classes are defined here */
+                'basic' => [
+                    BuildComponentObject::class => BuildComponentObjectDefault::class,
+                    PrepareComponentConfig::class => PrepareComponentConfigNoop::class,
+                    ReadComponentConfig::class => ReadComponentConfigJsonFile::class,
+                    'component-model-interface' => Component::class,
+                    'component-model-class' => ComponentBasic::class,
                 ],
             ],
         ];

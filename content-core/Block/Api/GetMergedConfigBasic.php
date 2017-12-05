@@ -2,7 +2,7 @@
 
 namespace Zrcms\ContentCore\Block\Api;
 
-use Zrcms\ContentCore\Block\Api\Component\FindBlockComponent;
+use Zrcms\Content\Api\Component\FindComponent;
 use Zrcms\ContentCore\Block\Model\Block;
 use Zrcms\ContentCore\Block\Model\BlockComponent;
 
@@ -11,15 +11,15 @@ use Zrcms\ContentCore\Block\Model\BlockComponent;
  */
 class GetMergedConfigBasic implements GetMergedConfig
 {
-    protected $findBlockComponent;
+    protected $findComponent;
 
     /**
-     * @param FindBlockComponent $findBlockComponent
+     * @param FindComponent $findComponent
      */
     public function __construct(
-        FindBlockComponent $findBlockComponent
+        FindComponent $findComponent
     ) {
-        $this->findBlockComponent = $findBlockComponent;
+        $this->findComponent = $findComponent;
     }
 
     /**
@@ -35,7 +35,8 @@ class GetMergedConfigBasic implements GetMergedConfig
     ): array
     {
         /** @var BlockComponent $bockComponent */
-        $bockComponent = $this->findBlockComponent->__invoke(
+        $bockComponent = $this->findComponent->__invoke(
+            'block',
             $block->getBlockComponentName()
         );
 

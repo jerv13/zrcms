@@ -2,7 +2,7 @@
 
 namespace Zrcms\ContentCore\Block\Api\Render;
 
-use Zrcms\ContentCore\Block\Api\Component\FindBlockComponent;
+use Zrcms\Content\Api\Component\FindComponent;
 use Zrcms\ContentCore\Block\Exception\BlockComponentMissing;
 use Zrcms\ContentCore\Block\Model\Block;
 use Zrcms\ContentCore\Block\Fields\FieldsBlock;
@@ -11,16 +11,16 @@ use Zrcms\ContentCore\Block\Fields\FieldsBlockComponent;
 class WrapRenderedBlockVersionLegacy implements WrapRenderedBlockVersion
 {
     /**
-     * @var FindBlockComponent
+     * @var FindComponent
      */
-    protected $findBlockComponent;
+    protected $findComponent;
 
     /**
-     * @param FindBlockComponent $findBlockComponent
+     * @param FindComponent $findComponent
      */
-    public function __construct(FindBlockComponent $findBlockComponent)
+    public function __construct(FindComponent $findComponent)
     {
-        $this->findBlockComponent = $findBlockComponent;
+        $this->findComponent = $findComponent;
     }
 
     /**
@@ -34,7 +34,8 @@ class WrapRenderedBlockVersionLegacy implements WrapRenderedBlockVersion
         string $innerHtml,
         Block $block
     ): string {
-        $blockComponent = $this->findBlockComponent->__invoke(
+        $blockComponent = $this->findComponent->__invoke(
+            'block',
             $block->getBlockComponentName()
         );
 

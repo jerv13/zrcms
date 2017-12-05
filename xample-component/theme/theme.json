@@ -1,5 +1,5 @@
 {
-  "category": "themes",
+  "type": "theme",
   "name": "xample-theme",
   "primaryLayoutName": "primary",
   "layoutLocations": {

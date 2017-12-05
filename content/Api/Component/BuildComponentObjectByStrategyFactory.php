@@ -3,6 +3,7 @@
 namespace Zrcms\Content\Api\Component;
 
 use Psr\Container\ContainerInterface;
+use Zrcms\Content\Api\GetTypeValue;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -17,13 +18,9 @@ class BuildComponentObjectByStrategyFactory
     public function __invoke(
         $serviceContainer
     ) {
-        $config = $serviceContainer->get('config');
-
-        $builderServiceConfig = $config['zrcms-component-object-builder'];
-
         return new BuildComponentObjectByStrategy(
             $serviceContainer,
-            $builderServiceConfig
+            $serviceContainer->get(GetTypeValue::class)
         );
     }
 }

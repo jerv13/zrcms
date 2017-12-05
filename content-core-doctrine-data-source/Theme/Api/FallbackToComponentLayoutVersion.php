@@ -2,7 +2,7 @@
 
 namespace Zrcms\ContentCoreDoctrineDataSource\Theme\Api;
 
-use Zrcms\ContentCore\Theme\Api\Component\FindThemeComponent;
+use Zrcms\Content\Api\Component\FindComponent;
 use Zrcms\ContentCore\Theme\Model\LayoutVersion;
 use Zrcms\ContentCore\Theme\Model\ThemeComponent;
 
@@ -13,9 +13,9 @@ use Zrcms\ContentCore\Theme\Model\ThemeComponent;
 class FallbackToComponentLayoutVersion
 {
     /**
-     * @var FindThemeComponent
+     * @var FindComponent
      */
-    protected $findThemeComponent;
+    protected $findComponent;
 
     /**
      * @var LayoutVersionFromComponent
@@ -23,14 +23,14 @@ class FallbackToComponentLayoutVersion
     protected $versionFromComponent;
 
     /**
-     * @param FindThemeComponent         $findThemeComponent
+     * @param FindComponent         $findComponent
      * @param LayoutVersionFromComponent $versionFromComponent
      */
     public function __construct(
-        FindThemeComponent $findThemeComponent,
+        FindComponent $findComponent,
         LayoutVersionFromComponent $versionFromComponent
     ) {
-        $this->findThemeComponent = $findThemeComponent;
+        $this->findComponent = $findComponent;
         $this->versionFromComponent = $versionFromComponent;
     }
 
@@ -60,7 +60,8 @@ class FallbackToComponentLayoutVersion
         $layoutName = $parts[2];
 
         /** @var ThemeComponent $themeComponent */
-        $themeComponent = $this->findThemeComponent->__invoke(
+        $themeComponent = $this->findComponent->__invoke(
+            'theme',
             $themeName
         );
 

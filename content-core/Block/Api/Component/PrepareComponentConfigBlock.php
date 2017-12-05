@@ -2,21 +2,21 @@
 
 namespace Zrcms\ContentCore\Block\Api\Component;
 
-use Zrcms\Content\Api\Component\ReadComponentConfig;
+use Zrcms\Content\Api\Component\PrepareComponentConfig;
 
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-interface ReadBlockComponentConfig extends ReadComponentConfig
+interface PrepareComponentConfigBlock extends PrepareComponentConfig
 {
     /**
-     * @param string $blockLocation
-     * @param array  $options
+     * @param array $blockConfig
+     * @param array $options
      *
      * @return array
      */
     public function __invoke(
-        string $blockLocation,
+        array $blockConfig,
         array $options = []
     ): array;
 }

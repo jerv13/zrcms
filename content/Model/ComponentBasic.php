@@ -8,7 +8,7 @@ namespace Zrcms\Content\Model;
 class ComponentBasic extends ComponentAbstract implements Component
 {
     /**
-     * @param string      $category
+     * @param string      $type
      * @param string      $name
      * @param string      $configLocation
      * @param array       $properties
@@ -17,7 +17,7 @@ class ComponentBasic extends ComponentAbstract implements Component
      * @param string|null $createdDate
      */
     public function __construct(
-        string $category,
+        string $type,
         string $name,
         string $configLocation,
         array $properties,
@@ -26,7 +26,7 @@ class ComponentBasic extends ComponentAbstract implements Component
         $createdDate = null
     ) {
         parent::__construct(
-            $category,
+            $type,
             $name,
             $configLocation,
             $properties,

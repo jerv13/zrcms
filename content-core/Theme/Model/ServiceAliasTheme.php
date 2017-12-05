@@ -7,5 +7,4 @@ namespace Zrcms\ContentCore\Theme\Model;
  */
 class ServiceAliasTheme
 {
-    const ZRCMS_COMPONENT_CONFIG_READER = 'zrcms.theme.component.config-reader';
 }

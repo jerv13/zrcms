@@ -2,6 +2,7 @@
 
 namespace Zrcms\ContentCore\Block\Api\Component;
 
+use Zrcms\Content\Api\Component\ReadComponentConfig;
 use Zrcms\ContentCore\Block\Api\Render\RenderBlockBc;
 use Zrcms\ContentCore\Block\Fields\FieldsBlockComponentConfig;
 
@@ -9,7 +10,7 @@ use Zrcms\ContentCore\Block\Fields\FieldsBlockComponentConfig;
  * @deprecated BC only
  * @author James Jervis - https://github.com/jerv13
  */
-class ReadBlockComponentConfigBc implements ReadBlockComponentConfig
+class ReadComponentConfigBlockBc implements ReadComponentConfig
 {
     const SERVICE_ALIAS = 'bc-block';
 
@@ -46,7 +47,7 @@ class ReadBlockComponentConfigBc implements ReadBlockComponentConfig
         }
         $config = $this->pluginConfig[$configKey];
 
-        $config[FieldsBlockComponentConfig::COMPONENT_CONFIG_READER] = ReadBlockComponentConfigBc::SERVICE_ALIAS;
+        $config[FieldsBlockComponentConfig::COMPONENT_CONFIG_READER] = ReadComponentConfigBlockBc::SERVICE_ALIAS;
         $config[FieldsBlockComponentConfig::CONFIG_LOCATION] = $configKey;
         $config[FieldsBlockComponentConfig::NAME] = $configKey;
         $config[FieldsBlockComponentConfig::RENDERER] = RenderBlockBc::SERVICE_ALIAS;

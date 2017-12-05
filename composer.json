@@ -45,7 +45,6 @@
       "Zrcms\\Cache\\": "cache/",
       "Zrcms\\Content\\": "content/",
       "Zrcms\\ContentCore\\": "content-core/",
-      "Zrcms\\ContentCoreConfigDataSource\\": "content-core-config-data-source/",
       "Zrcms\\ContentCoreDoctrineDataSource\\": "content-core-doctrine-data-source/",
       "Zrcms\\ContentCountry\\": "content-country/",
       "Zrcms\\ContentDoctrine\\": "content-doctrine/",

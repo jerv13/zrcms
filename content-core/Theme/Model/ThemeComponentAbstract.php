@@ -14,7 +14,7 @@ use Zrcms\Param\Param;
 abstract class ThemeComponentAbstract extends ComponentAbstract
 {
     /**
-     * @param string      $category
+     * @param string      $type
      * @param string      $name
      * @param string      $configLocation
      * @param array       $properties
@@ -23,7 +23,7 @@ abstract class ThemeComponentAbstract extends ComponentAbstract
      * @param string|null $createdDate
      */
     public function __construct(
-        string $category,
+        string $type,
         string $name,
         string $configLocation,
         array $properties,
@@ -51,7 +51,7 @@ abstract class ThemeComponentAbstract extends ComponentAbstract
         Param::remove($properties, FieldsThemeComponent::LAYOUT_VARIATIONS);
 
         parent::__construct(
-            $category,
+            $type,
             $name,
             $configLocation,
             $properties,

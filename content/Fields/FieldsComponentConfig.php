@@ -11,7 +11,7 @@ use Zrcms\Content\Model\TrackableProperties;
  */
 class FieldsComponentConfig extends FieldsAbstract implements Fields
 {
-    const CATEGORY = 'category';
+    const TYPE = 'type';
     const NAME = 'name';
     const CONFIG_LOCATION = 'configLocation';
     const CREATED_BY_USER_ID = TrackableProperties::CREATED_BY_USER_ID;
@@ -19,7 +19,7 @@ class FieldsComponentConfig extends FieldsAbstract implements Fields
     const COMPONENT_CONFIG_READER = FieldsComponent::COMPONENT_CONFIG_READER;
     const COMPONENT_CLASS = FieldsComponent::COMPONENT_CLASS;
 
-    const DEFAULT_CATEGORY = 'basic';
+    const DEFAULT_TYPE = 'basic';
 
     /**
      * @var array
@@ -27,11 +27,11 @@ class FieldsComponentConfig extends FieldsAbstract implements Fields
     protected $defaultFieldsConfig
         = [
             [
-                'name' => self::CATEGORY,
+                'name' => self::TYPE,
                 'type' => 'text',
-                'label' => 'Component Category',
+                'label' => 'Component Type',
                 'required' => false,
-                'default' => self::DEFAULT_CATEGORY,
+                'default' => self::DEFAULT_TYPE,
                 'options' => [],
             ],
             [

@@ -3,8 +3,8 @@
 namespace Zrcms\ViewHead\Api\Render;
 
 use Psr\Http\Message\ServerRequestInterface;
+use Zrcms\Content\Api\Component\FindComponent;
 use Zrcms\Content\Model\Content;
-use Zrcms\ContentCore\View\Api\Component\FindViewLayoutTagsComponent;
 use Zrcms\ContentCore\View\Model\View;
 use Zrcms\ViewHead\Model\HeadSectionComponent;
 
@@ -17,9 +17,9 @@ class GetViewLayoutTagsHeadLink implements GetViewLayoutTagsHead
     const SERVICE_ALIAS = 'head-link';
 
     /**
-     * @var FindViewLayoutTagsComponent
+     * @var FindComponent
      */
-    protected $findViewLayoutTagsComponent;
+    protected $findComponent;
 
     /**
      * @var RenderHeadSectionsTag
@@ -27,14 +27,14 @@ class GetViewLayoutTagsHeadLink implements GetViewLayoutTagsHead
     protected $renderHeadSectionsTag;
 
     /**
-     * @param FindViewLayoutTagsComponent $findViewLayoutTagsComponent
+     * @param FindComponent $findComponent
      * @param RenderHeadSectionsTag       $renderHeadSectionsTag
      */
     public function __construct(
-        FindViewLayoutTagsComponent $findViewLayoutTagsComponent,
+        FindComponent $findComponent,
         RenderHeadSectionsTag $renderHeadSectionsTag
     ) {
-        $this->findViewLayoutTagsComponent = $findViewLayoutTagsComponent;
+        $this->findComponent = $findComponent;
         $this->renderHeadSectionsTag = $renderHeadSectionsTag;
     }
 
@@ -53,7 +53,8 @@ class GetViewLayoutTagsHeadLink implements GetViewLayoutTagsHead
     ): array
     {
         /** @var HeadSectionComponent $component */
-        $component = $this->findViewLayoutTagsComponent->__invoke(
+        $component = $this->findComponent->__invoke(
+            'view-layout-tag',
             self::RENDER_TAG_LINK
         );
 

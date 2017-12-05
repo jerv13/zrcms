@@ -20,9 +20,9 @@ class FieldsThemeComponentConfig extends FieldsComponentConfig
     protected $defaultFieldsConfig
         = [
             [
-                'name' => self::CATEGORY,
+                'name' => self::TYPE,
                 'type' => 'text',
-                'label' => 'Component Category',
+                'label' => 'Component Type',
                 'required' => true,
                 'default' => '',
                 'options' => [],

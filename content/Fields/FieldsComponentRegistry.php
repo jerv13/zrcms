@@ -9,16 +9,27 @@ use Zrcms\Content\Model\ComponentBasic;
  */
 class FieldsComponentRegistry extends FieldsAbstract implements Fields
 {
+    const TYPE = FieldsComponentConfig::TYPE;
     const NAME = FieldsComponentConfig::NAME;
     const CONFIG_LOCATION = FieldsComponentConfig::CONFIG_LOCATION;
     const COMPONENT_CONFIG_READER = FieldsComponent::COMPONENT_CONFIG_READER;
     const COMPONENT_CLASS = FieldsComponent::COMPONENT_CLASS;
+
+    const DEFAULT_TYPE = FieldsComponentConfig::DEFAULT_TYPE;
 
     /**
      * @var array
      */
     protected $defaultFieldsConfig
         = [
+            [
+                'name' => self::TYPE,
+                'type' => 'text',
+                'label' => 'Component Type',
+                'required' => true, // NOTE: this may not be required as we can use default
+                'default' => self::DEFAULT_TYPE,
+                'options' => [],
+            ],
             [
                 'name' => self::NAME,
                 'type' => 'text',

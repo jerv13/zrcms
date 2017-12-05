@@ -5,20 +5,22 @@ namespace Zrcms\Content\Api\Component;
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-abstract class ReadComponentConfigApplicationConfigAbstract
+class ReadComponentConfigComponentRegistryConfig implements ReadComponentConfig
 {
+    const SERVICE_ALIAS = 'component-registry-config';
+
     /**
      * @var array
      */
-    protected $applicationConfig;
+    protected $registry;
 
     /**
-     * @param array $applicationConfig
+     * @param array $registry
      */
     public function __construct(
-        array $applicationConfig
+        array $registry
     ) {
-        $this->applicationConfig = $applicationConfig;
+        $this->registry = $registry;
     }
 
     /**
@@ -32,10 +34,10 @@ abstract class ReadComponentConfigApplicationConfigAbstract
         string $configKey,
         array $options = []
     ): array {
-        if (!array_key_exists($configKey, $this->applicationConfig)) {
-            throw new \Exception("Config key ({$configKey}) not found");
+        if (!array_key_exists($configKey, $this->registry)) {
+            throw new \Exception("Config key ({$configKey}) not found in component registry");
         }
 
-        return $this->applicationConfig[$configKey];
+        return $this->registry[$configKey];
     }
 }

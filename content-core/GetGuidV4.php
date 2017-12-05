@@ -7,6 +7,11 @@ namespace Zrcms\ContentCore;
  */
 class GetGuidV4
 {
+    /**
+     * @param bool $trim
+     *
+     * @return string
+     */
     public static function invoke($trim = true)
     {
         // OSX/Linux
@@ -41,5 +46,15 @@ class GetGuidV4
             $rbrace;
 
         return $guidv4;
+    }
+
+    /**
+     * @param bool $trim
+     *
+     * @return string
+     */
+    public function __invoke($trim = true)
+    {
+        return self::invoke($trim);
     }
 }

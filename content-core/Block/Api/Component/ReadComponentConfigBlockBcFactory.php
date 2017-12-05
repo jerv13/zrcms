@@ -8,19 +8,19 @@ use Psr\Container\ContainerInterface;
  * @deprecated BC only
  * @author James Jervis - https://github.com/jerv13
  */
-class ReadBlockComponentConfigBcFactory
+class ReadComponentConfigBlockBcFactory
 {
     /**
      * @param ContainerInterface $serviceContainer
      *
-     * @return ReadBlockComponentConfigBc
+     * @return ReadComponentConfigBlockBc
      */
     public function __invoke(
         $serviceContainer
     ) {
         $config = $serviceContainer->get('config');
         $pluginConfigBc = $config['rcmPlugin'];
-        return new ReadBlockComponentConfigBc(
+        return new ReadComponentConfigBlockBc(
             $pluginConfigBc
         );
     }

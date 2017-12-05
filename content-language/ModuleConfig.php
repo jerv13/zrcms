@@ -2,6 +2,8 @@
 
 namespace Zrcms\ContentLanguage;
 
+use Zrcms\Content\Fields\FieldsComponentRegistry;
+
 /**
  * @author James Jervis - https://github.com/jerv13
  */
@@ -17,9 +19,12 @@ class ModuleConfig
 
         return [
             'zrcms-components' => [
-                'basic' => [
-                    'zrcms-languages' => __DIR__
-                ]
+                'basic.zrcms-languages' => [
+                    FieldsComponentRegistry::TYPE => '',
+                    FieldsComponentRegistry::NAME => '',
+                    FieldsComponentRegistry::CONFIG_LOCATION
+                    => __DIR__ . '/basic.json',
+                ],
             ],
         ];
     }

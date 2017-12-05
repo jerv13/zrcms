@@ -15,7 +15,6 @@ class ModuleConfig
     public function __invoke()
     {
         $zrcmsModules = [
-            new ModuleConfigBasic(),
             new ModuleConfigBlock(),
             new ModuleConfigContainer(),
             new ModuleConfigPage(),

@@ -14,12 +14,6 @@ class ModuleConfig
      */
     public function __invoke()
     {
-
-        return [
-            'zrcms-components' => [
-                'basic' => [
-                ]
-            ],
-        ];
+        return [];
     }
 }

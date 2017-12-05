@@ -7,6 +7,7 @@ use Psr\Http\Message\ServerRequestInterface;
 use Zrcms\Http\Response\ZrcmsJsonResponse;
 
 /**
+ * @deprecated @todo Fix ME
  * @author James Jervis - https://github.com/jerv13
  */
 class ReadAllComponentConfigs

@@ -2,13 +2,13 @@
 
 namespace Zrcms\ContentLanguage\Model;
 
+use Zrcms\Content\Model\Component;
 use Zrcms\Content\Model\ComponentAbstract;
-use Zrcms\ContentCore\Basic\Model\BasicComponent;
 
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class LanguagesComponent extends ComponentAbstract implements BasicComponent
+class LanguagesComponent extends ComponentAbstract implements Component
 {
     /**
      * @return Language[]

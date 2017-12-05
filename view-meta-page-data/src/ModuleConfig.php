@@ -3,6 +3,7 @@
 namespace Zrcms\ViewMetaPageData;
 
 use Zrcms\Acl\Api\IsAllowedAny;
+use Zrcms\Content\Fields\FieldsComponentRegistry;
 use Zrcms\ContentCore\View\Model\ServiceAliasView;
 use Zrcms\ViewHtmlTags\Api\Render\RenderTag;
 use Zrcms\ViewMetaPageData\Api\View\Render\GetViewLayoutMetaPageData;
@@ -42,9 +43,11 @@ class ModuleConfig
             ],
 
             'zrcms-components' => [
-                'view-layout-tags' => [
-                    GetViewLayoutMetaPageData::RENDER_TAG_META_PAGE_DATA
-                    => __DIR__ . '/../config/meta-page-data',
+                'view-layout-tag.zrcms-xample' => [
+                    FieldsComponentRegistry::TYPE => 'view-layout-tag',
+                    FieldsComponentRegistry::NAME => 'meta-page-data',
+                    FieldsComponentRegistry::CONFIG_LOCATION
+                    => __DIR__ . '/../config/meta-page-data/view-layout-tags.json',
                 ],
             ],
 

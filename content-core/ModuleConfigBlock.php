@@ -2,20 +2,22 @@
 
 namespace Zrcms\ContentCore;
 
+use Zrcms\Content\Api\Component\BuildComponentObject;
+use Zrcms\Content\Api\Component\BuildComponentObjectDefault;
+use Zrcms\Content\Api\Component\FindComponent;
+use Zrcms\Content\Api\Component\PrepareComponentConfig;
+use Zrcms\Content\Api\Component\ReadComponentConfig;
 use Zrcms\Content\Model\ServiceAliasComponent;
-use Zrcms\ContentCore\Block\Api\Component\ReadBlockComponentConfig;
-use Zrcms\ContentCore\Block\Api\Component\ReadBlockComponentConfigByStrategy;
-use Zrcms\ContentCore\Block\Api\Component\ReadBlockComponentConfigBc;
-use Zrcms\ContentCore\Block\Api\Component\ReadBlockComponentConfigBcFactory;
-use Zrcms\ContentCore\Block\Api\Component\ReadBlockComponentConfigJsonFile;
-use Zrcms\ContentCore\Block\Api\Component\ReadBlockComponentRegistry;
+use Zrcms\ContentCore\Block\Api\Component\PrepareComponentConfigBlockBc;
+use Zrcms\ContentCore\Block\Api\Component\ReadComponentConfigBlockBc;
+use Zrcms\ContentCore\Block\Api\Component\ReadComponentConfigBlockBcFactory;
 use Zrcms\ContentCore\Block\Api\GetBlockConfigFields;
 use Zrcms\ContentCore\Block\Api\GetBlockConfigFieldsBcSubstitution;
+use Zrcms\ContentCore\Block\Api\GetBlockData;
+use Zrcms\ContentCore\Block\Api\GetBlockDataBasic;
+use Zrcms\ContentCore\Block\Api\GetBlockDataNoop;
 use Zrcms\ContentCore\Block\Api\GetMergedConfig;
 use Zrcms\ContentCore\Block\Api\GetMergedConfigBasic;
-use Zrcms\ContentCore\Block\Api\Component\GetRegisterBlockComponents;
-use Zrcms\ContentCore\Block\Api\PrepareBlockConfig;
-use Zrcms\ContentCore\Block\Api\PrepareBlockConfigBc;
 use Zrcms\ContentCore\Block\Api\Render\GetBlockRenderTags;
 use Zrcms\ContentCore\Block\Api\Render\GetBlockRenderTagsBasic;
 use Zrcms\ContentCore\Block\Api\Render\RenderBlock;
@@ -25,13 +27,10 @@ use Zrcms\ContentCore\Block\Api\Render\RenderBlockBcFactory;
 use Zrcms\ContentCore\Block\Api\Render\RenderBlockMissing;
 use Zrcms\ContentCore\Block\Api\Render\RenderBlockMissingComment;
 use Zrcms\ContentCore\Block\Api\Render\RenderBlockMustache;
-use Zrcms\ContentCore\Block\Api\Component\FindBlockComponent;
-use Zrcms\ContentCore\Block\Api\Component\FindBlockComponentsBy;
-use Zrcms\ContentCore\Block\Api\GetBlockData;
-use Zrcms\ContentCore\Block\Api\GetBlockDataBasic;
-use Zrcms\ContentCore\Block\Api\GetBlockDataNoop;
 use Zrcms\ContentCore\Block\Api\Render\WrapRenderedBlockVersion;
 use Zrcms\ContentCore\Block\Api\Render\WrapRenderedBlockVersionLegacy;
+use Zrcms\ContentCore\Block\Model\BlockComponent;
+use Zrcms\ContentCore\Block\Model\BlockComponentBasic;
 use Zrcms\ContentCore\Block\Model\ServiceAliasBlock;
 use Zrcms\ServiceAlias\Api\GetServiceFromAlias;
 
@@ -48,23 +47,8 @@ class ModuleConfigBlock
         return [
             'dependencies' => [
                 'config_factories' => [
-                    ReadBlockComponentConfig::class => [
-                        'class' => ReadBlockComponentConfigByStrategy::class,
-                        'arguments' => [
-                            '0-' => GetServiceFromAlias::class,
-                        ],
-                    ],
-                    ReadBlockComponentConfigBc::class => [
-                        'factory' => ReadBlockComponentConfigBcFactory::class
-                    ],
-                    ReadBlockComponentConfigJsonFile::class => [
-                        'class' => ReadBlockComponentConfigJsonFile::class,
-                    ],
-                    ReadBlockComponentRegistry::class => [
-                        'class' => ApiNoop::class,
-                        'arguments' => [
-                            '0-' => ['literal' => ReadBlockComponentRegistry::class],
-                        ],
+                    ReadComponentConfigBlockBc::class => [
+                        'factory' => ReadComponentConfigBlockBcFactory::class
                     ],
                     GetBlockRenderTags::class => [
                         'class' => GetBlockRenderTagsBasic::class,
@@ -77,7 +61,7 @@ class ModuleConfigBlock
                         'class' => RenderBlockBasic::class,
                         'arguments' => [
                             '0-' => GetServiceFromAlias::class,
-                            '1-' => FindBlockComponent::class,
+                            '1-' => FindComponent::class,
                             '2-' => RenderBlockMissing::class,
                             '3-' => ['literal' => RenderBlockMustache::class],
                         ],
@@ -90,26 +74,14 @@ class ModuleConfigBlock
                     ],
                     RenderBlockMustache::class => [
                         'arguments' => [
-                            '0-' => FindBlockComponent::class,
-                        ],
-                    ],
-                    FindBlockComponent::class => [
-                        'class' => ApiNoop::class,
-                        'arguments' => [
-                            '0-' => ['literal' => FindBlockComponent::class],
-                        ],
-                    ],
-                    FindBlockComponentsBy::class => [
-                        'class' => ApiNoop::class,
-                        'arguments' => [
-                            '0-' => ['literal' => FindBlockComponentsBy::class],
+                            '0-' => FindComponent::class,
                         ],
                     ],
                     GetBlockData::class => [
                         'class' => GetBlockDataBasic::class,
                         'arguments' => [
                             '0-' => GetServiceFromAlias::class,
-                            '1-' => FindBlockComponent::class
+                            '1-' => FindComponent::class
                         ],
                     ],
                     GetBlockDataNoop::class => [],
@@ -122,23 +94,16 @@ class ModuleConfigBlock
                     GetMergedConfig::class => [
                         'class' => GetMergedConfigBasic::class,
                         'arguments' => [
-                            '0-' => FindBlockComponent::class
+                            '0-' => FindComponent::class
                         ],
                     ],
-                    GetRegisterBlockComponents::class => [
-                        'class' => ApiNoop::class,
-                        'arguments' => [
-                            '0-' => ['literal' => GetRegisterBlockComponents::class],
-                        ],
-                    ],
-                    PrepareBlockConfig::class => [
-                        'class' => PrepareBlockConfigBc::class,
+                    PrepareComponentConfigBlockBc::class => [
                         'arguments' => [
                             '0-' => GetBlockConfigFields::class,
                             '1-' => GetBlockConfigFieldsBcSubstitution::class,
                         ],
                     ],
-                    PrepareBlockConfigBc::class => [
+                    PrepareComponentConfigBlockBc::class => [
                         'arguments' => [
                             '0-' => GetBlockConfigFields::class,
                             '1-' => GetBlockConfigFieldsBcSubstitution::class,
@@ -147,7 +112,7 @@ class ModuleConfigBlock
                     WrapRenderedBlockVersion::class => [
                         'class' => WrapRenderedBlockVersionLegacy::class,
                         'arguments' => [
-                            '0-' => FindBlockComponent::class
+                            '0-' => FindComponent::class
                         ],
                     ],
                 ],
@@ -157,8 +122,8 @@ class ModuleConfigBlock
              */
             'zrcms-service-alias' => [
                 ServiceAliasComponent::ZRCMS_COMPONENT_CONFIG_READER => [
-                    ReadBlockComponentConfigBc::SERVICE_ALIAS
-                    => ReadBlockComponentConfigBc::class,
+                    ReadComponentConfigBlockBc::SERVICE_ALIAS
+                    => ReadComponentConfigBlockBc::class,
                 ],
                 // 'zrcms.block.content.renderer'
                 ServiceAliasBlock::ZRCMS_CONTENT_RENDERER => [
@@ -173,6 +138,18 @@ class ModuleConfigBlock
                     'noop'
                     => GetBlockDataNoop::class,
                 ],
+            ],
+            /**
+             * ===== ZRCMS Types =====
+             */
+            'zrcms-types' => [
+                'block' => [
+                    BuildComponentObject::class => BuildComponentObjectDefault::class,
+                    PrepareComponentConfig::class => PrepareComponentConfigBlockBc::class,
+                    ReadComponentConfig::class => ReadComponentConfigBlockBc::class,
+                    'component-model-interface' => BlockComponent::class,
+                    'component-model-class' => BlockComponentBasic::class,
+                ]
             ],
         ];
     }

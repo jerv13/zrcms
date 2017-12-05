@@ -1,14 +1,17 @@
 <?php
 
-namespace Zrcms\ContentCore\Block\Api;
+namespace Zrcms\ContentCore\Block\Api\Component;
 
+use Zrcms\Content\Api\Component\PrepareComponentConfig;
+use Zrcms\ContentCore\Block\Api\GetBlockConfigFields;
+use Zrcms\ContentCore\Block\Api\GetBlockConfigFieldsBcSubstitution;
 use Zrcms\ContentCore\Block\Fields\FieldsBlockComponentConfig;
 
 /**
  * @deprecated BC only
- * @author James Jervis - https://github.com/jerv13
+ * @author     James Jervis - https://github.com/jerv13
  */
-class PrepareBlockConfigBc implements PrepareBlockConfig
+class PrepareComponentConfigBlockBc implements PrepareComponentConfig
 {
     /**
      * @var GetBlockConfigFields
@@ -34,11 +37,14 @@ class PrepareBlockConfigBc implements PrepareBlockConfig
 
     /**
      * @param array $blockConfig
+     * @param array $options
      *
      * @return array
      */
-    public function __invoke(array $blockConfig): array
-    {
+    public function __invoke(
+        array $blockConfig,
+        array $options = []
+    ): array {
         $blockConfigFields = $this->getBlockConfigFields->__invoke();
         $blockConfigFieldsBcSubstitution = $this->getBlockConfigFieldsBcSubstitution->__invoke();
 

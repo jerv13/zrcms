@@ -15,7 +15,7 @@ class GetBlockConfigFieldsBcSubstitution
     protected $bcFields
         = [
             'name' => FieldsBlockComponentConfig::NAME,
-            'type' => FieldsBlockComponentConfig::CATEGORY,
+            'type' => FieldsBlockComponentConfig::TYPE,
             'display' => FieldsBlockComponentConfig::LABEL,
             'tooltip' => FieldsBlockComponentConfig::DESCRIPTION,
             'icon' => FieldsBlockComponentConfig::ICON,

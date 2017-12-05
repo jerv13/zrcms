@@ -151,9 +151,9 @@ class ViewControllerTest
 
         $route = $routeResult->getMatchedRoute();
 
-        ddd(
+        var_dump(
             $route->getOptions()
-        );
+        ); die;
 
         $siteVersion = new SiteVersionBasic(
             'testID',

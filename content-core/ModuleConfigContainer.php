@@ -117,7 +117,7 @@ class ModuleConfigContainer
             'zrcms-service-alias' => [
                 // 'zrcms.container.content.render-tags-getter'
                 ServiceAliasContainer::ZRCMS_CONTENT_RENDER_TAGS_GETTER => [
-                    'blocks'
+                    'block'
                     => GetContainerRenderTagsBlocks::class,
                 ],
                 // 'zrcms.container.content.renderer'

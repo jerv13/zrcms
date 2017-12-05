@@ -2,20 +2,20 @@
 
 namespace Zrcms\HttpStatusPages\Model;
 
-use Zrcms\ContentCore\Basic\Model\BasicComponent;
-use Zrcms\ContentCore\Basic\Model\BasicComponentAbstract;
+use Zrcms\Content\Model\Component;
+use Zrcms\Content\Model\ComponentAbstract;
 use Zrcms\HttpStatusPages\Fields\FieldsHttpStatusPagesComponent;
 use Zrcms\Param\Param;
 
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class HttpStatusPagesComponent extends BasicComponentAbstract implements BasicComponent
+class HttpStatusPagesComponent extends ComponentAbstract implements Component
 {
-    const NAME = 'zrcms-http-expressive-1';
+    const NAME = 'zrcms-http-status-pages';
 
     /**
-     * @param string      $category
+     * @param string      $type
      * @param string      $name
      * @param string      $configLocation
      * @param array       $properties
@@ -24,7 +24,7 @@ class HttpStatusPagesComponent extends BasicComponentAbstract implements BasicCo
      * @param string|null $createdDate
      */
     public function __construct(
-        string $category,
+        string $type,
         string $name,
         string $configLocation,
         array $properties,
@@ -44,7 +44,7 @@ class HttpStatusPagesComponent extends BasicComponentAbstract implements BasicCo
         $properties[FieldsHttpStatusPagesComponent::STATUS_TO_SITE_PATH_PROPERTY] = $statusPropertyMap;
 
         parent::__construct(
-            $category,
+            $type,
             $name,
             $configLocation,
             $properties,

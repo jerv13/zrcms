@@ -11,7 +11,7 @@ use Zrcms\ContentCore\Block\Fields\FieldsBlockComponent;
 abstract class BlockComponentAbstract extends ComponentAbstract
 {
     /**
-     * @param string      $category
+     * @param string      $type
      * @param string      $name
      * @param string      $configLocation
      * @param array       $properties
@@ -20,7 +20,7 @@ abstract class BlockComponentAbstract extends ComponentAbstract
      * @param string|null $createdDate
      */
     public function __construct(
-        string $category,
+        string $type,
         string $name,
         string $configLocation,
         array $properties,
@@ -29,7 +29,7 @@ abstract class BlockComponentAbstract extends ComponentAbstract
         $createdDate = null
     ) {
         parent::__construct(
-            $category,
+            $type,
             $name,
             $configLocation,
             $properties,

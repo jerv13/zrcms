@@ -19,7 +19,7 @@ class ReadViewHeadComponentConfigBcFactory
     ) {
         $config = $serviceContainer->get('config');
 
-        $applicationConfig = $config['zrcms-components']['view-layout-tags'];
+        $applicationConfig = $config['zrcms-components'];
 
         $configBc = [];
 

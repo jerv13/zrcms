@@ -4,6 +4,7 @@ namespace Zrcms\ContentCoreDoctrineDataSource;
 
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Mapping\Driver\AnnotationDriver;
+use Zrcms\Content\Api\Component\FindComponent;
 use Zrcms\ContentCore\Layout\Api\CmsResource\UpsertLayoutCmsResource;
 use Zrcms\ContentCore\Theme\Api\ChangeLog\GetChangeLogByDateRange;
 use Zrcms\ContentCore\Theme\Api\CmsResource\FindLayoutCmsResource;
@@ -11,7 +12,6 @@ use Zrcms\ContentCore\Theme\Api\CmsResource\FindLayoutCmsResourceByThemeNameLayo
 use Zrcms\ContentCore\Theme\Api\CmsResource\FindLayoutCmsResourcesBy;
 use Zrcms\ContentCore\Theme\Api\Content\FindLayoutVersion;
 use Zrcms\ContentCore\Theme\Api\Content\FindLayoutVersionsBy;
-use Zrcms\ContentCore\Theme\Api\Component\FindThemeComponent;
 use Zrcms\ContentCore\Theme\Api\Content\InsertLayoutVersion;
 use Zrcms\ContentCoreDoctrineDataSource as This;
 
@@ -75,13 +75,13 @@ class ModuleConfigTheme
                     ],
                     This\Theme\Api\FallbackToComponentLayoutCmsResource::class => [
                         'arguments' => [
-                            '0-' => FindThemeComponent::class,
+                            '0-' => FindComponent::class,
                             '1-' => This\Theme\Api\LayoutVersionFromComponent::class,
                         ],
                     ],
                     This\Theme\Api\FallbackToComponentLayoutVersion::class => [
                         'arguments' => [
-                            '0-' => FindThemeComponent::class,
+                            '0-' => FindComponent::class,
                             '1-' => This\Theme\Api\LayoutVersionFromComponent::class,
                         ],
                     ],

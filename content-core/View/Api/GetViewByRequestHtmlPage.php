@@ -3,6 +3,7 @@
 namespace Zrcms\ContentCore\View\Api;
 
 use Psr\Http\Message\ServerRequestInterface;
+use Zrcms\Content\Api\Component\FindComponent;
 use Zrcms\Content\Model\Trackable;
 use Zrcms\ContentCore\Page\Api\CmsResource\FindPageCmsResourceBySitePath;
 use Zrcms\ContentCore\Page\Exception\PageNotFound;
@@ -13,7 +14,6 @@ use Zrcms\ContentCore\Site\Api\CmsResource\FindSiteCmsResourceByHost;
 use Zrcms\ContentCore\Site\Exception\SiteNotFound;
 use Zrcms\ContentCore\Site\Model\SiteCmsResource;
 use Zrcms\ContentCore\Theme\Api\CmsResource\FindLayoutCmsResourceByThemeNameLayoutName;
-use Zrcms\ContentCore\Theme\Api\Component\FindThemeComponent;
 use Zrcms\ContentCore\Theme\Exception\LayoutNotFound;
 use Zrcms\ContentCore\Theme\Exception\ThemeNotFound;
 use Zrcms\ContentCore\Theme\Model\LayoutCmsResource;
@@ -57,9 +57,9 @@ class GetViewByRequestHtmlPage implements GetViewByRequest
     protected $getLayoutName;
 
     /**
-     * @var FindThemeComponent
+     * @var FindComponent
      */
-    protected $findThemeComponent;
+    protected $findComponent;
 
     /**
      * @var GetViewLayoutTags
@@ -91,7 +91,7 @@ class GetViewByRequestHtmlPage implements GetViewByRequest
      * @param FindPageCmsResourceBySitePath              $findPageCmsResourceBySitePath
      * @param FindLayoutCmsResourceByThemeNameLayoutName $findLayoutCmsResourceByThemeNameLayoutName
      * @param GetLayoutName                              $getLayoutName
-     * @param FindThemeComponent                         $findThemeComponent
+     * @param FindComponent                         $findComponent
      * @param GetViewLayoutTags                          $getViewLayoutTags
      * @param BuildView                                  $buildView
      * @param string                                     $defaultTitle
@@ -103,7 +103,7 @@ class GetViewByRequestHtmlPage implements GetViewByRequest
         FindPageCmsResourceBySitePath $findPageCmsResourceBySitePath,
         FindLayoutCmsResourceByThemeNameLayoutName $findLayoutCmsResourceByThemeNameLayoutName,
         GetLayoutName $getLayoutName,
-        FindThemeComponent $findThemeComponent,
+        FindComponent $findComponent,
         GetViewLayoutTags $getViewLayoutTags,
         BuildView $buildView,
         string $defaultTitle = '',
@@ -115,7 +115,7 @@ class GetViewByRequestHtmlPage implements GetViewByRequest
         $this->findLayoutCmsResourceByThemeNameLayoutName = $findLayoutCmsResourceByThemeNameLayoutName;
         $this->getLayoutName = $getLayoutName;
 
-        $this->findThemeComponent = $findThemeComponent;
+        $this->findComponent = $findComponent;
         $this->getViewLayoutTags = $getViewLayoutTags;
         $this->buildView = $buildView;
         $this->defaultTitle = $defaultTitle;
@@ -155,7 +155,8 @@ class GetViewByRequestHtmlPage implements GetViewByRequest
 
         $themeName = $siteCmsResource->getContentVersion()->getThemeName();
 
-        $themeComponent = $this->findThemeComponent->__invoke(
+        $themeComponent = $this->findComponent->__invoke(
+            'theme',
             $themeName
         );
 

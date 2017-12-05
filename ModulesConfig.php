@@ -41,7 +41,6 @@ class ModulesConfig
             new \Zrcms\ViewHead\ModuleConfig(),
             new \Zrcms\ViewHtmlTags\ModuleConfig(),
 
-            new \Zrcms\ContentCoreConfigDataSource\ModuleConfig(),
             new \Zrcms\ContentCoreDoctrineDataSource\ModuleConfig(),
             new \Zrcms\ContentRedirectDoctrineDataSource\ModuleConfig(),
 

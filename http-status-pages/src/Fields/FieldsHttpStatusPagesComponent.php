@@ -2,13 +2,13 @@
 
 namespace Zrcms\HttpStatusPages\Fields;
 
+use Zrcms\Content\Fields\FieldsComponent;
 use Zrcms\Content\Model\ComponentBasic;
-use Zrcms\ContentCore\Basic\Fields\FieldsComponentBasic;
 
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class FieldsHttpStatusPagesComponent extends FieldsComponentBasic
+class FieldsHttpStatusPagesComponent extends FieldsComponent
 {
     const STATUS_TO_SITE_PATH_PROPERTY = 'status-to-site-page-path-property-map';
 

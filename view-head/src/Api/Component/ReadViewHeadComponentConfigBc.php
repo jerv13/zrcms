@@ -2,7 +2,7 @@
 
 namespace Zrcms\ViewHead\Api\Component;
 
-use Zrcms\ContentCore\View\Api\Component\ReadViewLayoutTagsComponentConfig;
+use Zrcms\Content\Api\Component\ReadComponentConfig;
 use Zrcms\ViewHead\Api\Render\GetViewLayoutTagsHeadLink;
 use Zrcms\ViewHead\Api\Render\GetViewLayoutTagsHeadMeta;
 use Zrcms\ViewHead\Api\Render\GetViewLayoutTagsHeadScript;
@@ -11,7 +11,7 @@ use Zrcms\ViewHead\Api\MergeSectionsBc;
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class ReadViewHeadComponentConfigBc implements ReadViewLayoutTagsComponentConfig
+class ReadViewHeadComponentConfigBc implements ReadComponentConfig
 {
     const SERVICE_ALIAS = 'view-head-bc';
     /**
@@ -48,8 +48,7 @@ class ReadViewHeadComponentConfigBc implements ReadViewLayoutTagsComponentConfig
     public function __invoke(
         string $configKey,
         array $options = []
-    ): array
-    {
+    ): array {
         if (!array_key_exists($configKey, $this->applicationConfig)) {
             throw new \Exception("Config key ({$configKey}) not found");
         }
@@ -66,11 +65,10 @@ class ReadViewHeadComponentConfigBc implements ReadViewLayoutTagsComponentConfig
     protected function merge(
         array $applicationConfig,
         array $applicationConfigBc
-    ): array
-    {
-        $metaKey = GetViewLayoutTagsHeadMeta::RENDER_TAG_META;
-        $linkKey = GetViewLayoutTagsHeadLink::RENDER_TAG_LINK;
-        $scriptKey = GetViewLayoutTagsHeadScript::RENDER_TAG_SCRIPT;
+    ): array {
+        $metaKey = 'view-layout-tag.head-meta';
+        $linkKey = 'view-layout-tag.head-link';
+        $scriptKey = 'view-layout-tag.head-script';
 
         $applicationConfigBcConverted = [
             $metaKey => [
@@ -112,6 +110,4 @@ class ReadViewHeadComponentConfigBc implements ReadViewLayoutTagsComponentConfig
 
         return $applicationConfig;
     }
-
-
 }

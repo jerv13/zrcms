@@ -3,11 +3,11 @@
 namespace Zrcms\ContentCore\Block\Api;
 
 use Psr\Http\Message\ServerRequestInterface;
-use Zrcms\ContentCore\Block\Api\Component\FindBlockComponent;
+use Zrcms\Content\Api\Component\FindComponent;
 use Zrcms\ContentCore\Block\Exception\BlockComponentMissing;
+use Zrcms\ContentCore\Block\Fields\FieldsBlockComponent;
 use Zrcms\ContentCore\Block\Model\Block;
 use Zrcms\ContentCore\Block\Model\BlockComponent;
-use Zrcms\ContentCore\Block\Fields\FieldsBlockComponent;
 use Zrcms\ContentCore\Block\Model\ServiceAliasBlock;
 use Zrcms\ServiceAlias\Api\GetServiceFromAlias;
 use Zrcms\ServiceAlias\ServiceCheck;
@@ -28,9 +28,9 @@ class GetBlockDataBasic implements GetBlockData
     protected $serviceAliasNamespace;
 
     /**
-     * @var FindBlockComponent
+     * @var FindComponent
      */
-    protected $findBlockComponent;
+    protected $findComponent;
 
     /**
      * @var string
@@ -39,17 +39,17 @@ class GetBlockDataBasic implements GetBlockData
 
     /**
      * @param GetServiceFromAlias $getServiceFromAlias
-     * @param FindBlockComponent  $findBlockComponent
+     * @param FindComponent       $findComponent
      * @param string              $defaultGetBlockDataServiceName
      */
     public function __construct(
         GetServiceFromAlias $getServiceFromAlias,
-        FindBlockComponent $findBlockComponent,
+        FindComponent $findComponent,
         string $defaultGetBlockDataServiceName = GetBlockDataNoop::class
     ) {
         $this->getServiceFromAlias = $getServiceFromAlias;
         $this->serviceAliasNamespace = ServiceAliasBlock::ZRCMS_CONTENT_DATA_PROVIDER;
-        $this->findBlockComponent = $findBlockComponent;
+        $this->findComponent = $findComponent;
         $this->defaultGetBlockDataServiceName = $defaultGetBlockDataServiceName;
     }
 
@@ -67,7 +67,8 @@ class GetBlockDataBasic implements GetBlockData
         array $options = []
     ) : array {
         /** @var BlockComponent $blockComponent */
-        $blockComponent = $this->findBlockComponent->__invoke(
+        $blockComponent = $this->findComponent->__invoke(
+            'block',
             $block->getBlockComponentName()
         );
 

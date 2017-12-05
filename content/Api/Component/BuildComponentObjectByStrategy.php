@@ -2,7 +2,8 @@
 
 namespace Zrcms\Content\Api\Component;
 
-use Interop\Container\ContainerInterface;
+use Psr\Container\ContainerInterface;
+use Zrcms\Content\Api\GetTypeValue;
 use Zrcms\Content\Fields\FieldsComponentConfig;
 use Zrcms\Content\Model\Component;
 use Zrcms\Content\Model\ComponentBasic;
@@ -14,24 +15,24 @@ use Zrcms\Param\Param;
 class BuildComponentObjectByStrategy implements BuildComponentObject
 {
     protected $serviceContainer;
-    protected $builderServiceConfig;
+    protected $getTypeValue;
     protected $defaultBuildComponentObject;
     protected $defaultComponentClass;
 
     /**
      * @param ContainerInterface $serviceContainer
-     * @param array              $builderServiceConfig
+     * @param GetTypeValue       $getTypeValue
      * @param string             $defaultBuildComponentObject
      * @param string             $defaultComponentClass
      */
     public function __construct(
         $serviceContainer,
-        array $builderServiceConfig,
+        GetTypeValue $getTypeValue,
         string $defaultBuildComponentObject = BuildComponentObjectDefault::class,
         string $defaultComponentClass = ComponentBasic::class
     ) {
         $this->serviceContainer = $serviceContainer;
-        $this->builderServiceConfig = $builderServiceConfig;
+        $this->getTypeValue = $getTypeValue;
         $this->defaultBuildComponentObject = $defaultBuildComponentObject;
         $this->defaultComponentClass = $defaultComponentClass;
     }
@@ -46,13 +47,13 @@ class BuildComponentObjectByStrategy implements BuildComponentObject
         array $componentConfig,
         array $options = []
     ): Component {
-        $category = Param::getString(
+        $type = Param::getString(
             $componentConfig,
-            FieldsComponentConfig::CATEGORY,
+            FieldsComponentConfig::TYPE,
             ''
         );
 
-        if (empty($category)) {
+        if (empty($type)) {
             $buildComponentObjectService = $this->serviceContainer->get(
                 $this->defaultBuildComponentObject
             );
@@ -65,9 +66,9 @@ class BuildComponentObjectByStrategy implements BuildComponentObject
             );
         }
 
-        $buildComponentObjectServiceName = Param::getString(
-            $this->builderServiceConfig,
-            $category,
+        $buildComponentObjectServiceName = $this->getTypeValue->__invoke(
+            $type,
+            BuildComponentObject::class,
             $this->defaultBuildComponentObject
         );
 
@@ -92,7 +93,7 @@ class BuildComponentObjectByStrategy implements BuildComponentObject
      */
     protected function assertValidInstance($buildComponentObjectService)
     {
-        if(!is_a($buildComponentObjectService, BuildComponentObject::class)) {
+        if (!is_a($buildComponentObjectService, BuildComponentObject::class)) {
             throw new \Exception(
                 'BuildComponentObject Service must be instance of ' . BuildComponentObject::class
             );

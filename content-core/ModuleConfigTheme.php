@@ -2,29 +2,27 @@
 
 namespace Zrcms\ContentCore;
 
+use Zrcms\Content\Api\Component\BuildComponentObject;
+use Zrcms\Content\Api\Component\BuildComponentObjectDefault;
+use Zrcms\Content\Api\Component\PrepareComponentConfig;
+use Zrcms\Content\Api\Component\ReadComponentConfigJsonFile;
 use Zrcms\ContentCore\Layout\Api\CmsResource\UpsertLayoutCmsResource;
-use Zrcms\ContentCore\Theme\Api\Component\ReadLayoutComponentConfig;
-use Zrcms\ContentCore\Theme\Api\Component\ReadLayoutComponentConfigByStrategy;
-use Zrcms\ContentCore\Theme\Api\Component\ReadLayoutComponentConfigJsonFile;
-use Zrcms\ContentCore\Theme\Api\Component\ReadThemeComponentConfig;
-use Zrcms\ContentCore\Theme\Api\Component\ReadThemeComponentConfigByStrategy;
-use Zrcms\ContentCore\Theme\Api\Component\ReadThemeComponentConfigJsonFile;
+use Zrcms\ContentCore\Theme\Api\CmsResource\FindLayoutCmsResource;
+use Zrcms\ContentCore\Theme\Api\CmsResource\FindLayoutCmsResourceByThemeNameLayoutName;
+use Zrcms\ContentCore\Theme\Api\CmsResource\FindLayoutCmsResourcesBy;
+use Zrcms\ContentCore\Theme\Api\Component\PrepareComponentConfigThemeLayouts;
+use Zrcms\ContentCore\Theme\Api\Content\FindLayoutVersion;
+use Zrcms\ContentCore\Theme\Api\Content\FindLayoutVersionsBy;
+use Zrcms\ContentCore\Theme\Api\Content\InsertLayoutVersion;
 use Zrcms\ContentCore\Theme\Api\Render\GetLayoutRenderTags;
 use Zrcms\ContentCore\Theme\Api\Render\GetLayoutRenderTagsBasic;
 use Zrcms\ContentCore\Theme\Api\Render\GetLayoutRenderTagsNoop;
 use Zrcms\ContentCore\Theme\Api\Render\RenderLayout;
 use Zrcms\ContentCore\Theme\Api\Render\RenderLayoutBasic;
 use Zrcms\ContentCore\Theme\Api\Render\RenderLayoutMustache;
-use Zrcms\ContentCore\Theme\Api\CmsResource\FindLayoutCmsResource;
-use Zrcms\ContentCore\Theme\Api\CmsResource\FindLayoutCmsResourceByThemeNameLayoutName;
-use Zrcms\ContentCore\Theme\Api\CmsResource\FindLayoutCmsResourcesBy;
-use Zrcms\ContentCore\Theme\Api\Content\FindLayoutVersion;
-use Zrcms\ContentCore\Theme\Api\Content\FindLayoutVersionsBy;
-use Zrcms\ContentCore\Theme\Api\Component\FindThemeComponent;
-use Zrcms\ContentCore\Theme\Api\Component\FindThemeComponentsBy;
-use Zrcms\ContentCore\Theme\Api\Content\InsertLayoutVersion;
 use Zrcms\ContentCore\Theme\Model\ServiceAliasLayout;
-use Zrcms\ContentCore\Theme\Model\ServiceAliasTheme;
+use Zrcms\ContentCore\Theme\Model\ThemeComponent;
+use Zrcms\ContentCore\Theme\Model\ThemeComponentBasic;
 use Zrcms\ServiceAlias\Api\GetServiceFromAlias;
 
 /**
@@ -40,45 +38,13 @@ class ModuleConfigTheme
         return [
             'dependencies' => [
                 'config_factories' => [
-                    UpsertLayoutCmsResource::class => [
-                        'class' => ApiNoop::class,
-                        'arguments' => [
-                            '0-' => ['literal' => UpsertLayoutCmsResource::class],
-                        ],
-                    ],
-                    ReadLayoutComponentConfig::class => [
-                        'class' => ReadLayoutComponentConfigByStrategy::class,
-                        'arguments' => [
-                            '0-' => GetServiceFromAlias::class,
-                        ],
-                    ],
-                    ReadLayoutComponentConfigJsonFile::class => [
-                        'class' => ReadLayoutComponentConfigJsonFile::class,
-                    ],
+                    /**
+                     * ChangeLog
+                     */
 
-                    ReadThemeComponentConfig::class => [
-                        'class' => ReadThemeComponentConfigByStrategy::class,
-                        'arguments' => [
-                            '0-' => GetServiceFromAlias::class,
-                        ],
-                    ],
-                    ReadThemeComponentConfigJsonFile::class => [
-                        'class' => ReadThemeComponentConfigJsonFile::class,
-                    ],
-                    GetLayoutRenderTags::class => [
-                        'class' => GetLayoutRenderTagsBasic::class,
-                        'arguments' => [
-                            '0-' => GetServiceFromAlias::class,
-                        ],
-                    ],
-                    GetLayoutRenderTagsNoop::class => [],
-                    RenderLayout::class => [
-                        'class' => RenderLayoutBasic::class,
-                        'arguments' => [
-                            '0-' => GetServiceFromAlias::class,
-                        ],
-                    ],
-                    RenderLayoutMustache::class => [],
+                    /**
+                     * CmsResource
+                     */
                     FindLayoutCmsResource::class => [
                         'class' => ApiNoop::class,
                         'arguments' => [
@@ -97,6 +63,25 @@ class ModuleConfigTheme
                             '0-' => ['literal' => FindLayoutCmsResourcesBy::class],
                         ],
                     ],
+                    UpsertLayoutCmsResource::class => [
+                        'class' => ApiNoop::class,
+                        'arguments' => [
+                            '0-' => ['literal' => UpsertLayoutCmsResource::class],
+                        ],
+                    ],
+
+                    /**
+                     * Component
+                     */
+                    PrepareComponentConfigThemeLayouts::class => [
+                        'arguments' => [
+                            '0-' => ReadComponentConfigJsonFile::class,
+                        ],
+                    ],
+
+                    /**
+                     * Content
+                     */
                     FindLayoutVersion::class => [
                         'class' => ApiNoop::class,
                         'arguments' => [
@@ -109,24 +94,30 @@ class ModuleConfigTheme
                             '0-' => ['literal' => FindLayoutVersionsBy::class],
                         ],
                     ],
-                    FindThemeComponent::class => [
-                        'class' => ApiNoop::class,
-                        'arguments' => [
-                            '0-' => ['literal' => FindThemeComponent::class],
-                        ],
-                    ],
-                    FindThemeComponentsBy::class => [
-                        'class' => ApiNoop::class,
-                        'arguments' => [
-                            '0-' => ['literal' => FindThemeComponentsBy::class],
-                        ],
-                    ],
                     InsertLayoutVersion::class => [
                         'class' => ApiNoop::class,
                         'arguments' => [
                             '0-' => ['literal' => InsertLayoutVersion::class],
                         ],
                     ],
+
+                    /**
+                     * Render
+                     */
+                    GetLayoutRenderTags::class => [
+                        'class' => GetLayoutRenderTagsBasic::class,
+                        'arguments' => [
+                            '0-' => GetServiceFromAlias::class,
+                        ],
+                    ],
+                    GetLayoutRenderTagsNoop::class => [],
+                    RenderLayout::class => [
+                        'class' => RenderLayoutBasic::class,
+                        'arguments' => [
+                            '0-' => GetServiceFromAlias::class,
+                        ],
+                    ],
+                    RenderLayoutMustache::class => [],
                 ],
             ],
             /**
@@ -138,6 +129,18 @@ class ModuleConfigTheme
                     'mustache'
                     => RenderLayoutMustache::class,
                 ],
+            ],
+
+            /**
+             * ===== ZRCMS Types =====
+             */
+            'zrcms-types' => [
+                'theme' => [
+                    BuildComponentObject::class => BuildComponentObjectDefault::class,
+                    PrepareComponentConfig::class => PrepareComponentConfigThemeLayouts::class,
+                    'component-model-interface' => ThemeComponent::class,
+                    'component-model-class' => ThemeComponentBasic::class,
+                ]
             ],
         ];
     }

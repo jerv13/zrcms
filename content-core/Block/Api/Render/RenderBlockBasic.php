@@ -2,8 +2,8 @@
 
 namespace Zrcms\ContentCore\Block\Api\Render;
 
+use Zrcms\Content\Api\Component\FindComponent;
 use Zrcms\Content\Model\Content;
-use Zrcms\ContentCore\Block\Api\Component\FindBlockComponent;
 use Zrcms\ContentCore\Block\Fields\FieldsBlockComponent;
 use Zrcms\ContentCore\Block\Model\Block;
 use Zrcms\ContentCore\Block\Model\BlockComponent;
@@ -17,9 +17,9 @@ use Zrcms\ServiceAlias\ServiceCheck;
 class RenderBlockBasic implements RenderBlock
 {
     /**
-     * @var FindBlockComponent
+     * @var FindComponent
      */
-    protected $findBlockComponent;
+    protected $findComponent;
 
     /**
      * @var GetServiceFromAlias
@@ -43,19 +43,19 @@ class RenderBlockBasic implements RenderBlock
 
     /**
      * @param GetServiceFromAlias $getServiceFromAlias
-     * @param FindBlockComponent  $findBlockComponent
+     * @param FindComponent       $findComponent
      * @param RenderBlockMissing  $renderBlockMissing
      * @param string              $defaultRenderServiceName
      */
     public function __construct(
         GetServiceFromAlias $getServiceFromAlias,
-        FindBlockComponent $findBlockComponent,
+        FindComponent $findComponent,
         RenderBlockMissing $renderBlockMissing,
         string $defaultRenderServiceName = RenderBlockMustache::class
     ) {
         $this->getServiceFromAlias = $getServiceFromAlias;
         $this->serviceAliasNamespace = ServiceAliasBlock::ZRCMS_CONTENT_RENDERER;
-        $this->findBlockComponent = $findBlockComponent;
+        $this->findComponent = $findComponent;
         $this->renderBlockMissing = $renderBlockMissing;
         $this->defaultRenderServiceName = $defaultRenderServiceName;
     }
@@ -72,9 +72,11 @@ class RenderBlockBasic implements RenderBlock
         Content $block,
         array $renderTags,
         array $options = []
-    ): string {
+    ): string
+    {
         /** @var BlockComponent $blockComponent */
-        $blockComponent = $this->findBlockComponent->__invoke(
+        $blockComponent = $this->findComponent->__invoke(
+            'block',
             $block->getBlockComponentName()
         );
 
