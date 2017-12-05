@@ -7,5 +7,5 @@ namespace Zrcms\ServiceAlias\Model;
  */
 class ServiceAliasDefault
 {
-    const NAMESPACE_DEFAULT = 'default';
+    const ZRCMS_DEFAULT = 'default';
 }

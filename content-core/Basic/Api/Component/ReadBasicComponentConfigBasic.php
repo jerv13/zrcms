@@ -23,7 +23,7 @@ class ReadBasicComponentConfigByStrategy
     ) {
         parent::__construct(
             $getServiceFromAlias,
-            ServiceAliasBasic::NAMESPACE_COMPONENT_CONFIG_READER,
+            ServiceAliasBasic::ZRCMS_COMPONENT_CONFIG_READER,
             $defaultComponentConfigReaderServiceName
         );
     }

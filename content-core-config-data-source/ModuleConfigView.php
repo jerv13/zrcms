@@ -51,9 +51,6 @@ class ModuleConfigView
                     ],
                 ],
             ],
-            'zrcms-component-registry-readers' => [
-                'view-layout-tags' => ReadViewLayoutTagsComponentRegistry::class,
-            ],
             'zrcms-components' => [
                 'view-layout-tags' => [
                     /*

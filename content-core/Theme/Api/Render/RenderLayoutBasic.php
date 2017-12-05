@@ -38,7 +38,7 @@ class RenderLayoutBasic implements RenderLayout
         string $defaultRenderServiceName = RenderLayoutMustache::class
     ) {
         $this->getServiceFromAlias = $getServiceFromAlias;
-        $this->serviceAliasNamespace = ServiceAliasLayout::NAMESPACE_CONTENT_RENDERER;
+        $this->serviceAliasNamespace = ServiceAliasLayout::ZRCMS_CONTENT_RENDERER;
         $this->defaultRenderServiceName = $defaultRenderServiceName;
     }
 

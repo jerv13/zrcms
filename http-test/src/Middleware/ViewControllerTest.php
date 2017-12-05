@@ -9,7 +9,7 @@ use Zend\Diactoros\Response\HtmlResponse;
 use Zend\Diactoros\Response\JsonResponse;
 use Zend\Expressive\Router\RouteResult;
 use Zrcms\Content\Api\CmsResource\CmsResourceToArray;
-use Zrcms\ContentCore\Basic\Api\Component\FindBasicComponent;
+use Zrcms\Content\Api\Component\FindComponent;
 use Zrcms\ContentCore\Page\Api\Render\GetPageRenderTagsHtml;
 use Zrcms\ContentCore\Page\Fields\FieldsPageVersion;
 use Zrcms\ContentCore\Page\Model\PageCmsResourceBasic;
@@ -64,9 +64,10 @@ class ViewControllerTest
         ResponseInterface $response,
         callable $next = null
     ) {
-        /** @var FindBasicComponent $find */
-        $find = $this->serviceContainer->get(FindBasicComponent::class);
+        /** @var FindComponent $find */
+        $find = $this->serviceContainer->get(FindComponent::class);
         $result = $find->__invoke(
+            'basic',
             'zrcms-countries'
         );
 

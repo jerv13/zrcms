@@ -35,7 +35,7 @@ class ReadViewLayoutTagsComponentRegistryBasic
         parent::__construct(
             $registry,
             $getServiceFromAlias,
-            ServiceAliasView::NAMESPACE_COMPONENT_VIEW_LAYOUT_TAGS_CONFIG_READER,
+            ServiceAliasView::ZRCMS_COMPONENT_VIEW_LAYOUT_TAGS_CONFIG_READER,
             $cache,
             $cacheKey,
             $defaultComponentConfReaderServiceAlias

@@ -3,7 +3,6 @@
 namespace Zrcms\Content\Api\Component;
 
 use Zrcms\Cache\Service\Cache;
-use Zrcms\ServiceAlias\Api\GetServiceFromAlias;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -13,28 +12,22 @@ class ReadComponentRegistryBasic extends ReadComponentRegistryAbstract implement
     const CACHE_KEY = 'ZrcmsComponentRegistryBasic';
 
     /**
-     * @param array               $registry
-     * @param GetServiceFromAlias $getServiceFromAlias
-     * @param string              $serviceAliasNamespace
-     * @param Cache               $cache
-     * @param string              $cacheKey
-     * @param string              $defaultComponentConfReaderServiceAlias
+     * @param array                                             $registry
+     * @param ReadComponentConfig|ReadComponentConfigByStrategy $readComponentConfig
+     * @param Cache                                             $cache
+     * @param string                                            $cacheKey
      */
     public function __construct(
         array $registry,
-        GetServiceFromAlias $getServiceFromAlias,
-        string $serviceAliasNamespace,
+        ReadComponentConfig $readComponentConfig,
         Cache $cache,
-        string $cacheKey = self::CACHE_KEY,
-        string $defaultComponentConfReaderServiceAlias = ReadComponentConfig::class
+        $cacheKey = self::CACHE_KEY
     ) {
         parent::__construct(
             $registry,
-            $getServiceFromAlias,
-            $serviceAliasNamespace,
+            $readComponentConfig,
             $cache,
-            $cacheKey,
-            $defaultComponentConfReaderServiceAlias
+            $cacheKey
         );
     }
 }

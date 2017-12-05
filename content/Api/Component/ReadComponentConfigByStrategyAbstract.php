@@ -59,11 +59,19 @@ abstract class ReadComponentConfigByStrategyAbstract
             ''
         );
 
+        //var_dump($location, $componentConfigReaderServiceAlias);
+
         /** @var ReadComponentConfig $readComponentConfig */
         $readComponentConfig = $this->getServiceFromAlias->__invoke(
             $this->configReaderServiceAliasNamespace,
             $componentConfigReaderServiceAlias,
             ReadComponentConfig::class,
+            $this->defaultComponentConfigReaderServiceName
+        );
+
+        var_dump(
+            $this->configReaderServiceAliasNamespace,
+            $componentConfigReaderServiceAlias,
             $this->defaultComponentConfigReaderServiceName
         );
 

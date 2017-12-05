@@ -10,24 +10,11 @@ use Zrcms\Content\Fields\FieldsComponentConfig;
 abstract class ReadComponentConfigPhpFileAbstract
 {
     /**
-     * @var string
-     */
-    protected $phpFileName;
-
-    /**
-     * @param string $phpFileName
-     */
-    public function __construct(
-        string $phpFileName
-    ) {
-        $this->phpFileName = $phpFileName;
-    }
-
-    /**
      * @param string $phpFilePath
      * @param array  $options
      *
      * @return array
+     * @throws \Exception
      */
     public function __invoke(
         string $phpFilePath,
@@ -37,7 +24,7 @@ abstract class ReadComponentConfigPhpFileAbstract
 
         if (empty($realConfigFilePath)) {
             throw new \Exception(
-                "JSON file path is not valid: ({$phpFilePath})"
+                "PHP file path is not valid: ({$phpFilePath})"
             );
         }
 

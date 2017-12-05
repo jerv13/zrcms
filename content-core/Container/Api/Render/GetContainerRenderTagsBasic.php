@@ -39,7 +39,7 @@ class GetContainerRenderTagsBasic implements GetContainerRenderTags
         string $defaultGetContainerRenderTagsServiceName = GetContainerRenderTagsBlocks::class
     ) {
         $this->getServiceFromAlias = $getServiceFromAlias;
-        $this->serviceAliasNamespace = ServiceAliasContainer::NAMESPACE_CONTENT_RENDERER;
+        $this->serviceAliasNamespace = ServiceAliasContainer::ZRCMS_CONTENT_RENDERER;
         $this->defaultGetContainerRenderTagsServiceName = $defaultGetContainerRenderTagsServiceName;
     }
 

@@ -133,13 +133,8 @@ class ModuleConfigTheme
              * ===== Service Alias =====
              */
             'zrcms-service-alias' => [
-                // 'zrcms.theme.component.config-reader'
-                ServiceAliasTheme::NAMESPACE_COMPONENT_CONFIG_READER => [
-                    'json'
-                    => ReadThemeComponentConfigJsonFile::class,
-                ],
                 // @todo IS THIS USED? 'zrcms.layout.content.render-tags-getter'
-                ServiceAliasLayout::NAMESPACE_CONTENT_RENDERER => [
+                ServiceAliasLayout::ZRCMS_CONTENT_RENDERER => [
                     'mustache'
                     => RenderLayoutMustache::class,
                 ],

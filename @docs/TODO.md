@@ -4,7 +4,7 @@
 
 - Component Simplify #####
 
-    - Use the 'category' to categories component type (blocks, etc...)
+    - Use the 'type' to categorize components (blocks, etc...)
     - Instead of categories for components, we could have types
         This could reduce or eliminate needing special repositories for each type
     
@@ -15,6 +15,22 @@
         - Might need to allow them as separate services instead of builders
             - prepareConfig
             - 
+            
+    - See about simplifying all common patterns (content, resource, etc...)?
+    
+        - CONFIG EXAMPLE:
+        [
+            'type' => 'page',
+            'change-log' => [],
+            'component' => [],
+            'csm-resource' => [
+                {service-name} => {service}
+            ],
+            'content' => [],
+            'render' => [],
+            
+            
+        ]
 
 - Find service that end in "Basic" that determine the service to use and rename to ByStrategy
 - content-core, content-core-doctrine-data-source (split), content-language and content-country rename

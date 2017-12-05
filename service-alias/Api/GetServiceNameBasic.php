@@ -3,7 +3,7 @@
 namespace Zrcms\ServiceAlias\Api;
 
 use Zrcms\Param\Param;
-use Zrcms\ServiceAlias\Exception\ServiceAliasNotFoundException;
+use Zrcms\ServiceAlias\Exception\ServiceAliasNotFound;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -28,15 +28,14 @@ class GetServiceNameBasic implements GetServiceName
      * @param array  $options
      *
      * @return string
-     * @throws ServiceAliasNotFoundException
+     * @throws ServiceAliasNotFound
      */
     public function __invoke(
         string $namespace,
         string $serviceAlias,
         string $defaultServiceName,
         array $options = []
-    ): string
-    {
+    ): string {
         if (empty($serviceAlias)) {
             return $defaultServiceName;
         }

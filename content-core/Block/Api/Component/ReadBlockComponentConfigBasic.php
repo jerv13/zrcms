@@ -23,7 +23,7 @@ class ReadBlockComponentConfigByStrategy
     ) {
         parent::__construct(
             $getServiceFromAlias,
-            ServiceAliasBlock::NAMESPACE_COMPONENT_CONFIG_READER,
+            ServiceAliasBlock::ZRCMS_COMPONENT_CONFIG_READER,
             $defaultComponentConfigReaderServiceName
         );
     }

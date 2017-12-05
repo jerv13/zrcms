@@ -49,7 +49,7 @@ class ModuleConfig
             ],
 
             'zrcms-service-alias' => [
-                ServiceAliasView::NAMESPACE_COMPONENT_VIEW_LAYOUT_TAGS_GETTER => [
+                ServiceAliasView::ZRCMS_COMPONENT_VIEW_LAYOUT_TAGS_GETTER => [
                     GetViewLayoutMetaPageData::RENDER_TAG_META_PAGE_DATA
                     => GetViewLayoutMetaPageData::class
                 ],

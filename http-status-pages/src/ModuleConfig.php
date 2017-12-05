@@ -2,15 +2,15 @@
 
 namespace Zrcms\HttpStatusPages;
 
-use Zrcms\ContentCore\Basic\Api\Component\ReadBasicComponentConfigApplicationConfig;
-use Zrcms\ContentCore\Basic\Api\Component\FindBasicComponent;
-use Zrcms\ContentCore\Site\Api\GetSiteCmsResourceByRequest;
+use Zrcms\Content\Api\Component\FindComponent;
 use Zrcms\Content\Fields\FieldsComponentRegistry;
+use Zrcms\ContentCore\Basic\Api\Component\ReadBasicComponentConfigApplicationConfig;
+use Zrcms\ContentCore\Site\Api\GetSiteCmsResourceByRequest;
 use Zrcms\HttpStatusPages\Api\GetStatusPage;
 use Zrcms\HttpStatusPages\Api\GetStatusPageBasic;
 use Zrcms\HttpStatusPages\Fields\FieldsHttpStatusPagesComponent;
-use Zrcms\HttpStatusPages\Model\HttpStatusPagesComponent;
 use Zrcms\HttpStatusPages\Middleware\ResponseMutatorStatusPage;
+use Zrcms\HttpStatusPages\Model\HttpStatusPagesComponent;
 use Zrcms\HttpViewRender\Response\RenderPage;
 
 /**
@@ -30,7 +30,7 @@ class ModuleConfig
                         'class' => GetStatusPageBasic::class,
                         'arguments' => [
                             GetSiteCmsResourceByRequest::class,
-                            FindBasicComponent::class,
+                            FindComponent::class,
                         ],
                     ],
 

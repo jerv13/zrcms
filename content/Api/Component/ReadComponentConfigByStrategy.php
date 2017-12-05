@@ -12,14 +12,18 @@ class ReadComponentConfigByStrategy extends ReadComponentConfigByStrategyAbstrac
 {
     /**
      * @param GetServiceFromAlias $getServiceFromAlias
+     * @param string              $configReaderServiceAliasNamespace
+     * @param string              $defaultComponentConfigReaderServiceName
      */
     public function __construct(
-        GetServiceFromAlias $getServiceFromAlias
+        GetServiceFromAlias $getServiceFromAlias,
+        string $configReaderServiceAliasNamespace = ServiceAliasComponent::ZRCMS_COMPONENT_CONFIG_READER,
+        string $defaultComponentConfigReaderServiceName = ReadComponentConfigJsonFile::class
     ) {
         parent::__construct(
             $getServiceFromAlias,
-            ServiceAliasComponent::NAMESPACE_COMPONENT_CONFIG_READER,
-            ReadComponentConfigJsonFile::SERVICE_ALIAS
+            $configReaderServiceAliasNamespace,
+            $defaultComponentConfigReaderServiceName
         );
     }
 }

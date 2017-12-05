@@ -19,15 +19,6 @@ class ModuleConfig
     public function __invoke()
     {
         $config = [
-            /**
-             * ===== ReadComponentRegistry service registry =====
-             */
-            'zrcms-component-registry-readers' => [
-                /*
-                'example' => ReadComponentRegistry::class,
-                 */
-            ],
-
             'zrcms-components' => [
                 /*
                 'example' => [
@@ -44,7 +35,6 @@ class ModuleConfig
 
         $zrcmsModules = [
             new ArrayProvider($config),
-            new ModuleConfigBasic(),
             new ModuleConfigBlock(),
             new ModuleConfigTheme(),
             new ModuleConfigView(),

@@ -3,7 +3,7 @@
 namespace Zrcms\HttpStatusPages\Api;
 
 use Psr\Http\Message\ServerRequestInterface;
-use Zrcms\ContentCore\Basic\Api\Component\FindBasicComponent;
+use Zrcms\Content\Api\Component\FindComponent;
 use Zrcms\ContentCore\Site\Api\GetSiteCmsResourceByRequest;
 use Zrcms\HttpStatusPages\Model\HttpStatusPagesComponent;
 
@@ -18,20 +18,20 @@ class GetStatusPageBasic implements GetStatusPage
     protected $getSiteCmsResourceByRequest;
 
     /**
-     * @var FindBasicComponent
+     * @var FindComponent
      */
-    protected $findBasicComponent;
+    protected $findComponent;
 
     /**
      * @param GetSiteCmsResourceByRequest $getSiteCmsResourceByRequest
-     * @param FindBasicComponent          $findBasicComponent
+     * @param FindComponent          $findComponent
      */
     public function __construct(
         GetSiteCmsResourceByRequest $getSiteCmsResourceByRequest,
-        FindBasicComponent $findBasicComponent
+        FindComponent $findComponent
     ) {
         $this->getSiteCmsResourceByRequest = $getSiteCmsResourceByRequest;
-        $this->findBasicComponent = $findBasicComponent;
+        $this->findComponent = $findComponent;
     }
 
     /**
@@ -47,7 +47,8 @@ class GetStatusPageBasic implements GetStatusPage
         $status = (string)$status;
 
         /** @var HttpStatusPagesComponent $component */
-        $component = $this->findBasicComponent->__invoke(
+        $component = $this->findComponent->__invoke(
+            'basic',
             HttpStatusPagesComponent::NAME
         );
 

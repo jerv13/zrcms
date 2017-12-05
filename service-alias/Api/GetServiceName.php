@@ -2,7 +2,7 @@
 
 namespace Zrcms\ServiceAlias\Api;
 
-use Zrcms\ServiceAlias\Exception\ServiceAliasNotFoundException;
+use Zrcms\ServiceAlias\Exception\ServiceAliasNotFound;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -16,7 +16,7 @@ interface GetServiceName
      * @param array  $options
      *
      * @return string
-     * @throws ServiceAliasNotFoundException
+     * @throws ServiceAliasNotFound
      */
     public function __invoke(
         string $namespace,

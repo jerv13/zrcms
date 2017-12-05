@@ -156,28 +156,19 @@ class ModuleConfigView
              */
             'zrcms-service-alias' => [
                 // 'zrcms.view.content.view-layout-tags-getter'
-                ServiceAliasView::NAMESPACE_COMPONENT_VIEW_LAYOUT_TAGS_GETTER => [
+                ServiceAliasView::ZRCMS_COMPONENT_VIEW_LAYOUT_TAGS_GETTER => [
                     GetViewLayoutTagsContainers::SERVICE_ALIAS
                     => GetViewLayoutTagsContainers::class,
 
                     GetViewLayoutTagsPage::SERVICE_ALIAS
                     => GetViewLayoutTagsPage::class,
                 ],
-
-                // 'zrcms.view.component.view-layout-tags-config-reader' */
-                ServiceAliasView::NAMESPACE_COMPONENT_VIEW_LAYOUT_TAGS_CONFIG_READER => [
-                    'json'
-                    => ReadViewLayoutTagsComponentConfigJsonFile::class,
-
-                    ReadViewLayoutTagsComponentConfigApplicationConfig::SERVICE_ALIAS
-                    => ReadViewLayoutTagsComponentConfigApplicationConfig::class,
-                ],
                 // 'zrcms.view.content.renderer'
-                ServiceAliasView::NAMESPACE_CONTENT_RENDERER => [
+                ServiceAliasView::ZRCMS_CONTENT_RENDERER => [
                     'layout' => RenderViewLayout::class,
                 ],
                 // 'zrcms.view.layout.tag-name-parser'
-                ServiceAliasView::NAMESPACE_LAYOUT_TAG_NAME_PARSER => [
+                ServiceAliasView::ZRCMS_LAYOUT_TAG_NAME_PARSER => [
                     'mustache' => GetTagNamesByLayoutMustache::class
                 ],
             ],

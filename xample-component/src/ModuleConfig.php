@@ -25,13 +25,16 @@ class ModuleConfig
             ],
             'zrcms-components' => [
                 'blocks' => [
-                    'xample' => __DIR__ . '/../block',
+                    'xample'
+                    => __DIR__ . '/../block/block.json',
                 ],
                 'themes' => [
-                    'xample-theme' => __DIR__ . '/../theme',
+                    'xample-theme'
+                    => __DIR__ . '/../theme/theme.json',
                 ],
                 'view-layout-tags' => [
-                    GetViewLayoutTags::XAMPLE_RENDER_TAG => __DIR__ . '/../view-layout-tags',
+                    'xample' // GetViewLayoutTags::XAMPLE_RENDER_TAG
+                    => __DIR__ . '/../view-layout-tags/view-layout-tags.json',
                 ],
             ],
 
@@ -39,7 +42,7 @@ class ModuleConfig
                 /**
                  * ViewLayoutTagsGetter ===========================================
                  */
-                ServiceAliasView::NAMESPACE_COMPONENT_VIEW_LAYOUT_TAGS_GETTER => [
+                ServiceAliasView::ZRCMS_COMPONENT_VIEW_LAYOUT_TAGS_GETTER => [
                     'xample' => GetViewLayoutTags::class,
                 ],
             ],

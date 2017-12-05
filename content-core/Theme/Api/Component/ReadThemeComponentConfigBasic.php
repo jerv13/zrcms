@@ -23,7 +23,7 @@ class ReadThemeComponentConfigByStrategy
     ) {
         parent::__construct(
             $getServiceFromAlias,
-            ServiceAliasTheme::NAMESPACE_COMPONENT_CONFIG_READER,
+            ServiceAliasTheme::ZRCMS_COMPONENT_CONFIG_READER,
             $defaultComponentConfigReaderServiceName
         );
     }

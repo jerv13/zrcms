@@ -23,7 +23,7 @@ class ReadViewLayoutTagsComponentConfigByStrategy
     ) {
         parent::__construct(
             $getServiceFromAlias,
-            ServiceAliasView::NAMESPACE_COMPONENT_VIEW_LAYOUT_TAGS_GETTER,
+            ServiceAliasView::ZRCMS_COMPONENT_VIEW_LAYOUT_TAGS_GETTER,
             $defaultComponentConfigReaderServiceName
         );
     }

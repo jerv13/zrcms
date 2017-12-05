@@ -121,7 +121,7 @@ class ModuleConfigPage
              */
             'zrcms-service-alias' => [
                 // 'zrcms.page.content.render-tags-getter'
-                ServiceAliasPage::NAMESPACE_CONTENT_RENDER_TAGS_GETTER => [
+                ServiceAliasPage::ZRCMS_CONTENT_RENDER_TAGS_GETTER => [
                     'containers'
                     => GetPageRenderTagsContainers::class,
 

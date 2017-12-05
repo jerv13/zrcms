@@ -48,7 +48,7 @@ class GetViewLayoutTagsHeadAll implements GetViewLayoutTagsHead
         array $renderServiceAliases = []
     ) {
         $this->getServiceFromAlias = $getServiceFromAlias;
-        $this->serviceAliasNamespace = ServiceAliasView::NAMESPACE_COMPONENT_VIEW_LAYOUT_TAGS_GETTER;
+        $this->serviceAliasNamespace = ServiceAliasView::ZRCMS_COMPONENT_VIEW_LAYOUT_TAGS_GETTER;
         $this->renderServiceAliases = array_merge(
             $this->renderServiceAliases,
             $renderServiceAliases

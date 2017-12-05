@@ -48,7 +48,7 @@ class GetBlockDataBasic implements GetBlockData
         string $defaultGetBlockDataServiceName = GetBlockDataNoop::class
     ) {
         $this->getServiceFromAlias = $getServiceFromAlias;
-        $this->serviceAliasNamespace = ServiceAliasBlock::NAMESPACE_CONTENT_DATA_PROVIDER;
+        $this->serviceAliasNamespace = ServiceAliasBlock::ZRCMS_CONTENT_DATA_PROVIDER;
         $this->findBlockComponent = $findBlockComponent;
         $this->defaultGetBlockDataServiceName = $defaultGetBlockDataServiceName;
     }

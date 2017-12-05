@@ -24,20 +24,6 @@ class ModuleConfigBlock
         return [
             'dependencies' => [
                 'config_factories' => [
-                    FindBlockComponent::class => [
-                        'class' => This\Block\Api\Component\FindBlockComponent::class,
-                        'arguments' => [
-                            '0-' => GetRegisterBlockComponents::class,
-                            '1-' => SearchComponentListBasic::class,
-                        ],
-                    ],
-                    FindBlockComponentsBy::class => [
-                        'class' => This\Block\Api\Component\FindBlockComponentsBy::class,
-                        'arguments' => [
-                            '0-' => GetRegisterBlockComponents::class,
-                            '1-' => SearchComponentListBasic::class,
-                        ],
-                    ],
                     ReadBlockComponentRegistry::class => [
                         // @BC 'factory' => This\Block\Api\Repository\ReadBlockComponentRegistryBasicFactory::class,
                         'factory' => This\Block\Api\Component\ReadBlockComponentRegistryBcFactory::class,
@@ -51,9 +37,6 @@ class ModuleConfigBlock
                         ],
                     ],
                 ],
-            ],
-            'zrcms-component-registry-readers' => [
-                'blocks' => ReadBlockComponentRegistry::class,
             ],
             'zrcms-components' => [
                 'blocks' => [

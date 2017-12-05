@@ -5,7 +5,7 @@ namespace Zrcms\HttpContent;
 use ZfInputFilterService\InputFilter\ServiceAwareFactory;
 use Zrcms\Acl\Api\IsAllowedRcmUser;
 use Zrcms\Content\Api\Component\ComponentToArray;
-use Zrcms\ContentCore\Basic\Api\Component\FindBasicComponent;
+use Zrcms\Content\Api\Component\FindComponent;
 use Zrcms\HttpContent\Acl\IsAllowedFindBasicComponent;
 use Zrcms\HttpContent\Acl\IsAllowedReadAllComponentConfigs;
 use Zrcms\HttpContent\Component\FindComponentBasic;
@@ -80,11 +80,11 @@ class ModuleConfig
                     ParamQuery::class => [],
 
                     /**
-                     * Repository ===========================================
+                     * Component ===========================================
                      */
                     FindComponentBasic::class => [
                         'arguments' => [
-                            FindBasicComponent::class,
+                            FindComponent::class,
                             ComponentToArray::class,
                             ['literal' => 'basic']
                         ],

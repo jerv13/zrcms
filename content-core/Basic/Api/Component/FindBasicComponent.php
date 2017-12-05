@@ -7,6 +7,7 @@ use Zrcms\Content\Model\Component;
 use Zrcms\ContentCore\Basic\Model\BasicComponent;
 
 /**
+ * @deprecated
  * @author James Jervis - https://github.com/jerv13
  */
 interface FindBasicComponent extends FindComponent

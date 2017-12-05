@@ -51,9 +51,6 @@ class ModuleConfigTheme
                     ],
                 ],
             ],
-            'zrcms-component-registry-readers' => [
-                'themes' => ReadThemeComponentRegistry::class,
-            ],
             'zrcms-components' => [
                 'themes' => [
                     /*

@@ -54,7 +54,7 @@ class RenderBlockBasic implements RenderBlock
         string $defaultRenderServiceName = RenderBlockMustache::class
     ) {
         $this->getServiceFromAlias = $getServiceFromAlias;
-        $this->serviceAliasNamespace = ServiceAliasBlock::NAMESPACE_CONTENT_RENDERER;
+        $this->serviceAliasNamespace = ServiceAliasBlock::ZRCMS_CONTENT_RENDERER;
         $this->findBlockComponent = $findBlockComponent;
         $this->renderBlockMissing = $renderBlockMissing;
         $this->defaultRenderServiceName = $defaultRenderServiceName;

@@ -40,7 +40,7 @@ class GetLayoutRenderTagsBasic implements GetLayoutRenderTags
         string $defaultRenderTagsGetterServiceName = GetLayoutRenderTagsNoop::class
     ) {
         $this->getServiceFromAlias = $getServiceFromAlias;
-        $this->serviceAliasNamespace = ServiceAliasLayout::NAMESPACE_CONTENT_RENDER_TAGS_GETTER;
+        $this->serviceAliasNamespace = ServiceAliasLayout::ZRCMS_CONTENT_RENDER_TAGS_GETTER;
         $this->defaultRenderTagsGetterServiceName = $defaultRenderTagsGetterServiceName;
     }
 

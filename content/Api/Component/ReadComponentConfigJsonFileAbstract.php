@@ -10,20 +10,6 @@ use Zrcms\Content\Fields\FieldsComponentConfig;
 abstract class ReadComponentConfigJsonFileAbstract
 {
     /**
-     * @var string
-     */
-    protected $jsonFileName;
-
-    /**
-     * @param string $jsonFileName
-     */
-    public function __construct(
-        string $jsonFileName
-    ) {
-        $this->jsonFileName = $jsonFileName;
-    }
-
-    /**
      * @param string $jsonFilePath
      * @param array  $options
      *

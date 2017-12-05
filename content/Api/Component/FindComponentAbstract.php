@@ -8,7 +8,7 @@ use Zrcms\Content\Model\Component;
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-abstract class FindComponentAbstract implements FindComponent
+abstract class FindComponentAbstract
 {
     /**
      * @var GetRegisterComponents
@@ -33,12 +33,14 @@ abstract class FindComponentAbstract implements FindComponent
     }
 
     /**
+     * @param string $category
      * @param string $name
      * @param array  $options
      *
      * @return Component|null
      */
     public function __invoke(
+        string $category,
         string $name,
         array $options = []
     ) {
@@ -46,7 +48,10 @@ abstract class FindComponentAbstract implements FindComponent
 
         $result = $this->searchComponentList->__invoke(
             $components,
-            [FieldsComponentConfig::NAME => $name]
+            [
+                FieldsComponentConfig::CATEGORY => $category,
+                FieldsComponentConfig::NAME => $name
+            ]
         );
 
         if (count($result) > 0) {

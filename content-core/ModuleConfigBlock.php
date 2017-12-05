@@ -2,6 +2,7 @@
 
 namespace Zrcms\ContentCore;
 
+use Zrcms\Content\Model\ServiceAliasComponent;
 use Zrcms\ContentCore\Block\Api\Component\ReadBlockComponentConfig;
 use Zrcms\ContentCore\Block\Api\Component\ReadBlockComponentConfigByStrategy;
 use Zrcms\ContentCore\Block\Api\Component\ReadBlockComponentConfigBc;
@@ -155,24 +156,20 @@ class ModuleConfigBlock
              * ===== Service Alias =====
              */
             'zrcms-service-alias' => [
-                // 'zrcms.block.component.config-reader'
-                ServiceAliasBlock::NAMESPACE_COMPONENT_CONFIG_READER => [
+                ServiceAliasComponent::ZRCMS_COMPONENT_CONFIG_READER => [
                     ReadBlockComponentConfigBc::SERVICE_ALIAS
                     => ReadBlockComponentConfigBc::class,
-
-                    ReadBlockComponentConfigJsonFile::SERVICE_ALIAS
-                    => ReadBlockComponentConfigJsonFile::class,
                 ],
                 // 'zrcms.block.content.renderer'
-                ServiceAliasBlock::NAMESPACE_CONTENT_RENDERER => [
+                ServiceAliasBlock::ZRCMS_CONTENT_RENDERER => [
                     'mustache' // RenderBlockMustache::SERVICE_ALIAS
                     => RenderBlockMustache::class,
 
-                    'bc' // RenderBlockBc::SERVICE_ALIAS
+                    RenderBlockBc::SERVICE_ALIAS
                     => RenderBlockBc::class,
                 ],
                 // 'zrcms.block.content.data-provider'
-                ServiceAliasBlock::NAMESPACE_CONTENT_DATA_PROVIDER => [
+                ServiceAliasBlock::ZRCMS_CONTENT_DATA_PROVIDER => [
                     'noop'
                     => GetBlockDataNoop::class,
                 ],

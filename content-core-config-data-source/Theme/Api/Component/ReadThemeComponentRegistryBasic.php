@@ -33,7 +33,7 @@ class ReadThemeComponentRegistryBasic extends ReadComponentRegistryAbstract impl
         parent::__construct(
             $registry,
             $getServiceFromAlias,
-            ServiceAliasTheme::NAMESPACE_COMPONENT_CONFIG_READER,
+            ServiceAliasTheme::ZRCMS_COMPONENT_CONFIG_READER,
             $cache,
             $cacheKey,
             $defaultComponentConfReaderServiceAlias

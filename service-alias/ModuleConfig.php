@@ -32,7 +32,7 @@ class ModuleConfig
                 ],
             ],
             'zrcms-service-alias' => [
-                ServiceAliasDefault::NAMESPACE_DEFAULT => [],
+                ServiceAliasDefault::ZRCMS_DEFAULT => [],
             ],
         ];
     }

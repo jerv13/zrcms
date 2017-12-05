@@ -7,5 +7,5 @@ namespace Zrcms\ContentCore\Page\Model;
  */
 class ServiceAliasPage
 {
-    const NAMESPACE_CONTENT_RENDER_TAGS_GETTER = 'zrcms.page.content.render-tags-getter';
+    const ZRCMS_CONTENT_RENDER_TAGS_GETTER = 'zrcms.page.content.render-tags-getter';
 }

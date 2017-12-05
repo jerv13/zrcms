@@ -23,7 +23,7 @@ class ReadLayoutComponentConfigByStrategy
     ) {
         parent::__construct(
             $getServiceFromAlias,
-            ServiceAliasLayout::NAMESPACE_COMPONENT_CONFIG_READER,
+            ServiceAliasLayout::ZRCMS_COMPONENT_CONFIG_READER,
             $defaultComponentConfigReaderServiceName
         );
     }

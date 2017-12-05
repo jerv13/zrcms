@@ -6,7 +6,6 @@ use Zrcms\Cache\Service\Cache;
 use Zrcms\Content\Fields\FieldsComponentConfig;
 use Zrcms\Content\Fields\FieldsComponentRegistry;
 use Zrcms\Param\Param;
-use Zrcms\ServiceAlias\Api\GetServiceFromAlias;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -19,14 +18,9 @@ abstract class ReadComponentRegistryAbstract
     protected $registry;
 
     /**
-     * @var GetServiceFromAlias
+     * @var ReadComponentConfig
      */
-    protected $getServiceFromAlias;
-
-    /**
-     * @var string
-     */
-    protected $serviceAliasNamespace;
+    protected $readComponentConfig;
 
     /**
      * @var Cache
@@ -39,32 +33,21 @@ abstract class ReadComponentRegistryAbstract
     protected $cacheKey;
 
     /**
-     * @var string
-     */
-    protected $defaultComponentConfReaderServiceAlias;
-
-    /**
      * @param array               $registry
-     * @param GetServiceFromAlias $getServiceFromAlias
-     * @param string              $serviceAliasNamespace
+     * @param ReadComponentConfig $readComponentConfig
      * @param Cache               $cache
      * @param string              $cacheKey
-     * @param string              $defaultComponentConfReaderServiceAlias
      */
     public function __construct(
         array $registry,
-        GetServiceFromAlias $getServiceFromAlias,
-        string $serviceAliasNamespace,
+        ReadComponentConfig $readComponentConfig,
         Cache $cache,
-        string $cacheKey,
-        string $defaultComponentConfReaderServiceAlias = ReadComponentConfig::class
+        string $cacheKey
     ) {
         $this->registry = $registry;
-        $this->getServiceFromAlias = $getServiceFromAlias;
-        $this->serviceAliasNamespace = $serviceAliasNamespace;
+        $this->readComponentConfig = $readComponentConfig;
         $this->cache = $cache;
         $this->cacheKey = $cacheKey;
-        $this->defaultComponentConfReaderServiceAlias = $defaultComponentConfReaderServiceAlias;
     }
 
     /**
@@ -107,78 +90,122 @@ abstract class ReadComponentRegistryAbstract
      */
     public function __invoke(
         array $options = []
-    ): array {
+    ): array
+    {
         if ($this->hasCache()) {
             return $this->getCache();
         }
 
         $componentConfigs = [];
 
-        foreach ($this->registry as $componentNameOptional => $configLocation) {
-
-            $componentOptions = [];
-            $componentName = $componentNameOptional;
-
-            $readComponentConfigServiceAlias = $this->defaultComponentConfReaderServiceAlias;
-
-            if (is_array($configLocation)) {
-                $componentOptions = $configLocation;
-                $configLocation = Param::getRequired(
-                    $componentOptions,
-                    FieldsComponentRegistry::CONFIG_LOCATION,
-                    new \Exception(
-                        'Component location is required for: ' //. json_encode($configLocation, 0, 2)
-                        . ' in ' . $componentName
-                    )
-                );
-
-                $readComponentConfigServiceAlias = Param::get(
-                    $componentOptions,
-                    FieldsComponentRegistry::COMPONENT_CONFIG_READER,
-                    ''
-                );
-
-                $componentName = Param::get(
-                    $componentOptions,
-                    FieldsComponentRegistry::NAME,
-                    $componentNameOptional
-                );
-            }
-
-            /** @var ReadComponentConfig $readComponentConfig */
-            $readComponentConfig = $this->getServiceFromAlias->__invoke(
-                $this->serviceAliasNamespace,
-                $readComponentConfigServiceAlias,
-                ReadComponentConfig::class,
-                $this->defaultComponentConfReaderServiceAlias
+        foreach ($this->registry as $componentCategory => $configLocations) {
+            var_dump('CAT:', $componentCategory);
+            $this->getComponentConfigs(
+                $configLocations,
+                $componentCategory,
+                $componentConfigs
             );
-
-            $componentConfig = $readComponentConfig->__invoke(
-                $configLocation,
-                $componentOptions
-            );
-
-            if (!is_string($componentName)) {
-                throw new \Exception(
-                    'Component ' . FieldsComponentConfig::NAME . ' is required and must be string for: '
-                //. json_encode($componentConfig, 0, 2)
-                );
-            }
-
-            Param::assertNotHas(
-                $componentConfig,
-                $componentName,
-                new \Exception(
-                    'Duplicate component name configured: ' . $componentName
-                //. ' for ' . json_encode($componentConfig, 0, 2)
-                )
-            );
-
-            $componentConfigs[$componentName] = $componentConfig;
         }
 
         $this->setCache($componentConfigs);
 
         return $componentConfigs;
+    }
+
+    /**
+     * @param array  $configLocations
+     * @param string $componentCategory
+     * @param array  $componentConfigs
+     *
+     * @return array
+     */
+    protected function getComponentConfigs(
+        array $configLocations,
+        $componentCategory,
+        &$componentConfigs = []
+    ) {
+        foreach ($configLocations as $componentNameOptional => $configLocation) {
+            $componentConfig = $this->getComponentConfig(
+                $configLocation,
+                $componentCategory,
+                $componentNameOptional
+            );
+
+            $componentConfigs[] = $componentConfig;
+        }
+
+        return $componentConfigs;
+    }
+
+    /**
+     * @param string|array $configLocation
+     * @param string       $componentCategory
+     * @param string       $componentName
+     *
+     * @return array
+     * @throws \Exception
+     */
+    protected function getComponentConfig(
+        $configLocation,
+        $componentCategory,
+        $componentName
+    ) {
+        $componentOptions = [];
+
+        // If the $configLocation is array, then there must be a config reader
+        if (is_array($configLocation)) {
+            $componentOptions = $configLocation;
+            $configLocation = Param::getRequired(
+                $componentOptions,
+                FieldsComponentRegistry::CONFIG_LOCATION,
+                new \Exception(
+                    'Component location is required for: '
+                    . json_encode($configLocation, 0, 2)
+                    . ' in ' . $componentName
+                )
+            );
+
+            $componentName = Param::get(
+                $componentOptions,
+                FieldsComponentRegistry::NAME,
+                $componentName
+            );
+        }
+
+        $componentConfig = $this->readComponentConfig->__invoke(
+            $configLocation,
+            $componentOptions
+        );
+
+        $componentConfigCategory = Param::get(
+            $componentOptions,
+            FieldsComponentConfig::CATEGORY
+        );
+
+        if ($componentConfigCategory !== $componentCategory) {
+            throw new \Exception(
+                'Component ' . FieldsComponentConfig::CATEGORY . ' must match registry category: '
+                . ' registry value: ' . $componentCategory
+                . ' config value: ' . $componentConfigCategory
+            );
+        }
+
+        if (!is_string($componentName)) {
+            throw new \Exception(
+                'Component ' . FieldsComponentConfig::NAME . ' is required and must be string for: '
+            //. json_encode($componentConfig, 0, 2)
+            );
+        }
+
+        Param::assertNotHas(
+            $componentConfig,
+            $componentName,
+            new \Exception(
+                'Duplicate component name configured: ' . $componentName
+            //. ' for ' . json_encode($componentConfig, 0, 2)
+            )
+        );
+
+        return $componentConfig;
     }
 }

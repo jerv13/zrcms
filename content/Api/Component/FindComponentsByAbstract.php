@@ -7,7 +7,7 @@ use Zrcms\Content\Model\Component;
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-abstract class FindComponentsByAbstract implements \Zrcms\Content\Api\Component\FindComponentsBy
+abstract class FindComponentsByAbstract
 {
     /**
      * @var GetRegisterComponents

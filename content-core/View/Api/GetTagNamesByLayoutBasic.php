@@ -37,7 +37,7 @@ class GetTagNamesByLayoutBasic implements GetTagNamesByLayout
         string $defaultFindTagNamesServiceName = GetTagNamesByLayoutMustache::class
     ) {
         $this->getServiceFromAlias = $getServiceFromAlias;
-        $this->serviceAliasNamespace = ServiceAliasView::NAMESPACE_LAYOUT_TAG_NAME_PARSER;
+        $this->serviceAliasNamespace = ServiceAliasView::ZRCMS_LAYOUT_TAG_NAME_PARSER;
         $this->defaultFindTagNamesServiceName = $defaultFindTagNamesServiceName;
     }
 

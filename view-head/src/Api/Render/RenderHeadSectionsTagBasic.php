@@ -50,7 +50,7 @@ class RenderHeadSectionsTagBasic implements RenderHeadSectionsTag
         $this->renderTag = $renderTag;
         $this->getHeadSections = $getHeadSections;
         $this->getServiceFromAlias = $getServiceFromAlias;
-        $this->serviceAliasNamespace = ServiceAliasView::NAMESPACE_COMPONENT_VIEW_LAYOUT_TAGS_GETTER;
+        $this->serviceAliasNamespace = ServiceAliasView::ZRCMS_COMPONENT_VIEW_LAYOUT_TAGS_GETTER;
     }
 
     /**

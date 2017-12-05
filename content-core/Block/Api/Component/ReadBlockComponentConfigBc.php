@@ -11,7 +11,7 @@ use Zrcms\ContentCore\Block\Fields\FieldsBlockComponentConfig;
  */
 class ReadBlockComponentConfigBc implements ReadBlockComponentConfig
 {
-    const SERVICE_ALIAS = 'bc';
+    const SERVICE_ALIAS = 'bc-block';
 
     /**
      * @var array

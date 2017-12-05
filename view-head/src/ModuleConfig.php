@@ -2,6 +2,7 @@
 
 namespace Zrcms\ViewHead;
 
+use Zrcms\Content\Model\ServiceAliasComponent;
 use Zrcms\ContentCore\View\Api\Component\FindViewLayoutTagsComponent;
 use Zrcms\ContentCore\View\Fields\FieldsViewLayoutTagsComponent;
 use Zrcms\ContentCore\View\Model\ServiceAliasView;
@@ -219,7 +220,7 @@ class ModuleConfig
             ],
 
             'zrcms-service-alias' => [
-                ServiceAliasView::NAMESPACE_COMPONENT_VIEW_LAYOUT_TAGS_GETTER => [
+                ServiceAliasView::ZRCMS_COMPONENT_VIEW_LAYOUT_TAGS_GETTER => [
                     GetViewLayoutTagsHeadAll::SERVICE_ALIAS => GetViewLayoutTagsHeadAll::class,
                     GetViewLayoutTagsHeadLink::SERVICE_ALIAS => GetViewLayoutTagsHeadLink::class,
                     GetViewLayoutTagsHeadMeta::SERVICE_ALIAS => GetViewLayoutTagsHeadMeta::class,
@@ -227,7 +228,7 @@ class ModuleConfig
                     GetViewLayoutTagsHeadTitle::SERVICE_ALIAS => GetViewLayoutTagsHeadTitle::class,
                 ],
 
-                ServiceAliasView::NAMESPACE_COMPONENT_VIEW_LAYOUT_TAGS_CONFIG_READER => [
+                ServiceAliasComponent::ZRCMS_COMPONENT_CONFIG_READER => [
                     ReadViewHeadComponentConfigBc::SERVICE_ALIAS => ReadViewHeadComponentConfigBc::class,
                 ],
             ],

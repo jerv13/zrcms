@@ -34,7 +34,7 @@ class ReadLayoutComponentRegistryBasic extends ReadComponentRegistryAbstract imp
         parent::__construct(
             $registry,
             $getServiceFromAlias,
-            ServiceAliasLayout::NAMESPACE_COMPONENT_CONFIG_READER,
+            ServiceAliasLayout::ZRCMS_COMPONENT_CONFIG_READER,
             $cache,
             $cacheKey,
             $defaultComponentConfReaderServiceAlias

@@ -39,7 +39,7 @@ class GetPageRenderTagsBasic implements GetPageRenderTags
         string $defaultGetPageRenderTagsServiceName = GetPageRenderTagsContainers::class
     ) {
         $this->getServiceFromAlias = $getServiceFromAlias;
-        $this->serviceAliasNamespace = ServiceAliasPage::NAMESPACE_CONTENT_RENDER_TAGS_GETTER;
+        $this->serviceAliasNamespace = ServiceAliasPage::ZRCMS_CONTENT_RENDER_TAGS_GETTER;
         $this->defaultGetPageRenderTagsServiceName
             = $defaultGetPageRenderTagsServiceName;
     }

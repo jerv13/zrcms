@@ -38,7 +38,7 @@ class RenderViewBasic implements RenderView
         string $defaultRenderServiceName = RenderViewLayout::class
     ) {
         $this->getServiceFromAlias = $getServiceFromAlias;
-        $this->serviceAliasNamespace = ServiceAliasView::NAMESPACE_CONTENT_RENDERER;
+        $this->serviceAliasNamespace = ServiceAliasView::ZRCMS_CONTENT_RENDERER;
         $this->defaultRenderServiceName = $defaultRenderServiceName;
     }
 

@@ -7,5 +7,8 @@ namespace Zrcms\ContentCore\Basic\Model;
  */
 class ServiceAliasBasic
 {
-    const NAMESPACE_COMPONENT_CONFIG_READER = 'zrcms.basic.component.config-reader';
+    /**
+     * @deprecated
+     */
+    const ZRCMS_COMPONENT_CONFIG_READER = 'zrcms.basic.component.config-reader';
 }

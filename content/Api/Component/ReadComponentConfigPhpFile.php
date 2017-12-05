@@ -8,12 +8,4 @@ namespace Zrcms\Content\Api\Component;
 class ReadComponentConfigPhpFile extends ReadComponentConfigPhpFileAbstract implements ReadComponentConfig
 {
     const SERVICE_ALIAS = 'php-file';
-
-    /**
-     * @param string $phpFileName
-     */
-    public function __construct(string $phpFileName)
-    {
-        parent::__construct($phpFileName);
-    }
 }

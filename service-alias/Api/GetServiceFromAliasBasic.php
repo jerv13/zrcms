@@ -3,7 +3,7 @@
 namespace Zrcms\ServiceAlias\Api;
 
 use Psr\Container\ContainerInterface;
-use Zrcms\ServiceAlias\Exception\ServiceAliasNotFoundException;
+use Zrcms\ServiceAlias\Exception\ServiceAliasNotFound;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -43,7 +43,7 @@ class GetServiceFromAliasBasic implements GetServiceFromAlias
      * @param array  $options
      *
      * @return mixed
-     * @throws ServiceAliasNotFoundException
+     * @throws ServiceAliasNotFound
      */
     public function __invoke(
         string $namespace,
@@ -59,8 +59,9 @@ class GetServiceFromAliasBasic implements GetServiceFromAlias
         );
 
         if (empty($serviceName)) {
-            throw new ServiceAliasNotFoundException(
+            throw new ServiceAliasNotFound(
                 "Service name empty: ({$serviceName})"
+                . " in namespace: ({$namespace})"
                 . " with alias: ({$serviceAlias})"
                 . " with default service: ({$defaultServiceName})"
                 . " of interface: ({$interfaceClass})"
@@ -68,8 +69,9 @@ class GetServiceFromAliasBasic implements GetServiceFromAlias
         }
 
         if (!$this->serviceContainer->has($serviceName)) {
-            throw new ServiceAliasNotFoundException(
+            throw new ServiceAliasNotFound(
                 "Service not found: ({$serviceName})"
+                . " in namespace: ({$namespace})"
                 . " with alias: ({$serviceAlias})"
                 . " with default service: ({$defaultServiceName})"
                 . " of interface: ({$interfaceClass})"
@@ -79,8 +81,9 @@ class GetServiceFromAliasBasic implements GetServiceFromAlias
         $service = $this->serviceContainer->get($serviceName);
 
         if (!$service instanceof $interfaceClass) {
-            throw new ServiceAliasNotFoundException(
+            throw new ServiceAliasNotFound(
                 "Service not instance of interface: ({$interfaceClass})"
+                . " in namespace: ({$namespace})"
                 . " with alias: ({$serviceAlias})"
                 . " with default service: ({$defaultServiceName})"
                 . " and service: ({$serviceName})"

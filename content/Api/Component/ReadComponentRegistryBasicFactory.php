@@ -4,7 +4,6 @@ namespace Zrcms\Content\Api\Component;
 
 use Psr\Container\ContainerInterface;
 use Zrcms\Cache\Service\Cache;
-use Zrcms\ServiceAlias\Api\GetServiceFromAlias;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -25,9 +24,9 @@ class ReadComponentRegistryBasicFactory
 
         return new ReadComponentRegistryBasic(
             $registry,
-            $serviceContainer->get(GetServiceFromAlias::class),
-            'zrcms.component.config-reader',
-            $serviceContainer->get(Cache::class)
+            $serviceContainer->get(ReadComponentConfigByStrategy::class),
+            $serviceContainer->get(Cache::class),
+            ReadComponentRegistryBasic::CACHE_KEY
         );
     }
 }

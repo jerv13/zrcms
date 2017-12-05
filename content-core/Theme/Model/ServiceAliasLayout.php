@@ -7,8 +7,13 @@ namespace Zrcms\ContentCore\Theme\Model;
  */
 class ServiceAliasLayout
 {
-    const NAMESPACE_COMPONENT_CONFIG_READER = 'zrcms.layout.component.config-reader';
-    // NOT NEEDED?
-    const NAMESPACE_CONTENT_RENDER_TAGS_GETTER = 'zrcms.layout.content.render-tags-getter';
-    const NAMESPACE_CONTENT_RENDERER = 'zrcms.layout.content.renderer';
+    /**
+     * @deprecated
+     */
+    const ZRCMS_COMPONENT_CONFIG_READER = 'zrcms.layout.component.config-reader';
+    /**
+     * @deprecated NOT NEEDED?
+     */
+    const ZRCMS_CONTENT_RENDER_TAGS_GETTER = 'zrcms.layout.content.render-tags-getter';
+    const ZRCMS_CONTENT_RENDERER = 'zrcms.layout.content.renderer';
 }

@@ -1,6 +1,6 @@
 {
   "name": "XampleBlock",
-  "category": "XampleCategory",
+  "category": "blocks",
   "label": "Xample Block",
   "description": "Xample Block does cool stuff",
   "renderer": "mustache",

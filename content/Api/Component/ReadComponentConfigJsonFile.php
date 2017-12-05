@@ -8,11 +8,4 @@ namespace Zrcms\Content\Api\Component;
 class ReadComponentConfigJsonFile extends ReadComponentConfigJsonFileAbstract implements ReadComponentConfig
 {
     const SERVICE_ALIAS = 'json';
-    /**
-     * @param string $jsonFileName
-     */
-    public function __construct(string $jsonFileName)
-    {
-        parent::__construct($jsonFileName);
-    }
 }
