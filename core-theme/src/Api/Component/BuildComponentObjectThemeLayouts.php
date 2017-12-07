@@ -3,9 +3,9 @@
 namespace Zrcms\CoreTheme\Api\Component;
 
 use Zrcms\Core\Api\Component\BuildComponentObject;
-use Zrcms\Core\Api\Component\BuildComponentObjectDefault;
+use Zrcms\CoreApplication\Api\Component\BuildComponentObjectDefault;
 use Zrcms\Core\Api\Component\ReadComponentConfig;
-use Zrcms\Core\Api\Component\ReadComponentConfigJsonFile;
+use Zrcms\CoreApplication\Api\Component\ReadComponentConfigJsonFile;
 use Zrcms\Core\Api\GetTypeValue;
 use Zrcms\Core\Exception\PropertyMissing;
 use Zrcms\Core\Fields\FieldsComponentConfig;

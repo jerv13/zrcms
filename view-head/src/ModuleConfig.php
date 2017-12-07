@@ -45,40 +45,40 @@ class ModuleConfig
                     GetViewLayoutTagsHead::class => [
                         'class' => GetViewLayoutTagsHeadAll::class,
                         'arguments' => [
-                            '0-' => GetServiceFromAlias::class,
+                            GetServiceFromAlias::class,
                         ],
                     ],
                     GetViewLayoutTagsHeadAll::class => [
                         'class' => GetViewLayoutTagsHeadAll::class,
                         'arguments' => [
-                            '0-' => GetServiceFromAlias::class,
+                            GetServiceFromAlias::class,
                         ],
                     ],
                     GetViewLayoutTagsHeadLink::class => [
                         'arguments' => [
-                            '0-' => FindComponent::class,
-                            '1-' => RenderHeadSectionsTag::class,
+                            FindComponent::class,
+                            RenderHeadSectionsTag::class,
                         ],
                     ],
                     GetViewLayoutTagsHeadMeta::class => [
                         'arguments' => [
-                            '0-' => FindComponent::class,
-                            '1-' => RenderTags::class,
+                            FindComponent::class,
+                            RenderTags::class,
                         ],
                     ],
                     GetViewLayoutTagsHeadScript::class => [
                         'arguments' => [
-                            '0-' => FindComponent::class,
-                            '1-' => RenderHeadSectionsTag::class,
+                            FindComponent::class,
+                            RenderHeadSectionsTag::class,
                         ],
                     ],
                     GetViewLayoutTagsHeadTitle::class => [],
                     RenderHeadSectionsTag::class => [
                         'class' => RenderHeadSectionsTagBasic::class,
                         'arguments' => [
-                            '0-' => RenderTag::class,
-                            '1-' => GetHeadSections::class,
-                            '2-' => GetServiceFromAlias::class,
+                            RenderTag::class,
+                            GetHeadSections::class,
+                            GetServiceFromAlias::class,
                         ],
                     ],
                     GetHeadSections::class => [

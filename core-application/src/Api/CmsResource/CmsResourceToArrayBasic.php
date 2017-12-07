@@ -1,7 +1,8 @@
 <?php
 
-namespace Zrcms\Core\Api\CmsResource;
+namespace Zrcms\CoreApplication\Api\CmsResource;
 
+use Zrcms\Core\Api\CmsResource\CmsResourceToArray;
 use Zrcms\Core\Api\Content\ContentVersionToArray;
 use Zrcms\Core\Model\CmsResource;
 use Zrcms\Core\Model\TrackableProperties;
@@ -34,7 +35,8 @@ class CmsResourceToArrayBasic implements CmsResourceToArray
     public function __invoke(
         CmsResource $cmsResource,
         array $options = []
-    ): array {
+    ): array
+    {
         $contentVersion = $this->contentVersionToArray->__invoke(
             $cmsResource->getContentVersion()
         );

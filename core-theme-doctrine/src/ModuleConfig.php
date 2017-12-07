@@ -5,15 +5,14 @@ namespace Zrcms\CoreThemeDoctrine;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Mapping\Driver\AnnotationDriver;
 use Zrcms\Core\Api\Component\FindComponent;
-use Zrcms\CoreTheme\Api\CmsResource\UpsertLayoutCmsResource;
 use Zrcms\CoreTheme\Api\ChangeLog\GetChangeLogByDateRange;
 use Zrcms\CoreTheme\Api\CmsResource\FindLayoutCmsResource;
 use Zrcms\CoreTheme\Api\CmsResource\FindLayoutCmsResourceByThemeNameLayoutName;
 use Zrcms\CoreTheme\Api\CmsResource\FindLayoutCmsResourcesBy;
+use Zrcms\CoreTheme\Api\CmsResource\UpsertLayoutCmsResource;
 use Zrcms\CoreTheme\Api\Content\FindLayoutVersion;
 use Zrcms\CoreTheme\Api\Content\FindLayoutVersionsBy;
 use Zrcms\CoreTheme\Api\Content\InsertLayoutVersion;
-use Zrcms\CoreThemeDoctrine as This;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -26,66 +25,69 @@ class ModuleConfig
             'dependencies' => [
                 'config_factories' => [
                     GetChangeLogByDateRange::class => [
-                        'class' => This\Api\ChangeLog\GetChangeLogByDateRange::class,
+                        'class' => \Zrcms\CoreThemeDoctrine\Api\ChangeLog\GetChangeLogByDateRange::class,
                         'arguments' => [EntityManager::class]
                     ],
                     UpsertLayoutCmsResource::class => [
-                        'class' => This\Api\CmsResource\UpsertLayoutCmsResource::class,
+                        'class' => \Zrcms\CoreThemeDoctrine\Api\CmsResource\UpsertLayoutCmsResource::class,
                         'arguments' => [
-                            '0-' => EntityManager::class,
+                            EntityManager::class,
                         ],
                     ],
                     FindLayoutCmsResource::class => [
-                        'class' => This\Api\CmsResource\FindLayoutCmsResource::class,
+                        'class' => \Zrcms\CoreThemeDoctrine\Api\CmsResource\FindLayoutCmsResource::class,
                         'arguments' => [
-                            '0-' => EntityManager::class,
+                            EntityManager::class,
                         ],
                     ],
                     FindLayoutCmsResourceByThemeNameLayoutName::class => [
-                        'class' => This\Api\CmsResource\FindLayoutCmsResourceByThemeNameLayoutName::class,
+                        'class'
+                        => \Zrcms\CoreThemeDoctrine\Api\CmsResource\FindLayoutCmsResourceByThemeNameLayoutName::class,
                         'arguments' => [
-                            '0-' => EntityManager::class,
-                            '1-' => This\Api\FallbackToComponentLayoutCmsResource::class, // @todo TEMP HACK
+                            EntityManager::class,
+                            // @todo TEMP HACK
+                            \Zrcms\CoreThemeDoctrine\Api\FallbackToComponentLayoutCmsResource::class,
                         ],
                     ],
                     FindLayoutCmsResourcesBy::class => [
-                        'class' => This\Api\CmsResource\FindLayoutCmsResourcesBy::class,
+                        'class' => \Zrcms\CoreThemeDoctrine\Api\CmsResource\FindLayoutCmsResourcesBy::class,
                         'arguments' => [
-                            '0-' => EntityManager::class,
+                            EntityManager::class,
                         ],
                     ],
                     FindLayoutVersion::class => [
-                        'class' => This\Api\Content\FindLayoutVersion::class,
+                        'class' => \Zrcms\CoreThemeDoctrine\Api\Content\FindLayoutVersion::class,
                         'arguments' => [
-                            '0-' => EntityManager::class,
-                            '1-' => This\Api\FallbackToComponentLayoutVersion::class, // @todo TEMP HACK
+                            EntityManager::class,
+                            // @todo TEMP HACK
+                            \Zrcms\CoreThemeDoctrine\Api\FallbackToComponentLayoutVersion::class,
                         ],
                     ],
                     FindLayoutVersionsBy::class => [
-                        'class' => This\Api\Content\FindLayoutVersionsBy::class,
+                        'class' => \Zrcms\CoreThemeDoctrine\Api\Content\FindLayoutVersionsBy::class,
                         'arguments' => [
-                            '0-' => EntityManager::class,
+                            EntityManager::class,
                         ],
                     ],
                     InsertLayoutVersion::class => [
-                        'class' => This\Api\Content\InsertLayoutVersion::class,
+                        'class' => \Zrcms\CoreThemeDoctrine\Api\Content\InsertLayoutVersion::class,
                         'arguments' => [
-                            '0-' => EntityManager::class,
+                            EntityManager::class,
                         ],
                     ],
-                    This\Api\FallbackToComponentLayoutCmsResource::class => [
+                    \Zrcms\CoreThemeDoctrine\Api\FallbackToComponentLayoutCmsResource::class => [
                         'arguments' => [
-                            '0-' => FindComponent::class,
-                            '1-' => This\Api\LayoutVersionFromComponent::class,
+                            FindComponent::class,
+                            \Zrcms\CoreThemeDoctrine\Api\LayoutVersionFromComponent::class,
                         ],
                     ],
-                    This\Api\FallbackToComponentLayoutVersion::class => [
+                    \Zrcms\CoreThemeDoctrine\Api\FallbackToComponentLayoutVersion::class => [
                         'arguments' => [
-                            '0-' => FindComponent::class,
-                            '1-' => This\Api\LayoutVersionFromComponent::class,
+                            FindComponent::class,
+                            \Zrcms\CoreThemeDoctrine\Api\LayoutVersionFromComponent::class,
                         ],
                     ],
-                    This\Api\LayoutVersionFromComponent::class => [],
+                    \Zrcms\CoreThemeDoctrine\Api\LayoutVersionFromComponent::class => [],
                 ],
             ],
             'doctrine' => [

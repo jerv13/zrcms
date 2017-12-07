@@ -1,7 +1,8 @@
 <?php
 
-namespace Zrcms\Core\Api\Content;
+namespace Zrcms\CoreApplication\Api\Content;
 
+use Zrcms\Core\Api\Content\ContentToArray;
 use Zrcms\Core\Model\Content;
 
 /**

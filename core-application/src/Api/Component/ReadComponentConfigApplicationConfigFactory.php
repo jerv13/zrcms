@@ -1,24 +1,24 @@
 <?php
 
-namespace Zrcms\Core\Api\Component;
+namespace Zrcms\CoreApplication\Api\Component;
 
 use Psr\Container\ContainerInterface;
 
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class ReadComponentConfigCallableFactory
+class ReadComponentConfigApplicationConfigFactory
 {
     /**
      * @param ContainerInterface $serviceContainer
      *
-     * @return ReadComponentConfigCallable
+     * @return ReadComponentConfigApplicationConfig
      */
     public function __invoke(
         $serviceContainer
     ) {
-        return new ReadComponentConfigCallable(
-            $serviceContainer
+        return new ReadComponentConfigApplicationConfig(
+            $serviceContainer->get('config')
         );
     }
 }

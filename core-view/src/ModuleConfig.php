@@ -3,12 +3,12 @@
 namespace Zrcms\CoreView;
 
 use Zrcms\Core\Api\Component\BuildComponentObject;
-use Zrcms\Core\Api\Component\BuildComponentObjectDefault;
 use Zrcms\Core\Api\Component\FindComponent;
 use Zrcms\Core\Api\Component\FindComponentsBy;
 use Zrcms\Core\Api\Component\PrepareComponentConfig;
-use Zrcms\Core\Api\Component\PrepareComponentConfigNoop;
-use Zrcms\CoreApplication\Api\ApiNoop;
+use Zrcms\Core\Exception\IMPLEMENTATION_REQUIRED;
+use Zrcms\CoreApplication\Api\Component\BuildComponentObjectDefault;
+use Zrcms\CoreApplication\Api\Component\PrepareComponentConfigNoop;
 use Zrcms\CoreContainer\Api\CmsResource\FindContainerCmsResourcesBySitePaths;
 use Zrcms\CoreContainer\Api\Render\GetContainerRenderTags;
 use Zrcms\CoreContainer\Api\Render\RenderContainer;
@@ -59,32 +59,32 @@ class ModuleConfig
                     GetViewLayoutTags::class => [
                         'class' => GetViewLayoutTagsBasic::class,
                         'arguments' => [
-                            '0-' => GetServiceFromAlias::class,
-                            '1-' => FindComponentsBy::class,
+                            GetServiceFromAlias::class,
+                            FindComponentsBy::class,
                         ],
                     ],
                     GetViewLayoutTagsContainers::class => [
                         'arguments' => [
-                            '0-' => GetTagNamesByLayout::class,
-                            '1-' => FindContainerCmsResourcesBySitePaths::class,
-                            '2-' => GetContainerRenderTags::class,
-                            '3-' => RenderContainer::class,
+                            GetTagNamesByLayout::class,
+                            FindContainerCmsResourcesBySitePaths::class,
+                            GetContainerRenderTags::class,
+                            RenderContainer::class,
                         ],
                     ],
                     GetViewLayoutTagsPage::class => [
                         'arguments' => [
-                            '0-' => GetPageRenderTags::class
+                            GetPageRenderTags::class
                         ],
                     ],
                     RenderView::class => [
                         'class' => RenderViewBasic::class,
                         'arguments' => [
-                            '0-' => GetServiceFromAlias::class,
+                            GetServiceFromAlias::class,
                         ],
                     ],
                     RenderViewLayout::class => [
                         'arguments' => [
-                            '0-' => RenderLayout::class,
+                            RenderLayout::class,
                         ],
                     ],
                     /**
@@ -96,41 +96,38 @@ class ModuleConfig
                     GetTagNamesByLayout::class => [
                         'class' => GetTagNamesByLayoutBasic::class,
                         'arguments' => [
-                            '0-' => GetServiceFromAlias::class,
+                            GetServiceFromAlias::class,
                         ],
                     ],
                     GetTagNamesByLayoutMustache::class => [],
                     GetViewByRequest::class => [
                         'class' => GetViewByRequestBasic::class,
                         'arguments' => [
-                            '0-' => FindSiteCmsResourceByHost::class,
-                            '1-' => FindPageCmsResourceBySitePath::class,
-                            '2-' => FindLayoutCmsResourceByThemeNameLayoutName::class,
-                            '3-' => GetLayoutName::class,
-                            '4-' => FindComponent::class,
-                            '5-' => GetViewLayoutTags::class,
-                            '6-' => BuildView::class
+                            FindSiteCmsResourceByHost::class,
+                            FindPageCmsResourceBySitePath::class,
+                            FindLayoutCmsResourceByThemeNameLayoutName::class,
+                            GetLayoutName::class,
+                            FindComponent::class,
+                            GetViewLayoutTags::class,
+                            BuildView::class
                         ],
                     ],
                     GetViewByRequestHtmlPage::class => [
                         'arguments' => [
-                            '0-' => FindSiteCmsResourceByHost::class,
-                            '1-' => FindPageCmsResourceBySitePath::class,
-                            '2-' => FindLayoutCmsResourceByThemeNameLayoutName::class,
-                            '3-' => GetLayoutName::class,
-                            '4-' => FindComponent::class,
-                            '5-' => GetViewLayoutTags::class,
-                            '6-' => BuildView::class,
+                            FindSiteCmsResourceByHost::class,
+                            FindPageCmsResourceBySitePath::class,
+                            FindLayoutCmsResourceByThemeNameLayoutName::class,
+                            GetLayoutName::class,
+                            FindComponent::class,
+                            GetViewLayoutTags::class,
+                            BuildView::class,
                         ],
                     ],
                     GetLayoutName::class => [
                         'class' => GetLayoutNameBasic::class
                     ],
                     GetRegisterViewLayoutTagsComponents::class => [
-                        'class' => ApiNoop::class,
-                        'arguments' => [
-                            '0-' => ['literal' => GetRegisterViewLayoutTagsComponents::class],
-                        ],
+                        'class' => IMPLEMENTATION_REQUIRED::class
                     ],
                 ],
             ],

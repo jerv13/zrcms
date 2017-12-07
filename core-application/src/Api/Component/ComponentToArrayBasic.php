@@ -1,7 +1,8 @@
 <?php
 
-namespace Zrcms\Core\Api\Component;
+namespace Zrcms\CoreApplication\Api\Component;
 
+use Zrcms\Core\Api\Component\ComponentToArray;
 use Zrcms\Core\Model\Component;
 use Zrcms\Core\Model\TrackableProperties;
 

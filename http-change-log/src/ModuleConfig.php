@@ -54,6 +54,27 @@ class ModuleConfig
                 ],
             ],
 
+            'RcmUser' => [
+                'Acl\Config' => [
+                    'ResourceProviders' => [
+                        'change-log-resources' => [
+                            'change-log' => [
+                                'resourceId' => 'change-log',
+                                'parentResourceId' => null,
+                                'privileges' => [
+                                    'read',
+                                    'update',
+                                    'create',
+                                    'delete',
+                                    'execute',
+                                ],
+                                'name' => 'Change log access',
+                                'description' => 'Change log access',
+                            ],
+                        ],
+                    ],
+                ],
+            ],
         ];
     }
 }

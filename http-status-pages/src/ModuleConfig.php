@@ -3,7 +3,7 @@
 namespace Zrcms\HttpStatusPages;
 
 use Zrcms\Core\Api\Component\FindComponent;
-use Zrcms\Core\Api\Component\ReadComponentConfigComponentRegistryConfig;
+use Zrcms\CoreApplication\Api\Component\ReadComponentConfigComponentRegistryConfig;
 use Zrcms\Core\Fields\FieldsComponentRegistry;
 use Zrcms\CoreSite\Api\GetSiteCmsResourceByRequest;
 use Zrcms\HttpStatusPages\Api\GetStatusPage;

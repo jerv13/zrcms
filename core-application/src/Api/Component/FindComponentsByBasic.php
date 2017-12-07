@@ -1,7 +1,9 @@
 <?php
 
-namespace Zrcms\Core\Api\Component;
+namespace Zrcms\CoreApplication\Api\Component;
 
+use Zrcms\Core\Api\Component\FindComponentsBy;
+use Zrcms\Core\Api\Component\GetRegisterComponents;
 use Zrcms\Core\Model\Component;
 
 /**

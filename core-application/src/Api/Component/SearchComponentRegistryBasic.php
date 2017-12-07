@@ -1,8 +1,11 @@
 <?php
 
-namespace Zrcms\Core\Api\Component;
+namespace Zrcms\CoreApplication\Api\Component;
+
+use Zrcms\Core\Api\Component\SearchComponentRegistry;
 
 /**
+ * @todo NOT USED?
  * @author James Jervis - https://github.com/jerv13
  */
 class SearchComponentRegistryBasic implements SearchComponentRegistry

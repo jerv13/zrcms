@@ -1,7 +1,8 @@
 <?php
 
-namespace Zrcms\Core\Api;
+namespace Zrcms\CoreApplication\Api;
 
+use Zrcms\Core\Api\GetTypeValue;
 use Zrcms\Param\Param;
 
 /**

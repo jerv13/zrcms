@@ -19,9 +19,7 @@
             ],
          
      - Deal with 'zrcms-view-builders'
-            
-      as This;      
-
+     - 
 
 - Find service that end in "Basic" that determine the service to use and rename to ByStrategy
    
@@ -33,8 +31,8 @@
     - get all the data for a specific page
     - will need the render tags too
       
-- APIs in http-expressive
-    - Test
+- HTTP APIs for each php API
+    - core stuff
 
 - Write implementation test
     - for each content type (Container with block, Page, Site, ThemeLayout, View)
@@ -45,7 +43,7 @@
     - re-publish content
     - find resource and version
     
-- Add NOOP services where needed 
+- Add IMPLEMENTATION_REQUIRED services where needed 
 
 - Need a way to clear caches on registries and component configs
 
@@ -54,18 +52,17 @@
 - Document the architecture and basics of how it works
 
 - Doctrine FindXXXsBy need to be made to work better with properties
-
-- GetRegisterComponentsAbstract needs a default service name, not ReadComponentConfig
     
 - Check and update all composer dependencies
     
 Features
 --------
 
-- Admin menus
-    - Standard menus for admins using the properties and/or field definitions
-    - include input-validations
-    - create js/ui lib
+##### Fields  #####
+
+- Standard menus for admins using field definitions
+- include input-validations defined by a field config - use service aliases
+- create js/ui lib
     
 Clean up - Refactoring
 ----------------------

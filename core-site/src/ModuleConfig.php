@@ -2,15 +2,15 @@
 
 namespace Zrcms\CoreSite;
 
-use Zrcms\CoreApplication\Api\ApiNoop;
-use Zrcms\CoreSite\Api\CmsResource\UpsertSiteCmsResource;
-use Zrcms\CoreSite\Api\GetSiteCmsResourceByRequest;
+use Zrcms\Core\Exception\IMPLEMENTATION_REQUIRED;
 use Zrcms\CoreSite\Api\CmsResource\FindSiteCmsResource;
 use Zrcms\CoreSite\Api\CmsResource\FindSiteCmsResourceByHost;
 use Zrcms\CoreSite\Api\CmsResource\FindSiteCmsResourcesBy;
+use Zrcms\CoreSite\Api\CmsResource\UpsertSiteCmsResource;
 use Zrcms\CoreSite\Api\Content\FindSiteVersion;
 use Zrcms\CoreSite\Api\Content\FindSiteVersionsBy;
 use Zrcms\CoreSite\Api\Content\InsertSiteVersion;
+use Zrcms\CoreSite\Api\GetSiteCmsResourceByRequest;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -29,51 +29,30 @@ class ModuleConfig
                      * Site ===========================================
                      */
                     UpsertSiteCmsResource::class => [
-                        'class' => ApiNoop::class,
-                        'arguments' => [
-                            '0-' => ['literal' => UpsertSiteCmsResource::class],
-                        ],
+                        'class' => IMPLEMENTATION_REQUIRED::class
                     ],
                     FindSiteCmsResource::class => [
-                        'class' => ApiNoop::class,
-                        'arguments' => [
-                            '0-' => ['literal' => FindSiteCmsResource::class],
-                        ],
+                        'class' => IMPLEMENTATION_REQUIRED::class
                     ],
                     FindSiteCmsResourceByHost::class => [
-                        'class' => ApiNoop::class,
-                        'arguments' => [
-                            '0-' => ['literal' => FindSiteCmsResourceByHost::class],
-                        ],
+                        'class' => IMPLEMENTATION_REQUIRED::class
                     ],
                     FindSiteCmsResourcesBy::class => [
-                        'class' => ApiNoop::class,
-                        'arguments' => [
-                            '0-' => ['literal' => FindSiteCmsResourcesBy::class],
-                        ],
+                        'class' => IMPLEMENTATION_REQUIRED::class
                     ],
                     FindSiteVersion::class => [
-                        'class' => ApiNoop::class,
-                        'arguments' => [
-                            '0-' => ['literal' => FindSiteVersion::class],
-                        ],
+                        'class' => IMPLEMENTATION_REQUIRED::class
                     ],
                     FindSiteVersionsBy::class => [
-                        'class' => ApiNoop::class,
-                        'arguments' => [
-                            '0-' => ['literal' => FindSiteVersionsBy::class],
-                        ],
+                        'class' => IMPLEMENTATION_REQUIRED::class
                     ],
                     InsertSiteVersion::class => [
-                        'class' => ApiNoop::class,
-                        'arguments' => [
-                            '0-' => ['literal' => InsertSiteVersion::class],
-                        ],
+                        'class' => IMPLEMENTATION_REQUIRED::class
                     ],
 
                     GetSiteCmsResourceByRequest::class => [
                         'arguments' => [
-                            '0-' => FindSiteCmsResourceByHost::class,
+                            FindSiteCmsResourceByHost::class,
                         ],
                     ],
                 ],

@@ -1,8 +1,9 @@
 <?php
 
-namespace Zrcms\Core\Api\CmsResourceHistory;
+namespace Zrcms\CoreApplication\Api\CmsResourceHistory;
 
 use Zrcms\Core\Api\CmsResource\CmsResourceToArray;
+use Zrcms\Core\Api\CmsResourceHistory\CmsResourceHistoryToArray;
 use Zrcms\Core\Api\Content\ContentVersionToArray;
 use Zrcms\Core\Model\CmsResourceHistory;
 use Zrcms\Core\Model\TrackableProperties;

@@ -1,6 +1,6 @@
 <?php
 
-namespace Zrcms\Core\Api\Component;
+namespace Zrcms\CoreApplication\Api\Component;
 
 use Psr\Container\ContainerInterface;
 use Zrcms\Core\Api\GetTypeValue;

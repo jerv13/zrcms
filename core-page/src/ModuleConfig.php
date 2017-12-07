@@ -2,24 +2,24 @@
 
 namespace Zrcms\CorePage;
 
-use Zrcms\CoreApplication\Api\ApiNoop;
+use Zrcms\Core\Exception\IMPLEMENTATION_REQUIRED;
 use Zrcms\CoreContainer\Api\Render\GetContainerRenderTags;
 use Zrcms\CoreContainer\Api\Render\RenderContainer;
-use Zrcms\CorePage\Api\CmsResource\UpsertPageCmsResource;
-use Zrcms\CorePage\Api\CmsResource\UpsertPageDraftCmsResource;
-use Zrcms\CorePage\Api\CmsResource\UpsertPageTemplateCmsResource;
-use Zrcms\CorePage\Api\Render\GetPageRenderTags;
-use Zrcms\CorePage\Api\Render\GetPageRenderTagsBasic;
-use Zrcms\CorePage\Api\Render\GetPageRenderTagsContainers;
-use Zrcms\CorePage\Api\Render\GetPageRenderTagsHtml;
 use Zrcms\CorePage\Api\CmsResource\FindPageCmsResource;
 use Zrcms\CorePage\Api\CmsResource\FindPageCmsResourceBySitePath;
 use Zrcms\CorePage\Api\CmsResource\FindPageCmsResourcesBy;
 use Zrcms\CorePage\Api\CmsResource\FindPageTemplateCmsResourceBySitePath;
 use Zrcms\CorePage\Api\CmsResource\FindPageTemplateCmsResourcesBy;
+use Zrcms\CorePage\Api\CmsResource\UpsertPageCmsResource;
+use Zrcms\CorePage\Api\CmsResource\UpsertPageDraftCmsResource;
+use Zrcms\CorePage\Api\CmsResource\UpsertPageTemplateCmsResource;
 use Zrcms\CorePage\Api\Content\FindPageVersion;
 use Zrcms\CorePage\Api\Content\FindPageVersionsBy;
 use Zrcms\CorePage\Api\Content\InsertPageVersion;
+use Zrcms\CorePage\Api\Render\GetPageRenderTags;
+use Zrcms\CorePage\Api\Render\GetPageRenderTagsBasic;
+use Zrcms\CorePage\Api\Render\GetPageRenderTagsContainers;
+use Zrcms\CorePage\Api\Render\GetPageRenderTagsHtml;
 use Zrcms\CorePage\Model\ServiceAliasPage;
 use Zrcms\ServiceAlias\Api\GetServiceFromAlias;
 
@@ -37,83 +37,50 @@ class ModuleConfig
             'dependencies' => [
                 'config_factories' => [
                     UpsertPageCmsResource::class => [
-                        'class' => ApiNoop::class,
-                        'arguments' => [
-                            '0-' => ['literal' => UpsertPageCmsResource::class],
-                        ],
+                        'class' => IMPLEMENTATION_REQUIRED::class
                     ],
                     UpsertPageTemplateCmsResource::class => [
-                        'class' => ApiNoop::class,
-                        'arguments' => [
-                            '0-' => ['literal' => UpsertPageTemplateCmsResource::class],
-                        ],
+                        'class' => IMPLEMENTATION_REQUIRED::class
                     ],
                     UpsertPageDraftCmsResource::class => [
-                        'class' => ApiNoop::class,
-                        'arguments' => [
-                            '0-' => ['literal' => UpsertPageDraftCmsResource::class],
-                        ],
+                        'class' => IMPLEMENTATION_REQUIRED::class
                     ],
                     GetPageRenderTags::class => [
                         'class' => GetPageRenderTagsBasic::class,
                         'arguments' => [
-                            '0-' => GetServiceFromAlias::class,
+                            GetServiceFromAlias::class,
                         ],
                     ],
                     GetPageRenderTagsHtml::class => [],
                     GetPageRenderTagsContainers::class => [
                         'arguments' => [
-                            '0-' => GetContainerRenderTags::class,
-                            '1-' => RenderContainer::class,
+                            GetContainerRenderTags::class,
+                            RenderContainer::class,
                         ],
                     ],
                     FindPageCmsResource::class => [
-                        'class' => ApiNoop::class,
-                        'arguments' => [
-                            '0-' => ['literal' => FindPageCmsResource::class],
-                        ],
+                        'class' => IMPLEMENTATION_REQUIRED::class
                     ],
                     FindPageCmsResourceBySitePath::class => [
-                        'class' => ApiNoop::class,
-                        'arguments' => [
-                            '0-' => ['literal' => FindPageCmsResourceBySitePath::class],
-                        ],
+                        'class' => IMPLEMENTATION_REQUIRED::class
                     ],
                     FindPageCmsResourcesBy::class => [
-                        'class' => ApiNoop::class,
-                        'arguments' => [
-                            '0-' => ['literal' => FindPageCmsResourcesBy::class],
-                        ],
+                        'class' => IMPLEMENTATION_REQUIRED::class
                     ],
                     FindPageVersion::class => [
-                        'class' => ApiNoop::class,
-                        'arguments' => [
-                            '0-' => ['literal' => FindPageVersion::class],
-                        ],
+                        'class' => IMPLEMENTATION_REQUIRED::class
                     ],
                     FindPageVersionsBy::class => [
-                        'class' => ApiNoop::class,
-                        'arguments' => [
-                            '0-' => ['literal' => FindPageVersionsBy::class],
-                        ],
+                        'class' => IMPLEMENTATION_REQUIRED::class
                     ],
                     FindPageTemplateCmsResourceBySitePath::class => [
-                        'class' => ApiNoop::class,
-                        'arguments' => [
-                            '0-' => ['literal' => FindPageTemplateCmsResourceBySitePath::class],
-                        ],
+                        'class' => IMPLEMENTATION_REQUIRED::class
                     ],
                     FindPageTemplateCmsResourcesBy::class => [
-                        'class' => ApiNoop::class,
-                        'arguments' => [
-                            '0-' => ['literal' => FindPageTemplateCmsResourcesBy::class],
-                        ],
+                        'class' => IMPLEMENTATION_REQUIRED::class
                     ],
                     InsertPageVersion::class => [
-                        'class' => ApiNoop::class,
-                        'arguments' => [
-                            '0-' => ['literal' => InsertPageVersion::class],
-                        ],
+                        'class' => IMPLEMENTATION_REQUIRED::class
                     ],
                 ],
             ],

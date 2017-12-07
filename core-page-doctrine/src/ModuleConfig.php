@@ -16,7 +16,6 @@ use Zrcms\CorePage\Api\CmsResource\FindPageTemplateCmsResourcesBy;
 use Zrcms\CorePage\Api\Content\FindPageVersion;
 use Zrcms\CorePage\Api\Content\FindPageVersionsBy;
 use Zrcms\CorePage\Api\Content\InsertPageVersion;
-use Zrcms\CorePageDoctrine as This;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -29,73 +28,74 @@ class ModuleConfig
             'dependencies' => [
                 'config_factories' => [
                     GetChangeLogByDateRange::class => [
-                        'class' => This\Api\ChangeLog\GetChangeLogByDateRange::class,
+                        'class' => \Zrcms\CorePageDoctrine\Api\ChangeLog\GetChangeLogByDateRange::class,
                         'arguments' => [EntityManager::class]
                     ],
                     UpsertPageCmsResource::class => [
-                        'class' => This\Api\CmsResource\UpsertPageCmsResource::class,
+                        'class' => \Zrcms\CorePageDoctrine\Api\CmsResource\UpsertPageCmsResource::class,
                         'arguments' => [
-                            '0-' => EntityManager::class,
+                            EntityManager::class,
                         ],
                     ],
                     UpsertPageTemplateCmsResource::class => [
-                        'class' => This\Api\CmsResource\UpsertPageTemplateCmsResource::class,
+                        'class' => \Zrcms\CorePageDoctrine\Api\CmsResource\UpsertPageTemplateCmsResource::class,
                         'arguments' => [
-                            '0-' => EntityManager::class,
+                            EntityManager::class,
                         ],
                     ],
                     UpsertPageDraftCmsResource::class => [
-                        'class' => This\Api\CmsResource\UpsertPageDraftCmsResource::class,
+                        'class' => \Zrcms\CorePageDoctrine\Api\CmsResource\UpsertPageDraftCmsResource::class,
                         'arguments' => [
-                            '0-' => EntityManager::class,
+                            EntityManager::class,
                         ],
                     ],
                     FindPageCmsResource::class => [
-                        'class' => This\Api\CmsResource\FindPageCmsResource::class,
+                        'class' => \Zrcms\CorePageDoctrine\Api\CmsResource\FindPageCmsResource::class,
                         'arguments' => [
-                            '0-' => EntityManager::class,
+                            EntityManager::class,
                         ],
                     ],
                     FindPageCmsResourceBySitePath::class => [
-                        'class' => This\Api\CmsResource\FindPageCmsResourceBySitePath::class,
+                        'class' => \Zrcms\CorePageDoctrine\Api\CmsResource\FindPageCmsResourceBySitePath::class,
                         'arguments' => [
-                            '0-' => EntityManager::class,
+                            EntityManager::class,
                         ],
                     ],
                     FindPageCmsResourcesBy::class => [
-                        'class' => This\Api\CmsResource\FindPageCmsResourcesBy::class,
+                        'class' => \Zrcms\CorePageDoctrine\Api\CmsResource\FindPageCmsResourcesBy::class,
                         'arguments' => [
-                            '0-' => EntityManager::class,
+                            EntityManager::class,
                         ],
                     ],
                     FindPageVersion::class => [
-                        'class' => This\Api\Content\FindPageVersion::class,
+                        'class' => \Zrcms\CorePageDoctrine\Api\Content\FindPageVersion::class,
                         'arguments' => [
-                            '0-' => EntityManager::class,
+                            EntityManager::class,
                         ],
                     ],
                     FindPageVersionsBy::class => [
-                        'class' => This\Api\Content\FindPageVersionsBy::class,
+                        'class' => \Zrcms\CorePageDoctrine\Api\Content\FindPageVersionsBy::class,
                         'arguments' => [
-                            '0-' => EntityManager::class,
+                            EntityManager::class,
                         ],
                     ],
                     FindPageTemplateCmsResourceBySitePath::class => [
-                        'class' => This\Api\CmsResource\FindPageTemplateCmsResourceBySitePath::class,
+                        'class'
+                        => \Zrcms\CorePageDoctrine\Api\CmsResource\FindPageTemplateCmsResourceBySitePath::class,
                         'arguments' => [
-                            '0-' => EntityManager::class,
+                            EntityManager::class,
                         ],
                     ],
                     FindPageTemplateCmsResourcesBy::class => [
-                        'class' => This\Api\CmsResource\FindPageTemplateCmsResourcesBy::class,
+                        'class' => \Zrcms\CorePageDoctrine\Api\CmsResource\FindPageTemplateCmsResourcesBy::class,
                         'arguments' => [
-                            '0-' => EntityManager::class,
+                            EntityManager::class,
                         ],
                     ],
                     InsertPageVersion::class => [
-                        'class' => This\Api\Content\InsertPageVersion::class,
+                        'class' => \Zrcms\CorePageDoctrine\Api\Content\InsertPageVersion::class,
                         'arguments' => [
-                            '0-' => EntityManager::class,
+                            EntityManager::class,
                         ],
                     ],
                 ],

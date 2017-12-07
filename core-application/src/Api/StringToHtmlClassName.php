@@ -3,6 +3,8 @@
 namespace Zrcms\CoreApplication\Api;
 
 /**
+ * @todo NOT USED?
+ *
  * @author James Jervis - https://github.com/jerv13
  */
 class StringToHtmlClassName

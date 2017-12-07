@@ -12,7 +12,6 @@ use Zrcms\CoreRedirect\Api\CmsResource\FindRedirectCmsResourcesBy;
 use Zrcms\CoreRedirect\Api\Content\FindRedirectVersion;
 use Zrcms\CoreRedirect\Api\Content\FindRedirectVersionsBy;
 use Zrcms\CoreRedirect\Api\Content\InsertRedirectVersion;
-use Zrcms\CoreRedirectDoctrine as This;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -30,49 +29,50 @@ class ModuleConfig
             'dependencies' => [
                 'config_factories' => [
                     GetChangeLogByDateRange::class => [
-                        'class' => This\Api\ChangeLog\GetChangeLogByDateRange::class,
+                        'class' => \Zrcms\CoreRedirectDoctrine\Api\ChangeLog\GetChangeLogByDateRange::class,
                         'arguments' => [EntityManager::class]
                     ],
                     UpsertRedirectCmsResource::class => [
-                        'class' => This\Api\CmsResource\UpsertRedirectCmsResource::class,
+                        'class' => \Zrcms\CoreRedirectDoctrine\Api\CmsResource\UpsertRedirectCmsResource::class,
                         'arguments' => [
-                            '0-' => EntityManager::class,
+                            EntityManager::class,
                         ],
                     ],
                     FindRedirectCmsResource::class => [
-                        'class' => This\Api\CmsResource\FindRedirectCmsResource::class,
+                        'class' => \Zrcms\CoreRedirectDoctrine\Api\CmsResource\FindRedirectCmsResource::class,
                         'arguments' => [
-                            '0-' => EntityManager::class,
+                            EntityManager::class,
                         ],
                     ],
                     FindRedirectCmsResourceBySiteRequestPath::class => [
-                        'class' => This\Api\CmsResource\FindRedirectCmsResourceBySiteRequestPath::class,
+                        'class'
+                        => \Zrcms\CoreRedirectDoctrine\Api\CmsResource\FindRedirectCmsResourceBySiteRequestPath::class,
                         'arguments' => [
-                            '0-' => EntityManager::class,
+                            EntityManager::class,
                         ],
                     ],
                     FindRedirectCmsResourcesBy::class => [
-                        'class' => This\Api\CmsResource\FindRedirectCmsResourcesBy::class,
+                        'class' => \Zrcms\CoreRedirectDoctrine\Api\CmsResource\FindRedirectCmsResourcesBy::class,
                         'arguments' => [
-                            '0-' => EntityManager::class,
+                            EntityManager::class,
                         ],
                     ],
                     FindRedirectVersion::class => [
-                        'class' => This\Api\Content\FindRedirectVersion::class,
+                        'class' => \Zrcms\CoreRedirectDoctrine\Api\Content\FindRedirectVersion::class,
                         'arguments' => [
-                            '0-' => EntityManager::class,
+                            EntityManager::class,
                         ],
                     ],
                     FindRedirectVersionsBy::class => [
-                        'class' => This\Api\Content\FindRedirectVersionsBy::class,
+                        'class' => \Zrcms\CoreRedirectDoctrine\Api\Content\FindRedirectVersionsBy::class,
                         'arguments' => [
-                            '0-' => EntityManager::class,
+                            EntityManager::class,
                         ],
                     ],
                     InsertRedirectVersion::class => [
-                        'class' => This\Api\Content\InsertRedirectVersion::class,
+                        'class' => \Zrcms\CoreRedirectDoctrine\Api\Content\InsertRedirectVersion::class,
                         'arguments' => [
-                            '0-' => EntityManager::class,
+                            EntityManager::class,
                         ],
                     ],
                 ],

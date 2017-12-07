@@ -1,8 +1,9 @@
 <?php
 
-namespace Zrcms\Core\Api\Component;
+namespace Zrcms\CoreApplication\Api\Component;
 
 use Psr\Container\ContainerInterface;
+use Zrcms\Core\Api\Component\BuildComponentObject;
 use Zrcms\Core\Api\GetTypeValue;
 use Zrcms\Core\Fields\FieldsComponentConfig;
 use Zrcms\Core\Model\Component;

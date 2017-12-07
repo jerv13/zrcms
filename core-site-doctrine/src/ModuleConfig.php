@@ -24,49 +24,49 @@ class ModuleConfig
             'dependencies' => [
                 'config_factories' => [
                     GetChangeLogByDateRange::class => [
-                        'class' => Zrcms\CoreSiteDoctrine\Api\ChangeLog\GetChangeLogByDateRange::class,
+                        'class' => \Zrcms\CoreSiteDoctrine\Api\ChangeLog\GetChangeLogByDateRange::class,
                         'arguments' => [EntityManager::class]
                     ],
                     UpsertSiteCmsResource::class => [
-                        'class' => Zrcms\CoreSiteDoctrine\Api\CmsResource\UpsertSiteCmsResource::class,
+                        'class' => \Zrcms\CoreSiteDoctrine\Api\CmsResource\UpsertSiteCmsResource::class,
                         'arguments' => [
-                            '0-' => EntityManager::class,
+                            EntityManager::class,
                         ],
                     ],
                     FindSiteCmsResource::class => [
-                        'class' => Zrcms\CoreSiteDoctrine\Api\CmsResource\FindSiteCmsResource::class,
+                        'class' => \Zrcms\CoreSiteDoctrine\Api\CmsResource\FindSiteCmsResource::class,
                         'arguments' => [
-                            '0-' => EntityManager::class,
+                            EntityManager::class,
                         ],
                     ],
                     FindSiteCmsResourceByHost::class => [
-                        'class' => Zrcms\CoreSiteDoctrine\Api\CmsResource\FindSiteCmsResourceByHost::class,
+                        'class' => \Zrcms\CoreSiteDoctrine\Api\CmsResource\FindSiteCmsResourceByHost::class,
                         'arguments' => [
-                            '0-' => EntityManager::class,
+                            EntityManager::class,
                         ],
                     ],
                     FindSiteCmsResourcesBy::class => [
-                        'class' => Zrcms\CoreSiteDoctrine\Api\CmsResource\FindSiteCmsResourcesBy::class,
+                        'class' => \Zrcms\CoreSiteDoctrine\Api\CmsResource\FindSiteCmsResourcesBy::class,
                         'arguments' => [
-                            '0-' => EntityManager::class,
+                            EntityManager::class,
                         ],
                     ],
                     FindSiteVersion::class => [
-                        'class' => Zrcms\CoreSiteDoctrine\Api\Content\FindSiteVersion::class,
+                        'class' => \Zrcms\CoreSiteDoctrine\Api\Content\FindSiteVersion::class,
                         'arguments' => [
-                            '0-' => EntityManager::class,
+                            EntityManager::class,
                         ],
                     ],
                     FindSiteVersionsBy::class => [
-                        'class' => Zrcms\CoreSiteDoctrine\Api\Content\FindSiteVersionsBy::class,
+                        'class' => \Zrcms\CoreSiteDoctrine\Api\Content\FindSiteVersionsBy::class,
                         'arguments' => [
-                            '0-' => EntityManager::class,
+                            EntityManager::class,
                         ],
                     ],
                     InsertSiteVersion::class => [
-                        'class' => Zrcms\CoreSiteDoctrine\Api\Content\InsertSiteVersion::class,
+                        'class' => \Zrcms\CoreSiteDoctrine\Api\Content\InsertSiteVersion::class,
                         'arguments' => [
-                            '0-' => EntityManager::class,
+                            EntityManager::class,
                         ],
                     ],
                 ],

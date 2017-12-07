@@ -1,8 +1,11 @@
 <?php
 
-namespace Zrcms\Core\Api\Component;
+namespace Zrcms\CoreApplication\Api\Component;
 
 use Zrcms\Cache\Service\Cache;
+use Zrcms\Core\Api\Component\BuildComponentObject;
+use Zrcms\Core\Api\Component\GetRegisterComponents;
+use Zrcms\Core\Api\Component\ReadComponentRegistry;
 use Zrcms\Core\Model\Component;
 
 /**

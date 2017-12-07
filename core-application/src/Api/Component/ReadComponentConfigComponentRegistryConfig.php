@@ -1,6 +1,8 @@
 <?php
 
-namespace Zrcms\Core\Api\Component;
+namespace Zrcms\CoreApplication\Api\Component;
+
+use Zrcms\Core\Api\Component\ReadComponentConfig;
 
 /**
  * @author James Jervis - https://github.com/jerv13

@@ -1,7 +1,8 @@
 <?php
 
-namespace Zrcms\Core\Api\Component;
+namespace Zrcms\CoreApplication\Api\Component;
 
+use Zrcms\Core\Api\Component\SearchComponentList;
 use Zrcms\Core\Model\Component;
 
 /**

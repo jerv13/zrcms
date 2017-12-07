@@ -1,28 +1,28 @@
 <?php
 
-namespace Zrcms\Core\Api;
+namespace Zrcms\CoreApplication\Api\Component;
 
 use Psr\Container\ContainerInterface;
 
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class GetTypeValueBasicFactory
+class ReadComponentConfigComponentRegistryConfigFactory
 {
     /**
      * @param ContainerInterface $serviceContainer
      *
-     * @return GetTypeValueBasic
+     * @return ReadComponentConfigComponentRegistryConfig
      */
     public function __invoke(
         $serviceContainer
     ) {
         $config = $serviceContainer->get('config');
 
-        $typesConfig = $config['zrcms-types'];
+        $registry = $config['zrcms-components'];
 
-        return new GetTypeValueBasic(
-            $typesConfig
+        return new ReadComponentConfigComponentRegistryConfig(
+            $registry
         );
     }
 }

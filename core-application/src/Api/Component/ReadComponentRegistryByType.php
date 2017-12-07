@@ -1,9 +1,10 @@
 <?php
 
-namespace Zrcms\Core\Api\Component;
+namespace Zrcms\CoreApplication\Api\Component;
 
 use Psr\Container\ContainerInterface;
 use Zrcms\Cache\Service\Cache;
+use Zrcms\Core\Api\Component\ReadComponentRegistry;
 use Zrcms\Core\Api\GetTypeValue;
 use Zrcms\Core\Fields\FieldsComponentConfig;
 use Zrcms\Core\Fields\FieldsComponentRegistry;

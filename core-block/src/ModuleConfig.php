@@ -51,17 +51,17 @@ class ModuleConfig
                     GetBlockRenderTags::class => [
                         'class' => GetBlockRenderTagsBasic::class,
                         'arguments' => [
-                            '0-' => GetBlockData::class,
-                            '1-' => GetMergedConfig::class,
+                            GetBlockData::class,
+                            GetMergedConfig::class,
                         ],
                     ],
                     RenderBlock::class => [
                         'class' => RenderBlockBasic::class,
                         'arguments' => [
-                            '0-' => GetServiceFromAlias::class,
-                            '1-' => FindComponent::class,
-                            '2-' => RenderBlockMissing::class,
-                            '3-' => ['literal' => RenderBlockMustache::class],
+                            GetServiceFromAlias::class,
+                            FindComponent::class,
+                            RenderBlockMissing::class,
+                            ['literal' => RenderBlockMustache::class],
                         ],
                     ],
                     RenderBlockBc::class => [
@@ -72,15 +72,15 @@ class ModuleConfig
                     ],
                     RenderBlockMustache::class => [
                         'arguments' => [
-                            '0-' => FindComponent::class,
-                            '1-' => FileResolver::class
+                            FindComponent::class,
+                            FileResolver::class
                         ],
                     ],
                     GetBlockData::class => [
                         'class' => GetBlockDataBasic::class,
                         'arguments' => [
-                            '0-' => GetServiceFromAlias::class,
-                            '1-' => FindComponent::class
+                            GetServiceFromAlias::class,
+                            FindComponent::class
                         ],
                     ],
                     GetBlockDataNoop::class => [],
@@ -93,25 +93,25 @@ class ModuleConfig
                     GetMergedConfig::class => [
                         'class' => GetMergedConfigBasic::class,
                         'arguments' => [
-                            '0-' => FindComponent::class
+                            FindComponent::class
                         ],
                     ],
                     PrepareComponentConfigBlockBc::class => [
                         'arguments' => [
-                            '0-' => GetBlockConfigFields::class,
-                            '1-' => GetBlockConfigFieldsBcSubstitution::class,
+                            GetBlockConfigFields::class,
+                            GetBlockConfigFieldsBcSubstitution::class,
                         ],
                     ],
                     PrepareComponentConfigBlockBc::class => [
                         'arguments' => [
-                            '0-' => GetBlockConfigFields::class,
-                            '1-' => GetBlockConfigFieldsBcSubstitution::class,
+                            GetBlockConfigFields::class,
+                            GetBlockConfigFieldsBcSubstitution::class,
                         ],
                     ],
                     WrapRenderedBlockVersion::class => [
                         'class' => WrapRenderedBlockVersionLegacy::class,
                         'arguments' => [
-                            '0-' => FindComponent::class
+                            FindComponent::class
                         ],
                     ],
                 ],

@@ -3,13 +3,13 @@
 namespace Zrcms\CoreTheme;
 
 use Zrcms\Core\Api\Component\BuildComponentObject;
-use Zrcms\Core\Api\Component\ReadComponentConfigJsonFile;
 use Zrcms\Core\Api\GetTypeValue;
-use Zrcms\CoreApplication\Api\ApiNoop;
-use Zrcms\CoreTheme\Api\CmsResource\UpsertLayoutCmsResource;
+use Zrcms\Core\Exception\IMPLEMENTATION_REQUIRED;
+use Zrcms\CoreApplication\Api\Component\ReadComponentConfigJsonFile;
 use Zrcms\CoreTheme\Api\CmsResource\FindLayoutCmsResource;
 use Zrcms\CoreTheme\Api\CmsResource\FindLayoutCmsResourceByThemeNameLayoutName;
 use Zrcms\CoreTheme\Api\CmsResource\FindLayoutCmsResourcesBy;
+use Zrcms\CoreTheme\Api\CmsResource\UpsertLayoutCmsResource;
 use Zrcms\CoreTheme\Api\Component\BuildComponentObjectThemeLayouts;
 use Zrcms\CoreTheme\Api\Content\FindLayoutVersion;
 use Zrcms\CoreTheme\Api\Content\FindLayoutVersionsBy;
@@ -46,28 +46,16 @@ class ModuleConfig
                      * CmsResource
                      */
                     FindLayoutCmsResource::class => [
-                        'class' => ApiNoop::class,
-                        'arguments' => [
-                            '0-' => ['literal' => FindLayoutCmsResource::class],
-                        ],
+                        'class' => IMPLEMENTATION_REQUIRED::class
                     ],
                     FindLayoutCmsResourceByThemeNameLayoutName::class => [
-                        'class' => ApiNoop::class,
-                        'arguments' => [
-                            '0-' => ['literal' => FindLayoutCmsResourceByThemeNameLayoutName::class],
-                        ],
+                        'class' => IMPLEMENTATION_REQUIRED::class
                     ],
                     FindLayoutCmsResourcesBy::class => [
-                        'class' => ApiNoop::class,
-                        'arguments' => [
-                            '0-' => ['literal' => FindLayoutCmsResourcesBy::class],
-                        ],
+                        'class' => IMPLEMENTATION_REQUIRED::class
                     ],
                     UpsertLayoutCmsResource::class => [
-                        'class' => ApiNoop::class,
-                        'arguments' => [
-                            '0-' => ['literal' => UpsertLayoutCmsResource::class],
-                        ],
+                        'class' => IMPLEMENTATION_REQUIRED::class
                     ],
 
                     /**
@@ -75,9 +63,9 @@ class ModuleConfig
                      */
                     BuildComponentObjectThemeLayouts::class => [
                         'arguments' => [
-                            '0-' => ReadComponentConfigJsonFile::class,
-                            '1-' => GetTypeValue::class,
-                            '2-' => ['literal' => ThemeComponentBasic::class]
+                            ReadComponentConfigJsonFile::class,
+                            GetTypeValue::class,
+                            ['literal' => ThemeComponentBasic::class]
                         ],
                     ],
 
@@ -85,22 +73,13 @@ class ModuleConfig
                      * Content
                      */
                     FindLayoutVersion::class => [
-                        'class' => ApiNoop::class,
-                        'arguments' => [
-                            '0-' => ['literal' => FindLayoutVersion::class],
-                        ],
+                        'class' => IMPLEMENTATION_REQUIRED::class
                     ],
                     FindLayoutVersionsBy::class => [
-                        'class' => ApiNoop::class,
-                        'arguments' => [
-                            '0-' => ['literal' => FindLayoutVersionsBy::class],
-                        ],
+                        'class' => IMPLEMENTATION_REQUIRED::class
                     ],
                     InsertLayoutVersion::class => [
-                        'class' => ApiNoop::class,
-                        'arguments' => [
-                            '0-' => ['literal' => InsertLayoutVersion::class],
-                        ],
+                        'class' => IMPLEMENTATION_REQUIRED::class
                     ],
 
                     /**
@@ -109,14 +88,14 @@ class ModuleConfig
                     GetLayoutRenderTags::class => [
                         'class' => GetLayoutRenderTagsBasic::class,
                         'arguments' => [
-                            '0-' => GetServiceFromAlias::class,
+                            GetServiceFromAlias::class,
                         ],
                     ],
                     GetLayoutRenderTagsNoop::class => [],
                     RenderLayout::class => [
                         'class' => RenderLayoutBasic::class,
                         'arguments' => [
-                            '0-' => GetServiceFromAlias::class,
+                            GetServiceFromAlias::class,
                         ],
                     ],
                     RenderLayoutMustache::class => [],

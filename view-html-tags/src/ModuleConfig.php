@@ -28,7 +28,7 @@ class ModuleConfig
                     RenderTags::class => [
                         'class' => RenderTagsBasic::class,
                         'arguments' => [
-                            '0-' => RenderTag::class,
+                            RenderTag::class,
                         ],
                     ],
                 ],

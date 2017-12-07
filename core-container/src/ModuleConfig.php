@@ -2,23 +2,23 @@
 
 namespace Zrcms\CoreContainer;
 
-use Zrcms\CoreApplication\Api\ApiNoop;
+use Zrcms\Core\Exception\IMPLEMENTATION_REQUIRED;
 use Zrcms\CoreBlock\Api\Render\GetBlockRenderTags;
 use Zrcms\CoreBlock\Api\Render\RenderBlock;
 use Zrcms\CoreBlock\Api\Render\WrapRenderedBlockVersion;
+use Zrcms\CoreContainer\Api\CmsResource\FindContainerCmsResource;
+use Zrcms\CoreContainer\Api\CmsResource\FindContainerCmsResourcesBy;
+use Zrcms\CoreContainer\Api\CmsResource\FindContainerCmsResourcesBySitePaths;
 use Zrcms\CoreContainer\Api\CmsResource\UpsertContainerCmsResource;
+use Zrcms\CoreContainer\Api\Content\FindContainerVersion;
+use Zrcms\CoreContainer\Api\Content\FindContainerVersionsBy;
+use Zrcms\CoreContainer\Api\Content\InsertContainerVersion;
 use Zrcms\CoreContainer\Api\Render\GetContainerRenderTags;
 use Zrcms\CoreContainer\Api\Render\GetContainerRenderTagsBasic;
 use Zrcms\CoreContainer\Api\Render\GetContainerRenderTagsBlocks;
 use Zrcms\CoreContainer\Api\Render\RenderContainer;
 use Zrcms\CoreContainer\Api\Render\RenderContainerBasic;
 use Zrcms\CoreContainer\Api\Render\RenderContainerRows;
-use Zrcms\CoreContainer\Api\CmsResource\FindContainerCmsResource;
-use Zrcms\CoreContainer\Api\CmsResource\FindContainerCmsResourcesBy;
-use Zrcms\CoreContainer\Api\CmsResource\FindContainerCmsResourcesBySitePaths;
-use Zrcms\CoreContainer\Api\Content\FindContainerVersion;
-use Zrcms\CoreContainer\Api\Content\FindContainerVersionsBy;
-use Zrcms\CoreContainer\Api\Content\InsertContainerVersion;
 use Zrcms\CoreContainer\Api\Render\WrapRenderedContainer;
 use Zrcms\CoreContainer\Api\Render\WrapRenderedContainerLegacy;
 use Zrcms\CoreContainer\Model\ServiceAliasContainer;
@@ -38,72 +38,51 @@ class ModuleConfig
             'dependencies' => [
                 'config_factories' => [
                     UpsertContainerCmsResource::class => [
-                        'class' => ApiNoop::class,
-                        'arguments' => [
-                            '0-' => ['literal' => UpsertContainerCmsResource::class],
-                        ],
+                        'class' => IMPLEMENTATION_REQUIRED::class
                     ],
                     GetContainerRenderTags::class => [
                         'class' => GetContainerRenderTagsBasic::class,
                         'arguments' => [
-                            '0-' => GetServiceFromAlias::class,
+                            GetServiceFromAlias::class,
                         ],
                     ],
                     GetContainerRenderTagsBlocks::class => [
                         'arguments' => [
-                            '1-' => RenderBlock::class,
-                            '2-' => GetBlockRenderTags::class,
-                            '3-' => WrapRenderedBlockVersion::class,
-                            '4-' => WrapRenderedContainer::class,
+                            RenderBlock::class,
+                            GetBlockRenderTags::class,
+                            WrapRenderedBlockVersion::class,
+                            WrapRenderedContainer::class,
                         ],
                     ],
                     RenderContainer::class => [
                         'class' => RenderContainerBasic::class,
                         'arguments' => [
-                            '0-' => GetServiceFromAlias::class,
+                            GetServiceFromAlias::class,
                         ],
                     ],
                     RenderContainerRows::class => [
                         'arguments' => [
-                            '0-' => RenderBlock::class,
-                            '1-' => WrapRenderedContainer::class
+                            RenderBlock::class,
+                            WrapRenderedContainer::class
                         ],
                     ],
                     FindContainerCmsResource::class => [
-                        'class' => ApiNoop::class,
-                        'arguments' => [
-                            '0-' => ['literal' => FindContainerCmsResource::class],
-                        ],
+                        'class' => IMPLEMENTATION_REQUIRED::class
                     ],
                     FindContainerCmsResourcesBy::class => [
-                        'class' => ApiNoop::class,
-                        'arguments' => [
-                            '0-' => ['literal' => FindContainerCmsResourcesBy::class],
-                        ],
+                        'class' => IMPLEMENTATION_REQUIRED::class
                     ],
                     FindContainerCmsResourcesBySitePaths::class => [
-                        'class' => ApiNoop::class,
-                        'arguments' => [
-                            '0-' => ['literal' => FindContainerCmsResourcesBySitePaths::class],
-                        ],
+                        'class' => IMPLEMENTATION_REQUIRED::class
                     ],
                     FindContainerVersion::class => [
-                        'class' => ApiNoop::class,
-                        'arguments' => [
-                            '0-' => ['literal' => FindContainerVersion::class],
-                        ],
+                        'class' => IMPLEMENTATION_REQUIRED::class
                     ],
                     FindContainerVersionsBy::class => [
-                        'class' => ApiNoop::class,
-                        'arguments' => [
-                            '0-' => ['literal' => FindContainerVersionsBy::class],
-                        ],
+                        'class' => IMPLEMENTATION_REQUIRED::class
                     ],
                     InsertContainerVersion::class => [
-                        'class' => ApiNoop::class,
-                        'arguments' => [
-                            '0-' => ['literal' => InsertContainerVersion::class],
-                        ],
+                        'class' => IMPLEMENTATION_REQUIRED::class
                     ],
                     WrapRenderedContainer::class => [
                         'class' => WrapRenderedContainerLegacy::class,

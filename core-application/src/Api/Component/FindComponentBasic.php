@@ -1,7 +1,10 @@
 <?php
 
-namespace Zrcms\Core\Api\Component;
+namespace Zrcms\CoreApplication\Api\Component;
 
+use Zrcms\Core\Api\Component\FindComponent;
+use Zrcms\Core\Api\Component\GetRegisterComponents;
+use Zrcms\Core\Api\Component\SearchComponentList;
 use Zrcms\Core\Fields\FieldsComponentConfig;
 use Zrcms\Core\Model\Component;
 

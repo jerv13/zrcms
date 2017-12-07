@@ -1,8 +1,10 @@
 <?php
 
-namespace Zrcms\Core\Api\Component;
+namespace Zrcms\CoreApplication\Api\Component;
 
 /**
+ * @todo NOT USED?
+ *
  * @author James Jervis - https://github.com/jerv13
  */
 class AssertValidComponentName
