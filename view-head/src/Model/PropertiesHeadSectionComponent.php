@@ -2,7 +2,7 @@
 
 namespace Zrcms\ViewHead\Model;
 
-use Zrcms\ContentCore\View\Fields\FieldsViewLayoutTagsComponent;
+use Zrcms\CoreView\Fields\FieldsViewLayoutTagsComponent;
 
 /**
  * @author James Jervis - https://github.com/jerv13

@@ -2,9 +2,9 @@
 
 namespace Zrcms\HttpViewRender;
 
-use Zrcms\ContentCore\View\Api\GetViewByRequest;
-use Zrcms\ContentCore\View\Api\Render\GetViewLayoutTags;
-use Zrcms\ContentCore\View\Api\Render\RenderView;
+use Zrcms\CoreView\Api\GetViewByRequest;
+use Zrcms\CoreView\Api\Render\GetViewLayoutTags;
+use Zrcms\CoreView\Api\Render\RenderView;
 use Zrcms\HttpStatusPages\Api\GetStatusPage;
 use Zrcms\HttpViewRender\Request\RequestWithOriginalUri;
 use Zrcms\HttpViewRender\Request\RequestWithView;

@@ -3,9 +3,9 @@
 namespace Zrcms\HttpViewRender\Response;
 
 use Psr\Container\ContainerInterface;
-use Zrcms\ContentCore\View\Api\GetViewByRequestHtmlPage;
-use Zrcms\ContentCore\View\Api\Render\GetViewLayoutTags;
-use Zrcms\ContentCore\View\Api\Render\RenderView;
+use Zrcms\CoreView\Api\GetViewByRequestHtmlPage;
+use Zrcms\CoreView\Api\Render\GetViewLayoutTags;
+use Zrcms\CoreView\Api\Render\RenderView;
 
 /**
  * @author James Jervis - https://github.com/jerv13

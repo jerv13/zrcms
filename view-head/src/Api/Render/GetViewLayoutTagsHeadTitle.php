@@ -3,9 +3,9 @@
 namespace Zrcms\ViewHead\Api\Render;
 
 use Psr\Http\Message\ServerRequestInterface;
-use Zrcms\Content\Model\Content;
-use Zrcms\ContentCore\Site\Fields\FieldsSite;
-use Zrcms\ContentCore\View\Model\View;
+use Zrcms\Core\Model\Content;
+use Zrcms\CoreSite\Fields\FieldsSite;
+use Zrcms\CoreView\Model\View;
 
 /**
  * @author James Jervis - https://github.com/jerv13

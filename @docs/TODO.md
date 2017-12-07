@@ -3,8 +3,6 @@
 8903 support pin
 
 - Component Simplify #####
-
-    - add src folders - fis source dir configs
             
     - See about simplifying all common patterns (content, resource, etc...)?
     
@@ -19,44 +17,14 @@
                     'component-model-class' => ComponentBasic::class,
                 ],
             ],
-    - 'view-layout-tag'
-            
-    - Move Files
-        - content (might be core)
-            - content (abstract)
-            - content-application (concrete with app config)
-                - move GetGuidV4 in here
-                - move StringToHtmlClassName in here
-        - content-core
-            - content-page
-            - content-block
-            - content-site
-            - etc.
-        - content-core-doctrine-data-source
-            - content-page-doctrine
-            - content-block-doctrine
-            - content-site-doctrine
-            - etc.
-        - content-doctrine to content-application-doctrine
-        - view-xxx to content-view-xxx
-        - MAYBE: change-log into content-application (as concretions?)
          
      - Deal with 'zrcms-view-builders'
             
-            
+      as This;      
 
 
 - Find service that end in "Basic" that determine the service to use and rename to ByStrategy
-- content-core, content-core-doctrine-data-source (split), content-language and content-country rename
-    content-language
-    content-country
-    content-core-block
-    content-core-container
-    content-core-page
-    content-core-site
-    content-core-theme
-    content-core-view
-      
+   
 - Start zrcms-admin
 
 - Add services to js

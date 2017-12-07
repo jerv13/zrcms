@@ -2,8 +2,8 @@
 
 namespace Zrcms\XampleComponent;
 
-use Zrcms\Content\Fields\FieldsComponentRegistry;
-use Zrcms\ContentCore\View\Model\ServiceAliasView;
+use Zrcms\Core\Fields\FieldsComponentRegistry;
+use Zrcms\CoreView\Model\ServiceAliasView;
 use Zrcms\XampleComponent\View\Api\Render\GetViewLayoutTags;
 
 /**

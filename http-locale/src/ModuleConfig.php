@@ -2,7 +2,7 @@
 
 namespace Zrcms\HttpLocale;
 
-use Zrcms\ContentCore\Site\Api\GetSiteCmsResourceByRequest;
+use Zrcms\CoreSite\Api\GetSiteCmsResourceByRequest;
 use Zrcms\HttpLocale\Middleware\LocaleFromSite;
 use Zrcms\Locale\Api\SetLocale;
 

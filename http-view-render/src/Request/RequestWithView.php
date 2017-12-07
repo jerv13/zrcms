@@ -4,10 +4,10 @@ namespace Zrcms\HttpViewRender\Request;
 
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
-use Zrcms\ContentCore\Page\Exception\PageNotFound;
-use Zrcms\ContentCore\Site\Exception\SiteNotFound;
-use Zrcms\ContentCore\View\Api\GetViewByRequest;
-use Zrcms\ContentCore\View\Model\View;
+use Zrcms\CorePage\Exception\PageNotFound;
+use Zrcms\CoreSite\Exception\SiteNotFound;
+use Zrcms\CoreView\Api\GetViewByRequest;
+use Zrcms\CoreView\Model\View;
 
 /**
  * @author James Jervis - https://github.com/jerv13

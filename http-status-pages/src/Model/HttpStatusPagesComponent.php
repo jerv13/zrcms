@@ -2,8 +2,8 @@
 
 namespace Zrcms\HttpStatusPages\Model;
 
-use Zrcms\Content\Model\Component;
-use Zrcms\Content\Model\ComponentAbstract;
+use Zrcms\Core\Model\Component;
+use Zrcms\Core\Model\ComponentAbstract;
 use Zrcms\HttpStatusPages\Fields\FieldsHttpStatusPagesComponent;
 use Zrcms\Param\Param;
 

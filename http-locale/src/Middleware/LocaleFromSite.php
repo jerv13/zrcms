@@ -4,8 +4,8 @@ namespace Zrcms\HttpLocale\Middleware;
 
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
-use Zrcms\ContentCore\Site\Api\GetSiteCmsResourceByRequest;
-use Zrcms\ContentCore\Site\Model\SiteCmsResource;
+use Zrcms\CoreSite\Api\GetSiteCmsResourceByRequest;
+use Zrcms\CoreSite\Model\SiteCmsResource;
 use Zrcms\Locale\Api\SetLocale;
 
 /**

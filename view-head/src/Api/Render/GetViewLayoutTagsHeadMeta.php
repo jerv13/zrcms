@@ -3,11 +3,11 @@
 namespace Zrcms\ViewHead\Api\Render;
 
 use Psr\Http\Message\ServerRequestInterface;
-use Zrcms\Content\Api\Component\FindComponent;
-use Zrcms\Content\Model\Content;
-use Zrcms\ContentCore\Page\Model\PageVersion;
-use Zrcms\ContentCore\View\Model\View;
-use Zrcms\ContentCore\View\Model\ViewLayoutTagsComponent;
+use Zrcms\Core\Api\Component\FindComponent;
+use Zrcms\Core\Model\Content;
+use Zrcms\CorePage\Model\PageVersion;
+use Zrcms\CoreView\Model\View;
+use Zrcms\CoreView\Model\ViewLayoutTagsComponent;
 use Zrcms\ViewHtmlTags\Api\Render\RenderTag;
 use Zrcms\ViewHtmlTags\Api\Render\RenderTags;
 

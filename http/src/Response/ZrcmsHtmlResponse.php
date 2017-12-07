@@ -4,8 +4,8 @@ namespace Zrcms\Http\Response;
 
 use Psr\Http\Message\StreamInterface;
 use Zend\Diactoros\Response\HtmlResponse;
-use Zrcms\Content\Model\PropertiesTrait;
-use Zrcms\ContentCore\Page\Fields\FieldsPageVersion;
+use Zrcms\Core\Model\PropertiesTrait;
+use Zrcms\CorePage\Fields\FieldsPageVersion;
 
 /**
  * @author James Jervis - https://github.com/jerv13

@@ -3,9 +3,9 @@
 namespace Zrcms\ViewHead\Api\Render;
 
 use Psr\Http\Message\ServerRequestInterface;
-use Zrcms\ContentCore\View\Api\Render\GetViewLayoutTags;
-use Zrcms\ContentCore\View\Model\ServiceAliasView;
-use Zrcms\ContentCore\View\Model\View;
+use Zrcms\CoreView\Api\Render\GetViewLayoutTags;
+use Zrcms\CoreView\Model\ServiceAliasView;
+use Zrcms\CoreView\Model\View;
 use Zrcms\Param\Param;
 use Zrcms\ServiceAlias\Api\GetServiceFromAlias;
 use Zrcms\ServiceAlias\ServiceCheck;

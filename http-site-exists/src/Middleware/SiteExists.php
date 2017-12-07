@@ -5,8 +5,8 @@ namespace Zrcms\HttpSiteExists\Middleware;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Zend\Diactoros\Response\HtmlResponse;
-use Zrcms\ContentCore\Site\Api\GetSiteCmsResourceByRequest;
-use Zrcms\ContentCore\Site\Model\SiteCmsResource;
+use Zrcms\CoreSite\Api\GetSiteCmsResourceByRequest;
+use Zrcms\CoreSite\Model\SiteCmsResource;
 
 /**
  * @author James Jervis - https://github.com/jerv13

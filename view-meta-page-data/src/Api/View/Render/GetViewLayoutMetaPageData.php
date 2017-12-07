@@ -5,10 +5,10 @@ namespace Zrcms\ViewMetaPageData\Api\View\Render;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Message\UriInterface;
 use Zrcms\Acl\Api\IsAllowed;
-use Zrcms\Content\Model\Content;
-use Zrcms\ContentCore\Site\Fields\FieldsSiteVersion;
-use Zrcms\ContentCore\View\Api\Render\GetViewLayoutTags;
-use Zrcms\ContentCore\View\Model\View;
+use Zrcms\Core\Model\Content;
+use Zrcms\CoreSite\Fields\FieldsSiteVersion;
+use Zrcms\CoreView\Api\Render\GetViewLayoutTags;
+use Zrcms\CoreView\Model\View;
 use Zrcms\HttpViewRender\Request\RequestWithOriginalUri;
 use Zrcms\ViewHtmlTags\Api\Render\RenderTag;
 

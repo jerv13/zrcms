@@ -2,8 +2,8 @@
 
 namespace Zrcms\HttpRedirect;
 
-use Zrcms\ContentCore\Site\Api\GetSiteCmsResourceByRequest;
-use Zrcms\ContentRedirect\Api\CmsResource\FindRedirectCmsResourceBySiteRequestPath;
+use Zrcms\CoreSite\Api\GetSiteCmsResourceByRequest;
+use Zrcms\CoreRedirect\Api\CmsResource\FindRedirectCmsResourceBySiteRequestPath;
 use Zrcms\HttpRedirect\Middleware\ContentRedirect;
 
 /**

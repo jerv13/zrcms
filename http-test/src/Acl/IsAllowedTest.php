@@ -3,7 +3,7 @@
 namespace Zrcms\HttpTest\Acl;
 
 use Zrcms\Acl\Api\IsAllowed;
-use Zrcms\HttpContent\Acl\IsAllowedCheckApi;
+use Zrcms\HttpCore\Acl\IsAllowedCheckApi;
 
 /**
  * @author James Jervis - https://github.com/jerv13

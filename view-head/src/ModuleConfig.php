@@ -2,11 +2,11 @@
 
 namespace Zrcms\ViewHead;
 
-use Zrcms\Content\Api\Component\FindComponent;
-use Zrcms\Content\Fields\FieldsComponentRegistry;
-use Zrcms\Content\Model\ServiceAliasComponent;
-use Zrcms\ContentCore\View\Fields\FieldsViewLayoutTagsComponent;
-use Zrcms\ContentCore\View\Model\ServiceAliasView;
+use Zrcms\Core\Api\Component\FindComponent;
+use Zrcms\Core\Fields\FieldsComponentRegistry;
+use Zrcms\Core\Model\ServiceAliasComponent;
+use Zrcms\CoreView\Fields\FieldsViewLayoutTagsComponent;
+use Zrcms\CoreView\Model\ServiceAliasView;
 use Zrcms\ServiceAlias\Api\GetServiceFromAlias;
 use Zrcms\ViewHead\Api\Component\ReadViewHeadComponentConfigBc;
 use Zrcms\ViewHead\Api\Component\ReadViewHeadComponentConfigBcFactory;

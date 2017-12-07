@@ -3,8 +3,8 @@
 namespace Zrcms\ViewMetaPageData;
 
 use Zrcms\Acl\Api\IsAllowedAny;
-use Zrcms\Content\Fields\FieldsComponentRegistry;
-use Zrcms\ContentCore\View\Model\ServiceAliasView;
+use Zrcms\Core\Fields\FieldsComponentRegistry;
+use Zrcms\CoreView\Model\ServiceAliasView;
 use Zrcms\ViewHtmlTags\Api\Render\RenderTag;
 use Zrcms\ViewMetaPageData\Api\View\Render\GetViewLayoutMetaPageData;
 

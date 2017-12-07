@@ -5,8 +5,8 @@ namespace Zrcms\HttpViewRender\Request;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Zend\Diactoros\Response\HtmlResponse;
-use Zrcms\ContentCore\View\Api\Render\GetViewLayoutTags;
-use Zrcms\ContentCore\View\Api\Render\RenderView;
+use Zrcms\CoreView\Api\Render\GetViewLayoutTags;
+use Zrcms\CoreView\Api\Render\RenderView;
 
 /**
  * @author James Jervis - https://github.com/jerv13

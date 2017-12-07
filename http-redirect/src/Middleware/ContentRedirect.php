@@ -5,8 +5,8 @@ namespace Zrcms\HttpRedirect\Middleware;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Zend\Diactoros\Response\RedirectResponse;
-use Zrcms\ContentCore\Site\Api\GetSiteCmsResourceByRequest;
-use Zrcms\ContentRedirect\Api\CmsResource\FindRedirectCmsResourceBySiteRequestPath;
+use Zrcms\CoreSite\Api\GetSiteCmsResourceByRequest;
+use Zrcms\CoreRedirect\Api\CmsResource\FindRedirectCmsResourceBySiteRequestPath;
 
 /**
  * @author James Jervis - https://github.com/jerv13

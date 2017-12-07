@@ -6,12 +6,12 @@ use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Zend\Diactoros\Response\HtmlResponse;
 use Zend\Diactoros\Stream;
-use Zrcms\ContentCore\Page\Exception\PageNotFound;
-use Zrcms\ContentCore\Site\Exception\SiteNotFound;
-use Zrcms\ContentCore\View\Api\GetViewByRequestHtmlPage;
-use Zrcms\ContentCore\View\Api\Render\GetViewLayoutTags;
-use Zrcms\ContentCore\View\Api\Render\RenderView;
-use Zrcms\ContentCore\View\Model\View;
+use Zrcms\CorePage\Exception\PageNotFound;
+use Zrcms\CoreSite\Exception\SiteNotFound;
+use Zrcms\CoreView\Api\GetViewByRequestHtmlPage;
+use Zrcms\CoreView\Api\Render\GetViewLayoutTags;
+use Zrcms\CoreView\Api\Render\RenderView;
+use Zrcms\CoreView\Model\View;
 use Zrcms\Http\Response\ZrcmsHtmlResponse;
 use Zrcms\Param\Param;
 

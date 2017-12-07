@@ -3,9 +3,9 @@
 namespace Zrcms\ViewHead\Api\Render;
 
 use Psr\Http\Message\ServerRequestInterface;
-use Zrcms\Content\Api\Component\FindComponent;
-use Zrcms\Content\Model\Content;
-use Zrcms\ContentCore\View\Model\View;
+use Zrcms\Core\Api\Component\FindComponent;
+use Zrcms\Core\Model\Content;
+use Zrcms\CoreView\Model\View;
 use Zrcms\ViewHead\Model\HeadSectionComponent;
 
 /**

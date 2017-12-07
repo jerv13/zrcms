@@ -2,7 +2,7 @@
 
 namespace Zrcms\HttpSiteExists;
 
-use Zrcms\ContentCore\Site\Api\GetSiteCmsResourceByRequest;
+use Zrcms\CoreSite\Api\GetSiteCmsResourceByRequest;
 use Zrcms\HttpSiteExists\Middleware\SiteExists;
 
 /**

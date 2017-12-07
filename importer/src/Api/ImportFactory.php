@@ -3,12 +3,12 @@
 namespace Zrcms\Importer\Api;
 
 use Psr\Container\ContainerInterface;
-use Zrcms\ContentCore\Container\Api\CmsResource\UpsertContainerCmsResource;
-use Zrcms\ContentCore\Page\Api\CmsResource\UpsertPageCmsResource;
-use Zrcms\ContentCore\Page\Api\CmsResource\UpsertPageTemplateCmsResource;
-use Zrcms\ContentCore\Site\Api\CmsResource\UpsertSiteCmsResource;
-use Zrcms\ContentCore\Site\Api\CmsResource\FindSiteCmsResource;
-use Zrcms\ContentRedirect\Api\CmsResource\UpsertRedirectCmsResource;
+use Zrcms\CoreContainer\Api\CmsResource\UpsertContainerCmsResource;
+use Zrcms\CorePage\Api\CmsResource\UpsertPageCmsResource;
+use Zrcms\CorePage\Api\CmsResource\UpsertPageTemplateCmsResource;
+use Zrcms\CoreSite\Api\CmsResource\UpsertSiteCmsResource;
+use Zrcms\CoreSite\Api\CmsResource\FindSiteCmsResource;
+use Zrcms\CoreRedirect\Api\CmsResource\UpsertRedirectCmsResource;
 
 /**
  * @author James Jervis - https://github.com/jerv13

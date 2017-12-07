@@ -2,8 +2,8 @@
 
 namespace Zrcms\ViewHead\Model;
 
-use Zrcms\ContentCore\View\Model\ViewLayoutTagsComponent;
-use Zrcms\ContentCore\View\Model\ViewLayoutTagsComponentAbstract;
+use Zrcms\CoreView\Model\ViewLayoutTagsComponent;
+use Zrcms\CoreView\Model\ViewLayoutTagsComponentAbstract;
 use Zrcms\Param\Param;
 
 /**

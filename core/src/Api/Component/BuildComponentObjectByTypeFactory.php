@@ -1,0 +1,26 @@
+<?php
+
+namespace Zrcms\Core\Api\Component;
+
+use Psr\Container\ContainerInterface;
+use Zrcms\Core\Api\GetTypeValue;
+
+/**
+ * @author James Jervis - https://github.com/jerv13
+ */
+class BuildComponentObjectByTypeFactory
+{
+    /**
+     * @param ContainerInterface $serviceContainer
+     *
+     * @return BuildComponentObjectByType
+     */
+    public function __invoke(
+        $serviceContainer
+    ) {
+        return new BuildComponentObjectByType(
+            $serviceContainer,
+            $serviceContainer->get(GetTypeValue::class)
+        );
+    }
+}

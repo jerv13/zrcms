@@ -3,7 +3,7 @@
 namespace Zrcms\ViewHead\Api\Render;
 
 use Psr\Http\Message\ServerRequestInterface;
-use Zrcms\ContentCore\View\Model\View;
+use Zrcms\CoreView\Model\View;
 
 /**
  * @author James Jervis - https://github.com/jerv13

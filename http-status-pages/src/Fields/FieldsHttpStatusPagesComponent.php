@@ -2,8 +2,8 @@
 
 namespace Zrcms\HttpStatusPages\Fields;
 
-use Zrcms\Content\Fields\FieldsComponent;
-use Zrcms\Content\Model\ComponentBasic;
+use Zrcms\Core\Fields\FieldsComponent;
+use Zrcms\Core\Model\ComponentBasic;
 
 /**
  * @author James Jervis - https://github.com/jerv13

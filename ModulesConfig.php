@@ -21,18 +21,32 @@ class ModulesConfig
             new \Zrcms\Cache\ModuleConfig(),
             new \Zrcms\Param\ModuleConfig(),
             new \Zrcms\Mustache\ModuleConfig(),
-            new \Zrcms\Content\ModuleConfig(),
-            new \Zrcms\ContentDoctrine\ModuleConfig(),
             new \Zrcms\ServiceAlias\ModuleConfig(),
+
+            new \Zrcms\Core\ModuleConfig(),
 
             // Mid level
             new \Zrcms\Acl\ModuleConfig(),
             new \Zrcms\Locale\ModuleConfig(),
             new \Zrcms\User\ModuleConfig(),
-            new \Zrcms\ContentCore\ModuleConfig(),
-            new \Zrcms\ContentCountry\ModuleConfig(),
-            new \Zrcms\ContentLanguage\ModuleConfig(),
-            new \Zrcms\ContentRedirect\ModuleConfig(),
+
+            new \Zrcms\CoreApplication\ModuleConfig(),
+            new \Zrcms\CoreApplicationDoctrine\ModuleConfig(),
+
+            new \Zrcms\CoreBlock\ModuleConfig(),
+            new \Zrcms\CoreContainer\ModuleConfig(),
+            new \Zrcms\CoreContainerDoctrine\ModuleConfig(),
+            new \Zrcms\CoreCountry\ModuleConfig(),
+            new \Zrcms\CoreLanguage\ModuleConfig(),
+            new \Zrcms\CorePage\ModuleConfig(),
+            new \Zrcms\CorePageDoctrine\ModuleConfig(),
+            new \Zrcms\CoreRedirect\ModuleConfig(),
+            new \Zrcms\CoreRedirectDoctrine\ModuleConfig(),
+            new \Zrcms\CoreSite\ModuleConfig(),
+            new \Zrcms\CoreSiteDoctrine\ModuleConfig(),
+            new \Zrcms\CoreTheme\ModuleConfig(),
+            new \Zrcms\CoreThemeDoctrine\ModuleConfig(),
+            new \Zrcms\CoreView\ModuleConfig(),
 
             new \Zrcms\Importer\ModuleConfig(),
             new \Zrcms\Install\ModuleConfig(),
@@ -41,12 +55,10 @@ class ModulesConfig
             new \Zrcms\ViewHead\ModuleConfig(),
             new \Zrcms\ViewHtmlTags\ModuleConfig(),
 
-            new \Zrcms\ContentCoreDoctrineDataSource\ModuleConfig(),
-            new \Zrcms\ContentRedirectDoctrineDataSource\ModuleConfig(),
-
             new \Zrcms\Http\ModuleConfig(),
-            new \Zrcms\HttpContent\ModuleConfig(),
-            new \Zrcms\HttpContentSite\ModuleConfig(),
+            new \Zrcms\HttpChangeLog\ModuleConfig(),
+            new \Zrcms\HttpCore\ModuleConfig(),
+            new \Zrcms\HttpCoreSite\ModuleConfig(),
             new \Zrcms\HttpLocale\ModuleConfig(),
             new \Zrcms\HttpRcmApiLib\ModuleConfig(),
             new \Zrcms\HttpRedirect\ModuleConfig(),
@@ -55,8 +67,6 @@ class ModulesConfig
             new \Zrcms\HttpTest\ModuleConfig(),
             new \Zrcms\HttpUser\ModuleConfig(),
             new \Zrcms\HttpViewRender\ModuleConfig(),
-
-            new \Zrcms\ChangeLog\ModuleConfig(),
 
             // @todo REMOVE Xample
             new \Zrcms\XampleComponent\ModuleConfig(),

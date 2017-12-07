@@ -3,12 +3,12 @@
 namespace Zrcms\XampleComponent\View\Api\Render;
 
 use Psr\Http\Message\ServerRequestInterface;
-use Zrcms\Content\Model\Content;
+use Zrcms\Core\Model\Content;
 
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class GetViewLayoutTags implements \Zrcms\ContentCore\View\Api\Render\GetViewLayoutTags
+class GetViewLayoutTags implements \Zrcms\CoreView\Api\Render\GetViewLayoutTags
 {
     const XAMPLE_RENDER_TAG = 'xample';
 

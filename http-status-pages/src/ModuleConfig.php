@@ -2,10 +2,10 @@
 
 namespace Zrcms\HttpStatusPages;
 
-use Zrcms\Content\Api\Component\FindComponent;
-use Zrcms\Content\Api\Component\ReadComponentConfigComponentRegistryConfig;
-use Zrcms\Content\Fields\FieldsComponentRegistry;
-use Zrcms\ContentCore\Site\Api\GetSiteCmsResourceByRequest;
+use Zrcms\Core\Api\Component\FindComponent;
+use Zrcms\Core\Api\Component\ReadComponentConfigComponentRegistryConfig;
+use Zrcms\Core\Fields\FieldsComponentRegistry;
+use Zrcms\CoreSite\Api\GetSiteCmsResourceByRequest;
 use Zrcms\HttpStatusPages\Api\GetStatusPage;
 use Zrcms\HttpStatusPages\Api\GetStatusPageBasic;
 use Zrcms\HttpStatusPages\Fields\FieldsHttpStatusPagesComponent;

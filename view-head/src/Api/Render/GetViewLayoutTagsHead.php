@@ -3,9 +3,9 @@
 namespace Zrcms\ViewHead\Api\Render;
 
 use Psr\Http\Message\ServerRequestInterface;
-use Zrcms\Content\Model\Content;
-use Zrcms\ContentCore\View\Model\View;
-use Zrcms\ContentCore\View\Api\Render\GetViewLayoutTags;
+use Zrcms\Core\Model\Content;
+use Zrcms\CoreView\Model\View;
+use Zrcms\CoreView\Api\Render\GetViewLayoutTags;
 
 /**
  * @author James Jervis - https://github.com/jerv13
