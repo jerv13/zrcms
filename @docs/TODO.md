@@ -5,39 +5,46 @@
 - Component Simplify #####
 
     - add src folders - fis source dir configs
-
-    - Component locations have file-names
             
     - See about simplifying all common patterns (content, resource, etc...)?
     
         - CONFIG EXAMPLE:
-        'page' => [
-            'type' => 'page',
-            'change-log' => [],
-            'component' => [
-                
-            ],
-            'csm-resource.find-by' => [
-                'service' => FindCmsResourceByDoctrine,
-                'arguments' => [
-                    
+            'zrcms-types' => [
+                /* Default services and classes are defined here */
+                'basic' => [
+                    BuildComponentObject::class => BuildComponentObjectDefault::class,
+                    PrepareComponentConfig::class => PrepareComponentConfigNoop::class,
+                    ReadComponentConfig::class => ReadComponentConfigJsonFile::class,
+                    'component-model-interface' => Component::class,
+                    'component-model-class' => ComponentBasic::class,
                 ],
             ],
-            'content' => [],
-            'content-version' => [],
-            'render' => [],  
-        ]
-        
-        - Usage EXAMPLE:
-        
-            ZrcmsApi('page.cms-resource.find-by', ['x' => 'c'])
+    - 'view-layout-tag'
             
-                    FieldsComponentRegistry::TYPE => '',
-                    FieldsComponentRegistry::NAME => '',
-                    FieldsComponentRegistry::CONFIG_LOCATION 
-                    => __DIR__ . '/',
-                    FieldsComponentRegistry::MODULE_DIRECTORY
-                                        => __DIR__,
+    - Move Files
+        - content (might be core)
+            - content (abstract)
+            - content-application (concrete with app config)
+                - move GetGuidV4 in here
+                - move StringToHtmlClassName in here
+        - content-core
+            - content-page
+            - content-block
+            - content-site
+            - etc.
+        - content-core-doctrine-data-source
+            - content-page-doctrine
+            - content-block-doctrine
+            - content-site-doctrine
+            - etc.
+        - content-doctrine to content-application-doctrine
+        - view-xxx to content-view-xxx
+        - MAYBE: change-log into content-application (as concretions?)
+         
+     - Deal with 'zrcms-view-builders'
+            
+            
+
 
 - Find service that end in "Basic" that determine the service to use and rename to ByStrategy
 - content-core, content-core-doctrine-data-source (split), content-language and content-country rename

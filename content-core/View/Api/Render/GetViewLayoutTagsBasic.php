@@ -66,7 +66,7 @@ class GetViewLayoutTagsBasic implements GetViewLayoutTags
 
         // @todo only get layout components that have paths in the layout
         $viewLayoutTagsComponents = $this->findComponentsBy->__invoke(
-            [FieldsComponentConfig::TYPE]
+            [FieldsComponentConfig::TYPE => 'view-layout-tag']
         );
 
         /** @var ViewLayoutTagsComponent $viewLayoutTagsComponent */

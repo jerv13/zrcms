@@ -68,8 +68,7 @@ class RenderHeadSectionsTagBasic implements RenderHeadSectionsTag
         string $tag,
         array $sections,
         array $options = []
-    ): string
-    {
+    ): string {
         $debug = Param::getBool($options, 'debug', true);
         $orderedSections = $this->getHeadSections->__invoke();
         $html = '';
