@@ -58,6 +58,8 @@ class PrepareComponentConfigBlockBc implements PrepareComponentConfig
             $blockConfigBc[$key] = $value;
         }
 
+        // Since type
+
         // Set defaults
         foreach ($blockConfigFields as $key => $value) {
             if (!array_key_exists($key, $blockConfigBc)) {

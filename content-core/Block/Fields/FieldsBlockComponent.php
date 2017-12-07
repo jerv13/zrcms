@@ -22,10 +22,10 @@ class FieldsBlockComponent extends FieldsComponent
     // client only
     const ICON = 'icon';
     const EDITOR = 'editor';
-    const TYPE = 'type';
+    const CATEGORY = 'type';
     const LABEL = 'label';
     const DESCRIPTION = 'description';
-    
+
     /**
      * @var array
      */
@@ -112,7 +112,7 @@ class FieldsBlockComponent extends FieldsComponent
                 'options' => [],
             ],
             [
-                'name' => self::TYPE,
+                'name' => self::CATEGORY,
                 'type' => 'text',
                 'label' => 'Type',
                 'required' => false,

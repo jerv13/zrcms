@@ -22,7 +22,7 @@ class FieldsBlockComponentConfig extends FieldsComponentConfig
     // client only
     const ICON = FieldsBlockComponent::ICON;
     const EDITOR = FieldsBlockComponent::EDITOR;
-    const TYPE = FieldsBlockComponent::TYPE;
+    const CATEGORY = FieldsBlockComponent::CATEGORY;
     const LABEL = FieldsBlockComponent::LABEL;
     const DESCRIPTION = FieldsBlockComponent::DESCRIPTION;
 
@@ -144,9 +144,9 @@ class FieldsBlockComponentConfig extends FieldsComponentConfig
                 'options' => [],
             ],
             [
-                'name' => self::TYPE,
+                'name' => self::CATEGORY,
                 'type' => 'text',
-                'label' => 'Type',
+                'label' => 'Category',
                 'required' => false,
                 'default' => 'General',
                 'options' => [],

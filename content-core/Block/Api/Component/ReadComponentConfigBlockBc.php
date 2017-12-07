@@ -5,6 +5,7 @@ namespace Zrcms\ContentCore\Block\Api\Component;
 use Zrcms\Content\Api\Component\ReadComponentConfig;
 use Zrcms\ContentCore\Block\Api\Render\RenderBlockBc;
 use Zrcms\ContentCore\Block\Fields\FieldsBlockComponentConfig;
+use ZrcmsRcmCompatibility\RcmAdapter\ComponentBlockRegistryBC;
 
 /**
  * @deprecated BC only
@@ -44,12 +45,12 @@ class ReadComponentConfigBlockBc implements ReadComponentConfig
                 "Config key not found: ({$configKey})"
             );
         }
-        $config = $this->pluginConfig[$configKey];
 
-        $config[FieldsBlockComponentConfig::COMPONENT_CONFIG_READER] = ReadComponentConfigBlockBc::SERVICE_ALIAS;
-        $config[FieldsBlockComponentConfig::CONFIG_LOCATION] = $configKey;
-        $config[FieldsBlockComponentConfig::NAME] = $configKey;
-        $config[FieldsBlockComponentConfig::RENDERER] = RenderBlockBc::SERVICE_ALIAS;
+        $config = ComponentBlockRegistryBC::getBcPluginConfig(
+            $configKey,
+            $this->pluginConfig[$configKey],
+            $this->pluginConfig[$configKey]
+        );
 
         return $config;
     }

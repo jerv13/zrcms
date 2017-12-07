@@ -200,7 +200,7 @@ class ReadComponentRegistryByType implements ReadComponentRegistry
 
         if ($componentConfigType !== $componentType) {
             throw new \Exception(
-                'Component ' . FieldsComponentConfig::TYPE . ' must match registry type: '
+                'Component type must match registry type: '
                 . ' for component: (' . $componentName . ')'
                 . ' registry value: (' . $componentType . ')'
                 . ' config value: (' . $componentConfigType . ')'
