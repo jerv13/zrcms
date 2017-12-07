@@ -29,16 +29,22 @@ class ModuleConfig
                     FieldsComponentRegistry::TYPE => 'block',
                     FieldsComponentRegistry::NAME => 'zrcms-xample',
                     FieldsComponentRegistry::CONFIG_LOCATION => __DIR__ . '/../block/block.json',
+                    FieldsComponentRegistry::MODULE_DIRECTORY
+                    => __DIR__ . '/../block',
                 ],
                 'theme.zrcms-xample' => [
                     FieldsComponentRegistry::TYPE => 'theme',
                     FieldsComponentRegistry::NAME => 'zrcms-xample',
                     FieldsComponentRegistry::CONFIG_LOCATION => __DIR__ . '/../theme/theme.json',
+                    FieldsComponentRegistry::MODULE_DIRECTORY
+                    => __DIR__ . '/../theme',
                 ],
                 'view-layout-tag.zrcms-xample' => [
                     FieldsComponentRegistry::TYPE => 'view-layout-tag',
                     FieldsComponentRegistry::NAME => 'zrcms-xample',
                     FieldsComponentRegistry::CONFIG_LOCATION => __DIR__ . '/../view-layout-tags/view-layout-tags.json',
+                    FieldsComponentRegistry::MODULE_DIRECTORY
+                    => __DIR__ . '/../view-layout-tags',
                 ],
             ],
 

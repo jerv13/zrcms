@@ -53,6 +53,9 @@ class ModuleConfig
                     FieldsComponentRegistry::CONFIG_LOCATION
                     => 'basic.' . HttpStatusPagesComponent::NAME,
 
+                    FieldsComponentRegistry::MODULE_DIRECTORY
+                    => __DIR__ . '/..',
+
                     FieldsComponentRegistry::COMPONENT_CONFIG_READER
                     => ReadComponentConfigComponentRegistryConfig::SERVICE_ALIAS,
 

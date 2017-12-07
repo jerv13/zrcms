@@ -24,6 +24,8 @@ class ModuleConfig
                     FieldsComponentRegistry::NAME => '',
                     FieldsComponentRegistry::CONFIG_LOCATION
                     => __DIR__ . '/basic.json',
+                    FieldsComponentRegistry::MODULE_DIRECTORY
+                    => __DIR__,
                 ],
             ],
         ];

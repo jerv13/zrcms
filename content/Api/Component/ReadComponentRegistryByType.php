@@ -2,53 +2,66 @@
 
 namespace Zrcms\Content\Api\Component;
 
+use Psr\Container\ContainerInterface;
 use Zrcms\Cache\Service\Cache;
+use Zrcms\Content\Api\GetTypeValue;
 use Zrcms\Content\Fields\FieldsComponentConfig;
 use Zrcms\Content\Fields\FieldsComponentRegistry;
+use Zrcms\Content\Model\ServiceAliasComponent;
 use Zrcms\Param\Param;
+use Zrcms\ServiceAlias\Api\GetServiceFromAlias;
 
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class ReadComponentRegistryBasic implements ReadComponentRegistry
+class ReadComponentRegistryByType implements ReadComponentRegistry
 {
     const CACHE_KEY = 'ZrcmsComponentRegistryBasic';
-    /**
-     * @var array
-     */
+
+    protected $serviceContainer;
     protected $registry;
-
-    /**
-     * @var ReadComponentConfig
-     */
-    protected $readComponentConfig;
-
-    /**
-     * @var Cache
-     */
+    protected $getTypeValue;
+    protected $getServiceFromAlias;
     protected $cache;
-
-    /**
-     * @var string
-     */
     protected $cacheKey;
+    protected $configReaderServiceAliasNamespace;
+    protected $defaultReadComponentConfigServiceName;
+    protected $defaultPrepareComponentConfig;
 
     /**
+     * @todo Throw more specific exceptions
+     *
+     * @param ContainerInterface  $serviceContainer
      * @param array               $registry
-     * @param ReadComponentConfig $readComponentConfig
+     * @param GetTypeValue        $getTypeValue
+     * @param GetServiceFromAlias $getServiceFromAlias
      * @param Cache               $cache
      * @param string              $cacheKey
+     * @param string              $configReaderServiceAliasNamespace
+     * @param string              $defaultReadComponentConfigServiceName
+     * @param string              $defaultPrepareComponentConfig
      */
     public function __construct(
+        $serviceContainer,
         array $registry,
-        ReadComponentConfig $readComponentConfig,
+        GetTypeValue $getTypeValue,
+        GetServiceFromAlias $getServiceFromAlias,
         Cache $cache,
-        string $cacheKey
+        string $cacheKey = self::CACHE_KEY,
+        string $configReaderServiceAliasNamespace = ServiceAliasComponent::ZRCMS_COMPONENT_CONFIG_READER,
+        string $defaultReadComponentConfigServiceName = ReadComponentConfigJsonFile::class,
+        string $defaultPrepareComponentConfig = PrepareComponentConfigNoop::class
     ) {
+        $this->serviceContainer = $serviceContainer;
         $this->registry = $registry;
-        $this->readComponentConfig = $readComponentConfig;
+        
+        $this->getTypeValue = $getTypeValue;
+        $this->getServiceFromAlias = $getServiceFromAlias;
         $this->cache = $cache;
         $this->cacheKey = $cacheKey;
+        $this->configReaderServiceAliasNamespace = $configReaderServiceAliasNamespace;
+        $this->defaultReadComponentConfigServiceName = $defaultReadComponentConfigServiceName;
+        $this->defaultPrepareComponentConfig = $defaultPrepareComponentConfig;
     }
 
     /**
@@ -91,8 +104,7 @@ class ReadComponentRegistryBasic implements ReadComponentRegistry
      */
     public function __invoke(
         array $options = []
-    ): array
-    {
+    ): array {
         if ($this->hasCache()) {
             return $this->getCache();
         }
@@ -146,14 +158,38 @@ class ReadComponentRegistryBasic implements ReadComponentRegistry
             )
         );
 
-        /**
-         * @todo This is a bit of a hack
-         */
-        $componentReaderOptions = $registryEntry;
+        $configModuleDirectory = Param::getRequired(
+            $registryEntry,
+            FieldsComponentRegistry::MODULE_DIRECTORY,
+            new \Exception(
+                'Component module directory is required for: '
+                . json_encode($registryEntry, 0, 2)
+                . ' in ' . $componentName
+            )
+        );
 
-        $componentConfig = $this->readComponentConfig->__invoke(
-            $configLocation,
-            $componentReaderOptions
+        $registryEntryReadComponentConfigAlias = Param::get(
+            $registryEntry,
+            FieldsComponentRegistry::COMPONENT_CONFIG_READER,
+            ''
+        );
+
+        $defaultReadComponentConfigServiceName = $this->getTypeValue->__invoke(
+            $componentType,
+            ReadComponentConfig::class,
+            $this->defaultReadComponentConfigServiceName
+        );
+
+        /** @var ReadComponentConfig $readComponentConfig */
+        $readComponentConfig = $this->getServiceFromAlias->__invoke(
+            $this->configReaderServiceAliasNamespace,
+            $registryEntryReadComponentConfigAlias,
+            ReadComponentConfig::class,
+            $defaultReadComponentConfigServiceName
+        );
+
+        $componentConfig = $readComponentConfig->__invoke(
+            $configLocation
         );
 
         $componentConfigType = Param::get(
@@ -173,8 +209,40 @@ class ReadComponentRegistryBasic implements ReadComponentRegistry
 
         // Back-fill if value is not set
         $componentConfig[FieldsComponentConfig::TYPE] = $componentConfigType;
+        $componentConfig[FieldsComponentConfig::MODULE_DIRECTORY] = $configModuleDirectory;
+
+        $prepareComponentConfigServiceName = $this->getTypeValue->__invoke(
+            $componentConfigType,
+            PrepareComponentConfig::class,
+            $this->defaultPrepareComponentConfig
+        );
+
+        /** @var PrepareComponentConfig $prepareComponentConfig */
+        $prepareComponentConfig = $this->serviceContainer->get($prepareComponentConfigServiceName);
+
+        $this->assertValidPrepareComponentConfig($prepareComponentConfig);
+
+        $componentConfig = $prepareComponentConfig->__invoke(
+            $componentConfig
+        );
 
         return $componentConfig;
+    }
+
+    /**
+     * @param $prepareComponentConfig
+     *
+     * @return void
+     * @throws \Exception
+     */
+    protected function assertValidPrepareComponentConfig($prepareComponentConfig)
+    {
+        if (!is_a($prepareComponentConfig, PrepareComponentConfig::class)) {
+            throw new \Exception(
+                'PrepareComponentConfig is not valid: '
+                . $prepareComponentConfig . ' must be a ' . PrepareComponentConfig::class
+            );
+        }
     }
 
     /**

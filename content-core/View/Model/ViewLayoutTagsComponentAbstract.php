@@ -13,18 +13,20 @@ use Zrcms\Param\Param;
 abstract class ViewLayoutTagsComponentAbstract extends ComponentAbstract
 {
     /**
-     * @param string $type
-     * @param string $name
-     * @param string $configLocation
-     * @param array  $properties
-     * @param string $createdByUserId
-     * @param string $createdReason
-     * @param string|null   $createdDate
+     * @param string      $type
+     * @param string      $name
+     * @param string      $configLocation
+     * @param string      $moduleDirectory
+     * @param array       $properties
+     * @param string      $createdByUserId
+     * @param string      $createdReason
+     * @param string|null $createdDate
      */
     public function __construct(
         string $type,
         string $name,
         string $configLocation,
+        string $moduleDirectory,
         array $properties,
         string $createdByUserId,
         string $createdReason,
@@ -44,6 +46,7 @@ abstract class ViewLayoutTagsComponentAbstract extends ComponentAbstract
             $type,
             $name,
             $configLocation,
+            $moduleDirectory,
             $properties,
             $createdByUserId,
             $createdReason,

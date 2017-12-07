@@ -37,11 +37,13 @@ class BuildComponentObjectDefault implements BuildComponentObject
      * @param array $options
      *
      * @return Component
+     * @throws \Exception
      */
     public function __invoke(
         array $componentConfig,
         array $options = []
-    ): Component {
+    ): Component
+    {
         $type = Param::getString(
             $componentConfig,
             FieldsComponentConfig::TYPE,
@@ -70,6 +72,19 @@ class BuildComponentObjectDefault implements BuildComponentObject
 
         $this->assertValidClass($componentClass, $defaultComponentInterface);
 
+        $moduleDirectory = Param::getRequired(
+            $componentConfig,
+            FieldsComponentConfig::MODULE_DIRECTORY
+        );
+
+        $moduleDirectoryReal = realpath($moduleDirectory);
+
+        if ($moduleDirectoryReal === false) {
+            throw new \Exception(
+                'Module directory is not valid: (' . $moduleDirectory . ')'
+            );
+        }
+
         return new $componentClass(
             Param::get(
                 $componentConfig,
@@ -84,6 +99,7 @@ class BuildComponentObjectDefault implements BuildComponentObject
                 $componentConfig,
                 FieldsComponentConfig::CONFIG_LOCATION
             ),
+            $moduleDirectoryReal,
             $componentConfig,
             Param::get(
                 $componentConfig,
@@ -94,6 +110,11 @@ class BuildComponentObjectDefault implements BuildComponentObject
                 $componentConfig,
                 FieldsComponentConfig::CREATED_REASON,
                 Trackable::UNKNOWN_REASON
+            ),
+            Param::get(
+                $componentConfig,
+                FieldsComponentConfig::CREATED_DATE,
+                null
             )
         );
     }

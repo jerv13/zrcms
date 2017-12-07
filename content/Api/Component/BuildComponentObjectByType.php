@@ -12,7 +12,7 @@ use Zrcms\Param\Param;
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class BuildComponentObjectByStrategy implements BuildComponentObject
+class BuildComponentObjectByType implements BuildComponentObject
 {
     protected $serviceContainer;
     protected $getTypeValue;
@@ -50,21 +50,8 @@ class BuildComponentObjectByStrategy implements BuildComponentObject
         $type = Param::getString(
             $componentConfig,
             FieldsComponentConfig::TYPE,
-            ''
+            FieldsComponentConfig::DEFAULT_TYPE
         );
-
-        if (empty($type)) {
-            $buildComponentObjectService = $this->serviceContainer->get(
-                $this->defaultBuildComponentObject
-            );
-
-            $this->assertValidInstance($buildComponentObjectService);
-
-            return $buildComponentObjectService->__invoke(
-                $componentConfig,
-                $options
-            );
-        }
 
         $buildComponentObjectServiceName = $this->getTypeValue->__invoke(
             $type,

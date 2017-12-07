@@ -8,7 +8,7 @@ use Zrcms\Content\Api\CmsResource\CmsResourceToArrayBasic;
 use Zrcms\Content\Api\CmsResourceHistory\CmsResourceHistoryToArray;
 use Zrcms\Content\Api\CmsResourceHistory\CmsResourceHistoryToArrayBasic;
 use Zrcms\Content\Api\Component\BuildComponentObject;
-use Zrcms\Content\Api\Component\BuildComponentObjectByStrategyFactory;
+use Zrcms\Content\Api\Component\BuildComponentObjectByTypeFactory;
 use Zrcms\Content\Api\Component\BuildComponentObjectDefault;
 use Zrcms\Content\Api\Component\ComponentToArray;
 use Zrcms\Content\Api\Component\ComponentToArrayBasic;
@@ -31,7 +31,7 @@ use Zrcms\Content\Api\Component\ReadComponentConfigComponentRegistryConfigFactor
 use Zrcms\Content\Api\Component\ReadComponentConfigJsonFile;
 use Zrcms\Content\Api\Component\ReadComponentConfigPhpFile;
 use Zrcms\Content\Api\Component\ReadComponentRegistry;
-use Zrcms\Content\Api\Component\ReadComponentRegistryBasicFactory;
+use Zrcms\Content\Api\Component\ReadComponentRegistryTypeFactory;
 use Zrcms\Content\Api\Component\SearchComponentList;
 use Zrcms\Content\Api\Component\SearchComponentListBasic;
 use Zrcms\Content\Api\Content\ContentToArray;
@@ -84,7 +84,7 @@ class ModuleConfig
                      * Component
                      */
                     BuildComponentObject::class => [
-                        'factory' => BuildComponentObjectByStrategyFactory::class,
+                        'factory' => BuildComponentObjectByTypeFactory::class,
                     ],
                     BuildComponentObjectDefault::class => [
                         'arguments' => [
@@ -127,22 +127,10 @@ class ModuleConfig
 
                     /** DEFAULT */
                     ReadComponentConfig::class => [
-                        'class' => ReadComponentConfigByStrategy::class,
-                        'arguments' => [
-                            GetServiceFromAlias::class,
-                            ['literal' => ServiceAliasComponent::ZRCMS_COMPONENT_CONFIG_READER],
-                            ['literal' => ReadComponentConfigJsonFile::class],
-                        ],
+                        'class' => ReadComponentConfigJsonFile::class,
                     ],
                     ReadComponentConfigApplicationConfig::class => [
                         'factory' => ReadComponentConfigApplicationConfigFactory::class,
-                    ],
-                    ReadComponentConfigByStrategy::class => [
-                        'arguments' => [
-                            GetServiceFromAlias::class,
-                            ['literal' => ServiceAliasComponent::ZRCMS_COMPONENT_CONFIG_READER],
-                            ['literal' => ReadComponentConfigJsonFile::class],
-                        ],
                     ],
                     ReadComponentConfigCallable::class => [
                         'factory' => ReadComponentConfigCallableFactory::class,
@@ -153,7 +141,7 @@ class ModuleConfig
                     ReadComponentConfigJsonFile::class => [],
                     ReadComponentConfigPhpFile::class => [],
                     ReadComponentRegistry::class => [
-                        'factory' => ReadComponentRegistryBasicFactory::class,
+                        'factory' => ReadComponentRegistryTypeFactory::class,
                     ],
                     SearchComponentList::class => [
                         'class' => SearchComponentListBasic::class,
@@ -181,7 +169,11 @@ class ModuleConfig
             /**
              * ===== ZRCMS Components =====
              */
-            'zrcms-components' => [],
+            'zrcms-components' => [
+                /**
+                 * EXAMPLE:
+                 */
+            ],
 
             /**
              * ===== Service Alias =====

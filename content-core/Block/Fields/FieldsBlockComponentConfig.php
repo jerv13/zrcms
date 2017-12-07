@@ -4,7 +4,6 @@ namespace Zrcms\ContentCore\Block\Fields;
 
 use Zrcms\Content\Fields\FieldsComponentConfig;
 use Zrcms\Content\Model\Trackable;
-use Zrcms\ContentCore\Block\Model\BlockComponent;
 use Zrcms\ContentCore\Block\Model\BlockComponentBasic;
 
 /**
@@ -18,6 +17,7 @@ class FieldsBlockComponentConfig extends FieldsComponentConfig
     const RENDERER = FieldsBlockComponent::RENDERER;
     const DATA_PROVIDER = FieldsBlockComponent::DATA_PROVIDER;
     const FIELDS = FieldsBlockComponent::FIELDS;
+    const TEMPLATE_FILE = FieldsBlockComponent::TEMPLATE_FILE;
 
     // client only
     const ICON = FieldsBlockComponent::ICON;
@@ -80,22 +80,6 @@ class FieldsBlockComponentConfig extends FieldsComponentConfig
                 'options' => [],
             ],
             [
-                'name' => self::COMPONENT_CONFIG_READER,
-                'type' => 'zrcms-service',
-                'label' => 'Component Config Reader',
-                'required' => false,
-                'default' => 'json',
-                'options' => [],
-            ],
-            [
-                'name' => self::COMPONENT_CLASS,
-                'type' => 'class',
-                'label' => 'Component Class',
-                'required' => false,
-                'default' => BlockComponent::class,
-                'options' => [],
-            ],
-            [
                 'name' => self::DEFAULT_CONFIG,
                 'type' => 'array',
                 'label' => 'Default Config',
@@ -131,6 +115,14 @@ class FieldsBlockComponentConfig extends FieldsComponentConfig
                 'name' => self::FIELDS,
                 'type' => 'fields',
                 'label' => 'Fields',
+                'required' => false,
+                'default' => [],
+                'options' => [],
+            ],
+            [
+                'name' => self::TEMPLATE_FILE,
+                'type' => 'string',
+                'label' => 'Template File',
                 'required' => false,
                 'default' => [],
                 'options' => [],

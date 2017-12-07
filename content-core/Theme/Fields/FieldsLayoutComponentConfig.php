@@ -5,6 +5,7 @@ namespace Zrcms\ContentCore\Theme\Fields;
 use Zrcms\Content\Fields\FieldsComponentConfig;
 use Zrcms\Content\Model\Trackable;
 use Zrcms\ContentCore\Theme\Fields\FieldsLayoutComponent;
+use Zrcms\ContentCore\Theme\Model\LayoutComponentBasic;
 
 /**
  * @author James Jervis - https://github.com/jerv13

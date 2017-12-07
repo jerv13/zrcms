@@ -11,6 +11,7 @@ class LayoutComponentBasic extends LayoutComponentAbstract implements LayoutComp
      * @param string      $type
      * @param string      $name
      * @param string      $configLocation
+     * @param string      $moduleDirectory
      * @param array       $properties
      * @param string      $createdByUserId
      * @param string      $createdReason
@@ -20,6 +21,7 @@ class LayoutComponentBasic extends LayoutComponentAbstract implements LayoutComp
         string $type,
         string $name,
         string $configLocation,
+        string $moduleDirectory,
         array $properties,
         string $createdByUserId,
         string $createdReason,
@@ -29,6 +31,7 @@ class LayoutComponentBasic extends LayoutComponentAbstract implements LayoutComp
             $type,
             $name,
             $configLocation,
+            $moduleDirectory,
             $properties,
             $createdByUserId,
             $createdReason,

@@ -4,7 +4,7 @@ namespace Zrcms\ContentCore\Theme\Fields;
 
 use Zrcms\Content\Fields\FieldsComponentConfig;
 use Zrcms\Content\Model\Trackable;
-use Zrcms\ContentCore\Theme\Fields\FieldsThemeComponent;
+use Zrcms\ContentCore\Theme\Model\ThemeComponentBasic;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -12,7 +12,7 @@ use Zrcms\ContentCore\Theme\Fields\FieldsThemeComponent;
 class FieldsThemeComponentConfig extends FieldsComponentConfig
 {
     const PRIMARY_LAYOUT = FieldsThemeComponent::PRIMARY_LAYOUT_NAME;
-    const LAYOUT_LOCATIONS = 'layoutLocations';
+    const LAYOUT_COMPONENTS = 'layouts';
 
     /**
      * @var array
@@ -76,9 +76,9 @@ class FieldsThemeComponentConfig extends FieldsComponentConfig
                 'options' => [],
             ],
             [
-                'name' => self::LAYOUT_LOCATIONS,
+                'name' => self::LAYOUT_COMPONENTS,
                 'type' => 'array',
-                'label' => 'Layout Variation Locations',
+                'label' => 'Layout Component (for this theme)',
                 'required' => true,
                 'default' => [],
                 'options' => [],

@@ -48,6 +48,8 @@ class ModuleConfig
                     FieldsComponentRegistry::NAME => 'meta-page-data',
                     FieldsComponentRegistry::CONFIG_LOCATION
                     => __DIR__ . '/../config/meta-page-data/view-layout-tags.json',
+                    FieldsComponentRegistry::MODULE_DIRECTORY
+                    => __DIR__ . '/..',
                 ],
             ],
 

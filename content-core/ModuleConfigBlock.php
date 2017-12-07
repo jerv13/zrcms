@@ -6,7 +6,6 @@ use Zrcms\Content\Api\Component\BuildComponentObject;
 use Zrcms\Content\Api\Component\BuildComponentObjectDefault;
 use Zrcms\Content\Api\Component\FindComponent;
 use Zrcms\Content\Api\Component\PrepareComponentConfig;
-use Zrcms\Content\Api\Component\ReadComponentConfig;
 use Zrcms\Content\Model\ServiceAliasComponent;
 use Zrcms\ContentCore\Block\Api\Component\PrepareComponentConfigBlockBc;
 use Zrcms\ContentCore\Block\Api\Component\ReadComponentConfigBlockBc;
@@ -32,6 +31,7 @@ use Zrcms\ContentCore\Block\Api\Render\WrapRenderedBlockVersionLegacy;
 use Zrcms\ContentCore\Block\Model\BlockComponent;
 use Zrcms\ContentCore\Block\Model\BlockComponentBasic;
 use Zrcms\ContentCore\Block\Model\ServiceAliasBlock;
+use Zrcms\Mustache\Resolver\FileResolver;
 use Zrcms\ServiceAlias\Api\GetServiceFromAlias;
 
 /**
@@ -75,6 +75,7 @@ class ModuleConfigBlock
                     RenderBlockMustache::class => [
                         'arguments' => [
                             '0-' => FindComponent::class,
+                            '1-' => FileResolver::class
                         ],
                     ],
                     GetBlockData::class => [
@@ -144,9 +145,7 @@ class ModuleConfigBlock
              */
             'zrcms-types' => [
                 'block' => [
-                    BuildComponentObject::class => BuildComponentObjectDefault::class,
                     PrepareComponentConfig::class => PrepareComponentConfigBlockBc::class,
-                    ReadComponentConfig::class => ReadComponentConfigBlockBc::class,
                     'component-model-interface' => BlockComponent::class,
                     'component-model-class' => BlockComponentBasic::class,
                 ]

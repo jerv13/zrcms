@@ -21,7 +21,9 @@ class ModuleConfig
                 'basic.zrcms-countries' => [
                     FieldsComponentRegistry::TYPE => 'basic',
                     FieldsComponentRegistry::NAME => 'zrcms-countries',
-                    FieldsComponentRegistry::CONFIG_LOCATION => __DIR__ . '/basic.json'
+                    FieldsComponentRegistry::CONFIG_LOCATION => __DIR__ . '/basic.json',
+                    FieldsComponentRegistry::MODULE_DIRECTORY
+                    => __DIR__,
                 ],
             ],
         ];

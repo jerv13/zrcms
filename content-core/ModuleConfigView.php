@@ -5,6 +5,7 @@ namespace Zrcms\ContentCore;
 use Zrcms\Content\Api\Component\BuildComponentObject;
 use Zrcms\Content\Api\Component\BuildComponentObjectDefault;
 use Zrcms\Content\Api\Component\FindComponent;
+use Zrcms\Content\Api\Component\FindComponentsBy;
 use Zrcms\Content\Api\Component\PrepareComponentConfig;
 use Zrcms\Content\Api\Component\PrepareComponentConfigNoop;
 use Zrcms\ContentCore\Container\Api\CmsResource\FindContainerCmsResourcesBySitePaths;
@@ -36,7 +37,6 @@ use Zrcms\ContentCore\View\Api\Render\RenderViewLayout;
 use Zrcms\ContentCore\View\Model\ServiceAliasView;
 use Zrcms\ContentCore\View\Model\ViewLayoutTagsComponent;
 use Zrcms\ContentCore\View\Model\ViewLayoutTagsComponentBasic;
-use Zrcms\HttpContent\Component\FindComponentsBy;
 use Zrcms\ServiceAlias\Api\GetServiceFromAlias;
 
 /**

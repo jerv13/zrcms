@@ -2,8 +2,14 @@
   "type": "theme",
   "name": "xample-theme",
   "primaryLayoutName": "primary",
-  "layoutLocations": {
-    "primary": "/layout/primary",
-    "layout1": "/layout/layout1"
+  "layouts": {
+    "primary": {
+      "configLocation": "/layout/primary/layout.json",
+      "moduleDirectory": "/layout/primary"
+    },
+    "layout1": {
+      "configLocation": "/layout/primary/layout.json",
+      "moduleDirectory": "/layout/primary"
+    }
   }
 }

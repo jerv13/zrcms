@@ -9,24 +9,31 @@ use Zrcms\ServiceAlias\Api\GetServiceFromAlias;
 use Zrcms\ServiceAlias\ServiceCheck;
 
 /**
+ * @deprecated Cant work
  * @author James Jervis - https://github.com/jerv13
  */
 class ReadComponentConfigByStrategy implements ReadComponentConfig
 {
+    const OPTION_COMPONENT_TYPE = 'componentType';
+
+    protected $getTypeValue;
     protected $getServiceFromAlias;
     protected $configReaderServiceAliasNamespace;
     protected $defaultComponentConfigReaderServiceName;
 
     /**
+     * @param GetTypeValue        $getTypeValue
      * @param GetServiceFromAlias $getServiceFromAlias
      * @param string              $configReaderServiceAliasNamespace
      * @param string              $defaultComponentConfigReaderServiceName
      */
     public function __construct(
+        GetTypeValue $getTypeValue,
         GetServiceFromAlias $getServiceFromAlias,
         string $configReaderServiceAliasNamespace,
         string $defaultComponentConfigReaderServiceName
     ) {
+        $this->getTypeValue = $getTypeValue;
         $this->getServiceFromAlias = $getServiceFromAlias;
         $this->configReaderServiceAliasNamespace = $configReaderServiceAliasNamespace;
         $this->defaultComponentConfigReaderServiceName = $defaultComponentConfigReaderServiceName;
@@ -43,6 +50,18 @@ class ReadComponentConfigByStrategy implements ReadComponentConfig
         string $location,
         array $options = []
     ): array {
+        $componentType = Param::get(
+            $options,
+            self::OPTION_COMPONENT_TYPE,
+            'basic'
+        );
+
+        $defaultComponentConfigReaderServiceName = $this->getTypeValue->__invoke(
+            $componentType,
+            ReadComponentConfig::class,
+            $this->defaultComponentConfigReaderServiceName
+        );
+
         $componentConfigReaderServiceAlias = Param::getString(
             $options,
             FieldsComponent::COMPONENT_CONFIG_READER,

@@ -3,14 +3,13 @@
 namespace Zrcms\ContentCore;
 
 use Zrcms\Content\Api\Component\BuildComponentObject;
-use Zrcms\Content\Api\Component\BuildComponentObjectDefault;
-use Zrcms\Content\Api\Component\PrepareComponentConfig;
 use Zrcms\Content\Api\Component\ReadComponentConfigJsonFile;
+use Zrcms\Content\Api\GetTypeValue;
 use Zrcms\ContentCore\Layout\Api\CmsResource\UpsertLayoutCmsResource;
 use Zrcms\ContentCore\Theme\Api\CmsResource\FindLayoutCmsResource;
 use Zrcms\ContentCore\Theme\Api\CmsResource\FindLayoutCmsResourceByThemeNameLayoutName;
 use Zrcms\ContentCore\Theme\Api\CmsResource\FindLayoutCmsResourcesBy;
-use Zrcms\ContentCore\Theme\Api\Component\PrepareComponentConfigThemeLayouts;
+use Zrcms\ContentCore\Theme\Api\Component\BuildComponentObjectThemeLayouts;
 use Zrcms\ContentCore\Theme\Api\Content\FindLayoutVersion;
 use Zrcms\ContentCore\Theme\Api\Content\FindLayoutVersionsBy;
 use Zrcms\ContentCore\Theme\Api\Content\InsertLayoutVersion;
@@ -73,9 +72,11 @@ class ModuleConfigTheme
                     /**
                      * Component
                      */
-                    PrepareComponentConfigThemeLayouts::class => [
+                    BuildComponentObjectThemeLayouts::class => [
                         'arguments' => [
                             '0-' => ReadComponentConfigJsonFile::class,
+                            '1-' => GetTypeValue::class,
+                            '2-' => ['literal' => ThemeComponentBasic::class]
                         ],
                     ],
 
@@ -136,8 +137,7 @@ class ModuleConfigTheme
              */
             'zrcms-types' => [
                 'theme' => [
-                    BuildComponentObject::class => BuildComponentObjectDefault::class,
-                    PrepareComponentConfig::class => PrepareComponentConfigThemeLayouts::class,
+                    BuildComponentObject::class => BuildComponentObjectThemeLayouts::class,
                     'component-model-interface' => ThemeComponent::class,
                     'component-model-class' => ThemeComponentBasic::class,
                 ]

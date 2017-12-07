@@ -11,39 +11,27 @@ abstract class ComponentAbstract
     use PropertiesTrait;
     use TrackableTrait;
 
-    /**
-     * @var string
-     */
     protected $type;
-
-    /**
-     * @var string
-     */
     protected $name;
-
-    /**
-     * @var string
-     */
     protected $configLocation;
-
-    /**
-     * @var array
-     */
+    protected $moduleDirectory;
     protected $properties = [];
 
     /**
-     * @param string      $type
-     * @param string      $name
-     * @param string      $configLocation
-     * @param array       $properties
-     * @param string      $createdByUserId
-     * @param string      $createdReason
-     * @param string|null $createdDate
+     * @param string $type
+     * @param string $name
+     * @param string $configLocation
+     * @param string $moduleDirectory
+     * @param array  $properties
+     * @param string $createdByUserId
+     * @param string $createdReason
+     * @param null   $createdDate
      */
     public function __construct(
         string $type,
         string $name,
         string $configLocation,
+        string $moduleDirectory,
         array $properties,
         string $createdByUserId,
         string $createdReason,
@@ -58,6 +46,7 @@ abstract class ComponentAbstract
         $this->type = $type;
         $this->name = $name;
         $this->configLocation = $configLocation;
+        $this->moduleDirectory = $moduleDirectory;
         $this->properties = $properties;
 
         $this->setCreatedData(
@@ -89,5 +78,15 @@ abstract class ComponentAbstract
     public function getConfigLocation(): string
     {
         return $this->configLocation;
+    }
+
+    /**
+     * Component source code directory
+     *
+     * @return string
+     */
+    public function getModuleDirectory(): string
+    {
+        return $this->moduleDirectory;
     }
 }

@@ -38,8 +38,7 @@ class ReadComponentConfigBlockBc implements ReadComponentConfig
     public function __invoke(
         string $configKey,
         array $options = []
-    ): array
-    {
+    ): array {
         if (!array_key_exists($configKey, $this->pluginConfig)) {
             throw new \Exception(
                 "Config key not found: ({$configKey})"

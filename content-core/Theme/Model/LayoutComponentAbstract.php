@@ -16,6 +16,7 @@ abstract class LayoutComponentAbstract extends ComponentAbstract
      * @param string      $type
      * @param string      $name
      * @param string      $configLocation
+     * @param string      $moduleDirectory
      * @param array       $properties
      * @param string      $createdByUserId
      * @param string      $createdReason
@@ -25,6 +26,7 @@ abstract class LayoutComponentAbstract extends ComponentAbstract
         string $type,
         string $name,
         string $configLocation,
+        string $moduleDirectory,
         array $properties,
         string $createdByUserId,
         string $createdReason,
@@ -54,6 +56,7 @@ abstract class LayoutComponentAbstract extends ComponentAbstract
             $type,
             $name,
             $configLocation,
+            $moduleDirectory,
             $properties,
             $createdByUserId,
             $createdReason,

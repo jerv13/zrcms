@@ -18,6 +18,7 @@ class HttpStatusPagesComponent extends ComponentAbstract implements Component
      * @param string      $type
      * @param string      $name
      * @param string      $configLocation
+     * @param string      $moduleDirectory
      * @param array       $properties
      * @param string      $createdByUserId
      * @param string      $createdReason
@@ -27,6 +28,7 @@ class HttpStatusPagesComponent extends ComponentAbstract implements Component
         string $type,
         string $name,
         string $configLocation,
+        string $moduleDirectory,
         array $properties,
         string $createdByUserId,
         string $createdReason,
@@ -47,6 +49,7 @@ class HttpStatusPagesComponent extends ComponentAbstract implements Component
             $type,
             $name,
             $configLocation,
+            $moduleDirectory,
             $properties,
             $createdByUserId,
             $createdReason,

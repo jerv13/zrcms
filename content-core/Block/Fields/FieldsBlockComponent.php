@@ -3,7 +3,7 @@
 namespace Zrcms\ContentCore\Block\Fields;
 
 use Zrcms\Content\Fields\FieldsComponent;
-use Zrcms\ContentCore\Block\Model\BlockComponent;
+use Zrcms\ContentCore\Block\Model\BlockComponentBasic;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -17,6 +17,7 @@ class FieldsBlockComponent extends FieldsComponent
     const RENDERER = 'renderer';
     const DATA_PROVIDER = 'data-provider';
     const FIELDS = 'fields';
+    const TEMPLATE_FILE = 'templateFile';
 
     // client only
     const ICON = 'icon';
@@ -24,7 +25,7 @@ class FieldsBlockComponent extends FieldsComponent
     const TYPE = 'type';
     const LABEL = 'label';
     const DESCRIPTION = 'description';
-
+    
     /**
      * @var array
      */
@@ -43,7 +44,7 @@ class FieldsBlockComponent extends FieldsComponent
                 'type' => 'class',
                 'label' => 'Component Class',
                 'required' => false,
-                'default' => BlockComponent::class,
+                'default' => BlockComponentBasic::class,
                 'options' => [],
             ],
             [
@@ -82,6 +83,14 @@ class FieldsBlockComponent extends FieldsComponent
                 'name' => self::FIELDS,
                 'type' => 'fields',
                 'label' => 'Fields',
+                'required' => false,
+                'default' => [],
+                'options' => [],
+            ],
+            [
+                'name' => self::TEMPLATE_FILE,
+                'type' => 'string',
+                'label' => 'Template File',
                 'required' => false,
                 'default' => [],
                 'options' => [],

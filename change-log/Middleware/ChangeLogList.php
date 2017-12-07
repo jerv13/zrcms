@@ -4,20 +4,17 @@ namespace Zrcms\ChangeLog\Middleware;
 
 use Interop\Http\ServerMiddleware\DelegateInterface;
 use Interop\Http\ServerMiddleware\MiddlewareInterface;
-use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Zend\Diactoros\Response;
 use Zend\Diactoros\Response\HtmlResponse;
-use Zrcms\Acl\Api\IsAllowedRcmUser;
-use Zrcms\ChangeLog\Api\ChangeLogEventToString;
 use Zrcms\ChangeLog\Api\GetHumanReadableChangeLogByDateRange;
-use Zrcms\Content\Api\ChangeLog\GetChangeLogByDateRange;
 
 /**
  * This outputs the change log as an HTML table.
  * WARNING: This may be REPLACED with a JSON API at some point.
  *
  * Class ChangeLogHtml
+ *
  * @package Zrcms\ChangeLog\Controller
  */
 class ChangeLogList implements MiddlewareInterface
@@ -36,7 +33,8 @@ class ChangeLogList implements MiddlewareInterface
     {
         $queryParams = $request->getQueryParams();
         $days = filter_var(
-            isset($queryParams['days']) ? $queryParams['days'] : $this->defaultNumberOfDays, FILTER_VALIDATE_INT
+            isset($queryParams['days']) ? $queryParams['days'] : $this->defaultNumberOfDays,
+            FILTER_VALIDATE_INT
         );
 
         if (!$days) {
@@ -83,6 +81,14 @@ class ChangeLogList implements MiddlewareInterface
         return new HtmlResponse($body, 200, ['content-type' => 'text/csv']);
     }
 
+    /**
+     * @todo Use a renderer
+     *
+     * @param $description
+     * @param $humanReadableEvents
+     *
+     * @return HtmlResponse
+     */
     protected function makeHtmlResponse($description, $humanReadableEvents)
     {
         $html = '<html class="container-fluid">';
@@ -107,9 +113,11 @@ class ChangeLogList implements MiddlewareInterface
 
     protected function makeJsonResponse($description, $humanReadableEvents)
     {
-        return new Response\JsonResponse([
-            'description' => $description,
-            'events' => $humanReadableEvents
-        ]);
+        return new Response\JsonResponse(
+            [
+                'description' => $description,
+                'events' => $humanReadableEvents
+            ]
+        );
     }
 }

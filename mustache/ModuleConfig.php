@@ -2,6 +2,9 @@
 
 namespace Zrcms\Mustache;
 
+use Zrcms\Cache\Service\CacheArray;
+use Zrcms\Mustache\Resolver\FileResolver;
+
 /**
  * @author James Jervis - https://github.com/jerv13
  */
@@ -14,6 +17,16 @@ class ModuleConfig
      */
     public function __invoke()
     {
-        return [];
+        return [
+            'dependencies' => [
+                'config_factories' => [
+                    FileResolver::class => [
+                        'arguments' => [
+                            CacheArray::class
+                        ]
+                    ],
+                ],
+            ],
+        ];
     }
 }

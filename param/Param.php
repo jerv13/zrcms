@@ -288,7 +288,8 @@ class Param
             self::throwParamException(
                 $exceptionThrower,
                 ParamMissing::class,
-                "Property ({$key}) is missing and is required and can not be empty"
+                "Property ({$key}) is missing and is required and can not be empty",
+                $params
             );
         }
     }
@@ -314,7 +315,8 @@ class Param
         self::throwParamException(
             $exceptionThrower,
             ParamMissing::class,
-            "Property ({$key}) is missing and is required"
+            "Property ({$key}) is missing and is required",
+            $params
         );
     }
 
@@ -339,7 +341,8 @@ class Param
         self::throwParamException(
             $exceptionThrower,
             IllegalParam::class,
-            "Illegal property ({$key}) is was found"
+            "Illegal property ({$key}) is was found",
+            $params
         );
     }
 
@@ -347,6 +350,7 @@ class Param
      * @param callable|ParamException|null $exceptionThrower
      * @param string                       $defaultParamExceptionClass ParamException ::class
      * @param string                       $defaultMessage
+     * @param array  $params
      *
      * @return void
      * @throws ParamException|\Throwable
@@ -354,7 +358,8 @@ class Param
     public static function throwParamException(
         $exceptionThrower,
         $defaultParamExceptionClass = ParamException::class,
-        $defaultMessage = 'There was an error with a param'
+        $defaultMessage = 'There was an error with a param',
+        $params = []
     ) {
         if (is_callable($exceptionThrower)) {
             $exceptionThrower();
@@ -366,11 +371,17 @@ class Param
             $exceptionThrower = new $defaultParamExceptionClass($defaultMessage);
         }
 
-        if (self::$debug && is_a($exceptionThrower, ParamException::class)) {
+        if (self::$debug) {
+            $message = $defaultMessage;
+
+            if(is_a($exceptionThrower, \Throwable::class)) {
+                $message = $exceptionThrower->getMessage();
+            }
+
             var_dump(
                 "\n<pre>\n"
-                . "DEBUG: " . self::class . "\n\n"
-                . print_r($exceptionThrower->getProperties())
+                . "DEBUG: " . $message . "\n\n"
+                . var_export($params, true)
                 . "\n</pre>\n"
             );
         }

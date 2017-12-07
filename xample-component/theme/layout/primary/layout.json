@@ -1,6 +1,6 @@
 {
   "type": "layouts",
   "name": "primary",
-  "templateFile": "template.mustache",
+  "templateFile": "/template.mustache",
   "renderer": "mustache"
 }

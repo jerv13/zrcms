@@ -14,8 +14,10 @@ class FieldsComponentConfig extends FieldsAbstract implements Fields
     const TYPE = 'type';
     const NAME = 'name';
     const CONFIG_LOCATION = 'configLocation';
+    const MODULE_DIRECTORY = 'moduleDirectory';
     const CREATED_BY_USER_ID = TrackableProperties::CREATED_BY_USER_ID;
     const CREATED_REASON = TrackableProperties::CREATED_REASON;
+    const CREATED_DATE = TrackableProperties::CREATED_DATE;
     const COMPONENT_CONFIG_READER = FieldsComponent::COMPONENT_CONFIG_READER;
     const COMPONENT_CLASS = FieldsComponent::COMPONENT_CLASS;
 
@@ -51,6 +53,14 @@ class FieldsComponentConfig extends FieldsAbstract implements Fields
                 'options' => [],
             ],
             [
+                'name' => self::MODULE_DIRECTORY,
+                'type' => 'text',
+                'label' => 'Module Directory (module directory for component files)',
+                'required' => true,
+                'default' => '',
+                'options' => [],
+            ],
+            [
                 'name' => self::CREATED_BY_USER_ID,
                 'type' => 'zrcms-service',
                 'label' => 'Created By User ID',
@@ -64,6 +74,14 @@ class FieldsComponentConfig extends FieldsAbstract implements Fields
                 'label' => 'Component Class',
                 'required' => false,
                 'default' => Trackable::UNKNOWN_REASON,
+                'options' => [],
+            ],
+            [
+                'name' => self::CREATED_DATE,
+                'type' => 'string',
+                'label' => 'Created Date',
+                'required' => false,
+                'default' => null, // This should be and empty string, but might cause issues
                 'options' => [],
             ],
             [

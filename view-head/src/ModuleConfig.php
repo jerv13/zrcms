@@ -96,6 +96,8 @@ class ModuleConfig
                     FieldsComponentRegistry::NAME => 'head-all',
                     FieldsComponentRegistry::CONFIG_LOCATION
                     => __DIR__ . '/../config/head-all/view-layout-tags.json',
+                    FieldsComponentRegistry::MODULE_DIRECTORY
+                    => __DIR__ . '/..',
                 ],
                 'view-layout-tag.head-meta' => [
                     FieldsComponentRegistry::TYPE => 'view-layout-tag',
@@ -103,6 +105,8 @@ class ModuleConfig
                     FieldsComponentRegistry::NAME => 'head-meta',
                     FieldsComponentRegistry::CONFIG_LOCATION
                     => 'view-layout-tag.head-meta',
+                    FieldsComponentRegistry::MODULE_DIRECTORY
+                    => __DIR__ . '/..',
 
                     FieldsComponentRegistry::COMPONENT_CONFIG_READER
                     => ReadViewHeadComponentConfigBc::SERVICE_ALIAS,
@@ -123,6 +127,8 @@ class ModuleConfig
                     FieldsComponentRegistry::NAME => 'head-link',
                     FieldsComponentRegistry::CONFIG_LOCATION
                     => 'view-layout-tag.head-link',
+                    FieldsComponentRegistry::MODULE_DIRECTORY
+                    => __DIR__ . '/..',
 
                     FieldsComponentRegistry::COMPONENT_CONFIG_READER
                     => ReadViewHeadComponentConfigBc::SERVICE_ALIAS,
@@ -177,6 +183,8 @@ class ModuleConfig
                     FieldsComponentRegistry::NAME => 'head-script',
                     FieldsComponentRegistry::CONFIG_LOCATION
                     => 'view-layout-tag.head-script',
+                    FieldsComponentRegistry::MODULE_DIRECTORY
+                    => __DIR__ . '/..',
 
                     FieldsComponentRegistry::COMPONENT_CONFIG_READER
                     => ReadViewHeadComponentConfigBc::SERVICE_ALIAS,
@@ -228,6 +236,8 @@ class ModuleConfig
                     FieldsComponentRegistry::NAME => 'head-title',
                     FieldsComponentRegistry::CONFIG_LOCATION
                     => __DIR__ . '/../config/head-title/view-layout-tags.json',
+                    FieldsComponentRegistry::MODULE_DIRECTORY
+                    => __DIR__ . '/..',
                 ],
             ],
 

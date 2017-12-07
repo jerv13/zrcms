@@ -4,16 +4,8 @@
 
 - Component Simplify #####
 
-    - Fix paths to configs (config locations) 
-        - the name on the config files is not forced, so we need to add them along with path
-        
-    - Blocks and themes have special needs for BuildComponentConfigs
-        - There is an issue with the BC stuff as i can not be determined without a config for the Builder
-        - Might need to allow them as separate services instead of builders
-            - prepareConfig
-            - 
-            
-    - Layouts are strange
+    - add src folders - fis source dir configs
+
     - Component locations have file-names
             
     - See about simplifying all common patterns (content, resource, etc...)?
@@ -44,6 +36,8 @@
                     FieldsComponentRegistry::NAME => '',
                     FieldsComponentRegistry::CONFIG_LOCATION 
                     => __DIR__ . '/',
+                    FieldsComponentRegistry::MODULE_DIRECTORY
+                                        => __DIR__,
 
 - Find service that end in "Basic" that determine the service to use and rename to ByStrategy
 - content-core, content-core-doctrine-data-source (split), content-language and content-country rename
