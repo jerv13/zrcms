@@ -1,6 +1,6 @@
 {
   "name": "zrcms-languages",
-  "componentClass": "\\Zrcms\\ContentLanguage\\Model\\LanguagesComponent",
+  "componentClass": "\\Zrcms\\CoreLanguage\\Model\\LanguagesComponent",
   "languages": {
     "aar": {
       "iso639_2t": "aar",

@@ -4,6 +4,8 @@ namespace Zrcms\CoreApplication\Api\Component;
 
 use Psr\Container\ContainerInterface;
 use Zrcms\Cache\Service\Cache;
+use Zrcms\Core\Api\Component\PrepareComponentConfig;
+use Zrcms\Core\Api\Component\ReadComponentConfig;
 use Zrcms\Core\Api\Component\ReadComponentRegistry;
 use Zrcms\Core\Api\GetTypeValue;
 use Zrcms\Core\Fields\FieldsComponentConfig;

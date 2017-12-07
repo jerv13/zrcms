@@ -3,9 +3,6 @@
 namespace Zrcms\ViewHead\Api\Component;
 
 use Zrcms\Core\Api\Component\ReadComponentConfig;
-use Zrcms\ViewHead\Api\Render\GetViewLayoutTagsHeadLink;
-use Zrcms\ViewHead\Api\Render\GetViewLayoutTagsHeadMeta;
-use Zrcms\ViewHead\Api\Render\GetViewLayoutTagsHeadScript;
 use Zrcms\ViewHead\Api\MergeSectionsBc;
 
 /**
@@ -48,7 +45,8 @@ class ReadViewHeadComponentConfigBc implements ReadComponentConfig
     public function __invoke(
         string $configKey,
         array $options = []
-    ): array {
+    ): array
+    {
         if (!array_key_exists($configKey, $this->applicationConfig)) {
             throw new \Exception("Config key ({$configKey}) not found");
         }
@@ -65,7 +63,8 @@ class ReadViewHeadComponentConfigBc implements ReadComponentConfig
     protected function merge(
         array $applicationConfig,
         array $applicationConfigBc
-    ): array {
+    ): array
+    {
         $metaKey = 'view-layout-tag.head-meta';
         $linkKey = 'view-layout-tag.head-link';
         $scriptKey = 'view-layout-tag.head-script';
