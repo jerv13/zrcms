@@ -19,7 +19,9 @@
             ],
          
      - Deal with 'zrcms-view-builders'
-     - 
+     
+ - Component Registry revision
+    - 
 
 - Find service that end in "Basic" that determine the service to use and rename to ByStrategy
    
