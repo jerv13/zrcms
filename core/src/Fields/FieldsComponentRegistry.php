@@ -5,6 +5,7 @@ namespace Zrcms\Core\Fields;
 use Zrcms\Core\Model\ComponentBasic;
 
 /**
+ * @deprecated
  * @author James Jervis - https://github.com/jerv13
  */
 class FieldsComponentRegistry extends FieldsAbstract implements Fields

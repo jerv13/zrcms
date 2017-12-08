@@ -2,26 +2,29 @@
 =====
 8903 support pin
 
-- Component Simplify #####
-            
-    - See about simplifying all common patterns (content, resource, etc...)?
-    
-        - CONFIG EXAMPLE:
-            'zrcms-types' => [
-                /* Default services and classes are defined here */
-                'basic' => [
-                    BuildComponentObject::class => BuildComponentObjectDefault::class,
-                    PrepareComponentConfig::class => PrepareComponentConfigNoop::class,
-                    ReadComponentConfig::class => ReadComponentConfigJsonFile::class,
-                    'component-model-interface' => Component::class,
-                    'component-model-class' => ComponentBasic::class,
-                ],
+##### Component Simplify #####
+
+- Fix registry entries to {namespace} => {configLocation}
+- Add services and composite configs
+- When reading configs, we MUST set the default class and interface for the type
+
+- See about simplifying all common patterns (content, resource, etc...)?
+
+    - CONFIG EXAMPLE:
+        'zrcms-types' => [
+            /* Default services and classes are defined here */
+            'basic' => [
+                BuildComponentObject::class => BuildComponentObjectDefault::class,
+                PrepareComponentConfig::class => PrepareComponentConfigNoop::class,
+                ReadComponentConfig::class => ReadComponentConfigJsonFile::class,
+                'component-model-interface' => Component::class,
+                'component-model-class' => ComponentBasic::class,
             ],
-         
-     - Deal with 'zrcms-view-builders'
-     
- - Component Registry revision
-    - 
+        ],
+
+#### ToDo ####
+
+- Deal with 'zrcms-view-builders'
 
 - Find service that end in "Basic" that determine the service to use and rename to ByStrategy
    

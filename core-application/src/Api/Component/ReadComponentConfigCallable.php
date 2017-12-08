@@ -4,7 +4,9 @@ namespace Zrcms\CoreApplication\Api\Component;
 
 use Psr\Container\ContainerInterface;
 use Zrcms\Core\Api\Component\ReadComponentConfig;
+use Zrcms\Core\Exception\CanNotReadComponentConfig;
 use Zrcms\Core\Fields\FieldsComponentConfig;
+use Zrcms\Param\Param;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -12,6 +14,7 @@ use Zrcms\Core\Fields\FieldsComponentConfig;
 class ReadComponentConfigCallable implements ReadComponentConfig
 {
     const SERVICE_ALIAS = 'callable-service';
+    const READER_PROTOCOL = 'callable-service://';
 
     /**
      * @var ContainerInterface
@@ -32,18 +35,27 @@ class ReadComponentConfigCallable implements ReadComponentConfig
      * @param array  $options
      *
      * @return array
-     * @throws \Exception
+     * @throws CanNotReadComponentConfig
      */
     public function __invoke(
         string $callableServiceName,
         array $options = []
     ): array {
+        AssertValidReaderProtocol::invoke(self::READER_PROTOCOL, $callableServiceName);
+
         $callableService = $this->serviceContainer->get($callableServiceName);
 
-        $config = $callableService->__invoke();
+        $componentConfig = $callableService->__invoke();
 
-        $config[FieldsComponentConfig::CONFIG_LOCATION] = $callableServiceName;
+        $componentConfig[FieldsComponentConfig::CONFIG_LOCATION] = $callableServiceName;
 
-        return $config;
+        Param::assertHas(
+            $componentConfig,
+            FieldsComponentConfig::MODULE_DIRECTORY
+        );
+
+        $componentConfig[FieldsComponentConfig::CONFIG_LOCATION] = $callableServiceName;
+
+        return $componentConfig;
     }
 }

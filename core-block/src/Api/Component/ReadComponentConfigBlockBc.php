@@ -5,7 +5,7 @@ namespace Zrcms\CoreBlock\Api\Component;
 use Zrcms\Core\Api\Component\ReadComponentConfig;
 use Zrcms\CoreBlock\Api\Render\RenderBlockBc;
 use Zrcms\CoreBlock\Fields\FieldsBlockComponentConfig;
-use ZrcmsRcmCompatibility\RcmAdapter\ComponentBlockRegistryBC;
+use ZrcmsRcmCompatibility\RcmAdapter\ComponentBlockConfigBC;
 
 /**
  * @deprecated BC only
@@ -14,6 +14,40 @@ use ZrcmsRcmCompatibility\RcmAdapter\ComponentBlockRegistryBC;
 class ReadComponentConfigBlockBc implements ReadComponentConfig
 {
     const SERVICE_ALIAS = 'bc-block';
+    const READER_PROTOCOL = 'bc-block://';
+
+    /**
+     * @param string $rcmPluginName
+     * @param array  $rcmPluginConfig
+     * @param array  $componentConfig
+     * @param string $moduleDirectory
+     *
+     * @return array
+     */
+    public static function buildBcPluginConfig(
+        string $rcmPluginName,
+        array $rcmPluginConfig,
+        array $componentConfig = [],
+        $moduleDirectory = __DIR__ . '/../../..'
+    ): array {
+        $componentConfig = FixBlockConfigTypeCategoryCollisionBc::invoke(
+            $rcmPluginConfig,
+            $componentConfig
+        );
+
+        $componentConfig[FieldsBlockComponentConfig::COMPONENT_CONFIG_READER]
+            = ReadComponentConfigBlockBc::SERVICE_ALIAS;
+        $componentConfig[FieldsBlockComponentConfig::CONFIG_LOCATION]
+            = $rcmPluginName;
+        $componentConfig[FieldsBlockComponentConfig::MODULE_DIRECTORY]
+            = $moduleDirectory;
+        $componentConfig[FieldsBlockComponentConfig::NAME]
+            = $rcmPluginName;
+        $componentConfig[FieldsBlockComponentConfig::RENDERER]
+            = RenderBlockBc::SERVICE_ALIAS;
+
+        return $componentConfig;
+    }
 
     /**
      * @var array
@@ -46,7 +80,7 @@ class ReadComponentConfigBlockBc implements ReadComponentConfig
             );
         }
 
-        $config = ComponentBlockRegistryBC::getBcPluginConfig(
+        $config = self::buildBcPluginConfig(
             $configKey,
             $this->pluginConfig[$configKey],
             $this->pluginConfig[$configKey]

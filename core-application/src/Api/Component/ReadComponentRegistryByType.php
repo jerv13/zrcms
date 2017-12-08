@@ -15,6 +15,7 @@ use Zrcms\Param\Param;
 use Zrcms\ServiceAlias\Api\GetServiceFromAlias;
 
 /**
+ * @deprecated
  * @author James Jervis - https://github.com/jerv13
  */
 class ReadComponentRegistryByType implements ReadComponentRegistry
@@ -68,6 +69,36 @@ class ReadComponentRegistryByType implements ReadComponentRegistry
     }
 
     /**
+     * @param array $options
+     *
+     * @return array
+     * @throws \Exception
+     */
+    public function __invoke(
+        array $options = []
+    ): array {
+        if ($this->hasCache()) {
+            return $this->getCache();
+        }
+
+        $componentConfigs = [];
+
+        foreach ($this->registry as $index => $registryEntry) {
+            $componentConfig = $this->getComponentConfig(
+                $registryEntry
+            );
+
+            $componentConfigs[] = $componentConfig;
+        }
+
+        $this->assertNoDuplicateNames($componentConfigs);
+
+        $this->setCache($componentConfigs);
+
+        return $componentConfigs;
+    }
+
+    /**
      * hasCache
      *
      * @return bool
@@ -97,36 +128,6 @@ class ReadComponentRegistryByType implements ReadComponentRegistry
     protected function setCache($configs)
     {
         $this->cache->set($this->cacheKey, $configs);
-    }
-
-    /**
-     * @param array $options
-     *
-     * @return array
-     * @throws \Exception
-     */
-    public function __invoke(
-        array $options = []
-    ): array {
-        if ($this->hasCache()) {
-            return $this->getCache();
-        }
-
-        $componentConfigs = [];
-
-        foreach ($this->registry as $index => $registryEntry) {
-            $componentConfig = $this->getComponentConfig(
-                $registryEntry
-            );
-
-            $componentConfigs[] = $componentConfig;
-        }
-
-        $this->assertNoDuplicateNames($componentConfigs);
-
-        $this->setCache($componentConfigs);
-
-        return $componentConfigs;
     }
 
     /**

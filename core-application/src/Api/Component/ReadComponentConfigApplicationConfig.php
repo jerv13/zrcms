@@ -3,6 +3,9 @@
 namespace Zrcms\CoreApplication\Api\Component;
 
 use Zrcms\Core\Api\Component\ReadComponentConfig;
+use Zrcms\Core\Exception\CanNotReadComponentConfig;
+use Zrcms\Core\Fields\FieldsComponentConfig;
+use Zrcms\Param\Param;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -10,6 +13,7 @@ use Zrcms\Core\Api\Component\ReadComponentConfig;
 class ReadComponentConfigApplicationConfig implements ReadComponentConfig
 {
     const SERVICE_ALIAS = 'app-config';
+    const READER_PROTOCOL = 'app-config://';
 
     /**
      * @var array
@@ -30,12 +34,14 @@ class ReadComponentConfigApplicationConfig implements ReadComponentConfig
      * @param array  $options
      *
      * @return array
-     * @throws \Exception
+     * @throws CanNotReadComponentConfig|\Exception
      */
     public function __invoke(
         string $configLocation,
         array $options = []
     ): array {
+        AssertValidReaderProtocol::invoke(self::READER_PROTOCOL, $configLocation);
+
         $componentConfig = $this->getValueFromConfigPath(
             $this->applicationConfig,
             $configLocation
@@ -44,6 +50,13 @@ class ReadComponentConfigApplicationConfig implements ReadComponentConfig
         if (!is_array($componentConfig)) {
             throw new \Exception("Config location ({$configLocation}) not found");
         }
+
+        Param::assertHas(
+            $componentConfig,
+            FieldsComponentConfig::MODULE_DIRECTORY
+        );
+
+        $componentConfig[FieldsComponentConfig::CONFIG_LOCATION] = $configLocation;
 
         return $componentConfig;
     }
@@ -55,19 +68,21 @@ class ReadComponentConfigApplicationConfig implements ReadComponentConfig
      * @return array|mixed|null
      */
     protected function getValueFromConfigPath(
-        array &$array, string $configKey
+        array &$array,
+        string $configKey
     ) {
         $parents = explode('.', $configKey);
 
         $ref = &$array;
 
-        foreach ((array) $parents as $parent) {
+        foreach ((array)$parents as $parent) {
             if (is_array($ref) && array_key_exists($parent, $ref)) {
                 $ref = &$ref[$parent];
             } else {
                 return null;
             }
         }
+
         return $ref;
     }
 }

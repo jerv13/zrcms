@@ -11,6 +11,7 @@ use Zrcms\Core\Api\Component\FindComponentsBy;
 use Zrcms\Core\Api\Component\GetRegisterComponents;
 use Zrcms\Core\Api\Component\PrepareComponentConfig;
 use Zrcms\Core\Api\Component\ReadComponentConfig;
+use Zrcms\Core\Api\Component\ReadComponentConfigs;
 use Zrcms\Core\Api\Component\ReadComponentRegistry;
 use Zrcms\Core\Api\Component\SearchComponentList;
 use Zrcms\Core\Api\Content\ContentToArray;
@@ -73,10 +74,13 @@ class ModuleConfig
                     ReadComponentConfig::class => [
                         'class' => IMPLEMENTATION_REQUIRED::class
                     ],
-
+                    ReadComponentConfigs::class => [
+                        'class' => IMPLEMENTATION_REQUIRED::class
+                    ],
                     ReadComponentRegistry::class => [
                         'class' => IMPLEMENTATION_REQUIRED::class
                     ],
+
                     SearchComponentList::class => [
                         'class' => IMPLEMENTATION_REQUIRED::class
                     ],
