@@ -6,7 +6,9 @@
 
 - Fix registry entries to {namespace} => {configLocation}
 - Add services and composite configs
-- When reading configs, we MUST set the default class and interface for the type
+- How do we make sure type is set fo BC? default to basic normally.
+- When reading configs, we MUST get the default class and interface for the type
+- What do we do with: PrepareComponentConfig GetRegisterComponents, SearchComponentList, SearchComponentRegistry (not needed?)
 
 - See about simplifying all common patterns (content, resource, etc...)?
 

@@ -45,6 +45,7 @@ class ReadComponentConfigBlockBc implements ReadComponentConfig
             = $rcmPluginName;
         $componentConfig[FieldsBlockComponentConfig::RENDERER]
             = RenderBlockBc::SERVICE_ALIAS;
+        $componentConfig[FieldsBlockComponentConfig::TYPE] = 'block';
 
         return $componentConfig;
     }
