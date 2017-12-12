@@ -14,7 +14,7 @@ use Zrcms\Param\Param;
 class ReadComponentConfigCallable implements ReadComponentConfig
 {
     const SERVICE_ALIAS = 'callable-service';
-    const READER_PROTOCOL = 'callable-service://';
+    const READER_SCHEME = 'callable-service';
 
     /**
      * @var ContainerInterface
@@ -31,30 +31,33 @@ class ReadComponentConfigCallable implements ReadComponentConfig
     }
 
     /**
-     * @param string $callableServiceName
+     * @param string $componentConfigUri
      * @param array  $options
      *
      * @return array
      * @throws CanNotReadComponentConfig
      */
     public function __invoke(
-        string $callableServiceName,
+        string $componentConfigUri,
         array $options = []
     ): array {
-        AssertValidReaderProtocol::invoke(self::READER_PROTOCOL, $callableServiceName);
+        AssertValidReaderScheme::invoke(self::READER_SCHEME, $componentConfigUri);
+
+        $componentConfigUriParts = parse_url($componentConfigUri);
+        $callableServiceName = $componentConfigUriParts['path'];
 
         $callableService = $this->serviceContainer->get($callableServiceName);
 
         $componentConfig = $callableService->__invoke();
 
-        $componentConfig[FieldsComponentConfig::CONFIG_LOCATION] = $callableServiceName;
+        $componentConfig[FieldsComponentConfig::CONFIG_URI] = $callableServiceName;
 
         Param::assertHas(
             $componentConfig,
             FieldsComponentConfig::MODULE_DIRECTORY
         );
 
-        $componentConfig[FieldsComponentConfig::CONFIG_LOCATION] = $callableServiceName;
+        $componentConfig[FieldsComponentConfig::CONFIG_URI] = $callableServiceName;
 
         return $componentConfig;
     }

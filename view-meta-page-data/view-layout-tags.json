@@ -1,4 +1,5 @@
 {
+  "type": "view-layout-tag",
   "name": "meta-page-data",
   "renderTagsGetter": "meta-page-data"
 }

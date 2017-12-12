@@ -2,9 +2,11 @@
 
 namespace Zrcms\CoreApplication\Api\Component;
 
-use Psr\Container\ContainerInterface;
 use Zrcms\Core\Api\Component\ReadComponentConfig;
 use Zrcms\Core\Exception\CanNotReadComponentConfig;
+use Zrcms\Core\Model\ServiceAliasComponent;
+use Zrcms\ServiceAlias\Api\GetServiceAliasesByNamespace;
+use Zrcms\ServiceAlias\Api\GetServiceFromAlias;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -13,37 +15,51 @@ class ReadComponentConfigComposite implements ReadComponentConfig
 {
     const DEFAULT_CACHE_KEY = 'ZrcmsReadComponentConfigComposite';
 
-    protected $serviceLocator;
-    protected $readComponentConfigServiceNames;
+    protected $getServiceAliasesByNamespace;
+    protected $getServiceFromAlias;
+    protected $configReaderServiceAliasNamespace;
 
     /**
-     * @param ContainerInterface $serviceLocator
-     * @param array              $readComponentConfigServiceNames
+     * @param GetServiceAliasesByNamespace $getServiceAliasesByNamespace
+     * @param GetServiceFromAlias          $getServiceFromAlias
+     * @param string                       $configReaderServiceAliasNamespace
      */
     public function __construct(
-        $serviceLocator,
-        array $readComponentConfigServiceNames
+        GetServiceAliasesByNamespace $getServiceAliasesByNamespace,
+        GetServiceFromAlias $getServiceFromAlias,
+        string $configReaderServiceAliasNamespace = ServiceAliasComponent::ZRCMS_COMPONENT_CONFIG_READER
     ) {
-        $this->serviceLocator = $serviceLocator;
-        $this->readComponentConfigServiceNames = $readComponentConfigServiceNames;
+        $this->getServiceAliasesByNamespace = $getServiceAliasesByNamespace;
+        $this->getServiceFromAlias = $getServiceFromAlias;
+        $this->configReaderServiceAliasNamespace = $configReaderServiceAliasNamespace;
     }
 
     /**
-     * @param string $componentConfigLocation
+     * @param string $componentConfigUri
      * @param array  $options
      *
      * @return array
      * @throws CanNotReadComponentConfig
      */
     public function __invoke(
-        string $componentConfigLocation,
+        string $componentConfigUri,
         array $options = []
-    ): array{
-        foreach ($this->readComponentConfigServiceNames as $readComponentConfigServiceName) {
+    ): array
+    {
+        $readComponentConfigServiceAliases = $this->getServiceAliasesByNamespace->__invoke(
+            $this->configReaderServiceAliasNamespace
+        );
+
+        foreach ($readComponentConfigServiceAliases as $serviceAlias => $readComponentConfigServiceName) {
             /** @var ReadComponentConfig $readComponentConfig */
-            $readComponentConfig = $this->serviceLocator->get($readComponentConfigServiceName);
+            $readComponentConfig = $this->getServiceFromAlias->__invoke(
+                $this->configReaderServiceAliasNamespace,
+                $serviceAlias,
+                ReadComponentConfig::class,
+                ''
+            );
             try {
-                $componentConfig = $readComponentConfig->__invoke($options);
+                $componentConfig = $readComponentConfig->__invoke($componentConfigUri);
             } catch (CanNotReadComponentConfig $e) {
                 continue;
             }
@@ -52,7 +68,7 @@ class ReadComponentConfigComposite implements ReadComponentConfig
         }
 
         throw new CanNotReadComponentConfig(
-            'No valid component config readers for config location: ' . $componentConfigLocation
+            'No valid component config readers for config location: ' . $componentConfigUri
         );
     }
 }

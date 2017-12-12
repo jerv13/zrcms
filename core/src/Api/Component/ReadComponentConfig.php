@@ -10,14 +10,14 @@ use Zrcms\Core\Exception\CanNotReadComponentConfig;
 interface ReadComponentConfig
 {
     /**
-     * @param string $componentConfigLocation (directory or location)
+     * @param string $componentConfigUri (directory or location)
      * @param array  $options
      *
      * @return array
      * @throws CanNotReadComponentConfig
      */
     public function __invoke(
-        string $componentConfigLocation,
+        string $componentConfigUri,
         array $options = []
     ): array;
 }

@@ -13,7 +13,7 @@ use Zrcms\Param\Param;
 class ReadComponentConfigApplicationConfig implements ReadComponentConfig
 {
     const SERVICE_ALIAS = 'app-config';
-    const READER_PROTOCOL = 'app-config://';
+    const READER_SCHEME = 'app-config';
 
     /**
      * @var array
@@ -30,25 +30,28 @@ class ReadComponentConfigApplicationConfig implements ReadComponentConfig
     }
 
     /**
-     * @param string $configLocation
+     * @param string $componentConfigUri
      * @param array  $options
      *
      * @return array
      * @throws CanNotReadComponentConfig|\Exception
      */
     public function __invoke(
-        string $configLocation,
+        string $componentConfigUri,
         array $options = []
     ): array {
-        AssertValidReaderProtocol::invoke(self::READER_PROTOCOL, $configLocation);
+        AssertValidReaderScheme::invoke(self::READER_SCHEME, $componentConfigUri);
+
+        $componentConfigUriParts = parse_url($componentConfigUri);
+        $appConfigPath = $componentConfigUriParts['path'];
 
         $componentConfig = $this->getValueFromConfigPath(
             $this->applicationConfig,
-            $configLocation
+            $appConfigPath
         );
 
         if (!is_array($componentConfig)) {
-            throw new \Exception("Config location ({$configLocation}) not found");
+            throw new \Exception("Config location ({$appConfigPath}) not found");
         }
 
         Param::assertHas(
@@ -56,7 +59,7 @@ class ReadComponentConfigApplicationConfig implements ReadComponentConfig
             FieldsComponentConfig::MODULE_DIRECTORY
         );
 
-        $componentConfig[FieldsComponentConfig::CONFIG_LOCATION] = $configLocation;
+        $componentConfig[FieldsComponentConfig::CONFIG_URI] = $componentConfigUri;
 
         return $componentConfig;
     }

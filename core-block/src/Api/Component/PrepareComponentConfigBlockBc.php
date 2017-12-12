@@ -2,16 +2,16 @@
 
 namespace Zrcms\CoreBlock\Api\Component;
 
-use Zrcms\Core\Api\Component\PrepareComponentConfig;
 use Zrcms\CoreBlock\Api\GetBlockConfigFields;
 use Zrcms\CoreBlock\Api\GetBlockConfigFieldsBcSubstitution;
 use Zrcms\CoreBlock\Fields\FieldsBlockComponentConfig;
+use Zrcms\CoreBlock\Model\BlockComponentBasic;
 
 /**
- * @deprecated BC only
+ * @deprecated BC ONLY
  * @author     James Jervis - https://github.com/jerv13
  */
-class PrepareComponentConfigBlockBc implements PrepareComponentConfig
+class PrepareComponentConfigBlockBc implements PrepareComponentConfigBlock
 {
     /**
      * @var GetBlockConfigFields
@@ -71,6 +71,9 @@ class PrepareComponentConfigBlockBc implements PrepareComponentConfig
             $blockConfigBc[FieldsBlockComponentConfig::DEFAULT_CONFIG]
                 = $blockConfigBc[FieldsBlockComponentConfig::FIELDS];
         }
+
+        $componentConfig[FieldsBlockComponentConfig::COMPONENT_CLASS] = BlockComponentBasic::class;
+        $componentConfig[FieldsBlockComponentConfig::TYPE] = 'block';
 
         return $blockConfigBc;
     }

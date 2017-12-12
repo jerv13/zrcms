@@ -5,10 +5,8 @@ namespace Zrcms\CoreView;
 use Zrcms\Core\Api\Component\BuildComponentObject;
 use Zrcms\Core\Api\Component\FindComponent;
 use Zrcms\Core\Api\Component\FindComponentsBy;
-use Zrcms\Core\Api\Component\PrepareComponentConfig;
 use Zrcms\Core\Exception\IMPLEMENTATION_REQUIRED;
-use Zrcms\CoreApplication\Api\Component\BuildComponentObjectDefault;
-use Zrcms\CoreApplication\Api\Component\PrepareComponentConfigNoop;
+use Zrcms\CoreApplication\Api\Component\BuildComponentObjectByType;
 use Zrcms\CoreContainer\Api\CmsResource\FindContainerCmsResourcesBySitePaths;
 use Zrcms\CoreContainer\Api\Render\GetContainerRenderTags;
 use Zrcms\CoreContainer\Api\Render\RenderContainer;
@@ -165,8 +163,7 @@ class ModuleConfig
              */
             'zrcms-types' => [
                 'view-layout-tag' => [
-                    BuildComponentObject::class => BuildComponentObjectDefault::class,
-                    PrepareComponentConfig::class => PrepareComponentConfigNoop::class,
+                    BuildComponentObject::class => BuildComponentObjectByType::class,
                     'component-model-interface' => ViewLayoutTagsComponent::class,
                     'component-model-class' => ViewLayoutTagsComponentBasic::class,
                 ]

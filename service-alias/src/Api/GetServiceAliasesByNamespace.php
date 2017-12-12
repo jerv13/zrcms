@@ -1,20 +1,20 @@
 <?php
 
-namespace Zrcms\CoreBlock\Api\Component;
+namespace Zrcms\ServiceAlias\Api;
 
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-interface PrepareComponentConfigBlock
+interface GetServiceAliasesByNamespace
 {
     /**
-     * @param array $blockConfig
-     * @param array $options
+     * @param string $namespace
+     * @param array  $options
      *
      * @return array
      */
     public function __invoke(
-        array $blockConfig,
+        string $namespace,
         array $options = []
     ): array;
 }

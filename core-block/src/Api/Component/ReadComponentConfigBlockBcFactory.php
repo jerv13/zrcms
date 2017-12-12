@@ -21,7 +21,8 @@ class ReadComponentConfigBlockBcFactory
         $config = $serviceContainer->get('config');
         $pluginConfigBc = $config['rcmPlugin'];
         return new ReadComponentConfigBlockBc(
-            $pluginConfigBc
+            $pluginConfigBc,
+            $serviceContainer->get(PrepareComponentConfigBlock::class)
         );
     }
 }

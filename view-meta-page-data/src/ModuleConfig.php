@@ -43,14 +43,8 @@ class ModuleConfig
             ],
 
             'zrcms-components' => [
-                'view-layout-tag.zrcms-xample' => [
-                    FieldsComponentRegistry::TYPE => 'view-layout-tag',
-                    FieldsComponentRegistry::NAME => 'meta-page-data',
-                    FieldsComponentRegistry::CONFIG_LOCATION
-                    => __DIR__ . '/../config/meta-page-data/view-layout-tags.json',
-                    FieldsComponentRegistry::MODULE_DIRECTORY
-                    => __DIR__ . '/..',
-                ],
+                'view-layout-tag.zrcms-xample'
+                => 'json:' . __DIR__ . '/../view-layout-tags.json',
             ],
 
             'zrcms-service-alias' => [

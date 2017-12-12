@@ -14,7 +14,7 @@ class HeadSectionComponent extends ViewLayoutTagsComponentAbstract implements Vi
     /**
      * @param string $type
      * @param string $name
-     * @param string $configLocation
+     * @param string $configUri
      * @param array  $properties
      * @param string $createdByUserId
      * @param string $createdReason
@@ -23,7 +23,7 @@ class HeadSectionComponent extends ViewLayoutTagsComponentAbstract implements Vi
     public function __construct(
         string $type,
         string $name,
-        string $configLocation,
+        string $configUri,
         string $moduleDirectory,
         array $properties,
         string $createdByUserId,
@@ -44,7 +44,7 @@ class HeadSectionComponent extends ViewLayoutTagsComponentAbstract implements Vi
         parent::__construct(
             $type,
             $name,
-            $configLocation,
+            $configUri,
             $moduleDirectory,
             $properties,
             $createdByUserId,

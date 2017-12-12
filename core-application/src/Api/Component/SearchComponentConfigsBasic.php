@@ -2,13 +2,12 @@
 
 namespace Zrcms\CoreApplication\Api\Component;
 
-use Zrcms\Core\Api\Component\SearchComponentRegistry;
+use Zrcms\Core\Api\Component\SearchComponentConfigs;
 
 /**
- * @todo NOT USED?
  * @author James Jervis - https://github.com/jerv13
  */
-class SearchComponentRegistryBasic implements SearchComponentRegistry
+class SearchComponentConfigsBasic implements SearchComponentConfigs
 {
     /**
      * @param array $componentConfigs
@@ -19,7 +18,8 @@ class SearchComponentRegistryBasic implements SearchComponentRegistry
     public function __invoke(
         array $componentConfigs,
         array $criteria = []
-    ):array {
+    ):array
+    {
         $result = [];
 
         foreach ($componentConfigs as $componentConfig) {
@@ -32,8 +32,6 @@ class SearchComponentRegistryBasic implements SearchComponentRegistry
     }
 
     /**
-     * filter
-     *
      * @param array $componentConfig
      * @param array $criteria
      *
@@ -46,13 +44,11 @@ class SearchComponentRegistryBasic implements SearchComponentRegistry
         $count = count($criteria);
         $countResult = 0;
         foreach ($criteria as $key => $value) {
-            $componentValue = null;
-
-            if (array_key_exists($key, $componentConfig)) {
-                $componentValue = $componentConfig[$key];
-            } else {
+            if (!array_key_exists($key, $componentConfig)) {
                 continue;
             }
+
+            $componentValue = $componentConfig[$key];
 
             if ($componentValue === $value) {
                 $countResult++;

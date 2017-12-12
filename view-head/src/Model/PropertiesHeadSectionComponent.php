@@ -19,7 +19,7 @@ class PropertiesHeadSectionComponent extends FieldsViewLayoutTagsComponent
     protected $properties
         = [
             self::NAME => '',
-            self::CONFIG_LOCATION => '',
+            self::CONFIG_URI => '',
             self::RENDER_TAGS_GETTER => '',
         ];
 }

@@ -10,7 +10,7 @@ interface Component extends Immutable, Properties, Trackable
     /**
      * @param string $type
      * @param string $name
-     * @param string $configLocation
+     * @param string $configUri
      * @param string $moduleDirectory
      * @param array  $properties
      * @param string $createdByUserId
@@ -20,7 +20,7 @@ interface Component extends Immutable, Properties, Trackable
     public function __construct(
         string $type,
         string $name,
-        string $configLocation,
+        string $configUri,
         string $moduleDirectory,
         array $properties,
         string $createdByUserId,
@@ -43,7 +43,7 @@ interface Component extends Immutable, Properties, Trackable
      *
      * @return string
      */
-    public function getConfigLocation(): string;
+    public function getConfigUri(): string;
 
     /**
      * Component source code directory

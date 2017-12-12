@@ -2,6 +2,7 @@
 
 namespace Zrcms\CoreApplication;
 
+use Zrcms\Cache\Service\Cache;
 use Zrcms\Cache\Service\CacheArray;
 use Zrcms\Core\Api\ChangeLog\GetChangeLogByDateRange;
 use Zrcms\Core\Api\CmsResource\CmsResourceToArray;
@@ -11,9 +12,10 @@ use Zrcms\Core\Api\Component\ComponentToArray;
 use Zrcms\Core\Api\Component\FindComponent;
 use Zrcms\Core\Api\Component\FindComponentsBy;
 use Zrcms\Core\Api\Component\GetRegisterComponents;
-use Zrcms\Core\Api\Component\PrepareComponentConfig;
 use Zrcms\Core\Api\Component\ReadComponentConfig;
+use Zrcms\Core\Api\Component\ReadComponentConfigs;
 use Zrcms\Core\Api\Component\ReadComponentRegistry;
+use Zrcms\Core\Api\Component\SearchComponentConfigs;
 use Zrcms\Core\Api\Component\SearchComponentList;
 use Zrcms\Core\Api\Content\ContentToArray;
 use Zrcms\Core\Api\Content\ContentVersionToArray;
@@ -26,22 +28,24 @@ use Zrcms\CoreApplication\Api\ChangeLog\GetContentChangeLogComposite;
 use Zrcms\CoreApplication\Api\ChangeLog\GetHumanReadableChangeLogByDateRange;
 use Zrcms\CoreApplication\Api\CmsResource\CmsResourceToArrayBasic;
 use Zrcms\CoreApplication\Api\CmsResourceHistory\CmsResourceHistoryToArrayBasic;
-use Zrcms\CoreApplication\Api\Component\BuildComponentObjectByTypeFactory;
-use Zrcms\CoreApplication\Api\Component\BuildComponentObjectDefault;
+use Zrcms\CoreApplication\Api\Component\BuildComponentObjectByType;
+use Zrcms\CoreApplication\Api\Component\BuildComponentObjectByTypeStrategyFactory;
 use Zrcms\CoreApplication\Api\Component\ComponentToArrayBasic;
 use Zrcms\CoreApplication\Api\Component\FindComponentBasic;
 use Zrcms\CoreApplication\Api\Component\FindComponentsByBasic;
 use Zrcms\CoreApplication\Api\Component\GetRegisterComponentsBasic;
-use Zrcms\CoreApplication\Api\Component\PrepareComponentConfigNoop;
 use Zrcms\CoreApplication\Api\Component\ReadComponentConfigApplicationConfig;
 use Zrcms\CoreApplication\Api\Component\ReadComponentConfigApplicationConfigFactory;
 use Zrcms\CoreApplication\Api\Component\ReadComponentConfigCallable;
 use Zrcms\CoreApplication\Api\Component\ReadComponentConfigCallableFactory;
-use Zrcms\CoreApplication\Api\Component\ReadComponentConfigComponentRegistryConfig;
-use Zrcms\CoreApplication\Api\Component\ReadComponentConfigComponentRegistryConfigFactory;
+use Zrcms\CoreApplication\Api\Component\ReadComponentConfigComposite;
 use Zrcms\CoreApplication\Api\Component\ReadComponentConfigJsonFile;
 use Zrcms\CoreApplication\Api\Component\ReadComponentConfigPhpFile;
-use Zrcms\CoreApplication\Api\Component\ReadComponentRegistryByTypeFactory;
+use Zrcms\CoreApplication\Api\Component\ReadComponentConfigsBasic;
+use Zrcms\CoreApplication\Api\Component\ReadComponentRegistryBasic;
+use Zrcms\CoreApplication\Api\Component\ReadComponentRegistryBasicFactory;
+use Zrcms\CoreApplication\Api\Component\ReadComponentRegistryCompositeFactory;
+use Zrcms\CoreApplication\Api\Component\SearchComponentConfigsBasic;
 use Zrcms\CoreApplication\Api\Component\SearchComponentListBasic;
 use Zrcms\CoreApplication\Api\Content\ContentToArrayBasic;
 use Zrcms\CoreApplication\Api\Content\ContentVersionToArrayBasic;
@@ -52,6 +56,8 @@ use Zrcms\CoreRedirect\Api\ChangeLog\GetChangeLogByDateRange as RedirectGetChang
 use Zrcms\CoreSite\Api\ChangeLog\GetChangeLogByDateRange as SiteGetChangeLogByDateRange;
 use Zrcms\CoreSite\Api\CmsResource\FindSiteCmsResource;
 use Zrcms\CoreTheme\Api\ChangeLog\GetChangeLogByDateRange as ThemeGetChangeLogByDateRange;
+use Zrcms\ServiceAlias\Api\GetServiceAliasesByNamespace;
+use Zrcms\ServiceAlias\Api\GetServiceFromAlias;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -75,6 +81,7 @@ class ModuleConfig
                             ChangeLogEventToString::class
                         ]
                     ],
+                    // @todo This does not belong here - belongs in http or root application
                     GetChangeLogByDateRange::class => [
                         'class' => GetContentChangeLogComposite::class,
                         'calls' => [
@@ -85,6 +92,7 @@ class ModuleConfig
                             ['addSubordinate', [RedirectGetChangeLogByDateRange::class]],
                         ]
                     ],
+                    // @todo This does not belong here - belongs in core-site
                     ChangeLogEventToString::class => [
                         'class' => ChangeLogEventToString::class,
                         'arguments' => [
@@ -117,9 +125,9 @@ class ModuleConfig
                      * Component
                      */
                     BuildComponentObject::class => [
-                        'factory' => BuildComponentObjectByTypeFactory::class,
+                        'factory' => BuildComponentObjectByTypeStrategyFactory::class,
                     ],
-                    BuildComponentObjectDefault::class => [
+                    BuildComponentObjectByType::class => [
                         'arguments' => [
                             GetTypeValue::class,
                             ['literal' => ComponentBasic::class]
@@ -145,22 +153,21 @@ class ModuleConfig
                     GetRegisterComponents::class => [
                         'class' => GetRegisterComponentsBasic::class,
                         'arguments' => [
-                            ReadComponentRegistry::class,
+                            ReadComponentConfigs::class,
                             BuildComponentObject::class,
                             CacheArray::class,
                             ['literal' => GetRegisterComponentsBasic::CACHE_KEY]
                         ],
                     ],
-                    PrepareComponentConfig::class => [
-                        'class' => PrepareComponentConfigNoop::class
-                    ],
-                    PrepareComponentConfigNoop::class => [
-                        'class' => PrepareComponentConfigNoop::class
-                    ],
 
                     /** DEFAULT */
                     ReadComponentConfig::class => [
-                        'class' => ReadComponentConfigJsonFile::class,
+                        'class' => ReadComponentConfigComposite::class,
+                        'arguments' => [
+                            GetServiceAliasesByNamespace::class,
+                            GetServiceFromAlias::class,
+                            ['literal' => ServiceAliasComponent::ZRCMS_COMPONENT_CONFIG_READER]
+                        ]
                     ],
                     ReadComponentConfigApplicationConfig::class => [
                         'factory' => ReadComponentConfigApplicationConfigFactory::class,
@@ -168,13 +175,25 @@ class ModuleConfig
                     ReadComponentConfigCallable::class => [
                         'factory' => ReadComponentConfigCallableFactory::class,
                     ],
-                    ReadComponentConfigComponentRegistryConfig::class => [
-                        'factory' => ReadComponentConfigComponentRegistryConfigFactory::class,
-                    ],
                     ReadComponentConfigJsonFile::class => [],
                     ReadComponentConfigPhpFile::class => [],
+                    ReadComponentConfigs::class => [
+                        'class' => ReadComponentConfigsBasic::class,
+                        'arguments' => [
+                            ReadComponentRegistry::class,
+                            ReadComponentConfig::class,
+                            Cache::class,
+                            ['literal' => ReadComponentConfigsBasic::DEFAULT_CACHE_KEY],
+                        ],
+                    ],
                     ReadComponentRegistry::class => [
-                        'factory' => ReadComponentRegistryByTypeFactory::class,
+                        'factory' => ReadComponentRegistryCompositeFactory::class,
+                    ],
+                    ReadComponentRegistryBasic::class => [
+                        'factory' => ReadComponentRegistryBasicFactory::class,
+                    ],
+                    SearchComponentConfigs::class => [
+                        'class' => SearchComponentConfigsBasic::class,
                     ],
                     SearchComponentList::class => [
                         'class' => SearchComponentListBasic::class,
@@ -200,6 +219,21 @@ class ModuleConfig
             ],
 
             /**
+             * ===== ZRCMS Component Registry =====
+             */
+            'zrcms-components' => [
+                /* '{type.name}' => '{config-location}' */
+            ],
+
+            /**
+             * ===== ZRCMS Component Registry Readers =====
+             */
+            'zrcms-component-registry-readers' => [
+                /* '{service-name}' => '{service-name}' */
+                ReadComponentRegistryBasic::class => ReadComponentRegistryBasic::class,
+            ],
+
+            /**
              * ===== Service Alias =====
              */
             'zrcms-service-alias' => [
@@ -210,9 +244,6 @@ class ModuleConfig
 
                     ReadComponentConfigCallable::SERVICE_ALIAS
                     => ReadComponentConfigCallable::class,
-
-                    ReadComponentConfigComponentRegistryConfig::SERVICE_ALIAS
-                    => ReadComponentConfigComponentRegistryConfig::class,
 
                     ReadComponentConfigJsonFile::SERVICE_ALIAS
                     => ReadComponentConfigJsonFile::class,
@@ -228,9 +259,7 @@ class ModuleConfig
             'zrcms-types' => [
                 /* Default services and classes are defined here */
                 'basic' => [
-                    BuildComponentObject::class => BuildComponentObjectDefault::class,
-                    PrepareComponentConfig::class => PrepareComponentConfigNoop::class,
-                    ReadComponentConfig::class => ReadComponentConfigJsonFile::class,
+                    BuildComponentObject::class => BuildComponentObjectByType::class,
                     'component-model-interface' => Component::class,
                     'component-model-class' => ComponentBasic::class,
                 ],

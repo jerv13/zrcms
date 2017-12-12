@@ -3,8 +3,7 @@
 namespace Zrcms\HttpStatusPages;
 
 use Zrcms\Core\Api\Component\FindComponent;
-use Zrcms\CoreApplication\Api\Component\ReadComponentConfigComponentRegistryConfig;
-use Zrcms\Core\Fields\FieldsComponentRegistry;
+use Zrcms\Core\Fields\FieldsComponentConfig;
 use Zrcms\CoreSite\Api\GetSiteCmsResourceByRequest;
 use Zrcms\HttpStatusPages\Api\GetStatusPage;
 use Zrcms\HttpStatusPages\Api\GetStatusPageBasic;
@@ -44,37 +43,28 @@ class ModuleConfig
             ],
 
             'zrcms-components' => [
-                'basic.zrcms-http-status-pages' => [
-                    /* 'zrcms-http-status-pages' */
-                    FieldsComponentRegistry::NAME
-                    => HttpStatusPagesComponent::NAME,
+                'basic.zrcms-http-status-pages' => 'app-config:zrcms-http-status-pages',
+            ],
 
-                    /* 'basic.zrcms-http-status-pages' */
-                    FieldsComponentRegistry::CONFIG_LOCATION
-                    => 'basic.' . HttpStatusPagesComponent::NAME,
+            'zrcms-http-status-pages' => [
+                FieldsComponentConfig::TYPE => 'basic',
+                FieldsComponentConfig::NAME => HttpStatusPagesComponent::NAME,
+                FieldsComponentConfig::MODULE_DIRECTORY => __DIR__ . '/..',
+                FieldsComponentConfig::COMPONENT_CLASS
+                => HttpStatusPagesComponent::class,
 
-                    FieldsComponentRegistry::MODULE_DIRECTORY
-                    => __DIR__ . '/..',
-
-                    FieldsComponentRegistry::COMPONENT_CONFIG_READER
-                    => ReadComponentConfigComponentRegistryConfig::SERVICE_ALIAS,
-
-                    FieldsComponentRegistry::COMPONENT_CLASS
-                    => HttpStatusPagesComponent::class,
-
-                    /**
-                     * Map of HTTP status to the path and a type
-                     * 'status-to-site-page-path-property-map'
-                     */
-                    FieldsHttpStatusPagesComponent::STATUS_TO_SITE_PATH_PROPERTY => [
-                        '401' => [
-                            'path' => '/not-authorized',
-                            'type' => 'render',
-                        ],
-                        '404' => [
-                            'path' => '/not-found',
-                            'type' => 'render',
-                        ],
+                /**
+                 * Map of HTTP status to the path and a type
+                 * 'status-to-site-page-path-property-map'
+                 */
+                FieldsHttpStatusPagesComponent::STATUS_TO_SITE_PATH_PROPERTY => [
+                    '401' => [
+                        'path' => '/not-authorized',
+                        'type' => 'render',
+                    ],
+                    '404' => [
+                        'path' => '/not-found',
+                        'type' => 'render',
                     ],
                 ],
             ],

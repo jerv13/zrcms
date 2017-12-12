@@ -13,14 +13,14 @@ abstract class ComponentAbstract
 
     protected $type;
     protected $name;
-    protected $configLocation;
+    protected $configUri;
     protected $moduleDirectory;
     protected $properties = [];
 
     /**
      * @param string $type
      * @param string $name
-     * @param string $configLocation
+     * @param string $configUri
      * @param string $moduleDirectory
      * @param array  $properties
      * @param string $createdByUserId
@@ -30,7 +30,7 @@ abstract class ComponentAbstract
     public function __construct(
         string $type,
         string $name,
-        string $configLocation,
+        string $configUri,
         string $moduleDirectory,
         array $properties,
         string $createdByUserId,
@@ -45,7 +45,7 @@ abstract class ComponentAbstract
 
         $this->type = $type;
         $this->name = $name;
-        $this->configLocation = $configLocation;
+        $this->configUri = $configUri;
         $this->moduleDirectory = $moduleDirectory;
         $this->properties = $properties;
 
@@ -75,9 +75,9 @@ abstract class ComponentAbstract
     /**
      * @return string
      */
-    public function getConfigLocation(): string
+    public function getConfigUri(): string
     {
-        return $this->configLocation;
+        return $this->configUri;
     }
 
     /**

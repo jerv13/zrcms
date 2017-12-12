@@ -25,27 +25,19 @@ class ModuleConfig
                 ],
             ],
             'zrcms-components' => [
-                'block.zrcms-xample' => [
-                    FieldsComponentRegistry::TYPE => 'block',
-                    FieldsComponentRegistry::NAME => 'zrcms-xample',
-                    FieldsComponentRegistry::CONFIG_LOCATION => __DIR__ . '/../block/block.json',
-                    FieldsComponentRegistry::MODULE_DIRECTORY
-                    => __DIR__ . '/../block',
-                ],
-                'theme.zrcms-xample' => [
-                    FieldsComponentRegistry::TYPE => 'theme',
-                    FieldsComponentRegistry::NAME => 'zrcms-xample',
-                    FieldsComponentRegistry::CONFIG_LOCATION => __DIR__ . '/../theme/theme.json',
-                    FieldsComponentRegistry::MODULE_DIRECTORY
-                    => __DIR__ . '/../theme',
-                ],
-                'view-layout-tag.zrcms-xample' => [
-                    FieldsComponentRegistry::TYPE => 'view-layout-tag',
-                    FieldsComponentRegistry::NAME => 'zrcms-xample',
-                    FieldsComponentRegistry::CONFIG_LOCATION => __DIR__ . '/../view-layout-tags/view-layout-tags.json',
-                    FieldsComponentRegistry::MODULE_DIRECTORY
-                    => __DIR__ . '/../view-layout-tags',
-                ],
+                'block.zrcms-xample'
+                => 'json:' . __DIR__ . '/../block/block.json',
+
+                'theme.zrcms-xample'
+                => 'json:' . __DIR__ . '/../theme/theme.json',
+
+                'theme-layout.zrcms-xample.layout-one'
+                => 'json:' . __DIR__ . '/../theme/layout-one/layout.json',
+                'theme-layout.zrcms-xample.primary'
+                => 'json:' . __DIR__ . '/../theme/layout-primary/layout.json',
+
+                'view-layout-tag.zrcms-xample'
+                => 'json:' . __DIR__ . '/../view-layout-tags/view-layout-tags.json',
             ],
 
             'zrcms-service-alias' => [

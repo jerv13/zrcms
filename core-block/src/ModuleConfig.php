@@ -3,11 +3,14 @@
 namespace Zrcms\CoreBlock;
 
 use Zrcms\Core\Api\Component\FindComponent;
-use Zrcms\Core\Api\Component\PrepareComponentConfig;
 use Zrcms\Core\Model\ServiceAliasComponent;
+use Zrcms\CoreBlock\Api\Component\PrepareComponentConfigBlock;
 use Zrcms\CoreBlock\Api\Component\PrepareComponentConfigBlockBc;
 use Zrcms\CoreBlock\Api\Component\ReadComponentConfigBlockBc;
 use Zrcms\CoreBlock\Api\Component\ReadComponentConfigBlockBcFactory;
+use Zrcms\CoreBlock\Api\Component\ReadComponentConfigJsonFileBc;
+use Zrcms\CoreBlock\Api\Component\ReadComponentRegistryRcmPluginBc;
+use Zrcms\CoreBlock\Api\Component\ReadComponentRegistryRcmPluginBcFactory;
 use Zrcms\CoreBlock\Api\GetBlockConfigFields;
 use Zrcms\CoreBlock\Api\GetBlockConfigFieldsBcSubstitution;
 use Zrcms\CoreBlock\Api\GetBlockData;
@@ -45,9 +48,31 @@ class ModuleConfig
         return [
             'dependencies' => [
                 'config_factories' => [
-                    ReadComponentConfigBlockBc::class => [
-                        'factory' => ReadComponentConfigBlockBcFactory::class
+                    /**
+                     * Component
+                     */
+                    PrepareComponentConfigBlock::class => [
+                        'class' => PrepareComponentConfigBlockBc::class,
+                        'arguments' => [
+                            GetBlockConfigFields::class,
+                            GetBlockConfigFieldsBcSubstitution::class,
+                        ],
                     ],
+                    ReadComponentConfigBlockBc::class => [
+                        'factory' => ReadComponentConfigBlockBcFactory::class,
+                    ],
+                    ReadComponentConfigJsonFileBc::class => [
+                        'arguments' => [
+                            PrepareComponentConfigBlock::class,
+                        ],
+                    ],
+
+                    ReadComponentRegistryRcmPluginBc::class => [
+                        'factory' => ReadComponentRegistryRcmPluginBcFactory::class,
+                    ],
+                    /**
+                     * Render
+                     */
                     GetBlockRenderTags::class => [
                         'class' => GetBlockRenderTagsBasic::class,
                         'arguments' => [
@@ -68,13 +93,29 @@ class ModuleConfig
                         'factory' => RenderBlockBcFactory::class,
                     ],
                     RenderBlockMissing::class => [
-                        'class' => RenderBlockMissingComment::class
+                        'class' => RenderBlockMissingComment::class,
                     ],
                     RenderBlockMustache::class => [
                         'arguments' => [
                             FindComponent::class,
                             FileResolver::class
                         ],
+                    ],
+                    WrapRenderedBlockVersion::class => [
+                        'class' => WrapRenderedBlockVersionLegacy::class,
+                        'arguments' => [
+                            FindComponent::class
+                        ],
+                    ],
+
+                    /**
+                     * API General
+                     */
+                    GetBlockConfigFields::class => [
+                        'class' => GetBlockConfigFields::class,
+                    ],
+                    GetBlockConfigFieldsBcSubstitution::class => [
+                        'class' => GetBlockConfigFieldsBcSubstitution::class,
                     ],
                     GetBlockData::class => [
                         'class' => GetBlockDataBasic::class,
@@ -84,32 +125,8 @@ class ModuleConfig
                         ],
                     ],
                     GetBlockDataNoop::class => [],
-                    GetBlockConfigFields::class => [
-                        'class' => GetBlockConfigFields::class,
-                    ],
-                    GetBlockConfigFieldsBcSubstitution::class => [
-                        'class' => GetBlockConfigFieldsBcSubstitution::class,
-                    ],
                     GetMergedConfig::class => [
                         'class' => GetMergedConfigBasic::class,
-                        'arguments' => [
-                            FindComponent::class
-                        ],
-                    ],
-                    PrepareComponentConfigBlockBc::class => [
-                        'arguments' => [
-                            GetBlockConfigFields::class,
-                            GetBlockConfigFieldsBcSubstitution::class,
-                        ],
-                    ],
-                    PrepareComponentConfigBlockBc::class => [
-                        'arguments' => [
-                            GetBlockConfigFields::class,
-                            GetBlockConfigFieldsBcSubstitution::class,
-                        ],
-                    ],
-                    WrapRenderedBlockVersion::class => [
-                        'class' => WrapRenderedBlockVersionLegacy::class,
                         'arguments' => [
                             FindComponent::class
                         ],
@@ -117,12 +134,22 @@ class ModuleConfig
                 ],
             ],
             /**
+             * ===== ZRCMS Component Registry Readers =====
+             */
+            'zrcms-component-registry-readers' => [
+                ReadComponentRegistryRcmPluginBc::class => ReadComponentRegistryRcmPluginBc::class,
+            ],
+
+            /**
              * ===== Service Alias =====
              */
             'zrcms-service-alias' => [
                 ServiceAliasComponent::ZRCMS_COMPONENT_CONFIG_READER => [
                     ReadComponentConfigBlockBc::SERVICE_ALIAS
                     => ReadComponentConfigBlockBc::class,
+
+                    ReadComponentConfigJsonFileBc::SERVICE_ALIAS
+                    => ReadComponentConfigJsonFileBc::class,
                 ],
                 // 'zrcms.block.content.renderer'
                 ServiceAliasBlock::ZRCMS_CONTENT_RENDERER => [
@@ -143,7 +170,6 @@ class ModuleConfig
              */
             'zrcms-types' => [
                 'block' => [
-                    PrepareComponentConfig::class => PrepareComponentConfigBlockBc::class,
                     'component-model-interface' => BlockComponent::class,
                     'component-model-class' => BlockComponentBasic::class,
                 ]

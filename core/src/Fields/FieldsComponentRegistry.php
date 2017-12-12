@@ -12,7 +12,7 @@ class FieldsComponentRegistry extends FieldsAbstract implements Fields
 {
     const TYPE = FieldsComponentConfig::TYPE;
     const NAME = FieldsComponentConfig::NAME;
-    const CONFIG_LOCATION = FieldsComponentConfig::CONFIG_LOCATION;
+    const CONFIG_URI = FieldsComponentConfig::CONFIG_URI;
     const MODULE_DIRECTORY = FieldsComponentConfig::MODULE_DIRECTORY;
     const COMPONENT_CONFIG_READER = FieldsComponent::COMPONENT_CONFIG_READER;
     const COMPONENT_CLASS = FieldsComponent::COMPONENT_CLASS;
@@ -41,7 +41,7 @@ class FieldsComponentRegistry extends FieldsAbstract implements Fields
                 'options' => [],
             ],
             [
-                'name' => self::CONFIG_LOCATION,
+                'name' => self::CONFIG_URI,
                 'type' => 'text',
                 'label' => 'Config Location (usually a file path or application config key)',
                 'required' => true,

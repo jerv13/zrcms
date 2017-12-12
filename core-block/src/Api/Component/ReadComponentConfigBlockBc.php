@@ -3,18 +3,18 @@
 namespace Zrcms\CoreBlock\Api\Component;
 
 use Zrcms\Core\Api\Component\ReadComponentConfig;
+use Zrcms\CoreApplication\Api\Component\AssertValidReaderScheme;
 use Zrcms\CoreBlock\Api\Render\RenderBlockBc;
 use Zrcms\CoreBlock\Fields\FieldsBlockComponentConfig;
-use ZrcmsRcmCompatibility\RcmAdapter\ComponentBlockConfigBC;
 
 /**
  * @deprecated BC only
- * @author James Jervis - https://github.com/jerv13
+ * @author     James Jervis - https://github.com/jerv13
  */
 class ReadComponentConfigBlockBc implements ReadComponentConfig
 {
-    const SERVICE_ALIAS = 'bc-block';
-    const READER_PROTOCOL = 'bc-block://';
+    const SERVICE_ALIAS = 'block-bc';
+    const READER_SCHEME = 'block-bc';
 
     /**
      * @param string $rcmPluginName
@@ -37,7 +37,7 @@ class ReadComponentConfigBlockBc implements ReadComponentConfig
 
         $componentConfig[FieldsBlockComponentConfig::COMPONENT_CONFIG_READER]
             = ReadComponentConfigBlockBc::SERVICE_ALIAS;
-        $componentConfig[FieldsBlockComponentConfig::CONFIG_LOCATION]
+        $componentConfig[FieldsBlockComponentConfig::CONFIG_URI]
             = $rcmPluginName;
         $componentConfig[FieldsBlockComponentConfig::MODULE_DIRECTORY]
             = $moduleDirectory;
@@ -50,43 +50,51 @@ class ReadComponentConfigBlockBc implements ReadComponentConfig
         return $componentConfig;
     }
 
-    /**
-     * @var array
-     */
     protected $pluginConfig;
+    protected $prepareComponentConfig;
 
     /**
-     * @param array $pluginConfig
+     * @param array                       $pluginConfig
+     * @param PrepareComponentConfigBlock $prepareComponentConfig
      */
     public function __construct(
-        array $pluginConfig
+        array $pluginConfig,
+        PrepareComponentConfigBlock $prepareComponentConfig
     ) {
         $this->pluginConfig = $pluginConfig;
+        $this->prepareComponentConfig = $prepareComponentConfig;
     }
 
     /**
-     * @param string $configKey
+     * @param string $componentConfigUri
      * @param array  $options
      *
      * @return array
      * @throws \Exception
      */
     public function __invoke(
-        string $configKey,
+        string $componentConfigUri,
         array $options = []
     ): array {
+        AssertValidReaderScheme::invoke(self::READER_SCHEME, $componentConfigUri);
+
+        $componentConfigUriParts = parse_url($componentConfigUri);
+        $configKey = $componentConfigUriParts['path'];
+
         if (!array_key_exists($configKey, $this->pluginConfig)) {
             throw new \Exception(
                 "Config key not found: ({$configKey})"
             );
         }
 
-        $config = self::buildBcPluginConfig(
+        $componentConfig = self::buildBcPluginConfig(
             $configKey,
             $this->pluginConfig[$configKey],
             $this->pluginConfig[$configKey]
         );
 
-        return $config;
+        return $this->prepareComponentConfig->__invoke(
+            $componentConfig
+        );
     }
 }

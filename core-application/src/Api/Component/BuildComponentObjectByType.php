@@ -2,12 +2,13 @@
 
 namespace Zrcms\CoreApplication\Api\Component;
 
-use Psr\Container\ContainerInterface;
 use Zrcms\Core\Api\Component\BuildComponentObject;
 use Zrcms\Core\Api\GetTypeValue;
+use Zrcms\Core\Fields\FieldsComponent;
 use Zrcms\Core\Fields\FieldsComponentConfig;
 use Zrcms\Core\Model\Component;
 use Zrcms\Core\Model\ComponentBasic;
+use Zrcms\Core\Model\Trackable;
 use Zrcms\Param\Param;
 
 /**
@@ -15,26 +16,20 @@ use Zrcms\Param\Param;
  */
 class BuildComponentObjectByType implements BuildComponentObject
 {
-    protected $serviceContainer;
+    const SERVICE_ALIAS = 'basic';
+
     protected $getTypeValue;
-    protected $defaultBuildComponentObject;
     protected $defaultComponentClass;
 
     /**
-     * @param ContainerInterface $serviceContainer
-     * @param GetTypeValue       $getTypeValue
-     * @param string             $defaultBuildComponentObject
-     * @param string             $defaultComponentClass
+     * @param GetTypeValue $getTypeValue
+     * @param string       $defaultComponentClass
      */
     public function __construct(
-        $serviceContainer,
         GetTypeValue $getTypeValue,
-        string $defaultBuildComponentObject = BuildComponentObjectDefault::class,
         string $defaultComponentClass = ComponentBasic::class
     ) {
-        $this->serviceContainer = $serviceContainer;
         $this->getTypeValue = $getTypeValue;
-        $this->defaultBuildComponentObject = $defaultBuildComponentObject;
         $this->defaultComponentClass = $defaultComponentClass;
     }
 
@@ -43,6 +38,7 @@ class BuildComponentObjectByType implements BuildComponentObject
      * @param array $options
      *
      * @return Component
+     * @throws \Exception
      */
     public function __invoke(
         array $componentConfig,
@@ -54,36 +50,89 @@ class BuildComponentObjectByType implements BuildComponentObject
             FieldsComponentConfig::DEFAULT_TYPE
         );
 
-        $buildComponentObjectServiceName = $this->getTypeValue->__invoke(
+        $defaultComponentClass = $this->getTypeValue->__invoke(
             $type,
-            BuildComponentObject::class,
-            $this->defaultBuildComponentObject
+            'component-model-class',
+            $this->defaultComponentClass
         );
 
-        /** @var BuildComponentObject $buildComponentObjectService */
-        $buildComponentObjectService = $this->serviceContainer->get(
-            $buildComponentObjectServiceName
+        $defaultComponentInterface = $this->getTypeValue->__invoke(
+            $type,
+            'component-model-interface',
+            Component::class
         );
 
-        $this->assertValidInstance($buildComponentObjectService);
-
-        return $buildComponentObjectService->__invoke(
+        // Components might have special classes from config
+        /** @var Component::class $componentClass */
+        $componentClass = Param::get(
             $componentConfig,
-            $options
+            FieldsComponent::COMPONENT_CLASS,
+            $defaultComponentClass
+        );
+
+        $this->assertValidClass($componentClass, $defaultComponentInterface);
+
+        $moduleDirectory = Param::getRequired(
+            $componentConfig,
+            FieldsComponentConfig::MODULE_DIRECTORY
+        );
+
+        $moduleDirectoryReal = realpath($moduleDirectory);
+
+        if ($moduleDirectoryReal === false) {
+            throw new \Exception(
+                'Module directory is not valid: (' . $moduleDirectory . ')'
+            );
+        }
+
+        return new $componentClass(
+            Param::get(
+                $componentConfig,
+                FieldsComponentConfig::TYPE,
+                FieldsComponentConfig::DEFAULT_TYPE
+            ),
+            Param::getRequired(
+                $componentConfig,
+                FieldsComponentConfig::NAME
+            ),
+            Param::getRequired(
+                $componentConfig,
+                FieldsComponentConfig::CONFIG_URI
+            ),
+            $moduleDirectoryReal,
+            $componentConfig,
+            Param::get(
+                $componentConfig,
+                FieldsComponentConfig::CREATED_BY_USER_ID,
+                Trackable::UNKNOWN_USER_ID
+            ),
+            Param::get(
+                $componentConfig,
+                FieldsComponentConfig::CREATED_REASON,
+                Trackable::UNKNOWN_REASON
+            ),
+            Param::get(
+                $componentConfig,
+                FieldsComponentConfig::CREATED_DATE,
+                null
+            )
         );
     }
 
     /**
-     * @param $buildComponentObjectService
+     * @param string $componentClass
+     * @param string $defaultComponentInterface
      *
      * @return void
      * @throws \Exception
      */
-    protected function assertValidInstance($buildComponentObjectService)
-    {
-        if (!is_a($buildComponentObjectService, BuildComponentObject::class)) {
+    protected function assertValidClass(
+        string $componentClass,
+        string $defaultComponentInterface = Component::class
+    ) {
+        if (!is_a($componentClass, $defaultComponentInterface, true)) {
             throw new \Exception(
-                'BuildComponentObject Service must be instance of ' . BuildComponentObject::class
+                $componentClass . ' must be a ' . Component::class
             );
         }
     }

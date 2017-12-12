@@ -8,17 +8,17 @@ use Zrcms\Core\Api\GetTypeValue;
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class BuildComponentObjectByTypeFactory
+class BuildComponentObjectByTypeStrategyFactory
 {
     /**
      * @param ContainerInterface $serviceContainer
      *
-     * @return BuildComponentObjectByType
+     * @return BuildComponentObjectByTypeStrategy
      */
     public function __invoke(
         $serviceContainer
     ) {
-        return new BuildComponentObjectByType(
+        return new BuildComponentObjectByTypeStrategy(
             $serviceContainer,
             $serviceContainer->get(GetTypeValue::class)
         );

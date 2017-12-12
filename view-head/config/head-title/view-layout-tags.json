@@ -1,4 +1,5 @@
 {
+  "type": "view-layout-tag",
   "name": "head-title",
   "renderTagsGetter": "head-title"
 }

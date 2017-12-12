@@ -23,7 +23,7 @@ class ReadComponentRegistryRcmPluginBc implements ReadComponentRegistry
     {
         foreach ($appConfig['rcmPlugin'] as $rcmPluginName => $rcmPluginConfig) {
             $componentRegistry['block.' . $rcmPluginName]
-                = ReadComponentConfigBlockBc::READER_PROTOCOL . $rcmPluginName;
+                = ReadComponentConfigBlockBc::READER_SCHEME . ':' . $rcmPluginName;
         }
 
         foreach ($appConfig['Rcm']['blocks'] as $rcmPluginBlockConfigDir) {
@@ -45,7 +45,7 @@ class ReadComponentRegistryRcmPluginBc implements ReadComponentRegistry
             );
 
             $componentRegistry['block.' . $rcmPluginName]
-                = ReadComponentConfigJsonFile::READER_PROTOCOL . $rcmPluginBlockConfigDir;
+                = ReadComponentConfigJsonFile::READER_SCHEME . ':' . $rcmPluginBlockConfigDir . '/block.json';
         }
 
         return $componentRegistry;

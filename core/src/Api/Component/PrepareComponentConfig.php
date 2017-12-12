@@ -3,6 +3,7 @@
 namespace Zrcms\Core\Api\Component;
 
 /**
+ * @deprecated
  * @author James Jervis - https://github.com/jerv13
  */
 interface PrepareComponentConfig

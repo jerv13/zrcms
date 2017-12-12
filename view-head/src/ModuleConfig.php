@@ -3,7 +3,7 @@
 namespace Zrcms\ViewHead;
 
 use Zrcms\Core\Api\Component\FindComponent;
-use Zrcms\Core\Fields\FieldsComponentRegistry;
+use Zrcms\Core\Fields\FieldsComponentConfig;
 use Zrcms\Core\Model\ServiceAliasComponent;
 use Zrcms\CoreView\Fields\FieldsViewLayoutTagsComponent;
 use Zrcms\CoreView\Model\ServiceAliasView;
@@ -90,154 +90,130 @@ class ModuleConfig
                 ],
             ],
             'zrcms-components' => [
-                'view-layout-tag.head-all' => [
-                    FieldsComponentRegistry::TYPE => 'view-layout-tag',
-                    /* GetViewLayoutTagsHeadAll::RENDER_TAG_ALL */
-                    FieldsComponentRegistry::NAME => 'head-all',
-                    FieldsComponentRegistry::CONFIG_LOCATION
-                    => __DIR__ . '/../config/head-all/view-layout-tags.json',
-                    FieldsComponentRegistry::MODULE_DIRECTORY
-                    => __DIR__ . '/..',
-                ],
-                'view-layout-tag.head-meta' => [
-                    FieldsComponentRegistry::TYPE => 'view-layout-tag',
-                    /* GetViewLayoutTagsHeadMeta::RENDER_TAG_META */
-                    FieldsComponentRegistry::NAME => 'head-meta',
-                    FieldsComponentRegistry::CONFIG_LOCATION
-                    => 'view-layout-tag.head-meta',
-                    FieldsComponentRegistry::MODULE_DIRECTORY
-                    => __DIR__ . '/..',
+                'view-layout-tag.head-all'
+                => 'json:' . __DIR__ . '/../config/head-all/view-layout-tags.json',
 
-                    FieldsComponentRegistry::COMPONENT_CONFIG_READER
-                    => ReadViewHeadComponentConfigBc::SERVICE_ALIAS,
+                'view-layout-tag.head-link'
+                => 'view-head-bc:zrcms-view-head.head-link',
 
-                    FieldsComponentRegistry::NAME
-                    => GetViewLayoutTagsHeadMeta::RENDER_TAG_META,
+                'view-layout-tag.head-meta'
+                => 'view-head-bc:zrcms-view-head.head-meta',
 
-                    FieldsViewLayoutTagsComponent::RENDER_TAGS_GETTER
-                    => GetViewLayoutTagsHeadMeta::SERVICE_ALIAS,
+                'view-layout-tag.head-script'
+                => 'view-head-bc:zrcms-view-head.head-script',
 
-                    'tags' => [
-                    ],
-                ],
+                'view-layout-tag.head-title'
+                => 'json:' . __DIR__ . '/../config/head-title/view-layout-tags.json',
+            ],
 
-                'view-layout-tag.head-link' => [
-                    FieldsComponentRegistry::TYPE => 'view-layout-tag',
-                    // GetViewLayoutTagsHeadLink::RENDER_TAG_LINK
-                    FieldsComponentRegistry::NAME => 'head-link',
-                    FieldsComponentRegistry::CONFIG_LOCATION
-                    => 'view-layout-tag.head-link',
-                    FieldsComponentRegistry::MODULE_DIRECTORY
-                    => __DIR__ . '/..',
+            'zrcms-view-head.head-link' => [
+                FieldsComponentConfig::TYPE => 'view-layout-tag',
+                // GetViewLayoutTagsHeadLink::RENDER_TAG_LINK
+                FieldsComponentConfig::NAME => 'head-link',
 
-                    FieldsComponentRegistry::COMPONENT_CONFIG_READER
-                    => ReadViewHeadComponentConfigBc::SERVICE_ALIAS,
+                FieldsComponentConfig::MODULE_DIRECTORY
+                => __DIR__ . '/..',
 
-                    FieldsComponentRegistry::NAME
-                    => GetViewLayoutTagsHeadLink::RENDER_TAG_LINK,
+                FieldsViewLayoutTagsComponent::RENDER_TAGS_GETTER
+                => GetViewLayoutTagsHeadLink::SERVICE_ALIAS,
 
-                    FieldsViewLayoutTagsComponent::RENDER_TAGS_GETTER
-                    => GetViewLayoutTagsHeadLink::SERVICE_ALIAS,
+                FieldsViewLayoutTagsComponent::COMPONENT_CLASS
+                => HeadSectionComponent::class,
 
-                    FieldsViewLayoutTagsComponent::COMPONENT_CLASS
-                    => HeadSectionComponent::class,
-
-                    'tag' => 'link',
-                    'sections' => [
-                        'pre-config' => [
-                            /* EXAMPLE
-                            // Basic
-                            '{name}' => [
-                                '__content' => '.example {};',
-                                'href' => '/example/example.css',
-                                'media' => "screen,print",
-                                'rel' => "stylesheet",
-                                'type' => "text/css"
-                            ],
-                            // Embedded ViewLayoutTagsGetter
-                            '{name}' => [
-                                '__view-layout-tags-getter' => '{view-layout-tag-getter-service-alias}',
-                            ],
-                            // Literal
-                            '{name}' => [
-                                '__literal' => '{view-layout-tag-getter-service-alias}',
-                            ],
-                            */
+                'tag' => 'link',
+                'sections' => [
+                    'pre-config' => [
+                        /* EXAMPLE
+                        // Basic
+                        '{name}' => [
+                            '__content' => '.example {};',
+                            'href' => '/example/example.css',
+                            'media' => "screen,print",
+                            'rel' => "stylesheet",
+                            'type' => "text/css"
                         ],
-                        'config' => [],
-                        'post-config' => [],
-                        'pre-libraries' => [],
-                        'libraries' => [],
-                        'post-libraries' => [],
-                        'pre-core' => [],
-                        'core' => [],
-                        'post-core' => [],
-                        'pre-modules' => [],
-                        'modules' => [],
-                        'post-modules' => [],
-                    ],
-                ],
-                'view-layout-tag.head-script' => [
-                    FieldsComponentRegistry::TYPE => 'view-layout-tag',
-                    /* GetViewLayoutTagsHeadScript::RENDER_TAG_SCRIPT */
-                    FieldsComponentRegistry::NAME => 'head-script',
-                    FieldsComponentRegistry::CONFIG_LOCATION
-                    => 'view-layout-tag.head-script',
-                    FieldsComponentRegistry::MODULE_DIRECTORY
-                    => __DIR__ . '/..',
-
-                    FieldsComponentRegistry::COMPONENT_CONFIG_READER
-                    => ReadViewHeadComponentConfigBc::SERVICE_ALIAS,
-
-                    FieldsComponentRegistry::NAME
-                    => GetViewLayoutTagsHeadScript::RENDER_TAG_SCRIPT,
-
-                    FieldsViewLayoutTagsComponent::RENDER_TAGS_GETTER
-                    => GetViewLayoutTagsHeadScript::SERVICE_ALIAS,
-
-                    FieldsViewLayoutTagsComponent::COMPONENT_CLASS => HeadSectionComponent::class,
-
-                    'tag' => 'script',
-                    'sections' => [
-                        'pre-config' => [
-                            /* EXAMPLE
-                            // Basic
-                            '{name}' => [
-                                '__content' => 'var example = null;',
-                                'src' => '/example/example.js',
-                                'type' => "text/javascript"
-                            ],
-                            // Embedded ViewLayoutTagsGetter
-                            '{name}' => [
-                                '__view-layout-tags-getter' => '{view-layout-tag-getter-service-alias}',
-                            ],
-                            // Literal
-                            '{name}' => [
-                                '__literal' => '{view-layout-tag-getter-service-alias}',
-                            ],
-                            */
+                        // Embedded ViewLayoutTagsGetter
+                        '{name}' => [
+                            '__view-layout-tags-getter' => '{view-layout-tag-getter-service-alias}',
                         ],
-                        'config' => [],
-                        'post-config' => [],
-                        'pre-libraries' => [],
-                        'libraries' => [],
-                        'post-libraries' => [],
-                        'pre-core' => [],
-                        'core' => [],
-                        'post-core' => [],
-                        'pre-modules' => [],
-                        'modules' => [],
-                        'post-modules' => [],
+                        // Literal
+                        '{name}' => [
+                            '__literal' => '{view-layout-tag-getter-service-alias}',
+                        ],
+                        */
                     ],
+                    'config' => [],
+                    'post-config' => [],
+                    'pre-libraries' => [],
+                    'libraries' => [],
+                    'post-libraries' => [],
+                    'pre-core' => [],
+                    'core' => [],
+                    'post-core' => [],
+                    'pre-modules' => [],
+                    'modules' => [],
+                    'post-modules' => [],
                 ],
-                'view-layout-tag.head-title' => [
-                    FieldsComponentRegistry::TYPE => 'view-layout-tag',
-                    /* GetViewLayoutTagsHeadTitle::RENDER_TAG_TITLE */
-                    FieldsComponentRegistry::NAME => 'head-title',
-                    FieldsComponentRegistry::CONFIG_LOCATION
-                    => __DIR__ . '/../config/head-title/view-layout-tags.json',
-                    FieldsComponentRegistry::MODULE_DIRECTORY
-                    => __DIR__ . '/..',
+            ],
+            'zrcms-view-head.head-meta' => [
+                FieldsComponentConfig::TYPE => 'view-layout-tag',
+                /* GetViewLayoutTagsHeadMeta::RENDER_TAG_META */
+                FieldsComponentConfig::NAME => 'head-meta',
+
+                FieldsComponentConfig::MODULE_DIRECTORY
+                => __DIR__ . '/..',
+
+                FieldsViewLayoutTagsComponent::RENDER_TAGS_GETTER
+                => GetViewLayoutTagsHeadMeta::SERVICE_ALIAS,
+
+                'tags' => [
+                ],
+            ],
+            'zrcms-view-head.head-script' => [
+                FieldsComponentConfig::TYPE => 'view-layout-tag',
+                /* GetViewLayoutTagsHeadScript::RENDER_TAG_SCRIPT */
+                FieldsComponentConfig::NAME => 'head-script',
+
+                FieldsComponentConfig::MODULE_DIRECTORY
+                => __DIR__ . '/..',
+
+                FieldsViewLayoutTagsComponent::RENDER_TAGS_GETTER
+                => GetViewLayoutTagsHeadScript::SERVICE_ALIAS,
+
+                FieldsViewLayoutTagsComponent::COMPONENT_CLASS
+                => HeadSectionComponent::class,
+
+                'tag' => 'script',
+                'sections' => [
+                    'pre-config' => [
+                        /* EXAMPLE
+                        // Basic
+                        '{name}' => [
+                            '__content' => 'var example = null;',
+                            'src' => '/example/example.js',
+                            'type' => "text/javascript"
+                        ],
+                        // Embedded ViewLayoutTagsGetter
+                        '{name}' => [
+                            '__view-layout-tags-getter' => '{view-layout-tag-getter-service-alias}',
+                        ],
+                        // Literal
+                        '{name}' => [
+                            '__literal' => '{view-layout-tag-getter-service-alias}',
+                        ],
+                        */
+                    ],
+                    'config' => [],
+                    'post-config' => [],
+                    'pre-libraries' => [],
+                    'libraries' => [],
+                    'post-libraries' => [],
+                    'pre-core' => [],
+                    'core' => [],
+                    'post-core' => [],
+                    'pre-modules' => [],
+                    'modules' => [],
+                    'post-modules' => [],
                 ],
             ],
 

@@ -13,7 +13,7 @@ class FieldsComponentConfig extends FieldsAbstract implements Fields
 {
     const TYPE = 'type';
     const NAME = 'name';
-    const CONFIG_LOCATION = 'configLocation';
+    const CONFIG_URI = 'configUri';
     const MODULE_DIRECTORY = 'moduleDirectory';
     const CREATED_BY_USER_ID = TrackableProperties::CREATED_BY_USER_ID;
     const CREATED_REASON = TrackableProperties::CREATED_REASON;
@@ -32,8 +32,8 @@ class FieldsComponentConfig extends FieldsAbstract implements Fields
                 'name' => self::TYPE,
                 'type' => 'text',
                 'label' => 'Component Type',
-                'required' => false,
-                'default' => self::DEFAULT_TYPE,
+                'required' => true,
+                'default' => '',
                 'options' => [],
             ],
             [
@@ -45,7 +45,7 @@ class FieldsComponentConfig extends FieldsAbstract implements Fields
                 'options' => [],
             ],
             [
-                'name' => self::CONFIG_LOCATION,
+                'name' => self::CONFIG_URI,
                 'type' => 'text',
                 'label' => 'Config Location (usually a path or application config key)',
                 'required' => true,

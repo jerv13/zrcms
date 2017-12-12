@@ -1,27 +1,27 @@
 <?php
 
-namespace Zrcms\CoreApplication\Api\Component;
+namespace Zrcms\ServiceAlias\Api;
 
 use Psr\Container\ContainerInterface;
 
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class ReadComponentConfigComponentRegistryConfigFactory
+class GetServiceAliasRegistryBasicFactory
 {
     /**
      * @param ContainerInterface $serviceContainer
      *
-     * @return ReadComponentConfigComponentRegistryConfig
+     * @return GetServiceAliasRegistryBasic
      */
     public function __invoke(
         $serviceContainer
     ) {
         $config = $serviceContainer->get('config');
 
-        $registry = $config['zrcms-components'];
+        $registry = $config['zrcms-service-alias'];
 
-        return new ReadComponentConfigComponentRegistryConfig(
+        return new GetServiceAliasRegistryBasic(
             $registry
         );
     }

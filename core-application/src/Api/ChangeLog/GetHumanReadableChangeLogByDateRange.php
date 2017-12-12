@@ -5,6 +5,7 @@ namespace Zrcms\CoreApplication\Api\ChangeLog;
 
 
 use Zrcms\Core\Api\ChangeLog\GetChangeLogByDateRange;
+use Zrcms\Core\Model\ChangeLogEvent;
 
 class GetHumanReadableChangeLogByDateRange
 {
@@ -19,9 +20,16 @@ class GetHumanReadableChangeLogByDateRange
         $this->changeLogEventToString = $changeLogEventToString;
     }
 
+    /**
+     * @param \DateTime $greaterThanYear
+     * @param \DateTime $lessThanYear
+     *
+     * @return array
+     */
     public function __invoke(\DateTime $greaterThanYear, \DateTime $lessThanYear)
     {
         $humanReadableEvents = [];
+        /** @var ChangeLogEvent $changeLogEvent */
         foreach ($this->getChangeLogByDateRange->__invoke($greaterThanYear, $lessThanYear) as $changeLogEvent) {
             $humanReadableEvents[] = [
                 'date' => $changeLogEvent->getDateTime()->format('c'),

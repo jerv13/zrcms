@@ -15,7 +15,7 @@ abstract class LayoutComponentAbstract extends ComponentAbstract
     /**
      * @param string      $type
      * @param string      $name
-     * @param string      $configLocation
+     * @param string      $configUri
      * @param string      $moduleDirectory
      * @param array       $properties
      * @param string      $createdByUserId
@@ -25,7 +25,7 @@ abstract class LayoutComponentAbstract extends ComponentAbstract
     public function __construct(
         string $type,
         string $name,
-        string $configLocation,
+        string $configUri,
         string $moduleDirectory,
         array $properties,
         string $createdByUserId,
@@ -55,7 +55,7 @@ abstract class LayoutComponentAbstract extends ComponentAbstract
         parent::__construct(
             $type,
             $name,
-            $configLocation,
+            $configUri,
             $moduleDirectory,
             $properties,
             $createdByUserId,

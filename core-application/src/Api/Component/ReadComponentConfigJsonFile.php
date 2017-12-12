@@ -13,20 +13,23 @@ use Zrcms\Param\Param;
 class ReadComponentConfigJsonFile implements ReadComponentConfig
 {
     const SERVICE_ALIAS = 'json';
-    const READER_PROTOCOL = 'json://';
+    const READER_SCHEME = 'json';
 
     /**
-     * @param string $jsonFilePath
+     * @param string $componentConfigUri
      * @param array  $options
      *
      * @return array
      * @throws \Exception|CanNotReadComponentConfig
      */
     public function __invoke(
-        string $jsonFilePath,
+        string $componentConfigUri,
         array $options = []
     ): array {
-        $this->assertCanRead($jsonFilePath);
+        $this->assertCanRead($componentConfigUri);
+
+        $componentConfigUriParts = parse_url($componentConfigUri);
+        $jsonFilePath = $componentConfigUriParts['path'];
 
         $realConfigFilePath = realpath($jsonFilePath);
 
@@ -46,13 +49,18 @@ class ReadComponentConfigJsonFile implements ReadComponentConfig
         }
 
         // if no moduleDirectory is set, we use the config file location
-        $componentConfig[FieldsComponentConfig::MODULE_DIRECTORY] = Param::get(
+        $moduleDirectoryConfig = $componentConfig[FieldsComponentConfig::MODULE_DIRECTORY] = Param::getString(
             $componentConfig,
             FieldsComponentConfig::MODULE_DIRECTORY,
-            pathinfo($realConfigFilePath)[PATHINFO_DIRNAME]
+            ''
         );
 
-        $componentConfig[FieldsComponentConfig::CONFIG_LOCATION] = self::READER_PROTOCOL . $realConfigFilePath;
+        $moduleDirectoryRoot = pathinfo($realConfigFilePath, PATHINFO_DIRNAME);
+
+        $moduleDirectory = $moduleDirectoryRoot . $moduleDirectoryConfig;
+
+        $componentConfig[FieldsComponentConfig::MODULE_DIRECTORY] = $moduleDirectory;
+        $componentConfig[FieldsComponentConfig::CONFIG_URI] = self::READER_SCHEME . $realConfigFilePath;
 
         return $componentConfig;
     }
@@ -65,10 +73,10 @@ class ReadComponentConfigJsonFile implements ReadComponentConfig
      */
     protected function assertCanRead($jsonFilePath)
     {
-        // NOTE: this allows no protocol on json files, is a bit risky
+        // NOTE: this allows no scheme on json files, is a bit risky
         if (substr($jsonFilePath, -5) === '.json') {
             return;
         }
-        AssertValidReaderProtocol::invoke(self::READER_PROTOCOL, $jsonFilePath);
+        AssertValidReaderScheme::invoke(static::READER_SCHEME, $jsonFilePath);
     }
 }

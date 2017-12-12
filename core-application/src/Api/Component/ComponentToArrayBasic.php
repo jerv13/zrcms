@@ -29,8 +29,8 @@ class ComponentToArrayBasic implements ComponentToArray
             'name'
             => $component->getName(),
 
-            'configLocation'
-            => $component->getConfigLocation(),
+            'configUri'
+            => $component->getConfigUri(),
 
             'properties'
             => $component->getProperties(),

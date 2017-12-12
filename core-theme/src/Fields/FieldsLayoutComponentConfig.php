@@ -4,7 +4,6 @@ namespace Zrcms\CoreTheme\Fields;
 
 use Zrcms\Core\Fields\FieldsComponentConfig;
 use Zrcms\Core\Model\Trackable;
-use Zrcms\CoreTheme\Fields\FieldsLayoutComponent;
 use Zrcms\CoreTheme\Model\LayoutComponentBasic;
 
 /**
@@ -13,6 +12,7 @@ use Zrcms\CoreTheme\Model\LayoutComponentBasic;
 class FieldsLayoutComponentConfig extends FieldsComponentConfig
 {
     const TEMPLATE_FILE = 'templateFile';
+    const THEME_NAME = 'themeName';
     const RENDERER = FieldsLayoutComponent::RENDERER;
     const RENDER_TAGS_GETTER = FieldsLayoutComponent::RENDER_TAGS_GETTER;
     const RENDER_TAG_NAME_PARSER = FieldsLayoutComponent::RENDER_TAG_NAME_PARSER;
@@ -92,6 +92,22 @@ class FieldsLayoutComponentConfig extends FieldsComponentConfig
                 'label' => 'Tag Name Parser',
                 'required' => false,
                 'default' => 'mustache',
+                'options' => [],
+            ],
+            [
+                'name' => self::THEME_NAME,
+                'type' => 'string',
+                'label' => 'Theme Name',
+                'required' => true,
+                'default' => '',
+                'options' => [],
+            ],
+            [
+                'name' => self::TEMPLATE_FILE,
+                'type' => 'string',
+                'label' => 'Template File',
+                'required' => true,
+                'default' => '',
                 'options' => [],
             ],
         ];

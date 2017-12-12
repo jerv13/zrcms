@@ -3,6 +3,8 @@
 namespace Zrcms\ViewHead\Api\Component;
 
 use Zrcms\Core\Api\Component\ReadComponentConfig;
+use Zrcms\Core\Fields\FieldsComponentConfig;
+use Zrcms\CoreApplication\Api\Component\AssertValidReaderScheme;
 use Zrcms\ViewHead\Api\MergeSectionsBc;
 
 /**
@@ -11,6 +13,8 @@ use Zrcms\ViewHead\Api\MergeSectionsBc;
 class ReadViewHeadComponentConfigBc implements ReadComponentConfig
 {
     const SERVICE_ALIAS = 'view-head-bc';
+    const READER_SCHEME = 'view-head-bc';
+
     /**
      * @var array
      */
@@ -36,22 +40,30 @@ class ReadViewHeadComponentConfigBc implements ReadComponentConfig
     }
 
     /**
-     * @param string $configKey
+     * @param string $componentConfigUri
      * @param array  $options
      *
      * @return array
      * @throws \Exception
      */
     public function __invoke(
-        string $configKey,
+        string $componentConfigUri,
         array $options = []
-    ): array
-    {
+    ): array {
+        AssertValidReaderScheme::invoke(self::READER_SCHEME, $componentConfigUri);
+
+        $componentConfigUriParts = parse_url($componentConfigUri);
+        $configKey = $componentConfigUriParts['path'];
+
         if (!array_key_exists($configKey, $this->applicationConfig)) {
             throw new \Exception("Config key ({$configKey}) not found");
         }
 
-        return $this->applicationConfig[$configKey];
+        $componentConfig = $this->applicationConfig[$configKey];
+
+        $componentConfig[FieldsComponentConfig::CONFIG_URI] = $componentConfigUri;
+
+        return $componentConfig;
     }
 
     /**
@@ -65,9 +77,9 @@ class ReadViewHeadComponentConfigBc implements ReadComponentConfig
         array $applicationConfigBc
     ): array
     {
-        $metaKey = 'view-layout-tag.head-meta';
-        $linkKey = 'view-layout-tag.head-link';
-        $scriptKey = 'view-layout-tag.head-script';
+        $metaKey = 'zrcms-view-head.head-meta';
+        $linkKey = 'zrcms-view-head.head-link';
+        $scriptKey = 'zrcms-view-head.head-script';
 
         $applicationConfigBcConverted = [
             $metaKey => [

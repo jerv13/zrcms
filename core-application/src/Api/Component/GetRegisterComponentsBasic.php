@@ -3,12 +3,14 @@
 namespace Zrcms\CoreApplication\Api\Component;
 
 use Zrcms\Cache\Service\Cache;
+use Zrcms\Cache\Service\CacheArray;
 use Zrcms\Core\Api\Component\BuildComponentObject;
 use Zrcms\Core\Api\Component\GetRegisterComponents;
-use Zrcms\Core\Api\Component\ReadComponentRegistry;
+use Zrcms\Core\Api\Component\ReadComponentConfigs;
 use Zrcms\Core\Model\Component;
 
 /**
+ * @todo This should not be needed
  * @author James Jervis - https://github.com/jerv13
  */
 class GetRegisterComponentsBasic implements GetRegisterComponents
@@ -16,9 +18,9 @@ class GetRegisterComponentsBasic implements GetRegisterComponents
     const CACHE_KEY = 'ZrcmsComponentConfigBasic';
 
     /**
-     * @var ReadComponentRegistry
+     * @var ReadComponentConfigs
      */
-    protected $readComponentRegistry;
+    protected $readComponentConfigs;
 
     /**
      * @var BuildComponentObject
@@ -38,18 +40,18 @@ class GetRegisterComponentsBasic implements GetRegisterComponents
     protected $cacheKey;
 
     /**
-     * @param ReadComponentRegistry $readComponentRegistry
-     * @param BuildComponentObject  $buildComponentObject
-     * @param Cache                 $cache
-     * @param string                $cacheKey
+     * @param ReadComponentConfigs $readComponentConfigs
+     * @param BuildComponentObject $buildComponentObject
+     * @param CacheArray           $cache
+     * @param string               $cacheKey
      */
     public function __construct(
-        ReadComponentRegistry $readComponentRegistry,
+        ReadComponentConfigs $readComponentConfigs,
         BuildComponentObject $buildComponentObject,
-        Cache $cache,
+        CacheArray $cache,
         string $cacheKey = self::CACHE_KEY
     ) {
-        $this->readComponentRegistry = $readComponentRegistry;
+        $this->readComponentConfigs = $readComponentConfigs;
         $this->buildComponentObject = $buildComponentObject;
         $this->cache = $cache;
         $this->cacheKey = $cacheKey;
@@ -67,10 +69,10 @@ class GetRegisterComponentsBasic implements GetRegisterComponents
             return $this->getCache();
         }
 
-        $componentRegistry = $this->readComponentRegistry->__invoke();
+        $componentConfigs = $this->readComponentConfigs->__invoke();
 
         $configs = $this->buildComponentObjects(
-            $componentRegistry
+            $componentConfigs
         );
 
         $this->setCache($configs);
@@ -79,15 +81,15 @@ class GetRegisterComponentsBasic implements GetRegisterComponents
     }
 
     /**
-     * @param array $componentRegistry
+     * @param array $componentConfigs
      *
      * @return Component[]
      */
     protected function buildComponentObjects(
-        array $componentRegistry
+        array $componentConfigs
     ) {
         $configs = [];
-        foreach ($componentRegistry as $componentConfig) {
+        foreach ($componentConfigs as $componentConfig) {
             $configs[] = $this->buildComponentObject->__invoke(
                 $componentConfig
             );

@@ -12,7 +12,6 @@ use Zrcms\CoreTheme\Model\ThemeComponentBasic;
 class FieldsThemeComponentConfig extends FieldsComponentConfig
 {
     const PRIMARY_LAYOUT = FieldsThemeComponent::PRIMARY_LAYOUT_NAME;
-    const LAYOUT_COMPONENTS = 'layouts';
 
     /**
      * @var array
@@ -73,14 +72,6 @@ class FieldsThemeComponentConfig extends FieldsComponentConfig
                 'label' => 'Primary Layout Name',
                 'required' => true,
                 'default' => 'primary',
-                'options' => [],
-            ],
-            [
-                'name' => self::LAYOUT_COMPONENTS,
-                'type' => 'array',
-                'label' => 'Layout Component (for this theme)',
-                'required' => true,
-                'default' => [],
                 'options' => [],
             ],
         ];

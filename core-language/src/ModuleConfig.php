@@ -19,14 +19,8 @@ class ModuleConfig
 
         return [
             'zrcms-components' => [
-                'basic.zrcms-languages' => [
-                    FieldsComponentRegistry::TYPE => 'basic',
-                    FieldsComponentRegistry::NAME => 'zrcms-languages',
-                    FieldsComponentRegistry::CONFIG_LOCATION
-                    => __DIR__ . '/../zrcms-component.json',
-                    FieldsComponentRegistry::MODULE_DIRECTORY
-                    => __DIR__ . '/..',
-                ],
+                'basic.zrcms-languages'
+                => 'json:' . __DIR__ . '/../zrcms-component.json',
             ],
         ];
     }

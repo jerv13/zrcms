@@ -22,6 +22,8 @@ class ReadComponentConfigsBasic implements ReadComponentConfigs
     /**
      * @param ReadComponentRegistry $readComponentRegistry
      * @param ReadComponentConfig   $readComponentConfig
+     * @param Cache                 $cache
+     * @param string                $cacheKey
      */
     public function __construct(
         ReadComponentRegistry $readComponentRegistry,
@@ -50,7 +52,7 @@ class ReadComponentConfigsBasic implements ReadComponentConfigs
         $namespaceIndex = [];
         $componentRegistry = $this->readComponentRegistry->__invoke();
 
-        foreach ($componentRegistry as $namespace => $componentConfigLocation) {
+        foreach ($componentRegistry as $namespace => $componentConfigUri) {
             if (in_array($namespace, $namespaceIndex)) {
                 new \Exception(
                     'Duplicate component namespace configured: (' . $namespace . ')'
@@ -59,7 +61,7 @@ class ReadComponentConfigsBasic implements ReadComponentConfigs
             }
             $namespaceIndex[] = $namespace;
 
-            $componentConfig = $this->readComponentConfig->__invoke($componentConfigLocation);
+            $componentConfig = $this->readComponentConfig->__invoke($componentConfigUri);
 
             $componentConfigs[] = $componentConfig;
         }

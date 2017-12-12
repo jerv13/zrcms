@@ -10,15 +10,15 @@ use Zrcms\ServiceAlias\Exception\ServiceAliasNotFound;
  */
 class GetServiceNameBasic implements GetServiceName
 {
-    protected $registry;
+    protected $getServiceAliasRegistry;
 
     /**
-     * @param array $registry
+     * @param GetServiceAliasRegistry $getServiceAliasRegistry
      */
     public function __construct(
-        array $registry
+        GetServiceAliasRegistry $getServiceAliasRegistry
     ) {
-        $this->registry = $registry;
+        $this->getServiceAliasRegistry = $getServiceAliasRegistry;
     }
 
     /**
@@ -40,8 +40,10 @@ class GetServiceNameBasic implements GetServiceName
             return $defaultServiceName;
         }
 
+        $registry = $this->getServiceAliasRegistry->__invoke();
+
         $namespaceRegistry = Param::getArray(
-            $this->registry,
+            $registry,
             $namespace,
             []
         );

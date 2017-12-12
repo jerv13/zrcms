@@ -17,15 +17,13 @@ class ReadViewHeadComponentConfigBcFactory
     public function __invoke(
         $serviceContainer
     ) {
-        $config = $serviceContainer->get('config');
-
-        $applicationConfig = $config['zrcms-components'];
+        $applicationConfig = $serviceContainer->get('config');
 
         $configBc = [];
 
-        if (array_key_exists('Rcm', $config)) {
-            if (array_key_exists('HtmlIncludes', $config['Rcm'])) {
-                $configBc = $config['Rcm']['HtmlIncludes'];
+        if (array_key_exists('Rcm', $applicationConfig)) {
+            if (array_key_exists('HtmlIncludes', $applicationConfig['Rcm'])) {
+                $configBc = $applicationConfig['Rcm']['HtmlIncludes'];
             }
         }
 

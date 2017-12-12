@@ -12,20 +12,24 @@ use Zrcms\Param\Param;
 class ReadComponentConfigPhpFile implements ReadComponentConfig
 {
     const SERVICE_ALIAS = 'php-file';
-    const READER_PROTOCOL = 'php-file://';
+    const READER_SCHEME = 'php-file';
 
     /**
-     * @param string $phpFilePath
+     * @param string $componentConfigUri
      * @param array  $options
      *
      * @return array
      * @throws \Exception
      */
     public function __invoke(
-        string $phpFilePath,
+        string $componentConfigUri,
         array $options = []
     ): array {
-        AssertValidReaderProtocol::invoke(self::READER_PROTOCOL, $phpFilePath);
+        AssertValidReaderScheme::invoke(self::READER_SCHEME, $componentConfigUri);
+
+        $componentConfigUriParts = parse_url($componentConfigUri);
+        $phpFilePath = $componentConfigUriParts['path'];
+
         $realConfigFilePath = realpath($phpFilePath);
 
         if (empty($realConfigFilePath)) {
@@ -38,13 +42,16 @@ class ReadComponentConfigPhpFile implements ReadComponentConfig
         $componentConfig = include($realConfigFilePath);
 
         // if no moduleDirectory is set, we use the config file location
-        $componentConfig[FieldsComponentConfig::MODULE_DIRECTORY] = Param::get(
+        $moduleDirectoryConfig = Param::getString(
             $componentConfig,
             FieldsComponentConfig::MODULE_DIRECTORY,
-            pathinfo($realConfigFilePath)[PATHINFO_DIRNAME]
+            ''
         );
 
-        $componentConfig[FieldsComponentConfig::CONFIG_LOCATION] = self::READER_PROTOCOL . $realConfigFilePath;
+        $moduleDirectoryRoot = pathinfo($realConfigFilePath, PATHINFO_DIRNAME);
+
+        $componentConfig[FieldsComponentConfig::MODULE_DIRECTORY] = $moduleDirectoryRoot . $moduleDirectoryConfig;
+        $componentConfig[FieldsComponentConfig::CONFIG_URI] = self::READER_SCHEME . $realConfigFilePath;
 
         return $componentConfig;
     }

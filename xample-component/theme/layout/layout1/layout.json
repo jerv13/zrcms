@@ -1,6 +1,0 @@
-{
-  "type": "layouts",
-  "name": "layout1",
-  "templateFile": "/template.mustache",
-  "renderer": "mustache"
-}
