@@ -74,7 +74,7 @@ abstract class SiteVersionAbstract extends ContentVersionAbstract
      */
     public function getHost(): string
     {
-        return $this->getProperty(
+        return $this->findProperty(
             FieldsSiteVersion::HOST,
             ''
         );
@@ -85,7 +85,7 @@ abstract class SiteVersionAbstract extends ContentVersionAbstract
      */
     public function getThemeName(): string
     {
-        return (string)$this->getProperty(
+        return (string)$this->findProperty(
             FieldsSiteVersion::THEME_NAME,
             ''
         );
@@ -96,7 +96,7 @@ abstract class SiteVersionAbstract extends ContentVersionAbstract
      */
     public function getLocale(): string
     {
-        return (string)$this->getProperty(
+        return (string)$this->findProperty(
             FieldsSiteVersion::LOCALE,
             DefaultLocal::get()
         );
@@ -110,7 +110,7 @@ abstract class SiteVersionAbstract extends ContentVersionAbstract
      */
     public function findStatusPage(string $httpStatus, $default = null)
     {
-        $statusPages = $this->getProperty(
+        $statusPages = $this->findProperty(
             FieldsSiteVersion::STATUS_PAGES,
             []
         );

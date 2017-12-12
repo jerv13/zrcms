@@ -58,7 +58,7 @@ class GetPageRenderTagsBasic implements GetPageRenderTags
         array $options = []
     ): array {
         // Get version renderer or use default
-        $getPageRenderTagsServiceAlias = $page->getProperty(
+        $getPageRenderTagsServiceAlias = $page->findProperty(
             FieldsPage::RENDER_TAGS_GETTER,
             ''
         );

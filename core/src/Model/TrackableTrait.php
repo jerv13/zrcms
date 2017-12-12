@@ -68,7 +68,15 @@ trait TrackableTrait
      */
     public function getCreatedDateObject(): \DateTime
     {
-        return $this->createdDateObject;
+        // Clone to prevent changes
+        $dateTime =  clone($this->createdDateObject);
+
+        // ALWAYS RETURN UTC
+        $timezone = new \DateTimeZone('UTC');
+
+        $dateTime->setTimezone($timezone);
+
+        return $dateTime;
     }
 
     /**

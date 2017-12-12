@@ -51,7 +51,7 @@ abstract class BlockAbstract extends ContentAbstract implements Block
      */
     public function getBlockComponentName(): string
     {
-        return $this->getProperty(
+        return $this->findProperty(
             FieldsBlock::BLOCK_COMPONENT_NAME,
             ''
         );
@@ -63,7 +63,7 @@ abstract class BlockAbstract extends ContentAbstract implements Block
      */
     public function getConfig(): array
     {
-        return $this->getProperty(
+        return $this->findProperty(
             FieldsBlock::CONFIG,
             []
         );
@@ -91,7 +91,7 @@ abstract class BlockAbstract extends ContentAbstract implements Block
      */
     public function getLayoutProperties(): array
     {
-        return $this->getProperty(
+        return $this->findProperty(
             FieldsBlock::LAYOUT_PROPERTIES,
             []
         );

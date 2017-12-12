@@ -89,7 +89,7 @@ class RenderBlockBasic implements RenderBlock
         }
 
         // Get version renderer or use default
-        $renderServiceAlias = $blockComponent->getProperty(
+        $renderServiceAlias = $blockComponent->findProperty(
             FieldsBlockComponent::RENDERER,
             ''
         );

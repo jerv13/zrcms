@@ -61,7 +61,7 @@ class HeadSectionComponentBasic extends ViewLayoutTagsComponentAbstract implemen
      */
     public function getTag(): string
     {
-        return $this->getProperty(
+        return $this->findProperty(
             PropertiesHeadSectionComponent::TAG
         );
     }
@@ -97,7 +97,7 @@ class HeadSectionComponentBasic extends ViewLayoutTagsComponentAbstract implemen
      */
     public function getSections(): array
     {
-        return $this->getProperty(
+        return $this->findProperty(
             PropertiesHeadSectionComponent::SECTIONS,
             []
         );

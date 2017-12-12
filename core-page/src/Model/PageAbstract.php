@@ -67,7 +67,7 @@ abstract class PageAbstract extends ContentAbstract
      */
     public function getTitle(): string
     {
-        return $this->getProperty(
+        return $this->findProperty(
             FieldsPage::TITLE,
             ''
         );
@@ -78,7 +78,7 @@ abstract class PageAbstract extends ContentAbstract
      */
     public function getDescription(): string
     {
-        return $this->getProperty(
+        return $this->findProperty(
             FieldsPage::DESCRIPTION,
             ''
         );
@@ -89,7 +89,7 @@ abstract class PageAbstract extends ContentAbstract
      */
     public function getKeywords(): string
     {
-        return $this->getProperty(
+        return $this->findProperty(
             FieldsPage::KEYWORDS,
             ''
         );
@@ -100,7 +100,7 @@ abstract class PageAbstract extends ContentAbstract
      */
     public function getContainersData(): array
     {
-        return $this->getProperty(
+        return $this->findProperty(
             FieldsPage::CONTAINERS_DATA,
             []
         );

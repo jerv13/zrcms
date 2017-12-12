@@ -151,7 +151,7 @@ class ContainerVersionEntity
      */
     public function getSiteCmsResourceId(): string
     {
-        return $this->getProperty(
+        return $this->findProperty(
             FieldsContainerVersion::SITE_CMS_RESOURCE_ID
         );
     }
@@ -161,7 +161,7 @@ class ContainerVersionEntity
      */
     public function getPath(): string
     {
-        return $this->getProperty(
+        return $this->findProperty(
             FieldsContainerVersion::PATH
         );
     }

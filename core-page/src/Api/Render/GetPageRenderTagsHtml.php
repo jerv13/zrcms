@@ -38,7 +38,7 @@ class GetPageRenderTagsHtml implements GetPageRenderTags
 
         $renderTags = [];
 
-        $renderTags[$containerName] = $page->getProperty(
+        $renderTags[$containerName] = $page->findProperty(
             FieldsPage::PRE_RENDERED_HTML
         );
 

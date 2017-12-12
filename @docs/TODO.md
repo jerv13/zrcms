@@ -21,8 +21,22 @@
         ],
         
     - Find service that end in "Basic" that determine the service to use and rename to ByStrategy
+    
 
 #### ToDo ####
+
+- Array
+    - getPropertyRequired(
+
+- Site meta tags and page meta tage (page inherits from site, if empty, use site)
+- Service for getting url list from page, product pages, etc... (site map??)
+
+- view-head
+    - allow registering scripts and css for routes
+
+- ToArray classes
+    - Need to deal with custom properties
+
 
 - Deal with 'zrcms-view-builders'
  

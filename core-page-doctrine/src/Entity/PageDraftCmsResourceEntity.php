@@ -180,7 +180,7 @@ class PageDraftCmsResourceEntity
         $modifiedDate = null
     ) {
         $this->siteCmsResourceId = $contentVersion->getSiteCmsResourceId();
-        $this->pageCmsResourceId = $contentVersion->getProperty(FieldsPageVersion::PAGE_CMS_RESOURCE_ID);
+        $this->pageCmsResourceId = $contentVersion->findProperty(FieldsPageVersion::PAGE_CMS_RESOURCE_ID);
 
         parent::setContentVersion(
             $contentVersion,
@@ -212,7 +212,7 @@ class PageDraftCmsResourceEntity
             );
         }
 
-        if (empty($contentVersion->getProperty(FieldsPageVersion::PAGE_CMS_RESOURCE_ID))) {
+        if (empty($contentVersion->findProperty(FieldsPageVersion::PAGE_CMS_RESOURCE_ID))) {
             throw new ContentVersionInvalid(
                 'PageCmsResourceId can not be empty'
             );

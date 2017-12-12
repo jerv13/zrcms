@@ -40,7 +40,7 @@ abstract class LayoutAbstract extends ContentAbstract
      */
     public function getHtml(): string
     {
-        return $this->getProperty(
+        return $this->findProperty(
             FieldsLayout::HTML,
             ''
         );

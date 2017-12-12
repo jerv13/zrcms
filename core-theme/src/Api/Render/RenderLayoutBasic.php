@@ -56,7 +56,7 @@ class RenderLayoutBasic implements RenderLayout
         array $options = []
     ): string
     {
-        $renderServiceAlias = $layout->getProperty(
+        $renderServiceAlias = $layout->findProperty(
             FieldsLayout::RENDERER,
             ''
         );

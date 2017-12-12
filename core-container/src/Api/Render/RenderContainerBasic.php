@@ -53,7 +53,7 @@ class RenderContainerBasic implements RenderContainer
     ): string
     {
         // Get version renderer or use default
-        $renderContainerServiceAlias = $container->getProperty(
+        $renderContainerServiceAlias = $container->findProperty(
             FieldsContainer::RENDERER,
             ''
         );

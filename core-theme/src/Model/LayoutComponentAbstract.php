@@ -69,7 +69,7 @@ abstract class LayoutComponentAbstract extends ComponentAbstract
      */
     public function getThemeName(): string
     {
-        return $this->getProperty(
+        return $this->findProperty(
             FieldsLayoutComponent::THEME_NAME,
             ''
         );
@@ -80,7 +80,7 @@ abstract class LayoutComponentAbstract extends ComponentAbstract
      */
     public function getHtml(): string
     {
-        return $this->getProperty(
+        return $this->findProperty(
             FieldsLayoutComponent::HTML,
             ''
         );

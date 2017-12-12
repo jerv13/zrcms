@@ -92,7 +92,7 @@ class LayoutVersionEntity
      */
     public function getThemeName(): string
     {
-        return $this->getProperty(
+        return $this->findProperty(
             FieldsLayoutVersion::THEME_NAME,
             ''
         );
@@ -103,7 +103,7 @@ class LayoutVersionEntity
      */
     public function getName(): string
     {
-        return $this->getProperty(
+        return $this->findProperty(
             FieldsLayoutVersion::NAME,
             ''
         );
@@ -114,7 +114,7 @@ class LayoutVersionEntity
      */
     public function getHtml(): string
     {
-        return (string)$this->getProperty(
+        return (string)$this->findProperty(
             FieldsLayoutVersion::HTML,
             ''
         );

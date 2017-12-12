@@ -61,7 +61,7 @@ class GetViewLayoutTagsHeadMeta implements GetViewLayoutTagsHead
             self::RENDER_TAG_META
         );
 
-        $tagsData = $component->getProperty(
+        $tagsData = $component->findProperty(
             'tags',
             []
         );

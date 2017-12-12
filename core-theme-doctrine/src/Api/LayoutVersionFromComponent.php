@@ -26,13 +26,13 @@ class LayoutVersionFromComponent
             FieldsLayoutVersion::NAME => $layoutComponent->getName(),
             FieldsLayoutVersion::THEME_NAME => $layoutComponent->getThemeName(),
             FieldsLayoutVersion::HTML => $layoutComponent->getHtml(),
-            FieldsLayoutVersion::RENDER_TAG_NAME_PARSER => $layoutComponent->getProperty(
+            FieldsLayoutVersion::RENDER_TAG_NAME_PARSER => $layoutComponent->findProperty(
                 FieldsLayoutVersion::RENDER_TAG_NAME_PARSER
             ),
-            FieldsLayoutVersion::RENDERER => $layoutComponent->getProperty(
+            FieldsLayoutVersion::RENDERER => $layoutComponent->findProperty(
                 FieldsLayoutVersion::RENDERER
             ),
-            FieldsLayoutVersion::RENDER_TAGS_GETTER => $layoutComponent->getProperty(
+            FieldsLayoutVersion::RENDER_TAGS_GETTER => $layoutComponent->findProperty(
                 FieldsLayoutVersion::RENDER_TAGS_GETTER
             ),
         ];

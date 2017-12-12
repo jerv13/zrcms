@@ -77,7 +77,7 @@ class GetBlockDataBasic implements GetBlockData
             return [];
         }
 
-        $getBlockDataServiceAlias = $blockComponent->getProperty(
+        $getBlockDataServiceAlias = $blockComponent->findProperty(
             FieldsBlockComponent::DATA_PROVIDER,
             ''
         );

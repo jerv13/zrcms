@@ -70,7 +70,15 @@ trait TrackableModifyTrait
      */
     public function getModifiedDateObject(): \DateTime
     {
-        return $this->modifiedDateObject;
+        // Clone to prevent changes
+        $dateTime =  clone($this->modifiedDateObject);
+
+        // ALWAYS RETURN UTC
+        $timezone = new \DateTimeZone('UTC');
+
+        $dateTime->setTimezone($timezone);
+
+        return $dateTime;
     }
 
     /**

@@ -81,7 +81,7 @@ abstract class ThemeComponentAbstract extends ComponentAbstract
      */
     public function getPrimaryLayoutName()
     {
-        return $this->getProperty(
+        return $this->findProperty(
             FieldsThemeComponent::PRIMARY_LAYOUT_NAME,
             LayoutComponent::PRIMARY_NAME
         );
@@ -105,7 +105,7 @@ abstract class ThemeComponentAbstract extends ComponentAbstract
      */
     public function getLayoutVariations(): array
     {
-        return $this->getProperty(
+        return $this->findProperty(
             FieldsThemeComponent::LAYOUT_VARIATIONS,
             []
         );

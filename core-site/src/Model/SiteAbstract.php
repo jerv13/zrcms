@@ -56,7 +56,7 @@ abstract class SiteAbstract extends ContentAbstract
      */
     public function getThemeName(): string
     {
-        return $this->getProperty(
+        return $this->findProperty(
             FieldsSite::THEME_NAME,
             ''
         );
@@ -67,7 +67,7 @@ abstract class SiteAbstract extends ContentAbstract
      */
     public function getLocale(): string
     {
-        return $this->getProperty(
+        return $this->findProperty(
             FieldsSite::LOCALE,
             ''
         );
@@ -81,7 +81,7 @@ abstract class SiteAbstract extends ContentAbstract
      */
     public function findStatusPage(string $httpStatus, $default = null)
     {
-        $statusPages = $this->getProperty(
+        $statusPages = $this->findProperty(
             FieldsSite::STATUS_PAGES,
             []
         );

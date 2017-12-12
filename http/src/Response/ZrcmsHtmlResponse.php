@@ -85,7 +85,7 @@ class ZrcmsHtmlResponse extends HtmlResponse
      *
      * @return mixed|null
      */
-    public function getProperty(string $key, $default = null)
+    public function findProperty(string $key, $default = null)
     {
         if (array_key_exists($key, $this->properties)) {
             return $this->properties[$key];

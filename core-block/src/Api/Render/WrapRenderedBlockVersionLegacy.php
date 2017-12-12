@@ -56,7 +56,7 @@ class WrapRenderedBlockVersionLegacy implements WrapRenderedBlockVersion
 
         $id = $block->getId();
 
-        $editor = $blockComponent->getProperty(FieldsBlockComponent::EDITOR, '');
+        $editor = $blockComponent->findProperty(FieldsBlockComponent::EDITOR, '');
 
         $componentName = $blockComponent->getName();
 

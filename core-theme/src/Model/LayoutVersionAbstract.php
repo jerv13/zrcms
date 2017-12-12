@@ -60,7 +60,7 @@ class LayoutVersionAbstract extends ContentVersionAbstract
      */
     public function getThemeName(): string
     {
-        return $this->getProperty(
+        return $this->findProperty(
             FieldsLayoutVersion::THEME_NAME,
             ''
         );
@@ -71,7 +71,7 @@ class LayoutVersionAbstract extends ContentVersionAbstract
      */
     public function getName(): string
     {
-        return $this->getProperty(
+        return $this->findProperty(
             FieldsLayoutVersion::NAME,
             ''
         );
@@ -82,7 +82,7 @@ class LayoutVersionAbstract extends ContentVersionAbstract
      */
     public function getHtml(): string
     {
-        return (string)$this->getProperty(
+        return (string)$this->findProperty(
             FieldsLayoutVersion::HTML,
             ''
         );

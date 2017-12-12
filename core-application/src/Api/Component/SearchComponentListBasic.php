@@ -53,7 +53,7 @@ class SearchComponentListBasic implements SearchComponentList
                 $componentValue = $component->$method();
             } else {
                 // Try to get property from properties
-                $componentValue = $component->getProperty($key, $default);
+                $componentValue = $component->findProperty($key, $default);
             }
 
             if ($componentValue === $value) {

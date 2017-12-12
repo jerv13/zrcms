@@ -166,7 +166,7 @@ class PageVersionEntity
      */
     public function getSiteCmsResourceId(): string
     {
-        return $this->getProperty(
+        return $this->findProperty(
             FieldsPageVersion::SITE_CMS_RESOURCE_ID
         );
     }
@@ -176,7 +176,7 @@ class PageVersionEntity
      */
     public function getPath(): string
     {
-        return $this->getProperty(
+        return $this->findProperty(
             FieldsPageVersion::PATH
         );
     }

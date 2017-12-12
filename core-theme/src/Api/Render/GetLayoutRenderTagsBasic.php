@@ -58,7 +58,7 @@ class GetLayoutRenderTagsBasic implements GetLayoutRenderTags
         array $options = []
     ): array
     {
-        $renderTagsGetterServiceAlias = $layout->getProperty(
+        $renderTagsGetterServiceAlias = $layout->findProperty(
             FieldsLayout::RENDER_TAGS_GETTER,
             ''
         );

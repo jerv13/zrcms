@@ -56,7 +56,7 @@ class RenderViewBasic implements RenderView
         array $options = []
     ): string
     {
-        $renderServiceAlias = $view->getProperty(
+        $renderServiceAlias = $view->findProperty(
             FieldsView::RENDERER,
             ''
         );

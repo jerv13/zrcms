@@ -67,7 +67,7 @@ abstract class RedirectVersionAbstract extends ContentVersionAbstract implements
      */
     public function getSiteCmsResourceId()
     {
-        return $this->getProperty(
+        return $this->findProperty(
             FieldsRedirectVersion::SITE_CMS_RESOURCE_ID,
             null
         );
@@ -78,7 +78,7 @@ abstract class RedirectVersionAbstract extends ContentVersionAbstract implements
      */
     public function getRequestPath(): string
     {
-        return $this->getProperty(
+        return $this->findProperty(
             FieldsRedirectVersion::REQUEST_PATH,
             null
         );
@@ -89,7 +89,7 @@ abstract class RedirectVersionAbstract extends ContentVersionAbstract implements
      */
     public function getRedirectPath(): string
     {
-        return $this->getProperty(
+        return $this->findProperty(
             FieldsRedirectVersion::REDIRECT_PATH,
             null
         );

@@ -162,7 +162,7 @@ class ResponseMutatorThemeLayoutWrapper
     ):bool
     {
         if ($response instanceof ZrcmsHtmlResponse) {
-            $renderLayout = $response->getProperty(
+            $renderLayout = $response->findProperty(
                 ZrcmsHtmlResponse::PROPERTY_RENDER_LAYOUT,
                 ZrcmsHtmlResponse::DEFAULT_RENDER_LAYOUT
             );

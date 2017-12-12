@@ -45,7 +45,7 @@ abstract class ContainerAbstract extends ContentAbstract
      */
     public function getBlockVersions(): array
     {
-        $blockVersions = $this->getProperty(
+        $blockVersions = $this->findProperty(
             FieldsContainer::BLOCK_VERSIONS,
             []
         );
@@ -66,7 +66,7 @@ abstract class ContainerAbstract extends ContentAbstract
      */
     public function findBlockVersion(string $id)
     {
-        $blockVersionsData = $this->getProperty(
+        $blockVersionsData = $this->findProperty(
             FieldsContainer::BLOCK_VERSIONS,
             []
         );

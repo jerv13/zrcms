@@ -89,7 +89,7 @@ class GetViewLayoutMetaPageData implements GetViewLayoutTags
         $content = [
             'site' => [
                 'id' => $siteResource->getId(),
-                'title' => $siteVersion->getProperty(FieldsSiteVersion::TITLE, '')
+                'title' => $siteVersion->findProperty(FieldsSiteVersion::TITLE, '')
             ],
             'page' => [
                 'revision' => $pageVersion->getId(),

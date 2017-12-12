@@ -70,7 +70,7 @@ abstract class BlockVersionAbstract extends ContentVersionAbstract
      */
     public function getBlockComponentName(): string
     {
-        return $this->getProperty(
+        return $this->findProperty(
             FieldsBlockVersion::BLOCK_COMPONENT_NAME,
             ''
         );
@@ -82,7 +82,7 @@ abstract class BlockVersionAbstract extends ContentVersionAbstract
      */
     public function getConfig(): array
     {
-        return $this->getProperty(
+        return $this->findProperty(
             FieldsBlockVersion::CONFIG,
             []
         );
@@ -110,7 +110,7 @@ abstract class BlockVersionAbstract extends ContentVersionAbstract
      */
     public function getLayoutProperties(): array
     {
-        return $this->getProperty(
+        return $this->findProperty(
             FieldsBlockVersion::LAYOUT_PROPERTIES,
             []
         );
@@ -158,7 +158,7 @@ abstract class BlockVersionAbstract extends ContentVersionAbstract
      */
     public function getContainerVersionId(): string
     {
-        return $this->getProperty(
+        return $this->findProperty(
             FieldsBlockVersion::CONTAINER_VERSION_ID,
             ''
         );

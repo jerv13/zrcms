@@ -29,7 +29,7 @@ trait PropertiesTrait
      *
      * @return mixed
      */
-    public function getProperty(
+    public function findProperty(
         string $name,
         $default = null
     ) {
@@ -44,9 +44,10 @@ trait PropertiesTrait
      * @param string $name
      *
      * @return mixed
+     * @throws \Exception
      * @throws PropertyMissing
      */
-    public function getPropertyRequired(
+    public function findPropertyRequired(
         string $name
     ) {
         $class = get_class($this);
@@ -81,7 +82,7 @@ trait PropertiesTrait
      *
      * @return mixed
      */
-    public function getDefaultIfEmptyProperty(
+    public function findDefaultIfEmptyProperty(
         string $name,
         $default = null
     ) {

@@ -6,13 +6,16 @@ use Zrcms\Core\Api\CmsResource\CmsResourceToArray;
 use Zrcms\Core\Api\CmsResourceHistory\CmsResourceHistoryToArray;
 use Zrcms\Core\Api\Content\ContentVersionToArray;
 use Zrcms\Core\Model\CmsResourceHistory;
-use Zrcms\Core\Model\TrackableProperties;
+use Zrcms\CoreApplication\Api\ArrayFromGetters;
+use Zrcms\Param\Param;
 
 /**
  * @author James Jervis - https://github.com/jerv13
  */
 class CmsResourceHistoryToArrayBasic implements CmsResourceHistoryToArray
 {
+    const OPTION_HIDE_PROPERTIES = 'hideProperties';
+
     /**
      * @var ContentVersionToArray
      */
@@ -40,46 +43,31 @@ class CmsResourceHistoryToArrayBasic implements CmsResourceHistoryToArray
      * @param array              $options
      *
      * @return array
+     * @throws \Exception
      */
     public function __invoke(
         CmsResourceHistory $cmsResourceHistory,
         array $options = []
     ): array {
-        $contentVersionArray = $this->contentVersionToArray->__invoke(
+        $hideProperties = Param::getArray(
+            $options,
+            self::OPTION_HIDE_PROPERTIES,
+            []
+        );
+
+        $array = ArrayFromGetters::invoke(
+            $cmsResourceHistory,
+            $hideProperties
+        );
+
+        $array['contentVersion'] = $this->contentVersionToArray->__invoke(
             $cmsResourceHistory->getContentVersion()
         );
 
-        $cmsResourceArray = $this->cmsResourceToArray->__invoke(
+        $array['cmsResource'] = $this->cmsResourceToArray->__invoke(
             $cmsResourceHistory->getCmsResource()
         );
 
-        return [
-            'id'
-            => $cmsResourceHistory->getId(),
-
-            'action'
-            => $cmsResourceHistory->getAction(),
-
-            'cmsResourceId'
-            => $cmsResourceHistory->getCmsResourceId(),
-
-            'cmsResource'
-            => $cmsResourceArray,
-
-            'contentVersionId'
-            => $cmsResourceHistory->getContentVersionId(),
-
-            'contentVersion'
-            => $contentVersionArray,
-
-            TrackableProperties::CREATED_BY_USER_ID
-            => $cmsResourceHistory->getCreatedByUserId(),
-
-            TrackableProperties::CREATED_REASON
-            => $cmsResourceHistory->getCreatedReason(),
-
-            TrackableProperties::CREATED_DATE
-            => $cmsResourceHistory->getCreatedDate(),
-        ];
+        return $array;
     }
 }

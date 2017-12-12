@@ -36,6 +36,13 @@ trait TrackableEntityTrait
             );
         }
 
-        return $this->createdDateObject->format(Trackable::DATE_FORMAT);
+        // ALWAYS RETURN UTC
+        $timezone = new \DateTimeZone('UTC');
+
+        // Clone to prevent changes
+        $dateTime =  clone($this->createdDateObject);
+        $dateTime->setTimezone($timezone);
+
+        return $dateTime->format(Trackable::DATE_FORMAT);
     }
 }

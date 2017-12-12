@@ -95,7 +95,7 @@ class RedirectVersionEntity
      */
     public function getSiteCmsResourceId()
     {
-        return $this->getProperty(
+        return $this->findProperty(
             FieldsRedirectVersion::SITE_CMS_RESOURCE_ID,
             null
         );
@@ -106,7 +106,7 @@ class RedirectVersionEntity
      */
     public function getRequestPath(): string
     {
-        return $this->getProperty(
+        return $this->findProperty(
             FieldsRedirectVersion::REQUEST_PATH,
             null
         );
@@ -117,7 +117,7 @@ class RedirectVersionEntity
      */
     public function getRedirectPath(): string
     {
-        return $this->getProperty(
+        return $this->findProperty(
             FieldsRedirectVersion::REDIRECT_PATH,
             null
         );

@@ -20,7 +20,7 @@ interface Properties
      *
      * @return mixed
      */
-    public function getProperty(
+    public function findProperty(
         string $name,
         $default = null
     );
@@ -40,7 +40,7 @@ interface Properties
      *
      * @return mixed
      */
-    public function getDefaultIfEmptyProperty(
+    public function findDefaultIfEmptyProperty(
         string $name,
         $default = null
     );

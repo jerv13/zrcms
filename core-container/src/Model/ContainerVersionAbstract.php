@@ -65,7 +65,7 @@ abstract class ContainerVersionAbstract extends ContentVersionAbstract
      */
     public function getBlockVersions(): array
     {
-        $blockVersions = $this->getProperty(
+        $blockVersions = $this->findProperty(
             FieldsContainerVersion::BLOCK_VERSIONS,
             []
         );
@@ -86,7 +86,7 @@ abstract class ContainerVersionAbstract extends ContentVersionAbstract
      */
     public function findBlockVersion(string $id)
     {
-        $blockVersionsData = $this->getProperty(
+        $blockVersionsData = $this->findProperty(
             FieldsContainerVersion::BLOCK_VERSIONS,
             []
         );
@@ -111,7 +111,7 @@ abstract class ContainerVersionAbstract extends ContentVersionAbstract
      */
     public function getSiteCmsResourceId(): string
     {
-        return $this->getProperty(
+        return $this->findProperty(
             FieldsContainerVersion::SITE_CMS_RESOURCE_ID
         );
     }
@@ -121,7 +121,7 @@ abstract class ContainerVersionAbstract extends ContentVersionAbstract
      */
     public function getPath(): string
     {
-        return $this->getProperty(
+        return $this->findProperty(
             FieldsContainerVersion::PATH
         );
     }

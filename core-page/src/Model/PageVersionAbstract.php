@@ -95,7 +95,7 @@ abstract class PageVersionAbstract extends ContentVersionAbstract
      */
     public function getSiteCmsResourceId(): string
     {
-        return $this->getProperty(
+        return $this->findProperty(
             FieldsPageVersion::SITE_CMS_RESOURCE_ID
         );
     }
@@ -105,7 +105,7 @@ abstract class PageVersionAbstract extends ContentVersionAbstract
      */
     public function getPath(): string
     {
-        return $this->getProperty(
+        return $this->findProperty(
             FieldsPageVersion::PATH
         );
     }
@@ -115,7 +115,7 @@ abstract class PageVersionAbstract extends ContentVersionAbstract
      */
     public function getTitle(): string
     {
-        return $this->getProperty(
+        return $this->findProperty(
             FieldsPageVersion::TITLE,
             ''
         );
@@ -126,7 +126,7 @@ abstract class PageVersionAbstract extends ContentVersionAbstract
      */
     public function getDescription(): string
     {
-        return $this->getProperty(
+        return $this->findProperty(
             FieldsPageVersion::DESCRIPTION,
             ''
         );
@@ -137,7 +137,7 @@ abstract class PageVersionAbstract extends ContentVersionAbstract
      */
     public function getKeywords(): string
     {
-        return $this->getProperty(
+        return $this->findProperty(
             FieldsPageVersion::KEYWORDS,
             ''
         );
@@ -148,7 +148,7 @@ abstract class PageVersionAbstract extends ContentVersionAbstract
      */
     public function getContainersData(): array
     {
-        return $this->getProperty(
+        return $this->findProperty(
             FieldsPageVersion::CONTAINERS_DATA,
             []
         );

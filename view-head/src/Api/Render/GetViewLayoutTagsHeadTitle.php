@@ -35,7 +35,7 @@ class GetViewLayoutTagsHeadTitle implements GetViewLayoutTagsHead
 
         if (empty($title)) {
             $siteVersion = $view->getSiteCmsResource()->getContentVersion();
-            $title = $siteVersion->getProperty(
+            $title = $siteVersion->findProperty(
                 FieldsSite::TITLE
             );
         }

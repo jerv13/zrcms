@@ -93,7 +93,7 @@ class SiteVersionEntity
      */
     public function getHost(): string
     {
-        return $this->getProperty(
+        return $this->findProperty(
             FieldsSiteVersion::HOST,
             ''
         );
@@ -104,7 +104,7 @@ class SiteVersionEntity
      */
     public function getThemeName(): string
     {
-        return $this->getProperty(
+        return $this->findProperty(
             FieldsSiteVersion::THEME_NAME,
             ''
         );
@@ -115,7 +115,7 @@ class SiteVersionEntity
      */
     public function getLocale(): string
     {
-        return $this->getProperty(
+        return $this->findProperty(
             FieldsSiteVersion::LOCALE,
             DefaultLocal::get()
         );

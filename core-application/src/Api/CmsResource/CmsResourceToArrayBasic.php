@@ -5,13 +5,16 @@ namespace Zrcms\CoreApplication\Api\CmsResource;
 use Zrcms\Core\Api\CmsResource\CmsResourceToArray;
 use Zrcms\Core\Api\Content\ContentVersionToArray;
 use Zrcms\Core\Model\CmsResource;
-use Zrcms\Core\Model\TrackableProperties;
+use Zrcms\CoreApplication\Api\ArrayFromGetters;
+use Zrcms\Param\Param;
 
 /**
  * @author James Jervis - https://github.com/jerv13
  */
 class CmsResourceToArrayBasic implements CmsResourceToArray
 {
+    const OPTION_HIDE_PROPERTIES = 'hideProperties';
+
     /**
      * @var ContentVersionToArray
      */
@@ -35,33 +38,22 @@ class CmsResourceToArrayBasic implements CmsResourceToArray
     public function __invoke(
         CmsResource $cmsResource,
         array $options = []
-    ): array
-    {
-        $contentVersion = $this->contentVersionToArray->__invoke(
+    ): array {
+        $hideProperties = Param::getArray(
+            $options,
+            self::OPTION_HIDE_PROPERTIES,
+            []
+        );
+
+        $array = ArrayFromGetters::invoke(
+            $cmsResource,
+            $hideProperties
+        );
+
+        $array['contentVersion'] =  $this->contentVersionToArray->__invoke(
             $cmsResource->getContentVersion()
         );
 
-        return [
-            'id'
-            => $cmsResource->getId(),
-
-            'contentVersionId'
-            => $cmsResource->getContentVersionId(),
-
-            'contentVersion'
-            => $contentVersion,
-
-            'published'
-            => $cmsResource->isPublished(),
-
-            TrackableProperties::CREATED_BY_USER_ID
-            => $cmsResource->getCreatedByUserId(),
-
-            TrackableProperties::CREATED_REASON
-            => $cmsResource->getCreatedReason(),
-
-            TrackableProperties::CREATED_DATE
-            => $cmsResource->getCreatedDate(),
-        ];
+        return $array;
     }
 }

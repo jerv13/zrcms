@@ -49,7 +49,7 @@ abstract class BlockComponentAbstract extends ComponentAbstract
      */
     public function getDefaultConfig(): array
     {
-        return $this->getProperty(
+        return $this->findProperty(
             FieldsBlockComponent::DEFAULT_CONFIG,
             []
         );
@@ -60,7 +60,7 @@ abstract class BlockComponentAbstract extends ComponentAbstract
      */
     public function isCacheable(): bool
     {
-        return $this->getProperty(
+        return $this->findProperty(
             FieldsBlockComponent::CACHEABLE,
             false
         );

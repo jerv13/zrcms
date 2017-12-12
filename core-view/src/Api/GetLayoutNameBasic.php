@@ -26,7 +26,7 @@ class GetLayoutNameBasic implements GetLayoutName
         array $options = []
     ): string
     {
-        $layoutName = $pageVersion->getProperty(
+        $layoutName = $pageVersion->findProperty(
             FieldsPageVersion::LAYOUT
         );
 
@@ -34,7 +34,7 @@ class GetLayoutNameBasic implements GetLayoutName
             return $layoutName;
         }
 
-        $layoutName = $siteVersion->getProperty(
+        $layoutName = $siteVersion->findProperty(
             FieldsSiteVersion::LAYOUT
         );
 

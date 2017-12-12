@@ -76,7 +76,7 @@ class RenderBlockMustache implements RenderBlock
     protected function getTemplateFile(BlockComponent $blockComponent)
     {
         $moduleDirectory = $blockComponent->getModuleDirectory();
-        $templateFile = $blockComponent->getProperty(FieldsBlockComponent::TEMPLATE_FILE);
+        $templateFile = $blockComponent->findProperty(FieldsBlockComponent::TEMPLATE_FILE);
 
         // @todo @BC if we have no template directory, we assume it is next in the module directory
         if (empty($templateFile)) {
