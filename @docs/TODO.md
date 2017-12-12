@@ -4,15 +4,8 @@
 
 ##### Component Simplify #####
 
-- Add services and composite configs
-- How do we make sure type is set fo BC? default to basic normally.
-- When reading configs, we MUST get the default class and interface for the type
 - What do we do with: PrepareComponentConfig , SearchComponentList, SearchComponentRegistry (not needed?)
     - GetRegisterComponents: move this login to FindXXX Only cache in array
-    
-- ReadComponetConfig should not need service aliases any more
-- json-block reader to set compoent class?
-- ZRCMS_COMPONENT_CONFIG_READER use READER_SCHEME instead of SERVICE_ALIAS
 
 - See about simplifying all common patterns (content, resource, etc...)?
 
