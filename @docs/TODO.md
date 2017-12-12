@@ -4,7 +4,8 @@
 
 ##### Component Simplify #####
 
-- What do we do with: PrepareComponentConfig , SearchComponentList, SearchComponentRegistry (not needed?)
+- What do we do with: 
+    - SearchComponentList: remove after remove GetRegisterComponents
     - GetRegisterComponents: move this login to FindXXX Only cache in array
 
 - See about simplifying all common patterns (content, resource, etc...)?
