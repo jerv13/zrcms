@@ -25,11 +25,6 @@
 #### ToDo ####
 
 - Deal with 'zrcms-view-builders'
-
-- Runtime adding of scripts to "view-head"
-    - Sections array needs to be Sections Object
-    - Immutable - WithSectionEntry($section, $name, $value)
-    - HeadSectionComponent might need setter or a with WithSectionEntry($section, $name, $value)
  
 - Start zrcms-admin
 
