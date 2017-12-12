@@ -21,6 +21,9 @@ abstract class ViewLayoutTagsComponentAbstract extends ComponentAbstract
      * @param string      $createdByUserId
      * @param string      $createdReason
      * @param string|null $createdDate
+     *
+     * @throws \Exception
+     * @throws \Zrcms\Param\Exception\ParamMissing
      */
     public function __construct(
         string $type,

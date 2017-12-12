@@ -20,7 +20,7 @@ use Zrcms\ViewHead\Api\Render\GetViewLayoutTagsHeadScript;
 use Zrcms\ViewHead\Api\Render\GetViewLayoutTagsHeadTitle;
 use Zrcms\ViewHead\Api\Render\RenderHeadSectionsTag;
 use Zrcms\ViewHead\Api\Render\RenderHeadSectionsTagBasic;
-use Zrcms\ViewHead\Model\HeadSectionComponent;
+use Zrcms\ViewHead\Model\HeadSectionComponentBasic;
 use Zrcms\ViewHtmlTags\Api\Render\RenderTag;
 use Zrcms\ViewHtmlTags\Api\Render\RenderTags;
 
@@ -118,7 +118,7 @@ class ModuleConfig
                 => GetViewLayoutTagsHeadLink::SERVICE_ALIAS,
 
                 FieldsViewLayoutTagsComponent::COMPONENT_CLASS
-                => HeadSectionComponent::class,
+                => HeadSectionComponentBasic::class,
 
                 'tag' => 'link',
                 'sections' => [
@@ -181,7 +181,7 @@ class ModuleConfig
                 => GetViewLayoutTagsHeadScript::SERVICE_ALIAS,
 
                 FieldsViewLayoutTagsComponent::COMPONENT_CLASS
-                => HeadSectionComponent::class,
+                => HeadSectionComponentBasic::class,
 
                 'tag' => 'script',
                 'sections' => [

@@ -19,13 +19,18 @@
                 'component-model-class' => ComponentBasic::class,
             ],
         ],
+        
+    - Find service that end in "Basic" that determine the service to use and rename to ByStrategy
 
 #### ToDo ####
 
 - Deal with 'zrcms-view-builders'
 
-- Find service that end in "Basic" that determine the service to use and rename to ByStrategy
-   
+- Runtime adding of scripts to "view-head"
+    - Sections array needs to be Sections Object
+    - Immutable - WithSectionEntry($section, $name, $value)
+    - HeadSectionComponent might need setter or a with WithSectionEntry($section, $name, $value)
+ 
 - Start zrcms-admin
 
 - Add services to js
