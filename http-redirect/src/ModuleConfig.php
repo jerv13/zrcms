@@ -2,6 +2,7 @@
 
 namespace Zrcms\HttpRedirect;
 
+use Zrcms\Core\Api\Component\FindComponent;
 use Zrcms\CoreSite\Api\GetSiteCmsResourceByRequest;
 use Zrcms\CoreRedirect\Api\CmsResource\FindRedirectCmsResourceBySiteRequestPath;
 use Zrcms\HttpRedirect\Middleware\ContentRedirect;
@@ -23,6 +24,8 @@ class ModuleConfig
                         'arguments' => [
                             GetSiteCmsResourceByRequest::class,
                             FindRedirectCmsResourceBySiteRequestPath::class,
+                            [ 'literal' => 302],
+                            [ 'literal' => []]
                         ],
                     ],
                 ],
