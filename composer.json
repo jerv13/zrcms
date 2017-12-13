@@ -63,6 +63,7 @@
       "Zrcms\\Http\\": "http/src/",
       "Zrcms\\HttpChangeLog\\": "http-change-log/src/",
       "Zrcms\\HttpCore\\": "http-core/src/",
+      "Zrcms\\HttpCorePage\\": "http-core-page/src/",
       "Zrcms\\HttpCoreSite\\": "http-core-site/src/",
       "Zrcms\\HttpLocale\\": "http-locale/src/",
       "Zrcms\\HttpRcmApiLib\\": "http-rcm-api-lib/src/",

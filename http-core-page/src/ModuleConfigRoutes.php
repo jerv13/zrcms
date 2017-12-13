@@ -3,6 +3,7 @@
 namespace Zrcms\HttpCorePage;
 
 use Zend\Expressive\Helper\BodyParams\BodyParamsMiddleware;
+use Zrcms\HttpCorePage\Middleware\SiteMap;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -16,6 +17,7 @@ class ModuleConfigRoutes
     {
         return [
             'routes' => [
+                /*
                 // Upsert CmsResource
                 'zrcms.page.cms-resource' => [
                     'name' => 'zrcms.page.cms-resource',
@@ -54,6 +56,17 @@ class ModuleConfigRoutes
                     ],
                     'options' => [],
                     'allowed_methods' => ['GET'],
+                ],
+                */
+
+                'sitemap.xml' => [
+                    'name' => 'sitemap.xml',
+                    'path' => '/sitemap.xml',
+                    'middleware' => [
+                        'xml' => SiteMap::class,
+                    ],
+                    'options' => [],
+                    'allowed_methods' => ['PUT'],
                 ],
             ],
         ];

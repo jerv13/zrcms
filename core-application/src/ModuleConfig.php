@@ -45,12 +45,6 @@ use Zrcms\CoreApplication\Api\Component\SearchComponentConfigsBasic;
 use Zrcms\CoreApplication\Api\Content\ContentToArrayBasic;
 use Zrcms\CoreApplication\Api\Content\ContentVersionToArrayBasic;
 use Zrcms\CoreApplication\Api\GetTypeValueBasicFactory;
-use Zrcms\CoreContainer\Api\ChangeLog\GetChangeLogByDateRange as ContainerGetChangeLogByDateRange;
-use Zrcms\CorePage\Api\ChangeLog\GetChangeLogByDateRange as PageGetChangeLogByDateRange;
-use Zrcms\CoreRedirect\Api\ChangeLog\GetChangeLogByDateRange as RedirectGetChangeLogByDateRange;
-use Zrcms\CoreSite\Api\ChangeLog\GetChangeLogByDateRange as SiteGetChangeLogByDateRange;
-use Zrcms\CoreSite\Api\CmsResource\FindSiteCmsResource;
-use Zrcms\CoreTheme\Api\ChangeLog\GetChangeLogByDateRange as ThemeGetChangeLogByDateRange;
 use Zrcms\ServiceAlias\Api\GetServiceAliasesByNamespace;
 use Zrcms\ServiceAlias\Api\GetServiceFromAlias;
 
@@ -67,34 +61,6 @@ class ModuleConfig
         return [
             'dependencies' => [
                 'config_factories' => [
-                    /**
-                     * ChangeLog
-                     */
-                    GetHumanReadableChangeLogByDateRange::class => [
-                        'arguments' => [
-                            GetChangeLogByDateRange::class,
-                            ChangeLogEventToString::class,
-                        ]
-                    ],
-                    // @todo This does not belong here - belongs in http or root application
-                    GetChangeLogByDateRange::class => [
-                        'class' => GetContentChangeLogComposite::class,
-                        'calls' => [
-                            ['addSubordinate', [PageGetChangeLogByDateRange::class]],
-                            ['addSubordinate', [ContainerGetChangeLogByDateRange::class]],
-                            ['addSubordinate', [SiteGetChangeLogByDateRange::class]],
-                            ['addSubordinate', [ThemeGetChangeLogByDateRange::class]],
-                            ['addSubordinate', [RedirectGetChangeLogByDateRange::class]],
-                        ],
-                    ],
-                    // @todo This does not belong here - belongs in core-site
-                    ChangeLogEventToString::class => [
-                        'class' => ChangeLogEventToString::class,
-                        'arguments' => [
-                            FindSiteCmsResource::class
-                        ],
-                    ],
-
                     /**
                      * CmsResource
                      */

@@ -2,6 +2,7 @@
 
 namespace Zrcms\Core;
 
+use Zrcms\Core\Api\ChangeLog\GetChangeLogByDateRange;
 use Zrcms\Core\Api\CmsResource\CmsResourceToArray;
 use Zrcms\Core\Api\CmsResourceHistory\CmsResourceHistoryToArray;
 use Zrcms\Core\Api\Component\BuildComponentObject;
@@ -31,6 +32,12 @@ class ModuleConfig
         return [
             'dependencies' => [
                 'config_factories' => [
+                    /**
+                     * ChangeLog
+                     */
+                    GetChangeLogByDateRange::class => [
+                        'class' => IMPLEMENTATION_REQUIRED::class
+                    ],
 
                     /**
                      * CmsResource
