@@ -22,6 +22,7 @@ class SiteMap
     /**
      * @param GetSiteCmsResourceByRequest $getSiteCmsResourceByRequest
      * @param FindPageCmsResourcesBy      $findPageCmsResourcesBy
+     * @param IsAllowed                   $isAllowed
      */
     public function __construct(
         GetSiteCmsResourceByRequest $getSiteCmsResourceByRequest,
