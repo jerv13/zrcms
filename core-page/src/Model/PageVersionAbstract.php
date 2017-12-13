@@ -20,11 +20,17 @@ use Zrcms\Param\Param;
 abstract class PageVersionAbstract extends ContentVersionAbstract
 {
     /**
-     * @param string|null $id
+     * @param string      $id
      * @param array       $properties
      * @param string      $createdByUserId
      * @param string      $createdReason
      * @param string|null $createdDate
+     *
+     * @throws \Exception
+     * @throws \Throwable
+     * @throws \Zrcms\CorePage\Exception\InvalidPath
+     * @throws \Zrcms\Param\Exception\ParamException
+     * @throws \Zrcms\Param\Exception\ParamMissing
      */
     public function __construct(
         $id,
@@ -55,16 +61,6 @@ abstract class PageVersionAbstract extends ContentVersionAbstract
             FieldsPageVersion::TITLE,
             PropertyMissing::buildThrower(
                 FieldsPageVersion::TITLE,
-                $properties,
-                get_class($this)
-            )
-        );
-
-        Param::assertHas(
-            $properties,
-            FieldsPageVersion::KEYWORDS,
-            PropertyMissing::buildThrower(
-                FieldsPageVersion::KEYWORDS,
                 $properties,
                 get_class($this)
             )
@@ -106,7 +102,8 @@ abstract class PageVersionAbstract extends ContentVersionAbstract
     public function getPath(): string
     {
         return $this->findProperty(
-            FieldsPageVersion::PATH
+            FieldsPageVersion::PATH,
+            ''
         );
     }
 
@@ -188,7 +185,8 @@ abstract class PageVersionAbstract extends ContentVersionAbstract
     /**
      * @param string $name
      *
-     * @return Container|ContainerVersion|null
+     * @return null|ContainerVersionBasic
+     * @throws \Zrcms\Core\Exception\TrackingInvalid
      */
     public function findContainer(string $name = Page::DEFAULT_CONTAINER_NAME)
     {

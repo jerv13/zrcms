@@ -63,7 +63,7 @@ class ModuleConfigRoutes
                     'name' => 'sitemap.xml',
                     'path' => '/sitemap.xml',
                     'middleware' => [
-                        'xml' => SiteMap::class,
+                        'controller' => SiteMap::class,
                     ],
                     'options' => [],
                     'allowed_methods' => ['GET'],

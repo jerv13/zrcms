@@ -24,6 +24,10 @@ class FieldsSite extends FieldsContent
     const LANGUAGE_ISO_939_2T = 'languageIso9392t';
     // Site title
     const TITLE = 'title';
+    // Site keywords
+    const KEYWORDS = 'keywords';
+    // Site description
+    const DESCRIPTION = 'description';
 
     /* other */
     // Login page path: 'login'

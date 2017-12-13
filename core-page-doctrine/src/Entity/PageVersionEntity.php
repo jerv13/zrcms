@@ -29,7 +29,6 @@ class PageVersionEntity
      *
      * @ORM\Id
      * @ORM\Column(type="string")
-     * /////ORM\GeneratedValue
      */
     protected $id;
 
@@ -96,13 +95,16 @@ class PageVersionEntity
     public $tempId = null;
 
     /**
-     * @param null|string $id
-     * @param array       $properties
-     * @param string      $createdByUserId
-     * @param string      $createdReason
-     * @param null        $createdDate
+     * @param        $id
+     * @param array  $properties
+     * @param string $createdByUserId
+     * @param string $createdReason
+     * @param null   $createdDate
      *
      * @throws \Exception
+     * @throws \Throwable
+     * @throws \Zrcms\Param\Exception\ParamException
+     * @throws \Zrcms\Param\Exception\ParamMissing
      */
     public function __construct(
         $id,
@@ -118,7 +120,8 @@ class PageVersionEntity
 
         $this->keywords = Param::getString(
             $properties,
-            FieldsPageVersion::KEYWORDS
+            FieldsPageVersion::KEYWORDS,
+            ''
         );
 
         $this->containersData = Param::getArray(

@@ -21,15 +21,12 @@
 
 #### ToDo ####
 
-- Split http-xxx Module configs into ModuleConfig and RouteConfig
-
-- Site meta tags and page meta tage (page inherits from site, if empty, use site)
-
 - SitePages: Service for getting url list from page, product pages, etc... (site map??)
-    - https://en.wikipedia.org/wiki/Sitemaps
+    - NOTE: this can use FindPageCmsResourcesBy and the existing API when it is written
 
 - view-head
-    - allow registering scripts and css for routes
+    - allow registering scripts and css for routes or pages
+    - allow adding scripts and css for blocks and containers ('zrcms-view-head.head-meta' property in the component)
 
 - Deal with 'zrcms-view-builders'
  

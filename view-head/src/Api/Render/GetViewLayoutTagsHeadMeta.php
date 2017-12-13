@@ -6,6 +6,8 @@ use Psr\Http\Message\ServerRequestInterface;
 use Zrcms\Core\Api\Component\FindComponent;
 use Zrcms\Core\Model\Content;
 use Zrcms\CorePage\Model\PageVersion;
+use Zrcms\CoreSite\Fields\FieldsSite;
+use Zrcms\CoreSite\Model\SiteVersion;
 use Zrcms\CoreView\Model\View;
 use Zrcms\CoreView\Model\ViewLayoutTagsComponent;
 use Zrcms\ViewHtmlTags\Api\Render\RenderTag;
@@ -31,7 +33,7 @@ class GetViewLayoutTagsHeadMeta implements GetViewLayoutTagsHead
 
     /**
      * @param FindComponent $findComponent
-     * @param RenderTags                  $renderTags
+     * @param RenderTags    $renderTags
      */
     public function __construct(
         FindComponent $findComponent,
@@ -53,8 +55,7 @@ class GetViewLayoutTagsHeadMeta implements GetViewLayoutTagsHead
         Content $view,
         ServerRequestInterface $request,
         array $options = []
-    ): array
-    {
+    ): array {
         /** @var ViewLayoutTagsComponent $getViewLayoutTagsHeadLinkComponent */
         $component = $this->findComponent->__invoke(
             'view-layout-tag',
@@ -69,12 +70,14 @@ class GetViewLayoutTagsHeadMeta implements GetViewLayoutTagsHead
         // descriptions and keywords always from page then site
         /** @var PageVersion $pageVersion */
         $pageVersion = $view->getPageCmsResource()->getContentVersion();
+        /** @var SiteVersion $siteVersion */
+        $siteVersion = $view->getSiteCmsResource()->getContentVersion();
 
         $tagsData[] = [
             //'tag' => 'meta',
             'attributes' => [
                 'name' => 'description',
-                'content' => $pageVersion->getDescription()
+                'content' => $this->buildDescription($pageVersion, $siteVersion),
             ],
         ];
 
@@ -82,7 +85,7 @@ class GetViewLayoutTagsHeadMeta implements GetViewLayoutTagsHead
             //'tag' => 'meta',
             'attributes' => [
                 'name' => 'keywords',
-                'content' => $pageVersion->getKeywords()
+                'content' => $this->buildKeywords($pageVersion, $siteVersion),
             ],
         ];
 
@@ -90,10 +93,52 @@ class GetViewLayoutTagsHeadMeta implements GetViewLayoutTagsHead
             $tagsData[$key]['tag'] = 'meta';
         }
 
-        // @todo We can fall back to site description and site keywords if they exist?
-
         return [
             self::RENDER_TAG_META => $this->renderTags->__invoke($tagsData, [RenderTag::OPTION_INDENT => '    '])
         ];
+    }
+
+    /**
+     * @param PageVersion $pageVersion
+     * @param SiteVersion $siteVersion
+     *
+     * @return string
+     */
+    protected function buildDescription(
+        PageVersion $pageVersion,
+        SiteVersion $siteVersion
+    ):string {
+        $description = $pageVersion->getDescription();
+
+        if (empty($description)) {
+            $description = $siteVersion->findProperty(
+                FieldsSite::DESCRIPTION,
+                ''
+            );
+        }
+
+        return strip_tags($description);
+    }
+
+    /**
+     * @param PageVersion $pageVersion
+     * @param SiteVersion $siteVersion
+     *
+     * @return string
+     */
+    protected function buildKeywords(
+        PageVersion $pageVersion,
+        SiteVersion $siteVersion
+    ):string {
+        $keywords = $pageVersion->getKeywords();
+
+        if (empty($keywords)) {
+            $keywords = $siteVersion->findProperty(
+                FieldsSite::KEYWORDS,
+                ''
+            );
+        }
+
+        return strip_tags($keywords);
     }
 }

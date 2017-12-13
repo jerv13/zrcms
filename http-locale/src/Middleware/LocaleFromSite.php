@@ -7,37 +7,35 @@ use Psr\Http\Message\ServerRequestInterface;
 use Zrcms\CoreSite\Api\GetSiteCmsResourceByRequest;
 use Zrcms\CoreSite\Model\SiteCmsResource;
 use Zrcms\Locale\Api\SetLocale;
+use Zrcms\Param\Param;
 
 /**
  * @author James Jervis - https://github.com/jerv13
  */
 class LocaleFromSite
 {
-    /**
-     * @var SetLocale
-     */
-    protected $setLocale;
+    const PARAM_LOCALE = 'site-locale';
 
-    /**
-     * @var GetSiteCmsResourceByRequest
-     */
+    protected $setLocale;
     protected $getSiteCmsResourceByRequest;
+    protected $allowQueryParamLocale;
 
     /**
      * @param SetLocale                   $setLocale
      * @param GetSiteCmsResourceByRequest $getSiteCmsResourceByRequest
+     * @param bool                        $allowQueryParamLocale
      */
     public function __construct(
         SetLocale $setLocale,
-        GetSiteCmsResourceByRequest $getSiteCmsResourceByRequest
+        GetSiteCmsResourceByRequest $getSiteCmsResourceByRequest,
+        bool $allowQueryParamLocale = false
     ) {
         $this->setLocale = $setLocale;
         $this->getSiteCmsResourceByRequest = $getSiteCmsResourceByRequest;
+        $this->allowQueryParamLocale = $allowQueryParamLocale;
     }
 
     /**
-     * __invoke
-     *
      * @param ServerRequestInterface $request
      * @param ResponseInterface      $response
      * @param callable|null          $next
@@ -50,6 +48,19 @@ class LocaleFromSite
         ResponseInterface $response,
         callable $next = null
     ) {
+        $params = $request->getQueryParams();
+
+        $requestLocale = Param::getString(
+            $params,
+            self::PARAM_LOCALE
+        );
+
+        if ($this->allowQueryParamLocale && !empty($requestLocale)) {
+            $this->setLocale->__invoke($requestLocale);
+
+            return $next($request, $response);
+        }
+
         /** @var SiteCmsResource $siteCmsResource */
         $siteCmsResource = $this->getSiteCmsResourceByRequest->__invoke(
             $request

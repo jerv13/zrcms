@@ -75,21 +75,6 @@ class ModuleConfig
                 ],
             ],
 
-            'routes' => [
-                '/zrcms/change-log' => [
-                    'name' => '/zrcms/change-log',
-                    //Usage Note: For a friendly HTML UI, try adding ?days=30&content-type=text%2Fhtml
-                    'path' => '/zrcms/change-log',
-                    'middleware' => [
-                        //@TODO (in Over-ride in app to do this) make this redirect to login page if not logged
-                        IsAllowedReadChangeLog::class,
-                        ChangeLogList::class,
-                    ],
-                    'options' => [],
-                    'allowed_methods' => ['GET'],
-                ],
-            ],
-
             'RcmUser' => [
                 'Acl\Config' => [
                     'ResourceProviders' => [

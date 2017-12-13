@@ -57,18 +57,21 @@ class ModulesConfig
             new \Zrcms\ViewHtmlTags\ModuleConfig(),
 
             new \Zrcms\Http\ModuleConfig(),
+
             new \Zrcms\HttpChangeLog\ModuleConfig(),
+            // @todo Routes should NOT be included by default
+            new \Zrcms\HttpChangeLog\ModuleConfigRoutes(),
 
             new \Zrcms\HttpCore\ModuleConfig(),
-            // @todo Routes should not be included by default
+            // @todo Routes should NOT be included by default
             new \Zrcms\HttpCore\ModuleConfigRoutes(),
 
             new \Zrcms\HttpCorePage\ModuleConfig(),
-            // @todo Routes should not be included by default
+            // @todo Routes should NOT be included by default
             new \Zrcms\HttpCorePage\ModuleConfigRoutes(),
 
             new \Zrcms\HttpCoreSite\ModuleConfig(),
-            // @todo Routes should not be included by default
+            // @todo Routes should NOT be included by default
             new \Zrcms\HttpCoreSite\ModuleConfigRoutes(),
 
             new \Zrcms\HttpLocale\ModuleConfig(),
@@ -76,11 +79,16 @@ class ModulesConfig
             new \Zrcms\HttpRedirect\ModuleConfig(),
             new \Zrcms\HttpSiteExists\ModuleConfig(),
             new \Zrcms\HttpStatusPages\ModuleConfig(),
+
+            // @todo HttpTest should NOT be included by default
             new \Zrcms\HttpTest\ModuleConfig(),
+            // @todo HttpTest Routes should NOT be included by default
+            new \Zrcms\HttpTest\ModuleConfigRoutes(),
+
             new \Zrcms\HttpUser\ModuleConfig(),
             new \Zrcms\HttpViewRender\ModuleConfig(),
 
-            // @todo REMOVE Xample
+            // @todo XampleComponent should NOT be included by default
             new \Zrcms\XampleComponent\ModuleConfig(),
         ];
 
