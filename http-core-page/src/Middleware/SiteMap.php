@@ -5,6 +5,7 @@ namespace Zrcms\HttpCorePage\Middleware;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Zend\Diactoros\Response\HtmlResponse;
+use Zrcms\Acl\Api\IsAllowed;
 use Zrcms\CorePage\Api\CmsResource\FindPageCmsResourcesBy;
 use Zrcms\CorePage\Model\PageCmsResource;
 use Zrcms\CoreSite\Api\GetSiteCmsResourceByRequest;
@@ -16,6 +17,7 @@ class SiteMap
 {
     protected $getSiteCmsResourceByRequest;
     protected $findPageCmsResourcesBy;
+    protected $isAllowed;
 
     /**
      * @param GetSiteCmsResourceByRequest $getSiteCmsResourceByRequest
@@ -23,10 +25,12 @@ class SiteMap
      */
     public function __construct(
         GetSiteCmsResourceByRequest $getSiteCmsResourceByRequest,
-        FindPageCmsResourcesBy $findPageCmsResourcesBy
+        FindPageCmsResourcesBy $findPageCmsResourcesBy,
+        IsAllowed $isAllowed
     ) {
         $this->getSiteCmsResourceByRequest = $getSiteCmsResourceByRequest;
         $this->findPageCmsResourcesBy = $findPageCmsResourcesBy;
+        $this->isAllowed = $isAllowed;
     }
 
     /**
@@ -41,7 +45,6 @@ class SiteMap
         ResponseInterface $response,
         callable $next = null
     ) {
-        // @todo return valid site map xml https://en.wikipedia.org/wiki/Sitemaps
         $siteCmsResource = $this->getSiteCmsResourceByRequest->__invoke(
             $request
         );
@@ -49,6 +52,7 @@ class SiteMap
         $pageCmsResources = $this->findPageCmsResourcesBy->__invoke(
             [
                 'siteCmsResourceId' => $siteCmsResource->getId(),
+                'published' => true,
             ]
         );
 
@@ -56,11 +60,22 @@ class SiteMap
 
         /** @var PageCmsResource $pageCmsResource */
         foreach ($pageCmsResources as $pageCmsResource) {
+            $isAllowed = $this->isAllowed->__invoke(
+                $request,
+                [
+                    'page-cms-resource' => $pageCmsResource
+                ]
+            );
+
+            if (!$isAllowed) {
+                continue;
+            }
+
             $entries[] = [
                 'loc' => $siteCmsResource->getHost() . $pageCmsResource->getPath(),
                 'lastmod' => $pageCmsResource->getModifiedDateObject()->format('Y-m-d'),
-                'changefreq' => 'weekly', // @todo This should be a real value
-                'priority' => '1', // @todo This should be a real value
+                'changefreq' => $this->getChangeFrequency($pageCmsResource),
+                'priority' => $this->getPriority($pageCmsResource),
             ];
         }
 
@@ -74,6 +89,28 @@ class SiteMap
             200,
             ['content-type' => 'text/xml']
         );
+    }
+
+    /**
+     * @todo Implement this logic
+     * @param PageCmsResource $pageCmsResource
+     *
+     * @return string
+     */
+    protected function getChangeFrequency(PageCmsResource $pageCmsResource)
+    {
+        return 'weekly';
+    }
+
+    /**
+     * @todo Implement this logic
+     * @param PageCmsResource $pageCmsResource
+     *
+     * @return string
+     */
+    protected function getPriority(PageCmsResource $pageCmsResource)
+    {
+        return '1';
     }
 
     /**
@@ -99,15 +136,15 @@ class SiteMap
 
         foreach ($data as $entry) {
             $content .= ''
-                . '<url>' . "\n"
-                . '    <loc>' . $entry['loc'] . '</loc>' . "\n"
-                . '    <lastmod>' . $entry['lastmod'] . '8</lastmod>' . "\n"
-                . '    <changefreq>' . $entry['changefreq'] . '</changefreq>' . "\n"
-                . '    <priority>' . $entry['priority'] . '</priority>' . "\n"
-                . '</url>' . "\n";
+                . '    <url>' . "\n"
+                . '        <loc>' . $entry['loc'] . '</loc>' . "\n"
+                . '        <lastmod>' . $entry['lastmod'] . '8</lastmod>' . "\n"
+                . '        <changefreq>' . $entry['changefreq'] . '</changefreq>' . "\n"
+                . '        <priority>' . $entry['priority'] . '</priority>' . "\n"
+                . '    </url>' . "\n";
         }
 
-        $content = '</urlset>' . "\n";
+        $content .= '</urlset>' . "\n";
 
         return $content;
     }

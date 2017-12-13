@@ -2,6 +2,7 @@
 
 namespace Zrcms\HttpCorePage;
 
+use Zrcms\Acl\Api\IsAllowedAny;
 use Zrcms\CorePage\Api\CmsResource\FindPageCmsResourcesBy;
 use Zrcms\CoreSite\Api\GetSiteCmsResourceByRequest;
 use Zrcms\HttpCorePage\Middleware\SiteMap;
@@ -23,6 +24,7 @@ class ModuleConfig
                         'arguments' => [
                             GetSiteCmsResourceByRequest::class,
                             FindPageCmsResourcesBy::class,
+                            IsAllowedAny::class, // over-ride me
                         ],
                     ],
                 ],

@@ -66,7 +66,7 @@ class ModuleConfigRoutes
                         'xml' => SiteMap::class,
                     ],
                     'options' => [],
-                    'allowed_methods' => ['PUT'],
+                    'allowed_methods' => ['GET'],
                 ],
             ],
         ];
