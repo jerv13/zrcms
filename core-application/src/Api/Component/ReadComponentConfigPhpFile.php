@@ -25,7 +25,7 @@ class ReadComponentConfigPhpFile implements ReadComponentConfig
         string $componentConfigUri,
         array $options = []
     ): array {
-        AssertValidReaderScheme::invoke(self::READER_SCHEME, $componentConfigUri);
+        AssertValidReaderScheme::invoke(static::READER_SCHEME, $componentConfigUri);
 
         $componentConfigUriParts = parse_url($componentConfigUri);
         $phpFilePath = $componentConfigUriParts['path'];
@@ -51,7 +51,7 @@ class ReadComponentConfigPhpFile implements ReadComponentConfig
         $moduleDirectoryRoot = pathinfo($realConfigFilePath, PATHINFO_DIRNAME);
 
         $componentConfig[FieldsComponentConfig::MODULE_DIRECTORY] = $moduleDirectoryRoot . $moduleDirectoryConfig;
-        $componentConfig[FieldsComponentConfig::CONFIG_URI] = self::READER_SCHEME . $realConfigFilePath;
+        $componentConfig[FieldsComponentConfig::CONFIG_URI] = static::READER_SCHEME . ':' . $realConfigFilePath;
 
         return $componentConfig;
     }

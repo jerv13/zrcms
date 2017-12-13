@@ -261,11 +261,15 @@ class Param
     }
 
     /**
-     * @param array                        $params
-     * @param string                       $key
-     * @param callable|ParamException|null $exceptionThrower
+     * @param array  $params
+     * @param string $key
+     * @param null   $exceptionThrower
      *
      * @return void
+     * @throws ParamException
+     * @throws ParamMissing
+     * @throws \Exception
+     * @throws \Throwable
      */
     public static function assertNotEmpty(
         array $params,
@@ -326,7 +330,6 @@ class Param
      * @param callable|ParamException|null $exceptionThrower
      *
      * @return void
-     * @throws IllegalParam
      * @throws \Throwable
      */
     public static function assertNotHas(

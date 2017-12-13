@@ -60,7 +60,7 @@ class ReadComponentConfigJsonFile implements ReadComponentConfig
         $moduleDirectory = $moduleDirectoryRoot . $moduleDirectoryConfig;
 
         $componentConfig[FieldsComponentConfig::MODULE_DIRECTORY] = $moduleDirectory;
-        $componentConfig[FieldsComponentConfig::CONFIG_URI] = self::READER_SCHEME . $realConfigFilePath;
+        $componentConfig[FieldsComponentConfig::CONFIG_URI] = static::READER_SCHEME . ':' . $realConfigFilePath;
 
         return $componentConfig;
     }
@@ -73,10 +73,6 @@ class ReadComponentConfigJsonFile implements ReadComponentConfig
      */
     protected function assertCanRead($jsonFilePath)
     {
-        // NOTE: this allows no scheme on json files, is a bit risky
-        if (substr($jsonFilePath, -5) === '.json') {
-            return;
-        }
         AssertValidReaderScheme::invoke(static::READER_SCHEME, $jsonFilePath);
     }
 }

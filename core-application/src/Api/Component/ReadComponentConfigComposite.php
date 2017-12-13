@@ -44,8 +44,7 @@ class ReadComponentConfigComposite implements ReadComponentConfig
     public function __invoke(
         string $componentConfigUri,
         array $options = []
-    ): array
-    {
+    ): array {
         $readComponentConfigServiceAliases = $this->getServiceAliasesByNamespace->__invoke(
             $this->configReaderServiceAliasNamespace
         );

@@ -40,7 +40,7 @@ class ReadComponentConfigApplicationConfig implements ReadComponentConfig
         string $componentConfigUri,
         array $options = []
     ): array {
-        AssertValidReaderScheme::invoke(self::READER_SCHEME, $componentConfigUri);
+        AssertValidReaderScheme::invoke(static::READER_SCHEME, $componentConfigUri);
 
         $componentConfigUriParts = parse_url($componentConfigUri);
         $appConfigPath = $componentConfigUriParts['path'];

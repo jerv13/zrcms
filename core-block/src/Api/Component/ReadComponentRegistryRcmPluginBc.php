@@ -45,7 +45,7 @@ class ReadComponentRegistryRcmPluginBc implements ReadComponentRegistry
             );
 
             $componentRegistry['block.' . $rcmPluginName]
-                = ReadComponentConfigJsonFile::READER_SCHEME . ':' . $rcmPluginBlockConfigDir . '/block.json';
+                = ReadComponentConfigJsonFileBc::READER_SCHEME . ':' . $rcmPluginBlockConfigDir . '/block.json';
         }
 
         return $componentRegistry;
@@ -69,6 +69,7 @@ class ReadComponentRegistryRcmPluginBc implements ReadComponentRegistry
      * @param array $options
      *
      * @return array
+     * @throws \Exception
      */
     public function __invoke(
         array $options = []

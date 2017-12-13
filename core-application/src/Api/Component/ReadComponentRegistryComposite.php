@@ -36,6 +36,14 @@ class ReadComponentRegistryComposite implements ReadComponentRegistry
         $this->cacheKey = $cacheKey;
     }
 
+    /**
+     * @param array $options
+     *
+     * @return array
+     * @throws \Psr\Container\ContainerExceptionInterface
+     * @throws \Psr\Container\NotFoundExceptionInterface
+     * @throws \Psr\SimpleCache\InvalidArgumentException
+     */
     public function __invoke(
         array $options = []
     ): array {
@@ -62,19 +70,17 @@ class ReadComponentRegistryComposite implements ReadComponentRegistry
     }
 
     /**
-     * hasCache
-     *
      * @return bool
+     * @throws \Psr\SimpleCache\InvalidArgumentException
      */
     protected function hasCache()
     {
-        return ($this->cache->has($this->cacheKey));
+        return $this->cache->has($this->cacheKey);
     }
 
     /**
-     * getCache
-     *
      * @return mixed
+     * @throws \Psr\SimpleCache\InvalidArgumentException
      */
     protected function getCache()
     {
@@ -82,11 +88,10 @@ class ReadComponentRegistryComposite implements ReadComponentRegistry
     }
 
     /**
-     * setCache
-     *
-     * @param array $configs
+     * @param $configs
      *
      * @return void
+     * @throws \Psr\SimpleCache\InvalidArgumentException
      */
     protected function setCache($configs)
     {

@@ -36,12 +36,16 @@ class ReadComponentConfigCallable implements ReadComponentConfig
      *
      * @return array
      * @throws CanNotReadComponentConfig
+     * @throws \Exception
+     * @throws \Psr\Container\ContainerExceptionInterface
+     * @throws \Psr\Container\NotFoundExceptionInterface
+     * @throws \Zrcms\Param\Exception\ParamMissing
      */
     public function __invoke(
         string $componentConfigUri,
         array $options = []
     ): array {
-        AssertValidReaderScheme::invoke(self::READER_SCHEME, $componentConfigUri);
+        AssertValidReaderScheme::invoke(static::READER_SCHEME, $componentConfigUri);
 
         $componentConfigUriParts = parse_url($componentConfigUri);
         $callableServiceName = $componentConfigUriParts['path'];
