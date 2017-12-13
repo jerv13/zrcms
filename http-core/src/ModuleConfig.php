@@ -190,32 +190,6 @@ class ModuleConfig
                     ],
                 ],
             ],
-
-            'routes' => [
-                // Find Component CmsResource
-                'zrcms.read-all-component-configs' => [
-                    'name' => 'zrcms.read-all-component-configs',
-                    'path' => '/zrcms/read-all-component-configs',
-                    'middleware' => [
-                        'acl' => IsAllowedReadAllComponentConfigs::class,
-                        'api' => ReadAllComponentConfigs::class,
-                    ],
-                    'options' => [],
-                    'allowed_methods' => ['GET'],
-                ],
-
-                // Find Component CmsResource
-                'zrcms.basic.repository.find-component.name' => [
-                    'name' => 'zrcms.basic.repository.find-component.name',
-                    'path' => '/zrcms/basic/repository/find-component/{name}',
-                    'middleware' => [
-                        'acl' => IsAllowedFindBasicComponent::class,
-                        'api' => FindComponentBasic::class,
-                    ],
-                    'options' => [],
-                    'allowed_methods' => ['GET'],
-                ],
-            ],
         ];
     }
 }

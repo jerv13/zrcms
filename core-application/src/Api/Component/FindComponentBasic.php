@@ -3,8 +3,6 @@
 namespace Zrcms\CoreApplication\Api\Component;
 
 use Zrcms\Core\Api\Component\FindComponent;
-use Zrcms\Core\Api\Component\GetRegisterComponents;
-use Zrcms\Core\Api\Component\SearchComponentList;
 use Zrcms\Core\Fields\FieldsComponentConfig;
 use Zrcms\Core\Model\Component;
 
@@ -13,26 +11,15 @@ use Zrcms\Core\Model\Component;
  */
 class FindComponentBasic implements FindComponent
 {
-    /**
-     * @var GetRegisterComponents
-     */
-    protected $getRegisterComponents;
+    protected $findComponentsByBasic;
 
     /**
-     * @var SearchComponentListBasic
-     */
-    protected $searchComponentList;
-
-    /**
-     * @param GetRegisterComponents $getRegisterComponents
-     * @param SearchComponentList   $searchComponentList
+     * @param FindComponentsByBasic $findComponentsByBasic
      */
     public function __construct(
-        GetRegisterComponents $getRegisterComponents,
-        SearchComponentList $searchComponentList
+        FindComponentsByBasic $findComponentsByBasic
     ) {
-        $this->getRegisterComponents = $getRegisterComponents;
-        $this->searchComponentList = $searchComponentList;
+        $this->findComponentsByBasic = $findComponentsByBasic;
     }
 
     /**
@@ -40,17 +27,15 @@ class FindComponentBasic implements FindComponent
      * @param string $name
      * @param array  $options
      *
-     * @return Component|null
+     * @return null|Component
+     * @throws \Exception
      */
     public function __invoke(
         string $type,
         string $name,
         array $options = []
     ) {
-        $components = $this->getRegisterComponents->__invoke();
-
-        $result = $this->searchComponentList->__invoke(
-            $components,
+        $result = $this->findComponentsByBasic->__invoke(
             [
                 FieldsComponentConfig::TYPE => $type,
                 FieldsComponentConfig::NAME => $name

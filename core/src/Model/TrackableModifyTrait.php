@@ -61,7 +61,7 @@ trait TrackableModifyTrait
      */
     public function getModifiedTimestamp(): int
     {
-        return $this->modifiedDateObject->format(Trackable::DATE_FORMAT_TIMESTAMP);
+        return $this->getModifiedDateObject()->format(Trackable::DATE_FORMAT_TIMESTAMP);
     }
 
     /**
@@ -70,6 +70,12 @@ trait TrackableModifyTrait
      */
     public function getModifiedDateObject(): \DateTime
     {
+        if (empty($this->modifiedDateObject)) {
+            throw new TrackingInvalid(
+                'Value not set for modifiedDateObject in ' . get_class($this)
+            );
+        }
+
         // Clone to prevent changes
         $dateTime =  clone($this->modifiedDateObject);
 

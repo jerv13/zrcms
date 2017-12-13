@@ -2,8 +2,9 @@
 
 namespace Zrcms\CoreApplication\Api\Component;
 
+use Zrcms\Core\Api\Component\BuildComponentObject;
 use Zrcms\Core\Api\Component\FindComponentsBy;
-use Zrcms\Core\Api\Component\GetRegisterComponents;
+use Zrcms\Core\Api\Component\ReadComponentConfigs;
 use Zrcms\Core\Model\Component;
 
 /**
@@ -11,26 +12,23 @@ use Zrcms\Core\Model\Component;
  */
 class FindComponentsByBasic implements FindComponentsBy
 {
-    /**
-     * @var GetRegisterComponents
-     */
-    protected $getRegisterComponents;
+    protected $searchConfigConfigs;
+    protected $readComponentConfigs;
+    protected $buildComponentObject;
 
     /**
-     * @var SearchComponentListBasic
-     */
-    protected $searchConfigList;
-
-    /**
-     * @param GetRegisterComponents    $getRegisterComponents
-     * @param SearchComponentListBasic $searchConfigList
+     * @param SearchComponentConfigsBasic $searchConfigConfigs
+     * @param ReadComponentConfigs        $readComponentConfigs
+     * @param BuildComponentObject        $buildComponentObject
      */
     public function __construct(
-        GetRegisterComponents $getRegisterComponents,
-        SearchComponentListBasic $searchConfigList
+        SearchComponentConfigsBasic $searchConfigConfigs,
+        ReadComponentConfigs $readComponentConfigs,
+        BuildComponentObject $buildComponentObject
     ) {
-        $this->getRegisterComponents = $getRegisterComponents;
-        $this->searchConfigList = $searchConfigList;
+        $this->searchConfigConfigs = $searchConfigConfigs;
+        $this->readComponentConfigs = $readComponentConfigs;
+        $this->buildComponentObject = $buildComponentObject;
     }
 
     /**
@@ -55,12 +53,39 @@ class FindComponentsByBasic implements FindComponentsBy
             throw new \Exception('orderBy, limit and offset not yet implemented');
         }
 
-        $components = $this->getRegisterComponents->__invoke();
+        $componentConfigs = $this->readComponentConfigs->__invoke();
 
         if (empty($criteria)) {
-            return $components;
+            return $this->buildComponentObjects(
+                $componentConfigs
+            );
         }
 
-        return $this->searchConfigList->__invoke($components, $criteria);
+        $componentConfigsResult = $this->searchConfigConfigs->__invoke(
+            $componentConfigs,
+            $criteria
+        );
+
+        return $this->buildComponentObjects(
+            $componentConfigsResult
+        );
+    }
+
+    /**
+     * @param array $componentConfigs
+     *
+     * @return Component[]
+     */
+    protected function buildComponentObjects(
+        array $componentConfigs
+    ) {
+        $configs = [];
+        foreach ($componentConfigs as $componentConfig) {
+            $configs[] = $this->buildComponentObject->__invoke(
+                $componentConfig
+            );
+        }
+
+        return $configs;
     }
 }

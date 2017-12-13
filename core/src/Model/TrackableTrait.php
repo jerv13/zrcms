@@ -59,7 +59,7 @@ trait TrackableTrait
      */
     public function getCreatedTimestamp(): int
     {
-        return $this->createdDateObject->format(Trackable::DATE_FORMAT_TIMESTAMP);
+        return $this->getCreatedDateObject()->format(Trackable::DATE_FORMAT_TIMESTAMP);
     }
 
     /**
@@ -68,6 +68,12 @@ trait TrackableTrait
      */
     public function getCreatedDateObject(): \DateTime
     {
+        if (empty($this->createdDateObject)) {
+            throw new TrackingInvalid(
+                'Value not set for createdDateObject in ' . get_class($this)
+            );
+        }
+
         // Clone to prevent changes
         $dateTime =  clone($this->createdDateObject);
 

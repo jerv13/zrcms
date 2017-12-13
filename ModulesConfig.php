@@ -18,6 +18,7 @@ class ModulesConfig
     {
         $zrcmsModules = [
             // Low level
+            new \Zrcms\Logger\ModuleConfig(),
             new \Zrcms\Cache\ModuleConfig(),
             new \Zrcms\Param\ModuleConfig(),
             new \Zrcms\Mustache\ModuleConfig(),
@@ -58,7 +59,11 @@ class ModulesConfig
             new \Zrcms\Http\ModuleConfig(),
             new \Zrcms\HttpChangeLog\ModuleConfig(),
             new \Zrcms\HttpCore\ModuleConfig(),
+            // @todo Routes should not be included by default
+            new \Zrcms\HttpCore\ModuleConfigRoutes(),
             new \Zrcms\HttpCoreSite\ModuleConfig(),
+            // @todo Routes should not be included by default
+            new \Zrcms\HttpCoreSite\ModuleConfigRoutes(),
             new \Zrcms\HttpLocale\ModuleConfig(),
             new \Zrcms\HttpRcmApiLib\ModuleConfig(),
             new \Zrcms\HttpRedirect\ModuleConfig(),

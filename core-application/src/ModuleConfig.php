@@ -3,7 +3,6 @@
 namespace Zrcms\CoreApplication;
 
 use Zrcms\Cache\Service\Cache;
-use Zrcms\Cache\Service\CacheArray;
 use Zrcms\Core\Api\ChangeLog\GetChangeLogByDateRange;
 use Zrcms\Core\Api\CmsResource\CmsResourceToArray;
 use Zrcms\Core\Api\CmsResourceHistory\CmsResourceHistoryToArray;
@@ -11,12 +10,10 @@ use Zrcms\Core\Api\Component\BuildComponentObject;
 use Zrcms\Core\Api\Component\ComponentToArray;
 use Zrcms\Core\Api\Component\FindComponent;
 use Zrcms\Core\Api\Component\FindComponentsBy;
-use Zrcms\Core\Api\Component\GetRegisterComponents;
 use Zrcms\Core\Api\Component\ReadComponentConfig;
 use Zrcms\Core\Api\Component\ReadComponentConfigs;
 use Zrcms\Core\Api\Component\ReadComponentRegistry;
 use Zrcms\Core\Api\Component\SearchComponentConfigs;
-use Zrcms\Core\Api\Component\SearchComponentList;
 use Zrcms\Core\Api\Content\ContentToArray;
 use Zrcms\Core\Api\Content\ContentVersionToArray;
 use Zrcms\Core\Api\GetTypeValue;
@@ -33,7 +30,6 @@ use Zrcms\CoreApplication\Api\Component\BuildComponentObjectByTypeStrategyFactor
 use Zrcms\CoreApplication\Api\Component\ComponentToArrayBasic;
 use Zrcms\CoreApplication\Api\Component\FindComponentBasic;
 use Zrcms\CoreApplication\Api\Component\FindComponentsByBasic;
-use Zrcms\CoreApplication\Api\Component\GetRegisterComponentsBasic;
 use Zrcms\CoreApplication\Api\Component\ReadComponentConfigApplicationConfig;
 use Zrcms\CoreApplication\Api\Component\ReadComponentConfigApplicationConfigFactory;
 use Zrcms\CoreApplication\Api\Component\ReadComponentConfigCallable;
@@ -46,7 +42,6 @@ use Zrcms\CoreApplication\Api\Component\ReadComponentRegistryBasic;
 use Zrcms\CoreApplication\Api\Component\ReadComponentRegistryBasicFactory;
 use Zrcms\CoreApplication\Api\Component\ReadComponentRegistryCompositeFactory;
 use Zrcms\CoreApplication\Api\Component\SearchComponentConfigsBasic;
-use Zrcms\CoreApplication\Api\Component\SearchComponentListBasic;
 use Zrcms\CoreApplication\Api\Content\ContentToArrayBasic;
 use Zrcms\CoreApplication\Api\Content\ContentVersionToArrayBasic;
 use Zrcms\CoreApplication\Api\GetTypeValueBasicFactory;
@@ -78,7 +73,7 @@ class ModuleConfig
                     GetHumanReadableChangeLogByDateRange::class => [
                         'arguments' => [
                             GetChangeLogByDateRange::class,
-                            ChangeLogEventToString::class
+                            ChangeLogEventToString::class,
                         ]
                     ],
                     // @todo This does not belong here - belongs in http or root application
@@ -90,7 +85,7 @@ class ModuleConfig
                             ['addSubordinate', [SiteGetChangeLogByDateRange::class]],
                             ['addSubordinate', [ThemeGetChangeLogByDateRange::class]],
                             ['addSubordinate', [RedirectGetChangeLogByDateRange::class]],
-                        ]
+                        ],
                     ],
                     // @todo This does not belong here - belongs in core-site
                     ChangeLogEventToString::class => [
@@ -106,7 +101,7 @@ class ModuleConfig
                     CmsResourceToArray::class => [
                         'class' => CmsResourceToArrayBasic::class,
                         'arguments' => [
-                            ContentVersionToArray::class
+                            ContentVersionToArray::class,
                         ],
                     ],
 
@@ -117,7 +112,7 @@ class ModuleConfig
                         'class' => CmsResourceHistoryToArrayBasic::class,
                         'arguments' => [
                             ContentVersionToArray::class,
-                            CmsResourceToArray::class
+                            CmsResourceToArray::class,
                         ],
                     ],
 
@@ -139,24 +134,15 @@ class ModuleConfig
                     FindComponent::class => [
                         'class' => FindComponentBasic::class,
                         'arguments' => [
-                            GetRegisterComponents::class,
-                            SearchComponentList::class
+                            FindComponentsBy::class,
                         ],
                     ],
                     FindComponentsBy::class => [
                         'class' => FindComponentsByBasic::class,
                         'arguments' => [
-                            GetRegisterComponents::class,
-                            SearchComponentList::class
-                        ],
-                    ],
-                    GetRegisterComponents::class => [
-                        'class' => GetRegisterComponentsBasic::class,
-                        'arguments' => [
+                            SearchComponentConfigs::class,
                             ReadComponentConfigs::class,
                             BuildComponentObject::class,
-                            CacheArray::class,
-                            ['literal' => GetRegisterComponentsBasic::CACHE_KEY]
                         ],
                     ],
 
@@ -195,9 +181,6 @@ class ModuleConfig
                     SearchComponentConfigs::class => [
                         'class' => SearchComponentConfigsBasic::class,
                     ],
-                    SearchComponentList::class => [
-                        'class' => SearchComponentListBasic::class,
-                    ],
 
                     /**
                      * Content
@@ -206,7 +189,7 @@ class ModuleConfig
                         'class' => ContentToArrayBasic::class
                     ],
                     ContentVersionToArray::class => [
-                        'class' => ContentVersionToArrayBasic::class
+                        'class' => ContentVersionToArrayBasic::class,
                     ],
 
                     /**

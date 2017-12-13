@@ -8,11 +8,9 @@ use Zrcms\Core\Api\Component\BuildComponentObject;
 use Zrcms\Core\Api\Component\ComponentToArray;
 use Zrcms\Core\Api\Component\FindComponent;
 use Zrcms\Core\Api\Component\FindComponentsBy;
-use Zrcms\Core\Api\Component\GetRegisterComponents;
 use Zrcms\Core\Api\Component\ReadComponentConfig;
 use Zrcms\Core\Api\Component\ReadComponentConfigs;
 use Zrcms\Core\Api\Component\ReadComponentRegistry;
-use Zrcms\Core\Api\Component\SearchComponentList;
 use Zrcms\Core\Api\Content\ContentToArray;
 use Zrcms\Core\Api\Content\ContentVersionToArray;
 use Zrcms\Core\Api\GetTypeValue;
@@ -63,9 +61,6 @@ class ModuleConfig
                     FindComponentsBy::class => [
                         'class' => IMPLEMENTATION_REQUIRED::class
                     ],
-                    GetRegisterComponents::class => [
-                        'class' => IMPLEMENTATION_REQUIRED::class
-                    ],
 
                     ReadComponentConfig::class => [
                         'class' => IMPLEMENTATION_REQUIRED::class
@@ -74,10 +69,6 @@ class ModuleConfig
                         'class' => IMPLEMENTATION_REQUIRED::class
                     ],
                     ReadComponentRegistry::class => [
-                        'class' => IMPLEMENTATION_REQUIRED::class
-                    ],
-
-                    SearchComponentList::class => [
                         'class' => IMPLEMENTATION_REQUIRED::class
                     ],
 

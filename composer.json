@@ -75,6 +75,7 @@
       "Zrcms\\Importer\\": "importer/src/",
       "Zrcms\\Install\\": "install/src/",
       "Zrcms\\Locale\\": "locale/src/",
+      "Zrcms\\Logger\\": "logger/src/",
       "Zrcms\\Mustache\\": "mustache/src/",
       "Zrcms\\Param\\": "param/src/",
       "Zrcms\\ServiceAlias\\": "service-alias/src/",

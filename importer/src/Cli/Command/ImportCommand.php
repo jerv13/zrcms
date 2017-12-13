@@ -7,7 +7,6 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Zrcms\Importer\Api\Import;
-use Zrcms\Importer\Logger\CallbackLogger;
 use Zrcms\Importer\Logger\CliLogger;
 
 /**

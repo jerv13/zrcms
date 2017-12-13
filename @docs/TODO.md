@@ -4,10 +4,6 @@
 
 ##### Component Simplify #####
 
-- What do we do with: 
-    - SearchComponentList: remove after remove GetRegisterComponents
-    - GetRegisterComponents: move this login to FindXXX Only cache in array
-
 - See about simplifying all common patterns (content, resource, etc...)?
 
     - CONFIG EXAMPLE:
@@ -25,18 +21,15 @@
 
 #### ToDo ####
 
-- Array
-    - getPropertyRequired(
+- Split http-xxx Module configs into ModuleConfig and RouteConfig
 
 - Site meta tags and page meta tage (page inherits from site, if empty, use site)
-- Service for getting url list from page, product pages, etc... (site map??)
+
+- SitePages: Service for getting url list from page, product pages, etc... (site map??)
+    - https://en.wikipedia.org/wiki/Sitemaps
 
 - view-head
     - allow registering scripts and css for routes
-
-- ToArray classes
-    - Need to deal with custom properties
-
 
 - Deal with 'zrcms-view-builders'
  

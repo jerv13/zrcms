@@ -5,7 +5,6 @@ namespace Zrcms\CoreView;
 use Zrcms\Core\Api\Component\BuildComponentObject;
 use Zrcms\Core\Api\Component\FindComponent;
 use Zrcms\Core\Api\Component\FindComponentsBy;
-use Zrcms\Core\Exception\IMPLEMENTATION_REQUIRED;
 use Zrcms\CoreApplication\Api\Component\BuildComponentObjectByType;
 use Zrcms\CoreContainer\Api\CmsResource\FindContainerCmsResourcesBySitePaths;
 use Zrcms\CoreContainer\Api\Render\GetContainerRenderTags;
@@ -19,7 +18,6 @@ use Zrcms\CoreView\Api\BuildView;
 use Zrcms\CoreView\Api\BuildViewCompositeFactory;
 use Zrcms\CoreView\Api\GetLayoutName;
 use Zrcms\CoreView\Api\GetLayoutNameBasic;
-use Zrcms\CoreView\Api\GetRegisterViewLayoutTagsComponents;
 use Zrcms\CoreView\Api\GetTagNamesByLayout;
 use Zrcms\CoreView\Api\GetTagNamesByLayoutBasic;
 use Zrcms\CoreView\Api\GetTagNamesByLayoutMustache;
@@ -123,9 +121,6 @@ class ModuleConfig
                     ],
                     GetLayoutName::class => [
                         'class' => GetLayoutNameBasic::class
-                    ],
-                    GetRegisterViewLayoutTagsComponents::class => [
-                        'class' => IMPLEMENTATION_REQUIRED::class
                     ],
                 ],
             ],
