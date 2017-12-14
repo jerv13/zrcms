@@ -68,6 +68,12 @@ class ChangeLogList implements MiddlewareInterface
         }
     }
 
+    /**
+     * @param $description
+     * @param $humanReadableEvents
+     *
+     * @return HtmlResponse
+     */
     protected function makeCsvResponse($description, $humanReadableEvents)
     {
         $body = 'Date,' . $description;
@@ -92,7 +98,8 @@ class ChangeLogList implements MiddlewareInterface
     protected function makeHtmlResponse($description, $humanReadableEvents)
     {
         $html = '<html class="container-fluid">';
-        $html .= '<link href="/bower_components/bootstrap/dist/css/bootstrap.min.css" media="screen" rel="stylesheet" type="text/css">';
+        $html .= '<link href="/bower_components/bootstrap/dist/css/bootstrap.min.css" ';
+        $html .= 'media="screen" rel="stylesheet" type="text/css">';
         $html .= '<a href="/zrcms/change-log?days=365&content-type=text%2Fcsv">Download CSV file for last 365 days</a>';
         $html .= '<table class="table table-sm">';
         $html .= '<tr><th>Date</th>';

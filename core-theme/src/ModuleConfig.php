@@ -6,7 +6,7 @@ use Zrcms\Core\Api\Component\BuildComponentObject;
 use Zrcms\Core\Api\Component\ReadComponentConfigs;
 use Zrcms\Core\Api\Component\SearchComponentConfigs;
 use Zrcms\Core\Api\GetTypeValue;
-use Zrcms\Core\Exception\IMPLEMENTATION_REQUIRED;
+use Zrcms\Core\Exception\IMPLEMENTATIONisREQUIRED;
 use Zrcms\CoreTheme\Api\CmsResource\FindLayoutCmsResource;
 use Zrcms\CoreTheme\Api\CmsResource\FindLayoutCmsResourceByThemeNameLayoutName;
 use Zrcms\CoreTheme\Api\CmsResource\FindLayoutCmsResourcesBy;
@@ -50,16 +50,16 @@ class ModuleConfig
                      * CmsResource
                      */
                     FindLayoutCmsResource::class => [
-                        'class' => IMPLEMENTATION_REQUIRED::class
+                        'class' => IMPLEMENTATIONisREQUIRED::class
                     ],
                     FindLayoutCmsResourceByThemeNameLayoutName::class => [
-                        'class' => IMPLEMENTATION_REQUIRED::class
+                        'class' => IMPLEMENTATIONisREQUIRED::class
                     ],
                     FindLayoutCmsResourcesBy::class => [
-                        'class' => IMPLEMENTATION_REQUIRED::class
+                        'class' => IMPLEMENTATIONisREQUIRED::class
                     ],
                     UpsertLayoutCmsResource::class => [
-                        'class' => IMPLEMENTATION_REQUIRED::class
+                        'class' => IMPLEMENTATIONisREQUIRED::class
                     ],
 
                     /**
@@ -80,13 +80,13 @@ class ModuleConfig
                      * Content
                      */
                     FindLayoutVersion::class => [
-                        'class' => IMPLEMENTATION_REQUIRED::class
+                        'class' => IMPLEMENTATIONisREQUIRED::class
                     ],
                     FindLayoutVersionsBy::class => [
-                        'class' => IMPLEMENTATION_REQUIRED::class
+                        'class' => IMPLEMENTATIONisREQUIRED::class
                     ],
                     InsertLayoutVersion::class => [
-                        'class' => IMPLEMENTATION_REQUIRED::class
+                        'class' => IMPLEMENTATIONisREQUIRED::class
                     ],
 
                     /**

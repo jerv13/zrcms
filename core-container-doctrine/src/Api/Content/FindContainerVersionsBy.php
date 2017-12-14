@@ -3,14 +3,15 @@
 namespace Zrcms\CoreContainerDoctrine\Api\Content;
 
 use Doctrine\ORM\EntityManager;
+use Zrcms\CoreApplicationDoctrine\Api\Content\FindContentVersionsBy;
+use Zrcms\CoreContainer\Api\Content\FindContainerVersionsBy as CoreFindBy;
 use Zrcms\CoreContainer\Model\ContainerVersionBasic;
 use Zrcms\CoreContainerDoctrine\Entity\ContainerVersionEntity;
-use Zrcms\CoreApplicationDoctrine\Api\Content\FindContentVersionsBy;
 
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class FindContainerVersionsBy extends FindContentVersionsBy implements \Zrcms\CoreContainer\Api\Content\FindContainerVersionsBy
+class FindContainerVersionsBy extends FindContentVersionsBy implements CoreFindBy
 {
     /**
      * @param EntityManager $entityManager

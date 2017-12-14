@@ -4,18 +4,19 @@ namespace Zrcms\CoreThemeDoctrine\Api\CmsResource;
 
 use Doctrine\ORM\EntityManager;
 use Zrcms\Core\Model\CmsResource;
+use Zrcms\CoreApplicationDoctrine\Api\BuildBasicCmsResource;
+use Zrcms\CoreTheme\Api\CmsResource\FindLayoutCmsResourceByThemeNameLayoutName as CoreFind;
 use Zrcms\CoreTheme\Model\LayoutCmsResource;
 use Zrcms\CoreTheme\Model\LayoutCmsResourceBasic;
 use Zrcms\CoreTheme\Model\LayoutVersionBasic;
 use Zrcms\CoreThemeDoctrine\Api\FallbackToComponentLayoutCmsResource;
 use Zrcms\CoreThemeDoctrine\Entity\LayoutCmsResourceEntity;
 use Zrcms\CoreThemeDoctrine\Entity\LayoutVersionEntity;
-use Zrcms\CoreApplicationDoctrine\Api\BuildBasicCmsResource;
 
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class FindLayoutCmsResourceByThemeNameLayoutName implements \Zrcms\CoreTheme\Api\CmsResource\FindLayoutCmsResourceByThemeNameLayoutName
+class FindLayoutCmsResourceByThemeNameLayoutName implements CoreFind
 {
     /**
      * @var EntityManager

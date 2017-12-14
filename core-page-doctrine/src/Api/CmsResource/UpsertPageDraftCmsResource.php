@@ -4,18 +4,19 @@ namespace Zrcms\CorePageDoctrine\Api\CmsResource;
 
 use Doctrine\ORM\EntityManager;
 use Zrcms\Core\Model\CmsResource;
+use Zrcms\CoreApplicationDoctrine\Api\CmsResource\UpsertCmsResource;
+use Zrcms\CorePage\Api\CmsResource\UpsertPageDraftCmsResource as CoreUpsert;
 use Zrcms\CorePage\Model\PageDraftCmsResource;
 use Zrcms\CorePage\Model\PageDraftCmsResourceBasic;
 use Zrcms\CorePage\Model\PageVersionBasic;
 use Zrcms\CorePageDoctrine\Entity\PageDraftCmsResourceEntity;
 use Zrcms\CorePageDoctrine\Entity\PageDraftCmsResourceHistoryEntity;
 use Zrcms\CorePageDoctrine\Entity\PageVersionEntity;
-use Zrcms\CoreApplicationDoctrine\Api\CmsResource\UpsertCmsResource;
 
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class UpsertPageDraftCmsResource extends UpsertCmsResource implements \Zrcms\CorePage\Api\CmsResource\UpsertPageDraftCmsResource
+class UpsertPageDraftCmsResource extends UpsertCmsResource implements CoreUpsert
 {
     /**
      * @param EntityManager $entityManager
@@ -36,9 +37,9 @@ class UpsertPageDraftCmsResource extends UpsertCmsResource implements \Zrcms\Cor
 
     /**
      * @param PageDraftCmsResource|CmsResource $cmsResource
-     * @param string                              $modifiedByUserId
-     * @param string                              $modifiedReason
-     * @param null                                $modifiedDate
+     * @param string                           $modifiedByUserId
+     * @param string                           $modifiedReason
+     * @param null                             $modifiedDate
      *
      * @return PageDraftCmsResource|CmsResource
      */

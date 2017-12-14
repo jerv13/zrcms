@@ -4,18 +4,19 @@ namespace Zrcms\CorePageDoctrine\Api\CmsResource;
 
 use Doctrine\ORM\EntityManager;
 use Zrcms\Core\Model\CmsResource;
+use Zrcms\CoreApplicationDoctrine\Api\CmsResource\UpsertCmsResource;
+use Zrcms\CorePage\Api\CmsResource\UpsertPageTemplateCmsResource as CoreUpsert;
 use Zrcms\CorePage\Model\PageTemplateCmsResource;
 use Zrcms\CorePage\Model\PageTemplateCmsResourceBasic;
 use Zrcms\CorePage\Model\PageVersionBasic;
 use Zrcms\CorePageDoctrine\Entity\PageTemplateCmsResourceEntity;
 use Zrcms\CorePageDoctrine\Entity\PageTemplateCmsResourceHistoryEntity;
 use Zrcms\CorePageDoctrine\Entity\PageVersionEntity;
-use Zrcms\CoreApplicationDoctrine\Api\CmsResource\UpsertCmsResource;
 
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class UpsertPageTemplateCmsResource extends UpsertCmsResource implements \Zrcms\CorePage\Api\CmsResource\UpsertPageTemplateCmsResource
+class UpsertPageTemplateCmsResource extends UpsertCmsResource implements CoreUpsert
 {
     /**
      * @param EntityManager $entityManager

@@ -2,7 +2,7 @@
 
 namespace Zrcms\CoreSite;
 
-use Zrcms\Core\Exception\IMPLEMENTATION_REQUIRED;
+use Zrcms\Core\Exception\IMPLEMENTATIONisREQUIRED;
 use Zrcms\CoreSite\Api\CmsResource\FindSiteCmsResource;
 use Zrcms\CoreSite\Api\CmsResource\FindSiteCmsResourceByHost;
 use Zrcms\CoreSite\Api\CmsResource\FindSiteCmsResourcesBy;
@@ -29,25 +29,25 @@ class ModuleConfig
                      * Site ===========================================
                      */
                     UpsertSiteCmsResource::class => [
-                        'class' => IMPLEMENTATION_REQUIRED::class
+                        'class' => IMPLEMENTATIONisREQUIRED::class
                     ],
                     FindSiteCmsResource::class => [
-                        'class' => IMPLEMENTATION_REQUIRED::class
+                        'class' => IMPLEMENTATIONisREQUIRED::class
                     ],
                     FindSiteCmsResourceByHost::class => [
-                        'class' => IMPLEMENTATION_REQUIRED::class
+                        'class' => IMPLEMENTATIONisREQUIRED::class
                     ],
                     FindSiteCmsResourcesBy::class => [
-                        'class' => IMPLEMENTATION_REQUIRED::class
+                        'class' => IMPLEMENTATIONisREQUIRED::class
                     ],
                     FindSiteVersion::class => [
-                        'class' => IMPLEMENTATION_REQUIRED::class
+                        'class' => IMPLEMENTATIONisREQUIRED::class
                     ],
                     FindSiteVersionsBy::class => [
-                        'class' => IMPLEMENTATION_REQUIRED::class
+                        'class' => IMPLEMENTATIONisREQUIRED::class
                     ],
                     InsertSiteVersion::class => [
-                        'class' => IMPLEMENTATION_REQUIRED::class
+                        'class' => IMPLEMENTATIONisREQUIRED::class
                     ],
 
                     GetSiteCmsResourceByRequest::class => [

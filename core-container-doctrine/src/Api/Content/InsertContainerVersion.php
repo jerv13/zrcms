@@ -4,15 +4,16 @@ namespace Zrcms\CoreContainerDoctrine\Api\Content;
 
 use Doctrine\ORM\EntityManager;
 use Zrcms\Core\Model\ContentVersion;
+use Zrcms\CoreApplicationDoctrine\Api\Content\InsertContentVersion;
+use Zrcms\CoreContainer\Api\Content\InsertContainerVersion as CoreInsert;
 use Zrcms\CoreContainer\Model\ContainerVersion;
 use Zrcms\CoreContainer\Model\ContainerVersionBasic;
 use Zrcms\CoreContainerDoctrine\Entity\ContainerVersionEntity;
-use Zrcms\CoreApplicationDoctrine\Api\Content\InsertContentVersion;
 
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class InsertContainerVersion extends InsertContentVersion implements \Zrcms\CoreContainer\Api\Content\InsertContainerVersion
+class InsertContainerVersion extends InsertContentVersion implements CoreInsert
 {
     /**
      * @param EntityManager $entityManager
@@ -28,10 +29,11 @@ class InsertContainerVersion extends InsertContentVersion implements \Zrcms\Core
     }
 
     /**
-     * @param ContainerVersion|ContentVersion $containerVersion
-     * @param array                           $options
+     * @param ContentVersion $containerVersion
+     * @param array          $options
      *
-     * @return ContainerVersion|ContentVersion
+     * @return ContentVersion
+     * @throws \Zrcms\CoreApplicationDoctrine\Exception\IdMustBeEmptyException
      */
     public function __invoke(
         ContentVersion $containerVersion,

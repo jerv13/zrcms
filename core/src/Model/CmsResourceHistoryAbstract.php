@@ -37,12 +37,14 @@ abstract class CmsResourceHistoryAbstract
     protected $contentVersion;
 
     /**
-     * @param string|null $id
+     * @param             $id
      * @param string      $action
      * @param CmsResource $cmsResource
      * @param string      $publishedByUserId
      * @param string      $publishReason
-     * @param string|null $publishDate
+     * @param null        $publishDate
+     *
+     * @throws \Zrcms\Core\Exception\TrackingInvalid
      */
     public function __construct(
         $id,

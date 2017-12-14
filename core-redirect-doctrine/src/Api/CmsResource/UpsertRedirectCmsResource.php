@@ -5,6 +5,7 @@ namespace Zrcms\CoreRedirectDoctrine\Api\CmsResource;
 use Doctrine\ORM\EntityManager;
 use Zrcms\Core\Model\CmsResource;
 use Zrcms\CoreApplicationDoctrine\Api\CmsResource\UpsertCmsResource;
+use Zrcms\CoreRedirect\Api\CmsResource\UpsertRedirectCmsResource as CoreUpsert;
 use Zrcms\CoreRedirect\Model\RedirectCmsResource;
 use Zrcms\CoreRedirect\Model\RedirectCmsResourceBasic;
 use Zrcms\CoreRedirect\Model\RedirectVersionBasic;
@@ -15,7 +16,7 @@ use Zrcms\CoreRedirectDoctrine\Entity\RedirectVersionEntity;
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class UpsertRedirectCmsResource extends UpsertCmsResource implements \Zrcms\CoreRedirect\Api\CmsResource\UpsertRedirectCmsResource
+class UpsertRedirectCmsResource extends UpsertCmsResource implements CoreUpsert
 {
     /**
      * @param EntityManager $entityManager

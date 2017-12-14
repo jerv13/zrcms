@@ -5,14 +5,14 @@ namespace Zrcms\Core\Exception;
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class IMPLEMENTATION_REQUIRED extends \Exception
+class IMPLEMENTATIONisREQUIRED extends \Exception
 {
     /**
      * @param string $message
      * @param int $code
      * @param \Exception|null $previous
      *
-     * @throws IMPLEMENTATION_REQUIRED
+     * @throws IMPLEMENTATIONisREQUIRED
      */
     public function __construct(
         $message = '',

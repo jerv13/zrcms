@@ -5,6 +5,7 @@ namespace Zrcms\CoreRedirectDoctrine\Api\CmsResource;
 use Doctrine\ORM\EntityManager;
 use Zrcms\Core\Model\CmsResource;
 use Zrcms\CoreApplicationDoctrine\Api\BuildBasicCmsResource;
+use Zrcms\CoreRedirect\Api\CmsResource\FindRedirectCmsResourceBySiteRequestPath as CoreFindBySiteRequestPath;
 use Zrcms\CoreRedirect\Model\RedirectCmsResource;
 use Zrcms\CoreRedirect\Model\RedirectCmsResourceBasic;
 use Zrcms\CoreRedirect\Model\RedirectVersionBasic;
@@ -14,7 +15,7 @@ use Zrcms\CoreRedirectDoctrine\Entity\RedirectVersionEntity;
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class FindRedirectCmsResourceBySiteRequestPath implements \Zrcms\CoreRedirect\Api\CmsResource\FindRedirectCmsResourceBySiteRequestPath
+class FindRedirectCmsResourceBySiteRequestPath implements CoreFindBySiteRequestPath
 {
     /**
      * @var EntityManager
@@ -67,7 +68,8 @@ class FindRedirectCmsResourceBySiteRequestPath implements \Zrcms\CoreRedirect\Ap
      * @param bool   $published
      * @param array  $options
      *
-     * @return RedirectCmsResource|CmsResource|null
+     * @return null|CmsResource|RedirectCmsResource
+     * @throws \Exception
      */
     public function __invoke(
         string $siteCmsResourceId,

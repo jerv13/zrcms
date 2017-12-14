@@ -3,18 +3,19 @@
 namespace Zrcms\CoreContainerDoctrine\Api\CmsResource;
 
 use Doctrine\ORM\EntityManager;
+use Zrcms\CoreApplicationDoctrine\Api\BuildBasicCmsResources;
+use Zrcms\CoreContainer\Api\CmsResource\FindContainerCmsResourcesBySitePaths as CoreFindsBySitePaths;
 use Zrcms\CoreContainer\Model\ContainerCmsResource;
 use Zrcms\CoreContainer\Model\ContainerCmsResourceBasic;
 use Zrcms\CoreContainer\Model\ContainerVersionBasic;
 use Zrcms\CoreContainerDoctrine\Entity\ContainerCmsResourceEntity;
 use Zrcms\CoreContainerDoctrine\Entity\ContainerVersionEntity;
-use Zrcms\CoreApplicationDoctrine\Api\BuildBasicCmsResources;
 use Zrcms\Param\Param;
 
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class FindContainerCmsResourcesBySitePaths implements \Zrcms\CoreContainer\Api\CmsResource\FindContainerCmsResourcesBySitePaths
+class FindContainerCmsResourcesBySitePaths implements CoreFindsBySitePaths
 {
     /**
      * @var EntityManager

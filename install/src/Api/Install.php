@@ -1,5 +1,7 @@
 <?php
 
+namespace Zrcms\Install\Api;
+
 /**
  * @author James Jervis - https://github.com/jerv13
  */

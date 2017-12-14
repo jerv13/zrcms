@@ -2,7 +2,7 @@
 
 namespace Zrcms\CorePage;
 
-use Zrcms\Core\Exception\IMPLEMENTATION_REQUIRED;
+use Zrcms\Core\Exception\IMPLEMENTATIONisREQUIRED;
 use Zrcms\CoreContainer\Api\Render\GetContainerRenderTags;
 use Zrcms\CoreContainer\Api\Render\RenderContainer;
 use Zrcms\CorePage\Api\CmsResource\FindPageCmsResource;
@@ -37,13 +37,13 @@ class ModuleConfig
             'dependencies' => [
                 'config_factories' => [
                     UpsertPageCmsResource::class => [
-                        'class' => IMPLEMENTATION_REQUIRED::class
+                        'class' => IMPLEMENTATIONisREQUIRED::class
                     ],
                     UpsertPageTemplateCmsResource::class => [
-                        'class' => IMPLEMENTATION_REQUIRED::class
+                        'class' => IMPLEMENTATIONisREQUIRED::class
                     ],
                     UpsertPageDraftCmsResource::class => [
-                        'class' => IMPLEMENTATION_REQUIRED::class
+                        'class' => IMPLEMENTATIONisREQUIRED::class
                     ],
                     GetPageRenderTags::class => [
                         'class' => GetPageRenderTagsBasic::class,
@@ -59,28 +59,28 @@ class ModuleConfig
                         ],
                     ],
                     FindPageCmsResource::class => [
-                        'class' => IMPLEMENTATION_REQUIRED::class
+                        'class' => IMPLEMENTATIONisREQUIRED::class
                     ],
                     FindPageCmsResourceBySitePath::class => [
-                        'class' => IMPLEMENTATION_REQUIRED::class
+                        'class' => IMPLEMENTATIONisREQUIRED::class
                     ],
                     FindPageCmsResourcesBy::class => [
-                        'class' => IMPLEMENTATION_REQUIRED::class
+                        'class' => IMPLEMENTATIONisREQUIRED::class
                     ],
                     FindPageVersion::class => [
-                        'class' => IMPLEMENTATION_REQUIRED::class
+                        'class' => IMPLEMENTATIONisREQUIRED::class
                     ],
                     FindPageVersionsBy::class => [
-                        'class' => IMPLEMENTATION_REQUIRED::class
+                        'class' => IMPLEMENTATIONisREQUIRED::class
                     ],
                     FindPageTemplateCmsResourceBySitePath::class => [
-                        'class' => IMPLEMENTATION_REQUIRED::class
+                        'class' => IMPLEMENTATIONisREQUIRED::class
                     ],
                     FindPageTemplateCmsResourcesBy::class => [
-                        'class' => IMPLEMENTATION_REQUIRED::class
+                        'class' => IMPLEMENTATIONisREQUIRED::class
                     ],
                     InsertPageVersion::class => [
-                        'class' => IMPLEMENTATION_REQUIRED::class
+                        'class' => IMPLEMENTATIONisREQUIRED::class
                     ],
                 ],
             ],

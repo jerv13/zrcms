@@ -95,7 +95,7 @@ class Import
      *
      * @return void
      */
-    function __invoke(
+    public function __invoke(
         string $json,
         string $createdByUserId,
         array $options = []

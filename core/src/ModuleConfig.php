@@ -15,7 +15,7 @@ use Zrcms\Core\Api\Component\ReadComponentRegistry;
 use Zrcms\Core\Api\Content\ContentToArray;
 use Zrcms\Core\Api\Content\ContentVersionToArray;
 use Zrcms\Core\Api\GetTypeValue;
-use Zrcms\Core\Exception\IMPLEMENTATION_REQUIRED;
+use Zrcms\Core\Exception\IMPLEMENTATIONisREQUIRED;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -36,64 +36,64 @@ class ModuleConfig
                      * ChangeLog
                      */
                     GetChangeLogByDateRange::class => [
-                        'class' => IMPLEMENTATION_REQUIRED::class
+                        'class' => IMPLEMENTATIONisREQUIRED::class
                     ],
 
                     /**
                      * CmsResource
                      */
                     CmsResourceToArray::class => [
-                        'class' => IMPLEMENTATION_REQUIRED::class
+                        'class' => IMPLEMENTATIONisREQUIRED::class
                     ],
 
                     /**
                      * CmsResourceHistory
                      */
                     CmsResourceHistoryToArray::class => [
-                        'class' => IMPLEMENTATION_REQUIRED::class
+                        'class' => IMPLEMENTATIONisREQUIRED::class
                     ],
 
                     /**
                      * Component
                      */
                     BuildComponentObject::class => [
-                        'class' => IMPLEMENTATION_REQUIRED::class
+                        'class' => IMPLEMENTATIONisREQUIRED::class
                     ],
                     ComponentToArray::class => [
-                        'class' => IMPLEMENTATION_REQUIRED::class
+                        'class' => IMPLEMENTATIONisREQUIRED::class
                     ],
                     FindComponent::class => [
-                        'class' => IMPLEMENTATION_REQUIRED::class
+                        'class' => IMPLEMENTATIONisREQUIRED::class
                     ],
                     FindComponentsBy::class => [
-                        'class' => IMPLEMENTATION_REQUIRED::class
+                        'class' => IMPLEMENTATIONisREQUIRED::class
                     ],
 
                     ReadComponentConfig::class => [
-                        'class' => IMPLEMENTATION_REQUIRED::class
+                        'class' => IMPLEMENTATIONisREQUIRED::class
                     ],
                     ReadComponentConfigs::class => [
-                        'class' => IMPLEMENTATION_REQUIRED::class
+                        'class' => IMPLEMENTATIONisREQUIRED::class
                     ],
                     ReadComponentRegistry::class => [
-                        'class' => IMPLEMENTATION_REQUIRED::class
+                        'class' => IMPLEMENTATIONisREQUIRED::class
                     ],
 
                     /**
                      * Content
                      */
                     ContentToArray::class => [
-                        'class' => IMPLEMENTATION_REQUIRED::class
+                        'class' => IMPLEMENTATIONisREQUIRED::class
                     ],
                     ContentVersionToArray::class => [
-                        'class' => IMPLEMENTATION_REQUIRED::class
+                        'class' => IMPLEMENTATIONisREQUIRED::class
                     ],
 
                     /**
                      * General
                      */
                     GetTypeValue::class => [
-                        'class' => IMPLEMENTATION_REQUIRED::class
+                        'class' => IMPLEMENTATIONisREQUIRED::class
                     ]
                 ],
             ],

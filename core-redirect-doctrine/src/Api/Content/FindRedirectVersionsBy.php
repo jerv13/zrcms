@@ -3,14 +3,15 @@
 namespace Zrcms\CoreRedirectDoctrine\Api\Content;
 
 use Doctrine\ORM\EntityManager;
+use Zrcms\CoreApplicationDoctrine\Api\Content\FindContentVersionsBy;
+use Zrcms\CoreRedirect\Api\Content\FindRedirectVersionsBy as CoreFindBy;
 use Zrcms\CoreRedirect\Model\RedirectVersionBasic;
 use Zrcms\CoreRedirectDoctrine\Entity\RedirectVersionEntity;
-use Zrcms\CoreApplicationDoctrine\Api\Content\FindContentVersionsBy;
 
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class FindRedirectVersionsBy extends FindContentVersionsBy implements \Zrcms\CoreRedirect\Api\Content\FindRedirectVersionsBy
+class FindRedirectVersionsBy extends FindContentVersionsBy implements CoreFindBy
 {
     /**
      * @param EntityManager $entityManager

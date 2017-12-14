@@ -4,17 +4,18 @@ namespace Zrcms\CoreRedirectDoctrine\Api\CmsResource;
 
 use Doctrine\ORM\EntityManager;
 use Zrcms\Core\Model\CmsResource;
+use Zrcms\CoreApplicationDoctrine\Api\CmsResource\FindCmsResource;
+use Zrcms\CoreRedirect\Api\CmsResource\FindRedirectCmsResource as CoreFind;
 use Zrcms\CoreRedirect\Model\RedirectCmsResource;
 use Zrcms\CoreRedirect\Model\RedirectCmsResourceBasic;
 use Zrcms\CoreRedirect\Model\RedirectVersionBasic;
 use Zrcms\CoreRedirectDoctrine\Entity\RedirectCmsResourceEntity;
-use Zrcms\CoreApplicationDoctrine\Api\CmsResource\FindCmsResource;
 use Zrcms\CoreRedirectDoctrine\Entity\RedirectVersionEntity;
 
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class FindRedirectCmsResource extends FindCmsResource implements \Zrcms\CoreRedirect\Api\CmsResource\FindRedirectCmsResource
+class FindRedirectCmsResource extends FindCmsResource implements CoreFind
 {
     /**
      * @param EntityManager $entityManager

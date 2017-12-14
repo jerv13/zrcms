@@ -3,17 +3,18 @@
 namespace Zrcms\CoreContainerDoctrine\Api\CmsResource;
 
 use Doctrine\ORM\EntityManager;
+use Zrcms\CoreApplicationDoctrine\Api\CmsResource\FindCmsResourcesBy;
+use Zrcms\CoreContainer\Api\CmsResource\FindContainerCmsResourcesBy as CoreFindBy;
 use Zrcms\CoreContainer\Model\ContainerCmsResource;
 use Zrcms\CoreContainer\Model\ContainerCmsResourceBasic;
 use Zrcms\CoreContainer\Model\ContainerVersionBasic;
 use Zrcms\CoreContainerDoctrine\Entity\ContainerCmsResourceEntity;
 use Zrcms\CoreContainerDoctrine\Entity\ContainerVersionEntity;
-use Zrcms\CoreApplicationDoctrine\Api\CmsResource\FindCmsResourcesBy;
 
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class FindContainerCmsResourcesBy extends FindCmsResourcesBy implements \Zrcms\CoreContainer\Api\CmsResource\FindContainerCmsResourcesBy
+class FindContainerCmsResourcesBy extends FindCmsResourcesBy implements CoreFindBy
 {
     /**
      * @param EntityManager $entityManager

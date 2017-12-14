@@ -5,29 +5,37 @@ namespace Zrcms\CoreContainerDoctrine\Api\ChangeLog;
 use Zrcms\Core\Model\ActionCmsResource;
 use Zrcms\Core\Model\ChangeLogEvent;
 use Zrcms\Core\Model\ChangeLogEventBasic;
+use Zrcms\CoreApplicationDoctrine\Api\ChangeLog\AbstractGetChangeLogByDateRange;
 use Zrcms\CoreContainer\Model\ContainerCmsResource;
+use Zrcms\CoreContainer\Model\ContainerVersion;
 use Zrcms\CoreContainerDoctrine\Entity\ContainerCmsResourceHistoryEntity;
 use Zrcms\CoreContainerDoctrine\Entity\ContainerVersionEntity;
-use Zrcms\CoreApplicationDoctrine\Api\ChangeLog\AbstractGetChangeLogByDateRange;
 
 class GetChangeLogByDateRange extends AbstractGetChangeLogByDateRange
 {
     protected $entityManger;
 
+    /**
+     * @return string
+     */
     protected function getResourceHistoryEntityName(): string
     {
         return ContainerCmsResourceHistoryEntity::class;
     }
 
+    /**
+     * @return string
+     */
     protected function getVersionEntityName(): string
     {
         return ContainerVersionEntity::class;
     }
 
     /**
-     * @param ContainerVersionEntity $version
+     * @param ContainerVersion $version
      *
      * @return ChangeLogEvent
+     * @throws \Zrcms\Core\Exception\TrackingInvalid
      */
     protected function versionRowToChangeLogEvent($version): ChangeLogEvent
     {
@@ -64,17 +72,16 @@ class GetChangeLogByDateRange extends AbstractGetChangeLogByDateRange
         $contentVersionId = $historyItem->getContentVersionId();
 
         switch ($historyItem->getAction()) {
-            case ActionCmsResource::PUBLISH_RESOURCE_NEW_VERSION;
+            case ActionCmsResource::PUBLISH_RESOURCE_NEW_VERSION:
                 $actionDescription = 'published draft version #' . $contentVersionId . ' to';
                 break;
-            case ActionCmsResource::PUBLISH_RESOURCE_SAME_VERSION;
+            case ActionCmsResource::PUBLISH_RESOURCE_SAME_VERSION:
                 $actionDescription = 'published draft version #' . $contentVersionId . ' to';
                 break;
-            case ActionCmsResource::UNPUBLISH_RESOURCE_NEW_VERSION;
-
+            case ActionCmsResource::UNPUBLISH_RESOURCE_NEW_VERSION:
                 $actionDescription = 'modified an unpublished version of';
                 break;
-            case ActionCmsResource::UNPUBLISH_RESOURCE_SAME_VERSION;
+            case ActionCmsResource::UNPUBLISH_RESOURCE_SAME_VERSION:
                 $actionDescription = 'depublished draft version #' . $contentVersionId . ' from';
                 break;
             default:

@@ -2,7 +2,7 @@
 
 namespace Zrcms\CoreContainer;
 
-use Zrcms\Core\Exception\IMPLEMENTATION_REQUIRED;
+use Zrcms\Core\Exception\IMPLEMENTATIONisREQUIRED;
 use Zrcms\CoreBlock\Api\Render\GetBlockRenderTags;
 use Zrcms\CoreBlock\Api\Render\RenderBlock;
 use Zrcms\CoreBlock\Api\Render\WrapRenderedBlockVersion;
@@ -38,7 +38,7 @@ class ModuleConfig
             'dependencies' => [
                 'config_factories' => [
                     UpsertContainerCmsResource::class => [
-                        'class' => IMPLEMENTATION_REQUIRED::class
+                        'class' => IMPLEMENTATIONisREQUIRED::class
                     ],
                     GetContainerRenderTags::class => [
                         'class' => GetContainerRenderTagsBasic::class,
@@ -67,22 +67,22 @@ class ModuleConfig
                         ],
                     ],
                     FindContainerCmsResource::class => [
-                        'class' => IMPLEMENTATION_REQUIRED::class
+                        'class' => IMPLEMENTATIONisREQUIRED::class
                     ],
                     FindContainerCmsResourcesBy::class => [
-                        'class' => IMPLEMENTATION_REQUIRED::class
+                        'class' => IMPLEMENTATIONisREQUIRED::class
                     ],
                     FindContainerCmsResourcesBySitePaths::class => [
-                        'class' => IMPLEMENTATION_REQUIRED::class
+                        'class' => IMPLEMENTATIONisREQUIRED::class
                     ],
                     FindContainerVersion::class => [
-                        'class' => IMPLEMENTATION_REQUIRED::class
+                        'class' => IMPLEMENTATIONisREQUIRED::class
                     ],
                     FindContainerVersionsBy::class => [
-                        'class' => IMPLEMENTATION_REQUIRED::class
+                        'class' => IMPLEMENTATIONisREQUIRED::class
                     ],
                     InsertContainerVersion::class => [
-                        'class' => IMPLEMENTATION_REQUIRED::class
+                        'class' => IMPLEMENTATIONisREQUIRED::class
                     ],
                     WrapRenderedContainer::class => [
                         'class' => WrapRenderedContainerLegacy::class,

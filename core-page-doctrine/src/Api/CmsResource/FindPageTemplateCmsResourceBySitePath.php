@@ -4,17 +4,18 @@ namespace Zrcms\CorePageDoctrine\Api\CmsResource;
 
 use Doctrine\ORM\EntityManager;
 use Zrcms\Core\Model\CmsResource;
+use Zrcms\CoreApplicationDoctrine\Api\BuildBasicCmsResource;
+use Zrcms\CorePage\Api\CmsResource\FindPageTemplateCmsResourceBySitePath as CoreFindBySitePath;
 use Zrcms\CorePage\Model\PageTemplateCmsResource;
 use Zrcms\CorePage\Model\PageTemplateCmsResourceBasic;
 use Zrcms\CorePage\Model\PageVersionBasic;
 use Zrcms\CorePageDoctrine\Entity\PageTemplateCmsResourceEntity;
 use Zrcms\CorePageDoctrine\Entity\PageVersionEntity;
-use Zrcms\CoreApplicationDoctrine\Api\BuildBasicCmsResource;
 
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class FindPageTemplateCmsResourceBySitePath implements \Zrcms\CorePage\Api\CmsResource\FindPageTemplateCmsResourceBySitePath
+class FindPageTemplateCmsResourceBySitePath implements CoreFindBySitePath
 {
     /**
      * @var EntityManager
@@ -67,7 +68,8 @@ class FindPageTemplateCmsResourceBySitePath implements \Zrcms\CorePage\Api\CmsRe
      * @param bool   $published
      * @param array  $options
      *
-     * @return PageTemplateCmsResource|CmsResource|null
+     * @return null|CmsResource|\Zrcms\CorePage\Model\PageCmsResource
+     * @throws \Exception
      */
     public function __invoke(
         string $siteCmsResourceId,

@@ -5,6 +5,7 @@ namespace Zrcms\CoreThemeDoctrine\Api\CmsResource;
 use Doctrine\ORM\EntityManager;
 use Zrcms\Core\Model\CmsResource;
 use Zrcms\CoreApplicationDoctrine\Api\CmsResource\UpsertCmsResource;
+use Zrcms\CoreTheme\Api\CmsResource\UpsertLayoutCmsResource as CoreUpsert;
 use Zrcms\CoreTheme\Model\LayoutCmsResource;
 use Zrcms\CoreTheme\Model\LayoutCmsResourceBasic;
 use Zrcms\CoreTheme\Model\LayoutVersionBasic;
@@ -15,7 +16,7 @@ use Zrcms\CoreThemeDoctrine\Entity\LayoutVersionEntity;
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class UpsertLayoutCmsResource extends UpsertCmsResource implements \Zrcms\CoreTheme\Api\CmsResource\UpsertLayoutCmsResource
+class UpsertLayoutCmsResource extends UpsertCmsResource implements CoreUpsert
 {
     /**
      * @param EntityManager $entityManager
@@ -36,9 +37,9 @@ class UpsertLayoutCmsResource extends UpsertCmsResource implements \Zrcms\CoreTh
 
     /**
      * @param LayoutCmsResource|CmsResource $cmsResource
-     * @param string                          $modifiedByUserId
-     * @param string                          $modifiedReason
-     * @param null                            $modifiedDate
+     * @param string                        $modifiedByUserId
+     * @param string                        $modifiedReason
+     * @param null                          $modifiedDate
      *
      * @return LayoutCmsResource|CmsResource
      */

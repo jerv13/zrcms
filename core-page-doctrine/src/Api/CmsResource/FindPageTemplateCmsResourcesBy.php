@@ -3,17 +3,18 @@
 namespace Zrcms\CorePageDoctrine\Api\CmsResource;
 
 use Doctrine\ORM\EntityManager;
-use Zrcms\CorePage\Model\PageVersionBasic;
+use Zrcms\CoreApplicationDoctrine\Api\CmsResource\FindCmsResourcesBy;
+use Zrcms\CorePage\Api\CmsResource\FindPageTemplateCmsResourcesBy as CoreFindBy;
 use Zrcms\CorePage\Model\PageTemplateCmsResource;
 use Zrcms\CorePage\Model\PageTemplateCmsResourceBasic;
-use Zrcms\CorePageDoctrine\Entity\PageVersionEntity;
+use Zrcms\CorePage\Model\PageVersionBasic;
 use Zrcms\CorePageDoctrine\Entity\PageTemplateCmsResourceEntity;
-use Zrcms\CoreApplicationDoctrine\Api\CmsResource\FindCmsResourcesBy;
+use Zrcms\CorePageDoctrine\Entity\PageVersionEntity;
 
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class FindPageTemplateCmsResourcesBy extends FindCmsResourcesBy implements \Zrcms\CorePage\Api\CmsResource\FindPageTemplateCmsResourcesBy
+class FindPageTemplateCmsResourcesBy extends FindCmsResourcesBy implements CoreFindBy
 {
     /**
      * @param EntityManager $entityManager

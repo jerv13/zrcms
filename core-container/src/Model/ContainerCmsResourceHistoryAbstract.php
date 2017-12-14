@@ -12,25 +12,30 @@ use Zrcms\Core\Model\CmsResourceHistoryAbstract;
 abstract class ContainerCmsResourceHistoryAbstract extends CmsResourceHistoryAbstract
 {
     /**
-     * @param string|null $id
+     * @param             $id
      * @param string      $action
      * @param CmsResource $cmsResource
      * @param string      $publishedByUserId
      * @param string      $publishReason
+     * @param null        $publishDate
+     *
+     * @throws \Zrcms\Core\Exception\TrackingInvalid
      */
     public function __construct(
         $id,
         string $action,
         CmsResource $cmsResource,
         string $publishedByUserId,
-        string $publishReason
+        string $publishReason,
+        $publishDate = null
     ) {
         parent::__construct(
             $id,
             $action,
             $cmsResource,
             $publishedByUserId,
-            $publishedByUserId
+            $publishReason,
+            $publishDate
         );
     }
 
