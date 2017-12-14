@@ -19,10 +19,13 @@ class FieldsBlockComponent extends FieldsComponent
     const FIELDS = 'fields';
     const TEMPLATE_FILE = 'templateFile';
 
+    const JAVASCRIPT = 'js';
+    const CSS = 'css';
+
     // client only
     const ICON = 'icon';
     const EDITOR = 'editor';
-    const CATEGORY = 'type';
+    const CATEGORY = 'category';
     const LABEL = 'label';
     const DESCRIPTION = 'description';
 

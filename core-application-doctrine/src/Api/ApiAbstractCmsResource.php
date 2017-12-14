@@ -3,7 +3,6 @@
 namespace Zrcms\CoreApplicationDoctrine\Api;
 
 use Doctrine\ORM\EntityManager;
-use Zrcms\Core\Model\CmsResource;
 use Zrcms\CoreApplicationDoctrine\Entity\CmsResourceEntity;
 
 /**
@@ -48,6 +47,8 @@ abstract class ApiAbstractCmsResource extends ApiAbstract
      * @param string        $entityClassContentVersion
      * @param string        $classContentVersionBasic
      * @param array         $contentVersionSyncToProperties
+     *
+     * @throws \Zrcms\CoreApplicationDoctrine\Exception\InvalidEntityException
      */
     public function __construct(
         EntityManager $entityManager,

@@ -5,13 +5,13 @@ namespace Zrcms\CoreContainerDoctrine\Api\ChangeLog;
 use Zrcms\Core\Model\ActionCmsResource;
 use Zrcms\Core\Model\ChangeLogEvent;
 use Zrcms\Core\Model\ChangeLogEventBasic;
-use Zrcms\CoreApplicationDoctrine\Api\ChangeLog\AbstractGetChangeLogByDateRange;
+use Zrcms\CoreApplicationDoctrine\Api\ChangeLog\GetChangeLogByDateRangeAbstract as CoreGetChangLogAbstract;
 use Zrcms\CoreContainer\Model\ContainerCmsResource;
 use Zrcms\CoreContainer\Model\ContainerVersion;
 use Zrcms\CoreContainerDoctrine\Entity\ContainerCmsResourceHistoryEntity;
 use Zrcms\CoreContainerDoctrine\Entity\ContainerVersionEntity;
 
-class GetChangeLogByDateRange extends AbstractGetChangeLogByDateRange
+class GetChangeLogByDateRangeAbstract extends CoreGetChangLogAbstract
 {
     protected $entityManger;
 

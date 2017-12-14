@@ -9,7 +9,7 @@ use Zrcms\Core\Model\ChangeLogEvent;
 /**
  * @author Rod McNew
  */
-abstract class AbstractGetChangeLogByDateRange implements GetChangeLogByDateRange
+abstract class GetChangeLogByDateRangeAbstract implements GetChangeLogByDateRange
 {
     protected $entityManger;
 

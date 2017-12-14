@@ -7,19 +7,21 @@ use Psr\Container\ContainerInterface;
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class GetHeadSectionsFactory
+class GetAvailableHeadSectionsFactory
 {
     /**
      * @param ContainerInterface $serviceContainer
      *
-     * @return GetHeadSections
+     * @return GetAvailableHeadSections
+     * @throws \Psr\Container\ContainerExceptionInterface
+     * @throws \Psr\Container\NotFoundExceptionInterface
      */
     public function __invoke(
         $serviceContainer
     ) {
         $config = $serviceContainer->get('Config');
 
-        return new GetHeadSections(
+        return new GetAvailableHeadSections(
             $config['zrcms-head-available-sections']
         );
     }

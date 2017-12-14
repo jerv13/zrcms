@@ -5,7 +5,7 @@ namespace Zrcms\ViewHead\Api;
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class GetHeadSections
+class GetAvailableHeadSections
 {
     /**
      * @var array

@@ -5,6 +5,7 @@ namespace Zrcms\CoreApplicationDoctrine\Api\CmsResource;
 use Zrcms\Core\Model\CmsResource;
 use Zrcms\CoreApplicationDoctrine\Api\ApiAbstractCmsResource;
 use Zrcms\CoreApplicationDoctrine\Api\BuildBasicCmsResource;
+use Zrcms\CoreApplicationDoctrine\Entity\CmsResourceEntity;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -15,7 +16,8 @@ class FindCmsResource extends ApiAbstractCmsResource implements \Zrcms\Core\Api\
      * @param string $id
      * @param array  $options
      *
-     * @return CmsResource|null
+     * @return null|CmsResource
+     * @throws \Exception
      */
     public function __invoke(
         string $id,
@@ -25,6 +27,7 @@ class FindCmsResource extends ApiAbstractCmsResource implements \Zrcms\Core\Api\
             $this->entityClassCmsResource
         );
 
+        /** @var CmsResourceEntity $entity */
         $entity = $repository->find($id);
 
         return BuildBasicCmsResource::invoke(

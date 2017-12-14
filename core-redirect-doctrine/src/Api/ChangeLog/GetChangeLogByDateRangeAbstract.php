@@ -5,12 +5,12 @@ namespace Zrcms\CoreRedirectDoctrine\Api\ChangeLog;
 use Zrcms\Core\Model\ActionCmsResource;
 use Zrcms\Core\Model\ChangeLogEvent;
 use Zrcms\Core\Model\ChangeLogEventBasic;
-use Zrcms\CoreApplicationDoctrine\Api\ChangeLog\AbstractGetChangeLogByDateRange;
+use Zrcms\CoreApplicationDoctrine\Api\ChangeLog\GetChangeLogByDateRangeAbstract as CoreGetChangLogAbstract;
 use Zrcms\CoreRedirectDoctrine\Entity\RedirectCmsResourceEntity;
 use Zrcms\CoreRedirectDoctrine\Entity\RedirectCmsResourceHistoryEntity;
 use Zrcms\CoreRedirectDoctrine\Entity\RedirectVersionEntity;
 
-class GetChangeLogByDateRange extends AbstractGetChangeLogByDateRange
+class GetChangeLogByDateRangeAbstract extends CoreGetChangLogAbstract
 {
     protected $entityManger;
 

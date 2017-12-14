@@ -19,6 +19,8 @@ class FindContainerCmsResource extends FindCmsResource implements CoreFind
 {
     /**
      * @param EntityManager $entityManager
+     *
+     * @throws \Zrcms\CoreApplicationDoctrine\Exception\InvalidEntityException
      */
     public function __construct(
         EntityManager $entityManager
@@ -37,7 +39,8 @@ class FindContainerCmsResource extends FindCmsResource implements CoreFind
      * @param string $id
      * @param array  $options
      *
-     * @return ContainerCmsResource|CmsResource|null
+     * @return null|CmsResource|ContainerCmsResource
+     * @throws \Exception
      */
     public function __invoke(
         string $id,

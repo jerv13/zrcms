@@ -3,7 +3,6 @@
 namespace Zrcms\CoreApplication;
 
 use Zrcms\Cache\Service\Cache;
-use Zrcms\Core\Api\ChangeLog\GetChangeLogByDateRange;
 use Zrcms\Core\Api\CmsResource\CmsResourceToArray;
 use Zrcms\Core\Api\CmsResourceHistory\CmsResourceHistoryToArray;
 use Zrcms\Core\Api\Component\BuildComponentObject;
@@ -20,9 +19,6 @@ use Zrcms\Core\Api\GetTypeValue;
 use Zrcms\Core\Model\Component;
 use Zrcms\Core\Model\ComponentBasic;
 use Zrcms\Core\Model\ServiceAliasComponent;
-use Zrcms\CoreApplication\Api\ChangeLog\ChangeLogEventToString;
-use Zrcms\CoreApplication\Api\ChangeLog\GetContentChangeLogComposite;
-use Zrcms\CoreApplication\Api\ChangeLog\GetHumanReadableChangeLogByDateRange;
 use Zrcms\CoreApplication\Api\CmsResource\CmsResourceToArrayBasic;
 use Zrcms\CoreApplication\Api\CmsResourceHistory\CmsResourceHistoryToArrayBasic;
 use Zrcms\CoreApplication\Api\Component\BuildComponentObjectByType;

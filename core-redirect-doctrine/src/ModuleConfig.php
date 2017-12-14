@@ -29,7 +29,7 @@ class ModuleConfig
             'dependencies' => [
                 'config_factories' => [
                     GetChangeLogByDateRange::class => [
-                        'class' => \Zrcms\CoreRedirectDoctrine\Api\ChangeLog\GetChangeLogByDateRange::class,
+                        'class' => \Zrcms\CoreRedirectDoctrine\Api\ChangeLog\GetChangeLogByDateRangeAbstract::class,
                         'arguments' => [EntityManager::class]
                     ],
                     UpsertRedirectCmsResource::class => [

@@ -3,54 +3,30 @@
 namespace Zrcms\ViewHead\Api\Render;
 
 use Psr\Http\Message\ServerRequestInterface;
-use Zrcms\CoreView\Api\Render\GetViewLayoutTags;
-use Zrcms\CoreView\Model\ServiceAliasView;
 use Zrcms\CoreView\Model\View;
 use Zrcms\Param\Param;
-use Zrcms\ServiceAlias\Api\GetServiceFromAlias;
-use Zrcms\ServiceAlias\ServiceCheck;
-use Zrcms\ViewHead\Api\GetHeadSections;
-use Zrcms\ViewHtmlTags\Api\Render\RenderTag;
+use Zrcms\ViewHead\Api\GetAvailableHeadSections;
 
 /**
  * @author James Jervis - https://github.com/jerv13
  */
 class RenderHeadSectionsTagBasic implements RenderHeadSectionsTag
 {
-    /**
-     * @var RenderTag
-     */
-    protected $renderTag;
+    const OPTION_VIEW = 'zrcms-view';
+
+    protected $getAvailableHeadSections;
+    protected $renderHeadSectionTag;
 
     /**
-     * @var GetHeadSections
-     */
-    protected $getHeadSections;
-
-    /**
-     * @var GetServiceFromAlias
-     */
-    protected $getServiceFromAlias;
-
-    /**
-     * @var string
-     */
-    protected $serviceAliasNamespace;
-
-    /**
-     * @param RenderTag           $renderTag
-     * @param GetHeadSections     $getHeadSections
-     * @param GetServiceFromAlias $getServiceFromAlias
+     * @param GetAvailableHeadSections $getAvailableHeadSections
+     * @param RenderHeadSectionTag     $renderHeadSectionTag
      */
     public function __construct(
-        RenderTag $renderTag,
-        GetHeadSections $getHeadSections,
-        GetServiceFromAlias $getServiceFromAlias
+        GetAvailableHeadSections $getAvailableHeadSections,
+        RenderHeadSectionTag $renderHeadSectionTag
     ) {
-        $this->renderTag = $renderTag;
-        $this->getHeadSections = $getHeadSections;
-        $this->getServiceFromAlias = $getServiceFromAlias;
-        $this->serviceAliasNamespace = ServiceAliasView::ZRCMS_COMPONENT_VIEW_LAYOUT_TAGS_GETTER;
+        $this->getAvailableHeadSections = $getAvailableHeadSections;
+        $this->renderHeadSectionTag = $renderHeadSectionTag;
     }
 
     /**
@@ -61,6 +37,7 @@ class RenderHeadSectionsTagBasic implements RenderHeadSectionsTag
      * @param array                  $options
      *
      * @return string
+     * @throws \Zrcms\ViewHead\Api\Exception\CanNotRenderHeadSectionTag
      */
     public function __invoke(
         View $view,
@@ -70,7 +47,7 @@ class RenderHeadSectionsTagBasic implements RenderHeadSectionsTag
         array $options = []
     ): string {
         $debug = Param::getBool($options, 'debug', true);
-        $orderedSections = $this->getHeadSections->__invoke();
+        $orderedSections = $this->getAvailableHeadSections->__invoke();
         $html = '';
 
         if ($debug) {
@@ -84,9 +61,10 @@ class RenderHeadSectionsTagBasic implements RenderHeadSectionsTag
                 $html .= "    <!-- *** {$debugSectionName} *** -->\n";
             }
             if (!array_key_exists($sectionName, $sections)) {
+                // @todo Should throw?
                 continue;
             }
-            $html .= $this->renderSection($view, $request, $tag, $sections[$sectionName]);
+            $html .= $this->renderSectionTags($view, $request, $tag, $sections[$sectionName], $options);
         }
 
         return $html;
@@ -100,98 +78,32 @@ class RenderHeadSectionsTagBasic implements RenderHeadSectionsTag
      * @param array                  $options
      *
      * @return string
+     * @throws \Zrcms\ViewHead\Api\Exception\CanNotRenderHeadSectionTag
      */
-    protected function renderSection(
+    protected function renderSectionTags(
         View $view,
         ServerRequestInterface $request,
         string $tag,
         array $section,
         array $options = []
     ): string {
-        $indent = Param::getString(
-            $options,
-            RenderTag::OPTION_INDENT,
-            '    '
-        );
-        $lineBreak = Param::getString(
-            $options,
-            RenderTag::OPTION_LINE_BREAK,
-            "\n"
-        );
+        $options[self::OPTION_VIEW] = $view;
 
         $html = '';
         /**
-         * @var string       $name
+         * @var string       $sectionName
          * @var array|string $attributes
          */
-        foreach ($section as $name => $attributes) {
-            // literal - Render a string as it is in the config
-            if (array_key_exists('__literal', $attributes)) {
-                $html .= $indent . (string)$attributes['__literal'] . $lineBreak;
-                continue;
-            }
-
-            // view-layout-tags-getter - Render from another tags getter
-            if (array_key_exists('__view-layout-tags-getter', $attributes)) {
-
-                /** @var GetViewLayoutTags $getViewLayoutTags */
-                $getViewLayoutTags = $this->getServiceFromAlias->__invoke(
-                    $this->serviceAliasNamespace,
-                    $attributes['__view-layout-tags-getter'],
-                    GetViewLayoutTags::class,
-                    ''
-                );
-
-                ServiceCheck::assertNotSelfReference($this, $getViewLayoutTags);
-
-                $viewLayoutTags = $getViewLayoutTags->__invoke(
-                    $view,
-                    $request,
-                    $options
-                );
-
-                foreach ($viewLayoutTags as $viewLayoutTagHtml) {
-                    $html .= $indent . $viewLayoutTagHtml . $lineBreak;
-                }
-
-                continue;
-            }
-
-            // general - Render from a tag configuration
-            $contentHtml = null;
-            if (array_key_exists('__content', $attributes)) {
-                $contentHtml = (string)$attributes['__content'];
-            }
-
-            $attributes = $this->cleanAttributes($attributes);
-
-            $html .= $this->renderTag->__invoke(
-                [
-                    'tag' => $tag,
-                    'attributes' => $attributes,
-                    'content' => $contentHtml
-                ],
-                [RenderTag::OPTION_INDENT => $indent]
+        foreach ($section as $sectionEntryName => $attributes) {
+            $html .= $this->renderHeadSectionTag->__invoke(
+                $request,
+                $tag,
+                $sectionEntryName,
+                $attributes,
+                $options
             );
         }
 
         return $html;
-    }
-
-    /**
-     * @param $attributes
-     *
-     * @return mixed
-     */
-    protected function cleanAttributes($attributes)
-    {
-
-        foreach ($attributes as $key => $attribute) {
-            if (strpos($key, '__')) {
-                unset($attributes[$key]);
-            }
-        }
-
-        return $attributes;
     }
 }

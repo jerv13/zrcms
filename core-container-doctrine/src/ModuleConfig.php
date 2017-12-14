@@ -24,7 +24,7 @@ class ModuleConfig
             'dependencies' => [
                 'config_factories' => [
                     GetChangeLogByDateRange::class => [
-                        'class' => \Zrcms\CoreContainerDoctrine\Api\ChangeLog\GetChangeLogByDateRange::class,
+                        'class' => \Zrcms\CoreContainerDoctrine\Api\ChangeLog\GetChangeLogByDateRangeAbstract::class,
                         'arguments' => [EntityManager::class]
                     ],
                     UpsertContainerCmsResource::class => [

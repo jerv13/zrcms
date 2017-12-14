@@ -3,7 +3,6 @@
 namespace Zrcms\CoreApplicationDoctrine\Api;
 
 use Zrcms\Core\Model\CmsResource;
-use Zrcms\Core\Model\CmsResourceBasic;
 use Zrcms\CoreApplicationDoctrine\Entity\CmsResourceEntity;
 
 /**
@@ -86,6 +85,7 @@ class BuildBasicCmsResource
      * @param array                  $contentVersionSyncToProperties
      *
      * @return CmsResource
+     * @throws \Exception
      */
     public function __invoke(
         string $entityClassCmsResource,

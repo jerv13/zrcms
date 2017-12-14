@@ -13,11 +13,14 @@ use Zrcms\Param\Param;
 abstract class BlockVersionAbstract extends ContentVersionAbstract
 {
     /**
-     * @param null|string $id
-     * @param array       $properties
-     * @param string      $createdByUserId
-     * @param string      $createdReason
-     * @param null        $createdDate
+     * @param        $id
+     * @param array  $properties
+     * @param string $createdByUserId
+     * @param string $createdReason
+     * @param null   $createdDate
+     *
+     * @throws \Exception
+     * @throws \Zrcms\Param\Exception\ParamMissing
      */
     public function __construct(
         $id,

@@ -17,9 +17,14 @@
         ],
         
     - Find service that end in "Basic" that determine the service to use and rename to ByStrategy
-    
+"javascript": [
+    "global:/public/my.js",
+    "admin:/public/my-admin.js"
+]
 
 #### ToDo ####
+
+- GetViewByRequest as composite with priority?
 
 - SitePages: Service for getting url list from page, product pages, etc... (site map??)
     - NOTE: this can use FindPageCmsResourcesBy and the existing API when it is written
@@ -61,6 +66,8 @@
 - Doctrine FindXXXsBy need to be made to work better with properties
     
 - Check and update all composer dependencies
+
+- FindCmsResourceByDateRange, FindContentVersionByDateRange interface
     
 Features
 --------
