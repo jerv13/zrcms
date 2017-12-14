@@ -70,8 +70,7 @@ class GetViewLayoutTagsContainers implements GetViewLayoutTags
         Content $view,
         ServerRequestInterface $request,
         array $options = []
-    ): array
-    {
+    ): array {
         $siteCmsResource = $view->getSiteCmsResource();
 
         $layout = $view->getLayoutCmsResource()->getContentVersion();

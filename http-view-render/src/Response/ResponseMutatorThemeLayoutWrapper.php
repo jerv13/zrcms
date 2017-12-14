@@ -159,8 +159,7 @@ class ResponseMutatorThemeLayoutWrapper
     protected function canHandleResponse(
         ServerRequestInterface $request,
         ResponseInterface $response
-    ):bool
-    {
+    ):bool {
         if ($response instanceof ZrcmsHtmlResponse) {
             $renderLayout = $response->findProperty(
                 ZrcmsHtmlResponse::PROPERTY_RENDER_LAYOUT,

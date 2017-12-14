@@ -81,6 +81,6 @@ class NotFoundStatusPage
             }
         );
 
-        return $response->withAddedHeader('zrcms-final','NotFoundStatusPage');
+        return $response->withAddedHeader('zrcms-final', 'NotFoundStatusPage');
     }
 }

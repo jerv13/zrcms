@@ -11,9 +11,7 @@ use Zrcms\CoreApplicationDoctrine\Api\Content\FindContentVersion;
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class FindRedirectVersion
-    extends FindContentVersion
-    implements \Zrcms\CoreRedirect\Api\Content\FindRedirectVersion
+class FindRedirectVersion extends FindContentVersion implements \Zrcms\CoreRedirect\Api\Content\FindRedirectVersion
 {
     /**
      * @param EntityManager $entityManager

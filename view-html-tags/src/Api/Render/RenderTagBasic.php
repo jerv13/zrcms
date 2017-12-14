@@ -47,8 +47,7 @@ class RenderTagBasic implements RenderTag
     public function __invoke(
         array $tagData,
         array $options = []
-    ): string
-    {
+    ): string {
         $tag = Param::getRequired($tagData, 'tag');
         $attributes = Param::getArray($tagData, 'attributes', []);
         $contentHtml = Param::getString($tagData, 'content', '');
@@ -95,8 +94,7 @@ class RenderTagBasic implements RenderTag
         $contentHtml = null,
         string $indent = '',
         string $lineBreak = "\n"
-    ): string
-    {
+    ): string {
         $attributeHtml = $this->buildAttributes($attributes);
 
         if (!$this->canSelfClose($tag, $contentHtml)) {

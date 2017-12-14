@@ -10,9 +10,7 @@ use Zrcms\CoreApplicationDoctrine\Api\Content\FindContentVersionsBy;
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class FindLayoutVersionsBy
-    extends FindContentVersionsBy
-    implements \Zrcms\CoreTheme\Api\Content\FindLayoutVersionsBy
+class FindLayoutVersionsBy extends FindContentVersionsBy implements \Zrcms\CoreTheme\Api\Content\FindLayoutVersionsBy
 {
     /**
      * @param EntityManager $entityManager

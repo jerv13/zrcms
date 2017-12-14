@@ -36,8 +36,7 @@ class IsAllowedRelivServerEnvironment implements IsAllowed
     public function __invoke(
         ServerRequestInterface $request,
         array $options = []
-    ): bool
-    {
+    ): bool {
         $environment = Environment::getInstance()->getName();
 
         $allowEnvironments = Param::getArray(

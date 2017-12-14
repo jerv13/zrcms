@@ -11,9 +11,7 @@ use Zrcms\CoreApplicationDoctrine\Exception\IdMustBeEmptyException;
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class InsertContentVersion
-    extends ApiAbstractContentVersion
-    implements \Zrcms\Core\Api\Content\InsertContentVersion
+class InsertContentVersion extends ApiAbstractContentVersion implements \Zrcms\Core\Api\Content\InsertContentVersion
 {
     /**
      * @param ContentVersion $contentVersion
@@ -25,8 +23,7 @@ class InsertContentVersion
     public function __invoke(
         ContentVersion $contentVersion,
         array $options = []
-    ): ContentVersion
-    {
+    ): ContentVersion {
         /** @var ContentEntity::class $contentVersionEntityClass */
         $contentVersionEntityClass = $this->entityClassContentVersion;
 

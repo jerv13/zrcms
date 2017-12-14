@@ -51,8 +51,7 @@ class GetTagNamesByLayoutBasic implements GetTagNamesByLayout
     public function __invoke(
         Layout $layout,
         array $options = []
-    ): array
-    {
+    ): array {
         $findTagNamesServiceAlias = $layout->findDefaultIfEmptyProperty(
             FieldsLayout::RENDER_TAG_NAME_PARSER,
             ''

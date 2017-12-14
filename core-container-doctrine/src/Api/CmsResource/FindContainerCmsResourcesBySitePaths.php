@@ -14,8 +14,7 @@ use Zrcms\Param\Param;
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class FindContainerCmsResourcesBySitePaths
-    implements \Zrcms\CoreContainer\Api\CmsResource\FindContainerCmsResourcesBySitePaths
+class FindContainerCmsResourcesBySitePaths implements \Zrcms\CoreContainer\Api\CmsResource\FindContainerCmsResourcesBySitePaths
 {
     /**
      * @var EntityManager
@@ -75,8 +74,7 @@ class FindContainerCmsResourcesBySitePaths
         array $containerCmsResourcePaths,
         bool $published = true,
         array $options = []
-    ): array
-    {
+    ): array {
         $pathParams = [];
 
         // @todo Add prepared statements not concat

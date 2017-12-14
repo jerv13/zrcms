@@ -14,9 +14,7 @@ use Zrcms\CoreApplicationDoctrine\Entity\ContentEntity;
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class UpsertCmsResource
-    extends ApiAbstract
-    implements \Zrcms\Core\Api\CmsResource\UpsertCmsResource
+class UpsertCmsResource extends ApiAbstract implements \Zrcms\Core\Api\CmsResource\UpsertCmsResource
 {
     /**
      * @var EntityManager
@@ -109,8 +107,7 @@ class UpsertCmsResource
         string $modifiedByUserId,
         string $modifiedReason,
         $modifiedDate = null
-    ): CmsResource
-    {
+    ): CmsResource {
         $isNewContent = false;
         $contentEntity = $this->fetchContentEntity(
             $cmsResource
@@ -220,8 +217,7 @@ class UpsertCmsResource
     protected function newCmsResourceEntity(
         CmsResource $cmsResource,
         ContentEntity $contentEntity
-    ): CmsResourceEntity
-    {
+    ): CmsResourceEntity {
         $entityClass = $this->entityClassCmsResource;
 
         /** @var CmsResourceEntity $cmsResourceEntity */
@@ -273,8 +269,7 @@ class UpsertCmsResource
      */
     protected function newContentEntity(
         CmsResource $cmsResource
-    ): ContentEntity
-    {
+    ): ContentEntity {
         $contentVersion = $cmsResource->getContentVersion();
 
         $entityClass = $this->entityClassContentVersion;
@@ -306,8 +301,7 @@ class UpsertCmsResource
         string $modifiedByUserId,
         string $modifiedReason,
         $modifiedDate = null
-    ):CmsResourceHistoryEntity
-    {
+    ):CmsResourceHistoryEntity {
         /** @var CmsResourceHistoryEntity::class $cmsResourceHistoryEntityClass */
         $cmsResourceHistoryEntityClass = $this->entityClassCmsResourceHistory;
 

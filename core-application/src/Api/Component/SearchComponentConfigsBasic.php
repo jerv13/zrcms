@@ -18,8 +18,7 @@ class SearchComponentConfigsBasic implements SearchComponentConfigs
     public function __invoke(
         array $componentConfigs,
         array $criteria = []
-    ):array
-    {
+    ):array {
         $result = [];
 
         foreach ($componentConfigs as $componentConfig) {

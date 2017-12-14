@@ -153,7 +153,8 @@ class ViewControllerTest
 
         var_dump(
             $route->getOptions()
-        ); die;
+        );
+        die;
 
         $siteVersion = new SiteVersionBasic(
             'testID',

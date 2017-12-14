@@ -42,6 +42,4 @@ interface ThemeComponent extends Component
     public function hasLayoutVariation(
         string $name
     ): bool;
-
-
 }

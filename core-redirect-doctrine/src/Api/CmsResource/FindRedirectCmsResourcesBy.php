@@ -13,9 +13,7 @@ use Zrcms\CoreRedirectDoctrine\Entity\RedirectVersionEntity;
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class FindRedirectCmsResourcesBy
-    extends FindCmsResourcesBy
-    implements \Zrcms\CoreRedirect\Api\CmsResource\FindRedirectCmsResourcesBy
+class FindRedirectCmsResourcesBy extends FindCmsResourcesBy implements \Zrcms\CoreRedirect\Api\CmsResource\FindRedirectCmsResourcesBy
 {
     /**
      * @param EntityManager $entityManager
@@ -47,8 +45,7 @@ class FindRedirectCmsResourcesBy
         $limit = null,
         $offset = null,
         array $options = []
-    ): array
-    {
+    ): array {
         return parent::__invoke(
             $criteria,
             $orderBy,

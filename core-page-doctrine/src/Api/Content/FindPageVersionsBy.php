@@ -10,9 +10,7 @@ use Zrcms\CoreApplicationDoctrine\Api\Content\FindContentVersionsBy;
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class FindPageVersionsBy
-    extends FindContentVersionsBy
-    implements \Zrcms\CorePage\Api\Content\FindPageVersionsBy
+class FindPageVersionsBy extends FindContentVersionsBy implements \Zrcms\CorePage\Api\Content\FindPageVersionsBy
 {
     /**
      * @param EntityManager $entityManager
@@ -42,8 +40,7 @@ class FindPageVersionsBy
         $limit = null,
         $offset = null,
         array $options = []
-    ): array
-    {
+    ): array {
         return parent::__invoke(
             $criteria,
             $orderBy,

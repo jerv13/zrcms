@@ -44,8 +44,7 @@ class RenderContainerRows implements RenderContainer
         Content $container,
         array $renderTags,
         array $options = []
-    ): string
-    {
+    ): string {
         $comment = Param::get(
             $options,
             'comment',

@@ -14,9 +14,7 @@ use Zrcms\CoreApplicationDoctrine\Api\CmsResource\FindCmsResource;
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class FindSiteCmsResource
-    extends FindCmsResource
-    implements \Zrcms\CoreSite\Api\CmsResource\FindSiteCmsResource
+class FindSiteCmsResource extends FindCmsResource implements \Zrcms\CoreSite\Api\CmsResource\FindSiteCmsResource
 {
     /**
      * @param EntityManager $entityManager

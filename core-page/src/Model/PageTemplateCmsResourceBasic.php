@@ -7,9 +7,7 @@ use Zrcms\Core\Model\ContentVersion;
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class PageTemplateCmsResourceBasic
-    extends PageTemplateCmsResourceAbstract
-    implements PageTemplateCmsResource
+class PageTemplateCmsResourceBasic extends PageTemplateCmsResourceAbstract implements PageTemplateCmsResource
 {
     /**
      * @param null|string                $id

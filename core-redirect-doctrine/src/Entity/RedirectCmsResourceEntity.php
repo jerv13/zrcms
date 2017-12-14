@@ -21,9 +21,7 @@ use Zrcms\CoreApplicationDoctrine\Entity\ContentEntity;
  *     }
  * )
  */
-class RedirectCmsResourceEntity
-    extends CmsResourceEntityAbstract
-    implements CmsResourceEntity
+class RedirectCmsResourceEntity extends CmsResourceEntityAbstract implements CmsResourceEntity
 {
     /**
      * @var int

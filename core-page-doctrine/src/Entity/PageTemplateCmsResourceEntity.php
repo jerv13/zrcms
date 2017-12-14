@@ -23,9 +23,7 @@ use Zrcms\CoreApplicationDoctrine\Entity\ContentEntity;
  *     }
  * )
  */
-class PageTemplateCmsResourceEntity
-    extends CmsResourceEntityAbstract
-    implements CmsResourceEntity
+class PageTemplateCmsResourceEntity extends CmsResourceEntityAbstract implements CmsResourceEntity
 {
     /**
      * @var int

@@ -33,8 +33,7 @@ class GetUserIdByRequestRcmUser implements GetUserIdByRequest
     public function __invoke(
         ServerRequestInterface $request,
         array $options = []
-    ): string
-    {
+    ): string {
         // @todo User the request to get this user
 
         $user = $this->rcmUserService->getCurrentUser();

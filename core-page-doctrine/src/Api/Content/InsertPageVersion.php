@@ -12,9 +12,7 @@ use Zrcms\CoreApplicationDoctrine\Api\Content\InsertContentVersion;
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class InsertPageVersion
-    extends InsertContentVersion
-    implements \Zrcms\CorePage\Api\Content\InsertPageVersion
+class InsertPageVersion extends InsertContentVersion implements \Zrcms\CorePage\Api\Content\InsertPageVersion
 {
     /**
      * @param EntityManager $entityManager
@@ -38,8 +36,7 @@ class InsertPageVersion
     public function __invoke(
         ContentVersion $pageVersion,
         array $options = []
-    ): ContentVersion
-    {
+    ): ContentVersion {
         return parent::__invoke(
             $pageVersion,
             $options

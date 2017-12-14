@@ -8,8 +8,7 @@ use Zrcms\Core\Model\ContentVersion;
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-interface PageTemplateCmsResourceHistory
-    extends PageCmsResourceHistory
+interface PageTemplateCmsResourceHistory extends PageCmsResourceHistory
 {
     /**
      * @return PageTemplateCmsResource|CmsResource

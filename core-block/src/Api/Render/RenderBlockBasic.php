@@ -72,8 +72,7 @@ class RenderBlockBasic implements RenderBlock
         Content $block,
         array $renderTags,
         array $options = []
-    ): string
-    {
+    ): string {
         /** @var BlockComponent $blockComponent */
         $blockComponent = $this->findComponent->__invoke(
             'block',

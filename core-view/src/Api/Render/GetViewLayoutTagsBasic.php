@@ -82,7 +82,6 @@ class GetViewLayoutTagsBasic implements GetViewLayoutTags
         // @todo Only invoke the services that have tags in the layout
         /** @var GetViewLayoutTags $getViewLayoutTags */
         foreach ($viewLayoutTagsGetterServiceAliases as $name => $viewLayoutTagsGetterServiceAlias) {
-
             // Duplicate check
             if (in_array($viewLayoutTagsGetterServiceAlias, $serviceNameChecks)) {
                 // @todo need throw if this happens

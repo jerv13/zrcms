@@ -64,4 +64,3 @@ $app->pipe(
 $app->pipe(
     \Zrcms\HttpViewRender\FinalHandler\NotFoundFinal::class
 );
-

@@ -107,8 +107,7 @@ class RenderHeadSectionsTagBasic implements RenderHeadSectionsTag
         string $tag,
         array $section,
         array $options = []
-    ): string
-    {
+    ): string {
         $indent = Param::getString(
             $options,
             RenderTag::OPTION_INDENT,

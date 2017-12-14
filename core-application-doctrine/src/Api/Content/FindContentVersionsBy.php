@@ -9,9 +9,7 @@ use Zrcms\CoreApplicationDoctrine\Api\BuildBasicContentVersions;
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class FindContentVersionsBy
-    extends ApiAbstractContentVersion
-    implements \Zrcms\Core\Api\Content\FindContentVersionsBy
+class FindContentVersionsBy extends ApiAbstractContentVersion implements \Zrcms\Core\Api\Content\FindContentVersionsBy
 {
     /**
      * @param array      $criteria
@@ -28,8 +26,7 @@ class FindContentVersionsBy
         $limit = null,
         $offset = null,
         array $options = []
-    ): array
-    {
+    ): array {
         $repository = $this->entityManager->getRepository(
             $this->entityClassContentVersion
         );

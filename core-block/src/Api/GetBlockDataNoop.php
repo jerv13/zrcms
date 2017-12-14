@@ -21,8 +21,7 @@ class GetBlockDataNoop implements GetBlockData
         Block $block,
         ServerRequestInterface $request,
         array $options = []
-    ) : array
-    {
+    ) : array {
         return [];
     }
 }

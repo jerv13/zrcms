@@ -108,7 +108,7 @@ class ReadComponentRegistryComposite implements ReadComponentRegistry
         array $componentRegistry
     ) {
         foreach ($componentRegistry as $index => $componentRegistryEntry) {
-            if(is_numeric($index)) {
+            if (is_numeric($index)) {
                 throw new \Exception(
                     'Component registry keys must be "{componentType}.{componentType}"'
                     . ' for: ' . $componentRegistryEntry

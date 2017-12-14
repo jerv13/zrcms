@@ -12,9 +12,7 @@ use Zrcms\CoreApplicationDoctrine\Api\Content\InsertContentVersion;
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class InsertRedirectVersion
-    extends InsertContentVersion
-    implements \Zrcms\CoreRedirect\Api\Content\InsertRedirectVersion
+class InsertRedirectVersion extends InsertContentVersion implements \Zrcms\CoreRedirect\Api\Content\InsertRedirectVersion
 {
     /**
      * @param EntityManager $entityManager
@@ -38,8 +36,7 @@ class InsertRedirectVersion
     public function __invoke(
         ContentVersion $redirectVersion,
         array $options = []
-    ): ContentVersion
-    {
+    ): ContentVersion {
         return parent::__invoke(
             $redirectVersion,
             $options

@@ -68,8 +68,7 @@ trait PropertiesTrait
      */
     public function hasProperty(
         string $name
-    ): bool
-    {
+    ): bool {
         return Param::has(
             $this->getProperties(),
             $name

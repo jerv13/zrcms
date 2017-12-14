@@ -10,9 +10,7 @@ use Zrcms\CoreApplicationDoctrine\Api\Content\FindContentVersionsBy;
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class FindRedirectVersionsBy
-    extends FindContentVersionsBy
-    implements \Zrcms\CoreRedirect\Api\Content\FindRedirectVersionsBy
+class FindRedirectVersionsBy extends FindContentVersionsBy implements \Zrcms\CoreRedirect\Api\Content\FindRedirectVersionsBy
 {
     /**
      * @param EntityManager $entityManager
@@ -42,8 +40,7 @@ class FindRedirectVersionsBy
         $limit = null,
         $offset = null,
         array $options = []
-    ): array
-    {
+    ): array {
         return parent::__invoke(
             $criteria,
             $orderBy,

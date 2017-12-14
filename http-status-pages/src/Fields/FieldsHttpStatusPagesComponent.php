@@ -42,5 +42,4 @@ class FieldsHttpStatusPagesComponent extends FieldsComponent
                 'options' => [],
             ],
         ];
-
 }

@@ -24,8 +24,7 @@ class GetLayoutRenderTagsNoop implements GetLayoutRenderTags
         Content $layout,
         ServerRequestInterface $request,
         array $options = []
-    ): array
-    {
+    ): array {
         return [];
     }
 }

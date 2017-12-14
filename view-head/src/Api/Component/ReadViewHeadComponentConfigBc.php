@@ -75,8 +75,7 @@ class ReadViewHeadComponentConfigBc implements ReadComponentConfig
     protected function merge(
         array $applicationConfig,
         array $applicationConfigBc
-    ): array
-    {
+    ): array {
         $metaKey = 'zrcms-view-head.head-meta';
         $linkKey = 'zrcms-view-head.head-link';
         $scriptKey = 'zrcms-view-head.head-script';

@@ -13,9 +13,7 @@ use Zrcms\CoreApplicationDoctrine\Api\CmsResource\FindCmsResourcesBy;
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class FindPageTemplateCmsResourcesBy
-    extends FindCmsResourcesBy
-    implements \Zrcms\CorePage\Api\CmsResource\FindPageTemplateCmsResourcesBy
+class FindPageTemplateCmsResourcesBy extends FindCmsResourcesBy implements \Zrcms\CorePage\Api\CmsResource\FindPageTemplateCmsResourcesBy
 {
     /**
      * @param EntityManager $entityManager
@@ -47,8 +45,7 @@ class FindPageTemplateCmsResourcesBy
         $limit = null,
         $offset = null,
         array $options = []
-    ): array
-    {
+    ): array {
         return parent::__invoke(
             $criteria,
             $orderBy,

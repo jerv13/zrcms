@@ -67,8 +67,7 @@ class GetViewLayoutTagsHeadAll implements GetViewLayoutTagsHead
         Content $view,
         ServerRequestInterface $request,
         array $options = []
-    ): array
-    {
+    ): array {
         $renderTags = [];
 
         foreach ($this->renderServiceAliases as $renderTag => $renderServiceAlias) {

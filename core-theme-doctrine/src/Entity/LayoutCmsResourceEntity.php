@@ -22,9 +22,7 @@ use Zrcms\CoreApplicationDoctrine\Entity\ContentEntity;
  *     }
  * )
  */
-class LayoutCmsResourceEntity
-    extends CmsResourceEntityAbstract
-    implements CmsResourceEntity
+class LayoutCmsResourceEntity extends CmsResourceEntityAbstract implements CmsResourceEntity
 {
     /**
      * @var int

@@ -15,9 +15,7 @@ use Zrcms\CoreRedirectDoctrine\Entity\RedirectVersionEntity;
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class UpsertRedirectCmsResource
-    extends UpsertCmsResource
-    implements \Zrcms\CoreRedirect\Api\CmsResource\UpsertRedirectCmsResource
+class UpsertRedirectCmsResource extends UpsertCmsResource implements \Zrcms\CoreRedirect\Api\CmsResource\UpsertRedirectCmsResource
 {
     /**
      * @param EntityManager $entityManager
@@ -49,8 +47,7 @@ class UpsertRedirectCmsResource
         string $modifiedByUserId,
         string $modifiedReason,
         $modifiedDate = null
-    ): CmsResource
-    {
+    ): CmsResource {
         return parent::__invoke(
             $cmsResource,
             $modifiedByUserId,

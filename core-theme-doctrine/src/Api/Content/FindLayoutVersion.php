@@ -13,9 +13,7 @@ use Zrcms\CoreApplicationDoctrine\Api\Content\FindContentVersion;
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class FindLayoutVersion
-    extends FindContentVersion
-    implements \Zrcms\CoreTheme\Api\Content\FindLayoutVersion
+class FindLayoutVersion extends FindContentVersion implements \Zrcms\CoreTheme\Api\Content\FindLayoutVersion
 {
     /**
      * @var FallbackToComponentLayoutVersion

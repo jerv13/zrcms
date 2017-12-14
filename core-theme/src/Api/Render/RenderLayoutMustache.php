@@ -23,8 +23,7 @@ class RenderLayoutMustache implements RenderLayout
         Content $layout,
         array $renderTags,
         array $options = []
-    ): string
-    {
+    ): string {
         $resolver = new StringResolver();
         $resolver->addTemplate('template', $layout->getHtml());
 

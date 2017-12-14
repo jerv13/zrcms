@@ -42,8 +42,7 @@ class GetViewLayoutTagsPage implements GetViewLayoutTags
         Content $view,
         ServerRequestInterface $request,
         array $options = []
-    ): array
-    {
+    ): array {
         /** @var PageVersion $page */
         $page = $view->getPageCmsResource()->getContentVersion();
 

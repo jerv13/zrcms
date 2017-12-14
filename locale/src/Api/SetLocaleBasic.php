@@ -33,8 +33,7 @@ class SetLocaleBasic implements SetLocale
     public function __invoke(
         $locale,
         array $options = []
-    ): string
-    {
+    ): string {
         if (empty($locale)) {
             $locale = $this->defaultLocale;
         }

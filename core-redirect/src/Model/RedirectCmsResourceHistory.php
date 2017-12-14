@@ -7,7 +7,6 @@ use Zrcms\Core\Model\CmsResourceHistory;
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-interface RedirectCmsResourceHistory
-    extends CmsResourceHistory
+interface RedirectCmsResourceHistory extends CmsResourceHistory
 {
 }

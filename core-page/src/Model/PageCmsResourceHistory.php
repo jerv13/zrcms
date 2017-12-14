@@ -9,8 +9,7 @@ use Zrcms\Core\Model\ContentVersion;
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-interface PageCmsResourceHistory
-    extends CmsResourceHistory
+interface PageCmsResourceHistory extends CmsResourceHistory
 {
     /**
      * @return PageCmsResource|CmsResource

@@ -17,7 +17,7 @@ class AssertValidComponentName
      */
     public static function invoke(string $name)
     {
-        if(strpos($name, '.') !== false) {
+        if (strpos($name, '.') !== false) {
             throw new \Exception(
                 'Component name can not contain "." for ' . $name
             );

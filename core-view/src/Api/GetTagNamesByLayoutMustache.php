@@ -18,8 +18,7 @@ class GetTagNamesByLayoutMustache implements GetTagNamesByLayout
     public function __invoke(
         Layout $layout,
         array $options = []
-    ): array
-    {
+    ): array {
         // '/\{\{' . PropertiesContainer::RENDER_NAMESPACE . '.([^}:]+)\}\}/'
         preg_match_all(
             '/\{\{([^{^}:]+)\}\}/',

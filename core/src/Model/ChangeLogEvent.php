@@ -62,7 +62,8 @@ interface ChangeLogEvent
     /**
      * @param string $resourceId
      */
-    public function setResourceId($resourceId);;
+    public function setResourceId($resourceId);
+    ;
 
     /**
      * @return string

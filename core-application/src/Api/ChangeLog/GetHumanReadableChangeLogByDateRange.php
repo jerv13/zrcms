@@ -3,7 +3,6 @@
 
 namespace Zrcms\CoreApplication\Api\ChangeLog;
 
-
 use Zrcms\Core\Api\ChangeLog\GetChangeLogByDateRange;
 use Zrcms\Core\Model\ChangeLogEvent;
 

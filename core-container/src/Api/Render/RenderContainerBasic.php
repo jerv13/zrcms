@@ -50,8 +50,7 @@ class RenderContainerBasic implements RenderContainer
         Content $container,
         array $renderTags,
         array $options = []
-    ): string
-    {
+    ): string {
         // Get version renderer or use default
         $renderContainerServiceAlias = $container->findProperty(
             FieldsContainer::RENDERER,

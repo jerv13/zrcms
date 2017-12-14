@@ -47,8 +47,7 @@ class GetBlockRenderTagsBasic implements GetBlockRenderTags
         Content $block,
         ServerRequestInterface $request,
         array $options = []
-    ): array
-    {
+    ): array {
         $config = $this->getMergedConfig->__invoke(
             $block
         );

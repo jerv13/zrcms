@@ -13,5 +13,4 @@ interface BlockVersion extends Block, ContentVersion
      * @return string|null
      */
     public function getContainerVersionId(): string;
-
 }

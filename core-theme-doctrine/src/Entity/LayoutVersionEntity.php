@@ -17,9 +17,7 @@ use Zrcms\CoreApplicationDoctrine\Entity\ContentEntityAbstract;
  *     indexes={}
  * )
  */
-class LayoutVersionEntity
-    extends ContentEntityAbstract
-    implements ContentEntity
+class LayoutVersionEntity extends ContentEntityAbstract implements ContentEntity
 {
     /**
      * @var int

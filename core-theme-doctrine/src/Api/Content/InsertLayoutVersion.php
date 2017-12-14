@@ -12,9 +12,7 @@ use Zrcms\CoreApplicationDoctrine\Api\Content\InsertContentVersion;
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class InsertLayoutVersion
-    extends InsertContentVersion
-    implements \Zrcms\CoreTheme\Api\Content\InsertLayoutVersion
+class InsertLayoutVersion extends InsertContentVersion implements \Zrcms\CoreTheme\Api\Content\InsertLayoutVersion
 {
     /**
      * @param EntityManager $entityManager
@@ -38,8 +36,7 @@ class InsertLayoutVersion
     public function __invoke(
         ContentVersion $layoutVersion,
         array $options = []
-    ): ContentVersion
-    {
+    ): ContentVersion {
         return parent::__invoke(
             $layoutVersion,
             $options

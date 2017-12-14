@@ -18,9 +18,7 @@ use Zrcms\CoreApplicationDoctrine\Entity\CmsResourceHistoryEntityAbstract;
  *     indexes={}
  * )
  */
-class PageDraftCmsResourceHistoryEntity
-    extends CmsResourceHistoryEntityAbstract
-    implements CmsResourceHistoryEntity
+class PageDraftCmsResourceHistoryEntity extends CmsResourceHistoryEntityAbstract implements CmsResourceHistoryEntity
 {
     /**
      * @var int

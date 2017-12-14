@@ -5,9 +5,7 @@ namespace Zrcms\CoreApplicationDoctrine\Entity;
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class CmsResourceHistoryEntityBasic
-    extends CmsResourceHistoryEntityAbstract
-    implements CmsResourceHistoryEntity
+class CmsResourceHistoryEntityBasic extends CmsResourceHistoryEntityAbstract implements CmsResourceHistoryEntity
 {
     /**
      * @param string|null       $id

@@ -32,8 +32,7 @@ class GetMergedConfigBasic implements GetMergedConfig
     public function __invoke(
         Block $block,
         array $options = []
-    ): array
-    {
+    ): array {
         /** @var BlockComponent $bockComponent */
         $bockComponent = $this->findComponent->__invoke(
             'block',

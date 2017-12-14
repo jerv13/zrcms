@@ -14,8 +14,7 @@ use Zrcms\CoreApplicationDoctrine\Api\BuildBasicCmsResource;
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class FindPageTemplateCmsResourceBySitePath
-    implements \Zrcms\CorePage\Api\CmsResource\FindPageTemplateCmsResourceBySitePath
+class FindPageTemplateCmsResourceBySitePath implements \Zrcms\CorePage\Api\CmsResource\FindPageTemplateCmsResourceBySitePath
 {
     /**
      * @var EntityManager

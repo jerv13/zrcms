@@ -137,8 +137,7 @@ abstract class ThemeComponentAbstract extends ComponentAbstract
      */
     public function hasLayoutVariation(
         string $name
-    ): bool
-    {
+    ): bool {
         $layoutVariations = $this->getLayoutVariations();
 
         return Param::has(

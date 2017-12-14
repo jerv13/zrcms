@@ -27,7 +27,6 @@ class ReadComponentRegistryRcmPluginBc implements ReadComponentRegistry
         }
 
         foreach ($appConfig['Rcm']['blocks'] as $rcmPluginBlockConfigDir) {
-
             $rcmPluginBlockConfigDir = realpath($rcmPluginBlockConfigDir);
             $rcmPluginConfigJson = file_get_contents(
                 realpath($rcmPluginBlockConfigDir . '/block.json')

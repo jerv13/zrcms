@@ -15,9 +15,7 @@ use Zrcms\CoreApplicationDoctrine\Api\CmsResource\UpsertCmsResource;
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class UpsertSiteCmsResource
-    extends UpsertCmsResource
-    implements \Zrcms\CoreSite\Api\CmsResource\UpsertSiteCmsResource
+class UpsertSiteCmsResource extends UpsertCmsResource implements \Zrcms\CoreSite\Api\CmsResource\UpsertSiteCmsResource
 {
     /**
      * @param EntityManager $entityManager

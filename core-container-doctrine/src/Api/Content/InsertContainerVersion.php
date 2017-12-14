@@ -12,9 +12,7 @@ use Zrcms\CoreApplicationDoctrine\Api\Content\InsertContentVersion;
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class InsertContainerVersion
-    extends InsertContentVersion
-    implements \Zrcms\CoreContainer\Api\Content\InsertContainerVersion
+class InsertContainerVersion extends InsertContentVersion implements \Zrcms\CoreContainer\Api\Content\InsertContainerVersion
 {
     /**
      * @param EntityManager $entityManager
@@ -38,8 +36,7 @@ class InsertContainerVersion
     public function __invoke(
         ContentVersion $containerVersion,
         array $options = []
-    ): ContentVersion
-    {
+    ): ContentVersion {
         return parent::__invoke(
             $containerVersion,
             $options

@@ -67,8 +67,7 @@ class GetContainerRenderTagsBlocks implements GetContainerRenderTags
         Content $container,
         ServerRequestInterface $request,
         array $options = []
-    ): array
-    {
+    ): array {
         $renderedData = []; //row -> renderOrder -> renderedBlockHtml
 
         $blocks = $container->getBlockVersions();

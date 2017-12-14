@@ -56,8 +56,7 @@ class MergeSectionsBc
     public static function values(
         array $availableSections,
         array $availableSectionsBc
-    ): array
-    {
+    ): array {
         $availableSectionsMerged = [];
 
         foreach ($availableSections as $availableSection) {
@@ -86,8 +85,7 @@ class MergeSectionsBc
     public static function keys(
         array $sections,
         array $sectionsBc
-    ): array
-    {
+    ): array {
         $sectionsMerged = [];
 
         foreach ($sections as $section => $value) {

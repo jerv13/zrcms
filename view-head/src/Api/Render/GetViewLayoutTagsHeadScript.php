@@ -50,8 +50,7 @@ class GetViewLayoutTagsHeadScript implements GetViewLayoutTagsHead
         Content $view,
         ServerRequestInterface $request,
         array $options = []
-    ): array
-    {
+    ): array {
         /** @var HeadSectionComponent $component */
         $component = $this->findComponent->__invoke(
             'view-layout-tag',

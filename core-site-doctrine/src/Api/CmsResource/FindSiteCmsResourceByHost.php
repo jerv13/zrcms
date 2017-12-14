@@ -15,8 +15,7 @@ use Zrcms\CoreApplicationDoctrine\Entity\CmsResourceEntity;
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class FindSiteCmsResourceByHost
-    implements \Zrcms\CoreSite\Api\CmsResource\FindSiteCmsResourceByHost
+class FindSiteCmsResourceByHost implements \Zrcms\CoreSite\Api\CmsResource\FindSiteCmsResourceByHost
 {
     /**
      * @var EntityManager

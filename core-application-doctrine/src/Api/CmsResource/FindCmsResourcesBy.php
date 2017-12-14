@@ -9,9 +9,7 @@ use Zrcms\CoreApplicationDoctrine\Api\BuildBasicCmsResources;
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class FindCmsResourcesBy
-    extends ApiAbstractCmsResource
-    implements \Zrcms\Core\Api\CmsResource\FindCmsResourcesBy
+class FindCmsResourcesBy extends ApiAbstractCmsResource implements \Zrcms\Core\Api\CmsResource\FindCmsResourcesBy
 {
     /**
      * @param array      $criteria
@@ -28,8 +26,7 @@ class FindCmsResourcesBy
         $limit = null,
         $offset = null,
         array $options = []
-    ): array
-    {
+    ): array {
         $repository = $this->entityManager->getRepository(
             $this->entityClassCmsResource
         );

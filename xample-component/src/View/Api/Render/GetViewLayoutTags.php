@@ -23,8 +23,7 @@ class GetViewLayoutTags implements \Zrcms\CoreView\Api\Render\GetViewLayoutTags
         Content $view,
         ServerRequestInterface $request,
         array $options = []
-    ): array
-    {
+    ): array {
         return [
             self::XAMPLE_RENDER_TAG => '<b>XAMPLE ViewLayoutTagsGetter</b>'
         ];

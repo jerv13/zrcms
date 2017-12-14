@@ -28,7 +28,6 @@ class BuildBlockVersions
         $blockVersions = [];
 
         foreach ($blockVersionsData as $blockVersionData) {
-
             $blockVersions[] = BuildBlockVersion::invoke(
                 $containerVersion,
                 $blockVersionData

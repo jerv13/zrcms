@@ -11,9 +11,7 @@ use Zrcms\CoreApplicationDoctrine\Api\Content\FindContentVersion;
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class FindSiteVersion
-    extends FindContentVersion
-    implements \Zrcms\CoreSite\Api\Content\FindSiteVersion
+class FindSiteVersion extends FindContentVersion implements \Zrcms\CoreSite\Api\Content\FindSiteVersion
 {
     /**
      * @param EntityManager $entityManager

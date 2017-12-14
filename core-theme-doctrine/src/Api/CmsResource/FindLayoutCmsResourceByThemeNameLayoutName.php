@@ -15,8 +15,7 @@ use Zrcms\CoreApplicationDoctrine\Api\BuildBasicCmsResource;
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class FindLayoutCmsResourceByThemeNameLayoutName
-    implements \Zrcms\CoreTheme\Api\CmsResource\FindLayoutCmsResourceByThemeNameLayoutName
+class FindLayoutCmsResourceByThemeNameLayoutName implements \Zrcms\CoreTheme\Api\CmsResource\FindLayoutCmsResourceByThemeNameLayoutName
 {
     /**
      * @var EntityManager

@@ -18,9 +18,7 @@ use Zrcms\Locale\Api\DefaultLocal;
  *     indexes={}
  * )
  */
-class SiteVersionEntity
-    extends ContentEntityAbstract
-    implements ContentEntity
+class SiteVersionEntity extends ContentEntityAbstract implements ContentEntity
 {
     /**
      * @var string

@@ -9,9 +9,7 @@ use Zrcms\CoreApplicationDoctrine\Api\BuildBasicContentVersion;
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class FindContentVersion
-    extends ApiAbstractContentVersion
-    implements \Zrcms\Core\Api\Content\FindContentVersion
+class FindContentVersion extends ApiAbstractContentVersion implements \Zrcms\Core\Api\Content\FindContentVersion
 {
     /**
      * @param string $id

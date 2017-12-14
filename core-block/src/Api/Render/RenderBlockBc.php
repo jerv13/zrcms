@@ -54,8 +54,7 @@ class RenderBlockBc implements RenderBlock
         Content $blockVersion,
         array $renderTags,
         array $options = []
-    ): string
-    {
+    ): string {
         /** @var \Rcm\Plugin\PluginInterface $controller */
         $controller = $this->getRcmPluginController->__invoke($blockVersion->getBlockComponentName());
 

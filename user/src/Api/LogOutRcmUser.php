@@ -33,8 +33,7 @@ class LogOutRcmUser implements LogOut
     public function __invoke(
         ServerRequestInterface $request,
         array $options = []
-    ): bool
-    {
+    ): bool {
         $this->rcmUserService->clearIdentity();
         // @todo BC
         session_destroy();

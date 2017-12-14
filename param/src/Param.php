@@ -377,7 +377,7 @@ class Param
         if (self::$debug) {
             $message = $defaultMessage;
 
-            if(is_a($exceptionThrower, \Throwable::class)) {
+            if (is_a($exceptionThrower, \Throwable::class)) {
                 $message = $exceptionThrower->getMessage();
             }
 

@@ -137,8 +137,7 @@ class ResponseMutatorStatusPage
      */
     protected function canHandleResponse(
         ResponseInterface $response
-    ):bool
-    {
+    ):bool {
         if (!IsValidContentType::invoke($response, $this->validContentTypes)) {
             return false;
         }

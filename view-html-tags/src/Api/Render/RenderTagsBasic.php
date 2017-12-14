@@ -33,8 +33,7 @@ class RenderTagsBasic implements RenderTags
     public function __invoke(
         array $tagsData,
         array $options = []
-    ): string
-    {
+    ): string {
         $html = '';
 
         // if has 'tag' is must be a tag
@@ -63,8 +62,7 @@ class RenderTagsBasic implements RenderTags
     public function renderTags(
         array $tagsData,
         array $options = []
-    ): string
-    {
+    ): string {
         $html = '';
 
         // if has 'tag' is must be a tag

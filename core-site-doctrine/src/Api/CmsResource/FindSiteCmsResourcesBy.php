@@ -13,9 +13,7 @@ use Zrcms\CoreApplicationDoctrine\Api\CmsResource\FindCmsResourcesBy;
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class FindSiteCmsResourcesBy
-    extends FindCmsResourcesBy
-    implements \Zrcms\CoreSite\Api\CmsResource\FindSiteCmsResourcesBy
+class FindSiteCmsResourcesBy extends FindCmsResourcesBy implements \Zrcms\CoreSite\Api\CmsResource\FindSiteCmsResourcesBy
 {
     /**
      * @param EntityManager $entityManager
@@ -47,8 +45,7 @@ class FindSiteCmsResourcesBy
         $limit = null,
         $offset = null,
         array $options = []
-    ): array
-    {
+    ): array {
         return parent::__invoke(
             $criteria,
             $orderBy,

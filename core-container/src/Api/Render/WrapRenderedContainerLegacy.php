@@ -17,8 +17,7 @@ class WrapRenderedContainerLegacy implements WrapRenderedContainer
     public function __invoke(
         string $innerHtml,
         Container $container
-    ): string
-    {
+    ): string {
         $isPage = $container instanceof PageVersion;
 
         // @todo REMOVE class: rcmContainer

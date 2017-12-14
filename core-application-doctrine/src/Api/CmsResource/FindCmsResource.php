@@ -9,9 +9,7 @@ use Zrcms\CoreApplicationDoctrine\Api\BuildBasicCmsResource;
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class FindCmsResource
-    extends ApiAbstractCmsResource
-    implements \Zrcms\Core\Api\CmsResource\FindCmsResource
+class FindCmsResource extends ApiAbstractCmsResource implements \Zrcms\Core\Api\CmsResource\FindCmsResource
 {
     /**
      * @param string $id

@@ -7,9 +7,7 @@ use Zrcms\Core\Model\CmsResource;
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class RedirectCmsResourceHistoryBasic
-    extends RedirectCmsResourceHistoryAbstract
-    implements RedirectCmsResourceHistory
+class RedirectCmsResourceHistoryBasic extends RedirectCmsResourceHistoryAbstract implements RedirectCmsResourceHistory
 {
     /**
      * @param null|string                     $id

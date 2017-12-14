@@ -57,8 +57,7 @@ class BuildComponentObjectThemeLayouts extends BuildComponentObjectByType implem
     public function __invoke(
         array $componentConfig,
         array $options = []
-    ): Component
-    {
+    ): Component {
         $componentConfig = $this->prepareConfig($componentConfig, $options);
 
         return parent::__invoke($componentConfig, $options);
@@ -73,8 +72,7 @@ class BuildComponentObjectThemeLayouts extends BuildComponentObjectByType implem
     public function prepareConfig(
         array $themeComponentConfig,
         array $options = []
-    ):array
-    {
+    ):array {
         $componentConfigs = $this->readComponentConfigs->__invoke();
 
         $themeName = Param::getRequired(

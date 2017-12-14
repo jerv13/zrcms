@@ -12,9 +12,7 @@ use Zrcms\CoreApplicationDoctrine\Api\Content\InsertContentVersion;
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class InsertSiteVersion
-    extends InsertContentVersion
-    implements \Zrcms\CoreSite\Api\Content\InsertSiteVersion
+class InsertSiteVersion extends InsertContentVersion implements \Zrcms\CoreSite\Api\Content\InsertSiteVersion
 {
     /**
      * @param EntityManager $entityManager
@@ -38,8 +36,7 @@ class InsertSiteVersion
     public function __invoke(
         ContentVersion $siteVersion,
         array $options = []
-    ): ContentVersion
-    {
+    ): ContentVersion {
         return parent::__invoke(
             $siteVersion,
             $options

@@ -14,9 +14,7 @@ use Zrcms\CoreApplicationDoctrine\Api\CmsResource\FindCmsResource;
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class FindLayoutCmsResource
-    extends FindCmsResource
-    implements \Zrcms\CoreTheme\Api\CmsResource\FindLayoutCmsResource
+class FindLayoutCmsResource extends FindCmsResource implements \Zrcms\CoreTheme\Api\CmsResource\FindLayoutCmsResource
 {
     /**
      * @param EntityManager $entityManager

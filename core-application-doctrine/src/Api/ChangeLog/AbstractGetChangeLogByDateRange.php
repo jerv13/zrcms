@@ -66,5 +66,4 @@ abstract class AbstractGetChangeLogByDateRange implements GetChangeLogByDateRang
 
         return $results;
     }
-
 }

@@ -10,9 +10,7 @@ use Zrcms\CoreApplicationDoctrine\Api\Content\FindContentVersionsBy;
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class FindSiteVersionsBy
-    extends FindContentVersionsBy
-    implements \Zrcms\CoreSite\Api\Content\FindSiteVersionsBy
+class FindSiteVersionsBy extends FindContentVersionsBy implements \Zrcms\CoreSite\Api\Content\FindSiteVersionsBy
 {
     /**
      * @param EntityManager $entityManager
@@ -42,8 +40,7 @@ class FindSiteVersionsBy
         $limit = null,
         $offset = null,
         array $options = []
-    ): array
-    {
+    ): array {
         return parent::__invoke(
             $criteria,
             $orderBy,

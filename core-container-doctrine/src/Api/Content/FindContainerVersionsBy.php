@@ -10,9 +10,7 @@ use Zrcms\CoreApplicationDoctrine\Api\Content\FindContentVersionsBy;
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class FindContainerVersionsBy
-    extends FindContentVersionsBy
-    implements \Zrcms\CoreContainer\Api\Content\FindContainerVersionsBy
+class FindContainerVersionsBy extends FindContentVersionsBy implements \Zrcms\CoreContainer\Api\Content\FindContainerVersionsBy
 {
     /**
      * @param EntityManager $entityManager
@@ -42,8 +40,7 @@ class FindContainerVersionsBy
         $limit = null,
         $offset = null,
         array $options = []
-    ): array
-    {
+    ): array {
         return parent::__invoke(
             $criteria,
             $orderBy,

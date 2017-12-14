@@ -55,8 +55,7 @@ class GetContainerRenderTagsBasic implements GetContainerRenderTags
         Content $container,
         ServerRequestInterface $request,
         array $options = []
-    ): array
-    {
+    ): array {
         $getContainerRenderTagsServiceAlias = $container->findProperty(
             FieldsContainer::RENDER_TAGS_GETTER,
             ''

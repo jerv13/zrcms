@@ -51,8 +51,7 @@ class BuildViewComposite implements BuildView
         ServerRequestInterface $request,
         View $view,
         array $options = []
-    ): View
-    {
+    ): View {
         /** @var BuildView $viewBuilder */
         foreach ($this->viewBuilders as $viewBuilder) {
             $view = $viewBuilder->__invoke(

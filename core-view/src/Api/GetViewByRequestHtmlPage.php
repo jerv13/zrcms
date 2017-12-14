@@ -136,8 +136,7 @@ class GetViewByRequestHtmlPage implements GetViewByRequest
     public function __invoke(
         ServerRequestInterface $request,
         array $options = []
-    ): View
-    {
+    ): View {
         $uri = $request->getUri();
 
         /** @var SiteCmsResource $siteCmsResource */

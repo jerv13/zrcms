@@ -13,9 +13,7 @@ use Zrcms\CoreApplicationDoctrine\Api\CmsResource\FindCmsResourcesBy;
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class FindLayoutCmsResourcesBy
-    extends FindCmsResourcesBy
-    implements \Zrcms\CoreTheme\Api\CmsResource\FindLayoutCmsResourcesBy
+class FindLayoutCmsResourcesBy extends FindCmsResourcesBy implements \Zrcms\CoreTheme\Api\CmsResource\FindLayoutCmsResourcesBy
 {
     /**
      * @param EntityManager $entityManager
@@ -47,8 +45,7 @@ class FindLayoutCmsResourcesBy
         $limit = null,
         $offset = null,
         array $options = []
-    ): array
-    {
+    ): array {
         return parent::__invoke(
             $criteria,
             $orderBy,

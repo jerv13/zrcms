@@ -15,9 +15,7 @@ use Zrcms\CoreThemeDoctrine\Entity\LayoutVersionEntity;
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class UpsertLayoutCmsResource
-    extends UpsertCmsResource
-    implements \Zrcms\CoreTheme\Api\CmsResource\UpsertLayoutCmsResource
+class UpsertLayoutCmsResource extends UpsertCmsResource implements \Zrcms\CoreTheme\Api\CmsResource\UpsertLayoutCmsResource
 {
     /**
      * @param EntityManager $entityManager

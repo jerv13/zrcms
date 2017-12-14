@@ -14,9 +14,7 @@ use Zrcms\CoreRedirectDoctrine\Entity\RedirectVersionEntity;
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class FindRedirectCmsResource
-    extends FindCmsResource
-    implements \Zrcms\CoreRedirect\Api\CmsResource\FindRedirectCmsResource
+class FindRedirectCmsResource extends FindCmsResource implements \Zrcms\CoreRedirect\Api\CmsResource\FindRedirectCmsResource
 {
     /**
      * @param EntityManager $entityManager

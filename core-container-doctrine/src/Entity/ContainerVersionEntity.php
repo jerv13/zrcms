@@ -20,9 +20,7 @@ use Zrcms\Param\Param;
  *     indexes={}
  * )
  */
-class ContainerVersionEntity
-    extends ContentEntityAbstract
-    implements ContentEntity
+class ContainerVersionEntity extends ContentEntityAbstract implements ContentEntity
 {
     /**
      * @var int

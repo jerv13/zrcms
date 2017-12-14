@@ -17,9 +17,7 @@ use Zrcms\CoreRedirect\Fields\FieldsRedirectVersion;
  *     indexes={}
  * )
  */
-class RedirectVersionEntity
-    extends ContentEntityAbstract
-    implements ContentEntity
+class RedirectVersionEntity extends ContentEntityAbstract implements ContentEntity
 {
     /**
      * @var string
