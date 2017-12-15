@@ -13,8 +13,6 @@ use Zrcms\ServiceAlias\Api\GetServiceFromAlias;
  */
 class ReadComponentConfigComposite implements ReadComponentConfig
 {
-    const DEFAULT_CACHE_KEY = 'ZrcmsReadComponentConfigComposite';
-
     protected $getServiceAliasesByNamespace;
     protected $getServiceFromAlias;
     protected $configReaderServiceAliasNamespace;

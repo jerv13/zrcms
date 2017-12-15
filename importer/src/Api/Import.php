@@ -94,6 +94,7 @@ class Import
      * @param array  $options
      *
      * @return void
+     * @throws \Exception
      */
     public function __invoke(
         string $json,
@@ -103,6 +104,10 @@ class Import
         $startTime = time();
 
         $data = json_decode($json, true);
+
+        if (json_last_error() !== JSON_ERROR_NONE) {
+            throw new \Exception('Received invalid JSON');
+        }
 
         $createdReason = 'Import script ' . get_class($this);
 

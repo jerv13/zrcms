@@ -1,6 +1,5 @@
 @todo
 =====
-8903 support pin
 
 ##### Component Simplify #####
 
@@ -24,6 +23,20 @@
 
 #### ToDo ####
 
+- View-head with Block JS and CSS:
+    - there is a current scheme for tag rendering, should we support it for block configs?
+        ```
+        // Current Schema
+        {
+            "tag": "script"
+            "attributes": {"src" : "my/src.js", ...}
+            "content": "Tag Content"
+        }
+        ```
+        
+    - GetSections Should return the standard tag schema? maybe, but what about ordering
+    
+
 - GetViewByRequest as composite with priority?
 
 - SitePages: Service for getting url list from page, product pages, etc... (site map??)
@@ -35,7 +48,11 @@
 
 - Deal with 'zrcms-view-builders'
  
-- Start zrcms-admin
+- Start client  - NOTE: Client packages will be built using NPM
+    - zrcms-admin
+        - zrcms-admin-menu
+        - zrcms-{others}
+    - zrcms-fields
 
 - Add services to js
 

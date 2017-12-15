@@ -15,15 +15,9 @@ class GetViewLayoutTagsHeadScript implements GetViewLayoutTagsHead
 {
     const RENDER_TAG_SCRIPT = 'head-script';
     const SERVICE_ALIAS = 'head-script';
+    const TAG_TYPE = 'head-script';
 
-    /**
-     * @var FindComponent
-     */
     protected $findComponent;
-
-    /**
-     * @var RenderHeadSectionsTag
-     */
     protected $renderHeadSectionsTag;
 
     /**

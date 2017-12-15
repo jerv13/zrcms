@@ -3,7 +3,6 @@
 namespace Zrcms\Acl\Api;
 
 use Psr\Http\Message\ServerRequestInterface;
-use RcmUser\Service\RcmUserService;
 use Zrcms\Param\Param;
 
 /**
@@ -14,18 +13,15 @@ class IsAllowedRcmUser implements IsAllowed
     const OPTION_RESOURCE_ID = 'resourceId';
     const OPTION_PRIVILEGE = 'privilege';
 
-    /**
-     * @var RcmUserService
-     */
-    protected $rcmUserService;
+    protected $isAllowed;
 
     /**
-     * @param RcmUserService $rcmUserService
+     * @param \RcmUser\Api\Acl\IsAllowed $isAllowed
      */
     public function __construct(
-        RcmUserService $rcmUserService
+        \RcmUser\Api\Acl\IsAllowed $isAllowed
     ) {
-        $this->rcmUserService = $rcmUserService;
+        $this->isAllowed = $isAllowed;
     }
 
     /**
@@ -33,6 +29,8 @@ class IsAllowedRcmUser implements IsAllowed
      * @param array                  $options
      *
      * @return bool
+     * @throws \Exception
+     * @throws \Zrcms\Param\Exception\ParamMissing
      */
     public function __invoke(
         ServerRequestInterface $request,
@@ -49,10 +47,8 @@ class IsAllowedRcmUser implements IsAllowed
             null
         );
 
-        // @todo This locks up due to issue in RCM user
-        // @todo issue with RcmUser\Acl\Service\AuthorizeService (416) $this->getEventManager()->trigger(
-        // @todo This should utilize the request
-        return $this->rcmUserService->isAllowed(
+        return $this->isAllowed->__invoke(
+            $request,
             $resourceId,
             $privilege
         );

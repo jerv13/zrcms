@@ -2,11 +2,13 @@
 
 namespace Zrcms\Acl;
 
+use RcmUser\Api\Authentication\HasIdentity;
 use RcmUser\Service\RcmUserService;
 use Zrcms\Acl\Api\IsAllowed;
 use Zrcms\Acl\Api\IsAllowedAny;
 use Zrcms\Acl\Api\IsAllowedNone;
 use Zrcms\Acl\Api\IsAllowedRcmUser;
+use Zrcms\Acl\Api\IsAllowedRcmUserLoggedIn;
 use Zrcms\Acl\Api\IsAllowedRelivServerEnvironment;
 use Zrcms\Acl\Api\IsAllowedRelivServerEnvironmentNoneProduction;
 use Zrcms\Acl\Api\IsAllowedRelivServerEnvironmentProduction;
@@ -34,7 +36,12 @@ class ModuleConfig
                     IsAllowedNone::class => [],
                     IsAllowedRcmUser::class => [
                         'arguments' => [
-                            RcmUserService::class
+                            \RcmUser\Api\Acl\IsAllowed::class
+                        ],
+                    ],
+                    IsAllowedRcmUserLoggedIn::class => [
+                        'arguments' => [
+                            HasIdentity::class
                         ],
                     ],
                     IsAllowedRelivServerEnvironment::class => [

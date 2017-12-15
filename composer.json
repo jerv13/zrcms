@@ -60,6 +60,7 @@
       "Zrcms\\CoreTheme\\": "core-theme/src/",
       "Zrcms\\CoreThemeDoctrine\\": "core-theme-doctrine/src/",
       "Zrcms\\CoreView\\": "core-view/src/",
+      "Zrcms\\File\\": "file/src/",
       "Zrcms\\Http\\": "http/src/",
       "Zrcms\\HttpChangeLog\\": "http-change-log/src/",
       "Zrcms\\HttpCore\\": "http-core/src/",

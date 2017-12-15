@@ -15,6 +15,7 @@ class GetViewLayoutTagsHeadLink implements GetViewLayoutTagsHead
 {
     const RENDER_TAG_LINK = 'head-link';
     const SERVICE_ALIAS = 'head-link';
+    const TAG_TYPE = 'head-link';
 
     /**
      * @var FindComponent

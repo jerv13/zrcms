@@ -43,6 +43,8 @@ class RenderTagBasic implements RenderTag
      * @param array $options
      *
      * @return string
+     * @throws \Exception
+     * @throws \Zrcms\Param\Exception\ParamMissing
      */
     public function __invoke(
         array $tagData,

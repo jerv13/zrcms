@@ -28,8 +28,7 @@ class ReadComponentConfigJsonFile implements ReadComponentConfig
     ): array {
         $this->assertCanRead($componentConfigUri);
 
-        $componentConfigUriParts = parse_url($componentConfigUri);
-        $jsonFilePath = $componentConfigUriParts['path'];
+        $jsonFilePath = parse_url($componentConfigUri, PHP_URL_PATH);
 
         $realConfigFilePath = realpath($jsonFilePath);
 
@@ -66,13 +65,21 @@ class ReadComponentConfigJsonFile implements ReadComponentConfig
     }
 
     /**
-     * @param $jsonFilePath
+     * @param $componentConfigUri
      *
      * @return void
      * @throws CanNotReadComponentConfig
      */
-    protected function assertCanRead($jsonFilePath)
+    protected function assertCanRead($componentConfigUri)
     {
-        AssertValidReaderScheme::invoke(static::READER_SCHEME, $jsonFilePath);
+        $scheme = parse_url($componentConfigUri, PHP_URL_SCHEME);
+        if ($scheme !== static::READER_SCHEME && !empty($scheme)) {
+            throw new CanNotReadComponentConfig(
+                'Component Config Uri not valid: ' . $componentConfigUri
+                . ' for ' . get_class($this)
+            );
+        }
+
+        AssertValidReaderScheme::invoke(static::READER_SCHEME, $componentConfigUri);
     }
 }

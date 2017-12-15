@@ -27,8 +27,7 @@ class ReadComponentConfigPhpFile implements ReadComponentConfig
     ): array {
         AssertValidReaderScheme::invoke(static::READER_SCHEME, $componentConfigUri);
 
-        $componentConfigUriParts = parse_url($componentConfigUri);
-        $phpFilePath = $componentConfigUriParts['path'];
+        $phpFilePath = parse_url($componentConfigUri, PHP_URL_PATH);
 
         $realConfigFilePath = realpath($phpFilePath);
 

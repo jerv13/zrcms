@@ -20,6 +20,7 @@ class ModulesConfig
             // Low level
             new \Zrcms\Logger\ModuleConfig(),
             new \Zrcms\Cache\ModuleConfig(),
+            new \Zrcms\File\ModuleConfig(),
             new \Zrcms\Param\ModuleConfig(),
             new \Zrcms\Mustache\ModuleConfig(),
             new \Zrcms\ServiceAlias\ModuleConfig(),
