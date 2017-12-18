@@ -16,5 +16,7 @@ class GetSectionsComposite implements GetSections
     public function __invoke(
         string $tagType,
         array  $options = []
-    ):array;
+    ):array {
+
+    }
 }

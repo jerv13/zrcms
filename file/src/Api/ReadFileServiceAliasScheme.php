@@ -11,7 +11,7 @@ use Zrcms\ServiceAlias\Api\GetServiceFromAlias;
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class ReadFileComposite implements ReadFile
+class ReadFileServiceAliasScheme implements ReadFile
 {
     protected $getServiceAliasesByNamespace;
     protected $getServiceFromAlias;

@@ -19,9 +19,6 @@ class FieldsBlockComponent extends FieldsComponent
     const FIELDS = 'fields';
     const TEMPLATE_FILE = 'templateFile';
 
-    const JAVASCRIPT = 'js';
-    const CSS = 'css';
-
     // client only
     const ICON = 'icon';
     const EDITOR = 'editor';
@@ -48,6 +45,22 @@ class FieldsBlockComponent extends FieldsComponent
                 'label' => 'Component Class',
                 'required' => false,
                 'default' => BlockComponentBasic::class,
+                'options' => [],
+            ],
+            [
+                'name' => self::JAVASCRIPT,
+                'type' => 'array',
+                'label' => 'Javascript includes',
+                'required' => false,
+                'default' => [],
+                'options' => [],
+            ],
+            [
+                'name' => self::CSS,
+                'type' => 'array',
+                'label' => 'CSS Includes',
+                'required' => false,
+                'default' => [],
                 'options' => [],
             ],
             [

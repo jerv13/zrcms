@@ -9,10 +9,10 @@ use Zrcms\File\Exception\CanNotReadFile;
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class ReadFileRestricted extends ReadFileDefault implements ReadFile
+class ReadFileIfIsAllowed extends ReadFileDefault implements ReadFile
 {
-    const SERVICE_ALIAS = 'restricted';
-    const READER_SCHEME = 'restricted';
+    const SERVICE_ALIAS = 'is-allowed';
+    const READER_SCHEME = 'is-allowed';
 
     protected $isAllowed;
     protected $isAllowedOptions = [];

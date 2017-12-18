@@ -3,32 +3,34 @@
 namespace Zrcms\ViewHead\Api\Render;
 
 use Psr\Http\Message\ServerRequestInterface;
+use Zrcms\Param\Param;
 use Zrcms\ViewHtmlTags\Api\Render\RenderTag;
 
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class RenderHeadSectionTagDefault
+class RenderHeadSectionTagDefault implements RenderHeadSectionTag
 {
     protected $renderTag;
-    protected $getAvailableHeadSections;
-    protected $getServiceFromAlias;
-    protected $serviceAliasNamespace;
+    protected $defaultDebug;
 
     /**
      * @param RenderTag $renderTag
+     * @param bool      $defaultDebug
      */
     public function __construct(
-        RenderTag $renderTag
+        RenderTag $renderTag,
+        bool $defaultDebug = true
     ) {
         $this->renderTag = $renderTag;
+        $this->defaultDebug = $defaultDebug;
     }
 
     /**
      * @param ServerRequestInterface $request
      * @param string                 $tag
      * @param string                 $sectionEntryName
-     * @param array                  $attributes
+     * @param array                  $sectionConfig
      * @param array                  $options
      *
      * @return string
@@ -37,18 +39,40 @@ class RenderHeadSectionTagDefault
         ServerRequestInterface $request,
         string $tag,
         string $sectionEntryName,
-        array $attributes,
+        array $sectionConfig,
         array $options = []
     ): string {
         // general - Render from a tag configuration
         $contentHtml = null;
-        if (array_key_exists('__content', $attributes)) {
-            $contentHtml = (string)$attributes['__content'];
+        if (array_key_exists('__content', $sectionConfig)) {
+            $contentHtml = (string)$sectionConfig['__content'];
         }
 
-        $attributes = $this->cleanAttributes($attributes);
+        $debug = Param::getBool(
+            $options,
+            self::OPTION_DEBUG,
+            $this->defaultDebug
+        );
+        $indent = Param::getString(
+            $options,
+            self::OPTION_INDENT,
+            '    '
+        );
+        $lineBreak = Param::getString(
+            $options,
+            self::OPTION_LINE_BREAK,
+            "\n"
+        );
 
-        return $this->renderTag->__invoke(
+        $attributes = $this->cleanConfig($sectionConfig);
+
+        $contentHtml = '';
+
+        if ($debug) {
+            $contentHtml .= $indent . '<!-- RenderHeadSectionTagDefault -->' . $lineBreak;
+        }
+
+        $contentHtml .= $this->renderTag->__invoke(
             [
                 'tag' => $tag,
                 'attributes' => $attributes,
@@ -56,21 +80,23 @@ class RenderHeadSectionTagDefault
             ],
             $options
         );
+
+        return $contentHtml;
     }
 
     /**
-     * @param $attributes
+     * @param $sectionConfig
      *
      * @return mixed
      */
-    protected function cleanAttributes($attributes)
+    protected function cleanConfig($sectionConfig)
     {
-        foreach ($attributes as $key => $attribute) {
+        foreach ($sectionConfig as $key => $attribute) {
             if (strpos($key, '__')) {
-                unset($attributes[$key]);
+                unset($sectionConfig[$key]);
             }
         }
 
-        return $attributes;
+        return $sectionConfig;
     }
 }

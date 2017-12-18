@@ -7,6 +7,7 @@ use Zrcms\Core\Fields\FieldsComponentConfig;
 use Zrcms\Core\Model\ServiceAliasComponent;
 use Zrcms\CoreView\Fields\FieldsViewLayoutTagsComponent;
 use Zrcms\CoreView\Model\ServiceAliasView;
+use Zrcms\File\Api\ReadFile;
 use Zrcms\ServiceAlias\Api\GetServiceFromAlias;
 use Zrcms\ViewHead\Api\Component\ReadViewHeadComponentConfigBc;
 use Zrcms\ViewHead\Api\Component\ReadViewHeadComponentConfigBcFactory;
@@ -23,6 +24,7 @@ use Zrcms\ViewHead\Api\Render\RenderHeadSectionsTagBasic;
 use Zrcms\ViewHead\Api\Render\RenderHeadSectionTag;
 use Zrcms\ViewHead\Api\Render\RenderHeadSectionTagCompositeFactory;
 use Zrcms\ViewHead\Api\Render\RenderHeadSectionTagDefault;
+use Zrcms\ViewHead\Api\Render\RenderHeadSectionTagFileIncludes;
 use Zrcms\ViewHead\Api\Render\RenderHeadSectionTagLiteral;
 use Zrcms\ViewHead\Api\Render\RenderHeadSectionTagViewLayoutTags;
 use Zrcms\ViewHead\Model\HeadSectionComponentBasic;
@@ -94,6 +96,11 @@ class ModuleConfig
                             RenderTag::class,
                         ],
                     ],
+                    RenderHeadSectionTagFileIncludes::class => [
+                        'arguments' => [
+                            ReadFile::class,
+                        ],
+                    ],
                     RenderHeadSectionTagLiteral::class => [],
                     RenderHeadSectionTagViewLayoutTags::class => [
                         'arguments' => [
@@ -160,6 +167,12 @@ class ModuleConfig
                         '{name}' => [
                             '__literal' => '{view-layout-tag-getter-service-alias}',
                         ],
+                        // File Include
+                        '{name}' => [
+                            '__file-includes' => [
+                                '{source-name}' => '{scheme:/path/to/local/file.css}',
+                            ],
+                        ],
                         */
                     ],
                     'config' => [],
@@ -220,6 +233,12 @@ class ModuleConfig
                         // Literal
                         '{name}' => [
                             '__literal' => '{view-layout-tag-getter-service-alias}',
+                        ],
+                        // File Include
+                        '{name}' => [
+                            '__file-includes' => [
+                                '{source-name}' => '{scheme:/path/to/local/file.css}',
+                            ],
                         ],
                         */
                     ],

@@ -11,6 +11,8 @@ class FieldsComponent extends FieldsAbstract implements Fields
 {
     const COMPONENT_CONFIG_READER = 'componentConfigReader';
     const COMPONENT_CLASS = 'componentClass';
+    const JAVASCRIPT = 'js';
+    const CSS = 'css';
 
     /**
      * @var array
@@ -31,6 +33,22 @@ class FieldsComponent extends FieldsAbstract implements Fields
                 'label' => 'Component Class',
                 'required' => false,
                 'default' => ComponentBasic::class,
+                'options' => [],
+            ],
+            [
+                'name' => self::JAVASCRIPT,
+                'type' => 'array',
+                'label' => 'Javascript includes',
+                'required' => false,
+                'default' => [],
+                'options' => [],
+            ],
+            [
+                'name' => self::CSS,
+                'type' => 'array',
+                'label' => 'CSS Includes',
+                'required' => false,
+                'default' => [],
                 'options' => [],
             ],
         ];

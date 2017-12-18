@@ -4,9 +4,9 @@ namespace Zrcms\File;
 
 use Zrcms\Acl\Api\IsAllowedNone;
 use Zrcms\File\Api\ReadFile;
-use Zrcms\File\Api\ReadFileComposite;
+use Zrcms\File\Api\ReadFileServiceAliasScheme;
 use Zrcms\File\Api\ReadFileDefault;
-use Zrcms\File\Api\ReadFileRestricted;
+use Zrcms\File\Api\ReadFileIfIsAllowed;
 use Zrcms\File\Model\ServiceAliasFile;
 
 /**
@@ -23,10 +23,10 @@ class ModuleConfig
             'dependencies' => [
                 'config_factories' => [
                     ReadFile::class => [
-                        'class' => ReadFileComposite::class,
+                        'class' => ReadFileServiceAliasScheme::class,
                     ],
                     ReadFileDefault::class => [],
-                    ReadFileRestricted::class => [
+                    ReadFileIfIsAllowed::class => [
                         'arguments' => [
                             IsAllowedNone::class, // Over-ride me
                             ['literal' => []],

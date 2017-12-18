@@ -3,22 +3,25 @@
 namespace Zrcms\ViewHead\Api;
 
 use Zrcms\Core\Api\Component\FindComponentsBy;
-use Zrcms\CoreBlock\Fields\FieldsBlockComponent;
-use Zrcms\CoreBlock\Model\BlockComponent;
+use Zrcms\Core\Fields\FieldsComponent;
+use Zrcms\Core\Model\Component;
 use Zrcms\ViewHead\Api\Render\GetViewLayoutTagsHeadLink;
 use Zrcms\ViewHead\Api\Render\GetViewLayoutTagsHeadScript;
 
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class GetSectionsBlockComponent implements GetSections
+class GetSectionsComponentFileIncludes implements GetSections
 {
+    const DEFAULT_SECTION_NAME = 'modules';
+    const DEFAULT_COMPONENT_TYPE = 'block';
+
     protected $findComponentsBy;
 
     protected $tagTypeMap
         = [
-            GetViewLayoutTagsHeadScript::TAG_TYPE => FieldsBlockComponent::JAVASCRIPT,
-            GetViewLayoutTagsHeadLink::TAG_TYPE => FieldsBlockComponent::CSS,
+            GetViewLayoutTagsHeadScript::TAG_TYPE => FieldsComponent::JAVASCRIPT,
+            GetViewLayoutTagsHeadLink::TAG_TYPE => FieldsComponent::CSS,
         ];
 
     protected $tagMap
@@ -27,15 +30,23 @@ class GetSectionsBlockComponent implements GetSections
             GetViewLayoutTagsHeadLink::TAG_TYPE => 'link',
         ];
 
-    protected $blockSectionName = 'modules';
+    protected $sectionName;
+
+    protected $componentType;
 
     /**
      * @param FindComponentsBy $findComponentsBy
+     * @param string           $sectionName
+     * @param string           $componentType
      */
     public function __construct(
-        FindComponentsBy $findComponentsBy
+        FindComponentsBy $findComponentsBy,
+        string $sectionName = self::DEFAULT_SECTION_NAME,
+        string $componentType = self::DEFAULT_COMPONENT_TYPE
     ) {
         $this->findComponentsBy = $findComponentsBy;
+        $this->sectionName = $sectionName;
+        $this->componentType = $componentType;
     }
 
     /**
@@ -49,69 +60,87 @@ class GetSectionsBlockComponent implements GetSections
         string $tagType,
         array $options = []
     ): array {
-        /** @var BlockComponent[] $components */
+        /** @var Component[] $components */
         $components = $this->findComponentsBy->__invoke(
             [
-                'type' => 'block',
+                'type' => $this->componentType,
             ]
         );
 
         $filedName = $this->getFieldName($tagType);
         $tag = $this->getTag($tagType);
 
-        $sectionEntries = [];
+        $filePaths = [];
 
-        /** @var BlockComponent $component */
+        /** @var Component $component */
         foreach ($components as $component) {
-            $blockTagConfigs = $component->findProperty(
+            $tagConfigs = $component->findProperty(
                 $filedName,
                 []
             );
 
-            $sectionEntries = $this->getSectionEntries(
+            $filePaths = $this->getFilesPaths(
                 $tag,
                 $component,
-                $blockTagConfigs,
-                $sectionEntries
+                $tagConfigs,
+                $filePaths
             );
         }
 
-        $sections = [];
-        $sections[$this->blockSectionName] = $sectionEntries;
+        $sections = [
+            $this->componentType . '.' . $this->sectionName => [
+                $this->sectionName => [
+                    '__file-includes' => $filePaths,
+                ],
+            ],
+        ];
 
         return $sections;
     }
 
     /**
-     * @param string         $tag
-     * @param BlockComponent $component
-     * @param array          $blockTagConfigs
-     * @param array          $sectionEntries
+     * @param string    $tag
+     * @param Component $component
+     * @param array     $tagConfigs
+     * @param array     $filePaths
      *
      * @return array
+     * @throws \Exception
      */
-    protected function getSectionEntries(
+    protected function getFilesPaths(
         string $tag,
-        BlockComponent $component,
-        array $blockTagConfigs,
-        array $sectionEntries
+        Component $component,
+        array $tagConfigs,
+        array $filePaths
     ) {
-        if (empty($blockTagConfigs)) {
-            return $sectionEntries;
+        if (empty($tagConfigs)) {
+            return $filePaths;
         }
-        $sectionEntryName = $component->getType() . '.' . $component->getName() . ':';
+        $sourceName = $component->getType() . '.' . $component->getName() . ':';
         $moduleDirectory = $component->getModuleDirectory();
+        $index = 0;
 
-        foreach ($blockTagConfigs as $blockFilePath) {
-            $scheme = parse_url($blockFilePath, PHP_URL_SCHEME);
-            $filePath = parse_url($blockFilePath, PHP_URL_PATH);
+        foreach ($tagConfigs as $filePath) {
+            $scheme = parse_url($filePath, PHP_URL_SCHEME);
+            $filePath = parse_url($filePath, PHP_URL_PATH);
+
+            if (!empty($scheme)) {
+                $scheme = $scheme . ':';
+            }
+
+            if (empty($filePath)) {
+                throw new \Exception(
+                    'File path can not be empty for component: ' . $sourceName
+                );
+            }
 
             $absoluteFilePathUri = $scheme . $moduleDirectory . '/' . $filePath;
 
-            $sectionEntries[$sectionEntryName] = $this->getSectionEntry($tag, $absoluteFilePathUri);
+            $filePaths[$sourceName . '-' . $index] = $this->getSectionEntry($tag, $absoluteFilePathUri);
+            $index++;
         }
 
-        return $sectionEntries;
+        return $filePaths;
     }
 
     /**
@@ -120,7 +149,7 @@ class GetSectionsBlockComponent implements GetSections
      *
      * @return array
      */
-    protected function getSectionScriptEntry(
+    protected function getSectionEntry(
         string $tag,
         string $absoluteFilePathUri
     ) {

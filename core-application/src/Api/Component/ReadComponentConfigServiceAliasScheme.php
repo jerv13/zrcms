@@ -11,7 +11,7 @@ use Zrcms\ServiceAlias\Api\GetServiceFromAlias;
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class ReadComponentConfigComposite implements ReadComponentConfig
+class ReadComponentConfigServiceAliasScheme implements ReadComponentConfig
 {
     protected $getServiceAliasesByNamespace;
     protected $getServiceFromAlias;

@@ -30,7 +30,7 @@ use Zrcms\CoreApplication\Api\Component\ReadComponentConfigApplicationConfig;
 use Zrcms\CoreApplication\Api\Component\ReadComponentConfigApplicationConfigFactory;
 use Zrcms\CoreApplication\Api\Component\ReadComponentConfigCallable;
 use Zrcms\CoreApplication\Api\Component\ReadComponentConfigCallableFactory;
-use Zrcms\CoreApplication\Api\Component\ReadComponentConfigComposite;
+use Zrcms\CoreApplication\Api\Component\ReadComponentConfigServiceAliasScheme;
 use Zrcms\CoreApplication\Api\Component\ReadComponentConfigJsonFile;
 use Zrcms\CoreApplication\Api\Component\ReadComponentConfigPhpFile;
 use Zrcms\CoreApplication\Api\Component\ReadComponentConfigsBasic;
@@ -110,7 +110,7 @@ class ModuleConfig
 
                     /** DEFAULT */
                     ReadComponentConfig::class => [
-                        'class' => ReadComponentConfigComposite::class,
+                        'class' => ReadComponentConfigServiceAliasScheme::class,
                         'arguments' => [
                             GetServiceAliasesByNamespace::class,
                             GetServiceFromAlias::class,

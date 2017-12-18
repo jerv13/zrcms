@@ -16,17 +16,21 @@ class RenderHeadSectionsTagBasic implements RenderHeadSectionsTag
 
     protected $getAvailableHeadSections;
     protected $renderHeadSectionTag;
+    protected $defaultDebug;
 
     /**
      * @param GetAvailableHeadSections $getAvailableHeadSections
      * @param RenderHeadSectionTag     $renderHeadSectionTag
+     * @param bool                     $defaultDebug
      */
     public function __construct(
         GetAvailableHeadSections $getAvailableHeadSections,
-        RenderHeadSectionTag $renderHeadSectionTag
+        RenderHeadSectionTag $renderHeadSectionTag,
+        bool $defaultDebug = true
     ) {
         $this->getAvailableHeadSections = $getAvailableHeadSections;
         $this->renderHeadSectionTag = $renderHeadSectionTag;
+        $this->defaultDebug = $defaultDebug;
     }
 
     /**
@@ -46,7 +50,11 @@ class RenderHeadSectionsTagBasic implements RenderHeadSectionsTag
         array $sections,
         array $options = []
     ): string {
-        $debug = Param::getBool($options, 'debug', true);
+        $debug = Param::getBool(
+            $options,
+            'debug',
+            $this->defaultDebug
+        );
         $orderedSections = $this->getAvailableHeadSections->__invoke();
         $html = '';
 

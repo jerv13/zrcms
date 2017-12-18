@@ -10,8 +10,6 @@ use Zrcms\Param\Param;
 use Zrcms\ServiceAlias\Api\GetServiceFromAlias;
 use Zrcms\ServiceAlias\ServiceCheck;
 use Zrcms\ViewHead\Api\Exception\CanNotRenderHeadSectionTag;
-use Zrcms\ViewHead\Api\GetAvailableHeadSections;
-use Zrcms\ViewHtmlTags\Api\Render\RenderTag;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -22,17 +20,21 @@ class RenderHeadSectionTagViewLayoutTags implements RenderHeadSectionTag
 
     protected $getServiceFromAlias;
     protected $serviceAliasNamespace;
+    protected $defaultDebug;
 
     /**
-     * @param GetServiceFromAlias      $getServiceFromAlias
-     * @param string                   $serviceAliasNamespace
+     * @param GetServiceFromAlias $getServiceFromAlias
+     * @param string              $serviceAliasNamespace
+     * @param bool                $defaultDebug
      */
     public function __construct(
         GetServiceFromAlias $getServiceFromAlias,
-        $serviceAliasNamespace = ServiceAliasView::ZRCMS_COMPONENT_VIEW_LAYOUT_TAGS_GETTER
+        $serviceAliasNamespace = ServiceAliasView::ZRCMS_COMPONENT_VIEW_LAYOUT_TAGS_GETTER,
+        bool $defaultDebug = true
     ) {
         $this->getServiceFromAlias = $getServiceFromAlias;
-        $this->serviceAliasNamespace = $serviceAliasNamespace ;
+        $this->serviceAliasNamespace = $serviceAliasNamespace;
+        $this->defaultDebug = $defaultDebug;
     }
 
     /**
@@ -68,14 +70,19 @@ class RenderHeadSectionTagViewLayoutTags implements RenderHeadSectionTag
             self::OPTION_VIEW
         );
 
+        $debug = Param::getBool(
+            $options,
+            self::OPTION_DEBUG,
+            $this->defaultDebug
+        );
         $indent = Param::getString(
             $options,
-            RenderTag::OPTION_INDENT,
+            self::OPTION_INDENT,
             '    '
         );
         $lineBreak = Param::getString(
             $options,
-            RenderTag::OPTION_LINE_BREAK,
+            self::OPTION_LINE_BREAK,
             "\n"
         );
 
@@ -95,12 +102,17 @@ class RenderHeadSectionTagViewLayoutTags implements RenderHeadSectionTag
             $options
         );
 
-        $html = '';
+        $contentHtml = '';
 
-        foreach ($viewLayoutTags as $viewLayoutTagHtml) {
-            $html .= $indent . $viewLayoutTagHtml . $lineBreak;
+        foreach ($viewLayoutTags as $viewLayoutTag => $viewLayoutTagHtml) {
+            if ($debug) {
+                $contentHtml .= $indent
+                    . '<!-- RenderHeadSectionTagViewLayoutTags: ' . $viewLayoutTag . ' -->'
+                    . $lineBreak;
+            }
+            $contentHtml .= $indent . $viewLayoutTagHtml . $lineBreak;
         }
 
-        return $html;
+        return $contentHtml;
     }
 }

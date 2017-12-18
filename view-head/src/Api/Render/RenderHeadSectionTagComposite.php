@@ -30,11 +30,12 @@ class RenderHeadSectionTagComposite implements RenderHeadSectionTag
      * @param ServerRequestInterface $request
      * @param string                 $tag
      * @param string                 $sectionEntryName
-     * @param array                  $attributes
+     * @param array                  $sectionConfig
      * @param array                  $options
      *
      * @return string
      * @throws CanNotRenderHeadSectionTag
+     * @throws \Exception
      * @throws \Psr\Container\ContainerExceptionInterface
      * @throws \Psr\Container\NotFoundExceptionInterface
      */
@@ -42,7 +43,7 @@ class RenderHeadSectionTagComposite implements RenderHeadSectionTag
         ServerRequestInterface $request,
         string $tag,
         string $sectionEntryName,
-        array $attributes,
+        array $sectionConfig,
         array $options = []
     ): string {
         $renderHeadSectionTagApiList = $this->getApiList();
@@ -56,7 +57,7 @@ class RenderHeadSectionTagComposite implements RenderHeadSectionTag
                     $request,
                     $tag,
                     $sectionEntryName,
-                    $attributes,
+                    $sectionConfig,
                     $options
                 );
             } catch (CanNotRenderHeadSectionTag $e) {
@@ -75,6 +76,7 @@ class RenderHeadSectionTagComposite implements RenderHeadSectionTag
 
     /**
      * @return array
+     * @throws \Exception
      * @throws \Psr\Container\ContainerExceptionInterface
      * @throws \Psr\Container\NotFoundExceptionInterface
      */
@@ -84,10 +86,15 @@ class RenderHeadSectionTagComposite implements RenderHeadSectionTag
 
         $apiList = [];
 
-        foreach ($this->renderHeadSectionTagConfig as $apiServiceName => $priority) {
-            $api = $this->serviceContainer->get($apiServiceName);
+        foreach ($this->renderHeadSectionTagConfig as $renderHeadSectionTagServiceName => $priority) {
+            $renderHeadSectionTag = $this->serviceContainer->get($renderHeadSectionTagServiceName);
 
-            $queue->insert($api, $priority);
+            $this->assertValidRenderHeadSectionTag(
+                $renderHeadSectionTagServiceName,
+                $renderHeadSectionTag
+            );
+
+            $queue->insert($renderHeadSectionTag, $priority);
         }
 
         foreach ($queue as $item) {
