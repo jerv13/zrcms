@@ -43,11 +43,6 @@ class RenderHeadSectionTagDefault implements RenderHeadSectionTag
         array $options = []
     ): string {
         // general - Render from a tag configuration
-        $contentHtml = null;
-        if (array_key_exists('__content', $sectionConfig)) {
-            $contentHtml = (string)$sectionConfig['__content'];
-        }
-
         $debug = Param::getBool(
             $options,
             self::OPTION_DEBUG,
@@ -64,19 +59,24 @@ class RenderHeadSectionTagDefault implements RenderHeadSectionTag
             "\n"
         );
 
-        $attributes = $this->cleanConfig($sectionConfig);
-
         $contentHtml = '';
 
         if ($debug) {
             $contentHtml .= $indent . '<!-- RenderHeadSectionTagDefault -->' . $lineBreak;
         }
 
+        $tagContent = null;
+        if (array_key_exists('__content', $sectionConfig)) {
+            $tagContent = (string)$sectionConfig['__content'];
+        }
+
+        $attributes = $this->cleanConfig($sectionConfig);
+
         $contentHtml .= $this->renderTag->__invoke(
             [
                 'tag' => $tag,
                 'attributes' => $attributes,
-                'content' => $contentHtml
+                'content' => $tagContent
             ],
             $options
         );

@@ -23,6 +23,8 @@ use Zrcms\ViewHead\Api\Render\GetViewLayoutTagsHeadTitle;
 use Zrcms\ViewHead\Api\Render\RenderHeadSectionsTag;
 use Zrcms\ViewHead\Api\Render\RenderHeadSectionsTagBasic;
 use Zrcms\ViewHead\Api\Render\RenderHeadSectionTag;
+use Zrcms\ViewHead\Api\Render\RenderHeadSectionTagByService;
+use Zrcms\ViewHead\Api\Render\RenderHeadSectionTagByServiceFactory;
 use Zrcms\ViewHead\Api\Render\RenderHeadSectionTagCompositeFactory;
 use Zrcms\ViewHead\Api\Render\RenderHeadSectionTagDefault;
 use Zrcms\ViewHead\Api\Render\RenderHeadSectionTagFileIncludes;
@@ -88,6 +90,10 @@ class ModuleConfig
                     ],
                     RenderHeadSectionTag::class => [
                         'factory' => RenderHeadSectionTagCompositeFactory::class,
+                    ],
+
+                    RenderHeadSectionTagByService::class => [
+                        'factory' => RenderHeadSectionTagByServiceFactory::class,
                     ],
 
                     RenderHeadSectionTagDefault::class => [
@@ -261,9 +267,10 @@ class ModuleConfig
              * ["{ServiceName}" => {priority}]
              */
             'zrcms-view-head.section-tag-render-api' => [
-                RenderHeadSectionTagDefault::class => -1, // Should always go last
+                RenderHeadSectionTagByService::class => 300,
+                RenderHeadSectionTagDefault::class => -1, // Should always go last as fallback
                 RenderHeadSectionTagFileIncludes::class => 100,
-                RenderHeadSectionTagLiteral::class => 300,
+                RenderHeadSectionTagLiteral::class => 400,
                 RenderHeadSectionTagViewLayoutTags::class => 200,
             ],
 
