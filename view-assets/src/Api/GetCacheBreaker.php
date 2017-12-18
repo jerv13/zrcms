@@ -7,6 +7,9 @@ namespace Zrcms\ViewAssets\Api;
  */
 interface GetCacheBreaker
 {
+    const KEY_VERSION = 'version';
+    const KEY_TIMESTAMP = 'timestamp';
+
     /**
      * @param array $options
      *
