@@ -11,8 +11,6 @@ use Zrcms\Mustache\Resolver\FileResolver;
 class ModuleConfig
 {
     /**
-     * __invoke
-     *
      * @return array
      */
     public function __invoke()

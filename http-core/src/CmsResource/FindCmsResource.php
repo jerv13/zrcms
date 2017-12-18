@@ -46,8 +46,6 @@ class FindCmsResource
     }
 
     /**
-     * __invoke
-     *
      * @param ServerRequestInterface $request
      * @param ResponseInterface      $response
      * @param callable|null          $next

@@ -19,8 +19,6 @@ use Zrcms\HttpCore\Validate\IdAttributeZfInputFilterService;
 class ModuleConfig
 {
     /**
-     * __invoke
-     *
      * @return array
      */
     public function __invoke()

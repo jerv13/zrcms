@@ -73,9 +73,8 @@ class ReadComponentConfigsBasic implements ReadComponentConfigs
     }
 
     /**
-     * hasCache
-     *
      * @return bool
+     * @throws \Psr\SimpleCache\InvalidArgumentException
      */
     protected function hasCache()
     {
@@ -83,9 +82,8 @@ class ReadComponentConfigsBasic implements ReadComponentConfigs
     }
 
     /**
-     * getCache
-     *
      * @return mixed
+     * @throws \Psr\SimpleCache\InvalidArgumentException
      */
     protected function getCache()
     {
@@ -93,11 +91,10 @@ class ReadComponentConfigsBasic implements ReadComponentConfigs
     }
 
     /**
-     * setCache
-     *
-     * @param array $configs
+     * @param $configs
      *
      * @return void
+     * @throws \Psr\SimpleCache\InvalidArgumentException
      */
     protected function setCache($configs)
     {

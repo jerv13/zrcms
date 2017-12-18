@@ -23,7 +23,7 @@ class IsAllowedCheckApi
     /**
      * @var string
      */
-    protected $aclOptions;
+    protected $isAllowedOptions;
 
     /**
      * @var string
@@ -32,22 +32,20 @@ class IsAllowedCheckApi
 
     /**
      * @param IsAllowed $isAllowed
-     * @param array     $aclOptions
+     * @param array     $isAllowedOptions
      * @param string    $name
      */
     public function __construct(
         IsAllowed $isAllowed,
-        array $aclOptions,
+        array $isAllowedOptions,
         string $name
     ) {
         $this->isAllowed = $isAllowed;
-        $this->aclOptions = $aclOptions;
+        $this->isAllowedOptions = $isAllowedOptions;
         $this->name = $name;
     }
 
     /**
-     * __invoke
-     *
      * @param ServerRequestInterface $request
      * @param ResponseInterface      $response
      * @param callable|null          $next
@@ -60,7 +58,7 @@ class IsAllowedCheckApi
         ResponseInterface $response,
         callable $next = null
     ) {
-        if (!$this->isAllowed->__invoke($request, $this->aclOptions)) {
+        if (!$this->isAllowed->__invoke($request, $this->isAllowedOptions)) {
             $apiMessages = [
                 'type' => $this->name,
                 'value' => 'Not allowed',

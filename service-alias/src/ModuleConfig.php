@@ -10,7 +10,6 @@ use Zrcms\ServiceAlias\Api\GetServiceFromAlias;
 use Zrcms\ServiceAlias\Api\GetServiceFromAliasBasicFactory;
 use Zrcms\ServiceAlias\Api\GetServiceName;
 use Zrcms\ServiceAlias\Api\GetServiceNameBasic;
-use Zrcms\ServiceAlias\Api\GetServiceNameBasicFactory;
 use Zrcms\ServiceAlias\Model\ServiceAliasDefault;
 
 /**
@@ -19,8 +18,6 @@ use Zrcms\ServiceAlias\Model\ServiceAliasDefault;
 class ModuleConfig
 {
     /**
-     * __invoke
-     *
      * @return array
      */
     public function __invoke()

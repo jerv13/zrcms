@@ -13,8 +13,6 @@ use Zrcms\ViewHtmlTags\Api\Render\RenderTagsBasic;
 class ModuleConfig
 {
     /**
-     * __invoke
-     *
      * @return array
      */
     public function __invoke()

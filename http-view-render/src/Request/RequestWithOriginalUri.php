@@ -13,8 +13,6 @@ class RequestWithOriginalUri
     const ATTRIBUTE_ORIGINAL_URI = 'zrcms-original-uri';
 
     /**
-     * __invoke
-     *
      * @param ServerRequestInterface $request
      * @param ResponseInterface      $response
      * @param callable|null          $next

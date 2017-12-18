@@ -19,8 +19,6 @@ use Zrcms\Acl\Api\IsAllowedRelivServerEnvironmentProduction;
 class ModuleConfig
 {
     /**
-     * __invoke
-     *
      * @return array
      */
     public function __invoke()

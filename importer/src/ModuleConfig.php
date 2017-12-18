@@ -10,8 +10,6 @@ use Zrcms\Importer\Middleware\ImportController;
 class ModuleConfig
 {
     /**
-     * __invoke
-     *
      * @return array
      */
     public function __invoke()

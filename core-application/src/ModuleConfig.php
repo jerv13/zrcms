@@ -3,6 +3,7 @@
 namespace Zrcms\CoreApplication;
 
 use Zrcms\Cache\Service\Cache;
+use Zrcms\Cache\Service\CacheArray;
 use Zrcms\Core\Api\CmsResource\CmsResourceToArray;
 use Zrcms\Core\Api\CmsResourceHistory\CmsResourceHistoryToArray;
 use Zrcms\Core\Api\Component\BuildComponentObject;
@@ -15,6 +16,8 @@ use Zrcms\Core\Api\Component\ReadComponentRegistry;
 use Zrcms\Core\Api\Component\SearchComponentConfigs;
 use Zrcms\Core\Api\Content\ContentToArray;
 use Zrcms\Core\Api\Content\ContentVersionToArray;
+use Zrcms\Core\Api\GetComponentCss;
+use Zrcms\Core\Api\GetComponentJs;
 use Zrcms\Core\Api\GetTypeValue;
 use Zrcms\Core\Model\Component;
 use Zrcms\Core\Model\ComponentBasic;
@@ -30,16 +33,18 @@ use Zrcms\CoreApplication\Api\Component\ReadComponentConfigApplicationConfig;
 use Zrcms\CoreApplication\Api\Component\ReadComponentConfigApplicationConfigFactory;
 use Zrcms\CoreApplication\Api\Component\ReadComponentConfigCallable;
 use Zrcms\CoreApplication\Api\Component\ReadComponentConfigCallableFactory;
-use Zrcms\CoreApplication\Api\Component\ReadComponentConfigServiceAliasScheme;
 use Zrcms\CoreApplication\Api\Component\ReadComponentConfigJsonFile;
 use Zrcms\CoreApplication\Api\Component\ReadComponentConfigPhpFile;
 use Zrcms\CoreApplication\Api\Component\ReadComponentConfigsBasic;
+use Zrcms\CoreApplication\Api\Component\ReadComponentConfigServiceAliasScheme;
 use Zrcms\CoreApplication\Api\Component\ReadComponentRegistryBasic;
 use Zrcms\CoreApplication\Api\Component\ReadComponentRegistryBasicFactory;
 use Zrcms\CoreApplication\Api\Component\ReadComponentRegistryCompositeFactory;
 use Zrcms\CoreApplication\Api\Component\SearchComponentConfigsBasic;
 use Zrcms\CoreApplication\Api\Content\ContentToArrayBasic;
 use Zrcms\CoreApplication\Api\Content\ContentVersionToArrayBasic;
+use Zrcms\CoreApplication\Api\GetComponentCssBasic;
+use Zrcms\CoreApplication\Api\GetComponentJsBasic;
 use Zrcms\CoreApplication\Api\GetTypeValueBasicFactory;
 use Zrcms\ServiceAlias\Api\GetServiceAliasesByNamespace;
 use Zrcms\ServiceAlias\Api\GetServiceFromAlias;
@@ -159,6 +164,20 @@ class ModuleConfig
                      */
                     GetTypeValue::class => [
                         'factory' => GetTypeValueBasicFactory::class,
+                    ],
+                    GetComponentCss::class => [
+                        'class' => GetComponentCssBasic::class,
+                        'arguments' => [
+                            CacheArray::class,
+                            ['literal' => GetComponentCssBasic::DEFAULT_CACHE_KEY]
+                        ],
+                    ],
+                    GetComponentJs::class => [
+                        'class' => GetComponentJsBasic::class,
+                        'arguments' => [
+                            CacheArray::class,
+                            ['literal' => GetComponentJsBasic::DEFAULT_CACHE_KEY]
+                        ],
                     ]
                 ],
             ],

@@ -7,12 +7,13 @@ use Zrcms\Core\Fields\FieldsComponentConfig;
 use Zrcms\Core\Model\ServiceAliasComponent;
 use Zrcms\CoreView\Fields\FieldsViewLayoutTagsComponent;
 use Zrcms\CoreView\Model\ServiceAliasView;
-use Zrcms\File\Api\ReadFile;
 use Zrcms\ServiceAlias\Api\GetServiceFromAlias;
 use Zrcms\ViewHead\Api\Component\ReadViewHeadComponentConfigBc;
 use Zrcms\ViewHead\Api\Component\ReadViewHeadComponentConfigBcFactory;
 use Zrcms\ViewHead\Api\GetAvailableHeadSections;
 use Zrcms\ViewHead\Api\GetAvailableHeadSectionsFactory;
+use Zrcms\ViewHead\Api\GetSections;
+use Zrcms\ViewHead\Api\GetSectionsHeadSectionComponent;
 use Zrcms\ViewHead\Api\Render\GetViewLayoutTagsHead;
 use Zrcms\ViewHead\Api\Render\GetViewLayoutTagsHeadAll;
 use Zrcms\ViewHead\Api\Render\GetViewLayoutTagsHeadLink;
@@ -37,8 +38,6 @@ use Zrcms\ViewHtmlTags\Api\Render\RenderTags;
 class ModuleConfig
 {
     /**
-     * __invoke
-     *
      * @return array
      */
     public function __invoke()
@@ -63,7 +62,7 @@ class ModuleConfig
                     ],
                     GetViewLayoutTagsHeadLink::class => [
                         'arguments' => [
-                            FindComponent::class,
+                            GetSections::class,
                             RenderHeadSectionsTag::class,
                         ],
                     ],
@@ -75,7 +74,7 @@ class ModuleConfig
                     ],
                     GetViewLayoutTagsHeadScript::class => [
                         'arguments' => [
-                            FindComponent::class,
+                            GetSections::class,
                             RenderHeadSectionsTag::class,
                         ],
                     ],
@@ -96,11 +95,7 @@ class ModuleConfig
                             RenderTag::class,
                         ],
                     ],
-                    RenderHeadSectionTagFileIncludes::class => [
-                        'arguments' => [
-                            ReadFile::class,
-                        ],
-                    ],
+                    RenderHeadSectionTagFileIncludes::class => [],
                     RenderHeadSectionTagLiteral::class => [],
                     RenderHeadSectionTagViewLayoutTags::class => [
                         'arguments' => [
@@ -110,6 +105,12 @@ class ModuleConfig
                     ],
                     GetAvailableHeadSections::class => [
                         'factory' => GetAvailableHeadSectionsFactory::class,
+                    ],
+                    GetSections::class => [
+                        'class' => GetSectionsHeadSectionComponent::class,
+                        'arguments' => [
+                            FindComponent::class
+                        ],
                     ],
                     ReadViewHeadComponentConfigBc::class => [
                         'factory' => ReadViewHeadComponentConfigBcFactory::class,
@@ -261,8 +262,9 @@ class ModuleConfig
              */
             'zrcms-view-head.section-tag-render-api' => [
                 RenderHeadSectionTagDefault::class => -1, // Should always go last
-                RenderHeadSectionTagLiteral::class => 20,
-                RenderHeadSectionTagViewLayoutTags::class => 10,
+                RenderHeadSectionTagFileIncludes::class => 100,
+                RenderHeadSectionTagLiteral::class => 300,
+                RenderHeadSectionTagViewLayoutTags::class => 200,
             ],
 
             'zrcms-service-alias' => [

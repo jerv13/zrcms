@@ -3,8 +3,6 @@
 namespace Zrcms\ViewHead\Api\Render;
 
 use Psr\Http\Message\ServerRequestInterface;
-use Zrcms\File\Api\ReadFile;
-use Zrcms\File\Exception\CanNotReadFile;
 use Zrcms\Param\Param;
 use Zrcms\ViewHead\Api\Exception\CanNotRenderHeadSectionTag;
 
@@ -13,18 +11,14 @@ use Zrcms\ViewHead\Api\Exception\CanNotRenderHeadSectionTag;
  */
 class RenderHeadSectionTagFileIncludes implements RenderHeadSectionTag
 {
-    protected $readFile;
     protected $defaultDebug;
 
     /**
-     * @param ReadFile $readFile
-     * @param bool     $defaultDebug
+     * @param bool $defaultDebug
      */
     public function __construct(
-        ReadFile $readFile,
         bool $defaultDebug = true
     ) {
-        $this->readFile = $readFile;
         $this->defaultDebug = $defaultDebug;
     }
 
@@ -37,7 +31,7 @@ class RenderHeadSectionTagFileIncludes implements RenderHeadSectionTag
      *
      * @return string
      * @throws CanNotRenderHeadSectionTag
-     * @throws CanNotReadFile
+     * @throws \Exception
      */
     public function __invoke(
         ServerRequestInterface $request,
@@ -70,19 +64,40 @@ class RenderHeadSectionTagFileIncludes implements RenderHeadSectionTag
 
         $contentHtml = '';
 
-        foreach ($sectionConfig['__file-includes'] as $source => $filePathUri) {
+        foreach ($sectionConfig['__file-includes'] as $source => $filePath) {
             if ($debug) {
                 $contentHtml .= $indent
-                    . '<!-- RenderHeadSectionTagFileIncludes source: ' . $source . ' file: ' . $filePathUri . '-->'
+                    . '<!-- RenderHeadSectionTagFileIncludes source: ' . $source . ' file: ' . $filePath . '-->'
                     . $lineBreak;
             }
 
-            $contentHtml .= $indent . $this->readFile->__invoke(
-                    $request,
-                    $filePathUri
+            $contentHtml .= $indent . $this->readFile(
+                    $filePath
                 ) . $lineBreak;
         }
 
         return $contentHtml;
+    }
+
+    /**
+     * @param string $filePath
+     *
+     * @return string
+     * @throws \Exception
+     */
+    public function readFile(
+        string $filePath
+    ): string {
+        $realFilePath = realpath($filePath);
+
+        if (empty($realFilePath)) {
+            throw new \Exception('Path is not valid: ' . $filePath);
+        }
+
+        if (!is_file($realFilePath)) {
+            throw new \Exception('File path must be a file: ' . $filePath);
+        }
+
+        return file_get_contents($realFilePath);
     }
 }

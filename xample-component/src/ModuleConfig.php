@@ -2,7 +2,6 @@
 
 namespace Zrcms\XampleComponent;
 
-use Zrcms\Core\Fields\FieldsComponentRegistry;
 use Zrcms\CoreView\Model\ServiceAliasView;
 use Zrcms\XampleComponent\View\Api\Render\GetViewLayoutTags;
 
@@ -12,8 +11,6 @@ use Zrcms\XampleComponent\View\Api\Render\GetViewLayoutTags;
 class ModuleConfig
 {
     /**
-     * __invoke
-     *
      * @return array
      */
     public function __invoke()

@@ -3,10 +3,9 @@
 namespace Zrcms\ViewHead\Api\Render;
 
 use Psr\Http\Message\ServerRequestInterface;
-use Zrcms\Core\Api\Component\FindComponent;
 use Zrcms\Core\Model\Content;
 use Zrcms\CoreView\Model\View;
-use Zrcms\ViewHead\Model\HeadSectionComponent;
+use Zrcms\ViewHead\Api\GetSections;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -16,19 +15,20 @@ class GetViewLayoutTagsHeadScript implements GetViewLayoutTagsHead
     const RENDER_TAG_SCRIPT = 'head-script';
     const SERVICE_ALIAS = 'head-script';
     const TAG_TYPE = 'head-script';
+    const HTML_TAG = 'script';
 
-    protected $findComponent;
+    protected $getSections;
     protected $renderHeadSectionsTag;
 
     /**
-     * @param FindComponent $findComponent
-     * @param RenderHeadSectionsTag       $renderHeadSectionsTag
+     * @param GetSections           $getSections
+     * @param RenderHeadSectionsTag $renderHeadSectionsTag
      */
     public function __construct(
-        FindComponent $findComponent,
+        GetSections $getSections,
         RenderHeadSectionsTag $renderHeadSectionsTag
     ) {
-        $this->findComponent = $findComponent;
+        $this->getSections = $getSections;
         $this->renderHeadSectionsTag = $renderHeadSectionsTag;
     }
 
@@ -45,19 +45,15 @@ class GetViewLayoutTagsHeadScript implements GetViewLayoutTagsHead
         ServerRequestInterface $request,
         array $options = []
     ): array {
-        /** @var HeadSectionComponent $component */
-        $component = $this->findComponent->__invoke(
-            'view-layout-tag',
-            self::RENDER_TAG_SCRIPT
+        $sections = $this->getSections->__invoke(
+            self::RENDER_TAG_SCRIPT,
+            $request
         );
-
-        $tag = $component->getTag();
-        $sections = $component->getSections();
 
         $html = $this->renderHeadSectionsTag->__invoke(
             $view,
             $request,
-            $tag,
+            self::HTML_TAG,
             $sections,
             $options
         );

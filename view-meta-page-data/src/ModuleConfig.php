@@ -14,8 +14,6 @@ use Zrcms\ViewMetaPageData\Api\View\Render\GetViewLayoutMetaPageData;
 class ModuleConfig
 {
     /**
-     * __invoke
-     *
      * @return array
      */
     public function __invoke()

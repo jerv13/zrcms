@@ -8,8 +8,6 @@ namespace Zrcms\CoreRedirect;
 class ModuleConfig
 {
     /**
-     * __invoke
-     *
      * @return array
      */
     public function __invoke()

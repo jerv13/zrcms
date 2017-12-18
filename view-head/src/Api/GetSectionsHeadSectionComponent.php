@@ -37,7 +37,6 @@ class GetSectionsHeadSectionComponent implements GetSections
             $tagType
         );
 
-        $tag = $component->getTag();
         return $component->getSections();
     }
 }

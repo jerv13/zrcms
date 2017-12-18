@@ -66,8 +66,6 @@ class ResponseMutatorStatusPage
     }
 
     /**
-     * __invoke
-     *
      * @param ServerRequestInterface $request
      * @param ResponseInterface      $response
      * @param callable|null          $next

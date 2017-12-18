@@ -15,8 +15,6 @@ use Zrcms\HttpTest\Middleware\ViewControllerTestFactory;
 class ModuleConfig
 {
     /**
-     * __invoke
-     *
      * @return array
      */
     public function __invoke()

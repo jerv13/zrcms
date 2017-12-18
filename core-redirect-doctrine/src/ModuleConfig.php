@@ -19,8 +19,6 @@ use Zrcms\CoreRedirect\Api\Content\InsertRedirectVersion;
 class ModuleConfig
 {
     /**
-     * __invoke
-     *
      * @return array
      */
     public function __invoke()

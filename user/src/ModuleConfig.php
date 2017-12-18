@@ -14,8 +14,6 @@ use Zrcms\User\Api\LogOutRcmUser;
 class ModuleConfig
 {
     /**
-     * __invoke
-     *
      * @return array
      */
     public function __invoke()

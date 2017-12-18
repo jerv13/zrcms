@@ -12,8 +12,6 @@ use Zrcms\HttpViewRender\Request\RequestWithView;
 class IsAllowedToViewPage
 {
     /**
-     * __invoke
-     *
      * @param ServerRequestInterface $request
      * @param ResponseInterface      $response
      * @param callable|null          $next

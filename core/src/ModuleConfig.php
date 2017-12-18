@@ -14,6 +14,8 @@ use Zrcms\Core\Api\Component\ReadComponentConfigs;
 use Zrcms\Core\Api\Component\ReadComponentRegistry;
 use Zrcms\Core\Api\Content\ContentToArray;
 use Zrcms\Core\Api\Content\ContentVersionToArray;
+use Zrcms\Core\Api\GetComponentCss;
+use Zrcms\Core\Api\GetComponentJs;
 use Zrcms\Core\Api\GetTypeValue;
 use Zrcms\Core\Exception\IMPLEMENTATIONisREQUIRED;
 
@@ -23,8 +25,6 @@ use Zrcms\Core\Exception\IMPLEMENTATIONisREQUIRED;
 class ModuleConfig
 {
     /**
-     * __invoke
-     *
      * @return array
      */
     public function __invoke()
@@ -93,6 +93,12 @@ class ModuleConfig
                      * General
                      */
                     GetTypeValue::class => [
+                        'class' => IMPLEMENTATIONisREQUIRED::class
+                    ],
+                    GetComponentCss::class => [
+                        'class' => IMPLEMENTATIONisREQUIRED::class
+                    ],
+                    GetComponentJs::class => [
                         'class' => IMPLEMENTATIONisREQUIRED::class
                     ]
                 ],

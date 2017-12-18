@@ -15,8 +15,6 @@ use Zrcms\Logger\Service\LoggerNoop;
 class ModuleConfig
 {
     /**
-     * __invoke
-     *
      * @return array
      */
     public function __invoke()

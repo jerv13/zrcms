@@ -12,8 +12,6 @@ use Zrcms\Locale\Api\SetLocaleBasicFactory;
 class ModuleConfig
 {
     /**
-     * __invoke
-     *
      * @return array
      */
     public function __invoke()

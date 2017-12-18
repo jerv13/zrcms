@@ -19,8 +19,6 @@ use Zrcms\HttpChangeLog\Middleware\IsAllowedReadChangeLog;
 class ModuleConfig
 {
     /**
-     * __invoke
-     *
      * @return array
      */
     public function __invoke()

@@ -27,8 +27,6 @@ use Zrcms\Cache\Service\CacheArray;
 class ModuleConfig
 {
     /**
-     * __invoke
-     *
      * @return array
      */
     public function __invoke()

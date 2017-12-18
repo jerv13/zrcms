@@ -10,8 +10,6 @@ use Zend\ConfigAggregator\ConfigAggregator;
 class ModulesConfig
 {
     /**
-     * __invoke
-     *
      * @return array
      */
     public function __invoke()
@@ -20,7 +18,6 @@ class ModulesConfig
             // Low level
             new \Zrcms\Logger\ModuleConfig(),
             new \Zrcms\Cache\ModuleConfig(),
-            new \Zrcms\File\ModuleConfig(),
             new \Zrcms\Param\ModuleConfig(),
             new \Zrcms\Mustache\ModuleConfig(),
             new \Zrcms\ServiceAlias\ModuleConfig(),
@@ -35,6 +32,7 @@ class ModulesConfig
             new \Zrcms\CoreApplication\ModuleConfig(),
             new \Zrcms\CoreApplicationDoctrine\ModuleConfig(),
 
+            new \Zrcms\CoreAdminTools\ModuleConfig(),
             new \Zrcms\CoreBlock\ModuleConfig(),
             new \Zrcms\CoreContainer\ModuleConfig(),
             new \Zrcms\CoreContainerDoctrine\ModuleConfig(),
@@ -63,17 +61,49 @@ class ModulesConfig
             // @todo Routes should NOT be included by default
             new \Zrcms\HttpChangeLog\ModuleConfigRoutes(),
 
+            new \Zrcms\HttpCoreAdminTools\ModuleConfig(),
+            // @todo Routes should NOT be included by default
+            new \Zrcms\HttpCoreAdminTools\ModuleConfigRoutes(),
+
             new \Zrcms\HttpCore\ModuleConfig(),
             // @todo Routes should NOT be included by default
             new \Zrcms\HttpCore\ModuleConfigRoutes(),
+
+            new \Zrcms\HttpCoreBlock\ModuleConfig(),
+            // @todo Routes should NOT be included by default
+            new \Zrcms\HttpCoreBlock\ModuleConfigRoutes(),
+
+            new \Zrcms\HttpCoreContainer\ModuleConfig(),
+            // @todo Routes should NOT be included by default
+            new \Zrcms\HttpCoreContainer\ModuleConfigRoutes(),
+
+            new \Zrcms\HttpCoreCountry\ModuleConfig(),
+            // @todo Routes should NOT be included by default
+            new \Zrcms\HttpCoreCountry\ModuleConfigRoutes(),
+
+            new \Zrcms\HttpCoreLanguage\ModuleConfig(),
+            // @todo Routes should NOT be included by default
+            new \Zrcms\HttpCoreLanguage\ModuleConfigRoutes(),
 
             new \Zrcms\HttpCorePage\ModuleConfig(),
             // @todo Routes should NOT be included by default
             new \Zrcms\HttpCorePage\ModuleConfigRoutes(),
 
+            new \Zrcms\HttpCoreRedirect\ModuleConfig(),
+            // @todo Routes should NOT be included by default
+            new \Zrcms\HttpCoreRedirect\ModuleConfigRoutes(),
+
             new \Zrcms\HttpCoreSite\ModuleConfig(),
             // @todo Routes should NOT be included by default
             new \Zrcms\HttpCoreSite\ModuleConfigRoutes(),
+
+            new \Zrcms\HttpCoreTheme\ModuleConfig(),
+            // @todo Routes should NOT be included by default
+            new \Zrcms\HttpCoreTheme\ModuleConfigRoutes(),
+
+            new \Zrcms\HttpCoreView\ModuleConfig(),
+            // @todo Routes should NOT be included by default
+            new \Zrcms\HttpCoreView\ModuleConfigRoutes(),
 
             new \Zrcms\HttpLocale\ModuleConfig(),
             new \Zrcms\HttpRcmApiLib\ModuleConfig(),

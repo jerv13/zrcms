@@ -13,8 +13,6 @@ use Zrcms\HttpTest\Middleware\ViewControllerTest;
 class ModuleConfigRoutes
 {
     /**
-     * __invoke
-     *
      * @return array
      */
     public function __invoke()

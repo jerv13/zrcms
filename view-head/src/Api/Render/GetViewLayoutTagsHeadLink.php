@@ -3,9 +3,9 @@
 namespace Zrcms\ViewHead\Api\Render;
 
 use Psr\Http\Message\ServerRequestInterface;
-use Zrcms\Core\Api\Component\FindComponent;
 use Zrcms\Core\Model\Content;
 use Zrcms\CoreView\Model\View;
+use Zrcms\ViewHead\Api\GetSections;
 use Zrcms\ViewHead\Model\HeadSectionComponent;
 
 /**
@@ -16,11 +16,12 @@ class GetViewLayoutTagsHeadLink implements GetViewLayoutTagsHead
     const RENDER_TAG_LINK = 'head-link';
     const SERVICE_ALIAS = 'head-link';
     const TAG_TYPE = 'head-link';
+    const HTML_TAG = 'link';
 
     /**
-     * @var FindComponent
+     * @var GetSections
      */
-    protected $findComponent;
+    protected $getSections;
 
     /**
      * @var RenderHeadSectionsTag
@@ -28,14 +29,14 @@ class GetViewLayoutTagsHeadLink implements GetViewLayoutTagsHead
     protected $renderHeadSectionsTag;
 
     /**
-     * @param FindComponent $findComponent
-     * @param RenderHeadSectionsTag       $renderHeadSectionsTag
+     * @param GetSections           $getSections
+     * @param RenderHeadSectionsTag $renderHeadSectionsTag
      */
     public function __construct(
-        FindComponent $findComponent,
+        GetSections $getSections,
         RenderHeadSectionsTag $renderHeadSectionsTag
     ) {
-        $this->findComponent = $findComponent;
+        $this->getSections = $getSections;
         $this->renderHeadSectionsTag = $renderHeadSectionsTag;
     }
 
@@ -52,19 +53,15 @@ class GetViewLayoutTagsHeadLink implements GetViewLayoutTagsHead
         ServerRequestInterface $request,
         array $options = []
     ): array {
-        /** @var HeadSectionComponent $component */
-        $component = $this->findComponent->__invoke(
-            'view-layout-tag',
-            self::RENDER_TAG_LINK
+        $sections = $this->getSections->__invoke(
+            self::RENDER_TAG_LINK,
+            $request
         );
-
-        $tag = $component->getTag();
-        $sections = $component->getSections();
 
         $html = $this->renderHeadSectionsTag->__invoke(
             $view,
             $request,
-            $tag,
+            self::HTML_TAG,
             $sections,
             $options
         );

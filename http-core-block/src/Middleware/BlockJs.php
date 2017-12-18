@@ -1,11 +1,11 @@
 <?php
 
-namespace Zrcms\File\Exception;
+namespace Zrcms\HttpCoreBlock\Middleware;
 
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class CanNotReadFile extends \Exception
+class BlockJs
 {
 
 }
