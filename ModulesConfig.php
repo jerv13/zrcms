@@ -51,59 +51,60 @@ class ModulesConfig
             new \Zrcms\Importer\ModuleConfig(),
             new \Zrcms\Install\ModuleConfig(),
 
-            new \Zrcms\ViewAssets\ModuleConfig(),
             new \Zrcms\ViewHead\ModuleConfig(),
             new \Zrcms\ViewHtmlTags\ModuleConfig(),
 
             new \Zrcms\Http\ModuleConfig(),
 
-            new \Zrcms\HttpChangeLog\ModuleConfig(),
-            // @todo Routes should NOT be included by default
-            new \Zrcms\HttpChangeLog\ModuleConfigRoutes(),
+            new \Zrcms\HttpAssets\ModuleConfig(),
 
-            new \Zrcms\HttpCoreAdminTools\ModuleConfig(),
+            new \Zrcms\HttpAssetsChangeLog\ModuleConfig(),
             // @todo Routes should NOT be included by default
-            new \Zrcms\HttpCoreAdminTools\ModuleConfigRoutes(),
+            new \Zrcms\HttpAssetsChangeLog\ModuleConfigRoutes(),
 
-            new \Zrcms\HttpCore\ModuleConfig(),
+            new \Zrcms\HttpAssetsAdminTools\ModuleConfig(),
             // @todo Routes should NOT be included by default
-            new \Zrcms\HttpCore\ModuleConfigRoutes(),
+            new \Zrcms\HttpAssetsAdminTools\ModuleConfigRoutes(),
 
-            new \Zrcms\HttpCoreBlock\ModuleConfig(),
+            new \Zrcms\HttpApi\ModuleConfig(),
             // @todo Routes should NOT be included by default
-            new \Zrcms\HttpCoreBlock\ModuleConfigRoutes(),
+            new \Zrcms\HttpApi\ModuleConfigRoutes(),
 
-            new \Zrcms\HttpCoreContainer\ModuleConfig(),
+            new \Zrcms\HttpAssetsBlock\ModuleConfig(),
             // @todo Routes should NOT be included by default
-            new \Zrcms\HttpCoreContainer\ModuleConfigRoutes(),
+            new \Zrcms\HttpAssetsBlock\ModuleConfigRoutes(),
 
-            new \Zrcms\HttpCoreCountry\ModuleConfig(),
+            new \Zrcms\HttpApiContainer\ModuleConfig(),
             // @todo Routes should NOT be included by default
-            new \Zrcms\HttpCoreCountry\ModuleConfigRoutes(),
+            new \Zrcms\HttpApiContainer\ModuleConfigRoutes(),
 
-            new \Zrcms\HttpCoreLanguage\ModuleConfig(),
+            new \Zrcms\HttpApiCountry\ModuleConfig(),
             // @todo Routes should NOT be included by default
-            new \Zrcms\HttpCoreLanguage\ModuleConfigRoutes(),
+            new \Zrcms\HttpApiCountry\ModuleConfigRoutes(),
 
-            new \Zrcms\HttpCorePage\ModuleConfig(),
+            new \Zrcms\HttpApiLanguage\ModuleConfig(),
             // @todo Routes should NOT be included by default
-            new \Zrcms\HttpCorePage\ModuleConfigRoutes(),
+            new \Zrcms\HttpApiLanguage\ModuleConfigRoutes(),
 
-            new \Zrcms\HttpCoreRedirect\ModuleConfig(),
+            new \Zrcms\HttpApiPage\ModuleConfig(),
             // @todo Routes should NOT be included by default
-            new \Zrcms\HttpCoreRedirect\ModuleConfigRoutes(),
+            new \Zrcms\HttpApiPage\ModuleConfigRoutes(),
 
-            new \Zrcms\HttpCoreSite\ModuleConfig(),
+            new \Zrcms\HttpApiRedirect\ModuleConfig(),
             // @todo Routes should NOT be included by default
-            new \Zrcms\HttpCoreSite\ModuleConfigRoutes(),
+            new \Zrcms\HttpApiRedirect\ModuleConfigRoutes(),
 
-            new \Zrcms\HttpCoreTheme\ModuleConfig(),
+            new \Zrcms\HttpApiSite\ModuleConfig(),
             // @todo Routes should NOT be included by default
-            new \Zrcms\HttpCoreTheme\ModuleConfigRoutes(),
+            new \Zrcms\HttpApiSite\ModuleConfigRoutes(),
 
-            new \Zrcms\HttpCoreView\ModuleConfig(),
+            new \Zrcms\HttpApiTheme\ModuleConfig(),
             // @todo Routes should NOT be included by default
-            new \Zrcms\HttpCoreView\ModuleConfigRoutes(),
+            new \Zrcms\HttpApiTheme\ModuleConfigRoutes(),
+
+            new \Zrcms\HttpApiView\ModuleConfig(),
+            // @todo Routes should NOT be included by default
+            new \Zrcms\HttpApiView\ModuleConfigRoutes(),
 
             new \Zrcms\HttpLocale\ModuleConfig(),
             new \Zrcms\HttpRcmApiLib\ModuleConfig(),
