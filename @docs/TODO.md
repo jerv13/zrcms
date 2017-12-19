@@ -24,17 +24,7 @@
 #### ToDo ####
 
 - View-head with Block JS and CSS:
-    - there is a current scheme for tag rendering, should we support it for block configs?
-        ```
-        // Current Schema
-        {
-            "tag": "script"
-            "attributes": {"src" : "my/src.js", ...}
-            "content": "Tag Content"
-        }
-        ```
-        
-    - GetSections Should return the standard tag schema? maybe, but what about ordering
+    - Use RenderTag in RenderBlockCssTag and RenderBlockJsTag
     
 
 - GetViewByRequest as composite with priority?

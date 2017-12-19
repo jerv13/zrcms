@@ -18,14 +18,11 @@ class RenderBlockCssTag implements Render
     const OPTION_CSS_TYPE_ATTRIBUTE = 'type';
 
     protected $getCacheBreaker;
-    protected $jsUrl;
 
     public function __construct(
-        GetCacheBreaker $getCacheBreaker,
-        string $jsUrl
+        GetCacheBreaker $getCacheBreaker
     ) {
         $this->getCacheBreaker = $getCacheBreaker;
-        $this->jsUrl = $jsUrl;
     }
 
     /**
