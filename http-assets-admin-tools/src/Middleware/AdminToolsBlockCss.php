@@ -3,22 +3,22 @@
 namespace Zrcms\HttpAssetsAdminTools\Middleware;
 
 use Zrcms\Core\Api\Component\FindComponentsBy;
-use Zrcms\CoreAdminTools\Api\GetComponentJsAdminTools;
-use Zrcms\HttpAssets\Middleware\ComponentJs;
+use Zrcms\CoreAdminTools\Api\GetComponentCssAdminTools;
+use Zrcms\HttpAssets\Middleware\ComponentCss;
 
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class AdminToolsBlockJs extends ComponentJs
+class AdminToolsBlockCss extends ComponentCss
 {
     /**
-     * @param FindComponentsBy         $findComponentsBy
-     * @param GetComponentJsAdminTools $getComponentJs
-     * @param array                    $headers
+     * @param FindComponentsBy          $findComponentsBy
+     * @param GetComponentCssAdminTools $getComponentJs
+     * @param array                     $headers
      */
     public function __construct(
         FindComponentsBy $findComponentsBy,
-        GetComponentJsAdminTools $getComponentJs,
+        GetComponentCssAdminTools $getComponentJs,
         array $headers = ['content-type' => 'text/javascript']
     ) {
         parent::__construct(

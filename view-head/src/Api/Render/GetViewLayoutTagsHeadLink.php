@@ -54,8 +54,7 @@ class GetViewLayoutTagsHeadLink implements GetViewLayoutTagsHead
         array $options = []
     ): array {
         $sections = $this->getSections->__invoke(
-            self::RENDER_TAG_LINK,
-            $request
+            self::RENDER_TAG_LINK
         );
 
         $html = $this->renderHeadSectionsTag->__invoke(

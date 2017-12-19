@@ -11,15 +11,15 @@ use Zrcms\ViewHead\Api\Exception\CanNotRenderHeadSectionTag;
  */
 class RenderHeadSectionTagFileIncludes implements RenderHeadSectionTag
 {
-    protected $defaultDebug;
+    protected $debug;
 
     /**
-     * @param bool $defaultDebug
+     * @param bool $debug
      */
     public function __construct(
-        bool $defaultDebug = true
+        bool $debug = false
     ) {
-        $this->defaultDebug = $defaultDebug;
+        $this->debug = $debug;
     }
 
     /**
@@ -44,11 +44,6 @@ class RenderHeadSectionTagFileIncludes implements RenderHeadSectionTag
         if (!array_key_exists('__file-includes', $sectionConfig)) {
             throw new CanNotRenderHeadSectionTag('Does not have required key: (__file-includes)');
         }
-        $debug = Param::getBool(
-            $options,
-            self::OPTION_DEBUG,
-            $this->defaultDebug
-        );
 
         $indent = Param::getString(
             $options,
@@ -65,7 +60,7 @@ class RenderHeadSectionTagFileIncludes implements RenderHeadSectionTag
         $contentHtml = '';
 
         foreach ($sectionConfig['__file-includes'] as $source => $filePath) {
-            if ($debug) {
+            if ($this->debug) {
                 $contentHtml .= $indent
                     . '<!-- RenderHeadSectionTagFileIncludes source: ' . $source . ' file: ' . $filePath . '-->'
                     . $lineBreak;

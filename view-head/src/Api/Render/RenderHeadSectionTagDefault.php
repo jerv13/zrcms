@@ -12,18 +12,18 @@ use Zrcms\ViewHtmlTags\Api\Render\RenderTag;
 class RenderHeadSectionTagDefault implements RenderHeadSectionTag
 {
     protected $renderTag;
-    protected $defaultDebug;
+    protected $debug;
 
     /**
      * @param RenderTag $renderTag
-     * @param bool      $defaultDebug
+     * @param bool      $debug
      */
     public function __construct(
         RenderTag $renderTag,
-        bool $defaultDebug = true
+        bool $debug = false
     ) {
         $this->renderTag = $renderTag;
-        $this->defaultDebug = $defaultDebug;
+        $this->debug = $debug;
     }
 
     /**
@@ -43,11 +43,6 @@ class RenderHeadSectionTagDefault implements RenderHeadSectionTag
         array $options = []
     ): string {
         // general - Render from a tag configuration
-        $debug = Param::getBool(
-            $options,
-            self::OPTION_DEBUG,
-            $this->defaultDebug
-        );
         $indent = Param::getString(
             $options,
             self::OPTION_INDENT,
@@ -61,7 +56,7 @@ class RenderHeadSectionTagDefault implements RenderHeadSectionTag
 
         $contentHtml = '';
 
-        if ($debug) {
+        if ($this->debug) {
             $contentHtml .= $indent . '<!-- RenderHeadSectionTagDefault -->' . $lineBreak;
         }
 
@@ -72,7 +67,7 @@ class RenderHeadSectionTagDefault implements RenderHeadSectionTag
 
         $attributes = $this->cleanConfig($sectionConfig);
 
-        $contentHtml .= $this->renderTag->__invoke(
+        $contentHtml .= $indent . $this->renderTag->__invoke(
             [
                 'tag' => $tag,
                 'attributes' => $attributes,

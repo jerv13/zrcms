@@ -35,7 +35,7 @@ class RenderLinkHrefTag implements Render
 
     /**
      * @param ServerRequestInterface $request
-     * @param array|mixed            $tagData
+     * @param array|mixed            $attributes
      * @param array                  $options
      *
      * @return string
@@ -46,50 +46,45 @@ class RenderLinkHrefTag implements Render
      */
     public function __invoke(
         ServerRequestInterface $request,
-        $tagData,
+        $attributes,
         array $options = []
     ): string {
         Param::assertNotEmpty(
-            $options,
+            $attributes,
             static::OPTION_HREF_ATTRIBUTE
         );
 
         $href = Param::getString(
-            $options,
+            $attributes,
             static::OPTION_HREF_ATTRIBUTE
         );
 
-        $tagData['tag'] = 'link';
-
-        $tagData[RenderTag::PROPERTY_ATTRIBUTES] = Param::getArray(
-            $tagData,
-            RenderTag::PROPERTY_ATTRIBUTES,
-            []
-        );
-
-        $tagData[RenderTag::PROPERTY_ATTRIBUTES][static::OPTION_HREF_ATTRIBUTE]
+        $attributes[static::OPTION_HREF_ATTRIBUTE]
             = $href . '?' . $this->getCacheBreaker->__invoke();
 
-        $tagData[RenderTag::PROPERTY_ATTRIBUTES][static::OPTION_MEDIA_ATTRIBUTE] = Param::getString(
-            $tagData,
+        $attributes[static::OPTION_MEDIA_ATTRIBUTE] = Param::getString(
+            $attributes,
             static::OPTION_MEDIA_ATTRIBUTE,
             'screen,print'
         );
 
-        $tagData[RenderTag::PROPERTY_ATTRIBUTES][static::OPTION_REL_ATTRIBUTE] = Param::getString(
-            $tagData,
+        $attributes[static::OPTION_REL_ATTRIBUTE] = Param::getString(
+            $attributes,
             static::OPTION_REL_ATTRIBUTE,
             'stylesheet'
         );
 
-        $tagData[RenderTag::PROPERTY_ATTRIBUTES][static::OPTION_TYPE_ATTRIBUTE] = Param::getString(
-            $tagData,
+        $attributes[static::OPTION_TYPE_ATTRIBUTE] = Param::getString(
+            $attributes,
             static::OPTION_TYPE_ATTRIBUTE,
             'text/css'
         );
 
         return $this->renderTag->__invoke(
-            $tagData
+            [
+                RenderTag::PROPERTY_TAG => 'link',
+                RenderTag::PROPERTY_ATTRIBUTES => $attributes,
+            ]
         );
     }
 }

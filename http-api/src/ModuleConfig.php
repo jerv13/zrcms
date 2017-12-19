@@ -4,6 +4,7 @@ namespace Zrcms\HttpApi;
 
 use ZfInputFilterService\InputFilter\ServiceAwareFactory;
 use Zrcms\Acl\Api\IsAllowedRcmUser;
+use Zrcms\Acl\Api\IsAllowedRcmUserSitesAdmin;
 use Zrcms\Core\Api\Component\ComponentToArray;
 use Zrcms\Core\Api\Component\FindComponent;
 use Zrcms\HttpApi\Acl\IsAllowedFindBasicComponent;
@@ -47,13 +48,8 @@ class ModuleConfig
 
                     IsAllowedFindBasicComponent::class => [
                         'arguments' => [
-                            IsAllowedRcmUser::class,
-                            [
-                                'literal' => [
-                                    IsAllowedRcmUser::OPTION_RESOURCE_ID => 'sites',
-                                    IsAllowedRcmUser::OPTION_PRIVILEGE => 'admin'
-                                ]
-                            ],
+                            IsAllowedRcmUserSitesAdmin::class,
+                            ['literal' => []],
                             ['literal' => 'basic-repository-find-component'],
                         ],
                     ],

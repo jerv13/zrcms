@@ -2,25 +2,18 @@
 
 namespace Zrcms\HttpAssetsBlock\Middleware;
 
-use Psr\Http\Message\ResponseInterface;
-use Psr\Http\Message\ServerRequestInterface;
-use Zend\Diactoros\Response\HtmlResponse;
 use Zrcms\Core\Api\Component\FindComponentsBy;
 use Zrcms\Core\Api\GetComponentCss;
-use Zrcms\Core\Fields\FieldsComponentConfig;
+use Zrcms\HttpAssets\Middleware\ComponentCss;
 
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class BlockCss
+class BlockCss extends ComponentCss
 {
-    protected $findComponentsBy;
-    protected $getComponentCss;
-    protected $headers;
-
     /**
      * @param FindComponentsBy $findComponentsBy
-     * @param GetComponentCss   $getComponentCss
+     * @param GetComponentCss  $getComponentCss
      * @param array            $headers
      */
     public function __construct(
@@ -28,37 +21,11 @@ class BlockCss
         GetComponentCss $getComponentCss,
         array $headers = ['content-type' => 'text/css']
     ) {
-        $this->findComponentsBy = $findComponentsBy;
-        $this->getComponentCss = $getComponentCss;
-        $this->headers = $headers;
-    }
-
-    /**
-     * @param ServerRequestInterface $request
-     * @param ResponseInterface      $response
-     * @param callable|null          $next
-     *
-     * @return ResponseInterface
-     * @throws \Exception
-     */
-    public function __invoke(
-        ServerRequestInterface $request,
-        ResponseInterface $response,
-        callable $next = null
-    ) {
-        $components = $this->findComponentsBy->__invoke(
-            [FieldsComponentConfig::TYPE => 'block']
-        );
-
-        $content = $this->getComponentCss->__invoke(
-            $request,
-            $components
-        );
-
-        return new HtmlResponse(
-            $content,
-            200,
-            $this->headers
+        parent::__construct(
+            $findComponentsBy,
+            $getComponentCss,
+            'block',
+            $headers
         );
     }
 }

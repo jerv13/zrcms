@@ -14,18 +14,18 @@ use Zrcms\ViewHead\Api\Exception\CanNotRenderHeadSectionTag;
 class RenderHeadSectionTagWithRenderService implements RenderHeadSectionTag
 {
     protected $serviceContainer;
-    protected $defaultDebug;
+    protected $debug;
 
     /**
      * @param ContainerInterface $serviceContainer
-     * @param bool               $defaultDebug
+     * @param bool               $debug
      */
     public function __construct(
         $serviceContainer,
-        bool $defaultDebug = true
+        bool $debug = false
     ) {
         $this->serviceContainer = $serviceContainer;
-        $this->defaultDebug = $defaultDebug;
+        $this->debug = $debug;
     }
 
     /**
@@ -53,11 +53,6 @@ class RenderHeadSectionTagWithRenderService implements RenderHeadSectionTag
             throw new CanNotRenderHeadSectionTag('Does not have required key: (__render_service)');
         }
 
-        $debug = Param::getBool(
-            $options,
-            self::OPTION_DEBUG,
-            $this->defaultDebug
-        );
         $indent = Param::getString(
             $options,
             self::OPTION_INDENT,
@@ -76,14 +71,16 @@ class RenderHeadSectionTagWithRenderService implements RenderHeadSectionTag
 
         $this->assertValidService($renderService);
 
+        unset($sectionConfig['__render_service']);
+
         $renderedHtml = $renderService->__invoke(
             $request,
-            $sectionConfig // NOTE: we push the config as the data
+            $sectionConfig // NOTE: we push the config as the data or attributes
         );
 
         $contentHtml = '';
 
-        if ($debug) {
+        if ($this->debug) {
             $contentHtml = $contentHtml . $indent
                 . '<!-- RenderHeadSectionTagWithRenderer service:' . $renderServiceName . ' -->'
                 . $lineBreak;

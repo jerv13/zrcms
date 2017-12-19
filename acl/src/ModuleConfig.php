@@ -3,12 +3,12 @@
 namespace Zrcms\Acl;
 
 use RcmUser\Api\Authentication\HasIdentity;
-use RcmUser\Service\RcmUserService;
 use Zrcms\Acl\Api\IsAllowed;
 use Zrcms\Acl\Api\IsAllowedAny;
 use Zrcms\Acl\Api\IsAllowedNone;
 use Zrcms\Acl\Api\IsAllowedRcmUser;
 use Zrcms\Acl\Api\IsAllowedRcmUserLoggedIn;
+use Zrcms\Acl\Api\IsAllowedRcmUserSitesAdmin;
 use Zrcms\Acl\Api\IsAllowedRelivServerEnvironment;
 use Zrcms\Acl\Api\IsAllowedRelivServerEnvironmentNoneProduction;
 use Zrcms\Acl\Api\IsAllowedRelivServerEnvironmentProduction;
@@ -35,6 +35,11 @@ class ModuleConfig
                     IsAllowedRcmUser::class => [
                         'arguments' => [
                             \RcmUser\Api\Acl\IsAllowed::class
+                        ],
+                    ],
+                    IsAllowedRcmUserSitesAdmin::class => [
+                        'arguments' => [
+                            IsAllowedRcmUser::class
                         ],
                     ],
                     IsAllowedRcmUserLoggedIn::class => [

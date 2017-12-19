@@ -33,7 +33,7 @@ class RenderScriptSrcTag implements Render
 
     /**
      * @param ServerRequestInterface $request
-     * @param array|mixed            $tagData
+     * @param array|mixed            $attributes
      * @param array                  $options
      *
      * @return string
@@ -44,38 +44,33 @@ class RenderScriptSrcTag implements Render
      */
     public function __invoke(
         ServerRequestInterface $request,
-        $tagData,
+        $attributes,
         array $options = []
     ): string {
         Param::assertNotEmpty(
-            $options,
+            $attributes,
             static::OPTION_SRC_ATTRIBUTE
         );
 
         $src = Param::getString(
-            $options,
+            $attributes,
             static::OPTION_SRC_ATTRIBUTE
         );
 
-        $tagData['tag'] = 'script';
-
-        $tagData[RenderTag::PROPERTY_ATTRIBUTES] = Param::getArray(
-            $tagData,
-            RenderTag::PROPERTY_ATTRIBUTES,
-            []
-        );
-
-        $tagData[RenderTag::PROPERTY_ATTRIBUTES][static::OPTION_SRC_ATTRIBUTE]
+        $attributes[static::OPTION_SRC_ATTRIBUTE]
             = $src . '?' . $this->getCacheBreaker->__invoke();
 
-        $tagData[RenderTag::PROPERTY_ATTRIBUTES][static::OPTION_TYPE_ATTRIBUTE] = Param::getString(
-            $tagData,
+        $attributes[static::OPTION_TYPE_ATTRIBUTE] = Param::getString(
+            $attributes,
             static::OPTION_TYPE_ATTRIBUTE,
             'text/javascript'
         );
 
         return $this->renderTag->__invoke(
-            $tagData
+            [
+                RenderTag::PROPERTY_TAG => 'script',
+                RenderTag::PROPERTY_ATTRIBUTES => $attributes,
+            ]
         );
     }
 }

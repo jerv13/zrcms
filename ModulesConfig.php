@@ -16,6 +16,7 @@ class ModulesConfig
     {
         $zrcmsModules = [
             // Low level
+            new \Zrcms\Debug\ModuleConfig(),
             new \Zrcms\Logger\ModuleConfig(),
             new \Zrcms\Cache\ModuleConfig(),
             new \Zrcms\Param\ModuleConfig(),

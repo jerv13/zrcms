@@ -7,6 +7,7 @@ use Zrcms\Core\Fields\FieldsComponentConfig;
 use Zrcms\Core\Model\ServiceAliasComponent;
 use Zrcms\CoreView\Fields\FieldsViewLayoutTagsComponent;
 use Zrcms\CoreView\Model\ServiceAliasView;
+use Zrcms\Debug\IsDebug;
 use Zrcms\ServiceAlias\Api\GetServiceFromAlias;
 use Zrcms\ViewHead\Api\Component\ReadViewHeadComponentConfigBc;
 use Zrcms\ViewHead\Api\Component\ReadViewHeadComponentConfigBcFactory;
@@ -85,7 +86,8 @@ class ModuleConfig
                         'class' => RenderHeadSectionsTagBasic::class,
                         'arguments' => [
                             GetAvailableHeadSections::class,
-                            RenderHeadSectionTag::class
+                            RenderHeadSectionTag::class,
+                            ['literal' => IsDebug::invoke()],
                         ],
                     ],
                     RenderHeadSectionTag::class => [
@@ -94,14 +96,24 @@ class ModuleConfig
                     RenderHeadSectionTagDefault::class => [
                         'arguments' => [
                             RenderTag::class,
+                            ['literal' => IsDebug::invoke()],
                         ],
                     ],
-                    RenderHeadSectionTagFileIncludes::class => [],
-                    RenderHeadSectionTagLiteral::class => [],
+                    RenderHeadSectionTagFileIncludes::class => [
+                        'arguments' => [
+                            ['literal' => IsDebug::invoke()],
+                        ],
+                    ],
+                    RenderHeadSectionTagLiteral::class => [
+                        'arguments' => [
+                            ['literal' => IsDebug::invoke()],
+                        ],
+                    ],
                     RenderHeadSectionTagViewLayoutTags::class => [
                         'arguments' => [
                             GetServiceFromAlias::class,
-                            ['literal' => ServiceAliasView::ZRCMS_COMPONENT_VIEW_LAYOUT_TAGS_GETTER]
+                            ['literal' => ServiceAliasView::ZRCMS_COMPONENT_VIEW_LAYOUT_TAGS_GETTER],
+                            ['literal' => IsDebug::invoke()],
                         ],
                     ],
                     RenderHeadSectionTagWithRenderService::class => [
@@ -277,7 +289,7 @@ class ModuleConfig
                 RenderHeadSectionTagWithRenderService::class => 300,
                 RenderHeadSectionTagViewLayoutTags::class => 200,
                 RenderHeadSectionTagFileIncludes::class => 100,
-                RenderHeadSectionTagDefault::class => -1, // Should always go last as fallback
+                RenderHeadSectionTagDefault::class => 1, // Should always go last as fallback
             ],
 
             'zrcms-service-alias' => [

@@ -2,11 +2,10 @@
 
 namespace Zrcms\HttpAssetsBlock;
 
+use Zrcms\HttpAssets\Api\Render\RenderLinkHrefTag;
 use Zrcms\HttpAssets\Api\Render\RenderScriptSrcTag;
-use Zrcms\HttpAssetsBlock\Api\Render\RenderBlockJsTag;
 use Zrcms\HttpAssetsBlock\Middleware\BlockCss;
 use Zrcms\HttpAssetsBlock\Middleware\BlockJs;
-use Zrcms\ViewHtmlTags\Api\Render\RenderTag;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -40,14 +39,23 @@ class ModuleConfigRoutes
                 ],
             ],
 
+            'zrcms-view-head.head-link' => [
+                'sections' => [
+                    'modules' => [
+                        'zrcms.block.block.css' => [
+                            '__render_service' => RenderLinkHrefTag::class,
+                            RenderLinkHrefTag::OPTION_HREF_ATTRIBUTE => '/zrcms/block/block.css',
+                        ],
+                    ],
+                ],
+            ],
+
             'zrcms-view-head.head-script' => [
                 'sections' => [
                     'modules' => [
                         'zrcms.block.block.js' => [
                             '__render_service' => RenderScriptSrcTag::class,
-                            RenderTag::PROPERTY_ATTRIBUTES => [
-                                RenderScriptSrcTag::OPTION_SRC_ATTRIBUTE => '/zrcms/block/block.js',
-                            ]
+                            RenderScriptSrcTag::OPTION_SRC_ATTRIBUTE => '/zrcms/block/block.js',
                         ],
                     ],
                 ],

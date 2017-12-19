@@ -94,7 +94,7 @@ class RenderTagBasic implements RenderTag
         string $tag,
         array $attributes,
         $contentHtml = null,
-        string $indent = '',
+        string $indent = '    ',
         string $lineBreak = "\n"
     ): string {
         $attributeHtml = $this->buildAttributes($attributes);

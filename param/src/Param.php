@@ -2,6 +2,7 @@
 
 namespace Zrcms\Param;
 
+use Zrcms\Debug\IsDebug;
 use Zrcms\Param\Exception\IllegalParam;
 use Zrcms\Param\Exception\ParamException;
 use Zrcms\Param\Exception\ParamMissing;
@@ -11,7 +12,10 @@ use Zrcms\Param\Exception\ParamMissing;
  */
 class Param
 {
-    public static $debug = true;
+    protected static function isDebug(): bool
+    {
+        return IsDebug::invoke();
+    }
 
     /**
      * @param array  $params
@@ -353,7 +357,7 @@ class Param
      * @param callable|ParamException|null $exceptionThrower
      * @param string                       $defaultParamExceptionClass ParamException ::class
      * @param string                       $defaultMessage
-     * @param array  $params
+     * @param array                        $params
      *
      * @return void
      * @throws ParamException|\Throwable
@@ -374,7 +378,7 @@ class Param
             $exceptionThrower = new $defaultParamExceptionClass($defaultMessage);
         }
 
-        if (self::$debug) {
+        if (self::isDebug()) {
             $message = $defaultMessage;
 
             if (is_a($exceptionThrower, \Throwable::class)) {

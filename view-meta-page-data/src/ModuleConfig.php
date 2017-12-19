@@ -29,12 +29,7 @@ class ModuleConfig
                             RenderTag::class,
                             // @todo Real ACL??
                             IsAllowedAny::class,
-                            [
-                                'literal' => [
-                                    //IsAllowedRcmUser::OPTION_RESOURCE_ID => 'sites',
-                                    //IsAllowedRcmUser::OPTION_PRIVILEGE => 'admin',
-                                ]
-                            ],
+                            ['literal' => []],
                         ],
                     ],
                 ],

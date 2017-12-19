@@ -20,21 +20,21 @@ class RenderHeadSectionTagViewLayoutTags implements RenderHeadSectionTag
 
     protected $getServiceFromAlias;
     protected $serviceAliasNamespace;
-    protected $defaultDebug;
+    protected $debug;
 
     /**
      * @param GetServiceFromAlias $getServiceFromAlias
      * @param string              $serviceAliasNamespace
-     * @param bool                $defaultDebug
+     * @param bool                $debug
      */
     public function __construct(
         GetServiceFromAlias $getServiceFromAlias,
         $serviceAliasNamespace = ServiceAliasView::ZRCMS_COMPONENT_VIEW_LAYOUT_TAGS_GETTER,
-        bool $defaultDebug = true
+        bool $debug = false
     ) {
         $this->getServiceFromAlias = $getServiceFromAlias;
         $this->serviceAliasNamespace = $serviceAliasNamespace;
-        $this->defaultDebug = $defaultDebug;
+        $this->debug = $debug;
     }
 
     /**
@@ -70,11 +70,6 @@ class RenderHeadSectionTagViewLayoutTags implements RenderHeadSectionTag
             self::OPTION_VIEW
         );
 
-        $debug = Param::getBool(
-            $options,
-            self::OPTION_DEBUG,
-            $this->defaultDebug
-        );
         $indent = Param::getString(
             $options,
             self::OPTION_INDENT,
@@ -105,7 +100,7 @@ class RenderHeadSectionTagViewLayoutTags implements RenderHeadSectionTag
         $contentHtml = '';
 
         foreach ($viewLayoutTags as $viewLayoutTag => $viewLayoutTagHtml) {
-            if ($debug) {
+            if ($this->debug) {
                 $contentHtml .= $indent
                     . '<!-- RenderHeadSectionTagViewLayoutTags: ' . $viewLayoutTag . ' -->'
                     . $lineBreak;

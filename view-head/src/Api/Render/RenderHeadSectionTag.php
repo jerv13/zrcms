@@ -13,7 +13,6 @@ interface RenderHeadSectionTag
 {
     const OPTION_INDENT = RenderTag::OPTION_INDENT;
     const OPTION_LINE_BREAK = RenderTag::OPTION_LINE_BREAK;
-    const OPTION_DEBUG = 'debug';
 
     /**
      * @param ServerRequestInterface $request

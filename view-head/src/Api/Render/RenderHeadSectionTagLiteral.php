@@ -11,15 +11,15 @@ use Zrcms\ViewHead\Api\Exception\CanNotRenderHeadSectionTag;
  */
 class RenderHeadSectionTagLiteral implements RenderHeadSectionTag
 {
-    protected $defaultDebug;
+    protected $debug;
 
     /**
-     * @param bool $defaultDebug
+     * @param bool $debug
      */
     public function __construct(
-        bool $defaultDebug = true
+        bool $debug = false
     ) {
-        $this->defaultDebug = $defaultDebug;
+        $this->debug = $debug;
     }
 
     /**
@@ -44,11 +44,6 @@ class RenderHeadSectionTagLiteral implements RenderHeadSectionTag
             throw new CanNotRenderHeadSectionTag('Does not have required key: (__literal)');
         }
 
-        $debug = Param::getBool(
-            $options,
-            self::OPTION_DEBUG,
-            $this->defaultDebug
-        );
         $indent = Param::getString(
             $options,
             self::OPTION_INDENT,
@@ -62,7 +57,7 @@ class RenderHeadSectionTagLiteral implements RenderHeadSectionTag
 
         $contentHtml = '';
 
-        if ($debug) {
+        if ($this->debug) {
             $contentHtml .= $indent . '<!-- RenderHeadSectionTagLiteral -->' . $lineBreak;
         }
 

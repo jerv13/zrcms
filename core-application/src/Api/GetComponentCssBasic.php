@@ -3,15 +3,15 @@
 namespace Zrcms\CoreApplication\Api;
 
 use Zrcms\Cache\Service\Cache;
-use Zrcms\Core\Api\GetComponentJs;
+use Zrcms\Core\Api\GetComponentCss;
 use Zrcms\Core\Fields\FieldsComponent;
 
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class GetComponentCssBasic extends GetComponentFilesContentAbstract implements GetComponentJs
+class GetComponentCssBasic extends GetComponentFilesContentAbstract implements GetComponentCss
 {
-    const SCHEME = 'component-css';
+    const SCHEME = 'component';
     const DEFAULT_CACHE_KEY = 'GetComponentCssBasic';
 
     protected $cache;

@@ -19,35 +19,27 @@ class GetViewLayoutMetaPageData implements GetViewLayoutTags
 {
     const RENDER_TAG_META_PAGE_DATA = 'meta-page-data';
 
-    /**
-     * @var RenderTag
-     */
     protected $renderTag;
-
-    /**
-     * @var IsAllowed
-     */
     protected $isAllowed;
-
-    /**
-     * @var array
-     */
     protected $aclOptions;
+    protected $debug;
 
     /**
-     * /**
      * @param RenderTag $renderTag
      * @param IsAllowed $isAllowed
      * @param array     $aclOptions
+     * @param bool      $debug
      */
     public function __construct(
         RenderTag $renderTag,
         IsAllowed $isAllowed,
-        array $aclOptions
+        array $aclOptions,
+        bool $debug = false
     ) {
         $this->renderTag = $renderTag;
         $this->isAllowed = $isAllowed;
         $this->aclOptions = $aclOptions;
+        $this->debug = $debug;
     }
 
     /**
@@ -69,7 +61,7 @@ class GetViewLayoutMetaPageData implements GetViewLayoutTags
             $this->aclOptions
         );
 
-        if (!$isAllowed) {
+        if (!$isAllowed && !$this->debug) {
             return [];
         }
 

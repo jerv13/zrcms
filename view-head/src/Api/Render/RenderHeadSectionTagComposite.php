@@ -63,6 +63,7 @@ class RenderHeadSectionTagComposite implements RenderHeadSectionTag
             } catch (CanNotRenderHeadSectionTag $e) {
                 continue;
             }
+            break;
         }
 
         if ($html === null) {

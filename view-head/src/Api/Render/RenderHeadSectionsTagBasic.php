@@ -4,7 +4,6 @@ namespace Zrcms\ViewHead\Api\Render;
 
 use Psr\Http\Message\ServerRequestInterface;
 use Zrcms\CoreView\Model\View;
-use Zrcms\Param\Param;
 use Zrcms\ViewHead\Api\GetAvailableHeadSections;
 
 /**
@@ -16,21 +15,21 @@ class RenderHeadSectionsTagBasic implements RenderHeadSectionsTag
 
     protected $getAvailableHeadSections;
     protected $renderHeadSectionTag;
-    protected $defaultDebug;
+    protected $debug;
 
     /**
      * @param GetAvailableHeadSections $getAvailableHeadSections
      * @param RenderHeadSectionTag     $renderHeadSectionTag
-     * @param bool                     $defaultDebug
+     * @param bool                     $debug
      */
     public function __construct(
         GetAvailableHeadSections $getAvailableHeadSections,
         RenderHeadSectionTag $renderHeadSectionTag,
-        bool $defaultDebug = true
+        bool $debug = false
     ) {
         $this->getAvailableHeadSections = $getAvailableHeadSections;
         $this->renderHeadSectionTag = $renderHeadSectionTag;
-        $this->defaultDebug = $defaultDebug;
+        $this->debug = $debug;
     }
 
     /**
@@ -50,21 +49,16 @@ class RenderHeadSectionsTagBasic implements RenderHeadSectionsTag
         array $sections,
         array $options = []
     ): string {
-        $debug = Param::getBool(
-            $options,
-            'debug',
-            $this->defaultDebug
-        );
         $orderedSections = $this->getAvailableHeadSections->__invoke();
         $html = '';
 
-        if ($debug) {
+        if ($this->debug) {
             $debugHead = get_class($this);
             $html .= "<!-- ==== {$debugHead} ==== -->\n";
         }
 
         foreach ($orderedSections as $sectionName) {
-            if ($debug) {
+            if ($this->debug) {
                 $debugSectionName = strtoupper($sectionName);
                 $html .= "    <!-- *** {$debugSectionName} *** -->\n";
             }

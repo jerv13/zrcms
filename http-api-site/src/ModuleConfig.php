@@ -3,7 +3,7 @@
 namespace Zrcms\HttpApiSite;
 
 use ZfInputFilterService\InputFilter\ServiceAwareFactory;
-use Zrcms\Acl\Api\IsAllowedRcmUser;
+use Zrcms\Acl\Api\IsAllowedRcmUserSitesAdmin;
 use Zrcms\Core\Api\CmsResource\CmsResourceToArray;
 use Zrcms\Core\Api\Content\ContentVersionToArray;
 use Zrcms\CoreSite\Model\SiteCmsResourceBasic;
@@ -36,49 +36,29 @@ class ModuleConfig
                      */
                     IsAllowedFindContentVersion::class => [
                         'arguments' => [
-                            IsAllowedRcmUser::class,
-                            [
-                                'literal' => [
-                                    IsAllowedRcmUser::OPTION_RESOURCE_ID => 'sites',
-                                    IsAllowedRcmUser::OPTION_PRIVILEGE => 'admin'
-                                ]
-                            ],
+                            IsAllowedRcmUserSitesAdmin::class,
+                            ['literal' => []],
                             ['literal' => 'site-repository-find-cms-resource'],
                         ],
                     ],
                     IsAllowedSiteCmsResourceFind::class => [
                         'arguments' => [
-                            IsAllowedRcmUser::class,
-                            [
-                                'literal' => [
-                                    IsAllowedRcmUser::OPTION_RESOURCE_ID => 'sites',
-                                    IsAllowedRcmUser::OPTION_PRIVILEGE => 'admin'
-                                ]
-                            ],
+                            IsAllowedRcmUserSitesAdmin::class,
+                            ['literal' => []],
                             ['literal' => 'site-repository-find-cms-resource'],
                         ],
                     ],
                     IsAllowedSitePublish::class => [
                         'arguments' => [
-                            IsAllowedRcmUser::class,
-                            [
-                                'literal' => [
-                                    IsAllowedRcmUser::OPTION_RESOURCE_ID => 'sites',
-                                    IsAllowedRcmUser::OPTION_PRIVILEGE => 'admin'
-                                ]
-                            ],
+                            IsAllowedRcmUserSitesAdmin::class,
+                            ['literal' => []],
                             ['literal' => 'site-upsert-publish-cms-resource'],
                         ],
                     ],
                     IsAllowedSiteUnpublish::class => [
                         'arguments' => [
-                            IsAllowedRcmUser::class,
-                            [
-                                'literal' => [
-                                    IsAllowedRcmUser::OPTION_RESOURCE_ID => 'sites',
-                                    IsAllowedRcmUser::OPTION_PRIVILEGE => 'admin'
-                                ]
-                            ],
+                            IsAllowedRcmUserSitesAdmin::class,
+                            ['literal' => []],
                             ['literal' => 'site-upsert-unpublish-cms-resource'],
                         ],
                     ],

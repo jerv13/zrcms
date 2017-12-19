@@ -2,7 +2,11 @@
 
 namespace Zrcms\HttpAssetsAdminTools;
 
-use Zrcms\HttpAssetsAdminTools\Api\Render\RenderBlockJsTag;
+use Zrcms\HttpAssets\Api\Render\RenderLinkHrefTag;
+use Zrcms\HttpAssets\Api\Render\RenderScriptSrcTag;
+use Zrcms\HttpAssetsAdminTools\Api\Render\RenderLinkHrefTagAdminTools;
+use Zrcms\HttpAssetsAdminTools\Api\Render\RenderScriptSrcTagAdminTools;
+use Zrcms\HttpAssetsAdminTools\Middleware\AdminToolsBlockCss;
 use Zrcms\HttpAssetsAdminTools\Middleware\AdminToolsBlockJs;
 
 /**
@@ -17,9 +21,18 @@ class ModuleConfigRoutes
     {
         return [
             'routes' => [
-                'zrcms.block.block.js' => [
-                    'name' => 'zrcms.block.block.js',
-                    'path' => '/zrcms/block/block.js',
+                'zrcms.admin-tools.block.css' => [
+                    'name' => 'zrcms.admin-tools.block.css',
+                    'path' => '/zrcms/admin-tools/block.css',
+                    'middleware' => [
+                        'middleware' => AdminToolsBlockCss::class,
+                    ],
+                    'options' => [],
+                    'allowed_methods' => ['GET'],
+                ],
+                'zrcms.admin-tools.block.js' => [
+                    'name' => 'zrcms.admin-tools.block.js',
+                    'path' => '/zrcms/admin-tools/block.js',
                     'middleware' => [
                         'middleware' => AdminToolsBlockJs::class,
                     ],
@@ -28,12 +41,23 @@ class ModuleConfigRoutes
                 ],
             ],
 
+            'zrcms-view-head.head-link' => [
+                'sections' => [
+                    'modules' => [
+                        'zrcms.admin-tools.block.css' => [
+                            '__render_service' => RenderLinkHrefTagAdminTools::class,
+                            RenderLinkHrefTag::OPTION_HREF_ATTRIBUTE => '/zrcms/admin-tools/block.css',
+                        ],
+                    ],
+                ],
+            ],
+
             'zrcms-view-head.head-script' => [
                 'sections' => [
                     'modules' => [
-                        'zrcms.block.block.js' => [
-                            '__render_service' => '{render-service}',
-                            RenderBlockJsTag::OPTION_JS_URL => '/zrcms/block/block.js',
+                        'zrcms.admin-tools.block.js' => [
+                            '__render_service' => RenderScriptSrcTagAdminTools::class,
+                            RenderScriptSrcTag::OPTION_SRC_ATTRIBUTE => '/zrcms/admin-tools/block.js',
                         ],
                     ],
                 ],

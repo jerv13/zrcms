@@ -46,8 +46,7 @@ class GetViewLayoutTagsHeadScript implements GetViewLayoutTagsHead
         array $options = []
     ): array {
         $sections = $this->getSections->__invoke(
-            self::RENDER_TAG_SCRIPT,
-            $request
+            self::RENDER_TAG_SCRIPT
         );
 
         $html = $this->renderHeadSectionsTag->__invoke(

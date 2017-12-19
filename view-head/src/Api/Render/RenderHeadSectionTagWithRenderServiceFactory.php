@@ -3,6 +3,7 @@
 namespace Zrcms\ViewHead\Api\Render;
 
 use Psr\Container\ContainerInterface;
+use Zrcms\Debug\IsDebug;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -20,7 +21,8 @@ class RenderHeadSectionTagWithRenderServiceFactory
         $serviceContainer
     ) {
         return new RenderHeadSectionTagWithRenderService(
-            $serviceContainer
+            $serviceContainer,
+            IsDebug::invoke()
         );
     }
 }

@@ -11,7 +11,7 @@ use Zrcms\Core\Fields\FieldsComponent;
  */
 class GetComponentJsBasic extends GetComponentFilesContentAbstract implements GetComponentJs
 {
-    const SCHEME = 'component-js';
+    const SCHEME = 'component';
     const DEFAULT_CACHE_KEY = 'GetComponentJsBasic';
 
     protected $cache;
