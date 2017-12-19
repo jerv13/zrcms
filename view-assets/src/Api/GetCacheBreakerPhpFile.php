@@ -49,6 +49,6 @@ class GetCacheBreakerPhpFile implements GetCacheBreaker
             );
         }
 
-        return $cacheData[static::KEY_VERSION];
+        return static::CACHE_BREAKER_PARAM . '=' . $cacheData[static::KEY_VERSION];
     }
 }

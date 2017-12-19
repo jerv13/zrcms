@@ -23,8 +23,8 @@ use Zrcms\ViewHead\Api\Render\GetViewLayoutTagsHeadTitle;
 use Zrcms\ViewHead\Api\Render\RenderHeadSectionsTag;
 use Zrcms\ViewHead\Api\Render\RenderHeadSectionsTagBasic;
 use Zrcms\ViewHead\Api\Render\RenderHeadSectionTag;
-use Zrcms\ViewHead\Api\Render\RenderHeadSectionTagByService;
-use Zrcms\ViewHead\Api\Render\RenderHeadSectionTagByServiceFactory;
+use Zrcms\ViewHead\Api\Render\RenderHeadSectionTagWithRenderer;
+use Zrcms\ViewHead\Api\Render\RenderHeadSectionTagWithRendererFactory;
 use Zrcms\ViewHead\Api\Render\RenderHeadSectionTagCompositeFactory;
 use Zrcms\ViewHead\Api\Render\RenderHeadSectionTagDefault;
 use Zrcms\ViewHead\Api\Render\RenderHeadSectionTagFileIncludes;
@@ -91,11 +91,6 @@ class ModuleConfig
                     RenderHeadSectionTag::class => [
                         'factory' => RenderHeadSectionTagCompositeFactory::class,
                     ],
-
-                    RenderHeadSectionTagByService::class => [
-                        'factory' => RenderHeadSectionTagByServiceFactory::class,
-                    ],
-
                     RenderHeadSectionTagDefault::class => [
                         'arguments' => [
                             RenderTag::class,
@@ -108,6 +103,9 @@ class ModuleConfig
                             GetServiceFromAlias::class,
                             ['literal' => ServiceAliasView::ZRCMS_COMPONENT_VIEW_LAYOUT_TAGS_GETTER]
                         ],
+                    ],
+                    RenderHeadSectionTagWithRenderer::class => [
+                        'factory' => RenderHeadSectionTagWithRendererFactory::class,
                     ],
                     GetAvailableHeadSections::class => [
                         'factory' => GetAvailableHeadSectionsFactory::class,
@@ -180,6 +178,10 @@ class ModuleConfig
                                 '{source-name}' => '{scheme:/path/to/local/file.css}',
                             ],
                         ],
+                        // By Render Service
+                        '{name}' => [
+                            '__render_service' => '{render-service}',
+                        ],
                         */
                     ],
                     'config' => [],
@@ -247,6 +249,10 @@ class ModuleConfig
                                 '{source-name}' => '{scheme:/path/to/local/file.css}',
                             ],
                         ],
+                        // By Render Service
+                        '{name}' => [
+                            '__render_service' => '{render-service}',
+                        ],
                         */
                     ],
                     'config' => [],
@@ -267,11 +273,11 @@ class ModuleConfig
              * ["{ServiceName}" => {priority}]
              */
             'zrcms-view-head.section-tag-render-api' => [
-                RenderHeadSectionTagByService::class => 300,
-                RenderHeadSectionTagDefault::class => -1, // Should always go last as fallback
-                RenderHeadSectionTagFileIncludes::class => 100,
                 RenderHeadSectionTagLiteral::class => 400,
+                RenderHeadSectionTagWithRenderer::class => 300,
                 RenderHeadSectionTagViewLayoutTags::class => 200,
+                RenderHeadSectionTagFileIncludes::class => 100,
+                RenderHeadSectionTagDefault::class => -1, // Should always go last as fallback
             ],
 
             'zrcms-service-alias' => [

@@ -4,13 +4,14 @@ namespace Zrcms\ViewHead\Api\Render;
 
 use Psr\Container\ContainerInterface;
 use Psr\Http\Message\ServerRequestInterface;
+use Zrcms\Core\Api\Render\Render;
 use Zrcms\Param\Param;
 use Zrcms\ViewHead\Api\Exception\CanNotRenderHeadSectionTag;
 
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class RenderHeadSectionTagByService implements RenderHeadSectionTag
+class RenderHeadSectionTagWithRenderer implements RenderHeadSectionTag
 {
     protected $serviceContainer;
     protected $defaultDebug;
@@ -47,9 +48,9 @@ class RenderHeadSectionTagByService implements RenderHeadSectionTag
         array $sectionConfig,
         array $options = []
     ): string {
-        // render_head_section_tag - Render using a service of type RenderHeadSectionTag
-        if (!array_key_exists('__render_head_section_tag', $sectionConfig)) {
-            throw new CanNotRenderHeadSectionTag('Does not have required key: (__render_head_section_tag)');
+        // __render_service - Render using a service with that is a Render
+        if (!array_key_exists('__render_service', $sectionConfig)) {
+            throw new CanNotRenderHeadSectionTag('Does not have required key: (__render_service)');
         }
 
         $debug = Param::getBool(
@@ -68,47 +69,46 @@ class RenderHeadSectionTagByService implements RenderHeadSectionTag
             "\n"
         );
 
-        $renderHeadSectionTagServiceName = $sectionConfig['__render_head_section_tag'];
+        $renderServiceName = $sectionConfig['__render_service'];
 
-        /** @var RenderHeadSectionTag $renderHeadSectionTag */
-        $renderHeadSectionTag = $this->serviceContainer->get($renderHeadSectionTagServiceName);
+        /** @var object $renderService */
+        $renderService = $this->serviceContainer->get($renderServiceName);
 
-        $this->assertValidService($renderHeadSectionTag);
+        $this->assertValidService($renderService);
 
-        $contentHtml = $renderHeadSectionTag->__invoke(
+        $renderedHtml = $renderService->__invoke(
             $request,
-            $tag,
-            $sectionEntryName,
-            $sectionConfig,
-            $options = []
+            $sectionConfig
         );
 
-        if (empty($contentHtml)) {
-            return $contentHtml;
+        if (empty($renderedHtml)) {
+            return $renderedHtml;
         }
+
+        $contentHtml = '';
 
         if ($debug) {
             $contentHtml = $contentHtml . $indent
-                . '<!-- RenderHeadSectionTagByService service:' . $renderHeadSectionTagServiceName . ' -->'
+                . '<!-- RenderHeadSectionTagWithRenderer service:' . $renderServiceName . ' -->'
                 . $lineBreak;
         }
 
-        $contentHtml .= $indent . (string)$sectionConfig['__literal'] . $lineBreak;
+        $contentHtml .= $indent . $renderedHtml. $lineBreak;
 
         return $contentHtml;
     }
 
     /**
-     * @param $renderHeadSectionTag
+     * @param $renderService
      *
      * @return void
      * @throws \Exception
      */
-    protected function assertValidService($renderHeadSectionTag)
+    protected function assertValidService($renderService)
     {
-        if (!is_a($renderHeadSectionTag, RenderHeadSectionTag::class)) {
+        if (!is_a($renderService, Render::class)) {
             throw new \Exception(
-                'RenderHeadSectionTag must be instance of: ' . RenderHeadSectionTag::class
+                'Renderer must be instance of: ' . Render::class
             );
         }
     }

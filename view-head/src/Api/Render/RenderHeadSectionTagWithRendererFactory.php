@@ -7,21 +7,19 @@ use Psr\Container\ContainerInterface;
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class RenderHeadSectionTagByServiceFactory
+class RenderHeadSectionTagWithRendererFactory
 {
     /**
      * @param ContainerInterface $serviceContainer
      *
-     * @return RenderHeadSectionTagByService
+     * @return RenderHeadSectionTagWithRenderer
      * @throws \Psr\Container\ContainerExceptionInterface
      * @throws \Psr\Container\NotFoundExceptionInterface
      */
     public function __invoke(
         $serviceContainer
     ) {
-        $appConfig = $serviceContainer->get('config');
-
-        return new RenderHeadSectionTagByService(
+        return new RenderHeadSectionTagWithRenderer(
             $serviceContainer
         );
     }

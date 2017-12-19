@@ -2,6 +2,7 @@
 
 namespace Zrcms\HttpCoreBlock;
 
+use Zrcms\HttpCoreBlock\Api\Render\RenderBlockJsTag;
 use Zrcms\HttpCoreBlock\Middleware\BlockJs;
 
 /**
@@ -24,6 +25,17 @@ class ModuleConfigRoutes
                     ],
                     'options' => [],
                     'allowed_methods' => ['GET'],
+                ],
+            ],
+
+            'zrcms-view-head.head-script' => [
+                'sections' => [
+                    'modules' => [
+                        'zrcms.block.block.js' => [
+                            '__render_service' => '{render-service}',
+                            RenderBlockJsTag::OPTION_JS_URL => '/zrcms/block/block.js',
+                        ],
+                    ],
                 ],
             ],
         ];
