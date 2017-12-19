@@ -61,6 +61,7 @@
       "Zrcms\\CoreTheme\\": "core-theme/src/",
       "Zrcms\\CoreThemeDoctrine\\": "core-theme-doctrine/src/",
       "Zrcms\\CoreView\\": "core-view/src/",
+      "Zrcms\\Debug\\": "debug/src/",
       "Zrcms\\Http\\": "http/src/",
       "Zrcms\\HttpApi\\": "http-api/src/",
       "Zrcms\\HttpApiContainer\\": "http-api-container/src/",
