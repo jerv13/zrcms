@@ -78,7 +78,7 @@ class RenderHeadSectionTagWithRenderer implements RenderHeadSectionTag
 
         $renderedHtml = $renderService->__invoke(
             $request,
-            $sectionConfig
+            $sectionConfig // NOTE: we push the config as the options
         );
 
         if (empty($renderedHtml)) {
