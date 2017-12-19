@@ -20,42 +20,31 @@ use Zrcms\Param\Param;
  */
 class ResponseMutatorThemeLayoutWrapper
 {
-    /**
-     * @var GetViewByRequestHtmlPage
-     */
     protected $getViewByRequestHtmlPage;
-
-    /**
-     * @var GetViewLayoutTags
-     */
     protected $getViewLayoutTags;
-
-    /**
-     * @var RenderView
-     */
     protected $renderView;
-
-    /**
-     * @var array
-     */
     protected $pageLayoutConfig;
+    protected $debug;
 
     /**
      * @param GetViewByRequestHtmlPage $getViewByRequestHtmlPage
      * @param GetViewLayoutTags        $getViewLayoutTags
      * @param RenderView               $renderView
      * @param array                    $pageLayoutConfig
+     * @param bool                     $debug
      */
     public function __construct(
         GetViewByRequestHtmlPage $getViewByRequestHtmlPage,
         GetViewLayoutTags $getViewLayoutTags,
         RenderView $renderView,
-        array $pageLayoutConfig = []
+        array $pageLayoutConfig = [],
+        bool $debug = false
     ) {
         $this->getViewByRequestHtmlPage = $getViewByRequestHtmlPage;
         $this->getViewLayoutTags = $getViewLayoutTags;
         $this->renderView = $renderView;
         $this->pageLayoutConfig = $pageLayoutConfig;
+        $this->debug = $debug;
     }
 
     /**
@@ -122,8 +111,12 @@ class ResponseMutatorThemeLayoutWrapper
         $body->write($html);
         $body->rewind();
 
-        return $response->withBody($body)
-            ->withAddedHeader('zrcms-response-mutator', 'ResponseMutatorThemeLayoutWrapper');
+        if ($this->debug) {
+            return $response->withBody($body)
+                ->withAddedHeader('zrcms-response-mutator', 'ResponseMutatorThemeLayoutWrapper');
+        }
+
+        return $response->withBody($body);
     }
 
     /**

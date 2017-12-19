@@ -22,6 +22,7 @@ use Zrcms\CoreContainer\Api\Render\RenderContainerRows;
 use Zrcms\CoreContainer\Api\Render\WrapRenderedContainer;
 use Zrcms\CoreContainer\Api\Render\WrapRenderedContainerLegacy;
 use Zrcms\CoreContainer\Model\ServiceAliasContainer;
+use Zrcms\Debug\IsDebug;
 use Zrcms\ServiceAlias\Api\GetServiceFromAlias;
 
 /**
@@ -63,7 +64,8 @@ class ModuleConfig
                     RenderContainerRows::class => [
                         'arguments' => [
                             RenderBlock::class,
-                            WrapRenderedContainer::class
+                            WrapRenderedContainer::class,
+                            ['literal' => IsDebug::invoke()],
                         ],
                     ],
                     FindContainerCmsResource::class => [

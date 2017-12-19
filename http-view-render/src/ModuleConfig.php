@@ -5,6 +5,7 @@ namespace Zrcms\HttpViewRender;
 use Zrcms\CoreView\Api\GetViewByRequest;
 use Zrcms\CoreView\Api\Render\GetViewLayoutTags;
 use Zrcms\CoreView\Api\Render\RenderView;
+use Zrcms\Debug\IsDebug;
 use Zrcms\HttpStatusPages\Api\GetStatusPage;
 use Zrcms\HttpViewRender\Request\RequestWithOriginalUri;
 use Zrcms\HttpViewRender\Request\RequestWithView;
@@ -51,12 +52,19 @@ class ModuleConfig
                     /**
                      * FinalHandler ===========================================
                      */
-                    NotFoundFinal::class => [],
+                    NotFoundFinal::class => [
+                        'arguments' => [
+                            ['literal' => 404],
+                            ['literal' => IsDebug::invoke()],
+                        ],
+                    ],
 
                     NotFoundStatusPage::class => [
                         'arguments' => [
                             GetStatusPage::class,
                             RenderPage::class,
+                            ['literal' => 404],
+                            ['literal' => IsDebug::invoke()],
                         ],
                     ],
 

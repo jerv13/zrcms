@@ -6,6 +6,7 @@ use Psr\Container\ContainerInterface;
 use Zrcms\CoreView\Api\GetViewByRequestHtmlPage;
 use Zrcms\CoreView\Api\Render\GetViewLayoutTags;
 use Zrcms\CoreView\Api\Render\RenderView;
+use Zrcms\Debug\IsDebug;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -16,6 +17,8 @@ class ResponseMutatorThemeLayoutWrapperFactory
      * @param ContainerInterface $serviceContainer
      *
      * @return ResponseMutatorThemeLayoutWrapper
+     * @throws \Psr\Container\ContainerExceptionInterface
+     * @throws \Psr\Container\NotFoundExceptionInterface
      */
     public function __invoke($serviceContainer)
     {
@@ -27,7 +30,8 @@ class ResponseMutatorThemeLayoutWrapperFactory
             $serviceContainer->get(GetViewByRequestHtmlPage::class),
             $serviceContainer->get(GetViewLayoutTags::class),
             $serviceContainer->get(RenderView::class),
-            $pageLayoutConfig
+            $pageLayoutConfig,
+            IsDebug::invoke()
         );
     }
 }

@@ -13,26 +13,27 @@ use Zrcms\HttpViewRender\Response\RenderPage;
  */
 class NotFoundStatusPage
 {
-    /**
-     * @var GetStatusPage
-     */
     protected $getStatusPage;
-
-    /**
-     * @var RenderPage
-     */
     protected $renderPage;
+    protected $notFoundStatus = 404;
+    protected $debug;
 
     /**
      * @param GetStatusPage $getStatusPage
      * @param RenderPage    $renderPage
+     * @param int           $notFoundStatus
+     * @param bool          $debug
      */
     public function __construct(
         GetStatusPage $getStatusPage,
-        RenderPage $renderPage
+        RenderPage $renderPage,
+        int $notFoundStatus = 404,
+        bool $debug = false
     ) {
         $this->getStatusPage = $getStatusPage;
         $this->renderPage = $renderPage;
+        $this->notFoundStatus = $notFoundStatus;
+        $this->debug = $debug;
     }
 
     /**
@@ -50,13 +51,13 @@ class NotFoundStatusPage
     ) {
         $statusPage = $this->getStatusPage->__invoke(
             $request,
-            404
+            $this->notFoundStatus
         );
 
         if (empty($statusPage)) {
             return new HtmlResponse(
                 '',
-                404,
+                $this->notFoundStatus,
                 ['reason-phrase' => 'NOT FOUND: UNHANDLED REQUEST']
             );
         }
@@ -73,12 +74,16 @@ class NotFoundStatusPage
             function ($req, $res) use ($statusPage) {
                 return new HtmlResponse(
                     '',
-                    404,
+                    $this->notFoundStatus,
                     ['reason-phrase' => 'NOT FOUND: UNHANDLED REQUEST: 404 PAGE MISSING: ' . $statusPage]
                 );
             }
         );
 
-        return $response->withAddedHeader('zrcms-final', 'NotFoundStatusPage');
+        if ($this->debug) {
+            return $response->withAddedHeader('zrcms-final', 'NotFoundStatusPage');
+        }
+
+        return $response;
     }
 }

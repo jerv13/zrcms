@@ -7,8 +7,8 @@ use Psr\Http\Message\ServerRequestInterface;
 use Zend\Diactoros\Response\HtmlResponse;
 use Zend\Diactoros\Response\RedirectResponse;
 use Zrcms\Http\Api\IsValidContentType;
-use Zrcms\HttpViewRender\Response\RenderPage;
 use Zrcms\HttpStatusPages\Api\GetStatusPage;
+use Zrcms\HttpViewRender\Response\RenderPage;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -27,42 +27,31 @@ class ResponseMutatorStatusPage
             'render' => 'renderStatusPage',
         ];
 
-    /**
-     * @var GetStatusPage
-     */
     protected $getStatusPage;
-
-    /**
-     * @var RenderPage
-     */
     protected $renderPage;
-
-    /**
-     * @var array
-     */
     protected $validContentTypes;
-
-    /**
-     * @var array
-     */
     protected $statusBlackList;
+    protected $debug;
 
     /**
      * @param GetStatusPage $getStatusPage
      * @param RenderPage    $renderPage
      * @param array         $validContentTypes
      * @param array         $statusBlackList
+     * @param bool          $debug
      */
     public function __construct(
         GetStatusPage $getStatusPage,
         RenderPage $renderPage,
         array $validContentTypes = ['text/html', 'application/xhtml+xml', 'text/xml', 'application/xml', ''],
-        array $statusBlackList = [200, 201, 204, 301, 302]
+        array $statusBlackList = [200, 201, 204, 301, 302],
+        bool $debug = false
     ) {
         $this->getStatusPage = $getStatusPage;
         $this->renderPage = $renderPage;
         $this->validContentTypes = $validContentTypes;
         $this->statusBlackList = $statusBlackList;
+        $this->debug = $debug;
     }
 
     /**
@@ -125,7 +114,11 @@ class ResponseMutatorStatusPage
             $response
         );
 
-        return $response->withAddedHeader('zrcms-response-mutator', 'ResponseMutatorStatusPage');
+        if ($this->debug) {
+            return $response->withAddedHeader('zrcms-response-mutator', 'ResponseMutatorStatusPage');
+        }
+
+        return $response;
     }
 
     /**
@@ -135,7 +128,7 @@ class ResponseMutatorStatusPage
      */
     protected function canHandleResponse(
         ResponseInterface $response
-    ):bool {
+    ): bool {
         if (!IsValidContentType::invoke($response, $this->validContentTypes)) {
             return false;
         }

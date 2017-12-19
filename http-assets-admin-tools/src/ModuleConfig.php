@@ -48,13 +48,13 @@ class ModuleConfig
                     AdminToolsBlockCss::class => [
                         'arguments' => [
                             FindComponentsBy::class,
-                            GetComponentJsAdminTools::class,
+                            GetComponentCssAdminTools::class,
                         ],
                     ],
                     AdminToolsBlockJs::class => [
                         'arguments' => [
                             FindComponentsBy::class,
-                            GetComponentCssAdminTools::class,
+                            GetComponentJsAdminTools::class,
                         ],
                     ],
                 ],

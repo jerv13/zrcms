@@ -5,6 +5,7 @@ namespace Zrcms\HttpStatusPages;
 use Zrcms\Core\Api\Component\FindComponent;
 use Zrcms\Core\Fields\FieldsComponentConfig;
 use Zrcms\CoreSite\Api\GetSiteCmsResourceByRequest;
+use Zrcms\Debug\IsDebug;
 use Zrcms\HttpStatusPages\Api\GetStatusPage;
 use Zrcms\HttpStatusPages\Api\GetStatusPageBasic;
 use Zrcms\HttpStatusPages\Fields\FieldsHttpStatusPagesComponent;
@@ -37,6 +38,9 @@ class ModuleConfig
                         'arguments' => [
                             GetStatusPage::class,
                             RenderPage::class,
+                            ['literal' => ['text/html', 'application/xhtml+xml', 'text/xml', 'application/xml', '']],
+                            ['literal' => [200, 201, 204, 301, 302]],
+                            ['literal' => IsDebug::invoke()],
                         ],
                     ],
                 ],

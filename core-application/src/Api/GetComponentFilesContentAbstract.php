@@ -4,7 +4,6 @@ namespace Zrcms\CoreApplication\Api;
 
 use Psr\Http\Message\ServerRequestInterface;
 use Zrcms\Cache\Service\Cache;
-use Zrcms\Core\Fields\FieldsComponent;
 use Zrcms\Core\Model\Component;
 
 /**
@@ -61,7 +60,11 @@ abstract class GetComponentFilesContentAbstract
                 continue;
             }
 
-            $content = $this->getContent($filePathUris, $content);
+            $content = $this->getContent(
+                $component->getModuleDirectory(),
+                $filePathUris,
+                $content
+            );
         }
 
         $this->setCache($content);
@@ -75,34 +78,46 @@ abstract class GetComponentFilesContentAbstract
     abstract protected function getScheme(): string;
 
     /**
+     * @param string $moduleDirectory
      * @param array  $filePathUris
      * @param string $content
      *
      * @return string
      * @throws \Exception
      */
-    protected function getContent(array $filePathUris, $content = '')
-    {
+    protected function getContent(
+        string $moduleDirectory,
+        array $filePathUris,
+        $content = ''
+    ) {
         foreach ($filePathUris as $sourceName => $filePathUri) {
             if (!$this->isValidScheme($filePathUri)) {
                 continue;
             }
 
-            $content .= $this->readFileContents($filePathUri);
+            $content .= $this->readFileContents(
+                $moduleDirectory,
+                $filePathUri
+            );
         }
 
         return $content;
     }
 
     /**
+     * @param string $moduleDirectory
      * @param string $filePathUri
      *
-     * @return bool|string
+     * @return string
      * @throws \Exception
      */
-    protected function readFileContents(string $filePathUri)
-    {
+    protected function readFileContents(
+        string $moduleDirectory,
+        string $filePathUri
+    ) {
         $filePath = parse_url($filePathUri, PHP_URL_PATH);
+
+        $filePath = $moduleDirectory . '/' . $filePath;
 
         $realFilePath = realpath($filePath);
 

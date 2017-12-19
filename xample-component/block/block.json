@@ -7,6 +7,10 @@
   "icon": "/path/to/xample/icon.png",
   "cache": false,
   "editor": "",
+  "js": {
+    "xample.block.block.js": "../public/block.js",
+    "xample.block.admin-tools-block.js": "admin-tools:../public/admin-tools-block.js"
+  },
   "fields": [
     {
       "name": "xampleText",

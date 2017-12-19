@@ -10,6 +10,21 @@ use Psr\Http\Message\ServerRequestInterface;
  */
 class NotFoundFinal
 {
+    protected $notFoundStatus = 404;
+    protected $debug;
+
+    /**
+     * @param int  $notFoundStatus
+     * @param bool $debug
+     */
+    public function __construct(
+        int $notFoundStatus = 404,
+        bool $debug = false
+    ) {
+        $this->notFoundStatus = $notFoundStatus;
+        $this->debug = $debug;
+    }
+
     /**
      * @param ServerRequestInterface $request
      * @param ResponseInterface      $response
@@ -23,6 +38,12 @@ class NotFoundFinal
         ResponseInterface $response,
         $next = null
     ) {
-        return $response->withAddedHeader('zrcms-final', 'NotFoundFinal')->withStatus(404);
+        if ($this->debug) {
+            return $response
+                ->withAddedHeader('zrcms-final', 'NotFoundFinal')
+                ->withStatus($this->notFoundStatus);
+        }
+
+        return $response->withStatus($this->notFoundStatus);
     }
 }
