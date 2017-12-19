@@ -11,7 +11,7 @@ use Zrcms\ViewHead\Api\Exception\CanNotRenderHeadSectionTag;
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class RenderHeadSectionTagWithRenderer implements RenderHeadSectionTag
+class RenderHeadSectionTagWithRenderService implements RenderHeadSectionTag
 {
     protected $serviceContainer;
     protected $defaultDebug;
@@ -71,19 +71,15 @@ class RenderHeadSectionTagWithRenderer implements RenderHeadSectionTag
 
         $renderServiceName = $sectionConfig['__render_service'];
 
-        /** @var object $renderService */
+        /** @var Render $renderService */
         $renderService = $this->serviceContainer->get($renderServiceName);
 
         $this->assertValidService($renderService);
 
         $renderedHtml = $renderService->__invoke(
             $request,
-            $sectionConfig // NOTE: we push the config as the options
+            $sectionConfig // NOTE: we push the config as the data
         );
-
-        if (empty($renderedHtml)) {
-            return $renderedHtml;
-        }
 
         $contentHtml = '';
 
@@ -91,6 +87,10 @@ class RenderHeadSectionTagWithRenderer implements RenderHeadSectionTag
             $contentHtml = $contentHtml . $indent
                 . '<!-- RenderHeadSectionTagWithRenderer service:' . $renderServiceName . ' -->'
                 . $lineBreak;
+        }
+
+        if (empty($renderedHtml)) {
+            return $contentHtml;
         }
 
         $contentHtml .= $indent . $renderedHtml. $lineBreak;

@@ -3,7 +3,9 @@
 namespace Zrcms\HttpAssetsBlock;
 
 use Zrcms\Core\Api\Component\FindComponentsBy;
+use Zrcms\Core\Api\GetComponentCss;
 use Zrcms\Core\Api\GetComponentJs;
+use Zrcms\HttpAssetsBlock\Middleware\BlockCss;
 use Zrcms\HttpAssetsBlock\Middleware\BlockJs;
 
 /**
@@ -19,6 +21,12 @@ class ModuleConfig
         return [
             'dependencies' => [
                 'config_factories' => [
+                    BlockCss::class => [
+                        'arguments' => [
+                            FindComponentsBy::class,
+                            GetComponentCss::class,
+                        ],
+                    ],
                     BlockJs::class => [
                         'arguments' => [
                             FindComponentsBy::class,

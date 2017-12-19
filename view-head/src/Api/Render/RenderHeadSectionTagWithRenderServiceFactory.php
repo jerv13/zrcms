@@ -7,19 +7,19 @@ use Psr\Container\ContainerInterface;
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class RenderHeadSectionTagWithRendererFactory
+class RenderHeadSectionTagWithRenderServiceFactory
 {
     /**
      * @param ContainerInterface $serviceContainer
      *
-     * @return RenderHeadSectionTagWithRenderer
+     * @return RenderHeadSectionTagWithRenderService
      * @throws \Psr\Container\ContainerExceptionInterface
      * @throws \Psr\Container\NotFoundExceptionInterface
      */
     public function __invoke(
         $serviceContainer
     ) {
-        return new RenderHeadSectionTagWithRenderer(
+        return new RenderHeadSectionTagWithRenderService(
             $serviceContainer
         );
     }

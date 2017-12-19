@@ -2,8 +2,11 @@
 
 namespace Zrcms\HttpAssetsBlock;
 
+use Zrcms\HttpAssets\Api\Render\RenderScriptSrcTag;
 use Zrcms\HttpAssetsBlock\Api\Render\RenderBlockJsTag;
+use Zrcms\HttpAssetsBlock\Middleware\BlockCss;
 use Zrcms\HttpAssetsBlock\Middleware\BlockJs;
+use Zrcms\ViewHtmlTags\Api\Render\RenderTag;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -17,6 +20,15 @@ class ModuleConfigRoutes
     {
         return [
             'routes' => [
+                'zrcms.block.block.css' => [
+                    'name' => 'zrcms.block.block.css',
+                    'path' => '/zrcms/block/block.css',
+                    'middleware' => [
+                        'middleware' => BlockCss::class,
+                    ],
+                    'options' => [],
+                    'allowed_methods' => ['GET'],
+                ],
                 'zrcms.block.block.js' => [
                     'name' => 'zrcms.block.block.js',
                     'path' => '/zrcms/block/block.js',
@@ -32,8 +44,10 @@ class ModuleConfigRoutes
                 'sections' => [
                     'modules' => [
                         'zrcms.block.block.js' => [
-                            '__render_service' => '{render-service}',
-                            RenderBlockJsTag::OPTION_JS_URL => '/zrcms/block/block.js',
+                            '__render_service' => RenderScriptSrcTag::class,
+                            RenderTag::PROPERTY_ATTRIBUTES => [
+                                RenderScriptSrcTag::OPTION_SRC_ATTRIBUTE => '/zrcms/block/block.js',
+                            ]
                         ],
                     ],
                 ],

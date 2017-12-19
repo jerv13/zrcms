@@ -50,9 +50,9 @@ class RenderTagBasic implements RenderTag
         array $tagData,
         array $options = []
     ): string {
-        $tag = Param::getRequired($tagData, 'tag');
-        $attributes = Param::getArray($tagData, 'attributes', []);
-        $contentHtml = Param::getString($tagData, 'content', '');
+        $tag = Param::getRequired($tagData, self::PROPERTY_TAG);
+        $attributes = Param::getArray($tagData, self::PROPERTY_ATTRIBUTES, []);
+        $contentHtml = Param::getString($tagData, self::PROPERTY_CONTENT, '');
         $depth = Param::getInt(
             $options,
             RenderTag::OPTION_DEPTH,
