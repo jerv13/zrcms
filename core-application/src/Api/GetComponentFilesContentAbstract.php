@@ -19,6 +19,8 @@ abstract class GetComponentFilesContentAbstract
      * @param string $componentFilesProperty
      * @param Cache  $cache
      * @param string $cacheKey
+     *
+     * @throws \Psr\SimpleCache\InvalidArgumentException
      */
     public function __construct(
         string $componentFilesProperty,
@@ -28,6 +30,7 @@ abstract class GetComponentFilesContentAbstract
         $this->componentFilesProperty = $componentFilesProperty;
         $this->cache = $cache;
         $this->cacheKey = $cacheKey;
+        $this->cache->set($this->cacheKey, []);
     }
 
     /**
@@ -44,10 +47,6 @@ abstract class GetComponentFilesContentAbstract
         array $components,
         array $options = []
     ): string {
-        if ($this->hasCache()) {
-            return $this->getCache();
-        }
-
         $content = '';
 
         /** @var Component $component */
@@ -67,8 +66,6 @@ abstract class GetComponentFilesContentAbstract
             );
         }
 
-        $this->setCache($content);
-
         return $content;
     }
 
@@ -84,6 +81,7 @@ abstract class GetComponentFilesContentAbstract
      *
      * @return string
      * @throws \Exception
+     * @throws \Psr\SimpleCache\InvalidArgumentException
      */
     protected function getContent(
         string $moduleDirectory,
@@ -95,10 +93,19 @@ abstract class GetComponentFilesContentAbstract
                 continue;
             }
 
-            $content .= $this->readFileContents(
+            if ($this->hasCache($filePathUri)) {
+                $content .= $this->getCache($filePathUri);
+                continue;
+            }
+
+            $fileContent = $this->readFileContents(
                 $moduleDirectory,
                 $filePathUri
             );
+
+            $this->setCache($filePathUri, $fileContent);
+
+            $content .= $fileContent;
         }
 
         return $content;
@@ -151,31 +158,49 @@ abstract class GetComponentFilesContentAbstract
     }
 
     /**
+     * @param string $filePathUri
+     *
      * @return bool
      * @throws \Psr\SimpleCache\InvalidArgumentException
      */
-    protected function hasCache()
+    protected function hasCache(string $filePathUri)
     {
-        return ($this->cache->has($this->cacheKey));
+        $cache = $this->cache->get($this->cacheKey);
+
+        return array_key_exists($filePathUri, $cache);
     }
 
     /**
+     * @param string $filePathUri
+     *
      * @return mixed
      * @throws \Psr\SimpleCache\InvalidArgumentException
      */
-    protected function getCache()
+    protected function getCache(string $filePathUri)
     {
-        return $this->cache->get($this->cacheKey);
+        if (!$this->hasCache($filePathUri)) {
+            return null;
+        }
+        $cache = $this->cache->get($this->cacheKey);
+
+        return $cache[$filePathUri];
     }
 
     /**
-     * @param $configs
+     * @param string $filePathUri
+     * @param string $fileContent
      *
      * @return void
      * @throws \Psr\SimpleCache\InvalidArgumentException
      */
-    protected function setCache($configs)
-    {
-        $this->cache->set($this->cacheKey, $configs);
+    protected function setCache(
+        string $filePathUri,
+        string $fileContent
+    ) {
+        $cache = $this->cache->get($this->cacheKey);
+
+        $cache[$filePathUri] = $fileContent;
+
+        $this->cache->set($this->cacheKey, $cache);
     }
 }

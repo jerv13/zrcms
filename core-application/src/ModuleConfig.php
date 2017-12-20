@@ -3,7 +3,6 @@
 namespace Zrcms\CoreApplication;
 
 use Zrcms\Cache\Service\Cache;
-use Zrcms\Cache\Service\CacheArray;
 use Zrcms\Core\Api\CmsResource\CmsResourceToArray;
 use Zrcms\Core\Api\CmsResourceHistory\CmsResourceHistoryToArray;
 use Zrcms\Core\Api\Component\BuildComponentObject;
@@ -46,7 +45,6 @@ use Zrcms\CoreApplication\Api\Content\ContentVersionToArrayBasic;
 use Zrcms\CoreApplication\Api\GetComponentCssBasic;
 use Zrcms\CoreApplication\Api\GetComponentJsBasic;
 use Zrcms\CoreApplication\Api\GetTypeValueBasicFactory;
-use Zrcms\ServiceAlias\Api\GetServiceAliasesByNamespace;
 use Zrcms\ServiceAlias\Api\GetServiceFromAlias;
 
 /**
@@ -168,14 +166,14 @@ class ModuleConfig
                     GetComponentCss::class => [
                         'class' => GetComponentCssBasic::class,
                         'arguments' => [
-                            CacheArray::class,
+                            Cache::class,
                             ['literal' => GetComponentCssBasic::DEFAULT_CACHE_KEY]
                         ],
                     ],
                     GetComponentJs::class => [
                         'class' => GetComponentJsBasic::class,
                         'arguments' => [
-                            CacheArray::class,
+                            Cache::class,
                             ['literal' => GetComponentJsBasic::DEFAULT_CACHE_KEY]
                         ],
                     ]

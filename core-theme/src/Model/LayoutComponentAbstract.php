@@ -13,14 +13,17 @@ use Zrcms\Param\Param;
 abstract class LayoutComponentAbstract extends ComponentAbstract
 {
     /**
-     * @param string      $type
-     * @param string      $name
-     * @param string      $configUri
-     * @param string      $moduleDirectory
-     * @param array       $properties
-     * @param string      $createdByUserId
-     * @param string      $createdReason
-     * @param string|null $createdDate
+     * @param string $type
+     * @param string $name
+     * @param string $configUri
+     * @param string $moduleDirectory
+     * @param array  $properties
+     * @param string $createdByUserId
+     * @param string $createdReason
+     * @param null   $createdDate
+     *
+     * @throws \Exception
+     * @throws \Zrcms\Param\Exception\ParamMissing
      */
     public function __construct(
         string $type,

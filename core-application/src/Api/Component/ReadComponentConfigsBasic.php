@@ -41,6 +41,7 @@ class ReadComponentConfigsBasic implements ReadComponentConfigs
      * @param array $options
      *
      * @return array
+     * @throws \Psr\SimpleCache\InvalidArgumentException
      * @throws \Zrcms\Core\Exception\CanNotReadComponentConfig
      */
     public function __invoke(

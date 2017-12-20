@@ -19,6 +19,13 @@
 
 #### ToDo ####
 
+- Deal with page permissions
+    - exporter
+    - implementation for ZRCMS
+    - might use roles or roles with inheritance
+    - Might create page property that is a list of roles that have access
+    - if there are no roles, then assume no restriction
+
 - Block data providers service aliases - should we use alias and allowed service names (scrap aliases)
 
 - GetViewByRequest as composite with priority or strategy (faster)?
@@ -69,6 +76,9 @@
 - Check and update all composer dependencies
 
 - FindCmsResourceByDateRange, FindContentVersionByDateRange interface
+
+- Use FACTORIES instead of 'factories as config'
+    - cannot over-ride in a reliable way in 'factories as config'
     
 Features
 --------

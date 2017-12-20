@@ -3,7 +3,7 @@
 namespace Zrcms\CoreAdminTools;
 
 use Zrcms\Acl\Api\IsAllowedRcmUser;
-use Zrcms\Cache\Service\CacheArray;
+use Zrcms\Cache\Service\Cache;
 use Zrcms\CoreAdminTools\Api\Acl\IsAllowedAdminToolsRcmUserSitesAdmin;
 use Zrcms\CoreAdminTools\Api\GetComponentCssAdminTools;
 use Zrcms\CoreAdminTools\Api\GetComponentJsAdminTools;
@@ -30,7 +30,7 @@ class ModuleConfig
                         'arguments' => [
                             IsAllowedAdminToolsRcmUserSitesAdmin::class,
                             ['literal' => []],
-                            CacheArray::class,
+                            Cache::class,
                             ['literal' => GetComponentCssAdminTools::DEFAULT_CACHE_KEY]
                         ],
                     ],
@@ -38,7 +38,7 @@ class ModuleConfig
                         'arguments' => [
                             IsAllowedAdminToolsRcmUserSitesAdmin::class,
                             ['literal' => []],
-                            CacheArray::class,
+                            Cache::class,
                             ['literal' => GetComponentJsAdminTools::DEFAULT_CACHE_KEY]
                         ],
                     ],

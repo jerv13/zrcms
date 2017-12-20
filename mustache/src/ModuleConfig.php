@@ -2,7 +2,7 @@
 
 namespace Zrcms\Mustache;
 
-use Zrcms\Cache\Service\CacheArray;
+use Zrcms\Cache\Service\Cache;
 use Zrcms\Mustache\Resolver\FileResolver;
 
 /**
@@ -20,7 +20,7 @@ class ModuleConfig
                 'config_factories' => [
                     FileResolver::class => [
                         'arguments' => [
-                            CacheArray::class
+                            Cache::class
                         ]
                     ],
                 ],

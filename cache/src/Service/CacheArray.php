@@ -12,6 +12,7 @@ class CacheArray implements Cache
 {
     const VALUE = 'value';
     const TTL = 'ttl';
+    const CREATE_TIME = 'createTime';
 
     /**
      * @var array
@@ -34,9 +35,9 @@ class CacheArray implements Cache
     }
 
     /**
-     * @param string $key
-     * @param mixed  $value
-     * @param null   $ttl
+     * @param string   $key
+     * @param mixed    $value
+     * @param null|int $ttl
      *
      * @return bool
      */
@@ -46,6 +47,7 @@ class CacheArray implements Cache
 
         $this->values[$key][self::VALUE] = $value;
         $this->values[$key][self::TTL] = $ttl;
+        $this->values[$key][self::CREATE_TIME] = time();
 
         return true;
     }
@@ -59,9 +61,11 @@ class CacheArray implements Cache
     {
         if ($this->has($key)) {
             unset($this->values[$key]);
+
+            return true;
         }
 
-        return true;
+        return false;
     }
 
     /**
@@ -91,8 +95,8 @@ class CacheArray implements Cache
     }
 
     /**
-     * @param array $values
-     * @param null  $ttl
+     * @param array    $values
+     * @param null|int $ttl
      *
      * @return bool
      */

@@ -27,6 +27,7 @@ class GetChangeLogByDateRangeAbstract extends CoreGetChangLogAbstract
      * @param PageVersionEntity $version
      *
      * @return ChangeLogEvent
+     * @throws \Zrcms\Core\Exception\TrackingInvalid
      */
     protected function versionRowToChangeLogEvent($version): ChangeLogEvent
     {

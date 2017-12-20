@@ -18,6 +18,8 @@ class FileResolver implements ResolverInterface
     /**
      * @param Cache  $cache
      * @param string $cacheKey
+     *
+     * @throws \Psr\SimpleCache\InvalidArgumentException
      */
     public function __construct(
         Cache $cache,
@@ -32,6 +34,7 @@ class FileResolver implements ResolverInterface
      * @param string $templatePath
      *
      * @return bool
+     * @throws \Psr\SimpleCache\InvalidArgumentException
      */
     protected function hasCache(string $templatePath)
     {
@@ -43,7 +46,8 @@ class FileResolver implements ResolverInterface
     /**
      * @param string $templatePath
      *
-     * @return null|string
+     * @return null
+     * @throws \Psr\SimpleCache\InvalidArgumentException
      */
     protected function getCache(string $templatePath)
     {
@@ -51,13 +55,16 @@ class FileResolver implements ResolverInterface
             return null;
         }
         $cache = $this->cache->get($this->cacheKey);
+
         return $cache[$templatePath];
     }
 
     /**
      * @param string $templatePath
+     * @param        $template
      *
      * @return void
+     * @throws \Psr\SimpleCache\InvalidArgumentException
      */
     protected function setCache(string $templatePath, $template)
     {
@@ -73,8 +80,9 @@ class FileResolver implements ResolverInterface
      *
      * @param string $templatePath
      *
-     * @return string
+     * @return array|bool|null|string
      * @throws \Exception
+     * @throws \Psr\SimpleCache\InvalidArgumentException
      */
     public function resolve($templatePath)
     {

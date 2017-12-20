@@ -40,10 +40,10 @@ class LoggerFile extends AbstractLogger implements Logger
 
         //@todo Might need to create directory first
 
-        $fileName = $this->logDirectory . '/' . $dateTime->format('Y-m-d') . '.log';
+        $filePath = $this->logDirectory . '/' . $dateTime->format('Y-m-d') . '.log';
 
         $this->writeFile(
-            $fileName,
+            $filePath,
             $logEntry
         );
     }
@@ -69,14 +69,32 @@ class LoggerFile extends AbstractLogger implements Logger
     }
 
     /**
-     * @param $fileName
+     * @param $filePath
      * @param $contents
      *
      * @return void
      */
-    protected function writeFile($fileName, $contents)
+    protected function writeFile($filePath, $contents)
     {
-        $parts = explode('/', $fileName);
+        if (!file_exists($filePath)) {
+            $this->createDirectory($filePath);
+        }
+        $contents = $contents . "\n";
+        file_put_contents(
+            "$filePath",
+            $contents,
+            FILE_APPEND
+        );
+    }
+
+    /**
+     * @param $filePath
+     *
+     * @return void
+     */
+    protected function createDirectory($filePath)
+    {
+        $parts = explode('/', $filePath);
         $file = array_pop($parts);
         $dir = '';
         foreach ($parts as $part) {
@@ -84,11 +102,5 @@ class LoggerFile extends AbstractLogger implements Logger
                 mkdir($dir);
             }
         }
-        $contents = $contents . "\n";
-        file_put_contents(
-            "$dir/$file",
-            $contents,
-            FILE_APPEND
-        );
     }
 }

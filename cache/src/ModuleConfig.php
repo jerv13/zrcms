@@ -20,6 +20,7 @@ use Zrcms\Cache\Api\SetCacheValues;
 use Zrcms\Cache\Api\SetCacheValuesBasic;
 use Zrcms\Cache\Service\Cache;
 use Zrcms\Cache\Service\CacheArray;
+use Zrcms\Cache\Service\CacheFilePhp;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -92,6 +93,11 @@ class ModuleConfig
                         'class' => CacheArray::class,
                     ],
                     CacheArray::class => [],
+                    CacheFilePhp::class => [
+                        'arguments' => [
+                            ['literal' => __DIR__ . '/../../../../../data/zrcms/cache-file.php']
+                        ],
+                    ]
                 ],
             ],
             /** Register caches so global clears can be applied */
