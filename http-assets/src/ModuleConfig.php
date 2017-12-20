@@ -2,10 +2,15 @@
 
 namespace Zrcms\HttpAssets;
 
+use Zrcms\Core\Api\Component\FindComponentsBy;
+use Zrcms\Core\Api\GetComponentCss;
+use Zrcms\Core\Api\GetComponentJs;
 use Zrcms\HttpAssets\Api\GetCacheBreaker;
 use Zrcms\HttpAssets\Api\GetCacheBreakerPhpFile;
 use Zrcms\HttpAssets\Api\Render\RenderLinkHrefTag;
 use Zrcms\HttpAssets\Api\Render\RenderScriptSrcTag;
+use Zrcms\HttpAssets\Middleware\ComponentCss;
+use Zrcms\HttpAssets\Middleware\ComponentJs;
 use Zrcms\ViewHtmlTags\Api\Render\RenderTag;
 
 /**
@@ -37,6 +42,22 @@ class ModuleConfig
                         'class' => GetCacheBreakerPhpFile::class,
                         'arguments' => [
                             ['literal' => __DIR__ . '/../../../../../releaseInfo.php']
+                        ],
+                    ],
+
+                    /**
+                     * Middleware
+                     */
+                    ComponentCss::class => [
+                        'arguments' => [
+                            FindComponentsBy::class,
+                            GetComponentCss::class
+                        ],
+                    ],
+                    ComponentJs::class => [
+                        'arguments' => [
+                            FindComponentsBy::class,
+                            GetComponentJs::class
                         ],
                     ],
                 ],

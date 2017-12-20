@@ -6,8 +6,8 @@ use Zrcms\HttpAssets\Api\Render\RenderLinkHrefTag;
 use Zrcms\HttpAssets\Api\Render\RenderScriptSrcTag;
 use Zrcms\HttpAssetsAdminTools\Api\Render\RenderLinkHrefTagAdminTools;
 use Zrcms\HttpAssetsAdminTools\Api\Render\RenderScriptSrcTagAdminTools;
-use Zrcms\HttpAssetsAdminTools\Middleware\AdminToolsBlockCss;
-use Zrcms\HttpAssetsAdminTools\Middleware\AdminToolsBlockJs;
+use Zrcms\HttpAssetsAdminTools\Middleware\AdminToolsComponentCss;
+use Zrcms\HttpAssetsAdminTools\Middleware\AdminToolsComponentJs;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -21,20 +21,20 @@ class ModuleConfigRoutes
     {
         return [
             'routes' => [
-                'zrcms.admin-tools.block.css' => [
-                    'name' => 'zrcms.admin-tools.block.css',
-                    'path' => '/zrcms/admin-tools/block.css',
+                'zrcms.admin-tools.{zrcms-component-type}.css' => [
+                    'name' => 'zrcms.admin-tools.{zrcms-component-type}.css',
+                    'path' => '/zrcms/admin-tools/{zrcms-component-type}.css',
                     'middleware' => [
-                        'middleware' => AdminToolsBlockCss::class,
+                        'middleware' => AdminToolsComponentCss::class,
                     ],
                     'options' => [],
                     'allowed_methods' => ['GET'],
                 ],
-                'zrcms.admin-tools.block.js' => [
-                    'name' => 'zrcms.admin-tools.block.js',
-                    'path' => '/zrcms/admin-tools/block.js',
+                'zrcms.admin-tools.{zrcms-component-type}.js' => [
+                    'name' => 'zrcms.admin-tools.{zrcms-component-type}.js',
+                    'path' => '/zrcms/admin-tools/{zrcms-component-type}.js',
                     'middleware' => [
-                        'middleware' => AdminToolsBlockJs::class,
+                        'middleware' => AdminToolsComponentJs::class,
                     ],
                     'options' => [],
                     'allowed_methods' => ['GET'],

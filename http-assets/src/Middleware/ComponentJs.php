@@ -16,24 +16,20 @@ class ComponentJs
 {
     protected $findComponentsBy;
     protected $getComponentJs;
-    protected $componentType;
     protected $headers;
 
     /**
      * @param FindComponentsBy $findComponentsBy
      * @param GetComponentJs   $getComponentJs
-     * @param string           $componentType
      * @param array            $headers
      */
     public function __construct(
         FindComponentsBy $findComponentsBy,
         GetComponentJs $getComponentJs,
-        string $componentType,
         array $headers = ['content-type' => 'text/javascript']
     ) {
         $this->findComponentsBy = $findComponentsBy;
         $this->getComponentJs = $getComponentJs;
-        $this->componentType = $componentType;
         $this->headers = $headers;
     }
 
@@ -50,8 +46,12 @@ class ComponentJs
         ResponseInterface $response,
         callable $next = null
     ) {
+        $componentType = $request->getAttribute('zrcms-component-type');
+
+        // @todo Validate types
+
         $components = $this->findComponentsBy->__invoke(
-            [FieldsComponentConfig::TYPE => $this->componentType]
+            [FieldsComponentConfig::TYPE => $componentType]
         );
 
         $content = $this->getComponentJs->__invoke(

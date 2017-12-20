@@ -56,56 +56,22 @@ class ModulesConfig
             new \Zrcms\ViewHtmlTags\ModuleConfig(),
 
             new \Zrcms\Http\ModuleConfig(),
+            new \Zrcms\HttpApi\ModuleConfig(),
+            new \Zrcms\HttpApiContainer\ModuleConfig(),
+            new \Zrcms\HttpApiCountry\ModuleConfig(),
+            new \Zrcms\HttpApiLanguage\ModuleConfig(),
+            new \Zrcms\HttpApiPage\ModuleConfig(),
+            new \Zrcms\HttpApiRedirect\ModuleConfig(),
+            new \Zrcms\HttpApiSite\ModuleConfig(),
+            new \Zrcms\HttpApiTheme\ModuleConfig(),
+            new \Zrcms\HttpApiView\ModuleConfig(),
 
             new \Zrcms\HttpAssets\ModuleConfig(),
-
-            new \Zrcms\HttpAssetsChangeLog\ModuleConfig(),
-            // @todo Routes should NOT be included by default
-            new \Zrcms\HttpAssetsChangeLog\ModuleConfigRoutes(),
-
             new \Zrcms\HttpAssetsAdminTools\ModuleConfig(),
-            // @todo Routes should NOT be included by default
-            new \Zrcms\HttpAssetsAdminTools\ModuleConfigRoutes(),
-
-            new \Zrcms\HttpApi\ModuleConfig(),
-            // @todo Routes should NOT be included by default
-            new \Zrcms\HttpApi\ModuleConfigRoutes(),
-
             new \Zrcms\HttpAssetsBlock\ModuleConfig(),
-            // @todo Routes should NOT be included by default
-            new \Zrcms\HttpAssetsBlock\ModuleConfigRoutes(),
-
-            new \Zrcms\HttpApiContainer\ModuleConfig(),
-            // @todo Routes should NOT be included by default
-            new \Zrcms\HttpApiContainer\ModuleConfigRoutes(),
-
-            new \Zrcms\HttpApiCountry\ModuleConfig(),
-            // @todo Routes should NOT be included by default
-            new \Zrcms\HttpApiCountry\ModuleConfigRoutes(),
-
-            new \Zrcms\HttpApiLanguage\ModuleConfig(),
-            // @todo Routes should NOT be included by default
-            new \Zrcms\HttpApiLanguage\ModuleConfigRoutes(),
-
-            new \Zrcms\HttpApiPage\ModuleConfig(),
-            // @todo Routes should NOT be included by default
-            new \Zrcms\HttpApiPage\ModuleConfigRoutes(),
-
-            new \Zrcms\HttpApiRedirect\ModuleConfig(),
-            // @todo Routes should NOT be included by default
-            new \Zrcms\HttpApiRedirect\ModuleConfigRoutes(),
-
-            new \Zrcms\HttpApiSite\ModuleConfig(),
-            // @todo Routes should NOT be included by default
-            new \Zrcms\HttpApiSite\ModuleConfigRoutes(),
-
-            new \Zrcms\HttpApiTheme\ModuleConfig(),
-            // @todo Routes should NOT be included by default
-            new \Zrcms\HttpApiTheme\ModuleConfigRoutes(),
-
-            new \Zrcms\HttpApiView\ModuleConfig(),
-            // @todo Routes should NOT be included by default
-            new \Zrcms\HttpApiView\ModuleConfigRoutes(),
+            // @todo ViewHead included by default?
+            new \Zrcms\HttpAssetsBlock\ModuleConfigViewHead(),
+            new \Zrcms\HttpAssetsChangeLog\ModuleConfig(),
 
             new \Zrcms\HttpLocale\ModuleConfig(),
             new \Zrcms\HttpRcmApiLib\ModuleConfig(),
@@ -115,8 +81,6 @@ class ModulesConfig
 
             // @todo HttpTest should NOT be included by default
             new \Zrcms\HttpTest\ModuleConfig(),
-            // @todo HttpTest Routes should NOT be included by default
-            new \Zrcms\HttpTest\ModuleConfigRoutes(),
 
             new \Zrcms\HttpUser\ModuleConfig(),
             new \Zrcms\HttpViewRender\ModuleConfig(),

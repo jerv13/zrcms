@@ -19,6 +19,11 @@
 
 #### ToDo ####
 
+- Block data providers service aliases - should we use alias and allowed service names (scrap aliases)
+
+- RenderHeadSectionTagComposite is slow - might find a new method
+- General Middlware
+
 - GetViewByRequest as composite with priority?
 
 - SitePages: Service for getting url list from page, product pages, etc... (site map??)

@@ -10,8 +10,8 @@ use Zrcms\Debug\IsDebug;
 use Zrcms\HttpAssets\Api\GetCacheBreaker;
 use Zrcms\HttpAssetsAdminTools\Api\Render\RenderLinkHrefTagAdminTools;
 use Zrcms\HttpAssetsAdminTools\Api\Render\RenderScriptSrcTagAdminTools;
-use Zrcms\HttpAssetsAdminTools\Middleware\AdminToolsBlockCss;
-use Zrcms\HttpAssetsAdminTools\Middleware\AdminToolsBlockJs;
+use Zrcms\HttpAssetsAdminTools\Middleware\AdminToolsComponentCss;
+use Zrcms\HttpAssetsAdminTools\Middleware\AdminToolsComponentJs;
 use Zrcms\ViewHtmlTags\Api\Render\RenderTag;
 
 /**
@@ -45,13 +45,13 @@ class ModuleConfig
                             ['literal' => IsDebug::invoke()],
                         ],
                     ],
-                    AdminToolsBlockCss::class => [
+                    AdminToolsComponentCss::class => [
                         'arguments' => [
                             FindComponentsBy::class,
                             GetComponentCssAdminTools::class,
                         ],
                     ],
-                    AdminToolsBlockJs::class => [
+                    AdminToolsComponentJs::class => [
                         'arguments' => [
                             FindComponentsBy::class,
                             GetComponentJsAdminTools::class,
