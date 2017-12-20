@@ -11,6 +11,8 @@ use Zrcms\ViewHead\Api\Exception\CanNotRenderHeadSectionTag;
  */
 class RenderHeadSectionTagLiteral implements RenderHeadSectionTag
 {
+    const SERVICE_ALIAS = 'literal';
+
     protected $debug;
 
     /**

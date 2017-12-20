@@ -7,6 +7,7 @@ use Psr\Http\Message\ServerRequestInterface;
 use Zrcms\ViewHead\Api\Exception\CanNotRenderHeadSectionTag;
 
 /**
+ * @deprecated
  * @author James Jervis - https://github.com/jerv13
  */
 class RenderHeadSectionTagComposite implements RenderHeadSectionTag

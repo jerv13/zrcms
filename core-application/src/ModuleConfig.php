@@ -117,9 +117,9 @@ class ModuleConfig
                     ReadComponentConfig::class => [
                         'class' => ReadComponentConfigServiceAliasScheme::class,
                         'arguments' => [
-                            GetServiceAliasesByNamespace::class,
                             GetServiceFromAlias::class,
-                            ['literal' => ServiceAliasComponent::ZRCMS_COMPONENT_CONFIG_READER]
+                            ['literal' => ServiceAliasComponent::ZRCMS_COMPONENT_CONFIG_READER],
+                            ['literal' => ReadComponentConfigJsonFile::SERVICE_ALIAS],
                         ]
                     ],
                     ReadComponentConfigApplicationConfig::class => [

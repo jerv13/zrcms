@@ -11,6 +11,8 @@ use Zrcms\ViewHead\Api\Exception\CanNotRenderHeadSectionTag;
  */
 class RenderHeadSectionTagFileIncludes implements RenderHeadSectionTag
 {
+    const SERVICE_ALIAS = 'file-includes';
+
     protected $debug;
 
     /**

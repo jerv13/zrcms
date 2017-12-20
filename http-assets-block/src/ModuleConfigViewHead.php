@@ -20,6 +20,7 @@ class ModuleConfigViewHead
                 'sections' => [
                     'modules' => [
                         'zrcms.block.block.css' => [
+                            'renderer' => 'render-service',
                             '__render_service' => RenderLinkHrefTag::class,
                             RenderLinkHrefTag::OPTION_HREF_ATTRIBUTE => '/zrcms/component/block.css',
                         ],
@@ -31,6 +32,7 @@ class ModuleConfigViewHead
                 'sections' => [
                     'modules' => [
                         'zrcms.block.block.js' => [
+                            'renderer' => 'render-service',
                             '__render_service' => RenderScriptSrcTag::class,
                             RenderScriptSrcTag::OPTION_SRC_ATTRIBUTE => '/zrcms/component/block.js',
                         ],

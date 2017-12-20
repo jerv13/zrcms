@@ -13,6 +13,7 @@ use Zrcms\ViewHead\Api\Exception\CanNotRenderHeadSectionTag;
  */
 class RenderHeadSectionTagWithRenderService implements RenderHeadSectionTag
 {
+    const SERVICE_ALIAS = 'render-service';
     protected $serviceContainer;
     protected $debug;
 

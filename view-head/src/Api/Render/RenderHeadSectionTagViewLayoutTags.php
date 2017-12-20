@@ -16,6 +16,7 @@ use Zrcms\ViewHead\Api\Exception\CanNotRenderHeadSectionTag;
  */
 class RenderHeadSectionTagViewLayoutTags implements RenderHeadSectionTag
 {
+    const SERVICE_ALIAS = 'view-layout-tags-getter';
     const OPTION_VIEW = 'zrcms-view';
 
     protected $getServiceFromAlias;

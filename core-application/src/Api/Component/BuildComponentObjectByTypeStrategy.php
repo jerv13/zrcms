@@ -43,6 +43,9 @@ class BuildComponentObjectByTypeStrategy implements BuildComponentObject
      * @param array $options
      *
      * @return Component
+     * @throws \Exception
+     * @throws \Psr\Container\ContainerExceptionInterface
+     * @throws \Psr\Container\NotFoundExceptionInterface
      */
     public function __invoke(
         array $componentConfig,

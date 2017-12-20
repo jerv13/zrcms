@@ -21,10 +21,7 @@
 
 - Block data providers service aliases - should we use alias and allowed service names (scrap aliases)
 
-- RenderHeadSectionTagComposite is slow - might find a new method
-- General Middlware
-
-- GetViewByRequest as composite with priority?
+- GetViewByRequest as composite with priority or strategy (faster)?
 
 - SitePages: Service for getting url list from page, product pages, etc... (site map??)
     - NOTE: this can use FindPageCmsResourcesBy and the existing API when it is written

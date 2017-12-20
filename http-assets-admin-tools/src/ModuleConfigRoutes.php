@@ -45,6 +45,7 @@ class ModuleConfigRoutes
                 'sections' => [
                     'modules' => [
                         'zrcms.admin-tools.block.css' => [
+                            'renderer' => 'render-service',
                             '__render_service' => RenderLinkHrefTagAdminTools::class,
                             RenderLinkHrefTag::OPTION_HREF_ATTRIBUTE => '/zrcms/admin-tools/block.css',
                         ],
@@ -56,6 +57,7 @@ class ModuleConfigRoutes
                 'sections' => [
                     'modules' => [
                         'zrcms.admin-tools.block.js' => [
+                            'renderer' => 'render-service',
                             '__render_service' => RenderScriptSrcTagAdminTools::class,
                             RenderScriptSrcTag::OPTION_SRC_ATTRIBUTE => '/zrcms/admin-tools/block.js',
                         ],

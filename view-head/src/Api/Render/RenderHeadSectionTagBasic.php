@@ -9,8 +9,10 @@ use Zrcms\ViewHtmlTags\Api\Render\RenderTag;
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class RenderHeadSectionTagDefault implements RenderHeadSectionTag
+class RenderHeadSectionTagBasic implements RenderHeadSectionTag
 {
+    const SERVICE_ALIAS = 'basic';
+
     protected $renderTag;
     protected $debug;
 
@@ -42,7 +44,6 @@ class RenderHeadSectionTagDefault implements RenderHeadSectionTag
         array $sectionConfig,
         array $options = []
     ): string {
-        // general - Render from a tag configuration
         $indent = Param::getString(
             $options,
             self::OPTION_INDENT,

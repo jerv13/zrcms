@@ -5,6 +5,7 @@ namespace Zrcms\ViewHead\Api\Render;
 use Psr\Container\ContainerInterface;
 
 /**
+ * @deprecated
  * @author James Jervis - https://github.com/jerv13
  */
 class RenderHeadSectionTagCompositeFactory

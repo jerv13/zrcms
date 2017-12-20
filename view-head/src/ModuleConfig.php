@@ -24,14 +24,15 @@ use Zrcms\ViewHead\Api\Render\GetViewLayoutTagsHeadTitle;
 use Zrcms\ViewHead\Api\Render\RenderHeadSectionsTag;
 use Zrcms\ViewHead\Api\Render\RenderHeadSectionsTagBasic;
 use Zrcms\ViewHead\Api\Render\RenderHeadSectionTag;
-use Zrcms\ViewHead\Api\Render\RenderHeadSectionTagWithRenderService;
-use Zrcms\ViewHead\Api\Render\RenderHeadSectionTagWithRenderServiceFactory;
-use Zrcms\ViewHead\Api\Render\RenderHeadSectionTagCompositeFactory;
-use Zrcms\ViewHead\Api\Render\RenderHeadSectionTagDefault;
+use Zrcms\ViewHead\Api\Render\RenderHeadSectionTagBasic;
 use Zrcms\ViewHead\Api\Render\RenderHeadSectionTagFileIncludes;
 use Zrcms\ViewHead\Api\Render\RenderHeadSectionTagLiteral;
+use Zrcms\ViewHead\Api\Render\RenderHeadSectionTagServiceAliasStrategy;
 use Zrcms\ViewHead\Api\Render\RenderHeadSectionTagViewLayoutTags;
+use Zrcms\ViewHead\Api\Render\RenderHeadSectionTagWithRenderService;
+use Zrcms\ViewHead\Api\Render\RenderHeadSectionTagWithRenderServiceFactory;
 use Zrcms\ViewHead\Model\HeadSectionComponentBasic;
+use Zrcms\ViewHead\Model\ServiceAliasViewHead;
 use Zrcms\ViewHtmlTags\Api\Render\RenderTag;
 use Zrcms\ViewHtmlTags\Api\Render\RenderTags;
 
@@ -91,9 +92,14 @@ class ModuleConfig
                         ],
                     ],
                     RenderHeadSectionTag::class => [
-                        'factory' => RenderHeadSectionTagCompositeFactory::class,
+                        'class' => RenderHeadSectionTagServiceAliasStrategy::class,
+                        'arguments' => [
+                            GetServiceFromAlias::class,
+                            ['literal' => ServiceAliasViewHead::ZRCMS_VIEW_HEAD_RENDER_HEAD_SECTION_TAG],
+                            ['literal' => RenderHeadSectionTagBasic::SERVICE_ALIAS],
+                        ],
                     ],
-                    RenderHeadSectionTagDefault::class => [
+                    RenderHeadSectionTagBasic::class => [
                         'arguments' => [
                             RenderTag::class,
                             ['literal' => IsDebug::invoke()],
@@ -170,6 +176,7 @@ class ModuleConfig
                         /* EXAMPLE
                         // Basic
                         '{name}' => [
+                            'renderer' => 'basic', // Or empty
                             '__content' => '.example {};',
                             'href' => '/example/example.css',
                             'media' => "screen,print",
@@ -178,20 +185,24 @@ class ModuleConfig
                         ],
                         // Embedded ViewLayoutTagsGetter
                         '{name}' => [
+                            'renderer' => 'view-layout-tags-getter',
                             '__view-layout-tags-getter' => '{view-layout-tag-getter-service-alias}',
                         ],
                         // Literal
                         '{name}' => [
+                            'renderer' => 'literal',
                             '__literal' => '{view-layout-tag-getter-service-alias}',
                         ],
                         // File Include
                         '{name}' => [
+                            'renderer' => 'file-includes',
                             '__file-includes' => [
                                 '{source-name}' => '{scheme:/path/to/local/file.css}',
                             ],
                         ],
                         // By Render Service
                         '{name}' => [
+                            'renderer' => 'render-service',
                             '__render_service' => '{render-service}',
                         ],
                         */
@@ -243,26 +254,31 @@ class ModuleConfig
                         /* EXAMPLE
                         // Basic
                         '{name}' => [
+                            'renderer' => 'basic', // or empty
                             '__content' => 'var example = null;',
                             'src' => '/example/example.js',
                             'type' => "text/javascript"
                         ],
                         // Embedded ViewLayoutTagsGetter
                         '{name}' => [
+                            'renderer' => 'view-layout-tags-getter',
                             '__view-layout-tags-getter' => '{view-layout-tag-getter-service-alias}',
                         ],
                         // Literal
                         '{name}' => [
+                            'renderer' => 'literal',
                             '__literal' => '{view-layout-tag-getter-service-alias}',
                         ],
                         // File Include
                         '{name}' => [
+                            'renderer' => 'file-includes',
                             '__file-includes' => [
                                 '{source-name}' => '{scheme:/path/to/local/file.css}',
                             ],
                         ],
                         // By Render Service
                         '{name}' => [
+                            'renderer' => 'render-service',
                             '__render_service' => '{render-service}',
                         ],
                         */
@@ -284,15 +300,12 @@ class ModuleConfig
             /**
              * ["{ServiceName}" => {priority}]
              */
-            'zrcms-view-head.section-tag-render-api' => [
-                RenderHeadSectionTagLiteral::class => 400,
-                RenderHeadSectionTagWithRenderService::class => 300,
-                RenderHeadSectionTagViewLayoutTags::class => 200,
-                RenderHeadSectionTagFileIncludes::class => 100,
-                RenderHeadSectionTagDefault::class => 1, // Should always go last as fallback
-            ],
 
             'zrcms-service-alias' => [
+                ServiceAliasComponent::ZRCMS_COMPONENT_CONFIG_READER => [
+                    ReadViewHeadComponentConfigBc::SERVICE_ALIAS => ReadViewHeadComponentConfigBc::class,
+                ],
+
                 ServiceAliasView::ZRCMS_COMPONENT_VIEW_LAYOUT_TAGS_GETTER => [
                     GetViewLayoutTagsHeadAll::SERVICE_ALIAS => GetViewLayoutTagsHeadAll::class,
                     GetViewLayoutTagsHeadLink::SERVICE_ALIAS => GetViewLayoutTagsHeadLink::class,
@@ -301,8 +314,12 @@ class ModuleConfig
                     GetViewLayoutTagsHeadTitle::SERVICE_ALIAS => GetViewLayoutTagsHeadTitle::class,
                 ],
 
-                ServiceAliasComponent::ZRCMS_COMPONENT_CONFIG_READER => [
-                    ReadViewHeadComponentConfigBc::SERVICE_ALIAS => ReadViewHeadComponentConfigBc::class,
+                ServiceAliasViewHead::ZRCMS_VIEW_HEAD_RENDER_HEAD_SECTION_TAG => [
+                    RenderHeadSectionTagBasic::SERVICE_ALIAS => RenderHeadSectionTagBasic::class,
+                    RenderHeadSectionTagFileIncludes::SERVICE_ALIAS => RenderHeadSectionTagFileIncludes::class,
+                    RenderHeadSectionTagLiteral::SERVICE_ALIAS => RenderHeadSectionTagLiteral::class,
+                    RenderHeadSectionTagViewLayoutTags::SERVICE_ALIAS => RenderHeadSectionTagViewLayoutTags::class,
+                    RenderHeadSectionTagWithRenderService::SERVICE_ALIAS => RenderHeadSectionTagWithRenderService::class,
                 ],
             ],
 
