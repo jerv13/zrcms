@@ -16,16 +16,8 @@
         ],
         
     - Find service that end in "Basic" that determine the service to use and rename to ByStrategy
-"javascript": [
-    "global:/public/my.js",
-    "admin:/public/my-admin.js"
-]
 
 #### ToDo ####
-
-- View-head with Block JS and CSS:
-    - Use RenderTag in RenderBlockCssTag and RenderBlockJsTag
-    
 
 - GetViewByRequest as composite with priority?
 

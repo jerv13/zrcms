@@ -7,7 +7,7 @@ namespace Zrcms\Debug;
  */
 class IsDebug
 {
-    protected static $debug = true; // @todo needs to be false by default
+    protected static $debug = false;
     protected static $isBootstrapped = false;
 
     /**

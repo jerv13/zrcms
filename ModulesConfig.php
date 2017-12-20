@@ -121,6 +121,8 @@ class ModulesConfig
             new \Zrcms\HttpUser\ModuleConfig(),
             new \Zrcms\HttpViewRender\ModuleConfig(),
 
+            new \Zrcms\ViewMetaPageData\ModuleConfig(),
+
             // @todo XampleComponent should NOT be included by default
             new \Zrcms\XampleComponent\ModuleConfig(),
         ];
