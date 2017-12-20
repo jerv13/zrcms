@@ -67,8 +67,8 @@ class RenderHeadSectionTagFileIncludes implements RenderHeadSectionTag
             }
 
             $contentHtml .= $indent . $this->readFile(
-                    $filePath
-                ) . $lineBreak;
+                $filePath
+            ) . $lineBreak;
         }
 
         return $contentHtml;

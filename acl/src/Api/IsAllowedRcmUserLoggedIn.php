@@ -16,7 +16,7 @@ class IsAllowedRcmUserLoggedIn implements IsAllowed
      * @param HasIdentity $hasIdentity
      */
     public function __construct(
-       HasIdentity $hasIdentity
+        HasIdentity $hasIdentity
     ) {
         $this->hasIdentity = $hasIdentity;
     }
