@@ -28,7 +28,7 @@ class CacheArray implements Cache
     public function get($key, $default = null)
     {
         if ($this->has($key)) {
-            return $this->values[$key][self::VALUE];
+            return $this->values[$key][static::VALUE];
         }
 
         return $default;
@@ -45,9 +45,9 @@ class CacheArray implements Cache
     {
         $this->values[$key] = [];
 
-        $this->values[$key][self::VALUE] = $value;
-        $this->values[$key][self::TTL] = $ttl;
-        $this->values[$key][self::CREATE_TIME] = time();
+        $this->values[$key][static::VALUE] = $value;
+        $this->values[$key][static::TTL] = $ttl;
+        $this->values[$key][static::CREATE_TIME] = time();
 
         return true;
     }
@@ -130,6 +130,27 @@ class CacheArray implements Cache
      */
     public function has($key)
     {
-        return array_key_exists($key, $this->values);
+        if (!array_key_exists($key, $this->values)) {
+            return false;
+        }
+
+        $value = $this->values[$key];
+
+        return (!$this->hasExpired($value[static::TTL], $value[static::CREATE_TIME]));
+    }
+
+    /**
+     * @param int|null $ttl
+     * @param int      $createdTime
+     *
+     * @return bool
+     */
+    protected function hasExpired($ttl, int $createdTime)
+    {
+        if ($ttl === null) {
+            return false;
+        }
+
+        return (($ttl + $createdTime) > time());
     }
 }

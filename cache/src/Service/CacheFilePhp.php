@@ -14,8 +14,10 @@ class CacheFilePhp implements Cache
     const CREATE_TIME = 'createTime';
 
     protected $cacheFilePath;
-    protected $values = [];
 
+    /**
+     * @param string $cacheFilePath
+     */
     public function __construct(
         string $cacheFilePath
     ) {
@@ -140,7 +142,28 @@ class CacheFilePhp implements Cache
     {
         $values = $this->readFileContents();
 
-        return array_key_exists($key, $values);
+        if (!array_key_exists($key, $values)) {
+            return false;
+        }
+
+        $value = $values[$key];
+
+        return (!$this->hasExpired($value[static::TTL], $value[static::CREATE_TIME]));
+    }
+
+    /**
+     * @param int|null $ttl
+     * @param int      $createdTime
+     *
+     * @return bool
+     */
+    protected function hasExpired($ttl, int $createdTime)
+    {
+        if ($ttl === null) {
+            return false;
+        }
+
+        return (($ttl + $createdTime) > time());
     }
 
     /**
