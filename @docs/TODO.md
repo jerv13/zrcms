@@ -1,86 +1,80 @@
 @todo
 =====
 
+##### Start client  - NOTE: Client packages will be built using NPM
 
+- zrcms-admin
+    - zrcms-admin-menu
+    - zrcms-{others}
+- zrcms-fields
 
-#### ToDo ####
+##### HTTP APIs for each php API
 
-- Deal with page permissions
-    - exporter
-    - implementation for ZRCMS
-    - might use roles or roles with inheritance
-    - Might create page property that is a list of roles that have access
-    - if there are no roles, then assume no restriction
+- core stuff
 
-- Block data providers service aliases - should we use alias and allowed service names (scrap aliases)
+##### Block data providers service aliases 
 
-##### Component Simplify #####
+- should we use alias and allowed service names (scrap aliases)
 
-- See about simplifying all common patterns (content, resource, etc...)?
+##### Component Simplify 
 
-    - CONFIG EXAMPLE:
-        'zrcms-types' => [
-            /* Default services and classes are defined here */
-            'basic' => [
-                BuildComponentObject::class => BuildComponentObjectDefault::class,
-                'component-model-interface' => Component::class,
-                'component-model-class' => ComponentBasic::class,
-            ],
+See about simplifying all common patterns (content, resource, etc...)?
+
+- CONFIG EXAMPLE:
+    'zrcms-types' => [
+        /* Default services and classes are defined here */
+        'basic' => [
+            BuildComponentObject::class => BuildComponentObjectDefault::class,
+            'component-model-interface' => Component::class,
+            'component-model-class' => ComponentBasic::class,
         ],
-        
-    - Find service that end in "Basic" that determine the service to use and rename to ByStrategy
-
-- GetViewByRequest as composite with priority or strategy (faster)?
-
-- SitePages: Service for getting url list from page, product pages, etc... (site map??)
-    - NOTE: this can use FindPageCmsResourcesBy and the existing API when it is written
-
-- view-head
-    - allow registering scripts and css for routes or pages
-    - allow adding scripts and css for blocks and containers ('zrcms-view-head.head-meta' property in the component)
-
-- Deal with 'zrcms-view-builders'
- 
-- Start client  - NOTE: Client packages will be built using NPM
-    - zrcms-admin
-        - zrcms-admin-menu
-        - zrcms-{others}
-    - zrcms-fields
-
-- Add services to js
-
-- PageDataService or LayoutDataService
-    - get all the data for a specific page
-    - will need the render tags too
-      
-- HTTP APIs for each php API
-    - core stuff
-
-- Write implementation test
-    - for each content type (Container with block, Page, Site, ThemeLayout, View)
-    - Get components
-    - create content
-    - publish content
-    - unpublish content
-    - re-publish content
-    - find resource and version
+    ],
     
-- Add IMPLEMENTATION_REQUIRED services where needed 
+- Find service that end in "Basic" that determine the service to use and rename to ByStrategy
 
-- Need a way to clear caches on registries and component configs
+##### GetViewByRequest as composite with priority or strategy (faster)?
 
-- BuildView should use a component, not config
+##### SitePages: Service for getting url list from page, product pages, etc...
+
+- NOTE: this can use FindPageCmsResourcesBy and the existing API when it is written
+
+##### view-head
+
+- allow registering scripts and css for routes or pages
+- allow adding scripts and css for blocks and containers ('zrcms-view-head.head-meta' property in the component)
+
+##### Deal with 'zrcms-view-builders'
+
+##### PageDataService or LayoutDataService
+
+- get all the data for a specific page
+- will need the render tags too
+
+##### Write implementation test
+
+- for each content type (Container with block, Page, Site, ThemeLayout, View)
+- Get components
+- create content
+- publish content
+- unpublish content
+- re-publish content
+- find resource and version
     
-- Document the architecture and basics of how it works
+##### Add IMPLEMENTATION_REQUIRED services where needed 
 
-- Doctrine FindXXXsBy need to be made to work better with properties
+##### BuildView should use a component, not config
     
-- Check and update all composer dependencies
+##### Document the architecture and basics of how it works
 
-- FindCmsResourceByDateRange, FindContentVersionByDateRange interface
+##### Doctrine FindXXXsBy need to be made to work better with properties
+    
+##### Check and update all composer dependencies
 
-- Use FACTORIES instead of 'factories as config'
-    - cannot over-ride in a reliable way in 'factories as config'
+##### FindCmsResourceByDateRange, FindContentVersionByDateRange interface
+
+#####  Use FACTORIES instead of 'factories as config'
+
+- cannot over-ride in a reliable way in 'factories as config'
     
 Features
 --------
