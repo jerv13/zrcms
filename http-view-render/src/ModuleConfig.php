@@ -7,12 +7,11 @@ use Zrcms\CoreView\Api\Render\GetViewLayoutTags;
 use Zrcms\CoreView\Api\Render\RenderView;
 use Zrcms\Debug\IsDebug;
 use Zrcms\HttpStatusPages\Api\GetStatusPage;
+use Zrcms\HttpViewRender\FinalHandler\NotFoundFinal;
+use Zrcms\HttpViewRender\FinalHandler\NotFoundStatusPage;
 use Zrcms\HttpViewRender\Request\RequestWithOriginalUri;
 use Zrcms\HttpViewRender\Request\RequestWithView;
 use Zrcms\HttpViewRender\Request\RequestWithViewRenderPage;
-use Zrcms\HttpViewRender\Acl\IsAllowedToViewPage;
-use Zrcms\HttpViewRender\FinalHandler\NotFoundFinal;
-use Zrcms\HttpViewRender\FinalHandler\NotFoundStatusPage;
 use Zrcms\HttpViewRender\Response\RenderPage;
 use Zrcms\HttpViewRender\Response\ResponseMutatorNoop;
 use Zrcms\HttpViewRender\Response\ResponseMutatorThemeLayoutWrapper;
@@ -47,7 +46,6 @@ class ModuleConfig
                         ],
                     ],
                     /* */
-                    IsAllowedToViewPage::class => [],
 
                     /**
                      * FinalHandler ===========================================

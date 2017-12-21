@@ -10,7 +10,7 @@ use Zrcms\Fields\Model\FieldsAbstract;
  */
 class FieldsPageAccess extends FieldsAbstract implements Fields
 {
-    const PAGE_ACCESS = 'page-access';
+    const PAGE_ACCESS_OPTIONS = 'page-access-options';
 
     /**
      * @var array
@@ -18,9 +18,9 @@ class FieldsPageAccess extends FieldsAbstract implements Fields
     protected $defaultFieldsConfig
         = [
             [
-                'name' => self::PAGE_ACCESS,
+                'name' => self::PAGE_ACCESS_OPTIONS,
                 'type' => 'text',
-                'label' => 'Page Access',
+                'label' => 'Page Access Options',
                 'required' => false,
                 'default' => [],
                 'options' => [],

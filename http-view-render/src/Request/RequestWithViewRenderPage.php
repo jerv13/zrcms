@@ -7,6 +7,7 @@ use Psr\Http\Message\ServerRequestInterface;
 use Zend\Diactoros\Response\HtmlResponse;
 use Zrcms\CoreView\Api\Render\GetViewLayoutTags;
 use Zrcms\CoreView\Api\Render\RenderView;
+use Zrcms\CoreView\Model\View;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -38,6 +39,7 @@ class RequestWithViewRenderPage
         ResponseInterface $response,
         callable $next = null
     ) {
+        /** @var View $view */
         $view = $request->getAttribute(
             RequestWithView::ATTRIBUTE_VIEW
         );

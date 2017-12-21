@@ -54,7 +54,7 @@ $app->pipe(
 );
 
 $app->pipe(
-    \Zrcms\HttpViewRender\Acl\IsAllowedToViewPage::class
+    \Zrcms\PageAccess\Middleware\PageAccessByView::class
 );
 
 $app->pipe(
