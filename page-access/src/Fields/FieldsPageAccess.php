@@ -8,9 +8,10 @@ use Zrcms\Fields\Model\FieldsAbstract;
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class FieldsPageVersionPageAccess extends FieldsAbstract implements Fields
+class FieldsPageAccess extends FieldsAbstract implements Fields
 {
-    const PAGE_ACCESS= 'page-access';
+    const PAGE_ACCESS = 'page-access';
+
     /**
      * @var array
      */
@@ -25,5 +26,4 @@ class FieldsPageVersionPageAccess extends FieldsAbstract implements Fields
                 'options' => [],
             ],
         ];
-
 }
