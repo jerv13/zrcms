@@ -2,9 +2,9 @@
 
 namespace Zrcms\CorePage\Fields;
 
-use Zrcms\Core\Fields\Fields;
 use Zrcms\CoreContainer\Fields\FieldsContainer;
 use Zrcms\CorePage\Model\Page;
+use Zrcms\Fields\Model\Fields;
 
 /**
  * @author James Jervis - https://github.com/jerv13

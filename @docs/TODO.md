@@ -1,6 +1,19 @@
 @todo
 =====
 
+
+
+#### ToDo ####
+
+- Deal with page permissions
+    - exporter
+    - implementation for ZRCMS
+    - might use roles or roles with inheritance
+    - Might create page property that is a list of roles that have access
+    - if there are no roles, then assume no restriction
+
+- Block data providers service aliases - should we use alias and allowed service names (scrap aliases)
+
 ##### Component Simplify #####
 
 - See about simplifying all common patterns (content, resource, etc...)?
@@ -16,17 +29,6 @@
         ],
         
     - Find service that end in "Basic" that determine the service to use and rename to ByStrategy
-
-#### ToDo ####
-
-- Deal with page permissions
-    - exporter
-    - implementation for ZRCMS
-    - might use roles or roles with inheritance
-    - Might create page property that is a list of roles that have access
-    - if there are no roles, then assume no restriction
-
-- Block data providers service aliases - should we use alias and allowed service names (scrap aliases)
 
 - GetViewByRequest as composite with priority or strategy (faster)?
 

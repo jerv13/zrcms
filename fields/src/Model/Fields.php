@@ -1,6 +1,6 @@
 <?php
 
-namespace Zrcms\Core\Fields;
+namespace Zrcms\Fields\Model;
 
 /**
  * @author James Jervis - https://github.com/jerv13

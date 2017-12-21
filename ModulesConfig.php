@@ -19,6 +19,7 @@ class ModulesConfig
             new \Zrcms\Debug\ModuleConfig(),
             new \Zrcms\Logger\ModuleConfig(),
             new \Zrcms\Cache\ModuleConfig(),
+            new \Zrcms\Fields\ModuleConfig(),
             new \Zrcms\Param\ModuleConfig(),
             new \Zrcms\Mustache\ModuleConfig(),
             new \Zrcms\ServiceAlias\ModuleConfig(),
@@ -84,6 +85,8 @@ class ModulesConfig
 
             new \Zrcms\HttpUser\ModuleConfig(),
             new \Zrcms\HttpViewRender\ModuleConfig(),
+
+            new \Zrcms\PageAccess\ModuleConfig(),
 
             new \Zrcms\ViewMetaPageData\ModuleConfig(),
 

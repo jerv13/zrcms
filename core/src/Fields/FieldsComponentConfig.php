@@ -5,6 +5,8 @@ namespace Zrcms\Core\Fields;
 use Zrcms\Core\Model\ComponentBasic;
 use Zrcms\Core\Model\Trackable;
 use Zrcms\Core\Model\TrackableProperties;
+use Zrcms\Fields\Model\Fields;
+use Zrcms\Fields\Model\FieldsAbstract;
 
 /**
  * @author James Jervis - https://github.com/jerv13

@@ -1,6 +1,6 @@
 <?php
 
-namespace Zrcms\Core\Fields;
+namespace Zrcms\Fields\Model;
 
 use Zrcms\Param\Param;
 

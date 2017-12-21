@@ -1,6 +1,6 @@
 <?php
 
-namespace Zrcms\Core\Fields;
+namespace Zrcms\Fields\Model;
 
 use Zrcms\Core\Exception\FieldMissing;
 use Zrcms\Param\Param;
@@ -43,6 +43,8 @@ class FieldsAbstract
 
     /**
      * @param array $fieldsConfig
+     *
+     * @throws \Exception
      */
     public function __construct(array $fieldsConfig)
     {
@@ -125,6 +127,8 @@ class FieldsAbstract
      * @param array $fieldValues ['{field-name}' => {fieldValue}]
      *
      * @return array ['{field-name}' => {fieldValue}]
+     * @throws \Exception
+     * @throws \Zrcms\Param\Exception\ParamMissing
      */
     public function validFieldValues(array $fieldValues): array
     {
