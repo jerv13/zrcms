@@ -34,15 +34,6 @@ See about simplifying all common patterns (content, resource, etc...)?
 
 ##### GetViewByRequest as composite with priority or strategy (faster)?
 
-##### SitePages: Service for getting url list from page, product pages, etc...
-
-- NOTE: this can use FindPageCmsResourcesBy and the existing API when it is written
-
-##### view-head
-
-- allow registering scripts and css for routes or pages
-- allow adding scripts and css for blocks and containers ('zrcms-view-head.head-meta' property in the component)
-
 ##### Deal with 'zrcms-view-builders'
 
 ##### PageDataService or LayoutDataService
