@@ -10,14 +10,14 @@ use Psr\Container\ContainerInterface;
 class SetLocaleBasicFactory
 {
     /**
-     * @param ContainerInterface $serviceContainer
+     * @param $serviceContainer
      *
      * @return SetLocaleBasic
      */
     public function __invoke(
         $serviceContainer
     ) {
-        $config = $serviceContainer->get('Config');
+        $config = $serviceContainer->get('config');
 
         return new SetLocaleBasic(
             $config['zrcms-locale-default']

@@ -3,6 +3,11 @@
 
 ##### Start client  - NOTE: Client packages will be built using NPM
 
+- zrcms-state
+    - expose some state values to the client
+    - redux compatible
+    - fetchZrcmsState action
+    - 
 - zrcms-admin
     - zrcms-admin-menu
     - zrcms-{others}

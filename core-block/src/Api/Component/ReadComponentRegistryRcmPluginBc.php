@@ -4,7 +4,7 @@ namespace Zrcms\CoreBlock\Api\Component;
 
 use Zrcms\Core\Api\Component\ReadComponentRegistry;
 use Zrcms\Core\Fields\FieldsComponentConfig;
-use Zrcms\CoreApplication\Api\Component\ReadComponentConfigJsonFile;
+use Zrcms\Json\Json;
 use Zrcms\Param\Param;
 
 /**
@@ -32,11 +32,13 @@ class ReadComponentRegistryRcmPluginBc implements ReadComponentRegistry
                 realpath($rcmPluginBlockConfigDir . '/block.json')
             );
 
-            $rcmPluginConfig = json_decode($rcmPluginConfigJson, true);
-
-            if (json_last_error() !== JSON_ERROR_NONE) {
-                throw new \Exception('Received invalid JSON from file: ' . $rcmPluginConfigJson);
-            }
+            $rcmPluginConfig = Json::decode(
+                $rcmPluginConfigJson,
+                true,
+                512,
+                0,
+                'Received invalid JSON from file: ' . $rcmPluginConfigJson
+            );
 
             $rcmPluginName = Param::getRequired(
                 $rcmPluginConfig,

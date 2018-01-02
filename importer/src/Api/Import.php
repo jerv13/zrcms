@@ -14,14 +14,15 @@ use Zrcms\CorePage\Fields\FieldsPageVersion;
 use Zrcms\CorePage\Model\PageCmsResourceBasic;
 use Zrcms\CorePage\Model\PageTemplateCmsResourceBasic;
 use Zrcms\CorePage\Model\PageVersionBasic;
-use Zrcms\CoreSite\Api\CmsResource\UpsertSiteCmsResource;
-use Zrcms\CoreSite\Api\CmsResource\FindSiteCmsResource;
-use Zrcms\CoreSite\Model\SiteCmsResource;
-use Zrcms\CoreSite\Model\SiteCmsResourceBasic;
-use Zrcms\CoreSite\Model\SiteVersionBasic;
 use Zrcms\CoreRedirect\Api\CmsResource\UpsertRedirectCmsResource;
 use Zrcms\CoreRedirect\Model\RedirectCmsResourceBasic;
 use Zrcms\CoreRedirect\Model\RedirectVersionBasic;
+use Zrcms\CoreSite\Api\CmsResource\FindSiteCmsResource;
+use Zrcms\CoreSite\Api\CmsResource\UpsertSiteCmsResource;
+use Zrcms\CoreSite\Model\SiteCmsResource;
+use Zrcms\CoreSite\Model\SiteCmsResourceBasic;
+use Zrcms\CoreSite\Model\SiteVersionBasic;
+use Zrcms\Json\Json;
 use Zrcms\Param\Param;
 
 class Import
@@ -103,11 +104,10 @@ class Import
     ) {
         $startTime = time();
 
-        $data = json_decode($json, true);
-
-        if (json_last_error() !== JSON_ERROR_NONE) {
-            throw new \Exception('Received invalid JSON');
-        }
+        $data = Json::decode(
+            $json,
+            true
+        );
 
         $createdReason = 'Import script ' . get_class($this);
 

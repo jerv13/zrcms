@@ -10,6 +10,7 @@ use Zrcms\CoreSite\Fields\FieldsSiteVersion;
 use Zrcms\CoreView\Api\Render\GetViewLayoutTags;
 use Zrcms\CoreView\Model\View;
 use Zrcms\HttpViewRender\Request\RequestWithOriginalUri;
+use Zrcms\Json\Json;
 use Zrcms\ViewHtmlTags\Api\Render\RenderTag;
 
 /**
@@ -113,7 +114,7 @@ class GetViewLayoutMetaPageData implements GetViewLayoutTags
                 'page-path' => $pageResource->getPath(),
                 'theme' => $layoutResource->getThemeName(),
                 'layout' => $layoutResource->getName(),
-                'content' => json_encode($content),
+                'content' => Json::encode($content),
             ],
         ];
 

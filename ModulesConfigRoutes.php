@@ -23,6 +23,7 @@ class ModulesConfigRoutes
             new \Zrcms\HttpApiView\ModuleConfigRoutes(),
             new \Zrcms\HttpAssets\ModuleConfigRoutes(),
             new \Zrcms\HttpAssetsAdminTools\ModuleConfigRoutes(),
+            new \Zrcms\HttpAssetsApplicationState\ModuleConfigRoutes(),
             new \Zrcms\HttpAssetsChangeLog\ModuleConfigRoutes(),
 
             // @todo HttpTest should NOT be included by default

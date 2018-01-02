@@ -20,6 +20,7 @@ class ModulesConfig
             new \Zrcms\Logger\ModuleConfig(),
             new \Zrcms\Cache\ModuleConfig(),
             new \Zrcms\Fields\ModuleConfig(),
+            new \Zrcms\Json\ModuleConfig(),
             new \Zrcms\Param\ModuleConfig(),
             new \Zrcms\Mustache\ModuleConfig(),
             new \Zrcms\ServiceAlias\ModuleConfig(),
@@ -33,6 +34,7 @@ class ModulesConfig
 
             new \Zrcms\CoreApplication\ModuleConfig(),
             new \Zrcms\CoreApplicationDoctrine\ModuleConfig(),
+            new \Zrcms\CoreApplicationState\ModuleConfig(),
 
             new \Zrcms\CoreAdminTools\ModuleConfig(),
             new \Zrcms\CoreBlock\ModuleConfig(),
@@ -69,6 +71,7 @@ class ModulesConfig
 
             new \Zrcms\HttpAssets\ModuleConfig(),
             new \Zrcms\HttpAssetsAdminTools\ModuleConfig(),
+            new \Zrcms\HttpAssetsApplicationState\ModuleConfig(),
             new \Zrcms\HttpAssetsBlock\ModuleConfig(),
             // @todo ViewHead included by default?
             new \Zrcms\HttpAssetsBlock\ModuleConfigViewHead(),

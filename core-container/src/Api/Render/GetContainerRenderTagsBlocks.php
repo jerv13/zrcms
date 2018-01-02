@@ -7,10 +7,10 @@ use Zrcms\Core\Model\Content;
 use Zrcms\CoreBlock\Api\Render\GetBlockRenderTags;
 use Zrcms\CoreBlock\Api\Render\RenderBlock;
 use Zrcms\CoreBlock\Api\Render\WrapRenderedBlockVersion;
-use Zrcms\CoreBlock\Model\Block;
 use Zrcms\CoreBlock\Fields\FieldsBlock;
-use Zrcms\CoreContainer\Api\Render\WrapRenderedContainer;
+use Zrcms\CoreBlock\Model\Block;
 use Zrcms\CoreContainer\Model\Container;
+use Zrcms\Json\Json;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -91,8 +91,8 @@ class GetContainerRenderTagsBlocks implements GetContainerRenderTags
                     . ' Container type: ' . get_class($container)
                     . ' Container ID: ' . $container->getId()
                     . ' Block ID: ' . $block->getId()
-                    . ' layout properties: ' . json_encode($block->getLayoutProperties(), 0, 3)
-                    . ' duped in: ' . json_encode($block->getLayoutProperties(), 0, 3);
+                    . ' layout properties: ' . Json::encode($block->getLayoutProperties(), 0, 3)
+                    . ' duped in: ' . Json::encode($block->getLayoutProperties(), 0, 3);
 
                 throw new \Exception(
                     $message

@@ -5,6 +5,7 @@ namespace Zrcms\CoreApplication\Api\Component;
 use Zrcms\Core\Api\Component\ReadComponentConfig;
 use Zrcms\Core\Exception\CanNotReadComponentConfig;
 use Zrcms\Core\Fields\FieldsComponentConfig;
+use Zrcms\Json\Json;
 use Zrcms\Param\Param;
 
 /**
@@ -41,11 +42,13 @@ class ReadComponentConfigJsonFile implements ReadComponentConfig
         $configFileContents = file_get_contents($realConfigFilePath);
 
         /** @var array $componentConfig */
-        $componentConfig = json_decode($configFileContents, true, 512, JSON_BIGINT_AS_STRING);
-
-        if (json_last_error() !== JSON_ERROR_NONE) {
-            throw new \Exception(get_class($this) . ' received invalid JSON from: ' . $realConfigFilePath);
-        }
+        $componentConfig = Json::decode(
+            $configFileContents,
+            true,
+            512,
+            JSON_BIGINT_AS_STRING,
+            get_class($this) . ' received invalid JSON from: ' . $realConfigFilePath
+        );
 
         // if no moduleDirectory is set, we use the config file location
         $moduleDirectoryConfig = $componentConfig[FieldsComponentConfig::MODULE_DIRECTORY] = Param::getString(

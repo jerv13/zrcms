@@ -5,6 +5,7 @@ namespace Zrcms\CoreSite\Model;
 use Zrcms\Core\Exception\PropertyMissing;
 use Zrcms\Core\Model\ContentVersionAbstract;
 use Zrcms\CoreSite\Fields\FieldsSiteVersion;
+use Zrcms\Json\Json;
 use Zrcms\Locale\Api\DefaultLocal;
 use Zrcms\Param\Param;
 
@@ -14,11 +15,16 @@ use Zrcms\Param\Param;
 abstract class SiteVersionAbstract extends ContentVersionAbstract
 {
     /**
-     * @param string|null $id
-     * @param array       $properties
-     * @param string      $createdByUserId
-     * @param string      $createdReason
-     * @param string|null $createdDate
+     * @param string $id
+     * @param array  $properties
+     * @param string $createdByUserId
+     * @param string $createdReason
+     * @param null   $createdDate
+     *
+     * @throws \Exception
+     * @throws \Throwable
+     * @throws \Zrcms\Param\Exception\ParamException
+     * @throws \Zrcms\Param\Exception\ParamMissing
      */
     public function __construct(
         $id,
@@ -166,15 +172,15 @@ abstract class SiteVersionAbstract extends ContentVersionAbstract
     {
         foreach ($statusPages as $statusPage) {
             if (!is_array($statusPage)) {
-                throw new \Exception('statusPage must be array: ' . json_encode($statusPage));
+                throw new \Exception('statusPage must be array: ' . Json::encode($statusPage));
             }
 
             if (!array_key_exists('path', $statusPage)) {
-                throw new \Exception('path is required for a status page: ' . json_encode($statusPage));
+                throw new \Exception('path is required for a status page: ' . Json::encode($statusPage));
             }
 
             if (!array_key_exists('type', $statusPage)) {
-                throw new \Exception('type is required for a status page: ' . json_encode($statusPage));
+                throw new \Exception('type is required for a status page: ' . Json::encode($statusPage));
             }
         }
     }

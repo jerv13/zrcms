@@ -6,6 +6,7 @@ use Zend\Diactoros\Response;
 use Zend\Diactoros\Response\InjectContentTypeTrait;
 use Zend\Diactoros\Response\JsonResponse;
 use Zend\Diactoros\Stream;
+use Zrcms\Json\Json;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -199,20 +200,12 @@ class ZrcmsJsonResponse extends Response
             throw new \InvalidArgumentException('Cannot JSON encode resources');
         }
 
-        // Clear json_last_error()
-        json_encode(null);
-
-        $json = json_encode($data, $encodingOptions);
-
-        if (JSON_ERROR_NONE !== json_last_error()) {
-            throw new \InvalidArgumentException(
-                sprintf(
-                    'Unable to encode data to JSON in %s: %s',
-                    __CLASS__,
-                    json_last_error_msg()
-                )
-            );
-        }
+        $json = Json::encode(
+            $data,
+            $encodingOptions,
+            512,
+            'From: ' . __CLASS__
+        );
 
         return $json;
     }

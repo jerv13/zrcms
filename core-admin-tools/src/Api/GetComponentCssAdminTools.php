@@ -25,6 +25,8 @@ class GetComponentCssAdminTools extends GetComponentFilesContentAbstract impleme
      * @param array               $isAllowedAdminToolsOptions
      * @param Cache               $cache
      * @param string              $cacheKey
+     *
+     * @throws \Psr\SimpleCache\InvalidArgumentException
      */
     public function __construct(
         IsAllowedAdminTools $isAllowedAdminTools,

@@ -3,6 +3,7 @@
 namespace Zrcms\Logger\Service;
 
 use Psr\Log\AbstractLogger;
+use Zrcms\Json\Json;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -65,7 +66,7 @@ class LoggerFile extends AbstractLogger implements Logger
         $logEntryArray['message'] = $message;
         $logEntryArray['context'] = $context;
 
-        return json_encode($logEntryArray, 0, 5);
+        return Json::encode($logEntryArray, 0, 5);
     }
 
     /**

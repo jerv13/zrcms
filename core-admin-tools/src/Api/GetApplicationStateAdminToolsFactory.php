@@ -1,28 +1,27 @@
 <?php
 
-namespace Zrcms\ViewHead\Api;
+namespace Zrcms\CoreAdminTools\Api;
 
 use Psr\Container\ContainerInterface;
+use Zrcms\CoreAdminTools\Api\Acl\IsAllowedAdminTools;
 
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class GetAvailableHeadSectionsFactory
+class GetApplicationStateAdminToolsFactory
 {
     /**
      * @param ContainerInterface $serviceContainer
      *
-     * @return GetAvailableHeadSections
+     * @return GetApplicationStateAdminTools
      * @throws \Psr\Container\ContainerExceptionInterface
      * @throws \Psr\Container\NotFoundExceptionInterface
      */
     public function __invoke(
-        $serviceContainer
+        ContainerInterface $serviceContainer
     ) {
-        $config = $serviceContainer->get('config');
-
-        return new GetAvailableHeadSections(
-            $config['zrcms-head-available-sections']
+        return new GetApplicationStateAdminTools(
+            $serviceContainer->get(IsAllowedAdminTools::class)
         );
     }
 }

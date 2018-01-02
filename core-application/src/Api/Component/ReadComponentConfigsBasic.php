@@ -58,7 +58,7 @@ class ReadComponentConfigsBasic implements ReadComponentConfigs
             if (in_array($namespace, $namespaceIndex)) {
                 new \Exception(
                     'Duplicate component namespace configured: (' . $namespace . ')'
-                    //. ' for ' . json_encode($componentConfig, 0, 2)
+                    //. ' for ' . Json::encode($componentConfig, 0, 2)
                 );
             }
             $namespaceIndex[] = $namespace;

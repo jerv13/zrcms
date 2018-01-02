@@ -1,28 +1,27 @@
 <?php
 
-namespace Zrcms\ViewHead\Api;
+namespace Zrcms\CoreApplicationState\Api;
 
 use Psr\Container\ContainerInterface;
 
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class GetAvailableHeadSectionsFactory
+class GetApplicationStateByConfigFactory
 {
     /**
      * @param ContainerInterface $serviceContainer
      *
-     * @return GetAvailableHeadSections
+     * @return GetApplicationStateByConfig
      * @throws \Psr\Container\ContainerExceptionInterface
      * @throws \Psr\Container\NotFoundExceptionInterface
      */
     public function __invoke(
-        $serviceContainer
+        ContainerInterface $serviceContainer
     ) {
-        $config = $serviceContainer->get('config');
-
-        return new GetAvailableHeadSections(
-            $config['zrcms-head-available-sections']
+        return new GetApplicationStateByConfig(
+            $serviceContainer->get('config'),
+            $serviceContainer
         );
     }
 }

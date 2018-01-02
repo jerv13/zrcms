@@ -5,6 +5,7 @@ namespace Zrcms\HttpStatusPages\Model;
 use Zrcms\Core\Model\Component;
 use Zrcms\Core\Model\ComponentAbstract;
 use Zrcms\HttpStatusPages\Fields\FieldsHttpStatusPagesComponent;
+use Zrcms\Json\Json;
 use Zrcms\Param\Param;
 
 /**
@@ -169,15 +170,15 @@ class HttpStatusPagesComponent extends ComponentAbstract implements Component
     {
         foreach ($statusPages as $statusPage) {
             if (!is_array($statusPage)) {
-                throw new \Exception('statusPage must be array: ' . json_encode($statusPage));
+                throw new \Exception('statusPage must be array: ' . Json::encode($statusPage));
             }
 
             if (!array_key_exists('path', $statusPage)) {
-                throw new \Exception('path is required for a status page: ' . json_encode($statusPage));
+                throw new \Exception('path is required for a status page: ' . Json::encode($statusPage));
             }
 
             if (!array_key_exists('type', $statusPage)) {
-                throw new \Exception('type is required for a status page: ' . json_encode($statusPage));
+                throw new \Exception('type is required for a status page: ' . Json::encode($statusPage));
             }
         }
     }
