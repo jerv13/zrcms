@@ -13,6 +13,8 @@
     - zrcms-{others}
 - zrcms-fields
 
+##### Zrcms\ViewMetaPageData might use application state instead of meta tag (@see Zrcms\HttpAssetsApplicationState)
+
 ##### HTTP APIs for each php API
 
 - core stuff

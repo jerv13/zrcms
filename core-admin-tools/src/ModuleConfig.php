@@ -4,7 +4,9 @@ namespace Zrcms\CoreAdminTools;
 
 use Zrcms\Acl\Api\IsAllowedRcmUser;
 use Zrcms\Cache\Service\Cache;
+use Zrcms\CoreAdminTools\Api\Acl\IsAllowedAdminTools;
 use Zrcms\CoreAdminTools\Api\Acl\IsAllowedAdminToolsRcmUserSitesAdmin;
+use Zrcms\CoreAdminTools\Api\Acl\IsAllowedAdminToolsRcmUserSitesAdminFactory;
 use Zrcms\CoreAdminTools\Api\GetApplicationStateAdminTools;
 use Zrcms\CoreAdminTools\Api\GetApplicationStateAdminToolsFactory;
 use Zrcms\CoreAdminTools\Api\GetComponentCssAdminTools;
@@ -23,10 +25,11 @@ class ModuleConfig
         return [
             'dependencies' => [
                 'config_factories' => [
+                    IsAllowedAdminTools::class => [
+                        'factory' => IsAllowedAdminToolsRcmUserSitesAdminFactory::class,
+                    ],
                     IsAllowedAdminToolsRcmUserSitesAdmin::class => [
-                        'arguments' => [
-                            IsAllowedRcmUser::class
-                        ],
+                        'factory' => IsAllowedAdminToolsRcmUserSitesAdminFactory::class,
                     ],
                     GetApplicationStateAdminTools::class => [
                         'factory' => GetApplicationStateAdminToolsFactory::class,

@@ -2,10 +2,10 @@
 
 namespace Zrcms\HttpAssetsApplicationState\Middleware;
 
+use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
-use Zend\Stdlib\ResponseInterface;
+use Zend\Diactoros\Response\JsonResponse;
 use Zrcms\CoreApplicationState\Api\GetApplicationState;
-use Zrcms\Http\Response\ZrcmsJsonResponse;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -28,14 +28,14 @@ class ApplicationState
      * @param ResponseInterface      $response
      * @param callable|null          $next
      *
-     * @return ZrcmsJsonResponse
+     * @return JsonResponse
      */
     public function __invoke(
         ServerRequestInterface $request,
         ResponseInterface $response,
         callable $next = null
     ) {
-        return new ZrcmsJsonResponse(
+        return new JsonResponse(
             $this->getApplicationState->__invoke($request)
         );
     }

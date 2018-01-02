@@ -30,7 +30,7 @@ class ModuleConfigRoutes
 
             'zrcms-view-head.head-script' => [
                 'sections' => [
-                    'modules' => [
+                    'config' => [
                         'zrcms.application-state.js' => [
                             'renderer' => 'render-service',
                             '__render_service' => RenderScriptTagApplicationState::class,

@@ -1,28 +1,27 @@
 <?php
 
-namespace Zrcms\CoreApplicationState\Api;
+namespace Zrcms\CoreAdminTools\Api\Acl;
 
 use Psr\Container\ContainerInterface;
+use Zrcms\Acl\Api\IsAllowedRcmUser;
 
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class GetApplicationStateByConfigFactory
+class IsAllowedAdminToolsRcmUserSitesAdminFactory
 {
     /**
      * @param ContainerInterface $serviceContainer
      *
-     * @return GetApplicationStateByConfig
+     * @return IsAllowedAdminToolsRcmUserSitesAdmin
      * @throws \Psr\Container\ContainerExceptionInterface
      * @throws \Psr\Container\NotFoundExceptionInterface
      */
     public function __invoke(
         ContainerInterface $serviceContainer
     ) {
-        $appConfig = $serviceContainer->get('config');
-        return new GetApplicationStateByConfig(
-            $appConfig['zrcms-application-state'],
-            $serviceContainer
+        return new IsAllowedAdminToolsRcmUserSitesAdmin(
+            $serviceContainer->get(IsAllowedRcmUser::class)
         );
     }
 }
