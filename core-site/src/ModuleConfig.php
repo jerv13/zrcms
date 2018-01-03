@@ -25,9 +25,6 @@ class ModuleConfig
         return [
             'dependencies' => [
                 'config_factories' => [
-                    /**
-                     * Site ===========================================
-                     */
                     UpsertSiteCmsResource::class => [
                         'class' => IMPLEMENTATIONisREQUIRED::class
                     ],
@@ -57,6 +54,7 @@ class ModuleConfig
                     ],
                 ],
             ],
+
             /**
              * ===== Service Alias =====
              */

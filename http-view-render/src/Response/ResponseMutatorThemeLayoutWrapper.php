@@ -6,11 +6,11 @@ use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Zend\Diactoros\Response\HtmlResponse;
 use Zend\Diactoros\Stream;
-use Zrcms\CorePage\Exception\PageNotFound;
-use Zrcms\CoreSite\Exception\SiteNotFound;
+use Zrcms\CoreView\Exception\SiteNotFound;
 use Zrcms\CoreView\Api\GetViewByRequestHtmlPage;
 use Zrcms\CoreView\Api\Render\GetViewLayoutTags;
 use Zrcms\CoreView\Api\Render\RenderView;
+use Zrcms\CoreView\Exception\PageNotFound;
 use Zrcms\CoreView\Model\View;
 use Zrcms\Http\Response\ZrcmsHtmlResponse;
 use Zrcms\Param\Param;
@@ -150,7 +150,7 @@ class ResponseMutatorThemeLayoutWrapper
     protected function canHandleResponse(
         ServerRequestInterface $request,
         ResponseInterface $response
-    ):bool {
+    ): bool {
         if ($response instanceof ZrcmsHtmlResponse) {
             $renderLayout = $response->findProperty(
                 ZrcmsHtmlResponse::PROPERTY_RENDER_LAYOUT,

@@ -26,14 +26,12 @@ class GetApplicationStateAdminTools implements GetApplicationState
 
     /**
      * @param ServerRequestInterface $request
-     * @param array                  $appState
      * @param array                  $options
      *
      * @return array
      */
     public function __invoke(
         ServerRequestInterface $request,
-        array $appState = [],
         array $options = []
     ): array {
         $adminToolsAppState = [];
@@ -42,8 +40,6 @@ class GetApplicationStateAdminTools implements GetApplicationState
             $request
         );
 
-        $appState[static::APPLICATION_STATE_KEY] = $adminToolsAppState;
-
-        return $appState;
+        return $adminToolsAppState;
     }
 }

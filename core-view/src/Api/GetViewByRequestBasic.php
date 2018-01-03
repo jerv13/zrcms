@@ -3,18 +3,14 @@
 namespace Zrcms\CoreView\Api;
 
 use Psr\Http\Message\ServerRequestInterface;
-use Zrcms\Core\Api\Component\FindComponent;
-use Zrcms\CorePage\Api\CmsResource\FindPageCmsResourceBySitePath;
-use Zrcms\CorePage\Exception\PageNotFound;
 use Zrcms\CorePage\Model\PageCmsResource;
-use Zrcms\CoreSite\Api\CmsResource\FindSiteCmsResourceByHost;
-use Zrcms\CoreSite\Exception\SiteNotFound;
 use Zrcms\CoreSite\Model\SiteCmsResource;
-use Zrcms\CoreTheme\Api\CmsResource\FindLayoutCmsResourceByThemeNameLayoutName;
-use Zrcms\CoreTheme\Exception\LayoutNotFound;
-use Zrcms\CoreTheme\Exception\ThemeNotFound;
 use Zrcms\CoreTheme\Model\LayoutCmsResource;
 use Zrcms\CoreView\Api\Render\GetViewLayoutTags;
+use Zrcms\CoreView\Exception\LayoutNotFound;
+use Zrcms\CoreView\Exception\PageNotFound;
+use Zrcms\CoreView\Exception\SiteNotFound;
+use Zrcms\CoreView\Exception\ThemeNotFound;
 use Zrcms\CoreView\Fields\FieldsView;
 use Zrcms\CoreView\Model\View;
 use Zrcms\CoreView\Model\ViewBasic;
@@ -25,65 +21,37 @@ use Zrcms\Param\Param;
  */
 class GetViewByRequestBasic implements GetViewByRequest
 {
-    /**
-     * @var FindSiteCmsResourceByHost
-     */
-    protected $findSiteCmsResourceByHost;
-
-    /**
-     * @var FindPageCmsResourceBySitePath
-     */
-    protected $findPageCmsResourceBySitePath;
-
-    /**
-     * @var FindLayoutCmsResourceByThemeNameLayoutName
-     */
-    protected $findLayoutCmsResourceByThemeNameLayoutName;
-
-    /**
-     * @var GetLayoutName
-     */
+    protected $getSiteCmsResource;
+    protected $getThemeName;
+    protected $getPageCmsResource;
     protected $getLayoutName;
-
-    /**
-     * @var FindComponent
-     */
-    protected $findComponent;
-
-    /**
-     * @var GetViewLayoutTags
-     */
+    protected $getLayoutCmsResource;
     protected $getViewLayoutTags;
-
-    /**
-     * @var BuildView
-     */
     protected $buildView;
 
     /**
-     * @param FindSiteCmsResourceByHost                  $findSiteCmsResourceByHost
-     * @param FindPageCmsResourceBySitePath              $findPageCmsResourceBySitePath
-     * @param FindLayoutCmsResourceByThemeNameLayoutName $findLayoutCmsResourceByThemeNameLayoutName
-     * @param GetLayoutName                              $getLayoutName
-     * @param FindComponent                         $findComponent
-     * @param GetViewLayoutTags                          $getViewLayoutTags
-     * @param BuildView                                  $buildView
+     * @param GetSiteCmsResource   $getSiteCmsResource
+     * @param GetPageCmsResource   $getPageCmsResource
+     * @param GetLayoutCmsResource $getLayoutCmsResource
+     * @param GetLayoutName        $getLayoutName
+     * @param GetThemeName         $getThemeName
+     * @param GetViewLayoutTags    $getViewLayoutTags
+     * @param BuildView            $buildView
      */
     public function __construct(
-        FindSiteCmsResourceByHost $findSiteCmsResourceByHost,
-        FindPageCmsResourceBySitePath $findPageCmsResourceBySitePath,
-        FindLayoutCmsResourceByThemeNameLayoutName $findLayoutCmsResourceByThemeNameLayoutName,
+        GetSiteCmsResource $getSiteCmsResource,
+        GetThemeName $getThemeName,
+        GetPageCmsResource $getPageCmsResource,
         GetLayoutName $getLayoutName,
-        FindComponent $findComponent,
+        GetLayoutCmsResource $getLayoutCmsResource,
         GetViewLayoutTags $getViewLayoutTags,
         BuildView $buildView
     ) {
-        $this->findSiteCmsResourceByHost = $findSiteCmsResourceByHost;
-        $this->findPageCmsResourceBySitePath = $findPageCmsResourceBySitePath;
-        $this->findLayoutCmsResourceByThemeNameLayoutName = $findLayoutCmsResourceByThemeNameLayoutName;
+        $this->getSiteCmsResource = $getSiteCmsResource;
+        $this->getThemeName = $getThemeName;
+        $this->getPageCmsResource = $getPageCmsResource;
         $this->getLayoutName = $getLayoutName;
-
-        $this->findComponent = $findComponent;
+        $this->getLayoutCmsResource = $getLayoutCmsResource;
         $this->getViewLayoutTags = $getViewLayoutTags;
         $this->buildView = $buildView;
     }
@@ -104,46 +72,18 @@ class GetViewByRequestBasic implements GetViewByRequest
     ): View {
         $uri = $request->getUri();
 
-        /** @var SiteCmsResource $siteCmsResource */
-        $siteCmsResource = $this->findSiteCmsResourceByHost->__invoke(
+        $siteCmsResource = $this->getSiteCmsResource->__invoke(
             $uri->getHost()
         );
 
-        if (empty($siteCmsResource)) {
-            throw new SiteNotFound(
-                'Site not found for host: (' . $uri->getHost() . ')'
-            );
-        }
-
-        $themeName = $siteCmsResource->getContentVersion()->getThemeName();
-
-        $themeComponent = $this->findComponent->__invoke(
-            'theme',
-            $themeName
+        $themeName = $this->getThemeName->__invoke(
+            $siteCmsResource
         );
 
-        if (empty($themeComponent)) {
-            throw new ThemeNotFound(
-                'Theme not found (' . $themeName . ')'
-                . ' for host: (' . $siteCmsResource->getHost() . ')'
-                . ' with site ID: (' . (string)$siteCmsResource->getContentVersionId() . ')'
-            );
-        }
-
-        $path = $uri->getPath();
-
-        /** @var PageCmsResource $pageCmsResource */
-        $pageCmsResource = $this->findPageCmsResourceBySitePath->__invoke(
+        $pageCmsResource = $this->getPageCmsResource->__invoke(
             $siteCmsResource->getId(),
-            $path
+            $uri->getPath()
         );
-
-        if (empty($pageCmsResource)) {
-            throw new PageNotFound(
-                'Page not found for host: (' . $uri->getHost() . ')'
-                . ' and page: (' . $path . ')'
-            );
-        }
 
         $siteVersion = $siteCmsResource->getContentVersion();
         $pageVersion = $pageCmsResource->getContentVersion();
@@ -153,21 +93,36 @@ class GetViewByRequestBasic implements GetViewByRequest
             $pageVersion
         );
 
-        /** @var LayoutCmsResource $layoutCmsResource */
-        $layoutCmsResource = $this->findLayoutCmsResourceByThemeNameLayoutName->__invoke(
+        $layoutCmsResource = $this->getLayoutCmsResource->__invoke(
             $themeName,
             $layoutName
         );
 
-        if (empty($layoutCmsResource)) {
-            throw new LayoutNotFound(
-                'Layout not found: (' . $layoutName . ')'
-                . ' with theme name: (' . $themeName . ')'
-                . ' for site version ID: (' . $siteVersion->getId() . ')'
-                . ' and page version ID: (' . $pageVersion->getId() . ')'
-            );
-        }
+        return $this->buildView(
+            $request,
+            $siteCmsResource,
+            $pageCmsResource,
+            $layoutCmsResource,
+            $options
+        );
+    }
 
+    /**
+     * @param ServerRequestInterface $request
+     * @param SiteCmsResource        $siteCmsResource
+     * @param PageCmsResource        $pageCmsResource
+     * @param LayoutCmsResource      $layoutCmsResource
+     * @param array                  $options
+     *
+     * @return View
+     */
+    protected function buildView(
+        ServerRequestInterface $request,
+        SiteCmsResource $siteCmsResource,
+        PageCmsResource $pageCmsResource,
+        LayoutCmsResource $layoutCmsResource,
+        array $options = []
+    ) {
         $properties = [
             FieldsView::SITE_CMS_RESOURCE
             => $siteCmsResource,

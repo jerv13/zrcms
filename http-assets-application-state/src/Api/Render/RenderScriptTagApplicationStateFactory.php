@@ -4,6 +4,7 @@ namespace Zrcms\HttpAssetsApplicationState\Api\Render;
 
 use Psr\Container\ContainerInterface;
 use Zrcms\CoreApplicationState\Api\GetApplicationState;
+use Zrcms\Debug\IsDebug;
 use Zrcms\ViewHtmlTags\Api\Render\RenderTag;
 
 /**
@@ -23,7 +24,8 @@ class RenderScriptTagApplicationStateFactory
     ) {
         return new RenderScriptTagApplicationState(
             $serviceContainer->get(GetApplicationState::class),
-            $serviceContainer->get(RenderTag::class)
+            $serviceContainer->get(RenderTag::class),
+            IsDebug::invoke()
         );
     }
 }

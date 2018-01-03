@@ -11,15 +11,15 @@ class Json
      * @param mixed  $value
      * @param int    $options
      * @param int    $depth
-     * @param string $errorMessage
+     * @param string $context
      *
      * @return string
      */
     public static function encode(
         $value,
-        $options = 0,
-        $depth = 512,
-        $errorMessage = ''
+        int $options = 0,
+        int $depth = 512,
+        string $context = ''
     ): string {
         // Clear json_last_error()
         json_encode(null);
@@ -27,11 +27,11 @@ class Json
         $json = json_encode($value, $options, $depth);
 
         if (JSON_ERROR_NONE !== json_last_error()) {
-            throw new \InvalidArgumentException(
+            throw new JsonError(
                 sprintf(
                     'Unable to encode data to JSON: %s. %s',
                     json_last_error_msg(),
-                    $errorMessage
+                    $context
                 )
             );
         }
@@ -44,16 +44,16 @@ class Json
      * @param bool   $assoc
      * @param int    $depth
      * @param int    $options
-     * @param string $errorMessage
+     * @param string $context
      *
      * @return mixed
      */
     public static function decode(
         string $json,
-        $assoc = false,
-        $depth = 512,
-        $options = 0,
-        $errorMessage = ''
+        bool $assoc = false,
+        int $depth = 512,
+        int $options = 0,
+        string $context = ''
     ) {
         // Clear json_last_error()
         json_encode(null);
@@ -61,11 +61,11 @@ class Json
         $value = json_decode($json, $assoc, $depth, $options);
 
         if (JSON_ERROR_NONE !== json_last_error()) {
-            throw new \InvalidArgumentException(
+            throw new JsonError(
                 sprintf(
                     'Unable to decode JSON: %s. %s',
                     json_last_error_msg(),
-                    $errorMessage
+                    $context
                 )
             );
         }

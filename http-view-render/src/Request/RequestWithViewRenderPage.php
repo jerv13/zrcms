@@ -14,6 +14,9 @@ use Zrcms\CoreView\Model\View;
  */
 class RequestWithViewRenderPage
 {
+    protected $getViewLayoutTags;
+    protected $renderView;
+
     /**
      * @param GetViewLayoutTags $getViewLayoutTags
      * @param RenderView        $renderView

@@ -1,10 +1,17 @@
 @todo
 =====
 
+##### Zrcms\ViewMetaPageData 
+
+- CONVERT SITE and PAGE to View
+- Might use application state instead of meta tag (@see Zrcms\HttpAssetsApplicationState)
+
+##### Param - use context instead of thorwer wierdnes
+
 ##### Start client  - NOTE: Client packages will be built using NPM
 
-- zrcms-state
-    - expose some state values to the client
+- zrcms-application-state
+    -x expose some state values to the client
     - redux compatible
     - fetchZrcmsState action
     - 
@@ -12,8 +19,6 @@
     - zrcms-admin-menu
     - zrcms-{others}
 - zrcms-fields
-
-##### Zrcms\ViewMetaPageData might use application state instead of meta tag (@see Zrcms\HttpAssetsApplicationState)
 
 ##### HTTP APIs for each php API
 

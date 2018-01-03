@@ -21,19 +21,17 @@ abstract class ViewAbstract extends ContentAbstract implements View
     use PropertiesTrait;
 
     protected $siteCmsResource;
-
     protected $site;
-
     protected $pageCmsResource;
-
     protected $page;
-
     protected $layoutCmsResource;
-
     protected $layout;
 
     /**
      * @param array $properties
+     *
+     * @throws \Exception
+     * @throws \Zrcms\Param\Exception\ParamMissing
      */
     public function __construct(
         array $properties

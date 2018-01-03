@@ -4,9 +4,10 @@ namespace Zrcms\HttpViewRender\Request;
 
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
-use Zrcms\CorePage\Exception\PageNotFound;
-use Zrcms\CoreSite\Exception\SiteNotFound;
 use Zrcms\CoreView\Api\GetViewByRequest;
+use Zrcms\CoreView\Exception\PageNotFound;
+use Zrcms\CoreView\Exception\SiteNotFound;
+use Zrcms\CoreView\Exception\ViewDataNotFound;
 use Zrcms\CoreView\Model\View;
 
 /**
@@ -36,8 +37,8 @@ class RequestWithView
      * @param ResponseInterface      $response
      * @param callable|null          $next
      *
-     * @return ResponseInterface
-     * @throws \Exception
+     * @return mixed
+     * @throws ViewDataNotFound
      */
     public function __invoke(
         ServerRequestInterface $request,
@@ -46,10 +47,16 @@ class RequestWithView
     ) {
         $message = '';
 
+        $getViewOptions = $request->getAttribute(
+            GetViewByRequest::REQUEST_ATTRIBUTE_GET_VIEW_OPTIONS,
+            []
+        );
+
         try {
             /** @var View $view */
             $view = $this->getViewByRequest->__invoke(
-                $request
+                $request,
+                $getViewOptions
             );
         } catch (SiteNotFound $exception) {
             $view = null;

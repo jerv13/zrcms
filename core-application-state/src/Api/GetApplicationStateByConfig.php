@@ -12,6 +12,7 @@ class GetApplicationStateByConfig implements GetApplicationState
 {
     protected $config;
     protected $serviceContainer;
+    protected $debug;
 
     /**
      * @param array              $config
@@ -27,7 +28,6 @@ class GetApplicationStateByConfig implements GetApplicationState
 
     /**
      * @param ServerRequestInterface $request
-     * @param array                  $appState
      * @param array                  $options
      *
      * @return array
@@ -37,9 +37,10 @@ class GetApplicationStateByConfig implements GetApplicationState
      */
     public function __invoke(
         ServerRequestInterface $request,
-        array $appState = [],
         array $options = []
     ): array {
+        $appState = [];
+
         /**
          * @var string $key
          * @var string $getApplicationStateServiceName
@@ -54,13 +55,10 @@ class GetApplicationStateByConfig implements GetApplicationState
                 );
             }
 
-            $moreAppState = $getApplicationStateService->__invoke(
+            $appState[$key] = $getApplicationStateService->__invoke(
                 $request,
-                $appState,
                 $options
             );
-
-            $appState = array_merge($appState, $moreAppState);
         }
 
         return $appState;

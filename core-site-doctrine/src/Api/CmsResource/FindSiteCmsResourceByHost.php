@@ -74,7 +74,8 @@ class FindSiteCmsResourceByHost implements \Zrcms\CoreSite\Api\CmsResource\FindS
      * @param bool   $published
      * @param array  $options
      *
-     * @return SiteCmsResource|CmsResource
+     * @return null|CmsResource|SiteCmsResource
+     * @throws \Exception
      */
     public function __invoke(
         string $host,

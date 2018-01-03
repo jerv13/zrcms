@@ -5,11 +5,11 @@ namespace Zrcms\HttpViewRender\Response;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Zend\Diactoros\Response\HtmlResponse;
-use Zrcms\CorePage\Exception\PageNotFound;
-use Zrcms\CoreSite\Exception\SiteNotFound;
 use Zrcms\CoreView\Api\GetViewByRequest;
 use Zrcms\CoreView\Api\Render\GetViewLayoutTags;
 use Zrcms\CoreView\Api\Render\RenderView;
+use Zrcms\CoreView\Exception\PageNotFound;
+use Zrcms\CoreView\Exception\SiteNotFound;
 use Zrcms\CoreView\Model\View;
 
 /**
@@ -20,6 +20,7 @@ class RenderPage
     protected $getViewByRequest;
     protected $getViewLayoutTags;
     protected $renderView;
+
     /**
      * @param GetViewByRequest  $getViewByRequest
      * @param GetViewLayoutTags $getViewLayoutTags

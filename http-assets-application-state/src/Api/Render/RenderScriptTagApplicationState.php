@@ -15,17 +15,21 @@ class RenderScriptTagApplicationState implements Render
 {
     protected $getApplicationState;
     protected $renderTag;
+    protected $debug;
 
     /**
      * @param GetApplicationState $getApplicationState
      * @param RenderTag           $renderTag
+     * @param bool                $debug
      */
     public function __construct(
         GetApplicationState $getApplicationState,
-        RenderTag $renderTag
+        RenderTag $renderTag,
+        bool $debug = false
     ) {
         $this->getApplicationState = $getApplicationState;
         $this->renderTag = $renderTag;
+        $this->debug = $debug;
     }
 
     /**
@@ -45,7 +49,13 @@ class RenderScriptTagApplicationState implements Render
             $appState
         );
 
-        $json = Json::encode($appState);
+        $encodingOptions = 0;
+
+        if ($this->debug) {
+            $encodingOptions = JSON_PRETTY_PRINT;
+        }
+
+        $json = Json::encode($appState, $encodingOptions);
         $content = 'window.zrcmsApplicationState = ' . $json . ';';
 
         return $this->renderTag->__invoke(

@@ -3,32 +3,25 @@
 namespace Zrcms\CoreView\Api;
 
 use Psr\Container\ContainerInterface;
+use Zrcms\CoreSite\Api\CmsResource\FindSiteCmsResourceByHost;
 
 /**
- * @todo   This may NOT be needed
- *
  * @author James Jervis - https://github.com/jerv13
  */
-class BuildViewCompositeFactory
+class GetSiteCmsResourceBasicFactory
 {
     /**
      * @param ContainerInterface $serviceContainer
      *
-     * @return BuildViewComposite
+     * @return GetSiteCmsResourceBasic
      * @throws \Psr\Container\ContainerExceptionInterface
      * @throws \Psr\Container\NotFoundExceptionInterface
      */
     public function __invoke(
         ContainerInterface $serviceContainer
     ) {
-        $config = $serviceContainer->get('config');
-
-        $viewBuilders = $config['zrcms-view-builders'];
-
-        $viewBuilder = new BuildViewComposite();
-
-        $viewBuilder->addMulti($viewBuilders);
-
-        return $viewBuilder;
+        return new GetSiteCmsResourceBasic(
+            $serviceContainer->get(FindSiteCmsResourceByHost::class)
+        );
     }
 }

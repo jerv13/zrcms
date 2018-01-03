@@ -14,6 +14,7 @@ use Zrcms\Json\Json;
 use Zrcms\ViewHtmlTags\Api\Render\RenderTag;
 
 /**
+ * @deprecated BC ONLY - Use \Zrcms\HttpAssetsApplicationState
  * @author James Jervis - https://github.com/jerv13
  */
 class GetViewLayoutMetaPageData implements GetViewLayoutTags
@@ -117,6 +118,10 @@ class GetViewLayoutMetaPageData implements GetViewLayoutTags
                 'content' => Json::encode($content),
             ],
         ];
+
+        if ($this->debug) {
+            $tagData['attributes']['DEPRECATED'] = 'USE APPLICATION STATE';
+        }
 
         return [
             self::RENDER_TAG_META_PAGE_DATA => $this->renderTag->__invoke($tagData)

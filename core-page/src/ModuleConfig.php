@@ -84,6 +84,7 @@ class ModuleConfig
                     ],
                 ],
             ],
+
             /**
              * ===== Service Alias =====
              */

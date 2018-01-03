@@ -3,6 +3,7 @@
 namespace Zrcms\CoreView\Api;
 
 use Psr\Http\Message\ServerRequestInterface;
+use Zrcms\CoreView\Exception\ViewDataNotFound;
 use Zrcms\CoreView\Model\View;
 
 /**
@@ -10,6 +11,7 @@ use Zrcms\CoreView\Model\View;
  */
 interface GetViewByRequest
 {
+    const REQUEST_ATTRIBUTE_GET_VIEW_OPTIONS = 'zrcms-get-view-options';
     const OPTION_ADDITIONAL_PROPERTIES = 'additionalProperties';
 
     /**
@@ -17,6 +19,7 @@ interface GetViewByRequest
      * @param array                  $options
      *
      * @return View
+     * @throws ViewDataNotFound
      */
     public function __invoke(
         ServerRequestInterface $request,

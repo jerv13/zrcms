@@ -16,14 +16,27 @@ use Zrcms\CoreTheme\Api\CmsResource\FindLayoutCmsResourceByThemeNameLayoutName;
 use Zrcms\CoreTheme\Api\Render\RenderLayout;
 use Zrcms\CoreView\Api\BuildView;
 use Zrcms\CoreView\Api\BuildViewCompositeFactory;
+use Zrcms\CoreView\Api\GetApplicationStateView;
+use Zrcms\CoreView\Api\GetApplicationStateViewFactory;
+use Zrcms\CoreView\Api\GetLayoutCmsResource;
+use Zrcms\CoreView\Api\GetLayoutCmsResourceBasicFactory;
 use Zrcms\CoreView\Api\GetLayoutName;
-use Zrcms\CoreView\Api\GetLayoutNameBasic;
+use Zrcms\CoreView\Api\GetLayoutNameBasicFactory;
+use Zrcms\CoreView\Api\GetPageCmsResource;
+use Zrcms\CoreView\Api\GetPageCmsResourceBasicFactory;
+use Zrcms\CoreView\Api\GetSiteCmsResource;
+use Zrcms\CoreView\Api\GetSiteCmsResourceBasicFactory;
 use Zrcms\CoreView\Api\GetTagNamesByLayout;
 use Zrcms\CoreView\Api\GetTagNamesByLayoutBasic;
 use Zrcms\CoreView\Api\GetTagNamesByLayoutMustache;
+use Zrcms\CoreView\Api\GetThemeName;
+use Zrcms\CoreView\Api\GetThemeNameBasicFactory;
 use Zrcms\CoreView\Api\GetViewByRequest;
 use Zrcms\CoreView\Api\GetViewByRequestBasic;
+use Zrcms\CoreView\Api\GetViewByRequestBasicFactory;
 use Zrcms\CoreView\Api\GetViewByRequestHtmlPage;
+use Zrcms\CoreView\Api\GetViewByRequestHtmlPageFactory;
+use Zrcms\CoreView\Api\GetViewByRequestStrategyFactory;
 use Zrcms\CoreView\Api\Render\GetViewLayoutTags;
 use Zrcms\CoreView\Api\Render\GetViewLayoutTagsBasic;
 use Zrcms\CoreView\Api\Render\GetViewLayoutTagsContainers;
@@ -89,6 +102,21 @@ class ModuleConfig
                     BuildView::class => [
                         'factory' => BuildViewCompositeFactory::class,
                     ],
+                    GetApplicationStateView::class => [
+                        'factory' => GetApplicationStateViewFactory::class,
+                    ],
+                    GetLayoutCmsResource::class => [
+                        'factory' => GetLayoutCmsResourceBasicFactory::class,
+                    ],
+                    GetLayoutName::class => [
+                        'factory' => GetLayoutNameBasicFactory::class
+                    ],
+                    GetPageCmsResource::class => [
+                        'factory' => GetPageCmsResourceBasicFactory::class,
+                    ],
+                    GetSiteCmsResource::class => [
+                        'factory' => GetSiteCmsResourceBasicFactory::class,
+                    ],
                     GetTagNamesByLayout::class => [
                         'class' => GetTagNamesByLayoutBasic::class,
                         'arguments' => [
@@ -96,34 +124,31 @@ class ModuleConfig
                         ],
                     ],
                     GetTagNamesByLayoutMustache::class => [],
+                    GetThemeName::class => [
+                        'factory' => GetThemeNameBasicFactory::class,
+                    ],
+
                     GetViewByRequest::class => [
-                        'class' => GetViewByRequestBasic::class,
-                        'arguments' => [
-                            FindSiteCmsResourceByHost::class,
-                            FindPageCmsResourceBySitePath::class,
-                            FindLayoutCmsResourceByThemeNameLayoutName::class,
-                            GetLayoutName::class,
-                            FindComponent::class,
-                            GetViewLayoutTags::class,
-                            BuildView::class
-                        ],
+                        'factory' => GetViewByRequestStrategyFactory::class,
+                    ],
+                    GetViewByRequestBasic::class => [
+                        'factory' => GetViewByRequestBasicFactory::class,
                     ],
                     GetViewByRequestHtmlPage::class => [
-                        'arguments' => [
-                            FindSiteCmsResourceByHost::class,
-                            FindPageCmsResourceBySitePath::class,
-                            FindLayoutCmsResourceByThemeNameLayoutName::class,
-                            GetLayoutName::class,
-                            FindComponent::class,
-                            GetViewLayoutTags::class,
-                            BuildView::class,
-                        ],
+                        'factory' => GetViewByRequestHtmlPageFactory::class,
                     ],
-                    GetLayoutName::class => [
-                        'class' => GetLayoutNameBasic::class
-                    ],
+
                 ],
             ],
+
+            /**
+             * ===== ZRCMS Application State =====
+             */
+            'zrcms-application-state' => [
+                GetApplicationStateView::APPLICATION_STATE_KEY
+                => GetApplicationStateView::class,
+            ],
+
             /**
              * ===== Service Alias =====
              */
@@ -145,12 +170,25 @@ class ModuleConfig
                     'mustache' => GetTagNamesByLayoutMustache::class
                 ],
             ],
+
             /**
              * @todo This should be a View component
              * ===== View builders registry =====
              */
             'zrcms-view-builders' => [
                 // 'key (optional)' => '{service-name}'
+            ],
+
+            /**
+             * ===== View By Request Strategies =====
+             */
+            'zrcms-view-by-request-strategy' => [
+                // '{strategy-name}' => '{GetViewByRequestServiceName}'
+                GetViewByRequestBasic::class
+                => GetViewByRequestBasic::class,
+
+                GetViewByRequestHtmlPage::class
+                => GetViewByRequestHtmlPage::class,
             ],
 
             /**

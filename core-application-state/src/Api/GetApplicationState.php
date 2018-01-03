@@ -11,14 +11,12 @@ interface GetApplicationState
 {
     /**
      * @param ServerRequestInterface $request
-     * @param array                  $appState
      * @param array                  $options
      *
      * @return array
      */
     public function __invoke(
         ServerRequestInterface $request,
-        array $appState = [],
         array $options = []
     ): array;
 }

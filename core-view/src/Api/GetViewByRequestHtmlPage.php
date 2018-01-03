@@ -3,21 +3,17 @@
 namespace Zrcms\CoreView\Api;
 
 use Psr\Http\Message\ServerRequestInterface;
-use Zrcms\Core\Api\Component\FindComponent;
 use Zrcms\Core\Model\Trackable;
-use Zrcms\CorePage\Api\CmsResource\FindPageCmsResourceBySitePath;
-use Zrcms\CorePage\Exception\PageNotFound;
 use Zrcms\CorePage\Fields\FieldsPageVersion;
+use Zrcms\CorePage\Model\PageCmsResource;
 use Zrcms\CorePage\Model\PageCmsResourceBasic;
+use Zrcms\CorePage\Model\PageVersion;
 use Zrcms\CorePage\Model\PageVersionBasic;
-use Zrcms\CoreSite\Api\CmsResource\FindSiteCmsResourceByHost;
-use Zrcms\CoreSite\Exception\SiteNotFound;
-use Zrcms\CoreSite\Model\SiteCmsResource;
-use Zrcms\CoreTheme\Api\CmsResource\FindLayoutCmsResourceByThemeNameLayoutName;
-use Zrcms\CoreTheme\Exception\LayoutNotFound;
-use Zrcms\CoreTheme\Exception\ThemeNotFound;
-use Zrcms\CoreTheme\Model\LayoutCmsResource;
 use Zrcms\CoreView\Api\Render\GetViewLayoutTags;
+use Zrcms\CoreView\Exception\LayoutNotFound;
+use Zrcms\CoreView\Exception\PageNotFound;
+use Zrcms\CoreView\Exception\SiteNotFound;
+use Zrcms\CoreView\Exception\ThemeNotFound;
 use Zrcms\CoreView\Fields\FieldsView;
 use Zrcms\CoreView\Model\View;
 use Zrcms\CoreView\Model\ViewBasic;
@@ -36,88 +32,46 @@ class GetViewByRequestHtmlPage implements GetViewByRequest
     const OPTION_RENDER_TAGS_GETTER = FieldsPageVersion::RENDER_TAGS_GETTER;
     const OPTION_CONTAINERS_DATA = FieldsPageVersion::CONTAINERS_DATA;
 
-    /**
-     * @var FindSiteCmsResourceByHost
-     */
-    protected $findSiteCmsResourceByHost;
-
-    /**
-     * @var FindPageCmsResourceBySitePath
-     */
-    protected $findPageCmsResourceBySitePath;
-
-    /**
-     * @var FindLayoutCmsResourceByThemeNameLayoutName
-     */
-    protected $findLayoutCmsResourceByThemeNameLayoutName;
-
-    /**
-     * @var GetLayoutName
-     */
+    protected $getSiteCmsResource;
+    protected $getThemeName;
     protected $getLayoutName;
-
-    /**
-     * @var FindComponent
-     */
-    protected $findComponent;
-
-    /**
-     * @var GetViewLayoutTags
-     */
+    protected $getLayoutCmsResource;
     protected $getViewLayoutTags;
-
-    /**
-     * @var BuildView
-     */
     protected $buildView;
 
-    /**
-     * @var string
-     */
     protected $defaultTitle = '';
-
-    /**
-     * @var string
-     */
     protected $defaultDescription = '';
-
-    /**
-     * @var string
-     */
     protected $defaultKeywords = '';
 
     /**
-     * @param FindSiteCmsResourceByHost                  $findSiteCmsResourceByHost
-     * @param FindPageCmsResourceBySitePath              $findPageCmsResourceBySitePath
-     * @param FindLayoutCmsResourceByThemeNameLayoutName $findLayoutCmsResourceByThemeNameLayoutName
-     * @param GetLayoutName                              $getLayoutName
-     * @param FindComponent                         $findComponent
-     * @param GetViewLayoutTags                          $getViewLayoutTags
-     * @param BuildView                                  $buildView
-     * @param string                                     $defaultTitle
-     * @param string                                     $defaultDescription
-     * @param string                                     $defaultKeywords
+     * @param GetSiteCmsResource   $getSiteCmsResource
+     * @param GetThemeName         $getThemeName
+     * @param GetLayoutName        $getLayoutName
+     * @param GetLayoutCmsResource $getLayoutCmsResource
+     * @param GetViewLayoutTags    $getViewLayoutTags
+     * @param BuildView            $buildView
+     * @param string               $defaultTitle
+     * @param string               $defaultDescription
+     * @param string               $defaultKeywords
      */
     public function __construct(
-        FindSiteCmsResourceByHost $findSiteCmsResourceByHost,
-        FindPageCmsResourceBySitePath $findPageCmsResourceBySitePath,
-        FindLayoutCmsResourceByThemeNameLayoutName $findLayoutCmsResourceByThemeNameLayoutName,
+        GetSiteCmsResource $getSiteCmsResource,
+        GetThemeName $getThemeName,
         GetLayoutName $getLayoutName,
-        FindComponent $findComponent,
+        GetLayoutCmsResource $getLayoutCmsResource,
         GetViewLayoutTags $getViewLayoutTags,
         BuildView $buildView,
         string $defaultTitle = '',
         string $defaultDescription = '',
         string $defaultKeywords = ''
     ) {
-        $this->findSiteCmsResourceByHost = $findSiteCmsResourceByHost;
-        $this->findPageCmsResourceBySitePath = $findPageCmsResourceBySitePath;
-        $this->findLayoutCmsResourceByThemeNameLayoutName = $findLayoutCmsResourceByThemeNameLayoutName;
+        $this->getSiteCmsResource = $getSiteCmsResource;
+        $this->getThemeName = $getThemeName;
         $this->getLayoutName = $getLayoutName;
-
-        $this->findComponent = $findComponent;
+        $this->getLayoutCmsResource = $getLayoutCmsResource;
         $this->getViewLayoutTags = $getViewLayoutTags;
         $this->buildView = $buildView;
+
         $this->defaultTitle = $defaultTitle;
         $this->defaultDescription = $defaultDescription;
         $this->defaultKeywords = $defaultKeywords;
@@ -139,33 +93,31 @@ class GetViewByRequestHtmlPage implements GetViewByRequest
     ): View {
         $uri = $request->getUri();
 
-        /** @var SiteCmsResource $siteCmsResource */
-        $siteCmsResource = $this->findSiteCmsResourceByHost->__invoke(
+        $siteCmsResource = $this->getSiteCmsResource->__invoke(
             $uri->getHost()
         );
 
-        if (empty($siteCmsResource)) {
-            throw new SiteNotFound(
-                'Site not found for host: (' . $uri->getHost() . ')'
-            );
-        }
-
-        $siteVersion = $siteCmsResource->getContentVersion();
-
-        $themeName = $siteCmsResource->getContentVersion()->getThemeName();
-
-        $themeComponent = $this->findComponent->__invoke(
-            'theme',
-            $themeName
+        $themeName = $this->getThemeName->__invoke(
+            $siteCmsResource
         );
 
-        if (empty($themeComponent)) {
-            throw new ThemeNotFound(
-                'Theme not found (' . $themeName . ')'
-                . ' for host: (' . $siteCmsResource->getHost() . ')'
-                . ' with site ID: (' . (string)$siteCmsResource->getContentVersionId() . ')'
-            );
-        }
+        $pageCmsResource = $this->getPageCmsResource(
+            $siteCmsResource->getId(),
+            $uri->getPath()
+        );
+
+        $siteVersion = $siteCmsResource->getContentVersion();
+        $pageVersion = $pageCmsResource->getContentVersion();
+
+        $layoutName = $this->getLayoutName->__invoke(
+            $siteVersion,
+            $pageVersion
+        );
+
+        $layoutCmsResource = $this->getLayoutCmsResource->__invoke(
+            $themeName,
+            $layoutName
+        );
 
         $html = Param::getString($options, self::OPTION_HTML, null);
 
@@ -173,65 +125,6 @@ class GetViewByRequestHtmlPage implements GetViewByRequest
             throw new PageNotFound(
                 'Page not found for host: (' . $uri->getHost() . ')'
                 . ' with empty html page'
-            );
-        }
-
-        $pageVersion = new PageVersionBasic(
-            $uri->getPath(),
-            [
-                FieldsPageVersion::TITLE
-                => Param::getString($options, self::OPTION_TITLE, $this->defaultTitle),
-
-                FieldsPageVersion::DESCRIPTION
-                => Param::getString($options, self::OPTION_DESCRIPTION, $this->defaultDescription),
-
-                FieldsPageVersion::KEYWORDS
-                => Param::getString($options, self::OPTION_KEYWORDS, $this->defaultKeywords),
-
-                FieldsPageVersion::LAYOUT
-                => Param::getString($options, self::OPTION_LAYOUT, null),
-
-                FieldsPageVersion::PRE_RENDERED_HTML
-                => Param::getString($options, self::OPTION_HTML, ''),
-
-                // DEFAULT: 'html' AKA GetPageRenderTagsHtml
-                FieldsPageVersion::RENDER_TAGS_GETTER
-                => Param::getString($options, self::OPTION_RENDER_TAGS_GETTER, 'html'),
-
-                FieldsPageVersion::CONTAINERS_DATA
-                => Param::getArray($options, self::OPTION_CONTAINERS_DATA, []),
-                FieldsPageVersion::PATH => $uri->getPath(),
-                FieldsPageVersion::SITE_CMS_RESOURCE_ID => $siteCmsResource->getId(),
-            ],
-            Trackable::UNKNOWN_USER_ID,
-            'Render HTML: ' . get_class($this)
-        );
-
-        $pageCmsResource = new PageCmsResourceBasic(
-            $uri->getPath(),
-            true,
-            $pageVersion,
-            Trackable::UNKNOWN_USER_ID,
-            'Render HTML: ' . get_class($this)
-        );
-
-        $layoutName = $this->getLayoutName->__invoke(
-            $siteVersion,
-            $pageVersion
-        );
-
-        /** @var LayoutCmsResource $layoutCmsResource */
-        $layoutCmsResource = $this->findLayoutCmsResourceByThemeNameLayoutName->__invoke(
-            $themeName,
-            $layoutName
-        );
-
-        if (empty($layoutCmsResource)) {
-            throw new LayoutNotFound(
-                'Layout not found: (' . $layoutName . ')'
-                . ' with theme name: (' . $themeName . ')'
-                . ' for site version ID: (' . $siteVersion->getId() . ')'
-                . ' and page version ID: (' . $pageVersion->getId() . ')'
             );
         }
 
@@ -264,6 +157,77 @@ class GetViewByRequestHtmlPage implements GetViewByRequest
         return $this->buildView->__invoke(
             $request,
             $view
+        );
+    }
+
+    /**
+     * @param string $siteCmsResourceId
+     * @param string $path
+     * @param array  $options
+     *
+     * @return PageVersion
+     */
+    protected function getPageVersion(
+        string $siteCmsResourceId,
+        string $path,
+        array $options = []
+    ): PageVersion {
+        return new PageVersionBasic(
+            $path,
+            [
+                FieldsPageVersion::TITLE
+                => Param::getString($options, self::OPTION_TITLE, $this->defaultTitle),
+
+                FieldsPageVersion::DESCRIPTION
+                => Param::getString($options, self::OPTION_DESCRIPTION, $this->defaultDescription),
+
+                FieldsPageVersion::KEYWORDS
+                => Param::getString($options, self::OPTION_KEYWORDS, $this->defaultKeywords),
+
+                FieldsPageVersion::LAYOUT
+                => Param::getString($options, self::OPTION_LAYOUT, null),
+
+                FieldsPageVersion::PRE_RENDERED_HTML
+                => Param::getString($options, self::OPTION_HTML, ''),
+
+                // DEFAULT: 'html' AKA GetPageRenderTagsHtml
+                FieldsPageVersion::RENDER_TAGS_GETTER
+                => Param::getString($options, self::OPTION_RENDER_TAGS_GETTER, 'html'),
+
+                FieldsPageVersion::CONTAINERS_DATA
+                => Param::getArray($options, self::OPTION_CONTAINERS_DATA, []),
+                FieldsPageVersion::PATH => $path,
+                FieldsPageVersion::SITE_CMS_RESOURCE_ID => $siteCmsResourceId,
+            ],
+            Trackable::UNKNOWN_USER_ID,
+            'Render HTML: ' . get_class($this)
+        );
+    }
+
+    /**
+     * @param string $siteCmsResourceId
+     * @param string $path
+     * @param array  $options
+     *
+     * @return PageCmsResource
+     */
+    protected function getPageCmsResource(
+        string $siteCmsResourceId,
+        string $path,
+        array $options = []
+    ): PageCmsResource {
+        $pageVersion = $this->getPageVersion(
+            $siteCmsResourceId,
+            $path,
+            $options
+        );
+
+        return new PageCmsResourceBasic(
+            $pageVersion->getPath(),
+            true,
+            $pageVersion,
+            Trackable::UNKNOWN_USER_ID,
+            'Render HTML: ' . get_class($this)
         );
     }
 }

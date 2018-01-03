@@ -5,30 +5,24 @@ namespace Zrcms\CoreView\Api;
 use Psr\Container\ContainerInterface;
 
 /**
- * @todo   This may NOT be needed
- *
  * @author James Jervis - https://github.com/jerv13
  */
-class BuildViewCompositeFactory
+class GetViewByRequestStrategyFactory
 {
     /**
      * @param ContainerInterface $serviceContainer
      *
-     * @return BuildViewComposite
+     * @return GetViewByRequestStrategy
      * @throws \Psr\Container\ContainerExceptionInterface
      * @throws \Psr\Container\NotFoundExceptionInterface
      */
     public function __invoke(
         ContainerInterface $serviceContainer
     ) {
-        $config = $serviceContainer->get('config');
-
-        $viewBuilders = $config['zrcms-view-builders'];
-
-        $viewBuilder = new BuildViewComposite();
-
-        $viewBuilder->addMulti($viewBuilders);
-
-        return $viewBuilder;
+        $appConfig = $serviceContainer->get('config');
+        return new GetViewByRequestStrategy(
+            $appConfig['zrcms-view-by-request-strategy'],
+            $serviceContainer
+        );
     }
 }

@@ -4,10 +4,12 @@ namespace Zrcms\ViewMetaPageData;
 
 use Zrcms\Acl\Api\IsAllowedAny;
 use Zrcms\CoreView\Model\ServiceAliasView;
+use Zrcms\Debug\IsDebug;
 use Zrcms\ViewHtmlTags\Api\Render\RenderTag;
 use Zrcms\ViewMetaPageData\Api\View\Render\GetViewLayoutMetaPageData;
 
 /**
+ * @deprecated BC ONLY - Use \Zrcms\HttpAssetsApplicationState
  * @author James Jervis - https://github.com/jerv13
  */
 class ModuleConfig
@@ -29,6 +31,7 @@ class ModuleConfig
                             // @todo Real ACL??
                             IsAllowedAny::class,
                             ['literal' => []],
+                            ['literal' => IsDebug::invoke()],
                         ],
                     ],
                 ],
