@@ -1,7 +1,36 @@
 @todo
 =====
 
-##### Param - use context instead of thorwer wierdnes
+'MappingException: Rcm\Entity\PluginInstance RcmLogin
+RcmI18n
+RcmMessage
+Reliv\RcmGoogleAnalytics
+Reliv\RcmConfig
+Rcm\SwitchUser
+Reliv\Cart
+App
+Reliv\App\UserIdImage
+Reliv\Conference
+RcmLeadForm
+RcmStatements
+Reliv\RcmTermsConditions
+Pws
+PwsContactOwner
+PwsRecommendedProducts
+PwsCallToAction
+PwsRotatingImage
+RcmUser
+Reliv\App\AutoPromoteRules
+Reliv\App\CountryState
+Reliv\App\Logger
+Reliv\Cart\PaymentGatewaySprint
+Vista
+Zrcms\CoreContainerDoctrine
+Zrcms\CorePageDoctrine
+Zrcms\CoreRedirectDoctrine
+Zrcms\CoreSiteDoctrine
+Zrcms\CoreThemeDoctrine' (length=574)
+
 
 ##### Start client  - NOTE: Client packages will be built using NPM
 

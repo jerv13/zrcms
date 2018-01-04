@@ -84,7 +84,7 @@ class ModuleConfig
                         'class' => AnnotationDriver::class,
                         'cache' => 'array',
                         'paths' => [
-                            __DIR__ . '/Container/Entity',
+                            __DIR__ . '/Entity',
                         ]
                     ],
                     'orm_default' => [
