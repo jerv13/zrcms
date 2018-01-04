@@ -103,7 +103,8 @@ class GetViewByRequestHtmlPage implements GetViewByRequest
 
         $pageCmsResource = $this->getPageCmsResource(
             $siteCmsResource->getId(),
-            $uri->getPath()
+            $uri->getPath(),
+            $options
         );
 
         $siteVersion = $siteCmsResource->getContentVersion();
