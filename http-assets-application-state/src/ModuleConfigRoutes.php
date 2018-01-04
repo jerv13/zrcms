@@ -16,18 +16,6 @@ class ModuleConfigRoutes
     public function __invoke()
     {
         return [
-            'routes' => [
-                'zrcms.application-state' => [
-                    'name' => 'zrcms.application-state',
-                    'path' => '/zrcms/application-state',
-                    'middleware' => [
-                        'middleware' => ApplicationState::class,
-                    ],
-                    'options' => [],
-                    'allowed_methods' => ['GET'],
-                ],
-            ],
-
             'zrcms-view-head.head-script' => [
                 'sections' => [
                     'config' => [

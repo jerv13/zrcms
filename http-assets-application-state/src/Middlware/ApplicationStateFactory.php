@@ -4,6 +4,7 @@ namespace Zrcms\HttpAssetsApplicationState\Middleware;
 
 use Psr\Container\ContainerInterface;
 use Zrcms\CoreApplicationState\Api\GetApplicationState;
+use Zrcms\Debug\IsDebug;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -21,7 +22,8 @@ class ApplicationStateFactory
         ContainerInterface $serviceContainer
     ) {
         return new ApplicationState(
-            $serviceContainer->get(GetApplicationState::class)
+            $serviceContainer->get(GetApplicationState::class),
+            IsDebug::invoke()
         );
     }
 }
