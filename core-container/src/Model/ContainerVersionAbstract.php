@@ -2,7 +2,6 @@
 
 namespace Zrcms\CoreContainer\Model;
 
-use Zrcms\Core\Exception\PropertyInvalid;
 use Zrcms\Core\Model\ContentVersionAbstract;
 use Zrcms\CoreBlock\Model\BlockVersion;
 use Zrcms\CoreContainer\Api\BuildBlockVersion;
@@ -21,7 +20,12 @@ abstract class ContainerVersionAbstract extends ContentVersionAbstract
      * @param array       $properties
      * @param string      $createdByUserId
      * @param string      $createdReason
-     * @param string|null $createdDate
+     * @param null|string $createdDate
+     *
+     * @throws \Exception
+     * @throws \Throwable
+     * @throws \Zrcms\Param\Exception\ParamException
+     * @throws \Zrcms\Param\Exception\ParamMissing
      */
     public function __construct(
         $id,

@@ -18,6 +18,11 @@ class LayoutVersionAbstract extends ContentVersionAbstract
      * @param string      $createdByUserId
      * @param string      $createdReason
      * @param string|null $createdDate
+     *
+     * @throws \Exception
+     * @throws \Throwable
+     * @throws \Zrcms\Param\Exception\ParamException
+     * @throws \Zrcms\Param\Exception\ParamMissing
      */
     public function __construct(
         $id,
@@ -39,11 +44,7 @@ class LayoutVersionAbstract extends ContentVersionAbstract
         Param::assertHas(
             $properties,
             FieldsLayoutVersion::HTML,
-            PropertyMissing::buildThrower(
-                FieldsLayoutVersion::HTML,
-                $properties,
-                get_class($this)
-            )
+            get_class($this)
         );
 
         parent::__construct(

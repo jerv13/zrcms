@@ -83,7 +83,12 @@ class ContainerVersionEntity extends ContentEntityAbstract implements ContentEnt
      * @param array       $properties
      * @param string      $createdByUserId
      * @param string      $createdReason
-     * @param string|null $createdDate
+     * @param null        $createdDate
+     *
+     * @throws \Exception
+     * @throws \Throwable
+     * @throws \Zrcms\Param\Exception\ParamException
+     * @throws \Zrcms\Param\Exception\ParamMissing
      */
     public function __construct(
         $id,

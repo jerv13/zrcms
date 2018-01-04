@@ -29,11 +29,7 @@ abstract class PageAbstract extends ContentAbstract
         Param::assertHas(
             $properties,
             FieldsPage::TITLE,
-            PropertyMissing::buildThrower(
-                FieldsPage::TITLE,
-                $properties,
-                get_class($this)
-            )
+            get_class($this)
         );
 
         $id = GetGuidV4::invoke();

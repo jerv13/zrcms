@@ -5,8 +5,8 @@ namespace Zrcms\HttpRedirect\Middleware;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Zend\Diactoros\Response\RedirectResponse;
-use Zrcms\CoreSite\Api\GetSiteCmsResourceByRequest;
 use Zrcms\CoreRedirect\Api\CmsResource\FindRedirectCmsResourceBySiteRequestPath;
+use Zrcms\CoreSite\Api\GetSiteCmsResourceByRequest;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -34,10 +34,10 @@ class ContentRedirect
     protected $headers = [];
 
     /**
-     * @param GetSiteCmsResourceByRequest                     $getSiteCmsResourceByRequest
+     * @param GetSiteCmsResourceByRequest              $getSiteCmsResourceByRequest
      * @param FindRedirectCmsResourceBySiteRequestPath $findRedirectCmsResourceBySiteRequestPath
-     * @param int                                             $redirectStatus
-     * @param array                                           $headers
+     * @param int                                      $redirectStatus
+     * @param array                                    $headers
      */
     public function __construct(
         GetSiteCmsResourceByRequest $getSiteCmsResourceByRequest,
@@ -73,14 +73,24 @@ class ContentRedirect
         }
 
         $uri = $request->getUri();
+        $requestPath = $uri->getPath();
 
         $redirectCmsResource = $this->findRedirectCmsResourceBySiteRequestPath->__invoke(
             $siteCmsResource->getId(),
-            $uri->getPath()
+            $requestPath
         );
 
         if (empty($redirectCmsResource)) {
             return $next($request, $response);
+        }
+
+        $redirectPath = $redirectCmsResource->getContentVersion()->getRedirectPath();
+
+        if ($redirectPath == $requestPath) {
+            throw new \Exception(
+                'Redirect path (' . $redirectPath . ') '
+                . 'can not be the same as request path (' . $requestPath . ')'
+            );
         }
 
         return new RedirectResponse(

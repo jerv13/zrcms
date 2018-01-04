@@ -18,6 +18,8 @@ class FindRedirectCmsResourcesBy extends FindCmsResourcesBy implements CoreFindB
 {
     /**
      * @param EntityManager $entityManager
+     *
+     * @throws \Zrcms\CoreApplicationDoctrine\Exception\InvalidEntityException
      */
     public function __construct(EntityManager $entityManager)
     {

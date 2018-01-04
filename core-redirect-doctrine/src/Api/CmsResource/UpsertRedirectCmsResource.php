@@ -41,7 +41,7 @@ class UpsertRedirectCmsResource extends UpsertCmsResource implements CoreUpsert
      * @param string                          $modifiedReason
      * @param null                            $modifiedDate
      *
-     * @return CmsResource
+     * @return CmsResource|RedirectCmsResource
      */
     public function __invoke(
         CmsResource $cmsResource,

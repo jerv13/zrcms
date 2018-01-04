@@ -22,6 +22,8 @@ class BuildComponentObjectThemeLayout implements BuildComponentObject
      * @param array $options
      *
      * @return Component
+     * @throws \Exception
+     * @throws \Zrcms\Param\Exception\ParamMissing
      */
     public function __invoke(
         array $layoutComponentConfig,
@@ -35,11 +37,7 @@ class BuildComponentObjectThemeLayout implements BuildComponentObject
         $templateFile = Param::getRequired(
             $layoutComponentConfig,
             FieldsLayoutComponentConfig::TEMPLATE_FILE,
-            PropertyMissing::buildThrower(
-                FieldsLayoutComponentConfig::TEMPLATE_FILE,
-                $layoutComponentConfig,
-                get_class($this)
-            )
+            get_class($this)
         );
 
         $layoutModuleDirectoryReal = realpath($layoutModuleDirectory);

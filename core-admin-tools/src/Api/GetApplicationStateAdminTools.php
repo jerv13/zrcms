@@ -36,7 +36,7 @@ class GetApplicationStateAdminTools implements GetApplicationState
     ): array {
         $adminToolsAppState = [];
 
-        $adminToolsAppState['is-allowed'] = $this->isAllowedAdminTools->__invoke(
+        $adminToolsAppState['allowed'] = $this->isAllowedAdminTools->__invoke(
             $request
         );
 

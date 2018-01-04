@@ -41,21 +41,13 @@ abstract class SiteVersionAbstract extends ContentVersionAbstract
         Param::assertHas(
             $properties,
             FieldsSiteVersion::THEME_NAME,
-            PropertyMissing::buildThrower(
-                FieldsSiteVersion::THEME_NAME,
-                $properties,
-                get_class($this)
-            )
+            get_class($this)
         );
 
         Param::assertHas(
             $properties,
             FieldsSiteVersion::LOCALE,
-            PropertyMissing::buildThrower(
-                FieldsSiteVersion::LOCALE,
-                $properties,
-                get_class($this)
-            )
+            get_class($this)
         );
 
         $statusPages = Param::getArray(

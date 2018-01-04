@@ -38,21 +38,13 @@ abstract class LayoutComponentAbstract extends ComponentAbstract
         Param::assertHas(
             $properties,
             FieldsLayoutComponent::THEME_NAME,
-            PropertyMissing::buildThrower(
-                FieldsLayoutComponent::THEME_NAME,
-                $properties,
-                get_class($this)
-            )
+            get_class($this)
         );
 
         Param::assertHas(
             $properties,
             FieldsLayoutComponent::HTML,
-            PropertyMissing::buildThrower(
-                FieldsLayoutComponent::HTML,
-                $properties,
-                get_class($this)
-            )
+            get_class($this)
         );
 
         parent::__construct(

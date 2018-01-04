@@ -2,7 +2,6 @@
 
 namespace Zrcms\CoreBlock\Model;
 
-use Zrcms\Core\Exception\PropertyMissing;
 use Zrcms\Core\Model\ContentAbstract;
 use Zrcms\CoreBlock\Fields\FieldsBlock;
 use Zrcms\Param\Param;
@@ -13,8 +12,11 @@ use Zrcms\Param\Param;
 abstract class BlockAbstract extends ContentAbstract implements Block
 {
     /**
-     * @param array $properties
-     * @param null  $id
+     * @param array       $properties
+     * @param null|string $id
+     *
+     * @throws \Exception
+     * @throws \Zrcms\Param\Exception\ParamMissing
      */
     public function __construct(
         array $properties,
@@ -23,21 +25,13 @@ abstract class BlockAbstract extends ContentAbstract implements Block
         Param::assertHas(
             $properties,
             FieldsBlock::BLOCK_COMPONENT_NAME,
-            PropertyMissing::buildThrower(
-                FieldsBlock::BLOCK_COMPONENT_NAME,
-                $properties,
-                get_class($this)
-            )
+            get_class($this)
         );
 
         Param::assertHas(
             $properties,
             FieldsBlock::LAYOUT_PROPERTIES,
-            PropertyMissing::buildThrower(
-                FieldsBlock::LAYOUT_PROPERTIES,
-                $properties,
-                get_class($this)
-            )
+            get_class($this)
         );
 
         parent::__construct(
@@ -118,6 +112,8 @@ abstract class BlockAbstract extends ContentAbstract implements Block
      * @param string $name
      *
      * @return mixed
+     * @throws \Exception
+     * @throws \Zrcms\Param\Exception\ParamMissing
      */
     public function getRequiredLayoutProperty(string $name)
     {
@@ -126,11 +122,7 @@ abstract class BlockAbstract extends ContentAbstract implements Block
         return Param::getRequired(
             $layoutProperties,
             $name,
-            PropertyMissing::buildThrower(
-                $name,
-                $layoutProperties,
-                get_class($this)
-            )
+            get_class($this)
         );
     }
 }

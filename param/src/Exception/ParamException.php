@@ -10,74 +10,25 @@ class ParamException extends \Exception
     /**
      * @var array
      */
-    protected $properties = [];
-
-    /**
-     * @param string $propertyName
-     * @param array  $properties
-     * @param string $class
-     * @param array  $options
-     *
-     * @return ParamException
-     */
-    public static function build(
-        string $propertyName,
-        array $properties,
-        string $class,
-        array $options = []
-    ) {
-
-        $message = 'Required property (' . $propertyName . ') is missing '
-            . 'in: ' . $class;
-
-        return new ParamException(
-            $message,
-            $properties
-        );
-    }
-
-    /**
-     * @param string $propertyName
-     * @param array  $properties
-     * @param string $class
-     * @param array  $options
-     *
-     * @return \Closure
-     */
-    public static function buildThrower(
-        string $propertyName,
-        array $properties,
-        string $class,
-        array $options = []
-    ) {
-        $message = 'Required property (' . $propertyName . ') is missing '
-            . 'in: ' . $class;
-
-        return function () use ($message, $properties) {
-            throw new ParamException(
-                $message,
-                $properties
-            );
-        };
-    }
+    protected $params = [];
 
     /**
      * @param string          $message
-     * @param array           $properties
+     * @param array           $params
      * @param int             $code
      * @param \Exception|null $previous
      */
-    public function __construct($message = "", $properties = [], $code = 0, \Exception $previous = null)
+    public function __construct($message = "", $params = [], $code = 0, \Exception $previous = null)
     {
-        $this->properties = $properties;
+        $this->properties = $params;
         parent::__construct($message, $code, $previous);
     }
 
     /**
      * @return array
      */
-    public function getProperties()
+    public function getParams()
     {
-        return $this->properties;
+        return $this->params;
     }
 }

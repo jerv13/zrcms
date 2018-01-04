@@ -19,6 +19,8 @@ class FindRedirectCmsResource extends FindCmsResource implements CoreFind
 {
     /**
      * @param EntityManager $entityManager
+     *
+     * @throws \Zrcms\CoreApplicationDoctrine\Exception\InvalidEntityException
      */
     public function __construct(
         EntityManager $entityManager
@@ -37,7 +39,8 @@ class FindRedirectCmsResource extends FindCmsResource implements CoreFind
      * @param string $id
      * @param array  $options
      *
-     * @return RedirectCmsResource|CmsResource|null
+     * @return null|CmsResource|RedirectCmsResource
+     * @throws \Exception
      */
     public function __invoke(
         string $id,

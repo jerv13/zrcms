@@ -59,11 +59,7 @@ abstract class PageVersionAbstract extends ContentVersionAbstract
         Param::assertHas(
             $properties,
             FieldsPageVersion::TITLE,
-            PropertyMissing::buildThrower(
-                FieldsPageVersion::TITLE,
-                $properties,
-                get_class($this)
-            )
+            get_class($this)
         );
 
         $containersData = Param::getArray(

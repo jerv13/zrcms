@@ -20,6 +20,10 @@ abstract class RedirectVersionAbstract extends ContentVersionAbstract implements
      * @param string|null $createdDate
      *
      * @throws ContentVersionInvalid
+     * @throws \Exception
+     * @throws \Throwable
+     * @throws \Zrcms\Param\Exception\ParamException
+     * @throws \Zrcms\Param\Exception\ParamMissing
      */
     public function __construct(
         $id,

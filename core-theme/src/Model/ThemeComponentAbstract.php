@@ -2,7 +2,6 @@
 
 namespace Zrcms\CoreTheme\Model;
 
-use Zrcms\Core\Exception\PropertyMissing;
 use Zrcms\Core\Model\ComponentAbstract;
 use Zrcms\CoreTheme\Exception\DefaultLayoutMissing;
 use Zrcms\CoreTheme\Fields\FieldsThemeComponent;
@@ -14,14 +13,17 @@ use Zrcms\Param\Param;
 abstract class ThemeComponentAbstract extends ComponentAbstract
 {
     /**
-     * @param string $type
-     * @param string $name
-     * @param string $configUri
-     * @param string $moduleDirectory
-     * @param array  $properties
-     * @param string $createdByUserId
-     * @param string $createdReason
-     * @param null   $createdDate
+     * @param string      $type
+     * @param string      $name
+     * @param string      $configUri
+     * @param string      $moduleDirectory
+     * @param array       $properties
+     * @param string      $createdByUserId
+     * @param string      $createdReason
+     * @param null|string $createdDate
+     *
+     * @throws \Exception
+     * @throws \Zrcms\Param\Exception\ParamMissing
      */
     public function __construct(
         string $type,
@@ -36,11 +38,7 @@ abstract class ThemeComponentAbstract extends ComponentAbstract
         Param::assertHas(
             $properties,
             FieldsThemeComponent::LAYOUT_VARIATIONS,
-            PropertyMissing::buildThrower(
-                FieldsThemeComponent::LAYOUT_VARIATIONS,
-                $properties,
-                get_class($this)
-            )
+            get_class($this)
         );
 
         $layoutVariations = Param::getArray(
@@ -66,14 +64,12 @@ abstract class ThemeComponentAbstract extends ComponentAbstract
         // Must be dome after parent construct
         $this->addLayoutVariations($layoutVariations);
 
-        Param::assertHas(
-            $this->getLayoutVariations(),
-            $this->getPrimaryLayoutName(),
-            new DefaultLayoutMissing(
+        if (!Param::has($this->getLayoutVariations(), $this->getPrimaryLayoutName())) {
+            throw new DefaultLayoutMissing(
                 'Primary layout (' . $this->getPrimaryLayoutName() . ') '
                 . 'is missing for theme ' . $this->getName()
-            )
-        );
+            );
+        }
     }
 
     /**

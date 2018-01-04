@@ -15,6 +15,9 @@ abstract class SiteAbstract extends ContentAbstract
 {
     /**
      * @param array $properties
+     *
+     * @throws \Exception
+     * @throws \Zrcms\Param\Exception\ParamMissing
      */
     public function __construct(
         array $properties
@@ -22,21 +25,13 @@ abstract class SiteAbstract extends ContentAbstract
         Param::assertHas(
             $properties,
             FieldsSite::THEME_NAME,
-            PropertyMissing::buildThrower(
-                FieldsSite::THEME_NAME,
-                $properties,
-                get_class($this)
-            )
+            get_class($this)
         );
 
         Param::assertHas(
             $properties,
             FieldsSite::LOCALE,
-            PropertyMissing::buildThrower(
-                FieldsSite::LOCALE,
-                $properties,
-                get_class($this)
-            )
+            get_class($this)
         );
 
         $statusPages = Param::getArray(

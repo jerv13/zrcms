@@ -5,7 +5,7 @@ namespace Zrcms\CoreRedirect\Api\CmsResource;
 use Zrcms\CoreRedirect\Model\RedirectCmsResource;
 
 /**
- * Find published CmsResource by site and request path
+ * Find published CmsResource by siteId or null siteId (global redirect)  and request path
  *
  * @author James Jervis - https://github.com/jerv13
  */

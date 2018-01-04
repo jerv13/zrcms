@@ -1,11 +1,6 @@
 @todo
 =====
 
-##### Zrcms\ViewMetaPageData 
-
-- CONVERT SITE and PAGE to View
-- Might use application state instead of meta tag (@see Zrcms\HttpAssetsApplicationState)
-
 ##### Param - use context instead of thorwer wierdnes
 
 ##### Start client  - NOTE: Client packages will be built using NPM

@@ -32,31 +32,19 @@ abstract class BlockVersionAbstract extends ContentVersionAbstract
         Param::assertHas(
             $properties,
             FieldsBlockVersion::BLOCK_COMPONENT_NAME,
-            PropertyMissing::buildThrower(
-                FieldsBlockVersion::BLOCK_COMPONENT_NAME,
-                $properties,
-                get_class($this)
-            )
+            get_class($this)
         );
 
         Param::assertHas(
             $properties,
             FieldsBlockVersion::LAYOUT_PROPERTIES,
-            PropertyMissing::buildThrower(
-                FieldsBlockVersion::LAYOUT_PROPERTIES,
-                $properties,
-                get_class($this)
-            )
+            get_class($this)
         );
 
         Param::assertHas(
             $properties,
             FieldsBlockVersion::CONTAINER_VERSION_ID,
-            PropertyMissing::buildThrower(
-                FieldsBlockVersion::CONTAINER_VERSION_ID,
-                $properties,
-                get_class($this)
-            )
+            get_class($this)
         );
 
         parent::__construct(
@@ -140,6 +128,8 @@ abstract class BlockVersionAbstract extends ContentVersionAbstract
      * @param string $name
      *
      * @return mixed
+     * @throws \Exception
+     * @throws \Zrcms\Param\Exception\ParamMissing
      */
     public function getRequiredLayoutProperty(string $name)
     {
@@ -148,11 +138,7 @@ abstract class BlockVersionAbstract extends ContentVersionAbstract
         return Param::getRequired(
             $layoutProperties,
             $name,
-            PropertyMissing::buildThrower(
-                $name,
-                $layoutProperties,
-                get_class($this)
-            )
+            get_class($this)
         );
     }
 

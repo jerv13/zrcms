@@ -12,6 +12,9 @@ use Zrcms\Param\Exception\ParamMissing;
  */
 class Param
 {
+    /**
+     * @return bool
+     */
     protected static function isDebug(): bool
     {
         return IsDebug::invoke();
@@ -130,20 +133,19 @@ class Param
     }
 
     /**
-     * @param array           $params
-     * @param string          $key
-     * @param \Exception|null $exception
+     * @param array              $params
+     * @param string             $key
+     * @param null|string|object $context
      *
      * @return mixed
-     * @throws ParamMissing
-     * @throws \Exception
+     * @throws \Throwable
      */
     public static function getRequired(
         array $params,
         string $key,
-        $exception = null
+        $context = null
     ) {
-        self::assertHas($params, $key, $exception);
+        self::assertHas($params, $key, $context);
 
         return $params[$key];
     }
@@ -224,23 +226,22 @@ class Param
     }
 
     /**
-     * @param array  $params
-     * @param string $key
-     * @param null   $exception
+     * @param array              $params
+     * @param string             $key
+     * @param null|string|object $context
      *
      * @return mixed
-     * @throws ParamMissing
-     * @throws \Exception
+     * @throws \Throwable
      */
     public static function getAndRemoveRequired(
         array &$params,
         string $key,
-        $exception = null
+        $context = null
     ) {
         $value = self::getRequired(
             $params,
             $key,
-            $exception
+            $context
         );
 
         self::remove(
@@ -265,25 +266,22 @@ class Param
     }
 
     /**
-     * @param array  $params
-     * @param string $key
-     * @param null   $exceptionThrower
+     * @param array              $params
+     * @param string             $key
+     * @param null|string|object $context
      *
      * @return void
-     * @throws ParamException
-     * @throws ParamMissing
-     * @throws \Exception
      * @throws \Throwable
      */
     public static function assertNotEmpty(
         array $params,
         string $key,
-        $exceptionThrower = null
+        $context = null
     ) {
         self::assertHas(
             $params,
             $key,
-            $exceptionThrower
+            $context
         );
 
         $value = self::get(
@@ -294,109 +292,137 @@ class Param
 
         if (empty($value)) {
             self::throwParamException(
-                $exceptionThrower,
-                ParamMissing::class,
-                "Property ({$key}) is missing and is required and can not be empty",
-                $params
+                $params,
+                $key,
+                $context,
+                new ParamMissing("Property ({$key}) is missing and is required and can not be empty")
             );
         }
     }
 
     /**
-     * @param array                    $params
-     * @param string                   $key
-     * @param callable|\Exception|null $exceptionThrower
+     * @param array              $params
+     * @param string             $key
+     * @param null|string|object $context
      *
      * @return void
-     * @throws ParamMissing
-     * @throws \Exception
+     * @throws \Throwable
      */
     public static function assertHas(
         array $params,
         string $key,
-        $exceptionThrower = null
+        $context = null
     ) {
         if (self::has($params, $key)) {
             return;
         }
 
         self::throwParamException(
-            $exceptionThrower,
-            ParamMissing::class,
-            "Property ({$key}) is missing and is required",
-            $params
+            $params,
+            $key,
+            $context,
+            new ParamMissing("Property ({$key}) is missing and is required")
         );
     }
 
     /**
-     * @param array                        $params
-     * @param string                       $key
-     * @param callable|ParamException|null $exceptionThrower
+     * @param array              $params
+     * @param string             $key
+     * @param null|string|object $context
      *
      * @return void
+     * @throws ParamException
      * @throws \Throwable
      */
     public static function assertNotHas(
         array $params,
         string $key,
-        $exceptionThrower = null
+        $context = null
     ) {
         if (!self::has($params, $key)) {
             return;
         }
 
         self::throwParamException(
-            $exceptionThrower,
-            IllegalParam::class,
-            "Illegal property ({$key}) is was found",
-            $params
+            $params,
+            $key,
+            $context,
+            new IllegalParam("Illegal property ({$key}) is was found")
         );
     }
 
     /**
-     * @param callable|ParamException|null $exceptionThrower
-     * @param string                       $defaultParamExceptionClass ParamException ::class
-     * @param string                       $defaultMessage
-     * @param array                        $params
+     * @param array              $params
+     * @param string             $key
+     * @param null|string|object $context
+     * @param \Throwable|null    $exception
      *
      * @return void
-     * @throws ParamException|\Throwable
+     * @throws \Throwable|ParamException
      */
     public static function throwParamException(
-        $exceptionThrower,
-        $defaultParamExceptionClass = ParamException::class,
-        $defaultMessage = 'There was an error with a param',
-        $params = []
+        array $params,
+        string $key,
+        $context = null,
+        \Throwable $exception = null
     ) {
-        if (is_callable($exceptionThrower)) {
-            $exceptionThrower();
+        $message = '';
 
-            return;
+        if (!empty($exception)) {
+            $message = $exception->getMessage();
         }
 
-        if (empty($exceptionThrower)) {
-            $exceptionThrower = new $defaultParamExceptionClass($defaultMessage);
-        }
+        $message = self::buildErrorMessage(
+            $params,
+            $key,
+            $message,
+            $context
+        );
 
         if (self::isDebug()) {
-            $message = $defaultMessage;
-
-            if (is_a($exceptionThrower, \Throwable::class)) {
-                $message = $exceptionThrower->getMessage();
-            }
-
-            var_dump(
+            echo(
                 "\n<pre>\n"
-                . "DEBUG: " . $message . "\n\n"
-                . var_export($params, true)
+                . "Param Error: " . $message
+                . "\n key: {$key}"
+                . "\n params: " . json_encode($params, JSON_PRETTY_PRINT, 3)
                 . "\n</pre>\n"
             );
         }
 
-        if (is_a($exceptionThrower, \Throwable::class)) {
-            throw $exceptionThrower;
+        if (!empty($exception)) {
+            throw $exception;
         }
 
-        die($defaultMessage);
+        throw new ParamException($message);
+    }
+
+    /**
+     * @param array              $params
+     * @param string             $key
+     * @param null               $message
+     * @param null|string|object $context
+     *
+     * @return null|string
+     */
+    protected static function buildErrorMessage(
+        array $params,
+        string $key,
+        $message = null,
+        $context = null
+    ): string {
+        if (empty($message)) {
+            $message = 'There was an error with a key: (' . $key . ')'
+                . ' in params: (' . json_encode($params, 0, 3) . ')';
+        }
+
+        if (is_object($context)) {
+            $context = get_class($context);
+        }
+
+        if (empty($context)) {
+            return $message;
+        }
+
+        return $message . ' Context: ' . $context;
     }
 }

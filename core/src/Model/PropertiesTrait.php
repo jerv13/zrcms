@@ -45,7 +45,7 @@ trait PropertiesTrait
      *
      * @return mixed
      * @throws \Exception
-     * @throws PropertyMissing
+     * @throws \Zrcms\Param\Exception\ParamMissing
      */
     public function findPropertyRequired(
         string $name
@@ -55,9 +55,7 @@ trait PropertiesTrait
         return Param::getRequired(
             $this->getProperties(),
             $name,
-            new PropertyMissing(
-                "Required property ({$name}) is missing in: {$class}"
-            )
+            "Required property ({$name}) is missing in: {$class}"
         );
     }
 

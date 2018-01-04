@@ -14,7 +14,10 @@ use Zrcms\Param\Param;
 abstract class LayoutAbstract extends ContentAbstract
 {
     /**
-     * @param array  $properties
+     * @param array $properties
+     *
+     * @throws \Exception
+     * @throws \Zrcms\Param\Exception\ParamMissing
      */
     public function __construct(
         array $properties
@@ -23,11 +26,7 @@ abstract class LayoutAbstract extends ContentAbstract
         Param::assertHas(
             $properties,
             FieldsLayout::HTML,
-            PropertyMissing::buildThrower(
-                FieldsLayout::HTML,
-                $properties,
-                get_class($this)
-            )
+            get_class($this)
         );
 
         parent::__construct(

@@ -13,6 +13,8 @@ use Zrcms\CoreRedirectDoctrine\Entity\RedirectCmsResourceEntity;
 use Zrcms\CoreRedirectDoctrine\Entity\RedirectVersionEntity;
 
 /**
+ * Find published CmsResource by siteId or null siteId (global redirect)  and request path
+ *
  * @author James Jervis - https://github.com/jerv13
  */
 class FindRedirectCmsResourceBySiteRequestPath implements CoreFindBySiteRequestPath

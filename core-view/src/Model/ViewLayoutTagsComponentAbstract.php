@@ -38,11 +38,7 @@ abstract class ViewLayoutTagsComponentAbstract extends ComponentAbstract
         Param::assertHas(
             $properties,
             FieldsViewLayoutTagsComponent::RENDER_TAGS_GETTER,
-            PropertyMissing::buildThrower(
-                FieldsViewLayoutTagsComponent::RENDER_TAGS_GETTER,
-                $properties,
-                get_class($this)
-            )
+            get_class($this)
         );
 
         parent::__construct(

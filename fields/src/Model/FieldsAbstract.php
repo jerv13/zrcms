@@ -140,11 +140,7 @@ class FieldsAbstract
                 Param::assertHas(
                     $fieldValues,
                     $name,
-                    FieldMissing::buildThrower(
-                        $name,
-                        $fieldValues,
-                        get_class($this)
-                    )
+                    get_class($this)
                 );
             }
 
