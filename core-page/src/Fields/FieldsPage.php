@@ -5,6 +5,7 @@ namespace Zrcms\CorePage\Fields;
 use Zrcms\Core\Fields\FieldsContent;
 use Zrcms\CoreContainer\Fields\FieldsContainer;
 use Zrcms\CorePage\Model\Page;
+use Zrcms\CoreTheme\Fields\FieldsThemeComponent;
 use Zrcms\Fields\Model\Fields;
 
 /**
@@ -27,6 +28,8 @@ class FieldsPage extends FieldsContent implements Fields
 
     const DEFAULT_RENDER_TAGS_GETTER = 'blocks';
     const DEFAULT_RENDERER = 'rows';
+
+    const DEFAULT_PRIMARY_LAYOUT_NAME = FieldsThemeComponent::DEFAULT_PRIMARY_LAYOUT_NAME;
 
     /**
      * @var array
@@ -62,7 +65,7 @@ class FieldsPage extends FieldsContent implements Fields
                 'type' => 'text',
                 'label' => 'Layout',
                 'required' => false,
-                'default' => 'primary',
+                'default' => self::DEFAULT_PRIMARY_LAYOUT_NAME,
                 'options' => [],
             ],
             [

@@ -6,6 +6,7 @@ use Psr\Container\ContainerInterface;
 use Zrcms\CoreContainer\Api\CmsResource\UpsertContainerCmsResource;
 use Zrcms\CorePage\Api\CmsResource\UpsertPageCmsResource;
 use Zrcms\CorePage\Api\CmsResource\UpsertPageTemplateCmsResource;
+use Zrcms\CoreRedirect\Api\CmsResource\FindRedirectCmsResource;
 use Zrcms\CoreSite\Api\CmsResource\UpsertSiteCmsResource;
 use Zrcms\CoreSite\Api\CmsResource\FindSiteCmsResource;
 use Zrcms\CoreRedirect\Api\CmsResource\UpsertRedirectCmsResource;
@@ -19,9 +20,11 @@ class ImportFactory
      * @param ContainerInterface $serviceContainer
      *
      * @return Import
+     * @throws \Psr\Container\ContainerExceptionInterface
+     * @throws \Psr\Container\NotFoundExceptionInterface
      */
     public function __invoke(
-        $serviceContainer
+        ContainerInterface $serviceContainer
     ) {
         return new Import(
             $serviceContainer->get(FindSiteCmsResource::class),
@@ -29,6 +32,7 @@ class ImportFactory
             $serviceContainer->get(UpsertPageCmsResource::class),
             $serviceContainer->get(UpsertPageTemplateCmsResource::class),
             $serviceContainer->get(UpsertContainerCmsResource::class),
+            $serviceContainer->get(FindRedirectCmsResource::class),
             $serviceContainer->get(UpsertRedirectCmsResource::class)
         );
     }

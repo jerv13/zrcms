@@ -1,6 +1,15 @@
 @todo
 =====
 
+##### Rename HTTP API classes
+
+- FindCmsResource -> HttpApiFindCmsResource
+- etc...
+
+##### RCM Compatibility
+
+- For all createdReasons, add a BC note so we can better track BC stuf
+
 ##### Start client  - NOTE: Client packages will be built using NPM
 
 - zrcms-application-state

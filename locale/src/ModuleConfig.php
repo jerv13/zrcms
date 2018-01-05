@@ -3,6 +3,8 @@
 namespace Zrcms\Locale;
 
 use Zrcms\Locale\Api\DefaultLocal;
+use Zrcms\Locale\Api\LocaleFromCountryLanguage;
+use Zrcms\Locale\Api\LocaleFromCountryLanguageCoreFactory;
 use Zrcms\Locale\Api\SetLocale;
 use Zrcms\Locale\Api\SetLocaleBasicFactory;
 
@@ -19,6 +21,9 @@ class ModuleConfig
         return [
             'dependencies' => [
                 'config_factories' => [
+                    LocaleFromCountryLanguage::class => [
+                        'factory' => LocaleFromCountryLanguageCoreFactory::class,
+                    ],
                     SetLocale::class => [
                         'factory' => SetLocaleBasicFactory::class,
                     ],

@@ -12,6 +12,8 @@ class FieldsThemeComponent extends FieldsComponent
     const PRIMARY_LAYOUT_NAME = 'primaryLayoutName';
     const LAYOUT_VARIATIONS = 'layoutVariations';
 
+    const DEFAULT_PRIMARY_LAYOUT_NAME = 'primary';
+
     /**
      * @var array
      */
@@ -22,7 +24,7 @@ class FieldsThemeComponent extends FieldsComponent
                 'type' => 'text',
                 'label' => 'Primary Layout Name',
                 'required' => true,
-                'default' => 'primary',
+                'default' => self::DEFAULT_PRIMARY_LAYOUT_NAME,
                 'options' => [],
             ],
             [

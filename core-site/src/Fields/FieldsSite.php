@@ -3,6 +3,7 @@
 namespace Zrcms\CoreSite\Fields;
 
 use Zrcms\Core\Fields\FieldsContent;
+use Zrcms\CoreTheme\Fields\FieldsThemeComponent;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -40,6 +41,8 @@ class FieldsSite extends FieldsContent
     // Path to favicon: '/images/favicon.ico'
     const FAVICON = 'favicon';
 
+    const DEFAULT_PRIMARY_LAYOUT_NAME = FieldsThemeComponent::DEFAULT_PRIMARY_LAYOUT_NAME;
+
     /**
      * @var array
      */
@@ -66,7 +69,7 @@ class FieldsSite extends FieldsContent
                 'type' => 'text',
                 'label' => 'Layout',
                 'required' => false,
-                'default' => 'primary',
+                'default' => self::DEFAULT_PRIMARY_LAYOUT_NAME,
                 'options' => [],
             ],
             [

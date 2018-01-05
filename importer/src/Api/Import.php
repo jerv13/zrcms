@@ -14,6 +14,7 @@ use Zrcms\CorePage\Fields\FieldsPageVersion;
 use Zrcms\CorePage\Model\PageCmsResourceBasic;
 use Zrcms\CorePage\Model\PageTemplateCmsResourceBasic;
 use Zrcms\CorePage\Model\PageVersionBasic;
+use Zrcms\CoreRedirect\Api\CmsResource\FindRedirectCmsResource;
 use Zrcms\CoreRedirect\Api\CmsResource\UpsertRedirectCmsResource;
 use Zrcms\CoreRedirect\Model\RedirectCmsResourceBasic;
 use Zrcms\CoreRedirect\Model\RedirectVersionBasic;
@@ -33,35 +34,13 @@ class Import
     protected $defaultSleep = 0;
     protected $defaultSkipDuplicates = true;
 
-    /**
-     * @var FindSiteCmsResource
-     */
     protected $findSiteCmsResource;
-
-    /**
-     * @var UpsertSiteCmsResource
-     */
     protected $upsertSiteCmsResource;
-
-    /**
-     * @var UpsertPageCmsResource
-     */
     protected $upsertPageCmsResource;
-
-    /**
-     * @var UpsertPageTemplateCmsResource
-     */
     protected $upsertPageTemplateCmsResource;
-
-    /**
-     * @var UpsertContainerCmsResource
-     */
     protected $upsertContainerCmsResource;
-
-    /**
-     * @var UpsertRedirectCmsResource
-     */
     protected $upsertRedirectCmsResource;
+    protected $findRedirectCmsResource;
 
     /**
      * @param FindSiteCmsResource           $findSiteCmsResource
@@ -69,6 +48,7 @@ class Import
      * @param UpsertPageCmsResource         $upsertPageCmsResource
      * @param UpsertPageTemplateCmsResource $upsertPageTemplateCmsResource
      * @param UpsertContainerCmsResource    $upsertContainerCmsResource
+     * @param FindRedirectCmsResource       $findRedirectCmsResource
      * @param UpsertRedirectCmsResource     $upsertRedirectCmsResource
      */
     public function __construct(
@@ -77,6 +57,7 @@ class Import
         UpsertPageCmsResource $upsertPageCmsResource,
         UpsertPageTemplateCmsResource $upsertPageTemplateCmsResource,
         UpsertContainerCmsResource $upsertContainerCmsResource,
+        FindRedirectCmsResource $findRedirectCmsResource,
         UpsertRedirectCmsResource $upsertRedirectCmsResource
     ) {
         $this->findSiteCmsResource = $findSiteCmsResource;
@@ -84,6 +65,7 @@ class Import
         $this->upsertPageCmsResource = $upsertPageCmsResource;
         $this->upsertPageTemplateCmsResource = $upsertPageTemplateCmsResource;
         $this->upsertContainerCmsResource = $upsertContainerCmsResource;
+        $this->findRedirectCmsResource = $findRedirectCmsResource;
         $this->upsertRedirectCmsResource = $upsertRedirectCmsResource;
     }
 
@@ -127,7 +109,7 @@ class Import
 
         $this->log(
             LogLevel::INFO,
-            'Import COMPLETE in ' . time() - $startTime . 'seconds',
+            'Import COMPLETE in ' . (time() - $startTime) . ' seconds',
             $options
         );
     }
@@ -512,6 +494,22 @@ class Import
         );
 
         foreach ($redirects as $redirect) {
+
+            $existing = $this->findRedirectCmsResource->__invoke(
+                $redirect['id']
+            );
+
+            if (!empty($existing) && $this->skipDuplicates($options)) {
+                $this->log(
+                    LogLevel::WARNING,
+                    'SKIP redirect - Already exists: ('
+                    . 'redirect Id: ' . $redirect['id']
+                    . ')',
+                    $options
+                );
+                continue;
+            }
+
             $this->log(
                 LogLevel::INFO,
                 'Import Redirect: ' . $redirect['properties']['requestPath'],

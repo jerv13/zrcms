@@ -67,7 +67,7 @@ class FieldsPageVersion extends FieldsPage implements Fields
                 'type' => 'text',
                 'label' => 'Layout',
                 'required' => false,
-                'default' => 'primary',
+                'default' => self::DEFAULT_PRIMARY_LAYOUT_NAME,
                 'options' => [],
             ],
             [

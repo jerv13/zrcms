@@ -13,6 +13,8 @@ class FieldsThemeComponentConfig extends FieldsComponentConfig
 {
     const PRIMARY_LAYOUT = FieldsThemeComponent::PRIMARY_LAYOUT_NAME;
 
+    const DEFAULT_PRIMARY_LAYOUT_NAME = FieldsThemeComponent::DEFAULT_PRIMARY_LAYOUT_NAME;
+
     /**
      * @var array
      */
@@ -71,7 +73,7 @@ class FieldsThemeComponentConfig extends FieldsComponentConfig
                 'type' => 'text',
                 'label' => 'Primary Layout Name',
                 'required' => true,
-                'default' => 'primary',
+                'default' => self::DEFAULT_PRIMARY_LAYOUT_NAME,
                 'options' => [],
             ],
         ];

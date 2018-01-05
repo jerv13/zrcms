@@ -50,17 +50,37 @@ class FindComponent
      * @param ResponseInterface      $response
      * @param callable|null          $next
      *
-     * @return ResponseInterface
-     * @throws \Exception
+     * @return ZrcmsJsonResponse
      */
     public function __invoke(
         ServerRequestInterface $request,
         ResponseInterface $response,
         callable $next = null
     ) {
+        $componentType = (string)$request->getAttribute(
+            'type'
+        );
+
         $componentName = (string)$request->getAttribute(
             'name'
         );
+
+        if (empty($componentType)) {
+            $apiMessages = [
+                'type' => $this->name,
+                'value' => 'Type not received',
+                'source' => self::SOURCE,
+                'code' => ResponseCodes::ID_NOT_RECEIVED,
+                'primary' => true,
+                'params' => []
+            ];
+
+            return new ZrcmsJsonResponse(
+                null,
+                $apiMessages,
+                400
+            );
+        }
 
         if (empty($componentName)) {
             $apiMessages = [
@@ -80,6 +100,7 @@ class FindComponent
         }
 
         $component = $this->findComponent->__invoke(
+            $componentType,
             $componentName
         );
 

@@ -6,10 +6,9 @@ use ZfInputFilterService\InputFilter\ServiceAwareFactory;
 use Zrcms\Acl\Api\IsAllowedRcmUser;
 use Zrcms\Acl\Api\IsAllowedRcmUserSitesAdmin;
 use Zrcms\Core\Api\Component\ComponentToArray;
-use Zrcms\Core\Api\Component\FindComponent;
 use Zrcms\HttpApi\Acl\IsAllowedFindBasicComponent;
 use Zrcms\HttpApi\Acl\IsAllowedReadAllComponentConfigs;
-use Zrcms\HttpApi\Component\FindComponentBasic;
+use Zrcms\HttpApi\Component\FindComponent;
 use Zrcms\HttpApi\Component\ReadAllComponentConfigs;
 use Zrcms\HttpApi\Params\ParamQuery;
 use Zrcms\HttpApi\Validate\IdAttributeZfInputFilterService;
@@ -76,9 +75,9 @@ class ModuleConfig
                     /**
                      * Component ===========================================
                      */
-                    FindComponentBasic::class => [
+                    FindComponent::class => [
                         'arguments' => [
-                            FindComponent::class,
+                            \Zrcms\Core\Api\Component\FindComponent::class,
                             ComponentToArray::class,
                             ['literal' => 'basic']
                         ],

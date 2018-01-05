@@ -4,7 +4,7 @@ namespace Zrcms\HttpApi;
 
 use Zrcms\HttpApi\Acl\IsAllowedFindBasicComponent;
 use Zrcms\HttpApi\Acl\IsAllowedReadAllComponentConfigs;
-use Zrcms\HttpApi\Component\FindComponentBasic;
+use Zrcms\HttpApi\Component\FindComponent;
 use Zrcms\HttpApi\Component\ReadAllComponentConfigs;
 
 /**
@@ -31,13 +31,12 @@ class ModuleConfigRoutes
                     'allowed_methods' => ['GET'],
                 ],
 
-                //  @todo This is wrong
-                'zrcms.basic.repository.find-component.name' => [
-                    'name' => 'zrcms.basic.repository.find-component.name',
-                    'path' => '/zrcms/basic/repository/find-component/{name}',
+                'zrcms.basic.repository.find-component.type.name' => [
+                    'name' => 'zrcms.basic.repository.find-component.type.name',
+                    'path' => '/zrcms/basic/repository/find-component/{type}/{name}',
                     'middleware' => [
                         'acl' => IsAllowedFindBasicComponent::class,
-                        'api' => FindComponentBasic::class,
+                        'api' => FindComponent::class,
                     ],
                     'options' => [],
                     'allowed_methods' => ['GET'],
