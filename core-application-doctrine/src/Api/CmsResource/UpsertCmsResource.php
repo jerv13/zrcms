@@ -16,39 +16,12 @@ use Zrcms\CoreApplicationDoctrine\Entity\ContentEntity;
  */
 class UpsertCmsResource extends ApiAbstract implements \Zrcms\Core\Api\CmsResource\UpsertCmsResource
 {
-    /**
-     * @var EntityManager
-     */
     protected $entityManager;
-
-    /**
-     * @var string
-     */
     protected $entityClassCmsResource;
-
-    /**
-     * @var string
-     */
     protected $entityClassCmsResourceHistory;
-
-    /**
-     * @var string
-     */
     protected $entityClassContentVersion;
-
-    /**
-     * @var string
-     */
     protected $classCmsResourceBasic;
-
-    /**
-     * @var string
-     */
     protected $classContentVersionBasic;
-
-    /**
-     * @var array
-     */
     protected $contentVersionSyncToProperties = [];
 
     /**
@@ -59,6 +32,8 @@ class UpsertCmsResource extends ApiAbstract implements \Zrcms\Core\Api\CmsResour
      * @param string        $classCmsResourceBasic
      * @param string        $classContentVersionBasic
      * @param array         $contentVersionSyncToProperties
+     *
+     * @throws \Zrcms\CoreApplicationDoctrine\Exception\InvalidEntityException
      */
     public function __construct(
         EntityManager $entityManager,
@@ -101,6 +76,8 @@ class UpsertCmsResource extends ApiAbstract implements \Zrcms\Core\Api\CmsResour
      * @param string|null $modifiedDate
      *
      * @return CmsResource
+     * @throws \Doctrine\ORM\OptimisticLockException
+     * @throws \Exception
      */
     public function __invoke(
         CmsResource $cmsResource,
@@ -182,7 +159,7 @@ class UpsertCmsResource extends ApiAbstract implements \Zrcms\Core\Api\CmsResour
     /**
      * @param CmsResource $cmsResource
      *
-     * @return null|CmsResourceEntity
+     * @return null|object|CmsResourceEntity
      */
     protected function fetchCmsResourceEntity(
         CmsResource $cmsResource
@@ -213,6 +190,7 @@ class UpsertCmsResource extends ApiAbstract implements \Zrcms\Core\Api\CmsResour
      * @param ContentEntity $contentEntity
      *
      * @return CmsResourceEntity
+     * @throws \Zrcms\Core\Exception\TrackingInvalid
      */
     protected function newCmsResourceEntity(
         CmsResource $cmsResource,
@@ -236,7 +214,7 @@ class UpsertCmsResource extends ApiAbstract implements \Zrcms\Core\Api\CmsResour
     /**
      * @param CmsResource $cmsResource
      *
-     * @return null|ContentEntity
+     * @return null|object|ContentEntity
      */
     protected function fetchContentEntity(
         CmsResource $cmsResource
@@ -266,6 +244,7 @@ class UpsertCmsResource extends ApiAbstract implements \Zrcms\Core\Api\CmsResour
      * @param CmsResource $cmsResource
      *
      * @return ContentEntity
+     * @throws \Zrcms\Core\Exception\TrackingInvalid
      */
     protected function newContentEntity(
         CmsResource $cmsResource

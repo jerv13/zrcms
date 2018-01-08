@@ -18,6 +18,8 @@ class FindPageCmsResourcesBy extends FindCmsResourcesBy implements CoreFindBy
 {
     /**
      * @param EntityManager $entityManager
+     *
+     * @throws \Zrcms\CoreApplicationDoctrine\Exception\InvalidEntityException
      */
     public function __construct(EntityManager $entityManager)
     {

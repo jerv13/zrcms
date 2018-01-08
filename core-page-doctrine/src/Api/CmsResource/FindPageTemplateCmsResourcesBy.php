@@ -18,6 +18,8 @@ class FindPageTemplateCmsResourcesBy extends FindCmsResourcesBy implements CoreF
 {
     /**
      * @param EntityManager $entityManager
+     *
+     * @throws \Zrcms\CoreApplicationDoctrine\Exception\InvalidEntityException
      */
     public function __construct(EntityManager $entityManager)
     {

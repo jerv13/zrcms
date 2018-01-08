@@ -2,8 +2,8 @@
 
 namespace Zrcms\CoreApplicationDoctrine\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Persistence\Event\LifecycleEventArgs;
+use Doctrine\ORM\Mapping as ORM;
 use Zrcms\Core\Exception\CmsResourceInvalid;
 use Zrcms\Core\Model\ImmutableTrait;
 use Zrcms\CoreApplication\Api\GetGuidV4;
@@ -39,12 +39,15 @@ abstract class CmsResourceHistoryEntityAbstract
     protected $contentVersion;
 
     /**
-     * @param string|null $id
-     * @param string $action
+     * @param null|string       $id
+     * @param string            $action
      * @param CmsResourceEntity $cmsResourceEntity
-     * @param string $publishedByUserId
-     * @param string $publishReason
-     * @param string|null $publishDate
+     * @param string            $publishedByUserId
+     * @param string            $publishReason
+     * @param null|string       $publishDate
+     *
+     * @throws CmsResourceInvalid
+     * @throws \Zrcms\Core\Exception\TrackingInvalid
      */
     public function __construct(
         $id,
@@ -158,6 +161,7 @@ abstract class CmsResourceHistoryEntityAbstract
      * @param LifecycleEventArgs $eventArgs
      *
      * @return void
+     * @throws \Zrcms\Core\Exception\TrackingInvalid
      *
      * @ORM\PrePersist
      */

@@ -19,6 +19,7 @@ class BuildBasicCmsResources
      * @param array               $contentVersionSyncToProperties
      *
      * @return CmsResource[]
+     * @throws \Exception
      */
     public static function invoke(
         string $entityClassCmsResource,
@@ -53,6 +54,7 @@ class BuildBasicCmsResources
      * @param array               $contentVersionSyncToProperties
      *
      * @return CmsResource[]
+     * @throws \Exception
      */
     public function __invoke(
         string $entityClassCmsResource,

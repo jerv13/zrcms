@@ -6,14 +6,14 @@ use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Zend\Diactoros\Response\HtmlResponse;
 use Zend\Diactoros\Stream;
-use Zrcms\CoreView\Exception\SiteNotFound;
 use Zrcms\CoreView\Api\GetViewByRequestHtmlPage;
 use Zrcms\CoreView\Api\Render\GetViewLayoutTags;
 use Zrcms\CoreView\Api\Render\RenderView;
 use Zrcms\CoreView\Exception\PageNotFound;
+use Zrcms\CoreView\Exception\SiteNotFound;
 use Zrcms\CoreView\Model\View;
 use Zrcms\Http\Response\ZrcmsHtmlResponse;
-use Zrcms\Param\Param;
+use Zrcms\HttpViewRender\Router\LayoutThemeRouter;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -23,27 +23,27 @@ class ResponseMutatorThemeLayoutWrapper
     protected $getViewByRequestHtmlPage;
     protected $getViewLayoutTags;
     protected $renderView;
-    protected $pageLayoutConfig;
+    protected $layoutThemeRouter;
     protected $debug;
 
     /**
      * @param GetViewByRequestHtmlPage $getViewByRequestHtmlPage
      * @param GetViewLayoutTags        $getViewLayoutTags
      * @param RenderView               $renderView
-     * @param array                    $pageLayoutConfig
+     * @param LayoutThemeRouter        $layoutThemeRouter
      * @param bool                     $debug
      */
     public function __construct(
         GetViewByRequestHtmlPage $getViewByRequestHtmlPage,
         GetViewLayoutTags $getViewLayoutTags,
         RenderView $renderView,
-        array $pageLayoutConfig = [],
+        LayoutThemeRouter $layoutThemeRouter,
         bool $debug = false
     ) {
         $this->getViewByRequestHtmlPage = $getViewByRequestHtmlPage;
         $this->getViewLayoutTags = $getViewLayoutTags;
         $this->renderView = $renderView;
-        $this->pageLayoutConfig = $pageLayoutConfig;
+        $this->layoutThemeRouter = $layoutThemeRouter;
         $this->debug = $debug;
     }
 
@@ -160,10 +160,8 @@ class ResponseMutatorThemeLayoutWrapper
             return $renderLayout;
         }
 
-        return Param::getBool(
-            $this->pageLayoutConfig,
-            $request->getUri()->getPath(),
-            false
-        );
+        $routeResult = $this->layoutThemeRouter->match($request);
+
+        return $routeResult->isSuccess();
     }
 }

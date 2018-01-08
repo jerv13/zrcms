@@ -16,6 +16,9 @@ use Zrcms\HttpViewRender\Response\RenderPage;
 use Zrcms\HttpViewRender\Response\ResponseMutatorNoop;
 use Zrcms\HttpViewRender\Response\ResponseMutatorThemeLayoutWrapper;
 use Zrcms\HttpViewRender\Response\ResponseMutatorThemeLayoutWrapperFactory;
+use Zrcms\HttpViewRender\Router\LayoutThemeRouter;
+use Zrcms\HttpViewRender\Router\LayoutThemeRouterFastRoute;
+use Zrcms\HttpViewRender\Router\LayoutThemeRouterFastRouteFactory;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -96,10 +99,25 @@ class ModuleConfig
                     ResponseMutatorThemeLayoutWrapper::class => [
                         'factory' => ResponseMutatorThemeLayoutWrapperFactory::class,
                     ],
+
+                    LayoutThemeRouter::class => [
+                        'factory' => LayoutThemeRouterFastRouteFactory::class
+                    ],
                 ],
             ],
-            'zrcms-http-render-layout-for-path' => [
-                /** ['/my-path' => {bool:addLayout}] */
+
+            /**
+             * ===== ZRCMS Render Layout for Routes =====
+             */
+            'zrcms-http-render-layout-routes' => [
+                /*
+                '{name}' => [
+                    'name' => '{name}',
+                    'path' => '{path}',
+                    'options' => [],
+                    'allowed_methods' => ['GET'],
+                ],
+                 */
             ],
         ];
     }
