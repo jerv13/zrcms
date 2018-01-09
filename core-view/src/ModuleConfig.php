@@ -3,16 +3,12 @@
 namespace Zrcms\CoreView;
 
 use Zrcms\Core\Api\Component\BuildComponentObject;
-use Zrcms\Core\Api\Component\FindComponent;
 use Zrcms\Core\Api\Component\FindComponentsBy;
 use Zrcms\CoreApplication\Api\Component\BuildComponentObjectByType;
 use Zrcms\CoreContainer\Api\CmsResource\FindContainerCmsResourcesBySitePaths;
 use Zrcms\CoreContainer\Api\Render\GetContainerRenderTags;
 use Zrcms\CoreContainer\Api\Render\RenderContainer;
-use Zrcms\CorePage\Api\CmsResource\FindPageCmsResourceBySitePath;
 use Zrcms\CorePage\Api\Render\GetPageRenderTags;
-use Zrcms\CoreSite\Api\CmsResource\FindSiteCmsResourceByHost;
-use Zrcms\CoreTheme\Api\CmsResource\FindLayoutCmsResourceByThemeNameLayoutName;
 use Zrcms\CoreTheme\Api\Render\RenderLayout;
 use Zrcms\CoreView\Api\BuildView;
 use Zrcms\CoreView\Api\BuildViewCompositeFactory;
@@ -44,6 +40,8 @@ use Zrcms\CoreView\Api\Render\GetViewLayoutTagsPage;
 use Zrcms\CoreView\Api\Render\RenderView;
 use Zrcms\CoreView\Api\Render\RenderViewBasic;
 use Zrcms\CoreView\Api\Render\RenderViewLayout;
+use Zrcms\CoreView\Api\ViewToArray;
+use Zrcms\CoreView\Api\ViewToArrayBasicFactory;
 use Zrcms\CoreView\Model\ServiceAliasView;
 use Zrcms\CoreView\Model\ViewLayoutTagsComponent;
 use Zrcms\CoreView\Model\ViewLayoutTagsComponentBasic;
@@ -136,6 +134,10 @@ class ModuleConfig
                     ],
                     GetViewByRequestHtmlPage::class => [
                         'factory' => GetViewByRequestHtmlPageFactory::class,
+                    ],
+
+                    ViewToArray::class => [
+                        'factory' => ViewToArrayBasicFactory::class,
                     ],
 
                 ],

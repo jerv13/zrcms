@@ -94,7 +94,7 @@ class ZrcmsJsonResponse extends Response
     /**
      * @param $apiMessages
      *
-     * @return ZrcmsJsonResponse
+     * @return JsonResponse|ZrcmsJsonResponse
      */
     public function withApiMessages($apiMessages)
     {
@@ -140,7 +140,7 @@ class ZrcmsJsonResponse extends Response
     /**
      * @param $data
      *
-     * @return JsonResponse
+     * @return ZrcmsJsonResponse
      */
     public function withPayload($data)
     {
@@ -159,9 +159,9 @@ class ZrcmsJsonResponse extends Response
     }
 
     /**
-     * @param int $encodingOptions
+     * @param $encodingOptions
      *
-     * @return JsonResponse
+     * @return ZrcmsJsonResponse
      */
     public function withEncodingOptions($encodingOptions)
     {
@@ -225,9 +225,9 @@ class ZrcmsJsonResponse extends Response
     /**
      * Update the response body for the given instance.
      *
-     * @param ZrcmsJsonResponse $toUpdate Instance to update.
+     * @param ZrcmsJsonResponse $toUpdate
      *
-     * @return JsonResponse Returns a new instance with an updated body.
+     * @return static
      */
     private function updateBodyFor(self $toUpdate)
     {

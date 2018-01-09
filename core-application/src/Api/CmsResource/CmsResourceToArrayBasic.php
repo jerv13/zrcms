@@ -34,6 +34,7 @@ class CmsResourceToArrayBasic implements CmsResourceToArray
      * @param array       $options
      *
      * @return array
+     * @throws \Exception
      */
     public function __invoke(
         CmsResource $cmsResource,

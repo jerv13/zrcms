@@ -29,13 +29,12 @@ abstract class ViewAbstract extends ContentAbstract implements View
     /**
      * @param array $properties
      *
-     * @throws \Exception
-     * @throws \Zrcms\Param\Exception\ParamMissing
+     * @throws \Throwable
+     * @throws \Zrcms\Param\Exception\ParamException
      */
     public function __construct(
         array $properties
     ) {
-
         $this->siteCmsResource = Param::getRequired(
             $properties,
             FieldsView::SITE_CMS_RESOURCE,

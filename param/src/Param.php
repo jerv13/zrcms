@@ -138,7 +138,7 @@ class Param
      * @param null|string|object $context
      *
      * @return mixed
-     * @throws \Throwable
+     * @throws \Throwable|ParamException
      */
     public static function getRequired(
         array $params,
@@ -231,7 +231,7 @@ class Param
      * @param null|string|object $context
      *
      * @return mixed
-     * @throws \Throwable
+     * @throws \Throwable|ParamException
      */
     public static function getAndRemoveRequired(
         array &$params,
@@ -271,7 +271,7 @@ class Param
      * @param null|string|object $context
      *
      * @return void
-     * @throws \Throwable
+     * @throws \Throwable|ParamException
      */
     public static function assertNotEmpty(
         array $params,
@@ -306,7 +306,7 @@ class Param
      * @param null|string|object $context
      *
      * @return void
-     * @throws \Throwable
+     * @throws \Throwable|ParamException
      */
     public static function assertHas(
         array $params,
@@ -331,8 +331,7 @@ class Param
      * @param null|string|object $context
      *
      * @return void
-     * @throws ParamException
-     * @throws \Throwable
+     * @throws \Throwable|ParamException
      */
     public static function assertNotHas(
         array $params,
