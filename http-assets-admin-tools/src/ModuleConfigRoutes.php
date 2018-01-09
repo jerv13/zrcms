@@ -6,8 +6,8 @@ use Zrcms\HttpAssets\Api\Render\RenderLinkHrefTag;
 use Zrcms\HttpAssets\Api\Render\RenderScriptSrcTag;
 use Zrcms\HttpAssetsAdminTools\Api\Render\RenderLinkHrefTagAdminTools;
 use Zrcms\HttpAssetsAdminTools\Api\Render\RenderScriptSrcTagAdminTools;
-use Zrcms\HttpAssetsAdminTools\Middleware\AdminToolsComponentCss;
-use Zrcms\HttpAssetsAdminTools\Middleware\AdminToolsComponentJs;
+use Zrcms\HttpAssetsAdminTools\Middleware\HttpAdminToolsComponentCss;
+use Zrcms\HttpAssetsAdminTools\Middleware\HttpAdminToolsComponentJs;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -25,7 +25,7 @@ class ModuleConfigRoutes
                     'name' => 'zrcms.admin-tools.{zrcms-component-type}.css',
                     'path' => '/zrcms/admin-tools/{zrcms-component-type}.css',
                     'middleware' => [
-                        'middleware' => AdminToolsComponentCss::class,
+                        'middleware' => HttpAdminToolsComponentCss::class,
                     ],
                     'options' => [],
                     'allowed_methods' => ['GET'],
@@ -34,7 +34,7 @@ class ModuleConfigRoutes
                     'name' => 'zrcms.admin-tools.{zrcms-component-type}.js',
                     'path' => '/zrcms/admin-tools/{zrcms-component-type}.js',
                     'middleware' => [
-                        'middleware' => AdminToolsComponentJs::class,
+                        'middleware' => HttpAdminToolsComponentJs::class,
                     ],
                     'options' => [],
                     'allowed_methods' => ['GET'],

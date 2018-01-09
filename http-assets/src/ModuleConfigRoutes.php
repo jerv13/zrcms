@@ -2,8 +2,8 @@
 
 namespace Zrcms\HttpAssets;
 
-use Zrcms\HttpAssets\Middleware\ComponentCss;
-use Zrcms\HttpAssets\Middleware\ComponentJs;
+use Zrcms\HttpAssets\Middleware\HttpComponentCss;
+use Zrcms\HttpAssets\Middleware\HttpComponentJs;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -21,7 +21,7 @@ class ModuleConfigRoutes
                     'name' => 'zrcms.component.{zrcms-component-type}.css',
                     'path' => '/zrcms/component/{zrcms-component-type}.css',
                     'middleware' => [
-                        'middleware' => ComponentCss::class,
+                        'middleware' => HttpComponentCss::class,
                     ],
                     'options' => [],
                     'allowed_methods' => ['GET'],
@@ -30,7 +30,7 @@ class ModuleConfigRoutes
                     'name' => 'zrcms.component.{zrcms-component-type}.js',
                     'path' => '/zrcms/component/{zrcms-component-type}.js',
                     'middleware' => [
-                        'middleware' => ComponentJs::class,
+                        'middleware' => HttpComponentJs::class,
                     ],
                     'options' => [],
                     'allowed_methods' => ['GET'],

@@ -4,8 +4,8 @@ namespace Zrcms\PageAccess;
 
 use Zrcms\PageAccess\Api\Acl\IsAllowedPageAccess;
 use Zrcms\PageAccess\Api\Acl\IsAllowedPageAccessRcmUserRoleFactory;
-use Zrcms\PageAccess\Middleware\PageAccessByView;
-use Zrcms\PageAccess\Middleware\PageAccessByViewFactory;
+use Zrcms\PageAccess\Middleware\HttpPageAccessByView;
+use Zrcms\PageAccess\Middleware\HttpPageAccessByViewFactory;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -24,8 +24,8 @@ class ModuleConfig
                         'factory' => IsAllowedPageAccessRcmUserRoleFactory::class
                     ],
 
-                    PageAccessByView::class => [
-                        'factory' => PageAccessByViewFactory::class
+                    HttpPageAccessByView::class => [
+                        'factory' => HttpPageAccessByViewFactory::class
                     ],
                 ],
             ],

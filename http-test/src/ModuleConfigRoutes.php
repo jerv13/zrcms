@@ -3,9 +3,9 @@
 namespace Zrcms\HttpTest;
 
 use Zend\Expressive\Helper\BodyParams\BodyParamsMiddleware;
-use Zrcms\HttpTest\Acl\IsAllowedTest;
-use Zrcms\HttpTest\Middleware\ImplementationTest;
-use Zrcms\HttpTest\Middleware\ViewControllerTest;
+use Zrcms\HttpTest\Acl\IsAllowedTestIsAllowed;
+use Zrcms\HttpTest\Middleware\HttpImplementationTest;
+use Zrcms\HttpTest\Middleware\HttpViewTest;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -23,8 +23,8 @@ class ModuleConfigRoutes
                     'name' => 'zrcms.test-render',
                     'path' => '/zrcms/test-render',
                     'middleware' => [
-                        'acl' => IsAllowedTest::class,
-                        'render' => ViewControllerTest::class,
+                        'acl' => IsAllowedTestIsAllowed::class,
+                        'render' => HttpViewTest::class,
                     ],
                     'options' => [
                         'test-opt' => 'MEEE'
@@ -37,8 +37,8 @@ class ModuleConfigRoutes
                     'path' => '/zrcms/test-implementation',
                     'middleware' => [
                         'parser' => BodyParamsMiddleware::class,
-                        'acl' => IsAllowedTest::class,
-                        'api' => ImplementationTest::class,
+                        'acl' => IsAllowedTestIsAllowed::class,
+                        'api' => HttpImplementationTest::class,
                     ],
                     'options' => [],
                     'allowed_methods' => ['POST'],

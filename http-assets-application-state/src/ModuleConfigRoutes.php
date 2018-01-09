@@ -3,7 +3,7 @@
 namespace Zrcms\HttpAssetsApplicationState;
 
 use Zrcms\HttpAssetsApplicationState\Api\Render\RenderScriptTagApplicationState;
-use Zrcms\HttpAssetsApplicationState\Middleware\ApplicationState;
+use Zrcms\HttpAssetsApplicationState\Middleware\HttpApplicationState;
 
 /**
  * @author James Jervis - https://github.com/jerv13

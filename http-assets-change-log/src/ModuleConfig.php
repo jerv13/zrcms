@@ -13,8 +13,8 @@ use Zrcms\CoreRedirect\Api\ChangeLog\GetChangeLogByDateRange as RedirectGetChang
 use Zrcms\CoreSite\Api\ChangeLog\GetChangeLogByDateRange as SiteGetChangeLogByDateRange;
 use Zrcms\CoreSite\Api\CmsResource\FindSiteCmsResource;
 use Zrcms\CoreTheme\Api\ChangeLog\GetChangeLogByDateRange as ThemeGetChangeLogByDateRange;
-use Zrcms\HttpAssetsChangeLog\Middleware\ChangeLogList;
-use Zrcms\HttpAssetsChangeLog\Middleware\IsAllowedReadChangeLog;
+use Zrcms\HttpAssetsChangeLog\Middleware\HttpChangeLogList;
+use Zrcms\HttpAssetsChangeLog\Middleware\HttpIsAllowedReadChangeLogIsAllowed;
 
 class ModuleConfig
 {
@@ -53,12 +53,12 @@ class ModuleConfig
                         ],
                     ],
 
-                    ChangeLogList::class => [
+                    HttpChangeLogList::class => [
                         'arguments' => [
                             GetHumanReadableChangeLogByDateRange::class
                         ]
                     ],
-                    IsAllowedReadChangeLog::class => [
+                    HttpIsAllowedReadChangeLogIsAllowed::class => [
                         'arguments' => [
                             IsAllowedRcmUser::class,
                             [

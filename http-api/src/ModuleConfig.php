@@ -6,12 +6,12 @@ use ZfInputFilterService\InputFilter\ServiceAwareFactory;
 use Zrcms\Acl\Api\IsAllowedRcmUser;
 use Zrcms\Acl\Api\IsAllowedRcmUserSitesAdmin;
 use Zrcms\Core\Api\Component\ComponentToArray;
-use Zrcms\HttpApi\Acl\IsAllowedFindBasicComponent;
-use Zrcms\HttpApi\Acl\IsAllowedReadAllComponentConfigs;
-use Zrcms\HttpApi\Component\FindComponent;
-use Zrcms\HttpApi\Component\ReadAllComponentConfigs;
-use Zrcms\HttpApi\Params\ParamQuery;
-use Zrcms\HttpApi\Validate\IdAttributeZfInputFilterService;
+use Zrcms\HttpApi\Acl\HttpApiIsAllowedFindBasicComponentIsAllowed;
+use Zrcms\HttpApi\Acl\HttpApiIsAllowedReadAllComponentConfigsIsAllowed;
+use Zrcms\HttpApi\Component\HttpApiFindComponent;
+use Zrcms\HttpApi\Component\HttpApiReadAllComponentConfigs;
+use Zrcms\HttpApi\Params\HttpApiParamQuery;
+use Zrcms\HttpApi\Validate\HttpApiIdAttributeZfInputFilterServiceHttpApi;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -45,7 +45,7 @@ class ModuleConfig
                      * ],
                      * /* */
 
-                    IsAllowedFindBasicComponent::class => [
+                    HttpApiIsAllowedFindBasicComponentIsAllowed::class => [
                         'arguments' => [
                             IsAllowedRcmUserSitesAdmin::class,
                             ['literal' => []],
@@ -53,7 +53,7 @@ class ModuleConfig
                         ],
                     ],
 
-                    IsAllowedReadAllComponentConfigs::class => [
+                    HttpApiIsAllowedReadAllComponentConfigsIsAllowed::class => [
                         'arguments' => [
                             IsAllowedRcmUser::class,
                             [
@@ -70,12 +70,12 @@ class ModuleConfig
                      * Params ===========================================
                      */
 
-                    ParamQuery::class => [],
+                    HttpApiParamQuery::class => [],
 
                     /**
                      * Component ===========================================
                      */
-                    FindComponent::class => [
+                    HttpApiFindComponent::class => [
                         'arguments' => [
                             \Zrcms\Core\Api\Component\FindComponent::class,
                             ComponentToArray::class,
@@ -125,7 +125,7 @@ class ModuleConfig
                      * ],
                      * /* */
 
-                    IdAttributeZfInputFilterService::class => [
+                    HttpApiIdAttributeZfInputFilterServiceHttpApi::class => [
                         'arguments' => [
                             ServiceAwareFactory::class,
                             ['literal' => 'id'],
@@ -176,7 +176,7 @@ class ModuleConfig
                      * general ===========================================
                      */
 
-                    ReadAllComponentConfigs::class => [
+                    HttpApiReadAllComponentConfigs::class => [
                         'arguments' => [
                             \Zrcms\Core\Api\Component\ReadAllComponentConfigsBasic::class,
                         ],

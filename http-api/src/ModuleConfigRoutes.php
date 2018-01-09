@@ -2,10 +2,10 @@
 
 namespace Zrcms\HttpApi;
 
-use Zrcms\HttpApi\Acl\IsAllowedFindBasicComponent;
-use Zrcms\HttpApi\Acl\IsAllowedReadAllComponentConfigs;
-use Zrcms\HttpApi\Component\FindComponent;
-use Zrcms\HttpApi\Component\ReadAllComponentConfigs;
+use Zrcms\HttpApi\Acl\HttpApiIsAllowedFindBasicComponentIsAllowed;
+use Zrcms\HttpApi\Acl\HttpApiIsAllowedReadAllComponentConfigsIsAllowed;
+use Zrcms\HttpApi\Component\HttpApiFindComponent;
+use Zrcms\HttpApi\Component\HttpApiReadAllComponentConfigs;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -24,8 +24,8 @@ class ModuleConfigRoutes
                     'name' => 'zrcms.read-all-component-configs',
                     'path' => '/zrcms/read-all-component-configs',
                     'middleware' => [
-                        'acl' => IsAllowedReadAllComponentConfigs::class,
-                        'api' => ReadAllComponentConfigs::class,
+                        'acl' => HttpApiIsAllowedReadAllComponentConfigsIsAllowed::class,
+                        'api' => HttpApiReadAllComponentConfigs::class,
                     ],
                     'options' => [],
                     'allowed_methods' => ['GET'],
@@ -35,8 +35,8 @@ class ModuleConfigRoutes
                     'name' => 'zrcms.basic.repository.find-component.type.name',
                     'path' => '/zrcms/basic/repository/find-component/{type}/{name}',
                     'middleware' => [
-                        'acl' => IsAllowedFindBasicComponent::class,
-                        'api' => FindComponent::class,
+                        'acl' => HttpApiIsAllowedFindBasicComponentIsAllowed::class,
+                        'api' => HttpApiFindComponent::class,
                     ],
                     'options' => [],
                     'allowed_methods' => ['GET'],

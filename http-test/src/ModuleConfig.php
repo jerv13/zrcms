@@ -3,11 +3,11 @@
 namespace Zrcms\HttpTest;
 
 use Zrcms\Acl\Api\IsAllowedRelivServerEnvironmentNoneProduction;
-use Zrcms\HttpTest\Acl\IsAllowedTest;
-use Zrcms\HttpTest\Middleware\ImplementationTest;
-use Zrcms\HttpTest\Middleware\ImplementationTestFactory;
-use Zrcms\HttpTest\Middleware\ViewControllerTest;
-use Zrcms\HttpTest\Middleware\ViewControllerTestFactory;
+use Zrcms\HttpTest\Acl\IsAllowedTestIsAllowed;
+use Zrcms\HttpTest\Middleware\HttpImplementationTest;
+use Zrcms\HttpTest\Middleware\HttpImplementationTestFactory;
+use Zrcms\HttpTest\Middleware\HttpViewTest;
+use Zrcms\HttpTest\Middleware\HttpViewTestFactory;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -25,7 +25,7 @@ class ModuleConfig
                     /**
                      * HttpAcl ===========================================
                      */
-                    IsAllowedTest::class => [
+                    IsAllowedTestIsAllowed::class => [
                         'arguments' => [
                             IsAllowedRelivServerEnvironmentNoneProduction::class,
                             ['literal' => []]
@@ -35,12 +35,12 @@ class ModuleConfig
                     /**
                      * HttpTest ===========================================
                      */
-                    ViewControllerTest::class => [
-                        'factory' => ViewControllerTestFactory::class,
+                    HttpViewTest::class => [
+                        'factory' => HttpViewTestFactory::class,
                     ],
 
-                    ImplementationTest::class => [
-                        'factory' => ImplementationTestFactory::class,
+                    HttpImplementationTest::class => [
+                        'factory' => HttpImplementationTestFactory::class,
                     ],
                 ]
             ],

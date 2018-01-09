@@ -3,7 +3,7 @@
 namespace Zrcms\HttpApiView;
 
 use Zend\Expressive\Helper\BodyParams\BodyParamsMiddleware;
-use Zrcms\HttpApiView\Content\GetViewByRequestHttpApi;
+use Zrcms\HttpApiView\Content\HttpApiGetViewByRequest;
 use Zrcms\HttpApiView\Content\IsAllowedGetViewByRequestHttpApi;
 
 /**

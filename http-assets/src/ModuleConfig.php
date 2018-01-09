@@ -9,8 +9,8 @@ use Zrcms\HttpAssets\Api\GetCacheBreaker;
 use Zrcms\HttpAssets\Api\GetCacheBreakerPhpFile;
 use Zrcms\HttpAssets\Api\Render\RenderLinkHrefTag;
 use Zrcms\HttpAssets\Api\Render\RenderScriptSrcTag;
-use Zrcms\HttpAssets\Middleware\ComponentCss;
-use Zrcms\HttpAssets\Middleware\ComponentJs;
+use Zrcms\HttpAssets\Middleware\HttpComponentCss;
+use Zrcms\HttpAssets\Middleware\HttpComponentJs;
 use Zrcms\ViewHtmlTags\Api\Render\RenderTag;
 
 /**
@@ -48,13 +48,13 @@ class ModuleConfig
                     /**
                      * Middleware
                      */
-                    ComponentCss::class => [
+                    HttpComponentCss::class => [
                         'arguments' => [
                             FindComponentsBy::class,
                             GetComponentCss::class
                         ],
                     ],
-                    ComponentJs::class => [
+                    HttpComponentJs::class => [
                         'arguments' => [
                             FindComponentsBy::class,
                             GetComponentJs::class

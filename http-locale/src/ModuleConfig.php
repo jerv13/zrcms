@@ -3,7 +3,7 @@
 namespace Zrcms\HttpLocale;
 
 use Zrcms\CoreSite\Api\GetSiteCmsResourceByRequest;
-use Zrcms\HttpLocale\Middleware\LocaleFromSite;
+use Zrcms\HttpLocale\Middleware\HttpLocaleFromSite;
 use Zrcms\Locale\Api\SetLocale;
 
 /**
@@ -19,7 +19,7 @@ class ModuleConfig
         return [
             'dependencies' => [
                 'config_factories' => [
-                    LocaleFromSite::class => [
+                    HttpLocaleFromSite::class => [
                         'arguments' => [
                             SetLocale::class,
                             GetSiteCmsResourceByRequest::class

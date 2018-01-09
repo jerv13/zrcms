@@ -2,8 +2,8 @@
 
 namespace Zrcms\HttpAssetsChangeLog;
 
-use Zrcms\HttpAssetsChangeLog\Middleware\ChangeLogList;
-use Zrcms\HttpAssetsChangeLog\Middleware\IsAllowedReadChangeLog;
+use Zrcms\HttpAssetsChangeLog\Middleware\HttpChangeLogList;
+use Zrcms\HttpAssetsChangeLog\Middleware\HttpIsAllowedReadChangeLogIsAllowed;
 
 class ModuleConfigRoutes
 {
@@ -21,8 +21,8 @@ class ModuleConfigRoutes
                     'name' => '/zrcms/change-log',
                     'path' => '/zrcms/change-log',
                     'middleware' => [
-                        'acl' => IsAllowedReadChangeLog::class, // over-ride me
-                        'controller' => ChangeLogList::class,
+                        'acl' => HttpIsAllowedReadChangeLogIsAllowed::class, // over-ride me
+                        'controller' => HttpChangeLogList::class,
                     ],
                     'options' => [],
                     'allowed_methods' => ['GET'],

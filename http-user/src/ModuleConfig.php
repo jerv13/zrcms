@@ -2,7 +2,7 @@
 
 namespace Zrcms\HttpUser;
 
-use Zrcms\HttpUser\Middleware\ParamLogOut;
+use Zrcms\HttpUser\Middleware\HttpParamLogOut;
 use Zrcms\User\Api\LogOut;
 
 /**
@@ -18,7 +18,7 @@ class ModuleConfig
         return [
             'dependencies' => [
                 'config_factories' => [
-                    ParamLogOut::class => [
+                    HttpParamLogOut::class => [
                         'arguments' => [
                             LogOut::class,
                         ],

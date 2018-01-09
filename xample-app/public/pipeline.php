@@ -25,17 +25,17 @@ $app->pipe(
 $app->pipe(ServerUrlMiddleware::class);
 
 $app->pipe(
-    \Zrcms\HttpSiteExists\Middleware\SiteExists::class
+    \Zrcms\HttpSiteExists\Middleware\HttpSiteExists::class
 );
 
 $app->pipe(
-    \Zrcms\HttpRedirect\Middleware\ContentRedirect::class
+    \Zrcms\HttpRedirect\Middleware\HttpContentRedirect::class
 );
 $app->pipe(
-    \Zrcms\HttpLocale\Middleware\LocaleFromSite::class
+    \Zrcms\HttpLocale\Middleware\HttpLocaleFromSite::class
 );
 $app->pipe(
-    \Zrcms\HttpUser\Middleware\ParamLogOut::class
+    \Zrcms\HttpUser\Middleware\HttpParamLogOut::class
 );
 
 $app->pipeRoutingMiddleware();
@@ -54,7 +54,7 @@ $app->pipe(
 );
 
 $app->pipe(
-    \Zrcms\PageAccess\Middleware\PageAccessByView::class
+    \Zrcms\PageAccess\Middleware\HttpPageAccessByView::class
 );
 
 $app->pipe(
@@ -62,5 +62,5 @@ $app->pipe(
 );
 
 $app->pipe(
-    \Zrcms\HttpViewRender\FinalHandler\NotFoundFinal::class
+    \Zrcms\HttpViewRender\FinalHandler\HttpNotFoundFinal::class
 );

@@ -4,13 +4,13 @@ namespace Zrcms\HttpApiSite;
 
 use Zend\Expressive\Helper\BodyParams\BodyParamsMiddleware;
 use Zrcms\CoreSite\Api\CmsResource\UpsertSiteCmsResource;
-use Zrcms\HttpApi\Validate\IdAttributeZfInputFilterService;
-use Zrcms\HttpApiSite\Acl\IsAllowedFindContentVersion;
-use Zrcms\HttpApiSite\Acl\IsAllowedSiteCmsResourceFind;
-use Zrcms\HttpApiSite\Acl\IsAllowedSitePublish;
-use Zrcms\HttpApiSite\CmsResource\FindSiteCmsResource;
-use Zrcms\HttpApiSite\Content\FindSiteVersion;
-use Zrcms\HttpApiSite\Validate\UpsertSiteCmsResourceZfInputFilterService;
+use Zrcms\HttpApi\Validate\HttpApiIdAttributeZfInputFilterServiceHttpApi;
+use Zrcms\HttpApiSite\Acl\HttpApiIsAllowedFindContentVersionIsAllowed;
+use Zrcms\HttpApiSite\Acl\HttpApiIsAllowedSiteCmsResourceFindIsAllowed;
+use Zrcms\HttpApiSite\Acl\HttpApiIsAllowedSitePublishIsAllowed;
+use Zrcms\HttpApiSite\CmsResource\HttpApiFindSiteCmsResource;
+use Zrcms\HttpApiSite\Content\HttpApiFindSiteVersion;
+use Zrcms\HttpApiSite\Validate\HttpApiUpsertSiteCmsResourceZfInputFilterServiceHttpApi;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -30,8 +30,8 @@ class ModuleConfigRoutes
                     'path' => '/zrcms/site/cms-resource',
                     'middleware' => [
                         'parser' => BodyParamsMiddleware::class,
-                        'acl' => IsAllowedSitePublish::class,
-                        'validator-data' => UpsertSiteCmsResourceZfInputFilterService::class,
+                        'acl' => HttpApiIsAllowedSitePublishIsAllowed::class,
+                        'validator-data' => HttpApiUpsertSiteCmsResourceZfInputFilterServiceHttpApi::class,
                         'api' => UpsertSiteCmsResource::class,
                     ],
                     'options' => [],
@@ -43,9 +43,9 @@ class ModuleConfigRoutes
                     'name' => 'zrcms.site.repository.find-cms-resource.id',
                     'path' => '/zrcms/site/repository/find-cms-resource/{id}',
                     'middleware' => [
-                        'acl' => IsAllowedSiteCmsResourceFind::class,
-                        'validator-attributes' => IdAttributeZfInputFilterService::class,
-                        'api' => FindSiteCmsResource::class,
+                        'acl' => HttpApiIsAllowedSiteCmsResourceFindIsAllowed::class,
+                        'validator-attributes' => HttpApiIdAttributeZfInputFilterServiceHttpApi::class,
+                        'api' => HttpApiFindSiteCmsResource::class,
                     ],
                     'options' => [],
                     'allowed_methods' => ['GET'],
@@ -56,9 +56,9 @@ class ModuleConfigRoutes
                     'name' => 'zrcms.site.repository.find-content-version.id',
                     'path' => '/zrcms/site/repository/find-content-version/{id}',
                     'middleware' => [
-                        'acl' => IsAllowedFindContentVersion::class,
-                        'validator-attributes' => IdAttributeZfInputFilterService::class,
-                        'api' => FindSiteVersion::class,
+                        'acl' => HttpApiIsAllowedFindContentVersionIsAllowed::class,
+                        'validator-attributes' => HttpApiIdAttributeZfInputFilterServiceHttpApi::class,
+                        'api' => HttpApiFindSiteVersion::class,
                     ],
                     'options' => [],
                     'allowed_methods' => ['GET'],

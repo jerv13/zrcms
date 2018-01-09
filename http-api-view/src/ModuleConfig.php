@@ -2,8 +2,8 @@
 
 namespace Zrcms\HttpApiView;
 
-use Zrcms\HttpApiView\Content\GetViewByRequestHttpApi;
-use Zrcms\HttpApiView\Content\GetViewByRequestHttpApiFactory;
+use Zrcms\HttpApiView\Content\HttpApiGetViewByRequest;
+use Zrcms\HttpApiView\Content\HttpApiGetViewByRequestFactory;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -18,8 +18,8 @@ class ModuleConfig
         return [
             'dependencies' => [
                 'config_factories' => [
-                    GetViewByRequestHttpApi::class => [
-                        'factory' => GetViewByRequestHttpApiFactory::class
+                    HttpApiGetViewByRequest::class => [
+                        'factory' => HttpApiGetViewByRequestFactory::class
                     ],
                 ],
             ],

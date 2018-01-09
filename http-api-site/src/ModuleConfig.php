@@ -8,14 +8,14 @@ use Zrcms\Core\Api\CmsResource\CmsResourceToArray;
 use Zrcms\Core\Api\Content\ContentVersionToArray;
 use Zrcms\CoreSite\Model\SiteCmsResourceBasic;
 use Zrcms\CoreSite\Model\SiteVersionBasic;
-use Zrcms\HttpApiSite\Acl\IsAllowedFindContentVersion;
-use Zrcms\HttpApiSite\Acl\IsAllowedSiteCmsResourceFind;
-use Zrcms\HttpApiSite\Acl\IsAllowedSitePublish;
-use Zrcms\HttpApiSite\Acl\IsAllowedSiteUnpublish;
-use Zrcms\HttpApiSite\CmsResource\FindSiteCmsResource;
-use Zrcms\HttpApiSite\Content\FindSiteVersion;
-use Zrcms\HttpApiSite\Content\InsertSiteVersion;
-use Zrcms\HttpApiSite\Validate\UpsertSiteCmsResourceZfInputFilterService;
+use Zrcms\HttpApiSite\Acl\HttpApiIsAllowedFindContentVersionIsAllowed;
+use Zrcms\HttpApiSite\Acl\HttpApiIsAllowedSiteCmsResourceFindIsAllowed;
+use Zrcms\HttpApiSite\Acl\HttpApiIsAllowedSitePublishIsAllowed;
+use Zrcms\HttpApiSite\Acl\HttpApiIsAllowedSiteUnpublishIsAllowed;
+use Zrcms\HttpApiSite\CmsResource\HttpApiFindSiteCmsResource;
+use Zrcms\HttpApiSite\Content\HttpApiFindSiteVersion;
+use Zrcms\HttpApiSite\Content\HttpApiInsertSiteVersion;
+use Zrcms\HttpApiSite\Validate\HttpApiUpsertSiteCmsResourceZfInputFilterServiceHttpApi;
 use Zrcms\User\Api\GetUserIdByRequest;
 
 /**
@@ -34,28 +34,28 @@ class ModuleConfig
                     /**
                      * Acl ===========================================
                      */
-                    IsAllowedFindContentVersion::class => [
+                    HttpApiIsAllowedFindContentVersionIsAllowed::class => [
                         'arguments' => [
                             IsAllowedRcmUserSitesAdmin::class,
                             ['literal' => []],
                             ['literal' => 'site-repository-find-cms-resource'],
                         ],
                     ],
-                    IsAllowedSiteCmsResourceFind::class => [
+                    HttpApiIsAllowedSiteCmsResourceFindIsAllowed::class => [
                         'arguments' => [
                             IsAllowedRcmUserSitesAdmin::class,
                             ['literal' => []],
                             ['literal' => 'site-repository-find-cms-resource'],
                         ],
                     ],
-                    IsAllowedSitePublish::class => [
+                    HttpApiIsAllowedSitePublishIsAllowed::class => [
                         'arguments' => [
                             IsAllowedRcmUserSitesAdmin::class,
                             ['literal' => []],
                             ['literal' => 'site-upsert-publish-cms-resource'],
                         ],
                     ],
-                    IsAllowedSiteUnpublish::class => [
+                    HttpApiIsAllowedSiteUnpublishIsAllowed::class => [
                         'arguments' => [
                             IsAllowedRcmUserSitesAdmin::class,
                             ['literal' => []],
@@ -65,7 +65,7 @@ class ModuleConfig
                     /**
                      * Repository ===========================================
                      */
-                    FindSiteCmsResource::class => [
+                    HttpApiFindSiteCmsResource::class => [
                         'arguments' => [
                             \Zrcms\CoreSite\Api\CmsResource\FindSiteCmsResource::class,
                             CmsResourceToArray::class,
@@ -73,14 +73,14 @@ class ModuleConfig
                             ['literal' => 'site-repository-find-cms-resource'],
                         ],
                     ],
-                    FindSiteVersion::class => [
+                    HttpApiFindSiteVersion::class => [
                         'arguments' => [
                             \Zrcms\CoreSite\Api\Content\FindSiteVersion::class,
                             ContentVersionToArray::class,
                             ['literal' => 'site-repository-find-content-version'],
                         ],
                     ],
-                    InsertSiteVersion::class => [
+                    HttpApiInsertSiteVersion::class => [
                         'arguments' => [
                             \Zrcms\Core\Api\Content\InsertContentVersion::class,
                             ContentVersionToArray::class,
@@ -92,7 +92,7 @@ class ModuleConfig
                     /**
                      * Validate ===========================================
                      */
-                    UpsertSiteCmsResourceZfInputFilterService::class => [
+                    HttpApiUpsertSiteCmsResourceZfInputFilterServiceHttpApi::class => [
                         'arguments' => [
                             ServiceAwareFactory::class,
                         ],

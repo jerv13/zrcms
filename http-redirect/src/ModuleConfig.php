@@ -5,7 +5,7 @@ namespace Zrcms\HttpRedirect;
 use Zrcms\Core\Api\Component\FindComponent;
 use Zrcms\CoreSite\Api\GetSiteCmsResourceByRequest;
 use Zrcms\CoreRedirect\Api\CmsResource\FindRedirectCmsResourceBySiteRequestPath;
-use Zrcms\HttpRedirect\Middleware\ContentRedirect;
+use Zrcms\HttpRedirect\Middleware\HttpContentRedirect;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -20,7 +20,7 @@ class ModuleConfig
         return [
             'dependencies' => [
                 'config_factories' => [
-                    ContentRedirect::class => [
+                    HttpContentRedirect::class => [
                         'arguments' => [
                             GetSiteCmsResourceByRequest::class,
                             FindRedirectCmsResourceBySiteRequestPath::class,
