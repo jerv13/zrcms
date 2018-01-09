@@ -12,9 +12,6 @@ use Zrcms\Param\Param;
  */
 class ViewToArrayBasic implements ViewToArray
 {
-    const OPTION_HIDE_PROPERTIES = 'hideProperties';
-
-    protected $contentVersionToArray;
     protected $cmsResourceToArray;
 
     /**

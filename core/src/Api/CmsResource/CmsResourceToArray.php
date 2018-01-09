@@ -9,6 +9,8 @@ use Zrcms\Core\Model\CmsResource;
  */
 interface CmsResourceToArray
 {
+    const OPTION_HIDE_PROPERTIES = 'hideProperties';
+
     /**
      * @param CmsResource $cmsResource
      * @param array       $options

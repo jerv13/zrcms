@@ -2,9 +2,9 @@
 
 namespace Zrcms\HttpApiView\Content;
 
+use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Zend\Diactoros\Response\JsonResponse;
-use Zend\Stdlib\ResponseInterface;
 use Zrcms\Acl\Api\IsAllowed;
 use Zrcms\CoreView\Api\GetViewByRequest;
 use Zrcms\CoreView\Api\ViewToArray;
@@ -27,6 +27,7 @@ class GetViewByRequestHttpApi
     const CODE_PAGE = 'page';
     const CODE_THEME = 'theme';
     const CODE_LAYOUT = 'layout';
+    const NAME = 'view-get-view-by-request';
 
     protected $isAllowed;
     protected $isAllowedOptions;
@@ -34,6 +35,7 @@ class GetViewByRequestHttpApi
     protected $viewToArray;
     protected $notFoundStatus;
     protected $notAllowedStatus;
+    protected $debug;
 
     /**
      * @param IsAllowed        $isAllowed
@@ -42,6 +44,7 @@ class GetViewByRequestHttpApi
      * @param array            $isAllowedOptions
      * @param int              $notFoundStatus
      * @param int              $notAllowedStatus
+     * @param bool             $debug
      */
     public function __construct(
         IsAllowed $isAllowed,
@@ -49,7 +52,8 @@ class GetViewByRequestHttpApi
         ViewToArray $viewToArray,
         array $isAllowedOptions = [],
         int $notFoundStatus = 404,
-        int $notAllowedStatus = 401
+        int $notAllowedStatus = 401,
+        bool $debug
     ) {
         $this->isAllowed = $isAllowed;
         $this->isAllowedOptions = $isAllowedOptions;
@@ -57,6 +61,7 @@ class GetViewByRequestHttpApi
         $this->viewToArray = $viewToArray;
         $this->notFoundStatus = $notFoundStatus;
         $this->notAllowedStatus = $notAllowedStatus;
+        $this->debug = $debug;
     }
 
     /**
@@ -93,7 +98,7 @@ class GetViewByRequestHttpApi
         if (!$allowed) {
             return new ZrcmsJsonResponse(
                 null,
-                ['code' => static::CODE_ACL],
+                static::CODE_ACL,
                 $this->notAllowedStatus
             );
         }
@@ -112,31 +117,39 @@ class GetViewByRequestHttpApi
         } catch (SiteNotFound $exception) {
             return new ZrcmsJsonResponse(
                 null,
-                ['code' => static::CODE_SITE],
+                static::CODE_SITE,
                 $this->notFoundStatus
             );
         } catch (PageNotFound $exception) {
             return new ZrcmsJsonResponse(
                 null,
-                ['code' => static::CODE_PAGE],
+                static::CODE_PAGE,
                 $this->notFoundStatus
             );
         } catch (LayoutNotFound $exception) {
             return new ZrcmsJsonResponse(
                 null,
-                ['code' => static::CODE_LAYOUT],
+                static::CODE_LAYOUT,
                 $this->notFoundStatus
             );
         } catch (ThemeNotFound $exception) {
             return new ZrcmsJsonResponse(
                 null,
-                ['code' => static::CODE_THEME],
+                static::CODE_THEME,
                 $this->notFoundStatus
             );
         }
+        $encodingOptions = 0;
+
+        if ($this->debug) {
+            $encodingOptions = JSON_PRETTY_PRINT;
+        }
 
         return new JsonResponse(
-            $this->viewToArray->__invoke($view)
+            $this->viewToArray->__invoke($view),
+            200,
+            [],
+            $encodingOptions
         );
     }
 }

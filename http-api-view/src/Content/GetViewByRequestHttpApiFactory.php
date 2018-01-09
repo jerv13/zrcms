@@ -6,6 +6,7 @@ use Psr\Container\ContainerInterface;
 use Zrcms\Acl\Api\IsAllowedRcmUserSitesAdmin;
 use Zrcms\CoreView\Api\GetViewByRequest;
 use Zrcms\CoreView\Api\ViewToArray;
+use Zrcms\Debug\IsDebug;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -28,7 +29,8 @@ class GetViewByRequestHttpApiFactory
             $serviceContainer->get(ViewToArray::class),
             [],
             404,
-            401
+            401,
+            IsDebug::invoke()
         );
     }
 }

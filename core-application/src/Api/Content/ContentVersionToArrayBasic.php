@@ -13,8 +13,6 @@ use Zrcms\Param\Param;
  */
 class ContentVersionToArrayBasic implements ContentVersionToArray
 {
-    const OPTION_HIDE_PROPERTIES = 'hideProperties';
-
     /**
      * @param ContentVersion $contentVersion
      * @param array          $options

@@ -10,8 +10,8 @@ class ViewBasic extends ViewAbstract implements View
     /**
      * @param array $properties
      *
-     * @throws \Exception
-     * @throws \Zrcms\Param\Exception\ParamMissing
+     * @throws \Throwable
+     * @throws \Zrcms\Param\Exception\ParamException
      */
     public function __construct(array $properties)
     {

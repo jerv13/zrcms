@@ -14,8 +14,6 @@ use Zrcms\Param\Param;
  */
 class CmsResourceHistoryToArrayBasic implements CmsResourceHistoryToArray
 {
-    const OPTION_HIDE_PROPERTIES = 'hideProperties';
-
     /**
      * @var ContentVersionToArray
      */

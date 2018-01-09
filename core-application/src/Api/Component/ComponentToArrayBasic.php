@@ -13,8 +13,6 @@ use Zrcms\Param\Param;
  */
 class ComponentToArrayBasic implements ComponentToArray
 {
-    const OPTION_HIDE_PROPERTIES = 'hideProperties';
-
     /**
      * @param Component $component
      * @param array     $options

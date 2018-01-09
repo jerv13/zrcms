@@ -81,6 +81,7 @@ abstract class LayoutCmsResourceAbstract extends CmsResourceAbstract
     ) {
         $this->themeName = $contentVersion->getThemeName();
         $this->name = $contentVersion->getName();
+        $this->html = $contentVersion->getHtml();
 
         parent::setContentVersion(
             $contentVersion,

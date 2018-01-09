@@ -9,6 +9,8 @@ use Zrcms\Core\Model\CmsResourceHistory;
  */
 interface CmsResourceHistoryToArray
 {
+    const OPTION_HIDE_PROPERTIES = 'hideProperties';
+
     /**
      * @param CmsResourceHistory $cmsResourceHistory
      * @param array                     $options

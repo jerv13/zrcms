@@ -12,8 +12,6 @@ use Zrcms\Param\Param;
  */
 class ContentToArrayBasic implements ContentToArray
 {
-    const OPTION_HIDE_PROPERTIES = 'hideProperties';
-
     /**
      * @param Content $content
      * @param array   $options

@@ -9,6 +9,8 @@ use Zrcms\Core\Model\Content;
  */
 interface ContentToArray
 {
+    const OPTION_HIDE_PROPERTIES = 'hideProperties';
+
     /**
      * @param Content $content
      * @param array   $options

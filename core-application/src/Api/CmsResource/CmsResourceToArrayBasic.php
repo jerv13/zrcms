@@ -13,8 +13,6 @@ use Zrcms\Param\Param;
  */
 class CmsResourceToArrayBasic implements CmsResourceToArray
 {
-    const OPTION_HIDE_PROPERTIES = 'hideProperties';
-
     /**
      * @var ContentVersionToArray
      */

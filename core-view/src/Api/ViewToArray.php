@@ -9,6 +9,8 @@ use Zrcms\CoreView\Model\View;
  */
 interface ViewToArray
 {
+    const OPTION_HIDE_PROPERTIES = 'hideProperties';
+
     /**
      * @param View  $view
      * @param array $options
