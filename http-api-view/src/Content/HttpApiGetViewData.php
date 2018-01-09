@@ -5,7 +5,7 @@ namespace Zrcms\HttpApiView\Content;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Zend\Diactoros\Response\JsonResponse;
-use Zrcms\Acl\Api\IsAllowed;
+use Zend\Diactoros\Uri;
 use Zrcms\CoreView\Api\GetViewByRequest;
 use Zrcms\CoreView\Api\ViewToArray;
 use Zrcms\CoreView\Exception\LayoutNotFound;
@@ -14,53 +14,46 @@ use Zrcms\CoreView\Exception\SiteNotFound;
 use Zrcms\CoreView\Exception\ThemeNotFound;
 use Zrcms\CoreView\Model\View;
 use Zrcms\Http\Response\ZrcmsJsonResponse;
-use Zrcms\Param\Param;
 
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class HttpApiGetViewByRequest
+class HttpApiGetViewData
 {
-    const PARAM_VIEW_DATA = 'zrcms-view-data';
-    const SOURCE_ACL = 'acl';
+    const ATTRIBUTE_HOST = 'host';
+    const ATTRIBUTE_PATH = 'path';
+
+    const SOURCE_MISSING_HOST = 'missing-host';
     const SOURCE_SITE = 'site';
     const SOURCE_PAGE = 'page';
     const SOURCE_THEME = 'theme';
     const SOURCE_LAYOUT = 'layout';
-    const NAME = 'view-get-view-by-request';
+    const NAME = 'view-get-view-data';
 
-    protected $isAllowed;
-    protected $isAllowedOptions;
     protected $getViewByRequest;
     protected $viewToArray;
     protected $notFoundStatus;
-    protected $notAllowedStatus;
+    protected $badRequestStatus;
     protected $debug;
 
     /**
-     * @param IsAllowed        $isAllowed
      * @param GetViewByRequest $getViewByRequest
      * @param ViewToArray      $viewToArray
-     * @param array            $isAllowedOptions
      * @param int              $notFoundStatus
-     * @param int              $notAllowedStatus
+     * @param int              $badRequestStatus
      * @param bool             $debug
      */
     public function __construct(
-        IsAllowed $isAllowed,
         GetViewByRequest $getViewByRequest,
         ViewToArray $viewToArray,
-        array $isAllowedOptions = [],
         int $notFoundStatus = 404,
-        int $notAllowedStatus = 401,
+        int $badRequestStatus = 400,
         bool $debug
     ) {
-        $this->isAllowed = $isAllowed;
-        $this->isAllowedOptions = $isAllowedOptions;
         $this->getViewByRequest = $getViewByRequest;
         $this->viewToArray = $viewToArray;
         $this->notFoundStatus = $notFoundStatus;
-        $this->notAllowedStatus = $notAllowedStatus;
+        $this->badRequestStatus = $badRequestStatus;
         $this->debug = $debug;
     }
 
@@ -78,22 +71,8 @@ class HttpApiGetViewByRequest
         ResponseInterface $response,
         callable $next = null
     ) {
-        $queryParams = $request->getQueryParams();
-
-        $showViewData = Param::getBool(
-            $queryParams,
-            static::PARAM_VIEW_DATA,
-            false
-        );
-
-        if (!$showViewData) {
-            return $next($request, $response);
-        }
-
-        $allowed = $this->isAllowed->__invoke(
-            $request,
-            $this->isAllowedOptions
-        );
+        $host = $request->getAttribute(static::ATTRIBUTE_HOST);
+        $path = $request->getAttribute(static::ATTRIBUTE_PATH, '');
 
         $encodingOptions = 0;
 
@@ -101,12 +80,14 @@ class HttpApiGetViewByRequest
             $encodingOptions = JSON_PRETTY_PRINT;
         }
 
-        if (!$allowed) {
+        $path = '/' . $path;
+
+        if (empty($host)) {
             $apiMessages = [
                 'type' => static::NAME,
-                'value' => 'NOT ALLOWED',
-                'source' => static::SOURCE_ACL,
-                'code' => $this->notFoundStatus,
+                'value' => 'BAD REQUEST',
+                'source' => static::SOURCE_MISSING_HOST,
+                'code' => $this->badRequestStatus,
                 'primary' => true,
                 'params' => []
             ];
@@ -114,7 +95,7 @@ class HttpApiGetViewByRequest
             return new ZrcmsJsonResponse(
                 null,
                 $apiMessages,
-                $this->notAllowedStatus,
+                $this->notFoundStatus,
                 [],
                 $encodingOptions
             );
@@ -125,16 +106,25 @@ class HttpApiGetViewByRequest
             []
         );
 
+        // @todo Make a new URI
+        $uri = new Uri(
+            'https://' . $host . $path
+        );
+
+        $fakeRequest = $request->withUri(
+            $uri
+        );
+
         try {
             /** @var View $view */
             $view = $this->getViewByRequest->__invoke(
-                $request,
+                $fakeRequest,
                 $getViewOptions
             );
         } catch (SiteNotFound $exception) {
             $apiMessages = [
                 'type' => static::NAME,
-                'value' => 'NOT ALLOWED',
+                'value' => $exception->getMessage(),
                 'source' => static::SOURCE_SITE,
                 'code' => $this->notFoundStatus,
                 'primary' => true,

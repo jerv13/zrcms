@@ -2,9 +2,8 @@
 
 namespace Zrcms\HttpApiView;
 
-use Zend\Expressive\Helper\BodyParams\BodyParamsMiddleware;
-use Zrcms\HttpApiView\Content\HttpApiGetViewByRequest;
-use Zrcms\HttpApiView\Content\IsAllowedGetViewByRequestHttpApi;
+use Zrcms\HttpApiView\Acl\HttpApiIsAllowedGetViewData;
+use Zrcms\HttpApiView\Content\HttpApiGetViewData;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -18,6 +17,16 @@ class ModuleConfigRoutes
     {
         return [
             'routes' => [
+                'zrcms.view.{host}.{path:.*}' => [
+                    'name' => 'zrcms.view.{host}.{path:.*}',
+                    'path' => '/zrcms/view/{host}/{path:.*}',
+                    'middleware' => [
+                        //'acl' => HttpApiIsAllowedGetViewData::class,
+                        'api' => HttpApiGetViewData::class,
+                    ],
+                    'options' => [],
+                    'allowed_methods' => ['GET']
+                ]
             ],
         ];
     }

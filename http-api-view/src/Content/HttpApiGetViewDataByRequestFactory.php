@@ -11,19 +11,19 @@ use Zrcms\Debug\IsDebug;
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class HttpApiGetViewByRequestFactory
+class HttpApiGetViewDataByRequestFactory
 {
     /**
      * @param ContainerInterface $serviceContainer
      *
-     * @return HttpApiGetViewByRequest
+     * @return HttpApiGetViewDataByRequest
      * @throws \Psr\Container\ContainerExceptionInterface
      * @throws \Psr\Container\NotFoundExceptionInterface
      */
     public function __invoke(
         ContainerInterface $serviceContainer
     ) {
-        return new HttpApiGetViewByRequest(
+        return new HttpApiGetViewDataByRequest(
             $serviceContainer->get(IsAllowedRcmUserSitesAdmin::class),
             $serviceContainer->get(GetViewByRequest::class),
             $serviceContainer->get(ViewToArray::class),

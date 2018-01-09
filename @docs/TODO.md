@@ -1,6 +1,8 @@
 @todo
 =====
 
+##### Make route for \Zrcms\HttpAssetsApplicationState\Middleware\HttpApplicationState::class (not query param)
+
 ##### Rcm App dependencies
 
 - Add missing compatibility for page apis (CopyPage and FindPageById)

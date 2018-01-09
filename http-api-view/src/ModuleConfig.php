@@ -2,8 +2,12 @@
 
 namespace Zrcms\HttpApiView;
 
-use Zrcms\HttpApiView\Content\HttpApiGetViewByRequest;
-use Zrcms\HttpApiView\Content\HttpApiGetViewByRequestFactory;
+use Zrcms\Acl\Api\IsAllowedRcmUserSitesAdmin;
+use Zrcms\HttpApiView\Acl\HttpApiIsAllowedGetViewData;
+use Zrcms\HttpApiView\Content\HttpApiGetViewData;
+use Zrcms\HttpApiView\Content\HttpApiGetViewDataByRequest;
+use Zrcms\HttpApiView\Content\HttpApiGetViewDataByRequestFactory;
+use Zrcms\HttpApiView\Content\HttpApiGetViewDataFactory;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -18,8 +22,18 @@ class ModuleConfig
         return [
             'dependencies' => [
                 'config_factories' => [
-                    HttpApiGetViewByRequest::class => [
-                        'factory' => HttpApiGetViewByRequestFactory::class
+                    HttpApiIsAllowedGetViewData::class => [
+                        'arguments' => [
+                            IsAllowedRcmUserSitesAdmin::class,
+                            ['literal' => []],
+                            ['literal' => 'view-get-view-data'],
+                        ],
+                    ],
+                    HttpApiGetViewData::class => [
+                        'factory' => HttpApiGetViewDataFactory::class
+                    ],
+                    HttpApiGetViewDataByRequest::class => [
+                        'factory' => HttpApiGetViewDataByRequestFactory::class
                     ],
                 ],
             ],
