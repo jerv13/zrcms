@@ -14,7 +14,7 @@ class ClearZrcmsCachesBasicFactory
      *
      * @return ClearZrcmsCachesBasic
      */
-    public function __invoke($serviceContainer)
+    public function __invoke(ContainerInterface $serviceContainer)
     {
         $appConfig = $serviceContainer->get('config');
 

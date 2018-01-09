@@ -1,33 +1,35 @@
 <?php
 
-namespace Zrcms\HttpApi\Component;
+namespace Zrcms\HttpApi\CmsResource;
 
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
-use Zrcms\Core\Api\Component\ComponentToArray;
-use Zrcms\Core\Api\Component\FindComponentsBy;
+use Zrcms\Core\Api\CmsResource\CmsResourceToArray;
+use Zrcms\Core\Api\CmsResource\UpsertCmsResource;
 
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class HttpApiFindComponentsBy
+class HttpApiUpsertCmsResource
 {
-    protected $findComponentsBy;
-    protected $componentToArray;
+    const SOURCE = 'zrcms-find-cms-resources-published';
+
+    protected $upsertCmsResource;
+    protected $cmsResourceToArray;
     protected $name;
 
     /**
-     * @param FindComponentsBy $findComponentsBy
-     * @param ComponentToArray $componentToArray
-     * @param string           $name
+     * @param UpsertCmsResource  $upsertCmsResource
+     * @param CmsResourceToArray $cmsResourceToArray
+     * @param string             $name
      */
     public function __construct(
-        FindComponentsBy $findComponentsBy,
-        ComponentToArray $componentToArray,
+        UpsertCmsResource $upsertCmsResource,
+        CmsResourceToArray $cmsResourceToArray,
         string $name
     ) {
-        $this->findComponentsBy = $findComponentsBy;
-        $this->componentToArray = $componentToArray;
+        $this->upsertCmsResource = $upsertCmsResource;
+        $this->cmsResourceToArray = $cmsResourceToArray;
         $this->name = $name;
     }
 

@@ -22,11 +22,11 @@ use Zrcms\Param\Param;
 class HttpApiGetViewByRequest
 {
     const PARAM_VIEW_DATA = 'zrcms-view-data';
-    const CODE_ACL = 'acl';
-    const CODE_SITE = 'site';
-    const CODE_PAGE = 'page';
-    const CODE_THEME = 'theme';
-    const CODE_LAYOUT = 'layout';
+    const SOURCE_ACL = 'acl';
+    const SOURCE_SITE = 'site';
+    const SOURCE_PAGE = 'page';
+    const SOURCE_THEME = 'theme';
+    const SOURCE_LAYOUT = 'layout';
     const NAME = 'view-get-view-by-request';
 
     protected $isAllowed;
@@ -69,7 +69,7 @@ class HttpApiGetViewByRequest
      * @param ResponseInterface      $response
      * @param callable|null          $next
      *
-     * @return JsonResponse|ZrcmsJsonResponse
+     * @return ZrcmsJsonResponse|JsonResponse
      * @throws \Exception
      * @throws \Zrcms\CoreView\Exception\ViewDataNotFound
      */
@@ -95,11 +95,28 @@ class HttpApiGetViewByRequest
             $this->isAllowedOptions
         );
 
+        $encodingOptions = 0;
+
+        if ($this->debug) {
+            $encodingOptions = JSON_PRETTY_PRINT;
+        }
+
         if (!$allowed) {
+            $apiMessages = [
+                'type' => static::NAME,
+                'value' => 'NOT ALLOWED',
+                'source' => static::SOURCE_ACL,
+                'code' => $this->notFoundStatus,
+                'primary' => true,
+                'params' => []
+            ];
+
             return new ZrcmsJsonResponse(
                 null,
-                static::CODE_ACL,
-                $this->notAllowedStatus
+                $apiMessages,
+                $this->notAllowedStatus,
+                [],
+                $encodingOptions
             );
         }
 
@@ -115,38 +132,78 @@ class HttpApiGetViewByRequest
                 $getViewOptions
             );
         } catch (SiteNotFound $exception) {
+            $apiMessages = [
+                'type' => static::NAME,
+                'value' => 'NOT ALLOWED',
+                'source' => static::SOURCE_SITE,
+                'code' => $this->notFoundStatus,
+                'primary' => true,
+                'params' => []
+            ];
+
             return new ZrcmsJsonResponse(
                 null,
-                static::CODE_SITE,
-                $this->notFoundStatus
+                $apiMessages,
+                $this->notFoundStatus,
+                [],
+                $encodingOptions
             );
         } catch (PageNotFound $exception) {
+            $apiMessages = [
+                'type' => static::NAME,
+                'value' => $exception->getMessage(),
+                'source' => static::SOURCE_PAGE,
+                'code' => $this->notFoundStatus,
+                'primary' => true,
+                'params' => []
+            ];
+
             return new ZrcmsJsonResponse(
                 null,
-                static::CODE_PAGE,
-                $this->notFoundStatus
+                $apiMessages,
+                $this->notFoundStatus,
+                [],
+                $encodingOptions
             );
         } catch (LayoutNotFound $exception) {
+            $apiMessages = [
+                'type' => static::NAME,
+                'value' => $exception->getMessage(),
+                'source' => static::SOURCE_LAYOUT,
+                'code' => $this->notFoundStatus,
+                'primary' => true,
+                'params' => []
+            ];
+
             return new ZrcmsJsonResponse(
                 null,
-                static::CODE_LAYOUT,
-                $this->notFoundStatus
+                $apiMessages,
+                $this->notFoundStatus,
+                [],
+                $encodingOptions
             );
         } catch (ThemeNotFound $exception) {
+            $apiMessages = [
+                'type' => static::NAME,
+                'value' => $exception->getMessage(),
+                'source' => static::SOURCE_THEME,
+                'code' => $this->notFoundStatus,
+                'primary' => true,
+                'params' => []
+            ];
+
             return new ZrcmsJsonResponse(
                 null,
-                static::CODE_THEME,
-                $this->notFoundStatus
+                $apiMessages,
+                $this->notFoundStatus,
+                [],
+                $encodingOptions
             );
         }
-        $encodingOptions = 0;
 
-        if ($this->debug) {
-            $encodingOptions = JSON_PRETTY_PRINT;
-        }
-
-        return new JsonResponse(
+        return new ZrcmsJsonResponse(
             $this->viewToArray->__invoke($view),
+            null,
             200,
             [],
             $encodingOptions

@@ -4,8 +4,7 @@ namespace Zrcms\CoreApplication\Api\Content;
 
 use Zrcms\Core\Api\Content\ContentVersionToArray;
 use Zrcms\Core\Model\ContentVersion;
-use Zrcms\Core\Model\TrackableProperties;
-use Zrcms\CoreApplication\Api\ArrayFromGetters;
+use Zrcms\CoreApplication\Api\RemoveProperties;
 use Zrcms\Param\Param;
 
 /**
@@ -18,20 +17,27 @@ class ContentVersionToArrayBasic implements ContentVersionToArray
      * @param array          $options
      *
      * @return array
+     * @throws \Zrcms\Core\Exception\TrackingInvalid
      */
     public function __invoke(
         ContentVersion $contentVersion,
         array $options = []
     ): array {
-        $hideProperties = Param::getArray(
-            $options,
-            self::OPTION_HIDE_PROPERTIES,
-            []
-        );
+        $array = [];
 
-        return ArrayFromGetters::invoke(
-            $contentVersion,
-            $hideProperties
+        $array['id'] = $contentVersion->getId();
+        $array['properties'] = $contentVersion->getProperties();
+        $array['createdByUserId'] = $contentVersion->getCreatedByUserId();
+        $array['createdReason'] = $contentVersion->getCreatedReason();
+        $array['createdDate'] = $contentVersion->getCreatedDate();
+
+        return RemoveProperties::invoke(
+            $array,
+            Param::getArray(
+                $options,
+                self::OPTION_HIDE_PROPERTIES,
+                []
+            )
         );
     }
 }

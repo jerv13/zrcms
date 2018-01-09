@@ -127,7 +127,7 @@ class GetViewByRequestBasic implements GetViewByRequest
             FieldsView::SITE_CMS_RESOURCE
             => $siteCmsResource,
 
-            FieldsView::PAGE_CONTAINER_CMS_RESOURCE
+            FieldsView::PAGE_CMS_RESOURCE
             => $pageCmsResource,
 
             FieldsView::LAYOUT_CMS_RESOURCE
@@ -146,7 +146,8 @@ class GetViewByRequestBasic implements GetViewByRequest
         );
 
         $view = new ViewBasic(
-            $properties
+            $properties,
+            $siteCmsResource->getHost() . $pageCmsResource->getPath()
         );
 
         return $this->buildView->__invoke(

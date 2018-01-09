@@ -16,7 +16,7 @@ class LayoutThemeRouterFastRouteFactory
      * @throws \Psr\Container\ContainerExceptionInterface
      * @throws \Psr\Container\NotFoundExceptionInterface
      */
-    public function __invoke($serviceContainer)
+    public function __invoke(ContainerInterface $serviceContainer)
     {
         $config = $serviceContainer->get('config');
 

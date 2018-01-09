@@ -4,8 +4,7 @@ namespace Zrcms\CoreApplication\Api\Component;
 
 use Zrcms\Core\Api\Component\ComponentToArray;
 use Zrcms\Core\Model\Component;
-use Zrcms\Core\Model\TrackableProperties;
-use Zrcms\CoreApplication\Api\ArrayFromGetters;
+use Zrcms\CoreApplication\Api\RemoveProperties;
 use Zrcms\Param\Param;
 
 /**
@@ -24,15 +23,24 @@ class ComponentToArrayBasic implements ComponentToArray
         Component $component,
         array $options = []
     ): array {
-        $hideProperties = Param::getArray(
-            $options,
-            self::OPTION_HIDE_PROPERTIES,
-            []
-        );
+        $array = [];
 
-        return ArrayFromGetters::invoke(
-            $component,
-            $hideProperties
+        $array['type'] = $component->getType();
+        $array['name'] = $component->getName();
+        $array['configUri'] = $component->getConfigUri();
+        $array['moduleDirectory'] = $component->getModuleDirectory();
+        $array['properties'] = $component->getProperties();
+        $array['createdByUserId'] = $component->getCreatedByUserId();
+        $array['createdReason'] = $component->getCreatedReason();
+        $array['createdDate'] = $component->getCreatedDate();
+
+        return RemoveProperties::invoke(
+            $array,
+            Param::getArray(
+                $options,
+                self::OPTION_HIDE_PROPERTIES,
+                []
+            )
         );
     }
 }

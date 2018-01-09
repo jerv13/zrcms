@@ -13,7 +13,7 @@ use Zrcms\HttpApiSite\Content\HttpApiFindSiteVersion;
 use Zrcms\HttpApiSite\Validate\HttpApiUpsertSiteCmsResourceZfInputFilterServiceHttpApi;
 
 /**
- * @author James Jervis - https://github.com/jerv13
+ * @author James Jervis - https:/github.com/jerv13
  */
 class ModuleConfigRoutes
 {
@@ -24,7 +24,6 @@ class ModuleConfigRoutes
     {
         return [
             'routes' => [
-                // Upsert CmsResource
                 'zrcms.site.cms-resource' => [
                     'name' => 'zrcms.site.cms-resource',
                     'path' => '/zrcms/site/cms-resource',
@@ -38,10 +37,9 @@ class ModuleConfigRoutes
                     'allowed_methods' => ['PUT'],
                 ],
 
-                // Find CmsResource
-                'zrcms.site.repository.find-cms-resource.id' => [
-                    'name' => 'zrcms.site.repository.find-cms-resource.id',
-                    'path' => '/zrcms/site/repository/find-cms-resource/{id}',
+                'zrcms.site.find-cms-resource.id' => [
+                    'name' => 'zrcms.site.find-cms-resource.id',
+                    'path' => '/zrcms/site/find-cms-resource/{id}',
                     'middleware' => [
                         'acl' => HttpApiIsAllowedSiteCmsResourceFindIsAllowed::class,
                         'validator-attributes' => HttpApiIdAttributeZfInputFilterServiceHttpApi::class,
@@ -51,10 +49,9 @@ class ModuleConfigRoutes
                     'allowed_methods' => ['GET'],
                 ],
 
-                // Find ContentVersion
-                'zrcms.site.repository.find-content-version.id' => [
-                    'name' => 'zrcms.site.repository.find-content-version.id',
-                    'path' => '/zrcms/site/repository/find-content-version/{id}',
+                'zrcms.site.find-content-version.id' => [
+                    'name' => 'zrcms.site.find-content-version.id',
+                    'path' => '/zrcms/site/find-content-version/{id}',
                     'middleware' => [
                         'acl' => HttpApiIsAllowedFindContentVersionIsAllowed::class,
                         'validator-attributes' => HttpApiIdAttributeZfInputFilterServiceHttpApi::class,

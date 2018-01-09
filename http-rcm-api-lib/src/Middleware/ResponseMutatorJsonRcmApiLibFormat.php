@@ -65,8 +65,26 @@ class ResponseMutatorJsonRcmApiLibFormat
             $data,
             $response->getStatusCode(),
             $apiMessageData,
-            $response->getHeaders()
+            $response->getHeaders(),
+            $this->buildOptions([], $response)
         );
+    }
+
+    /**
+     * @param array             $options
+     * @param ResponseInterface $response
+     *
+     * @return array
+     */
+    protected function buildOptions(
+        array $options,
+        ResponseInterface $response
+    ): array {
+        if (method_exists($response, 'getEncodingOptions')) {
+            $options[NewPsrResponseWithTranslatedMessages::OPTIONS_ENCODING] = $response->getEncodingOptions();
+        }
+
+        return $options;
     }
 
     /**
@@ -76,7 +94,7 @@ class ResponseMutatorJsonRcmApiLibFormat
      */
     protected function canHandleResponse(
         ResponseInterface $response
-    ):bool {
+    ): bool {
         if (!IsValidContentType::invoke($response, $this->validContentTypes)) {
             return false;
         }

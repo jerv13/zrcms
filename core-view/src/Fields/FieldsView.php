@@ -10,8 +10,8 @@ use Zrcms\Core\Fields\FieldsContent;
 class FieldsView extends FieldsContent
 {
     const SITE_CMS_RESOURCE = 'siteCmsResource';
-    const PAGE_CONTAINER_CMS_RESOURCE = 'pageCmsResource';
-    const LAYOUT_CMS_RESOURCE = 'themeLayoutCmsResource';
+    const PAGE_CMS_RESOURCE = 'pageCmsResource';
+    const LAYOUT_CMS_RESOURCE = 'layoutCmsResource';
     const RENDERER = 'renderer';
 
     /**
@@ -28,7 +28,7 @@ class FieldsView extends FieldsContent
                 'options' => [],
             ],
             [
-                'name' => self::PAGE_CONTAINER_CMS_RESOURCE,
+                'name' => self::PAGE_CMS_RESOURCE,
                 'type' => 'object',
                 'label' => 'PageCmsResource',
                 'required' => true,

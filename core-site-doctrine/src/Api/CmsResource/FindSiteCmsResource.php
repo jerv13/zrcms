@@ -18,6 +18,8 @@ class FindSiteCmsResource extends FindCmsResource implements \Zrcms\CoreSite\Api
 {
     /**
      * @param EntityManager $entityManager
+     *
+     * @throws \Zrcms\CoreApplicationDoctrine\Exception\InvalidEntityException
      */
     public function __construct(
         EntityManager $entityManager
@@ -36,7 +38,8 @@ class FindSiteCmsResource extends FindCmsResource implements \Zrcms\CoreSite\Api
      * @param string $id
      * @param array  $options
      *
-     * @return SiteCmsResource|CmsResource|null
+     * @return null|CmsResource|SiteCmsResource
+     * @throws \Exception
      */
     public function __invoke(
         string $id,

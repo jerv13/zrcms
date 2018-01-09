@@ -5,7 +5,7 @@ namespace Zrcms\CoreApplication\Api\CmsResource;
 use Zrcms\Core\Api\CmsResource\CmsResourceToArray;
 use Zrcms\Core\Api\Content\ContentVersionToArray;
 use Zrcms\Core\Model\CmsResource;
-use Zrcms\CoreApplication\Api\ArrayFromGetters;
+use Zrcms\CoreApplication\Api\RemoveProperties;
 use Zrcms\Param\Param;
 
 /**
@@ -32,27 +32,33 @@ class CmsResourceToArrayBasic implements CmsResourceToArray
      * @param array       $options
      *
      * @return array
-     * @throws \Exception
+     * @throws \Zrcms\Core\Exception\TrackingInvalid
      */
     public function __invoke(
         CmsResource $cmsResource,
         array $options = []
     ): array {
-        $hideProperties = Param::getArray(
-            $options,
-            self::OPTION_HIDE_PROPERTIES,
-            []
+        $array = [];
+        $array['id'] = $cmsResource->getId();
+        $array['published'] = $cmsResource->isPublished();
+        $array['contentVersion'] = $this->contentVersionToArray->__invoke(
+            $cmsResource->getContentVersion(),
+            $options
         );
 
-        $array = ArrayFromGetters::invoke(
-            $cmsResource,
-            $hideProperties
-        );
+        $array['createdByUserId'] = $cmsResource->getCreatedByUserId();
 
-        $array['contentVersion'] =  $this->contentVersionToArray->__invoke(
-            $cmsResource->getContentVersion()
-        );
+        $array['createdReason'] = $cmsResource->getCreatedReason();
 
-        return $array;
+        $array['createdDate'] = $cmsResource->getCreatedDate();
+
+        return RemoveProperties::invoke(
+            $array,
+            Param::getArray(
+                $options,
+                self::OPTION_HIDE_PROPERTIES,
+                []
+            )
+        );
     }
 }

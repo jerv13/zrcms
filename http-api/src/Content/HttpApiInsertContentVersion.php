@@ -5,6 +5,7 @@ namespace Zrcms\HttpApi\Content;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Zrcms\Core\Api\Content\ContentVersionToArray;
+use Zrcms\Core\Api\Content\InsertContentVersion;
 use Zrcms\Core\Model\ContentVersion;
 use Zrcms\Http\Response\ZrcmsJsonResponse;
 use Zrcms\HttpViewRender\Model\ResponseCodes;
@@ -16,40 +17,22 @@ use Zrcms\User\Api\GetUserIdByRequest;
 class HttpApiInsertContentVersion
 {
     const SOURCE = 'zrcms-insert-content-version';
-    /**
-     * @var \Zrcms\Core\Api\Content\InsertContentVersion
-     */
+
     protected $insertContentVersion;
-
-    /**
-     * @var ContentVersionToArray
-     */
     protected $contentVersionToArray;
-
-    /**
-     * @var GetUserIdByRequest
-     */
     protected $getUserIdByRequest;
-
-    /**
-     * @var string
-     */
     protected $contentVersionClass;
-
-    /**
-     * @var string
-     */
     protected $name;
 
     /**
-     * @param \Zrcms\Core\Api\Content\InsertContentVersion $insertContentVersion
-     * @param ContentVersionToArray                              $contentVersionToArray
-     * @param GetUserIdByRequest                                 $getUserIdByRequest
-     * @param string                                             $contentVersionClass
-     * @param string                                             $name
+     * @param InsertContentVersion  $insertContentVersion
+     * @param ContentVersionToArray $contentVersionToArray
+     * @param GetUserIdByRequest    $getUserIdByRequest
+     * @param string                $contentVersionClass
+     * @param string                $name
      */
     public function __construct(
-        \Zrcms\Core\Api\Content\InsertContentVersion $insertContentVersion,
+        InsertContentVersion $insertContentVersion,
         ContentVersionToArray $contentVersionToArray,
         GetUserIdByRequest $getUserIdByRequest,
         string $contentVersionClass,

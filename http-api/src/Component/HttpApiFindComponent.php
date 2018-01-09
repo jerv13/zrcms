@@ -5,6 +5,7 @@ namespace Zrcms\HttpApi\Component;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Zrcms\Core\Api\Component\ComponentToArray;
+use Zrcms\Core\Api\Component\FindComponent;
 use Zrcms\Http\Response\ZrcmsJsonResponse;
 use Zrcms\HttpViewRender\Model\ResponseCodes;
 
@@ -15,28 +16,17 @@ class HttpApiFindComponent
 {
     const SOURCE = 'zrcms-find-component';
 
-    /**
-     * @var \Zrcms\Core\Api\Component\FindComponent
-     */
     protected $findComponent;
-
-    /**
-     * @var ComponentToArray
-     */
     protected $componentToArray;
-
-    /**
-     * @var string
-     */
     protected $name;
 
     /**
-     * @param \Zrcms\Core\Api\Component\FindComponent $findComponent
-     * @param ComponentToArray                            $componentToArray
-     * @param string                                      $name
+     * @param FindComponent    $findComponent
+     * @param ComponentToArray $componentToArray
+     * @param string           $name
      */
     public function __construct(
-        \Zrcms\Core\Api\Component\FindComponent $findComponent,
+        FindComponent $findComponent,
         ComponentToArray $componentToArray,
         string $name
     ) {

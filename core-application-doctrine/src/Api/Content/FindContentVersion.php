@@ -15,7 +15,8 @@ class FindContentVersion extends ApiAbstractContentVersion implements \Zrcms\Cor
      * @param string $id
      * @param array  $options
      *
-     * @return ContentVersion|null
+     * @return null|ContentVersion
+     * @throws \Exception
      */
     public function __invoke(
         string $id,
@@ -25,7 +26,7 @@ class FindContentVersion extends ApiAbstractContentVersion implements \Zrcms\Cor
             $this->entityClassContentVersion
         );
 
-        $entity = $repository->find((int)$id);
+        $entity = $repository->find($id);
 
         return BuildBasicContentVersion::invoke(
             $this->entityClassContentVersion,

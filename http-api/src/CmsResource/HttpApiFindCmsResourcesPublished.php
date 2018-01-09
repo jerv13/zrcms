@@ -5,30 +5,30 @@ namespace Zrcms\HttpApi\CmsResource;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Zrcms\Core\Api\CmsResource\CmsResourceToArray;
-use Zrcms\Core\Api\CmsResource\FindCmsResourcesBy;
+use Zrcms\Core\Api\CmsResource\FindCmsResourcesPublished;
 
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class HttpApiFindCmsResourcesBy
+class HttpApiFindCmsResourcesPublished
 {
-    const SOURCE = 'zrcms-find-cms-resources-by';
+    const SOURCE = 'zrcms-find-cms-resources-published';
 
-    protected $findCmsResourcesBy;
+    protected $findCmsResourcesPublished;
     protected $cmsResourceToArray;
     protected $name;
 
     /**
-     * @param FindCmsResourcesBy $findCmsResourcesBy
-     * @param CmsResourceToArray $cmsResourceToArray
-     * @param string             $name
+     * @param FindCmsResourcesPublished $findCmsResourcesPublished
+     * @param CmsResourceToArray        $cmsResourceToArray
+     * @param string                    $name
      */
     public function __construct(
-        FindCmsResourcesBy $findCmsResourcesBy,
+        FindCmsResourcesPublished $findCmsResourcesPublished,
         CmsResourceToArray $cmsResourceToArray,
         string $name
     ) {
-        $this->findCmsResourcesBy = $findCmsResourcesBy;
+        $this->findCmsResourcesPublished = $findCmsResourcesPublished;
         $this->cmsResourceToArray = $cmsResourceToArray;
         $this->name = $name;
     }

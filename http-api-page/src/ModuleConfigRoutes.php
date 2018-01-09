@@ -33,9 +33,9 @@ class ModuleConfigRoutes
                 ],
 
                 // Find CmsResource
-                'zrcms.page.repository.find-cms-resource.id' => [
-                    'name' => 'zrcms.page.repository.find-cms-resource.id',
-                    'path' => '/zrcms/page/repository/find-cms-resource/{id}',
+                'zrcms.page.find-cms-resource.id' => [
+                    'name' => 'zrcms.page.find-cms-resource.id',
+                    'path' => '/zrcms/page/find-cms-resource/{id}',
                     'middleware' => [
                         'acl' => IsAllowedPageCmsResourceFind::class,
                         'validator-attributes' => IdAttributeZfInputFilterService::class,
@@ -46,9 +46,9 @@ class ModuleConfigRoutes
                 ],
 
                 // Find ContentVersion
-                'zrcms.page.repository.find-content-version.id' => [
-                    'name' => 'zrcms.page.repository.find-content-version.id',
-                    'path' => '/zrcms/page/repository/find-content-version/{id}',
+                'zrcms.page.find-content-version.id' => [
+                    'name' => 'zrcms.page.find-content-version.id',
+                    'path' => '/zrcms/page/find-content-version/{id}',
                     'middleware' => [
                         'acl' => IsAllowedFindContentVersion::class,
                         'validator-attributes' => IdAttributeZfInputFilterService::class,

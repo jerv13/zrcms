@@ -6,6 +6,7 @@ use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Zend\Diactoros\Response\JsonResponse;
 use Zrcms\Core\Api\Content\ContentVersionToArray;
+use Zrcms\Core\Api\Content\FindContentVersion;
 use Zrcms\Http\Response\ZrcmsJsonResponse;
 use Zrcms\HttpViewRender\Model\ResponseCodes;
 
@@ -15,28 +16,18 @@ use Zrcms\HttpViewRender\Model\ResponseCodes;
 class HttpApiFindContentVersion
 {
     const SOURCE = 'zrcms-find-content-version';
-    /**
-     * @var \Zrcms\Core\Api\Content\FindContentVersion
-     */
+
     protected $findContentVersion;
-
-    /**
-     * @var ContentVersionToArray
-     */
     protected $contentVersionToArray;
-
-    /**
-     * @var string
-     */
     protected $name;
 
     /**
-     * @param \Zrcms\Core\Api\Content\FindContentVersion $findContentVersion
-     * @param ContentVersionToArray                            $contentVersionToArray
-     * @param string                                           $name
+     * @param FindContentVersion    $findContentVersion
+     * @param ContentVersionToArray $contentVersionToArray
+     * @param string                $name
      */
     public function __construct(
-        \Zrcms\Core\Api\Content\FindContentVersion $findContentVersion,
+        FindContentVersion $findContentVersion,
         ContentVersionToArray $contentVersionToArray,
         string $name
     ) {

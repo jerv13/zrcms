@@ -38,14 +38,14 @@ class ModuleConfig
                         'arguments' => [
                             IsAllowedRcmUserSitesAdmin::class,
                             ['literal' => []],
-                            ['literal' => 'site-repository-find-cms-resource'],
+                            ['literal' => 'site-find-cms-resource'],
                         ],
                     ],
                     HttpApiIsAllowedSiteCmsResourceFindIsAllowed::class => [
                         'arguments' => [
                             IsAllowedRcmUserSitesAdmin::class,
                             ['literal' => []],
-                            ['literal' => 'site-repository-find-cms-resource'],
+                            ['literal' => 'site-find-cms-resource'],
                         ],
                     ],
                     HttpApiIsAllowedSitePublishIsAllowed::class => [
@@ -70,14 +70,14 @@ class ModuleConfig
                             \Zrcms\CoreSite\Api\CmsResource\FindSiteCmsResource::class,
                             CmsResourceToArray::class,
                             ['literal' => SiteCmsResourceBasic::class],
-                            ['literal' => 'site-repository-find-cms-resource'],
+                            ['literal' => 'site-find-cms-resource'],
                         ],
                     ],
                     HttpApiFindSiteVersion::class => [
                         'arguments' => [
                             \Zrcms\CoreSite\Api\Content\FindSiteVersion::class,
                             ContentVersionToArray::class,
-                            ['literal' => 'site-repository-find-content-version'],
+                            ['literal' => 'site-find-content-version'],
                         ],
                     ],
                     HttpApiInsertSiteVersion::class => [
@@ -86,7 +86,7 @@ class ModuleConfig
                             ContentVersionToArray::class,
                             GetUserIdByRequest::class,
                             ['literal' => SiteVersionBasic::class],
-                            ['literal' => 'site-repository-insert-content-version'],
+                            ['literal' => 'site-insert-content-version'],
                         ],
                     ],
                     /**

@@ -5,6 +5,7 @@ namespace Zrcms\CoreApplication\Api\Content;
 use Zrcms\Core\Api\Content\ContentToArray;
 use Zrcms\Core\Model\Content;
 use Zrcms\CoreApplication\Api\ArrayFromGetters;
+use Zrcms\CoreApplication\Api\RemoveProperties;
 use Zrcms\Param\Param;
 
 /**
@@ -23,15 +24,18 @@ class ContentToArrayBasic implements ContentToArray
         Content $content,
         array $options = []
     ): array {
-        $hideProperties = Param::getArray(
-            $options,
-            self::OPTION_HIDE_PROPERTIES,
-            []
-        );
+        $array = [];
 
-        return ArrayFromGetters::invoke(
-            $content,
-            $hideProperties
+        $array['id'] = $content->getId();
+        $array['properties'] = $content->getProperties();
+
+        return RemoveProperties::invoke(
+            $array,
+            Param::getArray(
+                $options,
+                self::OPTION_HIDE_PROPERTIES,
+                []
+            )
         );
     }
 }

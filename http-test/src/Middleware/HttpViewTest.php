@@ -263,7 +263,7 @@ class HttpViewTest
 
         $properties = [
             FieldsView::SITE_CMS_RESOURCE => $siteCmsResource,
-            FieldsView::PAGE_CONTAINER_CMS_RESOURCE => $pageCmsResource,
+            FieldsView::PAGE_CMS_RESOURCE => $pageCmsResource,
             FieldsView::LAYOUT_CMS_RESOURCE => $layoutCmsResource,
         ];
 
@@ -277,7 +277,8 @@ class HttpViewTest
         );
 
         $pageView = new ViewBasic(
-            $properties
+            $properties,
+            $siteCmsResource->getHost() . $pageCmsResource->getPath()
         );
 
         $viewRenderTags = $this->serviceContainer->get(GetViewLayoutTags::class)->__invoke(

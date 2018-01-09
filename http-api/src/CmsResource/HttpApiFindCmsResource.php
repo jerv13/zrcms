@@ -5,6 +5,7 @@ namespace Zrcms\HttpApi\CmsResource;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Zrcms\Core\Api\CmsResource\CmsResourceToArray;
+use Zrcms\Core\Api\CmsResource\FindCmsResource;
 use Zrcms\Http\Response\ZrcmsJsonResponse;
 use Zrcms\HttpViewRender\Model\ResponseCodes;
 
@@ -15,28 +16,17 @@ class HttpApiFindCmsResource
 {
     const SOURCE = 'zrcms-find-cms-resource';
 
-    /**
-     * @var \Zrcms\Core\Api\CmsResource\FindCmsResource
-     */
     protected $findCmsResource;
-
-    /**
-     * @var CmsResourceToArray
-     */
     protected $cmsResourceToArray;
-
-    /**
-     * @var string
-     */
     protected $name;
 
     /**
-     * @param \Zrcms\Core\Api\CmsResource\FindCmsResource $findCmsResource
-     * @param CmsResourceToArray                            $cmsResourceToArray
-     * @param string                                        $name
+     * @param FindCmsResource    $findCmsResource
+     * @param CmsResourceToArray $cmsResourceToArray
+     * @param string             $name
      */
     public function __construct(
-        \Zrcms\Core\Api\CmsResource\FindCmsResource $findCmsResource,
+        FindCmsResource $findCmsResource,
         CmsResourceToArray $cmsResourceToArray,
         string $name
     ) {

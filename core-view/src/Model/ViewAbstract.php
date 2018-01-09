@@ -20,20 +20,19 @@ abstract class ViewAbstract extends ContentAbstract implements View
     use PropertiesTrait;
 
     protected $siteCmsResource;
-    protected $site;
     protected $pageCmsResource;
-    protected $page;
     protected $layoutCmsResource;
-    protected $layout;
 
     /**
      * @param array $properties
+     * @param null  $id
      *
      * @throws \Throwable
      * @throws \Zrcms\Param\Exception\ParamException
      */
     public function __construct(
-        array $properties
+        array $properties,
+        $id = null
     ) {
         $this->siteCmsResource = Param::getRequired(
             $properties,
@@ -43,7 +42,7 @@ abstract class ViewAbstract extends ContentAbstract implements View
 
         $this->pageCmsResource = Param::getRequired(
             $properties,
-            FieldsView::PAGE_CONTAINER_CMS_RESOURCE,
+            FieldsView::PAGE_CMS_RESOURCE,
             get_class($this)
         );
 
@@ -54,7 +53,8 @@ abstract class ViewAbstract extends ContentAbstract implements View
         );
 
         parent::__construct(
-            $properties
+            $properties,
+            $id
         );
     }
 

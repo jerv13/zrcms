@@ -9,7 +9,6 @@ use Zrcms\Core\Api\Component\ComponentToArray;
 use Zrcms\HttpApi\Acl\HttpApiIsAllowedFindBasicComponentIsAllowed;
 use Zrcms\HttpApi\Acl\HttpApiIsAllowedReadAllComponentConfigsIsAllowed;
 use Zrcms\HttpApi\Component\HttpApiFindComponent;
-use Zrcms\HttpApi\Component\HttpApiReadAllComponentConfigs;
 use Zrcms\HttpApi\Params\HttpApiParamQuery;
 use Zrcms\HttpApi\Validate\HttpApiIdAttributeZfInputFilterServiceHttpApi;
 
@@ -171,16 +170,6 @@ class ModuleConfig
                      * ],
                      * ],
                      * /* */
-
-                    /**
-                     * general ===========================================
-                     */
-
-                    HttpApiReadAllComponentConfigs::class => [
-                        'arguments' => [
-                            \Zrcms\Core\Api\Component\ReadAllComponentConfigsBasic::class,
-                        ],
-                    ],
                 ],
             ],
         ];

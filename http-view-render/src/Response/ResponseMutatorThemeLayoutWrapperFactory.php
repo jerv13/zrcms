@@ -21,7 +21,7 @@ class ResponseMutatorThemeLayoutWrapperFactory
      * @throws \Psr\Container\ContainerExceptionInterface
      * @throws \Psr\Container\NotFoundExceptionInterface
      */
-    public function __invoke($serviceContainer)
+    public function __invoke(ContainerInterface $serviceContainer)
     {
         return new ResponseMutatorThemeLayoutWrapper(
             $serviceContainer->get(GetViewByRequestHtmlPage::class),

@@ -3,7 +3,7 @@
 namespace Zrcms\CoreView\Api;
 
 use Zrcms\Core\Api\CmsResource\CmsResourceToArray;
-use Zrcms\CoreApplication\Api\ArrayFromGetters;
+use Zrcms\CoreView\Fields\FieldsView;
 use Zrcms\CoreView\Model\View;
 use Zrcms\Param\Param;
 
@@ -40,22 +40,25 @@ class ViewToArrayBasic implements ViewToArray
             []
         );
 
-        $array = ArrayFromGetters::invoke(
-            $view,
-            $hideProperties
-        );
+        $array = [];
 
-        $array['siteCmsResource'] = $this->cmsResourceToArray->__invoke(
+        $array['id'] = $view->getId();
+
+        $properties = $view->getProperties();
+
+        $properties[FieldsView::SITE_CMS_RESOURCE] = $this->cmsResourceToArray->__invoke(
             $view->getSiteCmsResource()
         );
 
-        $array['pageCmsResource'] = $this->cmsResourceToArray->__invoke(
+        $properties[FieldsView::PAGE_CMS_RESOURCE] = $this->cmsResourceToArray->__invoke(
             $view->getPageCmsResource()
         );
 
-        $array['layoutCmsResource'] = $this->cmsResourceToArray->__invoke(
+        $properties[FieldsView::LAYOUT_CMS_RESOURCE] = $this->cmsResourceToArray->__invoke(
             $view->getLayoutCmsResource()
         );
+
+        $array['properties'] = $properties;
 
         return $array;
     }
