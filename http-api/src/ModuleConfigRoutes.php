@@ -2,7 +2,7 @@
 
 namespace Zrcms\HttpApi;
 
-use Zrcms\HttpApi\Acl\HttpApiIsAllowedFindBasicComponentIsAllowed;
+use Zrcms\HttpApi\Acl\HttpApiIsAllowedFindComponent;
 use Zrcms\HttpApi\Component\HttpApiFindComponent;
 
 /**
@@ -21,7 +21,7 @@ class ModuleConfigRoutes
                     'name' => 'zrcms.find-component.{type}.{name}',
                     'path' => '/zrcms/find-component/{type}/{name}',
                     'middleware' => [
-                        'acl' => HttpApiIsAllowedFindBasicComponentIsAllowed::class,
+                        'acl' => HttpApiIsAllowedFindComponent::class,
                         'api' => HttpApiFindComponent::class,
                     ],
                     'options' => [],

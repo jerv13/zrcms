@@ -3,11 +3,10 @@
 namespace Zrcms\HttpApi;
 
 use ZfInputFilterService\InputFilter\ServiceAwareFactory;
-use Zrcms\Acl\Api\IsAllowedRcmUser;
 use Zrcms\Acl\Api\IsAllowedRcmUserSitesAdmin;
 use Zrcms\Core\Api\Component\ComponentToArray;
-use Zrcms\HttpApi\Acl\HttpApiIsAllowedFindBasicComponentIsAllowed;
-use Zrcms\HttpApi\Acl\HttpApiIsAllowedReadAllComponentConfigsIsAllowed;
+use Zrcms\Debug\IsDebug;
+use Zrcms\HttpApi\Acl\HttpApiIsAllowedFindComponent;
 use Zrcms\HttpApi\Component\HttpApiFindComponent;
 use Zrcms\HttpApi\Params\HttpApiParamQuery;
 use Zrcms\HttpApi\Validate\HttpApiIdAttributeZfInputFilterServiceHttpApi;
@@ -44,31 +43,19 @@ class ModuleConfig
                      * ],
                      * /* */
 
-                    HttpApiIsAllowedFindBasicComponentIsAllowed::class => [
+                    HttpApiIsAllowedFindComponent::class => [
                         'arguments' => [
                             IsAllowedRcmUserSitesAdmin::class,
                             ['literal' => []],
                             ['literal' => 'basic-repository-find-component'],
-                        ],
-                    ],
-
-                    HttpApiIsAllowedReadAllComponentConfigsIsAllowed::class => [
-                        'arguments' => [
-                            IsAllowedRcmUser::class,
-                            [
-                                'literal' => [
-                                    IsAllowedRcmUser::OPTION_RESOURCE_ID => 'admin',
-                                    IsAllowedRcmUser::OPTION_PRIVILEGE => 'read'
-                                ]
-                            ],
-                            ['literal' => 'get-register-components']
+                            ['literal' => 401],
+                            ['literal' => IsDebug::invoke()],
                         ],
                     ],
 
                     /**
                      * Params ===========================================
                      */
-
                     HttpApiParamQuery::class => [],
 
                     /**

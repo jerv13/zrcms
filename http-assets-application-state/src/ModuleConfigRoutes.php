@@ -2,6 +2,7 @@
 
 namespace Zrcms\HttpAssetsApplicationState;
 
+use Zrcms\HttpAssetsApplicationState\Acl\HttpApiIsAllowedApplicationState;
 use Zrcms\HttpAssetsApplicationState\Api\Render\RenderScriptTagApplicationState;
 use Zrcms\HttpAssetsApplicationState\Middleware\HttpApplicationState;
 
@@ -21,7 +22,7 @@ class ModuleConfigRoutes
                     'name' => 'zrcms.application-state.{host}.{path:.*}',
                     'path' => '/zrcms/application-state/{host}/{path:.*}',
                     'middleware' => [
-                        //'acl' => HttpApiIsAllowedGetViewData::class,
+                        'acl' => HttpApiIsAllowedApplicationState::class,
                         'api' => HttpApplicationState::class,
                     ],
                     'options' => [],

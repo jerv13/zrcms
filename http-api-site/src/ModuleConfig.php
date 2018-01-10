@@ -8,6 +8,7 @@ use Zrcms\Core\Api\CmsResource\CmsResourceToArray;
 use Zrcms\Core\Api\Content\ContentVersionToArray;
 use Zrcms\CoreSite\Model\SiteCmsResourceBasic;
 use Zrcms\CoreSite\Model\SiteVersionBasic;
+use Zrcms\Debug\IsDebug;
 use Zrcms\HttpApiSite\Acl\HttpApiIsAllowedFindContentVersionIsAllowed;
 use Zrcms\HttpApiSite\Acl\HttpApiIsAllowedSiteCmsResourceFindIsAllowed;
 use Zrcms\HttpApiSite\Acl\HttpApiIsAllowedSitePublishIsAllowed;
@@ -39,6 +40,8 @@ class ModuleConfig
                             IsAllowedRcmUserSitesAdmin::class,
                             ['literal' => []],
                             ['literal' => 'site-find-cms-resource'],
+                            ['literal' => 401],
+                            ['literal' => IsDebug::invoke()]
                         ],
                     ],
                     HttpApiIsAllowedSiteCmsResourceFindIsAllowed::class => [
@@ -46,6 +49,8 @@ class ModuleConfig
                             IsAllowedRcmUserSitesAdmin::class,
                             ['literal' => []],
                             ['literal' => 'site-find-cms-resource'],
+                            ['literal' => 401],
+                            ['literal' => IsDebug::invoke()]
                         ],
                     ],
                     HttpApiIsAllowedSitePublishIsAllowed::class => [
@@ -53,6 +58,8 @@ class ModuleConfig
                             IsAllowedRcmUserSitesAdmin::class,
                             ['literal' => []],
                             ['literal' => 'site-upsert-publish-cms-resource'],
+                            ['literal' => 401],
+                            ['literal' => IsDebug::invoke()]
                         ],
                     ],
                     HttpApiIsAllowedSiteUnpublishIsAllowed::class => [
@@ -60,6 +67,8 @@ class ModuleConfig
                             IsAllowedRcmUserSitesAdmin::class,
                             ['literal' => []],
                             ['literal' => 'site-upsert-unpublish-cms-resource'],
+                            ['literal' => 401],
+                            ['literal' => IsDebug::invoke()]
                         ],
                     ],
                     /**

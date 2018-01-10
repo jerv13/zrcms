@@ -15,34 +15,31 @@ class HttpApiIsAllowed
 {
     const SOURCE = 'zrcms-is-allowed-check-api';
 
-    /**
-     * @var IsAllowed
-     */
     protected $isAllowed;
-
-    /**
-     * @var string
-     */
     protected $isAllowedOptions;
-
-    /**
-     * @var string
-     */
     protected $name;
+    protected $notAllowedStatus;
+    protected $debug;
 
     /**
      * @param IsAllowed $isAllowed
      * @param array     $isAllowedOptions
      * @param string    $name
+     * @param int       $notAllowedStatus
+     * @param bool      $debug
      */
     public function __construct(
         IsAllowed $isAllowed,
         array $isAllowedOptions,
-        string $name
+        string $name,
+        int $notAllowedStatus = 401,
+        bool $debug = false
     ) {
         $this->isAllowed = $isAllowed;
         $this->isAllowedOptions = $isAllowedOptions;
         $this->name = $name;
+        $this->notAllowedStatus = $notAllowedStatus;
+        $this->debug = $debug;
     }
 
     /**
@@ -59,6 +56,12 @@ class HttpApiIsAllowed
         callable $next = null
     ) {
         if (!$this->isAllowed->__invoke($request, $this->isAllowedOptions)) {
+            $encodingOptions = 0;
+
+            if ($this->debug) {
+                $encodingOptions = JSON_PRETTY_PRINT;
+            }
+
             $apiMessages = [
                 'type' => $this->name,
                 'value' => 'Not allowed',
@@ -68,10 +71,13 @@ class HttpApiIsAllowed
                 'params' => []
 
             ];
+
             return new ZrcmsJsonResponse(
-                [],
+                null,
                 $apiMessages,
-                401
+                $this->notAllowedStatus,
+                [],
+                $encodingOptions
             );
         }
 

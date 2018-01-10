@@ -3,6 +3,7 @@
 namespace Zrcms\HttpApiView;
 
 use Zrcms\Acl\Api\IsAllowedRcmUserSitesAdmin;
+use Zrcms\Debug\IsDebug;
 use Zrcms\HttpApiView\Acl\HttpApiIsAllowedGetViewData;
 use Zrcms\HttpApiView\Content\HttpApiGetViewData;
 use Zrcms\HttpApiView\Content\HttpApiGetViewDataByRequest;
@@ -27,6 +28,8 @@ class ModuleConfig
                             IsAllowedRcmUserSitesAdmin::class,
                             ['literal' => []],
                             ['literal' => 'view-get-view-data'],
+                            ['literal' => 401],
+                            ['literal' => IsDebug::invoke()]
                         ],
                     ],
                     HttpApiGetViewData::class => [
