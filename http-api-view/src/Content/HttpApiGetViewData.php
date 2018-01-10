@@ -106,7 +106,6 @@ class HttpApiGetViewData
             []
         );
 
-        // @todo Make a new URI
         $uri = new Uri(
             'https://' . $host . $path
         );

@@ -5,6 +5,8 @@ namespace Zrcms\HttpAssetsApplicationState;
 use Zrcms\HttpAssetsApplicationState\Api\Render\RenderScriptTagApplicationState;
 use Zrcms\HttpAssetsApplicationState\Api\Render\RenderScriptTagApplicationStateFactory;
 use Zrcms\HttpAssetsApplicationState\Middleware\HttpApplicationState;
+use Zrcms\HttpAssetsApplicationState\Middleware\HttpApplicationStateByRequest;
+use Zrcms\HttpAssetsApplicationState\Middleware\HttpApplicationStateByRequestFactory;
 use Zrcms\HttpAssetsApplicationState\Middleware\HttpApplicationStateFactory;
 
 /**
@@ -25,6 +27,9 @@ class ModuleConfig
                     ],
                     HttpApplicationState::class => [
                         'factory' => HttpApplicationStateFactory::class,
+                    ],
+                    HttpApplicationStateByRequest::class => [
+                        'factory' => HttpApplicationStateByRequestFactory::class,
                     ],
                 ],
             ],
