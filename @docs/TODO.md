@@ -7,9 +7,7 @@
 
 - Add missing compatibility for page apis (CopyPage and FindPageById)
 
-- /www/web/module/App/src/Model/ProductModel.php (2040)
-- /www/web/module/App/src/Scripts/FixProductPageRows.php LOTS
-- /www/web/module/App/src/Controller/AddProductOptionsController.php (164, 180, 291, 337, 363, 401, 433)
+
 
 ##### Rename HTTP API classes
 
