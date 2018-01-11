@@ -1,18 +1,9 @@
 @todo
 =====
 
-##### Make route for \Zrcms\HttpAssetsApplicationState\Middleware\HttpApplicationState::class (not query param)
+##### HTTP APIs for each php API
 
-##### Rcm App dependencies
-
-- Add missing compatibility for page apis (CopyPage and FindPageById)
-
-
-
-##### Rename HTTP API classes
-
-- FindCmsResource -> HttpApiFindCmsResource
-- etc...
+- http-api module should be able to support all common APIs that have interfaces
 
 ##### RCM Compatibility
 
@@ -24,15 +15,11 @@
     -x expose some state values to the client
     - redux compatible
     - fetchZrcmsState action
-    - 
+    - refreshZrcmsState action
 - zrcms-admin
     - zrcms-admin-menu
     - zrcms-{others}
 - zrcms-fields
-
-##### HTTP APIs for each php API
-
-- core stuff
 
 ##### Block data providers service aliases 
 
