@@ -17,9 +17,21 @@ class ModuleConfigRoutes
     {
         return [
             'routes' => [
-                'zrcms.find-component.{type}.{name}' => [
-                    'name' => 'zrcms.find-component.{type}.{name}',
-                    'path' => '/zrcms/find-component/{type}/{name}',
+
+                'zrcms.api.{zrcms-name}.{id}' => [
+                    'name' => 'zrcms.api.{zrcms-name}.{id}',
+                    'path' => '/zrcms/api/{zrcms-name}/{id}',
+                    'middleware' => [
+                        'acl' => HttpApiIsAllowedFindComponent::class,
+                        'api' => HttpApiFindComponent::class,
+                    ],
+                    'options' => [],
+                    'allowed_methods' => ['GET'],
+                ],
+
+                'zrcms.api.find-component.{type}.{name}' => [
+                    'name' => 'zrcms.api.find-component.{type}.{name}',
+                    'path' => '/zrcms/api/find-component/{type}/{name}',
                     'middleware' => [
                         'acl' => HttpApiIsAllowedFindComponent::class,
                         'api' => HttpApiFindComponent::class,

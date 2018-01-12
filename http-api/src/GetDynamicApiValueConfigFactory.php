@@ -1,18 +1,18 @@
 <?php
 
-namespace Zrcms\CoreApplication\Api;
+namespace Zrcms\HttpApi;
 
 use Psr\Container\ContainerInterface;
 
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class GetTypeValueBasicFactory
+class GetDynamicApiValueConfigFactory
 {
     /**
      * @param ContainerInterface $serviceContainer
      *
-     * @return GetTypeValueBasic
+     * @return GetDynamicApiValueConfig
      * @throws \Psr\Container\ContainerExceptionInterface
      * @throws \Psr\Container\NotFoundExceptionInterface
      */
@@ -21,10 +21,8 @@ class GetTypeValueBasicFactory
     ) {
         $config = $serviceContainer->get('config');
 
-        $typesConfig = $config['zrcms-types'];
-
-        return new GetTypeValueBasic(
-            $typesConfig
+        return new GetDynamicApiValueConfig(
+            $config['zrcms-http-api']
         );
     }
 }
