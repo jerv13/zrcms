@@ -1,11 +1,11 @@
 <?php
 
-namespace Zrcms\HttpViewRender\Model;
+namespace Zrcms\Http\Model;
 
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class ResponseCodes
+interface ResponseCodes
 {
     const FAILED = 'failed';
     const NOT_FOUND = 'not-found';

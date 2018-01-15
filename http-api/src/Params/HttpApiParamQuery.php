@@ -4,26 +4,15 @@ namespace Zrcms\HttpApi\Params;
 
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
-use Zrcms\HttpViewRender\Model\RequestAttributes;
+use Zrcms\Http\Model\HttpParamQuery;
+use Zrcms\Http\Model\RequestAttributes;
 use Zrcms\Param\Param;
 
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class HttpApiParamQuery
+class HttpApiParamQuery implements HttpParamQuery
 {
-    const PARAM_WHERE = 'where';
-    const PARAM_ORDER_BY = 'orderby';
-    const PARAM_LIMIT = 'limit';
-    const PARAM_OFFSET = 'offset';
-
-    /**
-     * @todo Inject where validator and maybe where builder
-     */
-    public function __construct()
-    {
-    }
-
     /**
      * @param ServerRequestInterface $request
      * @param ResponseInterface      $response

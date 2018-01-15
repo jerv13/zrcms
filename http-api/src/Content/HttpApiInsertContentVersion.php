@@ -7,8 +7,8 @@ use Psr\Http\Message\ServerRequestInterface;
 use Zrcms\Core\Api\Content\ContentVersionToArray;
 use Zrcms\Core\Api\Content\InsertContentVersion;
 use Zrcms\Core\Model\ContentVersion;
+use Zrcms\Http\Model\ResponseCodes;
 use Zrcms\Http\Response\ZrcmsJsonResponse;
-use Zrcms\HttpViewRender\Model\ResponseCodes;
 use Zrcms\User\Api\GetUserIdByRequest;
 
 /**

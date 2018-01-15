@@ -5,15 +5,24 @@ namespace Zrcms\HttpApi;
 use ZfInputFilterService\InputFilter\ServiceAwareFactory;
 use Zrcms\Acl\Api\IsAllowed;
 use Zrcms\Acl\Api\IsAllowedRcmUserSitesAdmin;
+use Zrcms\Core\Api\CmsResource\CmsResourceToArray;
 use Zrcms\Core\Api\CmsResource\FindCmsResource;
-use Zrcms\Core\Api\CmsResource\FindCmsResourcesBy;
-use Zrcms\Core\Api\CmsResource\FindCmsResourcesPublished;
 use Zrcms\Core\Api\Component\ComponentToArray;
-use Zrcms\Debug\IsDebug;
+use Zrcms\CoreSite\Api\CmsResource\FindSiteCmsResource;
+use Zrcms\HttpApi\Acl\HttpApiIsAllowedDynamic;
+use Zrcms\HttpApi\Acl\HttpApiIsAllowedDynamicFactory;
 use Zrcms\HttpApi\Acl\HttpApiIsAllowedFindComponent;
+use Zrcms\HttpApi\Acl\HttpApiIsAllowedFindComponentFactory;
+use Zrcms\HttpApi\CmsResource\HttpApiFindCmsResourceDynamic;
+use Zrcms\HttpApi\CmsResource\HttpApiFindCmsResourceDynamicFactory;
 use Zrcms\HttpApi\Component\HttpApiFindComponent;
 use Zrcms\HttpApi\Params\HttpApiParamQuery;
 use Zrcms\HttpApi\Validate\HttpApiIdAttributeZfInputFilterServiceHttpApi;
+use Zrcms\HttpApi\Validate\HttpApiValidateIdAttributeDynamic;
+use Zrcms\HttpApi\Validate\HttpApiValidateIdAttributeDynamicFactory;
+use Zrcms\HttpApi\Validate\HttpApiValidateParamQueryDynamic;
+use Zrcms\HttpApi\Validate\HttpApiValidateParamQueryDynamicFactory;
+use Zrcms\InputValidation\Api\ValidateId;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -32,35 +41,20 @@ class ModuleConfig
                      * Acl ===========================================
                      */
 
-                    /** ACL EXAMPLE *
-                     * IsAllowedCheckApi::class => [
-                     * 'arguments' => [
-                     * IsAllowedRcmUser::class,
-                     * [
-                     * 'literal' => [
-                     * IsAllowedRcmUser::OPTION_RESOURCE_ID => 'admin',
-                     * IsAllowedRcmUser::OPTION_PRIVILEGE => 'read'
-                     * ]
-                     * ],
-                     *
-                     * ],
-                     * ],
-                     * /* */
+                    HttpApiIsAllowedDynamic::class => [
+                        'factory' => HttpApiIsAllowedDynamicFactory::class,
+                    ],
 
                     HttpApiIsAllowedFindComponent::class => [
-                        'arguments' => [
-                            IsAllowedRcmUserSitesAdmin::class,
-                            ['literal' => []],
-                            ['literal' => 'basic-repository-find-component'],
-                            ['literal' => 401],
-                            ['literal' => IsDebug::invoke()],
-                        ],
+                        'factory' => HttpApiIsAllowedFindComponentFactory::class,
                     ],
 
                     /**
-                     * Params ===========================================
+                     * CmsResource ===========================================
                      */
-                    HttpApiParamQuery::class => [],
+                    HttpApiFindCmsResourceDynamic::class => [
+                        'factory' => HttpApiFindCmsResourceDynamicFactory::class,
+                    ],
 
                     /**
                      * Component ===========================================
@@ -72,49 +66,16 @@ class ModuleConfig
                             ['literal' => 'basic']
                         ],
                     ],
+
+                    /**
+                     * Params ===========================================
+                     */
+                    HttpApiParamQuery::class => [],
+
+
                     /**
                      * Validate ===========================================
                      */
-                    /** Attribute Validator EXAMPLE *
-                     * AttributesZfInputFilterService::class => [
-                     * 'arguments' => [
-                     * ServiceAwareFactory::class,
-                     * [
-                     * 'literal' => [
-                     * // zf-input-filter-service config
-                     * 'test1' => [
-                     * 'name' => 'test1',
-                     * 'required' => true,
-                     * 'validators' => [
-                     * [
-                     * // Invoked
-                     * 'name' => 'ZfInputFilterService\Validator\Test',
-                     * 'options' => [
-                     * 'test' => 'validatorOptionInvoked',
-                     * 'messages' => [
-                     * 'TEST' => 'validatorMessageTemplateInvoked',
-                     * ],
-                     * ],
-                     * ],
-                     * [
-                     * // Service
-                     * 'name' => 'ZfInputFilterService\Validator\TestService',
-                     * 'service' => true,
-                     * 'options' => [
-                     * 'test' => 'validatorOptionService',
-                     * 'messages' => [
-                     * 'TEST' => 'validatorMessageTemplateService',
-                     * ],
-                     * ],
-                     * ],
-                     * ],
-                     * ],
-                     * ]
-                     * ],
-                     * ],
-                     * ],
-                     * /* */
-
                     HttpApiIdAttributeZfInputFilterServiceHttpApi::class => [
                         'arguments' => [
                             ServiceAwareFactory::class,
@@ -122,45 +83,13 @@ class ModuleConfig
                         ],
                     ],
 
-                    /** Data Validator EXAMPLE *
-                     * DataZfInputFilterService::class => [
-                     * 'arguments' => [
-                     * ServiceAwareFactory::class,
-                     * [
-                     * 'literal' => [
-                     * // zf-input-filter-service config
-                     * 'test1' => [
-                     * 'name' => 'test1',
-                     * 'required' => true,
-                     * 'validators' => [
-                     * [
-                     * // Invoked
-                     * 'name' => 'ZfInputFilterService\Validator\Test',
-                     * 'options' => [
-                     * 'test' => 'validatorOptionInvoked',
-                     * 'messages' => [
-                     * 'TEST' => 'validatorMessageTemplateInvoked',
-                     * ],
-                     * ],
-                     * ],
-                     * [
-                     * // Service
-                     * 'name' => 'ZfInputFilterService\Validator\TestService',
-                     * 'service' => true,
-                     * 'options' => [
-                     * 'test' => 'validatorOptionService',
-                     * 'messages' => [
-                     * 'TEST' => 'validatorMessageTemplateService',
-                     * ],
-                     * ],
-                     * ],
-                     * ],
-                     * ],
-                     * ]
-                     * ],
-                     * ],
-                     * ],
-                     * /* */
+                    HttpApiValidateIdAttributeDynamic::class => [
+                        'factory' => HttpApiValidateIdAttributeDynamicFactory::class,
+                    ],
+
+                    HttpApiValidateParamQueryDynamic::class => [
+                        'factory' => HttpApiValidateParamQueryDynamicFactory::class,
+                    ],
 
                     GetDynamicApiValue::class => [
                         'factory' => GetDynamicApiValueConfigFactory::class,
@@ -169,45 +98,27 @@ class ModuleConfig
             ],
 
             /**
-             * ===== ZRCMS HTTP API Types =====
+             * ===== ZRCMS HTTP API by request =====
              */
-            'zrcms-http-api' => [
-                '{zrcms-name}' => [
-                    'http-api-find-cms-resource' => [
+            'zrcms-http-api-dynamic' => [
+                // '[{zrcms-implementation}][{zrcms-api}][{middleware-name}]=>[{middleware-config}]'
+                'site' => [
+                    'find-cms-resource' => [
                         'acl' => [
-                            'isAllowed' => IsAllowed::class,
+                            'isAllowed' => IsAllowedRcmUserSitesAdmin::class,
                             'isAllowedOptions' => [],
                             'notAllowedStatus' => 401,
                         ],
-                        'validator-attributes' => '',
-                        'api' => FindCmsResource::class,
-                    ],
-                    'http-api-find-cms-resources-by' => [
-                        'acl' => [
-                            'isAllowed' => IsAllowed::class,
-                            'isAllowedOptions' => [],
-                            'notAllowedStatus' => 401,
+                        'validate-id-attribute' => [
+                            'validate' => ValidateId::class,
+                            'validateOptions' => [],
+                            'notValidStatus' => 400,
                         ],
-                        'api' => FindCmsResourcesBy::class,
-                    ],
-                    'http-api-find-cms-resources-published' => [
-                        'acl' => [
-                            'isAllowed' => IsAllowed::class,
-                            'isAllowedOptions' => [],
-                            'notAllowedStatus' => 401,
+                        'api' => [
+                            'apiService' => FindSiteCmsResource::class,
+                            'toArray' => CmsResourceToArray::class,
+                            'notFoundStatus' => 404,
                         ],
-                        'api' => FindCmsResourcesPublished::class,
-                    ],
-                    'http-api-upsert-cms-resource' => [
-                        'acl' => [
-                            'isAllowed' => IsAllowed::class,
-                            'isAllowedOptions' => [],
-                            'notAllowedStatus' => 401,
-                        ],
-                        'validator-data' => [
-
-                        ],
-                        'api' => FindCmsResourcesPublished::class,
                     ],
                 ],
             ],

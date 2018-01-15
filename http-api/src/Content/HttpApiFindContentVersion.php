@@ -7,8 +7,8 @@ use Psr\Http\Message\ServerRequestInterface;
 use Zend\Diactoros\Response\JsonResponse;
 use Zrcms\Core\Api\Content\ContentVersionToArray;
 use Zrcms\Core\Api\Content\FindContentVersion;
+use Zrcms\Http\Model\ResponseCodes;
 use Zrcms\Http\Response\ZrcmsJsonResponse;
-use Zrcms\HttpViewRender\Model\ResponseCodes;
 
 /**
  * @author James Jervis - https://github.com/jerv13

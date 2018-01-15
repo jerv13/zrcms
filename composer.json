@@ -88,6 +88,8 @@
       "Zrcms\\HttpUser\\": "http-user/src/",
       "Zrcms\\HttpViewRender\\": "http-view-render/src/",
       "Zrcms\\Importer\\": "importer/src/",
+      "Zrcms\\InputValidation\\": "input-validation/src/",
+      "Zrcms\\InputValidationZf2\\": "input-validation-zf2/src/",
       "Zrcms\\Install\\": "install/src/",
       "Zrcms\\Json\\": "json/src/",
       "Zrcms\\Locale\\": "locale/src/",

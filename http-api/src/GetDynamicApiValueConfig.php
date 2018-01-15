@@ -21,40 +21,40 @@ class GetDynamicApiValueConfig implements GetDynamicApiValue
     }
 
     /**
-     * @param string $httpApiName
-     * @param string $httpApiType
+     * @param string $zrcmsImplementation
+     * @param string $zrcmsApiName
      * @param string $key
      * @param null   $default
      *
      * @return mixed
      */
     public function __invoke(
-        string $httpApiName,
-        string $httpApiType,
+        string $zrcmsImplementation,
+        string $zrcmsApiName,
         string $key,
         $default = null
     ) {
-        $httpApiNameConfig = Param::getArray(
+        $zrcmsImplementationConfig = Param::getArray(
             $this->zrcmsHttpApiConfig,
-            $httpApiName,
+            $zrcmsImplementation,
             null
         );
 
-        if ($httpApiNameConfig === null) {
+        if ($zrcmsImplementationConfig === null) {
             return $default;
         }
 
-        $httpApiTypeConfig = Param::getArray(
-            $httpApiNameConfig,
-            $httpApiType
+        $zrcmsApiNameConfig = Param::getArray(
+            $zrcmsImplementationConfig,
+            $zrcmsApiName
         );
 
-        if ($httpApiTypeConfig === null) {
+        if ($zrcmsApiNameConfig === null) {
             return $default;
         }
 
         return Param::get(
-            $httpApiTypeConfig,
+            $zrcmsApiNameConfig,
             $key,
             $default
         );

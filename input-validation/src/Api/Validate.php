@@ -2,19 +2,21 @@
 
 namespace Zrcms\InputValidation\Api;
 
+use Zrcms\InputValidation\Model\ValidationResult;
+
 /**
  * @author James Jervis - https://github.com/jerv13
  */
 interface Validate
 {
     /**
-     * @param array $data
+     * @param mixed $value
      * @param array $options
      *
-     * @return array messages
+     * @return ValidationResult
      */
     public function __invoke(
-        array $data,
+        $value,
         array $options = []
-    ): array;
+    ): ValidationResult;
 }

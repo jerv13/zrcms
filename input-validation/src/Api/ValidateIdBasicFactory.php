@@ -1,28 +1,24 @@
 <?php
 
-namespace Zrcms\HttpApi;
+namespace Zrcms\InputValidation\Api;
 
 use Psr\Container\ContainerInterface;
 
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class GetDynamicApiValueConfigFactory
+class ValidateIdBasicFactory
 {
     /**
      * @param ContainerInterface $serviceContainer
      *
-     * @return GetDynamicApiValueConfig
+     * @return ValidateIdBasic
      * @throws \Psr\Container\ContainerExceptionInterface
      * @throws \Psr\Container\NotFoundExceptionInterface
      */
     public function __invoke(
         ContainerInterface $serviceContainer
     ) {
-        $config = $serviceContainer->get('config');
-
-        return new GetDynamicApiValueConfig(
-            $config['zrcms-http-api-dynamic']
-        );
+        return new ValidateIdBasic();
     }
 }

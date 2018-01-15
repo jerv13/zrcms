@@ -1,28 +1,31 @@
 <?php
 
-namespace Zrcms\HttpApi;
+namespace Zrcms\Http\Api;
 
 use Psr\Container\ContainerInterface;
+use Zrcms\Cache\Service\Cache;
 
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class GetDynamicApiValueConfigFactory
+class GetRouteOptionsExpressiveConfigFactory
 {
     /**
      * @param ContainerInterface $serviceContainer
      *
-     * @return GetDynamicApiValueConfig
+     * @return GetRouteOptionsExpressiveConfig
      * @throws \Psr\Container\ContainerExceptionInterface
      * @throws \Psr\Container\NotFoundExceptionInterface
      */
     public function __invoke(
         ContainerInterface $serviceContainer
     ) {
-        $config = $serviceContainer->get('config');
+        $appConfig = $serviceContainer->get('config');
 
-        return new GetDynamicApiValueConfig(
-            $config['zrcms-http-api-dynamic']
+        return new GetRouteOptionsExpressiveConfig(
+            $appConfig['routes'],
+            $serviceContainer->get(Cache::class),
+            GetRouteOptionsExpressiveConfig::CACHE_KEY
         );
     }
 }

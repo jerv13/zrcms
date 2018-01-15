@@ -24,42 +24,42 @@ class ModuleConfigRoutes
     {
         return [
             'routes' => [
-                'zrcms.site.cms-resource' => [
-                    'name' => 'zrcms.site.cms-resource',
-                    'path' => '/zrcms/site/cms-resource',
-                    'middleware' => [
-                        'parser' => BodyParamsMiddleware::class,
-                        'acl' => HttpApiIsAllowedSitePublishIsAllowed::class,
-                        'validator-data' => HttpApiUpsertSiteCmsResourceZfInputFilterServiceHttpApi::class,
-                        'api' => UpsertSiteCmsResource::class,
-                    ],
-                    'options' => [],
-                    'allowed_methods' => ['PUT'],
-                ],
-
-                'zrcms.site.find-cms-resource.id' => [
-                    'name' => 'zrcms.site.find-cms-resource.id',
-                    'path' => '/zrcms/site/find-cms-resource/{id}',
-                    'middleware' => [
-                        'acl' => HttpApiIsAllowedSiteCmsResourceFindIsAllowed::class,
-                        'validator-attributes' => HttpApiIdAttributeZfInputFilterServiceHttpApi::class,
-                        'api' => HttpApiFindSiteCmsResource::class,
-                    ],
-                    'options' => [],
-                    'allowed_methods' => ['GET'],
-                ],
-
-                'zrcms.site.find-content-version.id' => [
-                    'name' => 'zrcms.site.find-content-version.id',
-                    'path' => '/zrcms/site/find-content-version/{id}',
-                    'middleware' => [
-                        'acl' => HttpApiIsAllowedFindContentVersionIsAllowed::class,
-                        'validator-attributes' => HttpApiIdAttributeZfInputFilterServiceHttpApi::class,
-                        'api' => HttpApiFindSiteVersion::class,
-                    ],
-                    'options' => [],
-                    'allowed_methods' => ['GET'],
-                ],
+//                'zrcms.site.cms-resource' => [
+//                    'name' => 'zrcms.site.cms-resource',
+//                    'path' => '/zrcms/site/cms-resource',
+//                    'middleware' => [
+//                        'parser' => BodyParamsMiddleware::class,
+//                        'acl' => HttpApiIsAllowedSitePublishIsAllowed::class,
+//                        'validator-data' => HttpApiUpsertSiteCmsResourceZfInputFilterServiceHttpApi::class,
+//                        'api' => UpsertSiteCmsResource::class,
+//                    ],
+//                    'options' => [],
+//                    'allowed_methods' => ['PUT'],
+//                ],
+//
+//                'zrcms.site.find-cms-resource.id' => [
+//                    'name' => 'zrcms.site.find-cms-resource.id',
+//                    'path' => '/zrcms/site/find-cms-resource/{id}',
+//                    'middleware' => [
+//                        'acl' => HttpApiIsAllowedSiteCmsResourceFindIsAllowed::class,
+//                        'validator-attributes' => HttpApiIdAttributeZfInputFilterServiceHttpApi::class,
+//                        'api' => HttpApiFindSiteCmsResource::class,
+//                    ],
+//                    'options' => [],
+//                    'allowed_methods' => ['GET'],
+//                ],
+//
+//                'zrcms.site.find-content-version.id' => [
+//                    'name' => 'zrcms.site.find-content-version.id',
+//                    'path' => '/zrcms/site/find-content-version/{id}',
+//                    'middleware' => [
+//                        'acl' => HttpApiIsAllowedFindContentVersionIsAllowed::class,
+//                        'validator-attributes' => HttpApiIdAttributeZfInputFilterServiceHttpApi::class,
+//                        'api' => HttpApiFindSiteVersion::class,
+//                    ],
+//                    'options' => [],
+//                    'allowed_methods' => ['GET'],
+//                ],
             ],
         ];
     }

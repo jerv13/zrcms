@@ -7,9 +7,17 @@ namespace Zrcms\HttpApi;
  */
 interface HttpApiDynamic
 {
-    const ATTRIBUTE_HTTP_NAME = 'http-api-name';
-    const ACL = 'acl';
-    const API = 'api';
-    const VALIDATOR_ATTRIBUTES = 'validator-attributes';
-    const VALIDATOR_DATA = 'validator-data';
+    const ROUTE_OPTION_ZRCMS_API = 'zrcms-api';
+    const ATTRIBUTE_ZRCMS_IMPLEMENTATION = 'zrcms-implementation';
+    const ATTRIBUTE_ZRCMS_ID = 'id';
+
+    const MIDDLEWARE_NAME_ACL = 'acl';
+
+    const MIDDLEWARE_NAME_VALIDATE_ID = 'validate-id';
+    const MIDDLEWARE_NAME_VALIDATE_PARAM_QUERY = 'validate-param-query';
+    const MIDDLEWARE_NAME_VALIDATE_DATA = 'validate-data';
+
+    const MIDDLEWARE_PARAM_QUERY = 'param-query';
+
+    const MIDDLEWARE_NAME_API = 'api';
 }

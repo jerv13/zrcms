@@ -5,8 +5,8 @@ namespace Zrcms\HttpApi\Acl;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Zrcms\Acl\Api\IsAllowed;
+use Zrcms\Http\Model\ResponseCodes;
 use Zrcms\Http\Response\ZrcmsJsonResponse;
-use Zrcms\HttpViewRender\Model\ResponseCodes;
 
 /**
  * @author James Jervis - https://github.com/jerv13

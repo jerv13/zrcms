@@ -3,9 +3,12 @@
 namespace Zrcms\CoreApplication;
 
 use Zrcms\Cache\Service\Cache;
+use Zrcms\Core\Api\CmsResource\CmsResourcesToArray;
 use Zrcms\Core\Api\CmsResource\CmsResourceToArray;
+use Zrcms\Core\Api\CmsResourceHistory\CmsResourceHistoriesToArray;
 use Zrcms\Core\Api\CmsResourceHistory\CmsResourceHistoryToArray;
 use Zrcms\Core\Api\Component\BuildComponentObject;
+use Zrcms\Core\Api\Component\ComponentsToArray;
 use Zrcms\Core\Api\Component\ComponentToArray;
 use Zrcms\Core\Api\Component\FindComponent;
 use Zrcms\Core\Api\Component\FindComponentsBy;
@@ -14,6 +17,7 @@ use Zrcms\Core\Api\Component\ReadComponentConfigs;
 use Zrcms\Core\Api\Component\ReadComponentRegistry;
 use Zrcms\Core\Api\Component\SearchComponentConfigs;
 use Zrcms\Core\Api\Content\ContentToArray;
+use Zrcms\Core\Api\Content\ContentVersionsToArray;
 use Zrcms\Core\Api\Content\ContentVersionToArray;
 use Zrcms\Core\Api\GetComponentCss;
 use Zrcms\Core\Api\GetComponentJs;
@@ -22,9 +26,11 @@ use Zrcms\Core\Model\Component;
 use Zrcms\Core\Model\ComponentBasic;
 use Zrcms\Core\Model\ServiceAliasComponent;
 use Zrcms\CoreApplication\Api\CmsResource\CmsResourceToArrayBasic;
+use Zrcms\CoreApplication\Api\CmsResourceHistory\CmsResourceHistoriesToArrayBasic;
 use Zrcms\CoreApplication\Api\CmsResourceHistory\CmsResourceHistoryToArrayBasic;
 use Zrcms\CoreApplication\Api\Component\BuildComponentObjectByType;
 use Zrcms\CoreApplication\Api\Component\BuildComponentObjectByTypeStrategyFactory;
+use Zrcms\CoreApplication\Api\Component\ComponentsToArrayBasic;
 use Zrcms\CoreApplication\Api\Component\ComponentToArrayBasic;
 use Zrcms\CoreApplication\Api\Component\FindComponentBasic;
 use Zrcms\CoreApplication\Api\Component\FindComponentsByBasic;
@@ -41,6 +47,7 @@ use Zrcms\CoreApplication\Api\Component\ReadComponentRegistryBasicFactory;
 use Zrcms\CoreApplication\Api\Component\ReadComponentRegistryCompositeFactory;
 use Zrcms\CoreApplication\Api\Component\SearchComponentConfigsBasic;
 use Zrcms\CoreApplication\Api\Content\ContentToArrayBasic;
+use Zrcms\CoreApplication\Api\Content\ContentVersionsToArrayBasic;
 use Zrcms\CoreApplication\Api\Content\ContentVersionToArrayBasic;
 use Zrcms\CoreApplication\Api\GetComponentCssBasic;
 use Zrcms\CoreApplication\Api\GetComponentJsBasic;
@@ -63,6 +70,12 @@ class ModuleConfig
                     /**
                      * CmsResource
                      */
+                    CmsResourcesToArray::class => [
+                        'class' => CmsResourceToArrayBasic::class,
+                        'arguments' => [
+                            CmsResourceToArray::class,
+                        ],
+                    ],
                     CmsResourceToArray::class => [
                         'class' => CmsResourceToArrayBasic::class,
                         'arguments' => [
@@ -73,6 +86,12 @@ class ModuleConfig
                     /**
                      * CmsResourceHistory
                      */
+                    CmsResourceHistoriesToArray::class => [
+                        'class' => CmsResourceHistoriesToArrayBasic::class,
+                        'arguments' => [
+                            CmsResourceHistoryToArray::class,
+                        ],
+                    ],
                     CmsResourceHistoryToArray::class => [
                         'class' => CmsResourceHistoryToArrayBasic::class,
                         'arguments' => [
@@ -91,6 +110,12 @@ class ModuleConfig
                         'arguments' => [
                             GetTypeValue::class,
                             ['literal' => ComponentBasic::class]
+                        ],
+                    ],
+                    ComponentsToArray::class => [
+                        'class' => ComponentsToArrayBasic::class,
+                        'arguments' => [
+                            ComponentToArray::class,
                         ],
                     ],
                     ComponentToArray::class => [
@@ -152,6 +177,12 @@ class ModuleConfig
                      */
                     ContentToArray::class => [
                         'class' => ContentToArrayBasic::class
+                    ],
+                    ContentVersionsToArray::class => [
+                        'class' => ContentVersionsToArrayBasic::class,
+                        'arguments' => [
+                            ContentVersionToArray::class,
+                        ],
                     ],
                     ContentVersionToArray::class => [
                         'class' => ContentVersionToArrayBasic::class,

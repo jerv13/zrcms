@@ -1,11 +1,11 @@
 <?php
 
-namespace Zrcms\HttpViewRender\Model;
+namespace Zrcms\Http\Model;
 
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class RequestAttributes
+interface RequestAttributes
 {
     const QUERY_WHERE = 'zrcms-query-where';
     const QUERY_ORDER_BY = 'zrcms-query-order-by';

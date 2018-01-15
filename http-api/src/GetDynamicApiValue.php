@@ -8,16 +8,16 @@ namespace Zrcms\HttpApi;
 interface GetDynamicApiValue
 {
     /**
-     * @param string $httpApiName
-     * @param string $httpApiType
+     * @param string $zrcmsImplementation
+     * @param string $zrcmsApiName
      * @param string $key
      * @param null   $default
      *
      * @return mixed
      */
     public function __invoke(
-        string $httpApiName,
-        string $httpApiType,
+        string $zrcmsImplementation,
+        string $zrcmsApiName,
         string $key,
         $default = null
     );
