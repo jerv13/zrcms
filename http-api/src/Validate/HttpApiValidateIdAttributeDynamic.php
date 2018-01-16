@@ -89,7 +89,7 @@ class HttpApiValidateIdAttributeDynamic implements HttpApiDynamic
         );
 
         if ($validateServiceName === null) {
-            throw new \Exception('validate must be defined');
+            throw new \Exception('validate-id must be defined');
         }
 
         /** @var Validate $validateService */

@@ -109,7 +109,7 @@ class ModuleConfig
                             'isAllowedOptions' => [],
                             'notAllowedStatus' => 401,
                         ],
-                        'validate-id-attribute' => [
+                        'validate-id' => [
                             'validate' => ValidateId::class,
                             'validateOptions' => [],
                             'notValidStatus' => 400,

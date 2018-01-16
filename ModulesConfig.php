@@ -24,6 +24,8 @@ class ModulesConfig
             new \Zrcms\Param\ModuleConfig(),
             new \Zrcms\Mustache\ModuleConfig(),
             new \Zrcms\ServiceAlias\ModuleConfig(),
+            new \Zrcms\InputValidation\ModuleConfig(),
+            new \Zrcms\InputValidationZf2\ModuleConfig(),
 
             new \Zrcms\Core\ModuleConfig(),
 
