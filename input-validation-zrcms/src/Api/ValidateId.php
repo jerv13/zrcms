@@ -1,6 +1,6 @@
 <?php
 
-namespace Zrcms\InputValidation\Api;
+namespace Zrcms\InputValidationZrcms\Api;
 
 /**
  * @author James Jervis - https://github.com/jerv13

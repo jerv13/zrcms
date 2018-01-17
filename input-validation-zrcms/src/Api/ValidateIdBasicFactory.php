@@ -1,6 +1,6 @@
 <?php
 
-namespace Zrcms\InputValidation\Api;
+namespace Zrcms\InputValidationZrcms\Api;
 
 use Psr\Container\ContainerInterface;
 

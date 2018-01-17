@@ -1,6 +1,9 @@
 <?php
 
-namespace Zrcms\InputValidationZf2;
+namespace Zrcms\InputValidationZrcms;
+
+use Zrcms\InputValidationZrcms\Api\ValidateId;
+use Zrcms\InputValidationZrcms\Api\ValidateIdBasicFactory;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -15,7 +18,9 @@ class ModuleConfig
         return [
             'dependencies' => [
                 'config_factories' => [
-                    // @todo WIP
+                    ValidateId::class => [
+                        'factory' => ValidateIdBasicFactory::class,
+                    ],
                 ],
             ],
         ];

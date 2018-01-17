@@ -2,8 +2,14 @@
 
 namespace Zrcms\InputValidation;
 
-use Zrcms\InputValidation\Api\ValidateId;
-use Zrcms\InputValidation\Api\ValidateIdBasicFactory;
+use Zrcms\InputValidation\Api\ValidateByStrategy;
+use Zrcms\InputValidation\Api\ValidateByStrategyFactory;
+use Zrcms\InputValidation\Api\ValidateFieldsByStrategy;
+use Zrcms\InputValidation\Api\ValidateFieldsByStrategyFactory;
+use Zrcms\InputValidation\Api\ValidateNoop;
+use Zrcms\InputValidation\Api\ValidateNoopFactory;
+use Zrcms\InputValidation\Api\ValidateNotEmpty;
+use Zrcms\InputValidation\Api\ValidateNotEmptyFactory;
 use Zrcms\InputValidation\Api\ValidationFieldsResultToArray;
 use Zrcms\InputValidation\Api\ValidationFieldsResultToArrayBasicFactory;
 use Zrcms\InputValidation\Api\ValidationResultToArray;
@@ -22,8 +28,20 @@ class ModuleConfig
         return [
             'dependencies' => [
                 'config_factories' => [
-                    ValidateId::class => [
-                        'factory' => ValidateIdBasicFactory::class,
+                    ValidateByStrategy::class => [
+                        'factory' => ValidateByStrategyFactory::class,
+                    ],
+
+                    ValidateFieldsByStrategy::class => [
+                        'factory' => ValidateFieldsByStrategyFactory::class,
+                    ],
+
+                    ValidateNoop::class => [
+                        'factory' => ValidateNoopFactory::class,
+                    ],
+
+                    ValidateNotEmpty::class => [
+                        'factory' => ValidateNotEmptyFactory::class,
                     ],
 
                     ValidationFieldsResultToArray::class => [

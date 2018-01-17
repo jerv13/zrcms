@@ -13,14 +13,7 @@ use Zrcms\Http\Response\ZrcmsJsonResponse;
  */
 class HttpApiDataZfInputFilterService
 {
-    /**
-     * @var ServiceAwareFactory
-     */
     protected $factory;
-
-    /**
-     * @var array
-     */
     protected $inputFilterConfig;
 
     /**

@@ -1,6 +1,6 @@
 <?php
 
-namespace Zrcms\InputValidation\Api;
+namespace Zrcms\InputValidationZrcms\Api;
 
 use Zrcms\InputValidation\Model\ValidationResult;
 use Zrcms\InputValidation\Model\ValidationResultBasic;
