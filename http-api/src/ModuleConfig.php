@@ -33,11 +33,14 @@ use Zrcms\HttpApi\Validate\HttpApiValidateIdAttributeDynamicFactory;
 use Zrcms\HttpApi\Validate\HttpApiValidateWhereParamDynamic;
 use Zrcms\HttpApi\Validate\HttpApiValidateWhereParamDynamicFactory;
 use Zrcms\InputValidation\Api\Validate;
+use Zrcms\InputValidation\Api\ValidateCompositeByStrategy;
 use Zrcms\InputValidation\Api\ValidateFieldsByStrategy;
 use Zrcms\InputValidation\Api\ValidateIsAnyValue;
 use Zrcms\InputValidation\Api\ValidateIsAssociativeArray;
 use Zrcms\InputValidation\Api\ValidateIsBoolean;
+use Zrcms\InputValidation\Api\ValidateIsNotEmpty;
 use Zrcms\InputValidation\Api\ValidateIsNull;
+use Zrcms\InputValidation\Api\ValidateIsString;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -200,8 +203,17 @@ class ModuleConfig
                                                     'validate-api-options' => [],
                                                 ],
                                                 'createdReason' => [
-                                                    'validate-api' => ValidateIsNull::class,
-                                                    'validate-api-options' => [],
+                                                    'validate-api' => ValidateCompositeByStrategy::class,
+                                                    'validate-api-options' => [
+                                                        'validate-api-list' => [
+                                                            [
+                                                                'validate-api' => ValidateIsNotEmpty::class,
+                                                            ],
+                                                            [
+                                                                'validate-api' => ValidateIsString::class,
+                                                            ],
+                                                        ]
+                                                    ],
                                                 ],
                                                 'createdDate' => [
                                                     'validate-api' => ValidateIsNull::class,
@@ -215,8 +227,17 @@ class ModuleConfig
                                         'validate-api-options' => [],
                                     ],
                                     'createdReason' => [
-                                        'validate-api' => ValidateIsNull::class,
-                                        'validate-api-options' => [],
+                                        'validate-api' => ValidateCompositeByStrategy::class,
+                                        'validate-api-options' => [
+                                            'validate-api-list' => [
+                                                [
+                                                    'validate-api' => ValidateIsNotEmpty::class,
+                                                ],
+                                                [
+                                                    'validate-api' => ValidateIsString::class,
+                                                ],
+                                            ]
+                                        ],
                                     ],
                                     'createdDate' => [
                                         'validate-api' => ValidateIsNull::class,

@@ -20,6 +20,8 @@ use Zrcms\InputValidation\Api\ValidateIsNotEmpty;
 use Zrcms\InputValidation\Api\ValidateISNotEmptyFactory;
 use Zrcms\InputValidation\Api\ValidateIsNull;
 use Zrcms\InputValidation\Api\ValidateIsNullFactory;
+use Zrcms\InputValidation\Api\ValidateIsString;
+use Zrcms\InputValidation\Api\ValidateIsStringFactory;
 use Zrcms\InputValidation\Api\ValidateIsValue;
 use Zrcms\InputValidation\Api\ValidateIsValueFactory;
 use Zrcms\InputValidation\Api\ValidationFieldsResultToArray;
@@ -69,6 +71,9 @@ class ModuleConfig
                     ],
                     ValidateIsNull::class => [
                         'factory' => ValidateIsNullFactory::class,
+                    ],
+                    ValidateIsString::class => [
+                        'factory' => ValidateIsStringFactory::class,
                     ],
                     ValidateIsValue::class => [
                         'factory' => ValidateIsValueFactory::class,

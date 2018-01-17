@@ -8,11 +8,14 @@ use Psr\Http\Message\ServerRequestInterface;
 use Zrcms\Core\Api\CmsResource\CmsResourceToArray;
 use Zrcms\Core\Api\CmsResource\FindCmsResource;
 use Zrcms\Core\Api\CmsResource\UpsertCmsResource;
+use Zrcms\Core\Model\CmsResourceBasic;
+use Zrcms\Core\Model\ContentVersionBasic;
 use Zrcms\Http\Api\GetRouteOptions;
 use Zrcms\Http\Response\ZrcmsJsonResponse;
 use Zrcms\HttpApi\GetDynamicApiValue;
 use Zrcms\HttpApi\HttpApiDynamic;
 use Zrcms\Param\Param;
+use Zrcms\User\Api\GetUserIdByRequest;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -24,6 +27,7 @@ class HttpApiUpsertCmsResourceDynamic implements HttpApiDynamic
     protected $serviceContainer;
     protected $getRouteOptions;
     protected $getDynamicApiValue;
+    protected $getUserIdByRequest;
     protected $cmsResourceToArrayDefault;
     protected $notFoundStatusDefault;
     protected $debug;
@@ -40,6 +44,7 @@ class HttpApiUpsertCmsResourceDynamic implements HttpApiDynamic
         ContainerInterface $serviceContainer,
         GetRouteOptions $getRouteOptions,
         GetDynamicApiValue $getDynamicApiValue,
+        GetUserIdByRequest $getUserIdByRequest,
         CmsResourceToArray $cmsResourceToArrayDefault,
         int $notFoundStatusDefault = 404,
         bool $debug = false
@@ -47,6 +52,7 @@ class HttpApiUpsertCmsResourceDynamic implements HttpApiDynamic
         $this->serviceContainer = $serviceContainer;
         $this->getRouteOptions = $getRouteOptions;
         $this->getDynamicApiValue = $getDynamicApiValue;
+        $this->getUserIdByRequest = $getUserIdByRequest;
         $this->cmsResourceToArrayDefault = $cmsResourceToArrayDefault;
         $this->notFoundStatusDefault = $notFoundStatusDefault;
         $this->debug = $debug;
@@ -101,9 +107,22 @@ class HttpApiUpsertCmsResourceDynamic implements HttpApiDynamic
             throw new \Exception('api-service must be instance of ' . UpsertCmsResource::class);
         }
 
-        $id = $request->getAttribute(static::ATTRIBUTE_ZRCMS_ID);
+        $data = $request->getParsedBody();
+        $contentVersionData = $data['contentVersion'];
 
-        $cmsResource = $apiService->__invoke($id, []);
+        $contentVersion = new ContentVersionBasic(
+            $contentVersionData['id'],
+            $contentVersionData['properties'],
+            $this->getUserIdByRequest->__invoke($request),
+            $contentVersionData['createdReason']
+        );
+
+        $cmsResource = new CmsResourceBasic(
+            $contentVersionData['id'],
+            $contentVersionData['properties'],
+            $this->getUserIdByRequest->__invoke($request),
+            $contentVersionData['createdReason']
+        );
 
         if (empty($cmsResource)) {
             $notFoundStatus = Param::getInt(
