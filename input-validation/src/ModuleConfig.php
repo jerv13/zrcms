@@ -4,6 +4,8 @@ namespace Zrcms\InputValidation;
 
 use Zrcms\InputValidation\Api\ValidateByStrategy;
 use Zrcms\InputValidation\Api\ValidateByStrategyFactory;
+use Zrcms\InputValidation\Api\ValidateCompositeByStrategy;
+use Zrcms\InputValidation\Api\ValidateCompositeByStrategyFactory;
 use Zrcms\InputValidation\Api\ValidateFieldsByStrategy;
 use Zrcms\InputValidation\Api\ValidateFieldsByStrategyFactory;
 use Zrcms\InputValidation\Api\ValidateNoop;
@@ -30,6 +32,10 @@ class ModuleConfig
                 'config_factories' => [
                     ValidateByStrategy::class => [
                         'factory' => ValidateByStrategyFactory::class,
+                    ],
+
+                    ValidateCompositeByStrategy::class => [
+                        'factory' => ValidateCompositeByStrategyFactory::class,
                     ],
 
                     ValidateFieldsByStrategy::class => [
