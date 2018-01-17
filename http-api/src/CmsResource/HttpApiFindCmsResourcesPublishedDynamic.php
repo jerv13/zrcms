@@ -7,7 +7,7 @@ use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Zrcms\Core\Api\CmsResource\CmsResourcesToArray;
 use Zrcms\Core\Api\CmsResource\CmsResourceToArray;
-use Zrcms\Core\Api\CmsResource\FindCmsResourcesBy;
+use Zrcms\Core\Api\CmsResource\FindCmsResourcesPublished;
 use Zrcms\Http\Api\GetRouteOptions;
 use Zrcms\Http\Model\HttpLimit;
 use Zrcms\Http\Model\HttpOffset;
@@ -21,9 +21,9 @@ use Zrcms\Param\Param;
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class HttpApiFindCmsResourcesByDynamic implements HttpApiDynamic
+class HttpApiFindCmsResourcesPublishedDynamic implements HttpApiDynamic
 {
-    const SOURCE = 'http-api-find-cms-resources-by-dynamic';
+    const SOURCE = 'http-api-find-cms-resources-published-dynamic';
 
     protected $serviceContainer;
     protected $getRouteOptions;
@@ -93,11 +93,11 @@ class HttpApiFindCmsResourcesByDynamic implements HttpApiDynamic
             throw new \Exception('api-service must be defined');
         }
 
-        /** @var FindCmsResourcesBy $apiService */
+        /** @var FindCmsResourcesPublished $apiService */
         $apiService = $this->serviceContainer->get($apiServiceName);
 
-        if (!$apiService instanceof FindCmsResourcesBy) {
-            throw new \Exception('api-service must be instance of ' . FindCmsResourcesBy::class);
+        if (!$apiService instanceof FindCmsResourcesPublished) {
+            throw new \Exception('api-service must be instance of ' . FindCmsResourcesPublished::class);
         }
 
         $criteria = $request->getAttribute(HttpWhere::ATTRIBUTE, []);

@@ -3,25 +3,36 @@
 namespace Zrcms\HttpApi;
 
 use ZfInputFilterService\InputFilter\ServiceAwareFactory;
-use Zrcms\Acl\Api\IsAllowed;
 use Zrcms\Acl\Api\IsAllowedRcmUserSitesAdmin;
+use Zrcms\Core\Api\CmsResource\CmsResourcesToArray;
 use Zrcms\Core\Api\CmsResource\CmsResourceToArray;
-use Zrcms\Core\Api\CmsResource\FindCmsResource;
+use Zrcms\Core\Api\CmsResource\UpsertCmsResource;
 use Zrcms\Core\Api\Component\ComponentToArray;
 use Zrcms\CoreSite\Api\CmsResource\FindSiteCmsResource;
+use Zrcms\CoreSite\Api\CmsResource\FindSiteCmsResourcesBy;
 use Zrcms\HttpApi\Acl\HttpApiIsAllowedDynamic;
 use Zrcms\HttpApi\Acl\HttpApiIsAllowedDynamicFactory;
 use Zrcms\HttpApi\Acl\HttpApiIsAllowedFindComponent;
 use Zrcms\HttpApi\Acl\HttpApiIsAllowedFindComponentFactory;
 use Zrcms\HttpApi\CmsResource\HttpApiFindCmsResourceDynamic;
 use Zrcms\HttpApi\CmsResource\HttpApiFindCmsResourceDynamicFactory;
+use Zrcms\HttpApi\CmsResource\HttpApiFindCmsResourcesByDynamic;
+use Zrcms\HttpApi\CmsResource\HttpApiFindCmsResourcesByDynamicFactory;
+use Zrcms\HttpApi\CmsResource\HttpApiFindCmsResourcesPublishedDynamic;
+use Zrcms\HttpApi\CmsResource\HttpApiFindCmsResourcesPublishedDynamicFactory;
 use Zrcms\HttpApi\Component\HttpApiFindComponent;
-use Zrcms\HttpApi\Params\HttpApiParamQuery;
+use Zrcms\HttpApi\Params\HttpApiLimit;
+use Zrcms\HttpApi\Params\HttpApiOffset;
+use Zrcms\HttpApi\Params\HttpApiOrderBy;
+use Zrcms\HttpApi\Params\HttpApiOrderByFactory;
+use Zrcms\HttpApi\Params\HttpApiWhere;
+use Zrcms\HttpApi\Params\HttpApiWhereFactory;
 use Zrcms\HttpApi\Validate\HttpApiIdAttributeZfInputFilterServiceHttpApi;
 use Zrcms\HttpApi\Validate\HttpApiValidateIdAttributeDynamic;
 use Zrcms\HttpApi\Validate\HttpApiValidateIdAttributeDynamicFactory;
-use Zrcms\HttpApi\Validate\HttpApiValidateParamQueryDynamic;
-use Zrcms\HttpApi\Validate\HttpApiValidateParamQueryDynamicFactory;
+use Zrcms\HttpApi\Validate\HttpApiValidateWhereParamDynamic;
+use Zrcms\HttpApi\Validate\HttpApiValidateWhereParamDynamicFactory;
+use Zrcms\InputValidation\Api\ValidateFields;
 use Zrcms\InputValidation\Api\ValidateId;
 
 /**
@@ -56,6 +67,14 @@ class ModuleConfig
                         'factory' => HttpApiFindCmsResourceDynamicFactory::class,
                     ],
 
+                    HttpApiFindCmsResourcesByDynamic::class => [
+                        'factory' => HttpApiFindCmsResourcesByDynamicFactory::class,
+                    ],
+
+                    HttpApiFindCmsResourcesPublishedDynamic::class => [
+                        'factory' => HttpApiFindCmsResourcesPublishedDynamicFactory::class,
+                    ],
+
                     /**
                      * Component ===========================================
                      */
@@ -70,8 +89,14 @@ class ModuleConfig
                     /**
                      * Params ===========================================
                      */
-                    HttpApiParamQuery::class => [],
-
+                    HttpApiLimit::class => [],
+                    HttpApiOffset::class => [],
+                    HttpApiOrderBy::class => [
+                        'factory' => HttpApiOrderByFactory::class,
+                    ],
+                    HttpApiWhere::class => [
+                        'factory' => HttpApiWhereFactory::class,
+                    ],
 
                     /**
                      * Validate ===========================================
@@ -87,8 +112,8 @@ class ModuleConfig
                         'factory' => HttpApiValidateIdAttributeDynamicFactory::class,
                     ],
 
-                    HttpApiValidateParamQueryDynamic::class => [
-                        'factory' => HttpApiValidateParamQueryDynamicFactory::class,
+                    HttpApiValidateWhereParamDynamic::class => [
+                        'factory' => HttpApiValidateWhereParamDynamicFactory::class,
                     ],
 
                     GetDynamicApiValue::class => [
@@ -105,19 +130,52 @@ class ModuleConfig
                 'site' => [
                     'find-cms-resource' => [
                         'acl' => [
-                            'isAllowed' => IsAllowedRcmUserSitesAdmin::class,
-                            'isAllowedOptions' => [],
-                            'notAllowedStatus' => 401,
+                            'is-allowed' => IsAllowedRcmUserSitesAdmin::class,
+                            'is-allowed-options' => [],
+                            'not-allowed-status' => 401,
                         ],
-                        'validate-id' => [
-                            'validate' => ValidateId::class,
-                            'validateOptions' => [],
-                            'notValidStatus' => 400,
+                        /* @todo Is this needed
+                         * 'validate-id' => [
+                         * 'validate' => ValidateId::class,
+                         * 'validate-options' => [],
+                         * 'not-valid-status' => 400,
+                         * ],
+                         */
+                        'api' => [
+                            'api-service' => FindSiteCmsResource::class,
+                            'to-array' => CmsResourceToArray::class,
+                            'not-found-status' => 404,
+                        ],
+                    ],
+
+                    'find-cms-resources-by' => [
+                        'acl' => [
+                            'is-allowed' => IsAllowedRcmUserSitesAdmin::class,
+                            'is-allowed-options' => [],
+                            'not-allowed-status' => 401,
                         ],
                         'api' => [
-                            'apiService' => FindSiteCmsResource::class,
-                            'toArray' => CmsResourceToArray::class,
-                            'notFoundStatus' => 404,
+                            'api-service' => FindSiteCmsResourcesBy::class,
+                            'to-array' => CmsResourcesToArray::class,
+                            'not-found-status' => 404,
+                        ],
+                    ],
+
+                    'upsert-cms-resource' => [
+                        'acl' => [
+                            'is-allowed' => IsAllowedRcmUserSitesAdmin::class,
+                            'is-allowed-options' => [],
+                            'not-allowed-status' => 401,
+                        ],
+                        'validate-data' => [
+                            'validate-fields' => ValidateFields::class,
+                            'validate-fields-options' => [],
+                            'not-valid-status' => 400,
+                        ],
+                        'api' => [
+                            'api-service' => UpsertCmsResource::class,
+                            'to-array' => CmsResourceToArray::class,
+                            'not-found-status' => 404,
                         ],
                     ],
                 ],

@@ -2,13 +2,13 @@
 
 namespace Zrcms\HttpApi\Validate;
 
+use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
-use Zend\Stdlib\ResponseInterface;
 
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class HttpApiValidateParamQueryDynamic
+class HttpApiValidateOrderByParamDynamic
 {
     /**
      * @param ServerRequestInterface $request

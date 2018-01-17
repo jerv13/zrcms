@@ -31,12 +31,20 @@ class ValidationResultFieldsBasic extends ValidationResultBasic implements Valid
     }
 
     /**
+     * @return ValidationResult[]
+     */
+    public function getFieldResults(): array
+    {
+        return $this->fieldResults;
+    }
+
+    /**
      * @param string $fieldName
      *
      * @return ValidationResult
      * @throws FieldDoesNotExist
      */
-    public function getFieldResult(string $fieldName): ValidationResult
+    public function findFieldResult(string $fieldName): ValidationResult
     {
         if (!array_key_exists($fieldName, $this->fieldResults)) {
             throw new FieldDoesNotExist(

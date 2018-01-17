@@ -85,19 +85,19 @@ class HttpApiFindCmsResourceDynamic implements HttpApiDynamic
 
         $apiServiceName = Param::getString(
             $apiConfig,
-            'apiService',
+            'api-service',
             null
         );
 
         if ($apiServiceName === null) {
-            throw new \Exception('apiService must be defined');
+            throw new \Exception('api-service must be defined');
         }
 
         /** @var FindCmsResource $apiService */
         $apiService = $this->serviceContainer->get($apiServiceName);
 
         if (!$apiService instanceof FindCmsResource) {
-            throw new \Exception('ApiService must be instance of ' . FindCmsResource::class);
+            throw new \Exception('api-service must be instance of ' . FindCmsResource::class);
         }
 
         $id = $request->getAttribute(static::ATTRIBUTE_ZRCMS_ID);
@@ -107,7 +107,7 @@ class HttpApiFindCmsResourceDynamic implements HttpApiDynamic
         if (empty($cmsResource)) {
             $notFoundStatus = Param::getInt(
                 $apiConfig,
-                'notFoundStatus',
+                'not-found-status',
                 $this->notFoundStatusDefault
             );
 
@@ -131,7 +131,7 @@ class HttpApiFindCmsResourceDynamic implements HttpApiDynamic
 
         $toArrayServiceName = Param::getString(
             $apiConfig,
-            'toArray',
+            'to-array',
             null
         );
 
@@ -141,7 +141,12 @@ class HttpApiFindCmsResourceDynamic implements HttpApiDynamic
         }
 
         if (!$toArrayService instanceof CmsResourceToArray) {
-            throw new \Exception('toArray must be instance of ' . CmsResourceToArray::class);
+            throw new \Exception(
+                'to-array must be instance of ' . CmsResourceToArray::class
+                . ' got .' . get_class($toArrayService)
+                . ' for implementation: (' . $zrcmsImplementation . ')'
+                . ' and api: ' . $zrcmsApiName . ')'
+            );
         }
 
         return new ZrcmsJsonResponse(

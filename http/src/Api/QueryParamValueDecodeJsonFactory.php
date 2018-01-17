@@ -1,22 +1,24 @@
 <?php
 
-namespace Zrcms\HttpApi\Params;
+namespace Zrcms\Http\Api;
 
 use Psr\Container\ContainerInterface;
 
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class HttpApiParamQueryDynamicFactory
+class QueryParamValueDecodeJsonFactory
 {
     /**
      * @param ContainerInterface $serviceContainer
      *
-     * @return HttpApiParamQueryDynamic
+     * @return QueryParamValueDecodeJson
+     * @throws \Psr\Container\ContainerExceptionInterface
+     * @throws \Psr\Container\NotFoundExceptionInterface
      */
     public function __invoke(
         ContainerInterface $serviceContainer
     ) {
-        return new HttpApiParamQueryDynamic();
+        return new QueryParamValueDecodeJson();
     }
 }

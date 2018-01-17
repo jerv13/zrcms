@@ -14,6 +14,7 @@ class Json
      * @param string $context
      *
      * @return string
+     * @throws JsonError
      */
     public static function encode(
         $value,
@@ -47,10 +48,11 @@ class Json
      * @param string $context
      *
      * @return mixed
+     * @throws JsonError
      */
     public static function decode(
         string $json,
-        bool $assoc = false,
+        bool $assoc = true,
         int $depth = 512,
         int $options = 0,
         string $context = ''

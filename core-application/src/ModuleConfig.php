@@ -25,6 +25,7 @@ use Zrcms\Core\Api\GetTypeValue;
 use Zrcms\Core\Model\Component;
 use Zrcms\Core\Model\ComponentBasic;
 use Zrcms\Core\Model\ServiceAliasComponent;
+use Zrcms\CoreApplication\Api\CmsResource\CmsResourcesToArrayBasic;
 use Zrcms\CoreApplication\Api\CmsResource\CmsResourceToArrayBasic;
 use Zrcms\CoreApplication\Api\CmsResourceHistory\CmsResourceHistoriesToArrayBasic;
 use Zrcms\CoreApplication\Api\CmsResourceHistory\CmsResourceHistoryToArrayBasic;
@@ -71,7 +72,7 @@ class ModuleConfig
                      * CmsResource
                      */
                     CmsResourcesToArray::class => [
-                        'class' => CmsResourceToArrayBasic::class,
+                        'class' => CmsResourcesToArrayBasic::class,
                         'arguments' => [
                             CmsResourceToArray::class,
                         ],

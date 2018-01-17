@@ -4,11 +4,13 @@ namespace Zrcms\HttpApi\Params;
 
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
+use Zrcms\Http\Model\HttpOffset;
+use Zrcms\Param\Param;
 
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class HttpApiParamQueryDynamic
+class HttpApiOffset
 {
     /**
      * @param ServerRequestInterface $request
@@ -23,7 +25,24 @@ class HttpApiParamQueryDynamic
         ResponseInterface $response,
         callable $next = null
     ) {
-        // @todo Write this
-        return $next($request, $response);
+        $queryParams = $request->getQueryParams();
+
+        $offset = Param::getInt(
+            $queryParams,
+            HttpOffset::PARAM,
+            null
+        );
+
+        if ($offset === null) {
+            return $next($request, $response);
+        }
+
+        return $next(
+            $request->withAttribute(
+                HttpOffset::ATTRIBUTE,
+                (int)$offset
+            ),
+            $response
+        );
     }
 }

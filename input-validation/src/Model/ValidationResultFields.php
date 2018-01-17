@@ -10,10 +10,15 @@ use Zrcms\InputValidation\Exception\FieldDoesNotExist;
 interface ValidationResultFields extends ValidationResult
 {
     /**
+     * @return ValidationResult[]
+     */
+    public function getFieldResults(): array;
+
+    /**
      * @param string $fieldName
      *
      * @return ValidationResult
      * @throws FieldDoesNotExist
      */
-    public function getFieldResult(string $fieldName): ValidationResult;
+    public function findFieldResult(string $fieldName): ValidationResult;
 }

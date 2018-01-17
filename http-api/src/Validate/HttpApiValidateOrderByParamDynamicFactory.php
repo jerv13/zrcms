@@ -7,16 +7,16 @@ use Psr\Container\ContainerInterface;
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class HttpApiValidateParamQueryDynamicFactory
+class HttpApiValidateOrderByParamDynamicFactory
 {
     /**
      * @param ContainerInterface $serviceContainer
      *
-     * @return HttpApiValidateParamQueryDynamic
+     * @return HttpApiValidateOrderByParamDynamic
      */
     public function __invoke(
         ContainerInterface $serviceContainer
     ) {
-        return new HttpApiValidateParamQueryDynamic();
+        return new HttpApiValidateOrderByParamDynamic();
     }
 }

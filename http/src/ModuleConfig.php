@@ -4,7 +4,8 @@ namespace Zrcms\Http;
 
 use Zrcms\Http\Api\GetRouteOptions;
 use Zrcms\Http\Api\GetRouteOptionsExpressiveConfigFactory;
-use Zrcms\Http\Api\ValidateId;
+use Zrcms\Http\Api\QueryParamValueDecode;
+use Zrcms\Http\Api\QueryParamValueDecodeJsonFactory;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -23,8 +24,8 @@ class ModuleConfig
                         'factory' => GetRouteOptionsExpressiveConfigFactory::class,
                     ],
 
-                    ValidateId::class => [
-                        'factory' => GetRouteOptionsExpressiveConfigFactory::class,
+                    QueryParamValueDecode::class => [
+                        'factory' => QueryParamValueDecodeJsonFactory::class,
                     ],
                 ],
             ],

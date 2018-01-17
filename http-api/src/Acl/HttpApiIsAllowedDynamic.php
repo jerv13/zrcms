@@ -82,18 +82,29 @@ class HttpApiIsAllowedDynamic implements HttpApiDynamic
 
         $isAllowedServiceName = Param::getString(
             $isAllowedConfig,
-            'isAllowed'
+            'is-allowed'
         );
+
+        if (!$this->serviceContainer->has($isAllowedServiceName)) {
+            throw new \Exception(
+                'is-allowed must be a service: (' . $isAllowedServiceName . ')'
+            );
+        }
 
         $isAllowed = $this->serviceContainer->get($isAllowedServiceName);
 
         if (!$isAllowed instanceof IsAllowed) {
-            throw new \Exception('IsAllowed must be instance of ' . IsAllowed::class);
+            throw new \Exception(
+                'IsAllowed must be instance of ' . IsAllowed::class
+                . ' got (' . get_class($isAllowed) . ')'
+                . ' for implementation: (' . $zrcmsImplementation . ')'
+                . ' and api: ' . $zrcmsApiName . ')'
+            );
         }
 
         $isAllowedOptions = Param::getArray(
             $isAllowedConfig,
-            'isAllowedOptions',
+            'is-allowed-options',
             []
         );
 
@@ -105,7 +116,7 @@ class HttpApiIsAllowedDynamic implements HttpApiDynamic
         if (!$allowed) {
             $notAllowedStatus = Param::getInt(
                 $isAllowedConfig,
-                'notAllowedStatus',
+                'not-allowed-status',
                 $this->notAllowedStatusDefault
             );
 

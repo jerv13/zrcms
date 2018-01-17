@@ -9,21 +9,22 @@ use Zrcms\Http\Api\GetRouteOptions;
 use Zrcms\Http\Response\ZrcmsJsonResponse;
 use Zrcms\HttpApi\GetDynamicApiValue;
 use Zrcms\HttpApi\HttpApiDynamic;
-use Zrcms\InputValidation\Api\Validate;
-use Zrcms\InputValidation\Api\ValidateId;
+use Zrcms\InputValidation\Api\ValidateFields;
 use Zrcms\Param\Param;
 
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class HttpApiValidateIdAttributeDynamic implements HttpApiDynamic
+class HttpApiValidateFieldsDynamic implements HttpApiDynamic
 {
-    const SOURCE = 'http-api-validate-id-attribute-dynamic';
+    const SOURCE = 'http-api-validate-fields-dynamic';
 
     protected $serviceContainer;
     protected $getRouteOptions;
     protected $getDynamicApiValue;
-    protected $validateIdDefault;
+    protected $validateDefault;
+
+    protected $name;
     protected $notValidStatusDefault;
     protected $debug;
 
@@ -31,7 +32,6 @@ class HttpApiValidateIdAttributeDynamic implements HttpApiDynamic
      * @param ContainerInterface $serviceContainer
      * @param GetRouteOptions    $getRouteOptions
      * @param GetDynamicApiValue $getDynamicApiValue
-     * @param ValidateId         $validateIdDefault
      * @param int                $notValidStatusDefault
      * @param bool               $debug
      */
@@ -39,14 +39,12 @@ class HttpApiValidateIdAttributeDynamic implements HttpApiDynamic
         ContainerInterface $serviceContainer,
         GetRouteOptions $getRouteOptions,
         GetDynamicApiValue $getDynamicApiValue,
-        ValidateId $validateIdDefault,
-        int $notValidStatusDefault = 400,
+        int $notValidStatusDefault = 401,
         bool $debug = false
     ) {
         $this->serviceContainer = $serviceContainer;
         $this->getRouteOptions = $getRouteOptions;
         $this->getDynamicApiValue = $getDynamicApiValue;
-        $this->validateIdDefault = $validateIdDefault;
         $this->notValidStatusDefault = $notValidStatusDefault;
         $this->debug = $debug;
     }
@@ -78,46 +76,49 @@ class HttpApiValidateIdAttributeDynamic implements HttpApiDynamic
         $validateConfig = $this->getDynamicApiValue->__invoke(
             $zrcmsImplementation,
             $zrcmsApiName,
-            static::MIDDLEWARE_NAME_VALIDATE_ID,
+            static::MIDDLEWARE_NAME_ACL,
             []
         );
 
         $validateServiceName = Param::getString(
             $validateConfig,
-            'validate',
-            null
+            'validate-fields'
         );
 
-        if ($validateServiceName === null) {
-            throw new \Exception('validate-id must be defined');
+        if (!$this->serviceContainer->has($validateServiceName)) {
+            throw new \Exception(
+                'validate-fields must be a service: (' . $validateServiceName . ')'
+            );
         }
 
-        /** @var Validate $validateService */
-        $validateService = $this->serviceContainer->get($validateServiceName);
+        $validate = $this->serviceContainer->get($validateServiceName);
 
-        if (!$validateService instanceof Validate) {
+        if (!$validate instanceof ValidateFields) {
             throw new \Exception(
-                'validate id must be instance of ' . ValidateId::class
-                . ' got .' . get_class($validateService)
+                'Validate must be instance of ' . ValidateFields::class
+                . ' got (' . get_class($validate) . ')'
+                . ' for implementation: (' . $zrcmsImplementation . ')'
+                . ' and api: ' . $zrcmsApiName . ')'
             );
         }
 
         $validateOptions = Param::getArray(
             $validateConfig,
-            'validate-options',
+            'validate-fields-options',
             []
         );
 
-        $httpApiId = $request->getAttribute(static::ATTRIBUTE_ZRCMS_ID);
+        $data = $request->getParsedBody();
 
-        $validationResult = $validateService->__invoke(
-            $httpApiId,
+
+        $validationResult = $validate->__invoke(
+            $data,
             $validateOptions
         );
 
         if (!$validationResult->isValid()) {
-            $notValidStatusDefault = Param::getInt(
-                $validateOptions,
+            $notValidStatus = Param::getInt(
+                $validateConfig,
                 'not-valid-status',
                 $this->notValidStatusDefault
             );
@@ -134,7 +135,7 @@ class HttpApiValidateIdAttributeDynamic implements HttpApiDynamic
             return new ZrcmsJsonResponse(
                 null,
                 $apiMessages,
-                $notValidStatusDefault
+                $notValidStatus
             );
         }
 
