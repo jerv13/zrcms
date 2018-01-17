@@ -8,8 +8,10 @@ use Zrcms\InputValidation\Model\ValidationResultBasic;
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class ValidateNoop implements Validate
+class ValidateIsArray implements Validate
 {
+    const CODE_MUST_BE_ARRAY = 'must-be-array';
+
     /**
      * @param mixed $value
      * @param array $options
@@ -20,6 +22,13 @@ class ValidateNoop implements Validate
         $value,
         array $options = []
     ): ValidationResult {
+        if (!is_array($value)) {
+            return new ValidationResultBasic(
+                false,
+                static::CODE_MUST_BE_ARRAY
+            );
+        }
+
         return new ValidationResultBasic();
     }
 }

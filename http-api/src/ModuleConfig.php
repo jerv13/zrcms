@@ -32,8 +32,12 @@ use Zrcms\HttpApi\Validate\HttpApiValidateIdAttributeDynamic;
 use Zrcms\HttpApi\Validate\HttpApiValidateIdAttributeDynamicFactory;
 use Zrcms\HttpApi\Validate\HttpApiValidateWhereParamDynamic;
 use Zrcms\HttpApi\Validate\HttpApiValidateWhereParamDynamicFactory;
-use Zrcms\InputValidation\Api\ValidateFields;
-use Zrcms\InputValidation\Api\ValidateId;
+use Zrcms\InputValidation\Api\Validate;
+use Zrcms\InputValidation\Api\ValidateFieldsByStrategy;
+use Zrcms\InputValidation\Api\ValidateIsAnyValue;
+use Zrcms\InputValidation\Api\ValidateIsAssociativeArray;
+use Zrcms\InputValidation\Api\ValidateIsBoolean;
+use Zrcms\InputValidation\Api\ValidateIsNull;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -168,8 +172,58 @@ class ModuleConfig
                             'not-allowed-status' => 401,
                         ],
                         'validate-data' => [
-                            'validate-fields' => ValidateFields::class,
-                            'validate-fields-options' => [],
+                            'validate-fields' => ValidateFieldsByStrategy::class,
+                            'validate-fields-options' => [
+                                'validation-config' => [
+                                    'id' => [
+                                        'validate-api' => ValidateIsAnyValue::class,
+                                        'validate-api-options' => [],
+                                    ],
+                                    'published' => [
+                                        'validate-api' => ValidateIsBoolean::class,
+                                        'validate-api-options' => [],
+                                    ],
+                                    'contentVersion' => [
+                                        'validate-api' => ValidateFieldsByStrategy::class,
+                                        'validate-api-options' => [
+                                            'validation-config' => [
+                                                'id' => [
+                                                    'validate-api' => ValidateIsAnyValue::class,
+                                                    'validate-api-options' => [],
+                                                ],
+                                                'properties' => [
+                                                    'validate-api' => ValidateIsAssociativeArray::class,
+                                                    'validate-api-options' => [],
+                                                ],
+                                                'createdByUserId' => [
+                                                    'validate-api' => ValidateIsNull::class,
+                                                    'validate-api-options' => [],
+                                                ],
+                                                'createdReason' => [
+                                                    'validate-api' => ValidateIsNull::class,
+                                                    'validate-api-options' => [],
+                                                ],
+                                                'createdDate' => [
+                                                    'validate-api' => ValidateIsNull::class,
+                                                    'validate-api-options' => [],
+                                                ],
+                                            ],
+                                        ]
+                                    ],
+                                    'createdByUserId' => [
+                                        'validate-api' => ValidateIsNull::class,
+                                        'validate-api-options' => [],
+                                    ],
+                                    'createdReason' => [
+                                        'validate-api' => ValidateIsNull::class,
+                                        'validate-api-options' => [],
+                                    ],
+                                    'createdDate' => [
+                                        'validate-api' => ValidateIsNull::class,
+                                        'validate-api-options' => [],
+                                    ],
+                                ],
+                            ],
                             'not-valid-status' => 400,
                         ],
                         'api' => [

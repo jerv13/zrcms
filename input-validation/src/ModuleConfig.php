@@ -8,10 +8,20 @@ use Zrcms\InputValidation\Api\ValidateCompositeByStrategy;
 use Zrcms\InputValidation\Api\ValidateCompositeByStrategyFactory;
 use Zrcms\InputValidation\Api\ValidateFieldsByStrategy;
 use Zrcms\InputValidation\Api\ValidateFieldsByStrategyFactory;
-use Zrcms\InputValidation\Api\ValidateNoop;
-use Zrcms\InputValidation\Api\ValidateNoopFactory;
-use Zrcms\InputValidation\Api\ValidateNotEmpty;
-use Zrcms\InputValidation\Api\ValidateNotEmptyFactory;
+use Zrcms\InputValidation\Api\ValidateIsArray;
+use Zrcms\InputValidation\Api\ValidateIsArrayFactory;
+use Zrcms\InputValidation\Api\ValidateIsAssociativeArray;
+use Zrcms\InputValidation\Api\ValidateIsAssociativeArrayFactory;
+use Zrcms\InputValidation\Api\ValidateIsBoolean;
+use Zrcms\InputValidation\Api\ValidateIsBooleanFactory;
+use Zrcms\InputValidation\Api\ValidateIsAnyValue;
+use Zrcms\InputValidation\Api\ValidateIsAnyValueFactory;
+use Zrcms\InputValidation\Api\ValidateIsNotEmpty;
+use Zrcms\InputValidation\Api\ValidateISNotEmptyFactory;
+use Zrcms\InputValidation\Api\ValidateIsNull;
+use Zrcms\InputValidation\Api\ValidateIsNullFactory;
+use Zrcms\InputValidation\Api\ValidateIsValue;
+use Zrcms\InputValidation\Api\ValidateIsValueFactory;
 use Zrcms\InputValidation\Api\ValidationFieldsResultToArray;
 use Zrcms\InputValidation\Api\ValidationFieldsResultToArrayBasicFactory;
 use Zrcms\InputValidation\Api\ValidationResultToArray;
@@ -42,12 +52,26 @@ class ModuleConfig
                         'factory' => ValidateFieldsByStrategyFactory::class,
                     ],
 
-                    ValidateNoop::class => [
-                        'factory' => ValidateNoopFactory::class,
+                    ValidateIsAnyValue::class => [
+                        'factory' => ValidateIsAnyValueFactory::class,
                     ],
-
-                    ValidateNotEmpty::class => [
-                        'factory' => ValidateNotEmptyFactory::class,
+                    ValidateIsArray::class => [
+                        'factory' => ValidateIsArrayFactory::class,
+                    ],
+                    ValidateIsAssociativeArray::class => [
+                        'factory' => ValidateIsAssociativeArrayFactory::class,
+                    ],
+                    ValidateIsBoolean::class => [
+                        'factory' => ValidateIsBooleanFactory::class,
+                    ],
+                    ValidateIsNotEmpty::class => [
+                        'factory' => ValidateISNotEmptyFactory::class,
+                    ],
+                    ValidateIsNull::class => [
+                        'factory' => ValidateIsNullFactory::class,
+                    ],
+                    ValidateIsValue::class => [
+                        'factory' => ValidateIsValueFactory::class,
                     ],
 
                     ValidationFieldsResultToArray::class => [

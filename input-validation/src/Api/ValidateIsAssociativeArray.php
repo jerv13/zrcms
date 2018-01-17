@@ -4,13 +4,15 @@ namespace Zrcms\InputValidation\Api;
 
 use Zrcms\InputValidation\Model\ValidationResult;
 use Zrcms\InputValidation\Model\ValidationResultBasic;
+use Zrcms\Param\Param;
 
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class ValidateNotEmpty implements Validate
+class ValidateIsAssociativeArray implements Validate
 {
-    const CODE_EMPTY_VALUE = 'empty-value';
+    const CODE_MUST_BE_ARRAY = ValidateIsArray::CODE_MUST_BE_ARRAY;
+    const CODE_MUST_BE_ASSOCIATIVE_ARRAY = 'must-be-associative-array';
 
     /**
      * @param mixed $value
@@ -22,10 +24,17 @@ class ValidateNotEmpty implements Validate
         $value,
         array $options = []
     ): ValidationResult {
-        if (empty($value)) {
+        if (!is_array($value)) {
             return new ValidationResultBasic(
                 false,
-                static::CODE_EMPTY_VALUE
+                static::CODE_MUST_BE_ARRAY
+            );
+        }
+
+        if (!(array_keys($value) !== range(0, count($value) - 1))) {
+            return new ValidationResultBasic(
+                false,
+                static::CODE_MUST_BE_ASSOCIATIVE_ARRAY
             );
         }
 
