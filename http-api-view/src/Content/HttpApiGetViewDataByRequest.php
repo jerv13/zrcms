@@ -104,7 +104,7 @@ class HttpApiGetViewDataByRequest
         if (!$allowed) {
             $apiMessages = [
                 'type' => static::NAME,
-                'value' => 'NOT ALLOWED',
+                'message' => 'NOT ALLOWED',
                 'source' => static::SOURCE_ACL,
                 'code' => $this->notFoundStatus,
                 'primary' => true,
@@ -116,7 +116,9 @@ class HttpApiGetViewDataByRequest
                 $apiMessages,
                 $this->notAllowedStatus,
                 [],
-                $encodingOptions
+                [
+                    ZrcmsJsonResponse::OPTION_JSON_FLAGS => $encodingOptions
+                ]
             );
         }
 
@@ -134,7 +136,7 @@ class HttpApiGetViewDataByRequest
         } catch (SiteNotFound $exception) {
             $apiMessages = [
                 'type' => static::NAME,
-                'value' => $exception->getMessage(),
+                'message' => $exception->getMessage(),
                 'source' => static::SOURCE_SITE,
                 'code' => $this->notFoundStatus,
                 'primary' => true,
@@ -146,12 +148,14 @@ class HttpApiGetViewDataByRequest
                 $apiMessages,
                 $this->notFoundStatus,
                 [],
-                $encodingOptions
+                [
+                    ZrcmsJsonResponse::OPTION_JSON_FLAGS => $encodingOptions
+                ]
             );
         } catch (PageNotFound $exception) {
             $apiMessages = [
                 'type' => static::NAME,
-                'value' => $exception->getMessage(),
+                'message' => $exception->getMessage(),
                 'source' => static::SOURCE_PAGE,
                 'code' => $this->notFoundStatus,
                 'primary' => true,
@@ -163,12 +167,14 @@ class HttpApiGetViewDataByRequest
                 $apiMessages,
                 $this->notFoundStatus,
                 [],
-                $encodingOptions
+                [
+                    ZrcmsJsonResponse::OPTION_JSON_FLAGS => $encodingOptions
+                ]
             );
         } catch (LayoutNotFound $exception) {
             $apiMessages = [
                 'type' => static::NAME,
-                'value' => $exception->getMessage(),
+                'message' => $exception->getMessage(),
                 'source' => static::SOURCE_LAYOUT,
                 'code' => $this->notFoundStatus,
                 'primary' => true,
@@ -180,12 +186,14 @@ class HttpApiGetViewDataByRequest
                 $apiMessages,
                 $this->notFoundStatus,
                 [],
-                $encodingOptions
+                [
+                    ZrcmsJsonResponse::OPTION_JSON_FLAGS => $encodingOptions
+                ]
             );
         } catch (ThemeNotFound $exception) {
             $apiMessages = [
                 'type' => static::NAME,
-                'value' => $exception->getMessage(),
+                'message' => $exception->getMessage(),
                 'source' => static::SOURCE_THEME,
                 'code' => $this->notFoundStatus,
                 'primary' => true,
@@ -197,7 +205,9 @@ class HttpApiGetViewDataByRequest
                 $apiMessages,
                 $this->notFoundStatus,
                 [],
-                $encodingOptions
+                [
+                    ZrcmsJsonResponse::OPTION_JSON_FLAGS => $encodingOptions
+                ]
             );
         }
 

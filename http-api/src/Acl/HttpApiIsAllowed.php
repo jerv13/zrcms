@@ -64,7 +64,7 @@ class HttpApiIsAllowed
 
             $apiMessages = [
                 'type' => $this->name,
-                'value' => 'Not allowed',
+                'message' => 'Not allowed',
                 'source' => self::SOURCE,
                 'code' => ResponseCodes::NOT_ALLOWED,
                 'primary' => true,
@@ -77,7 +77,9 @@ class HttpApiIsAllowed
                 $apiMessages,
                 $this->notAllowedStatus,
                 [],
-                $encodingOptions
+                [
+                    ZrcmsJsonResponse::OPTION_JSON_FLAGS => $encodingOptions
+                ]
             );
         }
 

@@ -124,7 +124,7 @@ class HttpApiValidateFieldsDynamic implements HttpApiDynamic
             // @todo We need to give the client some messages/codes for the fields
             $apiMessages = [
                 'type' => $zrcmsImplementation . ':' . $zrcmsApiName,
-                'value' => 'Not Valid',
+                'message' => 'Not Valid',
                 'source' => self::SOURCE,
                 'code' => $validationResult->getCode(),
                 'primary' => true,

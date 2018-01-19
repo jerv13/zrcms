@@ -15,7 +15,7 @@ $app->pipe(
 );
 
 $app->pipe(
-    \Zrcms\HttpRcmApiLib\Middleware\ResponseMutatorJsonRcmApiLibFormat::class
+    \Zrcms\HttpApiInputValidationMessages\Api\Response\ResponseMutatorMessagesFromResults::class
 );
 
 $app->pipe(

@@ -54,7 +54,7 @@ class HttpApiFindComponent
         if (empty($componentType)) {
             $apiMessages = [
                 'type' => 'find-component:' . $componentName . ':' . $componentType,
-                'value' => 'Type not received',
+                'message' => 'Type not received',
                 'source' => self::SOURCE,
                 'code' => ResponseCodes::ID_NOT_RECEIVED,
                 'primary' => true,
@@ -71,7 +71,7 @@ class HttpApiFindComponent
         if (empty($componentName)) {
             $apiMessages = [
                 'type' => 'find-component:' . $componentName . ':' . $componentType,
-                'value' => 'Name not received',
+                'message' => 'Name not received',
                 'source' => self::SOURCE,
                 'code' => ResponseCodes::ID_NOT_RECEIVED,
                 'primary' => true,
@@ -93,7 +93,7 @@ class HttpApiFindComponent
         if (empty($component)) {
             $apiMessages = [
                 'type' => 'find-component:' . $componentName . ':' . $componentType,
-                'value' => 'Find failed',
+                'message' => 'Find failed',
                 'source' => self::SOURCE,
                 'code' => ResponseCodes::FAILED,
                 'primary' => true,

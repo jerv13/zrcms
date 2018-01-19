@@ -69,7 +69,7 @@ class HttpApplicationState
         if (empty($host)) {
             $apiMessages = [
                 'type' => static::NAME,
-                'value' => 'BAD REQUEST',
+                'message' => 'BAD REQUEST',
                 'source' => static::SOURCE_MISSING_HOST,
                 'code' => $this->badRequestStatus,
                 'primary' => true,
@@ -81,7 +81,9 @@ class HttpApplicationState
                 $apiMessages,
                 $this->notFoundStatus,
                 [],
-                $encodingOptions
+                [
+                    ZrcmsJsonResponse::OPTION_JSON_FLAGS => $encodingOptions
+                ]
             );
         }
 

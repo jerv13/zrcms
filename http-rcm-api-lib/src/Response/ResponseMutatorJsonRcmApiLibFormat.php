@@ -1,10 +1,11 @@
 <?php
 
-namespace Zrcms\HttpRcmApiLib\Middleware;
+namespace Zrcms\HttpRcmApiLib\Response;
 
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Reliv\RcmApiLib\Api\ApiResponse\NewPsrResponseWithTranslatedMessages;
+use Reliv\RcmApiLib\Exception\CanNotHydrate;
 use Reliv\RcmApiLib\Http\PsrApiResponse;
 use Zend\Diactoros\Response\JsonResponse;
 use Zrcms\Http\Api\IsValidContentType;
@@ -61,13 +62,20 @@ class ResponseMutatorJsonRcmApiLibFormat
 
         $apiMessageData = $response->getApiMessages();
 
-        return $this->newPsrResponseWithTranslatedMessages->__invoke(
-            $data,
-            $response->getStatusCode(),
-            $apiMessageData,
-            $response->getHeaders(),
-            $this->buildOptions([], $response)
-        );
+        try {
+            $apiResponse = $this->newPsrResponseWithTranslatedMessages->__invoke(
+                $data,
+                $response->getStatusCode(),
+                $apiMessageData,
+                $response->getHeaders(),
+                $this->buildOptions([], $response)
+            );
+        } catch (CanNotHydrate $exception) {
+            // do nothing
+            $apiResponse = $response;
+        }
+
+        return $apiResponse;
     }
 
     /**

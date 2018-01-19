@@ -54,7 +54,7 @@ class HttpApiFindContentVersion
         if (empty($requestedContentVersionId)) {
             $apiMessages = [
                 'type' => $this->name,
-                'value' => 'ID not received',
+                'message' => 'ID not received',
                 'source' => self::SOURCE,
                 'code' => ResponseCodes::ID_NOT_RECEIVED,
                 'primary' => true,
@@ -75,7 +75,7 @@ class HttpApiFindContentVersion
         if (empty($contentVersion)) {
             $apiMessages = [
                 'type' => $this->name,
-                'value' => 'Not found for id: ' . $requestedContentVersionId,
+                'message' => 'Not found for id: ' . $requestedContentVersionId,
                 'source' => self::SOURCE,
                 'code' => ResponseCodes::NOT_FOUND,
                 'primary' => true,

@@ -63,7 +63,7 @@ class HttpApiInsertContentVersion
         if (empty($requestData)) {
             $apiMessages = [
                 'type' => $this->name,
-                'value' => 'Data not received',
+                'message' => 'Data not received',
                 'source' => self::SOURCE,
                 'code' => ResponseCodes::PROPERTIES_NOT_RECEIVED,
                 'primary' => true,

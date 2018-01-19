@@ -9,6 +9,8 @@ use Zrcms\InputValidation\Model\ValidationResultFields;
  */
 interface GetMessagesValidationResultFields
 {
+    const KEY_FIELD_NAME = GetMessagesValidationResult::KEY_FIELD_NAME;
+
     /**
      * @param ValidationResultFields $validationResultFields
      * @param array                  $options

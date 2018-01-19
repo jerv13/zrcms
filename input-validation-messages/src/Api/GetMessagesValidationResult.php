@@ -10,6 +10,10 @@ use Zrcms\InputValidation\Model\ValidationResult;
 interface GetMessagesValidationResult
 {
     const OPTION_MESSAGE_PARAMS = 'message-params';
+    const KEY_CODE = 'code';
+    const KEY_MESSAGE = 'message';
+    const KEY_FIELD_NAME = 'field-name';
+    const KEY_DEFAULT = '__default';
 
     /**
      * @param ValidationResult $validationResult

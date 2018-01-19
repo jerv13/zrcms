@@ -55,7 +55,7 @@ class HttpApiFindCmsResource
         if (empty($cmsResourceId)) {
             $apiMessages = [
                 'type' => $this->name,
-                'value' => 'ID not received',
+                'message' => 'ID not received',
                 'source' => self::SOURCE,
                 'code' => ResponseCodes::ID_NOT_RECEIVED,
                 'primary' => true,
@@ -76,7 +76,7 @@ class HttpApiFindCmsResource
         if (empty($cmsResource)) {
             $apiMessages = [
                 'type' => $this->name,
-                'value' => 'Find failed',
+                'message' => 'Find failed',
                 'source' => self::SOURCE,
                 'code' => ResponseCodes::FAILED,
                 'primary' => true,

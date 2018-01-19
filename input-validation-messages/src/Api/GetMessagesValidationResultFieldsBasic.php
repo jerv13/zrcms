@@ -13,22 +13,14 @@ class GetMessagesValidationResultFieldsBasic implements GetMessagesValidationRes
     const DEFAULT_MESSAGE = 'Value is invalid';
 
     protected $getMessagesValidationResult;
-    protected $codeMessages;
-    protected $defaultMessage;
 
     /**
      * @param GetMessagesValidationResult $getMessagesValidationResult
-     * @param array                       $codeMessages
-     * @param string                      $defaultMessage
      */
     public function __construct(
-        GetMessagesValidationResult $getMessagesValidationResult,
-        array $codeMessages,
-        string $defaultMessage = self::DEFAULT_MESSAGE
+        GetMessagesValidationResult $getMessagesValidationResult
     ) {
         $this->getMessagesValidationResult = $getMessagesValidationResult;
-        $this->codeMessages = $codeMessages;
-        $this->defaultMessage = $defaultMessage;
     }
 
     /**
@@ -89,6 +81,7 @@ class GetMessagesValidationResultFieldsBasic implements GetMessagesValidationRes
         array $options = []
     ): array {
         if ($validationResult instanceof ValidationResultFields) {
+            $options[static::KEY_FIELD_NAME] = $fieldName;
             $subMessages = $this->buildMessagesValidationFields(
                 $validationResult->getFieldResults(),
                 [],
@@ -104,6 +97,7 @@ class GetMessagesValidationResultFieldsBasic implements GetMessagesValidationRes
             return $messages;
         }
 
+        $options[static::KEY_FIELD_NAME] = $fieldName;
         $messages[$fieldName] = $this->getMessagesValidationResult->__invoke(
             $validationResult,
             $options

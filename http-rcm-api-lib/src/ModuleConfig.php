@@ -3,7 +3,7 @@
 namespace Zrcms\HttpRcmApiLib;
 
 use Reliv\RcmApiLib\Api\ApiResponse\NewPsrResponseWithTranslatedMessages;
-use Zrcms\HttpRcmApiLib\Middleware\ResponseMutatorJsonRcmApiLibFormat;
+use Zrcms\HttpRcmApiLib\Response\ResponseMutatorJsonRcmApiLibFormat;
 
 /**
  * @author James Jervis - https://github.com/jerv13

@@ -9,6 +9,7 @@ use ZfInputFilterService\InputFilter\ServiceAwareInputFilter;
 use Zrcms\Http\Response\ZrcmsJsonResponse;
 
 /**
+ * @deprecated NOT RIGHT
  * @author James Jervis - https://github.com/jerv13
  */
 class HttpApiDataZfInputFilterService

@@ -113,7 +113,7 @@ class HttpApiFindCmsResourceDynamic implements HttpApiDynamic
 
             $apiMessages = [
                 'type' => $zrcmsImplementation . ':' . $zrcmsApiName,
-                'value' => 'Not Found with id: ' . $id,
+                'message' => 'Not Found with id: ' . $id,
                 'source' => self::SOURCE,
                 'code' => $notFoundStatus,
                 'primary' => true,

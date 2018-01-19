@@ -44,11 +44,7 @@ class GetMessagesValidationResultBasic implements GetMessagesValidationResult
             return [];
         }
 
-        $message = Param::get(
-            $this->codeMessages,
-            $code,
-            $this->defaultMessage
-        );
+        $message = $this->getMessage($code, $options);
 
         $message = $this->parseMessage(
             $message,
@@ -56,9 +52,88 @@ class GetMessagesValidationResultBasic implements GetMessagesValidationResult
         );
 
         return [
-            'code' => $code,
-            'message' => $message
+            GetMessagesValidationResult::KEY_CODE => $code,
+            GetMessagesValidationResult::KEY_MESSAGE => $message,
         ];
+    }
+
+    /**
+     * @param string $code
+     * @param array  $options
+     *
+     * @return string
+     */
+    protected function getMessage(
+        string $code,
+        array $options
+    ): string {
+        $message = Param::get(
+            $this->codeMessages,
+            $code
+        );
+
+        if (empty($message)) {
+            return $this->defaultMessage;
+        }
+
+        if (is_string($message)) {
+            return $message;
+        }
+
+        if (!is_array($message)) {
+            return $this->defaultMessage;
+        }
+
+        $fieldName = Param::getString(
+            $options,
+            static::KEY_FIELD_NAME
+        );
+
+        if (empty($fieldName)) {
+            // Default message
+            return Param::getString(
+                $message,
+                static::KEY_DEFAULT,
+                $this->defaultMessage
+            );
+        }
+
+        $fieldMessage = Param::getString(
+            $message,
+            $fieldName
+        );
+
+        if (!empty($fieldMessage)) {
+            return $fieldMessage;
+        }
+
+        // Default message
+        return Param::getString(
+            $message,
+            static::KEY_DEFAULT,
+            $this->defaultMessage
+        );
+    }
+
+    /**
+     * @param string $message
+     * @param array  $messageParams
+     *
+     * @return string
+     */
+    protected function parseMessage(
+        string $message,
+        array $messageParams
+    ): string {
+        foreach ($messageParams as $param => $messageParam) {
+            $message = str_replace(
+                '{' . $param . '}',
+                $messageParam,
+                $message
+            );
+        }
+
+        return $message;
     }
 
     /**
@@ -87,26 +162,5 @@ class GetMessagesValidationResultBasic implements GetMessagesValidationResult
         );
 
         return $messageParams;
-    }
-
-    /**
-     * @param string $message
-     * @param array  $messageParams
-     *
-     * @return string
-     */
-    protected function parseMessage(
-        string $message,
-        array $messageParams
-    ): string {
-        foreach ($messageParams as $param => $messageParam) {
-            $message = str_replace(
-                '{' . $param . '}',
-                $messageParam,
-                $message
-            );
-        }
-
-        return $message;
     }
 }

@@ -7,6 +7,7 @@ use Zend\Diactoros\Response\InjectContentTypeTrait;
 use Zend\Diactoros\Response\JsonResponse;
 use Zend\Diactoros\Stream;
 use Zrcms\Json\Json;
+use Zrcms\Param\Param;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -25,6 +26,7 @@ class ZrcmsJsonResponse extends Response
      * @const int
      */
     const DEFAULT_JSON_FLAGS = 79;
+    const OPTION_JSON_FLAGS = 'json-flags';
 
     /**
      * @var mixed
@@ -35,6 +37,11 @@ class ZrcmsJsonResponse extends Response
      * @var mixed
      */
     protected $apiMessages = null;
+
+    /**
+     * @var array
+     */
+    protected $options = [];
 
     /**
      * @var int
@@ -53,11 +60,11 @@ class ZrcmsJsonResponse extends Response
      * - JSON_HEX_QUOT
      * - JSON_UNESCAPED_SLASHES
      *
-     * @param mixed $data            Data to convert to JSON.
-     * @param mixed $apiMessages     Messages to convert to JSON.
-     * @param int   $status          Integer status code for the response; 200 by default.
-     * @param array $headers         Array of headers to use at initialization.
-     * @param int   $encodingOptions JSON encoding options to use.
+     * @param mixed $data        Data to convert to JSON.
+     * @param mixed $apiMessages Messages to convert to JSON.
+     * @param int   $status      Integer status code for the response; 200 by default.
+     * @param array $headers     Array of headers to use at initialization.
+     * @param array $options     Array of options
      *
      * @throws \InvalidArgumentException if unable to encode the $data to JSON.
      */
@@ -66,12 +73,18 @@ class ZrcmsJsonResponse extends Response
         $apiMessages = null,
         $status = 200,
         array $headers = [],
-        $encodingOptions = self::DEFAULT_JSON_FLAGS
+        array $options = []
     ) {
         $this->setPayload($data);
         $this->setApiMessages($apiMessages);
 
-        $this->encodingOptions = $encodingOptions;
+        $this->options = $options;
+
+        $this->encodingOptions = Param::get(
+            $options,
+            self::OPTION_JSON_FLAGS,
+            self::DEFAULT_JSON_FLAGS
+        );
 
         $apiResult = $this->getApiResult();
 
@@ -110,6 +123,54 @@ class ZrcmsJsonResponse extends Response
     private function setApiMessages($apiMessages)
     {
         $this->apiMessages = $apiMessages;
+    }
+
+    /**
+     * @return array
+     */
+    public function getOptions(): array
+    {
+        return $this->options;
+    }
+
+    /**
+     * @param string $key
+     * @param null   $default
+     *
+     * @return mixed|null
+     */
+    public function findOption(string $key, $default = null)
+    {
+        if (array_key_exists($key, $this->options)) {
+            return $this->options[$key];
+        }
+
+        return $default;
+    }
+
+    /**
+     * @param string $key
+     * @param mixed  $value
+     *
+     * @return ZrcmsJsonResponse
+     */
+    public function withAddedOption(string $key, $value)
+    {
+        $new = clone $this;
+        $new->addOption($key, $value);
+
+        return $new;
+    }
+
+    /**
+     * @param string $key
+     * @param mixed  $value
+     *
+     * @return void
+     */
+    private function addOption(string $key, $value)
+    {
+        $this->options[$key] = $value;
     }
 
     /**
