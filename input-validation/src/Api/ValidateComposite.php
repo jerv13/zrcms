@@ -51,7 +51,7 @@ class ValidateComposite implements Validate
             }
 
             $validationResults[] = [
-                'validate-api' => get_class($validateApi),
+                'validator' => get_class($validateApi),
                 'valid' => $validationResult->isValid(),
                 'code' => $validationResult->getCode(),
                 'details' => $validationResult->getDetails(),

@@ -20,7 +20,10 @@ use Zrcms\HttpApi\CmsResource\HttpApiFindCmsResourcesByDynamic;
 use Zrcms\HttpApi\CmsResource\HttpApiFindCmsResourcesByDynamicFactory;
 use Zrcms\HttpApi\CmsResource\HttpApiFindCmsResourcesPublishedDynamic;
 use Zrcms\HttpApi\CmsResource\HttpApiFindCmsResourcesPublishedDynamicFactory;
+use Zrcms\HttpApi\CmsResource\HttpApiUpsertCmsResourceDynamic;
+use Zrcms\HttpApi\CmsResource\HttpApiUpsertCmsResourceDynamicFactory;
 use Zrcms\HttpApi\Component\HttpApiFindComponent;
+use Zrcms\HttpApi\Component\HttpApiFindComponentFactory;
 use Zrcms\HttpApi\Params\HttpApiLimit;
 use Zrcms\HttpApi\Params\HttpApiOffset;
 use Zrcms\HttpApi\Params\HttpApiOrderBy;
@@ -32,7 +35,6 @@ use Zrcms\HttpApi\Validate\HttpApiValidateIdAttributeDynamic;
 use Zrcms\HttpApi\Validate\HttpApiValidateIdAttributeDynamicFactory;
 use Zrcms\HttpApi\Validate\HttpApiValidateWhereParamDynamic;
 use Zrcms\HttpApi\Validate\HttpApiValidateWhereParamDynamicFactory;
-use Zrcms\InputValidation\Api\Validate;
 use Zrcms\InputValidation\Api\ValidateCompositeByStrategy;
 use Zrcms\InputValidation\Api\ValidateFieldsByStrategy;
 use Zrcms\InputValidation\Api\ValidateIsAnyValue;
@@ -58,7 +60,6 @@ class ModuleConfig
                     /**
                      * Acl ===========================================
                      */
-
                     HttpApiIsAllowedDynamic::class => [
                         'factory' => HttpApiIsAllowedDynamicFactory::class,
                     ],
@@ -82,15 +83,15 @@ class ModuleConfig
                         'factory' => HttpApiFindCmsResourcesPublishedDynamicFactory::class,
                     ],
 
+                    HttpApiUpsertCmsResourceDynamic::class => [
+                        'factory' => HttpApiUpsertCmsResourceDynamicFactory::class,
+                    ],
+
                     /**
                      * Component ===========================================
                      */
                     HttpApiFindComponent::class => [
-                        'arguments' => [
-                            \Zrcms\Core\Api\Component\FindComponent::class,
-                            ComponentToArray::class,
-                            ['literal' => 'basic']
-                        ],
+                        'factory' => HttpApiFindComponentFactory::class,
                     ],
 
                     /**
@@ -141,13 +142,6 @@ class ModuleConfig
                             'is-allowed-options' => [],
                             'not-allowed-status' => 401,
                         ],
-                        /* @todo Is this needed
-                         * 'validate-id' => [
-                         * 'validate' => ValidateId::class,
-                         * 'validate-options' => [],
-                         * 'not-valid-status' => 400,
-                         * ],
-                         */
                         'api' => [
                             'api-service' => FindSiteCmsResource::class,
                             'to-array' => CmsResourceToArray::class,
@@ -175,73 +169,73 @@ class ModuleConfig
                             'not-allowed-status' => 401,
                         ],
                         'validate-data' => [
-                            'validate-fields' => ValidateFieldsByStrategy::class,
+                            'validate-fields-api' => ValidateFieldsByStrategy::class,
                             'validate-fields-options' => [
-                                'validation-config' => [
+                                'field-validators' => [
                                     'id' => [
-                                        'validate-api' => ValidateIsAnyValue::class,
-                                        'validate-api-options' => [],
+                                        'validator' => ValidateIsAnyValue::class,
+                                        'options' => [],
                                     ],
                                     'published' => [
-                                        'validate-api' => ValidateIsBoolean::class,
-                                        'validate-api-options' => [],
+                                        'validator' => ValidateIsBoolean::class,
+                                        'options' => [],
                                     ],
                                     'contentVersion' => [
-                                        'validate-api' => ValidateFieldsByStrategy::class,
-                                        'validate-api-options' => [
-                                            'validation-config' => [
+                                        'validator' => ValidateFieldsByStrategy::class,
+                                        'options' => [
+                                            'field-validators' => [
                                                 'id' => [
-                                                    'validate-api' => ValidateIsAnyValue::class,
-                                                    'validate-api-options' => [],
+                                                    'validator' => ValidateIsAnyValue::class,
+                                                    'options' => [],
                                                 ],
                                                 'properties' => [
-                                                    'validate-api' => ValidateIsAssociativeArray::class,
-                                                    'validate-api-options' => [],
+                                                    'validator' => ValidateIsAssociativeArray::class,
+                                                    'options' => [],
                                                 ],
                                                 'createdByUserId' => [
-                                                    'validate-api' => ValidateIsNull::class,
-                                                    'validate-api-options' => [],
+                                                    'validator' => ValidateIsNull::class,
+                                                    'options' => [],
                                                 ],
                                                 'createdReason' => [
-                                                    'validate-api' => ValidateCompositeByStrategy::class,
-                                                    'validate-api-options' => [
-                                                        'validate-api-list' => [
+                                                    'validator' => ValidateCompositeByStrategy::class,
+                                                    'options' => [
+                                                        'validators' => [
                                                             [
-                                                                'validate-api' => ValidateIsNotEmpty::class,
+                                                                'validator' => ValidateIsNotEmpty::class,
                                                             ],
                                                             [
-                                                                'validate-api' => ValidateIsString::class,
+                                                                'validator' => ValidateIsString::class,
                                                             ],
                                                         ]
                                                     ],
                                                 ],
                                                 'createdDate' => [
-                                                    'validate-api' => ValidateIsNull::class,
-                                                    'validate-api-options' => [],
+                                                    'validator' => ValidateIsNull::class,
+                                                    'options' => [],
                                                 ],
                                             ],
                                         ]
                                     ],
                                     'createdByUserId' => [
-                                        'validate-api' => ValidateIsNull::class,
-                                        'validate-api-options' => [],
+                                        'validator' => ValidateIsNull::class,
+                                        'options' => [],
                                     ],
                                     'createdReason' => [
-                                        'validate-api' => ValidateCompositeByStrategy::class,
-                                        'validate-api-options' => [
-                                            'validate-api-list' => [
+                                        'validator' => ValidateCompositeByStrategy::class,
+                                        'options' => [
+                                            'validators' => [
                                                 [
-                                                    'validate-api' => ValidateIsNotEmpty::class,
+                                                    'validator' => ValidateIsNotEmpty::class,
                                                 ],
                                                 [
-                                                    'validate-api' => ValidateIsString::class,
+                                                    'validator' => ValidateIsString::class,
                                                 ],
                                             ]
                                         ],
                                     ],
                                     'createdDate' => [
-                                        'validate-api' => ValidateIsNull::class,
-                                        'validate-api-options' => [],
+                                        'validator' => ValidateIsNull::class,
+                                        'options' => [],
                                     ],
                                 ],
                             ],

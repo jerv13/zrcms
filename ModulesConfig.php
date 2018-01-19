@@ -25,6 +25,7 @@ class ModulesConfig
             new \Zrcms\Mustache\ModuleConfig(),
             new \Zrcms\ServiceAlias\ModuleConfig(),
             new \Zrcms\InputValidation\ModuleConfig(),
+            new \Zrcms\InputValidationMessages\ModuleConfig(),
             new \Zrcms\InputValidationZf2\ModuleConfig(),
             new \Zrcms\InputValidationZrcms\ModuleConfig(),
 

@@ -8,14 +8,14 @@ use Zrcms\InputValidation\Api\ValidateCompositeByStrategy;
 use Zrcms\InputValidation\Api\ValidateCompositeByStrategyFactory;
 use Zrcms\InputValidation\Api\ValidateFieldsByStrategy;
 use Zrcms\InputValidation\Api\ValidateFieldsByStrategyFactory;
+use Zrcms\InputValidation\Api\ValidateIsAnyValue;
+use Zrcms\InputValidation\Api\ValidateIsAnyValueFactory;
 use Zrcms\InputValidation\Api\ValidateIsArray;
 use Zrcms\InputValidation\Api\ValidateIsArrayFactory;
 use Zrcms\InputValidation\Api\ValidateIsAssociativeArray;
 use Zrcms\InputValidation\Api\ValidateIsAssociativeArrayFactory;
 use Zrcms\InputValidation\Api\ValidateIsBoolean;
 use Zrcms\InputValidation\Api\ValidateIsBooleanFactory;
-use Zrcms\InputValidation\Api\ValidateIsAnyValue;
-use Zrcms\InputValidation\Api\ValidateIsAnyValueFactory;
 use Zrcms\InputValidation\Api\ValidateIsNotEmpty;
 use Zrcms\InputValidation\Api\ValidateISNotEmptyFactory;
 use Zrcms\InputValidation\Api\ValidateIsNull;
@@ -24,8 +24,8 @@ use Zrcms\InputValidation\Api\ValidateIsString;
 use Zrcms\InputValidation\Api\ValidateIsStringFactory;
 use Zrcms\InputValidation\Api\ValidateIsValue;
 use Zrcms\InputValidation\Api\ValidateIsValueFactory;
-use Zrcms\InputValidation\Api\ValidationFieldsResultToArray;
-use Zrcms\InputValidation\Api\ValidationFieldsResultToArrayBasicFactory;
+use Zrcms\InputValidation\Api\ValidationResultFieldsToArray;
+use Zrcms\InputValidation\Api\ValidationResultFieldsToArrayBasicFactory;
 use Zrcms\InputValidation\Api\ValidationResultToArray;
 use Zrcms\InputValidation\Api\ValidationResultToArrayBasicFactory;
 
@@ -79,8 +79,8 @@ class ModuleConfig
                         'factory' => ValidateIsValueFactory::class,
                     ],
 
-                    ValidationFieldsResultToArray::class => [
-                        'factory' => ValidationFieldsResultToArrayBasicFactory::class,
+                    ValidationResultFieldsToArray::class => [
+                        'factory' => ValidationResultFieldsToArrayBasicFactory::class,
                     ],
 
                     ValidationResultToArray::class => [

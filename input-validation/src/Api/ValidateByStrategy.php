@@ -12,8 +12,8 @@ use Zrcms\Param\Param;
  */
 class ValidateByStrategy implements Validate
 {
-    const OPTION_VALIDATE_API = 'validate-api';
-    const OPTION_VALIDATE_API_OPTIONS = 'validate-api-options';
+    const OPTION_VALIDATE_API = 'validator';
+    const OPTION_VALIDATE_API_OPTIONS = 'options';
 
     protected $serviceContainer;
 

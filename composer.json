@@ -89,6 +89,8 @@
       "Zrcms\\HttpViewRender\\": "http-view-render/src/",
       "Zrcms\\Importer\\": "importer/src/",
       "Zrcms\\InputValidation\\": "input-validation/src/",
+      "Zrcms\\InputValidationMessages\\": "input-validation-messages/src/",
+      "Zrcms\\InputValidationMessages\\Test\\": "input-validation-messages/test/",
       "Zrcms\\InputValidationZf2\\": "input-validation-zf2/src/",
       "Zrcms\\InputValidationZrcms\\": "input-validation-zrcms/src/",
       "Zrcms\\Install\\": "install/src/",

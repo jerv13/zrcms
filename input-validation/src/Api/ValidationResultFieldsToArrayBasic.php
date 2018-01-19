@@ -8,7 +8,7 @@ use Zrcms\InputValidation\Model\ValidationResultFields;
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class ValidationFieldsResultToArrayBasic implements ValidationFieldsResultToArray
+class ValidationResultFieldsToArrayBasic implements ValidationResultFieldsToArray
 {
     protected $validationResultToArray;
 

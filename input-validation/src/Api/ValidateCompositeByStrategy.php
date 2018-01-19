@@ -11,7 +11,7 @@ use Zrcms\Param\Param;
  */
 class ValidateCompositeByStrategy
 {
-    const OPTION_VALIDATE_API_LIST = 'validate-api-list';
+    const OPTION_VALIDATORS = 'validators';
 
     protected $validateByStrategy;
 
@@ -45,12 +45,12 @@ class ValidateCompositeByStrategy
 
         Param::assertNotEmpty(
             $options,
-            static::OPTION_VALIDATE_API_LIST
+            static::OPTION_VALIDATORS
         );
 
         $validateApiList = Param::getArray(
             $options,
-            static::OPTION_VALIDATE_API_LIST
+            static::OPTION_VALIDATORS
         );
 
         /** @var string $validateApiServiceName */
@@ -68,7 +68,7 @@ class ValidateCompositeByStrategy
             }
 
             $validationResults[] = [
-                'validate-api' => Param::getString(
+                'validator' => Param::getString(
                     $options,
                     ValidateByStrategy::OPTION_VALIDATE_API
                 ),

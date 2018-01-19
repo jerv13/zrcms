@@ -82,7 +82,7 @@ class HttpApiValidateFieldsDynamic implements HttpApiDynamic
 
         $validateServiceName = Param::getString(
             $validateConfig,
-            'validate-fields'
+            'validate-fields-api'
         );
 
         if (!$this->serviceContainer->has($validateServiceName)) {

@@ -6,7 +6,6 @@ use Psr\Container\ContainerInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Zrcms\Core\Api\CmsResource\CmsResourceToArray;
-use Zrcms\Core\Api\CmsResource\FindCmsResource;
 use Zrcms\Core\Api\CmsResource\UpsertCmsResource;
 use Zrcms\Core\Model\CmsResourceBasic;
 use Zrcms\Core\Model\ContentVersionBasic;
@@ -29,15 +28,14 @@ class HttpApiUpsertCmsResourceDynamic implements HttpApiDynamic
     protected $getDynamicApiValue;
     protected $getUserIdByRequest;
     protected $cmsResourceToArrayDefault;
-    protected $notFoundStatusDefault;
     protected $debug;
 
     /**
      * @param ContainerInterface $serviceContainer
      * @param GetRouteOptions    $getRouteOptions
      * @param GetDynamicApiValue $getDynamicApiValue
+     * @param GetUserIdByRequest $getUserIdByRequest
      * @param CmsResourceToArray $cmsResourceToArrayDefault
-     * @param int                $notFoundStatusDefault
      * @param bool               $debug
      */
     public function __construct(
@@ -46,7 +44,6 @@ class HttpApiUpsertCmsResourceDynamic implements HttpApiDynamic
         GetDynamicApiValue $getDynamicApiValue,
         GetUserIdByRequest $getUserIdByRequest,
         CmsResourceToArray $cmsResourceToArrayDefault,
-        int $notFoundStatusDefault = 404,
         bool $debug = false
     ) {
         $this->serviceContainer = $serviceContainer;
@@ -54,7 +51,6 @@ class HttpApiUpsertCmsResourceDynamic implements HttpApiDynamic
         $this->getDynamicApiValue = $getDynamicApiValue;
         $this->getUserIdByRequest = $getUserIdByRequest;
         $this->cmsResourceToArrayDefault = $cmsResourceToArrayDefault;
-        $this->notFoundStatusDefault = $notFoundStatusDefault;
         $this->debug = $debug;
 
     }
@@ -110,42 +106,28 @@ class HttpApiUpsertCmsResourceDynamic implements HttpApiDynamic
         $data = $request->getParsedBody();
         $contentVersionData = $data['contentVersion'];
 
+        $userId = $this->getUserIdByRequest->__invoke($request);
+
         $contentVersion = new ContentVersionBasic(
             $contentVersionData['id'],
             $contentVersionData['properties'],
-            $this->getUserIdByRequest->__invoke($request),
+            $userId,
             $contentVersionData['createdReason']
         );
 
-        $cmsResource = new CmsResourceBasic(
-            $contentVersionData['id'],
-            $contentVersionData['properties'],
-            $this->getUserIdByRequest->__invoke($request),
+        $newCmsResource = new CmsResourceBasic(
+            $data['id'],
+            $data['published'],
+            $contentVersion,
+            $userId,
             $contentVersionData['createdReason']
         );
 
-        if (empty($cmsResource)) {
-            $notFoundStatus = Param::getInt(
-                $apiConfig,
-                'not-found-status',
-                $this->notFoundStatusDefault
-            );
-
-            $apiMessages = [
-                'type' => $zrcmsImplementation . ':' . $zrcmsApiName,
-                'value' => 'Not Found with id: ' . $id,
-                'source' => self::SOURCE,
-                'code' => $notFoundStatus,
-                'primary' => true,
-                'params' => []
-            ];
-
-            return new ZrcmsJsonResponse(
-                null,
-                $apiMessages,
-                $notFoundStatus
-            );
-        }
+        $cmsResource = $apiService->__invoke(
+            $newCmsResource,
+            $userId,
+            $contentVersionData['createdReason']
+        );
 
         $toArrayService = $this->cmsResourceToArrayDefault;
 

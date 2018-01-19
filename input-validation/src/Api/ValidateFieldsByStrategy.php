@@ -17,7 +17,7 @@ class ValidateFieldsByStrategy implements ValidateFields
 {
     const CODE_UNRECOGNIZED_FIELD = 'unrecognized-field';
 
-    const OPTION_VALIDATION_CONFIG = 'validation-config';
+    const OPTION_FIELD_VALIDATORS = 'field-validators';
     const OPTION_INVALID_CODE = 'code-invalid';
 
     const DEFAULT_INVALID_CODE = 'invalid';
@@ -45,8 +45,8 @@ class ValidateFieldsByStrategy implements ValidateFields
      * Validation Config Example
      * [
      *  '{field-name}' => [
-     *   'validate-api' => '{Validate or ValidateFields}',
-     *   'validate-api-options' => [],
+     *   'validator' => '{Validate or ValidateFields}',
+     *   'options' => [],
      *  ]
      * ]
      *
@@ -66,12 +66,12 @@ class ValidateFieldsByStrategy implements ValidateFields
     ): ValidationResultFields {
         Param::assertNotEmpty(
             $options,
-            static::OPTION_VALIDATION_CONFIG
+            static::OPTION_FIELD_VALIDATORS
         );
 
         $validationConfig = Param::getArray(
             $options,
-            static::OPTION_VALIDATION_CONFIG
+            static::OPTION_FIELD_VALIDATORS
         );
 
         $valid = true;

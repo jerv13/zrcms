@@ -18,21 +18,17 @@ class HttpApiFindComponent
 
     protected $findComponent;
     protected $componentToArray;
-    protected $name;
 
     /**
      * @param FindComponent    $findComponent
      * @param ComponentToArray $componentToArray
-     * @param string           $name
      */
     public function __construct(
         FindComponent $findComponent,
-        ComponentToArray $componentToArray,
-        string $name
+        ComponentToArray $componentToArray
     ) {
         $this->findComponent = $findComponent;
         $this->componentToArray = $componentToArray;
-        $this->name = $name;
     }
 
     /**
@@ -57,7 +53,7 @@ class HttpApiFindComponent
 
         if (empty($componentType)) {
             $apiMessages = [
-                'type' => $this->name,
+                'type' => 'find-component:' . $componentName . ':' . $componentType,
                 'value' => 'Type not received',
                 'source' => self::SOURCE,
                 'code' => ResponseCodes::ID_NOT_RECEIVED,
@@ -74,7 +70,7 @@ class HttpApiFindComponent
 
         if (empty($componentName)) {
             $apiMessages = [
-                'type' => $this->name,
+                'type' => 'find-component:' . $componentName . ':' . $componentType,
                 'value' => 'Name not received',
                 'source' => self::SOURCE,
                 'code' => ResponseCodes::ID_NOT_RECEIVED,
@@ -96,7 +92,7 @@ class HttpApiFindComponent
 
         if (empty($component)) {
             $apiMessages = [
-                'type' => $this->name,
+                'type' => 'find-component:' . $componentName . ':' . $componentType,
                 'value' => 'Find failed',
                 'source' => self::SOURCE,
                 'code' => ResponseCodes::FAILED,

@@ -24,7 +24,7 @@ class HttpApiIsAllowedFindComponentFactory
         return new HttpApiIsAllowedFindComponent(
             $serviceContainer->get(IsAllowedRcmUserSitesAdmin::class),
             [],
-            'basic-repository-find-component',
+            'repository-find-component',
             401,
             IsDebug::invoke()
         );

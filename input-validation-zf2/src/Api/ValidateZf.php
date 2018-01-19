@@ -12,7 +12,7 @@ use Zrcms\Param\Param;
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class ValidateZf2 implements Validate
+class ValidateZf implements Validate
 {
     const OPTION_NAME = 'name';
     const OPTION_ZEND_VALIDATOR = 'zend-validator';
@@ -50,19 +50,36 @@ class ValidateZf2 implements Validate
         $value,
         array $options = []
     ): ValidationResult {
+        $validator = $this->getValidator(
+            $options
+        );
+
+        return $this->validate(
+            $validator,
+            $value,
+            $options
+        );
+    }
+
+    /**
+     * @param ValidatorInterface $validator
+     * @param                    $value
+     * @param array              $options
+     *
+     * @return ValidationResult
+     */
+    protected function validate(
+        ValidatorInterface $validator,
+        $value,
+        array $options = []
+    ): ValidationResult {
         $name = Param::getString(
             $options,
             static::OPTION_NAME,
             'default'
         );
 
-        $validator = $this->getValidator(
-            $options
-        );
-
         $valid = $validator->isValid($value);
-
-        // @todo ZF3 Validators may return a result object, deal with the result here
 
         $messages = $validator->getMessages();
 
