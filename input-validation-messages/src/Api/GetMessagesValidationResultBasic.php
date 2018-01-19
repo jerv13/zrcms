@@ -52,16 +52,41 @@ class GetMessagesValidationResultBasic implements GetMessagesValidationResult
 
         $message = $this->parseMessage(
             $message,
+            $this->getMessageParams($validationResult, $options)
+        );
+
+        return [
+            'code' => $code,
+            'message' => $message
+        ];
+    }
+
+    /**
+     * @param ValidationResult $validationResult
+     * @param array            $options
+     *
+     * @return array|null
+     */
+    protected function getMessageParams(
+        ValidationResult $validationResult,
+        array $options = []
+    ) {
+        $messageParams = Param::getArray(
+            $options,
+            static::OPTION_MESSAGE_PARAMS,
+            []
+        );
+
+        $messageParams = array_merge(
+            $messageParams,
             Param::getArray(
-                $options,
+                $validationResult->getDetails(),
                 static::OPTION_MESSAGE_PARAMS,
                 []
             )
         );
 
-        return [
-            $code => $message
-        ];
+        return $messageParams;
     }
 
     /**
@@ -70,7 +95,7 @@ class GetMessagesValidationResultBasic implements GetMessagesValidationResult
      *
      * @return string
      */
-    public function parseMessage(
+    protected function parseMessage(
         string $message,
         array $messageParams
     ): string {

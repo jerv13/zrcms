@@ -147,12 +147,10 @@ class GetMessagesValidationResultFieldsBasic implements GetMessagesValidationRes
 
         $parts = explode('[', $stripped);
 
-        $composite = $fieldName;
-
         foreach ($parts as $part) {
-            $composite .= '[' . $part . ']';
+            $fieldName .= '[' . $part . ']';
         }
 
-        return $composite;
+        return $fieldName;
     }
 }

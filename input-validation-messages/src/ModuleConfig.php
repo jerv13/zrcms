@@ -2,10 +2,6 @@
 
 namespace Zrcms\InputValidationMessages;
 
-use Zrcms\InputValidation\Model\ValidationResultBasic;
-use Zrcms\InputValidation\Model\ValidationResultFieldsBasic;
-use Zrcms\InputValidationMessages\Api\GetMessagesValidationResultBasic;
-use Zrcms\InputValidationMessages\Api\GetMessagesValidationResultFieldsBasic;
 use Zrcms\InputValidationMessages\Test\TestBasicImplementation;
 
 /**
@@ -18,7 +14,9 @@ class ModuleConfig
      */
     public function __invoke()
     {
-        TestBasicImplementation::test(); die;
+        TestBasicImplementation::test();
+        die;
+
         return [
             'dependencies' => [
                 'config_factories' => [
