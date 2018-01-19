@@ -16,7 +16,6 @@ class BuildMessageValue
      * @param string      $type    The type or Category of the message
      * @param string|null $source  The source field or identifier for this message
      * @param array       $params  Extra params that may be used in translation or message parsing
-     * @param bool|null   $primary Is this the primary error
      *
      * @return array
      */
@@ -25,8 +24,7 @@ class BuildMessageValue
         string $message,
         string $type = self::DEFAULT_TYPE,
         string $source = self::DEFAULT_SOURCE,
-        array $params = [],
-        bool $primary = null
+        array $params = []
     ): array {
         return [
             'code' => $code,
@@ -34,7 +32,6 @@ class BuildMessageValue
             'type' => $type,
             'source' => $source,
             'params' => $params,
-            'primary' => $primary,
             'key' => BuildMessageKey::invoke(
                 $code,
                 $type,
@@ -49,7 +46,6 @@ class BuildMessageValue
      * @param string    $type
      * @param string    $source
      * @param array     $params
-     * @param bool|null $primary
      *
      * @return array
      */
@@ -58,16 +54,14 @@ class BuildMessageValue
         string $message,
         string $type = self::DEFAULT_TYPE,
         string $source = self::DEFAULT_SOURCE,
-        array $params = [],
-        bool $primary = null
+        array $params = []
     ): array {
         return static::invoke(
             $code,
             $message,
             $type,
             $source,
-            $params,
-            $primary
+            $params
         );
     }
 }

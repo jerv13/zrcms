@@ -7,6 +7,7 @@ use Psr\Http\Message\ServerRequestInterface;
 use Zend\Diactoros\Response\JsonResponse;
 use Zend\Diactoros\Uri;
 use Zrcms\CoreApplicationState\Api\GetApplicationState;
+use Zrcms\Http\Api\BuildMessageValue;
 use Zrcms\Http\Response\ZrcmsJsonResponse;
 
 /**
@@ -67,18 +68,14 @@ class HttpApplicationState
         $path = '/' . $path;
 
         if (empty($host)) {
-            $apiMessages = [
-                'type' => static::NAME,
-                'message' => 'BAD REQUEST',
-                'source' => static::SOURCE_MISSING_HOST,
-                'code' => $this->badRequestStatus,
-                'primary' => true,
-                'params' => []
-            ];
-
             return new ZrcmsJsonResponse(
                 null,
-                $apiMessages,
+                BuildMessageValue::invoke(
+                    (string)$this->badRequestStatus,
+                    'BAD REQUEST',
+                    static::NAME,
+                    static::SOURCE_MISSING_HOST
+                ),
                 $this->notFoundStatus,
                 [],
                 [

@@ -13,6 +13,7 @@ use Zrcms\CoreView\Exception\PageNotFound;
 use Zrcms\CoreView\Exception\SiteNotFound;
 use Zrcms\CoreView\Exception\ThemeNotFound;
 use Zrcms\CoreView\Model\View;
+use Zrcms\Http\Api\BuildMessageValue;
 use Zrcms\Http\Response\ZrcmsJsonResponse;
 use Zrcms\Param\Param;
 
@@ -102,18 +103,14 @@ class HttpApiGetViewDataByRequest
         }
 
         if (!$allowed) {
-            $apiMessages = [
-                'type' => static::NAME,
-                'message' => 'NOT ALLOWED',
-                'source' => static::SOURCE_ACL,
-                'code' => $this->notFoundStatus,
-                'primary' => true,
-                'params' => []
-            ];
-
             return new ZrcmsJsonResponse(
                 null,
-                $apiMessages,
+                BuildMessageValue::invoke(
+                    (string)$this->notFoundStatus,
+                    'NOT ALLOWED',
+                    static::NAME,
+                    static::SOURCE_ACL
+                ),
                 $this->notAllowedStatus,
                 [],
                 [
@@ -134,18 +131,15 @@ class HttpApiGetViewDataByRequest
                 $getViewOptions
             );
         } catch (SiteNotFound $exception) {
-            $apiMessages = [
-                'type' => static::NAME,
-                'message' => $exception->getMessage(),
-                'source' => static::SOURCE_SITE,
-                'code' => $this->notFoundStatus,
-                'primary' => true,
-                'params' => []
-            ];
-
             return new ZrcmsJsonResponse(
                 null,
-                $apiMessages,
+                BuildMessageValue::invoke(
+                    (string)$this->notFoundStatus,
+                    $exception->getMessage(),
+                    static::NAME,
+                    static::SOURCE_SITE
+                ),
+
                 $this->notFoundStatus,
                 [],
                 [
@@ -153,18 +147,14 @@ class HttpApiGetViewDataByRequest
                 ]
             );
         } catch (PageNotFound $exception) {
-            $apiMessages = [
-                'type' => static::NAME,
-                'message' => $exception->getMessage(),
-                'source' => static::SOURCE_PAGE,
-                'code' => $this->notFoundStatus,
-                'primary' => true,
-                'params' => []
-            ];
-
             return new ZrcmsJsonResponse(
                 null,
-                $apiMessages,
+                BuildMessageValue::invoke(
+                    (string)$this->notFoundStatus,
+                    $exception->getMessage(),
+                    static::NAME,
+                    static::SOURCE_PAGE
+                ),
                 $this->notFoundStatus,
                 [],
                 [
@@ -172,18 +162,14 @@ class HttpApiGetViewDataByRequest
                 ]
             );
         } catch (LayoutNotFound $exception) {
-            $apiMessages = [
-                'type' => static::NAME,
-                'message' => $exception->getMessage(),
-                'source' => static::SOURCE_LAYOUT,
-                'code' => $this->notFoundStatus,
-                'primary' => true,
-                'params' => []
-            ];
-
             return new ZrcmsJsonResponse(
                 null,
-                $apiMessages,
+                BuildMessageValue::invoke(
+                    (string)$this->notFoundStatus,
+                    $exception->getMessage(),
+                    static::NAME,
+                    static::SOURCE_LAYOUT
+                ),
                 $this->notFoundStatus,
                 [],
                 [
@@ -191,18 +177,14 @@ class HttpApiGetViewDataByRequest
                 ]
             );
         } catch (ThemeNotFound $exception) {
-            $apiMessages = [
-                'type' => static::NAME,
-                'message' => $exception->getMessage(),
-                'source' => static::SOURCE_THEME,
-                'code' => $this->notFoundStatus,
-                'primary' => true,
-                'params' => []
-            ];
-
             return new ZrcmsJsonResponse(
                 null,
-                $apiMessages,
+                BuildMessageValue::invoke(
+                    (string)$this->notFoundStatus,
+                    $exception->getMessage(),
+                    static::NAME,
+                    static::SOURCE_THEME
+                ),
                 $this->notFoundStatus,
                 [],
                 [

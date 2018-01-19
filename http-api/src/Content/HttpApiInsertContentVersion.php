@@ -7,6 +7,7 @@ use Psr\Http\Message\ServerRequestInterface;
 use Zrcms\Core\Api\Content\ContentVersionToArray;
 use Zrcms\Core\Api\Content\InsertContentVersion;
 use Zrcms\Core\Model\ContentVersion;
+use Zrcms\Http\Api\BuildMessageValue;
 use Zrcms\Http\Model\ResponseCodes;
 use Zrcms\Http\Response\ZrcmsJsonResponse;
 use Zrcms\User\Api\GetUserIdByRequest;
@@ -61,18 +62,14 @@ class HttpApiInsertContentVersion
         $requestData = $request->getParsedBody();
 
         if (empty($requestData)) {
-            $apiMessages = [
-                'type' => $this->name,
-                'message' => 'Data not received',
-                'source' => self::SOURCE,
-                'code' => ResponseCodes::PROPERTIES_NOT_RECEIVED,
-                'primary' => true,
-                'params' => []
-            ];
-
             return new ZrcmsJsonResponse(
                 null,
-                $apiMessages,
+                BuildMessageValue::invoke(
+                    ResponseCodes::PROPERTIES_NOT_RECEIVED,
+                    'Data not received',
+                    $this->name,
+                    self::SOURCE
+                ),
                 400
             );
         }

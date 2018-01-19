@@ -5,6 +5,7 @@ namespace Zrcms\HttpApi\Validate;
 use Psr\Container\ContainerInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
+use Zrcms\Http\Api\BuildMessageValue;
 use Zrcms\Http\Api\GetRouteOptions;
 use Zrcms\Http\Response\ZrcmsJsonResponse;
 use Zrcms\HttpApi\GetDynamicApiValue;
@@ -122,18 +123,9 @@ class HttpApiValidateIdAttributeDynamic implements HttpApiDynamic
                 $this->notValidStatusDefault
             );
 
-            $apiMessages = [
-                'type' => $zrcmsImplementation . ':' . $zrcmsApiName,
-                'message' => 'Not Valid',
-                'source' => self::SOURCE,
-                'code' => $validationResult->getCode(),
-                'primary' => true,
-                'params' => []
-            ];
-
             return new ZrcmsJsonResponse(
                 null,
-                $apiMessages,
+                $validationResult,
                 $notValidStatusDefault
             );
         }

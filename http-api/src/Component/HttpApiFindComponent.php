@@ -6,6 +6,7 @@ use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Zrcms\Core\Api\Component\ComponentToArray;
 use Zrcms\Core\Api\Component\FindComponent;
+use Zrcms\Http\Api\BuildMessageValue;
 use Zrcms\Http\Model\ResponseCodes;
 use Zrcms\Http\Response\ZrcmsJsonResponse;
 
@@ -52,35 +53,27 @@ class HttpApiFindComponent
         );
 
         if (empty($componentType)) {
-            $apiMessages = [
-                'type' => 'find-component:' . $componentName . ':' . $componentType,
-                'message' => 'Type not received',
-                'source' => self::SOURCE,
-                'code' => ResponseCodes::ID_NOT_RECEIVED,
-                'primary' => true,
-                'params' => []
-            ];
-
             return new ZrcmsJsonResponse(
                 null,
-                $apiMessages,
+                BuildMessageValue::invoke(
+                    ResponseCodes::ID_NOT_RECEIVED,
+                    'Type not received',
+                    'find-component:' . $componentName . ':' . $componentType,
+                    self::SOURCE
+                ),
                 400
             );
         }
 
         if (empty($componentName)) {
-            $apiMessages = [
-                'type' => 'find-component:' . $componentName . ':' . $componentType,
-                'message' => 'Name not received',
-                'source' => self::SOURCE,
-                'code' => ResponseCodes::ID_NOT_RECEIVED,
-                'primary' => true,
-                'params' => []
-            ];
-
             return new ZrcmsJsonResponse(
                 null,
-                $apiMessages,
+                BuildMessageValue::invoke(
+                    ResponseCodes::ID_NOT_RECEIVED,
+                    'Name not received',
+                    'find-component:' . $componentName . ':' . $componentType,
+                    self::SOURCE
+                ),
                 400
             );
         }
@@ -91,18 +84,14 @@ class HttpApiFindComponent
         );
 
         if (empty($component)) {
-            $apiMessages = [
-                'type' => 'find-component:' . $componentName . ':' . $componentType,
-                'message' => 'Find failed',
-                'source' => self::SOURCE,
-                'code' => ResponseCodes::FAILED,
-                'primary' => true,
-                'params' => []
-            ];
-
             return new ZrcmsJsonResponse(
                 null,
-                $apiMessages,
+                BuildMessageValue::invoke(
+                    ResponseCodes::FAILED,
+                    'Find failed',
+                    'find-component:' . $componentName . ':' . $componentType,
+                    self::SOURCE
+                ),
                 404
             );
         }

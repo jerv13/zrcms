@@ -5,6 +5,7 @@ namespace Zrcms\HttpApi\Acl;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Zrcms\Acl\Api\IsAllowed;
+use Zrcms\Http\Api\BuildMessageValue;
 use Zrcms\Http\Model\ResponseCodes;
 use Zrcms\Http\Response\ZrcmsJsonResponse;
 
@@ -62,19 +63,14 @@ class HttpApiIsAllowed
                 $encodingOptions = JSON_PRETTY_PRINT;
             }
 
-            $apiMessages = [
-                'type' => $this->name,
-                'message' => 'Not allowed',
-                'source' => self::SOURCE,
-                'code' => ResponseCodes::NOT_ALLOWED,
-                'primary' => true,
-                'params' => []
-
-            ];
-
             return new ZrcmsJsonResponse(
                 null,
-                $apiMessages,
+                BuildMessageValue::invoke(
+                    ResponseCodes::NOT_ALLOWED,
+                    'Not allowed',
+                    $this->name,
+                    self::SOURCE
+                ),
                 $this->notAllowedStatus,
                 [],
                 [

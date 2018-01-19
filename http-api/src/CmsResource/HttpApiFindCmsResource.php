@@ -6,6 +6,7 @@ use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Zrcms\Core\Api\CmsResource\CmsResourceToArray;
 use Zrcms\Core\Api\CmsResource\FindCmsResource;
+use Zrcms\Http\Api\BuildMessageValue;
 use Zrcms\Http\Model\ResponseCodes;
 use Zrcms\Http\Response\ZrcmsJsonResponse;
 
@@ -53,18 +54,14 @@ class HttpApiFindCmsResource
         );
 
         if (empty($cmsResourceId)) {
-            $apiMessages = [
-                'type' => $this->name,
-                'message' => 'ID not received',
-                'source' => self::SOURCE,
-                'code' => ResponseCodes::ID_NOT_RECEIVED,
-                'primary' => true,
-                'params' => []
-            ];
-
             return new ZrcmsJsonResponse(
                 null,
-                $apiMessages,
+                BuildMessageValue::invoke(
+                    ResponseCodes::ID_NOT_RECEIVED,
+                    'ID not received',
+                    $this->name,
+                    self::SOURCE
+                ),
                 400
             );
         }
@@ -74,18 +71,14 @@ class HttpApiFindCmsResource
         );
 
         if (empty($cmsResource)) {
-            $apiMessages = [
-                'type' => $this->name,
-                'message' => 'Find failed',
-                'source' => self::SOURCE,
-                'code' => ResponseCodes::FAILED,
-                'primary' => true,
-                'params' => []
-            ];
-
             return new ZrcmsJsonResponse(
                 null,
-                $apiMessages,
+                BuildMessageValue::invoke(
+                    ResponseCodes::FAILED,
+                    'Find failed',
+                    $this->name,
+                    self::SOURCE
+                ),
                 404
             );
         }

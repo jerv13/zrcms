@@ -7,6 +7,7 @@ use Psr\Http\Message\ServerRequestInterface;
 use Zend\Diactoros\Response\JsonResponse;
 use Zrcms\Core\Api\Content\ContentVersionToArray;
 use Zrcms\Core\Api\Content\FindContentVersion;
+use Zrcms\Http\Api\BuildMessageValue;
 use Zrcms\Http\Model\ResponseCodes;
 use Zrcms\Http\Response\ZrcmsJsonResponse;
 
@@ -52,18 +53,14 @@ class HttpApiFindContentVersion
         $requestedContentVersionId = $request->getAttribute('id');
 
         if (empty($requestedContentVersionId)) {
-            $apiMessages = [
-                'type' => $this->name,
-                'message' => 'ID not received',
-                'source' => self::SOURCE,
-                'code' => ResponseCodes::ID_NOT_RECEIVED,
-                'primary' => true,
-                'params' => []
-            ];
-
             return new ZrcmsJsonResponse(
                 null,
-                $apiMessages,
+                BuildMessageValue::invoke(
+                    ResponseCodes::ID_NOT_RECEIVED,
+                    'ID not received',
+                    $this->name,
+                    self::SOURCE
+                ),
                 400
             );
         }
@@ -73,18 +70,14 @@ class HttpApiFindContentVersion
         );
 
         if (empty($contentVersion)) {
-            $apiMessages = [
-                'type' => $this->name,
-                'message' => 'Not found for id: ' . $requestedContentVersionId,
-                'source' => self::SOURCE,
-                'code' => ResponseCodes::NOT_FOUND,
-                'primary' => true,
-                'params' => []
-            ];
-
             return new ZrcmsJsonResponse(
                 null,
-                $apiMessages,
+                BuildMessageValue::invoke(
+                    ResponseCodes::NOT_FOUND,
+                    'Not found for id: ' . $requestedContentVersionId,
+                    $this->name,
+                    self::SOURCE
+                ),
                 404
             );
         }

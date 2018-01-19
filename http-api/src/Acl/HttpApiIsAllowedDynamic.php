@@ -6,6 +6,7 @@ use Psr\Container\ContainerInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Zrcms\Acl\Api\IsAllowed;
+use Zrcms\Http\Api\BuildMessageValue;
 use Zrcms\Http\Api\GetRouteOptions;
 use Zrcms\Http\Response\ZrcmsJsonResponse;
 use Zrcms\HttpApi\GetDynamicApiValue;
@@ -120,18 +121,14 @@ class HttpApiIsAllowedDynamic implements HttpApiDynamic
                 $this->notAllowedStatusDefault
             );
 
-            $apiMessages = [
-                'type' => $zrcmsImplementation . ':' . $zrcmsApiName,
-                'value' => 'Not Allowed',
-                'source' => self::SOURCE,
-                'code' => $notAllowedStatus,
-                'primary' => true,
-                'params' => []
-            ];
-
             return new ZrcmsJsonResponse(
                 null,
-                $apiMessages,
+                BuildMessageValue::invoke(
+                    (string)$notAllowedStatus,
+                    'Not Allowed',
+                    $zrcmsImplementation . ':' . $zrcmsApiName,
+                    self::SOURCE
+                ),
                 $notAllowedStatus
             );
         }

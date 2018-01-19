@@ -7,6 +7,7 @@ use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Zrcms\Core\Api\CmsResource\CmsResourceToArray;
 use Zrcms\Core\Api\CmsResource\FindCmsResource;
+use Zrcms\Http\Api\BuildMessageValue;
 use Zrcms\Http\Api\GetRouteOptions;
 use Zrcms\Http\Response\ZrcmsJsonResponse;
 use Zrcms\HttpApi\GetDynamicApiValue;
@@ -111,18 +112,14 @@ class HttpApiFindCmsResourceDynamic implements HttpApiDynamic
                 $this->notFoundStatusDefault
             );
 
-            $apiMessages = [
-                'type' => $zrcmsImplementation . ':' . $zrcmsApiName,
-                'message' => 'Not Found with id: ' . $id,
-                'source' => self::SOURCE,
-                'code' => $notFoundStatus,
-                'primary' => true,
-                'params' => []
-            ];
-
             return new ZrcmsJsonResponse(
                 null,
-                $apiMessages,
+                BuildMessageValue::invoke(
+                    (string)$notFoundStatus,
+                    'Not Found with id: ' . $id,
+                    $zrcmsImplementation . ':' . $zrcmsApiName,
+                    self::SOURCE
+                ),
                 $notFoundStatus
             );
         }

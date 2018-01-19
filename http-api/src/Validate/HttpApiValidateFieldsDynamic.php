@@ -121,19 +121,10 @@ class HttpApiValidateFieldsDynamic implements HttpApiDynamic
                 'not-valid-status',
                 $this->notValidStatusDefault
             );
-            // @todo We need to give the client some messages/codes for the fields
-            $apiMessages = [
-                'type' => $zrcmsImplementation . ':' . $zrcmsApiName,
-                'message' => 'Not Valid',
-                'source' => self::SOURCE,
-                'code' => $validationResult->getCode(),
-                'primary' => true,
-                'params' => []
-            ];
 
             return new ZrcmsJsonResponse(
                 null,
-                $apiMessages,
+                $validationResult,
                 $notValidStatus
             );
         }
