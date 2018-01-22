@@ -3,6 +3,7 @@
 namespace Zrcms\Param;
 
 use Zrcms\Debug\IsDebug;
+use Zrcms\Json\Json;
 use Zrcms\Param\Exception\IllegalParam;
 use Zrcms\Param\Exception\ParamException;
 use Zrcms\Param\Exception\ParamMissing;
@@ -383,7 +384,8 @@ class Param
                 "\n<pre>\n"
                 . "Param Error: " . $message
                 . "\n key: {$key}"
-                . "\n params: " . json_encode($params, JSON_PRETTY_PRINT, 3)
+                // . "\n params: " . Json::encode($params, JSON_PRETTY_PRINT, 3)
+                . "\n params dump: " . var_export($params, true)
                 . "\n</pre>\n"
             );
         }

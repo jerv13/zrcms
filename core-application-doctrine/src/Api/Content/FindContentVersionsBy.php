@@ -38,6 +38,8 @@ class FindContentVersionsBy extends ApiAbstractContentVersion implements \Zrcms\
             $offset
         );
 
+        // @todo Deal with property searches
+
         return BuildBasicContentVersions::invoke(
             $this->entityClassContentVersion,
             $this->classContentVersionBasic,

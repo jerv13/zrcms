@@ -3,7 +3,12 @@
 namespace Zrcms\Core;
 
 use Zrcms\Core\Api\ChangeLog\GetChangeLogByDateRange;
+use Zrcms\Core\Api\CmsResource\CmsResourcesToArray;
 use Zrcms\Core\Api\CmsResource\CmsResourceToArray;
+use Zrcms\Core\Api\CmsResource\FindCmsResource;
+use Zrcms\Core\Api\CmsResource\FindCmsResourcesBy;
+use Zrcms\Core\Api\CmsResource\FindCmsResourcesPublished;
+use Zrcms\Core\Api\CmsResource\UpsertCmsResource;
 use Zrcms\Core\Api\CmsResourceHistory\CmsResourceHistoryToArray;
 use Zrcms\Core\Api\Component\BuildComponentObject;
 use Zrcms\Core\Api\Component\ComponentToArray;
@@ -42,6 +47,9 @@ class ModuleConfig
                     /**
                      * CmsResource
                      */
+                    CmsResourcesToArray::class => [
+                        'class' => IMPLEMENTATIONisREQUIRED::class
+                    ],
                     CmsResourceToArray::class => [
                         'class' => IMPLEMENTATIONisREQUIRED::class
                     ],

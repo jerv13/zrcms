@@ -3,9 +3,12 @@
 namespace Zrcms\CoreView\Api;
 
 use Psr\Http\Message\ServerRequestInterface;
+use Psr\Http\Message\UriInterface;
 use Zrcms\CoreApplicationState\Api\GetApplicationState;
 use Zrcms\CoreSite\Fields\FieldsSiteVersion;
 use Zrcms\CoreView\Exception\ViewDataNotFound;
+use Zrcms\HttpStatusPages\Middleware\ResponseMutatorStatusPage;
+use Zrcms\HttpViewRender\Request\RequestWithOriginalUri;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -47,7 +50,7 @@ class GetApplicationStateView implements GetApplicationState
                 'title' => null,
                 'keywords' => null,
                 'description' => null,
-                'requestPath' => $request->getUri()->getPath(),
+                'requestPath' => $this->findOriginalPath($request),
             ],
             'layout' => [
                 'themeName' => null,
@@ -86,7 +89,7 @@ class GetApplicationStateView implements GetApplicationState
                 'title' => $pageVersion->getTitle(),
                 'keywords' => $pageVersion->getKeywords(),
                 'description' => $pageVersion->getDescription(),
-                'requestPath' => $request->getUri()->getPath(),
+                'requestPath' => $this->findOriginalPath($request),
             ],
             'layout' => [
                 'themeName' => $layoutCmsResource->getThemeName(),
@@ -95,6 +98,44 @@ class GetApplicationStateView implements GetApplicationState
         ];
 
         return $viewState;
+    }
 
+    /**
+     * @param ServerRequestInterface $request
+     *
+     * @return string
+     */
+    protected function findOriginalPath(ServerRequestInterface $request)
+    {
+        /** @var UriInterface $originalUri */
+        $originalUri = $request->getAttribute(
+            RequestWithOriginalUri::ATTRIBUTE_ORIGINAL_URI,
+            null
+        );
+
+        if ($originalUri instanceof UriInterface) {
+            return $originalUri->getPath();
+        }
+
+        $originalUri = $request->getAttribute(
+            ResponseMutatorStatusPage::ATTRIBUTE_REQUEST_URI,
+            null
+        );
+
+        if ($originalUri instanceof UriInterface) {
+            return $originalUri->getPath();
+        }
+
+        // From \Zend\Stratigility\Middleware\OriginalMessages
+        $originalUri = $request->getAttribute(
+            'originalUri',
+            null
+        );
+
+        if ($originalUri instanceof UriInterface) {
+            return $originalUri->getPath();
+        }
+
+        return null;
     }
 }

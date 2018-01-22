@@ -5,6 +5,7 @@ namespace Zrcms\HttpAssetsApplicationState\Api\Render;
 use Psr\Http\Message\ServerRequestInterface;
 use Zrcms\Core\Api\Render\Render;
 use Zrcms\CoreApplicationState\Api\GetApplicationState;
+use Zrcms\Http\Response\ZrcmsJsonResponse;
 use Zrcms\Json\Json;
 use Zrcms\Param\Param;
 use Zrcms\ViewHtmlTags\Api\Render\RenderTag;
@@ -50,7 +51,7 @@ class RenderScriptTagApplicationState implements Render
             $appState
         );
 
-        $encodingOptions = 0;
+        $encodingOptions = ZrcmsJsonResponse::DEFAULT_JSON_FLAGS;
 
         if ($this->debug) {
             $encodingOptions = JSON_PRETTY_PRINT;

@@ -5,6 +5,7 @@ namespace Zrcms\HttpApi\Validate;
 use Psr\Container\ContainerInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
+use Zrcms\Http\Api\BuildResponseOptions;
 use Zrcms\Http\Api\GetRouteOptions;
 use Zrcms\Http\Response\ZrcmsJsonResponse;
 use Zrcms\HttpApi\GetDynamicApiValue;
@@ -39,7 +40,7 @@ class HttpApiValidateFieldsDynamic implements HttpApiDynamic
         ContainerInterface $serviceContainer,
         GetRouteOptions $getRouteOptions,
         GetDynamicApiValue $getDynamicApiValue,
-        int $notValidStatusDefault = 401,
+        int $notValidStatusDefault = 400,
         bool $debug = false
     ) {
         $this->serviceContainer = $serviceContainer;
@@ -76,13 +77,13 @@ class HttpApiValidateFieldsDynamic implements HttpApiDynamic
         $validateConfig = $this->getDynamicApiValue->__invoke(
             $zrcmsImplementation,
             $zrcmsApiName,
-            static::MIDDLEWARE_NAME_ACL,
+            static::MIDDLEWARE_NAME_VALIDATE_FIELDS,
             []
         );
 
         $validateServiceName = Param::getString(
             $validateConfig,
-            'validate-fields-api'
+            'validate-fields'
         );
 
         if (!$this->serviceContainer->has($validateServiceName)) {
@@ -108,6 +109,8 @@ class HttpApiValidateFieldsDynamic implements HttpApiDynamic
             []
         );
 
+        //ddd($validateOptions);
+
         $data = $request->getParsedBody();
 
         $validationResult = $validate->__invoke(
@@ -125,7 +128,9 @@ class HttpApiValidateFieldsDynamic implements HttpApiDynamic
             return new ZrcmsJsonResponse(
                 null,
                 $validationResult,
-                $notValidStatus
+                $notValidStatus,
+                [],
+                BuildResponseOptions::invoke()
             );
         }
 

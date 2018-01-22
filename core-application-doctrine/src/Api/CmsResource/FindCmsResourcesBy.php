@@ -19,6 +19,7 @@ class FindCmsResourcesBy extends ApiAbstractCmsResource implements \Zrcms\Core\A
      * @param array      $options
      *
      * @return CmsResource[]
+     * @throws \Exception
      */
     public function __invoke(
         array $criteria,

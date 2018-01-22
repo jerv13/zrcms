@@ -13,7 +13,6 @@ use Zrcms\HttpApiSite\Acl\HttpApiIsAllowedFindContentVersionIsAllowed;
 use Zrcms\HttpApiSite\Acl\HttpApiIsAllowedSiteCmsResourceFindIsAllowed;
 use Zrcms\HttpApiSite\Acl\HttpApiIsAllowedSitePublishIsAllowed;
 use Zrcms\HttpApiSite\Acl\HttpApiIsAllowedSiteUnpublishIsAllowed;
-use Zrcms\HttpApiSite\CmsResource\HttpApiFindSiteCmsResource;
 use Zrcms\HttpApiSite\Content\HttpApiFindSiteVersion;
 use Zrcms\HttpApiSite\Content\HttpApiInsertSiteVersion;
 use Zrcms\HttpApiSite\Validate\HttpApiUpsertSiteCmsResourceZfInputFilterServiceHttpApi;
@@ -74,14 +73,6 @@ class ModuleConfig
                     /**
                      * Repository ===========================================
                      */
-                    HttpApiFindSiteCmsResource::class => [
-                        'arguments' => [
-                            \Zrcms\CoreSite\Api\CmsResource\FindSiteCmsResource::class,
-                            CmsResourceToArray::class,
-                            ['literal' => SiteCmsResourceBasic::class],
-                            ['literal' => 'site-find-cms-resource'],
-                        ],
-                    ],
                     HttpApiFindSiteVersion::class => [
                         'arguments' => [
                             \Zrcms\CoreSite\Api\Content\FindSiteVersion::class,

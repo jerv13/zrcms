@@ -121,9 +121,7 @@ class TestBasicImplementation
         );
 
         $getMessagesValidationResultFields = new GetMessagesValidationResultFieldsBasic(
-            $getMessagesValidationResult,
-            $codeMessages,
-            'DEFAULT MESSAGE'
+            $getMessagesValidationResult
         );
 
         $messages = $getMessagesValidationResultFields->__invoke(

@@ -1,15 +1,20 @@
 <?php
 
-namespace Zrcms\HttpApi\CmsResource;
+namespace Zrcms\HttpApi\CmsResourceHistory;
 
 use Psr\Container\ContainerInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Zrcms\Core\Api\CmsResource\CmsResourceToArray;
-use Zrcms\Core\Api\CmsResource\FindCmsResource;
-use Zrcms\Http\Api\BuildMessageValue;
+use Zrcms\Core\Api\CmsResource\FindCmsResourcesBy;
+use Zrcms\Core\Api\CmsResourceHistory\CmsResourceHistoriesToArray;
+use Zrcms\Core\Api\CmsResourceHistory\FindCmsResourceHistoryBy;
 use Zrcms\Http\Api\BuildResponseOptions;
 use Zrcms\Http\Api\GetRouteOptions;
+use Zrcms\Http\Model\HttpLimit;
+use Zrcms\Http\Model\HttpOffset;
+use Zrcms\Http\Model\HttpOrderBy;
+use Zrcms\Http\Model\HttpWhere;
 use Zrcms\Http\Response\ZrcmsJsonResponse;
 use Zrcms\HttpApi\GetDynamicApiValue;
 use Zrcms\HttpApi\HttpApiDynamic;
@@ -18,40 +23,35 @@ use Zrcms\Param\Param;
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class HttpApiFindCmsResourceDynamic implements HttpApiDynamic
+class HttpApiFindCmsResourceHistoryByDynamic implements HttpApiDynamic
 {
-    const SOURCE = 'http-api-find-cms-resource-dynamic';
+    const SOURCE = 'http-api-find-cms-resource-history-by-dynamic';
 
     protected $serviceContainer;
     protected $getRouteOptions;
     protected $getDynamicApiValue;
-    protected $cmsResourceToArrayDefault;
-    protected $notFoundStatusDefault;
+    protected $cmsResourceHistoriesToArrayDefault;
     protected $debug;
 
     /**
-     * @param ContainerInterface $serviceContainer
-     * @param GetRouteOptions    $getRouteOptions
-     * @param GetDynamicApiValue $getDynamicApiValue
-     * @param CmsResourceToArray $cmsResourceToArrayDefault
-     * @param int                $notFoundStatusDefault
-     * @param bool               $debug
+     * @param ContainerInterface          $serviceContainer
+     * @param GetRouteOptions             $getRouteOptions
+     * @param GetDynamicApiValue          $getDynamicApiValue
+     * @param CmsResourceHistoriesToArray $cmsResourceHistoriesToArrayDefault
+     * @param bool                        $debug
      */
     public function __construct(
         ContainerInterface $serviceContainer,
         GetRouteOptions $getRouteOptions,
         GetDynamicApiValue $getDynamicApiValue,
-        CmsResourceToArray $cmsResourceToArrayDefault,
-        int $notFoundStatusDefault = 404,
+        CmsResourceHistoriesToArray $cmsResourceHistoriesToArrayDefault,
         bool $debug = false
     ) {
         $this->serviceContainer = $serviceContainer;
         $this->getRouteOptions = $getRouteOptions;
         $this->getDynamicApiValue = $getDynamicApiValue;
-        $this->cmsResourceToArrayDefault = $cmsResourceToArrayDefault;
-        $this->notFoundStatusDefault = $notFoundStatusDefault;
+        $this->cmsResourceHistoriesToArrayDefault = $cmsResourceHistoriesToArrayDefault;
         $this->debug = $debug;
-
     }
 
     /**
@@ -95,39 +95,26 @@ class HttpApiFindCmsResourceDynamic implements HttpApiDynamic
             throw new \Exception('api-service must be defined');
         }
 
-        /** @var FindCmsResource $apiService */
+        /** @var FindCmsResourceHistoryBy $apiService */
         $apiService = $this->serviceContainer->get($apiServiceName);
 
-        if (!$apiService instanceof FindCmsResource) {
-            throw new \Exception('api-service must be instance of ' . FindCmsResource::class);
+        if (!$apiService instanceof FindCmsResourceHistoryBy) {
+            throw new \Exception('api-service must be instance of ' . FindCmsResourceHistoryBy::class);
         }
 
-        $id = $request->getAttribute(static::ATTRIBUTE_ZRCMS_ID);
+        $criteria = $request->getAttribute(HttpWhere::ATTRIBUTE, []);
+        $orderBy = $request->getAttribute(HttpOrderBy::ATTRIBUTE);
+        $limit = $request->getAttribute(HttpLimit::ATTRIBUTE);
+        $offset = $request->getAttribute(HttpOffset::ATTRIBUTE);
 
-        $cmsResource = $apiService->__invoke($id, []);
+        $cmsResourceHistories = $apiService->__invoke(
+            $criteria,
+            $orderBy,
+            $limit,
+            $offset
+        );
 
-        if (empty($cmsResource)) {
-            $notFoundStatus = Param::getInt(
-                $apiConfig,
-                'not-found-status',
-                $this->notFoundStatusDefault
-            );
-
-            return new ZrcmsJsonResponse(
-                null,
-                BuildMessageValue::invoke(
-                    (string)$notFoundStatus,
-                    'Not Found with id: ' . $id,
-                    $zrcmsImplementation . ':' . $zrcmsApiName,
-                    self::SOURCE
-                ),
-                $notFoundStatus,
-                [],
-                BuildResponseOptions::invoke()
-            );
-        }
-
-        $toArrayService = $this->cmsResourceToArrayDefault;
+        $toArrayService = $this->cmsResourceHistoriesToArrayDefault;
 
         $toArrayServiceName = Param::getString(
             $apiConfig,
@@ -136,13 +123,13 @@ class HttpApiFindCmsResourceDynamic implements HttpApiDynamic
         );
 
         if ($toArrayServiceName !== null) {
-            /** @var CmsResourceToArray $isAllowed */
+            /** @var CmsResourceHistoriesToArray $toArrayService */
             $toArrayService = $this->serviceContainer->get($toArrayServiceName);
         }
 
-        if (!$toArrayService instanceof CmsResourceToArray) {
+        if (!$toArrayService instanceof CmsResourceHistoriesToArray) {
             throw new \Exception(
-                'to-array must be instance of ' . CmsResourceToArray::class
+                'to-array must be instance of ' . CmsResourceHistoriesToArray::class
                 . ' got .' . get_class($toArrayService)
                 . ' for implementation: (' . $zrcmsImplementation . ')'
                 . ' and api: ' . $zrcmsApiName . ')'
@@ -150,7 +137,7 @@ class HttpApiFindCmsResourceDynamic implements HttpApiDynamic
         }
 
         return new ZrcmsJsonResponse(
-            $toArrayService->__invoke($cmsResource),
+            $toArrayService->__invoke($cmsResourceHistories),
             null,
             200,
             [],

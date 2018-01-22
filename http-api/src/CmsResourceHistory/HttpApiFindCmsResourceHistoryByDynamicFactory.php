@@ -1,35 +1,33 @@
 <?php
 
-namespace Zrcms\HttpApi\CmsResource;
+namespace Zrcms\HttpApi\CmsResourceHistory;
 
 use Psr\Container\ContainerInterface;
-use Zrcms\Core\Api\CmsResource\CmsResourceToArray;
+use Zrcms\Core\Api\CmsResourceHistory\CmsResourceHistoriesToArray;
 use Zrcms\Debug\IsDebug;
 use Zrcms\Http\Api\GetRouteOptions;
 use Zrcms\HttpApi\GetDynamicApiValue;
-use Zrcms\User\Api\GetUserIdByRequest;
 
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class HttpApiUpsertCmsResourceDynamicFactory
+class HttpApiFindCmsResourceHistoryByDynamicFactory
 {
     /**
      * @param ContainerInterface $serviceContainer
      *
-     * @return HttpApiUpsertCmsResourceDynamic
+     * @return HttpApiFindCmsResourceHistoryByDynamic
      * @throws \Psr\Container\ContainerExceptionInterface
      * @throws \Psr\Container\NotFoundExceptionInterface
      */
     public function __invoke(
         ContainerInterface $serviceContainer
     ) {
-        return new HttpApiUpsertCmsResourceDynamic(
+        return new HttpApiFindCmsResourceHistoryByDynamic(
             $serviceContainer,
             $serviceContainer->get(GetRouteOptions::class),
             $serviceContainer->get(GetDynamicApiValue::class),
-            $serviceContainer->get(GetUserIdByRequest::class),
-            $serviceContainer->get(CmsResourceToArray::class),
+            $serviceContainer->get(CmsResourceHistoriesToArray::class),
             IsDebug::invoke()
         );
     }

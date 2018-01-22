@@ -1,12 +1,13 @@
 <?php
 
-namespace Zrcms\HttpApi\CmsResource;
+namespace Zrcms\HttpApi\CmsResourceHistory;
 
 use Psr\Container\ContainerInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
-use Zrcms\Core\Api\CmsResource\CmsResourceToArray;
 use Zrcms\Core\Api\CmsResource\FindCmsResource;
+use Zrcms\Core\Api\CmsResourceHistory\CmsResourceHistoryToArray;
+use Zrcms\Core\Api\CmsResourceHistory\FindCmsResourceHistory;
 use Zrcms\Http\Api\BuildMessageValue;
 use Zrcms\Http\Api\BuildResponseOptions;
 use Zrcms\Http\Api\GetRouteOptions;
@@ -18,37 +19,37 @@ use Zrcms\Param\Param;
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class HttpApiFindCmsResourceDynamic implements HttpApiDynamic
+class HttpApiFindCmsResourceHistoryDynamic implements HttpApiDynamic
 {
-    const SOURCE = 'http-api-find-cms-resource-dynamic';
+    const SOURCE = 'http-api-find-cms-resource-history-dynamic';
 
     protected $serviceContainer;
     protected $getRouteOptions;
     protected $getDynamicApiValue;
-    protected $cmsResourceToArrayDefault;
+    protected $cmsResourceHistoryToArrayDefault;
     protected $notFoundStatusDefault;
     protected $debug;
 
     /**
-     * @param ContainerInterface $serviceContainer
-     * @param GetRouteOptions    $getRouteOptions
-     * @param GetDynamicApiValue $getDynamicApiValue
-     * @param CmsResourceToArray $cmsResourceToArrayDefault
-     * @param int                $notFoundStatusDefault
-     * @param bool               $debug
+     * @param ContainerInterface        $serviceContainer
+     * @param GetRouteOptions           $getRouteOptions
+     * @param GetDynamicApiValue        $getDynamicApiValue
+     * @param CmsResourceHistoryToArray $cmsResourceHistoryToArrayDefault
+     * @param int                       $notFoundStatusDefault
+     * @param bool                      $debug
      */
     public function __construct(
         ContainerInterface $serviceContainer,
         GetRouteOptions $getRouteOptions,
         GetDynamicApiValue $getDynamicApiValue,
-        CmsResourceToArray $cmsResourceToArrayDefault,
+        CmsResourceHistoryToArray $cmsResourceHistoryToArrayDefault,
         int $notFoundStatusDefault = 404,
         bool $debug = false
     ) {
         $this->serviceContainer = $serviceContainer;
         $this->getRouteOptions = $getRouteOptions;
         $this->getDynamicApiValue = $getDynamicApiValue;
-        $this->cmsResourceToArrayDefault = $cmsResourceToArrayDefault;
+        $this->cmsResourceHistoryToArrayDefault = $cmsResourceHistoryToArrayDefault;
         $this->notFoundStatusDefault = $notFoundStatusDefault;
         $this->debug = $debug;
 
@@ -95,18 +96,18 @@ class HttpApiFindCmsResourceDynamic implements HttpApiDynamic
             throw new \Exception('api-service must be defined');
         }
 
-        /** @var FindCmsResource $apiService */
+        /** @var FindCmsResourceHistory $apiService */
         $apiService = $this->serviceContainer->get($apiServiceName);
 
-        if (!$apiService instanceof FindCmsResource) {
-            throw new \Exception('api-service must be instance of ' . FindCmsResource::class);
+        if (!$apiService instanceof FindCmsResourceHistory) {
+            throw new \Exception('api-service must be instance of ' . FindCmsResourceHistory::class);
         }
 
         $id = $request->getAttribute(static::ATTRIBUTE_ZRCMS_ID);
 
-        $cmsResource = $apiService->__invoke($id, []);
+        $cmsResourceHistory = $apiService->__invoke($id, []);
 
-        if (empty($cmsResource)) {
+        if (empty($cmsResourceHistory)) {
             $notFoundStatus = Param::getInt(
                 $apiConfig,
                 'not-found-status',
@@ -127,7 +128,7 @@ class HttpApiFindCmsResourceDynamic implements HttpApiDynamic
             );
         }
 
-        $toArrayService = $this->cmsResourceToArrayDefault;
+        $toArrayService = $this->cmsResourceHistoryToArrayDefault;
 
         $toArrayServiceName = Param::getString(
             $apiConfig,
@@ -136,13 +137,13 @@ class HttpApiFindCmsResourceDynamic implements HttpApiDynamic
         );
 
         if ($toArrayServiceName !== null) {
-            /** @var CmsResourceToArray $isAllowed */
+            /** @var CmsResourceHistoryToArray $isAllowed */
             $toArrayService = $this->serviceContainer->get($toArrayServiceName);
         }
 
-        if (!$toArrayService instanceof CmsResourceToArray) {
+        if (!$toArrayService instanceof CmsResourceHistoryToArray) {
             throw new \Exception(
-                'to-array must be instance of ' . CmsResourceToArray::class
+                'to-array must be instance of ' . CmsResourceHistoryToArray::class
                 . ' got .' . get_class($toArrayService)
                 . ' for implementation: (' . $zrcmsImplementation . ')'
                 . ' and api: ' . $zrcmsApiName . ')'
@@ -150,7 +151,7 @@ class HttpApiFindCmsResourceDynamic implements HttpApiDynamic
         }
 
         return new ZrcmsJsonResponse(
-            $toArrayService->__invoke($cmsResource),
+            $toArrayService->__invoke($cmsResourceHistory),
             null,
             200,
             [],

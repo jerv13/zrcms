@@ -3,13 +3,6 @@
 
 ##### HTTP APIs for each php API
 
-BuildMessageValue::invoke(
-      code,
-      message,
-      type,
-      source
-  ),
-$apiMessages = [
 - http-api module should be able to support all common APIs that have interfaces
 
 ##### RCM Compatibility

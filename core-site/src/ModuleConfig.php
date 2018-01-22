@@ -6,6 +6,7 @@ use Zrcms\Core\Exception\IMPLEMENTATIONisREQUIRED;
 use Zrcms\CoreSite\Api\CmsResource\FindSiteCmsResource;
 use Zrcms\CoreSite\Api\CmsResource\FindSiteCmsResourceByHost;
 use Zrcms\CoreSite\Api\CmsResource\FindSiteCmsResourcesBy;
+use Zrcms\CoreSite\Api\CmsResource\FindSiteCmsResourcesPublished;
 use Zrcms\CoreSite\Api\CmsResource\UpsertSiteCmsResource;
 use Zrcms\CoreSite\Api\Content\FindSiteVersion;
 use Zrcms\CoreSite\Api\Content\FindSiteVersionsBy;
@@ -35,6 +36,9 @@ class ModuleConfig
                         'class' => IMPLEMENTATIONisREQUIRED::class
                     ],
                     FindSiteCmsResourcesBy::class => [
+                        'class' => IMPLEMENTATIONisREQUIRED::class
+                    ],
+                    FindSiteCmsResourcesPublished::class => [
                         'class' => IMPLEMENTATIONisREQUIRED::class
                     ],
                     FindSiteVersion::class => [

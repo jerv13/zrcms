@@ -62,11 +62,9 @@ class HttpNotFoundStatusPage
             );
         }
 
-        $uri = $request->getUri();
+        $requestUri = $request->getUri();
 
-        $uri = $uri->withPath($statusPage['path']);
-
-        $request->withUri($uri);
+        $uri = $requestUri->withPath($statusPage['path']);
 
         $response = $this->renderPage->__invoke(
             $request->withUri($uri),

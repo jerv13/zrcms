@@ -7,6 +7,7 @@ use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Zrcms\Acl\Api\IsAllowed;
 use Zrcms\Http\Api\BuildMessageValue;
+use Zrcms\Http\Api\BuildResponseOptions;
 use Zrcms\Http\Api\GetRouteOptions;
 use Zrcms\Http\Response\ZrcmsJsonResponse;
 use Zrcms\HttpApi\GetDynamicApiValue;
@@ -129,7 +130,9 @@ class HttpApiIsAllowedDynamic implements HttpApiDynamic
                     $zrcmsImplementation . ':' . $zrcmsApiName,
                     self::SOURCE
                 ),
-                $notAllowedStatus
+                $notAllowedStatus,
+                [],
+                BuildResponseOptions::invoke()
             );
         }
 

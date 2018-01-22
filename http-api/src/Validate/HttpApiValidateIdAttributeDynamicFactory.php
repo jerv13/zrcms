@@ -6,7 +6,7 @@ use Psr\Container\ContainerInterface;
 use Zrcms\Debug\IsDebug;
 use Zrcms\Http\Api\GetRouteOptions;
 use Zrcms\HttpApi\GetDynamicApiValue;
-use Zrcms\InputValidation\Api\ValidateId;
+use Zrcms\InputValidationZrcms\Api\ValidateId;
 
 /**
  * @author James Jervis - https://github.com/jerv13

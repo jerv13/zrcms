@@ -5,6 +5,7 @@ namespace Zrcms\CoreSiteDoctrine;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Mapping\Driver\AnnotationDriver;
 use Zrcms\CoreSite\Api\ChangeLog\GetChangeLogByDateRange;
+use Zrcms\CoreSite\Api\CmsResource\FindSiteCmsResourcesPublished;
 use Zrcms\CoreSite\Api\CmsResource\UpsertSiteCmsResource;
 use Zrcms\CoreSite\Api\CmsResource\FindSiteCmsResource;
 use Zrcms\CoreSite\Api\CmsResource\FindSiteCmsResourceByHost;
@@ -47,6 +48,12 @@ class ModuleConfig
                     ],
                     FindSiteCmsResourcesBy::class => [
                         'class' => \Zrcms\CoreSiteDoctrine\Api\CmsResource\FindSiteCmsResourcesBy::class,
+                        'arguments' => [
+                            EntityManager::class,
+                        ],
+                    ],
+                    FindSiteCmsResourcesPublished::class => [
+                        'class' => \Zrcms\CoreSiteDoctrine\Api\CmsResource\FindSiteCmsResourcesPublished::class,
                         'arguments' => [
                             EntityManager::class,
                         ],

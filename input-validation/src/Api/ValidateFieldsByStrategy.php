@@ -69,7 +69,7 @@ class ValidateFieldsByStrategy implements ValidateFields
             static::OPTION_FIELD_VALIDATORS
         );
 
-        $validationConfig = Param::getArray(
+        $fieldValidatorConfig = Param::getArray(
             $options,
             static::OPTION_FIELD_VALIDATORS
         );
@@ -82,7 +82,7 @@ class ValidateFieldsByStrategy implements ValidateFields
             $validationResult = $this->validate(
                 $fieldName,
                 $value,
-                $validationConfig
+                $fieldValidatorConfig
             );
 
             if (!$validationResult->isValid()) {
@@ -106,23 +106,16 @@ class ValidateFieldsByStrategy implements ValidateFields
     }
 
     /**
-     * @param array $validationConfig
+     * @param string $validateApiServiceName
      *
-     * @return Validate|ValidateFields
+     * @return mixed|Validate|ValidateFields
      * @throws ValidateApiInvalid
      * @throws \Psr\Container\ContainerExceptionInterface
      * @throws \Psr\Container\NotFoundExceptionInterface
-     * @throws \Throwable
-     * @throws \Zrcms\Param\Exception\ParamException
      */
     protected function getValidateApi(
-        array $validationConfig
+        string  $validateApiServiceName
     ) {
-        $validateApiServiceName = Param::getRequired(
-            $validationConfig,
-            ValidateByStrategy::OPTION_VALIDATE_API
-        );
-
         if (!$this->serviceContainer->has($validateApiServiceName)) {
             throw new ValidateApiInvalid(
                 'Validation service not found: (' . $validateApiServiceName . ')'
@@ -136,6 +129,7 @@ class ValidateFieldsByStrategy implements ValidateFields
             throw new ValidateApiInvalid(
                 'Validation service must be instance of: (' . Validate::class . ')'
                 . ' or instance of: (' . ValidateFields::class . ')'
+                . ' got: (' . get_class($validateApi) . ')'
             );
         }
 
@@ -145,7 +139,7 @@ class ValidateFieldsByStrategy implements ValidateFields
     /**
      * @param string $fieldName
      * @param mixed  $value
-     * @param array  $validationConfig
+     * @param array  $fieldValidatorConfig
      *
      * @return ValidationResult
      * @throws \Psr\Container\ContainerExceptionInterface
@@ -157,27 +151,39 @@ class ValidateFieldsByStrategy implements ValidateFields
     protected function validate(
         string $fieldName,
         $value,
-        array $validationConfig
+        array $fieldValidatorConfig
     ): ValidationResult {
-        if (!array_key_exists($fieldName, $validationConfig)) {
+        if (!array_key_exists($fieldName, $fieldValidatorConfig)) {
             return $this->buildFieldNotRecognizedResult(
                 $fieldName,
                 $value,
-                $validationConfig
-            );
-        }
-        $validateApi = $this->getValidateApi($validationConfig);
-
-        if ($validateApi instanceof ValidateFields) {
-            return $validateApi->__invoke(
-                $value,
-                $validationConfig
+                $fieldValidatorConfig
             );
         }
 
-        return $this->validate->__invoke(
+        $validatorConfig = Param::getArray(
+            $fieldValidatorConfig,
+            $fieldName,
+            []
+        );
+
+        $validateApiServiceName = Param::getRequired(
+            $validatorConfig,
+            ValidateByStrategy::OPTION_VALIDATE_API
+        );
+
+        $validateApiOptions = Param::getRequired(
+            $validatorConfig,
+            ValidateByStrategy::OPTION_VALIDATE_API_OPTIONS
+        );
+
+        $validateApi = $this->getValidateApi(
+            $validateApiServiceName
+        );
+
+        return $validateApi->__invoke(
             $value,
-            $validationConfig
+            $validateApiOptions
         );
     }
 

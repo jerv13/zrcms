@@ -15,6 +15,8 @@ use Zrcms\HttpViewRender\Response\RenderPage;
  */
 class ResponseMutatorStatusPage
 {
+    const ATTRIBUTE_REQUEST_URI = 'zrcms-request-uri-status-page';
+
     const QUERY_PARAM_FROM = 'redirect-from';
     /**
      * @todo These should be config driven list of ResponseMutator services
@@ -90,18 +92,21 @@ class ResponseMutatorStatusPage
             return $response;
         }
 
-        $uri = $request->getUri();
+        $requestUri = $request->getUri();
 
-        $originalQuery = $uri->getQuery();
+        $originalQuery = $requestUri->getQuery();
 
-        $fromQuery = self::QUERY_PARAM_FROM . '=' . urlencode($uri->getPath());
+        $fromQuery = self::QUERY_PARAM_FROM . '=' . urlencode($requestUri->getPath());
 
         if (!empty($originalQuery)) {
             $fromQuery = $originalQuery . '&' . $fromQuery;
         }
 
-        $newUri = $uri->withPath($statusPage['path'])->withQuery($fromQuery);
-        $newRequest = $request->withUri($newUri);
+        $newUri = $requestUri->withPath($statusPage['path'])->withQuery($fromQuery);
+        $newRequest = $request->withUri($newUri)->withAttribute(
+            static::ATTRIBUTE_REQUEST_URI,
+            $requestUri
+        );
 
         $method = $this->statusPageTypeMethods['_default'];
 
@@ -151,6 +156,7 @@ class ResponseMutatorStatusPage
      * @param ResponseInterface      $response
      *
      * @return ResponseInterface
+     * @throws \Exception
      */
     protected function renderStatusPage(
         ServerRequestInterface $newRequest,

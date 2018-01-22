@@ -6,12 +6,13 @@ use Psr\Container\ContainerInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Zrcms\Http\Api\BuildMessageValue;
+use Zrcms\Http\Api\BuildResponseOptions;
 use Zrcms\Http\Api\GetRouteOptions;
 use Zrcms\Http\Response\ZrcmsJsonResponse;
 use Zrcms\HttpApi\GetDynamicApiValue;
 use Zrcms\HttpApi\HttpApiDynamic;
 use Zrcms\InputValidation\Api\Validate;
-use Zrcms\InputValidation\Api\ValidateId;
+use Zrcms\InputValidationZrcms\Api\ValidateId;
 use Zrcms\Param\Param;
 
 /**
@@ -126,7 +127,9 @@ class HttpApiValidateIdAttributeDynamic implements HttpApiDynamic
             return new ZrcmsJsonResponse(
                 null,
                 $validationResult,
-                $notValidStatusDefault
+                $notValidStatusDefault,
+                [],
+                BuildResponseOptions::invoke()
             );
         }
 

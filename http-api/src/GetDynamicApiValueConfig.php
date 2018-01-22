@@ -26,7 +26,8 @@ class GetDynamicApiValueConfig implements GetDynamicApiValue
      * @param string $key
      * @param null   $default
      *
-     * @return mixed
+     * @return mixed|null
+     * @throws \Exception
      */
     public function __invoke(
         string $zrcmsImplementation,
@@ -41,7 +42,9 @@ class GetDynamicApiValueConfig implements GetDynamicApiValue
         );
 
         if ($zrcmsImplementationConfig === null) {
-            return $default;
+            throw new \Exception(
+                'Implementation config not found: ' . $zrcmsImplementation
+            );
         }
 
         $zrcmsApiNameConfig = Param::getArray(
@@ -50,7 +53,10 @@ class GetDynamicApiValueConfig implements GetDynamicApiValue
         );
 
         if ($zrcmsApiNameConfig === null) {
-            return $default;
+            throw new \Exception(
+                'API Name config not found: ' . $zrcmsApiName
+                . ' for implementation: ' . $zrcmsImplementation
+            );
         }
 
         return Param::get(

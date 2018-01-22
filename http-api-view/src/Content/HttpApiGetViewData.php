@@ -14,6 +14,7 @@ use Zrcms\CoreView\Exception\SiteNotFound;
 use Zrcms\CoreView\Exception\ThemeNotFound;
 use Zrcms\CoreView\Model\View;
 use Zrcms\Http\Api\BuildMessageValue;
+use Zrcms\Http\Api\BuildResponseOptions;
 use Zrcms\Http\Response\ZrcmsJsonResponse;
 
 /**
@@ -75,12 +76,6 @@ class HttpApiGetViewData
         $host = $request->getAttribute(static::ATTRIBUTE_HOST);
         $path = $request->getAttribute(static::ATTRIBUTE_PATH, '');
 
-        $encodingOptions = 0;
-
-        if ($this->debug) {
-            $encodingOptions = JSON_PRETTY_PRINT;
-        }
-
         $path = '/' . $path;
 
         if (empty($host)) {
@@ -94,9 +89,7 @@ class HttpApiGetViewData
                 ),
                 $this->notFoundStatus,
                 [],
-                [
-                    ZrcmsJsonResponse::OPTION_JSON_FLAGS => $encodingOptions
-                ]
+                BuildResponseOptions::invoke()
             );
         }
 
@@ -130,9 +123,7 @@ class HttpApiGetViewData
                 ),
                 $this->notFoundStatus,
                 [],
-                [
-                    ZrcmsJsonResponse::OPTION_JSON_FLAGS => $encodingOptions
-                ]
+                BuildResponseOptions::invoke()
             );
         } catch (PageNotFound $exception) {
             return new ZrcmsJsonResponse(
@@ -145,9 +136,7 @@ class HttpApiGetViewData
                 ),
                 $this->notFoundStatus,
                 [],
-                [
-                    ZrcmsJsonResponse::OPTION_JSON_FLAGS => $encodingOptions
-                ]
+                BuildResponseOptions::invoke()
             );
         } catch (LayoutNotFound $exception) {
             return new ZrcmsJsonResponse(
@@ -160,9 +149,7 @@ class HttpApiGetViewData
                 ),
                 $this->notFoundStatus,
                 [],
-                [
-                    ZrcmsJsonResponse::OPTION_JSON_FLAGS => $encodingOptions
-                ]
+                BuildResponseOptions::invoke()
             );
         } catch (ThemeNotFound $exception) {
             return new ZrcmsJsonResponse(
@@ -175,9 +162,7 @@ class HttpApiGetViewData
                 ),
                 $this->notFoundStatus,
                 [],
-                [
-                    ZrcmsJsonResponse::OPTION_JSON_FLAGS => $encodingOptions
-                ]
+                BuildResponseOptions::invoke()
             );
         }
 
@@ -186,7 +171,7 @@ class HttpApiGetViewData
             null,
             200,
             [],
-            $encodingOptions
+            BuildResponseOptions::invoke()
         );
     }
 }

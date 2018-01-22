@@ -5,6 +5,7 @@ namespace Zrcms\HttpApi\Validate;
 use ZfInputFilterService\InputFilter\ServiceAwareFactory;
 
 /**
+ * @deprecated
  * @author James Jervis - https://github.com/jerv13
  */
 class HttpApiIdAttributeZfInputFilterServiceHttpApi extends HttpApiAttributesZfInputFilterService

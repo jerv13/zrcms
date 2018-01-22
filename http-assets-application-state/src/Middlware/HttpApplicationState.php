@@ -8,6 +8,7 @@ use Zend\Diactoros\Response\JsonResponse;
 use Zend\Diactoros\Uri;
 use Zrcms\CoreApplicationState\Api\GetApplicationState;
 use Zrcms\Http\Api\BuildMessageValue;
+use Zrcms\Http\Api\BuildResponseOptions;
 use Zrcms\Http\Response\ZrcmsJsonResponse;
 
 /**
@@ -59,12 +60,6 @@ class HttpApplicationState
         $host = $request->getAttribute(static::ATTRIBUTE_HOST);
         $path = $request->getAttribute(static::ATTRIBUTE_PATH, '');
 
-        $encodingOptions = 0;
-
-        if ($this->debug) {
-            $encodingOptions = JSON_PRETTY_PRINT;
-        }
-
         $path = '/' . $path;
 
         if (empty($host)) {
@@ -78,9 +73,7 @@ class HttpApplicationState
                 ),
                 $this->notFoundStatus,
                 [],
-                [
-                    ZrcmsJsonResponse::OPTION_JSON_FLAGS => $encodingOptions
-                ]
+                BuildResponseOptions::invoke()
             );
         }
 
@@ -96,7 +89,7 @@ class HttpApplicationState
             $this->getApplicationState->__invoke($fakeRequest),
             200,
             [],
-            ($this->debug ? JSON_PRETTY_PRINT : 0)
+            BuildResponseOptions::invoke()
         );
     }
 }

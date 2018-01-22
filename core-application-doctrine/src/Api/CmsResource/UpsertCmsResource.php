@@ -12,6 +12,8 @@ use Zrcms\CoreApplicationDoctrine\Entity\CmsResourceHistoryEntity;
 use Zrcms\CoreApplicationDoctrine\Entity\ContentEntity;
 
 /**
+ * @todo Use transactions here as versions can be saved even if the resource fails
+ *
  * @author James Jervis - https://github.com/jerv13
  */
 class UpsertCmsResource extends ApiAbstract implements \Zrcms\Core\Api\CmsResource\UpsertCmsResource

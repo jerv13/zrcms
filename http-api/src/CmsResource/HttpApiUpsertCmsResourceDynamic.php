@@ -9,6 +9,7 @@ use Zrcms\Core\Api\CmsResource\CmsResourceToArray;
 use Zrcms\Core\Api\CmsResource\UpsertCmsResource;
 use Zrcms\Core\Model\CmsResourceBasic;
 use Zrcms\Core\Model\ContentVersionBasic;
+use Zrcms\Http\Api\BuildResponseOptions;
 use Zrcms\Http\Api\GetRouteOptions;
 use Zrcms\Http\Response\ZrcmsJsonResponse;
 use Zrcms\HttpApi\GetDynamicApiValue;
@@ -106,13 +107,15 @@ class HttpApiUpsertCmsResourceDynamic implements HttpApiDynamic
         $data = $request->getParsedBody();
         $contentVersionData = $data['contentVersion'];
 
+        $reason = $contentVersionData['createdReason'] . ' in ' . get_class($this);
+
         $userId = $this->getUserIdByRequest->__invoke($request);
 
         $contentVersion = new ContentVersionBasic(
             $contentVersionData['id'],
             $contentVersionData['properties'],
             $userId,
-            $contentVersionData['createdReason']
+            $reason
         );
 
         $newCmsResource = new CmsResourceBasic(
@@ -120,13 +123,13 @@ class HttpApiUpsertCmsResourceDynamic implements HttpApiDynamic
             $data['published'],
             $contentVersion,
             $userId,
-            $contentVersionData['createdReason']
+            $reason
         );
 
         $cmsResource = $apiService->__invoke(
             $newCmsResource,
             $userId,
-            $contentVersionData['createdReason']
+            $reason
         );
 
         $toArrayService = $this->cmsResourceToArrayDefault;
@@ -152,7 +155,11 @@ class HttpApiUpsertCmsResourceDynamic implements HttpApiDynamic
         }
 
         return new ZrcmsJsonResponse(
-            $toArrayService->__invoke($cmsResource)
+            $toArrayService->__invoke($cmsResource),
+            null,
+            200,
+            [],
+            BuildResponseOptions::invoke()
         );
     }
 }

@@ -9,7 +9,7 @@ use Zrcms\Param\Param;
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class ValidateCompositeByStrategy
+class ValidateCompositeByStrategy implements Validate
 {
     const OPTION_VALIDATORS = 'validators';
 

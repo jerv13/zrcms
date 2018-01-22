@@ -34,9 +34,9 @@ class ModuleConfigRoutes
                  * zrcms-implementation = site
                  * zrcms-api = find-cms-resource
                  */
-                'zrcms.api.cms-resource.{zrcms-implementation}.{id}' => [
-                    'name' => 'zrcms.api.cms-resource.{zrcms-implementation}.{id}',
-                    'path' => '/zrcms/api/cms-resource/{zrcms-implementation}/{id}',
+                'zrcms.api.cms-resource.{zrcms-implementation}.find.{id}' => [
+                    'name' => 'zrcms.api.cms-resource.{zrcms-implementation}.find.{id}',
+                    'path' => '/zrcms/api/cms-resource/{zrcms-implementation}/find/{id}',
                     'middleware' => [
                         'acl' => HttpApiIsAllowedDynamic::class,
                         // @todo 'validate-id' => HttpApiValidateIdAttributeDynamic::class,
@@ -53,9 +53,9 @@ class ModuleConfigRoutes
                  * zrcms-implementation = site
                  * zrcms-api = find-cms-resources-by
                  */
-                'zrcms.api.cms-resources.{zrcms-implementation}' => [
-                    'name' => 'zrcms.api.cms-resources.{zrcms-implementation}',
-                    'path' => '/zrcms/api/cms-resources/{zrcms-implementation}',
+                'zrcms.api.cms-resources.{zrcms-implementation}.find-by' => [
+                    'name' => 'zrcms.api.cms-resources.{zrcms-implementation}.find-by',
+                    'path' => '/zrcms/api/cms-resources/{zrcms-implementation}/find-by',
                     'middleware' => [
                         'acl' => HttpApiIsAllowedDynamic::class,
                         'param-limit' => HttpApiLimit::class,
@@ -78,9 +78,9 @@ class ModuleConfigRoutes
                  * zrcms-implementation = site
                  * zrcms-api = find-cms-resources-published
                  */
-                'zrcms.api.cms-resources.{zrcms-implementation}.published' => [
-                    'name' => 'zrcms.api.cms-resources.{zrcms-implementation}.published',
-                    'path' => '/zrcms/api/cms-resources/{zrcms-implementation}/published',
+                'zrcms.api.cms-resources.{zrcms-implementation}.find-published' => [
+                    'name' => 'zrcms.api.cms-resources.{zrcms-implementation}.find-published',
+                    'path' => '/zrcms/api/cms-resources/{zrcms-implementation}/find-published',
                     'middleware' => [
                         'acl' => HttpApiIsAllowedDynamic::class,
                         'param-limit' => HttpApiLimit::class,
@@ -103,9 +103,9 @@ class ModuleConfigRoutes
                  * zrcms-implementation = site
                  * zrcms-api = upsert-cms-resource
                  */
-                'zrcms.api.cms-resource.{zrcms-implementation}' => [
-                    'name' => 'zrcms.api.cms-resource.{zrcms-implementation}',
-                    'path' => '/zrcms/api/cms-resource/{zrcms-implementation}',
+                'zrcms.api.cms-resource.{zrcms-implementation}.upsert' => [
+                    'name' => 'zrcms.api.cms-resource.{zrcms-implementation}.upsert',
+                    'path' => '/zrcms/api/cms-resource/{zrcms-implementation}/upsert',
                     'middleware' => [
                         'acl' => HttpApiIsAllowedDynamic::class,
                         'body-parser' => BodyParamsMiddleware::class,
@@ -121,9 +121,9 @@ class ModuleConfigRoutes
                 /**
                  * FindComponent
                  */
-                'zrcms.api.component.{type}.{name}' => [
-                    'name' => 'zrcms.api.component.{type}.{name}',
-                    'path' => '/zrcms/api/component/{type}/{name}',
+                'zrcms.api.component.{type}.find.{name}' => [
+                    'name' => 'zrcms.api.component.{type}.find.{name}',
+                    'path' => '/zrcms/api/component/{type}/find/{name}',
                     'middleware' => [
                         'acl' => HttpApiIsAllowedFindComponent::class,
                         'api' => HttpApiFindComponent::class,

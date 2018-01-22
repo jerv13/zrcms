@@ -6,6 +6,7 @@ use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Zrcms\Acl\Api\IsAllowed;
 use Zrcms\Http\Api\BuildMessageValue;
+use Zrcms\Http\Api\BuildResponseOptions;
 use Zrcms\Http\Model\ResponseCodes;
 use Zrcms\Http\Response\ZrcmsJsonResponse;
 
@@ -57,12 +58,6 @@ class HttpApiIsAllowed
         callable $next = null
     ) {
         if (!$this->isAllowed->__invoke($request, $this->isAllowedOptions)) {
-            $encodingOptions = 0;
-
-            if ($this->debug) {
-                $encodingOptions = JSON_PRETTY_PRINT;
-            }
-
             return new ZrcmsJsonResponse(
                 null,
                 BuildMessageValue::invoke(
@@ -73,9 +68,7 @@ class HttpApiIsAllowed
                 ),
                 $this->notAllowedStatus,
                 [],
-                [
-                    ZrcmsJsonResponse::OPTION_JSON_FLAGS => $encodingOptions
-                ]
+                BuildResponseOptions::invoke()
             );
         }
 

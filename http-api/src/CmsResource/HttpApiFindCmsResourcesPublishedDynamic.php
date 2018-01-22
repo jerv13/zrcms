@@ -8,6 +8,7 @@ use Psr\Http\Message\ServerRequestInterface;
 use Zrcms\Core\Api\CmsResource\CmsResourcesToArray;
 use Zrcms\Core\Api\CmsResource\CmsResourceToArray;
 use Zrcms\Core\Api\CmsResource\FindCmsResourcesPublished;
+use Zrcms\Http\Api\BuildResponseOptions;
 use Zrcms\Http\Api\GetRouteOptions;
 use Zrcms\Http\Model\HttpLimit;
 use Zrcms\Http\Model\HttpOffset;
@@ -135,7 +136,11 @@ class HttpApiFindCmsResourcesPublishedDynamic implements HttpApiDynamic
         }
 
         return new ZrcmsJsonResponse(
-            $toArrayService->__invoke($cmsResources)
+            $toArrayService->__invoke($cmsResources),
+            null,
+            200,
+            [],
+            BuildResponseOptions::invoke()
         );
     }
 }
