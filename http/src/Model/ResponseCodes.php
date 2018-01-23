@@ -12,5 +12,6 @@ interface ResponseCodes
     const ID_NOT_RECEIVED = 'id-not-received';
     const PROPERTIES_NOT_RECEIVED = 'properties-not-received';
     const NOT_ALLOWED = 'not-allowed';
+    const NOT_IMPLEMENTED = 'not-implemented';
     const VALID_USER_REQUIRED = 'valid-user-required';
 }

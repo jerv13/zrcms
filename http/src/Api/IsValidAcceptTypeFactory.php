@@ -1,29 +1,24 @@
 <?php
 
-namespace Zrcms\HttpApi\Validate;
+namespace Zrcms\Http\Api;
 
 use Psr\Container\ContainerInterface;
-use Zrcms\Debug\IsDebug;
 
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class HttpApiValidateFieldsDynamicFactory
+class IsValidAcceptTypeFactory
 {
     /**
      * @param ContainerInterface $serviceContainer
      *
-     * @return HttpApiValidateFieldsDynamic
+     * @return IsValidAcceptType
      * @throws \Psr\Container\ContainerExceptionInterface
      * @throws \Psr\Container\NotFoundExceptionInterface
      */
     public function __invoke(
         ContainerInterface $serviceContainer
     ) {
-        return new HttpApiValidateFieldsDynamic(
-            $serviceContainer,
-            400,
-            IsDebug::invoke()
-        );
+        return new IsValidAcceptType();
     }
 }

@@ -5,12 +5,9 @@ namespace Zrcms\HttpApi\Validate;
 use Psr\Container\ContainerInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
-use Zrcms\Http\Api\BuildMessageValue;
 use Zrcms\Http\Api\BuildResponseOptions;
-use Zrcms\Http\Api\GetRouteOptions;
 use Zrcms\Http\Response\ZrcmsJsonResponse;
-use Zrcms\HttpApi\GetDynamicApiValue;
-use Zrcms\HttpApi\HttpApiDynamic;
+use Zrcms\HttpApi\Dynamic;
 use Zrcms\InputValidation\Api\Validate;
 use Zrcms\InputValidationZrcms\Api\ValidateId;
 use Zrcms\Param\Param;
@@ -18,36 +15,28 @@ use Zrcms\Param\Param;
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class HttpApiValidateIdAttributeDynamic implements HttpApiDynamic
+class HttpApiValidateIdAttributeDynamic
 {
     const SOURCE = 'http-api-validate-id-attribute-dynamic';
 
     protected $serviceContainer;
-    protected $getRouteOptions;
-    protected $getDynamicApiValue;
     protected $validateIdDefault;
     protected $notValidStatusDefault;
     protected $debug;
 
     /**
      * @param ContainerInterface $serviceContainer
-     * @param GetRouteOptions    $getRouteOptions
-     * @param GetDynamicApiValue $getDynamicApiValue
      * @param ValidateId         $validateIdDefault
      * @param int                $notValidStatusDefault
      * @param bool               $debug
      */
     public function __construct(
         ContainerInterface $serviceContainer,
-        GetRouteOptions $getRouteOptions,
-        GetDynamicApiValue $getDynamicApiValue,
         ValidateId $validateIdDefault,
         int $notValidStatusDefault = 400,
         bool $debug = false
     ) {
         $this->serviceContainer = $serviceContainer;
-        $this->getRouteOptions = $getRouteOptions;
-        $this->getDynamicApiValue = $getDynamicApiValue;
         $this->validateIdDefault = $validateIdDefault;
         $this->notValidStatusDefault = $notValidStatusDefault;
         $this->debug = $debug;
@@ -68,19 +57,11 @@ class HttpApiValidateIdAttributeDynamic implements HttpApiDynamic
         ResponseInterface $response,
         callable $next = null
     ) {
-        $routeOptions = $this->getRouteOptions->__invoke($request);
+        $dynamicApiConfig = $request->getAttribute(Dynamic::ATTRIBUTE_DYNAMIC_API_CONFIG);
 
-        $zrcmsApiName = Param::getRequired(
-            $routeOptions,
-            static::ROUTE_OPTION_ZRCMS_API
-        );
-
-        $zrcmsImplementation = $request->getAttribute(static::ATTRIBUTE_ZRCMS_IMPLEMENTATION);
-
-        $validateConfig = $this->getDynamicApiValue->__invoke(
-            $zrcmsImplementation,
-            $zrcmsApiName,
-            static::MIDDLEWARE_NAME_VALIDATE_ID,
+        $validateConfig = Param::getArray(
+            $dynamicApiConfig,
+            Dynamic::MIDDLEWARE_NAME_VALIDATE_ID,
             []
         );
 
@@ -110,7 +91,7 @@ class HttpApiValidateIdAttributeDynamic implements HttpApiDynamic
             []
         );
 
-        $httpApiId = $request->getAttribute(static::ATTRIBUTE_ZRCMS_ID);
+        $httpApiId = $request->getAttribute(Dynamic::ATTRIBUTE_ZRCMS_ID);
 
         $validationResult = $validateService->__invoke(
             $httpApiId,

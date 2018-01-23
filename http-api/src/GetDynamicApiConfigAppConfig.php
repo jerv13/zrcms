@@ -7,42 +7,38 @@ use Zrcms\Param\Param;
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class GetDynamicApiValueConfig implements GetDynamicApiValue
+class GetDynamicApiConfigAppConfig implements GetDynamicApiConfig
 {
-    protected $zrcmsHttpApiConfig;
+    protected $zrcmsHttpApiDynamicConfig;
 
     /**
-     * @param array $zrcmsHttpApiConfig
+     * @param array $zrcmsHttpApiDynamicConfig
      */
     public function __construct(
-        array $zrcmsHttpApiConfig
+        array $zrcmsHttpApiDynamicConfig
     ) {
-        $this->zrcmsHttpApiConfig = $zrcmsHttpApiConfig;
+        $this->zrcmsHttpApiDynamicConfig = $zrcmsHttpApiDynamicConfig;
     }
 
     /**
      * @param string $zrcmsImplementation
      * @param string $zrcmsApiName
-     * @param string $key
-     * @param null   $default
      *
-     * @return mixed|null
-     * @throws \Exception
+     * @return array
+     * @throws DynamicApiConfigNotFound
      */
     public function __invoke(
         string $zrcmsImplementation,
-        string $zrcmsApiName,
-        string $key,
-        $default = null
-    ) {
+        string $zrcmsApiName
+    ): array {
         $zrcmsImplementationConfig = Param::getArray(
-            $this->zrcmsHttpApiConfig,
+            $this->zrcmsHttpApiDynamicConfig,
             $zrcmsImplementation,
             null
         );
 
         if ($zrcmsImplementationConfig === null) {
-            throw new \Exception(
+            throw new DynamicApiConfigNotFound(
                 'Implementation config not found: ' . $zrcmsImplementation
             );
         }
@@ -53,16 +49,12 @@ class GetDynamicApiValueConfig implements GetDynamicApiValue
         );
 
         if ($zrcmsApiNameConfig === null) {
-            throw new \Exception(
+            throw new DynamicApiConfigNotFound(
                 'API Name config not found: ' . $zrcmsApiName
                 . ' for implementation: ' . $zrcmsImplementation
             );
         }
 
-        return Param::get(
-            $zrcmsApiNameConfig,
-            $key,
-            $default
-        );
+        return $zrcmsApiNameConfig;
     }
 }

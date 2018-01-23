@@ -1,29 +1,31 @@
 <?php
 
-namespace Zrcms\HttpApi\CmsResource;
+namespace Zrcms\HttpApi\Dynamic;
 
 use Psr\Container\ContainerInterface;
-use Zrcms\Core\Api\CmsResource\CmsResourcesToArray;
 use Zrcms\Debug\IsDebug;
+use Zrcms\Http\Api\GetRouteOptions;
+use Zrcms\HttpApi\GetDynamicApiConfig;
 
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class HttpApiFindCmsResourcesByDynamicFactory
+class HttpApiDynamicFactory
 {
     /**
      * @param ContainerInterface $serviceContainer
      *
-     * @return HttpApiFindCmsResourcesByDynamic
+     * @return HttpApiDynamic
      * @throws \Psr\Container\ContainerExceptionInterface
      * @throws \Psr\Container\NotFoundExceptionInterface
      */
     public function __invoke(
         ContainerInterface $serviceContainer
     ) {
-        return new HttpApiFindCmsResourcesByDynamic(
-            $serviceContainer,
-            $serviceContainer->get(CmsResourcesToArray::class),
+        return new HttpApiDynamic(
+            $serviceContainer->get(GetRouteOptions::class),
+            $serviceContainer->get(GetDynamicApiConfig::class),
+            405,
             IsDebug::invoke()
         );
     }

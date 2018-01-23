@@ -2,6 +2,7 @@
 
 namespace Zrcms\InputValidationZrcms\Api;
 
+use Psr\Container\ContainerInterface;
 use Zrcms\InputValidation\Api\ValidateFields;
 use Zrcms\InputValidation\Model\ValidationResultFields;
 use Zrcms\InputValidation\Model\ValidationResultFieldsBasic;
@@ -11,6 +12,17 @@ use Zrcms\InputValidation\Model\ValidationResultFieldsBasic;
  */
 class ValidateCmsResourceData implements ValidateFields
 {
+    protected $serviceContainer;
+
+    /**
+     * @param ContainerInterface $serviceContainer
+     */
+    public function __construct(
+        ContainerInterface $serviceContainer
+    ) {
+        $this->serviceContainer = $serviceContainer;
+    }
+
     /**
      * @param array $cmsResourceData ['{name}' => '{value}']
      * @param array $options

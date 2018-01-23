@@ -16,6 +16,8 @@ class ComponentBasic extends ComponentAbstract implements Component
      * @param string $createdByUserId
      * @param string $createdReason
      * @param null   $createdDate
+     *
+     * @throws \Zrcms\Core\Exception\TrackingInvalid
      */
     public function __construct(
         string $type,

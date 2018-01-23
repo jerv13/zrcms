@@ -5,10 +5,13 @@ namespace Zrcms\HttpApi;
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-interface HttpApiDynamic
+interface Dynamic
 {
     const ROUTE_OPTION_ZRCMS_API = 'zrcms-api';
     const ATTRIBUTE_ZRCMS_IMPLEMENTATION = 'zrcms-implementation';
+    const ATTRIBUTE_ZRCMS_API = 'zrcms-api';
+    const ATTRIBUTE_DYNAMIC_API_CONFIG = 'zrcms-dynamic-api-config';
+    const ATTRIBUTE_DYNAMIC_API_TYPE = 'zrcms-dynamic-api-type';
 
     const ATTRIBUTE_ZRCMS_ID = 'id';
 

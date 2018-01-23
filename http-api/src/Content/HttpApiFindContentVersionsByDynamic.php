@@ -1,49 +1,46 @@
 <?php
 
-namespace Zrcms\HttpApi\CmsResource;
+namespace Zrcms\HttpApi\Content;
 
 use Psr\Container\ContainerInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
-use Zrcms\Core\Api\CmsResource\CmsResourceToArray;
-use Zrcms\Core\Api\CmsResource\UpsertCmsResource;
-use Zrcms\Core\Model\CmsResourceBasic;
-use Zrcms\Core\Model\ContentVersionBasic;
+use Zrcms\Core\Api\CmsResource\CmsResourcesToArray;
+use Zrcms\Core\Api\Content\ContentVersionsToArray;
+use Zrcms\Core\Api\Content\FindContentVersionsBy;
 use Zrcms\Http\Api\BuildResponseOptions;
+use Zrcms\Http\Model\HttpLimit;
+use Zrcms\Http\Model\HttpOffset;
+use Zrcms\Http\Model\HttpOrderBy;
+use Zrcms\Http\Model\HttpWhere;
 use Zrcms\Http\Response\ZrcmsJsonResponse;
 use Zrcms\HttpApi\Dynamic;
 use Zrcms\Param\Param;
-use Zrcms\User\Api\GetUserIdByRequest;
 
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class HttpApiUpsertCmsResourceDynamic
+class HttpApiFindContentVersionsByDynamic
 {
-    const SOURCE = 'http-api-find-cms-resource-dynamic';
+    const SOURCE = 'http-api-find-content-versions-by-dynamic';
 
     protected $serviceContainer;
-    protected $getUserIdByRequest;
-    protected $cmsResourceToArrayDefault;
+    protected $contentVersionsToArrayDefault;
     protected $debug;
 
     /**
-     * @param ContainerInterface $serviceContainer
-     * @param GetUserIdByRequest $getUserIdByRequest
-     * @param CmsResourceToArray $cmsResourceToArrayDefault
-     * @param bool               $debug
+     * @param ContainerInterface     $serviceContainer
+     * @param ContentVersionsToArray $contentVersionsToArrayDefault
+     * @param bool                   $debug
      */
     public function __construct(
         ContainerInterface $serviceContainer,
-        GetUserIdByRequest $getUserIdByRequest,
-        CmsResourceToArray $cmsResourceToArrayDefault,
+        ContentVersionsToArray $contentVersionsToArrayDefault,
         bool $debug = false
     ) {
         $this->serviceContainer = $serviceContainer;
-        $this->getUserIdByRequest = $getUserIdByRequest;
-        $this->cmsResourceToArrayDefault = $cmsResourceToArrayDefault;
+        $this->contentVersionsToArrayDefault = $contentVersionsToArrayDefault;
         $this->debug = $debug;
-
     }
 
     /**
@@ -79,42 +76,26 @@ class HttpApiUpsertCmsResourceDynamic
             throw new \Exception('api-service must be defined');
         }
 
-        /** @var UpsertCmsResource $apiService */
+        /** @var FindContentVersionsBy $apiService */
         $apiService = $this->serviceContainer->get($apiServiceName);
 
-        if (!$apiService instanceof UpsertCmsResource) {
-            throw new \Exception('api-service must be instance of ' . UpsertCmsResource::class);
+        if (!$apiService instanceof FindContentVersionsBy) {
+            throw new \Exception('api-service must be instance of ' . FindContentVersionsBy::class);
         }
 
-        $data = $request->getParsedBody();
-        $contentVersionData = $data['contentVersion'];
+        $criteria = $request->getAttribute(HttpWhere::ATTRIBUTE, []);
+        $orderBy = $request->getAttribute(HttpOrderBy::ATTRIBUTE);
+        $limit = $request->getAttribute(HttpLimit::ATTRIBUTE);
+        $offset = $request->getAttribute(HttpOffset::ATTRIBUTE);
 
-        $reason = $contentVersionData['createdReason'] . ' (source: ' . static::SOURCE . ')';
-
-        $userId = $this->getUserIdByRequest->__invoke($request);
-
-        $contentVersion = new ContentVersionBasic(
-            $contentVersionData['id'],
-            $contentVersionData['properties'],
-            $userId,
-            $reason
+        $contentVersions = $apiService->__invoke(
+            $criteria,
+            $orderBy,
+            $limit,
+            $offset
         );
 
-        $newCmsResource = new CmsResourceBasic(
-            $data['id'],
-            $data['published'],
-            $contentVersion,
-            $userId,
-            $reason
-        );
-
-        $cmsResource = $apiService->__invoke(
-            $newCmsResource,
-            $userId,
-            $reason
-        );
-
-        $toArrayService = $this->cmsResourceToArrayDefault;
+        $toArrayService = $this->contentVersionsToArrayDefault;
 
         $toArrayServiceName = Param::getString(
             $apiConfig,
@@ -123,20 +104,20 @@ class HttpApiUpsertCmsResourceDynamic
         );
 
         if ($toArrayServiceName !== null) {
-            /** @var CmsResourceToArray $isAllowed */
+            /** @var CmsResourcesToArray $toArrayService */
             $toArrayService = $this->serviceContainer->get($toArrayServiceName);
         }
 
-        if (!$toArrayService instanceof CmsResourceToArray) {
+        if (!$toArrayService instanceof ContentVersionsToArray) {
             throw new \Exception(
-                'to-array must be instance of ' . CmsResourceToArray::class
+                'to-array must be instance of ' . ContentVersionsToArray::class
                 . ' got .' . get_class($toArrayService)
                 . ' for dynamic api: (' . $request->getAttribute(Dynamic::ATTRIBUTE_DYNAMIC_API_TYPE) . ')'
             );
         }
 
         return new ZrcmsJsonResponse(
-            $toArrayService->__invoke($cmsResource),
+            $toArrayService->__invoke($contentVersions),
             null,
             200,
             [],

@@ -4,8 +4,6 @@ namespace Zrcms\HttpApi\Validate;
 
 use Psr\Container\ContainerInterface;
 use Zrcms\Debug\IsDebug;
-use Zrcms\Http\Api\GetRouteOptions;
-use Zrcms\HttpApi\GetDynamicApiValue;
 use Zrcms\InputValidationZrcms\Api\ValidateId;
 
 /**
@@ -25,8 +23,6 @@ class HttpApiValidateIdAttributeDynamicFactory
     ) {
         return new HttpApiValidateIdAttributeDynamic(
             $serviceContainer,
-            $serviceContainer->get(GetRouteOptions::class),
-            $serviceContainer->get(GetDynamicApiValue::class),
             $serviceContainer->get(ValidateId::class),
             400,
             IsDebug::invoke()

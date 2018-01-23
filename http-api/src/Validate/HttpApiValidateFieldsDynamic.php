@@ -6,46 +6,33 @@ use Psr\Container\ContainerInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Zrcms\Http\Api\BuildResponseOptions;
-use Zrcms\Http\Api\GetRouteOptions;
 use Zrcms\Http\Response\ZrcmsJsonResponse;
-use Zrcms\HttpApi\GetDynamicApiValue;
-use Zrcms\HttpApi\HttpApiDynamic;
+use Zrcms\HttpApi\Dynamic;
 use Zrcms\InputValidation\Api\ValidateFields;
 use Zrcms\Param\Param;
 
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class HttpApiValidateFieldsDynamic implements HttpApiDynamic
+class HttpApiValidateFieldsDynamic
 {
     const SOURCE = 'http-api-validate-fields-dynamic';
 
     protected $serviceContainer;
-    protected $getRouteOptions;
-    protected $getDynamicApiValue;
-    protected $validateDefault;
-
-    protected $name;
     protected $notValidStatusDefault;
     protected $debug;
 
     /**
      * @param ContainerInterface $serviceContainer
-     * @param GetRouteOptions    $getRouteOptions
-     * @param GetDynamicApiValue $getDynamicApiValue
      * @param int                $notValidStatusDefault
      * @param bool               $debug
      */
     public function __construct(
         ContainerInterface $serviceContainer,
-        GetRouteOptions $getRouteOptions,
-        GetDynamicApiValue $getDynamicApiValue,
         int $notValidStatusDefault = 400,
         bool $debug = false
     ) {
         $this->serviceContainer = $serviceContainer;
-        $this->getRouteOptions = $getRouteOptions;
-        $this->getDynamicApiValue = $getDynamicApiValue;
         $this->notValidStatusDefault = $notValidStatusDefault;
         $this->debug = $debug;
     }
@@ -65,19 +52,11 @@ class HttpApiValidateFieldsDynamic implements HttpApiDynamic
         ResponseInterface $response,
         callable $next = null
     ) {
-        $routeOptions = $this->getRouteOptions->__invoke($request);
+        $dynamicApiConfig = $request->getAttribute(Dynamic::ATTRIBUTE_DYNAMIC_API_CONFIG);
 
-        $zrcmsApiName = Param::getRequired(
-            $routeOptions,
-            static::ROUTE_OPTION_ZRCMS_API
-        );
-
-        $zrcmsImplementation = $request->getAttribute(static::ATTRIBUTE_ZRCMS_IMPLEMENTATION);
-
-        $validateConfig = $this->getDynamicApiValue->__invoke(
-            $zrcmsImplementation,
-            $zrcmsApiName,
-            static::MIDDLEWARE_NAME_VALIDATE_FIELDS,
+        $validateConfig = Param::getArray(
+            $dynamicApiConfig,
+            Dynamic::MIDDLEWARE_NAME_VALIDATE_FIELDS,
             []
         );
 
@@ -98,8 +77,7 @@ class HttpApiValidateFieldsDynamic implements HttpApiDynamic
             throw new \Exception(
                 'Validate must be instance of ' . ValidateFields::class
                 . ' got (' . get_class($validate) . ')'
-                . ' for implementation: (' . $zrcmsImplementation . ')'
-                . ' and api: ' . $zrcmsApiName . ')'
+                . ' for dynamic api: (' . $request->getAttribute(Dynamic::ATTRIBUTE_DYNAMIC_API_TYPE) . ')'
             );
         }
 
@@ -108,8 +86,6 @@ class HttpApiValidateFieldsDynamic implements HttpApiDynamic
             'validate-fields-options',
             []
         );
-
-        //ddd($validateOptions);
 
         $data = $request->getParsedBody();
 

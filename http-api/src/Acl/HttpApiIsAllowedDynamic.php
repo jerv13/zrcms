@@ -8,22 +8,18 @@ use Psr\Http\Message\ServerRequestInterface;
 use Zrcms\Acl\Api\IsAllowed;
 use Zrcms\Http\Api\BuildMessageValue;
 use Zrcms\Http\Api\BuildResponseOptions;
-use Zrcms\Http\Api\GetRouteOptions;
 use Zrcms\Http\Response\ZrcmsJsonResponse;
-use Zrcms\HttpApi\GetDynamicApiValue;
-use Zrcms\HttpApi\HttpApiDynamic;
+use Zrcms\HttpApi\Dynamic;
 use Zrcms\Param\Param;
 
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class HttpApiIsAllowedDynamic implements HttpApiDynamic
+class HttpApiIsAllowedDynamic
 {
     const SOURCE = 'http-api-is-allowed-dynamic';
 
     protected $serviceContainer;
-    protected $getRouteOptions;
-    protected $getDynamicApiValue;
     protected $isAllowedDefault;
 
     protected $name;
@@ -32,21 +28,15 @@ class HttpApiIsAllowedDynamic implements HttpApiDynamic
 
     /**
      * @param ContainerInterface $serviceContainer
-     * @param GetRouteOptions    $getRouteOptions
-     * @param GetDynamicApiValue $getDynamicApiValue
      * @param int                $notAllowedStatusDefault
      * @param bool               $debug
      */
     public function __construct(
         ContainerInterface $serviceContainer,
-        GetRouteOptions $getRouteOptions,
-        GetDynamicApiValue $getDynamicApiValue,
         int $notAllowedStatusDefault = 401,
         bool $debug = false
     ) {
         $this->serviceContainer = $serviceContainer;
-        $this->getRouteOptions = $getRouteOptions;
-        $this->getDynamicApiValue = $getDynamicApiValue;
         $this->notAllowedStatusDefault = $notAllowedStatusDefault;
         $this->debug = $debug;
     }
@@ -66,19 +56,11 @@ class HttpApiIsAllowedDynamic implements HttpApiDynamic
         ResponseInterface $response,
         callable $next = null
     ) {
-        $routeOptions = $this->getRouteOptions->__invoke($request);
+        $dynamicApiConfig = $request->getAttribute(Dynamic::ATTRIBUTE_DYNAMIC_API_CONFIG);
 
-        $zrcmsApiName = Param::getRequired(
-            $routeOptions,
-            static::ROUTE_OPTION_ZRCMS_API
-        );
-
-        $zrcmsImplementation = $request->getAttribute(static::ATTRIBUTE_ZRCMS_IMPLEMENTATION);
-
-        $isAllowedConfig = $this->getDynamicApiValue->__invoke(
-            $zrcmsImplementation,
-            $zrcmsApiName,
-            static::MIDDLEWARE_NAME_ACL,
+        $isAllowedConfig = Param::getArray(
+            $dynamicApiConfig,
+            Dynamic::MIDDLEWARE_NAME_ACL,
             []
         );
 
@@ -99,8 +81,7 @@ class HttpApiIsAllowedDynamic implements HttpApiDynamic
             throw new \Exception(
                 'IsAllowed must be instance of ' . IsAllowed::class
                 . ' got (' . get_class($isAllowed) . ')'
-                . ' for implementation: (' . $zrcmsImplementation . ')'
-                . ' and api: ' . $zrcmsApiName . ')'
+                . ' for dynamic api: (' . $request->getAttribute(Dynamic::ATTRIBUTE_DYNAMIC_API_TYPE) . ')'
             );
         }
 
@@ -127,7 +108,7 @@ class HttpApiIsAllowedDynamic implements HttpApiDynamic
                 BuildMessageValue::invoke(
                     (string)$notAllowedStatus,
                     'Not Allowed',
-                    $zrcmsImplementation . ':' . $zrcmsApiName,
+                    $request->getAttribute(Dynamic::ATTRIBUTE_DYNAMIC_API_TYPE),
                     self::SOURCE
                 ),
                 $notAllowedStatus,

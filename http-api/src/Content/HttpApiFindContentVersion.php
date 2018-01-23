@@ -12,6 +12,7 @@ use Zrcms\Http\Model\ResponseCodes;
 use Zrcms\Http\Response\ZrcmsJsonResponse;
 
 /**
+ * @deprecated
  * @author James Jervis - https://github.com/jerv13
  */
 class HttpApiFindContentVersion

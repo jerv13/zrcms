@@ -4,10 +4,8 @@
 ##### HTTP APIs for each php API
 
 - http-api module should be able to support all common APIs that have interfaces
-
-##### RCM Compatibility
-
-- For all createdReasons, add a BC note so we can better track BC stuf
+- Create unique validators for upsert and insert
+- Do component dynamic - to allow different access for different types?
 
 ##### Start client  - NOTE: Client packages will be built using NPM
 
@@ -30,9 +28,9 @@
 See about simplifying all common patterns (content, resource, etc...)?
 
 - CONFIG EXAMPLE:
-    'zrcms-types' => [
+    'zrcms-implementations' => [
         /* Default services and classes are defined here */
-        'basic' => [
+        'site' => [
             BuildComponentObject::class => BuildComponentObjectDefault::class,
             'component-model-interface' => Component::class,
             'component-model-class' => ComponentBasic::class,
@@ -75,6 +73,10 @@ See about simplifying all common patterns (content, resource, etc...)?
 #####  Use FACTORIES instead of 'factories as config'
 
 - cannot over-ride in a reliable way in 'factories as config'
+
+##### RCM Compatibility
+
+- For all createdReasons, add a BC note so we can better track BC stuf
     
 Features
 --------

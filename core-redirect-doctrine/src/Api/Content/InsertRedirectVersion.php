@@ -32,7 +32,9 @@ class InsertRedirectVersion extends InsertContentVersion implements CoreInsert
      * @param array          $options
      *
      * @return ContentVersion
-     * @throws \Zrcms\CoreApplicationDoctrine\Exception\IdMustBeEmptyException
+     * @throws \Doctrine\ORM\OptimisticLockException
+     * @throws \Exception
+     * @throws \Zrcms\Core\Exception\TrackingInvalid
      */
     public function __invoke(
         ContentVersion $redirectVersion,

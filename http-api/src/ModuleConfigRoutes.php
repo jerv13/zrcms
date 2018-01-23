@@ -9,7 +9,14 @@ use Zrcms\HttpApi\CmsResource\HttpApiFindCmsResourceDynamic;
 use Zrcms\HttpApi\CmsResource\HttpApiFindCmsResourcesByDynamic;
 use Zrcms\HttpApi\CmsResource\HttpApiFindCmsResourcesPublishedDynamic;
 use Zrcms\HttpApi\CmsResource\HttpApiUpsertCmsResourceDynamic;
+use Zrcms\HttpApi\CmsResourceHistory\HttpApiFindCmsResourceHistoryByDynamic;
+use Zrcms\HttpApi\CmsResourceHistory\HttpApiFindCmsResourceHistoryDynamic;
 use Zrcms\HttpApi\Component\HttpApiFindComponent;
+use Zrcms\HttpApi\Component\HttpApiFindComponentsBy;
+use Zrcms\HttpApi\Content\HttpApiFindContentVersionDynamic;
+use Zrcms\HttpApi\Content\HttpApiFindContentVersionsByDynamic;
+use Zrcms\HttpApi\Content\HttpApiInsertContentVersionDynamic;
+use Zrcms\HttpApi\Dynamic\HttpApiDynamic;
 use Zrcms\HttpApi\Params\HttpApiLimit;
 use Zrcms\HttpApi\Params\HttpApiOffset;
 use Zrcms\HttpApi\Params\HttpApiOrderBy;
@@ -29,15 +36,13 @@ class ModuleConfigRoutes
         return [
             'routes' => [
                 /**
-                 * FindResource
-                 *
-                 * zrcms-implementation = site
-                 * zrcms-api = find-cms-resource
+                 * FindCmsResource find-cms-resource
                  */
                 'zrcms.api.cms-resource.{zrcms-implementation}.find.{id}' => [
                     'name' => 'zrcms.api.cms-resource.{zrcms-implementation}.find.{id}',
                     'path' => '/zrcms/api/cms-resource/{zrcms-implementation}/find/{id}',
                     'middleware' => [
+                        'dynamic' => HttpApiDynamic::class,
                         'acl' => HttpApiIsAllowedDynamic::class,
                         // @todo 'validate-id' => HttpApiValidateIdAttributeDynamic::class,
                         'api' => HttpApiFindCmsResourceDynamic::class,
@@ -47,16 +52,15 @@ class ModuleConfigRoutes
                     ],
                     'allowed_methods' => ['GET'],
                 ],
+
                 /**
-                 * FindResourcesBy
-                 *
-                 * zrcms-implementation = site
-                 * zrcms-api = find-cms-resources-by
+                 * FindCmsResourcesBy find-cms-resources-by
                  */
                 'zrcms.api.cms-resources.{zrcms-implementation}.find-by' => [
                     'name' => 'zrcms.api.cms-resources.{zrcms-implementation}.find-by',
                     'path' => '/zrcms/api/cms-resources/{zrcms-implementation}/find-by',
                     'middleware' => [
+                        'dynamic' => HttpApiDynamic::class,
                         'acl' => HttpApiIsAllowedDynamic::class,
                         'param-limit' => HttpApiLimit::class,
                         'param-offset' => HttpApiOffset::class,
@@ -73,15 +77,13 @@ class ModuleConfigRoutes
                 ],
 
                 /**
-                 * FindCmsResourcesPublished
-                 *
-                 * zrcms-implementation = site
-                 * zrcms-api = find-cms-resources-published
+                 * FindCmsResourcesPublished find-cms-resources-published
                  */
                 'zrcms.api.cms-resources.{zrcms-implementation}.find-published' => [
                     'name' => 'zrcms.api.cms-resources.{zrcms-implementation}.find-published',
                     'path' => '/zrcms/api/cms-resources/{zrcms-implementation}/find-published',
                     'middleware' => [
+                        'dynamic' => HttpApiDynamic::class,
                         'acl' => HttpApiIsAllowedDynamic::class,
                         'param-limit' => HttpApiLimit::class,
                         'param-offset' => HttpApiOffset::class,
@@ -98,15 +100,13 @@ class ModuleConfigRoutes
                 ],
 
                 /**
-                 * UpsertCmsResource
-                 *
-                 * zrcms-implementation = site
-                 * zrcms-api = upsert-cms-resource
+                 * UpsertCmsResource upsert-cms-resource
                  */
                 'zrcms.api.cms-resource.{zrcms-implementation}.upsert' => [
                     'name' => 'zrcms.api.cms-resource.{zrcms-implementation}.upsert',
                     'path' => '/zrcms/api/cms-resource/{zrcms-implementation}/upsert',
                     'middleware' => [
+                        'dynamic' => HttpApiDynamic::class,
                         'acl' => HttpApiIsAllowedDynamic::class,
                         'body-parser' => BodyParamsMiddleware::class,
                         'validate-fields' => HttpApiValidateFieldsDynamic::class,
@@ -116,6 +116,47 @@ class ModuleConfigRoutes
                         'zrcms-api' => 'upsert-cms-resource'
                     ],
                     'allowed_methods' => ['POST', 'PUT'],
+                ],
+
+                /**
+                 * FindCmsResourceHistory find-cms-resource-history
+                 */
+                'zrcms.api.cms-resource-history.{zrcms-implementation}.find.{id}' => [
+                    'name' => 'zrcms.api.cms-resource-history.{zrcms-implementation}.find.{id}',
+                    'path' => '/zrcms/api/cms-resource-history/{zrcms-implementation}/find/{id}',
+                    'middleware' => [
+                        'dynamic' => HttpApiDynamic::class,
+                        'acl' => HttpApiIsAllowedDynamic::class,
+                        // @todo 'validate-id' => HttpApiValidateIdAttributeDynamic::class,
+                        'api' => HttpApiFindCmsResourceHistoryDynamic::class,
+                    ],
+                    'options' => [
+                        'zrcms-api' => 'find-cms-resource-history'
+                    ],
+                    'allowed_methods' => ['GET'],
+                ],
+
+                /**
+                 * FindCmsResourceHistoryBy find-cms-resources-by-histories
+                 */
+                'zrcms.api.cms-resource-histories.{zrcms-implementation}.find-by' => [
+                    'name' => 'zrcms.api.cms-resource-histories.{zrcms-implementation}.find-by',
+                    'path' => '/zrcms/api/cms-resource-histories/{zrcms-implementation}/find-by',
+                    'middleware' => [
+                        'dynamic' => HttpApiDynamic::class,
+                        'acl' => HttpApiIsAllowedDynamic::class,
+                        'param-limit' => HttpApiLimit::class,
+                        'param-offset' => HttpApiOffset::class,
+                        'param-order-by' => HttpApiOrderBy::class,
+                        //'validate-param-order-by' => XXX::class,
+                        'param-where' => HttpApiWhere::class,
+                        //'validate-param-where' => XXX::class,
+                        'api' => HttpApiFindCmsResourceHistoryByDynamic::class,
+                    ],
+                    'options' => [
+                        'zrcms-api' => 'find-cms-resources-by-histories'
+                    ],
+                    'allowed_methods' => ['GET'],
                 ],
 
                 /**
@@ -131,6 +172,87 @@ class ModuleConfigRoutes
                     'options' => [
                     ],
                     'allowed_methods' => ['GET'],
+                ],
+
+                /**
+                 * FindComponentsBy
+                 */
+                'zrcms.api.components.find-by' => [
+                    'name' => 'zrcms.api.components.find-by',
+                    'path' => '/zrcms/api/components/find-by',
+                    'middleware' => [
+                        'acl' => HttpApiIsAllowedFindComponent::class,
+                        'param-limit' => HttpApiLimit::class,
+                        'param-offset' => HttpApiOffset::class,
+                        'param-order-by' => HttpApiOrderBy::class,
+                        //'validate-param-order-by' => XXX::class,
+                        'param-where' => HttpApiWhere::class,
+                        //'validate-param-where' => XXX::class,
+                        'api' => HttpApiFindComponentsBy::class,
+                    ],
+                    'options' => [
+                    ],
+                    'allowed_methods' => ['GET'],
+                ],
+
+                /**
+                 * FindContentVersion find-content-version
+                 */
+                'zrcms.api.content-version.{zrcms-implementation}.find.{id}' => [
+                    'name' => 'zrcms.api.content-version.{zrcms-implementation}.find.{id}',
+                    'path' => '/zrcms/api/content-version/{zrcms-implementation}/find/{id}',
+                    'middleware' => [
+                        'dynamic' => HttpApiDynamic::class,
+                        'acl' => HttpApiIsAllowedDynamic::class,
+                        // @todo 'validate-id' => HttpApiValidateIdAttributeDynamic::class,
+                        'api' => HttpApiFindContentVersionDynamic::class,
+                    ],
+                    'options' => [
+                        'zrcms-api' => 'find-content-version'
+                    ],
+                    'allowed_methods' => ['GET'],
+                ],
+
+                /**
+                 * FindContentVersionsBy find-content-versions-by
+                 */
+                'zrcms.api.content-versions.{zrcms-implementation}.find-by' => [
+                    'name' => 'zrcms.api.content-versions.{zrcms-implementation}.find-by',
+                    'path' => '/zrcms/api/content-versions/{zrcms-implementation}/find-by',
+                    'middleware' => [
+                        'dynamic' => HttpApiDynamic::class,
+                        'acl' => HttpApiIsAllowedDynamic::class,
+                        'param-limit' => HttpApiLimit::class,
+                        'param-offset' => HttpApiOffset::class,
+                        'param-order-by' => HttpApiOrderBy::class,
+                        //'validate-param-order-by' => XXX::class,
+                        'param-where' => HttpApiWhere::class,
+                        //'validate-param-where' => XXX::class,
+                        'api' => HttpApiFindContentVersionsByDynamic::class,
+                    ],
+                    'options' => [
+                        'zrcms-api' => 'find-content-versions-by'
+                    ],
+                    'allowed_methods' => ['GET'],
+                ],
+
+                /**
+                 * InsertContentVersion insert-content-version
+                 */
+                'zrcms.api.content-version.{zrcms-implementation}.insert' => [
+                    'name' => 'zrcms.api.content-version.{zrcms-implementation}.insert',
+                    'path' => '/zrcms/api/content-version/{zrcms-implementation}/insert',
+                    'middleware' => [
+                        'dynamic' => HttpApiDynamic::class,
+                        'acl' => HttpApiIsAllowedDynamic::class,
+                        'body-parser' => BodyParamsMiddleware::class,
+                        'validate-fields' => HttpApiValidateFieldsDynamic::class,
+                        'api' => HttpApiInsertContentVersionDynamic::class,
+                    ],
+                    'options' => [
+                        'zrcms-api' => 'insert-content-version'
+                    ],
+                    'allowed_methods' => ['POST'],
                 ],
             ],
         ];

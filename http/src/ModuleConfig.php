@@ -4,6 +4,10 @@ namespace Zrcms\Http;
 
 use Zrcms\Http\Api\GetRouteOptions;
 use Zrcms\Http\Api\GetRouteOptionsExpressiveConfigFactory;
+use Zrcms\Http\Api\IsValidAcceptType;
+use Zrcms\Http\Api\IsValidAcceptTypeFactory;
+use Zrcms\Http\Api\IsValidContentType;
+use Zrcms\Http\Api\IsValidContentTypeFactory;
 use Zrcms\Http\Api\QueryParamValueDecode;
 use Zrcms\Http\Api\QueryParamValueDecodeJsonFactory;
 
@@ -22,6 +26,14 @@ class ModuleConfig
                 'config_factories' => [
                     GetRouteOptions::class => [
                         'factory' => GetRouteOptionsExpressiveConfigFactory::class,
+                    ],
+
+                    IsValidAcceptType::class => [
+                        'factory' => IsValidAcceptTypeFactory::class,
+                    ],
+
+                    IsValidContentType::class => [
+                        'factory' => IsValidContentTypeFactory::class,
                     ],
 
                     QueryParamValueDecode::class => [

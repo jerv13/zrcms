@@ -1,28 +1,29 @@
 <?php
 
-namespace Zrcms\HttpApi;
+namespace Zrcms\HttpApi\Component;
 
 use Psr\Container\ContainerInterface;
+use Zrcms\Core\Api\Component\ComponentsToArray;
+use Zrcms\Core\Api\Component\FindComponentsBy;
 
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class GetDynamicApiValueConfigFactory
+class HttpApiFindComponentsByFactory
 {
     /**
      * @param ContainerInterface $serviceContainer
      *
-     * @return GetDynamicApiValueConfig
+     * @return HttpApiFindComponentsBy
      * @throws \Psr\Container\ContainerExceptionInterface
      * @throws \Psr\Container\NotFoundExceptionInterface
      */
     public function __invoke(
         ContainerInterface $serviceContainer
     ) {
-        $config = $serviceContainer->get('config');
-
-        return new GetDynamicApiValueConfig(
-            $config['zrcms-http-api-dynamic']
+        return new HttpApiFindComponentsBy(
+            $serviceContainer->get(FindComponentsBy::class),
+            $serviceContainer->get(ComponentsToArray::class)
         );
     }
 }

@@ -9,46 +9,36 @@ use Zrcms\Core\Api\CmsResource\CmsResourcesToArray;
 use Zrcms\Core\Api\CmsResource\CmsResourceToArray;
 use Zrcms\Core\Api\CmsResource\FindCmsResourcesPublished;
 use Zrcms\Http\Api\BuildResponseOptions;
-use Zrcms\Http\Api\GetRouteOptions;
 use Zrcms\Http\Model\HttpLimit;
 use Zrcms\Http\Model\HttpOffset;
 use Zrcms\Http\Model\HttpOrderBy;
 use Zrcms\Http\Model\HttpWhere;
 use Zrcms\Http\Response\ZrcmsJsonResponse;
-use Zrcms\HttpApi\GetDynamicApiValue;
-use Zrcms\HttpApi\HttpApiDynamic;
+use Zrcms\HttpApi\Dynamic;
 use Zrcms\Param\Param;
 
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class HttpApiFindCmsResourcesPublishedDynamic implements HttpApiDynamic
+class HttpApiFindCmsResourcesPublishedDynamic
 {
     const SOURCE = 'http-api-find-cms-resources-published-dynamic';
 
     protected $serviceContainer;
-    protected $getRouteOptions;
-    protected $getDynamicApiValue;
     protected $cmsResourcesToArrayDefault;
     protected $debug;
 
     /**
      * @param ContainerInterface  $serviceContainer
-     * @param GetRouteOptions     $getRouteOptions
-     * @param GetDynamicApiValue  $getDynamicApiValue
      * @param CmsResourcesToArray $cmsResourcesToArrayDefault
      * @param bool                $debug
      */
     public function __construct(
         ContainerInterface $serviceContainer,
-        GetRouteOptions $getRouteOptions,
-        GetDynamicApiValue $getDynamicApiValue,
         CmsResourcesToArray $cmsResourcesToArrayDefault,
         bool $debug = false
     ) {
         $this->serviceContainer = $serviceContainer;
-        $this->getRouteOptions = $getRouteOptions;
-        $this->getDynamicApiValue = $getDynamicApiValue;
         $this->cmsResourcesToArrayDefault = $cmsResourcesToArrayDefault;
         $this->debug = $debug;
     }
@@ -68,19 +58,11 @@ class HttpApiFindCmsResourcesPublishedDynamic implements HttpApiDynamic
         ResponseInterface $response,
         callable $next = null
     ) {
-        $routeOptions = $this->getRouteOptions->__invoke($request);
+        $dynamicApiConfig = $request->getAttribute(Dynamic::ATTRIBUTE_DYNAMIC_API_CONFIG);
 
-        $zrcmsApiName = Param::getRequired(
-            $routeOptions,
-            static::ROUTE_OPTION_ZRCMS_API
-        );
-
-        $zrcmsImplementation = $request->getAttribute(static::ATTRIBUTE_ZRCMS_IMPLEMENTATION);
-
-        $apiConfig = $this->getDynamicApiValue->__invoke(
-            $zrcmsImplementation,
-            $zrcmsApiName,
-            static::MIDDLEWARE_NAME_API,
+        $apiConfig = Param::getArray(
+            $dynamicApiConfig,
+            Dynamic::MIDDLEWARE_NAME_API,
             []
         );
 
@@ -130,8 +112,7 @@ class HttpApiFindCmsResourcesPublishedDynamic implements HttpApiDynamic
             throw new \Exception(
                 'to-array must be instance of ' . CmsResourcesToArray::class
                 . ' got .' . get_class($toArrayService)
-                . ' for implementation: (' . $zrcmsImplementation . ')'
-                . ' and api: ' . $zrcmsApiName . ')'
+                . ' for dynamic api: (' . $request->getAttribute(Dynamic::ATTRIBUTE_DYNAMIC_API_TYPE) . ')'
             );
         }
 

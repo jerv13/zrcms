@@ -6,12 +6,16 @@ use ZfInputFilterService\InputFilter\ServiceAwareFactory;
 use Zrcms\Acl\Api\IsAllowedRcmUserSitesAdmin;
 use Zrcms\Core\Api\CmsResource\CmsResourcesToArray;
 use Zrcms\Core\Api\CmsResource\CmsResourceToArray;
-use Zrcms\Core\Api\CmsResource\UpsertCmsResource;
-use Zrcms\Core\Api\Component\ComponentToArray;
+use Zrcms\Core\Api\Content\ContentVersionsToArray;
+use Zrcms\Core\Api\Content\ContentVersionToArray;
+use Zrcms\Core\Api\Content\InsertContentVersion;
 use Zrcms\CoreSite\Api\CmsResource\FindSiteCmsResource;
 use Zrcms\CoreSite\Api\CmsResource\FindSiteCmsResourcesBy;
 use Zrcms\CoreSite\Api\CmsResource\FindSiteCmsResourcesPublished;
 use Zrcms\CoreSite\Api\CmsResource\UpsertSiteCmsResource;
+use Zrcms\CoreSite\Api\Content\FindSiteVersion;
+use Zrcms\CoreSite\Api\Content\FindSiteVersionsBy;
+use Zrcms\CoreSite\Api\Content\InsertSiteVersion;
 use Zrcms\HttpApi\Acl\HttpApiIsAllowedDynamic;
 use Zrcms\HttpApi\Acl\HttpApiIsAllowedDynamicFactory;
 use Zrcms\HttpApi\Acl\HttpApiIsAllowedFindComponent;
@@ -26,12 +30,24 @@ use Zrcms\HttpApi\CmsResource\HttpApiUpsertCmsResourceDynamic;
 use Zrcms\HttpApi\CmsResource\HttpApiUpsertCmsResourceDynamicFactory;
 use Zrcms\HttpApi\Component\HttpApiFindComponent;
 use Zrcms\HttpApi\Component\HttpApiFindComponentFactory;
+use Zrcms\HttpApi\Component\HttpApiFindComponentsBy;
+use Zrcms\HttpApi\Component\HttpApiFindComponentsByFactory;
+use Zrcms\HttpApi\Content\HttpApiFindContentVersionDynamic;
+use Zrcms\HttpApi\Content\HttpApiFindContentVersionDynamicFactory;
+use Zrcms\HttpApi\Content\HttpApiFindContentVersionsByDynamic;
+use Zrcms\HttpApi\Content\HttpApiFindContentVersionsByDynamicFactory;
+use Zrcms\HttpApi\Content\HttpApiInsertContentVersionDynamic;
+use Zrcms\HttpApi\Content\HttpApiInsertContentVersionDynamicFactory;
+use Zrcms\HttpApi\Dynamic\HttpApiDynamic;
+use Zrcms\HttpApi\Dynamic\HttpApiDynamicFactory;
 use Zrcms\HttpApi\Params\HttpApiLimit;
 use Zrcms\HttpApi\Params\HttpApiOffset;
 use Zrcms\HttpApi\Params\HttpApiOrderBy;
 use Zrcms\HttpApi\Params\HttpApiOrderByFactory;
 use Zrcms\HttpApi\Params\HttpApiWhere;
 use Zrcms\HttpApi\Params\HttpApiWhereFactory;
+use Zrcms\HttpApi\Response\ResponseMutatorJson;
+use Zrcms\HttpApi\Response\ResponseMutatorJsonFactory;
 use Zrcms\HttpApi\Validate\HttpApiIdAttributeZfInputFilterServiceHttpApi;
 use Zrcms\HttpApi\Validate\HttpApiValidateFieldsDynamic;
 use Zrcms\HttpApi\Validate\HttpApiValidateFieldsDynamicFactory;
@@ -98,6 +114,32 @@ class ModuleConfig
                         'factory' => HttpApiFindComponentFactory::class,
                     ],
 
+                    HttpApiFindComponentsBy::class => [
+                        'factory' => HttpApiFindComponentsByFactory::class,
+                    ],
+
+                    /**
+                     * Content ===========================================
+                     */
+                    HttpApiFindContentVersionDynamic::class => [
+                        'factory' => HttpApiFindContentVersionDynamicFactory::class,
+                    ],
+
+                    HttpApiFindContentVersionsByDynamic::class => [
+                        'factory' => HttpApiFindContentVersionsByDynamicFactory::class,
+                    ],
+
+                    HttpApiInsertContentVersionDynamic::class => [
+                        'factory' => HttpApiInsertContentVersionDynamicFactory::class,
+                    ],
+
+                    /**
+                     * Dynamic ===========================================
+                     */
+                    HttpApiDynamic::class => [
+                        'factory' => HttpApiDynamicFactory::class,
+                    ],
+
                     /**
                      * Params ===========================================
                      */
@@ -108,6 +150,10 @@ class ModuleConfig
                     ],
                     HttpApiWhere::class => [
                         'factory' => HttpApiWhereFactory::class,
+                    ],
+
+                    ResponseMutatorJson::class => [
+                        'factory' => ResponseMutatorJsonFactory::class,
                     ],
 
                     /**
@@ -132,8 +178,11 @@ class ModuleConfig
                         'factory' => HttpApiValidateWhereParamDynamicFactory::class,
                     ],
 
-                    GetDynamicApiValue::class => [
-                        'factory' => GetDynamicApiValueConfigFactory::class,
+                    /**
+                     * General ===========================================
+                     */
+                    GetDynamicApiConfig::class => [
+                        'factory' => GetDynamicApiConfigAppConfigFactory::class,
                     ],
                 ],
             ],
@@ -265,6 +314,108 @@ class ModuleConfig
                         'api' => [
                             'api-service' => UpsertSiteCmsResource::class,
                             'to-array' => CmsResourceToArray::class,
+                            'not-found-status' => 404,
+                        ],
+                    ],
+
+                    'find-cms-resource-history' => [
+                        'acl' => [
+                            'is-allowed' => IsAllowedRcmUserSitesAdmin::class,
+                            'is-allowed-options' => [],
+                            'not-allowed-status' => 401,
+                        ],
+                        'api' => [
+                            //'api-service' => TBD::class,
+                            'to-array' => CmsResourceToArray::class,
+                            'not-found-status' => 404,
+                        ],
+                    ],
+
+                    'find-cms-resource-histories-by' => [
+                        'acl' => [
+                            'is-allowed' => IsAllowedRcmUserSitesAdmin::class,
+                            'is-allowed-options' => [],
+                            'not-allowed-status' => 401,
+                        ],
+                        'api' => [
+                            //'api-service' => TBD::class,
+                            'to-array' => CmsResourcesToArray::class,
+                            'not-found-status' => 404,
+                        ],
+                    ],
+
+                    'find-content-version' => [
+                        'acl' => [
+                            'is-allowed' => IsAllowedRcmUserSitesAdmin::class,
+                            'is-allowed-options' => [],
+                            'not-allowed-status' => 401,
+                        ],
+                        'api' => [
+                            'api-service' => FindSiteVersion::class,
+                            'to-array' => ContentVersionToArray::class,
+                            'not-found-status' => 404,
+                        ],
+                    ],
+
+                    'find-content-versions-by' => [
+                        'acl' => [
+                            'is-allowed' => IsAllowedRcmUserSitesAdmin::class,
+                            'is-allowed-options' => [],
+                            'not-allowed-status' => 401,
+                        ],
+                        'api' => [
+                            'api-service' => FindSiteVersionsBy::class,
+                            'to-array' => ContentVersionsToArray::class,
+                            'not-found-status' => 404,
+                        ],
+                    ],
+
+                    'insert-content-version' => [
+                        'acl' => [
+                            'is-allowed' => IsAllowedRcmUserSitesAdmin::class,
+                            'is-allowed-options' => [],
+                            'not-allowed-status' => 401,
+                        ],
+                        'validate-fields' => [
+                            'validate-fields' => ValidateFieldsByStrategy::class,
+                            'validate-fields-options' => [
+                                'field-validators' => [
+                                    'id' => [
+                                        'validator' => ValidateIsAnyValue::class,
+                                        'options' => [],
+                                    ],
+                                    'properties' => [
+                                        'validator' => ValidateIsAssociativeArray::class,
+                                        'options' => [],
+                                    ],
+                                    'createdByUserId' => [
+                                        'validator' => ValidateIsNull::class,
+                                        'options' => [],
+                                    ],
+                                    'createdReason' => [
+                                        'validator' => ValidateCompositeByStrategy::class,
+                                        'options' => [
+                                            'validators' => [
+                                                [
+                                                    'validator' => ValidateIsNotEmpty::class,
+                                                ],
+                                                [
+                                                    'validator' => ValidateIsString::class,
+                                                ],
+                                            ]
+                                        ],
+                                    ],
+                                    'createdDate' => [
+                                        'validator' => ValidateIsNull::class,
+                                        'options' => [],
+                                    ],
+                                ],
+                            ],
+                            'not-valid-status' => 400,
+                        ],
+                        'api' => [
+                            'api-service' => InsertSiteVersion::class,
+                            'to-array' => ContentVersionToArray::class,
                             'not-found-status' => 404,
                         ],
                     ],

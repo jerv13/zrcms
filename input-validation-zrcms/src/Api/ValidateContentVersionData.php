@@ -9,7 +9,7 @@ use Zrcms\InputValidation\Model\ValidationResultFieldsBasic;
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class ValidateContentVersion implements ValidateFields
+class ValidateContentVersionData implements ValidateFields
 {
     /**
      * @param array $contentVersionData ['{name}' => '{value}']
@@ -22,6 +22,16 @@ class ValidateContentVersion implements ValidateFields
         array $options = []
     ): ValidationResultFields {
         // @todo Write me
+        return new ValidationResultFieldsBasic();
+    }
+
+    /**
+     * @param $properties
+     *
+     * @return ValidationResultFieldsBasic
+     */
+    protected function validateProperties($properties)
+    {
         return new ValidationResultFieldsBasic();
     }
 }

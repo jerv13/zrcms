@@ -1,29 +1,30 @@
 <?php
 
-namespace Zrcms\HttpApi\CmsResource;
+namespace Zrcms\HttpApi\Content;
 
 use Psr\Container\ContainerInterface;
-use Zrcms\Core\Api\CmsResource\CmsResourcesToArray;
+use Zrcms\Core\Api\Content\ContentVersionToArray;
 use Zrcms\Debug\IsDebug;
 
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class HttpApiFindCmsResourcesByDynamicFactory
+class HttpApiFindContentVersionDynamicFactory
 {
     /**
      * @param ContainerInterface $serviceContainer
      *
-     * @return HttpApiFindCmsResourcesByDynamic
+     * @return HttpApiFindContentVersionDynamic
      * @throws \Psr\Container\ContainerExceptionInterface
      * @throws \Psr\Container\NotFoundExceptionInterface
      */
     public function __invoke(
         ContainerInterface $serviceContainer
     ) {
-        return new HttpApiFindCmsResourcesByDynamic(
+        return new HttpApiFindContentVersionDynamic(
             $serviceContainer,
-            $serviceContainer->get(CmsResourcesToArray::class),
+            $serviceContainer->get(ContentVersionToArray::class),
+            404,
             IsDebug::invoke()
         );
     }

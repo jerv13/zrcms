@@ -5,8 +5,6 @@ namespace Zrcms\HttpApi\CmsResource;
 use Psr\Container\ContainerInterface;
 use Zrcms\Core\Api\CmsResource\CmsResourceToArray;
 use Zrcms\Debug\IsDebug;
-use Zrcms\Http\Api\GetRouteOptions;
-use Zrcms\HttpApi\GetDynamicApiValue;
 use Zrcms\User\Api\GetUserIdByRequest;
 
 /**
@@ -26,8 +24,6 @@ class HttpApiUpsertCmsResourceDynamicFactory
     ) {
         return new HttpApiUpsertCmsResourceDynamic(
             $serviceContainer,
-            $serviceContainer->get(GetRouteOptions::class),
-            $serviceContainer->get(GetDynamicApiValue::class),
             $serviceContainer->get(GetUserIdByRequest::class),
             $serviceContainer->get(CmsResourceToArray::class),
             IsDebug::invoke()

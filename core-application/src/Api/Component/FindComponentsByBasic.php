@@ -8,6 +8,8 @@ use Zrcms\Core\Api\Component\ReadComponentConfigs;
 use Zrcms\Core\Model\Component;
 
 /**
+ * @todo Find by properties
+ *
  * @author James Jervis - https://github.com/jerv13
  */
 class FindComponentsByBasic implements FindComponentsBy

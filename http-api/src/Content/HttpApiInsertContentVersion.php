@@ -13,6 +13,8 @@ use Zrcms\Http\Response\ZrcmsJsonResponse;
 use Zrcms\User\Api\GetUserIdByRequest;
 
 /**
+ * @deprecated
+ *
  * @author James Jervis - https://github.com/jerv13
  */
 class HttpApiInsertContentVersion

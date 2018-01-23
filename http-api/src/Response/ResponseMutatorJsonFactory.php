@@ -1,29 +1,28 @@
 <?php
 
-namespace Zrcms\HttpApi\CmsResource;
+namespace Zrcms\HttpApi\Response;
 
 use Psr\Container\ContainerInterface;
-use Zrcms\Core\Api\CmsResource\CmsResourcesToArray;
 use Zrcms\Debug\IsDebug;
 
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class HttpApiFindCmsResourcesByDynamicFactory
+class ResponseMutatorJsonFactory
 {
     /**
      * @param ContainerInterface $serviceContainer
      *
-     * @return HttpApiFindCmsResourcesByDynamic
+     * @return ResponseMutatorJson
      * @throws \Psr\Container\ContainerExceptionInterface
      * @throws \Psr\Container\NotFoundExceptionInterface
      */
     public function __invoke(
         ContainerInterface $serviceContainer
     ) {
-        return new HttpApiFindCmsResourcesByDynamic(
-            $serviceContainer,
-            $serviceContainer->get(CmsResourcesToArray::class),
+        return new ResponseMutatorJson(
+            ['application/json', 'json'],
+            [200, 201, 204, 301, 302],
             IsDebug::invoke()
         );
     }
