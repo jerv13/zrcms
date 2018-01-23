@@ -11,10 +11,12 @@ interface FindLastCmsResourceHistory
 {
     /**
      * @param string $cmsResourceId
+     * @param array  $options
      *
      * @return CmsResourceHistory|null
      */
     public function __invoke(
-        string $cmsResourceId
+        string $cmsResourceId,
+        array $options = []
     );
 }
