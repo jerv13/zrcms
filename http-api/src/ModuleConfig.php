@@ -3,19 +3,7 @@
 namespace Zrcms\HttpApi;
 
 use ZfInputFilterService\InputFilter\ServiceAwareFactory;
-use Zrcms\Acl\Api\IsAllowedRcmUserSitesAdmin;
-use Zrcms\Core\Api\CmsResource\CmsResourcesToArray;
-use Zrcms\Core\Api\CmsResource\CmsResourceToArray;
-use Zrcms\Core\Api\Content\ContentVersionsToArray;
-use Zrcms\Core\Api\Content\ContentVersionToArray;
-use Zrcms\Core\Api\Content\InsertContentVersion;
-use Zrcms\CoreSite\Api\CmsResource\FindSiteCmsResource;
-use Zrcms\CoreSite\Api\CmsResource\FindSiteCmsResourcesBy;
-use Zrcms\CoreSite\Api\CmsResource\FindSiteCmsResourcesPublished;
-use Zrcms\CoreSite\Api\CmsResource\UpsertSiteCmsResource;
-use Zrcms\CoreSite\Api\Content\FindSiteVersion;
-use Zrcms\CoreSite\Api\Content\FindSiteVersionsBy;
-use Zrcms\CoreSite\Api\Content\InsertSiteVersion;
+use Zrcms\Acl\Api\IsAllowedRcmUserAdmin;
 use Zrcms\HttpApi\Acl\HttpApiIsAllowedDynamic;
 use Zrcms\HttpApi\Acl\HttpApiIsAllowedDynamicFactory;
 use Zrcms\HttpApi\Acl\HttpApiIsAllowedFindComponent;
@@ -55,14 +43,6 @@ use Zrcms\HttpApi\Validate\HttpApiValidateIdAttributeDynamic;
 use Zrcms\HttpApi\Validate\HttpApiValidateIdAttributeDynamicFactory;
 use Zrcms\HttpApi\Validate\HttpApiValidateWhereParamDynamic;
 use Zrcms\HttpApi\Validate\HttpApiValidateWhereParamDynamicFactory;
-use Zrcms\InputValidation\Api\ValidateCompositeByStrategy;
-use Zrcms\InputValidation\Api\ValidateFieldsByStrategy;
-use Zrcms\InputValidation\Api\ValidateIsAnyValue;
-use Zrcms\InputValidation\Api\ValidateIsAssociativeArray;
-use Zrcms\InputValidation\Api\ValidateIsBoolean;
-use Zrcms\InputValidation\Api\ValidateIsNotEmpty;
-use Zrcms\InputValidation\Api\ValidateIsNull;
-use Zrcms\InputValidation\Api\ValidateIsString;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -191,11 +171,12 @@ class ModuleConfig
              * ===== ZRCMS HTTP API by request =====
              */
             'zrcms-http-api-dynamic' => [
+                /* Example
                 // '[{zrcms-implementation}][{zrcms-api}][{middleware-name}]=>[{middleware-config}]'
-                'site' => [
+                '{zrcms-implementation}' => [
                     'find-cms-resource' => [
                         'acl' => [
-                            'is-allowed' => IsAllowedRcmUserSitesAdmin::class,
+                            'is-allowed' => IsAllowedRcmUserAdmin::class,
                             'is-allowed-options' => [],
                             'not-allowed-status' => 401,
                         ],
@@ -208,7 +189,7 @@ class ModuleConfig
 
                     'find-cms-resources-by' => [
                         'acl' => [
-                            'is-allowed' => IsAllowedRcmUserSitesAdmin::class,
+                            'is-allowed' => IsAllowedRcmUserAdmin::class,
                             'is-allowed-options' => [],
                             'not-allowed-status' => 401,
                         ],
@@ -221,7 +202,7 @@ class ModuleConfig
 
                     'find-cms-resources-published' => [
                         'acl' => [
-                            'is-allowed' => IsAllowedRcmUserSitesAdmin::class,
+                            'is-allowed' => IsAllowedRcmUserAdmin::class,
                             'is-allowed-options' => [],
                             'not-allowed-status' => 401,
                         ],
@@ -234,7 +215,7 @@ class ModuleConfig
 
                     'upsert-cms-resource' => [
                         'acl' => [
-                            'is-allowed' => IsAllowedRcmUserSitesAdmin::class,
+                            'is-allowed' => IsAllowedRcmUserAdmin::class,
                             'is-allowed-options' => [],
                             'not-allowed-status' => 401,
                         ],
@@ -320,7 +301,7 @@ class ModuleConfig
 
                     'find-cms-resource-history' => [
                         'acl' => [
-                            'is-allowed' => IsAllowedRcmUserSitesAdmin::class,
+                            'is-allowed' => IsAllowedRcmUserAdmin::class,
                             'is-allowed-options' => [],
                             'not-allowed-status' => 401,
                         ],
@@ -333,7 +314,7 @@ class ModuleConfig
 
                     'find-cms-resource-histories-by' => [
                         'acl' => [
-                            'is-allowed' => IsAllowedRcmUserSitesAdmin::class,
+                            'is-allowed' => IsAllowedRcmUserAdmin::class,
                             'is-allowed-options' => [],
                             'not-allowed-status' => 401,
                         ],
@@ -346,7 +327,7 @@ class ModuleConfig
 
                     'find-content-version' => [
                         'acl' => [
-                            'is-allowed' => IsAllowedRcmUserSitesAdmin::class,
+                            'is-allowed' => IsAllowedRcmUserAdmin::class,
                             'is-allowed-options' => [],
                             'not-allowed-status' => 401,
                         ],
@@ -359,7 +340,7 @@ class ModuleConfig
 
                     'find-content-versions-by' => [
                         'acl' => [
-                            'is-allowed' => IsAllowedRcmUserSitesAdmin::class,
+                            'is-allowed' => IsAllowedRcmUserAdmin::class,
                             'is-allowed-options' => [],
                             'not-allowed-status' => 401,
                         ],
@@ -372,7 +353,7 @@ class ModuleConfig
 
                     'insert-content-version' => [
                         'acl' => [
-                            'is-allowed' => IsAllowedRcmUserSitesAdmin::class,
+                            'is-allowed' => IsAllowedRcmUserAdmin::class,
                             'is-allowed-options' => [],
                             'not-allowed-status' => 401,
                         ],
@@ -420,6 +401,7 @@ class ModuleConfig
                         ],
                     ],
                 ],
+                */
             ],
         ];
     }

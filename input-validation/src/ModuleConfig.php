@@ -8,6 +8,8 @@ use Zrcms\InputValidation\Api\ValidateCompositeByStrategy;
 use Zrcms\InputValidation\Api\ValidateCompositeByStrategyFactory;
 use Zrcms\InputValidation\Api\ValidateFieldsByStrategy;
 use Zrcms\InputValidation\Api\ValidateFieldsByStrategyFactory;
+use Zrcms\InputValidation\Api\ValidateFieldsHasOnlyRecognizedFields;
+use Zrcms\InputValidation\Api\ValidateFieldsHasOnlyRecognizedFieldsFactory;
 use Zrcms\InputValidation\Api\ValidateIsAnyValue;
 use Zrcms\InputValidation\Api\ValidateIsAnyValueFactory;
 use Zrcms\InputValidation\Api\ValidateIsArray;
@@ -54,6 +56,9 @@ class ModuleConfig
                         'factory' => ValidateFieldsByStrategyFactory::class,
                     ],
 
+                    ValidateFieldsHasOnlyRecognizedFields::class  => [
+                        'factory' => ValidateFieldsHasOnlyRecognizedFieldsFactory::class,
+                    ],
                     ValidateIsAnyValue::class => [
                         'factory' => ValidateIsAnyValueFactory::class,
                     ],
