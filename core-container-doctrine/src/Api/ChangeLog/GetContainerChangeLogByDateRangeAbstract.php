@@ -1,33 +1,41 @@
 <?php
 
-namespace Zrcms\CoreThemeDoctrine\Api\ChangeLog;
+namespace Zrcms\CoreContainerDoctrine\Api\ChangeLog;
 
 use Zrcms\Core\Model\ActionCmsResource;
 use Zrcms\Core\Model\ChangeLogEvent;
 use Zrcms\Core\Model\ChangeLogEventBasic;
 use Zrcms\CoreApplicationDoctrine\Api\ChangeLog\GetChangeLogByDateRangeAbstract as CoreGetChangLogAbstract;
-use Zrcms\CoreTheme\Fields\FieldsLayoutVersion;
-use Zrcms\CoreThemeDoctrine\Entity\LayoutCmsResourceHistoryEntity;
-use Zrcms\CoreThemeDoctrine\Entity\LayoutVersionEntity;
+use Zrcms\CoreContainer\Model\ContainerCmsResource;
+use Zrcms\CoreContainer\Model\ContainerVersion;
+use Zrcms\CoreContainerDoctrine\Entity\ContainerCmsResourceHistoryEntity;
+use Zrcms\CoreContainerDoctrine\Entity\ContainerVersionEntity;
 
-class GetChangeLogByDateRangeAbstract extends CoreGetChangLogAbstract
+class GetContainerChangeLogByDateRangeAbstract extends CoreGetChangLogAbstract
 {
     protected $entityManger;
 
+    /**
+     * @return string
+     */
     protected function getResourceHistoryEntityName(): string
     {
-        return LayoutCmsResourceHistoryEntity::class;
-    }
-
-    protected function getVersionEntityName(): string
-    {
-        return LayoutVersionEntity::class;
+        return ContainerCmsResourceHistoryEntity::class;
     }
 
     /**
-     * @param LayoutVersionEntity $version
+     * @return string
+     */
+    protected function getVersionEntityName(): string
+    {
+        return ContainerVersionEntity::class;
+    }
+
+    /**
+     * @param ContainerVersion $version
      *
      * @return ChangeLogEvent
+     * @throws \Zrcms\Core\Exception\TrackingInvalid
      */
     protected function versionRowToChangeLogEvent($version): ChangeLogEvent
     {
@@ -39,20 +47,26 @@ class GetChangeLogByDateRangeAbstract extends CoreGetChangLogAbstract
         $event->setActionId('create');
         $event->setActionName('created');
         $event->setResourceId($version->getId());
-        $event->setResourceTypeName('layout draft version');
-        $event->setResourceName('for ' . $properties[FieldsLayoutVersion::NAME]);
+        $event->setResourceTypeName('site-wide container draft version');
+        $event->setResourceName('for ' . $properties['path']);
+        $event->setMetaData(
+            [
+                'siteCmsResourceId' => $version->getSiteCmsResourceId(),
+            ]
+        );
 
         return $event;
     }
 
     /**
-     * @param LayoutCmsResourceHistoryEntity $historyItem
+     * @param ContainerCmsResourceHistoryEntity $historyItem
      *
      * @return ChangeLogEvent
      * @throws \Exception
      */
     protected function resourceHistoryRowToChangeLogEvent($historyItem): ChangeLogEvent
     {
+        /** @var ContainerCmsResource $cmsResource */
         $cmsResource = $historyItem->getCmsResource();
 
         $contentVersionId = $historyItem->getContentVersionId();
@@ -80,10 +94,11 @@ class GetChangeLogByDateRangeAbstract extends CoreGetChangLogAbstract
         $event->setActionId($historyItem->getAction());
         $event->setActionName($actionDescription);
         $event->setResourceId($cmsResource->getId());
-        $event->setResourceTypeName('layout');
-        $event->setResourceName($cmsResource->getName());
+        $event->setResourceTypeName('site-wide container');
+        $event->setResourceName($cmsResource->getPath());
         $event->setMetaData(
             [
+                'siteCmsResourceId' => $cmsResource->getSiteCmsResourceId(),
                 'contentVersionId' => $historyItem->getContentVersionId()
             ]
         );

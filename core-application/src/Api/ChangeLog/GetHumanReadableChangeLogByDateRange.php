@@ -11,6 +11,10 @@ class GetHumanReadableChangeLogByDateRange
     protected $getChangeLogByDateRange;
     protected $changeLogEventToString;
 
+    /**
+     * @param GetChangeLogByDateRange $getChangeLogByDateRange
+     * @param ChangeLogEventToString  $changeLogEventToString
+     */
     public function __construct(
         GetChangeLogByDateRange $getChangeLogByDateRange,
         ChangeLogEventToString $changeLogEventToString
@@ -24,6 +28,7 @@ class GetHumanReadableChangeLogByDateRange
      * @param \DateTime $lessThanYear
      *
      * @return array
+     * @throws \Exception
      */
     public function __invoke(\DateTime $greaterThanYear, \DateTime $lessThanYear)
     {

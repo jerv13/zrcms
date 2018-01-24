@@ -1,32 +1,39 @@
 <?php
 
-namespace Zrcms\CoreSiteDoctrine\Api\ChangeLog;
+namespace Zrcms\CorePageDoctrine\Api\ChangeLog;
 
 use Zrcms\Core\Model\ActionCmsResource;
 use Zrcms\Core\Model\ChangeLogEvent;
 use Zrcms\Core\Model\ChangeLogEventBasic;
 use Zrcms\CoreApplicationDoctrine\Api\ChangeLog\GetChangeLogByDateRangeAbstract as CoreGetChangLogAbstract;
-use Zrcms\CoreSiteDoctrine\Entity\SiteCmsResourceHistoryEntity;
-use Zrcms\CoreSiteDoctrine\Entity\SiteVersionEntity;
+use Zrcms\CorePageDoctrine\Entity\PageCmsResourceHistoryEntity;
+use Zrcms\CorePageDoctrine\Entity\PageVersionEntity;
 
-class GetChangeLogByDateRangeAbstract extends CoreGetChangLogAbstract
+class GetPageChangeLogByDateRangeAbstract extends CoreGetChangLogAbstract
 {
     protected $entityManger;
 
+    /**
+     * @return string
+     */
     protected function getResourceHistoryEntityName(): string
     {
-        return SiteCmsResourceHistoryEntity::class;
-    }
-
-    protected function getVersionEntityName(): string
-    {
-        return SiteVersionEntity::class;
+        return PageCmsResourceHistoryEntity::class;
     }
 
     /**
-     * @param SiteVersionEntity $version
+     * @return string
+     */
+    protected function getVersionEntityName(): string
+    {
+        return PageVersionEntity::class;
+    }
+
+    /**
+     * @param PageVersionEntity $version
      *
      * @return ChangeLogEvent
+     * @throws \Zrcms\Core\Exception\TrackingInvalid
      */
     protected function versionRowToChangeLogEvent($version): ChangeLogEvent
     {
@@ -38,14 +45,19 @@ class GetChangeLogByDateRangeAbstract extends CoreGetChangLogAbstract
         $event->setActionId('create');
         $event->setActionName('created');
         $event->setResourceId($version->getId());
-        $event->setResourceTypeName('site draft version');
-        $event->setResourceName('for ' . $properties['host']);
+        $event->setResourceTypeName('page draft version');
+        $event->setResourceName('for ' . $properties['path']);
+        $event->setMetaData(
+            [
+                'siteCmsResourceId' => $version->getSiteCmsResourceId(),
+            ]
+        );
 
         return $event;
     }
 
     /**
-     * @param SiteCmsResourceHistoryEntity $historyItem
+     * @param PageCmsResourceHistoryEntity $historyItem
      *
      * @return ChangeLogEvent
      * @throws \Exception
@@ -79,10 +91,11 @@ class GetChangeLogByDateRangeAbstract extends CoreGetChangLogAbstract
         $event->setActionId($historyItem->getAction());
         $event->setActionName($actionDescription);
         $event->setResourceId($cmsResource->getId());
-        $event->setResourceTypeName('site');
-        $event->setResourceName($cmsResource->getHost());
+        $event->setResourceTypeName('page');
+        $event->setResourceName($cmsResource->getPath());
         $event->setMetaData(
             [
+                'siteCmsResourceId' => $cmsResource->getSiteCmsResourceId(),
                 'contentVersionId' => $historyItem->getContentVersionId()
             ]
         );

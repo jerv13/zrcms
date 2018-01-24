@@ -7,12 +7,12 @@ use Zrcms\Core\Api\ChangeLog\GetChangeLogByDateRange;
 use Zrcms\CoreApplication\Api\ChangeLog\ChangeLogEventToString;
 use Zrcms\CoreApplication\Api\ChangeLog\GetContentChangeLogComposite;
 use Zrcms\CoreApplication\Api\ChangeLog\GetHumanReadableChangeLogByDateRange;
-use Zrcms\CoreContainer\Api\ChangeLog\GetChangeLogByDateRange as ContainerGetChangeLogByDateRange;
-use Zrcms\CorePage\Api\ChangeLog\GetChangeLogByDateRange as PageGetChangeLogByDateRange;
-use Zrcms\CoreRedirect\Api\ChangeLog\GetChangeLogByDateRange as RedirectGetChangeLogByDateRange;
-use Zrcms\CoreSite\Api\ChangeLog\GetChangeLogByDateRange as SiteGetChangeLogByDateRange;
+use Zrcms\CoreContainer\Api\ChangeLog\GetContainerChangeLogByDateRange as ContainerGetChangeLogByDateRange;
+use Zrcms\CorePage\Api\ChangeLog\GetPageChangeLogByDateRange as PageGetChangeLogByDateRange;
+use Zrcms\CoreRedirect\Api\ChangeLog\GetRedirectChangeLogByDateRange as RedirectGetChangeLogByDateRange;
+use Zrcms\CoreSite\Api\ChangeLog\GetSiteChangeLogByDateRange as SiteGetChangeLogByDateRange;
 use Zrcms\CoreSite\Api\CmsResource\FindSiteCmsResource;
-use Zrcms\CoreTheme\Api\ChangeLog\GetChangeLogByDateRange as ThemeGetChangeLogByDateRange;
+use Zrcms\CoreTheme\Api\ChangeLog\GetLayoutChangeLogByDateRange as ThemeGetChangeLogByDateRange;
 use Zrcms\HttpAssetsChangeLog\Middleware\HttpChangeLogList;
 use Zrcms\HttpAssetsChangeLog\Middleware\HttpIsAllowedReadChangeLogIsAllowed;
 

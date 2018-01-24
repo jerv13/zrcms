@@ -9,6 +9,12 @@ class GetContentChangeLogComposite implements GetChangeLogByDateRange
 {
     protected $subordanites;
 
+    /**
+     * @param \DateTime $greaterThanDate
+     * @param \DateTime $lessThanDate
+     *
+     * @return array
+     */
     public function __invoke(\DateTime $greaterThanDate, \DateTime $lessThanDate): array
     {
         $changeLogEvents = [];
@@ -34,6 +40,11 @@ class GetContentChangeLogComposite implements GetChangeLogByDateRange
         return $changeLogEvents;
     }
 
+    /**
+     * @param GetChangeLogByDateRange $getChangeLogByDateRange
+     *
+     * @return void
+     */
     public function addSubordinate(GetChangeLogByDateRange $getChangeLogByDateRange)
     {
         $this->subordanites[] = $getChangeLogByDateRange;

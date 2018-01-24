@@ -5,7 +5,7 @@ namespace Zrcms\CoreThemeDoctrine;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Mapping\Driver\AnnotationDriver;
 use Zrcms\Core\Api\Component\FindComponent;
-use Zrcms\CoreTheme\Api\ChangeLog\GetChangeLogByDateRange;
+use Zrcms\CoreTheme\Api\ChangeLog\GetLayoutChangeLogByDateRange;
 use Zrcms\CoreTheme\Api\CmsResource\FindLayoutCmsResource;
 use Zrcms\CoreTheme\Api\CmsResource\FindLayoutCmsResourceByThemeNameLayoutName;
 use Zrcms\CoreTheme\Api\CmsResource\FindLayoutCmsResourcesBy;
@@ -24,8 +24,8 @@ class ModuleConfig
         return [
             'dependencies' => [
                 'config_factories' => [
-                    GetChangeLogByDateRange::class => [
-                        'class' => \Zrcms\CoreThemeDoctrine\Api\ChangeLog\GetChangeLogByDateRangeAbstract::class,
+                    GetLayoutChangeLogByDateRange::class => [
+                        'class' => \Zrcms\CoreThemeDoctrine\Api\ChangeLog\GetLayoutChangeLogByDateRangeAbstract::class,
                         'arguments' => [EntityManager::class]
                     ],
                     UpsertLayoutCmsResource::class => [

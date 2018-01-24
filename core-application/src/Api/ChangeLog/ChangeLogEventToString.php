@@ -23,9 +23,11 @@ class ChangeLogEventToString
      * @param ChangeLogEvent $changeLogEvent
      *
      * @return string
+     * @throws \Exception
      */
-    public function __invoke(ChangeLogEvent $changeLogEvent)
-    {
+    public function __invoke(
+        ChangeLogEvent $changeLogEvent
+    ): string {
         $userDescription = 'User #' . $changeLogEvent->getUserId()
             . ($changeLogEvent->getUserName() ? ' (' . $changeLogEvent->getUserName() . ')' : '');
 
@@ -49,6 +51,12 @@ class ChangeLogEventToString
             . $humanNotes;
     }
 
+    /**
+     * @param string $siteId
+     *
+     * @return mixed|string
+     * @throws \Exception
+     */
     protected function siteIdToHost($siteId)
     {
         if (array_key_exists($siteId, $this->siteIdToHostCache)) {

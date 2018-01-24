@@ -4,7 +4,7 @@ namespace Zrcms\CorePageDoctrine;
 
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Mapping\Driver\AnnotationDriver;
-use Zrcms\CorePage\Api\ChangeLog\GetChangeLogByDateRange;
+use Zrcms\CorePage\Api\ChangeLog\GetPageChangeLogByDateRange;
 use Zrcms\CorePage\Api\CmsResource\FindPageCmsResource;
 use Zrcms\CorePage\Api\CmsResource\FindPageCmsResourceBySitePath;
 use Zrcms\CorePage\Api\CmsResource\FindPageCmsResourcesBy;
@@ -28,8 +28,8 @@ class ModuleConfig
         return [
             'dependencies' => [
                 'config_factories' => [
-                    GetChangeLogByDateRange::class => [
-                        'class' => \Zrcms\CorePageDoctrine\Api\ChangeLog\GetChangeLogByDateRangeAbstract::class,
+                    GetPageChangeLogByDateRange::class => [
+                        'class' => \Zrcms\CorePageDoctrine\Api\ChangeLog\GetPageChangeLogByDateRangeAbstract::class,
                         'arguments' => [EntityManager::class]
                     ],
 

@@ -2,6 +2,8 @@
 
 namespace Zrcms\Core\Api\ChangeLog;
 
+use Zrcms\Core\Model\ChangeLogEvent;
+
 /**
  * @author Rod McNew
  */
@@ -13,7 +15,8 @@ interface GetChangeLogByDateRange
      *
      * @param \DateTime $greaterThanDate
      * @param \DateTime $lessThanDate
-     * @return array of ChangeLogEvent
+     *
+     * @return ChangeLogEvent[]
      */
     public function __invoke(\DateTime $greaterThanDate, \DateTime $lessThanDate): array;
 }

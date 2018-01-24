@@ -4,7 +4,7 @@ namespace Zrcms\CoreSiteDoctrine;
 
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Mapping\Driver\AnnotationDriver;
-use Zrcms\CoreSite\Api\ChangeLog\GetChangeLogByDateRange;
+use Zrcms\CoreSite\Api\ChangeLog\GetSiteChangeLogByDateRange;
 use Zrcms\CoreSite\Api\CmsResource\FindSiteCmsResourcesPublished;
 use Zrcms\CoreSite\Api\CmsResource\UpsertSiteCmsResource;
 use Zrcms\CoreSite\Api\CmsResource\FindSiteCmsResource;
@@ -24,8 +24,8 @@ class ModuleConfig
         return [
             'dependencies' => [
                 'config_factories' => [
-                    GetChangeLogByDateRange::class => [
-                        'class' => \Zrcms\CoreSiteDoctrine\Api\ChangeLog\GetChangeLogByDateRangeAbstract::class,
+                    GetSiteChangeLogByDateRange::class => [
+                        'class' => \Zrcms\CoreSiteDoctrine\Api\ChangeLog\GetSiteChangeLogByDateRangeAbstract::class,
                         'arguments' => [EntityManager::class]
                     ],
                     UpsertSiteCmsResource::class => [

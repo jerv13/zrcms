@@ -26,8 +26,16 @@ abstract class GetChangeLogByDateRangeAbstract implements GetChangeLogByDateRang
         $this->entityManger = $entityManager;
     }
 
-    public function __invoke(\DateTime $greaterThanDate, \DateTime $lessThanDate): array
-    {
+    /**
+     * @param \DateTime $greaterThanDate
+     * @param \DateTime $lessThanDate
+     *
+     * @return array
+     */
+    public function __invoke(
+        \DateTime $greaterThanDate,
+        \DateTime $lessThanDate
+    ): array {
         $changeLogEvents = [];
 
         foreach ($this->getVersionRows($greaterThanDate, $lessThanDate) as $row) {
@@ -41,8 +49,16 @@ abstract class GetChangeLogByDateRangeAbstract implements GetChangeLogByDateRang
         return $changeLogEvents;
     }
 
-    protected function getVersionRows(\DateTime $greaterThanDate, \DateTime $lessThanDate)
-    {
+    /**
+     * @param \DateTime $greaterThanDate
+     * @param \DateTime $lessThanDate
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    protected function getVersionRows(
+        \DateTime $greaterThanDate,
+        \DateTime $lessThanDate
+    ) {
         $resourceRepo = $this->entityManger->getRepository($this->getVersionEntityName());
 
         $criteria = new \Doctrine\Common\Collections\Criteria();
@@ -54,8 +70,16 @@ abstract class GetChangeLogByDateRangeAbstract implements GetChangeLogByDateRang
         return $results;
     }
 
-    protected function getResourceHistoryRows(\DateTime $greaterThanDate, \DateTime $lessThanDate)
-    {
+    /**
+     * @param \DateTime $greaterThanDate
+     * @param \DateTime $lessThanDate
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    protected function getResourceHistoryRows(
+        \DateTime $greaterThanDate,
+        \DateTime $lessThanDate
+    ) {
         $resourceRepo = $this->entityManger->getRepository($this->getResourceHistoryEntityName());
 
         $criteria = new \Doctrine\Common\Collections\Criteria();

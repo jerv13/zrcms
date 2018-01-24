@@ -10,15 +10,21 @@ use Zrcms\CoreRedirectDoctrine\Entity\RedirectCmsResourceEntity;
 use Zrcms\CoreRedirectDoctrine\Entity\RedirectCmsResourceHistoryEntity;
 use Zrcms\CoreRedirectDoctrine\Entity\RedirectVersionEntity;
 
-class GetChangeLogByDateRangeAbstract extends CoreGetChangLogAbstract
+class GetRedirectChangeLogByDateRangeAbstract extends CoreGetChangLogAbstract
 {
     protected $entityManger;
 
+    /**
+     * @return string
+     */
     protected function getResourceHistoryEntityName(): string
     {
         return RedirectCmsResourceHistoryEntity::class;
     }
 
+    /**
+     * @return string
+     */
     protected function getVersionEntityName(): string
     {
         return RedirectVersionEntity::class;
@@ -28,6 +34,7 @@ class GetChangeLogByDateRangeAbstract extends CoreGetChangLogAbstract
      * @param RedirectVersionEntity $version
      *
      * @return ChangeLogEvent
+     * @throws \Zrcms\Core\Exception\TrackingInvalid
      */
     protected function versionRowToChangeLogEvent($version): ChangeLogEvent
     {

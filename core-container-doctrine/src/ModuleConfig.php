@@ -4,7 +4,7 @@ namespace Zrcms\CoreContainerDoctrine;
 
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Mapping\Driver\AnnotationDriver;
-use Zrcms\CoreContainer\Api\ChangeLog\GetChangeLogByDateRange;
+use Zrcms\CoreContainer\Api\ChangeLog\GetContainerChangeLogByDateRange;
 use Zrcms\CoreContainer\Api\CmsResource\FindContainerCmsResource;
 use Zrcms\CoreContainer\Api\CmsResource\FindContainerCmsResourcesBy;
 use Zrcms\CoreContainer\Api\CmsResource\FindContainerCmsResourcesBySitePaths;
@@ -23,8 +23,8 @@ class ModuleConfig
         return [
             'dependencies' => [
                 'config_factories' => [
-                    GetChangeLogByDateRange::class => [
-                        'class' => \Zrcms\CoreContainerDoctrine\Api\ChangeLog\GetChangeLogByDateRangeAbstract::class,
+                    GetContainerChangeLogByDateRange::class => [
+                        'class' => \Zrcms\CoreContainerDoctrine\Api\ChangeLog\GetContainerChangeLogByDateRangeAbstract::class,
                         'arguments' => [EntityManager::class]
                     ],
                     UpsertContainerCmsResource::class => [

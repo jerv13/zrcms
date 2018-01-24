@@ -4,7 +4,7 @@ namespace Zrcms\CoreRedirectDoctrine;
 
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Mapping\Driver\AnnotationDriver;
-use Zrcms\CoreRedirect\Api\ChangeLog\GetChangeLogByDateRange;
+use Zrcms\CoreRedirect\Api\ChangeLog\GetRedirectChangeLogByDateRange;
 use Zrcms\CoreRedirect\Api\CmsResource\UpsertRedirectCmsResource;
 use Zrcms\CoreRedirect\Api\CmsResource\FindRedirectCmsResource;
 use Zrcms\CoreRedirect\Api\CmsResource\FindRedirectCmsResourceBySiteRequestPath;
@@ -26,8 +26,8 @@ class ModuleConfig
         return [
             'dependencies' => [
                 'config_factories' => [
-                    GetChangeLogByDateRange::class => [
-                        'class' => \Zrcms\CoreRedirectDoctrine\Api\ChangeLog\GetChangeLogByDateRangeAbstract::class,
+                    GetRedirectChangeLogByDateRange::class => [
+                        'class' => \Zrcms\CoreRedirectDoctrine\Api\ChangeLog\GetRedirectChangeLogByDateRangeAbstract::class,
                         'arguments' => [EntityManager::class]
                     ],
                     UpsertRedirectCmsResource::class => [
