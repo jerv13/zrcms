@@ -1,6 +1,6 @@
 <?php
 
-namespace Zrcms\InputValidationZrcms\Api;
+namespace Zrcms\InputValidation\Api;
 
 use Zrcms\InputValidation\Model\ValidationResult;
 use Zrcms\InputValidation\Model\ValidationResultBasic;
@@ -8,36 +8,33 @@ use Zrcms\InputValidation\Model\ValidationResultBasic;
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class ValidateIdBasic implements ValidateId
+class ValidateIsClass implements Validate
 {
-    const CODE_EMPTY_ID = 'id-must-not-be-empty';
-    const CODE_MUST_BE_STRING = 'id-must-be-string';
-
+    const CODE_MUST_BE_CLASS_NAME = 'must-be-class-name';
+    const CODE_MUST_BE_CLASS = 'must-be-class';
     /**
-     * @param mixed $id
+     * @param mixed $value
      * @param array $options
      *
      * @return ValidationResult
      */
     public function __invoke(
-        $id,
+        $value,
         array $options = []
     ): ValidationResult {
-        if (empty($id)) {
+        if (!is_string($value)) {
             return new ValidationResultBasic(
                 false,
-                static::CODE_EMPTY_ID
+                static::CODE_MUST_BE_CLASS_NAME
             );
         }
 
-        if (!is_string($id)) {
+        if (!class_exists($value)) {
             return new ValidationResultBasic(
                 false,
-                static::CODE_MUST_BE_STRING
+                static::CODE_MUST_BE_CLASS
             );
         }
-
-        // @todo More security checks
 
         return new ValidationResultBasic();
     }

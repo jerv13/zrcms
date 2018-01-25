@@ -27,26 +27,37 @@ class ValidateContentVersionData implements ValidateFields
     const KEY_CREATED_REASON = 'createdReason';
     const KEY_CREATED_DATE = 'createdDate';
 
+    const OPTION_VALIDATOR_OPTIONS = 'validator-options';
+    const OPTION_VALIDATOR_OPTION_ID = 'id';
+    const OPTION_VALIDATOR_OPTION_PROPERTIES = 'properties';
+    const OPTION_VALIDATOR_OPTION_CREATED_BY_USER_ID = 'createdByUserId';
+    const OPTION_VALIDATOR_OPTION_CREATED_REASON = 'createdReason';
+    const OPTION_VALIDATOR_OPTION_CREATED_DATE = 'createdDate';
+
     const OPTION_INVALID_CODE = 'code-invalid';
 
     const DEFAULT_INVALID_CODE = 'invalid-content-version';
 
     protected $serviceContainer;
     protected $validateFieldsHasOnlyRecognizedFields;
+    protected $validateProperties;
     protected $defaultInvalidCode;
 
     /**
      * @param ContainerInterface                                   $serviceContainer
      * @param ValidateFields|ValidateFieldsHasOnlyRecognizedFields $validateFieldsHasOnlyRecognizedFields
+     * @param ValidateFields|ValidateProperties                    $validateProperties
      * @param string                                               $defaultInvalidCode
      */
     public function __construct(
         ContainerInterface $serviceContainer,
         ValidateFields $validateFieldsHasOnlyRecognizedFields,
+        ValidateFields $validateProperties,
         string $defaultInvalidCode = self::DEFAULT_INVALID_CODE
     ) {
         $this->serviceContainer = $serviceContainer;
         $this->validateFieldsHasOnlyRecognizedFields = $validateFieldsHasOnlyRecognizedFields;
+        $this->validateProperties = $validateProperties;
         $this->defaultInvalidCode = $defaultInvalidCode;
     }
 
@@ -79,9 +90,15 @@ class ValidateContentVersionData implements ValidateFields
             return $validationsResult;
         }
 
+        $validatorOptions = Param::getArray(
+            $options,
+            static::OPTION_VALIDATOR_OPTIONS,
+            []
+        );
+
         $fieldResults = $this->getFieldValidationResults(
             $contentVersionData,
-            $options
+            $validatorOptions
         );
         $valid = $this->isValid($fieldResults, $options);
         $code = $this->getCode($valid, $options);
@@ -96,7 +113,7 @@ class ValidateContentVersionData implements ValidateFields
 
     /**
      * @param array $contentVersionData
-     * @param array $options
+     * @param array $validatorOptions
      * @param array $fieldResults
      *
      * @return array
@@ -105,37 +122,37 @@ class ValidateContentVersionData implements ValidateFields
      */
     protected function getFieldValidationResults(
         array $contentVersionData,
-        array $options = [],
+        array $validatorOptions = [],
         array $fieldResults = []
     ): array {
         $fieldResults = $this->validateId(
             $contentVersionData,
             $fieldResults,
-            $options
+            $validatorOptions
         );
 
         $fieldResults = $this->validateProperties(
             $contentVersionData,
             $fieldResults,
-            $options
+            $validatorOptions
         );
 
         $fieldResults = $this->validateCreatedByUserId(
             $contentVersionData,
             $fieldResults,
-            $options
+            $validatorOptions
         );
 
         $fieldResults = $this->validateCreatedReason(
             $contentVersionData,
             $fieldResults,
-            $options
+            $validatorOptions
         );
 
         $fieldResults = $this->validateCreatedDate(
             $contentVersionData,
             $fieldResults,
-            $options
+            $validatorOptions
         );
 
         return $fieldResults;
@@ -185,7 +202,7 @@ class ValidateContentVersionData implements ValidateFields
     /**
      * @param array $contentVersionData
      * @param array $fieldResults
-     * @param array $options
+     * @param array $validatorOptions
      *
      * @return array
      * @throws \Psr\Container\ContainerExceptionInterface
@@ -194,10 +211,10 @@ class ValidateContentVersionData implements ValidateFields
     protected function validateId(
         array $contentVersionData,
         array $fieldResults,
-        array $options = []
+        array $validatorOptions = []
     ): array {
         /** @var Validate $validator */
-        $validator = $this->serviceContainer->get(ValidateIsNull::class);
+        $validator = $this->serviceContainer->get(Validate::class);
 
         $fieldResults[static::KEY_ID] = $validator->__invoke(
             Param::get(
@@ -205,8 +222,8 @@ class ValidateContentVersionData implements ValidateFields
                 static::KEY_ID
             ),
             Param::getArray(
-                $options,
-                static::KEY_ID,
+                $validatorOptions,
+                static::OPTION_VALIDATOR_OPTION_ID,
                 []
             )
         );
@@ -217,7 +234,7 @@ class ValidateContentVersionData implements ValidateFields
     /**
      * @param array $contentVersionData
      * @param array $fieldResults
-     * @param array $options
+     * @param array $validatorOptions
      *
      * @return array
      * @throws \Psr\Container\ContainerExceptionInterface
@@ -226,22 +243,46 @@ class ValidateContentVersionData implements ValidateFields
     protected function validateProperties(
         array $contentVersionData,
         array $fieldResults,
-        array $options = []
+        array $validatorOptions = []
     ): array {
         /** @var Validate $validator */
         $validator = $this->serviceContainer->get(ValidateIsAssociativeArray::class);
 
-        $fieldResults[static::KEY_PROPERTIES] = $validator->__invoke(
+        $validationResult = $validator->__invoke(
             Param::getArray(
                 $contentVersionData,
                 static::KEY_PROPERTIES
             ),
             Param::getArray(
-                $options,
-                static::KEY_PROPERTIES,
+                $validatorOptions,
+                static::OPTION_VALIDATOR_OPTION_PROPERTIES,
                 []
             )
         );
+
+        if (!$validationResult->isValid()) {
+            $fieldResults[static::KEY_PROPERTIES] = $validationResult;
+
+            return $fieldResults;
+        }
+
+        $validationResult = $this->validateProperties->__invoke(
+            Param::getArray(
+                $contentVersionData,
+                static::KEY_PROPERTIES
+            ),
+            Param::getArray(
+                $validatorOptions,
+                static::OPTION_VALIDATOR_OPTION_PROPERTIES,
+                []
+            )
+        );
+
+        if (!$validationResult->isValid()) {
+            $fieldResults[static::KEY_PROPERTIES] = $validationResult;
+
+            return $fieldResults;
+        }
 
         return $fieldResults;
     }
@@ -249,7 +290,7 @@ class ValidateContentVersionData implements ValidateFields
     /**
      * @param array $contentVersionData
      * @param array $fieldResults
-     * @param array $options
+     * @param array $validatorOptions
      *
      * @return array
      * @throws \Psr\Container\ContainerExceptionInterface
@@ -258,7 +299,7 @@ class ValidateContentVersionData implements ValidateFields
     protected function validateCreatedByUserId(
         array $contentVersionData,
         array $fieldResults,
-        array $options = []
+        array $validatorOptions = []
     ): array {
         /** @var Validate $validator */
         $validator = $this->serviceContainer->get(ValidateIsNull::class);
@@ -269,8 +310,8 @@ class ValidateContentVersionData implements ValidateFields
                 static::KEY_CREATED_BY_USER_ID
             ),
             Param::getArray(
-                $options,
-                static::KEY_CREATED_BY_USER_ID,
+                $validatorOptions,
+                static::OPTION_VALIDATOR_OPTION_CREATED_BY_USER_ID,
                 []
             )
         );
@@ -281,7 +322,7 @@ class ValidateContentVersionData implements ValidateFields
     /**
      * @param array $contentVersionData
      * @param array $fieldResults
-     * @param array $options
+     * @param array $validatorOptions
      *
      * @return array
      * @throws \Psr\Container\ContainerExceptionInterface
@@ -290,14 +331,14 @@ class ValidateContentVersionData implements ValidateFields
     protected function validateCreatedReason(
         array $contentVersionData,
         array $fieldResults,
-        array $options = []
+        array $validatorOptions = []
     ): array {
         /** @var Validate $validator */
         $validator = $this->serviceContainer->get(ValidateCompositeByStrategy::class);
 
         $validatorOptions = Param::getArray(
-            $options,
-            static::KEY_CREATED_REASON,
+            $validatorOptions,
+            static::OPTION_VALIDATOR_OPTION_CREATED_REASON,
             []
         );
 
@@ -324,7 +365,7 @@ class ValidateContentVersionData implements ValidateFields
     /**
      * @param array $contentVersionData
      * @param array $fieldResults
-     * @param array $options
+     * @param array $validatorOptions
      *
      * @return array
      * @throws \Psr\Container\ContainerExceptionInterface
@@ -333,7 +374,7 @@ class ValidateContentVersionData implements ValidateFields
     protected function validateCreatedDate(
         array $contentVersionData,
         array $fieldResults,
-        array $options = []
+        array $validatorOptions = []
     ): array {
         /** @var Validate $validator */
         $validator = $this->serviceContainer->get(ValidateIsNull::class);
@@ -344,8 +385,8 @@ class ValidateContentVersionData implements ValidateFields
                 static::KEY_CREATED_DATE
             ),
             Param::getArray(
-                $options,
-                static::KEY_CREATED_DATE,
+                $validatorOptions,
+                static::OPTION_VALIDATOR_OPTION_CREATED_DATE,
                 []
             )
         );

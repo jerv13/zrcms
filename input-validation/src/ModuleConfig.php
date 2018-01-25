@@ -18,10 +18,16 @@ use Zrcms\InputValidation\Api\ValidateIsAssociativeArray;
 use Zrcms\InputValidation\Api\ValidateIsAssociativeArrayFactory;
 use Zrcms\InputValidation\Api\ValidateIsBoolean;
 use Zrcms\InputValidation\Api\ValidateIsBooleanFactory;
+use Zrcms\InputValidation\Api\ValidateIsClass;
+use Zrcms\InputValidation\Api\ValidateIsClassFactory;
+use Zrcms\InputValidation\Api\ValidateIsEmpty;
+use Zrcms\InputValidation\Api\ValidateIsEmptyFactory;
 use Zrcms\InputValidation\Api\ValidateIsNotEmpty;
-use Zrcms\InputValidation\Api\ValidateISNotEmptyFactory;
+use Zrcms\InputValidation\Api\ValidateIsNotEmptyFactory;
 use Zrcms\InputValidation\Api\ValidateIsNull;
 use Zrcms\InputValidation\Api\ValidateIsNullFactory;
+use Zrcms\InputValidation\Api\ValidateIsObject;
+use Zrcms\InputValidation\Api\ValidateIsObjectFactory;
 use Zrcms\InputValidation\Api\ValidateIsString;
 use Zrcms\InputValidation\Api\ValidateIsStringFactory;
 use Zrcms\InputValidation\Api\ValidateIsValue;
@@ -56,7 +62,7 @@ class ModuleConfig
                         'factory' => ValidateFieldsByStrategyFactory::class,
                     ],
 
-                    ValidateFieldsHasOnlyRecognizedFields::class  => [
+                    ValidateFieldsHasOnlyRecognizedFields::class => [
                         'factory' => ValidateFieldsHasOnlyRecognizedFieldsFactory::class,
                     ],
                     ValidateIsAnyValue::class => [
@@ -71,11 +77,20 @@ class ModuleConfig
                     ValidateIsBoolean::class => [
                         'factory' => ValidateIsBooleanFactory::class,
                     ],
+                    ValidateIsClass::class => [
+                        'factory' => ValidateIsClassFactory::class,
+                    ],
+                    ValidateIsEmpty::class => [
+                        'factory' => ValidateIsEmptyFactory::class,
+                    ],
                     ValidateIsNotEmpty::class => [
-                        'factory' => ValidateISNotEmptyFactory::class,
+                        'factory' => ValidateIsNotEmptyFactory::class,
                     ],
                     ValidateIsNull::class => [
                         'factory' => ValidateIsNullFactory::class,
+                    ],
+                    ValidateIsObject::class => [
+                        'factory' => ValidateIsObjectFactory::class,
                     ],
                     ValidateIsString::class => [
                         'factory' => ValidateIsStringFactory::class,

@@ -74,7 +74,7 @@ class FieldsAbstract
      *
      * @return Field
      */
-    public function getField(string $name): Field
+    public function findField(string $name): Field
     {
         if ($this->hasField($name)) {
             return $this->fields[$this->fieldsNameIndex[$name]];

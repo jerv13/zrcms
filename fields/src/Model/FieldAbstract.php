@@ -134,7 +134,7 @@ class FieldAbstract
      *
      * @return mixed
      */
-    public function getOption(string $name, $default = null)
+    public function findOption(string $name, $default = null)
     {
         if (array_key_exists($name, $this->options)) {
             return $this->options[$name];

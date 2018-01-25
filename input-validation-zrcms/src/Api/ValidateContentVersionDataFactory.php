@@ -23,6 +23,7 @@ class ValidateContentVersionDataFactory
         return new ValidateContentVersionData(
             $serviceContainer,
             $serviceContainer->get(ValidateFieldsHasOnlyRecognizedFields::class),
+            $serviceContainer->get(ValidateProperties::class),
             ValidateContentVersionData::DEFAULT_INVALID_CODE
         );
     }

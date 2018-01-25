@@ -50,5 +50,5 @@ interface Field
      *
      * @return mixed
      */
-    public function getOption(string $name, $default = null);
+    public function findOption(string $name, $default = null);
 }

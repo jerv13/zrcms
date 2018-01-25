@@ -39,7 +39,7 @@ class ValidateFieldsHasOnlyRecognizedFields implements ValidateFields
         $unrecognizedFields = [];
 
         foreach ($fields as $fieldName => $value) {
-            if (!array_key_exists($fieldName, $allowedFields)) {
+            if (!in_array($fieldName, $allowedFields)) {
                 $fieldResults[$fieldName] = new ValidationResultBasic(
                     false,
                     self::CODE_UNRECOGNIZED_FIELD,

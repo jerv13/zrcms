@@ -88,7 +88,7 @@ class ImportCommand extends Command
             $contents,
             $createdByUserId,
             [
-                Import::OPTIONS_LOGGER => $logger,
+                Import::OPTION_LOGGER => $logger,
                 'sleep' => $this->getSleep($input),
             ]
         );

@@ -12,7 +12,7 @@ interface Fields
      *
      * @return Field
      */
-    public function getField(string $name): Field;
+    public function findField(string $name): Field;
 
     /**
      * @param string $name

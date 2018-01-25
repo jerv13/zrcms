@@ -29,6 +29,14 @@ class ValidateCmsResourceData implements ValidateFields
     const KEY_CREATED_REASON = 'createdReason';
     const KEY_CREATED_DATE = 'createdDate';
 
+    const OPTION_VALIDATOR_OPTIONS = 'validator-options';
+    const OPTION_VALIDATOR_OPTION_ID = 'id';
+    const OPTION_VALIDATOR_OPTION_PUBLISHED  = 'published';
+    const OPTION_VALIDATOR_OPTION_CONTENT_VERSION  = 'contentVersion';
+    const OPTION_VALIDATOR_OPTION_CREATED_BY_USER_ID = 'createdByUserId';
+    const OPTION_VALIDATOR_OPTION_CREATED_REASON = 'createdReason';
+    const OPTION_VALIDATOR_OPTION_CREATED_DATE = 'createdDate';
+
     const OPTION_INVALID_CODE = 'code-invalid';
 
     const DEFAULT_INVALID_CODE = 'invalid-cms-resource';
@@ -86,9 +94,15 @@ class ValidateCmsResourceData implements ValidateFields
             return $validationsResult;
         }
 
+        $validatorOptions = Param::getArray(
+            $options,
+            static::OPTION_VALIDATOR_OPTIONS,
+            []
+        );
+
         $fieldResults = $this->getFieldValidationResults(
             $cmsResourceData,
-            $options
+            $validatorOptions
         );
 
         $valid = $this->isValid($fieldResults, $options);
@@ -104,7 +118,7 @@ class ValidateCmsResourceData implements ValidateFields
 
     /**
      * @param array $cmsResourceData
-     * @param array $options
+     * @param array $validatorOptions
      * @param array $fieldResults
      *
      * @return array
@@ -113,43 +127,43 @@ class ValidateCmsResourceData implements ValidateFields
      */
     protected function getFieldValidationResults(
         array $cmsResourceData,
-        array $options = [],
+        array $validatorOptions = [],
         array $fieldResults = []
     ): array {
         $fieldResults = $this->validateId(
             $cmsResourceData,
             $fieldResults,
-            $options
+            $validatorOptions
         );
 
         $fieldResults = $this->validatePublished(
             $cmsResourceData,
             $fieldResults,
-            $options
+            $validatorOptions
         );
 
         $fieldResults = $this->validateContentVersion(
             $cmsResourceData,
             $fieldResults,
-            $options
+            $validatorOptions
         );
 
         $fieldResults = $this->validateCreatedByUserId(
             $cmsResourceData,
             $fieldResults,
-            $options
+            $validatorOptions
         );
 
         $fieldResults = $this->validateCreatedReason(
             $cmsResourceData,
             $fieldResults,
-            $options
+            $validatorOptions
         );
 
         $fieldResults = $this->validateCreatedDate(
             $cmsResourceData,
             $fieldResults,
-            $options
+            $validatorOptions
         );
 
         return $fieldResults;
@@ -199,7 +213,7 @@ class ValidateCmsResourceData implements ValidateFields
     /**
      * @param array $cmsResourceData
      * @param array $fieldResults
-     * @param array $options
+     * @param array $validatorOptions
      *
      * @return array
      * @throws \Psr\Container\ContainerExceptionInterface
@@ -208,7 +222,7 @@ class ValidateCmsResourceData implements ValidateFields
     protected function validateId(
         array $cmsResourceData,
         array $fieldResults,
-        array $options = []
+        array $validatorOptions = []
     ): array {
         /** @var Validate $validator */
         $validator = $this->serviceContainer->get(ValidateIsAnyValue::class);
@@ -219,8 +233,8 @@ class ValidateCmsResourceData implements ValidateFields
                 static::KEY_ID
             ),
             Param::getArray(
-                $options,
-                static::KEY_ID,
+                $validatorOptions,
+                static::OPTION_VALIDATOR_OPTION_ID,
                 []
             )
         );
@@ -231,7 +245,7 @@ class ValidateCmsResourceData implements ValidateFields
     /**
      * @param array $cmsResourceData
      * @param array $fieldResults
-     * @param array $options
+     * @param array $validatorOptions
      *
      * @return array
      * @throws \Psr\Container\ContainerExceptionInterface
@@ -240,7 +254,7 @@ class ValidateCmsResourceData implements ValidateFields
     protected function validatePublished(
         array $cmsResourceData,
         array $fieldResults,
-        array $options = []
+        array $validatorOptions = []
     ): array {
         /** @var Validate $validator */
         $validator = $this->serviceContainer->get(ValidateIsBoolean::class);
@@ -251,8 +265,8 @@ class ValidateCmsResourceData implements ValidateFields
                 static::KEY_PUBLISHED
             ),
             Param::getArray(
-                $options,
-                static::KEY_PUBLISHED,
+                $validatorOptions,
+                static::OPTION_VALIDATOR_OPTION_PUBLISHED,
                 []
             )
         );
@@ -263,14 +277,14 @@ class ValidateCmsResourceData implements ValidateFields
     /**
      * @param array $cmsResourceData
      * @param array $fieldResults
-     * @param array $options
+     * @param array $validatorOptions
      *
      * @return array
      */
     protected function validateContentVersion(
         array $cmsResourceData,
         array $fieldResults,
-        array $options = []
+        array $validatorOptions = []
     ): array {
         $fieldResults[static::KEY_CONTENT_VERSION] = $this->validateContentVersion->__invoke(
             Param::getArray(
@@ -279,8 +293,8 @@ class ValidateCmsResourceData implements ValidateFields
                 []
             ),
             Param::getArray(
-                $options,
-                static::KEY_CONTENT_VERSION,
+                $validatorOptions,
+                static::OPTION_VALIDATOR_OPTION_CONTENT_VERSION,
                 []
             )
         );
@@ -291,7 +305,7 @@ class ValidateCmsResourceData implements ValidateFields
     /**
      * @param array $cmsResourceData
      * @param array $fieldResults
-     * @param array $options
+     * @param array $validatorOptions
      *
      * @return array
      * @throws \Psr\Container\ContainerExceptionInterface
@@ -300,7 +314,7 @@ class ValidateCmsResourceData implements ValidateFields
     protected function validateCreatedByUserId(
         array $cmsResourceData,
         array $fieldResults,
-        array $options = []
+        array $validatorOptions = []
     ): array {
         /** @var Validate $validator */
         $validator = $this->serviceContainer->get(ValidateIsNull::class);
@@ -311,8 +325,8 @@ class ValidateCmsResourceData implements ValidateFields
                 static::KEY_CREATED_BY_USER_ID
             ),
             Param::getArray(
-                $options,
-                static::KEY_CREATED_BY_USER_ID,
+                $validatorOptions,
+                static::OPTION_VALIDATOR_OPTION_CREATED_BY_USER_ID,
                 []
             )
         );
@@ -323,7 +337,7 @@ class ValidateCmsResourceData implements ValidateFields
     /**
      * @param array $cmsResourceData
      * @param array $fieldResults
-     * @param array $options
+     * @param array $validatorOptions
      *
      * @return array
      * @throws \Psr\Container\ContainerExceptionInterface
@@ -332,14 +346,14 @@ class ValidateCmsResourceData implements ValidateFields
     protected function validateCreatedReason(
         array $cmsResourceData,
         array $fieldResults,
-        array $options = []
+        array $validatorOptions = []
     ): array {
         /** @var Validate $validator */
         $validator = $this->serviceContainer->get(ValidateCompositeByStrategy::class);
 
         $validatorOptions = Param::getArray(
-            $options,
-            static::KEY_CREATED_REASON,
+            $validatorOptions,
+            static::OPTION_VALIDATOR_OPTION_CREATED_REASON,
             []
         );
 
@@ -366,7 +380,7 @@ class ValidateCmsResourceData implements ValidateFields
     /**
      * @param array $cmsResourceData
      * @param array $fieldResults
-     * @param array $options
+     * @param array $validatorOptions
      *
      * @return array
      * @throws \Psr\Container\ContainerExceptionInterface
@@ -375,7 +389,7 @@ class ValidateCmsResourceData implements ValidateFields
     protected function validateCreatedDate(
         array $cmsResourceData,
         array $fieldResults,
-        array $options = []
+        array $validatorOptions = []
     ): array {
         /** @var Validate $validator */
         $validator = $this->serviceContainer->get(ValidateIsNull::class);
@@ -386,8 +400,8 @@ class ValidateCmsResourceData implements ValidateFields
                 static::KEY_CREATED_DATE
             ),
             Param::getArray(
-                $options,
-                static::KEY_CREATED_DATE,
+                $validatorOptions,
+                static::OPTION_VALIDATOR_OPTION_CREATED_DATE,
                 []
             )
         );

@@ -28,9 +28,9 @@ use Zrcms\Param\Param;
 
 class Import
 {
-    const OPTIONS_LOGGER = 'logger';
-    const OPTIONS_SLEEP = 'sleep';
-    const OPTIONS_SKIP_DUPLICATES = 'skip-duplicates';
+    const OPTION_LOGGER = 'logger';
+    const OPTION_SLEEP = 'sleep';
+    const OPTION_SKIP_DUPLICATES = 'skip-duplicates';
     protected $defaultSleep = 0;
     protected $defaultSkipDuplicates = true;
 
@@ -123,7 +123,7 @@ class Import
     {
         $sleep = Param::getInt(
             $options,
-            self::OPTIONS_SLEEP,
+            self::OPTION_SLEEP,
             $this->defaultSleep
         );
 
@@ -141,7 +141,7 @@ class Import
     {
         return Param::getBool(
             $options,
-            self::OPTIONS_SKIP_DUPLICATES,
+            self::OPTION_SKIP_DUPLICATES,
             $this->defaultSkipDuplicates
         );
     }
@@ -160,7 +160,7 @@ class Import
     ) {
         $logger = Param::get(
             $options,
-            self::OPTIONS_LOGGER
+            self::OPTION_LOGGER
         );
 
         if ($logger instanceof LoggerInterface) {

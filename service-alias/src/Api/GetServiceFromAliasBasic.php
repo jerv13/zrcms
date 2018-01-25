@@ -41,9 +41,11 @@ class GetServiceFromAliasBasic implements GetServiceFromAlias
      * @param string $interfaceClass
      * @param string $defaultServiceName
      * @param array  $options
-     *
-     * @return mixed
+     * 
+     * @return mixed|object
      * @throws ServiceAliasNotFound
+     * @throws \Psr\Container\ContainerExceptionInterface
+     * @throws \Psr\Container\NotFoundExceptionInterface
      */
     public function __invoke(
         string $namespace,
