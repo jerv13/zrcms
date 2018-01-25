@@ -14,6 +14,8 @@ use Zrcms\CoreSite\Api\CmsResource\UpsertSiteCmsResource;
 use Zrcms\CoreSite\Api\Content\FindSiteVersion;
 use Zrcms\CoreSite\Api\Content\FindSiteVersionsBy;
 use Zrcms\CoreSite\Api\Content\InsertSiteVersion;
+use Zrcms\InputValidationZrcms\Api\ValidateCmsResourceData;
+use Zrcms\InputValidationZrcms\Api\ValidateContentVersionData;
 
 /**
  * @author James Jervis - https:/github.com/jerv13
@@ -93,76 +95,8 @@ class ModuleConfigRoutes
                             'not-allowed-status' => 401,
                         ],
                         'validate-fields' => [
-                            'validate-fields' => ValidateFieldsByStrategy::class,
-                            'validate-fields-options' => [
-                                'field-validators' => [
-                                    'id' => [
-                                        'validator' => ValidateIsAnyValue::class,
-                                        'options' => [],
-                                    ],
-                                    'published' => [
-                                        'validator' => ValidateIsBoolean::class,
-                                        'options' => [],
-                                    ],
-                                    'contentVersion' => [
-                                        'validator' => ValidateFieldsByStrategy::class,
-                                        'options' => [
-                                            'field-validators' => [
-                                                'id' => [
-                                                    'validator' => ValidateIsAnyValue::class,
-                                                    'options' => [],
-                                                ],
-                                                'properties' => [
-                                                    'validator' => ValidateIsAssociativeArray::class,
-                                                    'options' => [],
-                                                ],
-                                                'createdByUserId' => [
-                                                    'validator' => ValidateIsNull::class,
-                                                    'options' => [],
-                                                ],
-                                                'createdReason' => [
-                                                    'validator' => ValidateCompositeByStrategy::class,
-                                                    'options' => [
-                                                        'validators' => [
-                                                            [
-                                                                'validator' => ValidateIsNotEmpty::class,
-                                                            ],
-                                                            [
-                                                                'validator' => ValidateIsString::class,
-                                                            ],
-                                                        ]
-                                                    ],
-                                                ],
-                                                'createdDate' => [
-                                                    'validator' => ValidateIsNull::class,
-                                                    'options' => [],
-                                                ],
-                                            ],
-                                        ]
-                                    ],
-                                    'createdByUserId' => [
-                                        'validator' => ValidateIsNull::class,
-                                        'options' => [],
-                                    ],
-                                    'createdReason' => [
-                                        'validator' => ValidateCompositeByStrategy::class,
-                                        'options' => [
-                                            'validators' => [
-                                                [
-                                                    'validator' => ValidateIsNotEmpty::class,
-                                                ],
-                                                [
-                                                    'validator' => ValidateIsString::class,
-                                                ],
-                                            ]
-                                        ],
-                                    ],
-                                    'createdDate' => [
-                                        'validator' => ValidateIsNull::class,
-                                        'options' => [],
-                                    ],
-                                ],
-                            ],
+                            'validate-fields' => ValidateCmsResourceData::class,
+                            'validate-fields-options' => [],
                             'not-valid-status' => 400,
                         ],
                         'api' => [
@@ -231,40 +165,8 @@ class ModuleConfigRoutes
                             'not-allowed-status' => 401,
                         ],
                         'validate-fields' => [
-                            'validate-fields' => ValidateFieldsByStrategy::class,
-                            'validate-fields-options' => [
-                                'field-validators' => [
-                                    'id' => [
-                                        'validator' => ValidateIsAnyValue::class,
-                                        'options' => [],
-                                    ],
-                                    'properties' => [
-                                        'validator' => ValidateIsAssociativeArray::class,
-                                        'options' => [],
-                                    ],
-                                    'createdByUserId' => [
-                                        'validator' => ValidateIsNull::class,
-                                        'options' => [],
-                                    ],
-                                    'createdReason' => [
-                                        'validator' => ValidateCompositeByStrategy::class,
-                                        'options' => [
-                                            'validators' => [
-                                                [
-                                                    'validator' => ValidateIsNotEmpty::class,
-                                                ],
-                                                [
-                                                    'validator' => ValidateIsString::class,
-                                                ],
-                                            ]
-                                        ],
-                                    ],
-                                    'createdDate' => [
-                                        'validator' => ValidateIsNull::class,
-                                        'options' => [],
-                                    ],
-                                ],
-                            ],
+                            'validate-fields' => ValidateContentVersionData::class,
+                            'validate-fields-options' => [],
                             'not-valid-status' => 400,
                         ],
                         'api' => [

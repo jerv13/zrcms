@@ -51,10 +51,15 @@ class ValidateProperties implements ValidateFields
         array $properties,
         array $options = []
     ): ValidationResultFields {
-        $this->validateFieldsHasOnlyRecognizedFields->__invoke(
+        $validationsResult = $this->validateFieldsHasOnlyRecognizedFields->__invoke(
             $properties,
             $options
         );
+
+        if (!$validationsResult->isValid()) {
+            return $validationsResult;
+        }
+
         $fieldResults = $this->getFieldValidationResults(
             $properties,
             $options

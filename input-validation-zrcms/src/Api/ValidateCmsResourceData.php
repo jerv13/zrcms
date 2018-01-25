@@ -68,7 +68,7 @@ class ValidateCmsResourceData implements ValidateFields
         array $cmsResourceData,
         array $options = []
     ): ValidationResultFields {
-        $this->validateFieldsHasOnlyRecognizedFields->__invoke(
+        $validationsResult = $this->validateFieldsHasOnlyRecognizedFields->__invoke(
             $cmsResourceData,
             [
                 ValidateFieldsHasOnlyRecognizedFields::OPTION_FIELDS_ALLOWED => [
@@ -81,6 +81,10 @@ class ValidateCmsResourceData implements ValidateFields
                 ]
             ]
         );
+
+        if (!$validationsResult->isValid()) {
+            return $validationsResult;
+        }
 
         $fieldResults = $this->getFieldValidationResults(
             $cmsResourceData,
@@ -210,7 +214,7 @@ class ValidateCmsResourceData implements ValidateFields
         $validator = $this->serviceContainer->get(ValidateIsAnyValue::class);
 
         $fieldResults[static::KEY_ID] = $validator->__invoke(
-            Param::getString(
+            Param::get(
                 $cmsResourceData,
                 static::KEY_ID
             ),
@@ -302,7 +306,7 @@ class ValidateCmsResourceData implements ValidateFields
         $validator = $this->serviceContainer->get(ValidateIsNull::class);
 
         $fieldResults[static::KEY_CREATED_BY_USER_ID] = $validator->__invoke(
-            Param::getString(
+            Param::get(
                 $cmsResourceData,
                 static::KEY_CREATED_BY_USER_ID
             ),
@@ -377,7 +381,7 @@ class ValidateCmsResourceData implements ValidateFields
         $validator = $this->serviceContainer->get(ValidateIsNull::class);
 
         $fieldResults[static::KEY_CREATED_DATE] = $validator->__invoke(
-            Param::getBool(
+            Param::get(
                 $cmsResourceData,
                 static::KEY_CREATED_DATE
             ),

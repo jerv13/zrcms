@@ -62,7 +62,7 @@ class ValidateContentVersionData implements ValidateFields
         array $contentVersionData,
         array $options = []
     ): ValidationResultFields {
-        $this->validateFieldsHasOnlyRecognizedFields->__invoke(
+        $validationsResult = $this->validateFieldsHasOnlyRecognizedFields->__invoke(
             $contentVersionData,
             [
                 ValidateFieldsHasOnlyRecognizedFields::OPTION_FIELDS_ALLOWED => [
@@ -74,6 +74,10 @@ class ValidateContentVersionData implements ValidateFields
                 ]
             ]
         );
+
+        if (!$validationsResult->isValid()) {
+            return $validationsResult;
+        }
 
         $fieldResults = $this->getFieldValidationResults(
             $contentVersionData,
@@ -196,7 +200,7 @@ class ValidateContentVersionData implements ValidateFields
         $validator = $this->serviceContainer->get(ValidateIsNull::class);
 
         $fieldResults[static::KEY_ID] = $validator->__invoke(
-            Param::getString(
+            Param::get(
                 $contentVersionData,
                 static::KEY_ID
             ),
@@ -260,7 +264,7 @@ class ValidateContentVersionData implements ValidateFields
         $validator = $this->serviceContainer->get(ValidateIsNull::class);
 
         $fieldResults[static::KEY_CREATED_BY_USER_ID] = $validator->__invoke(
-            Param::getString(
+            Param::get(
                 $contentVersionData,
                 static::KEY_CREATED_BY_USER_ID
             ),
@@ -335,7 +339,7 @@ class ValidateContentVersionData implements ValidateFields
         $validator = $this->serviceContainer->get(ValidateIsNull::class);
 
         $fieldResults[static::KEY_CREATED_DATE] = $validator->__invoke(
-            Param::getBool(
+            Param::get(
                 $contentVersionData,
                 static::KEY_CREATED_DATE
             ),

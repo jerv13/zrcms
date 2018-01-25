@@ -95,8 +95,8 @@ class ResponseMutatorJson
             return false;
         }
 
-        if (empty($response->getBody()->getContents())) {
-            return true;
+        if (!empty($response->getBody()->getContents())) {
+            return false;
         }
 
         if (in_array($response->getStatusCode(), $this->statusBlackList)) {
