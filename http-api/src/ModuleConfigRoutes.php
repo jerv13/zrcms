@@ -21,8 +21,6 @@ use Zrcms\HttpApi\Params\HttpApiLimit;
 use Zrcms\HttpApi\Params\HttpApiOffset;
 use Zrcms\HttpApi\Params\HttpApiOrderBy;
 use Zrcms\HttpApi\Params\HttpApiWhere;
-use Zrcms\HttpApi\Swagger\HttpApiIsAllowedSwagger;
-use Zrcms\HttpApi\Swagger\HttpApiSwagger;
 use Zrcms\HttpApi\Validate\HttpApiValidateFieldsDynamic;
 use Zrcms\HttpApi\ZrcmsConfig\HttpApiIsAllowedZrcmsConfig;
 use Zrcms\HttpApi\ZrcmsConfig\HttpApiZrcmsConfig;
@@ -98,12 +96,16 @@ class ModuleConfigRoutes
                     'allowed_methods' => ['GET'],
                     'swagger' => [
                         'get' => [
-                            'description' => 'Find CMS Resource by query',
+                            'description' => 'Find CMS Resources by query',
                             'produces' => [
                                 'application/json',
                             ],
                             'parameters' => [
                                 ['$ref' => '#/definitions/ZrcmsImplementationPathProperty'],
+                                ['$ref' => '#/definitions/ZrcmsWhereParameter'],
+                                ['$ref' => '#/definitions/ZrcmsOrderByParameter'],
+                                ['$ref' => '#/definitions/ZrcmsLimitParameter'],
+                                ['$ref' => '#/definitions/ZrcmsOffsetParameter'],
                             ],
                             'responses' => [
                                 'default' => [
@@ -135,6 +137,26 @@ class ModuleConfigRoutes
                         'zrcms-api' => 'find-cms-resources-published'
                     ],
                     'allowed_methods' => ['GET'],
+                    'swagger' => [
+                        'get' => [
+                            'description' => 'Find published CMS Resources by query',
+                            'produces' => [
+                                'application/json',
+                            ],
+                            'parameters' => [
+                                ['$ref' => '#/definitions/ZrcmsImplementationPathProperty'],
+                                ['$ref' => '#/definitions/ZrcmsWhereParameter'],
+                                ['$ref' => '#/definitions/ZrcmsOrderByParameter'],
+                                ['$ref' => '#/definitions/ZrcmsLimitParameter'],
+                                ['$ref' => '#/definitions/ZrcmsOffsetParameter'],
+                            ],
+                            'responses' => [
+                                'default' => [
+                                    '$ref' => '#/definitions/ZrcmsJsonResponse'
+                                ],
+                            ],
+                        ],
+                    ],
                 ],
 
                 /**
@@ -154,6 +176,36 @@ class ModuleConfigRoutes
                         'zrcms-api' => 'upsert-cms-resource'
                     ],
                     'allowed_methods' => ['POST', 'PUT'],
+                    'swagger' => [
+                        'post' => [
+                            'description' => 'Upsert CMS Resource',
+                            'produces' => [
+                                'application/json',
+                            ],
+                            'parameters' => [
+                                ['$ref' => '#/definitions/ZrcmsImplementationPathProperty'],
+                            ],
+                            'responses' => [
+                                'default' => [
+                                    '$ref' => '#/definitions/ZrcmsJsonResponse'
+                                ],
+                            ],
+                        ],
+                        'put' => [
+                            'description' => 'Upsert CMS Resource',
+                            'produces' => [
+                                'application/json',
+                            ],
+                            'parameters' => [
+                                ['$ref' => '#/definitions/ZrcmsImplementationPathProperty'],
+                            ],
+                            'responses' => [
+                                'default' => [
+                                    '$ref' => '#/definitions/ZrcmsJsonResponse'
+                                ],
+                            ],
+                        ],
+                    ],
                 ],
 
                 /**
