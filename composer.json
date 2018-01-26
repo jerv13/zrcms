@@ -74,6 +74,7 @@
       "Zrcms\\HttpApiPage\\": "http-api-page/src/",
       "Zrcms\\HttpApiRedirect\\": "http-api-redirect/src/",
       "Zrcms\\HttpApiSite\\": "http-api-site/src/",
+      "Zrcms\\HttpApiSwagger\\": "http-api-swagger/src/",
       "Zrcms\\HttpApiTheme\\": "http-api-theme/src/",
       "Zrcms\\HttpApiView\\": "http-api-view/src/",
       "Zrcms\\HttpAssets\\": "http-assets/src/",

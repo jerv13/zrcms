@@ -29,8 +29,9 @@ class ModulesConfigZrcms
             new \Zrcms\CoreTheme\ModuleConfigZrcms(),
             new \Zrcms\CoreView\ModuleConfigZrcms(),
             new \Zrcms\Fields\ModuleConfigZrcms(),
-            new \Zrcms\HttpApiSite\ModuleConfigZrcms(),
             new \Zrcms\HttpApi\ModuleConfigZrcms(),
+            new \Zrcms\HttpApiSite\ModuleConfigZrcms(),
+            new \Zrcms\HttpApiSwagger\ModuleConfigZrcms(),
             new \Zrcms\HttpAssetsApplicationState\ModuleConfigZrcms(),
             // @todo ViewHead included by default?
             new \Zrcms\HttpAssetsViewHead\ModuleConfigZrcms(),

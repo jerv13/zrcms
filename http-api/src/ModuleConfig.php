@@ -46,6 +46,8 @@ use Zrcms\HttpApi\ZrcmsConfig\HttpApiIsAllowedZrcmsConfig;
 use Zrcms\HttpApi\ZrcmsConfig\HttpApiIsAllowedZrcmsConfigFactory;
 use Zrcms\HttpApi\ZrcmsConfig\HttpApiZrcmsConfig;
 use Zrcms\HttpApi\ZrcmsConfig\HttpApiZrcmsConfigFactory;
+use Zrcms\HttpApi\ZrcmsConfig\HttpApiZrcmsRoutes;
+use Zrcms\HttpApi\ZrcmsConfig\HttpApiZrcmsRoutesFactory;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -167,6 +169,10 @@ class ModuleConfig
 
                     HttpApiZrcmsConfig::class => [
                         'factory' => HttpApiZrcmsConfigFactory::class,
+                    ],
+
+                    HttpApiZrcmsRoutes::class => [
+                        'factory' => HttpApiZrcmsRoutesFactory::class,
                     ],
 
                     /**

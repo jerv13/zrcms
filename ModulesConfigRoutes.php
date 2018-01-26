@@ -20,6 +20,7 @@ class ModulesConfigRoutes
             new \Zrcms\HttpApiPage\ModuleConfigRoutes(),
             new \Zrcms\HttpApiRedirect\ModuleConfigRoutes(),
             new \Zrcms\HttpApiSite\ModuleConfigRoutes(),
+            new \Zrcms\HttpApiSwagger\ModuleConfigRoutes(),
             new \Zrcms\HttpApiTheme\ModuleConfigRoutes(),
             new \Zrcms\HttpApiView\ModuleConfigRoutes(),
             new \Zrcms\HttpAssets\ModuleConfigRoutes(),

@@ -21,9 +21,12 @@ use Zrcms\HttpApi\Params\HttpApiLimit;
 use Zrcms\HttpApi\Params\HttpApiOffset;
 use Zrcms\HttpApi\Params\HttpApiOrderBy;
 use Zrcms\HttpApi\Params\HttpApiWhere;
+use Zrcms\HttpApi\Swagger\HttpApiIsAllowedSwagger;
+use Zrcms\HttpApi\Swagger\HttpApiSwagger;
 use Zrcms\HttpApi\Validate\HttpApiValidateFieldsDynamic;
 use Zrcms\HttpApi\ZrcmsConfig\HttpApiIsAllowedZrcmsConfig;
 use Zrcms\HttpApi\ZrcmsConfig\HttpApiZrcmsConfig;
+use Zrcms\HttpApi\ZrcmsConfig\HttpApiZrcmsRoutes;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -53,6 +56,37 @@ class ModuleConfigRoutes
                         'zrcms-api' => 'find-cms-resource'
                     ],
                     'allowed_methods' => ['GET'],
+                    'swagger' => [
+                        'get' => [
+                            'description' => 'Find CMS Resource by ID',
+                            'produces' => [
+                                'application/json',
+                            ],
+                            'parameters' => [
+                                [
+                                    'name' => 'zrcms-implementation',
+                                    'in' => 'path',
+                                    'description' => 'Implementation of CmsResource',
+                                    'required' => true,
+                                    'type' => 'string',
+                                    'format' => 'string',
+                                ],
+                                [
+                                    'name' => 'id',
+                                    'in' => 'path',
+                                    'description' => 'Id of CmsResource',
+                                    'required' => true,
+                                    'type' => 'string',
+                                    'format' => 'string',
+                                ]
+                            ],
+                            'responses' => [
+                                'default' => [
+                                    '$ref' => '#/definitions/ZrcmsJsonResponse'
+                                ],
+                            ],
+                        ],
+                    ],
                 ],
 
                 /**
@@ -162,7 +196,7 @@ class ModuleConfigRoutes
                 ],
 
                 /**
-                 * FindComponent
+                 * FindConfig
                  */
                 'zrcms.api.config.list' => [
                     'name' => 'zrcms.api.config.list',
@@ -172,6 +206,69 @@ class ModuleConfigRoutes
                         'api' => HttpApiZrcmsConfig::class,
                     ],
                     'options' => [
+                    ],
+                    'allowed_methods' => ['GET'],
+                ],
+
+                'zrcms.api.route.list' => [
+                    'name' => 'zrcms.api.route.list',
+                    'path' => '/zrcms/api/route/list',
+                    'middleware' => [
+                        'acl' => HttpApiIsAllowedZrcmsConfig::class,
+                        'api' => HttpApiZrcmsRoutes::class,
+                    ],
+                    'options' => [
+                    ],
+                    'allowed_methods' => ['GET'],
+                ],
+
+                /**
+                 * Swagger
+                 */
+                'zrcms.api.swagger.json' => [
+                    'name' => 'zrcms.api.swagger.json',
+                    'path' => '/zrcms/api/swagger.json',
+                    'middleware' => [
+                        'acl' => HttpApiIsAllowedSwagger::class,
+                        'api' => HttpApiSwagger::class,
+                    ],
+                    'options' => [
+                    ],
+                    'swagger' => [
+                        'get' => [
+                            'description' => 'Produces Swagger JSON',
+                            //'operationId' => 'zrcms.api.swagger.json',
+                            'produces' => [
+                                'application/json',
+                            ],
+                            'parameters' => [
+                                /* EXAMPLE
+                                [
+                                    'name' => 'limit',
+                                    'in' => 'query',
+                                    'description' => 'maximum number of results to return',
+                                    'required' => false,
+                                    'type' => 'integer',
+                                    'format' => 'int32',
+                                ]
+                                */
+                            ],
+                            'responses' => [
+                                200 => [
+                                    'description' => 'swagger object response',
+                                    'schema' => [
+                                        'type' => 'object',
+                                        'items' => ['$ref' => '#/definitions/Swagger',],
+                                    ],
+                                ],
+                                /*
+                                'default' => [
+                                    'description' => 'unexpected error',
+                                    'schema' => ['$ref' => '#/definitions/ErrorModel',],
+                                ],
+                                 */
+                            ],
+                        ],
                     ],
                     'allowed_methods' => ['GET'],
                 ],

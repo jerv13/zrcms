@@ -69,6 +69,7 @@ class ModulesConfig
             new \Zrcms\HttpApiPage\ModuleConfig(),
             new \Zrcms\HttpApiRedirect\ModuleConfig(),
             new \Zrcms\HttpApiSite\ModuleConfig(),
+            new \Zrcms\HttpApiSwagger\ModuleConfig(),
             new \Zrcms\HttpApiTheme\ModuleConfig(),
             new \Zrcms\HttpApiView\ModuleConfig(),
 
