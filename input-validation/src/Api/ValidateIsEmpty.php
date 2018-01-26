@@ -10,7 +10,7 @@ use Zrcms\InputValidation\Model\ValidationResultBasic;
  */
 class ValidateIsEmpty implements Validate
 {
-    const CODE_MUST_NOT_BE_EMPTY = 'must-be-empty';
+    const CODE_MUST_BE_EMPTY = 'must-be-empty';
 
     /**
      * @param mixed $value
@@ -25,7 +25,7 @@ class ValidateIsEmpty implements Validate
         if (!empty($value)) {
             return new ValidationResultBasic(
                 false,
-                static::CODE_MUST_NOT_BE_EMPTY
+                static::CODE_MUST_BE_EMPTY
             );
         }
 

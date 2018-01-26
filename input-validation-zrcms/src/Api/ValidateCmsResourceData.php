@@ -3,6 +3,8 @@
 namespace Zrcms\InputValidationZrcms\Api;
 
 use Psr\Container\ContainerInterface;
+use Zrcms\InputValidation\Api\BuildCode;
+use Zrcms\InputValidation\Api\IsValidFieldResults;
 use Zrcms\InputValidation\Api\Validate;
 use Zrcms\InputValidation\Api\ValidateCompositeByStrategy;
 use Zrcms\InputValidation\Api\ValidateFields;
@@ -12,7 +14,6 @@ use Zrcms\InputValidation\Api\ValidateIsBoolean;
 use Zrcms\InputValidation\Api\ValidateIsNotEmpty;
 use Zrcms\InputValidation\Api\ValidateIsNull;
 use Zrcms\InputValidation\Api\ValidateIsString;
-use Zrcms\InputValidation\Model\ValidationResult;
 use Zrcms\InputValidation\Model\ValidationResultFields;
 use Zrcms\InputValidation\Model\ValidationResultFieldsBasic;
 use Zrcms\Param\Param;
@@ -31,13 +32,13 @@ class ValidateCmsResourceData implements ValidateFields
 
     const OPTION_VALIDATOR_OPTIONS = 'validator-options';
     const OPTION_VALIDATOR_OPTION_ID = 'id';
-    const OPTION_VALIDATOR_OPTION_PUBLISHED  = 'published';
-    const OPTION_VALIDATOR_OPTION_CONTENT_VERSION  = 'contentVersion';
+    const OPTION_VALIDATOR_OPTION_PUBLISHED = 'published';
+    const OPTION_VALIDATOR_OPTION_CONTENT_VERSION = 'contentVersion';
     const OPTION_VALIDATOR_OPTION_CREATED_BY_USER_ID = 'createdByUserId';
     const OPTION_VALIDATOR_OPTION_CREATED_REASON = 'createdReason';
     const OPTION_VALIDATOR_OPTION_CREATED_DATE = 'createdDate';
 
-    const OPTION_INVALID_CODE = 'code-invalid';
+    const OPTION_INVALID_CODE = BuildCode::OPTION_INVALID_CODE;
 
     const DEFAULT_INVALID_CODE = 'invalid-cms-resource';
 
@@ -105,8 +106,16 @@ class ValidateCmsResourceData implements ValidateFields
             $validatorOptions
         );
 
-        $valid = $this->isValid($fieldResults, $options);
-        $code = $this->getCode($valid, $options);
+        $valid = IsValidFieldResults::invoke(
+            $fieldResults,
+            $options
+        );
+
+        $code = BuildCode::invoke(
+            $valid,
+            $options,
+            $this->defaultInvalidCode
+        );
 
         return new ValidationResultFieldsBasic(
             $valid,
@@ -142,6 +151,7 @@ class ValidateCmsResourceData implements ValidateFields
             $validatorOptions
         );
 
+        // @todo If content-version-id is empty, then validate content-version fields
         $fieldResults = $this->validateContentVersion(
             $cmsResourceData,
             $fieldResults,
@@ -167,47 +177,6 @@ class ValidateCmsResourceData implements ValidateFields
         );
 
         return $fieldResults;
-    }
-
-    /**
-     * @param bool  $valid
-     * @param array $options
-     *
-     * @return string
-     */
-    protected function getCode(
-        bool $valid,
-        array $options = []
-    ): string {
-        if ($valid) {
-            return '';
-        };
-
-        return Param::getString(
-            $options,
-            static::OPTION_INVALID_CODE,
-            $this->defaultInvalidCode
-        );
-    }
-
-    /**
-     * @param array $fieldResults
-     * @param array $options
-     *
-     * @return bool
-     */
-    protected function isValid(
-        array $fieldResults,
-        array $options = []
-    ): bool {
-        /** @var ValidationResult $validationResult */
-        foreach ($fieldResults as $validationResult) {
-            if (!$validationResult->isValid()) {
-                return false;
-            }
-        }
-
-        return true;
     }
 
     /**

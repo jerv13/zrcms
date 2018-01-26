@@ -28,6 +28,8 @@ use Zrcms\InputValidation\Api\ValidateIsNull;
 use Zrcms\InputValidation\Api\ValidateIsNullFactory;
 use Zrcms\InputValidation\Api\ValidateIsObject;
 use Zrcms\InputValidation\Api\ValidateIsObjectFactory;
+use Zrcms\InputValidation\Api\ValidateIsRealValue;
+use Zrcms\InputValidation\Api\ValidateIsRealValueFactory;
 use Zrcms\InputValidation\Api\ValidateIsString;
 use Zrcms\InputValidation\Api\ValidateIsStringFactory;
 use Zrcms\InputValidation\Api\ValidateIsValue;
@@ -91,6 +93,9 @@ class ModuleConfig
                     ],
                     ValidateIsObject::class => [
                         'factory' => ValidateIsObjectFactory::class,
+                    ],
+                    ValidateIsRealValue::class => [
+                        'factory' => ValidateIsRealValueFactory::class,
                     ],
                     ValidateIsString::class => [
                         'factory' => ValidateIsStringFactory::class,

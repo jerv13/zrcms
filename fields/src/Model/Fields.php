@@ -8,6 +8,13 @@ namespace Zrcms\Fields\Model;
 interface Fields
 {
     /**
+     * @param array $fieldsConfig
+     *
+     * @throws \Exception
+     */
+    public function __construct(array $fieldsConfig);
+
+    /**
      * @param string $name
      *
      * @return Field
@@ -22,6 +29,11 @@ interface Fields
     public function hasField(string $name): bool;
 
     /**
+     * @return Field[]
+     */
+    public function getFields(): array;
+
+    /**
      * @return array ['{name}' => {default}]
      */
     public function getFieldDefaults(): array;
@@ -29,22 +41,5 @@ interface Fields
     /**
      * @return array
      */
-    public function getDefaultFieldsConfig(): array;
-
-    /**
-     * @return array
-     */
     public function getFieldsConfig(): array;
-
-    /**
-     * @param array $fieldValues ['{field-name}' => {fieldValue}]
-     *
-     * @return array ['{field-name}' => {fieldValue}]
-     */
-    public function validFieldValues(array $fieldValues): array;
-
-    /**
-     * @return Field[]
-     */
-    public function __toArray(): array;
 }

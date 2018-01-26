@@ -3,6 +3,8 @@
 namespace Zrcms\InputValidationZrcms\Api;
 
 use Psr\Container\ContainerInterface;
+use Zrcms\InputValidation\Api\BuildCode;
+use Zrcms\InputValidation\Api\IsValidFieldResults;
 use Zrcms\InputValidation\Api\Validate;
 use Zrcms\InputValidation\Api\ValidateCompositeByStrategy;
 use Zrcms\InputValidation\Api\ValidateFields;
@@ -11,7 +13,6 @@ use Zrcms\InputValidation\Api\ValidateIsAssociativeArray;
 use Zrcms\InputValidation\Api\ValidateIsNotEmpty;
 use Zrcms\InputValidation\Api\ValidateIsNull;
 use Zrcms\InputValidation\Api\ValidateIsString;
-use Zrcms\InputValidation\Model\ValidationResult;
 use Zrcms\InputValidation\Model\ValidationResultFields;
 use Zrcms\InputValidation\Model\ValidationResultFieldsBasic;
 use Zrcms\Param\Param;
@@ -100,8 +101,17 @@ class ValidateContentVersionData implements ValidateFields
             $contentVersionData,
             $validatorOptions
         );
-        $valid = $this->isValid($fieldResults, $options);
-        $code = $this->getCode($valid, $options);
+
+        $valid = IsValidFieldResults::invoke(
+            $fieldResults,
+            $options
+        );
+
+        $code = BuildCode::invoke(
+            $valid,
+            $options,
+            $this->defaultInvalidCode
+        );
 
         return new ValidationResultFieldsBasic(
             $valid,
@@ -156,47 +166,6 @@ class ValidateContentVersionData implements ValidateFields
         );
 
         return $fieldResults;
-    }
-
-    /**
-     * @param bool  $valid
-     * @param array $options
-     *
-     * @return string
-     */
-    protected function getCode(
-        bool $valid,
-        array $options = []
-    ): string {
-        if ($valid) {
-            return '';
-        };
-
-        return Param::getString(
-            $options,
-            static::OPTION_INVALID_CODE,
-            $this->defaultInvalidCode
-        );
-    }
-
-    /**
-     * @param array $fieldResults
-     * @param array $options
-     *
-     * @return bool
-     */
-    protected function isValid(
-        array $fieldResults,
-        array $options = []
-    ): bool {
-        /** @var ValidationResult $validationResult */
-        foreach ($fieldResults as $validationResult) {
-            if (!$validationResult->isValid()) {
-                return false;
-            }
-        }
-
-        return true;
     }
 
     /**

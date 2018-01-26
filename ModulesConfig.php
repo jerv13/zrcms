@@ -66,6 +66,7 @@ class ModulesConfig
             new \Zrcms\HttpApi\ModuleConfig(),
             new \Zrcms\HttpApiContainer\ModuleConfig(),
             new \Zrcms\HttpApiCountry\ModuleConfig(),
+            new \Zrcms\HttpApiFields\ModuleConfig(),
             new \Zrcms\HttpApiInputValidationMessages\ModuleConfig(),
             new \Zrcms\HttpApiLanguage\ModuleConfig(),
             new \Zrcms\HttpApiPage\ModuleConfig(),

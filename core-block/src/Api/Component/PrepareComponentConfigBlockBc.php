@@ -67,6 +67,10 @@ class PrepareComponentConfigBlockBc implements PrepareComponentConfigBlock
             }
         }
 
+        if (!isset($blockConfigBc[FieldsBlockComponentConfig::FIELDS])) {
+            $blockConfigBc[FieldsBlockComponentConfig::FIELDS] = [];
+        }
+
         if (empty($blockConfigBc[FieldsBlockComponentConfig::DEFAULT_CONFIG])) {
             $blockConfigBc[FieldsBlockComponentConfig::DEFAULT_CONFIG]
                 = $blockConfigBc[FieldsBlockComponentConfig::FIELDS];

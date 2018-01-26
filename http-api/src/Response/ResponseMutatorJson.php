@@ -91,10 +91,11 @@ class ResponseMutatorJson
         ServerRequestInterface $request,
         ResponseInterface $response
     ): bool {
+
         if (!IsValidAcceptType::invoke($request, $this->validAcceptTypes)) {
             return false;
         }
-
+        // @todo This empty body check should not be required
         if (!empty($response->getBody()->getContents())) {
             return false;
         }

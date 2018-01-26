@@ -3,11 +3,34 @@
 namespace Zrcms\Fields;
 
 use Zrcms\CoreSite\Fields\FieldsSiteVersion;
+use Zrcms\Fields\Api\Field\FieldsToArray;
+use Zrcms\Fields\Api\Field\FieldsToArrayBasicFactory;
+use Zrcms\Fields\Api\Field\FieldToArray;
+use Zrcms\Fields\Api\Field\FieldToArrayBasicFactory;
+use Zrcms\Fields\Api\Field\FindFieldsByModel;
+use Zrcms\Fields\Api\Field\FindFieldsByModelBasicFactory;
+use Zrcms\Fields\Api\FieldType\FieldTypeToArray;
+use Zrcms\Fields\Api\FieldType\FieldTypeToArrayBasicFactory;
+use Zrcms\Fields\Api\FieldType\FindFieldType;
+use Zrcms\Fields\Api\FieldType\FindFieldTypeBasicFactory;
+use Zrcms\Fields\Api\FieldType\ListFieldTypes;
+use Zrcms\Fields\Api\FieldType\ListFieldTypesBasicFactory;
+use Zrcms\Fields\Api\PrepareFields;
+use Zrcms\Fields\Api\PrepareFieldsByFieldsConfigFactory;
+use Zrcms\Fields\Api\ValidateByFieldConfigValidator;
+use Zrcms\Fields\Api\ValidateByFieldConfigValidatorFactory;
+use Zrcms\Fields\Api\ValidateByFieldType;
+use Zrcms\Fields\Api\ValidateByFieldTypeFactory;
+use Zrcms\Fields\Api\ValidateByFieldTypeRequired;
+use Zrcms\Fields\Api\ValidateByFieldTypeRequiredFactory;
+use Zrcms\Fields\Api\ValidateFieldsByFieldsConfig;
+use Zrcms\Fields\Api\ValidateFieldsByFieldsConfigFactory;
 use Zrcms\InputValidation\Api\ValidateFieldsByStrategy;
 use Zrcms\InputValidation\Api\ValidateIsArray;
 use Zrcms\InputValidation\Api\ValidateIsBoolean;
 use Zrcms\InputValidation\Api\ValidateIsClass;
 use Zrcms\InputValidation\Api\ValidateIsObject;
+use Zrcms\InputValidation\Api\ValidateIsRealValue;
 use Zrcms\InputValidation\Api\ValidateIsString;
 use Zrcms\InputValidationZrcms\Api\ValidateIsZrcmsServiceAlias;
 
@@ -22,125 +45,115 @@ class ModuleConfig
     public function __invoke()
     {
         return [
-            /**
-             * ===== ZRCMS Fields =====
-             */
-            'zrcms-fields' => [
-                FieldsSiteVersion::class => [
-                    [
-                        'name' => FieldsSiteVersion::THEME_NAME,
-                        'type' => 'text',
-                        'label' => 'Theme Name',
-                        'required' => false,
-                        'default' => '',
-                        'options' => [],
+            'dependencies' => [
+                'config_factories' => [
+                    FieldsToArray::class => [
+                        'factory' => FieldsToArrayBasicFactory::class,
                     ],
-                    [
-                        'name' => FieldsSiteVersion::LOCALE,
-                        'type' => 'text',
-                        'label' => 'Locale',
-                        'required' => false,
-                        'default' => 'en_US',
-                        'options' => [],
+                    FieldToArray::class => [
+                        'factory' => FieldToArrayBasicFactory::class,
                     ],
-                    [
-                        'name' => FieldsSiteVersion::LAYOUT,
-                        'type' => 'text',
-                        'label' => 'Layout',
-                        'required' => false,
-                        'default' => FieldsSiteVersion::DEFAULT_PRIMARY_LAYOUT_NAME,
-                        'options' => [],
+                    FindFieldsByModel::class => [
+                        'factory' => FindFieldsByModelBasicFactory::class,
                     ],
-                    [
-                        'name' => FieldsSiteVersion::COUNTRY_ISO3,
-                        'type' => 'text',
-                        'label' => 'Country ISO3 Code',
-                        'required' => true,
-                        'default' => 'USA',
-                        'options' => [],
+                    FieldTypeToArray::class => [
+                        'factory' => FieldTypeToArrayBasicFactory::class,
                     ],
-                    [
-                        'name' => FieldsSiteVersion::LANGUAGE_ISO_939_2T,
-                        'type' => 'text',
-                        'label' => 'Language ISO 939 2t Code',
-                        'required' => true,
-                        'default' => 'eng',
-                        'options' => [],
+                    FindFieldType::class => [
+                        'factory' => FindFieldTypeBasicFactory::class,
                     ],
-                    [
-                        'name' => FieldsSiteVersion::TITLE,
-                        'type' => 'text',
-                        'label' => 'Site Title',
-                        'required' => true,
-                        'default' => '',
-                        'options' => [],
+                    ListFieldTypes::class => [
+                        'factory' => ListFieldTypesBasicFactory::class,
                     ],
-                    [
-                        'name' => FieldsSiteVersion::LOGIN_PAGE,
-                        'type' => 'text',
-                        'label' => 'Login Page Path',
-                        'required' => false,
-                        'default' => '/login',
-                        'options' => [],
+                    PrepareFields::class => [
+                        'factory' => PrepareFieldsByFieldsConfigFactory::class,
                     ],
-                    [
-                        'name' => FieldsSiteVersion::STATUS_PAGES,
-                        'type' => 'array',
-                        'label' => 'Status Pages Config',
-                        'required' => false,
-                        'default' => [
-                            '401' => '/not-authorized',
-                            '404' => '/not-found'
-                        ],
-                        'options' => [],
+                    ValidateByFieldConfigValidator::class => [
+                        'factory' => ValidateByFieldConfigValidatorFactory::class,
                     ],
-                    [
-                        'name' => FieldsSiteVersion::FAVICON,
-                        'type' => 'text',
-                        'label' => 'Favicon Path',
-                        'required' => false,
-                        'default' => null,
-                        'options' => [],
+                    ValidateByFieldType::class => [
+                        'factory' => ValidateByFieldTypeFactory::class,
+                    ],
+                    ValidateByFieldTypeRequired::class => [
+                        'factory' => ValidateByFieldTypeRequiredFactory::class,
+                    ],
+                    ValidateFieldsByFieldsConfig::class => [
+                        'factory' => ValidateFieldsByFieldsConfigFactory::class,
                     ],
                 ],
             ],
 
+            /**
+             * ===== ZRCMS Field Models =====
+             * ['{model-name}' => '{model-class}']
+             */
+            'zrcms-fields-model' => [
+            ],
+
+            /**
+             * ===== ZRCMS Fields =====
+             * ['{model-name}' => '{fields-config}']
+             */
+            'zrcms-fields' => [
+            ],
+
+            /**
+             * ===== ZRCMS Field Types =====
+             */
             'zrcms-field-types' => [
                 'array' => [
                     'validator' => ValidateIsArray::class,
                     'validator-options' => [],
+                    'validator-required' => ValidateIsRealValue::class,
+                    'validator-required-options' => [],
                 ],
                 'bool' => [
                     'validator' => ValidateIsBoolean::class,
                     'validator-options' => [],
+                    'validator-required' => ValidateIsRealValue::class,
+                    'validator-required-options' => [],
                 ],
                 'class' => [
                     'validator' => ValidateIsClass::class,
                     'validator-options' => [],
+                    'validator-required' => ValidateIsRealValue::class,
+                    'validator-required-options' => [],
                 ],
                 'fields' => [
                     'validator' => ValidateFieldsByStrategy::class,
                     'validator-options' => [],
+                    'validator-required' => ValidateIsRealValue::class,
+                    'validator-required-options' => [],
                 ],
                 'id' => [
                     'validator' => ValidateIsString::class,
                     'validator-options' => [],
+                    'validator-required' => ValidateIsRealValue::class,
+                    'validator-required-options' => [],
                 ],
                 'object' => [
                     'validator' => ValidateIsObject::class,
                     'validator-options' => [],
+                    'validator-required' => ValidateIsRealValue::class,
+                    'validator-required-options' => [],
                 ],
                 'text' => [
                     'validator' => ValidateIsString::class,
                     'validator-options' => [],
+                    'validator-required' => ValidateIsRealValue::class,
+                    'validator-required-options' => [],
                 ],
                 'string' => [
                     'validator' => ValidateIsString::class,
                     'validator-options' => [],
+                    'validator-required' => ValidateIsRealValue::class,
+                    'validator-required-options' => [],
                 ],
                 'zrcms-service' => [
                     'validator' => ValidateIsZrcmsServiceAlias::class,
                     'validator-options' => [],
+                    'validator-required' => ValidateIsRealValue::class,
+                    'validator-required-options' => [],
                 ],
             ],
         ];

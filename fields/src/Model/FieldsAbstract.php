@@ -2,30 +2,11 @@
 
 namespace Zrcms\Fields\Model;
 
-use Zrcms\Core\Exception\FieldMissing;
-use Zrcms\Param\Param;
-
 /**
  * @author James Jervis - https://github.com/jerv13
  */
 class FieldsAbstract
 {
-    /**
-     * [
-     *  'name' => self::FIELD_NAME,
-     *  'type' => 'text',
-     *  'label' => 'Name',
-     *  'required' => false,
-     *  'validator' => '{service}',
-     *  'default' => '',
-     *  'options' => [
-     *  ],
-     * ],
-     *
-     * @var array
-     */
-    protected $defaultFieldsConfig = [];
-
     /**
      * @var array
      */
@@ -48,13 +29,6 @@ class FieldsAbstract
      */
     public function __construct(array $fieldsConfig)
     {
-        $defaultFieldsConfig = $this->getDefaultFieldsConfig();
-        // Default config
-        foreach ($defaultFieldsConfig as $fieldConfig) {
-            $field = FieldBasic::build($fieldConfig);
-            $this->addField($field);
-        }
-
         $fieldsArray = [];
 
         foreach ($fieldsConfig as $fieldConfig) {
@@ -66,7 +40,7 @@ class FieldsAbstract
             $this->addField($field);
         }
 
-        $this->fieldsConfig = array_merge($fieldsConfig, $defaultFieldsConfig);
+        $this->fieldsConfig = $fieldsConfig;
     }
 
     /**
@@ -94,6 +68,14 @@ class FieldsAbstract
     }
 
     /**
+     * @return Field[]
+     */
+    public function getFields(): array
+    {
+        return $this->fields;
+    }
+
+    /**
      * @return array ['{name}' => {default}]
      */
     public function getFieldDefaults(): array
@@ -110,53 +92,9 @@ class FieldsAbstract
     /**
      * @return array
      */
-    public function getDefaultFieldsConfig(): array
-    {
-        return $this->defaultFieldsConfig;
-    }
-
-    /**
-     * @return array
-     */
     public function getFieldsConfig(): array
     {
         return $this->fieldsConfig;
-    }
-
-    /**
-     * @param array $fieldValues ['{field-name}' => {fieldValue}]
-     *
-     * @return array ['{field-name}' => {fieldValue}]
-     * @throws \Exception
-     * @throws \Zrcms\Param\Exception\ParamMissing
-     */
-    public function validFieldValues(array $fieldValues): array
-    {
-        $values = [];
-        /** @var Field $field */
-        foreach ($this->fields as $field) {
-            $name = $field->getName();
-            if ($field->isRequired()) {
-                Param::assertHas(
-                    $fieldValues,
-                    $name,
-                    get_class($this)
-                );
-            }
-
-            // @todo Can force types
-            $values[$field->getName()] = Param::get($fieldValues, $field->getName(), $field->getDefault());
-        }
-
-        return $values;
-    }
-
-    /**
-     * @return Field[]
-     */
-    public function __toArray(): array
-    {
-        return $this->fields;
     }
 
     /**

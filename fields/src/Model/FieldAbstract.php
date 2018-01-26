@@ -14,15 +14,15 @@ class FieldAbstract
      *
      * @return Field|FieldAbstract
      */
-    public static function build(array $fieldConfig)
+    public static function build(array $fieldConfig): Field
     {
         return new static(
-            Param::getString($fieldConfig, 'name'),
-            Param::getString($fieldConfig, 'type'),
-            Param::getString($fieldConfig, 'label'),
-            Param::getBool($fieldConfig, 'required', false),
-            Param::get($fieldConfig, 'default', null),
-            Param::getArray($fieldConfig, 'options', [])
+            Param::getString($fieldConfig, FieldConfig::NAME),
+            Param::getString($fieldConfig, FieldConfig::TYPE),
+            Param::getString($fieldConfig, FieldConfig::LABEL),
+            Param::getBool($fieldConfig, FieldConfig::REQUIRED, false),
+            Param::get($fieldConfig, FieldConfig::DEFAULT_VALUE, null),
+            Param::getArray($fieldConfig, FieldConfig::OPTIONS, [])
         );
     }
 

@@ -17,6 +17,8 @@ class HttpApiIsAllowed
 {
     const SOURCE = 'zrcms-is-allowed-check-api';
 
+    const DEFAULT_NOT_ALLOWED_STATUS = 401;
+
     protected $isAllowed;
     protected $isAllowedOptions;
     protected $name;
@@ -34,7 +36,7 @@ class HttpApiIsAllowed
         IsAllowed $isAllowed,
         array $isAllowedOptions,
         string $name,
-        int $notAllowedStatus = 401,
+        int $notAllowedStatus = self::DEFAULT_NOT_ALLOWED_STATUS,
         bool $debug = false
     ) {
         $this->isAllowed = $isAllowed;

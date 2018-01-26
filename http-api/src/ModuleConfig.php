@@ -3,7 +3,6 @@
 namespace Zrcms\HttpApi;
 
 use ZfInputFilterService\InputFilter\ServiceAwareFactory;
-use Zrcms\Acl\Api\IsAllowedRcmUserAdmin;
 use Zrcms\HttpApi\Acl\HttpApiIsAllowedDynamic;
 use Zrcms\HttpApi\Acl\HttpApiIsAllowedDynamicFactory;
 use Zrcms\HttpApi\Acl\HttpApiIsAllowedFindComponent;

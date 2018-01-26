@@ -15,6 +15,7 @@ class ModulesConfigRoutes
             new \Zrcms\HttpApi\ModuleConfigRoutes(),
             new \Zrcms\HttpApiContainer\ModuleConfigRoutes(),
             new \Zrcms\HttpApiCountry\ModuleConfigRoutes(),
+            new \Zrcms\HttpApiFields\ModuleConfigRoutes(),
             new \Zrcms\HttpApiLanguage\ModuleConfigRoutes(),
             new \Zrcms\HttpApiPage\ModuleConfigRoutes(),
             new \Zrcms\HttpApiRedirect\ModuleConfigRoutes(),

@@ -12,7 +12,7 @@ interface Field
      *
      * @return Field
      */
-    public static function build(array $fieldConfig);
+    public static function build(array $fieldConfig):Field;
 
     /**
      * @return string
