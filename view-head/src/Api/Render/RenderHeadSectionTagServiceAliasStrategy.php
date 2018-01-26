@@ -4,8 +4,8 @@ namespace Zrcms\ViewHead\Api\Render;
 
 use Psr\Http\Message\ServerRequestInterface;
 use Zrcms\Param\Param;
+use Zrcms\ServiceAlias\Api\AssertNotSelfReference;
 use Zrcms\ServiceAlias\Api\GetServiceFromAlias;
-use Zrcms\ServiceAlias\ServiceCheck;
 use Zrcms\ViewHead\Api\Exception\CanNotRenderHeadSectionTag;
 use Zrcms\ViewHead\Model\ServiceAliasViewHead;
 
@@ -67,7 +67,7 @@ class RenderHeadSectionTagServiceAliasStrategy implements RenderHeadSectionTag
             ''
         );
 
-        ServiceCheck::assertNotSelfReference($this, $renderHeadSectionTag);
+        AssertNotSelfReference::invoke($this, $renderHeadSectionTag);
 
         unset($sectionConfig[static::PARAM_SERVICE_ALIAS_STRATEGY]);
 

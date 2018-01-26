@@ -13,43 +13,4 @@ class FieldsView extends FieldsContent
     const PAGE_CMS_RESOURCE = 'pageCmsResource';
     const LAYOUT_CMS_RESOURCE = 'layoutCmsResource';
     const RENDERER = 'renderer';
-
-    /**
-     * @var array
-     */
-    protected $defaultFieldsConfig
-        = [
-            [
-                'name' => self::SITE_CMS_RESOURCE,
-                'type' => 'object',
-                'label' => 'SiteCmsResource',
-                'required' => true,
-                'default' => null,
-                'options' => [],
-            ],
-            [
-                'name' => self::PAGE_CMS_RESOURCE,
-                'type' => 'object',
-                'label' => 'PageCmsResource',
-                'required' => true,
-                'default' => null,
-                'options' => [],
-            ],
-            [
-                'name' => self::LAYOUT_CMS_RESOURCE,
-                'type' => 'object',
-                'label' => 'ThemeLayoutCmsResource',
-                'required' => true,
-                'default' => null,
-                'options' => [],
-            ],
-            [
-                'name' => self::RENDERER,
-                'type' => 'zrcms-service',
-                'label' => 'Renderer (layout renderer)',
-                'required' => false,
-                'default' => 'layout',
-                'options' => [],
-            ],
-        ];
 }

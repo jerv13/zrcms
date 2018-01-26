@@ -3,11 +3,11 @@
 namespace Zrcms\CoreContainer\Api\Render;
 
 use Zrcms\Core\Model\Content;
-use Zrcms\CoreContainer\Model\Container;
 use Zrcms\CoreContainer\Fields\FieldsContainer;
+use Zrcms\CoreContainer\Model\Container;
 use Zrcms\CoreContainer\Model\ServiceAliasContainer;
+use Zrcms\ServiceAlias\Api\AssertNotSelfReference;
 use Zrcms\ServiceAlias\Api\GetServiceFromAlias;
-use Zrcms\ServiceAlias\ServiceCheck;
 
 class RenderContainerBasic implements RenderContainer
 {
@@ -45,6 +45,7 @@ class RenderContainerBasic implements RenderContainer
      * @param array             $options
      *
      * @return string
+     * @throws \Zrcms\ServiceAlias\Exception\ServiceSelfReferenceException
      */
     public function __invoke(
         Content $container,
@@ -65,7 +66,7 @@ class RenderContainerBasic implements RenderContainer
             $this->defaultRenderContainerServiceName
         );
 
-        ServiceCheck::assertNotSelfReference($this, $renderContainerService);
+        AssertNotSelfReference::invoke($this, $renderContainerService);
 
         return $renderContainerService->__invoke(
             $container,

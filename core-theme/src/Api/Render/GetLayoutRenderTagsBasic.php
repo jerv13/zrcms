@@ -4,15 +4,15 @@ namespace Zrcms\CoreTheme\Api\Render;
 
 use Psr\Http\Message\ServerRequestInterface;
 use Zrcms\Core\Model\Content;
-use Zrcms\CoreTheme\Model\Layout;
 use Zrcms\CoreTheme\Fields\FieldsLayout;
+use Zrcms\CoreTheme\Model\Layout;
 use Zrcms\CoreTheme\Model\ServiceAliasLayout;
+use Zrcms\ServiceAlias\Api\AssertNotSelfReference;
 use Zrcms\ServiceAlias\Api\GetServiceFromAlias;
-use Zrcms\ServiceAlias\ServiceCheck;
 
 /**
  * @deprecated NOT NEEDED?
- * @author James Jervis - https://github.com/jerv13
+ * @author     James Jervis - https://github.com/jerv13
  */
 class GetLayoutRenderTagsBasic implements GetLayoutRenderTags
 {
@@ -70,7 +70,7 @@ class GetLayoutRenderTagsBasic implements GetLayoutRenderTags
             $this->defaultRenderTagsGetterServiceName
         );
 
-        ServiceCheck::assertNotSelfReference($this, $renderTagsGetterService);
+        AssertNotSelfReference::invoke($this, $renderTagsGetterService);
 
         return $renderTagsGetterService->__invoke(
             $layout,

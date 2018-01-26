@@ -2,7 +2,6 @@
 
 namespace Zrcms\CoreTheme;
 
-use Zrcms\Core\Api\Component\BuildComponentObject;
 use Zrcms\Core\Api\Component\ReadComponentConfigs;
 use Zrcms\Core\Api\Component\SearchComponentConfigs;
 use Zrcms\Core\Api\GetTypeValue;
@@ -22,10 +21,6 @@ use Zrcms\CoreTheme\Api\Render\GetLayoutRenderTagsNoop;
 use Zrcms\CoreTheme\Api\Render\RenderLayout;
 use Zrcms\CoreTheme\Api\Render\RenderLayoutBasic;
 use Zrcms\CoreTheme\Api\Render\RenderLayoutMustache;
-use Zrcms\CoreTheme\Model\LayoutComponent;
-use Zrcms\CoreTheme\Model\LayoutComponentBasic;
-use Zrcms\CoreTheme\Model\ServiceAliasLayout;
-use Zrcms\CoreTheme\Model\ThemeComponent;
 use Zrcms\CoreTheme\Model\ThemeComponentBasic;
 use Zrcms\ServiceAlias\Api\GetServiceFromAlias;
 
@@ -107,32 +102,6 @@ class ModuleConfig
                     ],
                     RenderLayoutMustache::class => [],
                 ],
-            ],
-            /**
-             * ===== Service Alias =====
-             */
-            'zrcms-service-alias' => [
-                // @todo IS THIS USED? 'zrcms.layout.content.render-tags-getter'
-                ServiceAliasLayout::ZRCMS_CONTENT_RENDERER => [
-                    'mustache'
-                    => RenderLayoutMustache::class,
-                ],
-            ],
-
-            /**
-             * ===== ZRCMS Types =====
-             */
-            'zrcms-types' => [
-                'theme' => [
-                    BuildComponentObject::class => BuildComponentObjectThemeLayouts::class,
-                    'component-model-interface' => ThemeComponent::class,
-                    'component-model-class' => ThemeComponentBasic::class,
-                ],
-                'theme-layout' => [
-                    BuildComponentObject::class => BuildComponentObjectThemeLayout::class,
-                    'component-model-interface' => LayoutComponent::class,
-                    'component-model-class' => LayoutComponentBasic::class,
-                ]
             ],
         ];
     }

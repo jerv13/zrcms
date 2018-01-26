@@ -1,13 +1,13 @@
 <?php
 
-namespace Zrcms\ServiceAlias;
+namespace Zrcms\ServiceAlias\Api;
 
 use Zrcms\ServiceAlias\Exception\ServiceSelfReferenceException;
 
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class ServiceCheck
+class AssertNotSelfReference
 {
     /**
      * @param object $service
@@ -16,7 +16,7 @@ class ServiceCheck
      * @return void
      * @throws ServiceSelfReferenceException
      */
-    public static function assertNotSelfReference(
+    public static function invoke(
         $service,
         $subService
     ) {
@@ -25,5 +25,22 @@ class ServiceCheck
                 'Class ' . get_class($service) . ' can not use itself as a service.'
             );
         }
+    }
+
+    /**
+     * @param object $service
+     * @param object $subService
+     *
+     * @return void
+     * @throws ServiceSelfReferenceException
+     */
+    public function __invoke(
+        $service,
+        $subService
+    ) {
+        self::invoke(
+            $service,
+            $subService
+        );
     }
 }

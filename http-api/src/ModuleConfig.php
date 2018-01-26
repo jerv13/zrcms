@@ -42,6 +42,10 @@ use Zrcms\HttpApi\Validate\HttpApiValidateIdAttributeDynamic;
 use Zrcms\HttpApi\Validate\HttpApiValidateIdAttributeDynamicFactory;
 use Zrcms\HttpApi\Validate\HttpApiValidateWhereParamDynamic;
 use Zrcms\HttpApi\Validate\HttpApiValidateWhereParamDynamicFactory;
+use Zrcms\HttpApi\ZrcmsConfig\HttpApiIsAllowedZrcmsConfig;
+use Zrcms\HttpApi\ZrcmsConfig\HttpApiIsAllowedZrcmsConfigFactory;
+use Zrcms\HttpApi\ZrcmsConfig\HttpApiZrcmsConfig;
+use Zrcms\HttpApi\ZrcmsConfig\HttpApiZrcmsConfigFactory;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -157,6 +161,14 @@ class ModuleConfig
                         'factory' => HttpApiValidateWhereParamDynamicFactory::class,
                     ],
 
+                    HttpApiIsAllowedZrcmsConfig::class => [
+                        'factory' => HttpApiIsAllowedZrcmsConfigFactory::class,
+                    ],
+
+                    HttpApiZrcmsConfig::class => [
+                        'factory' => HttpApiZrcmsConfigFactory::class,
+                    ],
+
                     /**
                      * General ===========================================
                      */
@@ -164,243 +176,6 @@ class ModuleConfig
                         'factory' => GetDynamicApiConfigAppConfigFactory::class,
                     ],
                 ],
-            ],
-
-            /**
-             * ===== ZRCMS HTTP API by request =====
-             */
-            'zrcms-http-api-dynamic' => [
-                /* Example
-                // '[{zrcms-implementation}][{zrcms-api}][{middleware-name}]=>[{middleware-config}]'
-                '{zrcms-implementation}' => [
-                    'find-cms-resource' => [
-                        'acl' => [
-                            'is-allowed' => IsAllowedRcmUserAdmin::class,
-                            'is-allowed-options' => [],
-                            'not-allowed-status' => 401,
-                        ],
-                        'api' => [
-                            'api-service' => FindSiteCmsResource::class,
-                            'to-array' => CmsResourceToArray::class,
-                            'not-found-status' => 404,
-                        ],
-                    ],
-
-                    'find-cms-resources-by' => [
-                        'acl' => [
-                            'is-allowed' => IsAllowedRcmUserAdmin::class,
-                            'is-allowed-options' => [],
-                            'not-allowed-status' => 401,
-                        ],
-                        'api' => [
-                            'api-service' => FindSiteCmsResourcesBy::class,
-                            'to-array' => CmsResourcesToArray::class,
-                            'not-found-status' => 404,
-                        ],
-                    ],
-
-                    'find-cms-resources-published' => [
-                        'acl' => [
-                            'is-allowed' => IsAllowedRcmUserAdmin::class,
-                            'is-allowed-options' => [],
-                            'not-allowed-status' => 401,
-                        ],
-                        'api' => [
-                            'api-service' => FindSiteCmsResourcesPublished::class,
-                            'to-array' => CmsResourcesToArray::class,
-                            'not-found-status' => 404,
-                        ],
-                    ],
-
-                    'upsert-cms-resource' => [
-                        'acl' => [
-                            'is-allowed' => IsAllowedRcmUserAdmin::class,
-                            'is-allowed-options' => [],
-                            'not-allowed-status' => 401,
-                        ],
-                        'validate-fields' => [
-                            'validate-fields' => ValidateFieldsByStrategy::class,
-                            'validate-fields-options' => [
-                                'field-validators' => [
-                                    'id' => [
-                                        'validator' => ValidateIsAnyValue::class,
-                                        'options' => [],
-                                    ],
-                                    'published' => [
-                                        'validator' => ValidateIsBoolean::class,
-                                        'options' => [],
-                                    ],
-                                    'contentVersion' => [
-                                        'validator' => ValidateFieldsByStrategy::class,
-                                        'options' => [
-                                            'field-validators' => [
-                                                'id' => [
-                                                    'validator' => ValidateIsAnyValue::class,
-                                                    'options' => [],
-                                                ],
-                                                'properties' => [
-                                                    'validator' => ValidateIsAssociativeArray::class,
-                                                    'options' => [],
-                                                ],
-                                                'createdByUserId' => [
-                                                    'validator' => ValidateIsNull::class,
-                                                    'options' => [],
-                                                ],
-                                                'createdReason' => [
-                                                    'validator' => ValidateCompositeByStrategy::class,
-                                                    'options' => [
-                                                        'validators' => [
-                                                            [
-                                                                'validator' => ValidateIsNotEmpty::class,
-                                                            ],
-                                                            [
-                                                                'validator' => ValidateIsString::class,
-                                                            ],
-                                                        ]
-                                                    ],
-                                                ],
-                                                'createdDate' => [
-                                                    'validator' => ValidateIsNull::class,
-                                                    'options' => [],
-                                                ],
-                                            ],
-                                        ]
-                                    ],
-                                    'createdByUserId' => [
-                                        'validator' => ValidateIsNull::class,
-                                        'options' => [],
-                                    ],
-                                    'createdReason' => [
-                                        'validator' => ValidateCompositeByStrategy::class,
-                                        'options' => [
-                                            'validators' => [
-                                                [
-                                                    'validator' => ValidateIsNotEmpty::class,
-                                                ],
-                                                [
-                                                    'validator' => ValidateIsString::class,
-                                                ],
-                                            ]
-                                        ],
-                                    ],
-                                    'createdDate' => [
-                                        'validator' => ValidateIsNull::class,
-                                        'options' => [],
-                                    ],
-                                ],
-                            ],
-                            'not-valid-status' => 400,
-                        ],
-                        'api' => [
-                            'api-service' => UpsertSiteCmsResource::class,
-                            'to-array' => CmsResourceToArray::class,
-                            'not-found-status' => 404,
-                        ],
-                    ],
-
-                    'find-cms-resource-history' => [
-                        'acl' => [
-                            'is-allowed' => IsAllowedRcmUserAdmin::class,
-                            'is-allowed-options' => [],
-                            'not-allowed-status' => 401,
-                        ],
-                        'api' => [
-                            //'api-service' => TBD::class,
-                            'to-array' => CmsResourceToArray::class,
-                            'not-found-status' => 404,
-                        ],
-                    ],
-
-                    'find-cms-resource-histories-by' => [
-                        'acl' => [
-                            'is-allowed' => IsAllowedRcmUserAdmin::class,
-                            'is-allowed-options' => [],
-                            'not-allowed-status' => 401,
-                        ],
-                        'api' => [
-                            //'api-service' => TBD::class,
-                            'to-array' => CmsResourcesToArray::class,
-                            'not-found-status' => 404,
-                        ],
-                    ],
-
-                    'find-content-version' => [
-                        'acl' => [
-                            'is-allowed' => IsAllowedRcmUserAdmin::class,
-                            'is-allowed-options' => [],
-                            'not-allowed-status' => 401,
-                        ],
-                        'api' => [
-                            'api-service' => FindSiteVersion::class,
-                            'to-array' => ContentVersionToArray::class,
-                            'not-found-status' => 404,
-                        ],
-                    ],
-
-                    'find-content-versions-by' => [
-                        'acl' => [
-                            'is-allowed' => IsAllowedRcmUserAdmin::class,
-                            'is-allowed-options' => [],
-                            'not-allowed-status' => 401,
-                        ],
-                        'api' => [
-                            'api-service' => FindSiteVersionsBy::class,
-                            'to-array' => ContentVersionsToArray::class,
-                            'not-found-status' => 404,
-                        ],
-                    ],
-
-                    'insert-content-version' => [
-                        'acl' => [
-                            'is-allowed' => IsAllowedRcmUserAdmin::class,
-                            'is-allowed-options' => [],
-                            'not-allowed-status' => 401,
-                        ],
-                        'validate-fields' => [
-                            'validate-fields' => ValidateFieldsByStrategy::class,
-                            'validate-fields-options' => [
-                                'field-validators' => [
-                                    'id' => [
-                                        'validator' => ValidateIsAnyValue::class,
-                                        'options' => [],
-                                    ],
-                                    'properties' => [
-                                        'validator' => ValidateIsAssociativeArray::class,
-                                        'options' => [],
-                                    ],
-                                    'createdByUserId' => [
-                                        'validator' => ValidateIsNull::class,
-                                        'options' => [],
-                                    ],
-                                    'createdReason' => [
-                                        'validator' => ValidateCompositeByStrategy::class,
-                                        'options' => [
-                                            'validators' => [
-                                                [
-                                                    'validator' => ValidateIsNotEmpty::class,
-                                                ],
-                                                [
-                                                    'validator' => ValidateIsString::class,
-                                                ],
-                                            ]
-                                        ],
-                                    ],
-                                    'createdDate' => [
-                                        'validator' => ValidateIsNull::class,
-                                        'options' => [],
-                                    ],
-                                ],
-                            ],
-                            'not-valid-status' => 400,
-                        ],
-                        'api' => [
-                            'api-service' => InsertSiteVersion::class,
-                            'to-array' => ContentVersionToArray::class,
-                            'not-found-status' => 404,
-                        ],
-                    ],
-                ],
-                */
             ],
         ];
     }

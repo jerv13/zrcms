@@ -30,7 +30,6 @@ class ModuleConfig
 
                 ],
             ],
-            'zrcms-locale-default' => DefaultLocal::get()
         ];
     }
 }

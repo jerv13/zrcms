@@ -2,11 +2,11 @@
 
 namespace Zrcms\CoreView\Api;
 
-use Zrcms\CoreTheme\Model\Layout;
 use Zrcms\CoreTheme\Fields\FieldsLayout;
+use Zrcms\CoreTheme\Model\Layout;
 use Zrcms\CoreView\Model\ServiceAliasView;
+use Zrcms\ServiceAlias\Api\AssertNotSelfReference;
 use Zrcms\ServiceAlias\Api\GetServiceFromAlias;
-use Zrcms\ServiceAlias\ServiceCheck;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -65,7 +65,7 @@ class GetTagNamesByLayoutBasic implements GetTagNamesByLayout
             $this->defaultFindTagNamesServiceName
         );
 
-        ServiceCheck::assertNotSelfReference($this, $findTagNamesService);
+        AssertNotSelfReference::invoke($this, $findTagNamesService);
 
         return $findTagNamesService->__invoke(
             $layout,

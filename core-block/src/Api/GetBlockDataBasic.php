@@ -9,8 +9,9 @@ use Zrcms\CoreBlock\Fields\FieldsBlockComponent;
 use Zrcms\CoreBlock\Model\Block;
 use Zrcms\CoreBlock\Model\BlockComponent;
 use Zrcms\CoreBlock\Model\ServiceAliasBlock;
+use Zrcms\ServiceAlias\Api\AssertNotSelfReference;
 use Zrcms\ServiceAlias\Api\GetServiceFromAlias;
-use Zrcms\ServiceAlias\ServiceCheck;
+use Zrcms\ServiceAlias\Exception\ServiceSelfReferenceException;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -59,7 +60,7 @@ class GetBlockDataBasic implements GetBlockData
      * @param array                  $options
      *
      * @return array
-     * @throws BlockComponentMissing|\Exception
+     * @throws \Exception
      */
     public function __invoke(
         Block $block,
@@ -90,7 +91,7 @@ class GetBlockDataBasic implements GetBlockData
             $this->defaultGetBlockDataServiceName
         );
 
-        ServiceCheck::assertNotSelfReference($this, $getBlockData);
+        AssertNotSelfReference::invoke($this, $getBlockData);
 
         return $getBlockData->__invoke(
             $block,

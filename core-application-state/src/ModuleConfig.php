@@ -23,13 +23,6 @@ class ModuleConfig
                     ],
                 ],
             ],
-
-            /**
-             * ===== ZRCMS Application State =====
-             */
-            'zrcms-application-state' => [
-                /* '{key}' => '{GetApplicationStateServiceName}' */
-            ],
         ];
     }
 }

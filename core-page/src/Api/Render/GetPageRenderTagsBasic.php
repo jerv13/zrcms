@@ -4,11 +4,11 @@ namespace Zrcms\CorePage\Api\Render;
 
 use Psr\Http\Message\ServerRequestInterface;
 use Zrcms\Core\Model\Content;
-use Zrcms\CorePage\Model\Page;
 use Zrcms\CorePage\Fields\FieldsPage;
+use Zrcms\CorePage\Model\Page;
 use Zrcms\CorePage\Model\ServiceAliasPage;
+use Zrcms\ServiceAlias\Api\AssertNotSelfReference;
 use Zrcms\ServiceAlias\Api\GetServiceFromAlias;
-use Zrcms\ServiceAlias\ServiceCheck;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -71,7 +71,7 @@ class GetPageRenderTagsBasic implements GetPageRenderTags
             $this->defaultGetPageRenderTagsServiceName
         );
 
-        ServiceCheck::assertNotSelfReference($this, $getPageRenderTagsService);
+        AssertNotSelfReference::invoke($this, $getPageRenderTagsService);
 
         return $getPageRenderTagsService->__invoke(
             $page,

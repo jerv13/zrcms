@@ -1,20 +1,21 @@
 <?php
 
-namespace Zrcms\CoreCountry;
+namespace Zrcms\CoreLanguage;
 
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class ModuleConfig
+class ModuleConfigZrcms
 {
     /**
      * @return array
      */
     public function __invoke()
     {
+
         return [
             'zrcms-components' => [
-                'basic.zrcms-countries'
+                'basic.zrcms-languages'
                 => 'json:' . __DIR__ . '/../zrcms-component.json',
             ],
         ];

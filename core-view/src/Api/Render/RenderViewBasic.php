@@ -6,8 +6,8 @@ use Zrcms\Core\Model\Content;
 use Zrcms\CoreTheme\Api\Render\RenderLayout;
 use Zrcms\CoreView\Fields\FieldsView;
 use Zrcms\CoreView\Model\ServiceAliasView;
+use Zrcms\ServiceAlias\Api\AssertNotSelfReference;
 use Zrcms\ServiceAlias\Api\GetServiceFromAlias;
-use Zrcms\ServiceAlias\ServiceCheck;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -68,7 +68,7 @@ class RenderViewBasic implements RenderView
             $this->defaultRenderServiceName
         );
 
-        ServiceCheck::assertNotSelfReference($this, $render);
+        AssertNotSelfReference::invoke($this, $render);
 
         return $render->__invoke(
             $view,

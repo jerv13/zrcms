@@ -6,8 +6,8 @@ use Psr\Http\Message\ServerRequestInterface;
 use Zrcms\Core\Model\Content;
 use Zrcms\CoreView\Model\ServiceAliasView;
 use Zrcms\CoreView\Model\View;
+use Zrcms\ServiceAlias\Api\AssertNotSelfReference;
 use Zrcms\ServiceAlias\Api\GetServiceFromAlias;
-use Zrcms\ServiceAlias\ServiceCheck;
 
 /**
  *
@@ -79,7 +79,7 @@ class GetViewLayoutTagsHeadAll implements GetViewLayoutTagsHead
                 ''
             );
 
-            ServiceCheck::assertNotSelfReference($this, $renderService);
+            AssertNotSelfReference::invoke($this, $renderService);
 
             $subRenderTags = $renderService->__invoke(
                 $view,

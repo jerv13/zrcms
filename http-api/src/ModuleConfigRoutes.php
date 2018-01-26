@@ -22,6 +22,8 @@ use Zrcms\HttpApi\Params\HttpApiOffset;
 use Zrcms\HttpApi\Params\HttpApiOrderBy;
 use Zrcms\HttpApi\Params\HttpApiWhere;
 use Zrcms\HttpApi\Validate\HttpApiValidateFieldsDynamic;
+use Zrcms\HttpApi\ZrcmsConfig\HttpApiIsAllowedZrcmsConfig;
+use Zrcms\HttpApi\ZrcmsConfig\HttpApiZrcmsConfig;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -155,6 +157,21 @@ class ModuleConfigRoutes
                     ],
                     'options' => [
                         'zrcms-api' => 'find-cms-resources-by-histories'
+                    ],
+                    'allowed_methods' => ['GET'],
+                ],
+
+                /**
+                 * FindComponent
+                 */
+                'zrcms.api.config.list' => [
+                    'name' => 'zrcms.api.config.list',
+                    'path' => '/zrcms/api/config/list',
+                    'middleware' => [
+                        'acl' => HttpApiIsAllowedZrcmsConfig::class,
+                        'api' => HttpApiZrcmsConfig::class,
+                    ],
+                    'options' => [
                     ],
                     'allowed_methods' => ['GET'],
                 ],

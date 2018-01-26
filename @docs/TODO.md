@@ -1,5 +1,18 @@
 @todo
 =====
+ModuleConfigZrcms
+
+
+
+- Implement extends feature
+
+- Split Configs to separate file for 'zrcms-xxx' stuff
+
+##### Importer 
+
+- Should use fields bit (warnings ONLY)
+- Split into indiviual APIs
+
 
 ##### HTTP APIs for each php API
 

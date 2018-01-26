@@ -9,8 +9,8 @@ use Zrcms\Core\Model\Content;
 use Zrcms\CoreView\Model\ServiceAliasView;
 use Zrcms\CoreView\Model\View;
 use Zrcms\CoreView\Model\ViewLayoutTagsComponent;
+use Zrcms\ServiceAlias\Api\AssertNotSelfReference;
 use Zrcms\ServiceAlias\Api\GetServiceFromAlias;
-use Zrcms\ServiceAlias\ServiceCheck;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -33,8 +33,8 @@ class GetViewLayoutTagsBasic implements GetViewLayoutTags
     protected $findComponentsBy;
 
     /**
-     * @param GetServiceFromAlias            $getServiceFromAlias
-     * @param FindComponentsBy $findComponentsBy
+     * @param GetServiceFromAlias $getServiceFromAlias
+     * @param FindComponentsBy    $findComponentsBy
      */
     public function __construct(
         GetServiceFromAlias $getServiceFromAlias,
@@ -98,7 +98,7 @@ class GetViewLayoutTagsBasic implements GetViewLayoutTags
                 ''
             );
 
-            ServiceCheck::assertNotSelfReference($this, $getViewLayoutTags);
+            AssertNotSelfReference::invoke($this, $getViewLayoutTags);
 
             $viewRenderTags = $getViewLayoutTags->__invoke(
                 $view,

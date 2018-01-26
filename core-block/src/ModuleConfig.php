@@ -3,7 +3,6 @@
 namespace Zrcms\CoreBlock;
 
 use Zrcms\Core\Api\Component\FindComponent;
-use Zrcms\Core\Model\ServiceAliasComponent;
 use Zrcms\CoreBlock\Api\Component\PrepareComponentConfigBlock;
 use Zrcms\CoreBlock\Api\Component\PrepareComponentConfigBlockBc;
 use Zrcms\CoreBlock\Api\Component\ReadComponentConfigBlockBc;
@@ -29,9 +28,6 @@ use Zrcms\CoreBlock\Api\Render\RenderBlockMissingComment;
 use Zrcms\CoreBlock\Api\Render\RenderBlockMustache;
 use Zrcms\CoreBlock\Api\Render\WrapRenderedBlockVersion;
 use Zrcms\CoreBlock\Api\Render\WrapRenderedBlockVersionLegacy;
-use Zrcms\CoreBlock\Model\BlockComponent;
-use Zrcms\CoreBlock\Model\BlockComponentBasic;
-use Zrcms\CoreBlock\Model\ServiceAliasBlock;
 use Zrcms\Mustache\Resolver\FileResolver;
 use Zrcms\ServiceAlias\Api\GetServiceFromAlias;
 
@@ -132,47 +128,6 @@ class ModuleConfig
                         ],
                     ],
                 ],
-            ],
-            /**
-             * ===== ZRCMS Component Registry Readers =====
-             */
-            'zrcms-component-registry-readers' => [
-                ReadComponentRegistryRcmPluginBc::class => ReadComponentRegistryRcmPluginBc::class,
-            ],
-
-            /**
-             * ===== Service Alias =====
-             */
-            'zrcms-service-alias' => [
-                ServiceAliasComponent::ZRCMS_COMPONENT_CONFIG_READER => [
-                    ReadComponentConfigBlockBc::SERVICE_ALIAS
-                    => ReadComponentConfigBlockBc::class,
-
-                    ReadComponentConfigJsonFileBc::SERVICE_ALIAS
-                    => ReadComponentConfigJsonFileBc::class,
-                ],
-                // 'zrcms.block.content.renderer'
-                ServiceAliasBlock::ZRCMS_CONTENT_RENDERER => [
-                    'mustache' // RenderBlockMustache::SERVICE_ALIAS
-                    => RenderBlockMustache::class,
-
-                    RenderBlockBc::SERVICE_ALIAS
-                    => RenderBlockBc::class,
-                ],
-                // 'zrcms.block.content.data-provider'
-                ServiceAliasBlock::ZRCMS_CONTENT_DATA_PROVIDER => [
-                    'noop'
-                    => GetBlockDataNoop::class,
-                ],
-            ],
-            /**
-             * ===== ZRCMS Types =====
-             */
-            'zrcms-types' => [
-                'block' => [
-                    'component-model-interface' => BlockComponent::class,
-                    'component-model-class' => BlockComponentBasic::class,
-                ]
             ],
         ];
     }

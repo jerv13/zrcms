@@ -104,20 +104,6 @@ class ModuleConfig
                     ],
                 ],
             ],
-
-            /**
-             * ===== ZRCMS Render Layout for Routes =====
-             */
-            'zrcms-http-render-layout-routes' => [
-                /*
-                '{name}' => [
-                    'name' => '{name}',
-                    'path' => '{path}',
-                    'options' => [],
-                    'allowed_methods' => ['GET'],
-                ],
-                 */
-            ],
         ];
     }
 }

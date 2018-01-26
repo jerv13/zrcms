@@ -8,8 +8,8 @@ use Zrcms\CoreBlock\Fields\FieldsBlockComponent;
 use Zrcms\CoreBlock\Model\Block;
 use Zrcms\CoreBlock\Model\BlockComponent;
 use Zrcms\CoreBlock\Model\ServiceAliasBlock;
+use Zrcms\ServiceAlias\Api\AssertNotSelfReference;
 use Zrcms\ServiceAlias\Api\GetServiceFromAlias;
-use Zrcms\ServiceAlias\ServiceCheck;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -101,7 +101,7 @@ class RenderBlockBasic implements RenderBlock
             $this->defaultRenderServiceName
         );
 
-        ServiceCheck::assertNotSelfReference($this, $renderBlock);
+        AssertNotSelfReference::invoke($this, $renderBlock);
 
         return $renderBlock->__invoke(
             $block,

@@ -28,18 +28,6 @@ class ModuleConfig
                     ],
                 ],
             ],
-
-            /**
-             * ===== ZRCMS Input Validation Messages =====
-             * [
-             *    '{code-1}' => 'code-1 Message with param ({test-param})',
-             *    '{code-2}' => [
-             *       '__default' => 'Default code-2 message',
-             *       '{field-name}' => 'Field code-2 message'
-             *    ],
-             * ],
-             */
-            'zrcms-input-validation-messages' => [],
         ];
     }
 }

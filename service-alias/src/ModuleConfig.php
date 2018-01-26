@@ -10,7 +10,6 @@ use Zrcms\ServiceAlias\Api\GetServiceFromAlias;
 use Zrcms\ServiceAlias\Api\GetServiceFromAliasBasicFactory;
 use Zrcms\ServiceAlias\Api\GetServiceName;
 use Zrcms\ServiceAlias\Api\GetServiceNameBasic;
-use Zrcms\ServiceAlias\Model\ServiceAliasDefault;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -44,9 +43,6 @@ class ModuleConfig
                         ],
                     ]
                 ],
-            ],
-            'zrcms-service-alias' => [
-                ServiceAliasDefault::ZRCMS_DEFAULT => [],
             ],
         ];
     }

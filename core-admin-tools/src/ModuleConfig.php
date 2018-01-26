@@ -2,7 +2,6 @@
 
 namespace Zrcms\CoreAdminTools;
 
-use Zrcms\Acl\Api\IsAllowedRcmUser;
 use Zrcms\Cache\Service\Cache;
 use Zrcms\CoreAdminTools\Api\Acl\IsAllowedAdminTools;
 use Zrcms\CoreAdminTools\Api\Acl\IsAllowedAdminToolsRcmUserSitesAdmin;
@@ -51,14 +50,6 @@ class ModuleConfig
                         ],
                     ],
                 ],
-            ],
-
-            /**
-             * ===== ZRCMS Application State =====
-             */
-            'zrcms-application-state' => [
-                GetApplicationStateAdminTools::APPLICATION_STATE_KEY
-                => GetApplicationStateAdminTools::class,
             ],
         ];
     }

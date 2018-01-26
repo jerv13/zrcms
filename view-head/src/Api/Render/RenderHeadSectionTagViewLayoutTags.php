@@ -7,8 +7,8 @@ use Zrcms\CoreView\Api\Render\GetViewLayoutTags;
 use Zrcms\CoreView\Model\ServiceAliasView;
 use Zrcms\CoreView\Model\View;
 use Zrcms\Param\Param;
+use Zrcms\ServiceAlias\Api\AssertNotSelfReference;
 use Zrcms\ServiceAlias\Api\GetServiceFromAlias;
-use Zrcms\ServiceAlias\ServiceCheck;
 use Zrcms\ViewHead\Api\Exception\CanNotRenderHeadSectionTag;
 
 /**
@@ -90,7 +90,7 @@ class RenderHeadSectionTagViewLayoutTags implements RenderHeadSectionTag
             ''
         );
 
-        ServiceCheck::assertNotSelfReference($this, $getViewLayoutTags);
+        AssertNotSelfReference::invoke($this, $getViewLayoutTags);
 
         $viewLayoutTags = $getViewLayoutTags->__invoke(
             $view,

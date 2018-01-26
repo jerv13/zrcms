@@ -24,7 +24,7 @@ class HttpApiIsAllowedFindComponentFactory
         return new HttpApiIsAllowedFindComponent(
             $serviceContainer->get(IsAllowedRcmUserSitesAdmin::class),
             [],
-            'repository-find-component',
+            'zrcms-config-list',
             401,
             IsDebug::invoke()
         );

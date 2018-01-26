@@ -1,6 +1,6 @@
 <?php
 
-namespace Zrcms\HttpAssetsBlock;
+namespace Zrcms\HttpAssetsViewHead;
 
 use Zrcms\HttpAssets\Api\Render\RenderLinkHrefTag;
 use Zrcms\HttpAssets\Api\Render\RenderScriptSrcTag;
@@ -8,7 +8,7 @@ use Zrcms\HttpAssets\Api\Render\RenderScriptSrcTag;
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class ModuleConfigViewHead
+class ModuleConfigZrcms
 {
     /**
      * @return array

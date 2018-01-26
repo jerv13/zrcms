@@ -3,11 +3,11 @@
 namespace Zrcms\CoreTheme\Api\Render;
 
 use Zrcms\Core\Model\Content;
-use Zrcms\CoreTheme\Model\Layout;
 use Zrcms\CoreTheme\Fields\FieldsLayout;
+use Zrcms\CoreTheme\Model\Layout;
 use Zrcms\CoreTheme\Model\ServiceAliasLayout;
+use Zrcms\ServiceAlias\Api\AssertNotSelfReference;
 use Zrcms\ServiceAlias\Api\GetServiceFromAlias;
-use Zrcms\ServiceAlias\ServiceCheck;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -68,7 +68,7 @@ class RenderLayoutBasic implements RenderLayout
             $this->defaultRenderServiceName
         );
 
-        ServiceCheck::assertNotSelfReference($this, $render);
+        AssertNotSelfReference::invoke($this, $render);
 
         return $render->__invoke(
             $layout,

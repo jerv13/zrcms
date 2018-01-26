@@ -21,7 +21,6 @@ use Zrcms\CoreContainer\Api\Render\RenderContainerBasic;
 use Zrcms\CoreContainer\Api\Render\RenderContainerRows;
 use Zrcms\CoreContainer\Api\Render\WrapRenderedContainer;
 use Zrcms\CoreContainer\Api\Render\WrapRenderedContainerLegacy;
-use Zrcms\CoreContainer\Model\ServiceAliasContainer;
 use Zrcms\Debug\IsDebug;
 use Zrcms\ServiceAlias\Api\GetServiceFromAlias;
 
@@ -90,22 +89,6 @@ class ModuleConfig
                         'class' => WrapRenderedContainerLegacy::class,
                     ],
                     WrapRenderedContainerLegacy::class => [],
-
-                ],
-            ],
-            /**
-             * ===== Service Alias =====
-             */
-            'zrcms-service-alias' => [
-                // 'zrcms.container.content.render-tags-getter'
-                ServiceAliasContainer::ZRCMS_CONTENT_RENDER_TAGS_GETTER => [
-                    'block'
-                    => GetContainerRenderTagsBlocks::class,
-                ],
-                // 'zrcms.container.content.renderer'
-                ServiceAliasContainer::ZRCMS_CONTENT_RENDERER => [
-                    'rows'
-                    => RenderContainerRows::class,
                 ],
             ],
         ];

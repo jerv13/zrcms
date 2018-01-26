@@ -22,7 +22,6 @@ use Zrcms\Core\Api\Content\ContentVersionToArray;
 use Zrcms\Core\Api\GetComponentCss;
 use Zrcms\Core\Api\GetComponentJs;
 use Zrcms\Core\Api\GetTypeValue;
-use Zrcms\Core\Model\Component;
 use Zrcms\Core\Model\ComponentBasic;
 use Zrcms\Core\Model\ServiceAliasComponent;
 use Zrcms\CoreApplication\Api\CmsResource\CmsResourcesToArrayBasic;
@@ -209,53 +208,6 @@ class ModuleConfig
                             ['literal' => GetComponentJsBasic::DEFAULT_CACHE_KEY]
                         ],
                     ]
-                ],
-            ],
-
-            /**
-             * ===== ZRCMS Component Registry =====
-             */
-            'zrcms-components' => [
-                /* '{type.name}' => '{config-location}' */
-            ],
-
-            /**
-             * ===== ZRCMS Component Registry Readers =====
-             */
-            'zrcms-component-registry-readers' => [
-                /* '{service-name}' => '{service-name}' */
-                ReadComponentRegistryBasic::class => ReadComponentRegistryBasic::class,
-            ],
-
-            /**
-             * ===== Service Alias =====
-             */
-            'zrcms-service-alias' => [
-                // 'zrcms.basic.component.config-reader'
-                ServiceAliasComponent::ZRCMS_COMPONENT_CONFIG_READER => [
-                    ReadComponentConfigApplicationConfig::SERVICE_ALIAS
-                    => ReadComponentConfigApplicationConfig::class,
-
-                    ReadComponentConfigCallable::SERVICE_ALIAS
-                    => ReadComponentConfigCallable::class,
-
-                    ReadComponentConfigJsonFile::SERVICE_ALIAS
-                    => ReadComponentConfigJsonFile::class,
-
-                    ReadComponentConfigPhpFile::SERVICE_ALIAS
-                    => ReadComponentConfigPhpFile::class,
-                ],
-            ],
-
-            /**
-             * ===== ZRCMS Types =====
-             */
-            'zrcms-types' => [
-                /* Default services and classes are defined here */
-                'basic' => [
-                    BuildComponentObject::class => BuildComponentObjectByType::class,
-                    'component-model-interface' => Component::class,
-                    'component-model-class' => ComponentBasic::class,
                 ],
             ],
         ];

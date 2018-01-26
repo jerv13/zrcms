@@ -20,7 +20,6 @@ use Zrcms\CorePage\Api\Render\GetPageRenderTags;
 use Zrcms\CorePage\Api\Render\GetPageRenderTagsBasic;
 use Zrcms\CorePage\Api\Render\GetPageRenderTagsContainers;
 use Zrcms\CorePage\Api\Render\GetPageRenderTagsHtml;
-use Zrcms\CorePage\Model\ServiceAliasPage;
 use Zrcms\ServiceAlias\Api\GetServiceFromAlias;
 
 /**
@@ -82,20 +81,6 @@ class ModuleConfig
                     InsertPageVersion::class => [
                         'class' => IMPLEMENTATIONisREQUIRED::class
                     ],
-                ],
-            ],
-
-            /**
-             * ===== Service Alias =====
-             */
-            'zrcms-service-alias' => [
-                // 'zrcms.page.content.render-tags-getter'
-                ServiceAliasPage::ZRCMS_CONTENT_RENDER_TAGS_GETTER => [
-                    'containers'
-                    => GetPageRenderTagsContainers::class,
-
-                    'html'
-                    => GetPageRenderTagsHtml::class,
                 ],
             ],
         ];

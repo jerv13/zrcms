@@ -1,11 +1,13 @@
 <?php
 
-namespace Zrcms\HttpAssetsBlock;
+namespace Zrcms\Locale;
+
+use Zrcms\Locale\Api\DefaultLocal;
 
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class ModuleConfig
+class ModuleConfigZrcms
 {
     /**
      * @return array
@@ -13,10 +15,7 @@ class ModuleConfig
     public function __invoke()
     {
         return [
-            'dependencies' => [
-                'config_factories' => [
-                ],
-            ],
+            'zrcms-locale-default' => DefaultLocal::get()
         ];
     }
 }

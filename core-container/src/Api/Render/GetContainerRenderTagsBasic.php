@@ -4,11 +4,11 @@ namespace Zrcms\CoreContainer\Api\Render;
 
 use Psr\Http\Message\ServerRequestInterface;
 use Zrcms\Core\Model\Content;
-use Zrcms\CoreContainer\Model\Container;
 use Zrcms\CoreContainer\Fields\FieldsContainer;
+use Zrcms\CoreContainer\Model\Container;
 use Zrcms\CoreContainer\Model\ServiceAliasContainer;
+use Zrcms\ServiceAlias\Api\AssertNotSelfReference;
 use Zrcms\ServiceAlias\Api\GetServiceFromAlias;
-use Zrcms\ServiceAlias\ServiceCheck;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -69,7 +69,7 @@ class GetContainerRenderTagsBasic implements GetContainerRenderTags
             $this->defaultGetContainerRenderTagsServiceName
         );
 
-        ServiceCheck::assertNotSelfReference($this, $getContainerRenderTagsService);
+        AssertNotSelfReference::invoke($this, $getContainerRenderTagsService);
 
         return $getContainerRenderTagsService->__invoke(
             $container,
