@@ -1,6 +1,6 @@
 <?php
 
-namespace Zrcms\HttpAssetsChangeLog\Middleware;
+namespace Zrcms\HttpChangeLog\Middleware;
 
 use Zrcms\HttpApi\Acl\HttpApiIsAllowed;
 

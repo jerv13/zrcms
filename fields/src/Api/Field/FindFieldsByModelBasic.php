@@ -11,6 +11,7 @@ use Zrcms\Param\Param;
 class FindFieldsByModelBasic implements FindFieldsByModel
 {
     protected $fieldsModelConfig;
+    protected $fieldsModelExtendsConfig;
     protected $fieldsModelFieldsConfig;
 
     /**
@@ -19,26 +20,28 @@ class FindFieldsByModelBasic implements FindFieldsByModel
      */
     public function __construct(
         array $fieldsModelConfig,
+        array $fieldsModelExtendsConfig,
         array $fieldsModelFieldsConfig
     ) {
         $this->fieldsModelConfig = $fieldsModelConfig;
+        $this->fieldsModelExtendsConfig = $fieldsModelExtendsConfig;
         $this->fieldsModelFieldsConfig = $fieldsModelFieldsConfig;
     }
 
     /**
-     * @param string $model
+     * @param string $modelName
      * @param array  $options
      *
      * @return null|string|Fields
      * @throws \Exception
      */
     public function __invoke(
-        string $model,
+        string $modelName,
         array $options = []
     ) {
         $fieldsModel = Param::getString(
             $this->fieldsModelConfig,
-            $model
+            $modelName
         );
 
         if (empty($fieldsModel)) {
@@ -47,8 +50,13 @@ class FindFieldsByModelBasic implements FindFieldsByModel
 
         $fieldsConfig = Param::getArray(
             $this->fieldsModelFieldsConfig,
-            $model,
+            $modelName,
             []
+        );
+
+        $fieldsConfig = $this->buildExtendsModelConfig(
+            $modelName,
+            $fieldsConfig
         );
 
         /** @var Fields $fields */
@@ -56,12 +64,44 @@ class FindFieldsByModelBasic implements FindFieldsByModel
 
         if (!$fields instanceof Fields) {
             throw new \Exception(
-                'Fields model: (' . $model . ')'
+                'Fields model: (' . $modelName . ')'
                 . ' must be instance of: (' . Fields::class . ')'
                 . ' got ' . $fieldsModel
             );
         }
 
         return $fields;
+    }
+
+    /**
+     * @param string $modelName
+     * @param array  $fieldsConfig
+     *
+     * @return array
+     */
+    protected function buildExtendsModelConfig(
+        string $modelName,
+        array $fieldsConfig
+    ): array {
+        $modelExtendsName = Param::getString(
+            $this->fieldsModelExtendsConfig,
+            $modelName
+        );
+
+        if (empty($modelExtendsName)) {
+            return [];
+        }
+
+        $extendsModelConfig = Param::getArray(
+            $this->fieldsModelFieldsConfig,
+            $modelExtendsName,
+            []
+        );
+
+        return array_merge(
+            $extendsModelConfig,
+            $fieldsConfig
+        );
+
     }
 }

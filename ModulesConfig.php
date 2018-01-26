@@ -75,8 +75,8 @@ class ModulesConfig
 
             new \Zrcms\HttpAssets\ModuleConfig(),
             new \Zrcms\HttpAssetsAdminTools\ModuleConfig(),
-            new \Zrcms\HttpAssetsApplicationState\ModuleConfig(),
-            new \Zrcms\HttpAssetsChangeLog\ModuleConfig(),
+            new \Zrcms\HttpApplicationState\ModuleConfig(),
+            new \Zrcms\HttpChangeLog\ModuleConfig(),
 
             new \Zrcms\HttpLocale\ModuleConfig(),
             new \Zrcms\HttpRcmApiLib\ModuleConfig(),

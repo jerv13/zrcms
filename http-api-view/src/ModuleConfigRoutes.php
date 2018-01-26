@@ -17,9 +17,9 @@ class ModuleConfigRoutes
     {
         return [
             'routes' => [
-                'zrcms.view.{host}.{path:.*}' => [
-                    'name' => 'zrcms.view.{host}.{path:.*}',
-                    'path' => '/zrcms/view/{host}/{path:.*}',
+                'zrcms.api.view.{host}.{path:.*}' => [
+                    'name' => 'zrcms.api.view.{host}.{path:.*}',
+                    'path' => '/zrcms/api/view/{host}/{path:.*}',
                     'middleware' => [
                         'acl' => HttpApiIsAllowedGetViewData::class,
                         'api' => HttpApiGetViewData::class,

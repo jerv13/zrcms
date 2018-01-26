@@ -6,6 +6,7 @@ use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Zrcms\Http\Api\BuildResponseOptions;
 use Zrcms\Http\Response\ZrcmsJsonResponse;
+use Zrcms\Param\Param;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -38,20 +39,53 @@ class HttpApiZrcmsRoutes
     ) {
         $routeConfig = $this->appConfig['routes'];
 
-        $zrcmsConfig = array_filter(
+        $routeConfig = array_filter(
             $routeConfig,
-            function ($value, $key) {
-                return (substr($key, 0, 6) === "zrcms.");
-            },
+            [$this, 'filterRoutes'],
             ARRAY_FILTER_USE_BOTH
         );
 
+        ksort($routeConfig);
+
         return new ZrcmsJsonResponse(
-            $zrcmsConfig,
+            $routeConfig,
             null,
             200,
             [],
             BuildResponseOptions::invoke()
+        );
+    }
+
+    /**
+     * @param array $routeData
+     * @param mixed $key
+     *
+     * @return bool
+     */
+    protected function filterRoutes($routeData, $key)
+    {
+        $name = $this->buildRouteName(
+            $key,
+            $routeData
+        );
+
+        return (substr($name, 0, 6) === "zrcms.");
+    }
+
+    /**
+     * @param mixed $key
+     * @param array $routeData
+     *
+     * @return null|string
+     */
+    protected function buildRouteName(
+        $key,
+        array $routeData
+    ) {
+        return Param::getString(
+            $routeData,
+            'name',
+            $key
         );
     }
 }

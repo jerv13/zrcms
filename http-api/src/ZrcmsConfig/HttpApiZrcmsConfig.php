@@ -44,6 +44,8 @@ class HttpApiZrcmsConfig
             ARRAY_FILTER_USE_BOTH
         );
 
+        ksort($zrcmsConfig);
+
         return new ZrcmsJsonResponse(
             $zrcmsConfig,
             null,

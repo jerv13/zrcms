@@ -32,9 +32,9 @@ class ModuleConfigRoutes
                     'allowed_methods' => ['GET'],
                 ],
 
-                'zrcms.test-implementation' => [
-                    'name' => 'zrcms.test-implementation',
-                    'path' => '/zrcms/test-implementation',
+                'zrcms.api.test-implementation' => [
+                    'name' => 'zrcms.api.test-implementation',
+                    'path' => '/zrcms/api/test-implementation',
                     'middleware' => [
                         'parser' => BodyParamsMiddleware::class,
                         'acl' => IsAllowedTestIsAllowed::class,

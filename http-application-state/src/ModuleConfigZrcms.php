@@ -1,8 +1,8 @@
 <?php
 
-namespace Zrcms\HttpAssetsApplicationState;
+namespace Zrcms\HttpApplicationState;
 
-use Zrcms\HttpAssetsApplicationState\Api\Render\RenderScriptTagApplicationState;
+use Zrcms\CoreApplicationState\Api\Render\RenderScriptTagApplicationState;
 
 /**
  * @author James Jervis - https://github.com/jerv13

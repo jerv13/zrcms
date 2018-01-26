@@ -1,6 +1,6 @@
 <?php
 
-namespace Zrcms\HttpAssetsApplicationState\Middleware;
+namespace Zrcms\HttpApplicationState\Middleware;
 
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
@@ -16,8 +16,8 @@ use Zrcms\Http\Response\ZrcmsJsonResponse;
  */
 class HttpApplicationState
 {
-    const ATTRIBUTE_HOST = 'host';
-    const ATTRIBUTE_PATH = 'path';
+    const ATTRIBUTE_HOST = 'zrcms-application-state-host';
+    const ATTRIBUTE_PATH = 'zrcms-application-state-path';
 
     const SOURCE_MISSING_HOST = 'missing-host';
     const NAME = 'application-state';
@@ -85,8 +85,9 @@ class HttpApplicationState
             $uri
         );
 
-        return new JsonResponse(
+        return new ZrcmsJsonResponse(
             $this->getApplicationState->__invoke($fakeRequest),
+            null,
             200,
             [],
             BuildResponseOptions::invoke()

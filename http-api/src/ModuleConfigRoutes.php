@@ -224,6 +224,23 @@ class ModuleConfigRoutes
                         'zrcms-api' => 'find-cms-resource-history'
                     ],
                     'allowed_methods' => ['GET'],
+                    'swagger' => [
+                        'get' => [
+                            'description' => 'Find CMS Resource History by ID',
+                            'produces' => [
+                                'application/json',
+                            ],
+                            'parameters' => [
+                                ['$ref' => '#/definitions/ZrcmsImplementationPathProperty'],
+                                ['$ref' => '#/definitions/ZrcmsIdPathProperty'],
+                            ],
+                            'responses' => [
+                                'default' => [
+                                    '$ref' => '#/definitions/ZrcmsJsonResponse'
+                                ],
+                            ],
+                        ],
+                    ],
                 ],
 
                 /**
@@ -247,10 +264,30 @@ class ModuleConfigRoutes
                         'zrcms-api' => 'find-cms-resources-by-histories'
                     ],
                     'allowed_methods' => ['GET'],
+                    'swagger' => [
+                        'get' => [
+                            'description' => 'Find CMS Resource Histories by query',
+                            'produces' => [
+                                'application/json',
+                            ],
+                            'parameters' => [
+                                ['$ref' => '#/definitions/ZrcmsImplementationPathProperty'],
+                                ['$ref' => '#/definitions/ZrcmsWhereParameter'],
+                                ['$ref' => '#/definitions/ZrcmsOrderByParameter'],
+                                ['$ref' => '#/definitions/ZrcmsLimitParameter'],
+                                ['$ref' => '#/definitions/ZrcmsOffsetParameter'],
+                            ],
+                            'responses' => [
+                                'default' => [
+                                    '$ref' => '#/definitions/ZrcmsJsonResponse'
+                                ],
+                            ],
+                        ],
+                    ],
                 ],
 
                 /**
-                 * FindConfig
+                 * Find ZRCMS Config
                  */
                 'zrcms.api.config.list' => [
                     'name' => 'zrcms.api.config.list',
@@ -262,8 +299,25 @@ class ModuleConfigRoutes
                     'options' => [
                     ],
                     'allowed_methods' => ['GET'],
+                    'swagger' => [
+                        'get' => [
+                            'description' => 'List all ZRCMS configs',
+                            'produces' => [
+                                'application/json',
+                            ],
+                            'parameters' => [],
+                            'responses' => [
+                                'default' => [
+                                    '$ref' => '#/definitions/ZrcmsJsonResponse'
+                                ],
+                            ],
+                        ],
+                    ],
                 ],
 
+                /**
+                 * Find ZRCMS Routes
+                 */
                 'zrcms.api.route.list' => [
                     'name' => 'zrcms.api.route.list',
                     'path' => '/zrcms/api/route/list',
@@ -274,14 +328,28 @@ class ModuleConfigRoutes
                     'options' => [
                     ],
                     'allowed_methods' => ['GET'],
+                    'swagger' => [
+                        'get' => [
+                            'description' => 'List all ZRCMS routes',
+                            'produces' => [
+                                'application/json',
+                            ],
+                            'parameters' => [],
+                            'responses' => [
+                                'default' => [
+                                    '$ref' => '#/definitions/ZrcmsJsonResponse'
+                                ],
+                            ],
+                        ],
+                    ],
                 ],
 
                 /**
                  * FindComponent
                  */
-                'zrcms.api.component.{type}.find.{name}' => [
-                    'name' => 'zrcms.api.component.{type}.find.{name}',
-                    'path' => '/zrcms/api/component/{type}/find/{name}',
+                'zrcms.api.component.{zrcms-component-type}.find.{zrcms-component-name}' => [
+                    'name' => 'zrcms.api.component.{zrcms-component-type}.find.{zrcms-component-name}',
+                    'path' => '/zrcms/api/component/{zrcms-component-type}/find/{zrcms-component-name}',
                     'middleware' => [
                         'acl' => HttpApiIsAllowedFindComponent::class,
                         'api' => HttpApiFindComponent::class,
@@ -289,6 +357,23 @@ class ModuleConfigRoutes
                     'options' => [
                     ],
                     'allowed_methods' => ['GET'],
+                    'swagger' => [
+                        'get' => [
+                            'description' => 'List all ZRCMS routes',
+                            'produces' => [
+                                'application/json',
+                            ],
+                            'parameters' => [
+                                ['$ref' => '#/definitions/ZrcmsComponentType'],
+                                ['$ref' => '#/definitions/ZrcmsComponentName']
+                            ],
+                            'responses' => [
+                                'default' => [
+                                    '$ref' => '#/definitions/ZrcmsJsonResponse'
+                                ],
+                            ],
+                        ],
+                    ],
                 ],
 
                 /**
@@ -310,6 +395,25 @@ class ModuleConfigRoutes
                     'options' => [
                     ],
                     'allowed_methods' => ['GET'],
+                    'swagger' => [
+                        'get' => [
+                            'description' => 'Find Components by query',
+                            'produces' => [
+                                'application/json',
+                            ],
+                            'parameters' => [
+                                ['$ref' => '#/definitions/ZrcmsWhereParameter'],
+                                ['$ref' => '#/definitions/ZrcmsOrderByParameter'],
+                                ['$ref' => '#/definitions/ZrcmsLimitParameter'],
+                                ['$ref' => '#/definitions/ZrcmsOffsetParameter'],
+                            ],
+                            'responses' => [
+                                'default' => [
+                                    '$ref' => '#/definitions/ZrcmsJsonResponse'
+                                ],
+                            ],
+                        ],
+                    ],
                 ],
 
                 /**
@@ -328,6 +432,23 @@ class ModuleConfigRoutes
                         'zrcms-api' => 'find-content-version'
                     ],
                     'allowed_methods' => ['GET'],
+                    'swagger' => [
+                        'get' => [
+                            'description' => 'Find Content Version by ID',
+                            'produces' => [
+                                'application/json',
+                            ],
+                            'parameters' => [
+                                ['$ref' => '#/definitions/ZrcmsImplementationPathProperty'],
+                                ['$ref' => '#/definitions/ZrcmsIdPathProperty'],
+                            ],
+                            'responses' => [
+                                'default' => [
+                                    '$ref' => '#/definitions/ZrcmsJsonResponse'
+                                ],
+                            ],
+                        ],
+                    ],
                 ],
 
                 /**
@@ -351,6 +472,26 @@ class ModuleConfigRoutes
                         'zrcms-api' => 'find-content-versions-by'
                     ],
                     'allowed_methods' => ['GET'],
+                    'swagger' => [
+                        'get' => [
+                            'description' => 'Find Content Versions by query',
+                            'produces' => [
+                                'application/json',
+                            ],
+                            'parameters' => [
+                                ['$ref' => '#/definitions/ZrcmsImplementationPathProperty'],
+                                ['$ref' => '#/definitions/ZrcmsWhereParameter'],
+                                ['$ref' => '#/definitions/ZrcmsOrderByParameter'],
+                                ['$ref' => '#/definitions/ZrcmsLimitParameter'],
+                                ['$ref' => '#/definitions/ZrcmsOffsetParameter'],
+                            ],
+                            'responses' => [
+                                'default' => [
+                                    '$ref' => '#/definitions/ZrcmsJsonResponse'
+                                ],
+                            ],
+                        ],
+                    ],
                 ],
 
                 /**
@@ -370,6 +511,22 @@ class ModuleConfigRoutes
                         'zrcms-api' => 'insert-content-version'
                     ],
                     'allowed_methods' => ['POST'],
+                    'swagger' => [
+                        'post' => [
+                            'description' => 'Insert Content Version',
+                            'produces' => [
+                                'application/json',
+                            ],
+                            'parameters' => [
+                                ['$ref' => '#/definitions/ZrcmsImplementationPathProperty'],
+                            ],
+                            'responses' => [
+                                'default' => [
+                                    '$ref' => '#/definitions/ZrcmsJsonResponse'
+                                ],
+                            ],
+                        ],
+                    ],
                 ],
             ],
         ];

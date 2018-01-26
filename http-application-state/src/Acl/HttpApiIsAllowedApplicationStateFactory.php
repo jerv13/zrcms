@@ -1,30 +1,31 @@
 <?php
 
-namespace Zrcms\HttpAssetsApplicationState\Api\Render;
+namespace Zrcms\HttpApplicationState\Acl;
 
 use Psr\Container\ContainerInterface;
-use Zrcms\CoreApplicationState\Api\GetApplicationState;
+use Zrcms\Acl\Api\IsAllowedRcmUserSitesAdmin;
 use Zrcms\Debug\IsDebug;
-use Zrcms\ViewHtmlTags\Api\Render\RenderTag;
 
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class RenderScriptTagApplicationStateFactory
+class HttpApiIsAllowedApplicationStateFactory
 {
     /**
      * @param ContainerInterface $serviceContainer
      *
-     * @return RenderScriptTagApplicationState
+     * @return HttpApiIsAllowedApplicationState
      * @throws \Psr\Container\ContainerExceptionInterface
      * @throws \Psr\Container\NotFoundExceptionInterface
      */
     public function __invoke(
         ContainerInterface $serviceContainer
     ) {
-        return new RenderScriptTagApplicationState(
-            $serviceContainer->get(GetApplicationState::class),
-            $serviceContainer->get(RenderTag::class),
+        return new HttpApiIsAllowedApplicationState(
+            $serviceContainer->get(IsAllowedRcmUserSitesAdmin::class),
+            [],
+            'application-state',
+            HttpApiIsAllowedApplicationState::DEFAULT_NOT_ALLOWED_STATUS,
             IsDebug::invoke()
         );
     }

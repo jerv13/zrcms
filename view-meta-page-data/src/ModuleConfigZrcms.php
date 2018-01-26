@@ -6,7 +6,7 @@ use Zrcms\CoreView\Model\ServiceAliasView;
 use Zrcms\ViewMetaPageData\Api\View\Render\GetViewLayoutMetaPageData;
 
 /**
- * @deprecated BC ONLY - Use \Zrcms\HttpAssetsApplicationState
+ * @deprecated BC ONLY - Use \Zrcms\HttpApplicationState
  * @author     James Jervis - https://github.com/jerv13
  */
 class ModuleConfigZrcms

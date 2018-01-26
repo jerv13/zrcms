@@ -29,6 +29,12 @@ class ModuleConfigZrcms
             'zrcms-fields-model' => [],
 
             /**
+             * ===== ZRCMS Field Model Extends =====
+             * ['{model-name}' => '{extends-model-name}']
+             */
+            'zrcms-fields-model-extends' => [],
+
+            /**
              * ===== ZRCMS Fields =====
              * ['{model-name}' => '{fields-config}']
              */

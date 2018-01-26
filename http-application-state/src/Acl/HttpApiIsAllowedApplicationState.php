@@ -1,6 +1,6 @@
 <?php
 
-namespace Zrcms\HttpAssetsApplicationState\Acl;
+namespace Zrcms\HttpApplicationState\Acl;
 
 use Zrcms\HttpApi\Acl\HttpApiIsAllowed;
 

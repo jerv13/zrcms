@@ -1,44 +1,6 @@
 @todo
 =====
 
-'swagger' => [
-    'get' => [
-        'description' => 'Produces Swagger JSON',
-        'operationId' => 'zrcms.api.swagger',
-        'produces' => [
-            'application/json',
-        ],
-        'parameters' => [
-            /* EXAMPLE
-            [
-                'name' => 'limit',
-                'in' => 'query',
-                'description' => 'maximum number of results to return',
-                'required' => false,
-                'type' => 'integer',
-                'format' => 'int32',
-            ]
-            */
-        ],
-        'responses' => [
-            200 => [
-                'description' => 'swagger object response',
-                'schema' => [
-                    'type' => 'object',
-                    'items' => ['$ref' => '#/definitions/Swagger',],
-                ],
-            ],
-            /*
-            'default' => [
-                'description' => 'unexpected error',
-                'schema' => ['$ref' => '#/definitions/ErrorModel',],
-            ],
-             */
-        ],
-    ],
-],
-- Implement extends feature
-
 ##### Importer 
 
 - Should use fields bit (warnings ONLY)

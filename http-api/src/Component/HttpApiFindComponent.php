@@ -17,6 +17,9 @@ class HttpApiFindComponent
 {
     const SOURCE = 'zrcms-find-component';
 
+    const ATTRIBUTE_COMPONENT_TYPE = 'zrcms-component-type';
+    const ATTRIBUTE_COMPONENT_NAME = 'zrcms-component-name';
+
     protected $findComponent;
     protected $componentToArray;
 
@@ -45,11 +48,11 @@ class HttpApiFindComponent
         callable $next = null
     ) {
         $componentType = (string)$request->getAttribute(
-            'type'
+            static::ATTRIBUTE_COMPONENT_TYPE
         );
 
         $componentName = (string)$request->getAttribute(
-            'name'
+            static::ATTRIBUTE_COMPONENT_NAME
         );
 
         if (empty($componentType)) {

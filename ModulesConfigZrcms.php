@@ -32,7 +32,7 @@ class ModulesConfigZrcms
             new \Zrcms\HttpApi\ModuleConfigZrcms(),
             new \Zrcms\HttpApiSite\ModuleConfigZrcms(),
             new \Zrcms\HttpApiSwagger\ModuleConfigZrcms(),
-            new \Zrcms\HttpAssetsApplicationState\ModuleConfigZrcms(),
+            new \Zrcms\HttpApplicationState\ModuleConfigZrcms(),
             // @todo ViewHead included by default?
             new \Zrcms\HttpAssetsViewHead\ModuleConfigZrcms(),
             new \Zrcms\HttpAssetsAdminTools\ModuleConfigZrcms(),

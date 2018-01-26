@@ -10,14 +10,14 @@ use Zrcms\Fields\Model\Fields;
 interface FindFieldsByModel
 {
     /**
-     * @param string $model
+     * @param string $modelName
      * @param array  $options
      *
      * @return Fields|null
      * @throws \Exception
      */
     public function __invoke(
-        string $model,
+        string $modelName,
         array $options = []
     );
 }

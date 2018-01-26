@@ -1,30 +1,27 @@
 <?php
 
-namespace Zrcms\Fields\Api\Field;
+namespace Zrcms\HttpChangeLog\Middleware;
 
 use Psr\Container\ContainerInterface;
+use Zrcms\CoreApplication\Api\ChangeLog\GetHumanReadableChangeLogByDateRange;
 
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class FindFieldsByModelBasicFactory
+class HttpApiChangeLogListFactory
 {
     /**
      * @param ContainerInterface $serviceContainer
      *
-     * @return FindFieldsByModelBasic
+     * @return HttpApiChangeLogList
      * @throws \Psr\Container\ContainerExceptionInterface
      * @throws \Psr\Container\NotFoundExceptionInterface
      */
     public function __invoke(
         ContainerInterface $serviceContainer
     ) {
-        $appConfig = $serviceContainer->get('config');
-
-        return new FindFieldsByModelBasic(
-            $appConfig['zrcms-fields-model'],
-            $appConfig['zrcms-fields-model-extends'],
-            $appConfig['zrcms-fields']
+        return new HttpApiChangeLogList(
+            $serviceContainer->get(GetHumanReadableChangeLogByDateRange::class)
         );
     }
 }

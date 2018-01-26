@@ -1,6 +1,6 @@
 <?php
 
-namespace Zrcms\HttpAssetsChangeLog\Middleware;
+namespace Zrcms\HttpChangeLog\Middleware;
 
 use Interop\Http\ServerMiddleware\DelegateInterface;
 use Interop\Http\ServerMiddleware\MiddlewareInterface;
@@ -15,7 +15,7 @@ use Zrcms\CoreApplication\Api\ChangeLog\GetHumanReadableChangeLogByDateRange;
  *
  * Class ChangeLogHtml
  *
- * @package Zrcms\HttpAssetsChangeLog\Controller
+ * @package Zrcms\HttpChangeLog\Controller
  */
 class HttpChangeLogList implements MiddlewareInterface
 {
@@ -23,12 +23,22 @@ class HttpChangeLogList implements MiddlewareInterface
 
     protected $defaultNumberOfDays = 30;
 
+    /**
+     * @param GetHumanReadableChangeLogByDateRange $getHumanReadableChangeLogByDateRange
+     */
     public function __construct(
         GetHumanReadableChangeLogByDateRange $getHumanReadableChangeLogByDateRange
     ) {
         $this->getHumanReadableChangeLogByDateRange = $getHumanReadableChangeLogByDateRange;
     }
 
+    /**
+     * @param ServerRequestInterface $request
+     * @param DelegateInterface      $delegate
+     *
+     * @return \Psr\Http\Message\ResponseInterface|HtmlResponse|Response\JsonResponse
+     * @throws \Exception
+     */
     public function process(ServerRequestInterface $request, DelegateInterface $delegate)
     {
         $queryParams = $request->getQueryParams();
@@ -54,9 +64,6 @@ class HttpChangeLogList implements MiddlewareInterface
             : 'application/json';
 
         switch ($contentType) {
-            case 'application/json':
-                return $this->makeJsonResponse($description, $humanReadableEvents);
-                break;
             case 'text/html':
                 return $this->makeHtmlResponse($description, $humanReadableEvents);
                 break;
@@ -116,15 +123,5 @@ class HttpChangeLogList implements MiddlewareInterface
         $html .= '</html>';
 
         return new HtmlResponse($html);
-    }
-
-    protected function makeJsonResponse($description, $humanReadableEvents)
-    {
-        return new Response\JsonResponse(
-            [
-                'description' => $description,
-                'events' => $humanReadableEvents
-            ]
-        );
     }
 }

@@ -1,30 +1,31 @@
 <?php
 
-namespace Zrcms\Fields\Api\Field;
+namespace Zrcms\HttpApplicationState\Middleware;
 
 use Psr\Container\ContainerInterface;
+use Zrcms\CoreApplicationState\Api\GetApplicationState;
+use Zrcms\Debug\IsDebug;
 
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class FindFieldsByModelBasicFactory
+class HttpApplicationStateFactory
 {
     /**
      * @param ContainerInterface $serviceContainer
      *
-     * @return FindFieldsByModelBasic
+     * @return HttpApplicationState
      * @throws \Psr\Container\ContainerExceptionInterface
      * @throws \Psr\Container\NotFoundExceptionInterface
      */
     public function __invoke(
         ContainerInterface $serviceContainer
     ) {
-        $appConfig = $serviceContainer->get('config');
-
-        return new FindFieldsByModelBasic(
-            $appConfig['zrcms-fields-model'],
-            $appConfig['zrcms-fields-model-extends'],
-            $appConfig['zrcms-fields']
+        return new HttpApplicationState(
+            $serviceContainer->get(GetApplicationState::class),
+            404,
+            400,
+            IsDebug::invoke()
         );
     }
 }

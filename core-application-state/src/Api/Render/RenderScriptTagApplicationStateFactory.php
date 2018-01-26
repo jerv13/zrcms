@@ -1,28 +1,30 @@
 <?php
 
-namespace Zrcms\HttpAssetsApplicationState\Middleware;
+namespace Zrcms\CoreApplicationState\Api\Render;
 
 use Psr\Container\ContainerInterface;
 use Zrcms\CoreApplicationState\Api\GetApplicationState;
 use Zrcms\Debug\IsDebug;
+use Zrcms\ViewHtmlTags\Api\Render\RenderTag;
 
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class HttpApplicationStateByRequestFactory
+class RenderScriptTagApplicationStateFactory
 {
     /**
      * @param ContainerInterface $serviceContainer
      *
-     * @return HttpApplicationStateByRequest
+     * @return RenderScriptTagApplicationState
      * @throws \Psr\Container\ContainerExceptionInterface
      * @throws \Psr\Container\NotFoundExceptionInterface
      */
     public function __invoke(
         ContainerInterface $serviceContainer
     ) {
-        return new HttpApplicationStateByRequest(
+        return new RenderScriptTagApplicationState(
             $serviceContainer->get(GetApplicationState::class),
+            $serviceContainer->get(RenderTag::class),
             IsDebug::invoke()
         );
     }

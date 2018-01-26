@@ -1,6 +1,6 @@
 <?php
 
-namespace Zrcms\HttpAssetsApplicationState\Middleware;
+namespace Zrcms\HttpApplicationState\Middleware;
 
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;

@@ -1,6 +1,6 @@
 <?php
 
-namespace Zrcms\HttpAssetsApplicationState\Middleware;
+namespace Zrcms\HttpApplicationState\Middleware;
 
 use Psr\Container\ContainerInterface;
 use Zrcms\CoreApplicationState\Api\GetApplicationState;
@@ -9,22 +9,20 @@ use Zrcms\Debug\IsDebug;
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class HttpApplicationStateFactory
+class HttpApplicationStateByRequestFactory
 {
     /**
      * @param ContainerInterface $serviceContainer
      *
-     * @return HttpApplicationState
+     * @return HttpApplicationStateByRequest
      * @throws \Psr\Container\ContainerExceptionInterface
      * @throws \Psr\Container\NotFoundExceptionInterface
      */
     public function __invoke(
         ContainerInterface $serviceContainer
     ) {
-        return new HttpApplicationState(
+        return new HttpApplicationStateByRequest(
             $serviceContainer->get(GetApplicationState::class),
-            404,
-            400,
             IsDebug::invoke()
         );
     }

@@ -1,6 +1,6 @@
 <?php
 
-namespace Zrcms\HttpAssetsApplicationState\Api\Render;
+namespace Zrcms\CoreApplicationState\Api\Render;
 
 use Psr\Http\Message\ServerRequestInterface;
 use Zrcms\Core\Api\Render\Render;

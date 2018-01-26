@@ -59,8 +59,8 @@ class ModuleConfigRoutes
                 ],
                 */
 
-                'sitemap.xml' => [
-                    'name' => 'sitemap.xml',
+                'zrcms-sitemap.xml' => [
+                    'name' => 'zrcms-sitemap.xml',
                     'path' => '/sitemap.xml',
                     'middleware' => [
                         'controller' => SiteMap::class,

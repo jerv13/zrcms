@@ -26,7 +26,7 @@ class ModuleConfigZrcms
                     'license' => ['name' => '',],
                 ],
                 'host' => '',
-                'basePath' => '/api',
+                'basePath' => '/',
                 'schemes' => ['https',],
                 'consumes' => ['application/json',],
                 'produces' => ['application/json',],

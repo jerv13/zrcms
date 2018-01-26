@@ -1,6 +1,6 @@
 <?php
 
-namespace Zrcms\HttpAssetsChangeLog;
+namespace Zrcms\HttpChangeLog;
 
 use Zrcms\Acl\Api\IsAllowedRcmUser;
 use Zrcms\Core\Api\ChangeLog\GetChangeLogByDateRange;
@@ -13,8 +13,10 @@ use Zrcms\CoreRedirect\Api\ChangeLog\GetRedirectChangeLogByDateRange as Redirect
 use Zrcms\CoreSite\Api\ChangeLog\GetSiteChangeLogByDateRange as SiteGetChangeLogByDateRange;
 use Zrcms\CoreSite\Api\CmsResource\FindSiteCmsResource;
 use Zrcms\CoreTheme\Api\ChangeLog\GetLayoutChangeLogByDateRange as ThemeGetChangeLogByDateRange;
-use Zrcms\HttpAssetsChangeLog\Middleware\HttpChangeLogList;
-use Zrcms\HttpAssetsChangeLog\Middleware\HttpIsAllowedReadChangeLogIsAllowed;
+use Zrcms\HttpChangeLog\Middleware\HttpApiChangeLogList;
+use Zrcms\HttpChangeLog\Middleware\HttpApiChangeLogListFactory;
+use Zrcms\HttpChangeLog\Middleware\HttpChangeLogList;
+use Zrcms\HttpChangeLog\Middleware\HttpIsAllowedReadChangeLogIsAllowed;
 
 class ModuleConfig
 {
@@ -51,6 +53,10 @@ class ModuleConfig
                         'arguments' => [
                             FindSiteCmsResource::class
                         ],
+                    ],
+
+                    HttpApiChangeLogList::class => [
+                        'factory' => HttpApiChangeLogListFactory::class,
                     ],
 
                     HttpChangeLogList::class => [

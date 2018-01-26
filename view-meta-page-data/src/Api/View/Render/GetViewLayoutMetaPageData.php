@@ -14,7 +14,7 @@ use Zrcms\Json\Json;
 use Zrcms\ViewHtmlTags\Api\Render\RenderTag;
 
 /**
- * @deprecated BC ONLY - Use \Zrcms\HttpAssetsApplicationState
+ * @deprecated BC ONLY - Use \Zrcms\HttpApplicationState
  * @author James Jervis - https://github.com/jerv13
  */
 class GetViewLayoutMetaPageData implements GetViewLayoutTags

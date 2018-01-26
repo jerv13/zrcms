@@ -319,6 +319,22 @@ class ModuleConfigZrcms
                         'type' => 'int',
                         'format' => 'int',
                     ],
+                    'ZrcmsComponentType' => [
+                        'name' => 'zrcms-component-type',
+                        'in' => 'path',
+                        'description' => 'ZRCMS Component type field (basic, block, theme, etc..)',
+                        'required' => true,
+                        'type' => 'string',
+                        'format' => 'string',
+                    ],
+                    'ZrcmsComponentName' => [
+                        'name' => 'zrcms-component-name',
+                        'in' => 'path',
+                        'description' => 'ZRCMS Component name field (zrcms-language, zrcms-country, etc..)',
+                        'required' => true,
+                        'type' => 'string',
+                        'format' => 'string',
+                    ],
                 ],
             ],
         ];
