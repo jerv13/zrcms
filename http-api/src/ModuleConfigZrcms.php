@@ -254,63 +254,7 @@ class ModuleConfigZrcms
              * ===== ZRCMS HTTP API Swagger =====
              */
             'zrcms-http-api-swagger' => [
-                'swagger' => '2.0',
-                'info' => [
-                    'version' => '1.0.0',
-                    'title' => 'ZRCMS',
-                    'description' => 'ZRCMS APIs',
-                    'contact' => ['name' => '',],
-                    'license' => ['name' => '',],
-                ],
-                'host' => '',
-                'basePath' => '/api',
-                'schemes' => ['https',],
-                'consumes' => ['application/json',],
-                'produces' => ['application/json',],
-                'paths' => [
-                ],
                 'definitions' => [
-                    'Swagger' => [
-                        'type' => 'object',
-                        'properties' => [
-                            'swagger' => [
-                                'type' => 'string',
-                                'format' => 'string',
-                            ],
-                            'info' => [
-                                'type' => 'object',
-                                'format' => 'object',
-                            ],
-                            'host' => [
-                                'type' => 'string',
-                                'format' => 'string',
-                            ],
-                            'basePath' => [
-                                'type' => 'string',
-                                'format' => 'string',
-                            ],
-                            'schemes' => [
-                                'type' => 'array',
-                                'format' => 'array',
-                            ],
-                            'consumes' => [
-                                'type' => 'array',
-                                'format' => 'array',
-                            ],
-                            'produces' => [
-                                'type' => 'array',
-                                'format' => 'array',
-                            ],
-                            'paths' => [
-                                'type' => 'object',
-                                'format' => 'object',
-                            ],
-                            'definitions' => [
-                                'type' => 'object',
-                                'format' => 'object',
-                            ],
-                        ],
-                    ],
                     'ZrcmsJsonResponse' => [
                         'description' => 'ZrcmsJsonResponse',
                         'schema' => [
@@ -327,6 +271,22 @@ class ModuleConfigZrcms
                             ],
                         ],
                     ],
+                    'ZrcmsImplementationPathProperty' => [
+                        'name' => 'zrcms-implementation',
+                        'in' => 'path',
+                        'description' => 'Implementation of core functionality name (I.E. site, page, etc..)',
+                        'required' => true,
+                        'type' => 'string',
+                        'format' => 'string',
+                    ],
+                    'ZrcmsIdPathProperty' => [
+                        'name' => 'id',
+                        'in' => 'path',
+                        'description' => 'ZRCMS ID field',
+                        'required' => true,
+                        'type' => 'string',
+                        'format' => 'string',
+                    ]
                 ],
             ],
         ];

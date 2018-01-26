@@ -74,22 +74,6 @@ class ModuleConfigZrcms
                             ],
                         ],
                     ],
-                    'ZrcmsJsonResponse' => [
-                        'description' => 'ZrcmsJsonResponse',
-                        'schema' => [
-                            'type' => 'object',
-                            'properties' => [
-                                'data' => [
-                                    'type' => 'object',
-                                    'format' => 'string',
-                                ],
-                                'messages' => [
-                                    'type' => 'array',
-                                    'format' => 'array',
-                                ],
-                            ],
-                        ],
-                    ],
                 ],
             ],
         ];

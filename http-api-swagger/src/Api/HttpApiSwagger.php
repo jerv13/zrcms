@@ -120,7 +120,7 @@ class HttpApiSwagger
         string $name,
         array $zrcmsRoute
     ): array {
-        $swaggerPathDate= [];
+        $swaggerPathData = [];
 
         $swaggerConfig = Param::getArray(
             $zrcmsRoute,
@@ -141,14 +141,39 @@ class HttpApiSwagger
         foreach ($allowedMethods as $allowedMethod) {
             $allowedMethod = strtolower($allowedMethod);
 
-            $swaggerPathDate[$allowedMethod] = Param::get(
+            $data = Param::get(
                 $swaggerConfig,
                 $allowedMethod,
                 []
             );
+
+            $data['description'] = Param::getString(
+                $data,
+                'description',
+                'Name: ' . $name
+            );
+
+            $data['produces'] = Param::getArray(
+                $data,
+                'produces',
+                ['application/json']
+            );
+
+            $data['parameters'] = Param::getArray(
+                $data,
+                'parameters',
+                []
+            );
+
+            $data['responses'] = Param::getArray(
+                $data,
+                'responses',
+                []
+            );
+            $swaggerPathData[$allowedMethod] = $data;
         }
 
-        return $swaggerPathDate;
+        return $swaggerPathData;
     }
 
     /**
