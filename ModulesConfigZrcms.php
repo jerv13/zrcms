@@ -30,8 +30,12 @@ class ModulesConfigZrcms
             new \Zrcms\CoreView\ModuleConfigZrcms(),
             new \Zrcms\Fields\ModuleConfigZrcms(),
             new \Zrcms\HttpApi\ModuleConfigZrcms(),
+            new \Zrcms\HttpApiContainer\ModuleConfigZrcms(),
+            new \Zrcms\HttpApiPage\ModuleConfigZrcms(),
+            new \Zrcms\HttpApiRedirect\ModuleConfigZrcms(),
             new \Zrcms\HttpApiSite\ModuleConfigZrcms(),
             new \Zrcms\HttpApiSwagger\ModuleConfigZrcms(),
+            new \Zrcms\HttpApiTheme\ModuleConfigZrcms(),
             new \Zrcms\HttpApplicationState\ModuleConfigZrcms(),
             // @todo ViewHead included by default?
             new \Zrcms\HttpAssetsViewHead\ModuleConfigZrcms(),

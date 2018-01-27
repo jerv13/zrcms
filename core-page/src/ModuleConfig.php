@@ -8,11 +8,16 @@ use Zrcms\CoreContainer\Api\Render\RenderContainer;
 use Zrcms\CorePage\Api\CmsResource\FindPageCmsResource;
 use Zrcms\CorePage\Api\CmsResource\FindPageCmsResourceBySitePath;
 use Zrcms\CorePage\Api\CmsResource\FindPageCmsResourcesBy;
+use Zrcms\CorePage\Api\CmsResource\FindPageCmsResourcesPublished;
+use Zrcms\CorePage\Api\CmsResource\FindPageTemplateCmsResource;
 use Zrcms\CorePage\Api\CmsResource\FindPageTemplateCmsResourceBySitePath;
 use Zrcms\CorePage\Api\CmsResource\FindPageTemplateCmsResourcesBy;
+use Zrcms\CorePage\Api\CmsResource\FindPageTemplateCmsResourcesPublished;
 use Zrcms\CorePage\Api\CmsResource\UpsertPageCmsResource;
 use Zrcms\CorePage\Api\CmsResource\UpsertPageDraftCmsResource;
 use Zrcms\CorePage\Api\CmsResource\UpsertPageTemplateCmsResource;
+use Zrcms\CorePage\Api\CmsResourceHistory\FindPageCmsResourceHistory;
+use Zrcms\CorePage\Api\CmsResourceHistory\FindPageCmsResourceHistoryBy;
 use Zrcms\CorePage\Api\Content\FindPageVersion;
 use Zrcms\CorePage\Api\Content\FindPageVersionsBy;
 use Zrcms\CorePage\Api\Content\InsertPageVersion;
@@ -35,6 +40,35 @@ class ModuleConfig
         return [
             'dependencies' => [
                 'config_factories' => [
+                    /**
+                     * CmsResource
+                     */
+                    FindPageCmsResource::class => [
+                        'class' => IMPLEMENTATIONisREQUIRED::class
+                    ],
+                    FindPageCmsResourceBySitePath::class => [
+                        'class' => IMPLEMENTATIONisREQUIRED::class
+                    ],
+                    FindPageCmsResourcesBy::class => [
+                        'class' => IMPLEMENTATIONisREQUIRED::class
+                    ],
+                    FindPageCmsResourcesPublished::class => [
+                        'class' => IMPLEMENTATIONisREQUIRED::class
+                    ],
+
+                    FindPageTemplateCmsResource::class => [
+                        'class' => IMPLEMENTATIONisREQUIRED::class
+                    ],
+                    FindPageTemplateCmsResourceBySitePath::class => [
+                        'class' => IMPLEMENTATIONisREQUIRED::class
+                    ],
+                    FindPageTemplateCmsResourcesBy::class => [
+                        'class' => IMPLEMENTATIONisREQUIRED::class
+                    ],
+                    FindPageTemplateCmsResourcesPublished::class => [
+                        'class' => IMPLEMENTATIONisREQUIRED::class
+                    ],
+
                     UpsertPageCmsResource::class => [
                         'class' => IMPLEMENTATIONisREQUIRED::class
                     ],
@@ -44,6 +78,33 @@ class ModuleConfig
                     UpsertPageDraftCmsResource::class => [
                         'class' => IMPLEMENTATIONisREQUIRED::class
                     ],
+
+                    /**
+                     * CmsResourceHistory
+                     */
+                    FindPageCmsResourceHistory::class => [
+                        'class' => IMPLEMENTATIONisREQUIRED::class
+                    ],
+                    FindPageCmsResourceHistoryBy::class => [
+                        'class' => IMPLEMENTATIONisREQUIRED::class
+                    ],
+
+                    /**
+                     * ContentVersion
+                     */
+                    FindPageVersion::class => [
+                        'class' => IMPLEMENTATIONisREQUIRED::class
+                    ],
+                    FindPageVersionsBy::class => [
+                        'class' => IMPLEMENTATIONisREQUIRED::class
+                    ],
+
+                    InsertPageVersion::class => [
+                        'class' => IMPLEMENTATIONisREQUIRED::class
+                    ],
+                    /**
+                     * Render
+                     */
                     GetPageRenderTags::class => [
                         'class' => GetPageRenderTagsBasic::class,
                         'arguments' => [
@@ -56,30 +117,6 @@ class ModuleConfig
                             GetContainerRenderTags::class,
                             RenderContainer::class,
                         ],
-                    ],
-                    FindPageCmsResource::class => [
-                        'class' => IMPLEMENTATIONisREQUIRED::class
-                    ],
-                    FindPageCmsResourceBySitePath::class => [
-                        'class' => IMPLEMENTATIONisREQUIRED::class
-                    ],
-                    FindPageCmsResourcesBy::class => [
-                        'class' => IMPLEMENTATIONisREQUIRED::class
-                    ],
-                    FindPageVersion::class => [
-                        'class' => IMPLEMENTATIONisREQUIRED::class
-                    ],
-                    FindPageVersionsBy::class => [
-                        'class' => IMPLEMENTATIONisREQUIRED::class
-                    ],
-                    FindPageTemplateCmsResourceBySitePath::class => [
-                        'class' => IMPLEMENTATIONisREQUIRED::class
-                    ],
-                    FindPageTemplateCmsResourcesBy::class => [
-                        'class' => IMPLEMENTATIONisREQUIRED::class
-                    ],
-                    InsertPageVersion::class => [
-                        'class' => IMPLEMENTATIONisREQUIRED::class
                     ],
                 ],
             ],

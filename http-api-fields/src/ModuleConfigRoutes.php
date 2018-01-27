@@ -27,6 +27,29 @@ class ModuleConfigRoutes
                     ],
                     'options' => [],
                     'allowed_methods' => ['GET'],
+                    'swagger' => [
+                        'get' => [
+                            'description' => 'List field definitions for a model (I.E. site-version, block-component, etc..)',
+                            'produces' => [
+                                'application/json',
+                            ],
+                            'parameters' => [
+                                [
+                                    'name' => 'zrcms-fields-model',
+                                    'in' => 'path',
+                                    'description' => 'ZRCMS field model (I.E. site-version, block-component, etc..)',
+                                    'required' => true,
+                                    'type' => 'string',
+                                    'format' => 'string',
+                                ]
+                            ],
+                            'responses' => [
+                                'default' => [
+                                    '$ref' => '#/definitions/ZrcmsJsonResponse'
+                                ],
+                            ],
+                        ],
+                    ],
                 ],
                 'zrcms.api.fields.types' => [
                     'name' => 'zrcms.api.fields.types',
@@ -37,6 +60,20 @@ class ModuleConfigRoutes
                     ],
                     'options' => [],
                     'allowed_methods' => ['GET'],
+                    'swagger' => [
+                        'get' => [
+                            'description' => 'List field types',
+                            'produces' => [
+                                'application/json',
+                            ],
+                            'parameters' => [],
+                            'responses' => [
+                                'default' => [
+                                    '$ref' => '#/definitions/ZrcmsJsonResponse'
+                                ],
+                            ],
+                        ],
+                    ],
                 ],
             ],
         ];

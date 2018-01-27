@@ -8,6 +8,9 @@ use Zrcms\CoreSite\Api\CmsResource\FindSiteCmsResourceByHost;
 use Zrcms\CoreSite\Api\CmsResource\FindSiteCmsResourcesBy;
 use Zrcms\CoreSite\Api\CmsResource\FindSiteCmsResourcesPublished;
 use Zrcms\CoreSite\Api\CmsResource\UpsertSiteCmsResource;
+use Zrcms\CoreSite\Api\CmsResourceHistory\FindLastSiteCmsResourceHistory;
+use Zrcms\CoreSite\Api\CmsResourceHistory\FindSiteCmsResourceHistory;
+use Zrcms\CoreSite\Api\CmsResourceHistory\FindSiteCmsResourceHistoryBy;
 use Zrcms\CoreSite\Api\Content\FindSiteVersion;
 use Zrcms\CoreSite\Api\Content\FindSiteVersionsBy;
 use Zrcms\CoreSite\Api\Content\InsertSiteVersion;
@@ -26,9 +29,9 @@ class ModuleConfig
         return [
             'dependencies' => [
                 'config_factories' => [
-                    UpsertSiteCmsResource::class => [
-                        'class' => IMPLEMENTATIONisREQUIRED::class
-                    ],
+                    /**
+                     * CmsResource
+                     */
                     FindSiteCmsResource::class => [
                         'class' => IMPLEMENTATIONisREQUIRED::class
                     ],
@@ -41,6 +44,26 @@ class ModuleConfig
                     FindSiteCmsResourcesPublished::class => [
                         'class' => IMPLEMENTATIONisREQUIRED::class
                     ],
+                    UpsertSiteCmsResource::class => [
+                        'class' => IMPLEMENTATIONisREQUIRED::class
+                    ],
+
+                    /**
+                     * CmsResourceHistory
+                     */
+                    FindLastSiteCmsResourceHistory::class => [
+                        'class' => IMPLEMENTATIONisREQUIRED::class
+                    ],
+                    FindSiteCmsResourceHistory::class => [
+                        'class' => IMPLEMENTATIONisREQUIRED::class
+                    ],
+                    FindSiteCmsResourceHistoryBy::class => [
+                        'class' => IMPLEMENTATIONisREQUIRED::class
+                    ],
+
+                    /**
+                     * ContentVersion
+                     */
                     FindSiteVersion::class => [
                         'class' => IMPLEMENTATIONisREQUIRED::class
                     ],

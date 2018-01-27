@@ -9,7 +9,7 @@ use Zrcms\CorePage\Model\PageCmsResource;
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-interface FindPageCmsResource extends FindCmsResource
+interface FindPageTemplateCmsResource extends FindCmsResource
 {
     /**
      * @param string $id

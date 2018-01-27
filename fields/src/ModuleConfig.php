@@ -16,14 +16,15 @@ use Zrcms\Fields\Api\FieldType\ListFieldTypes;
 use Zrcms\Fields\Api\FieldType\ListFieldTypesBasicFactory;
 use Zrcms\Fields\Api\PrepareFields;
 use Zrcms\Fields\Api\PrepareFieldsByFieldsConfigFactory;
+use Zrcms\Fields\Api\PrepareFieldsByFieldsModelNameFactory;
 use Zrcms\Fields\Api\ValidateByFieldConfigValidator;
 use Zrcms\Fields\Api\ValidateByFieldConfigValidatorFactory;
 use Zrcms\Fields\Api\ValidateByFieldType;
 use Zrcms\Fields\Api\ValidateByFieldTypeFactory;
 use Zrcms\Fields\Api\ValidateByFieldTypeRequired;
 use Zrcms\Fields\Api\ValidateByFieldTypeRequiredFactory;
-use Zrcms\Fields\Api\ValidateFieldsByFieldsConfig;
-use Zrcms\Fields\Api\ValidateFieldsByFieldsConfigFactory;
+use Zrcms\Fields\Api\ValidateFieldsByFieldsModelName;
+use Zrcms\Fields\Api\ValidateFieldsByFieldsModelNameFactory;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -57,7 +58,7 @@ class ModuleConfig
                         'factory' => ListFieldTypesBasicFactory::class,
                     ],
                     PrepareFields::class => [
-                        'factory' => PrepareFieldsByFieldsConfigFactory::class,
+                        'factory' => PrepareFieldsByFieldsModelNameFactory::class,
                     ],
                     ValidateByFieldConfigValidator::class => [
                         'factory' => ValidateByFieldConfigValidatorFactory::class,
@@ -68,8 +69,8 @@ class ModuleConfig
                     ValidateByFieldTypeRequired::class => [
                         'factory' => ValidateByFieldTypeRequiredFactory::class,
                     ],
-                    ValidateFieldsByFieldsConfig::class => [
-                        'factory' => ValidateFieldsByFieldsConfigFactory::class,
+                    ValidateFieldsByFieldsModelName::class => [
+                        'factory' => ValidateFieldsByFieldsModelNameFactory::class,
                     ],
                 ],
             ],

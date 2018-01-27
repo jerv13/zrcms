@@ -1,30 +1,29 @@
 <?php
 
-namespace Zrcms\HttpApiSite;
+namespace Zrcms\HttpApiPage;
 
 use Zrcms\Acl\Api\IsAllowedRcmUserSitesAdmin;
 use Zrcms\Core\Api\CmsResource\CmsResourcesToArray;
 use Zrcms\Core\Api\CmsResource\CmsResourceToArray;
 use Zrcms\Core\Api\Content\ContentVersionsToArray;
 use Zrcms\Core\Api\Content\ContentVersionToArray;
-use Zrcms\CoreSite\Api\CmsResource\FindSiteCmsResource;
-use Zrcms\CoreSite\Api\CmsResource\FindSiteCmsResourcesBy;
-use Zrcms\CoreSite\Api\CmsResource\FindSiteCmsResourcesPublished;
-use Zrcms\CoreSite\Api\CmsResource\UpsertSiteCmsResource;
-use Zrcms\CoreSite\Api\Content\FindSiteVersion;
-use Zrcms\CoreSite\Api\Content\FindSiteVersionsBy;
-use Zrcms\CoreSite\Api\Content\InsertSiteVersion;
+use Zrcms\CorePage\Api\CmsResource\FindPageCmsResource;
+use Zrcms\CorePage\Api\CmsResource\FindPageCmsResourcesBy;
+use Zrcms\CorePage\Api\CmsResource\FindPageCmsResourcesPublished;
+use Zrcms\CorePage\Api\CmsResource\UpsertPageCmsResource;
+use Zrcms\CorePage\Api\CmsResourceHistory\FindPageCmsResourceHistory;
+use Zrcms\CorePage\Api\CmsResourceHistory\FindPageCmsResourceHistoryBy;
+use Zrcms\CorePage\Api\Content\FindPageVersion;
+use Zrcms\CorePage\Api\Content\FindPageVersionsBy;
+use Zrcms\CorePage\Api\Content\InsertPageVersion;
 use Zrcms\InputValidationZrcms\Api\ValidateCmsResourceDataUpsert;
 use Zrcms\InputValidationZrcms\Api\ValidateContentVersionDataInsert;
 
 /**
- * @author James Jervis - https:/github.com/jerv13
+ * @author James Jervis - https://github.com/jerv13
  */
 class ModuleConfigZrcms
 {
-    /**
-     * @return array
-     */
     public function __invoke()
     {
         return [
@@ -32,7 +31,7 @@ class ModuleConfigZrcms
              * ===== ZRCMS HTTP API by request =====
              */
             'zrcms-http-api-dynamic' => [
-                'site' => [
+                'page' => [
                     /**
                      * CmsResource
                      */
@@ -43,7 +42,7 @@ class ModuleConfigZrcms
                             'not-allowed-status' => 401,
                         ],
                         'api' => [
-                            'api-service' => FindSiteCmsResource::class,
+                            'api-service' => FindPageCmsResource::class,
                             'to-array' => CmsResourceToArray::class,
                             'not-found-status' => 404,
                         ],
@@ -56,7 +55,7 @@ class ModuleConfigZrcms
                             'not-allowed-status' => 401,
                         ],
                         'api' => [
-                            'api-service' => FindSiteCmsResourcesBy::class,
+                            'api-service' => FindPageCmsResourcesBy::class,
                             'to-array' => CmsResourcesToArray::class,
                             'not-found-status' => 404,
                         ],
@@ -69,12 +68,15 @@ class ModuleConfigZrcms
                             'not-allowed-status' => 401,
                         ],
                         'api' => [
-                            'api-service' => FindSiteCmsResourcesPublished::class,
+                            'api-service' => FindPageCmsResourcesPublished::class,
                             'to-array' => CmsResourcesToArray::class,
                             'not-found-status' => 404,
                         ],
                     ],
 
+                    /**
+                     * CmsResourceHistory
+                     */
                     'upsert-cms-resource' => [
                         'acl' => [
                             'is-allowed' => IsAllowedRcmUserSitesAdmin::class,
@@ -87,15 +89,12 @@ class ModuleConfigZrcms
                             'not-valid-status' => 400,
                         ],
                         'api' => [
-                            'api-service' => UpsertSiteCmsResource::class,
+                            'api-service' => UpsertPageCmsResource::class,
                             'to-array' => CmsResourceToArray::class,
                             'not-found-status' => 404,
                         ],
                     ],
 
-                    /**
-                     * CmsResourceHistory
-                     */
                     'find-cms-resource-history' => [
                         'acl' => [
                             'is-allowed' => IsAllowedRcmUserSitesAdmin::class,
@@ -103,7 +102,7 @@ class ModuleConfigZrcms
                             'not-allowed-status' => 401,
                         ],
                         'api' => [
-                            //'api-service' => TBD::class,
+                            'api-service' => FindPageCmsResourceHistory::class,
                             'to-array' => CmsResourceToArray::class,
                             'not-found-status' => 404,
                         ],
@@ -116,7 +115,7 @@ class ModuleConfigZrcms
                             'not-allowed-status' => 401,
                         ],
                         'api' => [
-                            //'api-service' => TBD::class,
+                            'api-service' => FindPageCmsResourceHistoryBy::class,
                             'to-array' => CmsResourcesToArray::class,
                             'not-found-status' => 404,
                         ],
@@ -132,7 +131,7 @@ class ModuleConfigZrcms
                             'not-allowed-status' => 401,
                         ],
                         'api' => [
-                            'api-service' => FindSiteVersion::class,
+                            'api-service' => FindPageVersion::class,
                             'to-array' => ContentVersionToArray::class,
                             'not-found-status' => 404,
                         ],
@@ -145,7 +144,7 @@ class ModuleConfigZrcms
                             'not-allowed-status' => 401,
                         ],
                         'api' => [
-                            'api-service' => FindSiteVersionsBy::class,
+                            'api-service' => FindPageVersionsBy::class,
                             'to-array' => ContentVersionsToArray::class,
                             'not-found-status' => 404,
                         ],
@@ -163,7 +162,7 @@ class ModuleConfigZrcms
                             'not-valid-status' => 400,
                         ],
                         'api' => [
-                            'api-service' => InsertSiteVersion::class,
+                            'api-service' => InsertPageVersion::class,
                             'to-array' => ContentVersionToArray::class,
                             'not-found-status' => 404,
                         ],

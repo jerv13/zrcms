@@ -67,7 +67,7 @@ class ModuleConfigZrcms
                     [
                         'name' => FieldsContainerVersion::SITE_CMS_RESOURCE_ID,
                         'type' => 'id',
-                        'label' => 'Site CmsResourceId',
+                        'label' => 'Container CmsResourceId',
                         'required' => true,
                         'default' => '',
                         'options' => [],

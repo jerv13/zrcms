@@ -1,6 +1,10 @@
 @todo
 =====
 
+- do proper validations for content base on fields ValidateContentVersionData->properties
+- IF ContentVersion ID is set, then we can ignore all validations for Upsert (verify how this works at the php api layer)
+- consider moving property validation back to the php api layer
+
 ##### Importer 
 
 - Should use fields bit (warnings ONLY)

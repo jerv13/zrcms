@@ -61,8 +61,8 @@ class ModuleConfigRoutes
                                 'application/json',
                             ],
                             'parameters' => [
-                                ['$ref' => '#/definitions/ZrcmsImplementationPathProperty'],
-                                ['$ref' => '#/definitions/ZrcmsIdPathProperty'],
+                                ['$ref' => '#/route-params/ZrcmsImplementationPathProperty'],
+                                ['$ref' => '#/route-params/ZrcmsIdPathProperty'],
                             ],
                             'responses' => [
                                 'default' => [
@@ -101,11 +101,11 @@ class ModuleConfigRoutes
                                 'application/json',
                             ],
                             'parameters' => [
-                                ['$ref' => '#/definitions/ZrcmsImplementationPathProperty'],
-                                ['$ref' => '#/definitions/ZrcmsWhereParameter'],
-                                ['$ref' => '#/definitions/ZrcmsOrderByParameter'],
-                                ['$ref' => '#/definitions/ZrcmsLimitParameter'],
-                                ['$ref' => '#/definitions/ZrcmsOffsetParameter'],
+                                ['$ref' => '#/route-params/ZrcmsImplementationPathProperty'],
+                                ['$ref' => '#/route-params/ZrcmsWhereParameter'],
+                                ['$ref' => '#/route-params/ZrcmsOrderByParameter'],
+                                ['$ref' => '#/route-params/ZrcmsLimitParameter'],
+                                ['$ref' => '#/route-params/ZrcmsOffsetParameter'],
                             ],
                             'responses' => [
                                 'default' => [
@@ -144,11 +144,11 @@ class ModuleConfigRoutes
                                 'application/json',
                             ],
                             'parameters' => [
-                                ['$ref' => '#/definitions/ZrcmsImplementationPathProperty'],
-                                ['$ref' => '#/definitions/ZrcmsWhereParameter'],
-                                ['$ref' => '#/definitions/ZrcmsOrderByParameter'],
-                                ['$ref' => '#/definitions/ZrcmsLimitParameter'],
-                                ['$ref' => '#/definitions/ZrcmsOffsetParameter'],
+                                ['$ref' => '#/route-params/ZrcmsImplementationPathProperty'],
+                                ['$ref' => '#/route-params/ZrcmsWhereParameter'],
+                                ['$ref' => '#/route-params/ZrcmsOrderByParameter'],
+                                ['$ref' => '#/route-params/ZrcmsLimitParameter'],
+                                ['$ref' => '#/route-params/ZrcmsOffsetParameter'],
                             ],
                             'responses' => [
                                 'default' => [
@@ -183,7 +183,7 @@ class ModuleConfigRoutes
                                 'application/json',
                             ],
                             'parameters' => [
-                                ['$ref' => '#/definitions/ZrcmsImplementationPathProperty'],
+                                ['$ref' => '#/route-params/ZrcmsImplementationPathProperty'],
                             ],
                             'responses' => [
                                 'default' => [
@@ -197,7 +197,7 @@ class ModuleConfigRoutes
                                 'application/json',
                             ],
                             'parameters' => [
-                                ['$ref' => '#/definitions/ZrcmsImplementationPathProperty'],
+                                ['$ref' => '#/route-params/ZrcmsImplementationPathProperty'],
                             ],
                             'responses' => [
                                 'default' => [
@@ -231,8 +231,8 @@ class ModuleConfigRoutes
                                 'application/json',
                             ],
                             'parameters' => [
-                                ['$ref' => '#/definitions/ZrcmsImplementationPathProperty'],
-                                ['$ref' => '#/definitions/ZrcmsIdPathProperty'],
+                                ['$ref' => '#/route-params/ZrcmsImplementationPathProperty'],
+                                ['$ref' => '#/route-params/ZrcmsIdPathProperty'],
                             ],
                             'responses' => [
                                 'default' => [
@@ -271,11 +271,11 @@ class ModuleConfigRoutes
                                 'application/json',
                             ],
                             'parameters' => [
-                                ['$ref' => '#/definitions/ZrcmsImplementationPathProperty'],
-                                ['$ref' => '#/definitions/ZrcmsWhereParameter'],
-                                ['$ref' => '#/definitions/ZrcmsOrderByParameter'],
-                                ['$ref' => '#/definitions/ZrcmsLimitParameter'],
-                                ['$ref' => '#/definitions/ZrcmsOffsetParameter'],
+                                ['$ref' => '#/route-params/ZrcmsImplementationPathProperty'],
+                                ['$ref' => '#/route-params/ZrcmsWhereParameter'],
+                                ['$ref' => '#/route-params/ZrcmsOrderByParameter'],
+                                ['$ref' => '#/route-params/ZrcmsLimitParameter'],
+                                ['$ref' => '#/route-params/ZrcmsOffsetParameter'],
                             ],
                             'responses' => [
                                 'default' => [
@@ -364,8 +364,8 @@ class ModuleConfigRoutes
                                 'application/json',
                             ],
                             'parameters' => [
-                                ['$ref' => '#/definitions/ZrcmsComponentType'],
-                                ['$ref' => '#/definitions/ZrcmsComponentName']
+                                ['$ref' => '#/route-params/ZrcmsComponentType'],
+                                ['$ref' => '#/route-params/ZrcmsComponentName']
                             ],
                             'responses' => [
                                 'default' => [
@@ -402,10 +402,10 @@ class ModuleConfigRoutes
                                 'application/json',
                             ],
                             'parameters' => [
-                                ['$ref' => '#/definitions/ZrcmsWhereParameter'],
-                                ['$ref' => '#/definitions/ZrcmsOrderByParameter'],
-                                ['$ref' => '#/definitions/ZrcmsLimitParameter'],
-                                ['$ref' => '#/definitions/ZrcmsOffsetParameter'],
+                                ['$ref' => '#/route-params/ZrcmsWhereParameter'],
+                                ['$ref' => '#/route-params/ZrcmsOrderByParameter'],
+                                ['$ref' => '#/route-params/ZrcmsLimitParameter'],
+                                ['$ref' => '#/route-params/ZrcmsOffsetParameter'],
                             ],
                             'responses' => [
                                 'default' => [
@@ -439,8 +439,8 @@ class ModuleConfigRoutes
                                 'application/json',
                             ],
                             'parameters' => [
-                                ['$ref' => '#/definitions/ZrcmsImplementationPathProperty'],
-                                ['$ref' => '#/definitions/ZrcmsIdPathProperty'],
+                                ['$ref' => '#/route-params/ZrcmsImplementationPathProperty'],
+                                ['$ref' => '#/route-params/ZrcmsIdPathProperty'],
                             ],
                             'responses' => [
                                 'default' => [
@@ -479,11 +479,11 @@ class ModuleConfigRoutes
                                 'application/json',
                             ],
                             'parameters' => [
-                                ['$ref' => '#/definitions/ZrcmsImplementationPathProperty'],
-                                ['$ref' => '#/definitions/ZrcmsWhereParameter'],
-                                ['$ref' => '#/definitions/ZrcmsOrderByParameter'],
-                                ['$ref' => '#/definitions/ZrcmsLimitParameter'],
-                                ['$ref' => '#/definitions/ZrcmsOffsetParameter'],
+                                ['$ref' => '#/route-params/ZrcmsImplementationPathProperty'],
+                                ['$ref' => '#/route-params/ZrcmsWhereParameter'],
+                                ['$ref' => '#/route-params/ZrcmsOrderByParameter'],
+                                ['$ref' => '#/route-params/ZrcmsLimitParameter'],
+                                ['$ref' => '#/route-params/ZrcmsOffsetParameter'],
                             ],
                             'responses' => [
                                 'default' => [
@@ -518,7 +518,7 @@ class ModuleConfigRoutes
                                 'application/json',
                             ],
                             'parameters' => [
-                                ['$ref' => '#/definitions/ZrcmsImplementationPathProperty'],
+                                ['$ref' => '#/route-params/ZrcmsImplementationPathProperty'],
                             ],
                             'responses' => [
                                 'default' => [

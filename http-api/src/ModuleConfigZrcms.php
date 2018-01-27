@@ -271,6 +271,8 @@ class ModuleConfigZrcms
                             ],
                         ],
                     ],
+                    ],
+                'route-params' => [
                     'ZrcmsImplementationPathProperty' => [
                         'name' => 'zrcms-implementation',
                         'in' => 'path',

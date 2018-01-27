@@ -9,7 +9,10 @@ use Zrcms\CoreBlock\Api\Render\WrapRenderedBlockVersion;
 use Zrcms\CoreContainer\Api\CmsResource\FindContainerCmsResource;
 use Zrcms\CoreContainer\Api\CmsResource\FindContainerCmsResourcesBy;
 use Zrcms\CoreContainer\Api\CmsResource\FindContainerCmsResourcesBySitePaths;
+use Zrcms\CoreContainer\Api\CmsResource\FindContainerCmsResourcesPublished;
 use Zrcms\CoreContainer\Api\CmsResource\UpsertContainerCmsResource;
+use Zrcms\CoreContainer\Api\CmsResourceHistory\FindContainerCmsResourceHistory;
+use Zrcms\CoreContainer\Api\CmsResourceHistory\FindContainerCmsResourceHistoryBy;
 use Zrcms\CoreContainer\Api\Content\FindContainerVersion;
 use Zrcms\CoreContainer\Api\Content\FindContainerVersionsBy;
 use Zrcms\CoreContainer\Api\Content\InsertContainerVersion;
@@ -37,9 +40,51 @@ class ModuleConfig
         return [
             'dependencies' => [
                 'config_factories' => [
+                    /**
+                     * CmsResource
+                     */
+                    FindContainerCmsResource::class => [
+                        'class' => IMPLEMENTATIONisREQUIRED::class
+                    ],
+                    FindContainerCmsResourcesBy::class => [
+                        'class' => IMPLEMENTATIONisREQUIRED::class
+                    ],
+                    FindContainerCmsResourcesBySitePaths::class => [
+                        'class' => IMPLEMENTATIONisREQUIRED::class
+                    ],
+                    FindContainerCmsResourcesPublished::class => [
+                        'class' => IMPLEMENTATIONisREQUIRED::class
+                    ],
                     UpsertContainerCmsResource::class => [
                         'class' => IMPLEMENTATIONisREQUIRED::class
                     ],
+
+                    /**
+                     * CmsResourceHistory
+                     */
+                    FindContainerCmsResourceHistory::class => [
+                        'class' => IMPLEMENTATIONisREQUIRED::class
+                    ],
+                    FindContainerCmsResourceHistoryBy::class => [
+                        'class' => IMPLEMENTATIONisREQUIRED::class
+                    ],
+
+                    /**
+                     * ContentVersion
+                     */
+                    FindContainerVersion::class => [
+                        'class' => IMPLEMENTATIONisREQUIRED::class
+                    ],
+                    FindContainerVersionsBy::class => [
+                        'class' => IMPLEMENTATIONisREQUIRED::class
+                    ],
+                    InsertContainerVersion::class => [
+                        'class' => IMPLEMENTATIONisREQUIRED::class
+                    ],
+
+                    /**
+                     * Render
+                     */
                     GetContainerRenderTags::class => [
                         'class' => GetContainerRenderTagsBasic::class,
                         'arguments' => [
@@ -66,24 +111,6 @@ class ModuleConfig
                             WrapRenderedContainer::class,
                             ['literal' => IsDebug::invoke()],
                         ],
-                    ],
-                    FindContainerCmsResource::class => [
-                        'class' => IMPLEMENTATIONisREQUIRED::class
-                    ],
-                    FindContainerCmsResourcesBy::class => [
-                        'class' => IMPLEMENTATIONisREQUIRED::class
-                    ],
-                    FindContainerCmsResourcesBySitePaths::class => [
-                        'class' => IMPLEMENTATIONisREQUIRED::class
-                    ],
-                    FindContainerVersion::class => [
-                        'class' => IMPLEMENTATIONisREQUIRED::class
-                    ],
-                    FindContainerVersionsBy::class => [
-                        'class' => IMPLEMENTATIONisREQUIRED::class
-                    ],
-                    InsertContainerVersion::class => [
-                        'class' => IMPLEMENTATIONisREQUIRED::class
                     ],
                     WrapRenderedContainer::class => [
                         'class' => WrapRenderedContainerLegacy::class,

@@ -2,6 +2,7 @@
 
 namespace Zrcms\Fields\Api;
 
+use Zrcms\Fields\Api\Field\FindFieldsByModel;
 use Zrcms\Fields\Model\FieldConfig;
 use Zrcms\Fields\Model\FieldType;
 use Zrcms\Param\Param;
@@ -9,19 +10,23 @@ use Zrcms\Param\Param;
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class PrepareFieldsByFieldsConfig implements PrepareFields
+class PrepareFieldsByFieldsModelName implements PrepareFields
 {
-    const OPTION_FIELDS_CONFIG = 'fields-config';
+    const OPTION_FIELDS_MODEL_NAME = 'fields-model-name';
 
     protected $validateByFieldTypeRequired;
+    protected $findFieldsByModel;
 
     /**
      * @param ValidateByFieldTypeRequired $validateByFieldTypeRequired
+     * @param FindFieldsByModel           $findFieldsByModel
      */
     public function __construct(
-        ValidateByFieldTypeRequired $validateByFieldTypeRequired
+        ValidateByFieldTypeRequired $validateByFieldTypeRequired,
+        FindFieldsByModel $findFieldsByModel
     ) {
         $this->validateByFieldTypeRequired = $validateByFieldTypeRequired;
+        $this->findFieldsByModel = $findFieldsByModel;
     }
 
     /**
@@ -39,11 +44,42 @@ class PrepareFieldsByFieldsConfig implements PrepareFields
         array $fields,
         array $options = []
     ): array {
-        $fieldsConfig = Param::getRequired(
+        $modelName = Param::getRequired(
             $options,
-            static::OPTION_FIELDS_CONFIG
+            static::OPTION_FIELDS_MODEL_NAME
         );
 
+        $fieldsModel= $this->findFieldsByModel->__invoke(
+            $modelName
+        );
+
+        if (empty($fieldsModel)) {
+            throw new \Exception(
+                'No fields found for field model: ' . $modelName
+            );
+        }
+
+        return $this->prepare(
+            $fields,
+            $fieldsModel->getFieldsConfig()
+        );
+    }
+
+    /**
+     * @param array $fields
+     * @param array $fieldsConfig
+     *
+     * @return array
+     * @throws \Exception
+     * @throws \Psr\Container\ContainerExceptionInterface
+     * @throws \Psr\Container\NotFoundExceptionInterface
+     * @throws \Throwable
+     * @throws \Zrcms\Param\Exception\ParamException
+     */
+    protected function prepare(
+        array $fields,
+        array $fieldsConfig
+    ):array {
         $fieldsConfigByName = BuildFieldsConfigNameIndex::invoke($fieldsConfig);
 
         $preparedFields = [];

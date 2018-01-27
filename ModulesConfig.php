@@ -46,6 +46,7 @@ class ModulesConfig
             new \Zrcms\CoreContainerDoctrine\ModuleConfig(),
             new \Zrcms\CorePage\ModuleConfig(),
             new \Zrcms\CorePageDoctrine\ModuleConfig(),
+            new \Zrcms\CoreRedirect\ModuleConfig(),
             new \Zrcms\CoreRedirectDoctrine\ModuleConfig(),
             new \Zrcms\CoreSite\ModuleConfig(),
             new \Zrcms\CoreSiteDoctrine\ModuleConfig(),

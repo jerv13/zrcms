@@ -2,6 +2,7 @@
 
 namespace Zrcms\Fields\Api;
 
+use Zrcms\Fields\Api\Field\FindFieldsByModel;
 use Zrcms\Fields\Model\FieldConfig;
 use Zrcms\Fields\Model\FieldType;
 use Zrcms\InputValidation\Api\BuildCode;
@@ -15,13 +16,14 @@ use Zrcms\Param\Param;
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class ValidateFieldsByFieldsConfig implements ValidateFields
+class ValidateFieldsByFieldsModelName implements ValidateFields
 {
-    const OPTION_FIELDS_CONFIG = 'fields-config';
+    const OPTION_FIELDS_MODEL_NAME = 'fields-model-name';
     const OPTION_FIELDS_ALLOWED = ValidateFieldsHasOnlyRecognizedFields::OPTION_FIELDS_ALLOWED;
 
     const DEFAULT_INVALID_CODE = 'invalid-fields-for-fields-config';
 
+    protected $findFieldsByModel;
     protected $validateFieldsHasOnlyRecognizedFields;
     protected $validateByFieldTypeRequired;
     protected $validateByFieldType;
@@ -29,6 +31,7 @@ class ValidateFieldsByFieldsConfig implements ValidateFields
     protected $defaultInvalidCode;
 
     /**
+     * @param FindFieldsByModel              $findFieldsByModel
      * @param ValidateFields                 $validateFieldsHasOnlyRecognizedFields
      * @param ValidateByFieldTypeRequired    $validateByFieldTypeRequired
      * @param ValidateByFieldType            $validateByFieldType
@@ -36,12 +39,14 @@ class ValidateFieldsByFieldsConfig implements ValidateFields
      * @param string                         $defaultInvalidCode
      */
     public function __construct(
+        FindFieldsByModel $findFieldsByModel,
         ValidateFields $validateFieldsHasOnlyRecognizedFields,
         ValidateByFieldTypeRequired $validateByFieldTypeRequired,
         ValidateByFieldType $validateByFieldType,
         ValidateByFieldConfigValidator $validateByFieldConfigValidator,
         string $defaultInvalidCode = self::DEFAULT_INVALID_CODE
     ) {
+        $this->findFieldsByModel = $findFieldsByModel;
         $this->validateFieldsHasOnlyRecognizedFields = $validateFieldsHasOnlyRecognizedFields;
         $this->validateByFieldTypeRequired = $validateByFieldTypeRequired;
         $this->validateByFieldType = $validateByFieldType;
@@ -63,12 +68,22 @@ class ValidateFieldsByFieldsConfig implements ValidateFields
         array $fields,
         array $options = []
     ): ValidationResultFields {
-        $fieldsConfig = Param::getRequired(
+        $modelName = Param::getRequired(
             $options,
-            static::OPTION_FIELDS_CONFIG
+            static::OPTION_FIELDS_MODEL_NAME
         );
 
-        $fieldsConfigByName = BuildFieldsConfigNameIndex::invoke($fieldsConfig);
+        $fieldsModel = $this->findFieldsByModel->__invoke(
+            $modelName
+        );
+
+        if (empty($fieldsModel)) {
+            throw new \Exception(
+                'No fields found for field model: ' . $modelName
+            );
+        }
+
+        $fieldsConfigByName = BuildFieldsConfigNameIndex::invoke($fieldsModel->getFieldsConfig());
 
         // Only recognized fields
         $validationResult = $this->validateFieldsHasOnlyRecognizedFields->__invoke(

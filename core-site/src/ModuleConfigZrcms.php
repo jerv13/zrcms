@@ -24,6 +24,14 @@ class ModuleConfigZrcms
             ],
 
             /**
+             * ===== ZRCMS Field Model Extends =====
+             * ['{model-name}' => '{extends-model-name}']
+             */
+            'zrcms-fields-model-extends' => [
+                'site-version' => 'content-version',
+            ],
+
+            /**
              * ===== ZRCMS Fields =====
              * ['{model-name}' => '{fields-config}']
              */

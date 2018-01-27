@@ -6,10 +6,13 @@ use Zrcms\Core\Api\Component\ReadComponentConfigs;
 use Zrcms\Core\Api\Component\SearchComponentConfigs;
 use Zrcms\Core\Api\GetTypeValue;
 use Zrcms\Core\Exception\IMPLEMENTATIONisREQUIRED;
+use Zrcms\CoreLayout\Api\CmsResource\FindLayoutCmsResourcesPublished;
 use Zrcms\CoreTheme\Api\CmsResource\FindLayoutCmsResource;
 use Zrcms\CoreTheme\Api\CmsResource\FindLayoutCmsResourceByThemeNameLayoutName;
 use Zrcms\CoreTheme\Api\CmsResource\FindLayoutCmsResourcesBy;
 use Zrcms\CoreTheme\Api\CmsResource\UpsertLayoutCmsResource;
+use Zrcms\CoreTheme\Api\CmsResourceHistory\FindLayoutCmsResourceHistory;
+use Zrcms\CoreTheme\Api\CmsResourceHistory\FindLayoutCmsResourceHistoryBy;
 use Zrcms\CoreTheme\Api\Component\BuildComponentObjectThemeLayout;
 use Zrcms\CoreTheme\Api\Component\BuildComponentObjectThemeLayouts;
 use Zrcms\CoreTheme\Api\Content\FindLayoutVersion;
@@ -53,7 +56,20 @@ class ModuleConfig
                     FindLayoutCmsResourcesBy::class => [
                         'class' => IMPLEMENTATIONisREQUIRED::class
                     ],
+                    FindLayoutCmsResourcesPublished::class => [
+                        'class' => IMPLEMENTATIONisREQUIRED::class
+                    ],
                     UpsertLayoutCmsResource::class => [
+                        'class' => IMPLEMENTATIONisREQUIRED::class
+                    ],
+
+                    /**
+                     * CmsResourceHistory
+                     */
+                    FindLayoutCmsResourceHistory::class => [
+                        'class' => IMPLEMENTATIONisREQUIRED::class
+                    ],
+                    FindLayoutCmsResourceHistoryBy::class => [
                         'class' => IMPLEMENTATIONisREQUIRED::class
                     ],
 

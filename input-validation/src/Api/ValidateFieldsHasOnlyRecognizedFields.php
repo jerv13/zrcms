@@ -49,6 +49,8 @@ class ValidateFieldsHasOnlyRecognizedFields implements ValidateFields
             static::CODE_UNRECOGNIZED_FIELD
         );
 
+        $details = [];
+
         if (!$valid) {
             $details['unrecognized-fields'] = $this->buildUnrecognizedFields(
                 $fieldResults

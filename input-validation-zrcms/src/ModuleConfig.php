@@ -2,9 +2,9 @@
 
 namespace Zrcms\InputValidationZrcms;
 
-use Zrcms\InputValidationZrcms\Api\ValidateCmsResourceData;
-use Zrcms\InputValidationZrcms\Api\ValidateCmsResourceDataFactory;
-use Zrcms\InputValidationZrcms\Api\ValidateContentVersionData;
+use Zrcms\InputValidationZrcms\Api\ValidateCmsResourceDataUpsert;
+use Zrcms\InputValidationZrcms\Api\ValidateCmsResourceDataUpsertFactory;
+use Zrcms\InputValidationZrcms\Api\ValidateContentVersionDataInsert;
 use Zrcms\InputValidationZrcms\Api\ValidateContentVersionDataFactory;
 use Zrcms\InputValidationZrcms\Api\ValidateId;
 use Zrcms\InputValidationZrcms\Api\ValidateIdBasicFactory;
@@ -24,10 +24,10 @@ class ModuleConfig
         return [
             'dependencies' => [
                 'config_factories' => [
-                    ValidateCmsResourceData::class => [
-                        'factory' => ValidateCmsResourceDataFactory::class,
+                    ValidateCmsResourceDataUpsert::class => [
+                        'factory' => ValidateCmsResourceDataUpsertFactory::class,
                     ],
-                    ValidateContentVersionData::class => [
+                    ValidateContentVersionDataInsert::class => [
                         'factory' => ValidateContentVersionDataFactory::class,
                     ],
                     ValidateId::class => [

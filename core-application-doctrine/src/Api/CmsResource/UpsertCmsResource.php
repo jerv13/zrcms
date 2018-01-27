@@ -3,6 +3,8 @@
 namespace Zrcms\CoreApplicationDoctrine\Api\CmsResource;
 
 use Doctrine\ORM\EntityManager;
+use Zrcms\Core\Exception\CmsResourceNotExists;
+use Zrcms\Core\Exception\ContentVersionNotExists;
 use Zrcms\Core\Model\ActionCmsResource;
 use Zrcms\Core\Model\CmsResource;
 use Zrcms\CoreApplicationDoctrine\Api\ApiAbstract;
@@ -12,7 +14,7 @@ use Zrcms\CoreApplicationDoctrine\Entity\CmsResourceHistoryEntity;
 use Zrcms\CoreApplicationDoctrine\Entity\ContentEntity;
 
 /**
- * @todo Use transactions here as versions can be saved even if the resource fails
+ * @todo   Use transactions here as versions can be saved even if the resource fails
  *
  * @author James Jervis - https://github.com/jerv13
  */
@@ -75,11 +77,14 @@ class UpsertCmsResource extends ApiAbstract implements \Zrcms\Core\Api\CmsResour
      * @param CmsResource $cmsResource
      * @param string      $modifiedByUserId
      * @param string      $modifiedReason
-     * @param string|null $modifiedDate
+     * @param null        $modifiedDate
      *
      * @return CmsResource
+     * @throws CmsResourceNotExists
+     * @throws ContentVersionNotExists
      * @throws \Doctrine\ORM\OptimisticLockException
      * @throws \Exception
+     * @throws \Zrcms\Core\Exception\TrackingInvalid
      */
     public function __invoke(
         CmsResource $cmsResource,
@@ -162,6 +167,7 @@ class UpsertCmsResource extends ApiAbstract implements \Zrcms\Core\Api\CmsResour
      * @param CmsResource $cmsResource
      *
      * @return null|object|CmsResourceEntity
+     * @throws CmsResourceNotExists
      */
     protected function fetchCmsResourceEntity(
         CmsResource $cmsResource
@@ -181,7 +187,9 @@ class UpsertCmsResource extends ApiAbstract implements \Zrcms\Core\Api\CmsResour
         );
 
         if (empty($cmsResourceEntity)) {
-            return null;
+            throw new CmsResourceNotExists(
+                'CmsResource not found with ID: (' . $cmsResourceId . ')'
+            );
         }
 
         return $cmsResourceEntity;
@@ -217,6 +225,7 @@ class UpsertCmsResource extends ApiAbstract implements \Zrcms\Core\Api\CmsResour
      * @param CmsResource $cmsResource
      *
      * @return null|object|ContentEntity
+     * @throws ContentVersionNotExists
      */
     protected function fetchContentEntity(
         CmsResource $cmsResource
@@ -236,7 +245,9 @@ class UpsertCmsResource extends ApiAbstract implements \Zrcms\Core\Api\CmsResour
         );
 
         if (empty($existingContentVersion)) {
-            return null;
+            throw new ContentVersionNotExists(
+                'Content Version not found with ID: (' . $contentVersionId . ')'
+            );
         }
 
         return $existingContentVersion;
@@ -282,7 +293,7 @@ class UpsertCmsResource extends ApiAbstract implements \Zrcms\Core\Api\CmsResour
         string $modifiedByUserId,
         string $modifiedReason,
         $modifiedDate = null
-    ):CmsResourceHistoryEntity {
+    ): CmsResourceHistoryEntity {
         /** @var CmsResourceHistoryEntity::class $cmsResourceHistoryEntityClass */
         $cmsResourceHistoryEntityClass = $this->entityClassCmsResourceHistory;
 

@@ -9,8 +9,7 @@ use Zrcms\InputValidation\Api\Validate;
 use Zrcms\InputValidation\Api\ValidateCompositeByStrategy;
 use Zrcms\InputValidation\Api\ValidateFields;
 use Zrcms\InputValidation\Api\ValidateFieldsHasOnlyRecognizedFields;
-use Zrcms\InputValidation\Api\ValidateIsAnyValue;
-use Zrcms\InputValidation\Api\ValidateIsBoolean;
+use Zrcms\InputValidation\Api\ValidateIsAssociativeArray;
 use Zrcms\InputValidation\Api\ValidateIsNotEmpty;
 use Zrcms\InputValidation\Api\ValidateIsNull;
 use Zrcms\InputValidation\Api\ValidateIsString;
@@ -21,52 +20,50 @@ use Zrcms\Param\Param;
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class ValidateCmsResourceData implements ValidateFields
+class ValidateContentVersionDataInsert implements ValidateFields
 {
     const KEY_ID = 'id';
-    const KEY_PUBLISHED = 'published';
-    const KEY_CONTENT_VERSION = 'contentVersion';
+    const KEY_PROPERTIES = 'properties';
     const KEY_CREATED_BY_USER_ID = 'createdByUserId';
     const KEY_CREATED_REASON = 'createdReason';
     const KEY_CREATED_DATE = 'createdDate';
 
     const OPTION_VALIDATOR_OPTIONS = 'validator-options';
     const OPTION_VALIDATOR_OPTION_ID = 'id';
-    const OPTION_VALIDATOR_OPTION_PUBLISHED = 'published';
-    const OPTION_VALIDATOR_OPTION_CONTENT_VERSION = 'contentVersion';
+    const OPTION_VALIDATOR_OPTION_PROPERTIES = 'properties';
     const OPTION_VALIDATOR_OPTION_CREATED_BY_USER_ID = 'createdByUserId';
     const OPTION_VALIDATOR_OPTION_CREATED_REASON = 'createdReason';
     const OPTION_VALIDATOR_OPTION_CREATED_DATE = 'createdDate';
 
-    const OPTION_INVALID_CODE = BuildCode::OPTION_INVALID_CODE;
+    const OPTION_INVALID_CODE = 'code-invalid';
 
-    const DEFAULT_INVALID_CODE = 'invalid-cms-resource';
+    const DEFAULT_INVALID_CODE = 'invalid-content-version';
 
     protected $serviceContainer;
     protected $validateFieldsHasOnlyRecognizedFields;
-    protected $validateContentVersion;
+    protected $validateProperties;
     protected $defaultInvalidCode;
 
     /**
      * @param ContainerInterface                                   $serviceContainer
      * @param ValidateFields|ValidateFieldsHasOnlyRecognizedFields $validateFieldsHasOnlyRecognizedFields
-     * @param ValidateFields                                       $validateContentVersion
+     * @param ValidateFields|ValidateProperties                    $validateProperties
      * @param string                                               $defaultInvalidCode
      */
     public function __construct(
         ContainerInterface $serviceContainer,
         ValidateFields $validateFieldsHasOnlyRecognizedFields,
-        ValidateFields $validateContentVersion,
+        ValidateFields $validateProperties,
         string $defaultInvalidCode = self::DEFAULT_INVALID_CODE
     ) {
         $this->serviceContainer = $serviceContainer;
         $this->validateFieldsHasOnlyRecognizedFields = $validateFieldsHasOnlyRecognizedFields;
-        $this->validateContentVersion = $validateContentVersion;
+        $this->validateProperties = $validateProperties;
         $this->defaultInvalidCode = $defaultInvalidCode;
     }
 
     /**
-     * @param array $cmsResourceData ['{name}' => '{value}']
+     * @param array $contentVersionData ['{name}' => '{value}']
      * @param array $options
      *
      * @return ValidationResultFields
@@ -74,16 +71,15 @@ class ValidateCmsResourceData implements ValidateFields
      * @throws \Psr\Container\NotFoundExceptionInterface
      */
     public function __invoke(
-        array $cmsResourceData,
+        array $contentVersionData,
         array $options = []
     ): ValidationResultFields {
         $validationsResult = $this->validateFieldsHasOnlyRecognizedFields->__invoke(
-            $cmsResourceData,
+            $contentVersionData,
             [
                 ValidateFieldsHasOnlyRecognizedFields::OPTION_FIELDS_ALLOWED => [
                     static::KEY_ID,
-                    static::KEY_PUBLISHED,
-                    static::KEY_CONTENT_VERSION,
+                    static::KEY_PROPERTIES,
                     static::KEY_CREATED_BY_USER_ID,
                     static::KEY_CREATED_REASON,
                     static::KEY_CREATED_DATE,
@@ -102,7 +98,7 @@ class ValidateCmsResourceData implements ValidateFields
         );
 
         $fieldResults = $this->getFieldValidationResults(
-            $cmsResourceData,
+            $contentVersionData,
             $validatorOptions
         );
 
@@ -126,7 +122,7 @@ class ValidateCmsResourceData implements ValidateFields
     }
 
     /**
-     * @param array $cmsResourceData
+     * @param array $contentVersionData
      * @param array $validatorOptions
      * @param array $fieldResults
      *
@@ -135,43 +131,36 @@ class ValidateCmsResourceData implements ValidateFields
      * @throws \Psr\Container\NotFoundExceptionInterface
      */
     protected function getFieldValidationResults(
-        array $cmsResourceData,
+        array $contentVersionData,
         array $validatorOptions = [],
         array $fieldResults = []
     ): array {
         $fieldResults = $this->validateId(
-            $cmsResourceData,
+            $contentVersionData,
             $fieldResults,
             $validatorOptions
         );
 
-        $fieldResults = $this->validatePublished(
-            $cmsResourceData,
-            $fieldResults,
-            $validatorOptions
-        );
-
-        // @todo If content-version-id is empty, then validate content-version fields
-        $fieldResults = $this->validateContentVersion(
-            $cmsResourceData,
+        $fieldResults = $this->validateProperties(
+            $contentVersionData,
             $fieldResults,
             $validatorOptions
         );
 
         $fieldResults = $this->validateCreatedByUserId(
-            $cmsResourceData,
+            $contentVersionData,
             $fieldResults,
             $validatorOptions
         );
 
         $fieldResults = $this->validateCreatedReason(
-            $cmsResourceData,
+            $contentVersionData,
             $fieldResults,
             $validatorOptions
         );
 
         $fieldResults = $this->validateCreatedDate(
-            $cmsResourceData,
+            $contentVersionData,
             $fieldResults,
             $validatorOptions
         );
@@ -180,7 +169,7 @@ class ValidateCmsResourceData implements ValidateFields
     }
 
     /**
-     * @param array $cmsResourceData
+     * @param array $contentVersionData
      * @param array $fieldResults
      * @param array $validatorOptions
      *
@@ -189,16 +178,16 @@ class ValidateCmsResourceData implements ValidateFields
      * @throws \Psr\Container\NotFoundExceptionInterface
      */
     protected function validateId(
-        array $cmsResourceData,
+        array $contentVersionData,
         array $fieldResults,
         array $validatorOptions = []
     ): array {
         /** @var Validate $validator */
-        $validator = $this->serviceContainer->get(ValidateIsAnyValue::class);
+        $validator = $this->serviceContainer->get(ValidateIsNull::class);
 
         $fieldResults[static::KEY_ID] = $validator->__invoke(
             Param::get(
-                $cmsResourceData,
+                $contentVersionData,
                 static::KEY_ID
             ),
             Param::getArray(
@@ -212,7 +201,7 @@ class ValidateCmsResourceData implements ValidateFields
     }
 
     /**
-     * @param array $cmsResourceData
+     * @param array $contentVersionData
      * @param array $fieldResults
      * @param array $validatorOptions
      *
@@ -220,59 +209,55 @@ class ValidateCmsResourceData implements ValidateFields
      * @throws \Psr\Container\ContainerExceptionInterface
      * @throws \Psr\Container\NotFoundExceptionInterface
      */
-    protected function validatePublished(
-        array $cmsResourceData,
+    protected function validateProperties(
+        array $contentVersionData,
         array $fieldResults,
         array $validatorOptions = []
     ): array {
         /** @var Validate $validator */
-        $validator = $this->serviceContainer->get(ValidateIsBoolean::class);
+        $validator = $this->serviceContainer->get(ValidateIsAssociativeArray::class);
 
-        $fieldResults[static::KEY_PUBLISHED] = $validator->__invoke(
-            Param::getBool(
-                $cmsResourceData,
-                static::KEY_PUBLISHED
+        $validationResult = $validator->__invoke(
+            Param::getArray(
+                $contentVersionData,
+                static::KEY_PROPERTIES
             ),
             Param::getArray(
                 $validatorOptions,
-                static::OPTION_VALIDATOR_OPTION_PUBLISHED,
+                static::OPTION_VALIDATOR_OPTION_PROPERTIES,
                 []
             )
         );
+
+        if (!$validationResult->isValid()) {
+            $fieldResults[static::KEY_PROPERTIES] = $validationResult;
+
+            return $fieldResults;
+        }
+
+        $validationResult = $this->validateProperties->__invoke(
+            Param::getArray(
+                $contentVersionData,
+                static::KEY_PROPERTIES
+            ),
+            Param::getArray(
+                $validatorOptions,
+                static::OPTION_VALIDATOR_OPTION_PROPERTIES,
+                []
+            )
+        );
+
+        if (!$validationResult->isValid()) {
+            $fieldResults[static::KEY_PROPERTIES] = $validationResult;
+
+            return $fieldResults;
+        }
 
         return $fieldResults;
     }
 
     /**
-     * @param array $cmsResourceData
-     * @param array $fieldResults
-     * @param array $validatorOptions
-     *
-     * @return array
-     */
-    protected function validateContentVersion(
-        array $cmsResourceData,
-        array $fieldResults,
-        array $validatorOptions = []
-    ): array {
-        $fieldResults[static::KEY_CONTENT_VERSION] = $this->validateContentVersion->__invoke(
-            Param::getArray(
-                $cmsResourceData,
-                static::KEY_CONTENT_VERSION,
-                []
-            ),
-            Param::getArray(
-                $validatorOptions,
-                static::OPTION_VALIDATOR_OPTION_CONTENT_VERSION,
-                []
-            )
-        );
-
-        return $fieldResults;
-    }
-
-    /**
-     * @param array $cmsResourceData
+     * @param array $contentVersionData
      * @param array $fieldResults
      * @param array $validatorOptions
      *
@@ -281,7 +266,7 @@ class ValidateCmsResourceData implements ValidateFields
      * @throws \Psr\Container\NotFoundExceptionInterface
      */
     protected function validateCreatedByUserId(
-        array $cmsResourceData,
+        array $contentVersionData,
         array $fieldResults,
         array $validatorOptions = []
     ): array {
@@ -290,7 +275,7 @@ class ValidateCmsResourceData implements ValidateFields
 
         $fieldResults[static::KEY_CREATED_BY_USER_ID] = $validator->__invoke(
             Param::get(
-                $cmsResourceData,
+                $contentVersionData,
                 static::KEY_CREATED_BY_USER_ID
             ),
             Param::getArray(
@@ -304,7 +289,7 @@ class ValidateCmsResourceData implements ValidateFields
     }
 
     /**
-     * @param array $cmsResourceData
+     * @param array $contentVersionData
      * @param array $fieldResults
      * @param array $validatorOptions
      *
@@ -313,7 +298,7 @@ class ValidateCmsResourceData implements ValidateFields
      * @throws \Psr\Container\NotFoundExceptionInterface
      */
     protected function validateCreatedReason(
-        array $cmsResourceData,
+        array $contentVersionData,
         array $fieldResults,
         array $validatorOptions = []
     ): array {
@@ -337,7 +322,7 @@ class ValidateCmsResourceData implements ValidateFields
 
         $fieldResults[static::KEY_CREATED_REASON] = $validator->__invoke(
             Param::getString(
-                $cmsResourceData,
+                $contentVersionData,
                 static::KEY_CREATED_REASON
             ),
             $validatorOptions
@@ -347,7 +332,7 @@ class ValidateCmsResourceData implements ValidateFields
     }
 
     /**
-     * @param array $cmsResourceData
+     * @param array $contentVersionData
      * @param array $fieldResults
      * @param array $validatorOptions
      *
@@ -356,7 +341,7 @@ class ValidateCmsResourceData implements ValidateFields
      * @throws \Psr\Container\NotFoundExceptionInterface
      */
     protected function validateCreatedDate(
-        array $cmsResourceData,
+        array $contentVersionData,
         array $fieldResults,
         array $validatorOptions = []
     ): array {
@@ -365,7 +350,7 @@ class ValidateCmsResourceData implements ValidateFields
 
         $fieldResults[static::KEY_CREATED_DATE] = $validator->__invoke(
             Param::get(
-                $cmsResourceData,
+                $contentVersionData,
                 static::KEY_CREATED_DATE
             ),
             Param::getArray(

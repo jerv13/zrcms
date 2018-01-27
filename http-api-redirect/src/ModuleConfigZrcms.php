@@ -1,30 +1,29 @@
 <?php
 
-namespace Zrcms\HttpApiSite;
+namespace Zrcms\HttpApiRedirect;
 
 use Zrcms\Acl\Api\IsAllowedRcmUserSitesAdmin;
 use Zrcms\Core\Api\CmsResource\CmsResourcesToArray;
 use Zrcms\Core\Api\CmsResource\CmsResourceToArray;
 use Zrcms\Core\Api\Content\ContentVersionsToArray;
 use Zrcms\Core\Api\Content\ContentVersionToArray;
-use Zrcms\CoreSite\Api\CmsResource\FindSiteCmsResource;
-use Zrcms\CoreSite\Api\CmsResource\FindSiteCmsResourcesBy;
-use Zrcms\CoreSite\Api\CmsResource\FindSiteCmsResourcesPublished;
-use Zrcms\CoreSite\Api\CmsResource\UpsertSiteCmsResource;
-use Zrcms\CoreSite\Api\Content\FindSiteVersion;
-use Zrcms\CoreSite\Api\Content\FindSiteVersionsBy;
-use Zrcms\CoreSite\Api\Content\InsertSiteVersion;
+use Zrcms\CoreRedirect\Api\CmsResource\FindRedirectCmsResource;
+use Zrcms\CoreRedirect\Api\CmsResource\FindRedirectCmsResourcesBy;
+use Zrcms\CoreRedirect\Api\CmsResource\FindRedirectCmsResourcesPublished;
+use Zrcms\CoreRedirect\Api\CmsResource\UpsertRedirectCmsResource;
+use Zrcms\CoreRedirect\Api\CmsResourceHistory\FindRedirectCmsResourceHistory;
+use Zrcms\CoreRedirect\Api\CmsResourceHistory\FindRedirectCmsResourceHistoryBy;
+use Zrcms\CoreRedirect\Api\Content\FindRedirectVersion;
+use Zrcms\CoreRedirect\Api\Content\FindRedirectVersionsBy;
+use Zrcms\CoreRedirect\Api\Content\InsertRedirectVersion;
 use Zrcms\InputValidationZrcms\Api\ValidateCmsResourceDataUpsert;
 use Zrcms\InputValidationZrcms\Api\ValidateContentVersionDataInsert;
 
 /**
- * @author James Jervis - https:/github.com/jerv13
+ * @author James Jervis - https://github.com/jerv13
  */
 class ModuleConfigZrcms
 {
-    /**
-     * @return array
-     */
     public function __invoke()
     {
         return [
@@ -32,7 +31,7 @@ class ModuleConfigZrcms
              * ===== ZRCMS HTTP API by request =====
              */
             'zrcms-http-api-dynamic' => [
-                'site' => [
+                'redirect' => [
                     /**
                      * CmsResource
                      */
@@ -43,7 +42,7 @@ class ModuleConfigZrcms
                             'not-allowed-status' => 401,
                         ],
                         'api' => [
-                            'api-service' => FindSiteCmsResource::class,
+                            'api-service' => FindRedirectCmsResource::class,
                             'to-array' => CmsResourceToArray::class,
                             'not-found-status' => 404,
                         ],
@@ -56,7 +55,7 @@ class ModuleConfigZrcms
                             'not-allowed-status' => 401,
                         ],
                         'api' => [
-                            'api-service' => FindSiteCmsResourcesBy::class,
+                            'api-service' => FindRedirectCmsResourcesBy::class,
                             'to-array' => CmsResourcesToArray::class,
                             'not-found-status' => 404,
                         ],
@@ -69,12 +68,15 @@ class ModuleConfigZrcms
                             'not-allowed-status' => 401,
                         ],
                         'api' => [
-                            'api-service' => FindSiteCmsResourcesPublished::class,
+                            'api-service' => FindRedirectCmsResourcesPublished::class,
                             'to-array' => CmsResourcesToArray::class,
                             'not-found-status' => 404,
                         ],
                     ],
 
+                    /**
+                     * CmsResourceHistory
+                     */
                     'upsert-cms-resource' => [
                         'acl' => [
                             'is-allowed' => IsAllowedRcmUserSitesAdmin::class,
@@ -87,15 +89,12 @@ class ModuleConfigZrcms
                             'not-valid-status' => 400,
                         ],
                         'api' => [
-                            'api-service' => UpsertSiteCmsResource::class,
+                            'api-service' => UpsertRedirectCmsResource::class,
                             'to-array' => CmsResourceToArray::class,
                             'not-found-status' => 404,
                         ],
                     ],
 
-                    /**
-                     * CmsResourceHistory
-                     */
                     'find-cms-resource-history' => [
                         'acl' => [
                             'is-allowed' => IsAllowedRcmUserSitesAdmin::class,
@@ -103,7 +102,7 @@ class ModuleConfigZrcms
                             'not-allowed-status' => 401,
                         ],
                         'api' => [
-                            //'api-service' => TBD::class,
+                            'api-service' => FindRedirectCmsResourceHistory::class,
                             'to-array' => CmsResourceToArray::class,
                             'not-found-status' => 404,
                         ],
@@ -116,7 +115,7 @@ class ModuleConfigZrcms
                             'not-allowed-status' => 401,
                         ],
                         'api' => [
-                            //'api-service' => TBD::class,
+                            'api-service' => FindRedirectCmsResourceHistoryBy::class,
                             'to-array' => CmsResourcesToArray::class,
                             'not-found-status' => 404,
                         ],
@@ -132,7 +131,7 @@ class ModuleConfigZrcms
                             'not-allowed-status' => 401,
                         ],
                         'api' => [
-                            'api-service' => FindSiteVersion::class,
+                            'api-service' => FindRedirectVersion::class,
                             'to-array' => ContentVersionToArray::class,
                             'not-found-status' => 404,
                         ],
@@ -145,7 +144,7 @@ class ModuleConfigZrcms
                             'not-allowed-status' => 401,
                         ],
                         'api' => [
-                            'api-service' => FindSiteVersionsBy::class,
+                            'api-service' => FindRedirectVersionsBy::class,
                             'to-array' => ContentVersionsToArray::class,
                             'not-found-status' => 404,
                         ],
@@ -163,7 +162,7 @@ class ModuleConfigZrcms
                             'not-valid-status' => 400,
                         ],
                         'api' => [
-                            'api-service' => InsertSiteVersion::class,
+                            'api-service' => InsertRedirectVersion::class,
                             'to-array' => ContentVersionToArray::class,
                             'not-found-status' => 404,
                         ],

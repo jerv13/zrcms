@@ -3,29 +3,26 @@
 namespace Zrcms\Fields\Api;
 
 use Psr\Container\ContainerInterface;
-use Zrcms\InputValidation\Api\ValidateFieldsHasOnlyRecognizedFields;
+use Zrcms\Fields\Api\Field\FindFieldsByModel;
 
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class ValidateFieldsByFieldsConfigFactory
+class PrepareFieldsByFieldsModelNameFactory
 {
     /**
      * @param ContainerInterface $serviceContainer
      *
-     * @return ValidateFieldsByFieldsConfig
+     * @return PrepareFieldsByFieldsModelName
      * @throws \Psr\Container\ContainerExceptionInterface
      * @throws \Psr\Container\NotFoundExceptionInterface
      */
     public function __invoke(
         ContainerInterface $serviceContainer
     ) {
-        return new ValidateFieldsByFieldsConfig(
-            $serviceContainer->get(ValidateFieldsHasOnlyRecognizedFields::class),
+        return new PrepareFieldsByFieldsModelName(
             $serviceContainer->get(ValidateByFieldTypeRequired::class),
-            $serviceContainer->get(ValidateByFieldType::class),
-            $serviceContainer->get(ValidateByFieldConfigValidator::class),
-            ValidateFieldsByFieldsConfig::DEFAULT_INVALID_CODE
+            $serviceContainer->get(FindFieldsByModel::class)
         );
     }
 }
