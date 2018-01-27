@@ -14,9 +14,9 @@ class ModuleConfigZrcms
     {
         return [
             /**
-             * ===== ZRCMS HTTP API Swagger =====
+             * ===== HTTP API Swagger =====
              */
-            'zrcms-http-api-swagger' => [
+            'http-api-swagger' => [
                 'swagger' => '2.0',
                 'info' => [
                     'version' => '1.0.0',

@@ -251,9 +251,9 @@ class ModuleConfigZrcms
             ],
 
             /**
-             * ===== ZRCMS HTTP API Swagger =====
+             * ===== HTTP API Swagger =====
              */
-            'zrcms-http-api-swagger' => [
+            'http-api-swagger' => [
                 'definitions' => [
                     'ZrcmsJsonResponse' => [
                         'description' => 'ZrcmsJsonResponse',

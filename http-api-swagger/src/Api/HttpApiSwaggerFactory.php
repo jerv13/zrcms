@@ -24,7 +24,7 @@ class HttpApiSwaggerFactory
 
         return new HttpApiSwagger(
             $appConfig,
-            $appConfig['zrcms-http-api-swagger'],
+            $appConfig['http-api-swagger'],
             IsDebug::invoke()
         );
     }
