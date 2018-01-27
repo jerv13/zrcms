@@ -253,7 +253,7 @@ class ModuleConfigZrcms
             /**
              * ===== HTTP API Swagger =====
              */
-            'http-api-swagger' => [
+            'swagger-expressive' => [
                 'definitions' => [
                     'ZrcmsJsonResponse' => [
                         'description' => 'ZrcmsJsonResponse',

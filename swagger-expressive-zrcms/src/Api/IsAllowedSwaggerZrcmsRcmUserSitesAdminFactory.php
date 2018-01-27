@@ -1,31 +1,28 @@
 <?php
 
-namespace Zrcms\HttpApiSwagger\Api;
+namespace Zrcms\SwaggerExpressiveZrcms\Api;
 
 use Psr\Container\ContainerInterface;
-use Zrcms\Debug\IsDebug;
+use Zrcms\Acl\Api\IsAllowedRcmUserSitesAdmin;
 
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class HttpApiSwaggerFactory
+class IsAllowedSwaggerZrcmsRcmUserSitesAdminFactory
 {
     /**
      * @param ContainerInterface $serviceContainer
      *
-     * @return HttpApiSwagger
+     * @return IsAllowedSwaggerZrcms
      * @throws \Psr\Container\ContainerExceptionInterface
      * @throws \Psr\Container\NotFoundExceptionInterface
      */
     public function __invoke(
         ContainerInterface $serviceContainer
     ) {
-        $appConfig = $serviceContainer->get('config');
-
-        return new HttpApiSwagger(
-            $appConfig,
-            $appConfig['http-api-swagger'],
-            IsDebug::invoke()
+        return new IsAllowedSwaggerZrcms(
+            $serviceContainer->get(IsAllowedRcmUserSitesAdmin::class),
+            []
         );
     }
 }

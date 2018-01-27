@@ -1,11 +1,11 @@
 <?php
 
-namespace Zrcms\HttpApiSwagger;
+namespace Zrcms\SwaggerExpressive;
 
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class ModuleConfigZrcms
+class ModuleConfigSwagger
 {
     /**
      * @return array
@@ -13,15 +13,12 @@ class ModuleConfigZrcms
     public function __invoke()
     {
         return [
-            /**
-             * ===== HTTP API Swagger =====
-             */
-            'http-api-swagger' => [
+            'swagger-expressive' => [
                 'swagger' => '2.0',
                 'info' => [
                     'version' => '1.0.0',
-                    'title' => 'ZRCMS',
-                    'description' => 'ZRCMS APIs',
+                    'title' => 'Swagger',
+                    //'description' => 'APIs',
                     //'contact' => ['name' => '',],
                     //'license' => ['name' => '',],
                 ],

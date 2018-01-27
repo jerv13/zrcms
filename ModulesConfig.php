@@ -70,7 +70,6 @@ class ModulesConfig
             new \Zrcms\HttpApiPage\ModuleConfig(),
             new \Zrcms\HttpApiRedirect\ModuleConfig(),
             new \Zrcms\HttpApiSite\ModuleConfig(),
-            new \Zrcms\HttpApiSwagger\ModuleConfig(),
             new \Zrcms\HttpApiTheme\ModuleConfig(),
             new \Zrcms\HttpApiView\ModuleConfig(),
 
@@ -84,6 +83,11 @@ class ModulesConfig
             new \Zrcms\HttpRedirect\ModuleConfig(),
             new \Zrcms\HttpSiteExists\ModuleConfig(),
             new \Zrcms\HttpStatusPages\ModuleConfig(),
+
+            new \Zrcms\SwaggerExpressive\ModuleConfig(),
+            new \Zrcms\SwaggerExpressive\ModuleConfigSwagger(),
+
+            new \Zrcms\SwaggerExpressiveZrcms\ModuleConfig(),
 
             // @todo HttpTest should NOT be included by default
             new \Zrcms\HttpTest\ModuleConfig(),

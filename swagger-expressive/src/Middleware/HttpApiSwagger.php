@@ -1,35 +1,42 @@
 <?php
 
-namespace Zrcms\HttpApiSwagger\Api;
+namespace Zrcms\SwaggerExpressive\Middleware;
 
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Zend\Diactoros\Response\JsonResponse;
-use Zrcms\Param\Param;
+use Zrcms\SwaggerExpressive\Api\BuildRouteName;
+use Zrcms\SwaggerExpressive\Api\IsSwaggerRoute;
+use Zrcms\SwaggerExpressive\ConfigKey;
+use Zrcms\SwaggerExpressive\Options;
 
 /**
  * @author James Jervis - https://github.com/jerv13
  */
 class HttpApiSwagger
 {
-    const SWAGGER = 'swagger';
+    const SWAGGER = ConfigKey::SWAGGER;
 
     protected $appConfig;
     protected $swaggerConfig;
+    protected $isSwaggerRoute;
     protected $debug;
 
     /**
-     * @param array $appConfig
-     * @param array $swaggerConfig
-     * @param bool  $debug
+     * @param array          $appConfig
+     * @param array          $swaggerConfig
+     * @param IsSwaggerRoute $isSwaggerRoute
+     * @param bool           $debug
      */
     public function __construct(
         array $appConfig,
         array $swaggerConfig,
+        IsSwaggerRoute $isSwaggerRoute,
         bool $debug = false
     ) {
         $this->appConfig = $appConfig;
         $this->swaggerConfig = $swaggerConfig;
+        $this->isSwaggerRoute = $isSwaggerRoute;
         $this->debug = $debug;
     }
 
@@ -39,8 +46,7 @@ class HttpApiSwagger
      * @param callable|null          $next
      *
      * @return JsonResponse
-     * @throws \Throwable
-     * @throws \Zrcms\Param\Exception\ParamException
+     * @throws \Exception
      */
     public function __invoke(
         ServerRequestInterface $request,
@@ -78,86 +84,39 @@ class HttpApiSwagger
      */
     protected function filterRoutes($routeData, $key)
     {
-        if ($this->isZrcmsApi($key, $routeData)) {
-            return true;
-        }
-
-        return $this->isSwaggerRoute($key, $routeData);
-    }
-
-    /**
-     * @param mixed $key
-     * @param array $routeData
-     *
-     * @return bool
-     */
-    protected function isZrcmsApi(
-        $key,
-        array $routeData
-    ) {
-        $name = $this->buildRouteName(
-            $key,
-            $routeData
-        );
-
-        return (substr($name, 0, 10) === 'zrcms.api.');
-    }
-
-    /**
-     * @param mixed $key
-     * @param array $routeData
-     *
-     * @return bool
-     */
-    protected function isSwaggerRoute(
-        $key,
-        array $routeData
-    ) {
-        return array_key_exists(self::SWAGGER, $routeData);
-    }
-
-    /**
-     * @param mixed $key
-     * @param array $routeData
-     *
-     * @return null|string
-     */
-    protected function buildRouteName(
-        $key,
-        array $routeData
-    ) {
-        return Param::getString(
-            $routeData,
-            'name',
-            $key
-        );
+        return $this->isSwaggerRoute->__invoke($key, $routeData);
     }
 
     /**
      * @param array $routeConfig
      *
      * @return array
-     * @throws \Throwable
-     * @throws \Zrcms\Param\Exception\ParamException
+     * @throws \Exception
      */
     protected function buildSwaggerPaths(
         array $routeConfig
     ): array {
         $swaggerPaths = [];
 
-        foreach ($routeConfig as $name => $routeData) {
-            $path = Param::getRequired(
+        foreach ($routeConfig as $key => $routeData) {
+            $path = Options::getString(
                 $routeData,
                 'path'
             );
 
-            $configName = $this->buildRouteName(
-                $name,
+            if (empty($path)) {
+                throw new \Exception(
+                    'Path is required in route config'
+                );
+            }
+
+            $configName = BuildRouteName::invoke(
+                $key,
                 $routeData
             );
             $swaggerPathData = $this->buildSwaggerPathData($configName, $routeData);
 
-            $swaggerPathData['operationId'] = Param::getString(
+            $swaggerPathData['operationId'] = Options::getString(
                 $swaggerPathData,
                 'operationId',
                 $configName
@@ -181,13 +140,13 @@ class HttpApiSwagger
     ): array {
         $swaggerPathData = [];
 
-        $swaggerConfig = Param::getArray(
+        $swaggerConfig = Options::getArray(
             $routeData,
             self::SWAGGER,
             []
         );
 
-        $allowedMethods = Param::get(
+        $allowedMethods = Options::getArray(
             $routeData,
             'allowed_methods',
             []
@@ -200,31 +159,31 @@ class HttpApiSwagger
         foreach ($allowedMethods as $allowedMethod) {
             $allowedMethod = strtolower($allowedMethod);
 
-            $data = Param::get(
+            $data = Options::getArray(
                 $swaggerConfig,
                 $allowedMethod,
                 []
             );
 
-            $data['description'] = Param::getString(
+            $data['description'] = Options::getString(
                 $data,
                 'description',
                 'Name: ' . $name
             );
 
-            $data['produces'] = Param::getArray(
+            $data['produces'] = Options::getArray(
                 $data,
                 'produces',
                 ['application/json']
             );
 
-            $data['parameters'] = Param::getArray(
+            $data['parameters'] = Options::getArray(
                 $data,
                 'parameters',
                 []
             );
 
-            $data['responses'] = Param::getArray(
+            $data['responses'] = Options::getArray(
                 $data,
                 'responses',
                 []

@@ -1,9 +1,9 @@
 <?php
 
-namespace Zrcms\HttpApiSwagger;
+namespace Zrcms\SwaggerExpressive;
 
-use Zrcms\HttpApiSwagger\Api\HttpApiIsAllowedSwagger;
-use Zrcms\HttpApiSwagger\Api\HttpApiSwagger;
+use Zrcms\SwaggerExpressive\Middleware\HttpApiIsAllowedSwagger;
+use Zrcms\SwaggerExpressive\Middleware\HttpApiSwagger;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -20,15 +20,17 @@ class ModuleConfigRoutes
                 /**
                  * Swagger
                  */
-                'zrcms.api.swagger.json' => [
-                    'name' => 'zrcms.api.swagger.json',
-                    'path' => '/zrcms/api/swagger.json',
+                'docs.swagger.json' => [
+                    'name' => 'docs.swagger.json',
+                    'path' => '/docs/swagger.json',
                     'middleware' => [
                         'acl' => HttpApiIsAllowedSwagger::class,
                         'api' => HttpApiSwagger::class,
                     ],
                     'options' => [
                     ],
+                    'allowed_methods' => ['GET'],
+                    /* ConfigKey::SWAGGER */
                     'swagger' => [
                         'get' => [
                             'description' => 'Produces Swagger JSON',
@@ -65,7 +67,6 @@ class ModuleConfigRoutes
                             ],
                         ],
                     ],
-                    'allowed_methods' => ['GET'],
                 ],
             ],
         ];
