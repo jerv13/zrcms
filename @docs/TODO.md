@@ -1,6 +1,12 @@
 @todo
 =====
 
+##### HTTP APIs for each php API
+
+- http-api module should be able to support all common APIs that have interfaces
+- Create unique validators for upsert and insert
+- Do component dynamic - to allow different access for different types?
+
 - do proper validations for content base on fields ValidateContentVersionData->properties
 - IF ContentVersion ID is set, then we can ignore all validations for Upsert (verify how this works at the php api layer)
 - consider moving property validation back to the php api layer
@@ -9,13 +15,6 @@
 
 - Should use fields bit (warnings ONLY)
 - Split into indiviual APIs
-
-
-##### HTTP APIs for each php API
-
-- http-api module should be able to support all common APIs that have interfaces
-- Create unique validators for upsert and insert
-- Do component dynamic - to allow different access for different types?
 
 ##### Start client  - NOTE: Client packages will be built using NPM
 

@@ -15,7 +15,6 @@ use Zrcms\Fields\Api\FieldType\FindFieldTypeBasicFactory;
 use Zrcms\Fields\Api\FieldType\ListFieldTypes;
 use Zrcms\Fields\Api\FieldType\ListFieldTypesBasicFactory;
 use Zrcms\Fields\Api\PrepareFields;
-use Zrcms\Fields\Api\PrepareFieldsByFieldsConfigFactory;
 use Zrcms\Fields\Api\PrepareFieldsByFieldsModelNameFactory;
 use Zrcms\Fields\Api\ValidateByFieldConfigValidator;
 use Zrcms\Fields\Api\ValidateByFieldConfigValidatorFactory;

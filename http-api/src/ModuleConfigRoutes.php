@@ -175,7 +175,7 @@ class ModuleConfigRoutes
                     'options' => [
                         'zrcms-api' => 'upsert-cms-resource'
                     ],
-                    'allowed_methods' => ['POST', 'PUT'],
+                    'allowed_methods' => ['PUT'], //'POST',
                     'swagger' => [
                         'post' => [
                             'description' => 'Upsert CMS Resource',
