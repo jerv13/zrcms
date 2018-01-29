@@ -2,8 +2,8 @@
 
 namespace Zrcms\SwaggerExpressiveZrcms\Api;
 
-use Zrcms\SwaggerExpressive\Api\BuildRouteName;
-use Zrcms\SwaggerExpressive\Api\IsSwaggerRoute;
+use Reliv\SwaggerExpressive\Api\BuildRouteName;
+use Reliv\SwaggerExpressive\Api\IsSwaggerRoute;
 
 /**
  * @author James Jervis - https://github.com/jerv13

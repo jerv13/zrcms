@@ -2,7 +2,7 @@
 
 namespace Zrcms\SwaggerExpressiveZrcms;
 
-use Zrcms\SwaggerExpressive\Api\IsAllowedSwagger;
+use Reliv\SwaggerExpressive\Api\IsAllowedSwagger;
 use Zrcms\SwaggerExpressiveZrcms\Api\IsAllowedSwaggerZrcmsRcmUserSitesAdminFactory;
 use Zrcms\SwaggerExpressiveZrcms\Api\IsSwaggerRouteZrcms;
 use Zrcms\SwaggerExpressiveZrcms\Api\IsSwaggerRouteZrcmsFactory;

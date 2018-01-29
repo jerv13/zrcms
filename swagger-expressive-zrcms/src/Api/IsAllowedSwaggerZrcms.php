@@ -3,8 +3,8 @@
 namespace Zrcms\SwaggerExpressiveZrcms\Api;
 
 use Psr\Http\Message\ServerRequestInterface;
+use Reliv\SwaggerExpressive\Api\IsAllowedSwagger;
 use Zrcms\Acl\Api\IsAllowed;
-use Zrcms\SwaggerExpressive\Api\IsAllowedSwagger;
 
 /**
  * @author James Jervis - https://github.com/jerv13
