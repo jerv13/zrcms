@@ -27,8 +27,6 @@ class ModulesConfigRoutes
             new \Zrcms\HttpApplicationState\ModuleConfigRoutes(),
             new \Zrcms\HttpChangeLog\ModuleConfigRoutes(),
 
-            new \Zrcms\SwaggerExpressive\ModuleConfigRoutes(),
-
             // @todo HttpTest should NOT be included by default
             new \Zrcms\HttpTest\ModuleConfigRoutes(),
         ];

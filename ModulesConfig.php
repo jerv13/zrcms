@@ -84,9 +84,6 @@ class ModulesConfig
             new \Zrcms\HttpSiteExists\ModuleConfig(),
             new \Zrcms\HttpStatusPages\ModuleConfig(),
 
-            new \Zrcms\SwaggerExpressive\ModuleConfig(),
-            new \Zrcms\SwaggerExpressive\ModuleConfigSwagger(),
-
             new \Zrcms\SwaggerExpressiveZrcms\ModuleConfig(),
 
             // @todo HttpTest should NOT be included by default
