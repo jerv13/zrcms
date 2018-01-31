@@ -48,6 +48,8 @@ class ContentEntityAbstract
      * @param string      $createdByUserId
      * @param string      $createdReason
      * @param string|null $createdDate
+     *
+     * @throws \Zrcms\Core\Exception\TrackingInvalid
      */
     public function __construct(
         $id,
@@ -96,6 +98,7 @@ class ContentEntityAbstract
      * @param LifecycleEventArgs $eventArgs
      *
      * @return void
+     * @throws \Zrcms\Core\Exception\TrackingInvalid
      *
      * @ORM\PrePersist
      */
