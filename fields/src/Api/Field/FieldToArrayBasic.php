@@ -25,7 +25,7 @@ class FieldToArrayBasic implements FieldToArray
             'label' => $field->getLabel(),
             'required' => $field->isRequired(),
             'default' => $field->getDefault(),
-            'options' => $field->getOptions(),
+            'options' => (object)$field->getOptions(),
         ];
     }
 }
