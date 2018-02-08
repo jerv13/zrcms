@@ -2,6 +2,7 @@
 
 namespace Zrcms\ViewHtmlTags\Api\Render;
 
+use Zrcms\Param\Exception\ParamException;
 use Zrcms\Param\Param;
 
 /**
@@ -43,8 +44,8 @@ class RenderTagBasic implements RenderTag
      * @param array $options
      *
      * @return string
-     * @throws \Exception
-     * @throws \Zrcms\Param\Exception\ParamMissing
+     * @throws \Throwable
+     * @throws ParamException
      */
     public function __invoke(
         array $tagData,

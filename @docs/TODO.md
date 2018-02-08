@@ -1,6 +1,12 @@
 @todo
 =====
 
+##### Fields - not default field
+
+- Remove all 'default'
+- remove thing that builds default for validator
+- check usages of existing
+
 ##### HTTP APIs for each php API
 
 - http-api module should be able to support all common APIs that have interfaces
