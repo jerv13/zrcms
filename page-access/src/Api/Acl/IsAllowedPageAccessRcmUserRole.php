@@ -4,7 +4,7 @@ namespace Zrcms\PageAccess\Api\Acl;
 
 use Psr\Http\Message\ServerRequestInterface;
 use RcmUser\Api\Acl\HasRoleBasedAccess;
-use Zrcms\Param\Param;
+use Reliv\ArrayProperties\Property;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -34,7 +34,7 @@ class IsAllowedPageAccessRcmUserRole implements IsAllowedPageAccess
         ServerRequestInterface $request,
         array $pageAccessOptions = []
     ): bool {
-        $roles = Param::getArray(
+        $roles = Property::getArray(
             $pageAccessOptions,
             static::OPTION_ALLOWED_ROLES,
             []

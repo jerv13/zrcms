@@ -8,7 +8,7 @@ use Zrcms\CoreApplicationDoctrine\Entity\ContentEntity;
 use Zrcms\CoreApplicationDoctrine\Entity\ContentEntityAbstract;
 use Zrcms\CorePage\Api\PreparePageContainerData;
 use Zrcms\CorePage\Fields\FieldsPageVersion;
-use Zrcms\Param\Param;
+use Reliv\ArrayProperties\Property;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -101,8 +101,8 @@ class PageVersionEntity extends ContentEntityAbstract implements ContentEntity
      *
      * @throws \Exception
      * @throws \Throwable
-     * @throws \Zrcms\Param\Exception\ParamException
-     * @throws \Zrcms\Param\Exception\ParamMissing
+     * @throws \Reliv\ArrayProperties\Exception\ArrayPropertyException
+     * @throws \Reliv\ArrayProperties\Exception\ArrayPropertyMissing
      */
     public function __construct(
         $id,
@@ -111,31 +111,31 @@ class PageVersionEntity extends ContentEntityAbstract implements ContentEntity
         string $createdReason,
         $createdDate = null
     ) {
-        $this->title = Param::getString(
+        $this->title = Property::getString(
             $properties,
             FieldsPageVersion::TITLE
         );
 
-        $this->keywords = Param::getString(
+        $this->keywords = Property::getString(
             $properties,
             FieldsPageVersion::KEYWORDS,
             ''
         );
 
-        $this->containersData = Param::getArray(
+        $this->containersData = Property::getArray(
             $properties,
             FieldsPageVersion::CONTAINERS_DATA,
             []
         );
 
-        Param::remove($properties, FieldsPageVersion::CONTAINERS_DATA);
+        Property::remove($properties, FieldsPageVersion::CONTAINERS_DATA);
 
-        Param::assertNotEmpty(
+        Property::assertNotEmpty(
             $properties,
             FieldsPageVersion::SITE_CMS_RESOURCE_ID
         );
 
-        Param::assertNotEmpty(
+        Property::assertNotEmpty(
             $properties,
             FieldsPageVersion::PATH
         );

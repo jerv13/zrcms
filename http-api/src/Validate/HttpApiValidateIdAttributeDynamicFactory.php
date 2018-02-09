@@ -4,7 +4,7 @@ namespace Zrcms\HttpApi\Validate;
 
 use Psr\Container\ContainerInterface;
 use Zrcms\Debug\IsDebug;
-use Zrcms\InputValidationZrcms\Api\ValidateId;
+use Zrcms\ValidationRatZrcms\Api\ValidateId;
 
 /**
  * @author James Jervis - https://github.com/jerv13

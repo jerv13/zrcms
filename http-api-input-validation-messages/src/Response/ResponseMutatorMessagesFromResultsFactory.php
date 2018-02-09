@@ -3,8 +3,8 @@
 namespace Zrcms\HttpApiInputValidationMessages\Api\Response;
 
 use Psr\Container\ContainerInterface;
-use Zrcms\InputValidationMessages\Api\GetMessagesValidationResult;
-use Zrcms\InputValidationMessages\Api\GetMessagesValidationResultFields;
+use Reliv\ValidationRatMessages\Api\GetMessagesValidationResult;
+use Reliv\ValidationRatMessages\Api\GetMessagesValidationResultFields;
 
 /**
  * @author James Jervis - https://github.com/jerv13

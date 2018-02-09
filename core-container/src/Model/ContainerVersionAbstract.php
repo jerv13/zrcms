@@ -8,7 +8,7 @@ use Zrcms\CoreContainer\Api\BuildBlockVersion;
 use Zrcms\CoreContainer\Api\BuildBlockVersions;
 use Zrcms\CoreContainer\Api\PrepareBlockVersionsData;
 use Zrcms\CoreContainer\Fields\FieldsContainerVersion;
-use Zrcms\Param\Param;
+use Reliv\ArrayProperties\Property;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -24,8 +24,8 @@ abstract class ContainerVersionAbstract extends ContentVersionAbstract
      *
      * @throws \Exception
      * @throws \Throwable
-     * @throws \Zrcms\Param\Exception\ParamException
-     * @throws \Zrcms\Param\Exception\ParamMissing
+     * @throws \Reliv\ArrayProperties\Exception\ArrayPropertyException
+     * @throws \Reliv\ArrayProperties\Exception\ArrayPropertyMissing
      */
     public function __construct(
         $id,
@@ -34,7 +34,7 @@ abstract class ContainerVersionAbstract extends ContentVersionAbstract
         string $createdReason,
         $createdDate = null
     ) {
-        $blockVersions = Param::getArray(
+        $blockVersions = Property::getArray(
             $properties,
             FieldsContainerVersion::BLOCK_VERSIONS,
             []
@@ -45,12 +45,12 @@ abstract class ContainerVersionAbstract extends ContentVersionAbstract
             $id
         );
 
-        Param::assertNotEmpty(
+        Property::assertNotEmpty(
             $properties,
             FieldsContainerVersion::SITE_CMS_RESOURCE_ID
         );
 
-        Param::assertNotEmpty(
+        Property::assertNotEmpty(
             $properties,
             FieldsContainerVersion::PATH
         );

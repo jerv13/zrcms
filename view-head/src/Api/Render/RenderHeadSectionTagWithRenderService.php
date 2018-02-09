@@ -5,7 +5,7 @@ namespace Zrcms\ViewHead\Api\Render;
 use Psr\Container\ContainerInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Zrcms\Core\Api\Render\Render;
-use Zrcms\Param\Param;
+use Reliv\ArrayProperties\Property;
 use Zrcms\ViewHead\Api\Exception\CanNotRenderHeadSectionTag;
 
 /**
@@ -54,12 +54,12 @@ class RenderHeadSectionTagWithRenderService implements RenderHeadSectionTag
             throw new CanNotRenderHeadSectionTag('Does not have required key: (__render_service)');
         }
 
-        $indent = Param::getString(
+        $indent = Property::getString(
             $options,
             self::OPTION_INDENT,
             '    '
         );
-        $lineBreak = Param::getString(
+        $lineBreak = Property::getString(
             $options,
             self::OPTION_LINE_BREAK,
             "\n"

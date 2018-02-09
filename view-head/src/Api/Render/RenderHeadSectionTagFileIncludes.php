@@ -3,7 +3,7 @@
 namespace Zrcms\ViewHead\Api\Render;
 
 use Psr\Http\Message\ServerRequestInterface;
-use Zrcms\Param\Param;
+use Reliv\ArrayProperties\Property;
 use Zrcms\ViewHead\Api\Exception\CanNotRenderHeadSectionTag;
 
 /**
@@ -47,13 +47,13 @@ class RenderHeadSectionTagFileIncludes implements RenderHeadSectionTag
             throw new CanNotRenderHeadSectionTag('Does not have required key: (__file-includes)');
         }
 
-        $indent = Param::getString(
+        $indent = Property::getString(
             $options,
             self::OPTION_INDENT,
             '    '
         );
 
-        $lineBreak = Param::getString(
+        $lineBreak = Property::getString(
             $options,
             self::OPTION_LINE_BREAK,
             "\n"

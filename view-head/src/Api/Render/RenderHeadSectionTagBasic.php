@@ -3,7 +3,7 @@
 namespace Zrcms\ViewHead\Api\Render;
 
 use Psr\Http\Message\ServerRequestInterface;
-use Zrcms\Param\Param;
+use Reliv\ArrayProperties\Property;
 use Zrcms\ViewHtmlTags\Api\Render\RenderTag;
 
 /**
@@ -44,12 +44,12 @@ class RenderHeadSectionTagBasic implements RenderHeadSectionTag
         array $sectionConfig,
         array $options = []
     ): string {
-        $indent = Param::getString(
+        $indent = Property::getString(
             $options,
             self::OPTION_INDENT,
             '    '
         );
-        $lineBreak = Param::getString(
+        $lineBreak = Property::getString(
             $options,
             self::OPTION_LINE_BREAK,
             "\n"

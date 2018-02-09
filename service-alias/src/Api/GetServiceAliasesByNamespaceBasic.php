@@ -2,7 +2,7 @@
 
 namespace Zrcms\ServiceAlias\Api;
 
-use Zrcms\Param\Param;
+use Reliv\ArrayProperties\Property;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -32,7 +32,7 @@ class GetServiceAliasesByNamespaceBasic implements GetServiceAliasesByNamespace
     ): array {
         $registry = $this->getServiceAliasRegistry->__invoke();
 
-        return Param::getArray(
+        return Property::getArray(
             $registry,
             $namespace,
             []

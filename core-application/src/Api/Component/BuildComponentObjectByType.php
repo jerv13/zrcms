@@ -9,7 +9,7 @@ use Zrcms\Core\Fields\FieldsComponentConfig;
 use Zrcms\Core\Model\Component;
 use Zrcms\Core\Model\ComponentBasic;
 use Zrcms\Core\Model\Trackable;
-use Zrcms\Param\Param;
+use Reliv\ArrayProperties\Property;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -44,7 +44,7 @@ class BuildComponentObjectByType implements BuildComponentObject
         array $componentConfig,
         array $options = []
     ): Component {
-        $type = Param::getString(
+        $type = Property::getString(
             $componentConfig,
             FieldsComponentConfig::TYPE,
             FieldsComponentConfig::DEFAULT_TYPE
@@ -64,7 +64,7 @@ class BuildComponentObjectByType implements BuildComponentObject
 
         // Components might have special classes from config
         /** @var Component::class $componentClass */
-        $componentClass = Param::get(
+        $componentClass = Property::get(
             $componentConfig,
             FieldsComponent::COMPONENT_CLASS,
             $defaultComponentClass
@@ -72,7 +72,7 @@ class BuildComponentObjectByType implements BuildComponentObject
 
         $this->assertValidClass($componentClass, $defaultComponentInterface);
 
-        $moduleDirectory = Param::getRequired(
+        $moduleDirectory = Property::getRequired(
             $componentConfig,
             FieldsComponentConfig::MODULE_DIRECTORY
         );
@@ -86,32 +86,32 @@ class BuildComponentObjectByType implements BuildComponentObject
         }
 
         return new $componentClass(
-            Param::get(
+            Property::get(
                 $componentConfig,
                 FieldsComponentConfig::TYPE,
                 FieldsComponentConfig::DEFAULT_TYPE
             ),
-            Param::getRequired(
+            Property::getRequired(
                 $componentConfig,
                 FieldsComponentConfig::NAME
             ),
-            Param::getRequired(
+            Property::getRequired(
                 $componentConfig,
                 FieldsComponentConfig::CONFIG_URI
             ),
             $moduleDirectoryReal,
             $componentConfig,
-            Param::get(
+            Property::get(
                 $componentConfig,
                 FieldsComponentConfig::CREATED_BY_USER_ID,
                 Trackable::UNKNOWN_USER_ID
             ),
-            Param::get(
+            Property::get(
                 $componentConfig,
                 FieldsComponentConfig::CREATED_REASON,
                 Trackable::UNKNOWN_REASON
             ),
-            Param::get(
+            Property::get(
                 $componentConfig,
                 FieldsComponentConfig::CREATED_DATE,
                 null

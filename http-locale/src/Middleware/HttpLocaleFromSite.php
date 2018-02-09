@@ -7,7 +7,7 @@ use Psr\Http\Message\ServerRequestInterface;
 use Zrcms\CoreSite\Api\GetSiteCmsResourceByRequest;
 use Zrcms\CoreSite\Model\SiteCmsResource;
 use Zrcms\Locale\Api\SetLocale;
-use Zrcms\Param\Param;
+use Reliv\ArrayProperties\Property;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -50,7 +50,7 @@ class HttpLocaleFromSite
     ) {
         $params = $request->getQueryParams();
 
-        $requestLocale = Param::getString(
+        $requestLocale = Property::getString(
             $params,
             self::PARAM_LOCALE
         );

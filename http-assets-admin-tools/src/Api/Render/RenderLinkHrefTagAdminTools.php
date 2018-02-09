@@ -50,8 +50,8 @@ class RenderLinkHrefTagAdminTools extends RenderLinkHrefTag implements Render
      * @return string
      * @throws \Exception
      * @throws \Throwable
-     * @throws \Zrcms\Param\Exception\ParamException
-     * @throws \Zrcms\Param\Exception\ParamMissing
+     * @throws \Reliv\ArrayProperties\Exception\ArrayPropertyException
+     * @throws \Reliv\ArrayProperties\Exception\ArrayPropertyMissing
      */
     public function __invoke(
         ServerRequestInterface $request,

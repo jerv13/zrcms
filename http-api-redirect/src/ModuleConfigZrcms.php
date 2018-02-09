@@ -16,8 +16,8 @@ use Zrcms\CoreRedirect\Api\CmsResourceHistory\FindRedirectCmsResourceHistoryBy;
 use Zrcms\CoreRedirect\Api\Content\FindRedirectVersion;
 use Zrcms\CoreRedirect\Api\Content\FindRedirectVersionsBy;
 use Zrcms\CoreRedirect\Api\Content\InsertRedirectVersion;
-use Zrcms\InputValidationZrcms\Api\ValidateCmsResourceDataUpsert;
-use Zrcms\InputValidationZrcms\Api\ValidateContentVersionDataInsert;
+use Zrcms\ValidationRatZrcms\Api\ValidateCmsResourceDataUpsert;
+use Zrcms\ValidationRatZrcms\Api\ValidateContentVersionDataInsert;
 
 /**
  * @author James Jervis - https://github.com/jerv13

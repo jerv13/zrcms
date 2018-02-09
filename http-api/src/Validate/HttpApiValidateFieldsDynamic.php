@@ -8,8 +8,8 @@ use Psr\Http\Message\ServerRequestInterface;
 use Zrcms\Http\Api\BuildResponseOptions;
 use Zrcms\Http\Response\ZrcmsJsonResponse;
 use Zrcms\HttpApi\Dynamic;
-use Zrcms\InputValidation\Api\ValidateFields;
-use Zrcms\Param\Param;
+use Reliv\ValidationRat\Api\FieldValidator\ValidateFields;
+use Reliv\ArrayProperties\Property;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -54,13 +54,13 @@ class HttpApiValidateFieldsDynamic
     ) {
         $dynamicApiConfig = $request->getAttribute(Dynamic::ATTRIBUTE_DYNAMIC_API_CONFIG);
 
-        $validateConfig = Param::getArray(
+        $validateConfig = Property::getArray(
             $dynamicApiConfig,
             Dynamic::MIDDLEWARE_NAME_VALIDATE_FIELDS,
             []
         );
 
-        $validateServiceName = Param::getString(
+        $validateServiceName = Property::getString(
             $validateConfig,
             'validate-fields'
         );
@@ -81,7 +81,7 @@ class HttpApiValidateFieldsDynamic
             );
         }
 
-        $validateOptions = Param::getArray(
+        $validateOptions = Property::getArray(
             $validateConfig,
             'validate-fields-options',
             []
@@ -95,7 +95,7 @@ class HttpApiValidateFieldsDynamic
         );
 
         if (!$validationResult->isValid()) {
-            $notValidStatus = Param::getInt(
+            $notValidStatus = Property::getInt(
                 $validateConfig,
                 'not-valid-status',
                 $this->notValidStatusDefault

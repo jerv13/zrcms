@@ -5,7 +5,7 @@ namespace Zrcms\CoreTheme\Model;
 use Zrcms\Core\Exception\PropertyMissing;
 use Zrcms\Core\Model\ContentVersionAbstract;
 use Zrcms\CoreTheme\Fields\FieldsLayoutVersion;
-use Zrcms\Param\Param;
+use Reliv\ArrayProperties\Property;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -21,8 +21,8 @@ class LayoutVersionAbstract extends ContentVersionAbstract
      *
      * @throws \Exception
      * @throws \Throwable
-     * @throws \Zrcms\Param\Exception\ParamException
-     * @throws \Zrcms\Param\Exception\ParamMissing
+     * @throws \Reliv\ArrayProperties\Exception\ArrayPropertyException
+     * @throws \Reliv\ArrayProperties\Exception\ArrayPropertyMissing
      */
     public function __construct(
         $id,
@@ -31,17 +31,17 @@ class LayoutVersionAbstract extends ContentVersionAbstract
         string $createdReason,
         $createdDate = null
     ) {
-        Param::assertNotEmpty(
+        Property::assertNotEmpty(
             $properties,
             FieldsLayoutVersion::THEME_NAME
         );
 
-        Param::assertNotEmpty(
+        Property::assertNotEmpty(
             $properties,
             FieldsLayoutVersion::NAME
         );
 
-        Param::assertHas(
+        Property::assertHas(
             $properties,
             FieldsLayoutVersion::HTML,
             get_class($this)

@@ -16,8 +16,8 @@ use Zrcms\CorePage\Api\CmsResourceHistory\FindPageCmsResourceHistoryBy;
 use Zrcms\CorePage\Api\Content\FindPageVersion;
 use Zrcms\CorePage\Api\Content\FindPageVersionsBy;
 use Zrcms\CorePage\Api\Content\InsertPageVersion;
-use Zrcms\InputValidationZrcms\Api\ValidateCmsResourceDataUpsert;
-use Zrcms\InputValidationZrcms\Api\ValidateContentVersionDataInsert;
+use Zrcms\ValidationRatZrcms\Api\ValidateCmsResourceDataUpsert;
+use Zrcms\ValidationRatZrcms\Api\ValidateContentVersionDataInsert;
 
 /**
  * @author James Jervis - https://github.com/jerv13

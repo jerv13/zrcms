@@ -24,7 +24,7 @@ class ModuleConfigZrcms
              * ===== ZRCMS Field Models =====
              * ['{model-name}' => '{model-class}']
              */
-            'zrcms-fields-model' => [
+            'field-rat-fields-model' => [
                 'page-version' => FieldsPageVersion::class,
             ],
 
@@ -32,7 +32,7 @@ class ModuleConfigZrcms
              * ===== ZRCMS Field Model Extends =====
              * ['{model-name}' => '{extends-model-name}']
              */
-            'zrcms-fields-model-extends' => [
+            'field-rat-fields-model-extends' => [
                 'page-version' => 'content-version',
             ],
 
@@ -40,7 +40,7 @@ class ModuleConfigZrcms
              * ===== ZRCMS Fields =====
              * ['{model-name}' => '{fields-config}']
              */
-            'zrcms-fields' => [
+            'field-rat-fields' => [
                 'page-version' => [
                     [
                         'name' => FieldsPageVersion::SITE_CMS_RESOURCE_ID,

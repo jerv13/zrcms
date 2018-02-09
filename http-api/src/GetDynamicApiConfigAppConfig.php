@@ -2,7 +2,7 @@
 
 namespace Zrcms\HttpApi;
 
-use Zrcms\Param\Param;
+use Reliv\ArrayProperties\Property;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -31,7 +31,7 @@ class GetDynamicApiConfigAppConfig implements GetDynamicApiConfig
         string $zrcmsImplementation,
         string $zrcmsApiName
     ): array {
-        $zrcmsImplementationConfig = Param::getArray(
+        $zrcmsImplementationConfig = Property::getArray(
             $this->zrcmsHttpApiDynamicConfig,
             $zrcmsImplementation,
             null
@@ -43,7 +43,7 @@ class GetDynamicApiConfigAppConfig implements GetDynamicApiConfig
             );
         }
 
-        $zrcmsApiNameConfig = Param::getArray(
+        $zrcmsApiNameConfig = Property::getArray(
             $zrcmsImplementationConfig,
             $zrcmsApiName
         );

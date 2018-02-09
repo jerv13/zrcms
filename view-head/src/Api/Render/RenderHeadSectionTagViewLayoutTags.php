@@ -6,7 +6,7 @@ use Psr\Http\Message\ServerRequestInterface;
 use Zrcms\CoreView\Api\Render\GetViewLayoutTags;
 use Zrcms\CoreView\Model\ServiceAliasView;
 use Zrcms\CoreView\Model\View;
-use Zrcms\Param\Param;
+use Reliv\ArrayProperties\Property;
 use Zrcms\ServiceAlias\Api\AssertNotSelfReference;
 use Zrcms\ServiceAlias\Api\GetServiceFromAlias;
 use Zrcms\ViewHead\Api\Exception\CanNotRenderHeadSectionTag;
@@ -48,7 +48,7 @@ class RenderHeadSectionTagViewLayoutTags implements RenderHeadSectionTag
      * @return string
      * @throws CanNotRenderHeadSectionTag
      * @throws \Exception
-     * @throws \Zrcms\Param\Exception\ParamMissing
+     * @throws \Reliv\ArrayProperties\Exception\ArrayPropertyMissing
      * @throws \Zrcms\ServiceAlias\Exception\ServiceSelfReferenceException
      */
     public function __invoke(
@@ -66,17 +66,17 @@ class RenderHeadSectionTagViewLayoutTags implements RenderHeadSectionTag
         }
 
         /** @var View $view */
-        $view = Param::getRequired(
+        $view = Property::getRequired(
             $options,
             self::OPTION_VIEW
         );
 
-        $indent = Param::getString(
+        $indent = Property::getString(
             $options,
             self::OPTION_INDENT,
             '    '
         );
-        $lineBreak = Param::getString(
+        $lineBreak = Property::getString(
             $options,
             self::OPTION_LINE_BREAK,
             "\n"

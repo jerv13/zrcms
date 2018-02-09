@@ -10,7 +10,7 @@ use Zrcms\CoreSite\Fields\FieldsSiteVersion;
 use Zrcms\CoreView\Api\Render\GetViewLayoutTags;
 use Zrcms\CoreView\Model\View;
 use Zrcms\HttpViewRender\Request\RequestWithOriginalUri;
-use Zrcms\Json\Json;
+use Reliv\Json\Json;
 use Zrcms\ViewHtmlTags\Api\Render\RenderTag;
 
 /**

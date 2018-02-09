@@ -5,7 +5,7 @@ namespace Zrcms\HttpAssets\Api\Render;
 use Psr\Http\Message\ServerRequestInterface;
 use Zrcms\Core\Api\Render\Render;
 use Zrcms\HttpAssets\Api\GetCacheBreaker;
-use Zrcms\Param\Param;
+use Reliv\ArrayProperties\Property;
 use Zrcms\ViewHtmlTags\Api\Render\RenderTag;
 
 /**
@@ -39,20 +39,20 @@ class RenderScriptSrcTag implements Render
      * @return string
      * @throws \Exception
      * @throws \Throwable
-     * @throws \Zrcms\Param\Exception\ParamException
-     * @throws \Zrcms\Param\Exception\ParamMissing
+     * @throws \Reliv\ArrayProperties\Exception\ArrayPropertyException
+     * @throws \Reliv\ArrayProperties\Exception\ArrayPropertyMissing
      */
     public function __invoke(
         ServerRequestInterface $request,
         $attributes,
         array $options = []
     ): string {
-        Param::assertNotEmpty(
+        Property::assertNotEmpty(
             $attributes,
             static::OPTION_SRC_ATTRIBUTE
         );
 
-        $src = Param::getString(
+        $src = Property::getString(
             $attributes,
             static::OPTION_SRC_ATTRIBUTE
         );
@@ -60,7 +60,7 @@ class RenderScriptSrcTag implements Render
         $attributes[static::OPTION_SRC_ATTRIBUTE]
             = $src . '?' . $this->getCacheBreaker->__invoke();
 
-        $attributes[static::OPTION_TYPE_ATTRIBUTE] = Param::getString(
+        $attributes[static::OPTION_TYPE_ATTRIBUTE] = Property::getString(
             $attributes,
             static::OPTION_TYPE_ATTRIBUTE,
             'text/javascript'

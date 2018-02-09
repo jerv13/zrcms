@@ -3,7 +3,7 @@
 namespace Zrcms\Acl\Api;
 
 use Psr\Http\Message\ServerRequestInterface;
-use Zrcms\Param\Param;
+use Reliv\ArrayProperties\Property;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -30,18 +30,18 @@ class IsAllowedRcmUser implements IsAllowed
      *
      * @return bool
      * @throws \Exception
-     * @throws \Zrcms\Param\Exception\ParamMissing
+     * @throws \Reliv\ArrayProperties\Exception\ArrayPropertyMissing
      */
     public function __invoke(
         ServerRequestInterface $request,
         array $options = []
     ): bool {
-        $resourceId = Param::getRequired(
+        $resourceId = Property::getRequired(
             $options,
             self::OPTION_RESOURCE_ID
         );
 
-        $privilege = Param::get(
+        $privilege = Property::get(
             $options,
             self::OPTION_PRIVILEGE,
             null

@@ -2,7 +2,7 @@
 
 namespace Zrcms\ViewHtmlTags\Api\Render;
 
-use Zrcms\Param\Param;
+use Reliv\ArrayProperties\Property;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -41,7 +41,7 @@ class RenderTagsBasic implements RenderTags
             throw new \Exception(get_class($this) . ' expects tagsData to be array of tags');
         }
 
-        $options[RenderTag::OPTION_DEPTH] = Param::getInt(
+        $options[RenderTag::OPTION_DEPTH] = Property::getInt(
             $options,
             RenderTag::OPTION_DEPTH,
             1

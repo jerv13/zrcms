@@ -5,7 +5,7 @@ namespace Zrcms\HttpApi\Params;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Zrcms\Http\Model\HttpLimit;
-use Zrcms\Param\Param;
+use Reliv\ArrayProperties\Property;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -27,7 +27,7 @@ class HttpApiLimit
     ) {
         $queryParams = $request->getQueryParams();
 
-        $limit = Param::getInt(
+        $limit = Property::getInt(
             $queryParams,
             HttpLimit::PARAM,
             null

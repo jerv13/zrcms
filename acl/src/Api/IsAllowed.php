@@ -7,7 +7,7 @@ use Psr\Http\Message\ServerRequestInterface;
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-interface IsAllowed
+interface IsAllowed extends \Reliv\AccessControlInterop\Api\IsAllowed
 {
     /**
      * @param ServerRequestInterface $request

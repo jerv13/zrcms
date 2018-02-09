@@ -9,7 +9,7 @@ use Zrcms\CoreView\Exception\PageNotFound;
 use Zrcms\CoreView\Exception\SiteNotFound;
 use Zrcms\CoreView\Exception\ThemeNotFound;
 use Zrcms\CoreView\Model\View;
-use Zrcms\Param\Param;
+use Reliv\ArrayProperties\Property;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -46,19 +46,19 @@ class GetViewByRequestStrategy implements GetViewByRequest
      * @throws \Psr\Container\ContainerExceptionInterface
      * @throws \Psr\Container\NotFoundExceptionInterface
      * @throws \Zrcms\CoreView\Exception\ViewDataNotFound
-     * @throws \Zrcms\Param\Exception\ParamMissing
+     * @throws \Reliv\ArrayProperties\Exception\ArrayPropertyMissing
      */
     public function __invoke(
         ServerRequestInterface $request,
         array $options = []
     ): View {
-        $strategyName = Param::get(
+        $strategyName = Property::get(
             $options,
             static::OPTION_STRATEGY_NAME,
             $this->defaultStrategyName
         );
 
-        $getViewByRequestServiceName = Param::getRequired(
+        $getViewByRequestServiceName = Property::getRequired(
             $this->config,
             $strategyName
         );

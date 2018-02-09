@@ -16,8 +16,8 @@ use Zrcms\CoreContainer\Api\CmsResourceHistory\FindContainerCmsResourceHistoryBy
 use Zrcms\CoreContainer\Api\Content\FindContainerVersion;
 use Zrcms\CoreContainer\Api\Content\FindContainerVersionsBy;
 use Zrcms\CoreContainer\Api\Content\InsertContainerVersion;
-use Zrcms\InputValidationZrcms\Api\ValidateCmsResourceDataUpsert;
-use Zrcms\InputValidationZrcms\Api\ValidateContentVersionDataInsert;
+use Zrcms\ValidationRatZrcms\Api\ValidateCmsResourceDataUpsert;
+use Zrcms\ValidationRatZrcms\Api\ValidateContentVersionDataInsert;
 
 /**
  * @author James Jervis - https://github.com/jerv13

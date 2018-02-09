@@ -2,7 +2,7 @@
 
 namespace Zrcms\ServiceAlias\Api;
 
-use Zrcms\Param\Param;
+use Reliv\ArrayProperties\Property;
 use Zrcms\ServiceAlias\Exception\ServiceAliasNotFound;
 
 /**
@@ -42,7 +42,7 @@ class GetServiceNameBasic implements GetServiceName
 
         $registry = $this->getServiceAliasRegistry->__invoke();
 
-        $namespaceRegistry = Param::getArray(
+        $namespaceRegistry = Property::getArray(
             $registry,
             $namespace,
             []
@@ -59,7 +59,7 @@ class GetServiceNameBasic implements GetServiceName
             return $defaultServiceName;
         }
 
-        $serviceName = Param::getString(
+        $serviceName = Property::getString(
             $namespaceRegistry,
             $serviceAlias,
             $defaultServiceName

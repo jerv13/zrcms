@@ -5,7 +5,7 @@ namespace Zrcms\HttpUser\Middleware;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Zend\Diactoros\Response\RedirectResponse;
-use Zrcms\Param\Param;
+use Reliv\ArrayProperties\Property;
 use Zrcms\User\Api\LogOut;
 
 /**
@@ -60,7 +60,7 @@ class HttpParamLogOut
     ) {
         $params = $request->getQueryParams();
 
-        $doLogout = Param::getBool(
+        $doLogout = Property::getBool(
             $params,
             self::PARAM_LOGOUT,
             false

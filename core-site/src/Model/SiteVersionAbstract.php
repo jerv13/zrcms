@@ -5,9 +5,9 @@ namespace Zrcms\CoreSite\Model;
 use Zrcms\Core\Exception\PropertyMissing;
 use Zrcms\Core\Model\ContentVersionAbstract;
 use Zrcms\CoreSite\Fields\FieldsSiteVersion;
-use Zrcms\Json\Json;
+use Reliv\Json\Json;
 use Zrcms\Locale\Api\DefaultLocal;
-use Zrcms\Param\Param;
+use Reliv\ArrayProperties\Property;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -23,8 +23,8 @@ abstract class SiteVersionAbstract extends ContentVersionAbstract
      *
      * @throws \Exception
      * @throws \Throwable
-     * @throws \Zrcms\Param\Exception\ParamException
-     * @throws \Zrcms\Param\Exception\ParamMissing
+     * @throws \Reliv\ArrayProperties\Exception\ArrayPropertyException
+     * @throws \Reliv\ArrayProperties\Exception\ArrayPropertyMissing
      */
     public function __construct(
         $id,
@@ -33,24 +33,24 @@ abstract class SiteVersionAbstract extends ContentVersionAbstract
         string $createdReason,
         $createdDate = null
     ) {
-        Param::assertNotEmpty(
+        Property::assertNotEmpty(
             $properties,
             FieldsSiteVersion::HOST
         );
 
-        Param::assertHas(
+        Property::assertHas(
             $properties,
             FieldsSiteVersion::THEME_NAME,
             get_class($this)
         );
 
-        Param::assertHas(
+        Property::assertHas(
             $properties,
             FieldsSiteVersion::LOCALE,
             get_class($this)
         );
 
-        $statusPages = Param::getArray(
+        $statusPages = Property::getArray(
             $properties,
             FieldsSiteVersion::STATUS_PAGES,
             []
@@ -113,7 +113,7 @@ abstract class SiteVersionAbstract extends ContentVersionAbstract
             []
         );
 
-        return Param::getArray(
+        return Property::getArray(
             $statusPages,
             $httpStatus,
             $default

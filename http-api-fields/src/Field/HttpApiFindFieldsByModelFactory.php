@@ -3,8 +3,8 @@
 namespace Zrcms\HttpApiFields\Field;
 
 use Psr\Container\ContainerInterface;
-use Zrcms\Fields\Api\Field\FieldsToArray;
-use Zrcms\Fields\Api\Field\FindFieldsByModel;
+use Reliv\FieldRat\Api\Field\FieldsToArray;
+use Reliv\FieldRat\Api\Field\FindFieldsByModel;
 
 /**
  * @author James Jervis - https://github.com/jerv13

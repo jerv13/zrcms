@@ -5,8 +5,8 @@ namespace Zrcms\CoreApplication\Api\Component;
 use Zrcms\Core\Api\Component\ReadComponentConfig;
 use Zrcms\Core\Exception\CanNotReadComponentConfig;
 use Zrcms\Core\Fields\FieldsComponentConfig;
-use Zrcms\Json\Json;
-use Zrcms\Param\Param;
+use Reliv\Json\Json;
+use Reliv\ArrayProperties\Property;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -51,7 +51,7 @@ class ReadComponentConfigJsonFile implements ReadComponentConfig
         );
 
         // if no moduleDirectory is set, we use the config file location
-        $moduleDirectoryConfig = $componentConfig[FieldsComponentConfig::MODULE_DIRECTORY] = Param::getString(
+        $moduleDirectoryConfig = $componentConfig[FieldsComponentConfig::MODULE_DIRECTORY] = Property::getString(
             $componentConfig,
             FieldsComponentConfig::MODULE_DIRECTORY,
             ''

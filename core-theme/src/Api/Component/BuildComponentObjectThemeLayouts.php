@@ -13,7 +13,7 @@ use Zrcms\CoreTheme\Fields\FieldsLayoutComponentConfig;
 use Zrcms\CoreTheme\Fields\FieldsThemeComponent;
 use Zrcms\CoreTheme\Fields\FieldsThemeComponentConfig;
 use Zrcms\CoreTheme\Model\ThemeComponentBasic;
-use Zrcms\Param\Param;
+use Reliv\ArrayProperties\Property;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -54,7 +54,7 @@ class BuildComponentObjectThemeLayouts extends BuildComponentObjectByType implem
      *
      * @return Component
      * @throws \Exception
-     * @throws \Zrcms\Param\Exception\ParamMissing
+     * @throws \Reliv\ArrayProperties\Exception\ArrayPropertyMissing
      */
     public function __invoke(
         array $componentConfig,
@@ -71,7 +71,7 @@ class BuildComponentObjectThemeLayouts extends BuildComponentObjectByType implem
      *
      * @return array
      * @throws \Exception
-     * @throws \Zrcms\Param\Exception\ParamMissing
+     * @throws \Reliv\ArrayProperties\Exception\ArrayPropertyMissing
      */
     public function prepareConfig(
         array $themeComponentConfig,
@@ -79,7 +79,7 @@ class BuildComponentObjectThemeLayouts extends BuildComponentObjectByType implem
     ):array {
         $componentConfigs = $this->readComponentConfigs->__invoke();
 
-        $themeName = Param::getRequired(
+        $themeName = Property::getRequired(
             $themeComponentConfig,
             FieldsThemeComponentConfig::NAME
         );

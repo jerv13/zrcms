@@ -8,7 +8,7 @@ use Zrcms\CorePage\Model\PageCmsResource;
 use Zrcms\CoreSite\Model\SiteCmsResource;
 use Zrcms\CoreTheme\Model\LayoutCmsResource;
 use Zrcms\CoreView\Fields\FieldsView;
-use Zrcms\Param\Param;
+use Reliv\ArrayProperties\Property;
 
 /**
  * ViewModel
@@ -28,25 +28,25 @@ abstract class ViewAbstract extends ContentAbstract implements View
      * @param null  $id
      *
      * @throws \Throwable
-     * @throws \Zrcms\Param\Exception\ParamException
+     * @throws \Reliv\ArrayProperties\Exception\ArrayPropertyException
      */
     public function __construct(
         array $properties,
         $id = null
     ) {
-        $this->siteCmsResource = Param::getRequired(
+        $this->siteCmsResource = Property::getRequired(
             $properties,
             FieldsView::SITE_CMS_RESOURCE,
             get_class($this)
         );
 
-        $this->pageCmsResource = Param::getRequired(
+        $this->pageCmsResource = Property::getRequired(
             $properties,
             FieldsView::PAGE_CMS_RESOURCE,
             get_class($this)
         );
 
-        $this->layoutCmsResource = Param::getRequired(
+        $this->layoutCmsResource = Property::getRequired(
             $properties,
             FieldsView::LAYOUT_CMS_RESOURCE,
             get_class($this)

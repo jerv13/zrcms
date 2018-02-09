@@ -6,7 +6,7 @@ use Zrcms\Core\Fields\FieldsContent;
 use Zrcms\CoreContainer\Fields\FieldsContainer;
 use Zrcms\CorePage\Model\Page;
 use Zrcms\CoreTheme\Fields\FieldsThemeComponent;
-use Zrcms\Fields\Model\Fields;
+use Reliv\FieldRat\Model\Fields;
 
 /**
  * @author James Jervis - https://github.com/jerv13

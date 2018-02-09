@@ -26,7 +26,7 @@ class IsAllowedRcmUserSitesAdmin implements IsAllowed
      *
      * @return bool
      * @throws \Exception
-     * @throws \Zrcms\Param\Exception\ParamMissing
+     * @throws \Reliv\ArrayProperties\Exception\ArrayPropertyMissing
      */
     public function __invoke(
         ServerRequestInterface $request,

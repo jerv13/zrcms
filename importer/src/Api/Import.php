@@ -23,8 +23,8 @@ use Zrcms\CoreSite\Api\CmsResource\UpsertSiteCmsResource;
 use Zrcms\CoreSite\Model\SiteCmsResource;
 use Zrcms\CoreSite\Model\SiteCmsResourceBasic;
 use Zrcms\CoreSite\Model\SiteVersionBasic;
-use Zrcms\Json\Json;
-use Zrcms\Param\Param;
+use Reliv\Json\Json;
+use Reliv\ArrayProperties\Property;
 
 class Import
 {
@@ -121,7 +121,7 @@ class Import
      */
     protected function sleep(array $options)
     {
-        $sleep = Param::getInt(
+        $sleep = Property::getInt(
             $options,
             self::OPTION_SLEEP,
             $this->defaultSleep
@@ -139,7 +139,7 @@ class Import
      */
     protected function skipDuplicates(array $options): bool
     {
-        return Param::getBool(
+        return Property::getBool(
             $options,
             self::OPTION_SKIP_DUPLICATES,
             $this->defaultSkipDuplicates
@@ -158,7 +158,7 @@ class Import
         string $message,
         array $options
     ) {
-        $logger = Param::get(
+        $logger = Property::get(
             $options,
             self::OPTION_LOGGER
         );
@@ -215,7 +215,7 @@ class Import
                 $options
             );
 
-            $published = Param::getBool($site, 'published', true);
+            $published = Property::getBool($site, 'published', true);
 
             $publishedSiteCmsResource = $this->upsertSiteCmsResource->__invoke(
                 new SiteCmsResourceBasic(
@@ -301,7 +301,7 @@ class Import
 
             $page['properties'][FieldsPageVersion::SITE_CMS_RESOURCE_ID] = $siteCmsResource->getId();
 
-            $published = Param::getBool($page, 'published', true);
+            $published = Property::getBool($page, 'published', true);
 
             $publishedPageCmsResource = $this->upsertPageCmsResource->__invoke(
                 new PageCmsResourceBasic(
@@ -363,7 +363,7 @@ class Import
 
             $pageTemplate['properties'][FieldsPageVersion::SITE_CMS_RESOURCE_ID] = $siteCmsResource->getId();
 
-            $published = Param::getBool($pageTemplate, 'published', true);
+            $published = Property::getBool($pageTemplate, 'published', true);
 
             $publishedPageTemplateCmsResource = $this->upsertPageTemplateCmsResource->__invoke(
                 new PageTemplateCmsResourceBasic(
@@ -425,7 +425,7 @@ class Import
 
             $container['properties'][FieldsContainerVersion::SITE_CMS_RESOURCE_ID] = $siteCmsResource->getId();
 
-            $published = Param::getBool($container, 'published', true);
+            $published = Property::getBool($container, 'published', true);
 
             $publishedContainerCmsResource = $this->upsertContainerCmsResource->__invoke(
                 new ContainerCmsResourceBasic(
@@ -516,7 +516,7 @@ class Import
                 $options
             );
 
-            $published = Param::getBool($redirect, 'published', true);
+            $published = Property::getBool($redirect, 'published', true);
 
             $publishedRedirectCmsResource = $this->upsertRedirectCmsResource->__invoke(
                 new RedirectCmsResourceBasic(

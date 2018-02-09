@@ -3,7 +3,7 @@
 namespace Zrcms\Logger\Service;
 
 use Psr\Log\AbstractLogger;
-use Zrcms\Json\Json;
+use Reliv\Json\Json;
 
 /**
  * @author James Jervis - https://github.com/jerv13

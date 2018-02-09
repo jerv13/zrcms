@@ -16,7 +16,7 @@ use Zrcms\CoreView\Model\View;
 use Zrcms\Http\Api\BuildMessageValue;
 use Zrcms\Http\Api\BuildResponseOptions;
 use Zrcms\Http\Response\ZrcmsJsonResponse;
-use Zrcms\Param\Param;
+use Reliv\ArrayProperties\Property;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -82,7 +82,7 @@ class HttpApiGetViewDataByRequest
     ) {
         $queryParams = $request->getQueryParams();
 
-        $showViewData = Param::getBool(
+        $showViewData = Property::getBool(
             $queryParams,
             static::PARAM_VIEW_DATA,
             false

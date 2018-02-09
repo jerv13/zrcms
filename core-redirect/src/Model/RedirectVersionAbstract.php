@@ -5,7 +5,7 @@ namespace Zrcms\CoreRedirect\Model;
 use Zrcms\Core\Exception\ContentVersionInvalid;
 use Zrcms\Core\Model\ContentVersionAbstract;
 use Zrcms\CoreRedirect\Fields\FieldsRedirectVersion;
-use Zrcms\Param\Param;
+use Reliv\ArrayProperties\Property;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -22,8 +22,8 @@ abstract class RedirectVersionAbstract extends ContentVersionAbstract implements
      * @throws ContentVersionInvalid
      * @throws \Exception
      * @throws \Throwable
-     * @throws \Zrcms\Param\Exception\ParamException
-     * @throws \Zrcms\Param\Exception\ParamMissing
+     * @throws \Reliv\ArrayProperties\Exception\ArrayPropertyException
+     * @throws \Reliv\ArrayProperties\Exception\ArrayPropertyMissing
      */
     public function __construct(
         $id,
@@ -32,17 +32,17 @@ abstract class RedirectVersionAbstract extends ContentVersionAbstract implements
         string $createdReason,
         $createdDate = null
     ) {
-        Param::assertNotEmpty(
+        Property::assertNotEmpty(
             $properties,
             FieldsRedirectVersion::REQUEST_PATH
         );
 
-        Param::assertNotEmpty(
+        Property::assertNotEmpty(
             $properties,
             FieldsRedirectVersion::REDIRECT_PATH
         );
 
-        $siteCmsResourceId = Param::get(
+        $siteCmsResourceId = Property::get(
             $properties,
             FieldsRedirectVersion::SITE_CMS_RESOURCE_ID,
             null

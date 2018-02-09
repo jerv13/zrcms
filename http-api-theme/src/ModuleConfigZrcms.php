@@ -16,8 +16,8 @@ use Zrcms\CoreTheme\Api\CmsResourceHistory\FindLayoutCmsResourceHistoryBy;
 use Zrcms\CoreTheme\Api\Content\FindLayoutVersion;
 use Zrcms\CoreTheme\Api\Content\FindLayoutVersionsBy;
 use Zrcms\CoreTheme\Api\Content\InsertLayoutVersion;
-use Zrcms\InputValidationZrcms\Api\ValidateCmsResourceDataUpsert;
-use Zrcms\InputValidationZrcms\Api\ValidateContentVersionDataInsert;
+use Zrcms\ValidationRatZrcms\Api\ValidateCmsResourceDataUpsert;
+use Zrcms\ValidationRatZrcms\Api\ValidateContentVersionDataInsert;
 
 /**
  * @author James Jervis - https://github.com/jerv13

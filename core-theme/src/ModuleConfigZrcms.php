@@ -33,7 +33,7 @@ class ModuleConfigZrcms
              * ===== ZRCMS Field Models =====
              * ['{model-name}' => '{model-class}']
              */
-            'zrcms-fields-model' => [
+            'field-rat-fields-model' => [
                 'layout-component' => FieldsLayoutComponent::class,
                 'layout-component-config' => FieldsLayoutComponentConfig::class,
                 'layout-version' => FieldsLayoutVersion::class,
@@ -45,7 +45,7 @@ class ModuleConfigZrcms
              * ===== ZRCMS Field Model Extends =====
              * ['{model-name}' => '{extends-model-name}']
              */
-            'zrcms-fields-model-extends' => [
+            'field-rat-fields-model-extends' => [
                 'layout-component' => 'component',
                 'layout-component-config' => 'component-config',
                 'layout-version' => 'content-version',
@@ -57,7 +57,7 @@ class ModuleConfigZrcms
              * ===== ZRCMS Fields =====
              * ['{model-name}' => '{fields-config}']
              */
-            'zrcms-fields' => [
+            'field-rat-fields' => [
                 'layout-component' => [
                     [
                         'name' => fieldsLayoutComponent::THEME_NAME,

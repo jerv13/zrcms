@@ -10,7 +10,7 @@ use Zrcms\CoreContainer\Api\BuildBlockVersions;
 use Zrcms\CoreContainer\Api\PrepareBlockVersionsData;
 use Zrcms\CoreContainer\Fields\FieldsContainer;
 use Zrcms\CoreApplication\Api\GetGuidV4;
-use Zrcms\Param\Param;
+use Reliv\ArrayProperties\Property;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -24,7 +24,7 @@ abstract class ContainerAbstract extends ContentAbstract
      */
     public function __construct(array $properties)
     {
-        $blockVersions = Param::getArray(
+        $blockVersions = Property::getArray(
             $properties,
             FieldsContainer::BLOCK_VERSIONS,
             []

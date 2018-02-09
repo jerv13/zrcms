@@ -3,7 +3,7 @@
 namespace Zrcms\ViewHead\Api\Render;
 
 use Psr\Http\Message\ServerRequestInterface;
-use Zrcms\Param\Param;
+use Reliv\ArrayProperties\Property;
 use Zrcms\ServiceAlias\Api\AssertNotSelfReference;
 use Zrcms\ServiceAlias\Api\GetServiceFromAlias;
 use Zrcms\ViewHead\Api\Exception\CanNotRenderHeadSectionTag;
@@ -53,7 +53,7 @@ class RenderHeadSectionTagServiceAliasStrategy implements RenderHeadSectionTag
         array $sectionConfig,
         array $options = []
     ): string {
-        $renderStrategyServiceAlias = Param::getString(
+        $renderStrategyServiceAlias = Property::getString(
             $sectionConfig,
             static::PARAM_SERVICE_ALIAS_STRATEGY,
             $this->defaultServiceAliasStrategy

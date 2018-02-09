@@ -10,7 +10,7 @@ use Zrcms\CoreContainer\Model\ContainerVersionBasic;
 use Zrcms\CoreApplication\Api\GetGuidV4;
 use Zrcms\CorePage\Api\PreparePageContainerData;
 use Zrcms\CorePage\Fields\FieldsPage;
-use Zrcms\Param\Param;
+use Reliv\ArrayProperties\Property;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -21,12 +21,12 @@ abstract class PageAbstract extends ContentAbstract
      * @param array $properties
      *
      * @throws \Exception
-     * @throws \Zrcms\Param\Exception\ParamMissing
+     * @throws \Reliv\ArrayProperties\Exception\ArrayPropertyMissing
      */
     public function __construct(
         array $properties
     ) {
-        Param::assertHas(
+        Property::assertHas(
             $properties,
             FieldsPage::TITLE,
             get_class($this)
@@ -34,7 +34,7 @@ abstract class PageAbstract extends ContentAbstract
 
         $id = GetGuidV4::invoke();
 
-        $containersData = Param::getArray(
+        $containersData = Property::getArray(
             $properties,
             FieldsPage::CONTAINERS_DATA,
             []
@@ -104,7 +104,7 @@ abstract class PageAbstract extends ContentAbstract
     {
         $containersData = $this->getContainersData();
 
-        return Param::get(
+        return Property::get(
             $containersData,
             $name,
             null
@@ -135,7 +135,7 @@ abstract class PageAbstract extends ContentAbstract
     {
         $containersData = $this->getContainersData();
 
-        $containerData = Param::get(
+        $containerData = Property::get(
             $containersData,
             $name,
             null

@@ -10,7 +10,7 @@ use Zrcms\Core\Model\Trackable;
 use Zrcms\CoreTheme\Fields\FieldsLayoutComponent;
 use Zrcms\CoreTheme\Fields\FieldsLayoutComponentConfig;
 use Zrcms\CoreTheme\Model\LayoutComponentBasic;
-use Zrcms\Param\Param;
+use Reliv\ArrayProperties\Property;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -23,18 +23,18 @@ class BuildComponentObjectThemeLayout implements BuildComponentObject
      *
      * @return Component
      * @throws \Exception
-     * @throws \Zrcms\Param\Exception\ParamMissing
+     * @throws \Reliv\ArrayProperties\Exception\ArrayPropertyMissing
      */
     public function __invoke(
         array $layoutComponentConfig,
         array $options = []
     ): Component {
-        $layoutModuleDirectory = Param::getRequired(
+        $layoutModuleDirectory = Property::getRequired(
             $layoutComponentConfig,
             FieldsComponentConfig::MODULE_DIRECTORY
         );
 
-        $templateFile = Param::getRequired(
+        $templateFile = Property::getRequired(
             $layoutComponentConfig,
             FieldsLayoutComponentConfig::TEMPLATE_FILE,
             get_class($this)
@@ -50,30 +50,30 @@ class BuildComponentObjectThemeLayout implements BuildComponentObject
 
         return new LayoutComponentBasic(
             'theme-layout',
-            Param::getRequired(
+            Property::getRequired(
                 $layoutComponentConfig,
                 FieldsComponentConfig::NAME
             ),
-            Param::getRequired(
+            Property::getRequired(
                 $layoutComponentConfig,
                 FieldsComponentConfig::CONFIG_URI
             ),
-            Param::getRequired(
+            Property::getRequired(
                 $layoutComponentConfig,
                 FieldsComponentConfig::MODULE_DIRECTORY
             ),
             $layoutComponentConfig,
-            Param::get(
+            Property::get(
                 $layoutComponentConfig,
                 FieldsComponentConfig::CREATED_BY_USER_ID,
                 Trackable::UNKNOWN_USER_ID
             ),
-            Param::get(
+            Property::get(
                 $layoutComponentConfig,
                 FieldsComponentConfig::CREATED_REASON,
                 Trackable::UNKNOWN_REASON
             ),
-            Param::get(
+            Property::get(
                 $layoutComponentConfig,
                 FieldsComponentConfig::CREATED_DATE,
                 null

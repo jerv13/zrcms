@@ -3,7 +3,7 @@
 namespace Zrcms\ViewHead\Model;
 
 use Zrcms\CoreView\Model\ViewLayoutTagsComponentAbstract;
-use Zrcms\Param\Param;
+use Reliv\ArrayProperties\Property;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -21,7 +21,7 @@ class HeadSectionComponentBasic extends ViewLayoutTagsComponentAbstract implemen
      * @param string|null $createdDate
      *
      * @throws \Exception
-     * @throws \Zrcms\Param\Exception\ParamMissing
+     * @throws \Reliv\ArrayProperties\Exception\ArrayPropertyMissing
      */
     public function __construct(
         string $type,
@@ -33,12 +33,12 @@ class HeadSectionComponentBasic extends ViewLayoutTagsComponentAbstract implemen
         string $createdReason,
         $createdDate = null
     ) {
-        Param::assertHas(
+        Property::assertHas(
             $properties,
             PropertiesHeadSectionComponent::TAG
         );
 
-        $properties[PropertiesHeadSectionComponent::SECTIONS] = Param::getArray(
+        $properties[PropertiesHeadSectionComponent::SECTIONS] = Property::getArray(
             $properties,
             PropertiesHeadSectionComponent::SECTIONS,
             []

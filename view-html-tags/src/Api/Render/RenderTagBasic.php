@@ -2,8 +2,8 @@
 
 namespace Zrcms\ViewHtmlTags\Api\Render;
 
-use Zrcms\Param\Exception\ParamException;
-use Zrcms\Param\Param;
+use Reliv\ArrayProperties\Exception\ArrayPropertyException;
+use Reliv\ArrayProperties\Property;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -45,21 +45,21 @@ class RenderTagBasic implements RenderTag
      *
      * @return string
      * @throws \Throwable
-     * @throws ParamException
+     * @throws ArrayPropertyException
      */
     public function __invoke(
         array $tagData,
         array $options = []
     ): string {
-        $tag = Param::getRequired($tagData, self::PROPERTY_TAG);
-        $attributes = Param::getArray($tagData, self::PROPERTY_ATTRIBUTES, []);
-        $contentHtml = Param::getString($tagData, self::PROPERTY_CONTENT, '');
-        $depth = Param::getInt(
+        $tag = Property::getRequired($tagData, self::PROPERTY_TAG);
+        $attributes = Property::getArray($tagData, self::PROPERTY_ATTRIBUTES, []);
+        $contentHtml = Property::getString($tagData, self::PROPERTY_CONTENT, '');
+        $depth = Property::getInt(
             $options,
             RenderTag::OPTION_DEPTH,
             1
         );
-        $indent = Param::getString(
+        $indent = Property::getString(
             $options,
             self::OPTION_INDENT,
             ''
@@ -67,7 +67,7 @@ class RenderTagBasic implements RenderTag
 
         $indent = $this->getIndent($indent, $depth);
 
-        $lineBreak = Param::getString(
+        $lineBreak = Property::getString(
             $options,
             self::OPTION_LINE_BREAK,
             "\n"

@@ -8,9 +8,9 @@ use Psr\Http\Message\ServerRequestInterface;
 use Zrcms\Http\Api\BuildResponseOptions;
 use Zrcms\Http\Response\ZrcmsJsonResponse;
 use Zrcms\HttpApi\Dynamic;
-use Zrcms\InputValidation\Api\Validate;
-use Zrcms\InputValidationZrcms\Api\ValidateId;
-use Zrcms\Param\Param;
+use Reliv\ValidationRat\Api\Validator\Validate;
+use Zrcms\ValidationRatZrcms\Api\ValidateId;
+use Reliv\ArrayProperties\Property;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -59,13 +59,13 @@ class HttpApiValidateIdAttributeDynamic
     ) {
         $dynamicApiConfig = $request->getAttribute(Dynamic::ATTRIBUTE_DYNAMIC_API_CONFIG);
 
-        $validateConfig = Param::getArray(
+        $validateConfig = Property::getArray(
             $dynamicApiConfig,
             Dynamic::MIDDLEWARE_NAME_VALIDATE_ID,
             []
         );
 
-        $validateServiceName = Param::getString(
+        $validateServiceName = Property::getString(
             $validateConfig,
             'validate',
             null
@@ -85,7 +85,7 @@ class HttpApiValidateIdAttributeDynamic
             );
         }
 
-        $validateOptions = Param::getArray(
+        $validateOptions = Property::getArray(
             $validateConfig,
             'validate-options',
             []
@@ -99,7 +99,7 @@ class HttpApiValidateIdAttributeDynamic
         );
 
         if (!$validationResult->isValid()) {
-            $notValidStatusDefault = Param::getInt(
+            $notValidStatusDefault = Property::getInt(
                 $validateOptions,
                 'not-valid-status',
                 $this->notValidStatusDefault

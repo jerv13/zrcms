@@ -4,7 +4,7 @@ namespace Zrcms\CoreBlock\Model;
 
 use Zrcms\Core\Model\ContentAbstract;
 use Zrcms\CoreBlock\Fields\FieldsBlock;
-use Zrcms\Param\Param;
+use Reliv\ArrayProperties\Property;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -16,19 +16,19 @@ abstract class BlockAbstract extends ContentAbstract implements Block
      * @param null|string $id
      *
      * @throws \Exception
-     * @throws \Zrcms\Param\Exception\ParamMissing
+     * @throws \Reliv\ArrayProperties\Exception\ArrayPropertyMissing
      */
     public function __construct(
         array $properties,
         $id = null
     ) {
-        Param::assertHas(
+        Property::assertHas(
             $properties,
             FieldsBlock::BLOCK_COMPONENT_NAME,
             get_class($this)
         );
 
-        Param::assertHas(
+        Property::assertHas(
             $properties,
             FieldsBlock::LAYOUT_PROPERTIES,
             get_class($this)
@@ -73,7 +73,7 @@ abstract class BlockAbstract extends ContentAbstract implements Block
     {
         $config = $this->getConfig();
 
-        return Param::get(
+        return Property::get(
             $config,
             $name,
             $default
@@ -101,7 +101,7 @@ abstract class BlockAbstract extends ContentAbstract implements Block
     {
         $layoutProperties = $this->getLayoutProperties();
 
-        return Param::get(
+        return Property::get(
             $layoutProperties,
             $name,
             $default
@@ -113,13 +113,13 @@ abstract class BlockAbstract extends ContentAbstract implements Block
      *
      * @return mixed
      * @throws \Exception
-     * @throws \Zrcms\Param\Exception\ParamMissing
+     * @throws \Reliv\ArrayProperties\Exception\ArrayPropertyMissing
      */
     public function getRequiredLayoutProperty(string $name)
     {
         $layoutProperties = $this->getLayoutProperties();
 
-        return Param::getRequired(
+        return Property::getRequired(
             $layoutProperties,
             $name,
             get_class($this)

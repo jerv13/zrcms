@@ -18,15 +18,15 @@ class ModulesConfig
             // Low level
             new \Zrcms\Debug\ModuleConfig(),
             new \Zrcms\Logger\ModuleConfig(),
-            new \Zrcms\Fields\ModuleConfig(),
-            new \Zrcms\Json\ModuleConfig(),
-            new \Zrcms\Param\ModuleConfig(),
+            new \Reliv\FieldRat\ModuleConfig(),
+            new \Reliv\Json\ModuleConfig(),
             new \Zrcms\Mustache\ModuleConfig(),
             new \Zrcms\ServiceAlias\ModuleConfig(),
-            new \Zrcms\InputValidation\ModuleConfig(),
-            new \Zrcms\InputValidationMessages\ModuleConfig(),
-            new \Zrcms\InputValidationZf2\ModuleConfig(),
-            new \Zrcms\InputValidationZrcms\ModuleConfig(),
+            new \Reliv\ValidationRat\ModuleConfig(),
+            new \Reliv\ValidationRatMessages\ModuleConfig(),
+            new \Reliv\ValidationRatZf\ModuleConfig(),
+
+            new \Zrcms\ValidationRatZrcms\ModuleConfig(),
 
             new \Zrcms\Core\ModuleConfig(),
 

@@ -4,8 +4,8 @@ namespace Zrcms\HttpApiFields\Field;
 
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
-use Zrcms\Fields\Api\Field\FieldsToArray;
-use Zrcms\Fields\Api\Field\FindFieldsByModel;
+use Reliv\FieldRat\Api\Field\FieldsToArray;
+use Reliv\FieldRat\Api\Field\FindFieldsByModel;
 use Zrcms\Http\Api\BuildMessageValue;
 use Zrcms\Http\Api\BuildResponseOptions;
 use Zrcms\Http\Response\ZrcmsJsonResponse;
@@ -16,7 +16,7 @@ use Zrcms\Http\Response\ZrcmsJsonResponse;
 class HttpApiFindFieldsByModel
 {
     const SOURCE = 'http-api-find-fields-by-model';
-    const ATTRIBUTE_FIELDS_MODEL = 'zrcms-fields-model';
+    const ATTRIBUTE_FIELDS_MODEL = 'field-rat-fields-model';
 
     protected $fieldsByModel;
     protected $fieldsToArray;

@@ -8,7 +8,7 @@ use Zrcms\Core\Api\GetTypeValue;
 use Zrcms\Core\Fields\FieldsComponentConfig;
 use Zrcms\Core\Model\Component;
 use Zrcms\Core\Model\ComponentBasic;
-use Zrcms\Param\Param;
+use Reliv\ArrayProperties\Property;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -51,7 +51,7 @@ class BuildComponentObjectByTypeStrategy implements BuildComponentObject
         array $componentConfig,
         array $options = []
     ): Component {
-        $type = Param::getString(
+        $type = Property::getString(
             $componentConfig,
             FieldsComponentConfig::TYPE,
             FieldsComponentConfig::DEFAULT_TYPE

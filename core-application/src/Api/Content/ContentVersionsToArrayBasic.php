@@ -5,7 +5,7 @@ namespace Zrcms\CoreApplication\Api\Content;
 use Zrcms\Core\Api\Content\ContentVersionsToArray;
 use Zrcms\Core\Api\Content\ContentVersionToArray;
 use Zrcms\Core\Model\ContentVersion;
-use Zrcms\Param\Param;
+use Reliv\ArrayProperties\Property;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -38,7 +38,7 @@ class ContentVersionsToArrayBasic implements ContentVersionsToArray
         foreach ($contentVersions as $contentVersion) {
             $array[] = $this->contentVersionToArray->__invoke(
                 $contentVersion,
-                Param::getArray(
+                Property::getArray(
                     $options,
                     self::OPTION_CONTENT_OPTIONS,
                     []

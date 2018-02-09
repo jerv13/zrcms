@@ -6,7 +6,7 @@ use Zrcms\Core\Api\CmsResource\CmsResourceToArray;
 use Zrcms\Core\Api\Content\ContentVersionToArray;
 use Zrcms\Core\Model\CmsResource;
 use Zrcms\CoreApplication\Api\RemoveProperties;
-use Zrcms\Param\Param;
+use Reliv\ArrayProperties\Property;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -54,7 +54,7 @@ class CmsResourceToArrayBasic implements CmsResourceToArray
 
         return RemoveProperties::invoke(
             $array,
-            Param::getArray(
+            Property::getArray(
                 $options,
                 self::OPTION_HIDE_PROPERTIES,
                 []

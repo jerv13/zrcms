@@ -6,7 +6,7 @@ use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Zrcms\Http\Api\QueryParamValueDecode;
 use Zrcms\Http\Model\HttpOrderBy;
-use Zrcms\Param\Param;
+use Reliv\ArrayProperties\Property;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -40,7 +40,7 @@ class HttpApiOrderBy
         $queryParams = $request->getQueryParams();
 
         // @todo Security
-        $orderBy = Param::getArray(
+        $orderBy = Property::getArray(
             $queryParams,
             HttpOrderBy::PARAM,
             null

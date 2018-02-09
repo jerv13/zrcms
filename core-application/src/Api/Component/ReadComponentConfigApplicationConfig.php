@@ -5,7 +5,7 @@ namespace Zrcms\CoreApplication\Api\Component;
 use Zrcms\Core\Api\Component\ReadComponentConfig;
 use Zrcms\Core\Exception\CanNotReadComponentConfig;
 use Zrcms\Core\Fields\FieldsComponentConfig;
-use Zrcms\Param\Param;
+use Reliv\ArrayProperties\Property;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -53,7 +53,7 @@ class ReadComponentConfigApplicationConfig implements ReadComponentConfig
             throw new \Exception("Config location ({$appConfigPath}) not found");
         }
 
-        Param::assertHas(
+        Property::assertHas(
             $componentConfig,
             FieldsComponentConfig::MODULE_DIRECTORY
         );

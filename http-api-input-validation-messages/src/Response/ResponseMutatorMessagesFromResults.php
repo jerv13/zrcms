@@ -7,10 +7,10 @@ use Psr\Http\Message\ServerRequestInterface;
 use Zend\Diactoros\Response\JsonResponse;
 use Zrcms\Http\Api\IsValidContentType;
 use Zrcms\Http\Response\ZrcmsJsonResponse;
-use Zrcms\InputValidation\Model\ValidationResult;
-use Zrcms\InputValidation\Model\ValidationResultFields;
-use Zrcms\InputValidationMessages\Api\GetMessagesValidationResult;
-use Zrcms\InputValidationMessages\Api\GetMessagesValidationResultFields;
+use Reliv\ValidationRat\Model\ValidationResult;
+use Reliv\ValidationRat\Model\ValidationResultFields;
+use Reliv\ValidationRatMessages\Api\GetMessagesValidationResult;
+use Reliv\ValidationRatMessages\Api\GetMessagesValidationResultFields;
 
 /**
  * @author James Jervis - https://github.com/jerv13

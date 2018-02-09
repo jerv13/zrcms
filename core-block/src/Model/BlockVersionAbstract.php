@@ -5,7 +5,7 @@ namespace Zrcms\CoreBlock\Model;
 use Zrcms\Core\Exception\PropertyMissing;
 use Zrcms\Core\Model\ContentVersionAbstract;
 use Zrcms\CoreBlock\Fields\FieldsBlockVersion;
-use Zrcms\Param\Param;
+use Reliv\ArrayProperties\Property;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -20,7 +20,7 @@ abstract class BlockVersionAbstract extends ContentVersionAbstract
      * @param null   $createdDate
      *
      * @throws \Exception
-     * @throws \Zrcms\Param\Exception\ParamMissing
+     * @throws \Reliv\ArrayProperties\Exception\ArrayPropertyMissing
      */
     public function __construct(
         $id,
@@ -29,19 +29,19 @@ abstract class BlockVersionAbstract extends ContentVersionAbstract
         string $createdReason,
         $createdDate = null
     ) {
-        Param::assertHas(
+        Property::assertHas(
             $properties,
             FieldsBlockVersion::BLOCK_COMPONENT_NAME,
             get_class($this)
         );
 
-        Param::assertHas(
+        Property::assertHas(
             $properties,
             FieldsBlockVersion::LAYOUT_PROPERTIES,
             get_class($this)
         );
 
-        Param::assertHas(
+        Property::assertHas(
             $properties,
             FieldsBlockVersion::CONTAINER_VERSION_ID,
             get_class($this)
@@ -89,7 +89,7 @@ abstract class BlockVersionAbstract extends ContentVersionAbstract
     {
         $config = $this->getConfig();
 
-        return Param::get(
+        return Property::get(
             $config,
             $name,
             $default
@@ -117,7 +117,7 @@ abstract class BlockVersionAbstract extends ContentVersionAbstract
     {
         $layoutProperties = $this->getLayoutProperties();
 
-        return Param::get(
+        return Property::get(
             $layoutProperties,
             $name,
             $default
@@ -129,13 +129,13 @@ abstract class BlockVersionAbstract extends ContentVersionAbstract
      *
      * @return mixed
      * @throws \Exception
-     * @throws \Zrcms\Param\Exception\ParamMissing
+     * @throws \Reliv\ArrayProperties\Exception\ArrayPropertyMissing
      */
     public function getRequiredLayoutProperty(string $name)
     {
         $layoutProperties = $this->getLayoutProperties();
 
-        return Param::getRequired(
+        return Property::getRequired(
             $layoutProperties,
             $name,
             get_class($this)

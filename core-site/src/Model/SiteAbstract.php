@@ -5,8 +5,8 @@ namespace Zrcms\CoreSite\Model;
 use Zrcms\Core\Exception\PropertyMissing;
 use Zrcms\Core\Model\ContentAbstract;
 use Zrcms\CoreSite\Fields\FieldsSite;
-use Zrcms\Json\Json;
-use Zrcms\Param\Param;
+use Reliv\Json\Json;
+use Reliv\ArrayProperties\Property;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -17,24 +17,24 @@ abstract class SiteAbstract extends ContentAbstract
      * @param array $properties
      *
      * @throws \Exception
-     * @throws \Zrcms\Param\Exception\ParamMissing
+     * @throws \Reliv\ArrayProperties\Exception\ArrayPropertyMissing
      */
     public function __construct(
         array $properties
     ) {
-        Param::assertHas(
+        Property::assertHas(
             $properties,
             FieldsSite::THEME_NAME,
             get_class($this)
         );
 
-        Param::assertHas(
+        Property::assertHas(
             $properties,
             FieldsSite::LOCALE,
             get_class($this)
         );
 
-        $statusPages = Param::getArray(
+        $statusPages = Property::getArray(
             $properties,
             FieldsSite::STATUS_PAGES,
             []
@@ -82,7 +82,7 @@ abstract class SiteAbstract extends ContentAbstract
             []
         );
 
-        return Param::getArray(
+        return Property::getArray(
             $statusPages,
             $httpStatus,
             $default

@@ -48,7 +48,7 @@ class ModuleConfigZrcms
              * ===== ZRCMS Field Models =====
              * ['{model-name}' => '{model-class}']
              */
-            'zrcms-fields-model' => [
+            'field-rat-fields-model' => [
                 'component' => FieldsComponent::class,
                 'component-config' => FieldsComponentConfig::class,
                 'content' => FieldsContent::class,
@@ -59,7 +59,7 @@ class ModuleConfigZrcms
              * ===== ZRCMS Fields =====
              * ['{model-name}' => '{fields-config}']
              */
-            'zrcms-fields' => [
+            'field-rat-fields' => [
                 'component' => [
                     [
                         'name' => FieldsComponent::COMPONENT_CONFIG_READER,

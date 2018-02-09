@@ -38,7 +38,7 @@ class ModuleConfigZrcms
              * ===== ZRCMS Field Models =====
              * ['{model-name}' => '{model-class}']
              */
-            'zrcms-fields-model' => [
+            'field-rat-fields-model' => [
                 'block-component' => FieldsBlockComponent::class,
                 'block-component-config' => FieldsBlockComponentConfig::class,
                 'block-version' => FieldsBlockVersion::class,
@@ -48,7 +48,7 @@ class ModuleConfigZrcms
              * ===== ZRCMS Field Model Extends =====
              * ['{model-name}' => '{extends-model-name}']
              */
-            'zrcms-fields-model-extends' => [
+            'field-rat-fields-model-extends' => [
                 'block-component' => 'component',
                 'block-component-config' => 'component-config',
                 'block-version' => 'content-version'
@@ -58,7 +58,7 @@ class ModuleConfigZrcms
              * ===== ZRCMS Fields =====
              * ['{model-name}' => '{fields-config}']
              */
-            'zrcms-fields' => [
+            'field-rat-fields' => [
                 'block-component' => [
                     [
                         'name' => FieldsBlockComponent::COMPONENT_CONFIG_READER,

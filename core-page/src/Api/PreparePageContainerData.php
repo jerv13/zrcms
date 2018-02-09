@@ -5,7 +5,7 @@ namespace Zrcms\CorePage\Api;
 use Zrcms\CoreContainer\Api\PrepareBlockVersionsData;
 use Zrcms\CoreContainer\Fields\FieldsContainerVersion;
 use Zrcms\CoreApplication\Api\GetGuidV4;
-use Zrcms\Param\Param;
+use Reliv\ArrayProperties\Property;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -27,7 +27,7 @@ class PreparePageContainerData
         }
 
         foreach ($containersData as $containerName => $containerData) {
-            $blockVersions = Param::getArray(
+            $blockVersions = Property::getArray(
                 $containerData,
                 FieldsContainerVersion::BLOCK_VERSIONS,
                 []

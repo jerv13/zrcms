@@ -12,7 +12,7 @@ class ViewBasic extends ViewAbstract implements View
      * @param null  $id
      *
      * @throws \Throwable
-     * @throws \Zrcms\Param\Exception\ParamException
+     * @throws \Reliv\ArrayProperties\Exception\ArrayPropertyException
      */
     public function __construct(
         array $properties,

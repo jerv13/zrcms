@@ -4,7 +4,7 @@ namespace Zrcms\CoreApplication\Api\Component;
 
 use Zrcms\Core\Api\Component\ReadComponentConfig;
 use Zrcms\Core\Fields\FieldsComponentConfig;
-use Zrcms\Param\Param;
+use Reliv\ArrayProperties\Property;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -41,7 +41,7 @@ class ReadComponentConfigPhpFile implements ReadComponentConfig
         $componentConfig = include($realConfigFilePath);
 
         // if no moduleDirectory is set, we use the config file location
-        $moduleDirectoryConfig = Param::getString(
+        $moduleDirectoryConfig = Property::getString(
             $componentConfig,
             FieldsComponentConfig::MODULE_DIRECTORY,
             ''

@@ -2,7 +2,6 @@
 
 namespace Zrcms\HttpApiFields;
 
-use Zend\Expressive\Helper\BodyParams\BodyParamsMiddleware;
 use Zrcms\HttpApiFields\Acl\HttpApiIsAllowedApiFindFieldsByModel;
 use Zrcms\HttpApiFields\Field\HttpApiFindFieldsByModel;
 
@@ -18,9 +17,9 @@ class ModuleConfigRoutes
     {
         return [
             'routes' => [
-                'zrcms.api.fields.model.{zrcms-fields-model}' => [
-                    'name' => 'zrcms.api.fields.model.{zrcms-fields-model}',
-                    'path' => '/zrcms/api/fields/model/{zrcms-fields-model}',
+                'zrcms.api.fields.model.{field-rat-fields-model}' => [
+                    'name' => 'zrcms.api.fields.model.{field-rat-fields-model}',
+                    'path' => '/zrcms/api/fields/model/{field-rat-fields-model}',
                     'middleware' => [
                         'acl' => HttpApiIsAllowedApiFindFieldsByModel::class,
                         'api' => HttpApiFindFieldsByModel::class,
@@ -35,7 +34,7 @@ class ModuleConfigRoutes
                             ],
                             'parameters' => [
                                 [
-                                    'name' => 'zrcms-fields-model',
+                                    'name' => 'field-rat-fields-model',
                                     'in' => 'path',
                                     'description' => 'ZRCMS field model (I.E. site-version, block-component, etc..)',
                                     'required' => true,

@@ -4,8 +4,8 @@ namespace Zrcms\CoreBlock\Api\Component;
 
 use Zrcms\Core\Api\Component\ReadComponentRegistry;
 use Zrcms\Core\Fields\FieldsComponentConfig;
-use Zrcms\Json\Json;
-use Zrcms\Param\Param;
+use Reliv\Json\Json;
+use Reliv\ArrayProperties\Property;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -40,7 +40,7 @@ class ReadComponentRegistryRcmPluginBc implements ReadComponentRegistry
                 'Received invalid JSON from file: ' . $rcmPluginConfigJson
             );
 
-            $rcmPluginName = Param::getRequired(
+            $rcmPluginName = Property::getRequired(
                 $rcmPluginConfig,
                 FieldsComponentConfig::NAME
             );

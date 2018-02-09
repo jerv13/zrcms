@@ -4,7 +4,7 @@ namespace Zrcms\Acl\Api;
 
 use Psr\Http\Message\ServerRequestInterface;
 use Reliv\Server\Environment;
-use Zrcms\Param\Param;
+use Reliv\ArrayProperties\Property;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -39,7 +39,7 @@ class IsAllowedRelivServerEnvironment implements IsAllowed
     ): bool {
         $environment = Environment::getInstance()->getName();
 
-        $allowEnvironments = Param::getArray(
+        $allowEnvironments = Property::getArray(
             $options,
             self::OPTION_ALLOWED_ENVIRONMENTS,
             $this->defaultAllowEnvironments

@@ -14,8 +14,8 @@ use Zrcms\CoreSite\Api\CmsResource\UpsertSiteCmsResource;
 use Zrcms\CoreSite\Api\Content\FindSiteVersion;
 use Zrcms\CoreSite\Api\Content\FindSiteVersionsBy;
 use Zrcms\CoreSite\Api\Content\InsertSiteVersion;
-use Zrcms\InputValidationZrcms\Api\ValidateCmsResourceDataUpsert;
-use Zrcms\InputValidationZrcms\Api\ValidateContentVersionDataInsert;
+use Zrcms\ValidationRatZrcms\Api\ValidateCmsResourceDataUpsert;
+use Zrcms\ValidationRatZrcms\Api\ValidateContentVersionDataInsert;
 
 /**
  * @author James Jervis - https:/github.com/jerv13

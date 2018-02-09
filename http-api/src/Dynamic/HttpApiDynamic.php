@@ -11,7 +11,7 @@ use Zrcms\Http\Response\ZrcmsJsonResponse;
 use Zrcms\HttpApi\Dynamic;
 use Zrcms\HttpApi\DynamicApiConfigNotFound;
 use Zrcms\HttpApi\GetDynamicApiConfig;
-use Zrcms\Param\Param;
+use Reliv\ArrayProperties\Property;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -58,7 +58,7 @@ class HttpApiDynamic
     ) {
         $routeOptions = $this->getRouteOptions->__invoke($request);
 
-        $zrcmsApiName = Param::getRequired(
+        $zrcmsApiName = Property::getRequired(
             $routeOptions,
             Dynamic::ROUTE_OPTION_ZRCMS_API
         );

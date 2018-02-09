@@ -8,7 +8,7 @@ use Zrcms\CoreApplicationDoctrine\Entity\ContentEntity;
 use Zrcms\CoreApplicationDoctrine\Entity\ContentEntityAbstract;
 use Zrcms\CoreContainer\Api\PrepareBlockVersionsData;
 use Zrcms\CoreContainer\Fields\FieldsContainerVersion;
-use Zrcms\Param\Param;
+use Reliv\ArrayProperties\Property;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -87,8 +87,8 @@ class ContainerVersionEntity extends ContentEntityAbstract implements ContentEnt
      *
      * @throws \Exception
      * @throws \Throwable
-     * @throws \Zrcms\Param\Exception\ParamException
-     * @throws \Zrcms\Param\Exception\ParamMissing
+     * @throws \Reliv\ArrayProperties\Exception\ArrayPropertyException
+     * @throws \Reliv\ArrayProperties\Exception\ArrayPropertyMissing
      */
     public function __construct(
         $id,
@@ -97,20 +97,20 @@ class ContainerVersionEntity extends ContentEntityAbstract implements ContentEnt
         string $createdReason,
         $createdDate = null
     ) {
-        $this->blockVersions = Param::getArray(
+        $this->blockVersions = Property::getArray(
             $properties,
             FieldsContainerVersion::BLOCK_VERSIONS,
             []
         );
 
-        Param::remove($properties, FieldsContainerVersion::BLOCK_VERSIONS);
+        Property::remove($properties, FieldsContainerVersion::BLOCK_VERSIONS);
 
-        Param::assertNotEmpty(
+        Property::assertNotEmpty(
             $properties,
             FieldsContainerVersion::SITE_CMS_RESOURCE_ID
         );
 
-        Param::assertNotEmpty(
+        Property::assertNotEmpty(
             $properties,
             FieldsContainerVersion::PATH
         );

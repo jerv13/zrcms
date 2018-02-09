@@ -2,8 +2,8 @@
 
 namespace Zrcms\Http\Api;
 
-use Zrcms\Json\Json;
-use Zrcms\Json\JsonError;
+use Reliv\Json\Json;
+use Reliv\Json\JsonError;
 
 /**
  * @author James Jervis - https://github.com/jerv13

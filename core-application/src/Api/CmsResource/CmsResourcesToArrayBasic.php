@@ -5,7 +5,7 @@ namespace Zrcms\CoreApplication\Api\CmsResource;
 use Zrcms\Core\Api\CmsResource\CmsResourcesToArray;
 use Zrcms\Core\Api\CmsResource\CmsResourceToArray;
 use Zrcms\Core\Model\CmsResource;
-use Zrcms\Param\Param;
+use Reliv\ArrayProperties\Property;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -37,7 +37,7 @@ class CmsResourcesToArrayBasic implements CmsResourcesToArray
         foreach ($cmsResources as $cmsResource) {
             $array[] = $this->cmsResourceToArray->__invoke(
                 $cmsResource,
-                Param::getArray(
+                Property::getArray(
                     $options,
                     self::OPTION_CMS_RESOURCE_OPTIONS,
                     []

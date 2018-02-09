@@ -17,7 +17,7 @@ use Zrcms\CoreView\Exception\ThemeNotFound;
 use Zrcms\CoreView\Fields\FieldsView;
 use Zrcms\CoreView\Model\View;
 use Zrcms\CoreView\Model\ViewBasic;
-use Zrcms\Param\Param;
+use Reliv\ArrayProperties\Property;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -120,7 +120,7 @@ class GetViewByRequestHtmlPage implements GetViewByRequest
             $layoutName
         );
 
-        $html = Param::getString($options, self::OPTION_HTML, null);
+        $html = Property::getString($options, self::OPTION_HTML, null);
 
         if ($html === null) {
             throw new PageNotFound(
@@ -140,7 +140,7 @@ class GetViewByRequestHtmlPage implements GetViewByRequest
             => $layoutCmsResource,
         ];
 
-        $additionalProperties = Param::get(
+        $additionalProperties = Property::get(
             $options,
             self::OPTION_ADDITIONAL_PROPERTIES,
             []
@@ -178,26 +178,26 @@ class GetViewByRequestHtmlPage implements GetViewByRequest
             $path,
             [
                 FieldsPageVersion::TITLE
-                => Param::getString($options, self::OPTION_TITLE, $this->defaultTitle),
+                => Property::getString($options, self::OPTION_TITLE, $this->defaultTitle),
 
                 FieldsPageVersion::DESCRIPTION
-                => Param::getString($options, self::OPTION_DESCRIPTION, $this->defaultDescription),
+                => Property::getString($options, self::OPTION_DESCRIPTION, $this->defaultDescription),
 
                 FieldsPageVersion::KEYWORDS
-                => Param::getString($options, self::OPTION_KEYWORDS, $this->defaultKeywords),
+                => Property::getString($options, self::OPTION_KEYWORDS, $this->defaultKeywords),
 
                 FieldsPageVersion::LAYOUT
-                => Param::getString($options, self::OPTION_LAYOUT, null),
+                => Property::getString($options, self::OPTION_LAYOUT, null),
 
                 FieldsPageVersion::PRE_RENDERED_HTML
-                => Param::getString($options, self::OPTION_HTML, ''),
+                => Property::getString($options, self::OPTION_HTML, ''),
 
                 // DEFAULT: 'html' AKA GetPageRenderTagsHtml
                 FieldsPageVersion::RENDER_TAGS_GETTER
-                => Param::getString($options, self::OPTION_RENDER_TAGS_GETTER, 'html'),
+                => Property::getString($options, self::OPTION_RENDER_TAGS_GETTER, 'html'),
 
                 FieldsPageVersion::CONTAINERS_DATA
-                => Param::getArray($options, self::OPTION_CONTAINERS_DATA, []),
+                => Property::getArray($options, self::OPTION_CONTAINERS_DATA, []),
                 FieldsPageVersion::PATH => $path,
                 FieldsPageVersion::SITE_CMS_RESOURCE_ID => $siteCmsResourceId,
             ],

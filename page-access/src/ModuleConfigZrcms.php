@@ -19,7 +19,7 @@ class ModuleConfigZrcms
              * ===== ZRCMS Fields =====
              * ['{model-name}' => '{fields-config}']
              */
-            'zrcms-fields' => [
+            'field-rat-fields' => [
                 'page-version' => [
                     [
                         'name' => FieldsPageAccess::PAGE_ACCESS_OPTIONS,

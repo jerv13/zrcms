@@ -6,7 +6,7 @@ use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Zrcms\Http\Api\BuildResponseOptions;
 use Zrcms\Http\Response\ZrcmsJsonResponse;
-use Zrcms\Param\Param;
+use Reliv\ArrayProperties\Property;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -82,7 +82,7 @@ class HttpApiZrcmsRoutes
         $key,
         array $routeData
     ) {
-        return Param::getString(
+        return Property::getString(
             $routeData,
             'name',
             $key

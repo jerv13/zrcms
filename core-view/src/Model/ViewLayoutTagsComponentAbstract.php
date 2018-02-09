@@ -5,7 +5,7 @@ namespace Zrcms\CoreView\Model;
 use Zrcms\Core\Exception\PropertyMissing;
 use Zrcms\Core\Model\ComponentAbstract;
 use Zrcms\CoreView\Fields\FieldsViewLayoutTagsComponent;
-use Zrcms\Param\Param;
+use Reliv\ArrayProperties\Property;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -23,7 +23,7 @@ abstract class ViewLayoutTagsComponentAbstract extends ComponentAbstract
      * @param string|null $createdDate
      *
      * @throws \Exception
-     * @throws \Zrcms\Param\Exception\ParamMissing
+     * @throws \Reliv\ArrayProperties\Exception\ArrayPropertyMissing
      */
     public function __construct(
         string $type,
@@ -35,7 +35,7 @@ abstract class ViewLayoutTagsComponentAbstract extends ComponentAbstract
         string $createdReason,
         $createdDate = null
     ) {
-        Param::assertHas(
+        Property::assertHas(
             $properties,
             FieldsViewLayoutTagsComponent::RENDER_TAGS_GETTER,
             get_class($this)
@@ -58,7 +58,7 @@ abstract class ViewLayoutTagsComponentAbstract extends ComponentAbstract
      */
     public function getViewLayoutTagsGetter(): string
     {
-        return Param::getString(
+        return Property::getString(
             $this->properties,
             FieldsViewLayoutTagsComponent::RENDER_TAGS_GETTER,
             ''

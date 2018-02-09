@@ -5,7 +5,7 @@ namespace Zrcms\CoreTheme\Model;
 use Zrcms\Core\Exception\PropertyMissing;
 use Zrcms\Core\Model\ComponentAbstract;
 use Zrcms\CoreTheme\Fields\FieldsLayoutComponent;
-use Zrcms\Param\Param;
+use Reliv\ArrayProperties\Property;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -23,7 +23,7 @@ abstract class LayoutComponentAbstract extends ComponentAbstract
      * @param null   $createdDate
      *
      * @throws \Exception
-     * @throws \Zrcms\Param\Exception\ParamMissing
+     * @throws \Reliv\ArrayProperties\Exception\ArrayPropertyMissing
      */
     public function __construct(
         string $type,
@@ -35,13 +35,13 @@ abstract class LayoutComponentAbstract extends ComponentAbstract
         string $createdReason,
         $createdDate = null
     ) {
-        Param::assertHas(
+        Property::assertHas(
             $properties,
             FieldsLayoutComponent::THEME_NAME,
             get_class($this)
         );
 
-        Param::assertHas(
+        Property::assertHas(
             $properties,
             FieldsLayoutComponent::HTML,
             get_class($this)

@@ -32,7 +32,7 @@
 - zrcms-admin
     - zrcms-admin-menu
     - zrcms-{others}
-- zrcms-fields
+- field-rat-fields
 
 ##### Block data providers service aliases 
 
@@ -99,7 +99,7 @@ Features
 ##### Fields  #####
 
 - Standard menus for admins using field definitions
-- include input-validations defined by a field config - use service aliases
+- include validation-rats defined by a field config - use service aliases
 - create js/ui lib
     
 Clean up - Refactoring

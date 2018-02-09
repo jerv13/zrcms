@@ -5,7 +5,7 @@ namespace Zrcms\HttpAssets\Api\Render;
 use Psr\Http\Message\ServerRequestInterface;
 use Zrcms\Core\Api\Render\Render;
 use Zrcms\HttpAssets\Api\GetCacheBreaker;
-use Zrcms\Param\Param;
+use Reliv\ArrayProperties\Property;
 use Zrcms\ViewHtmlTags\Api\Render\RenderTag;
 
 /**
@@ -41,20 +41,20 @@ class RenderLinkHrefTag implements Render
      * @return string
      * @throws \Exception
      * @throws \Throwable
-     * @throws \Zrcms\Param\Exception\ParamException
-     * @throws \Zrcms\Param\Exception\ParamMissing
+     * @throws \Reliv\ArrayProperties\Exception\ArrayPropertyException
+     * @throws \Reliv\ArrayProperties\Exception\ArrayPropertyMissing
      */
     public function __invoke(
         ServerRequestInterface $request,
         $attributes,
         array $options = []
     ): string {
-        Param::assertNotEmpty(
+        Property::assertNotEmpty(
             $attributes,
             static::OPTION_HREF_ATTRIBUTE
         );
 
-        $href = Param::getString(
+        $href = Property::getString(
             $attributes,
             static::OPTION_HREF_ATTRIBUTE
         );
@@ -62,19 +62,19 @@ class RenderLinkHrefTag implements Render
         $attributes[static::OPTION_HREF_ATTRIBUTE]
             = $href . '?' . $this->getCacheBreaker->__invoke();
 
-        $attributes[static::OPTION_MEDIA_ATTRIBUTE] = Param::getString(
+        $attributes[static::OPTION_MEDIA_ATTRIBUTE] = Property::getString(
             $attributes,
             static::OPTION_MEDIA_ATTRIBUTE,
             'screen,print'
         );
 
-        $attributes[static::OPTION_REL_ATTRIBUTE] = Param::getString(
+        $attributes[static::OPTION_REL_ATTRIBUTE] = Property::getString(
             $attributes,
             static::OPTION_REL_ATTRIBUTE,
             'stylesheet'
         );
 
-        $attributes[static::OPTION_TYPE_ATTRIBUTE] = Param::getString(
+        $attributes[static::OPTION_TYPE_ATTRIBUTE] = Property::getString(
             $attributes,
             static::OPTION_TYPE_ATTRIBUTE,
             'text/css'

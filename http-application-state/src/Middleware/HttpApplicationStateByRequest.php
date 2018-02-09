@@ -6,7 +6,7 @@ use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Zend\Diactoros\Response\JsonResponse;
 use Zrcms\CoreApplicationState\Api\GetApplicationState;
-use Zrcms\Param\Param;
+use Reliv\ArrayProperties\Property;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -43,7 +43,7 @@ class HttpApplicationStateByRequest
         callable $next = null
     ) {
         $params = $request->getQueryParams();
-        $returnAppState = Param::getBool(
+        $returnAppState = Property::getBool(
             $params,
             static::PARAM_APPLICATION_STATE,
             false

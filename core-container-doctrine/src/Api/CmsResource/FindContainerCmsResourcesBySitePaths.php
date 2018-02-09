@@ -10,7 +10,7 @@ use Zrcms\CoreContainer\Model\ContainerCmsResourceBasic;
 use Zrcms\CoreContainer\Model\ContainerVersionBasic;
 use Zrcms\CoreContainerDoctrine\Entity\ContainerCmsResourceEntity;
 use Zrcms\CoreContainerDoctrine\Entity\ContainerVersionEntity;
-use Zrcms\Param\Param;
+use Reliv\ArrayProperties\Property;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -138,7 +138,7 @@ class FindContainerCmsResourcesBySitePaths implements CoreFindsBySitePaths
 
         foreach ($containerCmsResourcePaths as $containerCmsResourcePath) {
             // avoid duplicates
-            if (Param::has($pathParams, $containerCmsResourcePath)) {
+            if (Property::has($pathParams, $containerCmsResourcePath)) {
                 $index++;
                 continue;
             }

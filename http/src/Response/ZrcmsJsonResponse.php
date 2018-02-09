@@ -6,8 +6,8 @@ use Zend\Diactoros\Response;
 use Zend\Diactoros\Response\InjectContentTypeTrait;
 use Zend\Diactoros\Response\JsonResponse;
 use Zend\Diactoros\Stream;
-use Zrcms\Json\Json;
-use Zrcms\Param\Param;
+use Reliv\Json\Json;
+use Reliv\ArrayProperties\Property;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -80,7 +80,7 @@ class ZrcmsJsonResponse extends Response
 
         $this->options = $options;
 
-        $this->encodingOptions = Param::get(
+        $this->encodingOptions = Property::get(
             $options,
             self::OPTION_JSON_FLAGS,
             self::DEFAULT_JSON_FLAGS

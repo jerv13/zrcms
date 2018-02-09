@@ -14,7 +14,7 @@ use Zrcms\CoreView\Exception\ThemeNotFound;
 use Zrcms\CoreView\Fields\FieldsView;
 use Zrcms\CoreView\Model\View;
 use Zrcms\CoreView\Model\ViewBasic;
-use Zrcms\Param\Param;
+use Reliv\ArrayProperties\Property;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -134,7 +134,7 @@ class GetViewByRequestBasic implements GetViewByRequest
             => $layoutCmsResource,
         ];
 
-        $additionalProperties = Param::get(
+        $additionalProperties = Property::get(
             $options,
             self::OPTION_ADDITIONAL_PROPERTIES,
             []

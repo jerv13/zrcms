@@ -5,7 +5,7 @@ namespace Zrcms\CoreTheme\Model;
 use Zrcms\Core\Model\ComponentAbstract;
 use Zrcms\CoreTheme\Exception\DefaultLayoutMissing;
 use Zrcms\CoreTheme\Fields\FieldsThemeComponent;
-use Zrcms\Param\Param;
+use Reliv\ArrayProperties\Property;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -23,7 +23,7 @@ abstract class ThemeComponentAbstract extends ComponentAbstract
      * @param null|string $createdDate
      *
      * @throws \Exception
-     * @throws \Zrcms\Param\Exception\ParamMissing
+     * @throws \Reliv\ArrayProperties\Exception\ArrayPropertyMissing
      */
     public function __construct(
         string $type,
@@ -35,20 +35,20 @@ abstract class ThemeComponentAbstract extends ComponentAbstract
         string $createdReason,
         $createdDate = null
     ) {
-        Param::assertHas(
+        Property::assertHas(
             $properties,
             FieldsThemeComponent::LAYOUT_VARIATIONS,
             get_class($this)
         );
 
-        $layoutVariations = Param::getArray(
+        $layoutVariations = Property::getArray(
             $properties,
             FieldsThemeComponent::LAYOUT_VARIATIONS,
             []
         );
 
         // avoid setting them twice
-        Param::remove($properties, FieldsThemeComponent::LAYOUT_VARIATIONS);
+        Property::remove($properties, FieldsThemeComponent::LAYOUT_VARIATIONS);
 
         parent::__construct(
             $type,
@@ -64,7 +64,7 @@ abstract class ThemeComponentAbstract extends ComponentAbstract
         // Must be dome after parent construct
         $this->addLayoutVariations($layoutVariations);
 
-        if (!Param::has($this->getLayoutVariations(), $this->getPrimaryLayoutName())) {
+        if (!Property::has($this->getLayoutVariations(), $this->getPrimaryLayoutName())) {
             throw new DefaultLayoutMissing(
                 'Primary layout (' . $this->getPrimaryLayoutName() . ') '
                 . 'is missing for theme ' . $this->getName()
@@ -119,7 +119,7 @@ abstract class ThemeComponentAbstract extends ComponentAbstract
     ) {
         $layoutVariations = $this->getLayoutVariations();
 
-        return Param::get(
+        return Property::get(
             $layoutVariations,
             $name,
             $default
@@ -136,7 +136,7 @@ abstract class ThemeComponentAbstract extends ComponentAbstract
     ): bool {
         $layoutVariations = $this->getLayoutVariations();
 
-        return Param::has(
+        return Property::has(
             $layoutVariations,
             $name
         );
@@ -162,19 +162,19 @@ abstract class ThemeComponentAbstract extends ComponentAbstract
      */
     protected function addLayoutVariation(LayoutComponent $layoutComponent)
     {
-        $layoutVariations = Param::getArray(
+        $layoutVariations = Property::getArray(
             $this->properties,
             FieldsThemeComponent::LAYOUT_VARIATIONS,
             []
         );
 
-        $layoutVariations = Param::set(
+        $layoutVariations = Property::set(
             $layoutVariations,
             $layoutComponent->getName(),
             $layoutComponent
         );
 
-        $this->properties = Param::set(
+        $this->properties = Property::set(
             $this->properties,
             FieldsThemeComponent::LAYOUT_VARIATIONS,
             $layoutVariations

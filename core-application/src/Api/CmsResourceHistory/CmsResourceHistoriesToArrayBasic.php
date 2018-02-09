@@ -5,7 +5,7 @@ namespace Zrcms\CoreApplication\Api\CmsResourceHistory;
 use Zrcms\Core\Api\CmsResourceHistory\CmsResourceHistoriesToArray;
 use Zrcms\Core\Api\CmsResourceHistory\CmsResourceHistoryToArray;
 use Zrcms\Core\Model\CmsResourceHistory;
-use Zrcms\Param\Param;
+use Reliv\ArrayProperties\Property;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -38,7 +38,7 @@ class CmsResourceHistoriesToArrayBasic implements CmsResourceHistoriesToArray
         foreach ($cmsResourceHistories as $cmsResourceHistory) {
             $array[] = $this->cmsResourceHistoryToArray->__invoke(
                 $cmsResourceHistory,
-                Param::getArray(
+                Property::getArray(
                     $options,
                     self::OPTION_CMS_RESOURCE_HISTORY_OPTIONS,
                     []

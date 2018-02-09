@@ -3,7 +3,7 @@
 namespace Zrcms\CoreBlock\Fields;
 
 use Zrcms\Core\Fields\FieldsComponent;
-use Zrcms\Fields\Model\Fields;
+use Reliv\FieldRat\Model\Fields;
 
 /**
  * @author James Jervis - https://github.com/jerv13

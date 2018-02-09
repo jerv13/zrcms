@@ -12,7 +12,7 @@ use Zrcms\CorePage\Api\AssertValidPath;
 use Zrcms\CorePage\Api\BuildPageContainerVersionId;
 use Zrcms\CorePage\Api\PreparePageContainerData;
 use Zrcms\CorePage\Fields\FieldsPageVersion;
-use Zrcms\Param\Param;
+use Reliv\ArrayProperties\Property;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -29,8 +29,8 @@ abstract class PageVersionAbstract extends ContentVersionAbstract
      * @throws \Exception
      * @throws \Throwable
      * @throws \Zrcms\CorePage\Exception\InvalidPath
-     * @throws \Zrcms\Param\Exception\ParamException
-     * @throws \Zrcms\Param\Exception\ParamMissing
+     * @throws \Reliv\ArrayProperties\Exception\ArrayPropertyException
+     * @throws \Reliv\ArrayProperties\Exception\ArrayPropertyMissing
      */
     public function __construct(
         $id,
@@ -39,30 +39,30 @@ abstract class PageVersionAbstract extends ContentVersionAbstract
         string $createdReason,
         $createdDate = null
     ) {
-        Param::assertNotEmpty(
+        Property::assertNotEmpty(
             $properties,
             FieldsPageVersion::SITE_CMS_RESOURCE_ID
         );
 
-        Param::assertNotEmpty(
+        Property::assertNotEmpty(
             $properties,
             FieldsPageVersion::PATH
         );
 
         AssertValidPath::invoke(
-            Param::getString(
+            Property::getString(
                 $properties,
                 FieldsPageVersion::PATH
             )
         );
 
-        Param::assertHas(
+        Property::assertHas(
             $properties,
             FieldsPageVersion::TITLE,
             get_class($this)
         );
 
-        $containersData = Param::getArray(
+        $containersData = Property::getArray(
             $properties,
             FieldsPageVersion::CONTAINERS_DATA,
             []
@@ -156,7 +156,7 @@ abstract class PageVersionAbstract extends ContentVersionAbstract
     {
         $containersData = $this->getContainersData();
 
-        return Param::get(
+        return Property::get(
             $containersData,
             $name,
             null
@@ -188,7 +188,7 @@ abstract class PageVersionAbstract extends ContentVersionAbstract
     {
         $containersData = $this->getContainersData();
 
-        $containerData = Param::get(
+        $containerData = Property::get(
             $containersData,
             $name,
             null

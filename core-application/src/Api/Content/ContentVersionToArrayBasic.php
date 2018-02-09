@@ -5,7 +5,7 @@ namespace Zrcms\CoreApplication\Api\Content;
 use Zrcms\Core\Api\Content\ContentVersionToArray;
 use Zrcms\Core\Model\ContentVersion;
 use Zrcms\CoreApplication\Api\RemoveProperties;
-use Zrcms\Param\Param;
+use Reliv\ArrayProperties\Property;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -33,7 +33,7 @@ class ContentVersionToArrayBasic implements ContentVersionToArray
 
         return RemoveProperties::invoke(
             $array,
-            Param::getArray(
+            Property::getArray(
                 $options,
                 self::OPTION_HIDE_PROPERTIES,
                 []

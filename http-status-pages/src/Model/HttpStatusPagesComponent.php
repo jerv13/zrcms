@@ -5,8 +5,8 @@ namespace Zrcms\HttpStatusPages\Model;
 use Zrcms\Core\Model\Component;
 use Zrcms\Core\Model\ComponentAbstract;
 use Zrcms\HttpStatusPages\Fields\FieldsHttpStatusPagesComponent;
-use Zrcms\Json\Json;
-use Zrcms\Param\Param;
+use Reliv\Json\Json;
+use Reliv\ArrayProperties\Property;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -35,7 +35,7 @@ class HttpStatusPagesComponent extends ComponentAbstract implements Component
         string $createdReason,
         $createdDate = null
     ) {
-        $statusPropertyMap = Param::getArray(
+        $statusPropertyMap = Property::getArray(
             $properties,
             FieldsHttpStatusPagesComponent::STATUS_TO_SITE_PATH_PROPERTY,
             []
@@ -81,7 +81,7 @@ class HttpStatusPagesComponent extends ComponentAbstract implements Component
      */
     public function hasStatusPage($status): bool
     {
-        $statusPages = Param::getArray(
+        $statusPages = Property::getArray(
             $this->properties,
             FieldsHttpStatusPagesComponent::STATUS_TO_SITE_PATH_PROPERTY,
             []
@@ -103,7 +103,7 @@ class HttpStatusPagesComponent extends ComponentAbstract implements Component
         $statusPages = $this->getStatusPages();
 
         $status = (string)$status;
-        $statusPage = Param::getArray(
+        $statusPage = Property::getArray(
             $statusPages,
             $status,
             $default
@@ -117,7 +117,7 @@ class HttpStatusPagesComponent extends ComponentAbstract implements Component
      */
     public function getStatusPages(): array
     {
-        $statusPages = Param::getArray(
+        $statusPages = Property::getArray(
             $this->properties,
             FieldsHttpStatusPagesComponent::STATUS_TO_SITE_PATH_PROPERTY,
             []

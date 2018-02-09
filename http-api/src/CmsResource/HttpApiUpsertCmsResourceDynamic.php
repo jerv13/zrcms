@@ -12,7 +12,7 @@ use Zrcms\Core\Model\ContentVersionBasic;
 use Zrcms\Http\Api\BuildResponseOptions;
 use Zrcms\Http\Response\ZrcmsJsonResponse;
 use Zrcms\HttpApi\Dynamic;
-use Zrcms\Param\Param;
+use Reliv\ArrayProperties\Property;
 use Zrcms\User\Api\GetUserIdByRequest;
 
 /**
@@ -63,13 +63,13 @@ class HttpApiUpsertCmsResourceDynamic
     ) {
         $dynamicApiConfig = $request->getAttribute(Dynamic::ATTRIBUTE_DYNAMIC_API_CONFIG);
 
-        $apiConfig = Param::getArray(
+        $apiConfig = Property::getArray(
             $dynamicApiConfig,
             Dynamic::MIDDLEWARE_NAME_API,
             []
         );
 
-        $apiServiceName = Param::getString(
+        $apiServiceName = Property::getString(
             $apiConfig,
             'api-service',
             null
@@ -116,7 +116,7 @@ class HttpApiUpsertCmsResourceDynamic
 
         $toArrayService = $this->cmsResourceToArrayDefault;
 
-        $toArrayServiceName = Param::getString(
+        $toArrayServiceName = Property::getString(
             $apiConfig,
             'to-array',
             null

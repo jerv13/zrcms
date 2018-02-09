@@ -4,7 +4,7 @@ namespace Zrcms\Http\Api;
 
 use Zrcms\Debug\IsDebug;
 use Zrcms\Http\Response\ZrcmsJsonResponse;
-use Zrcms\Param\Param;
+use Reliv\ArrayProperties\Property;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -36,7 +36,7 @@ class BuildResponseOptions
     {
         $responseOptions = [];
 
-        $jsonFlags = Param::get(
+        $jsonFlags = Property::get(
             $options,
             ZrcmsJsonResponse::OPTION_JSON_FLAGS,
             ZrcmsJsonResponse::DEFAULT_JSON_FLAGS

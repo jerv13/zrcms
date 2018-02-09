@@ -2,8 +2,7 @@
 
 namespace Zrcms\Core\Model;
 
-use Zrcms\Core\Exception\PropertyMissing;
-use Zrcms\Param\Param;
+use Reliv\ArrayProperties\Property;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -33,7 +32,7 @@ trait PropertiesTrait
         string $name,
         $default = null
     ) {
-        return Param::get(
+        return Property::get(
             $this->getProperties(),
             $name,
             $default
@@ -45,14 +44,13 @@ trait PropertiesTrait
      *
      * @return mixed
      * @throws \Exception
-     * @throws \Zrcms\Param\Exception\ParamMissing
      */
     public function findPropertyRequired(
         string $name
     ) {
         $class = get_class($this);
 
-        return Param::getRequired(
+        return Property::getRequired(
             $this->getProperties(),
             $name,
             "Required property ({$name}) is missing in: {$class}"
@@ -67,7 +65,7 @@ trait PropertiesTrait
     public function hasProperty(
         string $name
     ): bool {
-        return Param::has(
+        return Property::has(
             $this->getProperties(),
             $name
         );
@@ -83,7 +81,7 @@ trait PropertiesTrait
         string $name,
         $default = null
     ) {
-        return Param::getDefaultIfEmpty(
+        return Property::getDefaultIfEmpty(
             $this->getProperties(),
             $name,
             $default

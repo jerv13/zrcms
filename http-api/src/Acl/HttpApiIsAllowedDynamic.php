@@ -10,7 +10,7 @@ use Zrcms\Http\Api\BuildMessageValue;
 use Zrcms\Http\Api\BuildResponseOptions;
 use Zrcms\Http\Response\ZrcmsJsonResponse;
 use Zrcms\HttpApi\Dynamic;
-use Zrcms\Param\Param;
+use Reliv\ArrayProperties\Property;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -58,13 +58,13 @@ class HttpApiIsAllowedDynamic
     ) {
         $dynamicApiConfig = $request->getAttribute(Dynamic::ATTRIBUTE_DYNAMIC_API_CONFIG);
 
-        $isAllowedConfig = Param::getArray(
+        $isAllowedConfig = Property::getArray(
             $dynamicApiConfig,
             Dynamic::MIDDLEWARE_NAME_ACL,
             []
         );
 
-        $isAllowedServiceName = Param::getString(
+        $isAllowedServiceName = Property::getString(
             $isAllowedConfig,
             'is-allowed'
         );
@@ -85,7 +85,7 @@ class HttpApiIsAllowedDynamic
             );
         }
 
-        $isAllowedOptions = Param::getArray(
+        $isAllowedOptions = Property::getArray(
             $isAllowedConfig,
             'is-allowed-options',
             []
@@ -97,7 +97,7 @@ class HttpApiIsAllowedDynamic
         );
 
         if (!$allowed) {
-            $notAllowedStatus = Param::getInt(
+            $notAllowedStatus = Property::getInt(
                 $isAllowedConfig,
                 'not-allowed-status',
                 $this->notAllowedStatusDefault

@@ -6,7 +6,7 @@ use Psr\Http\Message\ServerRequestInterface;
 use Zrcms\Core\Model\Content;
 use Zrcms\CorePage\Fields\FieldsPage;
 use Zrcms\CorePage\Model\Page;
-use Zrcms\Param\Param;
+use Reliv\ArrayProperties\Property;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -30,7 +30,7 @@ class GetPageRenderTagsHtml implements GetPageRenderTags
         ServerRequestInterface $request,
         array $options = []
     ): array {
-        $containerName = Param::get(
+        $containerName = Property::get(
             $options,
             self::OPTION_CONTAINER_NAME,
             self::DEFAULT_CONTAINER_NAME

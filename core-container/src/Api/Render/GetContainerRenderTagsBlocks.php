@@ -10,7 +10,7 @@ use Zrcms\CoreBlock\Api\Render\WrapRenderedBlockVersion;
 use Zrcms\CoreBlock\Fields\FieldsBlock;
 use Zrcms\CoreBlock\Model\Block;
 use Zrcms\CoreContainer\Model\Container;
-use Zrcms\Json\Json;
+use Reliv\Json\Json;
 
 /**
  * @author James Jervis - https://github.com/jerv13

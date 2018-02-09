@@ -6,8 +6,8 @@ use Psr\Http\Message\ServerRequestInterface;
 use Zrcms\Core\Api\Render\Render;
 use Zrcms\CoreApplicationState\Api\GetApplicationState;
 use Zrcms\Http\Response\ZrcmsJsonResponse;
-use Zrcms\Json\Json;
-use Zrcms\Param\Param;
+use Reliv\Json\Json;
+use Reliv\ArrayProperties\Property;
 use Zrcms\ViewHtmlTags\Api\Render\RenderTag;
 
 /**
@@ -57,13 +57,13 @@ class RenderScriptTagApplicationState implements Render
             $encodingOptions = JSON_PRETTY_PRINT;
         }
 
-        $indent = Param::getString(
+        $indent = Property::getString(
             $options,
             RenderTag::OPTION_INDENT,
             '    '
         );
 
-        $lineBreak = Param::getString(
+        $lineBreak = Property::getString(
             $options,
             RenderTag::OPTION_LINE_BREAK,
             "\n"

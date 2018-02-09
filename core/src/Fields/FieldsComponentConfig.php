@@ -3,8 +3,8 @@
 namespace Zrcms\Core\Fields;
 
 use Zrcms\Core\Model\TrackableProperties;
-use Zrcms\Fields\Model\Fields;
-use Zrcms\Fields\Model\FieldsAbstract;
+use Reliv\FieldRat\Model\Fields;
+use Reliv\FieldRat\Model\FieldsAbstract;
 
 /**
  * @author James Jervis - https://github.com/jerv13

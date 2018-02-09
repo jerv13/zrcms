@@ -3,7 +3,7 @@
 namespace Zrcms\CoreApplication\Api;
 
 use Zrcms\Core\Api\GetTypeValue;
-use Zrcms\Param\Param;
+use Reliv\ArrayProperties\Property;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -33,13 +33,13 @@ class GetTypeValueBasic implements GetTypeValue
         string $key,
         $default = null
     ) {
-        $typeConfig = Param::getArray(
+        $typeConfig = Property::getArray(
             $this->typesConfig,
             $type,
             []
         );
 
-        return Param::get(
+        return Property::get(
             $typeConfig,
             $key,
             $default

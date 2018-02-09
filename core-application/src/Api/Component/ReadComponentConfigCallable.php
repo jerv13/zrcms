@@ -6,7 +6,7 @@ use Psr\Container\ContainerInterface;
 use Zrcms\Core\Api\Component\ReadComponentConfig;
 use Zrcms\Core\Exception\CanNotReadComponentConfig;
 use Zrcms\Core\Fields\FieldsComponentConfig;
-use Zrcms\Param\Param;
+use Reliv\ArrayProperties\Property;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -39,7 +39,7 @@ class ReadComponentConfigCallable implements ReadComponentConfig
      * @throws \Exception
      * @throws \Psr\Container\ContainerExceptionInterface
      * @throws \Psr\Container\NotFoundExceptionInterface
-     * @throws \Zrcms\Param\Exception\ParamMissing
+     * @throws \Reliv\ArrayProperties\Exception\ArrayPropertyMissing
      */
     public function __invoke(
         string $componentConfigUri,
@@ -55,7 +55,7 @@ class ReadComponentConfigCallable implements ReadComponentConfig
 
         $componentConfig[FieldsComponentConfig::CONFIG_URI] = $callableServiceName;
 
-        Param::assertHas(
+        Property::assertHas(
             $componentConfig,
             FieldsComponentConfig::MODULE_DIRECTORY
         );

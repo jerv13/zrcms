@@ -5,7 +5,7 @@ namespace Zrcms\CoreView\Api;
 use Zrcms\Core\Api\CmsResource\CmsResourceToArray;
 use Zrcms\CoreView\Fields\FieldsView;
 use Zrcms\CoreView\Model\View;
-use Zrcms\Param\Param;
+use Reliv\ArrayProperties\Property;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -34,7 +34,7 @@ class ViewToArrayBasic implements ViewToArray
         View $view,
         array $options = []
     ): array {
-        $hideProperties = Param::getArray(
+        $hideProperties = Property::getArray(
             $options,
             self::OPTION_HIDE_PROPERTIES,
             []

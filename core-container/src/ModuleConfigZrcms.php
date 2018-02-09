@@ -22,7 +22,7 @@ class ModuleConfigZrcms
              * ===== ZRCMS Field Models =====
              * ['{model-name}' => '{model-class}']
              */
-            'zrcms-fields-model' => [
+            'field-rat-fields-model' => [
                 'container-version' => FieldsContainerVersion::class,
             ],
 
@@ -30,7 +30,7 @@ class ModuleConfigZrcms
              * ===== ZRCMS Field Model Extends =====
              * ['{model-name}' => '{extends-model-name}']
              */
-            'zrcms-fields-model-extends' => [
+            'field-rat-fields-model-extends' => [
                 'container-version' => 'content-version',
             ],
 
@@ -38,7 +38,7 @@ class ModuleConfigZrcms
              * ===== ZRCMS Fields =====
              * ['{model-name}' => '{fields-config}']
              */
-            'zrcms-fields' => [
+            'field-rat-fields' => [
                 'container-version' => [
                     [
                         'name' => FieldsContainerVersion::RENDER_TAGS_GETTER,

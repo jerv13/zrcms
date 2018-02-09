@@ -5,7 +5,7 @@ namespace Zrcms\HttpViewRender\Router;
 use FastRoute\RouteCollector;
 use Zend\Expressive\Router\FastRouteRouter;
 use Zend\Expressive\Router\Route;
-use Zrcms\Json\Json;
+use Reliv\Json\Json;
 
 /**
  * @author James Jervis - https://github.com/jerv13

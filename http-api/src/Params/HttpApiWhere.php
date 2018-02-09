@@ -6,7 +6,7 @@ use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Zrcms\Http\Api\QueryParamValueDecode;
 use Zrcms\Http\Model\HttpWhere;
-use Zrcms\Param\Param;
+use Reliv\ArrayProperties\Property;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -40,7 +40,7 @@ class HttpApiWhere
         $queryParams = $request->getQueryParams();
 
         // @todo Security
-        $where = Param::getArray(
+        $where = Property::getArray(
             $queryParams,
             HttpWhere::PARAM,
             null
