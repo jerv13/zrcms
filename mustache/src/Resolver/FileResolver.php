@@ -3,7 +3,7 @@
 namespace Zrcms\Mustache\Resolver;
 
 use Phly\Mustache\Resolver\ResolverInterface;
-use Zrcms\Cache\Service\Cache;
+use Reliv\CacheRat\Service\Cache;
 
 /**
  * @author James Jervis - https://github.com/jerv13

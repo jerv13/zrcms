@@ -3,7 +3,7 @@
 namespace Zrcms\CoreApplication\Api;
 
 use Psr\Http\Message\ServerRequestInterface;
-use Zrcms\Cache\Service\Cache;
+use Reliv\CacheRat\Service\Cache;
 use Zrcms\Core\Model\Component;
 
 /**

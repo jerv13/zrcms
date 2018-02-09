@@ -15,7 +15,6 @@ class ModulesConfigZrcms
     public function __invoke()
     {
         $zrcmsModules = [
-            new \Zrcms\Cache\ModuleConfigZrcms(),
             new \Zrcms\CoreAdminTools\ModuleConfigZrcms(),
             new \Zrcms\CoreApplicationState\ModuleConfigZrcms(),
             new \Zrcms\CoreApplication\ModuleConfigZrcms(),

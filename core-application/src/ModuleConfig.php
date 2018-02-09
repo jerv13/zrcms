@@ -2,7 +2,7 @@
 
 namespace Zrcms\CoreApplication;
 
-use Zrcms\Cache\Service\Cache;
+use Reliv\CacheRat\Service\Cache;
 use Zrcms\Core\Api\CmsResource\CmsResourcesToArray;
 use Zrcms\Core\Api\CmsResource\CmsResourceToArray;
 use Zrcms\Core\Api\CmsResourceHistory\CmsResourceHistoriesToArray;

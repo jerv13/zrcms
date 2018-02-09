@@ -2,7 +2,7 @@
 
 namespace Zrcms\CoreApplication\Api\Component;
 
-use Zrcms\Cache\Service\Cache;
+use Reliv\CacheRat\Service\Cache;
 use Zrcms\Core\Api\Component\ReadComponentConfig;
 use Zrcms\Core\Api\Component\ReadComponentConfigs;
 use Zrcms\Core\Api\Component\ReadComponentRegistry;

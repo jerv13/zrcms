@@ -2,7 +2,7 @@
 
 namespace Zrcms\CoreApplication\Api;
 
-use Zrcms\Cache\Service\Cache;
+use Reliv\CacheRat\Service\Cache;
 use Zrcms\Core\Api\GetComponentCss;
 use Zrcms\Core\Fields\FieldsComponent;
 

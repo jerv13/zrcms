@@ -18,7 +18,6 @@ class ModulesConfig
             // Low level
             new \Zrcms\Debug\ModuleConfig(),
             new \Zrcms\Logger\ModuleConfig(),
-            new \Zrcms\Cache\ModuleConfig(),
             new \Zrcms\Fields\ModuleConfig(),
             new \Zrcms\Json\ModuleConfig(),
             new \Zrcms\Param\ModuleConfig(),

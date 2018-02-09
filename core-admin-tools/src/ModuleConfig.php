@@ -2,7 +2,7 @@
 
 namespace Zrcms\CoreAdminTools;
 
-use Zrcms\Cache\Service\Cache;
+use Reliv\CacheRat\Service\Cache;
 use Zrcms\CoreAdminTools\Api\Acl\IsAllowedAdminTools;
 use Zrcms\CoreAdminTools\Api\Acl\IsAllowedAdminToolsRcmUserSitesAdmin;
 use Zrcms\CoreAdminTools\Api\Acl\IsAllowedAdminToolsRcmUserSitesAdminFactory;

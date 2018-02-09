@@ -2,7 +2,7 @@
 
 namespace Zrcms\Mustache;
 
-use Zrcms\Cache\Service\Cache;
+use Reliv\CacheRat\Service\Cache;
 use Zrcms\Mustache\Resolver\FileResolver;
 
 /**

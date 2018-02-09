@@ -3,7 +3,7 @@
 namespace Zrcms\CoreAdminTools\Api;
 
 use Psr\Http\Message\ServerRequestInterface;
-use Zrcms\Cache\Service\Cache;
+use Reliv\CacheRat\Service\Cache;
 use Zrcms\Core\Api\GetComponentCss;
 use Zrcms\Core\Fields\FieldsComponent;
 use Zrcms\CoreAdminTools\Api\Acl\IsAllowedAdminTools;

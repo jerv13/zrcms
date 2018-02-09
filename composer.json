@@ -30,6 +30,7 @@
     "psr/container": "^1",
     "psr/http-message": "^1",
     "rcm/api-lib": "~0.10",
+    "reliv/cache-rat": "^0",
     "reliv/zf-config-factories": "^4",
     "reliv/zf-input-filter-service": "~0.1",
     "zendframework/zend-expressive": "1.* || 2.*"
@@ -42,7 +43,6 @@
     "psr-4": {
       "Zrcms\\": "/",
       "Zrcms\\Acl\\": "acl/src/",
-      "Zrcms\\Cache\\": "cache/src/",
       "Zrcms\\Core\\": "core/src/",
       "Zrcms\\CoreAdminTools\\": "core-admin-tools/src/",
       "Zrcms\\CoreApplication\\": "core-application/src/",

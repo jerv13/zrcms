@@ -4,7 +4,7 @@ namespace Zrcms\Http\Api;
 
 use Psr\Http\Message\ServerRequestInterface;
 use Zend\Expressive\Router\RouteResult;
-use Zrcms\Cache\Service\Cache;
+use Reliv\CacheRat\Service\Cache;
 
 /**
  * @author James Jervis - https://github.com/jerv13
