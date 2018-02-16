@@ -77,7 +77,7 @@
       "Zrcms\\HttpApiContainer\\": "http-api-container/src/",
       "Zrcms\\HttpApiCountry\\": "http-api-country/src/",
       "Zrcms\\HttpApiFields\\": "http-api-fields/src/",
-      "Zrcms\\HttpApiInputValidationMessages\\": "http-api-validation-rat-messages/src/",
+      "Zrcms\\HttpApiInputValidationMessages\\": "http-api-input-validation-messages/src/",
       "Zrcms\\HttpApiLanguage\\": "http-api-language/src/",
       "Zrcms\\HttpApiPage\\": "http-api-page/src/",
       "Zrcms\\HttpApiRedirect\\": "http-api-redirect/src/",
