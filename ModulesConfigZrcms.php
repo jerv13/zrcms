@@ -15,9 +15,6 @@ class ModulesConfigZrcms
     public function __invoke()
     {
         $zrcmsModules = [
-            new \Reliv\FieldRat\ModuleConfigFields(),
-            new \Reliv\ValidationRatMessages\ModuleConfigMessages(),
-
             new \Zrcms\CoreAdminTools\ModuleConfigZrcms(),
             new \Zrcms\CoreApplicationState\ModuleConfigZrcms(),
             new \Zrcms\CoreApplication\ModuleConfigZrcms(),

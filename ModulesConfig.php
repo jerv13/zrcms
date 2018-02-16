@@ -18,16 +18,10 @@ class ModulesConfig
             // Low level
             new \Zrcms\Debug\ModuleConfig(),
             new \Zrcms\Logger\ModuleConfig(),
-            new \Reliv\FieldRat\ModuleConfig(),
-            new \Reliv\Json\ModuleConfig(),
             new \Zrcms\Mustache\ModuleConfig(),
+
             new \Zrcms\ServiceAlias\ModuleConfig(),
-            new \Reliv\ValidationRat\ModuleConfig(),
-            new \Reliv\ValidationRatMessages\ModuleConfig(),
-            new \Reliv\ValidationRatZf\ModuleConfig(),
-
             new \Zrcms\ValidationRatZrcms\ModuleConfig(),
-
             new \Zrcms\Core\ModuleConfig(),
 
             // Mid level
