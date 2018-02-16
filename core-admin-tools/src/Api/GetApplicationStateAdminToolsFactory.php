@@ -20,8 +20,11 @@ class GetApplicationStateAdminToolsFactory
     public function __invoke(
         ContainerInterface $serviceContainer
     ) {
+        $appConfig = $serviceContainer->get('config');
+
         return new GetApplicationStateAdminTools(
-            $serviceContainer->get(IsAllowedAdminTools::class)
+            $serviceContainer->get(IsAllowedAdminTools::class),
+            $appConfig['zrcms-admin-tools-menu']
         );
     }
 }
