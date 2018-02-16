@@ -19,7 +19,7 @@ class HttpAdminToolsComponentCss extends HttpComponentCss
     public function __construct(
         FindComponentsBy $findComponentsBy,
         GetComponentCssAdminTools $getComponentJs,
-        array $headers = ['content-type' => 'text/javascript']
+        array $headers = ['content-type' => 'text/css']
     ) {
         parent::__construct(
             $findComponentsBy,

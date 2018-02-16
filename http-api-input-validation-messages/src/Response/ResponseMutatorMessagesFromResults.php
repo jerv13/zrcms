@@ -58,7 +58,7 @@ class ResponseMutatorMessagesFromResults
 
         $options = [];
 
-        if (!method_exists($response, 'getOptions')) {
+        if (method_exists($response, 'getOptions')) {
             $options = $response->getOptions();
         }
 
