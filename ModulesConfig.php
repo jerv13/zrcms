@@ -18,7 +18,6 @@ class ModulesConfig
             // Low level
             new \Zrcms\Debug\ModuleConfig(),
             new \Zrcms\Logger\ModuleConfig(),
-            new \Zrcms\Mustache\ModuleConfig(),
 
             new \Zrcms\ServiceAlias\ModuleConfig(),
             new \Zrcms\ValidationRatZrcms\ModuleConfig(),

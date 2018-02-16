@@ -28,7 +28,7 @@ use Zrcms\CoreBlock\Api\Render\RenderBlockMissingComment;
 use Zrcms\CoreBlock\Api\Render\RenderBlockMustache;
 use Zrcms\CoreBlock\Api\Render\WrapRenderedBlockVersion;
 use Zrcms\CoreBlock\Api\Render\WrapRenderedBlockVersionLegacy;
-use Zrcms\Mustache\Resolver\FileResolver;
+use Reliv\Mustache\Resolver\FileResolver;
 use Zrcms\ServiceAlias\Api\GetServiceFromAlias;
 
 /**
