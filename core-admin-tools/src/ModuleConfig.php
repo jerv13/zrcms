@@ -11,6 +11,8 @@ use Zrcms\CoreAdminTools\Api\GetComponentCssAdminTools;
 use Zrcms\CoreAdminTools\Api\GetComponentCssAdminToolsFactory;
 use Zrcms\CoreAdminTools\Api\GetComponentJsAdminTools;
 use Zrcms\CoreAdminTools\Api\GetComponentJsAdminToolsFactory;
+use Zrcms\CoreAdminTools\Api\SortAdminToolsMenu;
+use Zrcms\CoreAdminTools\Api\SortAdminToolsMenuNoopFactory;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -39,6 +41,9 @@ class ModuleConfig
                     ],
                     GetComponentJsAdminTools::class => [
                         'factory' => GetComponentJsAdminToolsFactory::class,
+                    ],
+                    SortAdminToolsMenu::class => [
+                        'factory' => SortAdminToolsMenuNoopFactory::class,
                     ],
                 ],
             ],

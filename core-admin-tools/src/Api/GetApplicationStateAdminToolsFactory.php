@@ -24,6 +24,7 @@ class GetApplicationStateAdminToolsFactory
 
         return new GetApplicationStateAdminTools(
             $serviceContainer->get(IsAllowedAdminTools::class),
+            $serviceContainer->get(SortAdminToolsMenu::class),
             $appConfig['zrcms-admin-tools-menu']
         );
     }

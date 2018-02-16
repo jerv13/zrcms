@@ -14,17 +14,21 @@ class GetApplicationStateAdminTools implements GetApplicationState
     const APPLICATION_STATE_KEY = 'admin-tools';
 
     protected $isAllowedAdminTools;
+    protected $sortAdminToolsMenu;
     protected $adminToolsMenuConfig;
 
     /**
      * @param IsAllowedAdminTools $isAllowedAdminTools
+     * @param SortAdminToolsMenu  $sortAdminToolsMenu
      * @param array               $adminToolsMenuConfig
      */
     public function __construct(
         IsAllowedAdminTools $isAllowedAdminTools,
+        SortAdminToolsMenu $sortAdminToolsMenu,
         array $adminToolsMenuConfig
     ) {
         $this->isAllowedAdminTools = $isAllowedAdminTools;
+        $this->sortAdminToolsMenu = $sortAdminToolsMenu;
         $this->adminToolsMenuConfig = $adminToolsMenuConfig;
     }
 
@@ -50,7 +54,9 @@ class GetApplicationStateAdminTools implements GetApplicationState
             return $adminToolsAppState;
         }
 
-        $adminToolsAppState['admin-tools-menu'] = $this->adminToolsMenuConfig;
+        $adminToolsAppState['admin-tools-menu'] = $this->sortAdminToolsMenu->__invoke(
+            $this->adminToolsMenuConfig
+        );
 
         return $adminToolsAppState;
     }
