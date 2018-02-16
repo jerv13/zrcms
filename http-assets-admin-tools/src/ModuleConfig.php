@@ -2,17 +2,14 @@
 
 namespace Zrcms\HttpAssetsAdminTools;
 
-use Zrcms\Core\Api\Component\FindComponentsBy;
-use Zrcms\CoreAdminTools\Api\Acl\IsAllowedAdminToolsRcmUserSitesAdmin;
-use Zrcms\CoreAdminTools\Api\GetComponentCssAdminTools;
-use Zrcms\CoreAdminTools\Api\GetComponentJsAdminTools;
-use Zrcms\Debug\IsDebug;
-use Zrcms\HttpAssets\Api\GetCacheBreaker;
 use Zrcms\HttpAssetsAdminTools\Api\Render\RenderLinkHrefTagAdminTools;
+use Zrcms\HttpAssetsAdminTools\Api\Render\RenderLinkHrefTagAdminToolsFactory;
 use Zrcms\HttpAssetsAdminTools\Api\Render\RenderScriptSrcTagAdminTools;
+use Zrcms\HttpAssetsAdminTools\Api\Render\RenderScriptSrcTagAdminToolsFactory;
 use Zrcms\HttpAssetsAdminTools\Middleware\HttpAdminToolsComponentCss;
+use Zrcms\HttpAssetsAdminTools\Middleware\HttpAdminToolsComponentCssFactory;
 use Zrcms\HttpAssetsAdminTools\Middleware\HttpAdminToolsComponentJs;
-use Zrcms\ViewHtmlTags\Api\Render\RenderTag;
+use Zrcms\HttpAssetsAdminTools\Middleware\HttpAdminToolsComponentJsFactory;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -28,34 +25,16 @@ class ModuleConfig
             'dependencies' => [
                 'config_factories' => [
                     RenderLinkHrefTagAdminTools::class => [
-                        'arguments' => [
-                            IsAllowedAdminToolsRcmUserSitesAdmin::class,
-                            ['literal' => []],
-                            RenderTag::class,
-                            GetCacheBreaker::class,
-                            ['literal' => IsDebug::invoke()],
-                        ],
+                        'factories' => RenderLinkHrefTagAdminToolsFactory::class,
                     ],
                     RenderScriptSrcTagAdminTools::class => [
-                        'arguments' => [
-                            IsAllowedAdminToolsRcmUserSitesAdmin::class,
-                            ['literal' => []],
-                            RenderTag::class,
-                            GetCacheBreaker::class,
-                            ['literal' => IsDebug::invoke()],
-                        ],
+                        'factories' => RenderScriptSrcTagAdminToolsFactory::class,
                     ],
                     HttpAdminToolsComponentCss::class => [
-                        'arguments' => [
-                            FindComponentsBy::class,
-                            GetComponentCssAdminTools::class,
-                        ],
+                        'factories' => HttpAdminToolsComponentCssFactory::class,
                     ],
                     HttpAdminToolsComponentJs::class => [
-                        'arguments' => [
-                            FindComponentsBy::class,
-                            GetComponentJsAdminTools::class,
-                        ],
+                        'factories' => HttpAdminToolsComponentJsFactory::class,
                     ],
                 ],
             ],
