@@ -22,6 +22,11 @@ class ModuleConfigZrcms
                 GetApplicationStateAdminTools::APPLICATION_STATE_KEY
                 => GetApplicationStateAdminTools::class,
             ],
+
+            'zrcms-components' => [
+                'basic.zrcms-admin-tools'
+                => 'json:' . __DIR__ . '/../zrcms-component.json',
+            ],
         ];
     }
 }

@@ -16,7 +16,7 @@ class ModuleConfigZrcms
     {
         return [
             /**
-             * ===== ZRCMS Fields =====
+             * ===== Fields =====
              * ['{model-name}' => '{fields-config}']
              */
             'field-rat-fields' => [

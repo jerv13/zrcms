@@ -30,7 +30,7 @@ class ModuleConfigZrcms
     {
         return [
             /**
-             * ===== ZRCMS Field Models =====
+             * ===== Field Models =====
              * ['{model-name}' => '{model-class}']
              */
             'field-rat-fields-model' => [
@@ -42,7 +42,7 @@ class ModuleConfigZrcms
             ],
 
             /**
-             * ===== ZRCMS Field Model Extends =====
+             * ===== Field Model Extends =====
              * ['{model-name}' => '{extends-model-name}']
              */
             'field-rat-fields-model-extends' => [
@@ -54,7 +54,7 @@ class ModuleConfigZrcms
             ],
 
             /**
-             * ===== ZRCMS Fields =====
+             * ===== Fields =====
              * ['{model-name}' => '{fields-config}']
              */
             'field-rat-fields' => [

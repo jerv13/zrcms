@@ -2,6 +2,7 @@
 
 namespace Zrcms\CoreApplication\Api;
 
+use Psr\SimpleCache\InvalidArgumentException;
 use Reliv\CacheRat\Service\Cache;
 use Zrcms\Core\Api\GetComponentCss;
 use Zrcms\Core\Fields\FieldsComponent;
@@ -20,6 +21,8 @@ class GetComponentCssBasic extends GetComponentFilesContentAbstract implements G
     /**
      * @param Cache  $cache
      * @param string $cacheKey
+     *
+     * @throws InvalidArgumentException
      */
     public function __construct(
         Cache $cache,

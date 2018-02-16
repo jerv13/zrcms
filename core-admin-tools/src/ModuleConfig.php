@@ -2,14 +2,15 @@
 
 namespace Zrcms\CoreAdminTools;
 
-use Reliv\CacheRat\Service\Cache;
 use Zrcms\CoreAdminTools\Api\Acl\IsAllowedAdminTools;
 use Zrcms\CoreAdminTools\Api\Acl\IsAllowedAdminToolsRcmUserSitesAdmin;
 use Zrcms\CoreAdminTools\Api\Acl\IsAllowedAdminToolsRcmUserSitesAdminFactory;
 use Zrcms\CoreAdminTools\Api\GetApplicationStateAdminTools;
 use Zrcms\CoreAdminTools\Api\GetApplicationStateAdminToolsFactory;
 use Zrcms\CoreAdminTools\Api\GetComponentCssAdminTools;
+use Zrcms\CoreAdminTools\Api\GetComponentCssAdminToolsFactory;
 use Zrcms\CoreAdminTools\Api\GetComponentJsAdminTools;
+use Zrcms\CoreAdminTools\Api\GetComponentJsAdminToolsFactory;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -34,20 +35,10 @@ class ModuleConfig
                         'factory' => GetApplicationStateAdminToolsFactory::class,
                     ],
                     GetComponentCssAdminTools::class => [
-                        'arguments' => [
-                            IsAllowedAdminToolsRcmUserSitesAdmin::class,
-                            ['literal' => []],
-                            Cache::class,
-                            ['literal' => GetComponentCssAdminTools::DEFAULT_CACHE_KEY]
-                        ],
+                        'factory' => GetComponentCssAdminToolsFactory::class,
                     ],
                     GetComponentJsAdminTools::class => [
-                        'arguments' => [
-                            IsAllowedAdminToolsRcmUserSitesAdmin::class,
-                            ['literal' => []],
-                            Cache::class,
-                            ['literal' => GetComponentJsAdminTools::DEFAULT_CACHE_KEY]
-                        ],
+                        'factory' => GetComponentJsAdminToolsFactory::class,
                     ],
                 ],
             ],

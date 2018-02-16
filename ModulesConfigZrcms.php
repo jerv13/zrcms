@@ -15,6 +15,9 @@ class ModulesConfigZrcms
     public function __invoke()
     {
         $zrcmsModules = [
+            new \Reliv\FieldRat\ModuleConfigFields(),
+            new \Reliv\ValidationRatMessages\ModuleConfigMessages(),
+
             new \Zrcms\CoreAdminTools\ModuleConfigZrcms(),
             new \Zrcms\CoreApplicationState\ModuleConfigZrcms(),
             new \Zrcms\CoreApplication\ModuleConfigZrcms(),
@@ -27,7 +30,6 @@ class ModulesConfigZrcms
             new \Zrcms\CoreSite\ModuleConfigZrcms(),
             new \Zrcms\CoreTheme\ModuleConfigZrcms(),
             new \Zrcms\CoreView\ModuleConfigZrcms(),
-            new \Reliv\FieldRat\ModuleConfigFields(),
             new \Zrcms\HttpApi\ModuleConfigZrcms(),
             new \Zrcms\HttpApiContainer\ModuleConfigZrcms(),
             new \Zrcms\HttpApiPage\ModuleConfigZrcms(),
@@ -40,7 +42,6 @@ class ModulesConfigZrcms
             new \Zrcms\HttpAssetsAdminTools\ModuleConfigZrcms(),
             new \Zrcms\HttpStatusPages\ModuleConfigZrcms(),
             new \Zrcms\HttpViewRender\ModuleConfigZrcms(),
-            new \Reliv\ValidationRatMessages\ModuleConfigMessages(),
             new \Zrcms\Locale\ModuleConfigZrcms(),
             new \Zrcms\PageAccess\ModuleConfigZrcms(),
             new \Zrcms\ServiceAlias\ModuleConfigZrcms(),
