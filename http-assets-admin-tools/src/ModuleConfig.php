@@ -25,16 +25,16 @@ class ModuleConfig
             'dependencies' => [
                 'config_factories' => [
                     RenderLinkHrefTagAdminTools::class => [
-                        'factories' => RenderLinkHrefTagAdminToolsFactory::class,
+                        'factory' => RenderLinkHrefTagAdminToolsFactory::class,
                     ],
                     RenderScriptSrcTagAdminTools::class => [
-                        'factories' => RenderScriptSrcTagAdminToolsFactory::class,
+                        'factory' => RenderScriptSrcTagAdminToolsFactory::class,
                     ],
                     HttpAdminToolsComponentCss::class => [
-                        'factories' => HttpAdminToolsComponentCssFactory::class,
+                        'factory' => HttpAdminToolsComponentCssFactory::class,
                     ],
                     HttpAdminToolsComponentJs::class => [
-                        'factories' => HttpAdminToolsComponentJsFactory::class,
+                        'factory' => HttpAdminToolsComponentJsFactory::class,
                     ],
                 ],
             ],

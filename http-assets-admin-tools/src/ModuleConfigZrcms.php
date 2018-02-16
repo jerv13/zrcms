@@ -32,6 +32,14 @@ class ModuleConfigZrcms
 
             'zrcms-view-head.head-script' => [
                 'sections' => [
+                    'libraries' => [
+                        'zrcms.admin-tools.bundle-admin-tools.js' => [
+                            'renderer' => 'render-service',
+                            '__render_service' => RenderScriptSrcTagAdminTools::class,
+                            // @todo This is subject to change and may not be the final path
+                            RenderScriptSrcTag::OPTION_SRC_ATTRIBUTE => '/dist/bundle-admin-tools.js',
+                        ],
+                    ],
                     'modules' => [
                         'zrcms.admin-tools.block.js' => [
                             'renderer' => 'render-service',
