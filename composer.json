@@ -35,6 +35,7 @@
     "reliv/cache-rat": "^0",
     "reliv/field-rat": "^0",
     "reliv/json": "^0",
+    "reliv/locale": "^0",
     "reliv/swagger-expressive": "^0",
     "reliv/validation-rat": "^0",
     "reliv/validation-rat-messages": "^0",

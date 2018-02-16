@@ -26,7 +26,7 @@ class ModulesConfig
 
             // Mid level
             new \Zrcms\Acl\ModuleConfig(),
-            new \Zrcms\Locale\ModuleConfig(),
+            new \Zrcms\LocaleZrcms\ModuleConfig(),
             new \Zrcms\User\ModuleConfig(),
 
             new \Zrcms\CoreApplication\ModuleConfig(),

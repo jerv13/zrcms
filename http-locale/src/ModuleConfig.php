@@ -4,7 +4,7 @@ namespace Zrcms\HttpLocale;
 
 use Zrcms\CoreSite\Api\GetSiteCmsResourceByRequest;
 use Zrcms\HttpLocale\Middleware\HttpLocaleFromSite;
-use Zrcms\Locale\Api\SetLocale;
+use Reliv\Locale\Api\SetLocale;
 
 /**
  * @author James Jervis - https://github.com/jerv13

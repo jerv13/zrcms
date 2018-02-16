@@ -6,7 +6,7 @@ use Zrcms\Core\Exception\PropertyMissing;
 use Zrcms\Core\Model\ContentVersionAbstract;
 use Zrcms\CoreSite\Fields\FieldsSiteVersion;
 use Reliv\Json\Json;
-use Zrcms\Locale\Api\DefaultLocal;
+use Reliv\Locale\Api\DefaultLocal;
 use Reliv\ArrayProperties\Property;
 
 /**

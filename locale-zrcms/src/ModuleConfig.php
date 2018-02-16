@@ -1,12 +1,9 @@
 <?php
 
-namespace Zrcms\Locale;
+namespace Zrcms\LocaleZrcms;
 
-use Zrcms\Locale\Api\DefaultLocal;
-use Zrcms\Locale\Api\LocaleFromCountryLanguage;
-use Zrcms\Locale\Api\LocaleFromCountryLanguageCoreFactory;
-use Zrcms\Locale\Api\SetLocale;
-use Zrcms\Locale\Api\SetLocaleBasicFactory;
+use Zrcms\LocaleZrcms\Api\LocaleFromCountryLanguage;
+use Zrcms\LocaleZrcms\Api\LocaleFromCountryLanguageCoreFactory;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -24,10 +21,6 @@ class ModuleConfig
                     LocaleFromCountryLanguage::class => [
                         'factory' => LocaleFromCountryLanguageCoreFactory::class,
                     ],
-                    SetLocale::class => [
-                        'factory' => SetLocaleBasicFactory::class,
-                    ],
-
                 ],
             ],
         ];

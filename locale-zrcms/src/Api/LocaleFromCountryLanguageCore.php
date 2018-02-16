@@ -1,6 +1,6 @@
 <?php
 
-namespace Zrcms\Locale\Api;
+namespace Zrcms\LocaleZrcms\Api;
 
 use Zrcms\Core\Api\Component\FindComponent;
 use Zrcms\CoreCountry\Model\CountriesComponent;

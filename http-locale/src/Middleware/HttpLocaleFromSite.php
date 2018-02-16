@@ -6,7 +6,7 @@ use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Zrcms\CoreSite\Api\GetSiteCmsResourceByRequest;
 use Zrcms\CoreSite\Model\SiteCmsResource;
-use Zrcms\Locale\Api\SetLocale;
+use Reliv\Locale\Api\SetLocale;
 use Reliv\ArrayProperties\Property;
 
 /**

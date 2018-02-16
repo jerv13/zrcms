@@ -39,7 +39,6 @@ class ModulesConfigZrcms
             new \Zrcms\HttpAssetsAdminTools\ModuleConfigZrcms(),
             new \Zrcms\HttpStatusPages\ModuleConfigZrcms(),
             new \Zrcms\HttpViewRender\ModuleConfigZrcms(),
-            new \Zrcms\Locale\ModuleConfigZrcms(),
             new \Zrcms\PageAccess\ModuleConfigZrcms(),
             new \Zrcms\ServiceAlias\ModuleConfigZrcms(),
             new \Zrcms\ViewHead\ModuleConfigZrcms(),

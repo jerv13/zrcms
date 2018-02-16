@@ -1,6 +1,6 @@
 <?php
 
-namespace Zrcms\Locale\Api;
+namespace Zrcms\LocaleZrcms\Api;
 
 /**
  * @author James Jervis - https://github.com/jerv13
