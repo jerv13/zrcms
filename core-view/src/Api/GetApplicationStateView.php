@@ -53,7 +53,7 @@ class GetApplicationStateView implements GetApplicationState
                 'keywords' => null,
                 'path' => null,
                 'published' => null,
-                'requestPath' => $this->findOriginalPath($request),
+                'requestPath' => $this->findOriginalPath($request, $request->getUri()->getPath()),
                 'title' => null,
             ],
             'layout' => [
@@ -111,11 +111,14 @@ class GetApplicationStateView implements GetApplicationState
 
     /**
      * @param ServerRequestInterface $request
+     * @param mixed                  $default
      *
-     * @return string
+     * @return null|string
      */
-    protected function findOriginalPath(ServerRequestInterface $request)
-    {
+    protected function findOriginalPath(
+        ServerRequestInterface $request,
+        $default = null
+    ) {
         /** @var UriInterface $originalUri */
         $originalUri = $request->getAttribute(
             RequestWithOriginalUri::ATTRIBUTE_ORIGINAL_URI,
@@ -145,6 +148,6 @@ class GetApplicationStateView implements GetApplicationState
             return $originalUri->getPath();
         }
 
-        return null;
+        return $default;
     }
 }

@@ -7,7 +7,7 @@ use Psr\Http\Message\ServerRequestInterface;
 use Reliv\ArrayProperties\Property;
 use Zend\Diactoros\Response\HtmlResponse;
 use Zrcms\Acl\Api\IsAllowed;
-use Zrcms\CoreView\Api\GetViewByRequestBasic;
+use Zrcms\CoreView\Api\GetViewByRequestByPageVersion;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -90,7 +90,7 @@ class RequestWithGetViewOptionPageVersionId
             );
         }
 
-        $getViewOptions[GetViewByRequestBasic::OPTION_PAGE_VERSION_ID] = (string)$pageVersionId;
+        $getViewOptions[GetViewByRequestByPageVersion::OPTION_PAGE_VERSION_ID] = (string)$pageVersionId;
 
         $request = $request
             ->withAttribute(

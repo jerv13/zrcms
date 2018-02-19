@@ -38,6 +38,7 @@ Case 3: Publish old revision
 Veiw modes
 
 'current-page-version': true
+'current-page-version': true
 
 ##### Version Validations
 
