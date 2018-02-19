@@ -28,7 +28,6 @@ class WrapRenderedBlockVersionLegacy implements WrapRenderedBlockVersion
      * @param Block  $block
      *
      * @return string
-     * @throws BlockComponentMissing
      */
     public function __invoke(
         string $innerHtml,

@@ -6,6 +6,8 @@ use Zrcms\HttpViewRender\FinalHandler\HttpNotFoundFinal;
 use Zrcms\HttpViewRender\FinalHandler\HttpNotFoundFinalFactory;
 use Zrcms\HttpViewRender\FinalHandler\HttpNotFoundStatusPage;
 use Zrcms\HttpViewRender\FinalHandler\HttpNotFoundStatusPageFactory;
+use Zrcms\HttpViewRender\Request\RequestWithGetViewOptionPageVersionId;
+use Zrcms\HttpViewRender\Request\RequestWithGetViewOptionPageVersionIdFactory;
 use Zrcms\HttpViewRender\Request\RequestWithGetViewOptionPublishedOnly;
 use Zrcms\HttpViewRender\Request\RequestWithGetViewOptionPublishedOnlyFactory;
 use Zrcms\HttpViewRender\Request\RequestWithOriginalUri;
@@ -66,6 +68,10 @@ class ModuleConfig
                     /**
                      * Request ===========================================
                      */
+                    RequestWithGetViewOptionPageVersionId::class => [
+                        'factory' => RequestWithGetViewOptionPageVersionIdFactory::class,
+                    ],
+
                     RequestWithGetViewOptionPublishedOnly::class => [
                         'factory' => RequestWithGetViewOptionPublishedOnlyFactory::class,
                     ],

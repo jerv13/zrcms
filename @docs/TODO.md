@@ -4,17 +4,40 @@
 Page duplicate URL - warn on client
 Render unpublished page for admin /admin-tools/
 
-/some-path/?version={versionId}
+/{some-path}/?version={versionId}
 
-CAse 1: New Page - form 
-    - Submit
-    - Create new page Unpublished with new version
-    - Create page-draft with same revision
+Case 1: New Page - form 
+
+- Submit
+- Create new page Unpublished with new version
+
+- go to version render (zrcms-version/{some-path}/?version={versionId})
+- press publish
+- find page by path
+- upsert page-resource with version
     
-Case 2: Publish draft
-Case 3: Publish revision
+Case 2: Publish Existing draft
+
+- Select draft version
+
+- go to version render (zrcms-version/{some-path}/?version={versionId})
+- press publish
+- find page by path
+- upsert page-resource with version
+    
+Case 3: Publish old revision
+
+- Select version
+
+- go to version render (zrcms-version/{some-path}/?version={versionId})
+- press publish
+- find page by path
+- upsert page-resource with version
 
 
+Veiw modes
+
+'current-page-version': true
 
 ##### Version Validations
 

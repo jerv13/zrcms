@@ -49,6 +49,9 @@ class RenderBlockBc implements RenderBlock
      * @param array                $options
      *
      * @return string
+     * @throws \Exception
+     * @throws \Psr\Container\ContainerExceptionInterface
+     * @throws \Psr\Container\NotFoundExceptionInterface
      */
     public function __invoke(
         Content $blockVersion,

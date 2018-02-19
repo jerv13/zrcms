@@ -42,20 +42,24 @@ class GetApplicationStateView implements GetApplicationState
         $viewState = [
             'site' => [
                 'id' => null,
-                'title' => null,
                 'locale' => null,
+                'published' => null,
+                'title' => null,
             ],
             'page' => [
-                'path' => null,
-                'id' => null,
-                'title' => null,
-                'keywords' => null,
+                'cmsPage' => false,
                 'description' => null,
+                'id' => null,
+                'keywords' => null,
+                'path' => null,
+                'published' => null,
                 'requestPath' => $this->findOriginalPath($request),
+                'title' => null,
             ],
             'layout' => [
+                'name' => null,
+                'published' => null,
                 'themeName' => null,
-                'layout' => null,
             ],
         ];
 
@@ -81,20 +85,24 @@ class GetApplicationStateView implements GetApplicationState
         $viewState = [
             'site' => [
                 'id' => $siteCmsResource->getId(),
-                'title' => $siteCmsResource->getContentVersion()->findProperty(FieldsSiteVersion::TITLE),
                 'locale' => $siteCmsResource->getLocale(),
+                'published' => $siteCmsResource->isPublished(),
+                'title' => $siteCmsResource->getContentVersion()->findProperty(FieldsSiteVersion::TITLE),
             ],
             'page' => [
-                'id' => $pageCmsResource->getId(),
-                'path' => $pageCmsResource->getPath(),
-                'title' => $pageVersion->getTitle(),
-                'keywords' => $pageVersion->getKeywords(),
+                'cmsPage' => true,
                 'description' => $pageVersion->getDescription(),
+                'id' => $pageCmsResource->getId(),
+                'keywords' => $pageVersion->getKeywords(),
+                'path' => $pageCmsResource->getPath(),
+                'published' => $pageCmsResource->isPublished(),
                 'requestPath' => $this->findOriginalPath($request),
+                'title' => $pageVersion->getTitle(),
             ],
             'layout' => [
-                'themeName' => $layoutCmsResource->getThemeName(),
                 'name' => $layoutCmsResource->getName(),
+                'published' => $layoutCmsResource->isPublished(),
+                'themeName' => $layoutCmsResource->getThemeName(),
             ],
         ];
 

@@ -18,39 +18,12 @@ use Zrcms\CoreThemeDoctrine\Entity\LayoutVersionEntity;
  */
 class FindLayoutCmsResourceByThemeNameLayoutName implements CoreFind
 {
-    /**
-     * @var EntityManager
-     */
     protected $entityManager;
-
-    /**
-     * @var FallbackToComponentLayoutCmsResource
-     */
     protected $fallbackToComponentLayoutCmsResource;
-
-    /**
-     * @var string
-     */
     protected $entityClassCmsResource;
-
-    /**
-     * @var
-     */
     protected $classCmsResourceBasic;
-
-    /**
-     * @var string
-     */
     protected $entityClassContentVersion;
-
-    /**
-     * @var string
-     */
     protected $classContentVersionBasic;
-
-    /**
-     * @var array
-     */
     protected $contentVersionSyncToProperties = [];
 
     /**

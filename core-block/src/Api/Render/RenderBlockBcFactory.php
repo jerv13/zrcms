@@ -16,9 +16,11 @@ class RenderBlockBcFactory
      * @param ContainerInterface $serviceContainer
      *
      * @return RenderBlockBc
+     * @throws \Psr\Container\ContainerExceptionInterface
+     * @throws \Psr\Container\NotFoundExceptionInterface
      */
     public function __invoke(
-        $serviceContainer
+        ContainerInterface $serviceContainer
     ) {
         return new RenderBlockBc(
             $serviceContainer->get(GetRcmPluginController::class),

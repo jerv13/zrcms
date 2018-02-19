@@ -12,9 +12,6 @@ use Zrcms\CoreView\Model\View;
 interface GetViewByRequest
 {
     const OPTION_ADDITIONAL_PROPERTIES = 'additional-properties';
-    const OPTION_PUBLISHED_ONLY = 'published-only';
-
-    const DEFAULT_PUBLISHED_ONLY = true;
 
     /**
      * @param ServerRequestInterface $request

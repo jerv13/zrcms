@@ -16,29 +16,10 @@ use Zrcms\ServiceAlias\Api\GetServiceFromAlias;
  */
 class RenderBlockBasic implements RenderBlock
 {
-    /**
-     * @var FindComponent
-     */
     protected $findComponent;
-
-    /**
-     * @var GetServiceFromAlias
-     */
     protected $getServiceFromAlias;
-
-    /**
-     * @var string
-     */
     protected $serviceAliasNamespace;
-
-    /**
-     * @var RenderBlockMissing
-     */
     protected $renderBlockMissing;
-
-    /**
-     * @var string
-     */
     protected $defaultRenderServiceName;
 
     /**

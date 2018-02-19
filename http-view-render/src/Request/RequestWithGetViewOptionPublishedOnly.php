@@ -5,7 +5,7 @@ namespace Zrcms\HttpViewRender\Request;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Zrcms\Acl\Api\IsAllowed;
-use Zrcms\CoreView\Api\GetViewByRequest;
+use Zrcms\CoreView\Api\GetViewByRequestBasic;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -44,7 +44,7 @@ class RequestWithGetViewOptionPublishedOnly
             []
         );
 
-        $getViewOptions[GetViewByRequest::OPTION_PUBLISHED_ONLY] = !$this->isAllowed->__invoke(
+        $getViewOptions[GetViewByRequestBasic::OPTION_PUBLISHED_ONLY] = !$this->isAllowed->__invoke(
             $request,
             $this->isAllowedOptions
         );

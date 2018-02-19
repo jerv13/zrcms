@@ -41,6 +41,7 @@ class RenderBlockMustache implements RenderBlock
      *
      * @return string
      * @throws BlockComponentMissing
+     * @throws \Exception
      */
     public function __invoke(
         Content $block,

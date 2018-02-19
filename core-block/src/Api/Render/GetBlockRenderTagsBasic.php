@@ -14,14 +14,7 @@ use Zrcms\CoreBlock\Fields\FieldsBlock;
  */
 class GetBlockRenderTagsBasic implements GetBlockRenderTags
 {
-    /**
-     * @var GetBlockData
-     */
     protected $getBlockData;
-
-    /**
-     * @var GetMergedConfig
-     */
     protected $getMergedConfig;
 
     /**

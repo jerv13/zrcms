@@ -21,6 +21,11 @@ use Zrcms\CoreView\Model\ViewBasic;
  */
 class GetViewByRequestBasic implements GetViewByRequest
 {
+    const OPTION_PAGE_VERSION_ID = 'page-version-id';
+    const OPTION_PUBLISHED_ONLY = 'published-only';
+
+    const DEFAULT_PUBLISHED_ONLY = true;
+
     protected $getSiteCmsResource;
     protected $getThemeName;
     protected $getPageCmsResource;

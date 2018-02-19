@@ -13,24 +13,9 @@ use Zrcms\CoreSite\Model\SiteCmsResource;
  */
 class HttpSiteExists
 {
-    /**
-     * @var GetSiteCmsResourceByRequest
-     */
     protected $getSiteCmsResourceByRequest;
-
-    /**
-     * @var int
-     */
     protected $notFoundStatus;
-
-    /**
-     * @var string
-     */
     protected $notFoundMessage = '';
-
-    /**
-     * @var array
-     */
     protected $notFoundHeaders = [];
 
     /**
