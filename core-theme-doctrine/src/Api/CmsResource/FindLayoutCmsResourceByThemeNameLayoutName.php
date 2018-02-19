@@ -73,17 +73,18 @@ class FindLayoutCmsResourceByThemeNameLayoutName implements CoreFind
     }
 
     /**
-     * @param string $themeName
-     * @param string $layoutName
-     * @param bool   $published
-     * @param array  $options
+     * @param string    $themeName
+     * @param string    $layoutName
+     * @param bool|null $published
+     * @param array     $options
      *
-     * @return LayoutCmsResource|CmsResource|null
+     * @return null|CmsResource|LayoutCmsResource
+     * @throws \Exception
      */
     public function __invoke(
         string $themeName,
         string $layoutName,
-        bool $published = true,
+        $published = true,
         array $options = []
     ) {
         $repository = $this->entityManager->getRepository(

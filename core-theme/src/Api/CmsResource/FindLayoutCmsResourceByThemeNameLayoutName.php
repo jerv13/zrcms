@@ -10,17 +10,17 @@ use Zrcms\CoreTheme\Model\LayoutCmsResource;
 interface FindLayoutCmsResourceByThemeNameLayoutName
 {
     /**
-     * @param string $themeName
-     * @param string $layoutName
-     * @param bool   $published
-     * @param array  $options
+     * @param string    $themeName
+     * @param string    $layoutName
+     * @param bool|null $published
+     * @param array     $options
      *
      * @return LayoutCmsResource|null
      */
     public function __invoke(
         string $themeName,
         string $layoutName,
-        bool $published = true,
+        $published = true,
         array $options = []
     );
 }
