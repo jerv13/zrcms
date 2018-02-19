@@ -17,6 +17,7 @@ use Zrcms\Http\Api\BuildMessageValue;
 use Zrcms\Http\Api\BuildResponseOptions;
 use Zrcms\Http\Response\ZrcmsJsonResponse;
 use Reliv\ArrayProperties\Property;
+use Zrcms\HttpViewRender\Request\RequestWithGetViewOptions;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -113,7 +114,7 @@ class HttpApiGetViewDataByRequest
         }
 
         $getViewOptions = $request->getAttribute(
-            GetViewByRequest::REQUEST_ATTRIBUTE_GET_VIEW_OPTIONS,
+            RequestWithGetViewOptions::ATTRIBUTE_GET_VIEW_OPTIONS,
             []
         );
 

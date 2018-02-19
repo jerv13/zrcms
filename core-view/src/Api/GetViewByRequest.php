@@ -11,8 +11,10 @@ use Zrcms\CoreView\Model\View;
  */
 interface GetViewByRequest
 {
-    const REQUEST_ATTRIBUTE_GET_VIEW_OPTIONS = 'zrcms-get-view-options';
-    const OPTION_ADDITIONAL_PROPERTIES = 'additionalProperties';
+    const OPTION_ADDITIONAL_PROPERTIES = 'additional-properties';
+    const OPTION_PUBLISHED_ONLY = 'published-only';
+
+    const DEFAULT_PUBLISHED_ONLY = true;
 
     /**
      * @param ServerRequestInterface $request

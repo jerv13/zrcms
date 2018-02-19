@@ -18,9 +18,6 @@ class RequestWithView
     const ATTRIBUTE_VIEW = 'zrcms-view';
     const ATTRIBUTE_MESSAGE = 'zrcms-view-message';
 
-    /**
-     * @var GetViewByRequest
-     */
     protected $getViewByRequest;
 
     /**
@@ -48,7 +45,7 @@ class RequestWithView
         $message = '';
 
         $getViewOptions = $request->getAttribute(
-            GetViewByRequest::REQUEST_ATTRIBUTE_GET_VIEW_OPTIONS,
+            RequestWithGetViewOptions::ATTRIBUTE_GET_VIEW_OPTIONS,
             []
         );
 

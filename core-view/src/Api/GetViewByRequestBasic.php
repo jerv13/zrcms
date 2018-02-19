@@ -3,6 +3,7 @@
 namespace Zrcms\CoreView\Api;
 
 use Psr\Http\Message\ServerRequestInterface;
+use Reliv\ArrayProperties\Property;
 use Zrcms\CorePage\Model\PageCmsResource;
 use Zrcms\CoreSite\Model\SiteCmsResource;
 use Zrcms\CoreTheme\Model\LayoutCmsResource;
@@ -14,7 +15,6 @@ use Zrcms\CoreView\Exception\ThemeNotFound;
 use Zrcms\CoreView\Fields\FieldsView;
 use Zrcms\CoreView\Model\View;
 use Zrcms\CoreView\Model\ViewBasic;
-use Reliv\ArrayProperties\Property;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -72,8 +72,21 @@ class GetViewByRequestBasic implements GetViewByRequest
     ): View {
         $uri = $request->getUri();
 
+        $publishedOnly = Property::get(
+            $options,
+            self::OPTION_PUBLISHED_ONLY,
+            self::DEFAULT_PUBLISHED_ONLY
+        );
+
+        $published = true;
+
+        if ($publishedOnly !== true) {
+            $published = null;
+        }
+
         $siteCmsResource = $this->getSiteCmsResource->__invoke(
-            $uri->getHost()
+            $uri->getHost(),
+            $published
         );
 
         $themeName = $this->getThemeName->__invoke(
@@ -82,7 +95,8 @@ class GetViewByRequestBasic implements GetViewByRequest
 
         $pageCmsResource = $this->getPageCmsResource->__invoke(
             $siteCmsResource->getId(),
-            $uri->getPath()
+            $uri->getPath(),
+            $published
         );
 
         $siteVersion = $siteCmsResource->getContentVersion();
@@ -95,7 +109,8 @@ class GetViewByRequestBasic implements GetViewByRequest
 
         $layoutCmsResource = $this->getLayoutCmsResource->__invoke(
             $themeName,
-            $layoutName
+            $layoutName,
+            $published
         );
 
         return $this->buildView(

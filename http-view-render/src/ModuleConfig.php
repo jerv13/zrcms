@@ -2,17 +2,20 @@
 
 namespace Zrcms\HttpViewRender;
 
-use Zrcms\CoreView\Api\GetViewByRequest;
-use Zrcms\CoreView\Api\Render\GetViewLayoutTags;
-use Zrcms\CoreView\Api\Render\RenderView;
-use Zrcms\Debug\IsDebug;
-use Zrcms\HttpStatusPages\Api\GetStatusPage;
 use Zrcms\HttpViewRender\FinalHandler\HttpNotFoundFinal;
+use Zrcms\HttpViewRender\FinalHandler\HttpNotFoundFinalFactory;
 use Zrcms\HttpViewRender\FinalHandler\HttpNotFoundStatusPage;
+use Zrcms\HttpViewRender\FinalHandler\HttpNotFoundStatusPageFactory;
+use Zrcms\HttpViewRender\Request\RequestWithGetViewOptionPublishedOnly;
+use Zrcms\HttpViewRender\Request\RequestWithGetViewOptionPublishedOnlyFactory;
 use Zrcms\HttpViewRender\Request\RequestWithOriginalUri;
+use Zrcms\HttpViewRender\Request\RequestWithOriginalUriFactory;
 use Zrcms\HttpViewRender\Request\RequestWithView;
+use Zrcms\HttpViewRender\Request\RequestWithViewFactory;
 use Zrcms\HttpViewRender\Request\RequestWithViewRenderPage;
+use Zrcms\HttpViewRender\Request\RequestWithViewRenderPageFactory;
 use Zrcms\HttpViewRender\Response\RenderPage;
+use Zrcms\HttpViewRender\Response\RenderPageFactory;
 use Zrcms\HttpViewRender\Response\ResponseMutatorNoop;
 use Zrcms\HttpViewRender\Response\ResponseMutatorThemeLayoutWrapper;
 use Zrcms\HttpViewRender\Response\ResponseMutatorThemeLayoutWrapperFactory;
@@ -53,45 +56,37 @@ class ModuleConfig
                      * FinalHandler ===========================================
                      */
                     HttpNotFoundFinal::class => [
-                        'arguments' => [
-                            ['literal' => 404],
-                            ['literal' => IsDebug::invoke()],
-                        ],
+                        'factory' => HttpNotFoundFinalFactory::class,
                     ],
 
                     HttpNotFoundStatusPage::class => [
-                        'arguments' => [
-                            GetStatusPage::class,
-                            RenderPage::class,
-                            ['literal' => 404],
-                            ['literal' => IsDebug::invoke()],
-                        ],
-                    ],
-
-                    RequestWithOriginalUri::class => [],
-
-                    RequestWithViewRenderPage::class => [
-                        'arguments' => [
-                            GetViewLayoutTags::class,
-                            RenderView::class,
-                        ],
-                    ],
-
-                    RequestWithView::class => [
-                        'arguments' => [
-                            GetViewByRequest::class,
-                        ],
+                        'factory' => HttpNotFoundStatusPageFactory::class,
                     ],
 
                     /**
-                     * General ===========================================
+                     * Request ===========================================
+                     */
+                    RequestWithGetViewOptionPublishedOnly::class => [
+                        'factory' => RequestWithGetViewOptionPublishedOnlyFactory::class,
+                    ],
+
+                    RequestWithOriginalUri::class => [
+                        'factory' => RequestWithOriginalUriFactory::class,
+                    ],
+
+                    RequestWithView::class => [
+                        'factory' => RequestWithViewFactory::class,
+                    ],
+
+                    RequestWithViewRenderPage::class => [
+                        'factory' => RequestWithViewRenderPageFactory::class,
+                    ],
+
+                    /**
+                     * Response ===========================================
                      */
                     RenderPage::class => [
-                        'arguments' => [
-                            GetViewByRequest::class,
-                            GetViewLayoutTags::class,
-                            RenderView::class,
-                        ],
+                        'factory' => RenderPageFactory::class,
                     ],
                     ResponseMutatorNoop::class => [],
 

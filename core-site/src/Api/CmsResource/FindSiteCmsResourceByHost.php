@@ -1,6 +1,6 @@
 <?php
 
-namespace Zrcms\CoreSite\Api\CmsResource ;
+namespace Zrcms\CoreSite\Api\CmsResource;
 
 use Zrcms\CoreSite\Model\SiteCmsResource;
 
@@ -10,15 +10,15 @@ use Zrcms\CoreSite\Model\SiteCmsResource;
 interface FindSiteCmsResourceByHost
 {
     /**
-     * @param string $host
-     * @param bool   $published
-     * @param array  $options
+     * @param string    $host
+     * @param bool|null $published
+     * @param array     $options
      *
      * @return SiteCmsResource|null
      */
     public function __invoke(
         string $host,
-        bool $published = true,
+        $published = true,
         array $options = []
     );
 }

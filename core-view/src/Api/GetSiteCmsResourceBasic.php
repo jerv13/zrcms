@@ -23,13 +23,15 @@ class GetSiteCmsResourceBasic implements GetSiteCmsResource
     }
 
     /**
-     * @param string $host
+     * @param string    $host
+     * @param bool|null $published
      *
-     * @return null|SiteCmsResource
+     * @return SiteCmsResource
      * @throws SiteNotFound
      */
     public function __invoke(
-        string $host
+        string $host,
+        $published = true
     ): SiteCmsResource {
         /** @var SiteCmsResource $siteCmsResource */
         $siteCmsResource = $this->findSiteCmsResourceByHost->__invoke(

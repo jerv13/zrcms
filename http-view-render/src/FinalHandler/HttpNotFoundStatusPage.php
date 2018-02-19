@@ -13,9 +13,11 @@ use Zrcms\HttpViewRender\Response\RenderPage;
  */
 class HttpNotFoundStatusPage
 {
+    const DEFAULT_NOT_FOUND_STATUS = 404;
+
     protected $getStatusPage;
     protected $renderPage;
-    protected $notFoundStatus = 404;
+    protected $notFoundStatus;
     protected $debug;
 
     /**
@@ -27,7 +29,7 @@ class HttpNotFoundStatusPage
     public function __construct(
         GetStatusPage $getStatusPage,
         RenderPage $renderPage,
-        int $notFoundStatus = 404,
+        int $notFoundStatus = self::DEFAULT_NOT_FOUND_STATUS,
         bool $debug = false
     ) {
         $this->getStatusPage = $getStatusPage;

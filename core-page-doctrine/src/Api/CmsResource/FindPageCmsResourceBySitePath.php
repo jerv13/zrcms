@@ -4,46 +4,23 @@ namespace Zrcms\CorePageDoctrine\Api\CmsResource;
 
 use Doctrine\ORM\EntityManager;
 use Zrcms\Core\Model\CmsResource;
+use Zrcms\CoreApplicationDoctrine\Api\BuildBasicCmsResource;
 use Zrcms\CorePage\Model\PageCmsResource;
 use Zrcms\CorePage\Model\PageCmsResourceBasic;
 use Zrcms\CorePage\Model\PageVersionBasic;
 use Zrcms\CorePageDoctrine\Entity\PageCmsResourceEntity;
 use Zrcms\CorePageDoctrine\Entity\PageVersionEntity;
-use Zrcms\CoreApplicationDoctrine\Api\BuildBasicCmsResource;
 
 /**
  * @author James Jervis - https://github.com/jerv13
  */
 class FindPageCmsResourceBySitePath implements \Zrcms\CorePage\Api\CmsResource\FindPageCmsResourceBySitePath
 {
-    /**
-     * @var EntityManager
-     */
     protected $entityManager;
-
-    /**
-     * @var string
-     */
     protected $entityClassCmsResource;
-
-    /**
-     * @var
-     */
     protected $classCmsResourceBasic;
-
-    /**
-     * @var string
-     */
     protected $entityClassContentVersion;
-
-    /**
-     * @var string
-     */
     protected $classContentVersionBasic;
-
-    /**
-     * @var array
-     */
     protected $contentVersionSyncToProperties = [];
 
     /**
@@ -62,30 +39,36 @@ class FindPageCmsResourceBySitePath implements \Zrcms\CorePage\Api\CmsResource\F
     }
 
     /**
-     * @param string $siteCmsResourceId
-     * @param string $pageCmsResourcePath
-     * @param bool   $published
-     * @param array  $options
+     * @param string    $siteCmsResourceId
+     * @param string    $pageCmsResourcePath
+     * @param bool|null $published
+     * @param array     $options
      *
-     * @return PageCmsResource|CmsResource|null
+     * @return null|CmsResource|PageCmsResource
+     * @throws \Exception
      */
     public function __invoke(
         string $siteCmsResourceId,
         string $pageCmsResourcePath,
-        bool $published = true,
+        $published = true,
         array $options = []
     ) {
         $repository = $this->entityManager->getRepository(
             $this->entityClassCmsResource
         );
 
+        $query = [
+            'siteCmsResourceId' => $siteCmsResourceId,
+            'path' => $pageCmsResourcePath,
+        ];
+
+        if ($published !== null) {
+            $query['published'] = (bool)$published;
+        }
+
         /** @var PageCmsResourceEntity $pageCmsResourceEntity */
         $pageCmsResourceEntity = $repository->findOneBy(
-            [
-                'siteCmsResourceId' => $siteCmsResourceId,
-                'path' => $pageCmsResourcePath,
-                'published' => $published
-            ]
+            $query
         );
 
         return BuildBasicCmsResource::invoke(

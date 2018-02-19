@@ -20,7 +20,8 @@ use Zrcms\CoreApplicationDoctrine\Entity\ContentEntity;
  *        @ORM\Index(name="contentVersionId", columns={"contentVersionId"}),
  *        @ORM\Index(name="siteCmsResourceId", columns={"siteCmsResourceId"}),
  *        @ORM\Index(name="path", columns={"path"})
- *     }
+ *     },
+ *     uniqueConstraints={@ORM\UniqueConstraint(name="page_unique",columns={"siteCmsResourceId","path"})}
  * )
  */
 class PageCmsResourceEntity extends CmsResourceEntityAbstract implements CmsResourceEntity
@@ -193,6 +194,7 @@ class PageCmsResourceEntity extends CmsResourceEntityAbstract implements CmsReso
      *
      * @return void
      * @throws ContentVersionInvalid
+     * @throws \Zrcms\CorePage\Exception\InvalidPath
      */
     protected function assertValidContentVersion($contentVersion)
     {

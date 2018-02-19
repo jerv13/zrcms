@@ -11,10 +11,14 @@ use Zrcms\CoreView\Exception\SiteNotFound;
 interface GetSiteCmsResource
 {
     /**
-     * @param string $host
+     * @param string    $host
+     * @param bool|null $published
      *
      * @return SiteCmsResource
      * @throws SiteNotFound
      */
-    public function __invoke(string $host): SiteCmsResource;
+    public function __invoke(
+        string $host,
+        $published = true
+    ): SiteCmsResource;
 }

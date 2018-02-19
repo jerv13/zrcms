@@ -4,12 +4,13 @@ namespace Zrcms\CoreSiteDoctrine;
 
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Mapping\Driver\AnnotationDriver;
+use Reliv\CacheRat\Service\CacheArray;
 use Zrcms\CoreSite\Api\ChangeLog\GetSiteChangeLogByDateRange;
-use Zrcms\CoreSite\Api\CmsResource\FindSiteCmsResourcesPublished;
-use Zrcms\CoreSite\Api\CmsResource\UpsertSiteCmsResource;
 use Zrcms\CoreSite\Api\CmsResource\FindSiteCmsResource;
 use Zrcms\CoreSite\Api\CmsResource\FindSiteCmsResourceByHost;
 use Zrcms\CoreSite\Api\CmsResource\FindSiteCmsResourcesBy;
+use Zrcms\CoreSite\Api\CmsResource\FindSiteCmsResourcesPublished;
+use Zrcms\CoreSite\Api\CmsResource\UpsertSiteCmsResource;
 use Zrcms\CoreSite\Api\Content\FindSiteVersion;
 use Zrcms\CoreSite\Api\Content\FindSiteVersionsBy;
 use Zrcms\CoreSite\Api\Content\InsertSiteVersion;
@@ -44,6 +45,9 @@ class ModuleConfig
                         'class' => \Zrcms\CoreSiteDoctrine\Api\CmsResource\FindSiteCmsResourceByHost::class,
                         'arguments' => [
                             EntityManager::class,
+                            CacheArray::class, // @todo This can use the default cache now: Cache::class
+                            ['literal' => \Zrcms\CoreSiteDoctrine\Api\CmsResource\FindSiteCmsResourceByHost::CACHE_KEY],
+                            ['literal' => \Zrcms\CoreSiteDoctrine\Api\CmsResource\FindSiteCmsResourceByHost::CACHE_TTL],
                         ],
                     ],
                     FindSiteCmsResourcesBy::class => [

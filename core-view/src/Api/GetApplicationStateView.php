@@ -8,6 +8,7 @@ use Zrcms\CoreApplicationState\Api\GetApplicationState;
 use Zrcms\CoreSite\Fields\FieldsSiteVersion;
 use Zrcms\CoreView\Exception\ViewDataNotFound;
 use Zrcms\HttpStatusPages\Middleware\ResponseMutatorStatusPage;
+use Zrcms\HttpViewRender\Request\RequestWithGetViewOptions;
 use Zrcms\HttpViewRender\Request\RequestWithOriginalUri;
 
 /**
@@ -59,7 +60,7 @@ class GetApplicationStateView implements GetApplicationState
         ];
 
         $getViewOptions = $request->getAttribute(
-            GetViewByRequest::REQUEST_ATTRIBUTE_GET_VIEW_OPTIONS,
+            RequestWithGetViewOptions::ATTRIBUTE_GET_VIEW_OPTIONS,
             []
         );
 

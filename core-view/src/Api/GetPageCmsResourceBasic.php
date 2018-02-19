@@ -23,20 +23,23 @@ class GetPageCmsResourceBasic implements GetPageCmsResource
     }
 
     /**
-     * @param string $siteCmsResourceId
-     * @param string $path
+     * @param string    $siteCmsResourceId
+     * @param string    $path
+     * @param bool|null $published
      *
      * @return PageCmsResource
      * @throws PageNotFound
      */
     public function __invoke(
         string $siteCmsResourceId,
-        string $path
+        string $path,
+        $published = true
     ): PageCmsResource {
         /** @var PageCmsResource $pageCmsResource */
         $pageCmsResource = $this->findPageCmsResourceBySitePath->__invoke(
             $siteCmsResourceId,
-            $path
+            $path,
+            $published
         );
 
         if (empty($pageCmsResource)) {

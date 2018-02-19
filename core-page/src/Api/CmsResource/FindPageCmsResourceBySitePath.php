@@ -10,17 +10,17 @@ use Zrcms\CorePage\Model\PageCmsResource;
 interface FindPageCmsResourceBySitePath
 {
     /**
-     * @param string $siteCmsResourceId
-     * @param string $pageCmsResourcePath
-     * @param bool   $published
-     * @param array  $options
+     * @param string    $siteCmsResourceId
+     * @param string    $pageCmsResourcePath
+     * @param bool|null $published
+     * @param array     $options
      *
      * @return PageCmsResource|null
      */
     public function __invoke(
         string $siteCmsResourceId,
         string $pageCmsResourcePath,
-        bool $published = true,
+        $published = true,
         array $options = []
     );
 }

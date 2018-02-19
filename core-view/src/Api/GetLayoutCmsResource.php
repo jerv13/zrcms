@@ -11,14 +11,16 @@ use Zrcms\CoreView\Exception\LayoutNotFound;
 interface GetLayoutCmsResource
 {
     /**
-     * @param string $themeName
-     * @param string $layoutName
+     * @param string    $themeName
+     * @param string    $layoutName
+     * @param bool|null $published
      *
      * @return LayoutCmsResource
      * @throws LayoutNotFound
      */
     public function __invoke(
         string $themeName,
-        string $layoutName
+        string $layoutName,
+        $published = true
     ): LayoutCmsResource;
 }

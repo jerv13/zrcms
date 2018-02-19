@@ -1,6 +1,27 @@
 @todo
 =====
 
+Page duplicate URL - warn on client
+Render unpublished page for admin /admin-tools/
+
+/some-path/?version={versionId}
+
+CAse 1: New Page - form 
+    - Submit
+    - Create new page Unpublished with new version
+    - Create page-draft with same revision
+    
+Case 2: Publish draft
+Case 3: Publish revision
+
+
+
+##### Version Validations
+
+- Use field validators (verify)
+
+##### Render page drafts and specific versions
+
 ##### Fields - not default field
 
 - Remove all 'default'

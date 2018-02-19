@@ -10,7 +10,9 @@ use Psr\Http\Message\ServerRequestInterface;
  */
 class HttpNotFoundFinal
 {
-    protected $notFoundStatus = 404;
+    const DEFAULT_NOT_FOUND_STATUS = 404;
+
+    protected $notFoundStatus;
     protected $debug;
 
     /**
@@ -18,7 +20,7 @@ class HttpNotFoundFinal
      * @param bool $debug
      */
     public function __construct(
-        int $notFoundStatus = 404,
+        int $notFoundStatus = self::DEFAULT_NOT_FOUND_STATUS,
         bool $debug = false
     ) {
         $this->notFoundStatus = $notFoundStatus;

@@ -4,12 +4,8 @@ namespace Zrcms\CoreView\Api;
 
 use Psr\Container\ContainerInterface;
 use Psr\Http\Message\ServerRequestInterface;
-use Zrcms\CoreView\Exception\LayoutNotFound;
-use Zrcms\CoreView\Exception\PageNotFound;
-use Zrcms\CoreView\Exception\SiteNotFound;
-use Zrcms\CoreView\Exception\ThemeNotFound;
-use Zrcms\CoreView\Model\View;
 use Reliv\ArrayProperties\Property;
+use Zrcms\CoreView\Model\View;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -45,8 +41,9 @@ class GetViewByRequestStrategy implements GetViewByRequest
      * @throws \Exception
      * @throws \Psr\Container\ContainerExceptionInterface
      * @throws \Psr\Container\NotFoundExceptionInterface
+     * @throws \Reliv\ArrayProperties\Exception\ArrayPropertyException
+     * @throws \Throwable
      * @throws \Zrcms\CoreView\Exception\ViewDataNotFound
-     * @throws \Reliv\ArrayProperties\Exception\ArrayPropertyMissing
      */
     public function __invoke(
         ServerRequestInterface $request,
