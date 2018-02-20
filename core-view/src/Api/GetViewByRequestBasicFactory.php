@@ -3,7 +3,6 @@
 namespace Zrcms\CoreView\Api;
 
 use Psr\Container\ContainerInterface;
-use Zrcms\CoreView\Api\Render\GetViewLayoutTags;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -26,7 +25,6 @@ class GetViewByRequestBasicFactory
             $serviceContainer->get(GetPageCmsResource::class),
             $serviceContainer->get(GetLayoutName::class),
             $serviceContainer->get(GetLayoutCmsResource::class),
-            $serviceContainer->get(GetViewLayoutTags::class),
             $serviceContainer->get(BuildView::class)
         );
     }

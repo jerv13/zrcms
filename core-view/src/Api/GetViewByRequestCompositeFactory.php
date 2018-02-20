@@ -7,12 +7,12 @@ use Psr\Container\ContainerInterface;
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class GetViewByRequestStrategyFactory
+class GetViewByRequestCompositeFactory
 {
     /**
      * @param ContainerInterface $serviceContainer
      *
-     * @return GetViewByRequestStrategy
+     * @return GetViewByRequestComposite
      * @throws \Psr\Container\ContainerExceptionInterface
      * @throws \Psr\Container\NotFoundExceptionInterface
      */
@@ -20,8 +20,8 @@ class GetViewByRequestStrategyFactory
         ContainerInterface $serviceContainer
     ) {
         $appConfig = $serviceContainer->get('config');
-        return new GetViewByRequestStrategy(
-            $appConfig['zrcms-view-by-request-strategy'],
+        return new GetViewByRequestComposite(
+            $appConfig['zrcms-view-by-request-composite'],
             $serviceContainer
         );
     }

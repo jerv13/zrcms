@@ -3,25 +3,28 @@
 namespace Zrcms\CoreView\Api;
 
 use Psr\Http\Message\ServerRequestInterface;
+use Zrcms\CorePage\Model\PageCmsResource;
+use Zrcms\CoreSite\Model\SiteCmsResource;
+use Zrcms\CoreTheme\Model\LayoutCmsResource;
 use Zrcms\CoreView\Model\View;
 
 /**
- * @todo   This may NOT be needed, attributes can be passed in request
- *
  * @author James Jervis - https://github.com/jerv13
  */
 interface BuildView
 {
     /**
      * @param ServerRequestInterface $request
-     * @param View                   $view
-     * @param array                  $options
+     * @param SiteCmsResource        $siteCmsResource
+     * @param PageCmsResource        $pageCmsResource
+     * @param LayoutCmsResource      $layoutCmsResource
      *
      * @return View
      */
     public function __invoke(
         ServerRequestInterface $request,
-        View $view,
-        array $options = []
+        SiteCmsResource $siteCmsResource,
+        PageCmsResource $pageCmsResource,
+        LayoutCmsResource $layoutCmsResource
     ): View;
 }

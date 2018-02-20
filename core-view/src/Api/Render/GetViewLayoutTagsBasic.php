@@ -17,19 +17,8 @@ use Zrcms\ServiceAlias\Api\GetServiceFromAlias;
  */
 class GetViewLayoutTagsBasic implements GetViewLayoutTags
 {
-    /**
-     * @var GetServiceFromAlias
-     */
     protected $getServiceFromAlias;
-
-    /**
-     * @var string
-     */
     protected $serviceAliasNamespace;
-
-    /**
-     * @var FindComponentsBy
-     */
     protected $findComponentsBy;
 
     /**

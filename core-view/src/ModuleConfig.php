@@ -2,14 +2,8 @@
 
 namespace Zrcms\CoreView;
 
-use Zrcms\Core\Api\Component\FindComponentsBy;
-use Zrcms\CoreContainer\Api\CmsResource\FindContainerCmsResourcesBySitePaths;
-use Zrcms\CoreContainer\Api\Render\GetContainerRenderTags;
-use Zrcms\CoreContainer\Api\Render\RenderContainer;
-use Zrcms\CorePage\Api\Render\GetPageRenderTags;
-use Zrcms\CoreTheme\Api\Render\RenderLayout;
 use Zrcms\CoreView\Api\BuildView;
-use Zrcms\CoreView\Api\BuildViewCompositeFactory;
+use Zrcms\CoreView\Api\BuildViewBasicFactory;
 use Zrcms\CoreView\Api\GetApplicationStateView;
 use Zrcms\CoreView\Api\GetApplicationStateViewFactory;
 use Zrcms\CoreView\Api\GetLayoutCmsResource;
@@ -21,26 +15,32 @@ use Zrcms\CoreView\Api\GetPageCmsResourceBasicFactory;
 use Zrcms\CoreView\Api\GetSiteCmsResource;
 use Zrcms\CoreView\Api\GetSiteCmsResourceBasicFactory;
 use Zrcms\CoreView\Api\GetTagNamesByLayout;
-use Zrcms\CoreView\Api\GetTagNamesByLayoutBasic;
+use Zrcms\CoreView\Api\GetTagNamesByLayoutBasicFactory;
 use Zrcms\CoreView\Api\GetTagNamesByLayoutMustache;
 use Zrcms\CoreView\Api\GetThemeName;
 use Zrcms\CoreView\Api\GetThemeNameBasicFactory;
 use Zrcms\CoreView\Api\GetViewByRequest;
 use Zrcms\CoreView\Api\GetViewByRequestBasic;
 use Zrcms\CoreView\Api\GetViewByRequestBasicFactory;
+use Zrcms\CoreView\Api\GetViewByRequestByPageVersion;
+use Zrcms\CoreView\Api\GetViewByRequestByPageVersionFactory;
+use Zrcms\CoreView\Api\GetViewByRequestCompositeFactory;
 use Zrcms\CoreView\Api\GetViewByRequestHtmlPage;
 use Zrcms\CoreView\Api\GetViewByRequestHtmlPageFactory;
-use Zrcms\CoreView\Api\GetViewByRequestStrategyFactory;
+use Zrcms\CoreView\Api\MutateView;
+use Zrcms\CoreView\Api\MutateViewCompositeFactory;
 use Zrcms\CoreView\Api\Render\GetViewLayoutTags;
-use Zrcms\CoreView\Api\Render\GetViewLayoutTagsBasic;
+use Zrcms\CoreView\Api\Render\GetViewLayoutTagsBasicFactory;
 use Zrcms\CoreView\Api\Render\GetViewLayoutTagsContainers;
+use Zrcms\CoreView\Api\Render\GetViewLayoutTagsContainersFactory;
 use Zrcms\CoreView\Api\Render\GetViewLayoutTagsPage;
+use Zrcms\CoreView\Api\Render\GetViewLayoutTagsPageFactory;
 use Zrcms\CoreView\Api\Render\RenderView;
-use Zrcms\CoreView\Api\Render\RenderViewBasic;
+use Zrcms\CoreView\Api\Render\RenderViewBasicFactory;
 use Zrcms\CoreView\Api\Render\RenderViewLayout;
+use Zrcms\CoreView\Api\Render\RenderViewLayoutFactory;
 use Zrcms\CoreView\Api\ViewToArray;
 use Zrcms\CoreView\Api\ViewToArrayBasicFactory;
-use Zrcms\ServiceAlias\Api\GetServiceFromAlias;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -56,44 +56,29 @@ class ModuleConfig
             'dependencies' => [
                 'config_factories' => [
                     /**
-                     * Render
+                     * Api/Render
                      */
                     GetViewLayoutTags::class => [
-                        'class' => GetViewLayoutTagsBasic::class,
-                        'arguments' => [
-                            GetServiceFromAlias::class,
-                            FindComponentsBy::class,
-                        ],
+                        'factory' => GetViewLayoutTagsBasicFactory::class,
                     ],
                     GetViewLayoutTagsContainers::class => [
-                        'arguments' => [
-                            GetTagNamesByLayout::class,
-                            FindContainerCmsResourcesBySitePaths::class,
-                            GetContainerRenderTags::class,
-                            RenderContainer::class,
-                        ],
+                        'factory' => GetViewLayoutTagsContainersFactory::class,
                     ],
                     GetViewLayoutTagsPage::class => [
-                        'arguments' => [
-                            GetPageRenderTags::class
-                        ],
+                        'factory' => GetViewLayoutTagsPageFactory::class,
                     ],
                     RenderView::class => [
-                        'class' => RenderViewBasic::class,
-                        'arguments' => [
-                            GetServiceFromAlias::class,
-                        ],
+                        'factory' => RenderViewBasicFactory::class,
                     ],
                     RenderViewLayout::class => [
-                        'arguments' => [
-                            RenderLayout::class,
-                        ],
+                        'factory' => RenderViewLayoutFactory::class,
                     ],
+
                     /**
                      * Api
                      */
                     BuildView::class => [
-                        'factory' => BuildViewCompositeFactory::class,
+                        'factory' => BuildViewBasicFactory::class,
                     ],
                     GetApplicationStateView::class => [
                         'factory' => GetApplicationStateViewFactory::class,
@@ -111,10 +96,7 @@ class ModuleConfig
                         'factory' => GetSiteCmsResourceBasicFactory::class,
                     ],
                     GetTagNamesByLayout::class => [
-                        'class' => GetTagNamesByLayoutBasic::class,
-                        'arguments' => [
-                            GetServiceFromAlias::class,
-                        ],
+                        'factory' => GetTagNamesByLayoutBasicFactory::class
                     ],
                     GetTagNamesByLayoutMustache::class => [],
                     GetThemeName::class => [
@@ -122,13 +104,21 @@ class ModuleConfig
                     ],
 
                     GetViewByRequest::class => [
-                        'factory' => GetViewByRequestStrategyFactory::class,
+                        'factory' => GetViewByRequestCompositeFactory::class,
                     ],
+
                     GetViewByRequestBasic::class => [
                         'factory' => GetViewByRequestBasicFactory::class,
                     ],
+                    GetViewByRequestByPageVersion::class => [
+                        'factory' => GetViewByRequestByPageVersionFactory::class,
+                    ],
                     GetViewByRequestHtmlPage::class => [
                         'factory' => GetViewByRequestHtmlPageFactory::class,
+                    ],
+
+                    MutateView::class => [
+                        'factory' => MutateViewCompositeFactory::class,
                     ],
 
                     ViewToArray::class => [

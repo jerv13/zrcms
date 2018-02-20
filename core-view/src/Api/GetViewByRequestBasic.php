@@ -4,17 +4,13 @@ namespace Zrcms\CoreView\Api;
 
 use Psr\Http\Message\ServerRequestInterface;
 use Reliv\ArrayProperties\Property;
-use Zrcms\CorePage\Model\PageCmsResource;
-use Zrcms\CoreSite\Model\SiteCmsResource;
-use Zrcms\CoreTheme\Model\LayoutCmsResource;
-use Zrcms\CoreView\Api\Render\GetViewLayoutTags;
+use Zrcms\CoreView\Exception\InvalidGetViewByRequest;
 use Zrcms\CoreView\Exception\LayoutNotFound;
 use Zrcms\CoreView\Exception\PageNotFound;
 use Zrcms\CoreView\Exception\SiteNotFound;
 use Zrcms\CoreView\Exception\ThemeNotFound;
-use Zrcms\CoreView\Fields\FieldsView;
+use Zrcms\CoreView\Exception\ViewDataNotFound;
 use Zrcms\CoreView\Model\View;
-use Zrcms\CoreView\Model\ViewBasic;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -30,16 +26,14 @@ class GetViewByRequestBasic implements GetViewByRequest
     protected $getPageCmsResource;
     protected $getLayoutName;
     protected $getLayoutCmsResource;
-    protected $getViewLayoutTags;
     protected $buildView;
 
     /**
      * @param GetSiteCmsResource   $getSiteCmsResource
-     * @param GetPageCmsResource   $getPageCmsResource
-     * @param GetLayoutCmsResource $getLayoutCmsResource
-     * @param GetLayoutName        $getLayoutName
      * @param GetThemeName         $getThemeName
-     * @param GetViewLayoutTags    $getViewLayoutTags
+     * @param GetPageCmsResource   $getPageCmsResource
+     * @param GetLayoutName        $getLayoutName
+     * @param GetLayoutCmsResource $getLayoutCmsResource
      * @param BuildView            $buildView
      */
     public function __construct(
@@ -48,7 +42,6 @@ class GetViewByRequestBasic implements GetViewByRequest
         GetPageCmsResource $getPageCmsResource,
         GetLayoutName $getLayoutName,
         GetLayoutCmsResource $getLayoutCmsResource,
-        GetViewLayoutTags $getViewLayoutTags,
         BuildView $buildView
     ) {
         $this->getSiteCmsResource = $getSiteCmsResource;
@@ -56,7 +49,6 @@ class GetViewByRequestBasic implements GetViewByRequest
         $this->getPageCmsResource = $getPageCmsResource;
         $this->getLayoutName = $getLayoutName;
         $this->getLayoutCmsResource = $getLayoutCmsResource;
-        $this->getViewLayoutTags = $getViewLayoutTags;
         $this->buildView = $buildView;
     }
 
@@ -65,6 +57,7 @@ class GetViewByRequestBasic implements GetViewByRequest
      * @param array                  $options
      *
      * @return View
+     * @throws ViewDataNotFound|InvalidGetViewByRequest
      * @throws LayoutNotFound
      * @throws PageNotFound
      * @throws SiteNotFound
@@ -117,61 +110,12 @@ class GetViewByRequestBasic implements GetViewByRequest
             $published
         );
 
-        return $this->buildView(
+        return $this->buildView->__invoke(
             $request,
             $siteCmsResource,
             $pageCmsResource,
             $layoutCmsResource,
             $options
-        );
-    }
-
-    /**
-     * @param ServerRequestInterface $request
-     * @param SiteCmsResource        $siteCmsResource
-     * @param PageCmsResource        $pageCmsResource
-     * @param LayoutCmsResource      $layoutCmsResource
-     * @param array                  $options
-     *
-     * @return View
-     */
-    protected function buildView(
-        ServerRequestInterface $request,
-        SiteCmsResource $siteCmsResource,
-        PageCmsResource $pageCmsResource,
-        LayoutCmsResource $layoutCmsResource,
-        array $options = []
-    ) {
-        $properties = [
-            FieldsView::SITE_CMS_RESOURCE
-            => $siteCmsResource,
-
-            FieldsView::PAGE_CMS_RESOURCE
-            => $pageCmsResource,
-
-            FieldsView::LAYOUT_CMS_RESOURCE
-            => $layoutCmsResource,
-        ];
-
-        $additionalProperties = Property::get(
-            $options,
-            self::OPTION_ADDITIONAL_PROPERTIES,
-            []
-        );
-
-        $properties = array_merge(
-            $additionalProperties,
-            $properties
-        );
-
-        $view = new ViewBasic(
-            $properties,
-            $siteCmsResource->getHost() . $pageCmsResource->getPath()
-        );
-
-        return $this->buildView->__invoke(
-            $request,
-            $view
         );
     }
 }

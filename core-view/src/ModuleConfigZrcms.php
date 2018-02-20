@@ -7,6 +7,7 @@ use Zrcms\CoreApplication\Api\Component\BuildComponentObjectByType;
 use Zrcms\CoreView\Api\GetApplicationStateView;
 use Zrcms\CoreView\Api\GetTagNamesByLayoutMustache;
 use Zrcms\CoreView\Api\GetViewByRequestBasic;
+use Zrcms\CoreView\Api\GetViewByRequestByPageVersion;
 use Zrcms\CoreView\Api\GetViewByRequestHtmlPage;
 use Zrcms\CoreView\Api\Render\GetViewLayoutTagsContainers;
 use Zrcms\CoreView\Api\Render\GetViewLayoutTagsPage;
@@ -128,23 +129,31 @@ class ModuleConfigZrcms
             ],
 
             /**
-             * @todo This should be a View component
-             * ===== View builders registry =====
+             * ===== View mutator config =====
              */
-            'zrcms-view-builders' => [
+            'zrcms-view-mutator' => [
                 // 'key (optional)' => '{service-name}'
             ],
 
             /**
-             * ===== View By Request Strategies =====
+             * ===== View By Request Composite =====
+             * '{strategy-name}' => ['api' => '{GetViewByRequestServiceName}', 'priority' => {int}]
              */
-            'zrcms-view-by-request-strategy' => [
-                // '{strategy-name}' => '{GetViewByRequestServiceName}'
-                GetViewByRequestBasic::class
-                => GetViewByRequestBasic::class,
+            'zrcms-view-by-request-composite' => [
+                'basic' => [
+                    'api' => GetViewByRequestBasic::class,
+                    'priority' => -1,
+                ],
 
-                GetViewByRequestHtmlPage::class
-                => GetViewByRequestHtmlPage::class,
+                'html-page' => [
+                    'api' => GetViewByRequestHtmlPage::class,
+                    'priority' => 100,
+                ],
+
+                'page-version' => [
+                    'api' => GetViewByRequestByPageVersion::class,
+                    'priority' => 200,
+                ],
             ],
 
             /**

@@ -28,4 +28,15 @@ interface View extends Content
      * @return LayoutCmsResource
      */
     public function getLayoutCmsResource(): LayoutCmsResource;
+
+    /**
+     * @param string $name
+     * @param mixed  $value
+     *
+     * @return View
+     */
+    public function withProperty(
+        string $name,
+        $value
+    ): View;
 }

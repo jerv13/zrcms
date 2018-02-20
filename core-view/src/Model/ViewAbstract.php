@@ -2,13 +2,13 @@
 
 namespace Zrcms\CoreView\Model;
 
+use Reliv\ArrayProperties\Property;
 use Zrcms\Core\Model\ContentAbstract;
 use Zrcms\Core\Model\PropertiesTrait;
 use Zrcms\CorePage\Model\PageCmsResource;
 use Zrcms\CoreSite\Model\SiteCmsResource;
 use Zrcms\CoreTheme\Model\LayoutCmsResource;
 use Zrcms\CoreView\Fields\FieldsView;
-use Reliv\ArrayProperties\Property;
 
 /**
  * ViewModel
@@ -80,5 +80,24 @@ abstract class ViewAbstract extends ContentAbstract implements View
     public function getLayoutCmsResource(): LayoutCmsResource
     {
         return $this->layoutCmsResource;
+    }
+
+    /**
+     * @param string $name
+     * @param mixed  $value
+     *
+     * @return View
+     */
+    public function withProperty(
+        string $name,
+        $value
+    ): View {
+        $properties = $this->properties;
+        $properties[$name] = $value;
+
+        return new static(
+            $properties,
+            $this->getId()
+        );
     }
 }

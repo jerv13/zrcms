@@ -4,6 +4,9 @@ namespace Zrcms\CoreView\Api;
 
 use Psr\Http\Message\ServerRequestInterface;
 use Reliv\ArrayProperties\Property;
+use Zrcms\CorePage\Api\Content\FindPageVersion;
+use Zrcms\CorePage\Model\PageCmsResourceBasic;
+use Zrcms\CoreView\Exception\InvalidGetViewByRequest;
 use Zrcms\CoreView\Exception\LayoutNotFound;
 use Zrcms\CoreView\Exception\PageNotFound;
 use Zrcms\CoreView\Exception\SiteNotFound;
@@ -17,15 +20,41 @@ class GetViewByRequestByPageVersion implements GetViewByRequest
 {
     const OPTION_PAGE_VERSION_ID = 'page-version-id';
 
-    protected $getViewByRequestBasic;
+    const DEFAULT_PAGE_CMS_RESOURCE_TEMP_ID = 'TEMP-PAGE-FOR-VERSION';
+
+    protected $getSiteCmsResource;
+    protected $getThemeName;
+    protected $findPageVersion;
+    protected $getLayoutName;
+    protected $getLayoutCmsResource;
+    protected $buildView;
+    protected $pageCmsResourceTempId;
 
     /**
-     * @param GetViewByRequestBasic $getViewByRequestBasic
+     * @param GetSiteCmsResource   $getSiteCmsResource
+     * @param GetThemeName         $getThemeName
+     * @param FindPageVersion      $findPageVersion
+     * @param GetLayoutName        $getLayoutName
+     * @param GetLayoutCmsResource $getLayoutCmsResource
+     * @param BuildView            $buildView
+     * @param string               $pageCmsResourceTempId
      */
     public function __construct(
-        GetViewByRequestBasic $getViewByRequestBasic
+        GetSiteCmsResource $getSiteCmsResource,
+        GetThemeName $getThemeName,
+        FindPageVersion $findPageVersion,
+        GetLayoutName $getLayoutName,
+        GetLayoutCmsResource $getLayoutCmsResource,
+        BuildView $buildView,
+        string $pageCmsResourceTempId = self::DEFAULT_PAGE_CMS_RESOURCE_TEMP_ID
     ) {
-        $this->getViewByRequestBasic = $getViewByRequestBasic;
+        $this->getSiteCmsResource = $getSiteCmsResource;
+        $this->getThemeName = $getThemeName;
+        $this->findPageVersion = $findPageVersion;
+        $this->getLayoutName = $getLayoutName;
+        $this->getLayoutCmsResource = $getLayoutCmsResource;
+        $this->buildView = $buildView;
+        $this->pageCmsResourceTempId = $pageCmsResourceTempId;
     }
 
     /**
@@ -37,6 +66,7 @@ class GetViewByRequestByPageVersion implements GetViewByRequest
      * @throws PageNotFound
      * @throws SiteNotFound
      * @throws ThemeNotFound
+     * @throws InvalidGetViewByRequest
      */
     public function __invoke(
         ServerRequestInterface $request,
@@ -49,7 +79,9 @@ class GetViewByRequestByPageVersion implements GetViewByRequest
         );
 
         if ($pageVersionId === null) {
-            return $this->getViewByRequestBasic->__invoke($request, $options);
+            throw new InvalidGetViewByRequest(
+                static::class . ' requires pageVersionId '
+            );
         }
 
         $uri = $request->getUri();
@@ -75,14 +107,27 @@ class GetViewByRequestByPageVersion implements GetViewByRequest
             $siteCmsResource
         );
 
-        $pageCmsResource = $this->getPageCmsResource->__invoke(
-            $siteCmsResource->getId(),
-            $uri->getPath(),
-            $published
+        $pageVersion = $this->findPageVersion->__invoke(
+            $pageVersionId
+        );
+
+        if (empty($pageVersion)) {
+            throw new PageNotFound(
+                'Page version not found: (' . $pageVersionId . ')'
+            );
+        }
+
+        $tempId = $this->buildTempPageCmsResourceId($pageVersionId);
+
+        $pageCmsResource = new PageCmsResourceBasic(
+            $tempId,
+            false,
+            $pageVersion,
+            $tempId, // @todo Use current user
+            $tempId // @todo some reason
         );
 
         $siteVersion = $siteCmsResource->getContentVersion();
-        $pageVersion = $pageCmsResource->getContentVersion();
 
         $layoutName = $this->getLayoutName->__invoke(
             $siteVersion,
@@ -95,12 +140,23 @@ class GetViewByRequestByPageVersion implements GetViewByRequest
             $published
         );
 
-        return $this->buildView(
+        return $this->buildView->__invoke(
             $request,
             $siteCmsResource,
             $pageCmsResource,
             $layoutCmsResource,
             $options
         );
+    }
+
+    /**
+     * @param string $versionId
+     *
+     * @return string
+     */
+    protected function buildTempPageCmsResourceId(
+        string $versionId
+    ): string {
+        return $this->pageCmsResourceTempId . ':' . $versionId;
     }
 }

@@ -10,7 +10,7 @@ use Zrcms\CoreView\Model\View;
  *
  * @author James Jervis - https://github.com/jerv13
  */
-class BuildViewComposite implements BuildView
+class MutateViewComposite implements MutateView
 {
     /**
      * @todo viewBuilders should come from a View component
@@ -31,11 +31,11 @@ class BuildViewComposite implements BuildView
     }
 
     /**
-     * @param BuildView $viewBuilder
+     * @param MutateView $viewBuilder
      *
      * @return void
      */
-    public function add(BuildView $viewBuilder)
+    public function add(MutateView $viewBuilder)
     {
         $this->viewBuilders[] = $viewBuilder;
     }
@@ -52,7 +52,7 @@ class BuildViewComposite implements BuildView
         View $view,
         array $options = []
     ): View {
-        /** @var BuildView $viewBuilder */
+        /** @var MutateView $viewBuilder */
         foreach ($this->viewBuilders as $viewBuilder) {
             $view = $viewBuilder->__invoke(
                 $request,
