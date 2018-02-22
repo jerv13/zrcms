@@ -10,6 +10,8 @@ use Zrcms\HttpViewRender\Request\RequestWithGetViewOptionPageVersionId;
 use Zrcms\HttpViewRender\Request\RequestWithGetViewOptionPageVersionIdFactory;
 use Zrcms\HttpViewRender\Request\RequestWithGetViewOptionPublishedOnly;
 use Zrcms\HttpViewRender\Request\RequestWithGetViewOptionPublishedOnlyFactory;
+use Zrcms\HttpViewRender\Request\RequestWithIdentifier;
+use Zrcms\HttpViewRender\Request\RequestWithIdentifierFactory;
 use Zrcms\HttpViewRender\Request\RequestWithOriginalUri;
 use Zrcms\HttpViewRender\Request\RequestWithOriginalUriFactory;
 use Zrcms\HttpViewRender\Request\RequestWithView;
@@ -74,6 +76,10 @@ class ModuleConfig
 
                     RequestWithGetViewOptionPublishedOnly::class => [
                         'factory' => RequestWithGetViewOptionPublishedOnlyFactory::class,
+                    ],
+
+                    RequestWithIdentifier::class => [
+                        'factory' => RequestWithIdentifierFactory::class,
                     ],
 
                     RequestWithOriginalUri::class => [

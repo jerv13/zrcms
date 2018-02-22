@@ -144,8 +144,7 @@ class GetViewByRequestByPageVersion implements GetViewByRequest
             $request,
             $siteCmsResource,
             $pageCmsResource,
-            $layoutCmsResource,
-            $options
+            $layoutCmsResource
         );
     }
 

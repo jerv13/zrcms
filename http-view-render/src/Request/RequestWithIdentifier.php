@@ -4,13 +4,16 @@ namespace Zrcms\HttpViewRender\Request;
 
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
+use Zrcms\CoreApplication\Api\GetGuidV4;
 
 /**
+ * Creates a unique ID for usages like caching against the request
+ *
  * @author James Jervis - https://github.com/jerv13
  */
-class RequestWithOriginalUri
+class RequestWithIdentifier
 {
-    const ATTRIBUTE_ORIGINAL_URI = 'zrcms-original-uri';
+    const ATTRIBUTE_REQUEST_ID = 'zrcms-request-id';
 
     /**
      * @param ServerRequestInterface $request
@@ -26,8 +29,8 @@ class RequestWithOriginalUri
         callable $next = null
     ) {
         $request = $request->withAttribute(
-            self::ATTRIBUTE_ORIGINAL_URI,
-            $request->getUri()
+            self::ATTRIBUTE_REQUEST_ID,
+            GetGuidV4::invoke()
         );
 
         return $next($request, $response);

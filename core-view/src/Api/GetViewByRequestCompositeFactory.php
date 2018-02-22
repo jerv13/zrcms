@@ -21,7 +21,7 @@ class GetViewByRequestCompositeFactory
     ) {
         $appConfig = $serviceContainer->get('config');
         return new GetViewByRequestComposite(
-            $appConfig['zrcms-view-by-request-composite'],
+            $appConfig['zrcms-get-view-by-request-api-list'],
             $serviceContainer
         );
     }

@@ -139,7 +139,7 @@ class ModuleConfigZrcms
              * ===== View By Request Composite =====
              * '{strategy-name}' => ['api' => '{GetViewByRequestServiceName}', 'priority' => {int}]
              */
-            'zrcms-view-by-request-composite' => [
+            'zrcms-get-view-by-request-api-list' => [
                 'basic' => [
                     'api' => GetViewByRequestBasic::class,
                     'priority' => -1,

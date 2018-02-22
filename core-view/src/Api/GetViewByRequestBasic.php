@@ -68,7 +68,9 @@ class GetViewByRequestBasic implements GetViewByRequest
         array $options = []
     ): View {
         $uri = $request->getUri();
-
+//        echo("<pre>******\n");
+//debug_print_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS,8);
+//        echo('</pre>');
         $publishedOnly = Property::get(
             $options,
             self::OPTION_PUBLISHED_ONLY,
@@ -114,8 +116,7 @@ class GetViewByRequestBasic implements GetViewByRequest
             $request,
             $siteCmsResource,
             $pageCmsResource,
-            $layoutCmsResource,
-            $options
+            $layoutCmsResource
         );
     }
 }

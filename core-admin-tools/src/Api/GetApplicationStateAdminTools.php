@@ -50,14 +50,6 @@ class GetApplicationStateAdminTools implements GetApplicationState
 
         $adminToolsAppState['allowed'] = $allowed;
 
-        if (!$allowed) {
-            return $adminToolsAppState;
-        }
-
-        $adminToolsAppState['admin-tools-menu'] = $this->sortAdminToolsMenu->__invoke(
-            $this->adminToolsMenuConfig
-        );
-
         return $adminToolsAppState;
     }
 }

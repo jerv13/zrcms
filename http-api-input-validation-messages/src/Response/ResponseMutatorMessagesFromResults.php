@@ -4,6 +4,8 @@ namespace Zrcms\HttpApiInputValidationMessages\Api\Response;
 
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
+use Reliv\ArrayProperties\Property;
+use Reliv\ValidationRatMessages\Api\GetMessagesValidationResultFieldsByOption;
 use Zend\Diactoros\Response\JsonResponse;
 use Zrcms\Http\Api\IsValidContentType;
 use Zrcms\Http\Response\ZrcmsJsonResponse;
@@ -17,6 +19,8 @@ use Reliv\ValidationRatMessages\Api\GetMessagesValidationResultFields;
  */
 class ResponseMutatorMessagesFromResults
 {
+    const PARAM_MESSAGES_FORMAT = 'validationMessagesFormat';
+
     protected $getMessagesValidationResult;
     protected $getMessagesValidationResultFields;
     protected $validContentTypes;
@@ -60,6 +64,17 @@ class ResponseMutatorMessagesFromResults
 
         if (method_exists($response, 'getOptions')) {
             $options = $response->getOptions();
+        }
+
+        $queryParams = $request->getQueryParams();
+
+        $validationMessagesFormat = Property::getString(
+            $queryParams,
+            self::PARAM_MESSAGES_FORMAT
+        );
+
+        if (!empty($validationMessagesFormat)) {
+            $options[GetMessagesValidationResultFieldsByOption::OPTION_FORMAT] = $validationMessagesFormat;
         }
 
         /** @var ValidationResult|ValidationResultFields $apiMessages */

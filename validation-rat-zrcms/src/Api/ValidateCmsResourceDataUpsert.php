@@ -46,14 +46,14 @@ class ValidateCmsResourceDataUpsert implements ValidateFields
     protected $serviceContainer;
     protected $validateFieldsHasOnlyRecognizedFields;
     protected $validateIsRealValue;
-    protected $validateContentVersion;
+    protected $validateContentVersionDataInsert;
     protected $defaultInvalidCode;
 
     /**
      * @param ContainerInterface               $serviceContainer
      * @param ValidateFields                   $validateFieldsHasOnlyRecognizedFields
      * @param ValidateIsRealValue              $validateIsRealValue
-     * @param ValidateContentVersionDataInsert $validateContentVersion
+     * @param ValidateContentVersionDataInsert $validateContentVersionDataInsert
      * @param string                           $defaultInvalidCode
      */
     public function __construct(

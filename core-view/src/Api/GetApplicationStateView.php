@@ -105,7 +105,7 @@ class GetApplicationStateView implements GetApplicationState
                 'published' => $layoutCmsResource->isPublished(),
                 'themeName' => $layoutCmsResource->getThemeName(),
             ],
-            GetViewByRequest::VIEW_PROPERTY_GET_VIEW_API_NAME => $view->findProperty(
+            'view-type' => $view->findProperty(
                 GetViewByRequest::VIEW_PROPERTY_GET_VIEW_API_NAME
             ),
         ];
