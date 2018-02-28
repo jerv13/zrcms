@@ -7,8 +7,8 @@ use Psr\Http\Message\UriInterface;
 use Zrcms\CoreApplicationState\Api\GetApplicationState;
 use Zrcms\CoreSite\Fields\FieldsSiteVersion;
 use Zrcms\CoreView\Exception\ViewDataNotFound;
+use Zrcms\CoreView\Fields\FieldsView;
 use Zrcms\HttpStatusPages\Middleware\ResponseMutatorStatusPage;
-use Zrcms\HttpViewRender\Request\RequestWithGetViewOptions;
 use Zrcms\HttpViewRender\Request\RequestWithOriginalUri;
 
 /**
@@ -19,14 +19,18 @@ class GetApplicationStateView implements GetApplicationState
     const APPLICATION_STATE_KEY = 'view';
 
     protected $getViewByRequest;
+    protected $getViewByRequestOptions;
 
     /**
      * @param GetViewByRequest $getViewByRequest
+     * @param array            $getViewByRequestOptions
      */
     public function __construct(
-        GetViewByRequest $getViewByRequest
+        GetViewByRequest $getViewByRequest,
+        array $getViewByRequestOptions = []
     ) {
         $this->getViewByRequest = $getViewByRequest;
+        $this->getViewByRequestOptions = $getViewByRequestOptions;
     }
 
     /**
@@ -61,18 +65,13 @@ class GetApplicationStateView implements GetApplicationState
                 'published' => null,
                 'themeName' => null,
             ],
-            GetViewByRequest::VIEW_PROPERTY_GET_VIEW_API_NAME => null,
+            'view-strategy' => null,
         ];
-
-        $getViewOptions = $request->getAttribute(
-            RequestWithGetViewOptions::ATTRIBUTE_GET_VIEW_OPTIONS,
-            []
-        );
 
         try {
             $view = $this->getViewByRequest->__invoke(
                 $request,
-                $getViewOptions
+                $this->getViewByRequestOptions
             );
         } catch (ViewDataNotFound $exception) {
             return $viewState;
@@ -105,8 +104,8 @@ class GetApplicationStateView implements GetApplicationState
                 'published' => $layoutCmsResource->isPublished(),
                 'themeName' => $layoutCmsResource->getThemeName(),
             ],
-            'view-type' => $view->findProperty(
-                GetViewByRequest::VIEW_PROPERTY_GET_VIEW_API_NAME
+            'view-strategy' => $view->findProperty(
+                FieldsView::STRATEGY
             ),
         ];
 

@@ -6,12 +6,17 @@ use Zrcms\Core\Api\Component\BuildComponentObject;
 use Zrcms\CoreApplication\Api\Component\BuildComponentObjectByType;
 use Zrcms\CoreView\Api\GetApplicationStateView;
 use Zrcms\CoreView\Api\GetTagNamesByLayoutMustache;
-use Zrcms\CoreView\Api\GetViewByRequestBasic;
-use Zrcms\CoreView\Api\GetViewByRequestByPageVersion;
-use Zrcms\CoreView\Api\GetViewByRequestHtmlPage;
 use Zrcms\CoreView\Api\Render\GetViewLayoutTagsContainers;
 use Zrcms\CoreView\Api\Render\GetViewLayoutTagsPage;
 use Zrcms\CoreView\Api\Render\RenderViewLayout;
+use Zrcms\CoreView\Api\ViewBuilder\BuildViewDefault;
+use Zrcms\CoreView\Api\ViewBuilder\BuildViewDefaultPublishedAny;
+use Zrcms\CoreView\Api\ViewBuilder\BuildViewHtmlPage;
+use Zrcms\CoreView\Api\ViewBuilder\BuildViewPageVersionId;
+use Zrcms\CoreView\Api\ViewBuilder\DetermineViewStrategyDefault;
+use Zrcms\CoreView\Api\ViewBuilder\DetermineViewStrategyDefaultPublishedAny;
+use Zrcms\CoreView\Api\ViewBuilder\DetermineViewStrategyHtmlPage;
+use Zrcms\CoreView\Api\ViewBuilder\DetermineViewStrategyPageVersionId;
 use Zrcms\CoreView\Fields\FieldsView;
 use Zrcms\CoreView\Fields\FieldsViewLayoutTagsComponent;
 use Zrcms\CoreView\Model\ServiceAliasView;
@@ -129,32 +134,41 @@ class ModuleConfigZrcms
             ],
 
             /**
-             * ===== View mutator config =====
+             * ===== Build view strategy config =====
              */
-            'zrcms-view-mutator' => [
-                // 'key (optional)' => '{service-name}'
+            'zrcms-view-build-view-strategy' => [
+                // '{strategy-name}' => '{service-name}'
+                DetermineViewStrategyDefault::STRATEGY
+                => BuildViewDefault::class,
+
+                DetermineViewStrategyDefaultPublishedAny::STRATEGY
+                => BuildViewDefaultPublishedAny::class,
+
+                DetermineViewStrategyHtmlPage::STRATEGY
+                => BuildViewHtmlPage::class,
+
+                DetermineViewStrategyPageVersionId::STRATEGY
+                => BuildViewPageVersionId::class,
             ],
 
             /**
-             * ===== View By Request Composite =====
-             * '{strategy-name}' => ['api' => '{GetViewByRequestServiceName}', 'priority' => {int}]
+             * ===== Determine view strategy config =====
              */
-            'zrcms-get-view-by-request-api-list' => [
-                'basic' => [
-                    'api' => GetViewByRequestBasic::class,
-                    'priority' => -1,
-                ],
-
-                'html-page' => [
-                    'api' => GetViewByRequestHtmlPage::class,
-                    'priority' => 100,
-                ],
-
-                'page-version' => [
-                    'api' => GetViewByRequestByPageVersion::class,
-                    'priority' => 200,
-                ],
+            'zrcms-view-determine-strategy' => [
+                // '{strategy-name}' => '{service-name}'
+                DetermineViewStrategyDefault::class => -1,
+                DetermineViewStrategyDefaultPublishedAny::class => 100,
+                DetermineViewStrategyHtmlPage::class => 200,
+                DetermineViewStrategyPageVersionId::class => 300,
             ],
+
+            /**
+             * ===== View mutator config =====
+             */
+            'zrcms-view-mutator' => [
+                // '{service-name}' => '{priority}'
+            ],
+
 
             /**
              * ===== ZRCMS Types =====

@@ -6,9 +6,11 @@ use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Zend\Diactoros\Response\HtmlResponse;
 use Zend\Diactoros\Stream;
-use Zrcms\CoreView\Api\GetViewByRequestHtmlPage;
 use Zrcms\CoreView\Api\Render\GetViewLayoutTags;
 use Zrcms\CoreView\Api\Render\RenderView;
+use Zrcms\CoreView\Api\ViewBuilder\BuildView;
+use Zrcms\CoreView\Api\ViewBuilder\BuildViewHtmlPage;
+use Zrcms\CoreView\Api\ViewBuilder\DetermineViewStrategyHtmlPage;
 use Zrcms\CoreView\Exception\PageNotFound;
 use Zrcms\CoreView\Exception\SiteNotFound;
 use Zrcms\CoreView\Model\View;
@@ -20,27 +22,27 @@ use Zrcms\HttpViewRender\Router\LayoutThemeRouter;
  */
 class ResponseMutatorThemeLayoutWrapper
 {
-    protected $getViewByRequestHtmlPage;
+    protected $buildViewHtmlPage;
     protected $getViewLayoutTags;
     protected $renderView;
     protected $layoutThemeRouter;
     protected $debug;
 
     /**
-     * @param GetViewByRequestHtmlPage $getViewByRequestHtmlPage
+     * @param BuildViewHtmlPage $buildViewHtmlPage
      * @param GetViewLayoutTags        $getViewLayoutTags
      * @param RenderView               $renderView
      * @param LayoutThemeRouter        $layoutThemeRouter
      * @param bool                     $debug
      */
     public function __construct(
-        GetViewByRequestHtmlPage $getViewByRequestHtmlPage,
+        BuildViewHtmlPage $buildViewHtmlPage,
         GetViewLayoutTags $getViewLayoutTags,
         RenderView $renderView,
         LayoutThemeRouter $layoutThemeRouter,
         bool $debug = false
     ) {
-        $this->getViewByRequestHtmlPage = $getViewByRequestHtmlPage;
+        $this->buildViewHtmlPage = $buildViewHtmlPage;
         $this->getViewLayoutTags = $getViewLayoutTags;
         $this->renderView = $renderView;
         $this->layoutThemeRouter = $layoutThemeRouter;
@@ -52,8 +54,8 @@ class ResponseMutatorThemeLayoutWrapper
      * @param ResponseInterface      $response
      * @param callable|null          $next
      *
-     * @return ResponseInterface
-     * @throws \Exception
+     * @return ResponseInterface|HtmlResponse|ZrcmsHtmlResponse|static
+     * @throws \Zrcms\CoreView\Exception\ViewDataNotFound
      */
     public function __invoke(
         ServerRequestInterface $request,
@@ -68,10 +70,11 @@ class ResponseMutatorThemeLayoutWrapper
         }
 
         $options = $this->getProperties($response);
+        $options[BuildView::OPTION_VIEW_STRATEGY] = DetermineViewStrategyHtmlPage::STRATEGY;
 
         try {
             /** @var View $view */
-            $view = $this->getViewByRequestHtmlPage->__invoke(
+            $view = $this->buildViewHtmlPage->__invoke(
                 $request,
                 $options
             );
@@ -136,7 +139,7 @@ class ResponseMutatorThemeLayoutWrapper
 
         $contents = $body->getContents();
 
-        $properties[GetViewByRequestHtmlPage::OPTION_HTML] = $contents;
+        $properties[BuildViewHtmlPage::OPTION_HTML] = $contents;
 
         return $properties;
     }

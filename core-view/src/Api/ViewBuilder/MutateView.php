@@ -1,13 +1,11 @@
 <?php
 
-namespace Zrcms\CoreView\Api;
+namespace Zrcms\CoreView\Api\ViewBuilder;
 
 use Psr\Http\Message\ServerRequestInterface;
 use Zrcms\CoreView\Model\View;
 
 /**
- * @todo   This may NOT be needed, attributes can be passed in request
- *
  * @author James Jervis - https://github.com/jerv13
  */
 interface MutateView

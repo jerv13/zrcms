@@ -1,6 +1,6 @@
 <?php
 
-namespace Zrcms\CoreView\Api;
+namespace Zrcms\CoreView\Api\ViewBuilder;
 
 use Psr\Http\Message\ServerRequestInterface;
 use Reliv\ArrayProperties\Property;
@@ -10,19 +10,21 @@ use Zrcms\CorePage\Model\PageCmsResource;
 use Zrcms\CorePage\Model\PageCmsResourceBasic;
 use Zrcms\CorePage\Model\PageVersion;
 use Zrcms\CorePage\Model\PageVersionBasic;
-use Zrcms\CoreView\Exception\InvalidGetViewByRequest;
-use Zrcms\CoreView\Exception\LayoutNotFound;
-use Zrcms\CoreView\Exception\SiteNotFound;
-use Zrcms\CoreView\Exception\ThemeNotFound;
-use Zrcms\CoreView\Fields\FieldsView;
+use Zrcms\CoreView\Api\GetLayoutCmsResource;
+use Zrcms\CoreView\Api\GetLayoutName;
+use Zrcms\CoreView\Api\GetSiteCmsResource;
+use Zrcms\CoreView\Api\GetThemeName;
+use Zrcms\CoreView\Exception\ViewDataNotFound;
 use Zrcms\CoreView\Model\View;
 use Zrcms\CoreView\Model\ViewBasic;
 
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class GetViewByRequestHtmlPage implements GetViewByRequest
+class BuildViewHtmlPage implements BuildView
 {
+    const ATTRIBUTE_VIEW_HTML = 'zrcms-view-html';
+
     const OPTION_TITLE = FieldsPageVersion::TITLE;
     const OPTION_DESCRIPTION = FieldsPageVersion::DESCRIPTION;
     const OPTION_KEYWORDS = FieldsPageVersion::KEYWORDS;
@@ -46,7 +48,6 @@ class GetViewByRequestHtmlPage implements GetViewByRequest
      * @param GetThemeName         $getThemeName
      * @param GetLayoutName        $getLayoutName
      * @param GetLayoutCmsResource $getLayoutCmsResource
-     * @param BuildView            $buildView
      * @param string               $defaultTitle
      * @param string               $defaultDescription
      * @param string               $defaultKeywords
@@ -56,7 +57,6 @@ class GetViewByRequestHtmlPage implements GetViewByRequest
         GetThemeName $getThemeName,
         GetLayoutName $getLayoutName,
         GetLayoutCmsResource $getLayoutCmsResource,
-        BuildView $buildView,
         string $defaultTitle = '',
         string $defaultDescription = '',
         string $defaultKeywords = ''
@@ -65,7 +65,6 @@ class GetViewByRequestHtmlPage implements GetViewByRequest
         $this->getThemeName = $getThemeName;
         $this->getLayoutName = $getLayoutName;
         $this->getLayoutCmsResource = $getLayoutCmsResource;
-        $this->buildView = $buildView;
 
         $this->defaultTitle = $defaultTitle;
         $this->defaultDescription = $defaultDescription;
@@ -77,10 +76,7 @@ class GetViewByRequestHtmlPage implements GetViewByRequest
      * @param array                  $options
      *
      * @return View
-     * @throws InvalidGetViewByRequest
-     * @throws LayoutNotFound
-     * @throws SiteNotFound
-     * @throws ThemeNotFound
+     * @throws ViewDataNotFound
      */
     public function __invoke(
         ServerRequestInterface $request,
@@ -88,20 +84,19 @@ class GetViewByRequestHtmlPage implements GetViewByRequest
     ): View {
         $uri = $request->getUri();
 
-        $html = Property::getString($options, self::OPTION_HTML, null);
-
-        if ($html === null) {
-            throw new InvalidGetViewByRequest(
-                self::OPTION_HTML . ' option is required for HTML page'
-            );
-        }
-
         $siteCmsResource = $this->getSiteCmsResource->__invoke(
             $uri->getHost()
         );
 
         $themeName = $this->getThemeName->__invoke(
             $siteCmsResource
+        );
+
+        // Get form options or attribute
+        $options[self::OPTION_HTML] = Property::getString(
+            $options,
+            self::OPTION_HTML,
+            $request->getAttribute(self::ATTRIBUTE_VIEW_HTML, '')
         );
 
         $pageCmsResource = $this->getPageCmsResource(
@@ -123,11 +118,21 @@ class GetViewByRequestHtmlPage implements GetViewByRequest
             $layoutName
         );
 
-        return $this->buildView->__invoke(
-            $request,
+        return ViewBasic::build(
             $siteCmsResource,
             $pageCmsResource,
-            $layoutCmsResource
+            $layoutCmsResource,
+
+            Property::getArray(
+                $options,
+                self::OPTION_VIEW_PROPERTIES,
+                []
+            ),
+            Property::getString(
+                $options,
+                self::OPTION_VIEW_ID,
+                null
+            )
         );
     }
 
@@ -146,27 +151,48 @@ class GetViewByRequestHtmlPage implements GetViewByRequest
         return new PageVersionBasic(
             $path,
             [
-                FieldsPageVersion::TITLE
-                => Property::getString($options, self::OPTION_TITLE, $this->defaultTitle),
+                FieldsPageVersion::TITLE => Property::getString(
+                    $options,
+                    self::OPTION_TITLE,
+                    $this->defaultTitle
+                ),
 
-                FieldsPageVersion::DESCRIPTION
-                => Property::getString($options, self::OPTION_DESCRIPTION, $this->defaultDescription),
+                FieldsPageVersion::DESCRIPTION => Property::getString(
+                    $options,
+                    self::OPTION_DESCRIPTION,
+                    $this->defaultDescription
+                ),
 
-                FieldsPageVersion::KEYWORDS
-                => Property::getString($options, self::OPTION_KEYWORDS, $this->defaultKeywords),
+                FieldsPageVersion::KEYWORDS => Property::getString(
+                    $options,
+                    self::OPTION_KEYWORDS,
+                    $this->defaultKeywords
+                ),
 
-                FieldsPageVersion::LAYOUT
-                => Property::getString($options, self::OPTION_LAYOUT, null),
+                FieldsPageVersion::LAYOUT => Property::getString(
+                    $options,
+                    self::OPTION_LAYOUT,
+                    null
+                ),
 
-                FieldsPageVersion::PRE_RENDERED_HTML
-                => Property::getString($options, self::OPTION_HTML, ''),
+                FieldsPageVersion::PRE_RENDERED_HTML => Property::getString(
+                    $options,
+                    self::OPTION_HTML,
+                    ''
+                ),
 
                 // DEFAULT: 'html' AKA GetPageRenderTagsHtml
-                FieldsPageVersion::RENDER_TAGS_GETTER
-                => Property::getString($options, self::OPTION_RENDER_TAGS_GETTER, 'html'),
+                FieldsPageVersion::RENDER_TAGS_GETTER => Property::getString(
+                    $options,
+                    self::OPTION_RENDER_TAGS_GETTER,
+                    'html'
+                ),
 
-                FieldsPageVersion::CONTAINERS_DATA
-                => Property::getArray($options, self::OPTION_CONTAINERS_DATA, []),
+                FieldsPageVersion::CONTAINERS_DATA => Property::getArray(
+                    $options,
+                    self::OPTION_CONTAINERS_DATA,
+                    []
+                ),
                 FieldsPageVersion::PATH => $path,
                 FieldsPageVersion::SITE_CMS_RESOURCE_ID => $siteCmsResourceId,
             ],

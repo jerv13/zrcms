@@ -2,8 +2,6 @@
 
 namespace Zrcms\CoreView;
 
-use Zrcms\CoreView\Api\BuildView;
-use Zrcms\CoreView\Api\BuildViewBasicFactory;
 use Zrcms\CoreView\Api\GetApplicationStateView;
 use Zrcms\CoreView\Api\GetApplicationStateViewFactory;
 use Zrcms\CoreView\Api\GetLayoutCmsResource;
@@ -20,15 +18,7 @@ use Zrcms\CoreView\Api\GetTagNamesByLayoutMustache;
 use Zrcms\CoreView\Api\GetThemeName;
 use Zrcms\CoreView\Api\GetThemeNameBasicFactory;
 use Zrcms\CoreView\Api\GetViewByRequest;
-use Zrcms\CoreView\Api\GetViewByRequestBasic;
-use Zrcms\CoreView\Api\GetViewByRequestBasicFactory;
-use Zrcms\CoreView\Api\GetViewByRequestByPageVersion;
-use Zrcms\CoreView\Api\GetViewByRequestByPageVersionFactory;
-use Zrcms\CoreView\Api\GetViewByRequestCompositeFactory;
-use Zrcms\CoreView\Api\GetViewByRequestHtmlPage;
-use Zrcms\CoreView\Api\GetViewByRequestHtmlPageFactory;
-use Zrcms\CoreView\Api\MutateView;
-use Zrcms\CoreView\Api\MutateViewCompositeFactory;
+use Zrcms\CoreView\Api\GetViewByRequestDefaultFactory;
 use Zrcms\CoreView\Api\Render\GetViewLayoutTags;
 use Zrcms\CoreView\Api\Render\GetViewLayoutTagsBasicFactory;
 use Zrcms\CoreView\Api\Render\GetViewLayoutTagsContainers;
@@ -39,6 +29,28 @@ use Zrcms\CoreView\Api\Render\RenderView;
 use Zrcms\CoreView\Api\Render\RenderViewBasicFactory;
 use Zrcms\CoreView\Api\Render\RenderViewLayout;
 use Zrcms\CoreView\Api\Render\RenderViewLayoutFactory;
+use Zrcms\CoreView\Api\ViewBuilder\BuildRequestedView;
+use Zrcms\CoreView\Api\ViewBuilder\BuildRequestedViewByConfigFactory;
+use Zrcms\CoreView\Api\ViewBuilder\BuildViewDefault;
+use Zrcms\CoreView\Api\ViewBuilder\BuildViewDefaultFactory;
+use Zrcms\CoreView\Api\ViewBuilder\BuildViewDefaultPublishedAny;
+use Zrcms\CoreView\Api\ViewBuilder\BuildViewDefaultPublishedAnyFactory;
+use Zrcms\CoreView\Api\ViewBuilder\BuildViewHtmlPage;
+use Zrcms\CoreView\Api\ViewBuilder\BuildViewHtmlPageFactory;
+use Zrcms\CoreView\Api\ViewBuilder\BuildViewPageVersionId;
+use Zrcms\CoreView\Api\ViewBuilder\BuildViewPageVersionIdFactory;
+use Zrcms\CoreView\Api\ViewBuilder\DetermineViewStrategy;
+use Zrcms\CoreView\Api\ViewBuilder\DetermineViewStrategyCompositeFactory;
+use Zrcms\CoreView\Api\ViewBuilder\DetermineViewStrategyDefault;
+use Zrcms\CoreView\Api\ViewBuilder\DetermineViewStrategyDefaultFactory;
+use Zrcms\CoreView\Api\ViewBuilder\DetermineViewStrategyDefaultPublishedAny;
+use Zrcms\CoreView\Api\ViewBuilder\DetermineViewStrategyDefaultPublishedAnyFactory;
+use Zrcms\CoreView\Api\ViewBuilder\DetermineViewStrategyHtmlPage;
+use Zrcms\CoreView\Api\ViewBuilder\DetermineViewStrategyHtmlPageFactory;
+use Zrcms\CoreView\Api\ViewBuilder\DetermineViewStrategyPageVersionId;
+use Zrcms\CoreView\Api\ViewBuilder\DetermineViewStrategyPageVersionIdFactory;
+use Zrcms\CoreView\Api\ViewBuilder\MutateView;
+use Zrcms\CoreView\Api\ViewBuilder\MutateViewCompositeFactory;
 use Zrcms\CoreView\Api\ViewToArray;
 use Zrcms\CoreView\Api\ViewToArrayBasicFactory;
 
@@ -75,11 +87,45 @@ class ModuleConfig
                     ],
 
                     /**
+                     * Api/ViewBuilder
+                     */
+                    BuildRequestedView::class => [
+                        'factory' => BuildRequestedViewByConfigFactory::class,
+                    ],
+                    BuildViewDefault::class => [
+                        'factory' => BuildViewDefaultFactory::class,
+                    ],
+                    BuildViewDefaultPublishedAny::class => [
+                        'factory' => BuildViewDefaultPublishedAnyFactory::class,
+                    ],
+                    BuildViewHtmlPage::class => [
+                        'factory' => BuildViewHtmlPageFactory::class,
+                    ],
+                    BuildViewPageVersionId::class => [
+                        'factory' => BuildViewPageVersionIdFactory::class,
+                    ],
+                    DetermineViewStrategy::class => [
+                        'factory' => DetermineViewStrategyCompositeFactory::class,
+                    ],
+                    DetermineViewStrategyDefault::class => [
+                        'factory' => DetermineViewStrategyDefaultFactory::class,
+                    ],
+                    DetermineViewStrategyDefaultPublishedAny::class => [
+                        'factory' => DetermineViewStrategyDefaultPublishedAnyFactory::class,
+                    ],
+                    DetermineViewStrategyHtmlPage::class => [
+                        'factory' => DetermineViewStrategyHtmlPageFactory::class,
+                    ],
+                    DetermineViewStrategyPageVersionId::class => [
+                        'factory' => DetermineViewStrategyPageVersionIdFactory::class,
+                    ],
+                    MutateView::class => [
+                        'factory' => MutateViewCompositeFactory::class,
+                    ],
+
+                    /**
                      * Api
                      */
-                    BuildView::class => [
-                        'factory' => BuildViewBasicFactory::class,
-                    ],
                     GetApplicationStateView::class => [
                         'factory' => GetApplicationStateViewFactory::class,
                     ],
@@ -102,25 +148,9 @@ class ModuleConfig
                     GetThemeName::class => [
                         'factory' => GetThemeNameBasicFactory::class,
                     ],
-
                     GetViewByRequest::class => [
-                        'factory' => GetViewByRequestCompositeFactory::class,
+                        'factory' => GetViewByRequestDefaultFactory::class,
                     ],
-
-                    GetViewByRequestBasic::class => [
-                        'factory' => GetViewByRequestBasicFactory::class,
-                    ],
-                    GetViewByRequestByPageVersion::class => [
-                        'factory' => GetViewByRequestByPageVersionFactory::class,
-                    ],
-                    GetViewByRequestHtmlPage::class => [
-                        'factory' => GetViewByRequestHtmlPageFactory::class,
-                    ],
-
-                    MutateView::class => [
-                        'factory' => MutateViewCompositeFactory::class,
-                    ],
-
                     ViewToArray::class => [
                         'factory' => ViewToArrayBasicFactory::class,
                     ],

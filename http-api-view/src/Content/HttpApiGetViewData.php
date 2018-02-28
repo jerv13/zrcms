@@ -16,7 +16,6 @@ use Zrcms\CoreView\Model\View;
 use Zrcms\Http\Api\BuildMessageValue;
 use Zrcms\Http\Api\BuildResponseOptions;
 use Zrcms\Http\Response\ZrcmsJsonResponse;
-use Zrcms\HttpViewRender\Request\RequestWithGetViewOptions;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -37,6 +36,7 @@ class HttpApiGetViewData
     protected $viewToArray;
     protected $notFoundStatus;
     protected $badRequestStatus;
+    protected $getViewByRequestOptions;
     protected $debug;
 
     /**
@@ -44,6 +44,7 @@ class HttpApiGetViewData
      * @param ViewToArray      $viewToArray
      * @param int              $notFoundStatus
      * @param int              $badRequestStatus
+     * @param array            $getViewByRequestOptions
      * @param bool             $debug
      */
     public function __construct(
@@ -51,12 +52,14 @@ class HttpApiGetViewData
         ViewToArray $viewToArray,
         int $notFoundStatus = 404,
         int $badRequestStatus = 400,
+        array $getViewByRequestOptions = [],
         bool $debug
     ) {
         $this->getViewByRequest = $getViewByRequest;
         $this->viewToArray = $viewToArray;
         $this->notFoundStatus = $notFoundStatus;
         $this->badRequestStatus = $badRequestStatus;
+        $this->getViewByRequestOptions = $getViewByRequestOptions;
         $this->debug = $debug;
     }
 
@@ -94,11 +97,6 @@ class HttpApiGetViewData
             );
         }
 
-        $getViewOptions = $request->getAttribute(
-            RequestWithGetViewOptions::ATTRIBUTE_GET_VIEW_OPTIONS,
-            []
-        );
-
         $uri = new Uri(
             'https://' . $host . $path
         );
@@ -111,7 +109,7 @@ class HttpApiGetViewData
             /** @var View $view */
             $view = $this->getViewByRequest->__invoke(
                 $fakeRequest,
-                $getViewOptions
+                $this->getViewByRequestOptions
             );
         } catch (SiteNotFound $exception) {
             return new ZrcmsJsonResponse(

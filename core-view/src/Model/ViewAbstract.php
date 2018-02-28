@@ -19,36 +19,80 @@ abstract class ViewAbstract extends ContentAbstract implements View
 {
     use PropertiesTrait;
 
-    protected $siteCmsResource;
-    protected $pageCmsResource;
-    protected $layoutCmsResource;
+    /**
+     * @param SiteCmsResource   $siteCmsResource
+     * @param PageCmsResource   $pageCmsResource
+     * @param LayoutCmsResource $layoutCmsResource
+     * @param string            $strategy
+     * @param array             $properties
+     * @param string|null       $id
+     *
+     * @return View
+     */
+    public static function build(
+        SiteCmsResource $siteCmsResource,
+        PageCmsResource $pageCmsResource,
+        LayoutCmsResource $layoutCmsResource,
+        string $strategy,
+        array $properties,
+        $id = null
+    ): View {
+        $properties = [
+            FieldsView::SITE_CMS_RESOURCE
+            => $siteCmsResource,
+
+            FieldsView::PAGE_CMS_RESOURCE
+            => $pageCmsResource,
+
+            FieldsView::LAYOUT_CMS_RESOURCE
+            => $layoutCmsResource,
+
+            FieldsView::STRATEGY
+            => $strategy,
+        ];
+
+        if (empty($id)) {
+            $id = $siteCmsResource->getHost() . $pageCmsResource->getPath();
+        }
+
+        return new static(
+            $properties,
+            $id
+        );
+    }
 
     /**
      * @param array $properties
      * @param null  $id
      *
-     * @throws \Throwable
      * @throws \Reliv\ArrayProperties\Exception\ArrayPropertyException
+     * @throws \Throwable
      */
     public function __construct(
         array $properties,
         $id = null
     ) {
-        $this->siteCmsResource = Property::getRequired(
+        Property::assertHas(
             $properties,
             FieldsView::SITE_CMS_RESOURCE,
             get_class($this)
         );
 
-        $this->pageCmsResource = Property::getRequired(
+        Property::assertHas(
             $properties,
             FieldsView::PAGE_CMS_RESOURCE,
             get_class($this)
         );
 
-        $this->layoutCmsResource = Property::getRequired(
+        Property::assertHas(
             $properties,
             FieldsView::LAYOUT_CMS_RESOURCE,
+            get_class($this)
+        );
+
+        Property::assertHas(
+            $properties,
+            FieldsView::STRATEGY,
             get_class($this)
         );
 
@@ -63,7 +107,7 @@ abstract class ViewAbstract extends ContentAbstract implements View
      */
     public function getSiteCmsResource(): SiteCmsResource
     {
-        return $this->siteCmsResource;
+        return $this->findProperty(FieldsView::SITE_CMS_RESOURCE);
     }
 
     /**
@@ -71,7 +115,7 @@ abstract class ViewAbstract extends ContentAbstract implements View
      */
     public function getPageCmsResource(): PageCmsResource
     {
-        return $this->pageCmsResource;
+        return $this->findProperty(FieldsView::PAGE_CMS_RESOURCE);
     }
 
     /**
@@ -79,7 +123,15 @@ abstract class ViewAbstract extends ContentAbstract implements View
      */
     public function getLayoutCmsResource(): LayoutCmsResource
     {
-        return $this->layoutCmsResource;
+        return $this->findProperty(FieldsView::LAYOUT_CMS_RESOURCE);
+    }
+
+    /**
+     * @return string
+     */
+    public function getStrategy(): string
+    {
+        return $this->findProperty(FieldsView::STRATEGY);
     }
 
     /**

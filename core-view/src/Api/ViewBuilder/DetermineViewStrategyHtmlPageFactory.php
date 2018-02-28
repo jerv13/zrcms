@@ -1,28 +1,24 @@
 <?php
 
-namespace Zrcms\CoreView\Api;
+namespace Zrcms\CoreView\Api\ViewBuilder;
 
 use Psr\Container\ContainerInterface;
 
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class GetViewByRequestCompositeFactory
+class DetermineViewStrategyHtmlPageFactory
 {
     /**
      * @param ContainerInterface $serviceContainer
      *
-     * @return GetViewByRequestComposite
+     * @return DetermineViewStrategyHtmlPage
      * @throws \Psr\Container\ContainerExceptionInterface
      * @throws \Psr\Container\NotFoundExceptionInterface
      */
     public function __invoke(
         ContainerInterface $serviceContainer
     ) {
-        $appConfig = $serviceContainer->get('config');
-        return new GetViewByRequestComposite(
-            $appConfig['zrcms-get-view-by-request-api-list'],
-            $serviceContainer
-        );
+        return new DetermineViewStrategyHtmlPage();
     }
 }

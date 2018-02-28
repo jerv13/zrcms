@@ -28,6 +28,7 @@ class HttpApiGetViewDataFactory
             $serviceContainer->get(ViewToArray::class),
             404,
             400,
+            [],
             IsDebug::invoke()
         );
     }

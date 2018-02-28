@@ -1,6 +1,6 @@
 <?php
 
-namespace Zrcms\HttpViewRender\Request;
+namespace Zrcms\CoreView\Api\ViewBuilder;
 
 use Psr\Container\ContainerInterface;
 use Zrcms\Acl\Api\IsAllowedRcmUserSitesAdmin;
@@ -8,18 +8,19 @@ use Zrcms\Acl\Api\IsAllowedRcmUserSitesAdmin;
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class RequestWithGetViewOptionPublishedOnlyFactory
+class DetermineViewStrategyPageVersionIdFactory
 {
     /**
      * @param ContainerInterface $serviceContainer
      *
-     * @return RequestWithGetViewOptionPublishedOnly
+     * @return DetermineViewStrategyPageVersionId
      * @throws \Psr\Container\ContainerExceptionInterface
      * @throws \Psr\Container\NotFoundExceptionInterface
      */
-    public function __invoke(ContainerInterface $serviceContainer)
-    {
-        return new RequestWithGetViewOptionPublishedOnly(
+    public function __invoke(
+        ContainerInterface $serviceContainer
+    ) {
+        return new DetermineViewStrategyPageVersionId(
             $serviceContainer->get(IsAllowedRcmUserSitesAdmin::class),
             []
         );

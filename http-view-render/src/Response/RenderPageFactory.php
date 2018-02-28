@@ -24,7 +24,8 @@ class RenderPageFactory
         return new RenderPage(
             $serviceContainer->get(GetViewByRequest::class),
             $serviceContainer->get(GetViewLayoutTags::class),
-            $serviceContainer->get(RenderView::class)
+            $serviceContainer->get(RenderView::class),
+            []
         );
     }
 }

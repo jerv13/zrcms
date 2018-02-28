@@ -19,14 +19,18 @@ class RequestWithView
     const ATTRIBUTE_MESSAGE = 'zrcms-view-message';
 
     protected $getViewByRequest;
+    protected $getViewByRequestOptions;
 
     /**
      * @param GetViewByRequest $getViewByRequest
+     * @param array            $getViewByRequestOptions
      */
     public function __construct(
-        GetViewByRequest $getViewByRequest
+        GetViewByRequest $getViewByRequest,
+        array $getViewByRequestOptions = []
     ) {
         $this->getViewByRequest = $getViewByRequest;
+        $this->getViewByRequestOptions = $getViewByRequestOptions;
     }
 
     /**
@@ -44,16 +48,11 @@ class RequestWithView
     ) {
         $message = '';
 
-        $getViewOptions = $request->getAttribute(
-            RequestWithGetViewOptions::ATTRIBUTE_GET_VIEW_OPTIONS,
-            []
-        );
-
         try {
             /** @var View $view */
             $view = $this->getViewByRequest->__invoke(
                 $request,
-                $getViewOptions
+                $this->getViewByRequestOptions
             );
         } catch (SiteNotFound $exception) {
             $view = null;

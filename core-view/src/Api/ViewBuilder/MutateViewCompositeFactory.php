@@ -1,27 +1,31 @@
 <?php
 
-namespace Zrcms\CoreView\Api;
+namespace Zrcms\CoreView\Api\ViewBuilder;
 
 use Psr\Container\ContainerInterface;
 
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class GetApplicationStateViewFactory
+class MutateViewCompositeFactory
 {
     /**
      * @param ContainerInterface $serviceContainer
      *
-     * @return GetApplicationStateView
+     * @return MutateViewComposite
      * @throws \Psr\Container\ContainerExceptionInterface
      * @throws \Psr\Container\NotFoundExceptionInterface
      */
     public function __invoke(
         ContainerInterface $serviceContainer
     ) {
-        return new GetApplicationStateView(
-            $serviceContainer->get(GetViewByRequest::class),
-            []
+        $config = $serviceContainer->get('config');
+
+        $mutatorConfig = $config['zrcms-view-mutator'];
+
+        return new MutateViewComposite(
+            $mutatorConfig,
+            $serviceContainer
         );
     }
 }

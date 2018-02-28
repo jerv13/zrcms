@@ -20,20 +20,24 @@ class RenderPage
     protected $getViewByRequest;
     protected $getViewLayoutTags;
     protected $renderView;
+    protected $getViewByRequestOptions;
 
     /**
      * @param GetViewByRequest  $getViewByRequest
      * @param GetViewLayoutTags $getViewLayoutTags
      * @param RenderView        $renderView
+     * @param array             $getViewByRequestOptions
      */
     public function __construct(
         GetViewByRequest $getViewByRequest,
         GetViewLayoutTags $getViewLayoutTags,
-        RenderView $renderView
+        RenderView $renderView,
+        array $getViewByRequestOptions = []
     ) {
         $this->getViewByRequest = $getViewByRequest;
         $this->getViewLayoutTags = $getViewLayoutTags;
         $this->renderView = $renderView;
+        $this->getViewByRequestOptions = $getViewByRequestOptions;
     }
 
     /**
@@ -52,7 +56,8 @@ class RenderPage
         try {
             /** @var View $view */
             $view = $this->getViewByRequest->__invoke(
-                $request
+                $request,
+                $this->getViewByRequestOptions
             );
         } catch (SiteNotFound $exception) {
             return new HtmlResponse(

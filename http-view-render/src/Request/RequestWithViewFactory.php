@@ -20,7 +20,8 @@ class RequestWithViewFactory
     public function __invoke(ContainerInterface $serviceContainer)
     {
         return new RequestWithView(
-            $serviceContainer->get(GetViewByRequest::class)
+            $serviceContainer->get(GetViewByRequest::class),
+            []
         );
     }
 }

@@ -3,9 +3,9 @@
 namespace Zrcms\HttpViewRender\Response;
 
 use Psr\Container\ContainerInterface;
-use Zrcms\CoreView\Api\GetViewByRequestHtmlPage;
 use Zrcms\CoreView\Api\Render\GetViewLayoutTags;
 use Zrcms\CoreView\Api\Render\RenderView;
+use Zrcms\CoreView\Api\ViewBuilder\BuildViewHtmlPage;
 use Zrcms\Debug\IsDebug;
 use Zrcms\HttpViewRender\Router\LayoutThemeRouter;
 
@@ -24,7 +24,7 @@ class ResponseMutatorThemeLayoutWrapperFactory
     public function __invoke(ContainerInterface $serviceContainer)
     {
         return new ResponseMutatorThemeLayoutWrapper(
-            $serviceContainer->get(GetViewByRequestHtmlPage::class),
+            $serviceContainer->get(BuildViewHtmlPage::class),
             $serviceContainer->get(GetViewLayoutTags::class),
             $serviceContainer->get(RenderView::class),
             $serviceContainer->get(LayoutThemeRouter::class),

@@ -1,27 +1,31 @@
 <?php
 
-namespace Zrcms\CoreView\Api;
+namespace Zrcms\CoreView\Api\ViewBuilder;
 
 use Psr\Container\ContainerInterface;
 
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class GetApplicationStateViewFactory
+class DetermineViewStrategyCompositeFactory
 {
     /**
      * @param ContainerInterface $serviceContainer
      *
-     * @return GetApplicationStateView
+     * @return DetermineViewStrategyComposite
      * @throws \Psr\Container\ContainerExceptionInterface
      * @throws \Psr\Container\NotFoundExceptionInterface
      */
     public function __invoke(
         ContainerInterface $serviceContainer
     ) {
-        return new GetApplicationStateView(
-            $serviceContainer->get(GetViewByRequest::class),
-            []
+        $appConfig = $serviceContainer->get('config');
+
+        $config = $appConfig['zrcms-view-determine-strategy'];
+
+        return new DetermineViewStrategyComposite(
+            $config,
+            $serviceContainer
         );
     }
 }

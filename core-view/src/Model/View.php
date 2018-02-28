@@ -8,12 +8,29 @@ use Zrcms\CoreSite\Model\SiteCmsResource;
 use Zrcms\CoreTheme\Model\LayoutCmsResource;
 
 /**
- * ViewModel
- *
  * @author James Jervis - https://github.com/jerv13
  */
 interface View extends Content
 {
+    /**
+     * @param SiteCmsResource   $siteCmsResource
+     * @param PageCmsResource   $pageCmsResource
+     * @param LayoutCmsResource $layoutCmsResource
+     * @param string            $strategy
+     * @param array             $properties
+     * @param string|null       $id
+     *
+     * @return View
+     */
+    public static function build(
+        SiteCmsResource $siteCmsResource,
+        PageCmsResource $pageCmsResource,
+        LayoutCmsResource $layoutCmsResource,
+        string $strategy,
+        array $properties,
+        $id = null
+    ): View;
+
     /**
      * @return SiteCmsResource
      */
@@ -28,6 +45,11 @@ interface View extends Content
      * @return LayoutCmsResource
      */
     public function getLayoutCmsResource(): LayoutCmsResource;
+
+    /**
+     * @return string
+     */
+    public function getStrategy(): string;
 
     /**
      * @param string $name

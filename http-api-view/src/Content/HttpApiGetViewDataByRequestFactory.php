@@ -30,6 +30,7 @@ class HttpApiGetViewDataByRequestFactory
             [],
             404,
             401,
+            [],
             IsDebug::invoke()
         );
     }

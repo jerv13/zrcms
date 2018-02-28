@@ -1,34 +1,24 @@
 <?php
 
-namespace Zrcms\CoreView\Api;
+namespace Zrcms\CoreView\Api\ViewBuilder;
 
 use Psr\Container\ContainerInterface;
 
 /**
- * @todo   This may NOT be needed
- *
  * @author James Jervis - https://github.com/jerv13
  */
-class MutateViewCompositeFactory
+class DetermineViewStrategyDefaultFactory
 {
     /**
      * @param ContainerInterface $serviceContainer
      *
-     * @return MutateViewComposite
+     * @return DetermineViewStrategyDefault
      * @throws \Psr\Container\ContainerExceptionInterface
      * @throws \Psr\Container\NotFoundExceptionInterface
      */
     public function __invoke(
         ContainerInterface $serviceContainer
     ) {
-        $config = $serviceContainer->get('config');
-
-        $viewBuilders = $config['zrcms-view-mutator'];
-
-        $viewBuilder = new MutateViewComposite();
-
-        $viewBuilder->addMulti($viewBuilders);
-
-        return $viewBuilder;
+        return new DetermineViewStrategyDefault();
     }
 }

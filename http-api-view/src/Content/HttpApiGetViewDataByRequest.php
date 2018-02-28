@@ -4,6 +4,7 @@ namespace Zrcms\HttpApiView\Content;
 
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
+use Reliv\ArrayProperties\Property;
 use Zend\Diactoros\Response\JsonResponse;
 use Zrcms\Acl\Api\IsAllowed;
 use Zrcms\CoreView\Api\GetViewByRequest;
@@ -16,8 +17,6 @@ use Zrcms\CoreView\Model\View;
 use Zrcms\Http\Api\BuildMessageValue;
 use Zrcms\Http\Api\BuildResponseOptions;
 use Zrcms\Http\Response\ZrcmsJsonResponse;
-use Reliv\ArrayProperties\Property;
-use Zrcms\HttpViewRender\Request\RequestWithGetViewOptions;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -38,6 +37,7 @@ class HttpApiGetViewDataByRequest
     protected $viewToArray;
     protected $notFoundStatus;
     protected $notAllowedStatus;
+    protected $getViewByRequestOptions;
     protected $debug;
 
     /**
@@ -47,6 +47,7 @@ class HttpApiGetViewDataByRequest
      * @param array            $isAllowedOptions
      * @param int              $notFoundStatus
      * @param int              $notAllowedStatus
+     * @param array            $getViewByRequestOptions
      * @param bool             $debug
      */
     public function __construct(
@@ -56,6 +57,7 @@ class HttpApiGetViewDataByRequest
         array $isAllowedOptions = [],
         int $notFoundStatus = 404,
         int $notAllowedStatus = 401,
+        array $getViewByRequestOptions = [],
         bool $debug
     ) {
         $this->isAllowed = $isAllowed;
@@ -64,6 +66,7 @@ class HttpApiGetViewDataByRequest
         $this->viewToArray = $viewToArray;
         $this->notFoundStatus = $notFoundStatus;
         $this->notAllowedStatus = $notAllowedStatus;
+        $this->getViewByRequestOptions = $getViewByRequestOptions;
         $this->debug = $debug;
     }
 
@@ -113,16 +116,11 @@ class HttpApiGetViewDataByRequest
             );
         }
 
-        $getViewOptions = $request->getAttribute(
-            RequestWithGetViewOptions::ATTRIBUTE_GET_VIEW_OPTIONS,
-            []
-        );
-
         try {
             /** @var View $view */
             $view = $this->getViewByRequest->__invoke(
                 $request,
-                $getViewOptions
+                $this->getViewByRequestOptions
             );
         } catch (SiteNotFound $exception) {
             return new ZrcmsJsonResponse(

@@ -6,10 +6,10 @@ use Zrcms\HttpViewRender\FinalHandler\HttpNotFoundFinal;
 use Zrcms\HttpViewRender\FinalHandler\HttpNotFoundFinalFactory;
 use Zrcms\HttpViewRender\FinalHandler\HttpNotFoundStatusPage;
 use Zrcms\HttpViewRender\FinalHandler\HttpNotFoundStatusPageFactory;
-use Zrcms\HttpViewRender\Request\RequestWithGetViewOptionPageVersionId;
-use Zrcms\HttpViewRender\Request\RequestWithGetViewOptionPageVersionIdFactory;
-use Zrcms\HttpViewRender\Request\RequestWithGetViewOptionPublishedOnly;
-use Zrcms\HttpViewRender\Request\RequestWithGetViewOptionPublishedOnlyFactory;
+use Zrcms\HttpViewRender\Acl\HttpIsAllowedViewStrategyPageVersionId;
+use Zrcms\HttpViewRender\Acl\HttpIsAllowedViewStrategyPageVersionIdFactory;
+use Zrcms\HttpViewRender\Acl\HttpIsAllowedViewStrategyPublishedAny;
+use Zrcms\HttpViewRender\Acl\HttpIsAllowedViewStrategyPublishedAnyFactory;
 use Zrcms\HttpViewRender\Request\RequestWithIdentifier;
 use Zrcms\HttpViewRender\Request\RequestWithIdentifierFactory;
 use Zrcms\HttpViewRender\Request\RequestWithOriginalUri;
@@ -43,7 +43,7 @@ class ModuleConfig
                      * Acl ===========================================
                      */
                     /* ACL EXAMPLE *
-                    IsAllowedCheck::class => [
+                    HttpIsAllowed::class => [
                         'arguments' => [
                             IsAllowedRcmUser::class,
                             [
@@ -55,6 +55,14 @@ class ModuleConfig
                         ],
                     ],
                     /* */
+
+                    HttpIsAllowedViewStrategyPageVersionId::class => [
+                        'factory' => HttpIsAllowedViewStrategyPageVersionIdFactory::class,
+                    ],
+
+                    HttpIsAllowedViewStrategyPublishedAny::class => [
+                        'factory' => HttpIsAllowedViewStrategyPublishedAnyFactory::class,
+                    ],
 
                     /**
                      * FinalHandler ===========================================
@@ -70,14 +78,6 @@ class ModuleConfig
                     /**
                      * Request ===========================================
                      */
-                    RequestWithGetViewOptionPageVersionId::class => [
-                        'factory' => RequestWithGetViewOptionPageVersionIdFactory::class,
-                    ],
-
-                    RequestWithGetViewOptionPublishedOnly::class => [
-                        'factory' => RequestWithGetViewOptionPublishedOnlyFactory::class,
-                    ],
-
                     RequestWithIdentifier::class => [
                         'factory' => RequestWithIdentifierFactory::class,
                     ],
