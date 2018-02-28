@@ -76,16 +76,9 @@ class ResponseMutatorStatusPage
             return $response;
         }
 
-        $statusCode = $response->getStatusCode();
-
-        if ($statusCode == 200 && empty($response->getBody()->getContents())) {
-            // @todo 204 No Content
-            $statusCode = 404;
-        };
-
         $statusPage = $this->getStatusPage->__invoke(
             $request,
-            $statusCode
+            $response->getStatusCode()
         );
 
         if (empty($statusPage)) {
@@ -136,10 +129,6 @@ class ResponseMutatorStatusPage
     ): bool {
         if (!IsValidContentType::invoke($response, $this->validContentTypes)) {
             return false;
-        }
-
-        if (empty($response->getBody()->getContents())) {
-            return true;
         }
 
         if (in_array($response->getStatusCode(), $this->statusBlackList)) {

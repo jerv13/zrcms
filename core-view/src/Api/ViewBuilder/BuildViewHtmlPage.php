@@ -122,7 +122,10 @@ class BuildViewHtmlPage implements BuildView
             $siteCmsResource,
             $pageCmsResource,
             $layoutCmsResource,
-
+            Property::getString(
+                $options,
+                self::OPTION_VIEW_STRATEGY
+            ),
             Property::getArray(
                 $options,
                 self::OPTION_VIEW_PROPERTIES,
