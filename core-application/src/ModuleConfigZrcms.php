@@ -17,6 +17,7 @@ use Zrcms\CoreApplication\Api\Component\ReadComponentConfigCallable;
 use Zrcms\CoreApplication\Api\Component\ReadComponentConfigJsonFile;
 use Zrcms\CoreApplication\Api\Component\ReadComponentConfigPhpFile;
 use Zrcms\CoreApplication\Api\Component\ReadComponentRegistryBasic;
+use Zrcms\ValidationRatZrcms\Api\Validator\ValidateIsZrcmsServiceAlias;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -49,8 +50,8 @@ class ModuleConfigZrcms
              * ['{model-name}' => '{model-class}']
              */
             'field-rat-fields-model' => [
-                'component' => FieldsComponent::class,
-                'component-config' => FieldsComponentConfig::class,
+                FieldsComponent::FIELD_MODEL_NAME => FieldsComponent::class,
+                FieldsComponentConfig::FIELD_MODEL_NAME => FieldsComponentConfig::class,
                 'content' => FieldsContent::class,
                 'content-version' => FieldsContentVersion::class,
             ],
@@ -67,7 +68,10 @@ class ModuleConfigZrcms
                         'label' => 'Component Config Reader',
                         'required' => false,
                         'default' => 'json',
-                        'options' => [],
+                        'options' => [
+                            ValidateIsZrcmsServiceAlias::OPTION_SERVICE_ALIAS_NAMESPACE
+                            => ServiceAliasComponent::ZRCMS_COMPONENT_CONFIG_READER
+                        ],
                     ],
                     [
                         'name' => FieldsComponent::COMPONENT_CLASS,
@@ -94,7 +98,7 @@ class ModuleConfigZrcms
                         'options' => [],
                     ],
                 ],
-                'component-config' => [
+                FieldsComponentConfig::FIELD_MODEL_NAME => [
                     [
                         'name' => FieldsComponentConfig::TYPE,
                         'type' => 'text',
@@ -129,7 +133,7 @@ class ModuleConfigZrcms
                     ],
                     [
                         'name' => FieldsComponentConfig::CREATED_BY_USER_ID,
-                        'type' => 'zrcms-service',
+                        'type' => 'string',
                         'label' => 'Created By User ID',
                         'required' => false,
                         'default' => Trackable::UNKNOWN_USER_ID,
@@ -157,7 +161,10 @@ class ModuleConfigZrcms
                         'label' => 'Component Config Reader',
                         'required' => false,
                         'default' => 'json',
-                        'options' => [],
+                        'options' => [
+                            ValidateIsZrcmsServiceAlias::OPTION_SERVICE_ALIAS_NAMESPACE
+                            => ServiceAliasComponent::ZRCMS_COMPONENT_CONFIG_READER
+                        ],
                     ],
                     [
                         'name' => FieldsComponentConfig::COMPONENT_CLASS,

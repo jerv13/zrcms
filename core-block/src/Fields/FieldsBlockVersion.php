@@ -9,4 +9,5 @@ use Reliv\FieldRat\Model\Fields;
  */
 class FieldsBlockVersion extends FieldsBlock implements Fields
 {
+    const FIELD_MODEL_NAME = 'block-version';
 }

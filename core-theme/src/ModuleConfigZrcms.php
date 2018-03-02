@@ -34,11 +34,11 @@ class ModuleConfigZrcms
              * ['{model-name}' => '{model-class}']
              */
             'field-rat-fields-model' => [
-                'layout-component' => FieldsLayoutComponent::class,
-                'layout-component-config' => FieldsLayoutComponentConfig::class,
-                'layout-version' => FieldsLayoutVersion::class,
-                'theme-component' => FieldsThemeComponent::class,
-                'theme-component-config' => FieldsThemeComponentConfig::class,
+                FieldsLayoutComponent::FIELD_MODEL_NAME => FieldsLayoutComponent::class,
+                FieldsLayoutComponentConfig::FIELD_MODEL_NAME => FieldsLayoutComponentConfig::class,
+                FieldsLayoutVersion::FIELD_MODEL_NAME => FieldsLayoutVersion::class,
+                FieldsThemeComponent::FIELD_MODEL_NAME => FieldsThemeComponent::class,
+                FieldsThemeComponentConfig::FIELD_MODEL_NAME => FieldsThemeComponentConfig::class,
             ],
 
             /**
@@ -46,11 +46,11 @@ class ModuleConfigZrcms
              * ['{model-name}' => '{extends-model-name}']
              */
             'field-rat-fields-model-extends' => [
-                'layout-component' => 'component',
-                'layout-component-config' => 'component-config',
-                'layout-version' => 'content-version',
-                'theme-component' => 'component',
-                'theme-component-config' => 'component-config',
+                FieldsLayoutComponent::FIELD_MODEL_NAME => 'component',
+                FieldsLayoutComponentConfig::FIELD_MODEL_NAME => 'component-config',
+                FieldsLayoutVersion::FIELD_MODEL_NAME => 'content-version',
+                FieldsThemeComponent::FIELD_MODEL_NAME => 'component',
+                FieldsThemeComponentConfig::FIELD_MODEL_NAME => 'component-config',
             ],
 
             /**
@@ -100,7 +100,7 @@ class ModuleConfigZrcms
                         'options' => [],
                     ],
                 ],
-                'layout-component-config' => [
+                FieldsLayoutComponentConfig::FIELD_MODEL_NAME => [
                     [
                         'name' => FieldsLayoutComponentConfig::TYPE,
                         'type' => 'text',
@@ -190,9 +190,9 @@ class ModuleConfigZrcms
                         'options' => [],
                     ],
                 ],
-                'layout-version' => [
+                FieldsLayoutVersion::FIELD_MODEL_NAME => [
                     [
-                        'name' => fieldsLayoutVersion::THEME_NAME,
+                        'name' => FieldsLayoutVersion::THEME_NAME,
                         'type' => 'text',
                         'label' => 'Theme Name',
                         'required' => true,
@@ -200,7 +200,7 @@ class ModuleConfigZrcms
                         'options' => [],
                     ],
                     [
-                        'name' => fieldsLayoutVersion::NAME,
+                        'name' => FieldsLayoutVersion::NAME,
                         'type' => 'text',
                         'label' => 'Layout Name',
                         'required' => true,
@@ -208,7 +208,7 @@ class ModuleConfigZrcms
                         'options' => [],
                     ],
                     [
-                        'name' => fieldsLayoutVersion::RENDERER,
+                        'name' => FieldsLayoutVersion::RENDERER,
                         'type' => 'zrcms-service',
                         'label' => 'Renderer',
                         'required' => false,
@@ -216,7 +216,7 @@ class ModuleConfigZrcms
                         'options' => [],
                     ],
                     [
-                        'name' => fieldsLayoutVersion::RENDER_TAGS_GETTER,
+                        'name' => FieldsLayoutVersion::RENDER_TAGS_GETTER,
                         'type' => 'zrcms-service',
                         'label' => 'Render Tags Getter (GetRenderTags)',
                         'required' => false,
@@ -224,7 +224,7 @@ class ModuleConfigZrcms
                         'options' => [],
                     ],
                     [
-                        'name' => fieldsLayoutVersion::RENDER_TAG_NAME_PARSER,
+                        'name' => FieldsLayoutVersion::RENDER_TAG_NAME_PARSER,
                         'type' => 'zrcms-service',
                         'label' => 'Tag Name Parser',
                         'required' => false,
@@ -232,7 +232,7 @@ class ModuleConfigZrcms
                         'options' => [],
                     ],
                     [
-                        'name' => fieldsLayoutVersion::HTML,
+                        'name' => FieldsLayoutVersion::HTML,
                         'type' => 'text',
                         'label' => 'Template HTML',
                         'required' => true,
@@ -240,17 +240,17 @@ class ModuleConfigZrcms
                         'options' => [],
                     ],
                 ],
-                'theme-component' => [
+                FieldsThemeComponent::FIELD_MODEL_NAME => [
                     [
-                        'name' => fieldsThemeComponent::PRIMARY_LAYOUT_NAME,
+                        'name' => FieldsThemeComponent::PRIMARY_LAYOUT_NAME,
                         'type' => 'text',
                         'label' => 'Primary Layout Name',
                         'required' => true,
-                        'default' => fieldsThemeComponent::DEFAULT_PRIMARY_LAYOUT_NAME,
+                        'default' => FieldsThemeComponent::DEFAULT_PRIMARY_LAYOUT_NAME,
                         'options' => [],
                     ],
                     [
-                        'name' => fieldsThemeComponent::LAYOUT_VARIATIONS,
+                        'name' => FieldsThemeComponent::LAYOUT_VARIATIONS,
                         'type' => 'array',
                         'label' => 'Layout Variation Locations',
                         'required' => true,
@@ -258,9 +258,9 @@ class ModuleConfigZrcms
                         'options' => [],
                     ],
                 ],
-                'theme-component-config' => [
+                FieldsThemeComponentConfig::FIELD_MODEL_NAME => [
                     [
-                        'name' => fieldsThemeComponentConfig::TYPE,
+                        'name' => FieldsThemeComponentConfig::TYPE,
                         'type' => 'text',
                         'label' => 'Component Type',
                         'required' => true,
@@ -268,7 +268,7 @@ class ModuleConfigZrcms
                         'options' => [],
                     ],
                     [
-                        'name' => fieldsThemeComponentConfig::NAME,
+                        'name' => FieldsThemeComponentConfig::NAME,
                         'type' => 'text',
                         'label' => 'Name',
                         'required' => true,
@@ -276,7 +276,7 @@ class ModuleConfigZrcms
                         'options' => [],
                     ],
                     [
-                        'name' => fieldsThemeComponentConfig::CREATED_BY_USER_ID,
+                        'name' => FieldsThemeComponentConfig::CREATED_BY_USER_ID,
                         'type' => 'zrcms-service',
                         'label' => 'Created By User ID',
                         'required' => false,
@@ -284,7 +284,7 @@ class ModuleConfigZrcms
                         'options' => [],
                     ],
                     [
-                        'name' => fieldsThemeComponentConfig::CREATED_REASON,
+                        'name' => FieldsThemeComponentConfig::CREATED_REASON,
                         'type' => 'class',
                         'label' => 'Component Class',
                         'required' => false,
@@ -292,7 +292,7 @@ class ModuleConfigZrcms
                         'options' => [],
                     ],
                     [
-                        'name' => fieldsThemeComponentConfig::COMPONENT_CONFIG_READER,
+                        'name' => FieldsThemeComponentConfig::COMPONENT_CONFIG_READER,
                         'type' => 'zrcms-service',
                         'label' => 'Component Config Reader',
                         'required' => false,
@@ -300,7 +300,7 @@ class ModuleConfigZrcms
                         'options' => [],
                     ],
                     [
-                        'name' => fieldsThemeComponentConfig::COMPONENT_CLASS,
+                        'name' => FieldsThemeComponentConfig::COMPONENT_CLASS,
                         'type' => 'class',
                         'label' => 'Component Class',
                         'required' => false,
@@ -308,11 +308,11 @@ class ModuleConfigZrcms
                         'options' => [],
                     ],
                     [
-                        'name' => fieldsThemeComponentConfig::PRIMARY_LAYOUT,
+                        'name' => FieldsThemeComponentConfig::PRIMARY_LAYOUT,
                         'type' => 'text',
                         'label' => 'Primary Layout Name',
                         'required' => true,
-                        'default' => fieldsThemeComponentConfig::DEFAULT_PRIMARY_LAYOUT_NAME,
+                        'default' => FieldsThemeComponentConfig::DEFAULT_PRIMARY_LAYOUT_NAME,
                         'options' => [],
                     ],
                 ],

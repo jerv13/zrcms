@@ -31,6 +31,7 @@ interface UpsertCmsResource
      */
     public function __invoke(
         CmsResource $cmsResource,
+        string $contentVersionId,
         string $modifiedByUserId,
         string $publishReason,
         $publishDate = null

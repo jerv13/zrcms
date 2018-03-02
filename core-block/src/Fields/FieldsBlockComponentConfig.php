@@ -9,6 +9,8 @@ use Zrcms\Core\Fields\FieldsComponentConfig;
  */
 class FieldsBlockComponentConfig extends FieldsComponentConfig
 {
+    const FIELD_MODEL_NAME = 'block-component-config';
+
     const DEFAULT_CONFIG = FieldsBlockComponent::DEFAULT_CONFIG;
     const CACHEABLE = FieldsBlockComponent::CACHEABLE;
 

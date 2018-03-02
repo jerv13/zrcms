@@ -27,7 +27,7 @@ class ModuleConfigZrcms
              * ['{model-name}' => '{model-class}']
              */
             'field-rat-fields-model' => [
-                'http-status-pages-component' => FieldsHttpStatusPagesComponent::class,
+                FieldsHttpStatusPagesComponent::FIELD_MODEL_NAME => FieldsHttpStatusPagesComponent::class,
             ],
 
             /**
@@ -35,7 +35,7 @@ class ModuleConfigZrcms
              * ['{model-name}' => '{extends-model-name}']
              */
             'field-rat-fields-model-extends' => [
-                'http-status-pages-component' => 'component',
+                FieldsHttpStatusPagesComponent::FIELD_MODEL_NAME => 'component',
             ],
 
             /**

@@ -187,6 +187,7 @@ class UpsertCmsResource extends ApiAbstract implements \Zrcms\Core\Api\CmsResour
         );
 
         if (empty($cmsResourceEntity)) {
+            return null;
             throw new CmsResourceNotExists(
                 'CmsResource not found with ID: (' . $cmsResourceId . ')'
             );
@@ -245,6 +246,7 @@ class UpsertCmsResource extends ApiAbstract implements \Zrcms\Core\Api\CmsResour
         );
 
         if (empty($existingContentVersion)) {
+            return null;
             throw new ContentVersionNotExists(
                 'Content Version not found with ID: (' . $contentVersionId . ')'
             );

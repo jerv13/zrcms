@@ -25,7 +25,7 @@ class ModuleConfigZrcms
              * ['{model-name}' => '{model-class}']
              */
             'field-rat-fields-model' => [
-                'page-version' => FieldsPageVersion::class,
+                FieldsPageVersion::FIELD_MODEL_NAME => FieldsPageVersion::class,
             ],
 
             /**
@@ -33,7 +33,7 @@ class ModuleConfigZrcms
              * ['{model-name}' => '{extends-model-name}']
              */
             'field-rat-fields-model-extends' => [
-                'page-version' => 'content-version',
+                FieldsPageVersion::FIELD_MODEL_NAME => 'content-version',
             ],
 
             /**

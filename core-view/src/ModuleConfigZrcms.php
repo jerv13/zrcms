@@ -47,8 +47,8 @@ class ModuleConfigZrcms
              * ['{model-name}' => '{model-class}']
              */
             'field-rat-fields-model' => [
-                'view' => FieldsView::class,
-                'view-layout-tags-component' => FieldsViewLayoutTagsComponent::class,
+                FieldsView::FIELD_MODEL_NAME => FieldsView::class,
+                FieldsViewLayoutTagsComponent::FIELD_MODEL_NAME => FieldsViewLayoutTagsComponent::class,
             ],
 
             /**
@@ -56,8 +56,8 @@ class ModuleConfigZrcms
              * ['{model-name}' => '{extends-model-name}']
              */
             'field-rat-fields-model-extends' => [
-                'view' => 'content',
-                'view-layout-tags-component' => 'component',
+                FieldsView::FIELD_MODEL_NAME => 'content',
+                FieldsViewLayoutTagsComponent::FIELD_MODEL_NAME => 'component',
             ],
 
             /**
@@ -99,7 +99,7 @@ class ModuleConfigZrcms
                         'options' => [],
                     ],
                 ],
-                'view-layout-tags-component' => [
+                FieldsViewLayoutTagsComponent::FIELD_MODEL_NAME => [
                     [
                         'name' => FieldsViewLayoutTagsComponent::RENDER_TAGS_GETTER,
                         'type' => 'zrcms-service',
@@ -168,7 +168,6 @@ class ModuleConfigZrcms
             'zrcms-view-mutator' => [
                 // '{service-name}' => '{priority}'
             ],
-
 
             /**
              * ===== ZRCMS Types =====

@@ -39,9 +39,9 @@ class ModuleConfigZrcms
              * ['{model-name}' => '{model-class}']
              */
             'field-rat-fields-model' => [
-                'block-component' => FieldsBlockComponent::class,
-                'block-component-config' => FieldsBlockComponentConfig::class,
-                'block-version' => FieldsBlockVersion::class,
+                FieldsBlockComponent::FIELD_MODEL_NAME => FieldsBlockComponent::class,
+                FieldsBlockComponentConfig::FIELD_MODEL_NAME => FieldsBlockComponentConfig::class,
+                FieldsBlockVersion::FIELD_MODEL_NAME => FieldsBlockVersion::class,
             ],
 
             /**
@@ -49,9 +49,9 @@ class ModuleConfigZrcms
              * ['{model-name}' => '{extends-model-name}']
              */
             'field-rat-fields-model-extends' => [
-                'block-component' => 'component',
-                'block-component-config' => 'component-config',
-                'block-version' => 'content-version'
+                FieldsBlockComponent::FIELD_MODEL_NAME => 'component',
+                FieldsBlockComponentConfig::FIELD_MODEL_NAME => 'component-config',
+                FieldsBlockVersion::FIELD_MODEL_NAME => 'content-version'
             ],
 
             /**
@@ -181,7 +181,7 @@ class ModuleConfigZrcms
                         'options' => [],
                     ],
                 ],
-                'block-component-config' => [
+                FieldsBlockComponentConfig::FIELD_MODEL_NAME => [
                     [
                         'name' => FieldsBlockComponentConfig::TYPE,
                         'type' => 'text',
@@ -319,7 +319,7 @@ class ModuleConfigZrcms
                         'options' => [],
                     ],
                 ],
-                'block-version' => [
+                FieldsBlockVersion::FIELD_MODEL_NAME => [
                     [
                         'name' => FieldsBlockVersion::CONTAINER_VERSION_ID,
                         'type' => 'string',

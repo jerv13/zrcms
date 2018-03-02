@@ -62,6 +62,7 @@ class ValidateIsZrcmsServiceAlias implements Validate
             []
         );
 
+        // Namespace might be available if this is a field type (field-rat) validation
         $fieldConfigNamespace = Property::getArray(
             $fieldConfigOptions,
             self::OPTION_SERVICE_ALIAS_NAMESPACE,
@@ -73,6 +74,12 @@ class ValidateIsZrcmsServiceAlias implements Validate
             self::OPTION_SERVICE_ALIAS_NAMESPACE,
             $fieldConfigNamespace
         );
+
+        if (empty($namespace)) {
+            throw new \Exception(
+                'Service Alias namespace is required'
+            );
+        }
 
         $registry = $this->getServiceAliasRegistry->__invoke();
 

@@ -9,6 +9,8 @@ use Zrcms\Core\Fields\FieldsComponent;
  */
 class FieldsThemeComponent extends FieldsComponent
 {
+    const FIELD_MODEL_NAME = 'theme-component';
+
     const PRIMARY_LAYOUT_NAME = 'primaryLayoutName';
     const LAYOUT_VARIATIONS = 'layoutVariations';
 

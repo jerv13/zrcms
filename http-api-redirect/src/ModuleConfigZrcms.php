@@ -16,6 +16,7 @@ use Zrcms\CoreRedirect\Api\CmsResourceHistory\FindRedirectCmsResourceHistoryBy;
 use Zrcms\CoreRedirect\Api\Content\FindRedirectVersion;
 use Zrcms\CoreRedirect\Api\Content\FindRedirectVersionsBy;
 use Zrcms\CoreRedirect\Api\Content\InsertRedirectVersion;
+use Zrcms\CoreRedirect\Fields\FieldsRedirectVersion;
 use Zrcms\ValidationRatZrcms\Api\FieldValidator\ValidateFieldsUpsertCmsResourceData;
 use Zrcms\ValidationRatZrcms\Api\FieldValidator\ValidateFieldsInsertContentVersionData;
 
@@ -85,7 +86,11 @@ class ModuleConfigZrcms
                         ],
                         'fields-validator' => [
                             'fields-validator' => ValidateFieldsUpsertCmsResourceData::class,
-                            'fields-validator-options' => [],
+                            'fields-validator-options' => [
+                                'fields-validator-options-insert-content-version-properties' => [
+                                    'fields-model-name' => FieldsRedirectVersion::FIELD_MODEL_NAME
+                                ],
+                            ],
                             'not-valid-status' => 400,
                         ],
                         'api' => [
@@ -158,7 +163,11 @@ class ModuleConfigZrcms
                         ],
                         'fields-validator' => [
                             'fields-validator' => ValidateFieldsInsertContentVersionData::class,
-                            'fields-validator-options' => [],
+                            'fields-validator-options' => [
+                                'fields-validator-options-properties' => [
+                                    'fields-model-name' => FieldsRedirectVersion::FIELD_MODEL_NAME
+                                ],
+                            ],
                             'not-valid-status' => 400,
                         ],
                         'api' => [

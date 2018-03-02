@@ -1,14 +1,12 @@
 @todo
 =====
-const OPTION_CODES = BuildOptionCode::OPTION_CODES;
-BuildOptionCode::invoke($options, 
-static::
-)
+/zrcms/api/cms-resource/{resource-type}/upsert{/resource-id}{/version-id}
 
-Page duplicate URL - warn on client
-Render unpublished page for admin /admin-tools/
+- top level codes?
+- wire service alias ns in field configs
+'type' => 'zrcms-service'
 
-/{some-path}/?version={versionId}
+const FIELD_MODEL_NAME = 
 
 Case 1: New Page - form 
 

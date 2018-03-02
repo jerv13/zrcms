@@ -16,8 +16,9 @@ use Zrcms\CoreTheme\Api\CmsResourceHistory\FindLayoutCmsResourceHistoryBy;
 use Zrcms\CoreTheme\Api\Content\FindLayoutVersion;
 use Zrcms\CoreTheme\Api\Content\FindLayoutVersionsBy;
 use Zrcms\CoreTheme\Api\Content\InsertLayoutVersion;
-use Zrcms\ValidationRatZrcms\Api\FieldValidator\ValidateFieldsUpsertCmsResourceData;
+use Zrcms\CoreTheme\Fields\FieldsLayoutVersion;
 use Zrcms\ValidationRatZrcms\Api\FieldValidator\ValidateFieldsInsertContentVersionData;
+use Zrcms\ValidationRatZrcms\Api\FieldValidator\ValidateFieldsUpsertCmsResourceData;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -85,7 +86,11 @@ class ModuleConfigZrcms
                         ],
                         'fields-validator' => [
                             'fields-validator' => ValidateFieldsUpsertCmsResourceData::class,
-                            'fields-validator-options' => [],
+                            'fields-validator-options' => [
+                                'fields-validator-options-insert-content-version-properties' => [
+                                    'fields-model-name' => FieldsLayoutVersion::FIELD_MODEL_NAME
+                                ],
+                            ],
                             'not-valid-status' => 400,
                         ],
                         'api' => [
@@ -158,7 +163,11 @@ class ModuleConfigZrcms
                         ],
                         'fields-validator' => [
                             'fields-validator' => ValidateFieldsInsertContentVersionData::class,
-                            'fields-validator-options' => [],
+                            'fields-validator-options' => [
+                                'fields-validator-options-properties' => [
+                                    'fields-model-name' => FieldsLayoutVersion::FIELD_MODEL_NAME
+                                ],
+                            ],
                             'not-valid-status' => 400,
                         ],
                         'api' => [

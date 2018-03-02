@@ -3,10 +3,12 @@
 namespace Zrcms\ValidationRatZrcms\Api\FieldValidator;
 
 use Reliv\ArrayProperties\Property;
+use Reliv\ValidationRat\Api\AddValidationResult;
 use Reliv\ValidationRat\Api\BuildCode;
 use Reliv\ValidationRat\Api\FieldValidator\ValidateFields;
 use Reliv\ValidationRat\Api\FieldValidator\ValidateFieldsHasOnlyRecognizedFields;
 use Reliv\ValidationRat\Api\IsValidFieldResults;
+use Reliv\ValidationRat\Api\MergeValidationResultsFields;
 use Reliv\ValidationRat\Api\Validator\ValidateCompositeByStrategy;
 use Reliv\ValidationRat\Api\Validator\ValidateIsBoolean;
 use Reliv\ValidationRat\Api\Validator\ValidateIsNotEmpty;
@@ -184,7 +186,7 @@ class ValidateFieldsUpsertCmsResourceData implements ValidateFields
         array $cmsResourceData,
         array $options = []
     ): ValidationResultFields {
-        $validationsResult = $this->validateFieldsHasOnlyRecognizedFields->__invoke(
+        $validationsResultOnlyRecognized = $this->validateFieldsHasOnlyRecognizedFields->__invoke(
             $cmsResourceData,
             [
                 ValidateFieldsHasOnlyRecognizedFields::OPTION_FIELDS_ALLOWED => [
@@ -198,12 +200,9 @@ class ValidateFieldsUpsertCmsResourceData implements ValidateFields
             ]
         );
 
-        if (!$validationsResult->isValid()) {
-            return $validationsResult;
-        }
-
         $fieldResults = $this->getFieldValidationResults(
             $cmsResourceData,
+            [],
             $options
         );
 
@@ -218,11 +217,16 @@ class ValidateFieldsUpsertCmsResourceData implements ValidateFields
             $this->defaultInvalidCode
         );
 
-        return new ValidationResultFieldsBasic(
+        $validationsResult = new ValidationResultFieldsBasic(
             $valid,
             $code,
             [],
             $fieldResults
+        );
+
+        return MergeValidationResultsFields::invoke(
+            $validationsResultOnlyRecognized,
+            $validationsResult
         );
     }
 
@@ -236,8 +240,8 @@ class ValidateFieldsUpsertCmsResourceData implements ValidateFields
      */
     protected function getFieldValidationResults(
         array $cmsResourceData,
-        array $options = [],
-        array $fieldResults = []
+        array $fieldResults = [],
+        array $options = []
     ): array {
         $fieldResults = $this->validateId(
             $cmsResourceData,
@@ -370,7 +374,7 @@ class ValidateFieldsUpsertCmsResourceData implements ValidateFields
 
         // Case 2 for Upsert - Existing Content Version
         $otherFieldsValidationsResult = $this->validateFieldsHasOnlyRecognizedFields->__invoke(
-            $cmsResourceData,
+            $contentVersion,
             [
                 ValidateFieldsHasOnlyRecognizedFields::OPTION_FIELDS_ALLOWED => [
                     'id',
@@ -386,22 +390,11 @@ class ValidateFieldsUpsertCmsResourceData implements ValidateFields
             $contentVersionId
         );
 
-        $isValid = ($otherFieldsValidationsResult->isValid() && $contentVersionIdValidationResult->isValid());
-        $code = ($isValid ? '' : 'invalid-content-version-id');
-        $details = array_merge(
-            $otherFieldsValidationsResult->getDetails(),
-            $contentVersionIdValidationResult->getDetails()
-        );
-        $mergedFieldResults = array_merge(
-            ['id' => $contentVersionIdValidationResult],
-            $otherFieldsValidationsResult->getFieldResults()
-        );
-
-        $fieldResults[self::KEY_CONTENT_VERSION] = new ValidationResultFieldsBasic(
-            $isValid,
-            $code,
-            $details,
-            $mergedFieldResults
+        $fieldResults[self::KEY_CONTENT_VERSION] = AddValidationResult::invoke(
+            $otherFieldsValidationsResult,
+            $contentVersionIdValidationResult,
+            'id',
+            'invalid-content-version-id'
         );
 
         return $fieldResults;

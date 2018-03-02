@@ -11,6 +11,8 @@ use Reliv\FieldRat\Model\FieldsAbstract;
  */
 class FieldsComponentConfig extends FieldsAbstract implements Fields
 {
+    const FIELD_MODEL_NAME = 'component-config';
+
     const TYPE = 'type';
     const NAME = 'name';
     const CONFIG_URI = 'configUri';

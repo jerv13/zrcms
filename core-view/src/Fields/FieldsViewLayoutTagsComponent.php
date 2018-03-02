@@ -9,6 +9,7 @@ use Zrcms\Core\Fields\FieldsComponent;
  */
 class FieldsViewLayoutTagsComponent extends FieldsComponent
 {
-    const RENDER_TAGS_GETTER = 'renderTagsGetter';
+    const FIELD_MODEL_NAME = 'view-layout-tags-component';
 
+    const RENDER_TAGS_GETTER = 'renderTagsGetter';
 }

@@ -20,7 +20,7 @@ class ModuleConfigZrcms
              * ['{model-name}' => '{model-class}']
              */
             'field-rat-fields-model' => [
-                'redirect-version' => FieldsRedirectVersion::class,
+                FieldsRedirectVersion::FIELD_MODEL_NAME => FieldsRedirectVersion::class,
             ],
 
             /**
@@ -28,7 +28,7 @@ class ModuleConfigZrcms
              * ['{model-name}' => '{extends-model-name}']
              */
             'field-rat-fields-model-extends' => [
-                'redirect-version' => 'content-version',
+                FieldsRedirectVersion::FIELD_MODEL_NAME => 'content-version',
             ],
 
             /**

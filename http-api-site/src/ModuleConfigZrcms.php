@@ -165,13 +165,11 @@ class ModuleConfigZrcms
                         ],
                         'fields-validator' => [
                             'fields-validator' => ValidateFieldsInsertContentVersionData::class,
-
                             'fields-validator-options' => [
                                 'fields-validator-options-properties' => [
                                     'fields-model-name' => FieldsSiteVersion::FIELD_MODEL_NAME
                                 ],
                             ],
-
                             'not-valid-status' => 400,
                         ],
                         'api' => [

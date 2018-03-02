@@ -6,6 +6,7 @@ use Reliv\ValidationRat\Api\BuildCode;
 use Reliv\ValidationRat\Api\FieldValidator\ValidateFields;
 use Reliv\ValidationRat\Api\FieldValidator\ValidateFieldsHasOnlyRecognizedFields;
 use Reliv\ValidationRat\Api\IsValidFieldResults;
+use Reliv\ValidationRat\Api\MergeValidationResultsFields;
 use Reliv\ValidationRat\Api\Validator\ValidateCompositeByStrategy;
 use Reliv\ValidationRat\Api\Validator\ValidateIsNotEmpty;
 use Reliv\ValidationRat\Api\Validator\ValidateIsNull;
@@ -143,7 +144,7 @@ class ValidateFieldsInsertContentVersionData implements ValidateFieldsContent
         array $contentVersionData,
         array $options = []
     ): ValidationResultFields {
-        $validationsResult = $this->validateFieldsHasOnlyRecognizedFields->__invoke(
+        $validationsResultOnlyRecognized = $this->validateFieldsHasOnlyRecognizedFields->__invoke(
             $contentVersionData,
             [
                 ValidateFieldsHasOnlyRecognizedFields::OPTION_FIELDS_ALLOWED => [
@@ -155,10 +156,6 @@ class ValidateFieldsInsertContentVersionData implements ValidateFieldsContent
                 ]
             ]
         );
-
-        if (!$validationsResult->isValid()) {
-            return $validationsResult;
-        }
 
         $fieldResults = $this->getFieldValidationResults(
             $contentVersionData,
@@ -176,11 +173,16 @@ class ValidateFieldsInsertContentVersionData implements ValidateFieldsContent
             $this->defaultInvalidCode
         );
 
-        return new ValidationResultFieldsBasic(
+        $validationsResult = new ValidationResultFieldsBasic(
             $valid,
             $code,
             [],
             $fieldResults
+        );
+
+        return MergeValidationResultsFields::invoke(
+            $validationsResultOnlyRecognized,
+            $validationsResult
         );
     }
 
