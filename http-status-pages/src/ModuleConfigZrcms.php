@@ -43,9 +43,9 @@ class ModuleConfigZrcms
              * ['{model-name}' => '{fields-config}']
              */
             'field-rat-fields' => [
-                'http-status-pages-component' => [
+                FieldsHttpStatusPagesComponent::FIELD_MODEL_NAME => [
                     [
-                        'name' => fieldsHttpStatusPagesComponent::COMPONENT_CONFIG_READER,
+                        'name' => FieldsHttpStatusPagesComponent::COMPONENT_CONFIG_READER,
                         'type' => 'zrcms-service',
                         'label' => 'Component Config Reader',
                         'required' => false,
@@ -53,7 +53,7 @@ class ModuleConfigZrcms
                         'options' => [],
                     ],
                     [
-                        'name' => fieldsHttpStatusPagesComponent::COMPONENT_CLASS,
+                        'name' => FieldsHttpStatusPagesComponent::COMPONENT_CLASS,
                         'type' => 'class',
                         'label' => 'Component Class',
                         'required' => false,
@@ -61,7 +61,7 @@ class ModuleConfigZrcms
                         'options' => [],
                     ],
                     [
-                        'name' => fieldsHttpStatusPagesComponent::STATUS_TO_SITE_PATH_PROPERTY,
+                        'name' => FieldsHttpStatusPagesComponent::STATUS_TO_SITE_PATH_PROPERTY,
                         'type' => 'array',
                         'label' => 'Map of HTTP status to the path and a type',
                         'required' => false,

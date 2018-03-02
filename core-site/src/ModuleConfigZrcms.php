@@ -36,7 +36,15 @@ class ModuleConfigZrcms
              * ['{model-name}' => '{fields-config}']
              */
             'field-rat-fields' => [
-                'site-version' => [
+                FieldsSiteVersion::FIELD_MODEL_NAME => [
+                    [
+                        'name' => FieldsSiteVersion::HOST,
+                        'type' => 'text',
+                        'label' => 'Host/Domain',
+                        'required' => true,
+                        'default' => '',
+                        'options' => [],
+                    ],
                     [
                         'name' => FieldsSiteVersion::THEME_NAME,
                         'type' => 'text',

@@ -2,14 +2,20 @@
 
 namespace Zrcms\ValidationRatZrcms;
 
-use Zrcms\ValidationRatZrcms\Api\ValidateCmsResourceDataUpsert;
-use Zrcms\ValidationRatZrcms\Api\ValidateCmsResourceDataUpsertFactory;
-use Zrcms\ValidationRatZrcms\Api\ValidateContentVersionDataInsert;
-use Zrcms\ValidationRatZrcms\Api\ValidateContentVersionDataFactory;
-use Zrcms\ValidationRatZrcms\Api\ValidateId;
-use Zrcms\ValidationRatZrcms\Api\ValidateIdBasicFactory;
-use Zrcms\ValidationRatZrcms\Api\ValidateProperties;
-use Zrcms\ValidationRatZrcms\Api\ValidatePropertiesFactory;
+use Zrcms\ValidationRatZrcms\Api\FieldValidator\BuildFieldValidationResults;
+use Zrcms\ValidationRatZrcms\Api\FieldValidator\BuildFieldValidationResultsServicesFactory;
+use Zrcms\ValidationRatZrcms\Api\FieldValidator\ValidateFieldsContentVersionProperties;
+use Zrcms\ValidationRatZrcms\Api\FieldValidator\ValidateFieldsContentVersionPropertiesFactory;
+use Zrcms\ValidationRatZrcms\Api\FieldValidator\ValidateFieldsInsertContentVersionData;
+use Zrcms\ValidationRatZrcms\Api\FieldValidator\ValidateFieldsInsertContentVersionDataFactory;
+use Zrcms\ValidationRatZrcms\Api\FieldValidator\ValidateFieldsUpsertCmsResourceData;
+use Zrcms\ValidationRatZrcms\Api\FieldValidator\ValidateFieldsUpsertCmsResourceDataFactory;
+use Zrcms\ValidationRatZrcms\Api\Validator\ValidateCmsResourceId;
+use Zrcms\ValidationRatZrcms\Api\Validator\ValidateCmsResourceIdFactory;
+use Zrcms\ValidationRatZrcms\Api\Validator\ValidateContentVersionId;
+use Zrcms\ValidationRatZrcms\Api\Validator\ValidateContentVersionIdFactory;
+use Zrcms\ValidationRatZrcms\Api\Validator\ValidateId;
+use Zrcms\ValidationRatZrcms\Api\Validator\ValidateIdBasicFactory;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -24,17 +30,33 @@ class ModuleConfig
         return [
             'dependencies' => [
                 'config_factories' => [
-                    ValidateCmsResourceDataUpsert::class => [
-                        'factory' => ValidateCmsResourceDataUpsertFactory::class,
+                    /**
+                     * FieldsValidator
+                     */
+                    BuildFieldValidationResults::class => [
+                        'factory' => BuildFieldValidationResultsServicesFactory::class,
                     ],
-                    ValidateContentVersionDataInsert::class => [
-                        'factory' => ValidateContentVersionDataFactory::class,
+                    ValidateFieldsInsertContentVersionData::class => [
+                        'factory' => ValidateFieldsInsertContentVersionDataFactory::class,
+                    ],
+                    ValidateFieldsContentVersionProperties::class => [
+                        'factory' => ValidateFieldsContentVersionPropertiesFactory::class,
+                    ],
+                    ValidateFieldsUpsertCmsResourceData::class => [
+                        'factory' => ValidateFieldsUpsertCmsResourceDataFactory::class,
+                    ],
+
+                    /**
+                     * Validator
+                     */
+                    ValidateCmsResourceId::class => [
+                        'factory' => ValidateCmsResourceIdFactory::class
+                    ],
+                    ValidateContentVersionId::class => [
+                        'factory' => ValidateContentVersionIdFactory::class
                     ],
                     ValidateId::class => [
                         'factory' => ValidateIdBasicFactory::class,
-                    ],
-                    ValidateProperties::class => [
-                        'factory' => ValidatePropertiesFactory::class,
                     ],
                 ],
             ],

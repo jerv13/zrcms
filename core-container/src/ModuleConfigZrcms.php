@@ -39,7 +39,7 @@ class ModuleConfigZrcms
              * ['{model-name}' => '{fields-config}']
              */
             'field-rat-fields' => [
-                'container-version' => [
+                FieldsContainerVersion::FIELD_MODEL_NAME => [
                     [
                         'name' => FieldsContainerVersion::RENDER_TAGS_GETTER,
                         'type' => 'zrcms-service',
@@ -66,7 +66,7 @@ class ModuleConfigZrcms
                     ],
                     [
                         'name' => FieldsContainerVersion::SITE_CMS_RESOURCE_ID,
-                        'type' => 'id',
+                        'type' => 'id-string',
                         'label' => 'Container CmsResourceId',
                         'required' => true,
                         'default' => '',

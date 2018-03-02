@@ -16,8 +16,8 @@ use Zrcms\CoreTheme\Api\CmsResourceHistory\FindLayoutCmsResourceHistoryBy;
 use Zrcms\CoreTheme\Api\Content\FindLayoutVersion;
 use Zrcms\CoreTheme\Api\Content\FindLayoutVersionsBy;
 use Zrcms\CoreTheme\Api\Content\InsertLayoutVersion;
-use Zrcms\ValidationRatZrcms\Api\ValidateCmsResourceDataUpsert;
-use Zrcms\ValidationRatZrcms\Api\ValidateContentVersionDataInsert;
+use Zrcms\ValidationRatZrcms\Api\FieldValidator\ValidateFieldsUpsertCmsResourceData;
+use Zrcms\ValidationRatZrcms\Api\FieldValidator\ValidateFieldsInsertContentVersionData;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -83,9 +83,9 @@ class ModuleConfigZrcms
                             'is-allowed-options' => [],
                             'not-allowed-status' => 401,
                         ],
-                        'validate-fields' => [
-                            'validate-fields' => ValidateCmsResourceDataUpsert::class,
-                            'validate-fields-options' => [],
+                        'fields-validator' => [
+                            'fields-validator' => ValidateFieldsUpsertCmsResourceData::class,
+                            'fields-validator-options' => [],
                             'not-valid-status' => 400,
                         ],
                         'api' => [
@@ -156,9 +156,9 @@ class ModuleConfigZrcms
                             'is-allowed-options' => [],
                             'not-allowed-status' => 401,
                         ],
-                        'validate-fields' => [
-                            'validate-fields' => ValidateContentVersionDataInsert::class,
-                            'validate-fields-options' => [],
+                        'fields-validator' => [
+                            'fields-validator' => ValidateFieldsInsertContentVersionData::class,
+                            'fields-validator-options' => [],
                             'not-valid-status' => 400,
                         ],
                         'api' => [

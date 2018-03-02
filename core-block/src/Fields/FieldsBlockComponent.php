@@ -10,6 +10,8 @@ use Reliv\FieldRat\Model\Fields;
  */
 class FieldsBlockComponent extends FieldsComponent implements Fields
 {
+    const FIELD_MODEL_NAME = 'block-component';
+
     // required
     const DEFAULT_CONFIG = 'defaultConfig';
     const CACHEABLE = 'cache';

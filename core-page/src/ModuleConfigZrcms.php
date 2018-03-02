@@ -41,10 +41,10 @@ class ModuleConfigZrcms
              * ['{model-name}' => '{fields-config}']
              */
             'field-rat-fields' => [
-                'page-version' => [
+                FieldsPageVersion::FIELD_MODEL_NAME => [
                     [
                         'name' => FieldsPageVersion::SITE_CMS_RESOURCE_ID,
-                        'type' => 'id',
+                        'type' => 'id-string',
                         'label' => 'Site CmsResourceId',
                         'required' => true,
                         'default' => '',
@@ -112,7 +112,7 @@ class ModuleConfigZrcms
                     ],
                     [
                         'name' => FieldsPageVersion::PAGE_CMS_RESOURCE_ID,
-                        'type' => 'id',
+                        'type' => 'id-string',
                         'label' => 'Page CmsResourceId',
                         'required' => false,
                         'default' => '',

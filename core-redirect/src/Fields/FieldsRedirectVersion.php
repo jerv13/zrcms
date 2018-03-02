@@ -9,6 +9,8 @@ use Zrcms\Core\Fields\FieldsContent;
  */
 class FieldsRedirectVersion extends FieldsContent
 {
+    const FIELD_MODEL_NAME = 'redirect-version';
+
     const SITE_CMS_RESOURCE_ID = 'siteCmsResourceId';
     const REQUEST_PATH = 'requestPath';
     const REDIRECT_PATH = 'redirectPath';

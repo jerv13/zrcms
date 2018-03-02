@@ -58,9 +58,9 @@ class ModuleConfigZrcms
              * ['{model-name}' => '{fields-config}']
              */
             'field-rat-fields' => [
-                'layout-component' => [
+                FieldsLayoutComponent::FIELD_MODEL_NAME => [
                     [
-                        'name' => fieldsLayoutComponent::THEME_NAME,
+                        'name' => FieldsLayoutComponent::THEME_NAME,
                         'type' => 'text',
                         'label' => 'Theme Name',
                         'required' => true,
@@ -68,7 +68,7 @@ class ModuleConfigZrcms
                         'options' => [],
                     ],
                     [
-                        'name' => fieldsLayoutComponent::HTML,
+                        'name' => FieldsLayoutComponent::HTML,
                         'type' => 'text',
                         'label' => 'Template HTML',
                         'required' => true,
@@ -76,7 +76,7 @@ class ModuleConfigZrcms
                         'options' => [],
                     ],
                     [
-                        'name' => fieldsLayoutComponent::RENDERER,
+                        'name' => FieldsLayoutComponent::RENDERER,
                         'type' => 'zrcms-service',
                         'label' => 'Renderer',
                         'required' => false,
@@ -84,7 +84,7 @@ class ModuleConfigZrcms
                         'options' => [],
                     ],
                     [
-                        'name' => fieldsLayoutComponent::RENDER_TAGS_GETTER,
+                        'name' => FieldsLayoutComponent::RENDER_TAGS_GETTER,
                         'type' => 'zrcms-service',
                         'label' => 'Render Tags Getter (GetRenderTags)',
                         'required' => false,
@@ -92,7 +92,7 @@ class ModuleConfigZrcms
                         'options' => [],
                     ],
                     [
-                        'name' => fieldsLayoutComponent::RENDER_TAG_NAME_PARSER,
+                        'name' => FieldsLayoutComponent::RENDER_TAG_NAME_PARSER,
                         'type' => 'zrcms-service',
                         'label' => 'Tag Name Parser',
                         'required' => false,
@@ -102,7 +102,7 @@ class ModuleConfigZrcms
                 ],
                 'layout-component-config' => [
                     [
-                        'name' => fieldsLayoutComponentConfig::TYPE,
+                        'name' => FieldsLayoutComponentConfig::TYPE,
                         'type' => 'text',
                         'label' => 'Component Type',
                         'required' => true,
@@ -110,7 +110,7 @@ class ModuleConfigZrcms
                         'options' => [],
                     ],
                     [
-                        'name' => fieldsLayoutComponentConfig::NAME,
+                        'name' => FieldsLayoutComponentConfig::NAME,
                         'type' => 'text',
                         'label' => 'Name',
                         'required' => true,
@@ -118,7 +118,7 @@ class ModuleConfigZrcms
                         'options' => [],
                     ],
                     [
-                        'name' => fieldsLayoutComponentConfig::CREATED_BY_USER_ID,
+                        'name' => FieldsLayoutComponentConfig::CREATED_BY_USER_ID,
                         'type' => 'zrcms-service',
                         'label' => 'Created By User ID',
                         'required' => false,
@@ -126,7 +126,7 @@ class ModuleConfigZrcms
                         'options' => [],
                     ],
                     [
-                        'name' => fieldsLayoutComponentConfig::CREATED_REASON,
+                        'name' => FieldsLayoutComponentConfig::CREATED_REASON,
                         'type' => 'class',
                         'label' => 'Component Class',
                         'required' => false,
@@ -134,7 +134,7 @@ class ModuleConfigZrcms
                         'options' => [],
                     ],
                     [
-                        'name' => fieldsLayoutComponentConfig::COMPONENT_CONFIG_READER,
+                        'name' => FieldsLayoutComponentConfig::COMPONENT_CONFIG_READER,
                         'type' => 'zrcms-service',
                         'label' => 'Component Config Reader',
                         'required' => false,
@@ -142,7 +142,7 @@ class ModuleConfigZrcms
                         'options' => [],
                     ],
                     [
-                        'name' => fieldsLayoutComponentConfig::COMPONENT_CLASS,
+                        'name' => FieldsLayoutComponentConfig::COMPONENT_CLASS,
                         'type' => 'class',
                         'label' => 'Component Class',
                         'required' => false,
@@ -150,7 +150,7 @@ class ModuleConfigZrcms
                         'options' => [],
                     ],
                     [
-                        'name' => fieldsLayoutComponentConfig::RENDERER,
+                        'name' => FieldsLayoutComponentConfig::RENDERER,
                         'type' => 'zrcms-service',
                         'label' => 'Renderer',
                         'required' => false,
@@ -158,7 +158,7 @@ class ModuleConfigZrcms
                         'options' => [],
                     ],
                     [
-                        'name' => fieldsLayoutComponentConfig::RENDER_TAGS_GETTER,
+                        'name' => FieldsLayoutComponentConfig::RENDER_TAGS_GETTER,
                         'type' => 'zrcms-service',
                         'label' => 'Render Tags Getter (GetRenderTags)',
                         'required' => false,
@@ -166,7 +166,7 @@ class ModuleConfigZrcms
                         'options' => [],
                     ],
                     [
-                        'name' => fieldsLayoutComponentConfig::RENDER_TAG_NAME_PARSER,
+                        'name' => FieldsLayoutComponentConfig::RENDER_TAG_NAME_PARSER,
                         'type' => 'zrcms-service',
                         'label' => 'Tag Name Parser',
                         'required' => false,
@@ -174,7 +174,7 @@ class ModuleConfigZrcms
                         'options' => [],
                     ],
                     [
-                        'name' => fieldsLayoutComponentConfig::THEME_NAME,
+                        'name' => FieldsLayoutComponentConfig::THEME_NAME,
                         'type' => 'string',
                         'label' => 'Theme Name',
                         'required' => true,
@@ -182,7 +182,7 @@ class ModuleConfigZrcms
                         'options' => [],
                     ],
                     [
-                        'name' => fieldsLayoutComponentConfig::TEMPLATE_FILE,
+                        'name' => FieldsLayoutComponentConfig::TEMPLATE_FILE,
                         'type' => 'string',
                         'label' => 'Template File',
                         'required' => true,

@@ -10,6 +10,8 @@ use Reliv\FieldRat\Model\FieldsAbstract;
  */
 class FieldsComponent extends FieldsAbstract implements Fields
 {
+    const FIELD_MODEL_NAME = 'component';
+
     const COMPONENT_CONFIG_READER = 'componentConfigReader';
     const COMPONENT_CLASS = 'componentClass';
     const JAVASCRIPT = 'js';

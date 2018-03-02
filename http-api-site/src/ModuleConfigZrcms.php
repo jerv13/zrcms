@@ -14,8 +14,10 @@ use Zrcms\CoreSite\Api\CmsResource\UpsertSiteCmsResource;
 use Zrcms\CoreSite\Api\Content\FindSiteVersion;
 use Zrcms\CoreSite\Api\Content\FindSiteVersionsBy;
 use Zrcms\CoreSite\Api\Content\InsertSiteVersion;
-use Zrcms\ValidationRatZrcms\Api\ValidateCmsResourceDataUpsert;
-use Zrcms\ValidationRatZrcms\Api\ValidateContentVersionDataInsert;
+use Zrcms\CoreSite\Fields\FieldsSiteVersion;
+use Zrcms\ValidationRatZrcms\Api\FieldValidator\ValidateFieldsContentVersionProperties;
+use Zrcms\ValidationRatZrcms\Api\FieldValidator\ValidateFieldsInsertContentVersionData;
+use Zrcms\ValidationRatZrcms\Api\FieldValidator\ValidateFieldsUpsertCmsResourceData;
 
 /**
  * @author James Jervis - https:/github.com/jerv13
@@ -81,9 +83,13 @@ class ModuleConfigZrcms
                             'is-allowed-options' => [],
                             'not-allowed-status' => 401,
                         ],
-                        'validate-fields' => [
-                            'validate-fields' => ValidateCmsResourceDataUpsert::class,
-                            'validate-fields-options' => [],
+                        'fields-validator' => [
+                            'fields-validator' => ValidateFieldsUpsertCmsResourceData::class,
+                            'fields-validator-options' => [
+                                'fields-validator-options-insert-content-version-properties' => [
+                                    'fields-model-name' => FieldsSiteVersion::FIELD_MODEL_NAME
+                                ],
+                            ],
                             'not-valid-status' => 400,
                         ],
                         'api' => [
@@ -157,9 +163,15 @@ class ModuleConfigZrcms
                             'is-allowed-options' => [],
                             'not-allowed-status' => 401,
                         ],
-                        'validate-fields' => [
-                            'validate-fields' => ValidateContentVersionDataInsert::class,
-                            'validate-fields-options' => [],
+                        'fields-validator' => [
+                            'fields-validator' => ValidateFieldsInsertContentVersionData::class,
+
+                            'fields-validator-options' => [
+                                'fields-validator-options-properties' => [
+                                    'fields-model-name' => FieldsSiteVersion::FIELD_MODEL_NAME
+                                ],
+                            ],
+
                             'not-valid-status' => 400,
                         ],
                         'api' => [

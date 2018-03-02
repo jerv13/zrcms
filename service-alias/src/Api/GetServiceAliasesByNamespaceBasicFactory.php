@@ -1,31 +1,26 @@
 <?php
 
-namespace Zrcms\HttpApi\Validate;
+namespace Zrcms\ServiceAlias\Api;
 
 use Psr\Container\ContainerInterface;
-use Zrcms\Debug\IsDebug;
-use Zrcms\ValidationRatZrcms\Api\Validator\ValidateId;
 
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class HttpApiValidateIdAttributeDynamicFactory
+class GetServiceAliasesByNamespaceBasicFactory
 {
     /**
      * @param ContainerInterface $serviceContainer
      *
-     * @return HttpApiValidateIdAttributeDynamic
+     * @return GetServiceAliasesByNamespaceBasic
      * @throws \Psr\Container\ContainerExceptionInterface
      * @throws \Psr\Container\NotFoundExceptionInterface
      */
     public function __invoke(
         ContainerInterface $serviceContainer
     ) {
-        return new HttpApiValidateIdAttributeDynamic(
-            $serviceContainer,
-            $serviceContainer->get(ValidateId::class),
-            400,
-            IsDebug::invoke()
+        return new GetServiceAliasesByNamespaceBasic(
+            $serviceContainer->get(GetServiceAliasRegistry::class)
         );
     }
 }

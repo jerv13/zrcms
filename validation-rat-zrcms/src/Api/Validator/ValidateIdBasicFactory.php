@@ -1,10 +1,11 @@
 <?php
 
-namespace Zrcms\ValidationRatZrcms\Api;
+namespace Zrcms\ValidationRatZrcms\Api\Validator;
 
 use Psr\Container\ContainerInterface;
 
 /**
+ * @todo This may not be needed
  * @author James Jervis - https://github.com/jerv13
  */
 class ValidateIdBasicFactory

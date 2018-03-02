@@ -1,31 +1,27 @@
 <?php
 
-namespace Zrcms\HttpApi\Validate;
+namespace Zrcms\ValidationRatZrcms\Api\FieldValidator;
 
 use Psr\Container\ContainerInterface;
-use Zrcms\Debug\IsDebug;
-use Zrcms\ValidationRatZrcms\Api\Validator\ValidateId;
+use Reliv\FieldRat\Api\FieldValidator\ValidateFieldsByFieldsModelName;
 
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class HttpApiValidateIdAttributeDynamicFactory
+class ValidateFieldsContentVersionPropertiesFactory
 {
     /**
      * @param ContainerInterface $serviceContainer
      *
-     * @return HttpApiValidateIdAttributeDynamic
+     * @return ValidateFieldsContentVersionProperties
      * @throws \Psr\Container\ContainerExceptionInterface
      * @throws \Psr\Container\NotFoundExceptionInterface
      */
     public function __invoke(
         ContainerInterface $serviceContainer
     ) {
-        return new HttpApiValidateIdAttributeDynamic(
-            $serviceContainer,
-            $serviceContainer->get(ValidateId::class),
-            400,
-            IsDebug::invoke()
+        return new ValidateFieldsContentVersionProperties(
+            $serviceContainer->get(ValidateFieldsByFieldsModelName::class)
         );
     }
 }

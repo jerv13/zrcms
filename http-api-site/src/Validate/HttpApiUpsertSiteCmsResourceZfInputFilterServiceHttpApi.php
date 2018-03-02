@@ -6,6 +6,7 @@ use ZfInputFilterService\InputFilter\ServiceAwareFactory;
 use Zrcms\HttpApi\Validate\HttpApiDataZfInputFilterService;
 
 /**
+ * @deprecated
  * @author James Jervis - https://github.com/jerv13
  */
 class HttpApiUpsertSiteCmsResourceZfInputFilterServiceHttpApi extends HttpApiDataZfInputFilterService

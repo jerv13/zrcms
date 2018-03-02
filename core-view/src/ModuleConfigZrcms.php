@@ -65,9 +65,9 @@ class ModuleConfigZrcms
              * ['{model-name}' => '{fields-config}']
              */
             'field-rat-fields' => [
-                'view' => [
+                FieldsView::FIELD_MODEL_NAME => [
                     [
-                        'name' => fieldsView::SITE_CMS_RESOURCE,
+                        'name' => FieldsView::SITE_CMS_RESOURCE,
                         'type' => 'object',
                         'label' => 'SiteCmsResource',
                         'required' => true,
@@ -75,7 +75,7 @@ class ModuleConfigZrcms
                         'options' => [],
                     ],
                     [
-                        'name' => fieldsView::PAGE_CMS_RESOURCE,
+                        'name' => FieldsView::PAGE_CMS_RESOURCE,
                         'type' => 'object',
                         'label' => 'PageCmsResource',
                         'required' => true,
@@ -83,7 +83,7 @@ class ModuleConfigZrcms
                         'options' => [],
                     ],
                     [
-                        'name' => fieldsView::LAYOUT_CMS_RESOURCE,
+                        'name' => FieldsView::LAYOUT_CMS_RESOURCE,
                         'type' => 'object',
                         'label' => 'ThemeLayoutCmsResource',
                         'required' => true,
@@ -91,7 +91,7 @@ class ModuleConfigZrcms
                         'options' => [],
                     ],
                     [
-                        'name' => fieldsView::RENDERER,
+                        'name' => FieldsView::RENDERER,
                         'type' => 'zrcms-service',
                         'label' => 'Renderer (layout renderer)',
                         'required' => false,

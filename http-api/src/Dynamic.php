@@ -19,7 +19,7 @@ interface Dynamic
 
     const MIDDLEWARE_NAME_VALIDATE_ID = 'validate-id';
     const MIDDLEWARE_NAME_VALIDATE_PARAM_QUERY = 'validate-param-query';
-    const MIDDLEWARE_NAME_VALIDATE_FIELDS = 'validate-fields';
+    const MIDDLEWARE_NAME_FIELDS_VALIDATOR = 'fields-validator';
 
     const MIDDLEWARE_PARAM_QUERY = 'param-query';
 

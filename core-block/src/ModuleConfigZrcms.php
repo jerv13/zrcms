@@ -59,7 +59,7 @@ class ModuleConfigZrcms
              * ['{model-name}' => '{fields-config}']
              */
             'field-rat-fields' => [
-                'block-component' => [
+                FieldsBlockComponent::FIELD_MODEL_NAME => [
                     [
                         'name' => FieldsBlockComponent::COMPONENT_CONFIG_READER,
                         'type' => 'zrcms-service',

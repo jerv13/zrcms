@@ -16,8 +16,8 @@ use Zrcms\CoreRedirect\Api\CmsResourceHistory\FindRedirectCmsResourceHistoryBy;
 use Zrcms\CoreRedirect\Api\Content\FindRedirectVersion;
 use Zrcms\CoreRedirect\Api\Content\FindRedirectVersionsBy;
 use Zrcms\CoreRedirect\Api\Content\InsertRedirectVersion;
-use Zrcms\ValidationRatZrcms\Api\ValidateCmsResourceDataUpsert;
-use Zrcms\ValidationRatZrcms\Api\ValidateContentVersionDataInsert;
+use Zrcms\ValidationRatZrcms\Api\FieldValidator\ValidateFieldsUpsertCmsResourceData;
+use Zrcms\ValidationRatZrcms\Api\FieldValidator\ValidateFieldsInsertContentVersionData;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -83,9 +83,9 @@ class ModuleConfigZrcms
                             'is-allowed-options' => [],
                             'not-allowed-status' => 401,
                         ],
-                        'validate-fields' => [
-                            'validate-fields' => ValidateCmsResourceDataUpsert::class,
-                            'validate-fields-options' => [],
+                        'fields-validator' => [
+                            'fields-validator' => ValidateFieldsUpsertCmsResourceData::class,
+                            'fields-validator-options' => [],
                             'not-valid-status' => 400,
                         ],
                         'api' => [
@@ -156,9 +156,9 @@ class ModuleConfigZrcms
                             'is-allowed-options' => [],
                             'not-allowed-status' => 401,
                         ],
-                        'validate-fields' => [
-                            'validate-fields' => ValidateContentVersionDataInsert::class,
-                            'validate-fields-options' => [],
+                        'fields-validator' => [
+                            'fields-validator' => ValidateFieldsInsertContentVersionData::class,
+                            'fields-validator-options' => [],
                             'not-valid-status' => 400,
                         ],
                         'api' => [

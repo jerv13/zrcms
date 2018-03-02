@@ -3,13 +3,16 @@
 namespace Zrcms\ServiceAlias;
 
 use Zrcms\ServiceAlias\Api\GetServiceAliasesByNamespace;
-use Zrcms\ServiceAlias\Api\GetServiceAliasesByNamespaceBasic;
+use Zrcms\ServiceAlias\Api\GetServiceAliasesByNamespaceBasicFactory;
 use Zrcms\ServiceAlias\Api\GetServiceAliasRegistry;
 use Zrcms\ServiceAlias\Api\GetServiceAliasRegistryBasicFactory;
 use Zrcms\ServiceAlias\Api\GetServiceFromAlias;
 use Zrcms\ServiceAlias\Api\GetServiceFromAliasBasicFactory;
 use Zrcms\ServiceAlias\Api\GetServiceName;
 use Zrcms\ServiceAlias\Api\GetServiceNameBasic;
+use Zrcms\ServiceAlias\Api\GetServiceNameBasicFactory;
+use Zrcms\ValidationRatZrcms\Api\Validator\ValidateIsZrcmsServiceAlias;
+use Zrcms\ValidationRatZrcms\Api\Validator\ValidateIsZrcmsServiceAliasFactory;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -24,11 +27,12 @@ class ModuleConfig
         return [
             'dependencies' => [
                 'config_factories' => [
+                    ValidateIsZrcmsServiceAlias::class => [
+                        'factory' => ValidateIsZrcmsServiceAliasFactory::class
+                    ],
+
                     GetServiceAliasesByNamespace::class => [
-                        'class' => GetServiceAliasesByNamespaceBasic::class,
-                        'arguments' => [
-                            GetServiceAliasRegistry::class
-                        ],
+                        'factory' => GetServiceAliasesByNamespaceBasicFactory::class,
                     ],
                     GetServiceAliasRegistry::class => [
                         'factory' => GetServiceAliasRegistryBasicFactory::class
@@ -37,11 +41,8 @@ class ModuleConfig
                         'factory' => GetServiceFromAliasBasicFactory::class
                     ],
                     GetServiceName::class => [
-                        'class' => GetServiceNameBasic::class,
-                        'arguments' => [
-                            GetServiceAliasRegistry::class
-                        ],
-                    ]
+                        'factory' => GetServiceNameBasicFactory::class
+                    ],
                 ],
             ],
         ];

@@ -2,6 +2,7 @@
 
 namespace Zrcms\PageAccess;
 
+use Zrcms\CorePage\Fields\FieldsPageVersion;
 use Zrcms\PageAccess\Fields\FieldsPageAccess;
 
 /**
@@ -20,7 +21,7 @@ class ModuleConfigZrcms
              * ['{model-name}' => '{fields-config}']
              */
             'field-rat-fields' => [
-                'page-version' => [
+                FieldsPageVersion::FIELD_MODEL_NAME => [
                     [
                         'name' => FieldsPageAccess::PAGE_ACCESS_OPTIONS,
                         'type' => 'text',

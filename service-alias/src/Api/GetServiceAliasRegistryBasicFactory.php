@@ -13,9 +13,11 @@ class GetServiceAliasRegistryBasicFactory
      * @param ContainerInterface $serviceContainer
      *
      * @return GetServiceAliasRegistryBasic
+     * @throws \Psr\Container\ContainerExceptionInterface
+     * @throws \Psr\Container\NotFoundExceptionInterface
      */
     public function __invoke(
-        $serviceContainer
+        ContainerInterface $serviceContainer
     ) {
         $config = $serviceContainer->get('config');
 

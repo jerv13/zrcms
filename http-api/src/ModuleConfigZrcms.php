@@ -65,9 +65,9 @@ class ModuleConfigZrcms
                             'is-allowed-options' => [],
                             'not-allowed-status' => 401,
                         ],
-                        'validate-fields' => [
-                            'validate-fields' => ValidateFieldsByStrategy::class,
-                            'validate-fields-options' => [
+                        'fields-validator' => [
+                            'fields-validator' => ValidateFieldsByStrategy::class,
+                            'fields-validator-options' => [
                                 'field-validators' => [
                                     'id' => [
                                         'validator' => ValidateIsAnyValue::class,
@@ -203,9 +203,9 @@ class ModuleConfigZrcms
                             'is-allowed-options' => [],
                             'not-allowed-status' => 401,
                         ],
-                        'validate-fields' => [
-                            'validate-fields' => ValidateFieldsByStrategy::class,
-                            'validate-fields-options' => [
+                        'fields-validator' => [
+                            'fields-validator' => ValidateFieldsByStrategy::class,
+                            'fields-validator-options' => [
                                 'field-validators' => [
                                     'id' => [
                                         'validator' => ValidateIsAnyValue::class,

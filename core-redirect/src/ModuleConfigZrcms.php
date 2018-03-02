@@ -36,17 +36,17 @@ class ModuleConfigZrcms
              * ['{model-name}' => '{fields-config}']
              */
             'field-rat-fields' => [
-                'redirect-version' => [
+                FieldsRedirectVersion::FIELD_MODEL_NAME => [
                     [
-                        'name' => fieldsRedirectVersion::SITE_CMS_RESOURCE_ID,
-                        'type' => 'id',
+                        'name' => FieldsRedirectVersion::SITE_CMS_RESOURCE_ID,
+                        'type' => 'id-string',
                         'label' => 'Site CmsResourceId',
                         'required' => true,
                         'default' => '',
                         'options' => [],
                     ],
                     [
-                        'name' => fieldsRedirectVersion::REQUEST_PATH,
+                        'name' => FieldsRedirectVersion::REQUEST_PATH,
                         'type' => 'text',
                         'label' => 'Request Path',
                         'required' => true,
@@ -54,7 +54,7 @@ class ModuleConfigZrcms
                         'options' => [],
                     ],
                     [
-                        'name' => fieldsRedirectVersion::REDIRECT_PATH,
+                        'name' => FieldsRedirectVersion::REDIRECT_PATH,
                         'type' => 'text',
                         'label' => 'Redirect Path',
                         'required' => true,

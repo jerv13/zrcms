@@ -5,14 +5,14 @@ namespace Zrcms\HttpApiInputValidationMessages\Api\Response;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Reliv\ArrayProperties\Property;
-use Reliv\ValidationRatMessages\Api\GetMessagesValidationResultFieldsByOption;
-use Zend\Diactoros\Response\JsonResponse;
-use Zrcms\Http\Api\IsValidContentType;
-use Zrcms\Http\Response\ZrcmsJsonResponse;
 use Reliv\ValidationRat\Model\ValidationResult;
 use Reliv\ValidationRat\Model\ValidationResultFields;
 use Reliv\ValidationRatMessages\Api\GetMessagesValidationResult;
 use Reliv\ValidationRatMessages\Api\GetMessagesValidationResultFields;
+use Reliv\ValidationRatMessages\Api\GetMessagesValidationResultFieldsByOption;
+use Zend\Diactoros\Response\JsonResponse;
+use Zrcms\Http\Api\IsValidContentType;
+use Zrcms\Http\Response\ZrcmsJsonResponse;
 
 /**
  * @author James Jervis - https://github.com/jerv13

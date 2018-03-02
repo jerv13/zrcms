@@ -1,11 +1,12 @@
 <?php
 
-namespace Zrcms\ValidationRatZrcms\Api;
+namespace Zrcms\ValidationRatZrcms\Api\Validator;
 
 use Reliv\ValidationRat\Model\ValidationResult;
 use Reliv\ValidationRat\Model\ValidationResultBasic;
 
 /**
+ * @todo This may not be needed
  * @author James Jervis - https://github.com/jerv13
  */
 class ValidateIdBasic implements ValidateId

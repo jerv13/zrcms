@@ -9,6 +9,8 @@ use Zrcms\Core\Fields\FieldsContent;
  */
 class FieldsView extends FieldsContent
 {
+    const FIELD_MODEL_NAME = 'view';
+
     const SITE_CMS_RESOURCE = 'siteCmsResource';
     const PAGE_CMS_RESOURCE = 'pageCmsResource';
     const LAYOUT_CMS_RESOURCE = 'layoutCmsResource';

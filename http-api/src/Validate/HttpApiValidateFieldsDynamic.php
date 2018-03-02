@@ -56,18 +56,18 @@ class HttpApiValidateFieldsDynamic
 
         $validateConfig = Property::getArray(
             $dynamicApiConfig,
-            Dynamic::MIDDLEWARE_NAME_VALIDATE_FIELDS,
+            Dynamic::MIDDLEWARE_NAME_FIELDS_VALIDATOR,
             []
         );
 
         $validateServiceName = Property::getString(
             $validateConfig,
-            'validate-fields'
+            'fields-validator'
         );
 
         if (!$this->serviceContainer->has($validateServiceName)) {
             throw new \Exception(
-                'validate-fields must be a service: (' . $validateServiceName . ')'
+                'fields-validator must be a service: (' . $validateServiceName . ')'
             );
         }
 
@@ -83,7 +83,7 @@ class HttpApiValidateFieldsDynamic
 
         $validateOptions = Property::getArray(
             $validateConfig,
-            'validate-fields-options',
+            'fields-validator-options',
             []
         );
 

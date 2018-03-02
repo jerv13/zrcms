@@ -9,7 +9,7 @@ use Zrcms\Http\Api\BuildResponseOptions;
 use Zrcms\Http\Response\ZrcmsJsonResponse;
 use Zrcms\HttpApi\Dynamic;
 use Reliv\ValidationRat\Api\Validator\Validate;
-use Zrcms\ValidationRatZrcms\Api\ValidateId;
+use Zrcms\ValidationRatZrcms\Api\Validator\ValidateId;
 use Reliv\ArrayProperties\Property;
 
 /**

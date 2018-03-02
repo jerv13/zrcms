@@ -1,5 +1,9 @@
 @todo
 =====
+const OPTION_CODES = BuildOptionCode::OPTION_CODES;
+BuildOptionCode::invoke($options, 
+static::
+)
 
 Page duplicate URL - warn on client
 Render unpublished page for admin /admin-tools/

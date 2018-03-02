@@ -2,8 +2,8 @@
 
 namespace Zrcms\ValidationRatZrcmsSite;
 
-use Zrcms\ValidationRatZrcms\Api\ValidateId;
-use Zrcms\ValidationRatZrcms\Api\ValidateIdBasicFactory;
+use Zrcms\ValidationRatZrcms\Api\Validator\ValidateId;
+use Zrcms\ValidationRatZrcms\Api\Validator\ValidateIdBasicFactory;
 
 /**
  * @author James Jervis - https://github.com/jerv13

@@ -1,29 +1,29 @@
 <?php
 
-namespace Zrcms\ValidationRatZrcms\Api;
+namespace Zrcms\ValidationRatZrcms\Api\Validator;
 
 use Psr\Container\ContainerInterface;
-use Reliv\ValidationRat\Api\FieldValidator\ValidateFieldsHasOnlyRecognizedFields;
+use Reliv\ValidationRat\Api\Validator\ValidateIsNull;
+use Reliv\ValidationRat\Api\Validator\ValidateIsString;
 
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class ValidatePropertiesFactory
+class ValidateCmsResourceIdFactory
 {
     /**
      * @param ContainerInterface $serviceContainer
      *
-     * @return ValidateProperties
+     * @return ValidateCmsResourceId
      * @throws \Psr\Container\ContainerExceptionInterface
      * @throws \Psr\Container\NotFoundExceptionInterface
      */
     public function __invoke(
         ContainerInterface $serviceContainer
     ) {
-        return new ValidateProperties(
-            $serviceContainer,
-            $serviceContainer->get(ValidateFieldsHasOnlyRecognizedFields::class),
-            ValidateProperties::DEFAULT_INVALID_CODE
+        return new ValidateCmsResourceId(
+            $serviceContainer->get(ValidateIsNull::class),
+            $serviceContainer->get(ValidateIsString::class)
         );
     }
 }

@@ -169,7 +169,7 @@ class ModuleConfigRoutes
                         'dynamic' => HttpApiDynamic::class,
                         'acl' => HttpApiIsAllowedDynamic::class,
                         'body-parser' => BodyParamsMiddleware::class,
-                        'validate-fields' => HttpApiValidateFieldsDynamic::class,
+                        'fields-validator' => HttpApiValidateFieldsDynamic::class,
                         'api' => HttpApiUpsertCmsResourceDynamic::class,
                     ],
                     'options' => [
@@ -504,7 +504,7 @@ class ModuleConfigRoutes
                         'dynamic' => HttpApiDynamic::class,
                         'acl' => HttpApiIsAllowedDynamic::class,
                         'body-parser' => BodyParamsMiddleware::class,
-                        'validate-fields' => HttpApiValidateFieldsDynamic::class,
+                        'fields-validator' => HttpApiValidateFieldsDynamic::class,
                         'api' => HttpApiInsertContentVersionDynamic::class,
                     ],
                     'options' => [
