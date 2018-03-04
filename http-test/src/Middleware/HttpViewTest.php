@@ -58,6 +58,10 @@ class HttpViewTest
      * @param callable|null          $next
      *
      * @return JsonResponse
+     * @throws \Psr\Container\ContainerExceptionInterface
+     * @throws \Psr\Container\NotFoundExceptionInterface
+     * @throws \Zrcms\Core\Exception\CmsResourceNotExists
+     * @throws \Zrcms\Core\Exception\ContentVersionNotExists
      */
     public function test(
         ServerRequestInterface $request,
@@ -122,6 +126,7 @@ class HttpViewTest
 
         $newSiteCmsResource = $upsertSiteCmsResource->__invoke(
             $siteCmsResource,
+            $newSiteVersion->getId(),
             self::CREATED_BY_USER_ID,
             self::CREATED_REASON
         );
@@ -140,6 +145,8 @@ class HttpViewTest
      * @param callable|null          $next
      *
      * @return HtmlResponse
+     * @throws \Psr\Container\ContainerExceptionInterface
+     * @throws \Psr\Container\NotFoundExceptionInterface
      */
     public function __invoke(
         ServerRequestInterface $request,
@@ -271,9 +278,6 @@ class HttpViewTest
         );
 
         $pageView = new ViewBasic(
-            $siteCmsResource,
-            $pageCmsResource,
-            $layoutCmsResource,
             $properties,
             null
         );

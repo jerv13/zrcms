@@ -17,8 +17,8 @@ use Zrcms\CorePage\Api\Content\FindPageVersion;
 use Zrcms\CorePage\Api\Content\FindPageVersionsBy;
 use Zrcms\CorePage\Api\Content\InsertPageVersion;
 use Zrcms\CorePage\Fields\FieldsPageVersion;
-use Zrcms\ValidationRatZrcms\Api\FieldValidator\ValidateFieldsUpsertCmsResourceData;
 use Zrcms\ValidationRatZrcms\Api\FieldValidator\ValidateFieldsInsertContentVersionData;
+use Zrcms\ValidationRatZrcms\Api\FieldValidator\ValidateFieldsUpsertCmsResourceData;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -87,13 +87,14 @@ class ModuleConfigZrcms
                         'fields-validator' => [
                             'fields-validator' => ValidateFieldsUpsertCmsResourceData::class,
                             'fields-validator-options' => [
-                                'fields-validator-options-insert-content-version-properties' => [
-                                    'fields-model-name' => FieldsPageVersion::FIELD_MODEL_NAME
+                                'validator-options-content-version-id' => [
+                                    'api-service-find-content-version' => FindPageVersion::class,
                                 ],
                             ],
                             'not-valid-status' => 400,
                         ],
                         'api' => [
+                            'api-service-find-content-version' => FindPageVersion::class,
                             'api-service' => UpsertPageCmsResource::class,
                             'to-array' => CmsResourceToArray::class,
                             'not-found-status' => 404,

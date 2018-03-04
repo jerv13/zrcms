@@ -15,7 +15,6 @@ use Zrcms\CoreSite\Api\Content\FindSiteVersion;
 use Zrcms\CoreSite\Api\Content\FindSiteVersionsBy;
 use Zrcms\CoreSite\Api\Content\InsertSiteVersion;
 use Zrcms\CoreSite\Fields\FieldsSiteVersion;
-use Zrcms\ValidationRatZrcms\Api\FieldValidator\ValidateFieldsContentVersionProperties;
 use Zrcms\ValidationRatZrcms\Api\FieldValidator\ValidateFieldsInsertContentVersionData;
 use Zrcms\ValidationRatZrcms\Api\FieldValidator\ValidateFieldsUpsertCmsResourceData;
 
@@ -86,13 +85,14 @@ class ModuleConfigZrcms
                         'fields-validator' => [
                             'fields-validator' => ValidateFieldsUpsertCmsResourceData::class,
                             'fields-validator-options' => [
-                                'fields-validator-options-insert-content-version-properties' => [
-                                    'fields-model-name' => FieldsSiteVersion::FIELD_MODEL_NAME
+                                'validator-options-content-version-id' => [
+                                    'api-service-find-content-version' => FindSiteVersion::class,
                                 ],
                             ],
                             'not-valid-status' => 400,
                         ],
                         'api' => [
+                            'api-service-find-content-version' => FindSiteVersion::class,
                             'api-service' => UpsertSiteCmsResource::class,
                             'to-array' => CmsResourceToArray::class,
                             'not-found-status' => 404,

@@ -1,6 +1,42 @@
 @todo
 =====
-/zrcms/api/cms-resource/{resource-type}/upsert{/resource-id}{/version-id}
+UpsertContainerCmsResource
+UpsertPageCmsResource
+UpsertPageDraftCmsResource
+UpsertPageTemplateCmsResource
+UpsertRedirectCmsResource
+UpsertSiteCmsResource
+UpsertLayoutCmsResource
+
+    /**
+     * @param ContainerCmsResource|CmsResource $cmsResource
+     * @param string                           $contentVersionId
+     * @param string                           $modifiedByUserId
+     * @param string                           $modifiedReason
+     * @param string|null                      $modifiedDate
+     *
+     * @return ContainerCmsResource|CmsResource
+     * @throws CmsResourceNotExists
+     * @throws ContentVersionNotExists
+     * @throws \Doctrine\ORM\OptimisticLockException
+     * @throws \Exception
+     * @throws \Zrcms\Core\Exception\TrackingInvalid
+     */
+    public function __invoke(
+        CmsResource $cmsResource,
+        string $contentVersionId,
+        string $modifiedByUserId,
+        string $modifiedReason,
+        $modifiedDate = null
+    ): CmsResource
+    
+        return parent::__invoke(
+            $cmsResource,
+            $contentVersionId,
+            $modifiedByUserId,
+            $modifiedReason,
+            $modifiedDate
+        );
 
 - top level codes?
 - wire service alias ns in field configs

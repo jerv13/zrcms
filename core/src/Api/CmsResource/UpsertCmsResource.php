@@ -12,18 +12,17 @@ use Zrcms\Core\Model\CmsResource;
 interface UpsertCmsResource
 {
     /**
-     * Case 1 - New CmsResource - New ContentVersion
-     * Case 2 - New CmsResource - Existing ContentVersion
-     * Case 3 - Existing CmsResource - New ContentVersion
-     * Case 4 - Existing CmsResource - Existing ContentVersion
+     * Case 1 - New CmsResource - Existing ContentVersion
+     * Case 2 - Existing CmsResource - Existing ContentVersion
      *
      * throws CmsResourceNotExists If received CmsResourceId but CmsResource does not exist
-     * throws ContentVersionNotExists If received ContentVersionId but ContentVersion does not exist
+     * throws ContentVersionNotExists If ContentVersion does not exist
      *
      * @param CmsResource $cmsResource
+     * @param string      $contentVersionId
      * @param string      $modifiedByUserId
-     * @param string      $publishReason
-     * @param string|null $publishDate
+     * @param string      $modifiedReason
+     * @param string|null        $modifiedDate
      *
      * @return CmsResource
      * @throws CmsResourceNotExists
@@ -33,7 +32,7 @@ interface UpsertCmsResource
         CmsResource $cmsResource,
         string $contentVersionId,
         string $modifiedByUserId,
-        string $publishReason,
-        $publishDate = null
+        string $modifiedReason,
+        $modifiedDate = null
     ): CmsResource;
 }

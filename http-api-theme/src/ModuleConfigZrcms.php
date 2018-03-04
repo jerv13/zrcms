@@ -86,14 +86,13 @@ class ModuleConfigZrcms
                         ],
                         'fields-validator' => [
                             'fields-validator' => ValidateFieldsUpsertCmsResourceData::class,
-                            'fields-validator-options' => [
-                                'fields-validator-options-insert-content-version-properties' => [
-                                    'fields-model-name' => FieldsLayoutVersion::FIELD_MODEL_NAME
-                                ],
+                            'validator-options-content-version-id' => [
+                                'api-service-find-content-version' => FindLayoutVersion::class,
                             ],
                             'not-valid-status' => 400,
                         ],
                         'api' => [
+                            'api-service-find-content-version' => FindLayoutVersion::class,
                             'api-service' => UpsertLayoutCmsResource::class,
                             'to-array' => CmsResourceToArray::class,
                             'not-found-status' => 404,

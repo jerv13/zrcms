@@ -14,7 +14,7 @@ use Zrcms\CoreApplicationDoctrine\Entity\CmsResourceHistoryEntity;
 use Zrcms\CoreApplicationDoctrine\Entity\ContentEntity;
 
 /**
- * @todo   Use transactions here as versions can be saved even if the resource fails
+ * @todo   Use transactions here
  *
  * @author James Jervis - https://github.com/jerv13
  */
@@ -75,9 +75,10 @@ class UpsertCmsResource extends ApiAbstract implements \Zrcms\Core\Api\CmsResour
 
     /**
      * @param CmsResource $cmsResource
+     * @param string      $contentVersionId
      * @param string      $modifiedByUserId
      * @param string      $modifiedReason
-     * @param null        $modifiedDate
+     * @param string|null $modifiedDate
      *
      * @return CmsResource
      * @throws CmsResourceNotExists
@@ -88,21 +89,14 @@ class UpsertCmsResource extends ApiAbstract implements \Zrcms\Core\Api\CmsResour
      */
     public function __invoke(
         CmsResource $cmsResource,
+        string $contentVersionId,
         string $modifiedByUserId,
         string $modifiedReason,
         $modifiedDate = null
     ): CmsResource {
-        $isNewContent = false;
         $contentEntity = $this->fetchContentEntity(
-            $cmsResource
+            $contentVersionId
         );
-
-        if (empty($contentEntity)) {
-            $contentEntity = $this->newContentEntity($cmsResource);
-            $this->entityManager->persist($contentEntity);
-            $this->entityManager->flush($contentEntity);
-            $isNewContent = true;
-        }
 
         $cmsResourceEntity = $this->fetchCmsResourceEntity(
             $cmsResource
@@ -117,15 +111,14 @@ class UpsertCmsResource extends ApiAbstract implements \Zrcms\Core\Api\CmsResour
         }
 
         $publishedStateChanged = ($cmsResource->isPublished() !== $cmsResourceEntity->isPublished());
+        $versionChanged = ($contentEntity->getId() !== $cmsResourceEntity->getContentVersionId());
 
-        if ($isNewContent) {
-            $cmsResourceEntity->setContentVersion(
-                $contentEntity,
-                $modifiedByUserId,
-                $modifiedReason,
-                $modifiedDate
-            );
-        }
+        $cmsResourceEntity->setContentVersion(
+            $contentEntity,
+            $modifiedByUserId,
+            $modifiedReason,
+            $modifiedDate
+        );
 
         if ($publishedStateChanged) {
             $cmsResourceEntity->setPublished(
@@ -140,7 +133,7 @@ class UpsertCmsResource extends ApiAbstract implements \Zrcms\Core\Api\CmsResour
 
         $action = ActionCmsResource::invoke(
             $cmsResource->isPublished(),
-            $isNewContent
+            $versionChanged
         );
 
         $cmsResourceHistoryEntity = $this->buildHistory(
@@ -150,6 +143,7 @@ class UpsertCmsResource extends ApiAbstract implements \Zrcms\Core\Api\CmsResour
             $modifiedReason,
             $modifiedDate
         );
+
         $this->entityManager->persist($cmsResourceHistoryEntity);
         $this->entityManager->flush($cmsResourceHistoryEntity);
 
@@ -187,7 +181,6 @@ class UpsertCmsResource extends ApiAbstract implements \Zrcms\Core\Api\CmsResour
         );
 
         if (empty($cmsResourceEntity)) {
-            return null;
             throw new CmsResourceNotExists(
                 'CmsResource not found with ID: (' . $cmsResourceId . ')'
             );
@@ -223,61 +216,30 @@ class UpsertCmsResource extends ApiAbstract implements \Zrcms\Core\Api\CmsResour
     }
 
     /**
-     * @param CmsResource $cmsResource
+     * @param string $contentVersionId
      *
-     * @return null|object|ContentEntity
+     * @return ContentEntity
      * @throws ContentVersionNotExists
      */
     protected function fetchContentEntity(
-        CmsResource $cmsResource
+        string $contentVersionId
     ) {
-        $contentVersionId = $cmsResource->getContentVersionId();
-
-        if (empty($contentVersionId)) {
-            return null;
-        }
-
         $repository = $this->entityManager->getRepository(
             $this->entityClassContentVersion
         );
 
+        /** @var ContentEntity $existingContentVersion */
         $existingContentVersion = $repository->find(
             $contentVersionId
         );
 
         if (empty($existingContentVersion)) {
-            return null;
             throw new ContentVersionNotExists(
                 'Content Version not found with ID: (' . $contentVersionId . ')'
             );
         }
 
         return $existingContentVersion;
-    }
-
-    /**
-     * @param CmsResource $cmsResource
-     *
-     * @return ContentEntity
-     * @throws \Zrcms\Core\Exception\TrackingInvalid
-     */
-    protected function newContentEntity(
-        CmsResource $cmsResource
-    ): ContentEntity {
-        $contentVersion = $cmsResource->getContentVersion();
-
-        $entityClass = $this->entityClassContentVersion;
-
-        /** @var ContentEntity $contentEntity */
-        $contentEntity = new $entityClass(
-            $contentVersion->getId(),
-            $contentVersion->getProperties(),
-            $contentVersion->getCreatedByUserId(),
-            $contentVersion->getCreatedReason(),
-            $contentVersion->getCreatedDate()
-        );
-
-        return $contentEntity;
     }
 
     /**

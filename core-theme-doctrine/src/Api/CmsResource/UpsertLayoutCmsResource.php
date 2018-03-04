@@ -3,6 +3,8 @@
 namespace Zrcms\CoreThemeDoctrine\Api\CmsResource;
 
 use Doctrine\ORM\EntityManager;
+use Zrcms\Core\Exception\CmsResourceNotExists;
+use Zrcms\Core\Exception\ContentVersionNotExists;
 use Zrcms\Core\Model\CmsResource;
 use Zrcms\CoreApplicationDoctrine\Api\CmsResource\UpsertCmsResource;
 use Zrcms\CoreTheme\Api\CmsResource\UpsertLayoutCmsResource as CoreUpsert;
@@ -20,6 +22,8 @@ class UpsertLayoutCmsResource extends UpsertCmsResource implements CoreUpsert
 {
     /**
      * @param EntityManager $entityManager
+     *
+     * @throws \Zrcms\CoreApplicationDoctrine\Exception\InvalidEntityException
      */
     public function __construct(
         EntityManager $entityManager
@@ -37,20 +41,28 @@ class UpsertLayoutCmsResource extends UpsertCmsResource implements CoreUpsert
 
     /**
      * @param LayoutCmsResource|CmsResource $cmsResource
+     * @param string                        $contentVersionId
      * @param string                        $modifiedByUserId
      * @param string                        $modifiedReason
-     * @param null                          $modifiedDate
+     * @param string|null                   $modifiedDate
      *
      * @return LayoutCmsResource|CmsResource
+     * @throws CmsResourceNotExists
+     * @throws ContentVersionNotExists
+     * @throws \Doctrine\ORM\OptimisticLockException
+     * @throws \Exception
+     * @throws \Zrcms\Core\Exception\TrackingInvalid
      */
     public function __invoke(
         CmsResource $cmsResource,
+        string $contentVersionId,
         string $modifiedByUserId,
         string $modifiedReason,
         $modifiedDate = null
     ): CmsResource {
         return parent::__invoke(
             $cmsResource,
+            $contentVersionId,
             $modifiedByUserId,
             $modifiedReason,
             $modifiedDate

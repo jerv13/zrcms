@@ -7,7 +7,6 @@ use Zrcms\Core\Api\CmsResource\CmsResourcesToArray;
 use Zrcms\Core\Api\CmsResource\CmsResourceToArray;
 use Zrcms\Core\Api\Content\ContentVersionsToArray;
 use Zrcms\Core\Api\Content\ContentVersionToArray;
-use Zrcms\Core\Fields\FieldsContentVersion;
 use Zrcms\CoreContainer\Api\CmsResource\FindContainerCmsResource;
 use Zrcms\CoreContainer\Api\CmsResource\FindContainerCmsResourcesBy;
 use Zrcms\CoreContainer\Api\CmsResource\FindContainerCmsResourcesPublished;
@@ -18,8 +17,8 @@ use Zrcms\CoreContainer\Api\Content\FindContainerVersion;
 use Zrcms\CoreContainer\Api\Content\FindContainerVersionsBy;
 use Zrcms\CoreContainer\Api\Content\InsertContainerVersion;
 use Zrcms\CoreContainer\Fields\FieldsContainerVersion;
-use Zrcms\ValidationRatZrcms\Api\FieldValidator\ValidateFieldsUpsertCmsResourceData;
 use Zrcms\ValidationRatZrcms\Api\FieldValidator\ValidateFieldsInsertContentVersionData;
+use Zrcms\ValidationRatZrcms\Api\FieldValidator\ValidateFieldsUpsertCmsResourceData;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -88,13 +87,14 @@ class ModuleConfigZrcms
                         'fields-validator' => [
                             'fields-validator' => ValidateFieldsUpsertCmsResourceData::class,
                             'fields-validator-options' => [
-                                'fields-validator-options-insert-content-version-properties' => [
-                                    'fields-model-name' => FieldsContainerVersion::FIELD_MODEL_NAME
+                                'validator-options-content-version-id' => [
+                                    'api-service-find-content-version' => FindContainerVersion::class,
                                 ],
                             ],
                             'not-valid-status' => 400,
                         ],
                         'api' => [
+                            'api-service-find-content-version' => FindContainerVersion::class,
                             'api-service' => UpsertContainerCmsResource::class,
                             'to-array' => CmsResourceToArray::class,
                             'not-found-status' => 404,

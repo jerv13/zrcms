@@ -139,6 +139,7 @@ class ModuleConfigZrcms
                             'not-valid-status' => 400,
                         ],
                         'api' => [
+                            'api-service-find-content-version' => FindContentVersion::class,
                             'api-service' => UpsertContentCmsResource::class,
                             'to-array' => CmsResourceToArray::class,
                             'not-found-status' => 404,
@@ -271,7 +272,7 @@ class ModuleConfigZrcms
                             ],
                         ],
                     ],
-                    ],
+                ],
                 'route-params' => [
                     'ZrcmsImplementationPathProperty' => [
                         'name' => 'zrcms-implementation',

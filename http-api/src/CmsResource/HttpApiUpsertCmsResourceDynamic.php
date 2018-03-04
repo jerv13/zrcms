@@ -5,14 +5,15 @@ namespace Zrcms\HttpApi\CmsResource;
 use Psr\Container\ContainerInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
+use Reliv\ArrayProperties\Property;
+use Reliv\ValidationRat\Model\ValidationResultBasic;
 use Zrcms\Core\Api\CmsResource\CmsResourceToArray;
 use Zrcms\Core\Api\CmsResource\UpsertCmsResource;
+use Zrcms\Core\Api\Content\FindContentVersion;
 use Zrcms\Core\Model\CmsResourceBasic;
-use Zrcms\Core\Model\ContentVersionBasic;
 use Zrcms\Http\Api\BuildResponseOptions;
 use Zrcms\Http\Response\ZrcmsJsonResponse;
 use Zrcms\HttpApi\Dynamic;
-use Reliv\ArrayProperties\Property;
 use Zrcms\User\Api\GetUserIdByRequest;
 
 /**
@@ -69,36 +70,25 @@ class HttpApiUpsertCmsResourceDynamic
             []
         );
 
-        $apiServiceName = Property::getString(
-            $apiConfig,
-            'api-service',
-            null
+        $apiServiceUpsertCmsResource = $this->getUpsertApiService(
+            $apiConfig
         );
 
-        if ($apiServiceName === null) {
-            throw new \Exception('api-service must be defined');
-        }
-
-        /** @var UpsertCmsResource $apiService */
-        $apiService = $this->serviceContainer->get($apiServiceName);
-
-        if (!$apiService instanceof UpsertCmsResource) {
-            throw new \Exception('api-service must be instance of ' . UpsertCmsResource::class);
-        }
+        $apiServiceFindVersion = $this->getFindContentVersionApiService(
+            $apiConfig
+        );
 
         $data = $request->getParsedBody();
-        $contentVersionData = $data['contentVersion'];
 
-        $reason = $contentVersionData['createdReason'] . ' (source: ' . static::SOURCE . ')';
+        $contentVersionId = $data['contentVersionId'];
+
+        $contentVersion = $apiServiceFindVersion->__invoke(
+            $contentVersionId
+        );
+
+        $reason = $data['createdReason'] . ' (source: ' . static::SOURCE . ')';
 
         $userId = $this->getUserIdByRequest->__invoke($request);
-
-        $contentVersion = new ContentVersionBasic(
-            $contentVersionData['id'],
-            $contentVersionData['properties'],
-            $userId,
-            $reason
-        );
 
         $newCmsResource = new CmsResourceBasic(
             $data['id'],
@@ -108,8 +98,9 @@ class HttpApiUpsertCmsResourceDynamic
             $reason
         );
 
-        $cmsResource = $apiService->__invoke(
+        $cmsResource = $apiServiceUpsertCmsResource->__invoke(
             $newCmsResource,
+            $contentVersionId,
             $userId,
             $reason
         );
@@ -142,5 +133,70 @@ class HttpApiUpsertCmsResourceDynamic
             [],
             BuildResponseOptions::invoke()
         );
+    }
+
+    /**
+     * @param array $apiConfig
+     *
+     * @return FindContentVersion
+     * @throws \Exception
+     * @throws \Psr\Container\ContainerExceptionInterface
+     * @throws \Psr\Container\NotFoundExceptionInterface
+     */
+    protected function getFindContentVersionApiService(
+        array $apiConfig
+    ): FindContentVersion {
+        $apiServiceNameFindVersion = Property::getString(
+            $apiConfig,
+            'api-service-find-content-version',
+            null
+        );
+
+        if (empty($apiServiceNameFindVersion)) {
+            throw new \Exception('api-service-find-content-version must be defined');
+        }
+
+        /** @var FindContentVersion $apiServiceFindVersion */
+        $apiServiceFindVersion = $this->serviceContainer->get($apiServiceNameFindVersion);
+
+        if (!$apiServiceFindVersion instanceof FindContentVersion) {
+            throw new \Exception(
+                'api-service-find-content-version must be instance of ' . FindContentVersion::class
+            );
+        }
+
+        return $apiServiceFindVersion;
+    }
+
+    /**
+     * @param array $apiConfig
+     *
+     * @return UpsertCmsResource
+     * @throws \Exception
+     * @throws \Psr\Container\ContainerExceptionInterface
+     * @throws \Psr\Container\NotFoundExceptionInterface
+     */
+    protected function getUpsertApiService(
+        array $apiConfig
+    ): UpsertCmsResource {
+        $apiServiceName = Property::getString(
+            $apiConfig,
+            'api-service',
+            null
+        );
+
+        if ($apiServiceName === null) {
+            throw new \Exception('api-service must be defined');
+        }
+        /** @var UpsertCmsResource $apiService */
+        $apiService = $this->serviceContainer->get($apiServiceName);
+
+        if (!$apiService instanceof UpsertCmsResource) {
+            throw new \Exception(
+                'api-service must be instance of ' . UpsertCmsResource::class
+            );
+        }
+
+        return $apiService;
     }
 }

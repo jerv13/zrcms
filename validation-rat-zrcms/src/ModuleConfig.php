@@ -12,6 +12,8 @@ use Zrcms\ValidationRatZrcms\Api\FieldValidator\ValidateFieldsUpsertCmsResourceD
 use Zrcms\ValidationRatZrcms\Api\FieldValidator\ValidateFieldsUpsertCmsResourceDataFactory;
 use Zrcms\ValidationRatZrcms\Api\Validator\ValidateCmsResourceId;
 use Zrcms\ValidationRatZrcms\Api\Validator\ValidateCmsResourceIdFactory;
+use Zrcms\ValidationRatZrcms\Api\Validator\ValidateContentVersionExists;
+use Zrcms\ValidationRatZrcms\Api\Validator\ValidateContentVersionExistsFactory;
 use Zrcms\ValidationRatZrcms\Api\Validator\ValidateContentVersionId;
 use Zrcms\ValidationRatZrcms\Api\Validator\ValidateContentVersionIdFactory;
 use Zrcms\ValidationRatZrcms\Api\Validator\ValidateId;
@@ -51,6 +53,9 @@ class ModuleConfig
                      */
                     ValidateCmsResourceId::class => [
                         'factory' => ValidateCmsResourceIdFactory::class
+                    ],
+                    ValidateContentVersionExists::class => [
+                        'factory' => ValidateContentVersionExistsFactory::class
                     ],
                     ValidateContentVersionId::class => [
                         'factory' => ValidateContentVersionIdFactory::class
