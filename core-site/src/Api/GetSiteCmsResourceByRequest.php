@@ -30,7 +30,9 @@ class GetSiteCmsResourceByRequest
      * @param ServerRequestInterface $request
      * @param array                  $options
      *
-     * @return SiteCmsResource|CmsResource|null
+     * @return mixed|null|CmsResource|SiteCmsResource
+     * @throws \Exception
+     * @throws \Psr\SimpleCache\InvalidArgumentException
      */
     public function __invoke(
         ServerRequestInterface $request,

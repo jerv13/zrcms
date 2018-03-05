@@ -2,8 +2,8 @@
 
 namespace Zrcms\HttpApiInputValidationMessages;
 
-use Zrcms\HttpApiInputValidationMessages\Api\Response\ResponseMutatorMessagesFromResults;
-use Zrcms\HttpApiInputValidationMessages\Api\Response\ResponseMutatorMessagesFromResultsFactory;
+use Zrcms\HttpApiInputValidationMessages\Response\ResponseMutatorMessagesFromResults;
+use Zrcms\HttpApiInputValidationMessages\Response\ResponseMutatorMessagesFromResultsFactory;
 
 /**
  * @author James Jervis - https://github.com/jerv13

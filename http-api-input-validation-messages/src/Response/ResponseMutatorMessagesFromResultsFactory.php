@@ -1,6 +1,6 @@
 <?php
 
-namespace Zrcms\HttpApiInputValidationMessages\Api\Response;
+namespace Zrcms\HttpApiInputValidationMessages\Response;
 
 use Psr\Container\ContainerInterface;
 use Reliv\ValidationRatMessages\Api\GetMessagesValidationResult;

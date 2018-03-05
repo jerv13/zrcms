@@ -1,6 +1,6 @@
 <?php
 
-namespace Zrcms\HttpApiInputValidationMessages\Api\Response;
+namespace Zrcms\HttpApiInputValidationMessages\Response;
 
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;

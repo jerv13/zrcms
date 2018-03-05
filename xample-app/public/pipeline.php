@@ -15,7 +15,7 @@ $app->pipe(
 );
 
 $app->pipe(
-    \Zrcms\HttpApiInputValidationMessages\Api\Response\ResponseMutatorMessagesFromResults::class
+    \Zrcms\HttpApiInputValidationMessages\Response\ResponseMutatorMessagesFromResults::class
 );
 
 $app->pipe(
