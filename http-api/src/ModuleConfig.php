@@ -15,6 +15,9 @@ use Zrcms\HttpApi\CmsResource\HttpApiFindCmsResourcesPublishedDynamic;
 use Zrcms\HttpApi\CmsResource\HttpApiFindCmsResourcesPublishedDynamicFactory;
 use Zrcms\HttpApi\CmsResource\HttpApiUpsertCmsResourceDynamic;
 use Zrcms\HttpApi\CmsResource\HttpApiUpsertCmsResourceDynamicFactory;
+use Zrcms\HttpApi\CmsResourceHistory\HttpApiFindCmsResourceHistoryByDynamic;
+use Zrcms\HttpApi\CmsResourceHistory\HttpApiFindCmsResourceHistoryDynamic;
+use Zrcms\HttpApi\CmsResourceHistory\HttpApiFindCmsResourceHistoryDynamicFactory;
 use Zrcms\HttpApi\Component\HttpApiFindComponent;
 use Zrcms\HttpApi\Component\HttpApiFindComponentFactory;
 use Zrcms\HttpApi\Component\HttpApiFindComponentsBy;
@@ -90,6 +93,17 @@ class ModuleConfig
 
                     HttpApiUpsertCmsResourceDynamic::class => [
                         'factory' => HttpApiUpsertCmsResourceDynamicFactory::class,
+                    ],
+
+                    /**
+                     * CmsResourceHistory ===========================================
+                     */
+                    HttpApiFindCmsResourceHistoryByDynamic::class => [
+                        'factory' => HttpApiUpsertCmsResourceDynamicFactory::class,
+                    ],
+
+                    HttpApiFindCmsResourceHistoryDynamic::class => [
+                        'factory' => HttpApiFindCmsResourceHistoryDynamicFactory::class,
                     ],
 
                     /**

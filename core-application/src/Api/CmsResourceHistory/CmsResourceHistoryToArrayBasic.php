@@ -2,12 +2,12 @@
 
 namespace Zrcms\CoreApplication\Api\CmsResourceHistory;
 
+use Reliv\ArrayProperties\Property;
 use Zrcms\Core\Api\CmsResource\CmsResourceToArray;
 use Zrcms\Core\Api\CmsResourceHistory\CmsResourceHistoryToArray;
 use Zrcms\Core\Api\Content\ContentVersionToArray;
 use Zrcms\Core\Model\CmsResourceHistory;
 use Zrcms\CoreApplication\Api\RemoveProperties;
-use Reliv\ArrayProperties\Property;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -53,8 +53,16 @@ class CmsResourceHistoryToArrayBasic implements CmsResourceHistoryToArray
 
         $array['action'] = $cmsResourceHistory->getAction();
 
+        $array['cmsResourceId'] = $cmsResourceHistory->getCmsResourceId();
+
         $array['cmsResource'] = $this->cmsResourceToArray->__invoke(
             $cmsResourceHistory->getCmsResource()
+        );
+
+        $array['cmsResourceId'] = $cmsResourceHistory->getContentVersionId();
+
+        $array['cmsResource'] = $this->contentVersionToArray->__invoke(
+            $cmsResourceHistory->getContentVersion()
         );
 
         $array['createdByUserId'] = $cmsResourceHistory->getCreatedByUserId();

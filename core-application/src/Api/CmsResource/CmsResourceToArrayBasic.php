@@ -41,6 +41,7 @@ class CmsResourceToArrayBasic implements CmsResourceToArray
         $array = [];
         $array['id'] = $cmsResource->getId();
         $array['published'] = $cmsResource->isPublished();
+        $array['contentVersionId'] = $cmsResource->getContentVersionId();
         $array['contentVersion'] = $this->contentVersionToArray->__invoke(
             $cmsResource->getContentVersion(),
             $options

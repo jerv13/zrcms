@@ -12,11 +12,13 @@ use Zrcms\Core\Model\CmsResourceHistoryAbstract;
 abstract class SiteCmsResourceHistoryAbstract extends CmsResourceHistoryAbstract
 {
     /**
-     * @param string|null $id
-     * @param string      $action
-     * @param CmsResource $cmsResource
-     * @param string      $publishedByUserId
-     * @param string      $publishReason
+     * @param string|null                 $id
+     * @param string                      $action
+     * @param SiteCmsResource|CmsResource $cmsResource
+     * @param string                      $publishedByUserId
+     * @param string                      $publishReason
+     *
+     * @throws \Zrcms\Core\Exception\TrackingInvalid
      */
     public function __construct(
         $id,

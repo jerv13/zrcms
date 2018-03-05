@@ -66,7 +66,7 @@ class ModuleConfigRoutes
                             ],
                             'responses' => [
                                 'default' => [
-                                    '$ref' => '#/definitions/ZrcmsJsonResponse'
+                                    '$ref' => '#/definitions/ZrcmsJsonResponse:CmsResource'
                                 ],
                             ],
                         ],
@@ -109,7 +109,7 @@ class ModuleConfigRoutes
                             ],
                             'responses' => [
                                 'default' => [
-                                    '$ref' => '#/definitions/ZrcmsJsonResponse'
+                                    '$ref' => '#/definitions/ZrcmsJsonResponse:CmsResourceList'
                                 ],
                             ],
                         ],
@@ -152,7 +152,7 @@ class ModuleConfigRoutes
                             ],
                             'responses' => [
                                 'default' => [
-                                    '$ref' => '#/definitions/ZrcmsJsonResponse'
+                                    '$ref' => '#/definitions/ZrcmsJsonResponse:CmsResourceList'
                                 ],
                             ],
                         ],
@@ -187,7 +187,7 @@ class ModuleConfigRoutes
                             ],
                             'responses' => [
                                 'default' => [
-                                    '$ref' => '#/definitions/ZrcmsJsonResponse'
+                                    '$ref' => '#/definitions/ZrcmsJsonResponse:CmsResource'
                                 ],
                             ],
                         ],
@@ -201,7 +201,7 @@ class ModuleConfigRoutes
                             ],
                             'responses' => [
                                 'default' => [
-                                    '$ref' => '#/definitions/ZrcmsJsonResponse'
+                                    '$ref' => '#/definitions/ZrcmsJsonResponse:CmsResource'
                                 ],
                             ],
                         ],
@@ -236,7 +236,7 @@ class ModuleConfigRoutes
                             ],
                             'responses' => [
                                 'default' => [
-                                    '$ref' => '#/definitions/ZrcmsJsonResponse'
+                                    '$ref' => '#/definitions/ZrcmsJsonResponse:CmsResourceHistory'
                                 ],
                             ],
                         ],
@@ -279,7 +279,7 @@ class ModuleConfigRoutes
                             ],
                             'responses' => [
                                 'default' => [
-                                    '$ref' => '#/definitions/ZrcmsJsonResponse'
+                                    '$ref' => '#/definitions/ZrcmsJsonResponse:CmsResourceHistoryList'
                                 ],
                             ],
                         ],
@@ -369,7 +369,7 @@ class ModuleConfigRoutes
                             ],
                             'responses' => [
                                 'default' => [
-                                    '$ref' => '#/definitions/ZrcmsJsonResponse'
+                                    '$ref' => '#/definitions/ZrcmsJsonResponse:Component'
                                 ],
                             ],
                         ],
@@ -409,7 +409,7 @@ class ModuleConfigRoutes
                             ],
                             'responses' => [
                                 'default' => [
-                                    '$ref' => '#/definitions/ZrcmsJsonResponse'
+                                    '$ref' => '#/definitions/ZrcmsJsonResponse:ComponentList'
                                 ],
                             ],
                         ],
@@ -444,7 +444,7 @@ class ModuleConfigRoutes
                             ],
                             'responses' => [
                                 'default' => [
-                                    '$ref' => '#/definitions/ZrcmsJsonResponse'
+                                    '$ref' => '#/definitions/ZrcmsJsonResponse:ContentVersion'
                                 ],
                             ],
                         ],
@@ -487,7 +487,7 @@ class ModuleConfigRoutes
                             ],
                             'responses' => [
                                 'default' => [
-                                    '$ref' => '#/definitions/ZrcmsJsonResponse'
+                                    '$ref' => '#/definitions/ZrcmsJsonResponse:ContentVersionList'
                                 ],
                             ],
                         ],
@@ -522,7 +522,7 @@ class ModuleConfigRoutes
                             ],
                             'responses' => [
                                 'default' => [
-                                    '$ref' => '#/definitions/ZrcmsJsonResponse'
+                                    '$ref' => '#/definitions/ZrcmsJsonResponse:ContentVersion'
                                 ],
                             ],
                         ],

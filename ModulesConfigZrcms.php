@@ -28,6 +28,7 @@ class ModulesConfigZrcms
             new \Zrcms\CoreTheme\ModuleConfigZrcms(),
             new \Zrcms\CoreView\ModuleConfigZrcms(),
             new \Zrcms\HttpApi\ModuleConfigZrcms(),
+            new \Zrcms\HttpApi\ModuleConfigSwagger(),
             new \Zrcms\HttpApiContainer\ModuleConfigZrcms(),
             new \Zrcms\HttpApiPage\ModuleConfigZrcms(),
             new \Zrcms\HttpApiRedirect\ModuleConfigZrcms(),
