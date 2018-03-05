@@ -6,28 +6,23 @@ use Psr\Log\LoggerInterface;
 use Psr\Log\LogLevel;
 use Reliv\ArrayProperties\Property;
 use Reliv\Json\Json;
-use Zrcms\CoreContainer\Api\CmsResource\UpsertContainerCmsResource;
+use Zrcms\CoreContainer\Api\CmsResource\CreateContainerCmsResource;
 use Zrcms\CoreContainer\Api\Content\InsertContainerVersion;
 use Zrcms\CoreContainer\Fields\FieldsContainerVersion;
-use Zrcms\CoreContainer\Model\ContainerCmsResourceBasic;
 use Zrcms\CoreContainer\Model\ContainerVersionBasic;
-use Zrcms\CorePage\Api\CmsResource\UpsertPageCmsResource;
-use Zrcms\CorePage\Api\CmsResource\UpsertPageTemplateCmsResource;
+use Zrcms\CorePage\Api\CmsResource\CreatePageCmsResource;
+use Zrcms\CorePage\Api\CmsResource\CreatePageTemplateCmsResource;
 use Zrcms\CorePage\Api\Content\InsertPageVersion;
 use Zrcms\CorePage\Fields\FieldsPageVersion;
-use Zrcms\CorePage\Model\PageCmsResourceBasic;
-use Zrcms\CorePage\Model\PageTemplateCmsResourceBasic;
 use Zrcms\CorePage\Model\PageVersionBasic;
+use Zrcms\CoreRedirect\Api\CmsResource\CreateRedirectCmsResource;
 use Zrcms\CoreRedirect\Api\CmsResource\FindRedirectCmsResource;
-use Zrcms\CoreRedirect\Api\CmsResource\UpsertRedirectCmsResource;
 use Zrcms\CoreRedirect\Api\Content\InsertRedirectVersion;
-use Zrcms\CoreRedirect\Model\RedirectCmsResourceBasic;
 use Zrcms\CoreRedirect\Model\RedirectVersionBasic;
+use Zrcms\CoreSite\Api\CmsResource\CreateSiteCmsResource;
 use Zrcms\CoreSite\Api\CmsResource\FindSiteCmsResource;
-use Zrcms\CoreSite\Api\CmsResource\UpsertSiteCmsResource;
 use Zrcms\CoreSite\Api\Content\InsertSiteVersion;
 use Zrcms\CoreSite\Model\SiteCmsResource;
-use Zrcms\CoreSite\Model\SiteCmsResourceBasic;
 use Zrcms\CoreSite\Model\SiteVersionBasic;
 
 class Import
@@ -40,53 +35,53 @@ class Import
 
     protected $findSiteCmsResource;
     protected $insertSiteVersion;
-    protected $upsertSiteCmsResource;
+    protected $createSiteCmsResource;
     protected $insertPageVersion;
-    protected $upsertPageCmsResource;
-    protected $upsertPageTemplateCmsResource;
+    protected $createPageCmsResource;
+    protected $createPageTemplateCmsResource;
     protected $insertContainerVersion;
-    protected $upsertContainerCmsResource;
+    protected $createContainerCmsResource;
     protected $findRedirectCmsResource;
     protected $insertRedirectVersion;
-    protected $upsertRedirectCmsResource;
+    protected $createRedirectCmsResource;
 
     /**
      * @param FindSiteCmsResource           $findSiteCmsResource
      * @param InsertSiteVersion             $insertSiteVersion
-     * @param UpsertSiteCmsResource         $upsertSiteCmsResource
+     * @param CreateSiteCmsResource         $createSiteCmsResource
      * @param InsertPageVersion             $insertPageVersion
-     * @param UpsertPageCmsResource         $upsertPageCmsResource
-     * @param UpsertPageTemplateCmsResource $upsertPageTemplateCmsResource
+     * @param CreatePageCmsResource         $createPageCmsResource
+     * @param CreatePageTemplateCmsResource $createPageTemplateCmsResource
      * @param InsertContainerVersion        $insertContainerVersion
-     * @param UpsertContainerCmsResource    $upsertContainerCmsResource
+     * @param CreateContainerCmsResource    $createContainerCmsResource
      * @param FindRedirectCmsResource       $findRedirectCmsResource
      * @param InsertRedirectVersion         $insertRedirectVersion
-     * @param UpsertRedirectCmsResource     $upsertRedirectCmsResource
+     * @param CreateRedirectCmsResource     $createRedirectCmsResource
      */
     public function __construct(
         FindSiteCmsResource $findSiteCmsResource,
         InsertSiteVersion $insertSiteVersion,
-        UpsertSiteCmsResource $upsertSiteCmsResource,
+        CreateSiteCmsResource $createSiteCmsResource,
         InsertPageVersion $insertPageVersion,
-        UpsertPageCmsResource $upsertPageCmsResource,
-        UpsertPageTemplateCmsResource $upsertPageTemplateCmsResource,
+        CreatePageCmsResource $createPageCmsResource,
+        CreatePageTemplateCmsResource $createPageTemplateCmsResource,
         InsertContainerVersion $insertContainerVersion,
-        UpsertContainerCmsResource $upsertContainerCmsResource,
+        CreateContainerCmsResource $createContainerCmsResource,
         FindRedirectCmsResource $findRedirectCmsResource,
         InsertRedirectVersion $insertRedirectVersion,
-        UpsertRedirectCmsResource $upsertRedirectCmsResource
+        CreateRedirectCmsResource $createRedirectCmsResource
     ) {
         $this->findSiteCmsResource = $findSiteCmsResource;
         $this->insertSiteVersion = $insertSiteVersion;
-        $this->upsertSiteCmsResource = $upsertSiteCmsResource;
+        $this->createSiteCmsResource = $createSiteCmsResource;
         $this->insertPageVersion = $insertPageVersion;
-        $this->upsertPageCmsResource = $upsertPageCmsResource;
-        $this->upsertPageTemplateCmsResource = $upsertPageTemplateCmsResource;
+        $this->createPageCmsResource = $createPageCmsResource;
+        $this->createPageTemplateCmsResource = $createPageTemplateCmsResource;
         $this->insertContainerVersion = $insertContainerVersion;
-        $this->upsertContainerCmsResource = $upsertContainerCmsResource;
+        $this->createContainerCmsResource = $createContainerCmsResource;
         $this->findRedirectCmsResource = $findRedirectCmsResource;
         $this->insertRedirectVersion = $insertRedirectVersion;
-        $this->upsertRedirectCmsResource = $upsertRedirectCmsResource;
+        $this->createRedirectCmsResource = $createRedirectCmsResource;
     }
 
     /**
@@ -196,6 +191,7 @@ class Import
      * @param array  $options
      *
      * @return void
+     * @throws \Zrcms\Core\Exception\CmsResourceExists
      * @throws \Zrcms\Core\Exception\CmsResourceNotExists
      * @throws \Zrcms\Core\Exception\ContentVersionNotExists
      */
@@ -250,14 +246,9 @@ class Import
                 $version
             );
 
-            $publishedSiteCmsResource = $this->upsertSiteCmsResource->__invoke(
-                new SiteCmsResourceBasic(
-                    $site['id'],
-                    $published,
-                    $version,
-                    $createdByUserId,
-                    $createdReason
-                ),
+            $publishedSiteCmsResource = $this->createSiteCmsResource->__invoke(
+                $site['id'],
+                $published,
                 $version->getId(),
                 $createdByUserId,
                 $createdReason
@@ -305,7 +296,7 @@ class Import
      * @param array           $options
      *
      * @return void
-     * @throws \Zrcms\Core\Exception\CmsResourceNotExists
+     * @throws \Zrcms\Core\Exception\CmsResourceExists
      * @throws \Zrcms\Core\Exception\ContentVersionNotExists
      */
     protected function createPages(
@@ -345,14 +336,9 @@ class Import
                 $version
             );
 
-            $publishedPageCmsResource = $this->upsertPageCmsResource->__invoke(
-                new PageCmsResourceBasic(
-                    $page['id'],
-                    $published,
-                    $version,
-                    $createdByUserId,
-                    $createdReason
-                ),
+            $publishedPageCmsResource = $this->createPageCmsResource->__invoke(
+                $page['id'],
+                $published,
                 $version->getId(),
                 $createdByUserId,
                 $createdReason
@@ -376,7 +362,7 @@ class Import
      * @param array           $options
      *
      * @return void
-     * @throws \Zrcms\Core\Exception\CmsResourceNotExists
+     * @throws \Zrcms\Core\Exception\CmsResourceExists
      * @throws \Zrcms\Core\Exception\ContentVersionNotExists
      */
     protected function createPageTemplates(
@@ -416,14 +402,9 @@ class Import
                 $version
             );
 
-            $publishedPageTemplateCmsResource = $this->upsertPageTemplateCmsResource->__invoke(
-                new PageTemplateCmsResourceBasic(
-                    $pageTemplate['id'],
-                    $published,
-                    $version,
-                    $createdByUserId,
-                    $createdReason
-                ),
+            $publishedPageTemplateCmsResource = $this->createPageTemplateCmsResource->__invoke(
+                $pageTemplate['id'],
+                $published,
                 $version->getId(),
                 $createdByUserId,
                 $createdReason
@@ -447,7 +428,7 @@ class Import
      * @param array           $options
      *
      * @return void
-     * @throws \Zrcms\Core\Exception\CmsResourceNotExists
+     * @throws \Zrcms\Core\Exception\CmsResourceExists
      * @throws \Zrcms\Core\Exception\ContentVersionNotExists
      */
     protected function createContainers(
@@ -487,14 +468,9 @@ class Import
                 $version
             );
 
-            $publishedContainerCmsResource = $this->upsertContainerCmsResource->__invoke(
-                new ContainerCmsResourceBasic(
-                    $container['id'],
-                    $published,
-                    $version,
-                    $createdByUserId,
-                    $createdReason
-                ),
+            $publishedContainerCmsResource = $this->createContainerCmsResource->__invoke(
+                $container['id'],
+                $published,
                 $version->getId(),
                 $createdByUserId,
                 $createdReason
@@ -536,7 +512,7 @@ class Import
      * @param array  $options
      *
      * @return void
-     * @throws \Zrcms\Core\Exception\CmsResourceNotExists
+     * @throws \Zrcms\Core\Exception\CmsResourceExists
      * @throws \Zrcms\Core\Exception\ContentVersionNotExists
      */
     protected function createRedirects(
@@ -582,18 +558,13 @@ class Import
                 $createdReason
             );
 
-            $version = $this->insertContainerVersion->__invoke(
+            $version = $this->insertRedirectVersion->__invoke(
                 $version
             );
 
-            $publishedRedirectCmsResource = $this->upsertRedirectCmsResource->__invoke(
-                new RedirectCmsResourceBasic(
-                    $redirect['id'],
-                    $published,
-                    $version,
-                    $createdByUserId,
-                    $createdReason
-                ),
+            $publishedRedirectCmsResource = $this->createRedirectCmsResource->__invoke(
+                $redirect['id'],
+                $published,
                 $version->getId(),
                 $createdByUserId,
                 $createdReason

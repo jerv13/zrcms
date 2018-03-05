@@ -6,10 +6,11 @@ use Zrcms\Core\Api\Component\ReadComponentConfigs;
 use Zrcms\Core\Api\Component\SearchComponentConfigs;
 use Zrcms\Core\Api\GetTypeValue;
 use Zrcms\Core\Exception\IMPLEMENTATIONisREQUIRED;
-use Zrcms\CoreLayout\Api\CmsResource\FindLayoutCmsResourcesPublished;
+use Zrcms\CoreTheme\Api\CmsResource\CreateLayoutCmsResource;
 use Zrcms\CoreTheme\Api\CmsResource\FindLayoutCmsResource;
 use Zrcms\CoreTheme\Api\CmsResource\FindLayoutCmsResourceByThemeNameLayoutName;
 use Zrcms\CoreTheme\Api\CmsResource\FindLayoutCmsResourcesBy;
+use Zrcms\CoreTheme\Api\CmsResource\FindLayoutCmsResourcesPublished;
 use Zrcms\CoreTheme\Api\CmsResource\UpsertLayoutCmsResource;
 use Zrcms\CoreTheme\Api\CmsResourceHistory\FindLayoutCmsResourceHistory;
 use Zrcms\CoreTheme\Api\CmsResourceHistory\FindLayoutCmsResourceHistoryBy;
@@ -47,6 +48,9 @@ class ModuleConfig
                     /**
                      * CmsResource
                      */
+                    CreateLayoutCmsResource::class => [
+                        'class' => IMPLEMENTATIONisREQUIRED::class
+                    ],
                     FindLayoutCmsResource::class => [
                         'class' => IMPLEMENTATIONisREQUIRED::class
                     ],

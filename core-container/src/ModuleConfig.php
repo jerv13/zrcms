@@ -6,6 +6,7 @@ use Zrcms\Core\Exception\IMPLEMENTATIONisREQUIRED;
 use Zrcms\CoreBlock\Api\Render\GetBlockRenderTags;
 use Zrcms\CoreBlock\Api\Render\RenderBlock;
 use Zrcms\CoreBlock\Api\Render\WrapRenderedBlockVersion;
+use Zrcms\CoreContainer\Api\CmsResource\CreateContainerCmsResource;
 use Zrcms\CoreContainer\Api\CmsResource\FindContainerCmsResource;
 use Zrcms\CoreContainer\Api\CmsResource\FindContainerCmsResourcesBy;
 use Zrcms\CoreContainer\Api\CmsResource\FindContainerCmsResourcesBySitePaths;
@@ -43,6 +44,9 @@ class ModuleConfig
                     /**
                      * CmsResource
                      */
+                    CreateContainerCmsResource::class => [
+                        'class' => IMPLEMENTATIONisREQUIRED::class
+                    ],
                     FindContainerCmsResource::class => [
                         'class' => IMPLEMENTATIONisREQUIRED::class
                     ],

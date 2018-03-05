@@ -10,9 +10,11 @@ abstract class TrackableModifyAbstract extends TrackableAbstract implements Trac
     use TrackableModifyTrait;
 
     /**
-     * @param string      $createdByUserId
-     * @param string      $createdReason
-     * @param string|null $createdDate
+     * @param string $createdByUserId
+     * @param string $createdReason
+     * @param null   $createdDate
+     *
+     * @throws \Zrcms\Core\Exception\TrackingInvalid
      */
     public function __construct(
         string $createdByUserId,

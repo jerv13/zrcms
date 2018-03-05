@@ -5,10 +5,11 @@ namespace Zrcms\CoreRedirectDoctrine;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Mapping\Driver\AnnotationDriver;
 use Zrcms\CoreRedirect\Api\ChangeLog\GetRedirectChangeLogByDateRange;
-use Zrcms\CoreRedirect\Api\CmsResource\UpsertRedirectCmsResource;
+use Zrcms\CoreRedirect\Api\CmsResource\CreateRedirectCmsResource;
 use Zrcms\CoreRedirect\Api\CmsResource\FindRedirectCmsResource;
 use Zrcms\CoreRedirect\Api\CmsResource\FindRedirectCmsResourceBySiteRequestPath;
 use Zrcms\CoreRedirect\Api\CmsResource\FindRedirectCmsResourcesBy;
+use Zrcms\CoreRedirect\Api\CmsResource\UpsertRedirectCmsResource;
 use Zrcms\CoreRedirect\Api\Content\FindRedirectVersion;
 use Zrcms\CoreRedirect\Api\Content\FindRedirectVersionsBy;
 use Zrcms\CoreRedirect\Api\Content\InsertRedirectVersion;
@@ -30,8 +31,9 @@ class ModuleConfig
                         'class' => \Zrcms\CoreRedirectDoctrine\Api\ChangeLog\GetRedirectChangeLogByDateRangeAbstract::class,
                         'arguments' => [EntityManager::class]
                     ],
-                    UpsertRedirectCmsResource::class => [
-                        'class' => \Zrcms\CoreRedirectDoctrine\Api\CmsResource\UpsertRedirectCmsResource::class,
+
+                    CreateRedirectCmsResource::class => [
+                        'class' => \Zrcms\CoreRedirectDoctrine\Api\CmsResource\CreateRedirectCmsResource::class,
                         'arguments' => [
                             EntityManager::class,
                         ],
@@ -55,6 +57,13 @@ class ModuleConfig
                             EntityManager::class,
                         ],
                     ],
+                    UpsertRedirectCmsResource::class => [
+                        'class' => \Zrcms\CoreRedirectDoctrine\Api\CmsResource\UpsertRedirectCmsResource::class,
+                        'arguments' => [
+                            EntityManager::class,
+                        ],
+                    ],
+
                     FindRedirectVersion::class => [
                         'class' => \Zrcms\CoreRedirectDoctrine\Api\Content\FindRedirectVersion::class,
                         'arguments' => [

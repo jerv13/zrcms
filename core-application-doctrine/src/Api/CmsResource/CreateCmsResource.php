@@ -3,10 +3,11 @@
 namespace Zrcms\CoreApplicationDoctrine\Api\CmsResource;
 
 use Doctrine\ORM\EntityManager;
-use Zrcms\Core\Exception\CmsResourceNotExists;
+use Zrcms\Core\Exception\CmsResourceExists;
 use Zrcms\Core\Exception\ContentVersionNotExists;
 use Zrcms\Core\Model\ActionCmsResource;
 use Zrcms\Core\Model\CmsResource;
+use Zrcms\CoreApplication\Api\GetGuidV4;
 use Zrcms\CoreApplicationDoctrine\Api\ApiAbstract;
 use Zrcms\CoreApplicationDoctrine\Api\BuildBasicCmsResource;
 use Zrcms\CoreApplicationDoctrine\Entity\CmsResourceEntity;
@@ -18,7 +19,7 @@ use Zrcms\CoreApplicationDoctrine\Entity\ContentEntity;
  *
  * @author James Jervis - https://github.com/jerv13
  */
-class UpsertCmsResource extends ApiAbstract implements \Zrcms\Core\Api\CmsResource\UpsertCmsResource
+class CreateCmsResource extends ApiAbstract implements \Zrcms\Core\Api\CmsResource\CreateCmsResource
 {
     protected $entityManager;
     protected $entityClassCmsResource;
@@ -82,7 +83,7 @@ class UpsertCmsResource extends ApiAbstract implements \Zrcms\Core\Api\CmsResour
      * @param null|string $modifiedDate
      *
      * @return CmsResource
-     * @throws CmsResourceNotExists
+     * @throws CmsResourceExists
      * @throws ContentVersionNotExists
      * @throws \Doctrine\ORM\OptimisticLockException
      * @throws \Exception
@@ -100,47 +101,28 @@ class UpsertCmsResource extends ApiAbstract implements \Zrcms\Core\Api\CmsResour
         );
 
         if (empty($id)) {
-            // Create on empty ID
-            $cmsResourceEntity = $this->newCmsResourceEntity(
-                $id,
-                $published,
-                $contentEntity,
-                $modifiedByUserId,
-                $modifiedReason,
-                $modifiedDate
-            );
-            $this->entityManager->persist($cmsResourceEntity);
-        } else {
-            // Update on has id
-            $cmsResourceEntity = $this->fetchCmsResourceEntity(
-                $id
-            );
+            $id = GetGuidV4::invoke();
         }
 
-        $publishedStateChanged = ($published !== $cmsResourceEntity->isPublished());
-        $versionChanged = ($contentVersionId !== $cmsResourceEntity->getContentVersionId());
+        $this->assertValidCmsResourceId(
+            $id
+        );
 
-        $cmsResourceEntity->setContentVersion(
+        $cmsResourceEntity = $this->newCmsResourceEntity(
+            $id,
+            $published,
             $contentEntity,
             $modifiedByUserId,
             $modifiedReason,
             $modifiedDate
         );
 
-        if ($publishedStateChanged) {
-            $cmsResourceEntity->setPublished(
-                $published,
-                $modifiedByUserId,
-                $modifiedReason,
-                $modifiedDate
-            );
-        }
-
+        $this->entityManager->persist($cmsResourceEntity);
         $this->entityManager->flush($cmsResourceEntity);
 
         $action = ActionCmsResource::invoke(
             $cmsResourceEntity->isPublished(),
-            $versionChanged
+            true
         );
 
         $cmsResourceHistoryEntity = $this->buildHistory(
@@ -168,15 +150,11 @@ class UpsertCmsResource extends ApiAbstract implements \Zrcms\Core\Api\CmsResour
      * @param $cmsResourceId
      *
      * @return null|object
-     * @throws CmsResourceNotExists
+     * @throws CmsResourceExists
      */
-    protected function fetchCmsResourceEntity(
+    protected function assertValidCmsResourceId(
         $cmsResourceId
     ) {
-        if (empty($cmsResourceId)) {
-            return null;
-        }
-
         $repository = $this->entityManager->getRepository(
             $this->entityClassCmsResource
         );
@@ -185,9 +163,9 @@ class UpsertCmsResource extends ApiAbstract implements \Zrcms\Core\Api\CmsResour
             $cmsResourceId
         );
 
-        if (empty($cmsResourceEntity)) {
-            throw new CmsResourceNotExists(
-                'CmsResource not found with ID: (' . $cmsResourceId . ')'
+        if (!empty($cmsResourceEntity)) {
+            throw new CmsResourceExists(
+                'CmsResource already exists with ID: (' . $cmsResourceId . ')'
             );
         }
 

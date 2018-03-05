@@ -39,28 +39,30 @@ class UpsertSiteCmsResource extends UpsertCmsResource implements \Zrcms\CoreSite
     }
 
     /**
-     * @param SiteCmsResource|CmsResource $cmsResource
-     * @param string                      $contentVersionId
-     * @param string                      $modifiedByUserId
-     * @param string                      $modifiedReason
-     * @param string|null                 $modifiedDate
+     * @param null|string $id
+     * @param bool        $published
+     * @param string      $contentVersionId
+     * @param string      $modifiedByUserId
+     * @param string      $modifiedReason
+     * @param null|string $modifiedDate
      *
      * @return SiteCmsResource|CmsResource
      * @throws CmsResourceNotExists
      * @throws ContentVersionNotExists
      * @throws \Doctrine\ORM\OptimisticLockException
      * @throws \Exception
-     * @throws \Zrcms\Core\Exception\TrackingInvalid
      */
     public function __invoke(
-        CmsResource $cmsResource,
+        $id,
+        bool $published,
         string $contentVersionId,
         string $modifiedByUserId,
         string $modifiedReason,
         $modifiedDate = null
     ): CmsResource {
         return parent::__invoke(
-            $cmsResource,
+            $id,
+            $published,
             $contentVersionId,
             $modifiedByUserId,
             $modifiedReason,

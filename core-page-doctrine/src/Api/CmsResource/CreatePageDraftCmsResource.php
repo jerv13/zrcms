@@ -3,22 +3,22 @@
 namespace Zrcms\CorePageDoctrine\Api\CmsResource;
 
 use Doctrine\ORM\EntityManager;
-use Zrcms\Core\Exception\CmsResourceNotExists;
+use Zrcms\Core\Exception\CmsResourceExists;
 use Zrcms\Core\Exception\ContentVersionNotExists;
 use Zrcms\Core\Model\CmsResource;
-use Zrcms\CoreApplicationDoctrine\Api\CmsResource\UpsertCmsResource;
-use Zrcms\CorePage\Api\CmsResource\UpsertPageTemplateCmsResource as CoreUpsert;
-use Zrcms\CorePage\Model\PageTemplateCmsResource;
-use Zrcms\CorePage\Model\PageTemplateCmsResourceBasic;
+use Zrcms\CoreApplicationDoctrine\Api\CmsResource\CreateCmsResource;
+use Zrcms\CorePage\Api\CmsResource\CreatePageDraftCmsResource as CoreCreate;
+use Zrcms\CorePage\Model\PageDraftCmsResource;
+use Zrcms\CorePage\Model\PageDraftCmsResourceBasic;
 use Zrcms\CorePage\Model\PageVersionBasic;
-use Zrcms\CorePageDoctrine\Entity\PageTemplateCmsResourceEntity;
-use Zrcms\CorePageDoctrine\Entity\PageTemplateCmsResourceHistoryEntity;
+use Zrcms\CorePageDoctrine\Entity\PageDraftCmsResourceEntity;
+use Zrcms\CorePageDoctrine\Entity\PageDraftCmsResourceHistoryEntity;
 use Zrcms\CorePageDoctrine\Entity\PageVersionEntity;
 
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class UpsertPageTemplateCmsResource extends UpsertCmsResource implements CoreUpsert
+class CreatePageDraftCmsResource extends CreateCmsResource implements CoreCreate
 {
     /**
      * @param EntityManager $entityManager
@@ -30,10 +30,10 @@ class UpsertPageTemplateCmsResource extends UpsertCmsResource implements CoreUps
     ) {
         parent::__construct(
             $entityManager,
-            PageTemplateCmsResourceEntity::class,
-            PageTemplateCmsResourceHistoryEntity::class,
+            PageDraftCmsResourceEntity::class,
+            PageDraftCmsResourceHistoryEntity::class,
             PageVersionEntity::class,
-            PageTemplateCmsResourceBasic::class,
+            PageDraftCmsResourceBasic::class,
             PageVersionBasic::class,
             []
         );
@@ -47,8 +47,8 @@ class UpsertPageTemplateCmsResource extends UpsertCmsResource implements CoreUps
      * @param string      $modifiedReason
      * @param null|string $modifiedDate
      *
-     * @return PageTemplateCmsResource|CmsResource
-     * @throws CmsResourceNotExists
+     * @return PageDraftCmsResource|CmsResource
+     * @throws CmsResourceExists
      * @throws ContentVersionNotExists
      * @throws \Doctrine\ORM\OptimisticLockException
      * @throws \Exception

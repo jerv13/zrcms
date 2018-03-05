@@ -5,6 +5,9 @@ namespace Zrcms\CorePageDoctrine;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Mapping\Driver\AnnotationDriver;
 use Zrcms\CorePage\Api\ChangeLog\GetPageChangeLogByDateRange;
+use Zrcms\CorePage\Api\CmsResource\CreatePageCmsResource;
+use Zrcms\CorePage\Api\CmsResource\CreatePageDraftCmsResource;
+use Zrcms\CorePage\Api\CmsResource\CreatePageTemplateCmsResource;
 use Zrcms\CorePage\Api\CmsResource\FindPageCmsResource;
 use Zrcms\CorePage\Api\CmsResource\FindPageCmsResourceBySitePath;
 use Zrcms\CorePage\Api\CmsResource\FindPageCmsResourcesBy;
@@ -33,6 +36,24 @@ class ModuleConfig
                         'arguments' => [EntityManager::class]
                     ],
 
+                    CreatePageCmsResource::class => [
+                        'class' => \Zrcms\CorePageDoctrine\Api\CmsResource\CreatePageCmsResource::class,
+                        'arguments' => [
+                            EntityManager::class,
+                        ],
+                    ],
+                    CreatePageDraftCmsResource::class => [
+                        'class' => \Zrcms\CorePageDoctrine\Api\CmsResource\CreatePageDraftCmsResource::class,
+                        'arguments' => [
+                            EntityManager::class,
+                        ],
+                    ],
+                    CreatePageTemplateCmsResource::class => [
+                        'class' => \Zrcms\CorePageDoctrine\Api\CmsResource\CreatePageTemplateCmsResource::class,
+                        'arguments' => [
+                            EntityManager::class,
+                        ],
+                    ],
                     FindPageCmsResource::class => [
                         'class' => \Zrcms\CorePageDoctrine\Api\CmsResource\FindPageCmsResource::class,
                         'arguments' => [

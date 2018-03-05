@@ -6,6 +6,7 @@ use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Mapping\Driver\AnnotationDriver;
 use Reliv\CacheRat\Service\CacheArray;
 use Zrcms\CoreSite\Api\ChangeLog\GetSiteChangeLogByDateRange;
+use Zrcms\CoreSite\Api\CmsResource\CreateSiteCmsResource;
 use Zrcms\CoreSite\Api\CmsResource\FindSiteCmsResource;
 use Zrcms\CoreSite\Api\CmsResource\FindSiteCmsResourceByHost;
 use Zrcms\CoreSite\Api\CmsResource\FindSiteCmsResourcesBy;
@@ -29,8 +30,9 @@ class ModuleConfig
                         'class' => \Zrcms\CoreSiteDoctrine\Api\ChangeLog\GetSiteChangeLogByDateRangeAbstract::class,
                         'arguments' => [EntityManager::class]
                     ],
-                    UpsertSiteCmsResource::class => [
-                        'class' => \Zrcms\CoreSiteDoctrine\Api\CmsResource\UpsertSiteCmsResource::class,
+
+                    CreateSiteCmsResource::class => [
+                        'class' => \Zrcms\CoreSiteDoctrine\Api\CmsResource\CreateSiteCmsResource::class,
                         'arguments' => [
                             EntityManager::class,
                         ],
@@ -62,6 +64,13 @@ class ModuleConfig
                             EntityManager::class,
                         ],
                     ],
+                    UpsertSiteCmsResource::class => [
+                        'class' => \Zrcms\CoreSiteDoctrine\Api\CmsResource\UpsertSiteCmsResource::class,
+                        'arguments' => [
+                            EntityManager::class,
+                        ],
+                    ],
+
                     FindSiteVersion::class => [
                         'class' => \Zrcms\CoreSiteDoctrine\Api\Content\FindSiteVersion::class,
                         'arguments' => [
