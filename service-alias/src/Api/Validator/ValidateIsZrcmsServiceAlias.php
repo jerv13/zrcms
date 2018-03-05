@@ -1,6 +1,6 @@
 <?php
 
-namespace Zrcms\ValidationRatZrcms\Api\Validator;
+namespace Zrcms\ServiceAlias\Api\Validator;
 
 use Reliv\ArrayProperties\Property;
 use Reliv\FieldRat\Api\BuildFieldRatValidationOptions;

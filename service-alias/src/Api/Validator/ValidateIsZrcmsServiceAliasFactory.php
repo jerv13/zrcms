@@ -1,6 +1,6 @@
 <?php
 
-namespace Zrcms\ValidationRatZrcms\Api\Validator;
+namespace Zrcms\ServiceAlias\Api\Validator;
 
 use Psr\Container\ContainerInterface;
 use Zrcms\ServiceAlias\Api\GetServiceAliasRegistry;

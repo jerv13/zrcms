@@ -3,7 +3,7 @@
 namespace Zrcms\ServiceAlias;
 
 use Reliv\ValidationRat\Api\Validator\ValidateIsRealValue;
-use Zrcms\ValidationRatZrcms\Api\Validator\ValidateIsZrcmsServiceAlias;
+use Zrcms\ServiceAlias\Api\Validator\ValidateIsZrcmsServiceAlias;
 
 /**
  * @author James Jervis - https://github.com/jerv13

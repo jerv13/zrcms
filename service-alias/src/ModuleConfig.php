@@ -9,10 +9,9 @@ use Zrcms\ServiceAlias\Api\GetServiceAliasRegistryBasicFactory;
 use Zrcms\ServiceAlias\Api\GetServiceFromAlias;
 use Zrcms\ServiceAlias\Api\GetServiceFromAliasBasicFactory;
 use Zrcms\ServiceAlias\Api\GetServiceName;
-use Zrcms\ServiceAlias\Api\GetServiceNameBasic;
 use Zrcms\ServiceAlias\Api\GetServiceNameBasicFactory;
-use Zrcms\ValidationRatZrcms\Api\Validator\ValidateIsZrcmsServiceAlias;
-use Zrcms\ValidationRatZrcms\Api\Validator\ValidateIsZrcmsServiceAliasFactory;
+use Zrcms\ServiceAlias\Api\Validator\ValidateIsZrcmsServiceAlias;
+use Zrcms\ServiceAlias\Api\Validator\ValidateIsZrcmsServiceAliasFactory;
 
 /**
  * @author James Jervis - https://github.com/jerv13

@@ -17,7 +17,7 @@ use Zrcms\CoreApplication\Api\Component\ReadComponentConfigCallable;
 use Zrcms\CoreApplication\Api\Component\ReadComponentConfigJsonFile;
 use Zrcms\CoreApplication\Api\Component\ReadComponentConfigPhpFile;
 use Zrcms\CoreApplication\Api\Component\ReadComponentRegistryBasic;
-use Zrcms\ValidationRatZrcms\Api\Validator\ValidateIsZrcmsServiceAlias;
+use Zrcms\ServiceAlias\Api\Validator\ValidateIsZrcmsServiceAlias;
 
 /**
  * @author James Jervis - https://github.com/jerv13
