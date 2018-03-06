@@ -3,6 +3,7 @@
 namespace Zrcms\CoreSite;
 
 use Zrcms\Core\Exception\IMPLEMENTATIONisREQUIRED;
+use Zrcms\CoreSite\Api\CmsResource\CreateSiteCmsResource;
 use Zrcms\CoreSite\Api\CmsResource\FindSiteCmsResource;
 use Zrcms\CoreSite\Api\CmsResource\FindSiteCmsResourceByHost;
 use Zrcms\CoreSite\Api\CmsResource\FindSiteCmsResourcesBy;
@@ -32,6 +33,9 @@ class ModuleConfig
                     /**
                      * CmsResource
                      */
+                    CreateSiteCmsResource::class => [
+                        'class' => IMPLEMENTATIONisREQUIRED::class
+                    ],
                     FindSiteCmsResource::class => [
                         'class' => IMPLEMENTATIONisREQUIRED::class
                     ],

@@ -3,11 +3,11 @@
 namespace Zrcms\CorePageDoctrine\Api\CmsResource;
 
 use Doctrine\ORM\EntityManager;
-use Zrcms\Core\Exception\CmsResourceNotExists;
+use Zrcms\Core\Exception\CmsResourceExists;
 use Zrcms\Core\Exception\ContentVersionNotExists;
 use Zrcms\Core\Model\CmsResource;
-use Zrcms\CoreApplicationDoctrine\Api\CmsResource\UpsertCmsResource;
-use Zrcms\CorePage\Api\CmsResource\UpsertPageTemplateCmsResource as CoreUpsert;
+use Zrcms\CoreApplicationDoctrine\Api\CmsResource\CreateCmsResource;
+use Zrcms\CorePage\Api\CmsResource\CreatePageTemplateCmsResource as CoreCreate;
 use Zrcms\CorePage\Model\PageTemplateCmsResource;
 use Zrcms\CorePage\Model\PageTemplateCmsResourceBasic;
 use Zrcms\CorePage\Model\PageVersionBasic;
@@ -18,7 +18,7 @@ use Zrcms\CorePageDoctrine\Entity\PageVersionEntity;
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class UpsertPageTemplateCmsResource extends UpsertCmsResource implements CoreUpsert
+class CreatePageTemplateCmsResource extends CreateCmsResource implements CoreCreate
 {
     /**
      * @param EntityManager $entityManager
@@ -48,7 +48,7 @@ class UpsertPageTemplateCmsResource extends UpsertCmsResource implements CoreUps
      * @param null|string $modifiedDate
      *
      * @return PageTemplateCmsResource|CmsResource
-     * @throws CmsResourceNotExists
+     * @throws CmsResourceExists
      * @throws ContentVersionNotExists
      * @throws \Doctrine\ORM\OptimisticLockException
      * @throws \Exception

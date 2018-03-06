@@ -2,8 +2,8 @@
 
 namespace Zrcms\CoreTheme\Api\CmsResource;
 
-use Zrcms\Core\Api\CmsResource\UpsertCmsResource;
-use Zrcms\Core\Exception\CmsResourceNotExists;
+use Zrcms\Core\Api\CmsResource\CreateCmsResource;
+use Zrcms\Core\Exception\CmsResourceExists;
 use Zrcms\Core\Exception\ContentVersionNotExists;
 use Zrcms\Core\Model\CmsResource;
 use Zrcms\CoreTheme\Model\LayoutCmsResource;
@@ -11,26 +11,26 @@ use Zrcms\CoreTheme\Model\LayoutCmsResource;
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-interface UpsertLayoutCmsResource extends UpsertCmsResource
+interface CreateLayoutCmsResource extends CreateCmsResource
 {
     /**
-     * @param null|string $id
+     * @param string|null $id
      * @param bool        $published
      * @param string      $contentVersionId
-     * @param string      $modifiedByUserId
-     * @param string      $modifiedReason
-     * @param null|string $modifiedDate
+     * @param string      $createdByUserId
+     * @param string      $createdReason
+     * @param string|null $createdDate
      *
      * @return LayoutCmsResource|CmsResource
-     * @throws CmsResourceNotExists
+     * @throws CmsResourceExists
      * @throws ContentVersionNotExists
      */
     public function __invoke(
         $id,
         bool $published,
         string $contentVersionId,
-        string $modifiedByUserId,
-        string $modifiedReason,
-        $modifiedDate = null
+        string $createdByUserId,
+        string $createdReason,
+        $createdDate = null
     ): CmsResource;
 }

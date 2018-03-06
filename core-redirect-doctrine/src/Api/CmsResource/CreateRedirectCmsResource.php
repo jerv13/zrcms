@@ -1,24 +1,24 @@
 <?php
 
-namespace Zrcms\CorePageDoctrine\Api\CmsResource;
+namespace Zrcms\CoreRedirectDoctrine\Api\CmsResource;
 
 use Doctrine\ORM\EntityManager;
-use Zrcms\Core\Exception\CmsResourceNotExists;
+use Zrcms\Core\Exception\CmsResourceExists;
 use Zrcms\Core\Exception\ContentVersionNotExists;
 use Zrcms\Core\Model\CmsResource;
-use Zrcms\CoreApplicationDoctrine\Api\CmsResource\UpsertCmsResource;
-use Zrcms\CorePage\Api\CmsResource\UpsertPageTemplateCmsResource as CoreUpsert;
-use Zrcms\CorePage\Model\PageTemplateCmsResource;
-use Zrcms\CorePage\Model\PageTemplateCmsResourceBasic;
-use Zrcms\CorePage\Model\PageVersionBasic;
-use Zrcms\CorePageDoctrine\Entity\PageTemplateCmsResourceEntity;
-use Zrcms\CorePageDoctrine\Entity\PageTemplateCmsResourceHistoryEntity;
-use Zrcms\CorePageDoctrine\Entity\PageVersionEntity;
+use Zrcms\CoreApplicationDoctrine\Api\CmsResource\CreateCmsResource;
+use Zrcms\CoreRedirect\Api\CmsResource\CreateRedirectCmsResource as CoreCreate;
+use Zrcms\CoreRedirect\Model\RedirectCmsResource;
+use Zrcms\CoreRedirect\Model\RedirectCmsResourceBasic;
+use Zrcms\CoreRedirect\Model\RedirectVersionBasic;
+use Zrcms\CoreRedirectDoctrine\Entity\RedirectCmsResourceEntity;
+use Zrcms\CoreRedirectDoctrine\Entity\RedirectCmsResourceHistoryEntity;
+use Zrcms\CoreRedirectDoctrine\Entity\RedirectVersionEntity;
 
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class UpsertPageTemplateCmsResource extends UpsertCmsResource implements CoreUpsert
+class CreateRedirectCmsResource extends CreateCmsResource implements CoreCreate
 {
     /**
      * @param EntityManager $entityManager
@@ -30,11 +30,11 @@ class UpsertPageTemplateCmsResource extends UpsertCmsResource implements CoreUps
     ) {
         parent::__construct(
             $entityManager,
-            PageTemplateCmsResourceEntity::class,
-            PageTemplateCmsResourceHistoryEntity::class,
-            PageVersionEntity::class,
-            PageTemplateCmsResourceBasic::class,
-            PageVersionBasic::class,
+            RedirectCmsResourceEntity::class,
+            RedirectCmsResourceHistoryEntity::class,
+            RedirectVersionEntity::class,
+            RedirectCmsResourceBasic::class,
+            RedirectVersionBasic::class,
             []
         );
     }
@@ -47,8 +47,8 @@ class UpsertPageTemplateCmsResource extends UpsertCmsResource implements CoreUps
      * @param string      $modifiedReason
      * @param null|string $modifiedDate
      *
-     * @return PageTemplateCmsResource|CmsResource
-     * @throws CmsResourceNotExists
+     * @return RedirectCmsResource|CmsResource
+     * @throws CmsResourceExists
      * @throws ContentVersionNotExists
      * @throws \Doctrine\ORM\OptimisticLockException
      * @throws \Exception

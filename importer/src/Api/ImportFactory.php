@@ -3,16 +3,16 @@
 namespace Zrcms\Importer\Api;
 
 use Psr\Container\ContainerInterface;
-use Zrcms\CoreContainer\Api\CmsResource\UpsertContainerCmsResource;
+use Zrcms\CoreContainer\Api\CmsResource\CreateContainerCmsResource;
 use Zrcms\CoreContainer\Api\Content\InsertContainerVersion;
-use Zrcms\CorePage\Api\CmsResource\UpsertPageCmsResource;
-use Zrcms\CorePage\Api\CmsResource\UpsertPageTemplateCmsResource;
+use Zrcms\CorePage\Api\CmsResource\CreatePageCmsResource;
+use Zrcms\CorePage\Api\CmsResource\CreatePageTemplateCmsResource;
 use Zrcms\CorePage\Api\Content\InsertPageVersion;
+use Zrcms\CoreRedirect\Api\CmsResource\CreateRedirectCmsResource;
 use Zrcms\CoreRedirect\Api\CmsResource\FindRedirectCmsResource;
-use Zrcms\CoreRedirect\Api\CmsResource\UpsertRedirectCmsResource;
 use Zrcms\CoreRedirect\Api\Content\InsertRedirectVersion;
+use Zrcms\CoreSite\Api\CmsResource\CreateSiteCmsResource;
 use Zrcms\CoreSite\Api\CmsResource\FindSiteCmsResource;
-use Zrcms\CoreSite\Api\CmsResource\UpsertSiteCmsResource;
 use Zrcms\CoreSite\Api\Content\InsertSiteVersion;
 
 /**
@@ -33,15 +33,15 @@ class ImportFactory
         return new Import(
             $serviceContainer->get(FindSiteCmsResource::class),
             $serviceContainer->get(InsertSiteVersion::class),
-            $serviceContainer->get(UpsertSiteCmsResource::class),
+            $serviceContainer->get(CreateSiteCmsResource::class),
             $serviceContainer->get(InsertPageVersion::class),
-            $serviceContainer->get(UpsertPageCmsResource::class),
-            $serviceContainer->get(UpsertPageTemplateCmsResource::class),
+            $serviceContainer->get(CreatePageCmsResource::class),
+            $serviceContainer->get(CreatePageTemplateCmsResource::class),
             $serviceContainer->get(InsertContainerVersion::class),
-            $serviceContainer->get(UpsertContainerCmsResource::class),
+            $serviceContainer->get(CreateContainerCmsResource::class),
             $serviceContainer->get(FindRedirectCmsResource::class),
             $serviceContainer->get(InsertRedirectVersion::class),
-            $serviceContainer->get(UpsertRedirectCmsResource::class)
+            $serviceContainer->get(CreateRedirectCmsResource::class)
         );
     }
 }

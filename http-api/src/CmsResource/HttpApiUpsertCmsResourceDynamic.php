@@ -90,16 +90,9 @@ class HttpApiUpsertCmsResourceDynamic
 
         $userId = $this->getUserIdByRequest->__invoke($request);
 
-        $newCmsResource = new CmsResourceBasic(
+        $cmsResource = $apiServiceUpsertCmsResource->__invoke(
             $data['id'],
             $data['published'],
-            $contentVersion,
-            $userId,
-            $reason
-        );
-
-        $cmsResource = $apiServiceUpsertCmsResource->__invoke(
-            $newCmsResource,
             $contentVersionId,
             $userId,
             $reason

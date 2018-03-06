@@ -5,6 +5,7 @@ namespace Zrcms\CorePage;
 use Zrcms\Core\Exception\IMPLEMENTATIONisREQUIRED;
 use Zrcms\CoreContainer\Api\Render\GetContainerRenderTags;
 use Zrcms\CoreContainer\Api\Render\RenderContainer;
+use Zrcms\CorePage\Api\CmsResource\CreatePageCmsResource;
 use Zrcms\CorePage\Api\CmsResource\FindPageCmsResource;
 use Zrcms\CorePage\Api\CmsResource\FindPageCmsResourceBySitePath;
 use Zrcms\CorePage\Api\CmsResource\FindPageCmsResourcesBy;
@@ -43,6 +44,9 @@ class ModuleConfig
                     /**
                      * CmsResource
                      */
+                    CreatePageCmsResource::class => [
+                        'class' => IMPLEMENTATIONisREQUIRED::class
+                    ],
                     FindPageCmsResource::class => [
                         'class' => IMPLEMENTATIONisREQUIRED::class
                     ],

@@ -113,19 +113,12 @@ class HttpViewTest
             $siteVersion
         );
 
-        $siteCmsResource = new SiteCmsResourceBasic(
-            'testId',
-            true,
-            $newSiteVersion,
-            self::CREATED_BY_USER_ID,
-            self::CREATED_REASON
-        );
-
         /** @var UpsertSiteCmsResource $upsertSiteCmsResource */
         $upsertSiteCmsResource = $this->serviceContainer->get(UpsertSiteCmsResource::class);
 
         $newSiteCmsResource = $upsertSiteCmsResource->__invoke(
-            $siteCmsResource,
+            'testId',
+            true,
             $newSiteVersion->getId(),
             self::CREATED_BY_USER_ID,
             self::CREATED_REASON

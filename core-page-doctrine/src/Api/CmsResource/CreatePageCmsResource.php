@@ -3,22 +3,21 @@
 namespace Zrcms\CorePageDoctrine\Api\CmsResource;
 
 use Doctrine\ORM\EntityManager;
-use Zrcms\Core\Exception\CmsResourceNotExists;
+use Zrcms\Core\Exception\CmsResourceExists;
 use Zrcms\Core\Exception\ContentVersionNotExists;
 use Zrcms\Core\Model\CmsResource;
-use Zrcms\CoreApplicationDoctrine\Api\CmsResource\UpsertCmsResource;
-use Zrcms\CorePage\Api\CmsResource\UpsertPageTemplateCmsResource as CoreUpsert;
-use Zrcms\CorePage\Model\PageTemplateCmsResource;
-use Zrcms\CorePage\Model\PageTemplateCmsResourceBasic;
+use Zrcms\CoreApplicationDoctrine\Api\CmsResource\CreateCmsResource;
+use Zrcms\CorePage\Model\PageCmsResource;
+use Zrcms\CorePage\Model\PageCmsResourceBasic;
 use Zrcms\CorePage\Model\PageVersionBasic;
-use Zrcms\CorePageDoctrine\Entity\PageTemplateCmsResourceEntity;
-use Zrcms\CorePageDoctrine\Entity\PageTemplateCmsResourceHistoryEntity;
+use Zrcms\CorePageDoctrine\Entity\PageCmsResourceEntity;
+use Zrcms\CorePageDoctrine\Entity\PageCmsResourceHistoryEntity;
 use Zrcms\CorePageDoctrine\Entity\PageVersionEntity;
 
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class UpsertPageTemplateCmsResource extends UpsertCmsResource implements CoreUpsert
+class CreatePageCmsResource extends CreateCmsResource implements \Zrcms\CorePage\Api\CmsResource\CreatePageCmsResource
 {
     /**
      * @param EntityManager $entityManager
@@ -30,10 +29,10 @@ class UpsertPageTemplateCmsResource extends UpsertCmsResource implements CoreUps
     ) {
         parent::__construct(
             $entityManager,
-            PageTemplateCmsResourceEntity::class,
-            PageTemplateCmsResourceHistoryEntity::class,
+            PageCmsResourceEntity::class,
+            PageCmsResourceHistoryEntity::class,
             PageVersionEntity::class,
-            PageTemplateCmsResourceBasic::class,
+            PageCmsResourceBasic::class,
             PageVersionBasic::class,
             []
         );
@@ -47,8 +46,8 @@ class UpsertPageTemplateCmsResource extends UpsertCmsResource implements CoreUps
      * @param string      $modifiedReason
      * @param null|string $modifiedDate
      *
-     * @return PageTemplateCmsResource|CmsResource
-     * @throws CmsResourceNotExists
+     * @return PageCmsResource|CmsResource
+     * @throws CmsResourceExists
      * @throws ContentVersionNotExists
      * @throws \Doctrine\ORM\OptimisticLockException
      * @throws \Exception

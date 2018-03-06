@@ -1,6 +1,21 @@
 @todo
 =====
 
+    /**
+     * @param null|string $id
+     * @param bool        $published
+     * @param string      $contentVersionId
+     * @param string      $modifiedByUserId
+     * @param string      $modifiedReason
+     * @param null|string $modifiedDate
+     *
+     * @return ContainerCmsResource|CmsResource
+     * @throws CmsResourceExists
+     * @throws ContentVersionNotExists
+     * @throws \Doctrine\ORM\OptimisticLockException
+     * @throws \Exception
+     */
+
 ##### Page Version Rendering
 
 Case 1: New Page - form 

@@ -3,6 +3,7 @@
 namespace Zrcms\CoreRedirect;
 
 use Zrcms\Core\Exception\IMPLEMENTATIONisREQUIRED;
+use Zrcms\CoreRedirect\Api\CmsResource\CreateRedirectCmsResource;
 use Zrcms\CoreRedirect\Api\CmsResource\FindRedirectCmsResource;
 use Zrcms\CoreRedirect\Api\CmsResource\FindRedirectCmsResourceBySiteRequestPath;
 use Zrcms\CoreRedirect\Api\CmsResource\FindRedirectCmsResourcesBy;
@@ -30,6 +31,9 @@ class ModuleConfig
                     /**
                      * CmsResource
                      */
+                    CreateRedirectCmsResource::class => [
+                        'class' => IMPLEMENTATIONisREQUIRED::class
+                    ],
                     FindRedirectCmsResource::class => [
                         'class' => IMPLEMENTATIONisREQUIRED::class
                     ],

@@ -5,6 +5,7 @@ namespace Zrcms\CoreContainerDoctrine;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Mapping\Driver\AnnotationDriver;
 use Zrcms\CoreContainer\Api\ChangeLog\GetContainerChangeLogByDateRange;
+use Zrcms\CoreContainer\Api\CmsResource\CreateContainerCmsResource;
 use Zrcms\CoreContainer\Api\CmsResource\FindContainerCmsResource;
 use Zrcms\CoreContainer\Api\CmsResource\FindContainerCmsResourcesBy;
 use Zrcms\CoreContainer\Api\CmsResource\FindContainerCmsResourcesBySitePaths;
@@ -27,14 +28,9 @@ class ModuleConfig
                         'class' => \Zrcms\CoreContainerDoctrine\Api\ChangeLog\GetContainerChangeLogByDateRangeAbstract::class,
                         'arguments' => [EntityManager::class]
                     ],
-                    UpsertContainerCmsResource::class => [
-                        'class' => \Zrcms\CoreContainerDoctrine\Api\CmsResource\UpsertContainerCmsResource::class,
-                        'arguments' => [
-                            EntityManager::class,
-                        ],
-                    ],
-                    UpsertContainerCmsResource::class => [
-                        'class' => \Zrcms\CoreContainerDoctrine\Api\CmsResource\UpsertContainerCmsResource::class,
+
+                    CreateContainerCmsResource::class => [
+                        'class' => \Zrcms\CoreContainerDoctrine\Api\CmsResource\CreateContainerCmsResource::class,
                         'arguments' => [
                             EntityManager::class,
                         ],
@@ -58,6 +54,13 @@ class ModuleConfig
                             EntityManager::class,
                         ],
                     ],
+                    UpsertContainerCmsResource::class => [
+                        'class' => \Zrcms\CoreContainerDoctrine\Api\CmsResource\UpsertContainerCmsResource::class,
+                        'arguments' => [
+                            EntityManager::class,
+                        ],
+                    ],
+
                     FindContainerVersion::class => [
                         'class' => \Zrcms\CoreContainerDoctrine\Api\Content\FindContainerVersion::class,
                         'arguments' => [
