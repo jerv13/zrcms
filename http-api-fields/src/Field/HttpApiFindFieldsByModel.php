@@ -57,7 +57,7 @@ class HttpApiFindFieldsByModel
                 BuildMessageValue::invoke(
                     (string)$this->notFoundStatusDefault,
                     'Not Found',
-                    $request->getAttribute('fields'),
+                    $request->getAttribute(self::ATTRIBUTE_FIELDS_MODEL),
                     self::SOURCE
                 ),
                 $this->notFoundStatusDefault,

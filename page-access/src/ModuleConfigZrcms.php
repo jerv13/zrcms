@@ -24,7 +24,7 @@ class ModuleConfigZrcms
                 FieldsPageVersion::FIELD_MODEL_NAME => [
                     [
                         'name' => FieldsPageAccess::PAGE_ACCESS_OPTIONS,
-                        'type' => 'text',
+                        'type' => 'array',
                         'label' => 'Page Access Options',
                         'required' => false,
                         'default' => [],

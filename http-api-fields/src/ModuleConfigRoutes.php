@@ -4,6 +4,7 @@ namespace Zrcms\HttpApiFields;
 
 use Zrcms\HttpApiFields\Acl\HttpApiIsAllowedApiFindFieldsByModel;
 use Zrcms\HttpApiFields\Field\HttpApiFindFieldsByModel;
+use Zrcms\HttpApiFields\Field\HttpApiFindFieldTypes;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -55,7 +56,7 @@ class ModuleConfigRoutes
                     'path' => '/zrcms/api/fields/types',
                     'middleware' => [
                         'acl' => HttpApiIsAllowedApiFindFieldsByModel::class,
-                        'api' => HttpApiFindFieldsByModel::class,
+                        'api' => HttpApiFindFieldTypes::class,
                     ],
                     'options' => [],
                     'allowed_methods' => ['GET'],

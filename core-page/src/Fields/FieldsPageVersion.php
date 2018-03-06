@@ -9,7 +9,7 @@ use Reliv\FieldRat\Model\Fields;
  */
 class FieldsPageVersion extends FieldsPage implements Fields
 {
-    const FIELD_MODEL_NAME = 'page-version';
+    const FIELD_MODEL_NAME = 'page-version-properties';
 
     const SITE_CMS_RESOURCE_ID = 'siteCmsResourceId';
     const PATH = 'path';

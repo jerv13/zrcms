@@ -9,7 +9,7 @@ use Reliv\FieldRat\Model\Fields;
  */
 class FieldsSiteVersion extends FieldsSite implements Fields
 {
-    const FIELD_MODEL_NAME = 'site-version';
+    const FIELD_MODEL_NAME = 'site-version-properties';
 
     const HOST = 'host';
 }

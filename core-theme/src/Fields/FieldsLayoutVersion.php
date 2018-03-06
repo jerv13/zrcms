@@ -7,5 +7,5 @@ namespace Zrcms\CoreTheme\Fields;
  */
 class FieldsLayoutVersion extends FieldsLayout
 {
-    const FIELD_MODEL_NAME = 'layout-version';
+    const FIELD_MODEL_NAME = 'layout-version-properties';
 }

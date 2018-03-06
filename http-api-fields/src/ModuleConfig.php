@@ -10,6 +10,8 @@ use Zrcms\HttpApiFields\Acl\HttpApiIsAllowedListFieldTypes;
 use Zrcms\HttpApiFields\Acl\HttpApiIsAllowedListFieldTypesFactory;
 use Zrcms\HttpApiFields\Field\HttpApiFindFieldsByModel;
 use Zrcms\HttpApiFields\Field\HttpApiFindFieldsByModelFactory;
+use Zrcms\HttpApiFields\Field\HttpApiFindFieldTypes;
+use Zrcms\HttpApiFields\Field\HttpApiFindFieldTypesFactory;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -36,6 +38,9 @@ class ModuleConfig
 
                     HttpApiFindFieldsByModel::class => [
                         'factory' => HttpApiFindFieldsByModelFactory::class
+                    ],
+                    HttpApiFindFieldTypes::class => [
+                        'factory' => HttpApiFindFieldTypesFactory::class
                     ],
                 ],
             ],
