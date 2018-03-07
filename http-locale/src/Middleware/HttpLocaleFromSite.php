@@ -4,10 +4,10 @@ namespace Zrcms\HttpLocale\Middleware;
 
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
+use Reliv\ArrayProperties\Property;
+use Reliv\Locale\Api\SetLocale;
 use Zrcms\CoreSite\Api\GetSiteCmsResourceByRequest;
 use Zrcms\CoreSite\Model\SiteCmsResource;
-use Reliv\Locale\Api\SetLocale;
-use Reliv\ArrayProperties\Property;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -15,6 +15,7 @@ use Reliv\ArrayProperties\Property;
 class HttpLocaleFromSite
 {
     const PARAM_LOCALE = 'site-locale';
+    const ATTRIBUTE_SITE_LOCALE = 'zrcms-site-locale';
 
     protected $setLocale;
     protected $getSiteCmsResourceByRequest;
@@ -40,8 +41,10 @@ class HttpLocaleFromSite
      * @param ResponseInterface      $response
      * @param callable|null          $next
      *
-     * @return ResponseInterface
+     * @return mixed
      * @throws \Exception
+     * @throws \Psr\SimpleCache\InvalidArgumentException
+     * @throws \Reliv\Locale\Exception\LocaleException
      */
     public function __invoke(
         ServerRequestInterface $request,
@@ -72,8 +75,13 @@ class HttpLocaleFromSite
             return $next($request, $response);
         }
 
-        $this->setLocale->__invoke($siteCmsResource->getContentVersion()->getLocale());
+        $siteLocale = $siteCmsResource->getContentVersion()->getLocale();
 
-        return $next($request, $response);
+        $this->setLocale->__invoke($siteLocale);
+
+        return $next(
+            $request->withAttribute(self::ATTRIBUTE_SITE_LOCALE, $siteLocale),
+            $response
+        );
     }
 }

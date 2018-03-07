@@ -1,21 +1,6 @@
 @todo
 =====
 
-    /**
-     * @param null|string $id
-     * @param bool        $published
-     * @param string      $contentVersionId
-     * @param string      $modifiedByUserId
-     * @param string      $modifiedReason
-     * @param null|string $modifiedDate
-     *
-     * @return ContainerCmsResource|CmsResource
-     * @throws CmsResourceExists
-     * @throws ContentVersionNotExists
-     * @throws \Doctrine\ORM\OptimisticLockException
-     * @throws \Exception
-     */
-
 ##### Page Version Rendering
 
 Case 1: New Page - form 
@@ -45,12 +30,6 @@ Case 3: Publish old revision
 - press publish
 - find page by path
 - upsert page-resource with version
-
-
-Veiw modes
-
-'current-page-version': true
-'current-page-version': true
 
 ##### Version Validations
 
