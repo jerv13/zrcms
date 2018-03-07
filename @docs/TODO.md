@@ -31,6 +31,12 @@ Case 3: Publish old revision
 - find page by path
 - upsert page-resource with version
 
+##### Add Request Site middleware with attribute
+
+- Add middleware to discover site by request
+- Extent attribute from GetSiteByRequest service
+- Use Attribute for caching on the request
+
 ##### Version Validations
 
 - Use field validators (verify)
