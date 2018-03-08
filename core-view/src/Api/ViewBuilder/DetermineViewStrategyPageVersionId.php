@@ -3,7 +3,6 @@
 namespace Zrcms\CoreView\Api\ViewBuilder;
 
 use Psr\Http\Message\ServerRequestInterface;
-use Reliv\ArrayProperties\Property;
 use Zrcms\Acl\Api\IsAllowed;
 use Zrcms\CoreView\Model\ViewStrategyResult;
 use Zrcms\CoreView\Model\ViewStrategyResultBasic;
@@ -14,8 +13,7 @@ use Zrcms\CoreView\Model\ViewStrategyResultBasic;
 class DetermineViewStrategyPageVersionId implements DetermineViewStrategy
 {
     const STRATEGY = 'page-version-id';
-    // This comes from client
-    const PARAM_VIEW_PAGE_VERSION_ID = 'view-page-version-id';
+
     // Use a middleware to set this
     const ATTRIBUTE_VIEW_PAGE_VERSION_ID = BuildViewPageVersionId::ATTRIBUTE_VIEW_PAGE_VERSION_ID;
 
@@ -44,17 +42,9 @@ class DetermineViewStrategyPageVersionId implements DetermineViewStrategy
         ServerRequestInterface $request,
         array $options = []
     ): ViewStrategyResult {
-        $pageVersionIdAttribute = (bool)$request->getAttribute(
+        $pageVersionId = (bool)$request->getAttribute(
             self::ATTRIBUTE_VIEW_PAGE_VERSION_ID,
             null
-        );
-
-        $queryParams = $request->getQueryParams();
-
-        $pageVersionId = Property::getBool(
-            $queryParams,
-            self::PARAM_VIEW_PAGE_VERSION_ID,
-            $pageVersionIdAttribute
         );
 
         if (empty($pageVersionId)) {

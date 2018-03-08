@@ -86,8 +86,7 @@ class BuildViewPageVersionId implements BuildView
         );
 
         $pageVersion = $this->findPageVersion->__invoke(
-            $pageVersionId,
-            $this->published
+            $pageVersionId
         );
 
         if (empty($pageVersion)) {

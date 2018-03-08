@@ -3,7 +3,6 @@
 namespace Zrcms\CoreView\Api\ViewBuilder;
 
 use Psr\Http\Message\ServerRequestInterface;
-use Reliv\ArrayProperties\Property;
 use Zrcms\Acl\Api\IsAllowed;
 use Zrcms\CoreView\Model\ViewStrategyResult;
 use Zrcms\CoreView\Model\ViewStrategyResultBasic;
@@ -14,10 +13,9 @@ use Zrcms\CoreView\Model\ViewStrategyResultBasic;
 class DetermineViewStrategyDefaultPublishedAny implements DetermineViewStrategy
 {
     const STRATEGY = 'published-any';
-    // This comes from client
-    const PARAM_VIEW_PUBLISHED_ANY = 'view-published-any';
+
     // Use a middleware to set this
-    const ATTRIBUTE_VIEW_PUBLISHED_ANY = 'zrcms-view-published-any';
+    const ATTRIBUTE_VIEW_PUBLISHED_ANY = BuildViewDefaultPublishedAny::ATTRIBUTE_VIEW_PUBLISHED_ANY;
 
     protected $isAllowed;
     protected $isAllowedOptions;
@@ -44,20 +42,12 @@ class DetermineViewStrategyDefaultPublishedAny implements DetermineViewStrategy
         ServerRequestInterface $request,
         array $options = []
     ): ViewStrategyResult {
-        $publishedAnyAttribute = (bool)$request->getAttribute(
+        $publishedAny = (bool)$request->getAttribute(
             self::ATTRIBUTE_VIEW_PUBLISHED_ANY,
             false
         );
 
-        $queryParams = $request->getQueryParams();
-
-        $publishedAny = Property::getBool(
-            $queryParams,
-            self::PARAM_VIEW_PUBLISHED_ANY,
-            $publishedAnyAttribute
-        );
-
-        if (!$publishedAny) {
+        if (empty($publishedAny)) {
             return new ViewStrategyResultBasic(
                 self::STRATEGY,
                 400
