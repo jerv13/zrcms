@@ -48,15 +48,27 @@ $app->pipeDispatchMiddleware();
 $app->pipe(
     \Zrcms\HttpViewRender\Request\RequestWithOriginalUri::class
 );
+// Support viewing any page version
+$app->pipe(
+    \Zrcms\HttpViewRender\Request\RequestWithViewStrategyPageVersionId::class
+);
+$app->pipe(
+    \Zrcms\HttpViewRender\Acl\HttpIsAllowedViewStrategyPageVersionId::class
+);
+// Support viewing unpublished versions
+$app->pipe(
+    \Zrcms\HttpViewRender\Request\RequestWithViewStrategyDefaultPublishedAny::class
+);
+$app->pipe(
+    \Zrcms\HttpViewRender\Acl\HttpIsAllowedViewStrategyPublishedAny::class
+);
 
 $app->pipe(
     \Zrcms\HttpViewRender\Request\RequestWithView::class
 );
-
 $app->pipe(
     \Zrcms\PageAccess\Middleware\HttpPageAccessByView::class
 );
-
 $app->pipe(
     \Zrcms\HttpViewRender\Request\RequestWithViewRenderPage::class
 );
