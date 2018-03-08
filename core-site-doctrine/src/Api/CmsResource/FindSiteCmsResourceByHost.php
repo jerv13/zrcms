@@ -102,6 +102,10 @@ class FindSiteCmsResourceByHost implements \Zrcms\CoreSite\Api\CmsResource\FindS
             $this->contentVersionSyncToProperties
         );
 
+        if (empty($siteCmsResource)) {
+            return null;
+        }
+
         $this->setCache($host, $siteCmsResource);
 
         return $siteCmsResource;

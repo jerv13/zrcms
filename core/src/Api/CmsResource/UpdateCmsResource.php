@@ -24,7 +24,7 @@ interface UpdateCmsResource
      * @throws CmsResourceNotExists
      */
     public function __invoke(
-        $id,
+        string $id,
         bool $published,
         string $contentVersionId,
         string $modifiedByUserId,
