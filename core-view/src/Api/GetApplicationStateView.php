@@ -58,6 +58,7 @@ class GetApplicationStateView implements GetApplicationState
                 'path' => null,
                 'published' => null,
                 'requestPath' => $this->findOriginalPath($request, $request->getUri()->getPath()),
+                'isPageForPath' => null,
                 'title' => null,
             ],
             'layout' => [
@@ -81,6 +82,7 @@ class GetApplicationStateView implements GetApplicationState
         $pageCmsResource = $view->getPageCmsResource();
         $pageVersion = $pageCmsResource->getContentVersion();
         $layoutCmsResource = $view->getLayoutCmsResource();
+        $requestedPath = $this->findOriginalPath($request);
 
         $viewState = [
             'site' => [
@@ -96,7 +98,8 @@ class GetApplicationStateView implements GetApplicationState
                 'keywords' => $pageVersion->getKeywords(),
                 'path' => $pageCmsResource->getPath(),
                 'published' => $pageCmsResource->isPublished(),
-                'requestPath' => $this->findOriginalPath($request),
+                'requestPath' => $requestedPath,
+                'isPageForPath' => ($pageCmsResource->getPath() == $requestedPath),
                 'title' => $pageVersion->getTitle(),
             ],
             'layout' => [
