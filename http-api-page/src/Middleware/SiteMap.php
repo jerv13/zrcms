@@ -21,8 +21,8 @@ class SiteMap
 
     /**
      * @param GetSiteCmsResourceByRequest $getSiteCmsResourceByRequest
-     * @param FindPageCmsResourcesBy      $findPageCmsResourcesBy
-     * @param IsAllowed                   $isAllowed
+     * @param FindPageCmsResourcesBy $findPageCmsResourcesBy
+     * @param IsAllowed $isAllowed
      */
     public function __construct(
         GetSiteCmsResourceByRequest $getSiteCmsResourceByRequest,
@@ -36,8 +36,8 @@ class SiteMap
 
     /**
      * @param ServerRequestInterface $request
-     * @param ResponseInterface      $response
-     * @param callable|null          $next
+     * @param ResponseInterface $response
+     * @param callable|null $next
      *
      * @return ResponseInterface
      */
@@ -73,7 +73,7 @@ class SiteMap
             }
 
             $entries[] = [
-                'loc' => $siteCmsResource->getHost() . $pageCmsResource->getPath(),
+                'loc' => 'https://' . $siteCmsResource->getHost() . $pageCmsResource->getPath(),
                 'lastmod' => $pageCmsResource->getModifiedDateObject()->format('Y-m-d'),
                 'changefreq' => $this->getChangeFrequency($pageCmsResource),
                 'priority' => $this->getPriority($pageCmsResource),
@@ -119,7 +119,7 @@ class SiteMap
      *
      * @param ServerRequestInterface $request
      * @param                        $data
-     * @param array                  $options
+     * @param array $options
      *
      * @return string
      */
