@@ -12,8 +12,13 @@ class ModuleConfigZrcms
      */
     public function __invoke()
     {
-
         return [
+            'zrcms-language-default' => [
+                'iso639_2t' => 'eng',
+                'iso639_2b' => 'eng',
+                'iso639_1' => 'en',
+                'name' => 'English'
+            ],
             'zrcms-components' => [
                 'basic.zrcms-languages'
                 => 'json:' . __DIR__ . '/../zrcms-component.json',
