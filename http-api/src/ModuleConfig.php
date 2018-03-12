@@ -7,6 +7,8 @@ use Zrcms\HttpApi\Acl\HttpApiIsAllowedDynamic;
 use Zrcms\HttpApi\Acl\HttpApiIsAllowedDynamicFactory;
 use Zrcms\HttpApi\Acl\HttpApiIsAllowedFindComponent;
 use Zrcms\HttpApi\Acl\HttpApiIsAllowedFindComponentFactory;
+use Zrcms\HttpApi\CmsResource\HttpApiCreateCmsResourceDynamic;
+use Zrcms\HttpApi\CmsResource\HttpApiCreateCmsResourceDynamicFactory;
 use Zrcms\HttpApi\CmsResource\HttpApiFindCmsResourceDynamic;
 use Zrcms\HttpApi\CmsResource\HttpApiFindCmsResourceDynamicFactory;
 use Zrcms\HttpApi\CmsResource\HttpApiFindCmsResourcesByDynamic;
@@ -79,6 +81,10 @@ class ModuleConfig
                     /**
                      * CmsResource ===========================================
                      */
+                    HttpApiCreateCmsResourceDynamic::class => [
+                        'factory' => HttpApiCreateCmsResourceDynamicFactory::class,
+                    ],
+
                     HttpApiFindCmsResourceDynamic::class => [
                         'factory' => HttpApiFindCmsResourceDynamicFactory::class,
                     ],

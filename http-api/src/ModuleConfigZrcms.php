@@ -17,9 +17,61 @@ class ModuleConfigZrcms
              * ===== ZRCMS HTTP API by request =====
              */
             'zrcms-http-api-dynamic' => [
-                /* Example
+                /* Example *
                 // '[{zrcms-implementation}][{zrcms-api}][{middleware-name}]=>[{middleware-config}]'
                 '{zrcms-implementation}' => [
+                    'create-cms-resource' => [
+                        'acl' => [
+                            'is-allowed' => IsAllowedRcmUserAdmin::class,
+                            'is-allowed-options' => [],
+                            'not-allowed-status' => 401,
+                        ],
+                        'fields-validator' => [
+                            'fields-validator' => ValidateFieldsByStrategy::class,
+                            'fields-validator-options' => [
+                                'field-validators' => [
+                                    'id' => [
+                                        'validator' => ValidateIsString::class,
+                                        'options' => [],
+                                    ],
+                                    'published' => [
+                                        'validator' => ValidateIsBoolean::class,
+                                        'options' => [],
+                                    ],
+                                    'contentVersionId' => [
+                                        'validator' => ValidateIsString::class,
+                                    ],
+                                    'createdByUserId' => [
+                                        'validator' => ValidateIsNull::class,
+                                        'options' => [],
+                                    ],
+                                    'createdReason' => [
+                                        'validator' => ValidateCompositeByStrategy::class,
+                                        'options' => [
+                                            'validators' => [
+                                                [
+                                                    'validator' => ValidateIsNotEmpty::class,
+                                                ],
+                                                [
+                                                    'validator' => ValidateIsString::class,
+                                                ],
+                                            ]
+                                        ],
+                                    ],
+                                    'createdDate' => [
+                                        'validator' => ValidateIsNull::class,
+                                        'options' => [],
+                                    ],
+                                ],
+                            ],
+                            'not-valid-status' => 400,
+                        ],
+                        'api' => [
+                            'api-service' => CreateContentCmsResource::class,
+                            'to-array' => CmsResourceToArray::class,
+                        ],
+                    ],
+
                     'find-cms-resource' => [
                         'acl' => [
                             'is-allowed' => IsAllowedRcmUserAdmin::class,
@@ -77,47 +129,14 @@ class ModuleConfigZrcms
                                         'validator' => ValidateIsBoolean::class,
                                         'options' => [],
                                     ],
-                                    'contentVersion' => [
-                                        'validator' => ValidateFieldsByStrategy::class,
-                                        'options' => [
-                                            'field-validators' => [
-                                                'id' => [
-                                                    'validator' => ValidateIsAnyValue::class,
-                                                    'options' => [],
-                                                ],
-                                                'properties' => [
-                                                    'validator' => ValidateIsAssociativeArray::class,
-                                                    'options' => [],
-                                                ],
-                                                'createdByUserId' => [
-                                                    'validator' => ValidateIsNull::class,
-                                                    'options' => [],
-                                                ],
-                                                'createdReason' => [
-                                                    'validator' => ValidateCompositeByStrategy::class,
-                                                    'options' => [
-                                                        'validators' => [
-                                                            [
-                                                                'validator' => ValidateIsNotEmpty::class,
-                                                            ],
-                                                            [
-                                                                'validator' => ValidateIsString::class,
-                                                            ],
-                                                        ]
-                                                    ],
-                                                ],
-                                                'createdDate' => [
-                                                    'validator' => ValidateIsNull::class,
-                                                    'options' => [],
-                                                ],
-                                            ],
-                                        ]
+                                    'contentVersionId' => [
+                                        'validator' => ValidateIsString::class,
                                     ],
-                                    'createdByUserId' => [
+                                    'modifiedByUserId' => [
                                         'validator' => ValidateIsNull::class,
                                         'options' => [],
                                     ],
-                                    'createdReason' => [
+                                    'modifiedReason' => [
                                         'validator' => ValidateCompositeByStrategy::class,
                                         'options' => [
                                             'validators' => [
@@ -130,7 +149,7 @@ class ModuleConfigZrcms
                                             ]
                                         ],
                                     ],
-                                    'createdDate' => [
+                                    'modifiedDate' => [
                                         'validator' => ValidateIsNull::class,
                                         'options' => [],
                                     ],
@@ -248,7 +267,7 @@ class ModuleConfigZrcms
                         ],
                     ],
                 ],
-                */
+                /* */
             ],
         ];
     }

@@ -5,6 +5,7 @@ namespace Zrcms\HttpApi;
 use Zend\Expressive\Helper\BodyParams\BodyParamsMiddleware;
 use Zrcms\HttpApi\Acl\HttpApiIsAllowedDynamic;
 use Zrcms\HttpApi\Acl\HttpApiIsAllowedFindComponent;
+use Zrcms\HttpApi\CmsResource\HttpApiCreateCmsResourceDynamic;
 use Zrcms\HttpApi\CmsResource\HttpApiFindCmsResourceDynamic;
 use Zrcms\HttpApi\CmsResource\HttpApiFindCmsResourcesByDynamic;
 use Zrcms\HttpApi\CmsResource\HttpApiFindCmsResourcesPublishedDynamic;
@@ -38,6 +39,41 @@ class ModuleConfigRoutes
     {
         return [
             'routes' => [
+                /**
+                 * CreateCmsResource create-cms-resource
+                 */
+                'zrcms.api.cms-resource.{zrcms-implementation}.create' => [
+                    'name' => 'zrcms.api.cms-resource.{zrcms-implementation}.create',
+                    'path' => '/zrcms/api/cms-resource/{zrcms-implementation}/create',
+                    'middleware' => [
+                        'dynamic' => HttpApiDynamic::class,
+                        'acl' => HttpApiIsAllowedDynamic::class,
+                        'body-parser' => BodyParamsMiddleware::class,
+                        'fields-validator' => HttpApiValidateFieldsDynamic::class,
+                        'api' => HttpApiCreateCmsResourceDynamic::class,
+                    ],
+                    'options' => [
+                        'zrcms-api' => 'create-cms-resource'
+                    ],
+                    'allowed_methods' => ['POST'],
+                    'swagger' => [
+                        'post' => [
+                            'description' => 'Create CMS Resource',
+                            'produces' => [
+                                'application/json',
+                            ],
+                            'parameters' => [
+                                ['$ref' => '#/route-params/ZrcmsImplementationPathProperty'],
+                            ],
+                            'responses' => [
+                                'default' => [
+                                    '$ref' => '#/definitions/ZrcmsJsonResponse:CmsResource'
+                                ],
+                            ],
+                        ],
+                    ],
+                ],
+
                 /**
                  * FindCmsResource find-cms-resource
                  */

@@ -6,11 +6,9 @@ use Psr\Container\ContainerInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Reliv\ArrayProperties\Property;
-use Reliv\ValidationRat\Model\ValidationResultBasic;
 use Zrcms\Core\Api\CmsResource\CmsResourceToArray;
 use Zrcms\Core\Api\CmsResource\UpsertCmsResource;
 use Zrcms\Core\Api\Content\FindContentVersion;
-use Zrcms\Core\Model\CmsResourceBasic;
 use Zrcms\Http\Api\BuildResponseOptions;
 use Zrcms\Http\Response\ZrcmsJsonResponse;
 use Zrcms\HttpApi\Dynamic;
@@ -21,7 +19,7 @@ use Zrcms\User\Api\GetUserIdByRequest;
  */
 class HttpApiUpsertCmsResourceDynamic
 {
-    const SOURCE = 'http-api-find-cms-resource-dynamic';
+    const SOURCE = 'http-api-upsert-cms-resource-dynamic';
 
     protected $serviceContainer;
     protected $getUserIdByRequest;
