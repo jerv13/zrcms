@@ -145,7 +145,7 @@ class SiteMap
             $content .= ''
                 . '    <url>' . "\n"
                 . '        <loc>' . $entry['loc'] . '</loc>' . "\n"
-                . '        <lastmod>' . $entry['lastmod'] . '8</lastmod>' . "\n"
+                . '        <lastmod>' . $entry['lastmod'] . '</lastmod>' . "\n"
                 . '        <changefreq>' . $entry['changefreq'] . '</changefreq>' . "\n"
                 . '        <priority>' . $entry['priority'] . '</priority>' . "\n"
                 . '    </url>' . "\n";
