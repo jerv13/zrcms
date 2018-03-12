@@ -13,6 +13,11 @@ class ModuleConfigZrcms
     public function __invoke()
     {
         return [
+            'zrcms-country-default' => [
+                'iso3' => 'USA',
+                'iso2' => 'US',
+                'name' => 'United States'
+            ],
             'zrcms-components' => [
                 'basic.zrcms-countries'
                 => 'json:' . __DIR__ . '/../zrcms-component.json',

@@ -36,10 +36,12 @@ class SiteMap
 
     /**
      * @param ServerRequestInterface $request
-     * @param ResponseInterface $response
-     * @param callable|null $next
+     * @param ResponseInterface      $response
+     * @param callable|null          $next
      *
-     * @return ResponseInterface
+     * @return ResponseInterface|HtmlResponse
+     * @throws \Exception
+     * @throws \Psr\SimpleCache\InvalidArgumentException
      */
     public function __invoke(
         ServerRequestInterface $request,
