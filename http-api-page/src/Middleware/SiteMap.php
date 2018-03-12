@@ -18,20 +18,24 @@ class SiteMap
     protected $getSiteCmsResourceByRequest;
     protected $findPageCmsResourcesBy;
     protected $isAllowed;
+    protected $defaultProtocol;
 
     /**
      * @param GetSiteCmsResourceByRequest $getSiteCmsResourceByRequest
-     * @param FindPageCmsResourcesBy $findPageCmsResourcesBy
-     * @param IsAllowed $isAllowed
+     * @param FindPageCmsResourcesBy      $findPageCmsResourcesBy
+     * @param IsAllowed                   $isAllowed
+     * @param string                      $defaultProtocol
      */
     public function __construct(
         GetSiteCmsResourceByRequest $getSiteCmsResourceByRequest,
         FindPageCmsResourcesBy $findPageCmsResourcesBy,
-        IsAllowed $isAllowed
+        IsAllowed $isAllowed,
+        string $defaultProtocol = 'https://'
     ) {
         $this->getSiteCmsResourceByRequest = $getSiteCmsResourceByRequest;
         $this->findPageCmsResourcesBy = $findPageCmsResourcesBy;
         $this->isAllowed = $isAllowed;
+        $this->defaultProtocol = $defaultProtocol;
     }
 
     /**
@@ -75,7 +79,7 @@ class SiteMap
             }
 
             $entries[] = [
-                'loc' => 'https://' . $siteCmsResource->getHost() . $pageCmsResource->getPath(),
+                'loc' => $this->defaultProtocol . $siteCmsResource->getHost() . $pageCmsResource->getPath(),
                 'lastmod' => $pageCmsResource->getModifiedDateObject()->format('Y-m-d'),
                 'changefreq' => $this->getChangeFrequency($pageCmsResource),
                 'priority' => $this->getPriority($pageCmsResource),
