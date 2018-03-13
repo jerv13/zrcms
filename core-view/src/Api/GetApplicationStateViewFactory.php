@@ -3,6 +3,7 @@
 namespace Zrcms\CoreView\Api;
 
 use Psr\Container\ContainerInterface;
+use Zrcms\CorePage\Api\CmsResource\FindPageCmsResourceBySitePath;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -20,6 +21,7 @@ class GetApplicationStateViewFactory
         ContainerInterface $serviceContainer
     ) {
         return new GetApplicationStateView(
+            $serviceContainer->get(FindPageCmsResourceBySitePath::class),
             $serviceContainer->get(GetViewByRequest::class),
             []
         );

@@ -2,11 +2,11 @@
 
 namespace Zrcms\CoreApplication\Api\CmsResource;
 
+use Reliv\ArrayProperties\Property;
 use Zrcms\Core\Api\CmsResource\CmsResourceToArray;
 use Zrcms\Core\Api\Content\ContentVersionToArray;
 use Zrcms\Core\Model\CmsResource;
 use Zrcms\CoreApplication\Api\RemoveProperties;
-use Reliv\ArrayProperties\Property;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -52,6 +52,12 @@ class CmsResourceToArrayBasic implements CmsResourceToArray
         $array['createdReason'] = $cmsResource->getCreatedReason();
 
         $array['createdDate'] = $cmsResource->getCreatedDate();
+
+        $array['modifiedByUserId'] = $cmsResource->getModifiedByUserId();
+
+        $array['modifiedReason'] = $cmsResource->getModifiedReason();
+
+        $array['modifiedDate'] = $cmsResource->getModifiedDate();
 
         return RemoveProperties::invoke(
             $array,

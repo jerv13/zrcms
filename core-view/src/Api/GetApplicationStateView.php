@@ -5,6 +5,8 @@ namespace Zrcms\CoreView\Api;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Message\UriInterface;
 use Zrcms\CoreApplicationState\Api\GetApplicationState;
+use Zrcms\CorePage\Api\CmsResource\FindPageCmsResourceBySitePath;
+use Zrcms\CorePage\Model\PageVersion;
 use Zrcms\CoreSite\Fields\FieldsSiteVersion;
 use Zrcms\CoreView\Exception\ViewDataNotFound;
 use Zrcms\CoreView\Fields\FieldsView;
@@ -18,17 +20,21 @@ class GetApplicationStateView implements GetApplicationState
 {
     const APPLICATION_STATE_KEY = 'view';
 
+    protected $findPageCmsResourceBySitePath;
     protected $getViewByRequest;
     protected $getViewByRequestOptions;
 
     /**
-     * @param GetViewByRequest $getViewByRequest
-     * @param array            $getViewByRequestOptions
+     * @param FindPageCmsResourceBySitePath $findPageCmsResourceBySitePath
+     * @param GetViewByRequest              $getViewByRequest
+     * @param array                         $getViewByRequestOptions
      */
     public function __construct(
+        FindPageCmsResourceBySitePath $findPageCmsResourceBySitePath,
         GetViewByRequest $getViewByRequest,
         array $getViewByRequestOptions = []
     ) {
+        $this->findPageCmsResourceBySitePath = $findPageCmsResourceBySitePath;
         $this->getViewByRequest = $getViewByRequest;
         $this->getViewByRequestOptions = $getViewByRequestOptions;
     }
@@ -52,11 +58,13 @@ class GetApplicationStateView implements GetApplicationState
             ],
             'page' => [
                 'cmsPage' => false,
+                'contentVersionId' => null,
                 'description' => null,
                 'id' => null,
                 'keywords' => null,
                 'path' => null,
                 'published' => null,
+                'requestPathContentVersionId' => null,
                 'requestPath' => $this->findOriginalPath($request, $request->getUri()->getPath()),
                 'isPageForPath' => null,
                 'title' => null,
@@ -84,6 +92,14 @@ class GetApplicationStateView implements GetApplicationState
         $layoutCmsResource = $view->getLayoutCmsResource();
         $requestedPath = $this->findOriginalPath($request);
 
+        $isPageForPath = ($pageCmsResource->getPath() == $requestedPath);
+
+        $requestPathContentVersionId = $this->findNormalPageVersionId(
+            $siteCmsResource->getId(),
+            $pageVersion,
+            $requestedPath
+        );
+
         $viewState = [
             'site' => [
                 'id' => $siteCmsResource->getId(),
@@ -93,13 +109,15 @@ class GetApplicationStateView implements GetApplicationState
             ],
             'page' => [
                 'cmsPage' => true,
+                'contentVersionId' => $pageVersion->getId(),
                 'description' => $pageVersion->getDescription(),
                 'id' => $pageCmsResource->getId(),
                 'keywords' => $pageVersion->getKeywords(),
                 'path' => $pageCmsResource->getPath(),
                 'published' => $pageCmsResource->isPublished(),
                 'requestPath' => $requestedPath,
-                'isPageForPath' => ($pageCmsResource->getPath() == $requestedPath),
+                'requestPathContentVersionId' => $requestPathContentVersionId,
+                'isPageForPath' => $isPageForPath,
                 'title' => $pageVersion->getTitle(),
             ],
             'layout' => [
@@ -113,6 +131,35 @@ class GetApplicationStateView implements GetApplicationState
         ];
 
         return $viewState;
+    }
+
+    /**
+     * @param string      $siteCmsResourceId
+     * @param PageVersion $pageVersionFromView
+     * @param string      $requestedPath
+     *
+     * @return null|string
+     */
+    protected function findNormalPageVersionId(
+        string $siteCmsResourceId,
+        PageVersion $pageVersionFromView,
+        string $requestedPath
+    ) {
+        if ($pageVersionFromView->getPath() == $requestedPath) {
+            return $pageVersionFromView->getId();
+        }
+
+        $normalPathPageCmsResource = $this->findPageCmsResourceBySitePath->__invoke(
+            $siteCmsResourceId,
+            $requestedPath,
+            null
+        );
+
+        if (empty($normalPathPageCmsResource)) {
+            return null;
+        }
+
+        return $normalPathPageCmsResource->getContentVersionId();
     }
 
     /**
