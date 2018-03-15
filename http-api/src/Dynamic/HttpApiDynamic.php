@@ -4,6 +4,7 @@ namespace Zrcms\HttpApi\Dynamic;
 
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
+use Reliv\ArrayProperties\Property;
 use Zrcms\Http\Api\BuildMessageValue;
 use Zrcms\Http\Api\BuildResponseOptions;
 use Zrcms\Http\Api\GetRouteOptions;
@@ -11,7 +12,6 @@ use Zrcms\Http\Response\ZrcmsJsonResponse;
 use Zrcms\HttpApi\Dynamic;
 use Zrcms\HttpApi\DynamicApiConfigNotFound;
 use Zrcms\HttpApi\GetDynamicApiConfig;
-use Reliv\ArrayProperties\Property;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -63,7 +63,19 @@ class HttpApiDynamic
             Dynamic::ROUTE_OPTION_ZRCMS_API
         );
 
-        $zrcmsImplementation = $request->getAttribute(Dynamic::ATTRIBUTE_ZRCMS_IMPLEMENTATION);
+        $zrcmsImplementation = $request->getAttribute(
+            Dynamic::ATTRIBUTE_ZRCMS_IMPLEMENTATION,
+            Property::get(
+                $routeOptions,
+                Dynamic::ROUTE_OPTION_ZRCMS_IMPLEMENTATION,
+                null
+            )
+        );
+
+        $request = $request->withAttribute(
+            Dynamic::ATTRIBUTE_ZRCMS_IMPLEMENTATION,
+            $zrcmsImplementation
+        );
 
         $dynamicApiType = $zrcmsImplementation . ':' . $zrcmsApiName;
 

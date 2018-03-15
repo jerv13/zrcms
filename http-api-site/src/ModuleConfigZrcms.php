@@ -8,6 +8,7 @@ use Zrcms\Core\Api\CmsResource\CmsResourceToArray;
 use Zrcms\Core\Api\Content\ContentVersionsToArray;
 use Zrcms\Core\Api\Content\ContentVersionToArray;
 use Zrcms\CoreSite\Api\CmsResource\FindSiteCmsResource;
+use Zrcms\CoreSite\Api\CmsResource\FindSiteCmsResourceByHost;
 use Zrcms\CoreSite\Api\CmsResource\FindSiteCmsResourcesBy;
 use Zrcms\CoreSite\Api\CmsResource\FindSiteCmsResourcesPublished;
 use Zrcms\CoreSite\Api\CmsResource\UpsertSiteCmsResource;
@@ -37,6 +38,20 @@ class ModuleConfigZrcms
                     /**
                      * CmsResource
                      */
+                    // CUSTOM
+                    'find-site-cms-resource-by-host' => [
+                        'acl' => [
+                            'is-allowed' => IsAllowedRcmUserSitesAdmin::class,
+                            'is-allowed-options' => [],
+                            'not-allowed-status' => 401,
+                        ],
+                        'api' => [
+                            'api-service' => FindSiteCmsResourceByHost::class,
+                            'to-array' => CmsResourceToArray::class,
+                            'not-found-status' => 404,
+                        ],
+                    ],
+
                     'find-cms-resource' => [
                         'acl' => [
                             'is-allowed' => IsAllowedRcmUserSitesAdmin::class,

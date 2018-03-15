@@ -35,7 +35,8 @@ class GetSiteCmsResourceBasic implements GetSiteCmsResource
     ): SiteCmsResource {
         /** @var SiteCmsResource $siteCmsResource */
         $siteCmsResource = $this->findSiteCmsResourceByHost->__invoke(
-            $host
+            $host,
+            $published
         );
 
         if (empty($siteCmsResource)) {

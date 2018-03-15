@@ -76,6 +76,7 @@ class ModulesConfig
             new \Zrcms\HttpRcmApiLib\ModuleConfig(),
             new \Zrcms\HttpRedirect\ModuleConfig(),
             new \Zrcms\HttpSiteExists\ModuleConfig(),
+            new \Zrcms\HttpSiteMap\ModuleConfig(),
             new \Zrcms\HttpStatusPages\ModuleConfig(),
 
             new \Zrcms\SwaggerExpressiveZrcms\ModuleConfig(),

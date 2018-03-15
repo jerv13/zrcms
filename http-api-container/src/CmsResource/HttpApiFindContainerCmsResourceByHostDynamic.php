@@ -1,24 +1,26 @@
 <?php
 
-namespace Zrcms\HttpApi\CmsResource;
+namespace Zrcms\HttpApiContainer\CmsResource;
 
 use Psr\Container\ContainerInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
+use Reliv\ArrayProperties\Property;
 use Zrcms\Core\Api\CmsResource\CmsResourceToArray;
-use Zrcms\Core\Api\CmsResource\FindCmsResource;
+use Zrcms\CoreContainer\Api\CmsResource\FindContainerCmsResourcesBySitePaths;
 use Zrcms\Http\Api\BuildMessageValue;
 use Zrcms\Http\Api\BuildResponseOptions;
 use Zrcms\Http\Response\ZrcmsJsonResponse;
 use Zrcms\HttpApi\Dynamic;
-use Reliv\ArrayProperties\Property;
 
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class HttpApiFindCmsResourceDynamic
+class HttpApiFindContainerCmsResourceByHostDynamic
 {
-    const SOURCE = 'http-api-find-cms-resource-dynamic';
+    const SOURCE = 'http-api-find-container-cms-resource-by-host-dynamic';
+    const ATTRIBUTE_ZRCMS_CONTAINER_HOST = 'zrcms-container-host';
+    const PARAM_PUBLISHED = 'published';
 
     protected $serviceContainer;
     protected $cmsResourceToArrayDefault;
@@ -76,16 +78,26 @@ class HttpApiFindCmsResourceDynamic
             throw new \Exception('api-service must be defined');
         }
 
-        /** @var FindCmsResource $apiService */
+        /** @var FindContainerCmsResourceByHost $apiService */
         $apiService = $this->serviceContainer->get($apiServiceName);
 
-        if (!$apiService instanceof FindCmsResource) {
-            throw new \Exception('api-service must be instance of ' . FindCmsResource::class);
+        if (!$apiService instanceof FindContainerCmsResourceByHost) {
+            throw new \Exception('api-service must be instance of ' . FindContainerCmsResourceByHost::class);
         }
 
-        $id = $request->getAttribute(Dynamic::ATTRIBUTE_ZRCMS_ID);
+        $host = $request->getAttribute(self::ATTRIBUTE_ZRCMS_CONTAINER_HOST);
+        $queryParams = $request->getQueryParams();
+        $published = Property::get(
+            $queryParams,
+            self::PARAM_PUBLISHED,
+            null
+        );
 
-        $cmsResource = $apiService->__invoke($id, []);
+        $cmsResource = $apiService->__invoke(
+            $host,
+            $published,
+            []
+        );
 
         if (empty($cmsResource)) {
             $notFoundStatus = Property::getInt(
@@ -98,7 +110,7 @@ class HttpApiFindCmsResourceDynamic
                 null,
                 BuildMessageValue::invoke(
                     (string)$notFoundStatus,
-                    'Not Found with id: ' . $id,
+                    'Not Found with host: ' . $host,
                     $request->getAttribute(Dynamic::ATTRIBUTE_DYNAMIC_API_TYPE),
                     self::SOURCE
                 ),
@@ -117,7 +129,7 @@ class HttpApiFindCmsResourceDynamic
         );
 
         if ($toArrayServiceName !== null) {
-            /** @var CmsResourceToArray $isAllowed */
+            /** @var CmsResourceToArray $toArrayService */
             $toArrayService = $this->serviceContainer->get($toArrayServiceName);
         }
 

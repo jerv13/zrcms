@@ -10,17 +10,17 @@ use Zrcms\CoreContainer\Model\ContainerCmsResource;
 interface FindContainerCmsResourcesBySitePaths
 {
     /**
-     * @param string $siteCmsResourceId
-     * @param array  $containerCmsResourcePaths
-     * @param bool   $published
-     * @param array  $options
+     * @param string    $siteCmsResourceId
+     * @param array     $containerCmsResourcePaths
+     * @param bool|null $published
+     * @param array     $options
      *
      * @return ContainerCmsResource[]
      */
     public function __invoke(
         string $siteCmsResourceId,
         array $containerCmsResourcePaths,
-        bool $published = true,
+        $published = true,
         array $options = []
     ): array;
 }

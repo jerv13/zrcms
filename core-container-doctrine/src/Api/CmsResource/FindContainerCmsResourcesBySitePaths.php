@@ -3,48 +3,24 @@
 namespace Zrcms\CoreContainerDoctrine\Api\CmsResource;
 
 use Doctrine\ORM\EntityManager;
+use Reliv\ArrayProperties\Property;
 use Zrcms\CoreApplicationDoctrine\Api\BuildBasicCmsResources;
 use Zrcms\CoreContainer\Api\CmsResource\FindContainerCmsResourcesBySitePaths as CoreFindsBySitePaths;
-use Zrcms\CoreContainer\Model\ContainerCmsResource;
 use Zrcms\CoreContainer\Model\ContainerCmsResourceBasic;
 use Zrcms\CoreContainer\Model\ContainerVersionBasic;
 use Zrcms\CoreContainerDoctrine\Entity\ContainerCmsResourceEntity;
 use Zrcms\CoreContainerDoctrine\Entity\ContainerVersionEntity;
-use Reliv\ArrayProperties\Property;
 
 /**
  * @author James Jervis - https://github.com/jerv13
  */
 class FindContainerCmsResourcesBySitePaths implements CoreFindsBySitePaths
 {
-    /**
-     * @var EntityManager
-     */
     protected $entityManager;
-
-    /**
-     * @var string
-     */
     protected $entityClassCmsResource;
-
-    /**
-     * @var
-     */
     protected $classCmsResourceBasic;
-
-    /**
-     * @var string
-     */
     protected $entityClassContentVersion;
-
-    /**
-     * @var string
-     */
     protected $classContentVersionBasic;
-
-    /**
-     * @var array
-     */
     protected $contentVersionSyncToProperties = [];
 
     /**
@@ -63,17 +39,18 @@ class FindContainerCmsResourcesBySitePaths implements CoreFindsBySitePaths
     }
 
     /**
-     * @param string $siteCmsResourceId
-     * @param array  $containerCmsResourcePaths
-     * @param bool   $published
-     * @param array  $options
+     * @param string    $siteCmsResourceId
+     * @param array     $containerCmsResourcePaths
+     * @param bool|null $published
+     * @param array     $options
      *
-     * @return ContainerCmsResource[]
+     * @return array
+     * @throws \Exception
      */
     public function __invoke(
         string $siteCmsResourceId,
         array $containerCmsResourcePaths,
-        bool $published = true,
+        $published = true,
         array $options = []
     ): array {
         $pathParams = [];
@@ -81,8 +58,11 @@ class FindContainerCmsResourcesBySitePaths implements CoreFindsBySitePaths
         // @todo Add prepared statements not concat
         $query = ""
             . "SELECT container FROM {$this->entityClassCmsResource} container"
-            . " WHERE container.siteCmsResourceId = :containerSiteCmsResourceId"
-            . " AND container.published = :containerPublished";
+            . " WHERE container.siteCmsResourceId = :containerSiteCmsResourceId";
+
+        if (is_bool($published)) {
+            $query .= " AND container.published = :containerPublished";
+        }
 
         $query = $this->buildInQuery(
             $containerCmsResourcePaths,

@@ -93,6 +93,7 @@
       "Zrcms\\HttpRcmApiLib\\": "http-rcm-api-lib/src/",
       "Zrcms\\HttpRedirect\\": "http-redirect/src/",
       "Zrcms\\HttpSiteExists\\": "http-site-exists/src/",
+      "Zrcms\\HttpSiteMap\\": "http-site-map/src/",
       "Zrcms\\HttpStatusPages\\": "http-status-pages/src/",
       "Zrcms\\HttpTest\\": "http-test/src/",
       "Zrcms\\HttpUser\\": "http-user/src/",
