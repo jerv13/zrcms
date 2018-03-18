@@ -1,31 +1,32 @@
 <?php
 
-namespace Zrcms\CoreView\Api\Render;
+namespace Zrcms\CoreView\Api;
 
 use Psr\Container\ContainerInterface;
+use Zrcms\CoreContainer\Api\CmsResource\FindContainerCmsResourcesBy;
 use Zrcms\CoreContainer\Api\CmsResource\FindContainerCmsResourcesBySitePaths;
 use Zrcms\CoreContainer\Api\Render\GetContainerRenderTags;
-use Zrcms\CoreContainer\Api\Render\RenderContainer;
-use Zrcms\CoreView\Api\GetTagNamesByLayout;
 
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class GetViewLayoutTagsContainersFactory
+class GetSiteContainerCmsResourcesBasicFactory
 {
     /**
      * @param ContainerInterface $serviceContainer
      *
-     * @return GetViewLayoutTagsContainers
+     * @return GetSiteContainerCmsResourcesBasic
      * @throws \Psr\Container\ContainerExceptionInterface
      * @throws \Psr\Container\NotFoundExceptionInterface
      */
     public function __invoke(
         ContainerInterface $serviceContainer
     ) {
-        return new GetViewLayoutTagsContainers(
-            $serviceContainer->get(GetContainerRenderTags::class),
-            $serviceContainer->get(RenderContainer::class)
+        return new GetSiteContainerCmsResourcesBasic(
+            $serviceContainer->get(FindContainerCmsResourcesBy::class),
+            $serviceContainer->get(GetTagNamesByLayout::class),
+            $serviceContainer->get(FindContainerCmsResourcesBySitePaths::class),
+            $serviceContainer->get(GetContainerRenderTags::class)
         );
     }
 }

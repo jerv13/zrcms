@@ -5,6 +5,7 @@ namespace Zrcms\CoreView\Api;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Message\UriInterface;
 use Zrcms\CoreApplicationState\Api\GetApplicationState;
+use Zrcms\CoreContainer\Model\ContainerCmsResource;
 use Zrcms\CorePage\Api\CmsResource\FindPageCmsResourceBySitePath;
 use Zrcms\CorePage\Model\PageVersion;
 use Zrcms\CoreSite\Fields\FieldsSiteVersion;
@@ -51,6 +52,7 @@ class GetApplicationStateView implements GetApplicationState
     ): array {
         $viewState = [
             'site' => [
+                'contentVersionId' => null,
                 'id' => null,
                 'locale' => null,
                 'published' => null,
@@ -70,10 +72,12 @@ class GetApplicationStateView implements GetApplicationState
                 'title' => null,
             ],
             'layout' => [
+                'contentVersionId' => null,
                 'name' => null,
                 'published' => null,
                 'themeName' => null,
             ],
+            'site-containers' => [],
             'view-strategy' => null,
         ];
 
@@ -90,6 +94,7 @@ class GetApplicationStateView implements GetApplicationState
         $pageCmsResource = $view->getPageCmsResource();
         $pageVersion = $pageCmsResource->getContentVersion();
         $layoutCmsResource = $view->getLayoutCmsResource();
+        $siteContainerCmsResources = $view->getSiteContainerCmsResources();
         $requestedPath = $this->findOriginalPath($request);
 
         $isPageForPath = ($pageCmsResource->getPath() == $requestedPath);
@@ -102,6 +107,7 @@ class GetApplicationStateView implements GetApplicationState
 
         $viewState = [
             'site' => [
+                'contentVersionId' => $siteCmsResource->getContentVersionId(),
                 'id' => $siteCmsResource->getId(),
                 'locale' => $siteCmsResource->getLocale(),
                 'published' => $siteCmsResource->isPublished(),
@@ -121,16 +127,39 @@ class GetApplicationStateView implements GetApplicationState
                 'title' => $pageVersion->getTitle(),
             ],
             'layout' => [
+                'contentVersionId' => $layoutCmsResource->getContentVersionId(),
                 'name' => $layoutCmsResource->getName(),
                 'published' => $layoutCmsResource->isPublished(),
                 'themeName' => $layoutCmsResource->getThemeName(),
             ],
+            'site-containers' => $this->getSiteContainersState($siteContainerCmsResources),
             'view-strategy' => $view->findProperty(
                 FieldsView::STRATEGY
             ),
         ];
 
         return $viewState;
+    }
+
+    /**
+     * @param ContainerCmsResource[] $siteContainerCmsResources
+     *
+     * @return array
+     */
+    protected function getSiteContainersState(
+        array $siteContainerCmsResources
+    ): array {
+        $state = [];
+
+        foreach ($siteContainerCmsResources as $siteContainerCmsResource) {
+            $state[] = [
+                'contentVersionId' => $siteContainerCmsResource->getContentVersionId(),
+                'published' => $siteContainerCmsResource->isPublished(),
+                'path' => $siteContainerCmsResource->getPath(),
+            ];
+        }
+
+        return $state;
     }
 
     /**

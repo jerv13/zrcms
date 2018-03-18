@@ -7,6 +7,7 @@ use Zrcms\CorePage\Api\Content\FindPageVersion;
 use Zrcms\CoreView\Api\GetLayoutCmsResource;
 use Zrcms\CoreView\Api\GetLayoutName;
 use Zrcms\CoreView\Api\GetSiteCmsResource;
+use Zrcms\CoreView\Api\GetSiteContainerCmsResources;
 use Zrcms\CoreView\Api\GetThemeName;
 
 /**
@@ -30,6 +31,7 @@ class BuildViewPageVersionIdFactory
             $serviceContainer->get(FindPageVersion::class),
             $serviceContainer->get(GetLayoutName::class),
             $serviceContainer->get(GetLayoutCmsResource::class),
+            $serviceContainer->get(GetSiteContainerCmsResources::class),
             BuildViewPageVersionId::DEFAULT_PAGE_CMS_RESOURCE_TEMP_ID
         );
     }

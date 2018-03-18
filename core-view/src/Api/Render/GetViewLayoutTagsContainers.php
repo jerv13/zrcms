@@ -6,10 +6,8 @@ use Psr\Http\Message\ServerRequestInterface;
 use Zrcms\Core\Model\Content;
 use Zrcms\CoreContainer\Api\Render\GetContainerRenderTags;
 use Zrcms\CoreContainer\Api\Render\RenderContainer;
-use Zrcms\CoreContainer\Api\CmsResource\FindContainerCmsResourcesBySitePaths;
 use Zrcms\CoreContainer\Model\Container;
 use Zrcms\CoreContainer\Model\ContainerCmsResource;
-use Zrcms\CoreView\Api\GetTagNamesByLayout;
 use Zrcms\CoreView\Model\View;
 
 /**
@@ -20,40 +18,17 @@ class GetViewLayoutTagsContainers implements GetViewLayoutTags
     const RENDER_TAG_CONTAINER = 'container';
     const SERVICE_ALIAS = 'containers';
 
-    /**
-     * @var GetTagNamesByLayout
-     */
-    protected $getTagNamesByLayout;
-
-    /**
-     * @var FindContainerCmsResourcesBySitePaths
-     */
-    protected $findContainerCmsResourcesBySitePaths;
-
-    /**
-     * @var GetContainerRenderTags
-     */
     protected $getContainerRenderTags;
-
-    /**
-     * @var RenderContainer
-     */
     protected $renderContainer;
 
     /**
-     * @param GetTagNamesByLayout                  $getTagNamesByLayout
-     * @param FindContainerCmsResourcesBySitePaths $findContainerCmsResourcesBySitePaths
      * @param GetContainerRenderTags               $getContainerRenderTags
      * @param RenderContainer                      $renderContainer
      */
     public function __construct(
-        GetTagNamesByLayout $getTagNamesByLayout,
-        FindContainerCmsResourcesBySitePaths $findContainerCmsResourcesBySitePaths,
         GetContainerRenderTags $getContainerRenderTags,
         RenderContainer $renderContainer
     ) {
-        $this->getTagNamesByLayout = $getTagNamesByLayout;
-        $this->findContainerCmsResourcesBySitePaths = $findContainerCmsResourcesBySitePaths;
         $this->getContainerRenderTags = $getContainerRenderTags;
         $this->renderContainer = $renderContainer;
     }
@@ -71,28 +46,12 @@ class GetViewLayoutTagsContainers implements GetViewLayoutTags
         ServerRequestInterface $request,
         array $options = []
     ): array {
-        $siteCmsResource = $view->getSiteCmsResource();
-
-        $layout = $view->getLayoutCmsResource()->getContentVersion();
-
-        $layoutTags = $this->getTagNamesByLayout->__invoke(
-            $layout
-        );
-
-        $containerPaths = $this->findContainerPaths(
-            $layoutTags
-        );
-
-        $containerCmsResources = $this->findContainerCmsResourcesBySitePaths->__invoke(
-            $siteCmsResource->getId(),
-            $containerPaths
-        );
+        $containerCmsResources = $view->getSiteContainerCmsResources();
 
         $renderTags = [];
 
         /** @var ContainerCmsResource $containerCmsResource */
         foreach ($containerCmsResources as $containerCmsResource) {
-
             /** @var Container $container */
             $container = $containerCmsResource->getContentVersion();
 

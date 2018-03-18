@@ -56,8 +56,8 @@ class FindContainerCmsResourcesBySitePaths implements CoreFindsBySitePaths
         $pathParams = [];
 
         // @todo Add prepared statements not concat
-        $query = ""
-            . "SELECT container FROM {$this->entityClassCmsResource} container"
+        $query
+            = "SELECT container FROM {$this->entityClassCmsResource} container"
             . " WHERE container.siteCmsResourceId = :containerSiteCmsResourceId";
 
         if (is_bool($published)) {

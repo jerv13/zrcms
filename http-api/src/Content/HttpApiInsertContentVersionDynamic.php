@@ -19,7 +19,7 @@ use Zrcms\User\Api\GetUserIdByRequest;
  */
 class HttpApiInsertContentVersionDynamic
 {
-    const SOURCE = 'http-api-find-cms-resource-dynamic';
+    const SOURCE = 'http-api-insert-content-version-dynamic';
 
     protected $serviceContainer;
     protected $getUserIdByRequest;

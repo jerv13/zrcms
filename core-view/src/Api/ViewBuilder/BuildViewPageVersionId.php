@@ -9,6 +9,7 @@ use Zrcms\CorePage\Model\PageCmsResourceBasic;
 use Zrcms\CoreView\Api\GetLayoutCmsResource;
 use Zrcms\CoreView\Api\GetLayoutName;
 use Zrcms\CoreView\Api\GetSiteCmsResource;
+use Zrcms\CoreView\Api\GetSiteContainerCmsResources;
 use Zrcms\CoreView\Api\GetThemeName;
 use Zrcms\CoreView\Exception\PageNotFound;
 use Zrcms\CoreView\Exception\ViewDataNotFound;
@@ -31,16 +32,18 @@ class BuildViewPageVersionId implements BuildView
     protected $findPageVersion;
     protected $getLayoutName;
     protected $getLayoutCmsResource;
+    protected $getSiteContainerCmsResources;
     protected $buildView;
     protected $pageCmsResourceTempId;
 
     /**
-     * @param GetSiteCmsResource   $getSiteCmsResource
-     * @param GetThemeName         $getThemeName
-     * @param FindPageVersion      $findPageVersion
-     * @param GetLayoutName        $getLayoutName
-     * @param GetLayoutCmsResource $getLayoutCmsResource
-     * @param string               $pageCmsResourceTempId
+     * @param GetSiteCmsResource           $getSiteCmsResource
+     * @param GetThemeName                 $getThemeName
+     * @param FindPageVersion              $findPageVersion
+     * @param GetLayoutName                $getLayoutName
+     * @param GetLayoutCmsResource         $getLayoutCmsResource
+     * @param GetSiteContainerCmsResources $getSiteContainerCmsResources
+     * @param string                       $pageCmsResourceTempId
      */
     public function __construct(
         GetSiteCmsResource $getSiteCmsResource,
@@ -48,6 +51,7 @@ class BuildViewPageVersionId implements BuildView
         FindPageVersion $findPageVersion,
         GetLayoutName $getLayoutName,
         GetLayoutCmsResource $getLayoutCmsResource,
+        GetSiteContainerCmsResources $getSiteContainerCmsResources,
         string $pageCmsResourceTempId = self::DEFAULT_PAGE_CMS_RESOURCE_TEMP_ID
     ) {
         $this->getSiteCmsResource = $getSiteCmsResource;
@@ -55,6 +59,7 @@ class BuildViewPageVersionId implements BuildView
         $this->findPageVersion = $findPageVersion;
         $this->getLayoutName = $getLayoutName;
         $this->getLayoutCmsResource = $getLayoutCmsResource;
+        $this->getSiteContainerCmsResources = $getSiteContainerCmsResources;
         $this->pageCmsResourceTempId = $pageCmsResourceTempId;
     }
 
@@ -116,6 +121,11 @@ class BuildViewPageVersionId implements BuildView
             $themeName,
             $layoutName,
             $this->published
+        );
+
+        $siteContainerCmsResources = $this->getSiteContainerCmsResources->__invoke(
+            $siteCmsResource->getId(),
+            [GetSiteContainerCmsResources::OPTION_LAYOUT_VERSION => $layoutCmsResource->getContentVersion()]
         );
 
         return ViewBasic::build(

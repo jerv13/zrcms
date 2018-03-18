@@ -5,6 +5,7 @@ namespace Zrcms\CoreView\Model;
 use Reliv\ArrayProperties\Property;
 use Zrcms\Core\Model\ContentAbstract;
 use Zrcms\Core\Model\PropertiesTrait;
+use Zrcms\CoreContainer\Model\ContainerCmsResource;
 use Zrcms\CorePage\Model\PageCmsResource;
 use Zrcms\CoreSite\Model\SiteCmsResource;
 use Zrcms\CoreTheme\Model\LayoutCmsResource;
@@ -20,12 +21,13 @@ abstract class ViewAbstract extends ContentAbstract implements View
     use PropertiesTrait;
 
     /**
-     * @param SiteCmsResource   $siteCmsResource
-     * @param PageCmsResource   $pageCmsResource
-     * @param LayoutCmsResource $layoutCmsResource
-     * @param string            $strategy
-     * @param array             $properties
-     * @param string|null       $id
+     * @param SiteCmsResource        $siteCmsResource
+     * @param PageCmsResource        $pageCmsResource
+     * @param LayoutCmsResource      $layoutCmsResource
+     * @param ContainerCmsResource[] $siteContainerCmsResources
+     * @param string                 $strategy
+     * @param array                  $properties
+     * @param null                   $id
      *
      * @return View
      */
@@ -33,6 +35,7 @@ abstract class ViewAbstract extends ContentAbstract implements View
         SiteCmsResource $siteCmsResource,
         PageCmsResource $pageCmsResource,
         LayoutCmsResource $layoutCmsResource,
+        array $siteContainerCmsResources,
         string $strategy,
         array $properties,
         $id = null
@@ -46,6 +49,9 @@ abstract class ViewAbstract extends ContentAbstract implements View
 
             FieldsView::LAYOUT_CMS_RESOURCE
             => $layoutCmsResource,
+
+            FieldsView::SITE_CONTAINER_CMS_RESOURCES
+            => $siteContainerCmsResources,
 
             FieldsView::STRATEGY
             => $strategy,
@@ -92,6 +98,12 @@ abstract class ViewAbstract extends ContentAbstract implements View
 
         Property::assertHas(
             $properties,
+            FieldsView::SITE_CONTAINER_CMS_RESOURCES,
+            get_class($this)
+        );
+
+        Property::assertHas(
+            $properties,
             FieldsView::STRATEGY,
             get_class($this)
         );
@@ -124,6 +136,32 @@ abstract class ViewAbstract extends ContentAbstract implements View
     public function getLayoutCmsResource(): LayoutCmsResource
     {
         return $this->findProperty(FieldsView::LAYOUT_CMS_RESOURCE);
+    }
+
+    /**
+     * @return ContainerCmsResource[]
+     */
+    public function getSiteContainerCmsResources(): array
+    {
+        return $this->findProperty(FieldsView::SITE_CONTAINER_CMS_RESOURCES);
+    }
+
+    /**
+     * @param string $containerCmsResourcePath
+     *
+     * @return ContainerCmsResource|null
+     */
+    public function findSiteContainerCmsResources(string $containerCmsResourcePath)
+    {
+        $containers = $this->getSiteContainerCmsResources();
+
+        foreach ($containers as $container) {
+            if ($container->getPath() === $containerCmsResourcePath) {
+                return $container;
+            }
+        }
+
+        return null;
     }
 
     /**

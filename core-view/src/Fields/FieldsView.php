@@ -14,6 +14,7 @@ class FieldsView extends FieldsContent
     const SITE_CMS_RESOURCE = 'siteCmsResource';
     const PAGE_CMS_RESOURCE = 'pageCmsResource';
     const LAYOUT_CMS_RESOURCE = 'layoutCmsResource';
+    const SITE_CONTAINER_CMS_RESOURCES = 'siteContainerCmsResources';
     const STRATEGY = 'strategy';
     const RENDERER = 'renderer';
 }

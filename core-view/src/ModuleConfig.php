@@ -12,6 +12,8 @@ use Zrcms\CoreView\Api\GetPageCmsResource;
 use Zrcms\CoreView\Api\GetPageCmsResourceBasicFactory;
 use Zrcms\CoreView\Api\GetSiteCmsResource;
 use Zrcms\CoreView\Api\GetSiteCmsResourceBasicFactory;
+use Zrcms\CoreView\Api\GetSiteContainerCmsResources;
+use Zrcms\CoreView\Api\GetSiteContainerCmsResourcesBasicFactory;
 use Zrcms\CoreView\Api\GetTagNamesByLayout;
 use Zrcms\CoreView\Api\GetTagNamesByLayoutBasicFactory;
 use Zrcms\CoreView\Api\GetTagNamesByLayoutMustache;
@@ -140,6 +142,9 @@ class ModuleConfig
                     ],
                     GetSiteCmsResource::class => [
                         'factory' => GetSiteCmsResourceBasicFactory::class,
+                    ],
+                    GetSiteContainerCmsResources::class => [
+                        'factory' => GetSiteContainerCmsResourcesBasicFactory::class,
                     ],
                     GetTagNamesByLayout::class => [
                         'factory' => GetTagNamesByLayoutBasicFactory::class

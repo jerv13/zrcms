@@ -7,6 +7,7 @@ use Zrcms\CoreView\Api\GetLayoutCmsResource;
 use Zrcms\CoreView\Api\GetLayoutName;
 use Zrcms\CoreView\Api\GetPageCmsResource;
 use Zrcms\CoreView\Api\GetSiteCmsResource;
+use Zrcms\CoreView\Api\GetSiteContainerCmsResources;
 use Zrcms\CoreView\Api\GetThemeName;
 
 /**
@@ -29,7 +30,8 @@ class BuildViewDefaultPublishedAnyFactory
             $serviceContainer->get(GetThemeName::class),
             $serviceContainer->get(GetPageCmsResource::class),
             $serviceContainer->get(GetLayoutName::class),
-            $serviceContainer->get(GetLayoutCmsResource::class)
+            $serviceContainer->get(GetLayoutCmsResource::class),
+            $serviceContainer->get(GetSiteContainerCmsResources::class)
         );
     }
 }

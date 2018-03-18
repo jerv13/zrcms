@@ -3,6 +3,7 @@
 namespace Zrcms\CoreView\Model;
 
 use Zrcms\Core\Model\Content;
+use Zrcms\CoreContainer\Model\ContainerCmsResource;
 use Zrcms\CorePage\Model\PageCmsResource;
 use Zrcms\CoreSite\Model\SiteCmsResource;
 use Zrcms\CoreTheme\Model\LayoutCmsResource;
@@ -13,12 +14,13 @@ use Zrcms\CoreTheme\Model\LayoutCmsResource;
 interface View extends Content
 {
     /**
-     * @param SiteCmsResource   $siteCmsResource
-     * @param PageCmsResource   $pageCmsResource
-     * @param LayoutCmsResource $layoutCmsResource
-     * @param string            $strategy
-     * @param array             $properties
-     * @param string|null       $id
+     * @param SiteCmsResource        $siteCmsResource
+     * @param PageCmsResource        $pageCmsResource
+     * @param LayoutCmsResource      $layoutCmsResource
+     * @param ContainerCmsResource[] $siteContainerCmsResources
+     * @param string                 $strategy
+     * @param array                  $properties
+     * @param null                   $id
      *
      * @return View
      */
@@ -26,6 +28,7 @@ interface View extends Content
         SiteCmsResource $siteCmsResource,
         PageCmsResource $pageCmsResource,
         LayoutCmsResource $layoutCmsResource,
+        array $siteContainerCmsResources,
         string $strategy,
         array $properties,
         $id = null
@@ -45,6 +48,18 @@ interface View extends Content
      * @return LayoutCmsResource
      */
     public function getLayoutCmsResource(): LayoutCmsResource;
+
+    /**
+     * @return ContainerCmsResource[]
+     */
+    public function getSiteContainerCmsResources(): array;
+
+    /**
+     * @param string $containerCmsResourcePath
+     *
+     * @return ContainerCmsResource|null
+     */
+    public function findSiteContainerCmsResources(string $containerCmsResourcePath);
 
     /**
      * @return string

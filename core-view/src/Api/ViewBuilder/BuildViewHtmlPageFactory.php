@@ -6,6 +6,7 @@ use Psr\Container\ContainerInterface;
 use Zrcms\CoreView\Api\GetLayoutCmsResource;
 use Zrcms\CoreView\Api\GetLayoutName;
 use Zrcms\CoreView\Api\GetSiteCmsResource;
+use Zrcms\CoreView\Api\GetSiteContainerCmsResources;
 use Zrcms\CoreView\Api\GetThemeName;
 
 /**
@@ -28,6 +29,7 @@ class BuildViewHtmlPageFactory
             $serviceContainer->get(GetThemeName::class),
             $serviceContainer->get(GetLayoutName::class),
             $serviceContainer->get(GetLayoutCmsResource::class),
+            $serviceContainer->get(GetSiteContainerCmsResources::class),
             '',
             '',
             ''

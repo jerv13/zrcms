@@ -13,6 +13,7 @@ use Zrcms\CorePage\Model\PageVersionBasic;
 use Zrcms\CoreView\Api\GetLayoutCmsResource;
 use Zrcms\CoreView\Api\GetLayoutName;
 use Zrcms\CoreView\Api\GetSiteCmsResource;
+use Zrcms\CoreView\Api\GetSiteContainerCmsResources;
 use Zrcms\CoreView\Api\GetThemeName;
 use Zrcms\CoreView\Exception\ViewDataNotFound;
 use Zrcms\CoreView\Model\View;
@@ -37,6 +38,7 @@ class BuildViewHtmlPage implements BuildView
     protected $getThemeName;
     protected $getLayoutName;
     protected $getLayoutCmsResource;
+    protected $getSiteContainerCmsResources;
     protected $buildView;
 
     protected $defaultTitle = '';
@@ -44,19 +46,21 @@ class BuildViewHtmlPage implements BuildView
     protected $defaultKeywords = '';
 
     /**
-     * @param GetSiteCmsResource   $getSiteCmsResource
-     * @param GetThemeName         $getThemeName
-     * @param GetLayoutName        $getLayoutName
-     * @param GetLayoutCmsResource $getLayoutCmsResource
-     * @param string               $defaultTitle
-     * @param string               $defaultDescription
-     * @param string               $defaultKeywords
+     * @param GetSiteCmsResource           $getSiteCmsResource
+     * @param GetThemeName                 $getThemeName
+     * @param GetLayoutName                $getLayoutName
+     * @param GetLayoutCmsResource         $getLayoutCmsResource
+     * @param GetSiteContainerCmsResources $getSiteContainerCmsResources
+     * @param string                       $defaultTitle
+     * @param string                       $defaultDescription
+     * @param string                       $defaultKeywords
      */
     public function __construct(
         GetSiteCmsResource $getSiteCmsResource,
         GetThemeName $getThemeName,
         GetLayoutName $getLayoutName,
         GetLayoutCmsResource $getLayoutCmsResource,
+        GetSiteContainerCmsResources $getSiteContainerCmsResources,
         string $defaultTitle = '',
         string $defaultDescription = '',
         string $defaultKeywords = ''
@@ -65,6 +69,7 @@ class BuildViewHtmlPage implements BuildView
         $this->getThemeName = $getThemeName;
         $this->getLayoutName = $getLayoutName;
         $this->getLayoutCmsResource = $getLayoutCmsResource;
+        $this->getSiteContainerCmsResources = $getSiteContainerCmsResources;
 
         $this->defaultTitle = $defaultTitle;
         $this->defaultDescription = $defaultDescription;
@@ -118,10 +123,16 @@ class BuildViewHtmlPage implements BuildView
             $layoutName
         );
 
+        $siteContainerCmsResources = $this->getSiteContainerCmsResources->__invoke(
+            $siteCmsResource->getId(),
+            [GetSiteContainerCmsResources::OPTION_LAYOUT_VERSION => $layoutCmsResource->getContentVersion()]
+        );
+
         return ViewBasic::build(
             $siteCmsResource,
             $pageCmsResource,
             $layoutCmsResource,
+            $siteContainerCmsResources,
             Property::getString(
                 $options,
                 self::OPTION_VIEW_STRATEGY
