@@ -172,7 +172,7 @@ class ModuleConfigZrcms
             /**
              * ===== ZRCMS Types =====
              */
-            'zrcms-types' => [
+            'zrcms-component-types' => [
                 'view-layout-tag' => [
                     BuildComponentObject::class => BuildComponentObjectByType::class,
                     'component-model-interface' => ViewLayoutTagsComponent::class,

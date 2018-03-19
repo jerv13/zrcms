@@ -15,7 +15,7 @@ use Zrcms\Http\Response\ZrcmsJsonResponse;
  */
 class HttpApiIsAllowed
 {
-    const SOURCE = 'zrcms-is-allowed-check-api';
+    const SOURCE = 'zrcms-http-is-allowed';
 
     const DEFAULT_NOT_ALLOWED_STATUS = 401;
 

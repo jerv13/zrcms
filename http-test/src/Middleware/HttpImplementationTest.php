@@ -27,19 +27,8 @@ class HttpImplementationTest
 {
     const NAME = 'implementation';
 
-    /**
-     * @var ContainerInterface
-     */
     protected $serviceContainer;
-
-    /**
-     * @var GetUserIdByRequest
-     */
     protected $getUserIdByRequest;
-
-    /**
-     * @var ContentVersionToArray
-     */
     protected $contentVersionToArray;
 
     /**

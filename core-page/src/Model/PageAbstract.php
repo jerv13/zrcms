@@ -4,6 +4,8 @@ namespace Zrcms\CorePage\Model;
 
 use Zrcms\Core\Exception\PropertyMissing;
 use Zrcms\Core\Model\ContentAbstract;
+use Zrcms\CoreContainer\Fields\FieldsContainer;
+use Zrcms\CoreContainer\Fields\FieldsContainerVersion;
 use Zrcms\CoreContainer\Model\Container;
 use Zrcms\CoreContainer\Model\ContainerBasic;
 use Zrcms\CoreContainer\Model\ContainerVersionBasic;
@@ -42,6 +44,7 @@ abstract class PageAbstract extends ContentAbstract
 
         $properties[FieldsPage::CONTAINERS_DATA] = PreparePageContainerData::invoke(
             $id,
+            'UNKNOWN_SITE_CMS_RESOURCE_ID',
             $containersData
         );
 

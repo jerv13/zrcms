@@ -332,7 +332,7 @@ class ModuleConfigZrcms
             /**
              * ===== ZRCMS Types =====
              */
-            'zrcms-types' => [
+            'zrcms-component-types' => [
                 'theme' => [
                     BuildComponentObject::class => BuildComponentObjectThemeLayouts::class,
                     'component-model-interface' => ThemeComponent::class,

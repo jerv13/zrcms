@@ -202,7 +202,7 @@ class ModuleConfigZrcms
             /**
              * ===== ZRCMS Types =====
              */
-            'zrcms-types' => [
+            'zrcms-component-types' => [
                 /* Default services and classes are defined here */
                 'basic' => [
                     BuildComponentObject::class => BuildComponentObjectByType::class,

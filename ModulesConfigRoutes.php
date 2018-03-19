@@ -13,6 +13,7 @@ class ModulesConfigRoutes
     {
         $zrcmsModules = [
             new \Zrcms\HttpApi\ModuleConfigRoutes(),
+            new \Zrcms\HttpApiBlockRender\ModuleConfigRoutes(),
             new \Zrcms\HttpApiContainer\ModuleConfigRoutes(),
             new \Zrcms\HttpApiCountry\ModuleConfigRoutes(),
             new \Zrcms\HttpApiFields\ModuleConfigRoutes(),

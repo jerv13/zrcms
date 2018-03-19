@@ -219,6 +219,7 @@ class PageVersionEntity extends ContentEntityAbstract implements ContentEntity
 
         $containersData = PreparePageContainerData::invoke(
             $this->id,
+            $this->getSiteCmsResourceId(),
             $this->containersData
         );
 

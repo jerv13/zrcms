@@ -13,6 +13,12 @@ class PageVersionBasic extends PageVersionAbstract implements PageVersion
      * @param string      $createdByUserId
      * @param string      $createdReason
      * @param string|null $createdDate
+     *
+     * @throws \Exception
+     * @throws \Reliv\ArrayProperties\Exception\ArrayPropertyException
+     * @throws \Reliv\ArrayProperties\Exception\ArrayPropertyMissing
+     * @throws \Throwable
+     * @throws \Zrcms\CorePage\Exception\InvalidPath
      */
     public function __construct(
         $id,

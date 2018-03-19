@@ -15,7 +15,7 @@ class HttpViewTestFactory
      * @return HttpViewTest
      */
     public function __invoke(
-        $serviceContainer
+        ContainerInterface $serviceContainer
     ) {
         return new HttpViewTest(
             $serviceContainer

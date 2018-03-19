@@ -11,14 +11,16 @@ use Zrcms\CoreBlock\Fields\FieldsBlockComponent;
 abstract class BlockComponentAbstract extends ComponentAbstract
 {
     /**
-     * @param string      $type
-     * @param string      $name
-     * @param string      $configUri
-     * @param string      $moduleDirectory
-     * @param array       $properties
-     * @param string      $createdByUserId
-     * @param string      $createdReason
-     * @param string|null $createdDate
+     * @param string $type
+     * @param string $name
+     * @param string $configUri
+     * @param string $moduleDirectory
+     * @param array  $properties
+     * @param string $createdByUserId
+     * @param string $createdReason
+     * @param null   $createdDate
+     *
+     * @throws \Zrcms\Core\Exception\TrackingInvalid
      */
     public function __construct(
         string $type,

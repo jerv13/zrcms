@@ -1,30 +1,28 @@
 <?php
 
-namespace Zrcms\CoreApplication\Api;
+namespace Zrcms\HttpTest\Acl;
 
 use Psr\Container\ContainerInterface;
+use Zrcms\Acl\Api\IsAllowedRelivServerEnvironmentNoneProduction;
 
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class GetTypeValueBasicFactory
+class IsAllowedTestIsAllowedFactory
 {
     /**
      * @param ContainerInterface $serviceContainer
      *
-     * @return GetTypeValueBasic
+     * @return IsAllowedTestIsAllowed
      * @throws \Psr\Container\ContainerExceptionInterface
      * @throws \Psr\Container\NotFoundExceptionInterface
      */
     public function __invoke(
         ContainerInterface $serviceContainer
     ) {
-        $config = $serviceContainer->get('config');
-
-        $typesConfig = $config['zrcms-component-types'];
-
-        return new GetTypeValueBasic(
-            $typesConfig
+        return new IsAllowedTestIsAllowed(
+            $serviceContainer->get(IsAllowedRelivServerEnvironmentNoneProduction::class),
+            []
         );
     }
 }

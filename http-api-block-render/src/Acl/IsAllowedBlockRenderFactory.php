@@ -1,30 +1,28 @@
 <?php
 
-namespace Zrcms\CoreApplication\Api;
+namespace Zrcms\HttpApiBlockRender\Acl;
 
 use Psr\Container\ContainerInterface;
+use Zrcms\Acl\Api\IsAllowedRcmUserSitesAdmin;
 
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class GetTypeValueBasicFactory
+class IsAllowedBlockRenderFactory
 {
     /**
      * @param ContainerInterface $serviceContainer
      *
-     * @return GetTypeValueBasic
+     * @return IsAllowedBlockRender
      * @throws \Psr\Container\ContainerExceptionInterface
      * @throws \Psr\Container\NotFoundExceptionInterface
      */
     public function __invoke(
         ContainerInterface $serviceContainer
     ) {
-        $config = $serviceContainer->get('config');
-
-        $typesConfig = $config['zrcms-component-types'];
-
-        return new GetTypeValueBasic(
-            $typesConfig
+        return new IsAllowedBlockRender(
+            $serviceContainer->get(IsAllowedRcmUserSitesAdmin::class),
+            []
         );
     }
 }

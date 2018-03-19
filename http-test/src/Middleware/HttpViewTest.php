@@ -27,7 +27,6 @@ use Zrcms\CoreTheme\Model\LayoutVersionBasic;
 use Zrcms\CoreView\Api\GetTagNamesByLayoutMustache;
 use Zrcms\CoreView\Api\Render\GetViewLayoutTags;
 use Zrcms\CoreView\Api\Render\RenderView;
-use Zrcms\CoreView\Fields\FieldsView;
 use Zrcms\CoreView\Model\ViewBasic;
 
 /**
@@ -38,16 +37,13 @@ class HttpViewTest
     const CREATED_BY_USER_ID = 'test-user-id';
     const CREATED_REASON = 'test-reason';
 
-    /**
-     * @var ContainerInterface
-     */
     protected $serviceContainer;
 
     /**
      * @param ContainerInterface $serviceContainer
      */
     public function __construct(
-        $serviceContainer
+        ContainerInterface $serviceContainer
     ) {
         $this->serviceContainer = $serviceContainer;
     }

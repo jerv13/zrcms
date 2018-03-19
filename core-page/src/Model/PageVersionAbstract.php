@@ -2,7 +2,7 @@
 
 namespace Zrcms\CorePage\Model;
 
-use Zrcms\Core\Exception\PropertyMissing;
+use Reliv\ArrayProperties\Property;
 use Zrcms\Core\Model\ContentVersionAbstract;
 use Zrcms\CoreContainer\Fields\FieldsContainerVersion;
 use Zrcms\CoreContainer\Model\Container;
@@ -12,7 +12,6 @@ use Zrcms\CorePage\Api\AssertValidPath;
 use Zrcms\CorePage\Api\BuildPageContainerVersionId;
 use Zrcms\CorePage\Api\PreparePageContainerData;
 use Zrcms\CorePage\Fields\FieldsPageVersion;
-use Reliv\ArrayProperties\Property;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -70,6 +69,7 @@ abstract class PageVersionAbstract extends ContentVersionAbstract
 
         $properties[FieldsPageVersion::CONTAINERS_DATA] = PreparePageContainerData::invoke(
             $id,
+            $properties[FieldsPageVersion::SITE_CMS_RESOURCE_ID],
             $containersData
         );
 

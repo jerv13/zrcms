@@ -2,8 +2,8 @@
 
 namespace Zrcms\HttpTest;
 
-use Zrcms\Acl\Api\IsAllowedRelivServerEnvironmentNoneProduction;
 use Zrcms\HttpTest\Acl\IsAllowedTestIsAllowed;
+use Zrcms\HttpTest\Acl\IsAllowedTestIsAllowedFactory;
 use Zrcms\HttpTest\Middleware\HttpImplementationTest;
 use Zrcms\HttpTest\Middleware\HttpImplementationTestFactory;
 use Zrcms\HttpTest\Middleware\HttpViewTest;
@@ -26,10 +26,7 @@ class ModuleConfig
                      * HttpAcl ===========================================
                      */
                     IsAllowedTestIsAllowed::class => [
-                        'arguments' => [
-                            IsAllowedRelivServerEnvironmentNoneProduction::class,
-                            ['literal' => []]
-                        ],
+                        'factory' => IsAllowedTestIsAllowedFactory::class,
                     ],
 
                     /**

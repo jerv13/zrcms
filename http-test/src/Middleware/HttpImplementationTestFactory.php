@@ -15,7 +15,7 @@ class HttpImplementationTestFactory
      * @return HttpImplementationTest
      */
     public function __invoke(
-        $serviceContainer
+        ContainerInterface $serviceContainer
     ) {
         return new HttpImplementationTest(
             $serviceContainer

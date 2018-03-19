@@ -13,6 +13,9 @@ class BlockVersionBasic extends BlockVersionAbstract implements BlockVersion
      * @param string      $createdByUserId
      * @param string      $createdReason
      * @param string|null $createdDate
+     *
+     * @throws \Exception
+     * @throws \Reliv\ArrayProperties\Exception\ArrayPropertyMissing
      */
     public function __construct(
         $id,

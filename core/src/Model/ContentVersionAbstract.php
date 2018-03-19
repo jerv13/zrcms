@@ -53,6 +53,8 @@ abstract class ContentVersionAbstract
      * @param string      $createdByUserId
      * @param string      $createdReason
      * @param string|null $createdDate
+     *
+     * @throws \Zrcms\Core\Exception\TrackingInvalid
      */
     public function __construct(
         $id,

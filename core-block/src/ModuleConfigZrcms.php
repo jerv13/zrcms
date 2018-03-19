@@ -268,7 +268,9 @@ class ModuleConfigZrcms
                         'label' => 'Fields',
                         'required' => false,
                         'default' => [],
-                        'options' => [],
+                        'options' => [
+                            //'fields-config' => [/* Details required */],
+                        ],
                     ],
                     [
                         'name' => FieldsBlockComponentConfig::TEMPLATE_FILE,
@@ -351,7 +353,7 @@ class ModuleConfigZrcms
                         'required' => true,
                         'default' => [],
                         'options' => [
-                            'fields' => [
+                            'fields-config' => [
                                 [
                                     'name' => FieldsBlockVersion::LAYOUT_PROPERTIES_RENDER_ORDER,
                                     'type' => 'int',
@@ -370,7 +372,7 @@ class ModuleConfigZrcms
                                 ],
                                 [
                                     'name' => FieldsBlockVersion::LAYOUT_PROPERTIES_COLUMN_CLASS,
-                                    'type' => 'int',
+                                    'type' => 'string',
                                     'label' => 'Column CSS Class',
                                     'required' => false,
                                     'default' => '',
@@ -410,7 +412,7 @@ class ModuleConfigZrcms
             /**
              * ===== ZRCMS Types =====
              */
-            'zrcms-types' => [
+            'zrcms-component-types' => [
                 'block' => [
                     'component-model-interface' => BlockComponent::class,
                     'component-model-class' => BlockComponentBasic::class,

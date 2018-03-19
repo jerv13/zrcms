@@ -18,5 +18,8 @@
       "label": "xampleText",
       "default": ""
     }
-  ]
+  ],
+  "createdByUserId": "James-Jervis",
+  "createdReason": "Example of a block",
+  "createdDate": "2018-01-01T00:00:00+0000"
 }

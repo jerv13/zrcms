@@ -2,7 +2,6 @@
 
 namespace Zrcms\HttpApi;
 
-use ZfInputFilterService\InputFilter\ServiceAwareFactory;
 use Zrcms\HttpApi\Acl\HttpApiIsAllowedDynamic;
 use Zrcms\HttpApi\Acl\HttpApiIsAllowedDynamicFactory;
 use Zrcms\HttpApi\Acl\HttpApiIsAllowedFindComponent;
@@ -40,7 +39,6 @@ use Zrcms\HttpApi\Params\HttpApiWhere;
 use Zrcms\HttpApi\Params\HttpApiWhereFactory;
 use Zrcms\HttpApi\Response\ResponseMutatorJson;
 use Zrcms\HttpApi\Response\ResponseMutatorJsonFactory;
-use Zrcms\HttpApi\Validate\HttpApiIdAttributeZfInputFilterServiceHttpApi;
 use Zrcms\HttpApi\Validate\HttpApiValidateFieldsDynamic;
 use Zrcms\HttpApi\Validate\HttpApiValidateFieldsDynamicFactory;
 use Zrcms\HttpApi\Validate\HttpApiValidateIdAttributeDynamic;
@@ -164,13 +162,6 @@ class ModuleConfig
                     /**
                      * Validate ===========================================
                      */
-                    HttpApiIdAttributeZfInputFilterServiceHttpApi::class => [
-                        'arguments' => [
-                            ServiceAwareFactory::class,
-                            ['literal' => 'id'],
-                        ],
-                    ],
-
                     HttpApiValidateFieldsDynamic::class => [
                         'factory' => HttpApiValidateFieldsDynamicFactory::class,
                     ],
