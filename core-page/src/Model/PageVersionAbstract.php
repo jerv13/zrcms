@@ -173,8 +173,8 @@ abstract class PageVersionAbstract extends ContentVersionAbstract
         $containers = [];
         $containersData = $this->getContainersData();
 
-        foreach ($containersData as $containerName => $containerData) {
-            $containers[] = $this->findContainer($containerName);
+        foreach ($containersData as $containerData) {
+            $containers[] = $this->findContainer($containerData[FieldsContainerVersion::NAME]);
         }
 
         return $containers;

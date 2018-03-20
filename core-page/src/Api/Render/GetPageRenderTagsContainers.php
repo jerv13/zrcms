@@ -58,7 +58,7 @@ class GetPageRenderTagsContainers implements GetPageRenderTags
                 $request
             );
 
-            $pageTags[$container->ge] = $this->renderContainer->__invoke(
+            $pageTags[$container->getName()] = $this->renderContainer->__invoke(
                 $container,
                 $renderTags
             );

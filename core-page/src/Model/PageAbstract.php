@@ -22,8 +22,8 @@ abstract class PageAbstract extends ContentAbstract
     /**
      * @param array $properties
      *
-     * @throws \Exception
-     * @throws \Reliv\ArrayProperties\Exception\ArrayPropertyMissing
+     * @throws \Reliv\ArrayProperties\Exception\ArrayPropertyException
+     * @throws \Throwable
      */
     public function __construct(
         array $properties
@@ -107,11 +107,13 @@ abstract class PageAbstract extends ContentAbstract
     {
         $containersData = $this->getContainersData();
 
-        return Property::get(
-            $containersData,
-            $name,
-            null
-        );
+        foreach ($containersData as $containerData) {
+            if ($containerData[FieldsContainerVersion::NAME] === $name) {
+                return $containerData;
+            }
+        }
+
+        return null;
     }
 
     /**
@@ -123,7 +125,7 @@ abstract class PageAbstract extends ContentAbstract
         $containersData = $this->getContainersData();
 
         foreach ($containersData as $containerName => $containerData) {
-            $containers[$containerName] = $this->findContainer($containerName);
+            $containers[] = $this->findContainer($containerName);
         }
 
         return $containers;
@@ -136,13 +138,7 @@ abstract class PageAbstract extends ContentAbstract
      */
     public function findContainer(string $name = Page::DEFAULT_CONTAINER_NAME)
     {
-        $containersData = $this->getContainersData();
-
-        $containerData = Property::get(
-            $containersData,
-            $name,
-            null
-        );
+        $containerData = $this->findContainerData($name);
 
         if (empty($containerData)) {
             return null;
