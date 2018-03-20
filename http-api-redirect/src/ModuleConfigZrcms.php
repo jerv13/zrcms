@@ -10,7 +10,7 @@ use Zrcms\Core\Api\Content\ContentVersionToArray;
 use Zrcms\CoreRedirect\Api\CmsResource\FindRedirectCmsResource;
 use Zrcms\CoreRedirect\Api\CmsResource\FindRedirectCmsResourcesBy;
 use Zrcms\CoreRedirect\Api\CmsResource\FindRedirectCmsResourcesPublished;
-use Zrcms\CoreRedirect\Api\CmsResource\UpsertRedirectCmsResource;
+use Zrcms\CoreRedirect\Api\CmsResource\UpdateRedirectCmsResource;
 use Zrcms\CoreRedirect\Api\CmsResourceHistory\FindRedirectCmsResourceHistory;
 use Zrcms\CoreRedirect\Api\CmsResourceHistory\FindRedirectCmsResourceHistoryBy;
 use Zrcms\CoreRedirect\Api\Content\FindRedirectVersion;
@@ -18,7 +18,7 @@ use Zrcms\CoreRedirect\Api\Content\FindRedirectVersionsBy;
 use Zrcms\CoreRedirect\Api\Content\InsertRedirectVersion;
 use Zrcms\CoreRedirect\Fields\FieldsRedirectVersion;
 use Zrcms\ValidationRatZrcms\Api\FieldValidator\ValidateFieldsInsertContentVersionData;
-use Zrcms\ValidationRatZrcms\Api\FieldValidator\ValidateFieldsUpsertCmsResourceData;
+use Zrcms\ValidationRatZrcms\Api\FieldValidator\ValidateFieldsUpdateCmsResourceData;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -75,17 +75,14 @@ class ModuleConfigZrcms
                         ],
                     ],
 
-                    /**
-                     * CmsResourceHistory
-                     */
-                    'upsert-cms-resource' => [
+                    'update-cms-resource' => [
                         'acl' => [
                             'is-allowed' => IsAllowedRcmUserSitesAdmin::class,
                             'is-allowed-options' => [],
                             'not-allowed-status' => 401,
                         ],
                         'fields-validator' => [
-                            'fields-validator' => ValidateFieldsUpsertCmsResourceData::class,
+                            'fields-validator' => ValidateFieldsUpdateCmsResourceData::class,
                             'fields-validator-options' => [
                                 'validator-options-content-version-id' => [
                                     'api-service-find-content-version' => FindRedirectVersion::class,
@@ -95,12 +92,15 @@ class ModuleConfigZrcms
                         ],
                         'api' => [
                             'api-service-find-content-version' => FindRedirectVersion::class,
-                            'api-service' => UpsertRedirectCmsResource::class,
+                            'api-service' => UpdateRedirectCmsResource::class,
                             'to-array' => CmsResourceToArray::class,
                             'not-found-status' => 404,
                         ],
                     ],
 
+                    /**
+                     * CmsResourceHistory
+                     */
                     'find-cms-resource-history' => [
                         'acl' => [
                             'is-allowed' => IsAllowedRcmUserSitesAdmin::class,

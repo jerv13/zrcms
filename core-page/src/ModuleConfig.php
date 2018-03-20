@@ -14,9 +14,9 @@ use Zrcms\CorePage\Api\CmsResource\FindPageTemplateCmsResource;
 use Zrcms\CorePage\Api\CmsResource\FindPageTemplateCmsResourceBySitePath;
 use Zrcms\CorePage\Api\CmsResource\FindPageTemplateCmsResourcesBy;
 use Zrcms\CorePage\Api\CmsResource\FindPageTemplateCmsResourcesPublished;
-use Zrcms\CorePage\Api\CmsResource\UpsertPageCmsResource;
-use Zrcms\CorePage\Api\CmsResource\UpsertPageDraftCmsResource;
-use Zrcms\CorePage\Api\CmsResource\UpsertPageTemplateCmsResource;
+use Zrcms\CorePage\Api\CmsResource\UpdatePageCmsResource;
+use Zrcms\CorePage\Api\CmsResource\UpdatePageDraftCmsResource;
+use Zrcms\CorePage\Api\CmsResource\UpdatePageTemplateCmsResource;
 use Zrcms\CorePage\Api\CmsResourceHistory\FindPageCmsResourceHistory;
 use Zrcms\CorePage\Api\CmsResourceHistory\FindPageCmsResourceHistoryBy;
 use Zrcms\CorePage\Api\Content\FindPageVersion;
@@ -73,13 +73,13 @@ class ModuleConfig
                         'class' => IMPLEMENTATIONisREQUIRED::class
                     ],
 
-                    UpsertPageCmsResource::class => [
+                    UpdatePageCmsResource::class => [
                         'class' => IMPLEMENTATIONisREQUIRED::class
                     ],
-                    UpsertPageTemplateCmsResource::class => [
+                    UpdatePageTemplateCmsResource::class => [
                         'class' => IMPLEMENTATIONisREQUIRED::class
                     ],
-                    UpsertPageDraftCmsResource::class => [
+                    UpdatePageDraftCmsResource::class => [
                         'class' => IMPLEMENTATIONisREQUIRED::class
                     ],
 

@@ -11,13 +11,13 @@ use Zrcms\CoreSite\Api\CmsResource\FindSiteCmsResource;
 use Zrcms\CoreSite\Api\CmsResource\FindSiteCmsResourceByHost;
 use Zrcms\CoreSite\Api\CmsResource\FindSiteCmsResourcesBy;
 use Zrcms\CoreSite\Api\CmsResource\FindSiteCmsResourcesPublished;
-use Zrcms\CoreSite\Api\CmsResource\UpsertSiteCmsResource;
+use Zrcms\CoreSite\Api\CmsResource\UpdateSiteCmsResource;
 use Zrcms\CoreSite\Api\Content\FindSiteVersion;
 use Zrcms\CoreSite\Api\Content\FindSiteVersionsBy;
 use Zrcms\CoreSite\Api\Content\InsertSiteVersion;
 use Zrcms\CoreSite\Fields\FieldsSiteVersion;
 use Zrcms\ValidationRatZrcms\Api\FieldValidator\ValidateFieldsInsertContentVersionData;
-use Zrcms\ValidationRatZrcms\Api\FieldValidator\ValidateFieldsUpsertCmsResourceData;
+use Zrcms\ValidationRatZrcms\Api\FieldValidator\ValidateFieldsUpdateCmsResourceData;
 
 /**
  * @author James Jervis - https:/github.com/jerv13
@@ -91,14 +91,14 @@ class ModuleConfigZrcms
                         ],
                     ],
 
-                    'upsert-cms-resource' => [
+                    'update-cms-resource' => [
                         'acl' => [
                             'is-allowed' => IsAllowedRcmUserSitesAdmin::class,
                             'is-allowed-options' => [],
                             'not-allowed-status' => 401,
                         ],
                         'fields-validator' => [
-                            'fields-validator' => ValidateFieldsUpsertCmsResourceData::class,
+                            'fields-validator' => ValidateFieldsUpdateCmsResourceData::class,
                             'fields-validator-options' => [
                                 'validator-options-content-version-id' => [
                                     'api-service-find-content-version' => FindSiteVersion::class,
@@ -108,7 +108,7 @@ class ModuleConfigZrcms
                         ],
                         'api' => [
                             'api-service-find-content-version' => FindSiteVersion::class,
-                            'api-service' => UpsertSiteCmsResource::class,
+                            'api-service' => UpdateSiteCmsResource::class,
                             'to-array' => CmsResourceToArray::class,
                             'not-found-status' => 404,
                         ],

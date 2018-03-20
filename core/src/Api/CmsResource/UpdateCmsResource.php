@@ -2,17 +2,20 @@
 
 namespace Zrcms\Core\Api\CmsResource;
 
+use Zrcms\Core\Exception\CmsResourceExists;
 use Zrcms\Core\Exception\CmsResourceNotExists;
+use Zrcms\Core\Exception\ContentVersionNotExists;
 use Zrcms\Core\Model\CmsResource;
 
 /**
- * @todo Replace UpsertCmsResource
- *
  * @author James Jervis - https://github.com/jerv13
  */
 interface UpdateCmsResource
 {
     /**
+     * throws CmsResourceNotExists If CmsResource does not exist
+     * throws ContentVersionNotExists If ContentVersion does not exist
+     *
      * @param string|null $id
      * @param bool        $published
      * @param string      $contentVersionId
@@ -22,6 +25,7 @@ interface UpdateCmsResource
      *
      * @return CmsResource
      * @throws CmsResourceNotExists
+     * @throws ContentVersionNotExists
      */
     public function __invoke(
         string $id,
@@ -30,5 +34,5 @@ interface UpdateCmsResource
         string $modifiedByUserId,
         string $modifiedReason,
         $modifiedDate = null
-    ):CmsResource;
+    ): CmsResource;
 }

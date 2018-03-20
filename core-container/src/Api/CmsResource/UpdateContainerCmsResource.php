@@ -2,7 +2,7 @@
 
 namespace Zrcms\CoreContainer\Api\CmsResource;
 
-use Zrcms\Core\Api\CmsResource\UpsertCmsResource;
+use Zrcms\Core\Api\CmsResource\UpdateCmsResource;
 use Zrcms\Core\Exception\CmsResourceNotExists;
 use Zrcms\Core\Exception\ContentVersionNotExists;
 use Zrcms\Core\Model\CmsResource;
@@ -11,7 +11,7 @@ use Zrcms\CoreContainer\Model\ContainerCmsResource;
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-interface UpsertContainerCmsResource extends UpsertCmsResource
+interface UpdateContainerCmsResource extends UpdateCmsResource
 {
     /**
      * @param null|string $id
@@ -26,7 +26,7 @@ interface UpsertContainerCmsResource extends UpsertCmsResource
      * @throws ContentVersionNotExists
      */
     public function __invoke(
-        $id,
+        string $id,
         bool $published,
         string $contentVersionId,
         string $modifiedByUserId,

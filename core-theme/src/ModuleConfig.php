@@ -11,7 +11,7 @@ use Zrcms\CoreTheme\Api\CmsResource\FindLayoutCmsResource;
 use Zrcms\CoreTheme\Api\CmsResource\FindLayoutCmsResourceByThemeNameLayoutName;
 use Zrcms\CoreTheme\Api\CmsResource\FindLayoutCmsResourcesBy;
 use Zrcms\CoreTheme\Api\CmsResource\FindLayoutCmsResourcesPublished;
-use Zrcms\CoreTheme\Api\CmsResource\UpsertLayoutCmsResource;
+use Zrcms\CoreTheme\Api\CmsResource\UpdateLayoutCmsResource;
 use Zrcms\CoreTheme\Api\CmsResourceHistory\FindLayoutCmsResourceHistory;
 use Zrcms\CoreTheme\Api\CmsResourceHistory\FindLayoutCmsResourceHistoryBy;
 use Zrcms\CoreTheme\Api\Component\BuildComponentObjectThemeLayout;
@@ -63,7 +63,7 @@ class ModuleConfig
                     FindLayoutCmsResourcesPublished::class => [
                         'class' => IMPLEMENTATIONisREQUIRED::class
                     ],
-                    UpsertLayoutCmsResource::class => [
+                    UpdateLayoutCmsResource::class => [
                         'class' => IMPLEMENTATIONisREQUIRED::class
                     ],
 

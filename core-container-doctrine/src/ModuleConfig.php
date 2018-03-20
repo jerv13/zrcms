@@ -9,7 +9,7 @@ use Zrcms\CoreContainer\Api\CmsResource\CreateContainerCmsResource;
 use Zrcms\CoreContainer\Api\CmsResource\FindContainerCmsResource;
 use Zrcms\CoreContainer\Api\CmsResource\FindContainerCmsResourcesBy;
 use Zrcms\CoreContainer\Api\CmsResource\FindContainerCmsResourcesBySiteNames;
-use Zrcms\CoreContainer\Api\CmsResource\UpsertContainerCmsResource;
+use Zrcms\CoreContainer\Api\CmsResource\UpdateContainerCmsResource;
 use Zrcms\CoreContainer\Api\Content\FindContainerVersion;
 use Zrcms\CoreContainer\Api\Content\FindContainerVersionsBy;
 use Zrcms\CoreContainer\Api\Content\InsertContainerVersion;
@@ -54,8 +54,8 @@ class ModuleConfig
                             EntityManager::class,
                         ],
                     ],
-                    UpsertContainerCmsResource::class => [
-                        'class' => \Zrcms\CoreContainerDoctrine\Api\CmsResource\UpsertContainerCmsResource::class,
+                    UpdateContainerCmsResource::class => [
+                        'class' => \Zrcms\CoreContainerDoctrine\Api\CmsResource\UpdateContainerCmsResource::class,
                         'arguments' => [
                             EntityManager::class,
                         ],

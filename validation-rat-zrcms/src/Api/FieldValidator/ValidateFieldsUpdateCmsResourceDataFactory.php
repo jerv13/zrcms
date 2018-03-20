@@ -8,22 +8,22 @@ use Reliv\ValidationRat\Api\FieldValidator\ValidateFieldsHasOnlyRecognizedFields
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class ValidateFieldsUpsertCmsResourceDataFactory
+class ValidateFieldsUpdateCmsResourceDataFactory
 {
     /**
      * @param ContainerInterface $serviceContainer
      *
-     * @return ValidateFieldsUpsertCmsResourceData
+     * @return ValidateFieldsUpdateCmsResourceData
      * @throws \Psr\Container\ContainerExceptionInterface
      * @throws \Psr\Container\NotFoundExceptionInterface
      */
     public function __invoke(
         ContainerInterface $serviceContainer
     ) {
-        return new ValidateFieldsUpsertCmsResourceData(
+        return new ValidateFieldsUpdateCmsResourceData(
             $serviceContainer->get(BuildFieldValidationResults::class),
             $serviceContainer->get(ValidateFieldsHasOnlyRecognizedFields::class),
-            ValidateFieldsUpsertCmsResourceData::DEFAULT_INVALID_CODE
+            ValidateFieldsUpdateCmsResourceData::DEFAULT_INVALID_CODE
         );
     }
 }

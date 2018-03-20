@@ -11,7 +11,7 @@ use Zrcms\CoreSite\Api\CmsResource\FindSiteCmsResource;
 use Zrcms\CoreSite\Api\CmsResource\FindSiteCmsResourceByHost;
 use Zrcms\CoreSite\Api\CmsResource\FindSiteCmsResourcesBy;
 use Zrcms\CoreSite\Api\CmsResource\FindSiteCmsResourcesPublished;
-use Zrcms\CoreSite\Api\CmsResource\UpsertSiteCmsResource;
+use Zrcms\CoreSite\Api\CmsResource\UpdateSiteCmsResource;
 use Zrcms\CoreSite\Api\Content\FindSiteVersion;
 use Zrcms\CoreSite\Api\Content\FindSiteVersionsBy;
 use Zrcms\CoreSite\Api\Content\InsertSiteVersion;
@@ -64,8 +64,8 @@ class ModuleConfig
                             EntityManager::class,
                         ],
                     ],
-                    UpsertSiteCmsResource::class => [
-                        'class' => \Zrcms\CoreSiteDoctrine\Api\CmsResource\UpsertSiteCmsResource::class,
+                    UpdateSiteCmsResource::class => [
+                        'class' => \Zrcms\CoreSiteDoctrine\Api\CmsResource\UpdateSiteCmsResource::class,
                         'arguments' => [
                             EntityManager::class,
                         ],

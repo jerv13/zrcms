@@ -6,8 +6,8 @@ use Doctrine\ORM\EntityManager;
 use Zrcms\Core\Exception\CmsResourceNotExists;
 use Zrcms\Core\Exception\ContentVersionNotExists;
 use Zrcms\Core\Model\CmsResource;
-use Zrcms\CoreApplicationDoctrine\Api\CmsResource\UpsertCmsResource;
-use Zrcms\CoreContainer\Api\CmsResource\UpsertContainerCmsResource as CoreUpsert;
+use Zrcms\CoreApplicationDoctrine\Api\CmsResource\UpdateCmsResource;
+use Zrcms\CoreContainer\Api\CmsResource\UpdateContainerCmsResource as CoreUpdate;
 use Zrcms\CoreContainer\Model\ContainerCmsResource;
 use Zrcms\CoreContainer\Model\ContainerCmsResourceBasic;
 use Zrcms\CoreContainer\Model\ContainerVersionBasic;
@@ -18,7 +18,7 @@ use Zrcms\CoreContainerDoctrine\Entity\ContainerVersionEntity;
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class UpsertContainerCmsResource extends UpsertCmsResource implements CoreUpsert
+class UpdateContainerCmsResource extends UpdateCmsResource implements CoreUpdate
 {
     /**
      * @param EntityManager $entityManager
@@ -54,7 +54,7 @@ class UpsertContainerCmsResource extends UpsertCmsResource implements CoreUpsert
      * @throws \Exception
      */
     public function __invoke(
-        $id,
+        string $id,
         bool $published,
         string $contentVersionId,
         string $modifiedByUserId,

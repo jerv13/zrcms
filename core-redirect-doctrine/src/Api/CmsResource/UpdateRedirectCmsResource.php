@@ -1,23 +1,24 @@
 <?php
 
-namespace Zrcms\CorePageDoctrine\Api\CmsResource;
+namespace Zrcms\CoreRedirectDoctrine\Api\CmsResource;
 
 use Doctrine\ORM\EntityManager;
 use Zrcms\Core\Exception\CmsResourceNotExists;
 use Zrcms\Core\Exception\ContentVersionNotExists;
 use Zrcms\Core\Model\CmsResource;
-use Zrcms\CoreApplicationDoctrine\Api\CmsResource\UpsertCmsResource;
-use Zrcms\CorePage\Model\PageCmsResource;
-use Zrcms\CorePage\Model\PageCmsResourceBasic;
-use Zrcms\CorePage\Model\PageVersionBasic;
-use Zrcms\CorePageDoctrine\Entity\PageCmsResourceEntity;
-use Zrcms\CorePageDoctrine\Entity\PageCmsResourceHistoryEntity;
-use Zrcms\CorePageDoctrine\Entity\PageVersionEntity;
+use Zrcms\CoreApplicationDoctrine\Api\CmsResource\UpdateCmsResource;
+use Zrcms\CoreRedirect\Api\CmsResource\UpdateRedirectCmsResource as CoreUpdate;
+use Zrcms\CoreRedirect\Model\RedirectCmsResource;
+use Zrcms\CoreRedirect\Model\RedirectCmsResourceBasic;
+use Zrcms\CoreRedirect\Model\RedirectVersionBasic;
+use Zrcms\CoreRedirectDoctrine\Entity\RedirectCmsResourceEntity;
+use Zrcms\CoreRedirectDoctrine\Entity\RedirectCmsResourceHistoryEntity;
+use Zrcms\CoreRedirectDoctrine\Entity\RedirectVersionEntity;
 
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class UpsertPageCmsResource extends UpsertCmsResource implements \Zrcms\CorePage\Api\CmsResource\UpsertPageCmsResource
+class UpdateRedirectCmsResource extends UpdateCmsResource implements CoreUpdate
 {
     /**
      * @param EntityManager $entityManager
@@ -29,11 +30,11 @@ class UpsertPageCmsResource extends UpsertCmsResource implements \Zrcms\CorePage
     ) {
         parent::__construct(
             $entityManager,
-            PageCmsResourceEntity::class,
-            PageCmsResourceHistoryEntity::class,
-            PageVersionEntity::class,
-            PageCmsResourceBasic::class,
-            PageVersionBasic::class,
+            RedirectCmsResourceEntity::class,
+            RedirectCmsResourceHistoryEntity::class,
+            RedirectVersionEntity::class,
+            RedirectCmsResourceBasic::class,
+            RedirectVersionBasic::class,
             []
         );
     }
@@ -46,14 +47,14 @@ class UpsertPageCmsResource extends UpsertCmsResource implements \Zrcms\CorePage
      * @param string      $modifiedReason
      * @param null|string $modifiedDate
      *
-     * @return PageCmsResource|CmsResource
+     * @return RedirectCmsResource|CmsResource
      * @throws CmsResourceNotExists
      * @throws ContentVersionNotExists
      * @throws \Doctrine\ORM\OptimisticLockException
      * @throws \Exception
      */
     public function __invoke(
-        $id,
+        string $id,
         bool $published,
         string $contentVersionId,
         string $modifiedByUserId,

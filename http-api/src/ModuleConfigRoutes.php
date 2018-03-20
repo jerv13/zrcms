@@ -9,7 +9,7 @@ use Zrcms\HttpApi\CmsResource\HttpApiCreateCmsResourceDynamic;
 use Zrcms\HttpApi\CmsResource\HttpApiFindCmsResourceDynamic;
 use Zrcms\HttpApi\CmsResource\HttpApiFindCmsResourcesByDynamic;
 use Zrcms\HttpApi\CmsResource\HttpApiFindCmsResourcesPublishedDynamic;
-use Zrcms\HttpApi\CmsResource\HttpApiUpsertCmsResourceDynamic;
+use Zrcms\HttpApi\CmsResource\HttpApiUpdateCmsResourceDynamic;
 use Zrcms\HttpApi\CmsResourceHistory\HttpApiFindCmsResourceHistoryByDynamic;
 use Zrcms\HttpApi\CmsResourceHistory\HttpApiFindCmsResourceHistoryDynamic;
 use Zrcms\HttpApi\Component\HttpApiFindComponent;
@@ -196,39 +196,25 @@ class ModuleConfigRoutes
                 ],
 
                 /**
-                 * UpsertCmsResource upsert-cms-resource
+                 * UpdateCmsResource update-cms-resource
                  */
-                'zrcms.api.cms-resource.{zrcms-implementation}.upsert' => [
-                    'name' => 'zrcms.api.cms-resource.{zrcms-implementation}.upsert',
-                    'path' => '/zrcms/api/cms-resource/{zrcms-implementation}/upsert',
+                'zrcms.api.cms-resource.{zrcms-implementation}.update' => [
+                    'name' => 'zrcms.api.cms-resource.{zrcms-implementation}.update',
+                    'path' => '/zrcms/api/cms-resource/{zrcms-implementation}/update',
                     'middleware' => [
                         'dynamic' => HttpApiDynamic::class,
                         'acl' => HttpApiIsAllowedDynamic::class,
                         'body-parser' => BodyParamsMiddleware::class,
                         'fields-validator' => HttpApiValidateFieldsDynamic::class,
-                        'api' => HttpApiUpsertCmsResourceDynamic::class,
+                        'api' => HttpApiUpdateCmsResourceDynamic::class,
                     ],
                     'options' => [
-                        'zrcms-api' => 'upsert-cms-resource'
+                        'zrcms-api' => 'update-cms-resource'
                     ],
-                    'allowed_methods' => ['POST'], //'POST',
+                    'allowed_methods' => ['PUT'],
                     'swagger' => [
-                        'post' => [
-                            'description' => 'Upsert CMS Resource',
-                            'produces' => [
-                                'application/json',
-                            ],
-                            'parameters' => [
-                                ['$ref' => '#/route-params/ZrcmsImplementationPathProperty'],
-                            ],
-                            'responses' => [
-                                'default' => [
-                                    '$ref' => '#/definitions/ZrcmsJsonResponse:CmsResource'
-                                ],
-                            ],
-                        ],
                         'put' => [
-                            'description' => 'Upsert CMS Resource',
+                            'description' => 'Update CMS Resource',
                             'produces' => [
                                 'application/json',
                             ],

@@ -1,24 +1,24 @@
 <?php
 
-namespace Zrcms\CoreThemeDoctrine\Api\CmsResource;
+namespace Zrcms\CorePageDoctrine\Api\CmsResource;
 
 use Doctrine\ORM\EntityManager;
 use Zrcms\Core\Exception\CmsResourceNotExists;
 use Zrcms\Core\Exception\ContentVersionNotExists;
 use Zrcms\Core\Model\CmsResource;
-use Zrcms\CoreApplicationDoctrine\Api\CmsResource\UpsertCmsResource;
-use Zrcms\CoreTheme\Api\CmsResource\UpsertLayoutCmsResource as CoreUpsert;
-use Zrcms\CoreTheme\Model\LayoutCmsResource;
-use Zrcms\CoreTheme\Model\LayoutCmsResourceBasic;
-use Zrcms\CoreTheme\Model\LayoutVersionBasic;
-use Zrcms\CoreThemeDoctrine\Entity\LayoutCmsResourceEntity;
-use Zrcms\CoreThemeDoctrine\Entity\LayoutCmsResourceHistoryEntity;
-use Zrcms\CoreThemeDoctrine\Entity\LayoutVersionEntity;
+use Zrcms\CoreApplicationDoctrine\Api\CmsResource\UpdateCmsResource;
+use Zrcms\CorePage\Api\CmsResource\UpdatePageTemplateCmsResource as CoreUpdate;
+use Zrcms\CorePage\Model\PageTemplateCmsResource;
+use Zrcms\CorePage\Model\PageTemplateCmsResourceBasic;
+use Zrcms\CorePage\Model\PageVersionBasic;
+use Zrcms\CorePageDoctrine\Entity\PageTemplateCmsResourceEntity;
+use Zrcms\CorePageDoctrine\Entity\PageTemplateCmsResourceHistoryEntity;
+use Zrcms\CorePageDoctrine\Entity\PageVersionEntity;
 
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class UpsertLayoutCmsResource extends UpsertCmsResource implements CoreUpsert
+class UpdatePageTemplateCmsResource extends UpdateCmsResource implements CoreUpdate
 {
     /**
      * @param EntityManager $entityManager
@@ -30,11 +30,11 @@ class UpsertLayoutCmsResource extends UpsertCmsResource implements CoreUpsert
     ) {
         parent::__construct(
             $entityManager,
-            LayoutCmsResourceEntity::class,
-            LayoutCmsResourceHistoryEntity::class,
-            LayoutVersionEntity::class,
-            LayoutCmsResourceBasic::class,
-            LayoutVersionBasic::class,
+            PageTemplateCmsResourceEntity::class,
+            PageTemplateCmsResourceHistoryEntity::class,
+            PageVersionEntity::class,
+            PageTemplateCmsResourceBasic::class,
+            PageVersionBasic::class,
             []
         );
     }
@@ -47,14 +47,14 @@ class UpsertLayoutCmsResource extends UpsertCmsResource implements CoreUpsert
      * @param string      $modifiedReason
      * @param null|string $modifiedDate
      *
-     * @return LayoutCmsResource|CmsResource
+     * @return PageTemplateCmsResource|CmsResource
      * @throws CmsResourceNotExists
      * @throws ContentVersionNotExists
      * @throws \Doctrine\ORM\OptimisticLockException
      * @throws \Exception
      */
     public function __invoke(
-        $id,
+        string $id,
         bool $published,
         string $contentVersionId,
         string $modifiedByUserId,

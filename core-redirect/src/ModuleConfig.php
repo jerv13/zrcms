@@ -8,7 +8,7 @@ use Zrcms\CoreRedirect\Api\CmsResource\FindRedirectCmsResource;
 use Zrcms\CoreRedirect\Api\CmsResource\FindRedirectCmsResourceBySiteRequestPath;
 use Zrcms\CoreRedirect\Api\CmsResource\FindRedirectCmsResourcesBy;
 use Zrcms\CoreRedirect\Api\CmsResource\FindRedirectCmsResourcesPublished;
-use Zrcms\CoreRedirect\Api\CmsResource\UpsertRedirectCmsResource;
+use Zrcms\CoreRedirect\Api\CmsResource\UpdateRedirectCmsResource;
 use Zrcms\CoreRedirect\Api\CmsResourceHistory\FindRedirectCmsResourceHistory;
 use Zrcms\CoreRedirect\Api\CmsResourceHistory\FindRedirectCmsResourceHistoryBy;
 use Zrcms\CoreRedirect\Api\Content\FindRedirectVersion;
@@ -47,7 +47,7 @@ class ModuleConfig
                         'class' => IMPLEMENTATIONisREQUIRED::class
                     ],
 
-                    UpsertRedirectCmsResource::class => [
+                    UpdateRedirectCmsResource::class => [
                         'class' => IMPLEMENTATIONisREQUIRED::class
                     ],
 

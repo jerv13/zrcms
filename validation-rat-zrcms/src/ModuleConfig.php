@@ -8,8 +8,8 @@ use Zrcms\ValidationRatZrcms\Api\FieldValidator\ValidateFieldsContentVersionProp
 use Zrcms\ValidationRatZrcms\Api\FieldValidator\ValidateFieldsContentVersionPropertiesFactory;
 use Zrcms\ValidationRatZrcms\Api\FieldValidator\ValidateFieldsInsertContentVersionData;
 use Zrcms\ValidationRatZrcms\Api\FieldValidator\ValidateFieldsInsertContentVersionDataFactory;
-use Zrcms\ValidationRatZrcms\Api\FieldValidator\ValidateFieldsUpsertCmsResourceData;
-use Zrcms\ValidationRatZrcms\Api\FieldValidator\ValidateFieldsUpsertCmsResourceDataFactory;
+use Zrcms\ValidationRatZrcms\Api\FieldValidator\ValidateFieldsUpdateCmsResourceData;
+use Zrcms\ValidationRatZrcms\Api\FieldValidator\ValidateFieldsUpdateCmsResourceDataFactory;
 use Zrcms\ValidationRatZrcms\Api\Validator\ValidateCmsResourceId;
 use Zrcms\ValidationRatZrcms\Api\Validator\ValidateCmsResourceIdFactory;
 use Zrcms\ValidationRatZrcms\Api\Validator\ValidateContentVersionExists;
@@ -44,8 +44,8 @@ class ModuleConfig
                     ValidateFieldsContentVersionProperties::class => [
                         'factory' => ValidateFieldsContentVersionPropertiesFactory::class,
                     ],
-                    ValidateFieldsUpsertCmsResourceData::class => [
-                        'factory' => ValidateFieldsUpsertCmsResourceDataFactory::class,
+                    ValidateFieldsUpdateCmsResourceData::class => [
+                        'factory' => ValidateFieldsUpdateCmsResourceDataFactory::class,
                     ],
 
                     /**

@@ -10,7 +10,7 @@ use Zrcms\Core\Api\Content\ContentVersionToArray;
 use Zrcms\CoreTheme\Api\CmsResource\FindLayoutCmsResource;
 use Zrcms\CoreTheme\Api\CmsResource\FindLayoutCmsResourcesBy;
 use Zrcms\CoreTheme\Api\CmsResource\FindLayoutCmsResourcesPublished;
-use Zrcms\CoreTheme\Api\CmsResource\UpsertLayoutCmsResource;
+use Zrcms\CoreTheme\Api\CmsResource\UpdateLayoutCmsResource;
 use Zrcms\CoreTheme\Api\CmsResourceHistory\FindLayoutCmsResourceHistory;
 use Zrcms\CoreTheme\Api\CmsResourceHistory\FindLayoutCmsResourceHistoryBy;
 use Zrcms\CoreTheme\Api\Content\FindLayoutVersion;
@@ -18,7 +18,7 @@ use Zrcms\CoreTheme\Api\Content\FindLayoutVersionsBy;
 use Zrcms\CoreTheme\Api\Content\InsertLayoutVersion;
 use Zrcms\CoreTheme\Fields\FieldsLayoutVersion;
 use Zrcms\ValidationRatZrcms\Api\FieldValidator\ValidateFieldsInsertContentVersionData;
-use Zrcms\ValidationRatZrcms\Api\FieldValidator\ValidateFieldsUpsertCmsResourceData;
+use Zrcms\ValidationRatZrcms\Api\FieldValidator\ValidateFieldsUpdateCmsResourceData;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -75,17 +75,14 @@ class ModuleConfigZrcms
                         ],
                     ],
 
-                    /**
-                     * CmsResourceHistory
-                     */
-                    'upsert-cms-resource' => [
+                    'update-cms-resource' => [
                         'acl' => [
                             'is-allowed' => IsAllowedRcmUserSitesAdmin::class,
                             'is-allowed-options' => [],
                             'not-allowed-status' => 401,
                         ],
                         'fields-validator' => [
-                            'fields-validator' => ValidateFieldsUpsertCmsResourceData::class,
+                            'fields-validator' => ValidateFieldsUpdateCmsResourceData::class,
                             'validator-options-content-version-id' => [
                                 'api-service-find-content-version' => FindLayoutVersion::class,
                             ],
@@ -93,12 +90,15 @@ class ModuleConfigZrcms
                         ],
                         'api' => [
                             'api-service-find-content-version' => FindLayoutVersion::class,
-                            'api-service' => UpsertLayoutCmsResource::class,
+                            'api-service' => UpdateLayoutCmsResource::class,
                             'to-array' => CmsResourceToArray::class,
                             'not-found-status' => 404,
                         ],
                     ],
 
+                    /**
+                     * CmsResourceHistory
+                     */
                     'find-cms-resource-history' => [
                         'acl' => [
                             'is-allowed' => IsAllowedRcmUserSitesAdmin::class,

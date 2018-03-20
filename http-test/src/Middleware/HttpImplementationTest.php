@@ -6,13 +6,13 @@ use Psr\Container\ContainerInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Zend\Diactoros\Response\JsonResponse;
-use Zrcms\Core\Api\CmsResource\UpsertCmsResource;
+use Zrcms\Core\Api\CmsResource\UpdateCmsResource;
 use Zrcms\Core\Api\Content\ContentVersionToArray;
 use Zrcms\Core\Api\CmsResource\FindCmsResource;
 use Zrcms\Core\Api\Content\FindContentVersion;
 use Zrcms\Core\Api\Content\InsertContentVersion;
 use Zrcms\Core\Model\ContentVersion;
-use Zrcms\CoreSite\Api\CmsResource\UpsertSiteCmsResource;
+use Zrcms\CoreSite\Api\CmsResource\UpdateSiteCmsResource;
 use Zrcms\CoreSite\Api\CmsResource\FindSiteCmsResource;
 use Zrcms\CoreSite\Api\Content\FindSiteVersion;
 use Zrcms\CoreSite\Api\Content\InsertSiteVersion;
@@ -46,7 +46,7 @@ class HttpImplementationTest
         $this->tests = [
             'site' => [
                 'api' => [
-                    UpsertCmsResource::class => UpsertSiteCmsResource::class,
+                    UpdateCmsResource::class => UpdateSiteCmsResource::class,
                     FindCmsResource::class => FindSiteCmsResource::class,
                     FindContentVersion::class => FindSiteVersion::class,
                     InsertContentVersion::class => InsertSiteVersion::class,
@@ -112,7 +112,7 @@ class HttpImplementationTest
          * - for each content type (Container with block, Page, Site, ThemeLayout, View)
          * - Get components
          * - create content
-         * - upsert content
+         * - update content
          * - find resource and version
          */
 
@@ -225,7 +225,11 @@ class HttpImplementationTest
     {
     }
 
-    public function testResourceUpsert(string $testName, array $test, array $results)
+    public function testResourceCreate(string $testName, array $test, array $results)
+    {
+    }
+
+    public function testResourceUpdate(string $testName, array $test, array $results)
     {
     }
 

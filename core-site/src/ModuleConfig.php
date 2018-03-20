@@ -8,7 +8,7 @@ use Zrcms\CoreSite\Api\CmsResource\FindSiteCmsResource;
 use Zrcms\CoreSite\Api\CmsResource\FindSiteCmsResourceByHost;
 use Zrcms\CoreSite\Api\CmsResource\FindSiteCmsResourcesBy;
 use Zrcms\CoreSite\Api\CmsResource\FindSiteCmsResourcesPublished;
-use Zrcms\CoreSite\Api\CmsResource\UpsertSiteCmsResource;
+use Zrcms\CoreSite\Api\CmsResource\UpdateSiteCmsResource;
 use Zrcms\CoreSite\Api\CmsResourceHistory\FindLastSiteCmsResourceHistory;
 use Zrcms\CoreSite\Api\CmsResourceHistory\FindSiteCmsResourceHistory;
 use Zrcms\CoreSite\Api\CmsResourceHistory\FindSiteCmsResourceHistoryBy;
@@ -48,7 +48,7 @@ class ModuleConfig
                     FindSiteCmsResourcesPublished::class => [
                         'class' => IMPLEMENTATIONisREQUIRED::class
                     ],
-                    UpsertSiteCmsResource::class => [
+                    UpdateSiteCmsResource::class => [
                         'class' => IMPLEMENTATIONisREQUIRED::class
                     ],
 

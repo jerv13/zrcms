@@ -13,9 +13,9 @@ use Zrcms\CorePage\Api\CmsResource\FindPageCmsResourceBySitePath;
 use Zrcms\CorePage\Api\CmsResource\FindPageCmsResourcesBy;
 use Zrcms\CorePage\Api\CmsResource\FindPageTemplateCmsResourceBySitePath;
 use Zrcms\CorePage\Api\CmsResource\FindPageTemplateCmsResourcesBy;
-use Zrcms\CorePage\Api\CmsResource\UpsertPageCmsResource;
-use Zrcms\CorePage\Api\CmsResource\UpsertPageDraftCmsResource;
-use Zrcms\CorePage\Api\CmsResource\UpsertPageTemplateCmsResource;
+use Zrcms\CorePage\Api\CmsResource\UpdatePageCmsResource;
+use Zrcms\CorePage\Api\CmsResource\UpdatePageDraftCmsResource;
+use Zrcms\CorePage\Api\CmsResource\UpdatePageTemplateCmsResource;
 use Zrcms\CorePage\Api\CmsResourceHistory\FindPageCmsResourceHistoryBy;
 use Zrcms\CorePage\Api\Content\FindPageVersion;
 use Zrcms\CorePage\Api\Content\FindPageVersionsBy;
@@ -85,20 +85,20 @@ class ModuleConfig
                             EntityManager::class,
                         ],
                     ],
-                    UpsertPageCmsResource::class => [
-                        'class' => \Zrcms\CorePageDoctrine\Api\CmsResource\UpsertPageCmsResource::class,
+                    UpdatePageCmsResource::class => [
+                        'class' => \Zrcms\CorePageDoctrine\Api\CmsResource\UpdatePageCmsResource::class,
                         'arguments' => [
                             EntityManager::class,
                         ],
                     ],
-                    UpsertPageDraftCmsResource::class => [
-                        'class' => \Zrcms\CorePageDoctrine\Api\CmsResource\UpsertPageDraftCmsResource::class,
+                    UpdatePageDraftCmsResource::class => [
+                        'class' => \Zrcms\CorePageDoctrine\Api\CmsResource\UpdatePageDraftCmsResource::class,
                         'arguments' => [
                             EntityManager::class,
                         ],
                     ],
-                    UpsertPageTemplateCmsResource::class => [
-                        'class' => \Zrcms\CorePageDoctrine\Api\CmsResource\UpsertPageTemplateCmsResource::class,
+                    UpdatePageTemplateCmsResource::class => [
+                        'class' => \Zrcms\CorePageDoctrine\Api\CmsResource\UpdatePageTemplateCmsResource::class,
                         'arguments' => [
                             EntityManager::class,
                         ],

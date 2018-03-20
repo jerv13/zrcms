@@ -6,8 +6,8 @@ use Doctrine\ORM\EntityManager;
 use Zrcms\Core\Exception\CmsResourceNotExists;
 use Zrcms\Core\Exception\ContentVersionNotExists;
 use Zrcms\Core\Model\CmsResource;
-use Zrcms\CoreApplicationDoctrine\Api\CmsResource\UpsertCmsResource;
-use Zrcms\CorePage\Api\CmsResource\UpsertPageDraftCmsResource as CoreUpsert;
+use Zrcms\CoreApplicationDoctrine\Api\CmsResource\UpdateCmsResource;
+use Zrcms\CorePage\Api\CmsResource\UpdatePageDraftCmsResource as CoreUpdate;
 use Zrcms\CorePage\Model\PageDraftCmsResource;
 use Zrcms\CorePage\Model\PageDraftCmsResourceBasic;
 use Zrcms\CorePage\Model\PageVersionBasic;
@@ -18,7 +18,7 @@ use Zrcms\CorePageDoctrine\Entity\PageVersionEntity;
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class UpsertPageDraftCmsResource extends UpsertCmsResource implements CoreUpsert
+class UpdatePageDraftCmsResource extends UpdateCmsResource implements CoreUpdate
 {
     /**
      * @param EntityManager $entityManager
@@ -54,7 +54,7 @@ class UpsertPageDraftCmsResource extends UpsertCmsResource implements CoreUpsert
      * @throws \Exception
      */
     public function __invoke(
-        $id,
+        string $id,
         bool $published,
         string $contentVersionId,
         string $modifiedByUserId,

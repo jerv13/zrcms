@@ -14,7 +14,7 @@ use Zrcms\CorePage\Api\Render\GetPageRenderTagsHtml;
 use Zrcms\CorePage\Fields\FieldsPageVersion;
 use Zrcms\CorePage\Model\PageCmsResourceBasic;
 use Zrcms\CorePage\Model\PageVersionBasic;
-use Zrcms\CoreSite\Api\CmsResource\UpsertSiteCmsResource;
+use Zrcms\CoreSite\Api\CmsResource\UpdateSiteCmsResource;
 use Zrcms\CoreSite\Api\Content\InsertSiteVersion;
 use Zrcms\CoreSite\Fields\FieldsSiteVersion;
 use Zrcms\CoreSite\Model\SiteCmsResourceBasic;
@@ -109,10 +109,10 @@ class HttpViewTest
             $siteVersion
         );
 
-        /** @var UpsertSiteCmsResource $upsertSiteCmsResource */
-        $upsertSiteCmsResource = $this->serviceContainer->get(UpsertSiteCmsResource::class);
+        /** @var UpdateSiteCmsResource $updateSiteCmsResource */
+        $updateSiteCmsResource = $this->serviceContainer->get(UpdateSiteCmsResource::class);
 
-        $newSiteCmsResource = $upsertSiteCmsResource->__invoke(
+        $newSiteCmsResource = $updateSiteCmsResource->__invoke(
             'testId',
             true,
             $newSiteVersion->getId(),

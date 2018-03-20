@@ -7,7 +7,7 @@ use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Reliv\ArrayProperties\Property;
 use Zrcms\Core\Api\CmsResource\CmsResourceToArray;
-use Zrcms\Core\Api\CmsResource\UpsertCmsResource;
+use Zrcms\Core\Api\CmsResource\UpdateCmsResource;
 use Zrcms\Core\Api\Content\FindContentVersion;
 use Zrcms\Http\Api\BuildResponseOptions;
 use Zrcms\Http\Response\ZrcmsJsonResponse;
@@ -17,9 +17,9 @@ use Zrcms\User\Api\GetUserIdByRequest;
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class HttpApiUpsertCmsResourceDynamic
+class HttpApiUpdateCmsResourceDynamic
 {
-    const SOURCE = 'http-api-upsert-cms-resource-dynamic';
+    const SOURCE = 'http-api-update-cms-resource-dynamic';
 
     protected $serviceContainer;
     protected $getUserIdByRequest;
@@ -68,7 +68,7 @@ class HttpApiUpsertCmsResourceDynamic
             []
         );
 
-        $apiServiceUpsertCmsResource = $this->getUpsertApiService(
+        $apiServiceUpdateCmsResource = $this->getUpdateApiService(
             $apiConfig
         );
 
@@ -84,11 +84,21 @@ class HttpApiUpsertCmsResourceDynamic
             $contentVersionId
         );
 
+        if (empty($contentVersion)) {
+            return new ZrcmsJsonResponse(
+                null,
+                null,
+                404,
+                [],
+                BuildResponseOptions::invoke()
+            );
+        }
+
         $reason = $data['createdReason'] . ' (source: ' . static::SOURCE . ')';
 
         $userId = $this->getUserIdByRequest->__invoke($request);
 
-        $cmsResource = $apiServiceUpsertCmsResource->__invoke(
+        $cmsResource = $apiServiceUpdateCmsResource->__invoke(
             $data['id'],
             $data['published'],
             $contentVersionId,
@@ -162,14 +172,14 @@ class HttpApiUpsertCmsResourceDynamic
     /**
      * @param array $apiConfig
      *
-     * @return UpsertCmsResource
+     * @return UpdateCmsResource
      * @throws \Exception
      * @throws \Psr\Container\ContainerExceptionInterface
      * @throws \Psr\Container\NotFoundExceptionInterface
      */
-    protected function getUpsertApiService(
+    protected function getUpdateApiService(
         array $apiConfig
-    ): UpsertCmsResource {
+    ): UpdateCmsResource {
         $apiServiceName = Property::getString(
             $apiConfig,
             'api-service',
@@ -179,12 +189,12 @@ class HttpApiUpsertCmsResourceDynamic
         if ($apiServiceName === null) {
             throw new \Exception('api-service must be defined');
         }
-        /** @var UpsertCmsResource $apiService */
+        /** @var UpdateCmsResource $apiService */
         $apiService = $this->serviceContainer->get($apiServiceName);
 
-        if (!$apiService instanceof UpsertCmsResource) {
+        if (!$apiService instanceof UpdateCmsResource) {
             throw new \Exception(
-                'api-service must be instance of ' . UpsertCmsResource::class
+                'api-service must be instance of ' . UpdateCmsResource::class
             );
         }
 

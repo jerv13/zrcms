@@ -10,19 +10,19 @@ use Zrcms\User\Api\GetUserIdByRequest;
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class HttpApiUpsertCmsResourceDynamicFactory
+class HttpApiUpdateCmsResourceDynamicFactory
 {
     /**
      * @param ContainerInterface $serviceContainer
      *
-     * @return HttpApiUpsertCmsResourceDynamic
+     * @return HttpApiUpdateCmsResourceDynamic
      * @throws \Psr\Container\ContainerExceptionInterface
      * @throws \Psr\Container\NotFoundExceptionInterface
      */
     public function __invoke(
         ContainerInterface $serviceContainer
     ) {
-        return new HttpApiUpsertCmsResourceDynamic(
+        return new HttpApiUpdateCmsResourceDynamic(
             $serviceContainer,
             $serviceContainer->get(GetUserIdByRequest::class),
             $serviceContainer->get(CmsResourceToArray::class),

@@ -9,7 +9,7 @@ use Zrcms\CoreRedirect\Api\CmsResource\CreateRedirectCmsResource;
 use Zrcms\CoreRedirect\Api\CmsResource\FindRedirectCmsResource;
 use Zrcms\CoreRedirect\Api\CmsResource\FindRedirectCmsResourceBySiteRequestPath;
 use Zrcms\CoreRedirect\Api\CmsResource\FindRedirectCmsResourcesBy;
-use Zrcms\CoreRedirect\Api\CmsResource\UpsertRedirectCmsResource;
+use Zrcms\CoreRedirect\Api\CmsResource\UpdateRedirectCmsResource;
 use Zrcms\CoreRedirect\Api\Content\FindRedirectVersion;
 use Zrcms\CoreRedirect\Api\Content\FindRedirectVersionsBy;
 use Zrcms\CoreRedirect\Api\Content\InsertRedirectVersion;
@@ -57,8 +57,8 @@ class ModuleConfig
                             EntityManager::class,
                         ],
                     ],
-                    UpsertRedirectCmsResource::class => [
-                        'class' => \Zrcms\CoreRedirectDoctrine\Api\CmsResource\UpsertRedirectCmsResource::class,
+                    UpdateRedirectCmsResource::class => [
+                        'class' => \Zrcms\CoreRedirectDoctrine\Api\CmsResource\UpdateRedirectCmsResource::class,
                         'arguments' => [
                             EntityManager::class,
                         ],

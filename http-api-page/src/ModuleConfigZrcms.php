@@ -10,7 +10,7 @@ use Zrcms\Core\Api\Content\ContentVersionToArray;
 use Zrcms\CorePage\Api\CmsResource\FindPageCmsResource;
 use Zrcms\CorePage\Api\CmsResource\FindPageCmsResourcesBy;
 use Zrcms\CorePage\Api\CmsResource\FindPageCmsResourcesPublished;
-use Zrcms\CorePage\Api\CmsResource\UpsertPageCmsResource;
+use Zrcms\CorePage\Api\CmsResource\UpdatePageCmsResource;
 use Zrcms\CorePage\Api\CmsResourceHistory\FindPageCmsResourceHistory;
 use Zrcms\CorePage\Api\CmsResourceHistory\FindPageCmsResourceHistoryBy;
 use Zrcms\CorePage\Api\Content\FindPageVersion;
@@ -18,7 +18,7 @@ use Zrcms\CorePage\Api\Content\FindPageVersionsBy;
 use Zrcms\CorePage\Api\Content\InsertPageVersion;
 use Zrcms\CorePage\Fields\FieldsPageVersion;
 use Zrcms\ValidationRatZrcms\Api\FieldValidator\ValidateFieldsInsertContentVersionData;
-use Zrcms\ValidationRatZrcms\Api\FieldValidator\ValidateFieldsUpsertCmsResourceData;
+use Zrcms\ValidationRatZrcms\Api\FieldValidator\ValidateFieldsUpdateCmsResourceData;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -75,17 +75,14 @@ class ModuleConfigZrcms
                         ],
                     ],
 
-                    /**
-                     * CmsResourceHistory
-                     */
-                    'upsert-cms-resource' => [
+                    'update-cms-resource' => [
                         'acl' => [
                             'is-allowed' => IsAllowedRcmUserSitesAdmin::class,
                             'is-allowed-options' => [],
                             'not-allowed-status' => 401,
                         ],
                         'fields-validator' => [
-                            'fields-validator' => ValidateFieldsUpsertCmsResourceData::class,
+                            'fields-validator' => ValidateFieldsUpdateCmsResourceData::class,
                             'fields-validator-options' => [
                                 'validator-options-content-version-id' => [
                                     'api-service-find-content-version' => FindPageVersion::class,
@@ -95,12 +92,15 @@ class ModuleConfigZrcms
                         ],
                         'api' => [
                             'api-service-find-content-version' => FindPageVersion::class,
-                            'api-service' => UpsertPageCmsResource::class,
+                            'api-service' => UpdatePageCmsResource::class,
                             'to-array' => CmsResourceToArray::class,
                             'not-found-status' => 404,
                         ],
                     ],
 
+                    /**
+                     * CmsResourceHistory
+                     */
                     'find-cms-resource-history' => [
                         'acl' => [
                             'is-allowed' => IsAllowedRcmUserSitesAdmin::class,

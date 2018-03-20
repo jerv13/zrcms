@@ -1,23 +1,23 @@
 <?php
 
-namespace Zrcms\CoreSiteDoctrine\Api\CmsResource;
+namespace Zrcms\CorePageDoctrine\Api\CmsResource;
 
 use Doctrine\ORM\EntityManager;
 use Zrcms\Core\Exception\CmsResourceNotExists;
 use Zrcms\Core\Exception\ContentVersionNotExists;
 use Zrcms\Core\Model\CmsResource;
-use Zrcms\CoreApplicationDoctrine\Api\CmsResource\UpsertCmsResource;
-use Zrcms\CoreSite\Model\SiteCmsResource;
-use Zrcms\CoreSite\Model\SiteCmsResourceBasic;
-use Zrcms\CoreSite\Model\SiteVersionBasic;
-use Zrcms\CoreSiteDoctrine\Entity\SiteCmsResourceEntity;
-use Zrcms\CoreSiteDoctrine\Entity\SiteCmsResourceHistoryEntity;
-use Zrcms\CoreSiteDoctrine\Entity\SiteVersionEntity;
+use Zrcms\CoreApplicationDoctrine\Api\CmsResource\UpdateCmsResource;
+use Zrcms\CorePage\Model\PageCmsResource;
+use Zrcms\CorePage\Model\PageCmsResourceBasic;
+use Zrcms\CorePage\Model\PageVersionBasic;
+use Zrcms\CorePageDoctrine\Entity\PageCmsResourceEntity;
+use Zrcms\CorePageDoctrine\Entity\PageCmsResourceHistoryEntity;
+use Zrcms\CorePageDoctrine\Entity\PageVersionEntity;
 
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class UpsertSiteCmsResource extends UpsertCmsResource implements \Zrcms\CoreSite\Api\CmsResource\UpsertSiteCmsResource
+class UpdatePageCmsResource extends UpdateCmsResource implements \Zrcms\CorePage\Api\CmsResource\UpdatePageCmsResource
 {
     /**
      * @param EntityManager $entityManager
@@ -29,11 +29,11 @@ class UpsertSiteCmsResource extends UpsertCmsResource implements \Zrcms\CoreSite
     ) {
         parent::__construct(
             $entityManager,
-            SiteCmsResourceEntity::class,
-            SiteCmsResourceHistoryEntity::class,
-            SiteVersionEntity::class,
-            SiteCmsResourceBasic::class,
-            SiteVersionBasic::class,
+            PageCmsResourceEntity::class,
+            PageCmsResourceHistoryEntity::class,
+            PageVersionEntity::class,
+            PageCmsResourceBasic::class,
+            PageVersionBasic::class,
             []
         );
     }
@@ -46,14 +46,14 @@ class UpsertSiteCmsResource extends UpsertCmsResource implements \Zrcms\CoreSite
      * @param string      $modifiedReason
      * @param null|string $modifiedDate
      *
-     * @return SiteCmsResource|CmsResource
+     * @return PageCmsResource|CmsResource
      * @throws CmsResourceNotExists
      * @throws ContentVersionNotExists
      * @throws \Doctrine\ORM\OptimisticLockException
      * @throws \Exception
      */
     public function __invoke(
-        $id,
+        string $id,
         bool $published,
         string $contentVersionId,
         string $modifiedByUserId,

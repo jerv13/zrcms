@@ -18,7 +18,7 @@ use Zrcms\CoreApplicationDoctrine\Entity\ContentEntity;
  *
  * @author James Jervis - https://github.com/jerv13
  */
-class UpsertCmsResource extends ApiAbstract implements \Zrcms\Core\Api\CmsResource\UpsertCmsResource
+class UpdateCmsResource extends ApiAbstract implements \Zrcms\Core\Api\CmsResource\UpdateCmsResource
 {
     protected $entityManager;
     protected $entityClassCmsResource;
@@ -88,34 +88,20 @@ class UpsertCmsResource extends ApiAbstract implements \Zrcms\Core\Api\CmsResour
      * @throws \Exception
      */
     public function __invoke(
-        $id,
+        string $id,
         bool $published,
         string $contentVersionId,
         string $modifiedByUserId,
         string $modifiedReason,
         $modifiedDate = null
     ): CmsResource {
+        $cmsResourceEntity = $this->fetchCmsResourceEntity(
+            $id
+        );
+
         $contentEntity = $this->fetchContentEntity(
             $contentVersionId
         );
-
-        if (empty($id)) {
-            // Create on empty ID
-            $cmsResourceEntity = $this->newCmsResourceEntity(
-                $id,
-                $published,
-                $contentEntity,
-                $modifiedByUserId,
-                $modifiedReason,
-                $modifiedDate
-            );
-            $this->entityManager->persist($cmsResourceEntity);
-        } else {
-            // Update on has id
-            $cmsResourceEntity = $this->fetchCmsResourceEntity(
-                $id
-            );
-        }
 
         $publishedStateChanged = ($published !== $cmsResourceEntity->isPublished());
         $versionChanged = ($contentVersionId !== $cmsResourceEntity->getContentVersionId());
@@ -167,7 +153,7 @@ class UpsertCmsResource extends ApiAbstract implements \Zrcms\Core\Api\CmsResour
     /**
      * @param $cmsResourceId
      *
-     * @return null|object
+     * @return null|CmsResourceEntity|object
      * @throws CmsResourceNotExists
      */
     protected function fetchCmsResourceEntity(
@@ -190,39 +176,6 @@ class UpsertCmsResource extends ApiAbstract implements \Zrcms\Core\Api\CmsResour
                 'CmsResource not found with ID: (' . $cmsResourceId . ')'
             );
         }
-
-        return $cmsResourceEntity;
-    }
-
-    /**
-     * @param               $id
-     * @param bool          $published
-     * @param ContentEntity $contentEntity
-     * @param string        $modifiedByUserId
-     * @param string        $modifiedReason
-     * @param null          $modifiedDate
-     *
-     * @return CmsResourceEntity
-     */
-    protected function newCmsResourceEntity(
-        $id,
-        bool $published,
-        ContentEntity $contentEntity,
-        string $modifiedByUserId,
-        string $modifiedReason,
-        $modifiedDate = null
-    ): CmsResourceEntity {
-        $entityClass = $this->entityClassCmsResource;
-
-        /** @var CmsResourceEntity $cmsResourceEntity */
-        $cmsResourceEntity = new $entityClass(
-            $id,
-            $published,
-            $contentEntity,
-            $modifiedByUserId,
-            $modifiedReason,
-            $modifiedDate
-        );
 
         return $cmsResourceEntity;
     }

@@ -1,17 +1,17 @@
 <?php
 
-namespace Zrcms\CoreSite\Api\CmsResource;
+namespace Zrcms\CorePage\Api\CmsResource;
 
-use Zrcms\Core\Api\CmsResource\UpsertCmsResource;
+use Zrcms\Core\Api\CmsResource\UpdateCmsResource;
 use Zrcms\Core\Exception\CmsResourceNotExists;
 use Zrcms\Core\Exception\ContentVersionNotExists;
 use Zrcms\Core\Model\CmsResource;
-use Zrcms\CoreSite\Model\SiteCmsResource;
+use Zrcms\CorePage\Model\PageCmsResource;
 
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-interface UpsertSiteCmsResource extends UpsertCmsResource
+interface UpdatePageCmsResource extends UpdateCmsResource
 {
     /**
      * @param null|string $id
@@ -21,12 +21,12 @@ interface UpsertSiteCmsResource extends UpsertCmsResource
      * @param string      $modifiedReason
      * @param null|string $modifiedDate
      *
-     * @return SiteCmsResource|CmsResource
+     * @return PageCmsResource|CmsResource
      * @throws CmsResourceNotExists
      * @throws ContentVersionNotExists
      */
     public function __invoke(
-        $id,
+        string $id,
         bool $published,
         string $contentVersionId,
         string $modifiedByUserId,

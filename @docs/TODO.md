@@ -11,7 +11,7 @@ Case 1: New Page - form
 - go to version render (zrcms-version/{some-path}/?version={versionId})
 - press publish
 - find page by path
-- upsert page-resource with version
+- create page-resource with version
     
 Case 2: Publish Existing draft
 
@@ -20,7 +20,7 @@ Case 2: Publish Existing draft
 - go to version render (zrcms-version/{some-path}/?version={versionId})
 - press publish
 - find page by path
-- upsert page-resource with version
+- create page-resource with version
     
 Case 3: Publish old revision
 
@@ -29,7 +29,7 @@ Case 3: Publish old revision
 - go to version render (zrcms-version/{some-path}/?version={versionId})
 - press publish
 - find page by path
-- upsert page-resource with version
+- create page-resource with version
 
 ##### Add Request Site middleware with attribute
 

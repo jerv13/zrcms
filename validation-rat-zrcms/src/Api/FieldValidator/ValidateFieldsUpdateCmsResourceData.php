@@ -14,13 +14,12 @@ use Reliv\ValidationRat\Api\Validator\ValidateIsNull;
 use Reliv\ValidationRat\Api\Validator\ValidateIsString;
 use Reliv\ValidationRat\Model\ValidationResultFields;
 use Reliv\ValidationRat\Model\ValidationResultFieldsBasic;
-use Zrcms\ValidationRatZrcms\Api\Validator\ValidateCmsResourceId;
 use Zrcms\ValidationRatZrcms\Api\Validator\ValidateContentVersionExists;
 
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class ValidateFieldsUpsertCmsResourceData implements ValidateFields
+class ValidateFieldsUpdateCmsResourceData implements ValidateFields
 {
     const KEY_ID = 'id';
     const KEY_PUBLISHED = 'published';
@@ -51,8 +50,18 @@ class ValidateFieldsUpsertCmsResourceData implements ValidateFields
 
     const DEFAULT_INVALID_CODE = 'invalid-cms-resource';
 
-    const DEFAULT_VALIDATOR_ID = ValidateCmsResourceId::class;
-    const DEFAULT_VALIDATOR_OPTIONS_ID = [];
+    const DEFAULT_VALIDATOR_ID = ValidateCompositeByStrategy::class;
+    const DEFAULT_VALIDATOR_OPTIONS_ID
+        = [
+            ValidateCompositeByStrategy::OPTION_VALIDATORS => [
+                'not-empty' => [
+                    'validator' => ValidateIsNotEmpty::class,
+                ],
+                'is-string' => [
+                    'validator' => ValidateIsString::class,
+                ],
+            ]
+        ];
 
     const DEFAULT_VALIDATOR_PUBLISHED = ValidateIsBoolean::class;
     const DEFAULT_VALIDATOR_OPTIONS_PUBLISHED = [];

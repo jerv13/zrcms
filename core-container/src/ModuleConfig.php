@@ -11,7 +11,7 @@ use Zrcms\CoreContainer\Api\CmsResource\FindContainerCmsResource;
 use Zrcms\CoreContainer\Api\CmsResource\FindContainerCmsResourcesBy;
 use Zrcms\CoreContainer\Api\CmsResource\FindContainerCmsResourcesBySiteNames;
 use Zrcms\CoreContainer\Api\CmsResource\FindContainerCmsResourcesPublished;
-use Zrcms\CoreContainer\Api\CmsResource\UpsertContainerCmsResource;
+use Zrcms\CoreContainer\Api\CmsResource\UpdateContainerCmsResource;
 use Zrcms\CoreContainer\Api\CmsResourceHistory\FindContainerCmsResourceHistory;
 use Zrcms\CoreContainer\Api\CmsResourceHistory\FindContainerCmsResourceHistoryBy;
 use Zrcms\CoreContainer\Api\Content\FindContainerVersion;
@@ -59,7 +59,7 @@ class ModuleConfig
                     FindContainerCmsResourcesPublished::class => [
                         'class' => IMPLEMENTATIONisREQUIRED::class
                     ],
-                    UpsertContainerCmsResource::class => [
+                    UpdateContainerCmsResource::class => [
                         'class' => IMPLEMENTATIONisREQUIRED::class
                     ],
 

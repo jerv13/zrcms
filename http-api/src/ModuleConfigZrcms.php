@@ -111,7 +111,7 @@ class ModuleConfigZrcms
                         ],
                     ],
 
-                    'upsert-cms-resource' => [
+                    'update-cms-resource' => [
                         'acl' => [
                             'is-allowed' => IsAllowedRcmUserAdmin::class,
                             'is-allowed-options' => [],
@@ -159,7 +159,7 @@ class ModuleConfigZrcms
                         ],
                         'api' => [
                             'api-service-find-content-version' => FindContentVersion::class,
-                            'api-service' => UpsertContentCmsResource::class,
+                            'api-service' => UpdateContentCmsResource::class,
                             'to-array' => CmsResourceToArray::class,
                             'not-found-status' => 404,
                         ],

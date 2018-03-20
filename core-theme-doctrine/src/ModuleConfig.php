@@ -9,7 +9,7 @@ use Zrcms\CoreTheme\Api\ChangeLog\GetLayoutChangeLogByDateRange;
 use Zrcms\CoreTheme\Api\CmsResource\FindLayoutCmsResource;
 use Zrcms\CoreTheme\Api\CmsResource\FindLayoutCmsResourceByThemeNameLayoutName;
 use Zrcms\CoreTheme\Api\CmsResource\FindLayoutCmsResourcesBy;
-use Zrcms\CoreTheme\Api\CmsResource\UpsertLayoutCmsResource;
+use Zrcms\CoreTheme\Api\CmsResource\UpdateLayoutCmsResource;
 use Zrcms\CoreTheme\Api\Content\FindLayoutVersion;
 use Zrcms\CoreTheme\Api\Content\FindLayoutVersionsBy;
 use Zrcms\CoreTheme\Api\Content\InsertLayoutVersion;
@@ -28,8 +28,8 @@ class ModuleConfig
                         'class' => \Zrcms\CoreThemeDoctrine\Api\ChangeLog\GetLayoutChangeLogByDateRangeAbstract::class,
                         'arguments' => [EntityManager::class]
                     ],
-                    UpsertLayoutCmsResource::class => [
-                        'class' => \Zrcms\CoreThemeDoctrine\Api\CmsResource\UpsertLayoutCmsResource::class,
+                    UpdateLayoutCmsResource::class => [
+                        'class' => \Zrcms\CoreThemeDoctrine\Api\CmsResource\UpdateLayoutCmsResource::class,
                         'arguments' => [
                             EntityManager::class,
                         ],

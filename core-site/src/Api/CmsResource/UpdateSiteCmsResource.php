@@ -1,38 +1,32 @@
 <?php
 
-namespace Zrcms\Core\Api\CmsResource;
+namespace Zrcms\CoreSite\Api\CmsResource;
 
-use Zrcms\Core\Exception\CmsResourceExists;
+use Zrcms\Core\Api\CmsResource\UpdateCmsResource;
 use Zrcms\Core\Exception\CmsResourceNotExists;
 use Zrcms\Core\Exception\ContentVersionNotExists;
 use Zrcms\Core\Model\CmsResource;
+use Zrcms\CoreSite\Model\SiteCmsResource;
 
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-interface UpsertCmsResource
+interface UpdateSiteCmsResource extends UpdateCmsResource
 {
     /**
-     * Case 1 - New CmsResource - Existing ContentVersion
-     * Case 2 - Existing CmsResource - Existing ContentVersion
-     *
-     * throws CmsResourceNotExists If received CmsResourceId but CmsResource does not exist
-     * throws ContentVersionNotExists If ContentVersion does not exist
-     *
-     * @param string|null $id
+     * @param null|string $id
      * @param bool        $published
      * @param string      $contentVersionId
      * @param string      $modifiedByUserId
      * @param string      $modifiedReason
-     * @param string|null $modifiedDate
+     * @param null|string $modifiedDate
      *
-     * @return CmsResource
+     * @return SiteCmsResource|CmsResource
      * @throws CmsResourceNotExists
-     * @throws CmsResourceExists
      * @throws ContentVersionNotExists
      */
     public function __invoke(
-        $id,
+        string $id,
         bool $published,
         string $contentVersionId,
         string $modifiedByUserId,
