@@ -12,7 +12,7 @@ use Zrcms\Core\Model\ContentVersion;
 abstract class ContainerCmsResourceAbstract extends CmsResourceAbstract
 {
     protected $siteCmsResourceId;
-    protected $path;
+    protected $name;
 
     /**
      * @param null|string                     $id
@@ -53,9 +53,9 @@ abstract class ContainerCmsResourceAbstract extends CmsResourceAbstract
     /**
      * @return string
      */
-    public function getPath(): string
+    public function getName(): string
     {
-        return $this->path;
+        return $this->name;
     }
 
     /**
@@ -73,7 +73,7 @@ abstract class ContainerCmsResourceAbstract extends CmsResourceAbstract
         $modifiedDate = null
     ) {
         $this->siteCmsResourceId = $contentVersion->getSiteCmsResourceId();
-        $this->path = $contentVersion->getPath();
+        $this->name = $contentVersion->getName();
 
         parent::setContentVersion(
             $contentVersion,
@@ -105,9 +105,9 @@ abstract class ContainerCmsResourceAbstract extends CmsResourceAbstract
             );
         }
 
-        if (empty($contentVersion->getPath())) {
+        if (empty($contentVersion->getName())) {
             throw new ContentVersionInvalid(
-                'Path can not be empty'
+                'Name can not be empty'
             );
         }
     }

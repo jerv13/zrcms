@@ -34,7 +34,7 @@ class PreparePageContainerData
                 FieldsContainerVersion::BLOCK_VERSIONS,
                 []
             );
-            $containersData[$containerName][FieldsContainerVersion::PATH] = $containerName;
+            $containersData[$containerName][FieldsContainerVersion::NAME] = $containerName;
             $containersData[$containerName][FieldsContainerVersion::SITE_CMS_RESOURCE_ID] = $siteCmsResourceId;
             $containersData[$containerName][FieldsContainerVersion::BLOCK_VERSIONS] = PrepareBlockVersionsData::invoke(
                 $blockVersions,

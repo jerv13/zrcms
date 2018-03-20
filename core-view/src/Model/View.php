@@ -55,11 +55,11 @@ interface View extends Content
     public function getSiteContainerCmsResources(): array;
 
     /**
-     * @param string $containerCmsResourcePath
+     * @param string $containerCmsResourceName
      *
      * @return ContainerCmsResource|null
      */
-    public function findSiteContainerCmsResources(string $containerCmsResourcePath);
+    public function findSiteContainerCmsResources(string $containerCmsResourceName);
 
     /**
      * @return string

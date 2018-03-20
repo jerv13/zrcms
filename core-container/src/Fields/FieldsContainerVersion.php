@@ -10,5 +10,5 @@ class FieldsContainerVersion extends FieldsContainer
     const FIELD_MODEL_NAME = 'container-version-properties';
 
     const SITE_CMS_RESOURCE_ID = 'siteCmsResourceId';
-    const PATH = 'path';
+    const NAME = 'name';
 }

@@ -9,7 +9,7 @@ use Zrcms\CoreBlock\Api\Render\WrapRenderedBlockVersion;
 use Zrcms\CoreContainer\Api\CmsResource\CreateContainerCmsResource;
 use Zrcms\CoreContainer\Api\CmsResource\FindContainerCmsResource;
 use Zrcms\CoreContainer\Api\CmsResource\FindContainerCmsResourcesBy;
-use Zrcms\CoreContainer\Api\CmsResource\FindContainerCmsResourcesBySitePaths;
+use Zrcms\CoreContainer\Api\CmsResource\FindContainerCmsResourcesBySiteNames;
 use Zrcms\CoreContainer\Api\CmsResource\FindContainerCmsResourcesPublished;
 use Zrcms\CoreContainer\Api\CmsResource\UpsertContainerCmsResource;
 use Zrcms\CoreContainer\Api\CmsResourceHistory\FindContainerCmsResourceHistory;
@@ -53,7 +53,7 @@ class ModuleConfig
                     FindContainerCmsResourcesBy::class => [
                         'class' => IMPLEMENTATIONisREQUIRED::class
                     ],
-                    FindContainerCmsResourcesBySitePaths::class => [
+                    FindContainerCmsResourcesBySiteNames::class => [
                         'class' => IMPLEMENTATIONisREQUIRED::class
                     ],
                     FindContainerCmsResourcesPublished::class => [

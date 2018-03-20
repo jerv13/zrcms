@@ -5,7 +5,7 @@ namespace Zrcms\CoreContainerDoctrine\Api\CmsResource;
 use Doctrine\ORM\EntityManager;
 use Reliv\ArrayProperties\Property;
 use Zrcms\CoreApplicationDoctrine\Api\BuildBasicCmsResources;
-use Zrcms\CoreContainer\Api\CmsResource\FindContainerCmsResourcesBySitePaths as CoreFindsBySitePaths;
+use Zrcms\CoreContainer\Api\CmsResource\FindContainerCmsResourcesBySiteNames as CoreFindsBySiteNames;
 use Zrcms\CoreContainer\Model\ContainerCmsResourceBasic;
 use Zrcms\CoreContainer\Model\ContainerVersionBasic;
 use Zrcms\CoreContainerDoctrine\Entity\ContainerCmsResourceEntity;
@@ -14,7 +14,7 @@ use Zrcms\CoreContainerDoctrine\Entity\ContainerVersionEntity;
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class FindContainerCmsResourcesBySitePaths implements CoreFindsBySitePaths
+class FindContainerCmsResourcesBySiteNames implements CoreFindsBySiteNames
 {
     protected $entityManager;
     protected $entityClassCmsResource;
@@ -40,7 +40,7 @@ class FindContainerCmsResourcesBySitePaths implements CoreFindsBySitePaths
 
     /**
      * @param string    $siteCmsResourceId
-     * @param array     $containerCmsResourcePaths
+     * @param array     $containerCmsResourceNames
      * @param bool|null $published
      * @param array     $options
      *
@@ -49,11 +49,11 @@ class FindContainerCmsResourcesBySitePaths implements CoreFindsBySitePaths
      */
     public function __invoke(
         string $siteCmsResourceId,
-        array $containerCmsResourcePaths,
+        array $containerCmsResourceNames,
         $published = true,
         array $options = []
     ): array {
-        $pathParams = [];
+        $nameParams = [];
 
         // @todo Add prepared statements not concat
         $query
@@ -65,9 +65,9 @@ class FindContainerCmsResourcesBySitePaths implements CoreFindsBySitePaths
         }
 
         $query = $this->buildInQuery(
-            $containerCmsResourcePaths,
+            $containerCmsResourceNames,
             $query,
-            $pathParams
+            $nameParams
         );
 
         if (empty($query)) {
@@ -75,8 +75,8 @@ class FindContainerCmsResourcesBySitePaths implements CoreFindsBySitePaths
         }
 
         $dQuery = $this->entityManager->createQuery($query);
-        foreach ($pathParams as $value => $pathParam) {
-            $dQuery->setParameter($pathParam, $value);
+        foreach ($nameParams as $value => $nameParam) {
+            $dQuery->setParameter($nameParam, $value);
         }
 
         $dQuery->setParameter('containerSiteCmsResourceId', $siteCmsResourceId);
@@ -95,39 +95,39 @@ class FindContainerCmsResourcesBySitePaths implements CoreFindsBySitePaths
     }
 
     /**
-     * @param array  $containerCmsResourcePaths
+     * @param array  $containerCmsResourceNames
      * @param string $query
-     * @param array  $pathParams
+     * @param array  $nameParams
      *
      * @return string
      */
     protected function buildInQuery(
-        array $containerCmsResourcePaths,
+        array $containerCmsResourceNames,
         string $query,
-        array &$pathParams
+        array &$nameParams
     ) {
-        if (empty($containerCmsResourcePaths)) {
+        if (empty($containerCmsResourceNames)) {
             return '';
         }
 
-        $query = $query . " AND container.path IN (";
+        $query = $query . " AND container.name IN (";
 
         $cnt = 0;
         $index = 0;
-        $length = count($containerCmsResourcePaths);
+        $length = count($containerCmsResourceNames);
 
-        foreach ($containerCmsResourcePaths as $containerCmsResourcePath) {
+        foreach ($containerCmsResourceNames as $containerCmsResourceName) {
             // avoid duplicates
-            if (Property::has($pathParams, $containerCmsResourcePath)) {
+            if (Property::has($nameParams, $containerCmsResourceName)) {
                 $index++;
                 continue;
             }
 
-            $pathParam = 'path' . $cnt;
+            $nameParam = 'name' . $cnt;
 
-            $query = $query . ":{$pathParam}";
+            $query = $query . ":{$nameParam}";
 
-            $pathParams[$containerCmsResourcePath] = $pathParam;
+            $nameParams[$containerCmsResourceName] = $nameParam;
 
             $cnt++;
             $index++;

@@ -449,7 +449,7 @@ class Import
         foreach ($containers as $container) {
             $this->log(
                 LogLevel::INFO,
-                'Import Container: ' . $container['properties']['path'],
+                'Import Container: ' . $container['properties']['name'],
                 $options
             );
 

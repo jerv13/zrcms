@@ -147,16 +147,16 @@ abstract class ViewAbstract extends ContentAbstract implements View
     }
 
     /**
-     * @param string $containerCmsResourcePath
+     * @param string $containerCmsResourceName
      *
      * @return ContainerCmsResource|null
      */
-    public function findSiteContainerCmsResources(string $containerCmsResourcePath)
+    public function findSiteContainerCmsResources(string $containerCmsResourceName)
     {
         $containers = $this->getSiteContainerCmsResources();
 
         foreach ($containers as $container) {
-            if ($container->getPath() === $containerCmsResourcePath) {
+            if ($container->getName() === $containerCmsResourceName) {
                 return $container;
             }
         }

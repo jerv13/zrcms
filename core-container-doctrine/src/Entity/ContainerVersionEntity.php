@@ -88,7 +88,6 @@ class ContainerVersionEntity extends ContentEntityAbstract implements ContentEnt
      * @throws \Exception
      * @throws \Throwable
      * @throws \Reliv\ArrayProperties\Exception\ArrayPropertyException
-     * @throws \Reliv\ArrayProperties\Exception\ArrayPropertyMissing
      */
     public function __construct(
         $id,
@@ -112,7 +111,7 @@ class ContainerVersionEntity extends ContentEntityAbstract implements ContentEnt
 
         Property::assertNotEmpty(
             $properties,
-            FieldsContainerVersion::PATH
+            FieldsContainerVersion::NAME
         );
 
         parent::__construct(
@@ -162,10 +161,10 @@ class ContainerVersionEntity extends ContentEntityAbstract implements ContentEnt
     /**
      * @return string
      */
-    public function getPath(): string
+    public function getName(): string
     {
         return $this->findProperty(
-            FieldsContainerVersion::PATH
+            FieldsContainerVersion::NAME
         );
     }
 

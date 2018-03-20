@@ -48,7 +48,7 @@ class GetContainerChangeLogByDateRangeAbstract extends CoreGetChangLogAbstract
         $event->setActionName('created');
         $event->setResourceId($version->getId());
         $event->setResourceTypeName('site-wide container draft version');
-        $event->setResourceName('for ' . $properties['path']);
+        $event->setResourceName('for ' . $properties['name']);
         $event->setMetaData(
             [
                 'siteCmsResourceId' => $version->getSiteCmsResourceId(),
@@ -95,7 +95,7 @@ class GetContainerChangeLogByDateRangeAbstract extends CoreGetChangLogAbstract
         $event->setActionName($actionDescription);
         $event->setResourceId($cmsResource->getId());
         $event->setResourceTypeName('site-wide container');
-        $event->setResourceName($cmsResource->getPath());
+        $event->setResourceName($cmsResource->getName());
         $event->setMetaData(
             [
                 'siteCmsResourceId' => $cmsResource->getSiteCmsResourceId(),

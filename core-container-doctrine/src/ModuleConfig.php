@@ -8,7 +8,7 @@ use Zrcms\CoreContainer\Api\ChangeLog\GetContainerChangeLogByDateRange;
 use Zrcms\CoreContainer\Api\CmsResource\CreateContainerCmsResource;
 use Zrcms\CoreContainer\Api\CmsResource\FindContainerCmsResource;
 use Zrcms\CoreContainer\Api\CmsResource\FindContainerCmsResourcesBy;
-use Zrcms\CoreContainer\Api\CmsResource\FindContainerCmsResourcesBySitePaths;
+use Zrcms\CoreContainer\Api\CmsResource\FindContainerCmsResourcesBySiteNames;
 use Zrcms\CoreContainer\Api\CmsResource\UpsertContainerCmsResource;
 use Zrcms\CoreContainer\Api\Content\FindContainerVersion;
 use Zrcms\CoreContainer\Api\Content\FindContainerVersionsBy;
@@ -47,9 +47,9 @@ class ModuleConfig
                             EntityManager::class,
                         ],
                     ],
-                    FindContainerCmsResourcesBySitePaths::class => [
+                    FindContainerCmsResourcesBySiteNames::class => [
                         'class'
-                        => \Zrcms\CoreContainerDoctrine\Api\CmsResource\FindContainerCmsResourcesBySitePaths::class,
+                        => \Zrcms\CoreContainerDoctrine\Api\CmsResource\FindContainerCmsResourcesBySiteNames::class,
                         'arguments' => [
                             EntityManager::class,
                         ],

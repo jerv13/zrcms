@@ -18,8 +18,9 @@ use Zrcms\CoreApplicationDoctrine\Entity\ContentEntity;
  *     indexes={
  *        @ORM\Index(name="contentVersionId", columns={"contentVersionId"}),
  *        @ORM\Index(name="siteCmsResourceId", columns={"siteCmsResourceId"}),
- *        @ORM\Index(name="path", columns={"path"})
- *     }
+ *        @ORM\Index(name="name", columns={"name"})
+ *     },
+ *     uniqueConstraints={@ORM\UniqueConstraint(name="container_unique",columns={"siteCmsResourceId","name"})}
  * )
  */
 class ContainerCmsResourceEntity extends CmsResourceEntityAbstract implements CmsResourceEntity
@@ -118,7 +119,7 @@ class ContainerCmsResourceEntity extends CmsResourceEntityAbstract implements Cm
      *
      * @ORM\Column(type="string")
      */
-    protected $path;
+    protected $name;
 
     /**
      * @param string|null   $id
@@ -127,6 +128,8 @@ class ContainerCmsResourceEntity extends CmsResourceEntityAbstract implements Cm
      * @param string        $createdByUserId
      * @param string        $createdReason
      * @param string|null   $createdDate
+     *
+     * @throws \Zrcms\Core\Exception\TrackingInvalid
      */
     public function __construct(
         $id,
@@ -157,9 +160,9 @@ class ContainerCmsResourceEntity extends CmsResourceEntityAbstract implements Cm
     /**
      * @return string
      */
-    public function getPath(): string
+    public function getName(): string
     {
-        return $this->path;
+        return $this->name;
     }
 
     /**
@@ -177,7 +180,7 @@ class ContainerCmsResourceEntity extends CmsResourceEntityAbstract implements Cm
         $modifiedDate = null
     ) {
         $this->siteCmsResourceId = $contentVersion->getSiteCmsResourceId();
-        $this->path = $contentVersion->getPath();
+        $this->name = $contentVersion->getName();
 
         parent::setContentVersion(
             $contentVersion,
@@ -209,9 +212,9 @@ class ContainerCmsResourceEntity extends CmsResourceEntityAbstract implements Cm
             );
         }
 
-        if (empty($contentVersion->getPath())) {
+        if (empty($contentVersion->getName())) {
             throw new ContentVersionInvalid(
-                'Path can not be empty'
+                'Name can not be empty'
             );
         }
     }

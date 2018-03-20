@@ -204,7 +204,7 @@ abstract class PageVersionAbstract extends ContentVersionAbstract
         );
 
         $containerData[FieldsContainerVersion::SITE_CMS_RESOURCE_ID] = $this->getSiteCmsResourceId();
-        $containerData[FieldsContainerVersion::PATH] = $name;
+        $containerData[FieldsContainerVersion::NAME] = $name;
 
         return new ContainerVersionBasic(
             $id,

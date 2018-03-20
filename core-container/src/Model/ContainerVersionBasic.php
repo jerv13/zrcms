@@ -13,6 +13,11 @@ class ContainerVersionBasic extends ContainerVersionAbstract implements Containe
      * @param string      $createdByUserId
      * @param string      $createdReason
      * @param string|null $createdDate
+     *
+     * @throws \Exception
+     * @throws \Reliv\ArrayProperties\Exception\ArrayPropertyException
+     * @throws \Reliv\ArrayProperties\Exception\ArrayPropertyMissing
+     * @throws \Throwable
      */
     public function __construct(
         $id,

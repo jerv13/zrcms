@@ -16,6 +16,8 @@ class ContainerCmsResourceBasic extends ContainerCmsResourceAbstract implements 
      * @param string                          $createdByUserId
      * @param string                          $createdReason
      * @param string|null                     $createdDate
+     *
+     * @throws \Zrcms\Core\Exception\ContentVersionInvalid
      */
     public function __construct(
         $id,

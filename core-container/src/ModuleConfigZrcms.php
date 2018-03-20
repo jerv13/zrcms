@@ -73,9 +73,9 @@ class ModuleConfigZrcms
                         'options' => [],
                     ],
                     [
-                        'name' => FieldsContainerVersion::PATH,
+                        'name' => FieldsContainerVersion::NAME,
                         'type' => 'text',
-                        'label' => 'Path Identifier',
+                        'label' => 'Name Identifier',
                         'required' => true,
                         'default' => '',
                         'options' => [],

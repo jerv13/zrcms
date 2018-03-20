@@ -3,10 +3,8 @@
 namespace Zrcms\CoreView\Api\Render;
 
 use Psr\Container\ContainerInterface;
-use Zrcms\CoreContainer\Api\CmsResource\FindContainerCmsResourcesBySitePaths;
 use Zrcms\CoreContainer\Api\Render\GetContainerRenderTags;
 use Zrcms\CoreContainer\Api\Render\RenderContainer;
-use Zrcms\CoreView\Api\GetTagNamesByLayout;
 
 /**
  * @author James Jervis - https://github.com/jerv13

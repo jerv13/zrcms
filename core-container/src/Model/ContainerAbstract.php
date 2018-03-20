@@ -19,8 +19,6 @@ abstract class ContainerAbstract extends ContentAbstract
 {
     /**
      * @param array $properties
-     *
-     * @throws PropertyInvalid
      */
     public function __construct(array $properties)
     {

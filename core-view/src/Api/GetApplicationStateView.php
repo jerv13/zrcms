@@ -155,7 +155,7 @@ class GetApplicationStateView implements GetApplicationState
             $state[] = [
                 'contentVersionId' => $siteContainerCmsResource->getContentVersionId(),
                 'published' => $siteContainerCmsResource->isPublished(),
-                'path' => $siteContainerCmsResource->getPath(),
+                'name' => $siteContainerCmsResource->getName(),
             ];
         }
 

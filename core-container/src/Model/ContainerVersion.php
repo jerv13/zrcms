@@ -17,5 +17,5 @@ interface ContainerVersion extends Container, ContentVersion
     /**
      * @return string
      */
-    public function getPath(): string;
+    public function getName(): string;
 }

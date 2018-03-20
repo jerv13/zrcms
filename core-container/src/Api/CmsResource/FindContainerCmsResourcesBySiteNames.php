@@ -7,11 +7,11 @@ use Zrcms\CoreContainer\Model\ContainerCmsResource;
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-interface FindContainerCmsResourcesBySitePaths
+interface FindContainerCmsResourcesBySiteNames
 {
     /**
      * @param string    $siteCmsResourceId
-     * @param array     $containerCmsResourcePaths
+     * @param array     $containerCmsResourceNames
      * @param bool|null $published
      * @param array     $options
      *
@@ -19,7 +19,7 @@ interface FindContainerCmsResourcesBySitePaths
      */
     public function __invoke(
         string $siteCmsResourceId,
-        array $containerCmsResourcePaths,
+        array $containerCmsResourceNames,
         $published = true,
         array $options = []
     ): array;

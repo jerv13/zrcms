@@ -52,7 +52,7 @@ abstract class ContainerVersionAbstract extends ContentVersionAbstract
 
         Property::assertNotEmpty(
             $properties,
-            FieldsContainerVersion::PATH
+            FieldsContainerVersion::NAME
         );
 
         parent::__construct(
@@ -123,10 +123,10 @@ abstract class ContainerVersionAbstract extends ContentVersionAbstract
     /**
      * @return string
      */
-    public function getPath(): string
+    public function getName(): string
     {
         return $this->findProperty(
-            FieldsContainerVersion::PATH
+            FieldsContainerVersion::NAME
         );
     }
 }

@@ -23,5 +23,5 @@ interface ContainerCmsResource extends CmsResource
     /**
      * @return string
      */
-    public function getPath(): string;
+    public function getName(): string;
 }
