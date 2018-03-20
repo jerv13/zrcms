@@ -16,7 +16,6 @@ class PageVersionBasic extends PageVersionAbstract implements PageVersion
      *
      * @throws \Exception
      * @throws \Reliv\ArrayProperties\Exception\ArrayPropertyException
-     * @throws \Reliv\ArrayProperties\Exception\ArrayPropertyMissing
      * @throws \Throwable
      * @throws \Zrcms\CorePage\Exception\InvalidPath
      */
