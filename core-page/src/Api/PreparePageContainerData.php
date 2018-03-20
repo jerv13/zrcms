@@ -18,6 +18,8 @@ class PreparePageContainerData
      * @param array  $containersData
      *
      * @return array
+     * @throws \Reliv\ArrayProperties\Exception\ArrayPropertyException
+     * @throws \Throwable
      */
     public static function invoke(
         $pageContentId,
@@ -28,18 +30,28 @@ class PreparePageContainerData
             $pageContentId = GetGuidV4::invoke();
         }
 
-        foreach ($containersData as $containerName => $containerData) {
+        foreach ($containersData as $index => $containerData) {
             $blockVersions = Property::getArray(
                 $containerData,
                 FieldsContainerVersion::BLOCK_VERSIONS,
                 []
             );
-            $containersData[$containerName][FieldsContainerVersion::NAME] = $containerName;
-            $containersData[$containerName][FieldsContainerVersion::SITE_CMS_RESOURCE_ID] = $siteCmsResourceId;
-            $containersData[$containerName][FieldsContainerVersion::BLOCK_VERSIONS] = PrepareBlockVersionsData::invoke(
-                $blockVersions,
-                BuildPageContainerVersionId::invoke($pageContentId, $containerName)
+
+            Property::assertHas(
+                $containerData,
+                FieldsContainerVersion::NAME
             );
+
+            $containerData[FieldsContainerVersion::SITE_CMS_RESOURCE_ID] = $siteCmsResourceId;
+            $containerData[FieldsContainerVersion::BLOCK_VERSIONS] = PrepareBlockVersionsData::invoke(
+                $blockVersions,
+                BuildPageContainerVersionId::invoke(
+                    $pageContentId,
+                    $containerData[FieldsContainerVersion::NAME]
+                )
+            );
+
+            $containersData[$index] = $containerData;
         }
 
         return $containersData;

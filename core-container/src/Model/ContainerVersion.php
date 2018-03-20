@@ -13,9 +13,4 @@ interface ContainerVersion extends Container, ContentVersion
      * @return string
      */
     public function getSiteCmsResourceId(): string;
-
-    /**
-     * @return string
-     */
-    public function getName(): string;
 }

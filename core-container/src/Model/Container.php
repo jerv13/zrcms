@@ -11,6 +11,11 @@ use Zrcms\CoreBlock\Model\BlockVersion;
 interface Container extends Content
 {
     /**
+     * @return string
+     */
+    public function getName(): string;
+
+    /**
      * This couples block versions to containers
      *
      * @return BlockVersion[]

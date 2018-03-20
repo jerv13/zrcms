@@ -16,7 +16,6 @@ class ContainerVersionBasic extends ContainerVersionAbstract implements Containe
      *
      * @throws \Exception
      * @throws \Reliv\ArrayProperties\Exception\ArrayPropertyException
-     * @throws \Reliv\ArrayProperties\Exception\ArrayPropertyMissing
      * @throws \Throwable
      */
     public function __construct(

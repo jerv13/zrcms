@@ -29,7 +29,6 @@ abstract class PageVersionAbstract extends ContentVersionAbstract
      * @throws \Throwable
      * @throws \Zrcms\CorePage\Exception\InvalidPath
      * @throws \Reliv\ArrayProperties\Exception\ArrayPropertyException
-     * @throws \Reliv\ArrayProperties\Exception\ArrayPropertyMissing
      */
     public function __construct(
         $id,
@@ -156,15 +155,18 @@ abstract class PageVersionAbstract extends ContentVersionAbstract
     {
         $containersData = $this->getContainersData();
 
-        return Property::get(
-            $containersData,
-            $name,
-            null
-        );
+        foreach ($containersData as $containerData) {
+            if ($containerData[FieldsContainerVersion::NAME] === $name) {
+                return $containerData;
+            }
+        }
+
+        return null;
     }
 
     /**
-     * @return Container[]|ContainerVersion[]
+     * @return ContainerVersion[]
+     * @throws \Zrcms\Core\Exception\TrackingInvalid
      */
     public function getContainers(): array
     {
@@ -172,7 +174,7 @@ abstract class PageVersionAbstract extends ContentVersionAbstract
         $containersData = $this->getContainersData();
 
         foreach ($containersData as $containerName => $containerData) {
-            $containers[$containerName] = $this->findContainer($containerName);
+            $containers[] = $this->findContainer($containerName);
         }
 
         return $containers;
@@ -186,13 +188,7 @@ abstract class PageVersionAbstract extends ContentVersionAbstract
      */
     public function findContainer(string $name = Page::DEFAULT_CONTAINER_NAME)
     {
-        $containersData = $this->getContainersData();
-
-        $containerData = Property::get(
-            $containersData,
-            $name,
-            null
-        );
+        $containerData = $this->findContainerData($name);
 
         if (empty($containerData)) {
             return null;

@@ -25,7 +25,6 @@ abstract class ContainerVersionAbstract extends ContentVersionAbstract
      * @throws \Exception
      * @throws \Throwable
      * @throws \Reliv\ArrayProperties\Exception\ArrayPropertyException
-     * @throws \Reliv\ArrayProperties\Exception\ArrayPropertyMissing
      */
     public function __construct(
         $id,
@@ -61,6 +60,16 @@ abstract class ContainerVersionAbstract extends ContentVersionAbstract
             $createdByUserId,
             $createdReason,
             $createdDate
+        );
+    }
+
+    /**
+     * @return string
+     */
+    public function getName(): string
+    {
+        return $this->findProperty(
+            FieldsContainerVersion::NAME
         );
     }
 
@@ -117,16 +126,6 @@ abstract class ContainerVersionAbstract extends ContentVersionAbstract
     {
         return $this->findProperty(
             FieldsContainerVersion::SITE_CMS_RESOURCE_ID
-        );
-    }
-
-    /**
-     * @return string
-     */
-    public function getName(): string
-    {
-        return $this->findProperty(
-            FieldsContainerVersion::NAME
         );
     }
 }

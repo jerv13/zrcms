@@ -10,6 +10,8 @@ use Reliv\FieldRat\Model\Fields;
  */
 class FieldsContainer extends FieldsContent implements Fields
 {
+    const NAME = 'name';
+
     const RENDER_TAGS_GETTER = 'renderTagsGetter';
     const RENDERER = 'renderer';
     const BLOCK_VERSIONS = 'blockVersions';

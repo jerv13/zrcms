@@ -39,6 +39,16 @@ abstract class ContainerAbstract extends ContentAbstract
     }
 
     /**
+     * @return string
+     */
+    public function getName(): string
+    {
+        return $this->findProperty(
+            FieldsContainer::NAME
+        );
+    }
+
+    /**
      * @return BlockVersion[]
      */
     public function getBlockVersions(): array
