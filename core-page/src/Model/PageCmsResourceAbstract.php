@@ -91,6 +91,13 @@ class PageCmsResourceAbstract extends CmsResourceAbstract
      * @return void
      * @throws ContentVersionInvalid
      */
+    /**
+     * @param $contentVersion
+     *
+     * @return void
+     * @throws ContentVersionInvalid
+     * @throws InvalidPath
+     */
     protected function assertValidContentVersion($contentVersion)
     {
         if (!$contentVersion instanceof PageVersion) {

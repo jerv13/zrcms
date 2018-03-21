@@ -2,7 +2,7 @@
 
 namespace Zrcms\CorePage\Api\CmsResource;
 
-use Zrcms\CorePage\Model\PageCmsResource;
+use Zrcms\CorePage\Model\PageTemplateCmsResource;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -15,7 +15,7 @@ interface FindPageTemplateCmsResourceBySitePath
      * @param bool   $published
      * @param array  $options
      *
-     * @return PageCmsResource|null
+     * @return PageTemplateCmsResource|null
      */
     public function __invoke(
         string $siteCmsResourceId,

@@ -3,12 +3,12 @@
 namespace Zrcms\CorePage\Api\CmsResource;
 
 use Zrcms\Core\Api\CmsResource\FindCmsResourcesPublished;
-use Zrcms\CorePage\Model\PageTemplateCmsResource;
+use Zrcms\CorePage\Model\PageDraftCmsResource;
 
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-interface FindPageTemplateCmsResourcesPublished extends FindCmsResourcesPublished
+interface FindPageDraftCmsResourcesPublished extends FindCmsResourcesPublished
 {
     /**
      * @param array      $criteria
@@ -17,7 +17,7 @@ interface FindPageTemplateCmsResourcesPublished extends FindCmsResourcesPublishe
      * @param null       $offset
      * @param array      $options
      *
-     * @return PageTemplateCmsResource[]
+     * @return PageDraftCmsResource[]
      */
     public function __invoke(
         array $criteria,

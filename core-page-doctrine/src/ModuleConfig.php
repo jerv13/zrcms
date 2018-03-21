@@ -11,6 +11,8 @@ use Zrcms\CorePage\Api\CmsResource\CreatePageTemplateCmsResource;
 use Zrcms\CorePage\Api\CmsResource\FindPageCmsResource;
 use Zrcms\CorePage\Api\CmsResource\FindPageCmsResourceBySitePath;
 use Zrcms\CorePage\Api\CmsResource\FindPageCmsResourcesBy;
+use Zrcms\CorePage\Api\CmsResource\FindPageDraftCmsResource;
+use Zrcms\CorePage\Api\CmsResource\FindPageDraftCmsResourcesBy;
 use Zrcms\CorePage\Api\CmsResource\FindPageTemplateCmsResourceBySitePath;
 use Zrcms\CorePage\Api\CmsResource\FindPageTemplateCmsResourcesBy;
 use Zrcms\CorePage\Api\CmsResource\UpdatePageCmsResource;
@@ -68,6 +70,18 @@ class ModuleConfig
                     ],
                     FindPageCmsResourcesBy::class => [
                         'class' => \Zrcms\CorePageDoctrine\Api\CmsResource\FindPageCmsResourcesBy::class,
+                        'arguments' => [
+                            EntityManager::class,
+                        ],
+                    ],
+                    FindPageDraftCmsResource::class => [
+                        'class' => \Zrcms\CorePageDoctrine\Api\CmsResource\FindPageDraftCmsResource::class,
+                        'arguments' => [
+                            EntityManager::class,
+                        ],
+                    ],
+                    FindPageDraftCmsResourcesBy::class => [
+                        'class' => \Zrcms\CorePageDoctrine\Api\CmsResource\FindPageDraftCmsResourcesBy::class,
                         'arguments' => [
                             EntityManager::class,
                         ],

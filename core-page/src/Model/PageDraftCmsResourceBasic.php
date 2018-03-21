@@ -16,6 +16,8 @@ class PageDraftCmsResourceBasic extends PageDraftCmsResourceAbstract implements 
      * @param string                     $createdByUserId
      * @param string                     $createdReason
      * @param string|null                $createdDate
+     *
+     * @throws \Zrcms\CorePage\Exception\InvalidPath
      */
     public function __construct(
         $id,

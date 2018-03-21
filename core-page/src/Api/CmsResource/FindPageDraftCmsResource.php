@@ -4,18 +4,18 @@ namespace Zrcms\CorePage\Api\CmsResource;
 
 use Zrcms\Core\Api\CmsResource\FindCmsResource;
 use Zrcms\Core\Model\CmsResource;
-use Zrcms\CorePage\Model\PageTemplateCmsResource;
+use Zrcms\CorePage\Model\PageDraftCmsResource;
 
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-interface FindPageTemplateCmsResource extends FindCmsResource
+interface FindPageDraftCmsResource extends FindCmsResource
 {
     /**
      * @param string $id
      * @param array  $options
      *
-     * @return PageTemplateCmsResource|CmsResource|null
+     * @return PageDraftCmsResource|CmsResource|null
      */
     public function __invoke(
         string $id,

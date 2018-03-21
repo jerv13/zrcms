@@ -132,6 +132,7 @@ class BuildViewPageVersionId implements BuildView
             $siteCmsResource,
             $pageCmsResource,
             $layoutCmsResource,
+            $siteContainerCmsResources,
             Property::getString(
                 $options,
                 self::OPTION_VIEW_STRATEGY

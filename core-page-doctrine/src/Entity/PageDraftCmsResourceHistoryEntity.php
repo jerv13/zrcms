@@ -107,6 +107,9 @@ class PageDraftCmsResourceHistoryEntity extends CmsResourceHistoryEntityAbstract
      * @param string                                       $publishedByUserId
      * @param string                                       $publishReason
      * @param string|null                                  $publishDate
+     *
+     * @throws CmsResourceInvalid
+     * @throws \Zrcms\Core\Exception\TrackingInvalid
      */
     public function __construct(
         $id,

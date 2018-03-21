@@ -4,7 +4,7 @@ namespace Zrcms\CorePageDoctrine\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Zrcms\Core\Exception\ContentVersionInvalid;
-use Zrcms\CorePage\Fields\FieldsPageVersion;
+use Zrcms\CorePage\Api\AssertValidPath;
 use Zrcms\CoreApplicationDoctrine\Entity\CmsResourceEntity;
 use Zrcms\CoreApplicationDoctrine\Entity\CmsResourceEntityAbstract;
 use Zrcms\CoreApplicationDoctrine\Entity\ContentEntity;
@@ -19,7 +19,7 @@ use Zrcms\CoreApplicationDoctrine\Entity\ContentEntity;
  *     indexes={
  *        @ORM\Index(name="contentVersionId", columns={"contentVersionId"}),
  *        @ORM\Index(name="siteCmsResourceId", columns={"siteCmsResourceId"}),
- *        @ORM\Index(name="pageCmsResourceId", columns={"pageCmsResourceId"})
+ *        @ORM\Index(name="path", columns={"path"})
  *     }
  * )
  */
@@ -119,15 +119,17 @@ class PageDraftCmsResourceEntity extends CmsResourceEntityAbstract implements Cm
      *
      * @ORM\Column(type="string")
      */
-    protected $pageCmsResourceId;
+    protected $path;
 
     /**
-     * @param null|string                     $id
+     * @param int|null                        $id
      * @param bool                            $published
      * @param PageVersionEntity|ContentEntity $contentVersion
      * @param string                          $createdByUserId
      * @param string                          $createdReason
      * @param string|null                     $createdDate
+     *
+     * @throws \Zrcms\Core\Exception\TrackingInvalid
      */
     public function __construct(
         $id,
@@ -158,9 +160,9 @@ class PageDraftCmsResourceEntity extends CmsResourceEntityAbstract implements Cm
     /**
      * @return string
      */
-    public function getPageCmsResourceId(): string
+    public function getPath(): string
     {
-        return $this->pageCmsResourceId;
+        return $this->path;
     }
 
     /**
@@ -178,7 +180,7 @@ class PageDraftCmsResourceEntity extends CmsResourceEntityAbstract implements Cm
         $modifiedDate = null
     ) {
         $this->siteCmsResourceId = $contentVersion->getSiteCmsResourceId();
-        $this->pageCmsResourceId = $contentVersion->findProperty(FieldsPageVersion::PAGE_CMS_RESOURCE_ID);
+        $this->path = $contentVersion->getPath();
 
         parent::setContentVersion(
             $contentVersion,
@@ -193,6 +195,7 @@ class PageDraftCmsResourceEntity extends CmsResourceEntityAbstract implements Cm
      *
      * @return void
      * @throws ContentVersionInvalid
+     * @throws \Zrcms\CorePage\Exception\InvalidPath
      */
     protected function assertValidContentVersion($contentVersion)
     {
@@ -210,10 +213,12 @@ class PageDraftCmsResourceEntity extends CmsResourceEntityAbstract implements Cm
             );
         }
 
-        if (empty($contentVersion->findProperty(FieldsPageVersion::PAGE_CMS_RESOURCE_ID))) {
+        if (empty($contentVersion->getPath())) {
             throw new ContentVersionInvalid(
-                'PageCmsResourceId can not be empty'
+                'Path can not be empty'
             );
         }
+
+        AssertValidPath::invoke($contentVersion->getPath());
     }
 }

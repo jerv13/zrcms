@@ -24,6 +24,7 @@ class ModulesConfigZrcms
             new \Zrcms\CoreLanguage\ModuleConfigZrcms(),
             new \Zrcms\CorePage\ModuleConfigZrcms(),
             new \Zrcms\CoreRedirect\ModuleConfigZrcms(),
+            new \Zrcms\CoreResourceSearchFields\ModuleConfigZrcms(),
             new \Zrcms\CoreSite\ModuleConfigZrcms(),
             new \Zrcms\CoreTheme\ModuleConfigZrcms(),
             new \Zrcms\CoreView\ModuleConfigZrcms(),
