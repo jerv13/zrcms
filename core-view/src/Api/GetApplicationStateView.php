@@ -5,12 +5,13 @@ namespace Zrcms\CoreView\Api;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Message\UriInterface;
 use Zrcms\CoreApplicationState\Api\GetApplicationState;
-use Zrcms\CoreContainer\Model\ContainerCmsResource;
 use Zrcms\CorePage\Api\CmsResource\FindPageCmsResourceBySitePath;
+use Zrcms\CorePage\Fields\FieldsPageVersion;
 use Zrcms\CorePage\Model\PageVersion;
 use Zrcms\CoreSite\Fields\FieldsSiteVersion;
 use Zrcms\CoreView\Exception\ViewDataNotFound;
 use Zrcms\CoreView\Fields\FieldsView;
+use Zrcms\CoreView\Model\View;
 use Zrcms\HttpStatusPages\Middleware\ResponseMutatorStatusPage;
 use Zrcms\HttpViewRender\Request\RequestWithOriginalUri;
 
@@ -50,116 +51,228 @@ class GetApplicationStateView implements GetApplicationState
         ServerRequestInterface $request,
         array $options = []
     ): array {
-        $viewState = [
-            'site' => [
-                'contentVersionId' => null,
-                'id' => null,
-                'locale' => null,
-                'published' => null,
-                'title' => null,
-            ],
-            'page' => [
-                'cmsPage' => false,
-                'contentVersionId' => null,
-                'description' => null,
-                'id' => null,
-                'keywords' => null,
-                'path' => null,
-                'published' => null,
-                'requestPathContentVersionId' => null,
-                'requestPath' => $this->findOriginalPath($request, $request->getUri()->getPath()),
-                'isPageForPath' => null,
-                'title' => null,
-            ],
-            'layout' => [
-                'contentVersionId' => null,
-                'name' => null,
-                'published' => null,
-                'themeName' => null,
-            ],
-            'site-containers' => [],
-            'view-strategy' => null,
-        ];
-
+        $view = null;
         try {
             $view = $this->getViewByRequest->__invoke(
                 $request,
                 $this->getViewByRequestOptions
             );
         } catch (ViewDataNotFound $exception) {
-            return $viewState;
+            // null view
+        }
+
+        $requestedPath = $this->findOriginalPath($request);
+
+        return [
+            'site' => $this->buildSiteState($view),
+            'page' => $this->buildPageState($view),
+            'pageRequested' => $this->buildPageRequestedState($view, $requestedPath),
+            'layout' => $this->buildLayoutState($view),
+            'renderState' => $this->buildRenderState($view, $requestedPath),
+            'siteContainers' => $this->buildSiteContainersState($view),
+            'viewStrategy' => $this->buildViewStrategyState($view, $requestedPath),
+        ];
+    }
+
+    /**
+     * @param View|null $view
+     *
+     * @return array
+     */
+    protected function buildSiteState($view)
+    {
+        $siteState = [
+            'contentVersionId' => null,
+            'id' => null,
+            'locale' => null,
+            'published' => null,
+            'title' => null,
+        ];
+
+        if (empty($view)) {
+            return $siteState;
+        }
+        $siteCmsResource = $view->getSiteCmsResource();
+
+        $siteState['contentVersionId'] = $siteCmsResource->getContentVersionId();
+        $siteState['id'] = $siteCmsResource->getId();
+        $siteState['locale'] = $siteCmsResource->getLocale();
+        $siteState['published'] = $siteCmsResource->isPublished();
+        $siteState['title'] = $siteCmsResource->getContentVersion()->findProperty(FieldsSiteVersion::TITLE);
+
+        return $siteState;
+    }
+
+    /**
+     * @param View|null $view
+     *
+     * @return array
+     */
+    protected function buildPageState($view)
+    {
+        $pageState = [
+            'contentVersionId' => null,
+            'description' => null,
+            'id' => null,
+            'keywords' => null,
+            'path' => null,
+            'published' => null,
+            'title' => null,
+        ];
+
+        if (empty($view)) {
+            return $pageState;
+        }
+        $pageCmsResource = $view->getPageCmsResource();
+
+        $pageState['contentVersionId'] = $pageCmsResource->getContentVersionId();
+        $pageState['description'] = $pageCmsResource->getContentVersion()->getDescription();
+        $pageState['id'] = $pageCmsResource->getId();
+        $pageState['keywords'] = $pageCmsResource->getContentVersion()->getKeywords();
+        $pageState['path'] = $pageCmsResource->getPath();
+        $pageState['published'] = $pageCmsResource->isPublished();
+        $pageState['title'] = $pageCmsResource->getContentVersion()->findProperty(FieldsPageVersion::TITLE);
+
+        return $pageState;
+    }
+
+    /**
+     * @param View|null $view
+     * @param string    $requestedPath
+     *
+     * @return array
+     */
+    protected function buildPageRequestedState($view, $requestedPath)
+    {
+        $pageRequestedState = [
+            'contentVersionId' => null,
+            'description' => null,
+            'id' => null,
+            'keywords' => null,
+            'path' => null,
+            'published' => null,
+            'title' => null,
+        ];
+
+        if (empty($view)) {
+            return $pageRequestedState;
         }
 
         $siteCmsResource = $view->getSiteCmsResource();
         $pageCmsResource = $view->getPageCmsResource();
-        $pageVersion = $pageCmsResource->getContentVersion();
-        $layoutCmsResource = $view->getLayoutCmsResource();
-        $siteContainerCmsResources = $view->getSiteContainerCmsResources();
-        $requestedPath = $this->findOriginalPath($request);
 
-        $isPageForPath = ($pageCmsResource->getPath() == $requestedPath);
-
-        $requestPathContentVersionId = $this->findNormalPageVersionId(
+        $requestPathContentVersion = $this->findNormalPageVersion(
             $siteCmsResource->getId(),
-            $pageVersion,
+            $pageCmsResource->getContentVersion(),
             $requestedPath
         );
 
-        $viewState = [
-            'site' => [
-                'contentVersionId' => $siteCmsResource->getContentVersionId(),
-                'id' => $siteCmsResource->getId(),
-                'locale' => $siteCmsResource->getLocale(),
-                'published' => $siteCmsResource->isPublished(),
-                'title' => $siteCmsResource->getContentVersion()->findProperty(FieldsSiteVersion::TITLE),
-            ],
-            'page' => [
-                'cmsPage' => true,
-                'contentVersionId' => $pageVersion->getId(),
-                'description' => $pageVersion->getDescription(),
-                'id' => $pageCmsResource->getId(),
-                'keywords' => $pageVersion->getKeywords(),
-                'path' => $pageCmsResource->getPath(),
-                'published' => $pageCmsResource->isPublished(),
-                'requestPath' => $requestedPath,
-                'requestPathContentVersionId' => $requestPathContentVersionId,
-                'isPageForPath' => $isPageForPath,
-                'title' => $pageVersion->getTitle(),
-            ],
-            'layout' => [
-                'contentVersionId' => $layoutCmsResource->getContentVersionId(),
-                'name' => $layoutCmsResource->getName(),
-                'published' => $layoutCmsResource->isPublished(),
-                'themeName' => $layoutCmsResource->getThemeName(),
-            ],
-            'site-containers' => $this->getSiteContainersState($siteContainerCmsResources),
-            'view-strategy' => $view->findProperty(
-                FieldsView::STRATEGY
-            ),
-        ];
+        if (empty($requestPathContentVersion)) {
+            return $pageRequestedState;
+        }
 
-        return $viewState;
+        $pageRequestedState['contentVersionId'] = $requestPathContentVersion->getId();
+        $pageRequestedState['description'] = $requestPathContentVersion->getDescription();
+        $pageRequestedState['id'] = null;
+        $pageRequestedState['keywords'] = $requestPathContentVersion->getKeywords();
+        $pageRequestedState['path'] = $requestPathContentVersion->getPath();
+        $pageRequestedState['published'] = null;
+        $pageRequestedState['title'] = $requestPathContentVersion->findProperty(FieldsPageVersion::TITLE);
+
+        return $pageRequestedState;
     }
 
     /**
-     * @param ContainerCmsResource[] $siteContainerCmsResources
+     * @param View|null $view
      *
      * @return array
      */
-    protected function getSiteContainersState(
-        array $siteContainerCmsResources
-    ): array {
-        $state = [];
+    protected function buildLayoutState($view)
+    {
+        $layoutState = [
+            'contentVersionId' => null,
+            'name' => null,
+            'published' => null,
+            'themeName' => null,
+        ];
+
+        if (empty($view)) {
+            return $layoutState;
+        }
+        $layoutCmsResource = $view->getLayoutCmsResource();
+
+        $layoutState['contentVersionId'] = $layoutCmsResource->getContentVersionId();
+        $layoutState['name'] = $layoutCmsResource->getName();
+        $layoutState['published'] = $layoutCmsResource->isPublished();
+        $layoutState['themeName'] = $layoutCmsResource->getThemeName();
+
+        return $layoutState;
+    }
+
+    /**
+     * @param View|null $view
+     * @param string    $requestedPath
+     *
+     * @return array
+     */
+    protected function buildRenderState($view, $requestedPath)
+    {
+        $renderState = [
+            'cmsPage' => false,
+            'isPageForPath' => null,
+        ];
+
+        if (empty($view)) {
+            return $renderState;
+        }
+        $pageCmsResource = $view->getPageCmsResource();
+        $isPageForPath = ($pageCmsResource->getPath() == $requestedPath);
+
+        $renderState['cmsPage'] = true;
+        $renderState['isPageForPath'] = $isPageForPath;
+
+        return $renderState;
+    }
+
+    /**
+     * @param View|null $view
+     *
+     * @return array
+     */
+    protected function buildSiteContainersState($view)
+    {
+        $siteContainersState = [];
+
+        if (empty($view)) {
+            return $siteContainersState;
+        }
+        $siteContainerCmsResources = $view->getSiteContainerCmsResources();
 
         foreach ($siteContainerCmsResources as $siteContainerCmsResource) {
-            $state[] = [
+            $siteContainersState[] = [
                 'contentVersionId' => $siteContainerCmsResource->getContentVersionId(),
                 'published' => $siteContainerCmsResource->isPublished(),
                 'name' => $siteContainerCmsResource->getName(),
             ];
         }
 
-        return $state;
+        return $siteContainersState;
+    }
+
+    /**
+     * @param View|null $view
+     *
+     * @return array
+     */
+    protected function buildViewStrategyState($view, $requestedPath)
+    {
+        if (empty($view)) {
+            return null;
+        }
+
+        return $view->findProperty(
+            FieldsView::STRATEGY
+        );
     }
 
     /**
@@ -167,15 +280,15 @@ class GetApplicationStateView implements GetApplicationState
      * @param PageVersion $pageVersionFromView
      * @param string      $requestedPath
      *
-     * @return null|string
+     * @return null|PageVersion
      */
-    protected function findNormalPageVersionId(
+    protected function findNormalPageVersion(
         string $siteCmsResourceId,
         PageVersion $pageVersionFromView,
         string $requestedPath
     ) {
         if ($pageVersionFromView->getPath() == $requestedPath) {
-            return $pageVersionFromView->getId();
+            return $pageVersionFromView;
         }
 
         $normalPathPageCmsResource = $this->findPageCmsResourceBySitePath->__invoke(
@@ -188,7 +301,7 @@ class GetApplicationStateView implements GetApplicationState
             return null;
         }
 
-        return $normalPathPageCmsResource->getContentVersionId();
+        return $normalPathPageCmsResource->getContentVersion();
     }
 
     /**

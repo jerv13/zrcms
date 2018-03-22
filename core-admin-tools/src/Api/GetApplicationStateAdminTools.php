@@ -11,7 +11,7 @@ use Zrcms\CoreApplicationState\Api\GetApplicationState;
  */
 class GetApplicationStateAdminTools implements GetApplicationState
 {
-    const APPLICATION_STATE_KEY = 'admin-tools';
+    const APPLICATION_STATE_KEY = 'adminTools';
 
     protected $isAllowedAdminTools;
     protected $sortAdminToolsMenu;
