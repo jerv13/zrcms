@@ -7,7 +7,7 @@ use Zrcms\Core\Api\ChangeLog\GetChangeLogByDateRange;
 use Zrcms\CoreApplication\Api\ChangeLog\ChangeLogEventToString;
 use Zrcms\CoreApplication\Api\ChangeLog\GetContentChangeLogComposite;
 use Zrcms\CoreApplication\Api\ChangeLog\GetHumanReadableChangeLogByDateRange;
-use Zrcms\CoreContainer\Api\ChangeLog\GetContainerChangeLogByDateRange as ContainerGetChangeLogByDateRange;
+use Zrcms\CoreSiteContainer\Api\ChangeLog\GetSiteContainerChangeLogByDateRange as SiteContainerGetChangeLogByDateRange;
 use Zrcms\CorePage\Api\ChangeLog\GetPageChangeLogByDateRange as PageGetChangeLogByDateRange;
 use Zrcms\CoreRedirect\Api\ChangeLog\GetRedirectChangeLogByDateRange as RedirectGetChangeLogByDateRange;
 use Zrcms\CoreSite\Api\ChangeLog\GetSiteChangeLogByDateRange as SiteGetChangeLogByDateRange;
@@ -35,7 +35,7 @@ class ModuleConfig
                         'class' => GetContentChangeLogComposite::class,
                         'calls' => [
                             ['addSubordinate', [PageGetChangeLogByDateRange::class]],
-                            ['addSubordinate', [ContainerGetChangeLogByDateRange::class]],
+                            ['addSubordinate', [SiteContainerGetChangeLogByDateRange::class]],
                             ['addSubordinate', [SiteGetChangeLogByDateRange::class]],
                             ['addSubordinate', [ThemeGetChangeLogByDateRange::class]],
                             ['addSubordinate', [RedirectGetChangeLogByDateRange::class]],

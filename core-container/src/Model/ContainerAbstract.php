@@ -49,6 +49,17 @@ abstract class ContainerAbstract extends ContentAbstract
     }
 
     /**
+     * @return string
+     */
+    public function getContext(): string
+    {
+        return $this->findProperty(
+            FieldsContainer::CONTEXT
+        );
+    }
+
+
+    /**
      * @return BlockVersion[]
      */
     public function getBlockVersions(): array

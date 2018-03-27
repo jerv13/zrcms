@@ -30,7 +30,7 @@ class ModulesConfigZrcms
             new \Zrcms\CoreView\ModuleConfigZrcms(),
             new \Zrcms\HttpApi\ModuleConfigZrcms(),
             new \Zrcms\HttpApi\ModuleConfigSwagger(),
-            new \Zrcms\HttpApiContainer\ModuleConfigZrcms(),
+            new \Zrcms\HttpApiSiteContainer\ModuleConfigZrcms(),
             new \Zrcms\HttpApiPage\ModuleConfigZrcms(),
             new \Zrcms\HttpApiRedirect\ModuleConfigZrcms(),
             new \Zrcms\HttpApiSite\ModuleConfigZrcms(),

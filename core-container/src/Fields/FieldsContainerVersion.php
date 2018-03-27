@@ -7,6 +7,6 @@ namespace Zrcms\CoreContainer\Fields;
  */
 class FieldsContainerVersion extends FieldsContainer
 {
-    const FIELD_MODEL_NAME = 'container-version-properties';
+    const FIELD_MODEL_NAME = 'site-container-version-properties';
     const SITE_CMS_RESOURCE_ID = 'siteCmsResourceId';
 }

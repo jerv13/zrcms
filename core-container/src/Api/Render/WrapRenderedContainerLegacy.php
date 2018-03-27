@@ -18,18 +18,17 @@ class WrapRenderedContainerLegacy implements WrapRenderedContainer
         string $innerHtml,
         Container $container
     ): string {
-        $isPage = $container instanceof PageVersion;
+        $isPage = $container->getContext() == PageVersion::CONTAINER_CONTEXT;
 
-        // @todo REMOVE class: rcmContainer
+        // @todo @bc REMOVE class: rcmContainer
         return "\n"
         . '<div class="content-container container-fluid rcmContainer"'
-        . ' container-version-id="' . $container->getId() . '"'
-        . ($isPage ? ' is-page-container="true"' : '')
         . ' data-container-version-id="' . $container->getId() . '"'
-//        . ' data-containerid="' . $container->getId() . '" ' //WARNING THIS MAY NOT BE WHAT RCM ADMIN EXPECTS
+        . ' data-container-name="' . $container->getName() . '"'
+        . ' data-container-context="' . $container->getContext() . '"'
+        // @todo @bc These attributes below are deprecated
+        . ($isPage ? ' is-page-container="true"' : '')
         . ($isPage ? ' data-ispage="Y"' : '')
-        // . ' data-container="????" '
-        // . ' id="' . $container->getUid()
         . ">\n"
         . $innerHtml
         . "\n</div>\n";

@@ -11,6 +11,7 @@ use Reliv\FieldRat\Model\Fields;
 class FieldsContainer extends FieldsContent implements Fields
 {
     const NAME = 'name';
+    const CONTEXT = 'context';
 
     const RENDER_TAGS_GETTER = 'renderTagsGetter';
     const RENDERER = 'renderer';

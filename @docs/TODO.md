@@ -1,6 +1,11 @@
 @todo
 =====
 
+##### Site Containers
+
+- Address the naming of the Containers
+- May want new core-site-containers and core-site-containers-doctrine to extent core-containers
+
 ##### Page Version Rendering
 
 Case 1: New Page - form 

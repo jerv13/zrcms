@@ -3,9 +3,9 @@
 namespace Zrcms\CoreView\Api;
 
 use Psr\Container\ContainerInterface;
-use Zrcms\CoreContainer\Api\CmsResource\FindContainerCmsResourcesBy;
-use Zrcms\CoreContainer\Api\CmsResource\FindContainerCmsResourcesBySiteNames;
 use Zrcms\CoreContainer\Api\Render\GetContainerRenderTags;
+use Zrcms\CoreSiteContainer\Api\CmsResource\FindSiteContainerCmsResourcesBy;
+use Zrcms\CoreSiteContainer\Api\CmsResource\FindSiteContainerCmsResourcesBySiteNames;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -23,9 +23,9 @@ class GetSiteContainerCmsResourcesBasicFactory
         ContainerInterface $serviceContainer
     ) {
         return new GetSiteContainerCmsResourcesBasic(
-            $serviceContainer->get(FindContainerCmsResourcesBy::class),
+            $serviceContainer->get(FindSiteContainerCmsResourcesBy::class),
             $serviceContainer->get(GetTagNamesByLayout::class),
-            $serviceContainer->get(FindContainerCmsResourcesBySiteNames::class),
+            $serviceContainer->get(FindSiteContainerCmsResourcesBySiteNames::class),
             $serviceContainer->get(GetContainerRenderTags::class)
         );
     }

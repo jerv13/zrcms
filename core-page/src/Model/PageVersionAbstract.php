@@ -5,7 +5,6 @@ namespace Zrcms\CorePage\Model;
 use Reliv\ArrayProperties\Property;
 use Zrcms\Core\Model\ContentVersionAbstract;
 use Zrcms\CoreContainer\Fields\FieldsContainerVersion;
-use Zrcms\CoreContainer\Model\Container;
 use Zrcms\CoreContainer\Model\ContainerVersion;
 use Zrcms\CoreContainer\Model\ContainerVersionBasic;
 use Zrcms\CorePage\Api\AssertValidPath;
@@ -201,6 +200,7 @@ abstract class PageVersionAbstract extends ContentVersionAbstract
 
         $containerData[FieldsContainerVersion::SITE_CMS_RESOURCE_ID] = $this->getSiteCmsResourceId();
         $containerData[FieldsContainerVersion::NAME] = $name;
+        $containerData[FieldsContainerVersion::CONTEXT] = Page::CONTAINER_CONTEXT;
 
         return new ContainerVersionBasic(
             $id,

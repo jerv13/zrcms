@@ -1,7 +1,4 @@
 SET FOREIGN_KEY_CHECKS=0;
-DROP TABLE IF EXISTS `zrcms_core_container_resource`;
-DROP TABLE IF EXISTS `zrcms_core_container_resource_history`;
-DROP TABLE IF EXISTS `zrcms_core_container_version`;
 DROP TABLE IF EXISTS `zrcms_core_layout_resource`;
 DROP TABLE IF EXISTS `zrcms_core_layout_resource_history`;
 DROP TABLE IF EXISTS `zrcms_core_layout_version`;
@@ -15,6 +12,9 @@ DROP TABLE IF EXISTS `zrcms_core_page_draft_resource_history`;
 DROP TABLE IF EXISTS `zrcms_core_redirect_resource`;
 DROP TABLE IF EXISTS `zrcms_core_redirect_resource_history`;
 DROP TABLE IF EXISTS `zrcms_core_redirect_version`;
+DROP TABLE IF EXISTS `zrcms_core_site_container_resource`;
+DROP TABLE IF EXISTS `zrcms_core_site_container_resource_history`;
+DROP TABLE IF EXISTS `zrcms_core_site_container_version`;
 DROP TABLE IF EXISTS `zrcms_core_site_resource`;
 DROP TABLE IF EXISTS `zrcms_core_site_resource_history`;
 DROP TABLE IF EXISTS `zrcms_core_site_version`;

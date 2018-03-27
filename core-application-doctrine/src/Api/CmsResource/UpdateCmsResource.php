@@ -122,6 +122,7 @@ class UpdateCmsResource extends ApiAbstract implements \Zrcms\Core\Api\CmsResour
             );
         }
 
+        $this->entityManager->merge($cmsResourceEntity);
         $this->entityManager->flush($cmsResourceEntity);
 
         $action = ActionCmsResource::invoke(

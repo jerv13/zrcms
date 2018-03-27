@@ -80,6 +80,14 @@ class ModuleConfigZrcms
                         'default' => '',
                         'options' => [],
                     ],
+                    [
+                        'name' => FieldsContainerVersion::CONTEXT,
+                        'type' => 'text',
+                        'label' => 'Context of usage (page, site, etc...)',
+                        'required' => true,
+                        'default' => '',
+                        'options' => [],
+                    ],
                 ],
             ],
 

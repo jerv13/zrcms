@@ -16,6 +16,11 @@ interface Container extends Content
     public function getName(): string;
 
     /**
+     * @return string
+     */
+    public function getContext(): string;
+
+    /**
      * This couples block versions to containers
      *
      * @return BlockVersion[]

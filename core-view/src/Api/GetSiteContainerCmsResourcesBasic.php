@@ -3,10 +3,10 @@
 namespace Zrcms\CoreView\Api;
 
 use Reliv\ArrayProperties\Property;
-use Zrcms\CoreContainer\Api\CmsResource\FindContainerCmsResourcesBySiteNames;
 use Zrcms\CoreContainer\Api\Render\GetContainerRenderTags;
 use Zrcms\CoreContainer\Model\ContainerCmsResource;
-use Zrcms\CoreContainerDoctrine\Api\CmsResource\FindContainerCmsResourcesBy;
+use Zrcms\CoreSiteContainer\Api\CmsResource\FindSiteContainerCmsResourcesBy;
+use Zrcms\CoreSiteContainer\Api\CmsResource\FindSiteContainerCmsResourcesBySiteNames;
 use Zrcms\CoreTheme\Model\LayoutVersion;
 
 /**
@@ -16,26 +16,26 @@ class GetSiteContainerCmsResourcesBasic implements GetSiteContainerCmsResources
 {
     const RENDER_TAG_CONTAINER = 'container';
 
-    protected $findContainerCmsResourcesBy;
+    protected $findSiteContainerCmsResourcesBy;
     protected $getTagNamesByLayout;
-    protected $findContainerCmsResourcesBySiteNames;
+    protected $findSiteContainerCmsResourcesBySiteNames;
     protected $getContainerRenderTags;
 
     /**
-     * @param FindContainerCmsResourcesBy          $findContainerCmsResourcesBy
-     * @param GetTagNamesByLayout                  $getTagNamesByLayout
-     * @param FindContainerCmsResourcesBySiteNames $findContainerCmsResourcesBySiteNames
-     * @param GetContainerRenderTags               $getContainerRenderTags
+     * @param FindSiteContainerCmsResourcesBy          $findSiteContainerCmsResourcesBy
+     * @param GetTagNamesByLayout                      $getTagNamesByLayout
+     * @param FindSiteContainerCmsResourcesBySiteNames $findSiteContainerCmsResourcesBySiteNames
+     * @param GetContainerRenderTags                   $getContainerRenderTags
      */
     public function __construct(
-        FindContainerCmsResourcesBy $findContainerCmsResourcesBy,
+        FindSiteContainerCmsResourcesBy $findSiteContainerCmsResourcesBy,
         GetTagNamesByLayout $getTagNamesByLayout,
-        FindContainerCmsResourcesBySiteNames $findContainerCmsResourcesBySiteNames,
+        FindSiteContainerCmsResourcesBySiteNames $findSiteContainerCmsResourcesBySiteNames,
         GetContainerRenderTags $getContainerRenderTags
     ) {
-        $this->findContainerCmsResourcesBy =$findContainerCmsResourcesBy;
+        $this->findSiteContainerCmsResourcesBy = $findSiteContainerCmsResourcesBy;
         $this->getTagNamesByLayout = $getTagNamesByLayout;
-        $this->findContainerCmsResourcesBySiteNames = $findContainerCmsResourcesBySiteNames;
+        $this->findSiteContainerCmsResourcesBySiteNames = $findSiteContainerCmsResourcesBySiteNames;
         $this->getContainerRenderTags = $getContainerRenderTags;
     }
 
@@ -55,20 +55,20 @@ class GetSiteContainerCmsResourcesBasic implements GetSiteContainerCmsResources
             self::OPTION_LAYOUT_VERSION
         );
 
-        if($layoutVersion instanceof LayoutVersion) {
+        if ($layoutVersion instanceof LayoutVersion) {
             return $this->getLayoutContainers(
                 $siteCmsResourceId,
                 $layoutVersion
             );
         }
 
-        return $this->findContainerCmsResourcesBy->__invoke(
+        return $this->findSiteContainerCmsResourcesBy->__invoke(
             ['siteCmsResourceId' => $siteCmsResourceId]
         );
     }
 
     /**
-     * @param string   $siteCmsResourceId
+     * @param string        $siteCmsResourceId
      * @param LayoutVersion $layoutVersion
      *
      * @return ContainerCmsResource[]
@@ -85,7 +85,7 @@ class GetSiteContainerCmsResourcesBasic implements GetSiteContainerCmsResources
             $layoutTags
         );
 
-        return $this->findContainerCmsResourcesBySiteNames->__invoke(
+        return $this->findSiteContainerCmsResourcesBySiteNames->__invoke(
             $siteCmsResourceId,
             $containerNames
         );

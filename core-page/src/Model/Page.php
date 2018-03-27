@@ -11,6 +11,7 @@ use Zrcms\CoreContainer\Model\Container;
 interface Page extends Content
 {
     const DEFAULT_CONTAINER_NAME = 'content';
+    const CONTAINER_CONTEXT = 'page';
 
     /**
      * @return string

@@ -1,7 +1,4 @@
 SET FOREIGN_KEY_CHECKS=0;
-TRUNCATE `zrcms_core_container_resource`;
-TRUNCATE `zrcms_core_container_resource_history`;
-TRUNCATE `zrcms_core_container_version`;
 TRUNCATE `zrcms_core_layout_resource`;
 TRUNCATE `zrcms_core_layout_resource_history`;
 TRUNCATE `zrcms_core_layout_version`;
@@ -15,6 +12,9 @@ TRUNCATE `zrcms_core_page_draft_resource_history`;
 TRUNCATE `zrcms_core_redirect_resource`;
 TRUNCATE `zrcms_core_redirect_resource_history`;
 TRUNCATE `zrcms_core_redirect_version`;
+TRUNCATE `zrcms_core_site_container_resource`;
+TRUNCATE `zrcms_core_site_container_resource_history`;
+TRUNCATE `zrcms_core_site_container_version`;
 TRUNCATE `zrcms_core_site_resource`;
 TRUNCATE `zrcms_core_site_resource_history`;
 TRUNCATE `zrcms_core_site_version`;

@@ -6,8 +6,6 @@ use Psr\Log\LoggerInterface;
 use Psr\Log\LogLevel;
 use Reliv\ArrayProperties\Property;
 use Reliv\Json\Json;
-use Zrcms\CoreContainer\Api\CmsResource\CreateContainerCmsResource;
-use Zrcms\CoreContainer\Api\Content\InsertContainerVersion;
 use Zrcms\CoreContainer\Fields\FieldsContainerVersion;
 use Zrcms\CoreContainer\Model\ContainerVersionBasic;
 use Zrcms\CorePage\Api\CmsResource\CreatePageCmsResource;
@@ -24,6 +22,8 @@ use Zrcms\CoreSite\Api\CmsResource\FindSiteCmsResource;
 use Zrcms\CoreSite\Api\Content\InsertSiteVersion;
 use Zrcms\CoreSite\Model\SiteCmsResource;
 use Zrcms\CoreSite\Model\SiteVersionBasic;
+use Zrcms\CoreSiteContainer\Api\CmsResource\CreateSiteContainerCmsResource;
+use Zrcms\CoreSiteContainer\Api\Content\InsertSiteContainerVersion;
 
 class Import
 {
@@ -39,24 +39,24 @@ class Import
     protected $insertPageVersion;
     protected $createPageCmsResource;
     protected $createPageTemplateCmsResource;
-    protected $insertContainerVersion;
-    protected $createContainerCmsResource;
+    protected $insertSiteContainerVersion;
+    protected $createSiteContainerCmsResource;
     protected $findRedirectCmsResource;
     protected $insertRedirectVersion;
     protected $createRedirectCmsResource;
 
     /**
-     * @param FindSiteCmsResource           $findSiteCmsResource
-     * @param InsertSiteVersion             $insertSiteVersion
-     * @param CreateSiteCmsResource         $createSiteCmsResource
-     * @param InsertPageVersion             $insertPageVersion
-     * @param CreatePageCmsResource         $createPageCmsResource
-     * @param CreatePageTemplateCmsResource $createPageTemplateCmsResource
-     * @param InsertContainerVersion        $insertContainerVersion
-     * @param CreateContainerCmsResource    $createContainerCmsResource
-     * @param FindRedirectCmsResource       $findRedirectCmsResource
-     * @param InsertRedirectVersion         $insertRedirectVersion
-     * @param CreateRedirectCmsResource     $createRedirectCmsResource
+     * @param FindSiteCmsResource            $findSiteCmsResource
+     * @param InsertSiteVersion              $insertSiteVersion
+     * @param CreateSiteCmsResource          $createSiteCmsResource
+     * @param InsertPageVersion              $insertPageVersion
+     * @param CreatePageCmsResource          $createPageCmsResource
+     * @param CreatePageTemplateCmsResource  $createPageTemplateCmsResource
+     * @param InsertSiteContainerVersion     $insertSiteContainerVersion
+     * @param CreateSiteContainerCmsResource $createSiteContainerCmsResource
+     * @param FindRedirectCmsResource        $findRedirectCmsResource
+     * @param InsertRedirectVersion          $insertRedirectVersion
+     * @param CreateRedirectCmsResource      $createRedirectCmsResource
      */
     public function __construct(
         FindSiteCmsResource $findSiteCmsResource,
@@ -65,8 +65,8 @@ class Import
         InsertPageVersion $insertPageVersion,
         CreatePageCmsResource $createPageCmsResource,
         CreatePageTemplateCmsResource $createPageTemplateCmsResource,
-        InsertContainerVersion $insertContainerVersion,
-        CreateContainerCmsResource $createContainerCmsResource,
+        InsertSiteContainerVersion $insertSiteContainerVersion,
+        CreateSiteContainerCmsResource $createSiteContainerCmsResource,
         FindRedirectCmsResource $findRedirectCmsResource,
         InsertRedirectVersion $insertRedirectVersion,
         CreateRedirectCmsResource $createRedirectCmsResource
@@ -77,8 +77,8 @@ class Import
         $this->insertPageVersion = $insertPageVersion;
         $this->createPageCmsResource = $createPageCmsResource;
         $this->createPageTemplateCmsResource = $createPageTemplateCmsResource;
-        $this->insertContainerVersion = $insertContainerVersion;
-        $this->createContainerCmsResource = $createContainerCmsResource;
+        $this->insertSiteContainerVersion = $insertSiteContainerVersion;
+        $this->createSiteContainerCmsResource = $createSiteContainerCmsResource;
         $this->findRedirectCmsResource = $findRedirectCmsResource;
         $this->insertRedirectVersion = $insertRedirectVersion;
         $this->createRedirectCmsResource = $createRedirectCmsResource;
@@ -464,11 +464,11 @@ class Import
                 $createdReason
             );
 
-            $version = $this->insertContainerVersion->__invoke(
+            $version = $this->insertSiteContainerVersion->__invoke(
                 $version
             );
 
-            $publishedContainerCmsResource = $this->createContainerCmsResource->__invoke(
+            $publishedContainerCmsResource = $this->createSiteContainerCmsResource->__invoke(
                 $container['id'],
                 $published,
                 $version->getId(),

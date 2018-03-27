@@ -2,13 +2,13 @@
 
 namespace Zrcms\CoreContainer\Model;
 
+use Reliv\ArrayProperties\Property;
 use Zrcms\Core\Model\ContentVersionAbstract;
 use Zrcms\CoreBlock\Model\BlockVersion;
 use Zrcms\CoreContainer\Api\BuildBlockVersion;
 use Zrcms\CoreContainer\Api\BuildBlockVersions;
 use Zrcms\CoreContainer\Api\PrepareBlockVersionsData;
 use Zrcms\CoreContainer\Fields\FieldsContainerVersion;
-use Reliv\ArrayProperties\Property;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -54,6 +54,11 @@ abstract class ContainerVersionAbstract extends ContentVersionAbstract
             FieldsContainerVersion::NAME
         );
 
+        Property::assertNotEmpty(
+            $properties,
+            FieldsContainerVersion::CONTEXT
+        );
+
         parent::__construct(
             $id,
             $properties,
@@ -70,6 +75,16 @@ abstract class ContainerVersionAbstract extends ContentVersionAbstract
     {
         return $this->findProperty(
             FieldsContainerVersion::NAME
+        );
+    }
+
+    /**
+     * @return string
+     */
+    public function getContext(): string
+    {
+        return $this->findProperty(
+            FieldsContainerVersion::CONTEXT
         );
     }
 

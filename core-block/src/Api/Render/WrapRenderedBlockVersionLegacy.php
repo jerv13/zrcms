@@ -2,11 +2,11 @@
 
 namespace Zrcms\CoreBlock\Api\Render;
 
+use Reliv\Json\Json;
 use Zrcms\Core\Api\Component\FindComponent;
-use Zrcms\CoreBlock\Exception\BlockComponentMissing;
-use Zrcms\CoreBlock\Model\Block;
 use Zrcms\CoreBlock\Fields\FieldsBlock;
 use Zrcms\CoreBlock\Fields\FieldsBlockComponent;
+use Zrcms\CoreBlock\Model\Block;
 
 class WrapRenderedBlockVersionLegacy implements WrapRenderedBlockVersion
 {
@@ -62,29 +62,34 @@ class WrapRenderedBlockVersionLegacy implements WrapRenderedBlockVersion
         // @todo REMOVE rcmPlugin and rcmPluginContainer class
         // @todo REMOVE data-rcm... attributes
         return "\n"
-        . '<div class="content-block rcmPlugin ' . $componentName . ' ' . $columnClass . '"'
-        . ' block-name="' . $componentName . '"'
-        . ' default-class="content-block rcmPlugin ' . $componentName . '"'
-        . ' column-class="' . $columnClass . '"'
-        . ' row-number="' . $rowNumber . '"'
-        . ' render-order="' . $renderOrder . '"'
-        . ' instance-id="' . $id . '"'
-        . ' data-rcmpluginname="' . $componentName . '"'
-        . ' data-rcmplugindefaultclass="content-block rcmPlugin ' . $componentName . '"'
-        . ' data-rcmplugincolumnclass="' . $columnClass . '"'
-        . ' data-rcmpluginrownumber="' . $rowNumber . '"'
-        . ' data-rcmpluginrenderordernumber="' . $renderOrder . '"'
-        . ' data-rcmplugininstanceid="' . $id . '"'
-        . ' data-rcmpluginwrapperid="' . $id . '"' //Deprecated
-        . ' data-rcmsitewideplugin=""' //Deprecated
-        . ' data-rcmplugindisplayname=""' //Deprecated
-        . ' data-block-editor="' . $editor . '">'
-        . "\n"
-        . ' <div class="content-block-container rcmPluginContainer">'
-        . $innerHtml
-        . ' </div>'
-        . "\n"
-        . '</div>'
-        . "\n";
+            . '<div class="content-block rcmPlugin ' . $componentName . ' ' . $columnClass . '"'
+            . ' data-block-id="' . htmlentities($id) . '"'
+            . ' data-block-properties="' . htmlentities(Json::encode($block->getProperties(), ENT_QUOTES)) . '"'
+            . ' data-block-component-name="' . htmlentities($componentName) . '"'
+            // @todo @bc These attributes below are deprecated
+            . ' data-block-editor="' . $editor . '"'
+            . ' block-name="' . $componentName . '"'
+            . ' default-class="content-block rcmPlugin ' . $componentName . '"'
+            . ' column-class="' . $columnClass . '"'
+            . ' row-number="' . $rowNumber . '"'
+            . ' render-order="' . $renderOrder . '"'
+            . ' instance-id="' . $id . '"'
+            . ' data-rcmpluginname="' . $componentName . '"'
+            . ' data-rcmplugindefaultclass="content-block rcmPlugin ' . $componentName . '"'
+            . ' data-rcmplugincolumnclass="' . $columnClass . '"'
+            . ' data-rcmpluginrownumber="' . $rowNumber . '"'
+            . ' data-rcmpluginrenderordernumber="' . $renderOrder . '"'
+            . ' data-rcmplugininstanceid="' . $id . '"'
+            . ' data-rcmpluginwrapperid="' . $id . '"' //Deprecated
+            . ' data-rcmsitewideplugin=""' //Deprecated
+            . ' data-rcmplugindisplayname=""' //Deprecated
+            . '>'
+            . "\n"
+            . ' <div class="content-block-container rcmPluginContainer" data-for-block-id="' . $id . '">'
+            . $innerHtml
+            . ' </div>'
+            . "\n"
+            . '</div>'
+            . "\n";
     }
 }
