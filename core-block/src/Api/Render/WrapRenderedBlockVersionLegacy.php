@@ -64,9 +64,9 @@ class WrapRenderedBlockVersionLegacy implements WrapRenderedBlockVersion
         return "\n"
             . '<div class="content-block rcmPlugin ' . $componentName . ' ' . $columnClass . '"'
             . ' data-block-id="' . htmlentities($id) . '"'
-            . ' data-block-properties="' . htmlentities(Json::encode($block->getProperties(), ENT_QUOTES)) . '"'
             . ' data-block-component-name="' . htmlentities($componentName) . '"'
             // @todo @bc These attributes below are deprecated
+            // . ' data-block-properties="' . htmlentities(Json::encode($block->getProperties(), ENT_QUOTES)) . '"'
             . ' data-block-editor="' . $editor . '"'
             . ' block-name="' . $componentName . '"'
             . ' default-class="content-block rcmPlugin ' . $componentName . '"'
