@@ -30,6 +30,29 @@ class ModuleConfigRoutes
                     ],
                     'options' => [],
                     'allowed_methods' => ['POST'],
+                    'swagger' => [
+                        'post' => [
+                            'description' => 'Return full render data',
+                            'produces' => [
+                                'application/json',
+                            ],
+                            'parameters' => [
+                                [
+                                    'name' => 'block-id',
+                                    'in' => 'query',
+                                    'description' => 'Optional block id',
+                                    'required' => false,
+                                    'type' => 'string',
+                                    'format' => 'string',
+                                ],
+                            ],
+                            'responses' => [
+                                'default' => [
+                                    '$ref' => '#/definitions/ZrcmsJsonResponse'
+                                ],
+                            ],
+                        ],
+                    ],
                 ],
             ],
         ];

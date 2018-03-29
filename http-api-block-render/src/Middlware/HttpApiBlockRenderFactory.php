@@ -4,6 +4,7 @@ namespace Zrcms\HttpApiBlockRender\Middleware;
 
 use Psr\Container\ContainerInterface;
 use Zrcms\Core\Api\Component\FindComponent;
+use Zrcms\Core\Api\Content\ContentVersionToArray;
 use Zrcms\CoreBlock\Api\Render\GetBlockRenderTags;
 use Zrcms\CoreBlock\Api\Render\RenderBlock;
 use Zrcms\Debug\IsDebug;
@@ -29,6 +30,7 @@ class HttpApiBlockRenderFactory
             $serviceContainer->get(GetBlockRenderTags::class),
             $serviceContainer->get(RenderBlock::class),
             $serviceContainer->get(GetUserIdByRequest::class),
+            $serviceContainer->get(ContentVersionToArray::class),
             404,
             IsDebug::invoke()
         );

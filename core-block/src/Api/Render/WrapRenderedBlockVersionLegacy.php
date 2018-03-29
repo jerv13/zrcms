@@ -66,7 +66,6 @@ class WrapRenderedBlockVersionLegacy implements WrapRenderedBlockVersion
             . ' data-block-id="' . htmlentities($id) . '"'
             . ' data-block-component-name="' . htmlentities($componentName) . '"'
             // @todo @bc These attributes below are deprecated
-            // . ' data-block-properties="' . htmlentities(Json::encode($block->getProperties(), ENT_QUOTES)) . '"'
             . ' data-block-editor="' . $editor . '"'
             . ' block-name="' . $componentName . '"'
             . ' default-class="content-block rcmPlugin ' . $componentName . '"'
@@ -85,7 +84,7 @@ class WrapRenderedBlockVersionLegacy implements WrapRenderedBlockVersion
             . ' data-rcmplugindisplayname=""' //Deprecated
             . '>'
             . "\n"
-            . ' <div class="content-block-container rcmPluginContainer" data-for-block-id="' . $id . '">'
+            . ' <div class="content-block-inner rcmPluginContainer" data-inner-for-block-id="' . htmlentities($id) . '">'
             . $innerHtml
             . ' </div>'
             . "\n"

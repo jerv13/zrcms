@@ -6,6 +6,7 @@ use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Reliv\ArrayProperties\Property;
 use Zrcms\Core\Api\Component\FindComponent;
+use Zrcms\Core\Api\Content\ContentVersionToArray;
 use Zrcms\CoreBlock\Api\Render\GetBlockRenderTags;
 use Zrcms\CoreBlock\Api\Render\RenderBlock;
 use Zrcms\CoreBlock\Fields\FieldsBlockVersion;
@@ -22,28 +23,31 @@ class HttpApiBlockRender
 {
     const SOURCE = 'block-render';
     const API_TYPE = 'zrcms-http-api';
+    const PARAM_ID = 'block-id';
 
     protected $findComponent;
     protected $getBlockRenderTags;
     protected $renderBlock;
     protected $getUserIdByRequest;
+    protected $contentVersionToArray;
     protected $notFoundStatus;
-    protected $badRequestStatus;
     protected $debug;
 
     /**
-     * @param FindComponent      $findComponent
-     * @param GetBlockRenderTags $getBlockRenderTags
-     * @param RenderBlock        $renderBlock
-     * @param GetUserIdByRequest $getUserIdByRequest
-     * @param int                $notFoundStatus
-     * @param bool               $debug
+     * @param FindComponent         $findComponent
+     * @param GetBlockRenderTags    $getBlockRenderTags
+     * @param RenderBlock           $renderBlock
+     * @param GetUserIdByRequest    $getUserIdByRequest
+     * @param ContentVersionToArray $contentVersionToArray
+     * @param int                   $notFoundStatus
+     * @param bool                  $debug
      */
     public function __construct(
         FindComponent $findComponent,
         GetBlockRenderTags $getBlockRenderTags,
         RenderBlock $renderBlock,
         GetUserIdByRequest $getUserIdByRequest,
+        ContentVersionToArray $contentVersionToArray,
         int $notFoundStatus = 404,
         bool $debug = false
     ) {
@@ -51,6 +55,7 @@ class HttpApiBlockRender
         $this->getBlockRenderTags = $getBlockRenderTags;
         $this->renderBlock = $renderBlock;
         $this->getUserIdByRequest = $getUserIdByRequest;
+        $this->contentVersionToArray = $contentVersionToArray;
         $this->notFoundStatus = $notFoundStatus;
         $this->debug = $debug;
     }
@@ -110,10 +115,15 @@ class HttpApiBlockRender
             $renderTags
         );
 
-        $blockVersionData['html'] = $html;
+        $result = $this->contentVersionToArray->__invoke(
+            $blockVersion
+        );
+
+        $result['renderHtml'] = $html;
+        $result['renderTags'] = $renderTags;
 
         return new ZrcmsJsonResponse(
-            $blockVersionData
+            $result
         );
     }
 
@@ -143,7 +153,12 @@ class HttpApiBlockRender
     ): array {
         $blockVersionProperties = $request->getParsedBody();
 
-        $blockVersionData['id'] = null;
+
+
+        $blockVersionData['id'] = Property::getString(
+            $request->getQueryParams(),
+            self::PARAM_ID
+        );
 
         $blockVersionData['properties'] = $blockVersionProperties;
 
