@@ -2,7 +2,7 @@
   "name": "zrcms/core",
   "description": "ZRCMS - Content management for version tracking and content",
   "type": "library",
-  "license": "BSD-3-Clause",
+  "license": "ISC",
   "keywords": [
     "reliv",
     "content",
