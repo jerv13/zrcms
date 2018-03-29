@@ -77,6 +77,8 @@
       "Zrcms\\FieldRatZrcms\\": "field-rat-zrcms/src/",
       "Zrcms\\Http\\": "http/src/",
       "Zrcms\\HttpApi\\": "http-api/src/",
+      "Zrcms\\HttpApiBlock\\": "http-api-block/src/",
+      "Zrcms\\HttpApiBlockRender\\": "http-api-block-render/src/",
       "Zrcms\\HttpApiCountry\\": "http-api-country/src/",
       "Zrcms\\HttpApiFields\\": "http-api-fields/src/",
       "Zrcms\\HttpApiInputValidationMessages\\": "http-api-input-validation-messages/src/",
