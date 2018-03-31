@@ -25,6 +25,7 @@ use Zrcms\CoreBlock\Api\Render\RenderBlockBc;
 use Zrcms\CoreBlock\Api\Render\RenderBlockBcFactory;
 use Zrcms\CoreBlock\Api\Render\RenderBlockMissing;
 use Zrcms\CoreBlock\Api\Render\RenderBlockMissingComment;
+use Zrcms\CoreBlock\Api\Render\RenderBlockMissingDiv;
 use Zrcms\CoreBlock\Api\Render\RenderBlockMustache;
 use Zrcms\CoreBlock\Api\Render\WrapRenderedBlockVersion;
 use Zrcms\CoreBlock\Api\Render\WrapRenderedBlockVersionLegacy;
@@ -89,7 +90,7 @@ class ModuleConfig
                         'factory' => RenderBlockBcFactory::class,
                     ],
                     RenderBlockMissing::class => [
-                        'class' => RenderBlockMissingComment::class,
+                        'class' => RenderBlockMissingDiv::class,
                     ],
                     RenderBlockMustache::class => [
                         'arguments' => [

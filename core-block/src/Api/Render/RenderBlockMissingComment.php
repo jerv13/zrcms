@@ -32,12 +32,12 @@ class RenderBlockMissingComment implements RenderBlockMissing
             self::DEFAULT_REASON
         );
 
-        $message = 'BLOCK COMPONENT ' . $reason . ': '
-            . $block->getBlockComponentName()
+        $message = 'BLOCK COMPONENT (' . $block->getBlockComponentName() . ')'
+            . ' NOT RENDERED (' . $reason . ')  '
             . ' for block: ' . $block->getId();
 
         return "\n"
-            . '<!-- BLOCK COMPONENT ' . $message . '-->'
+            . '<!-- ' . $message . '-->'
             . "\n";
     }
 }
