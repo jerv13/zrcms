@@ -68,6 +68,7 @@ class RenderBlockBasic implements RenderBlock
             );
         }
 
+        // @todo This might not be a good solution
         if ($blockComponent->findProperty(FieldsBlockComponent::DISABLED, false)) {
             $options[RenderBlockMissing::OPTION_REASON] = 'DISABLED';
             return $this->renderBlockMissing->__invoke(
