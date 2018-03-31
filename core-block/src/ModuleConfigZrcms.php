@@ -141,6 +141,14 @@ class ModuleConfigZrcms
                         'options' => [],
                     ],
                     [
+                        'name' => FieldsBlockComponent::DISABLED,
+                        'type' => 'bool',
+                        'label' => 'Disabled',
+                        'required' => false,
+                        'default' => false,
+                        'options' => [],
+                    ],
+                    [
                         'name' => FieldsBlockComponent::ICON,
                         'type' => 'text',
                         'label' => 'Icon Path',

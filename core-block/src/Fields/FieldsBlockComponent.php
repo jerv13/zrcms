@@ -20,6 +20,7 @@ class FieldsBlockComponent extends FieldsComponent implements Fields
     const DATA_PROVIDER = 'data-provider';
     const FIELDS = 'fields';
     const TEMPLATE_FILE = 'templateFile';
+    const DISABLED = 'disabled';
 
     // client only
     const ICON = 'icon';

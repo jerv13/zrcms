@@ -8,8 +8,8 @@ use Zrcms\CorePage\Model\PageVersion;
 class WrapRenderedContainerLegacy implements WrapRenderedContainer
 {
     /**
-     * @param string                $innerHtml
-     * @param PageVersion|Container $container
+     * @param string    $innerHtml
+     * @param Container $container
      *
      * @return string
      * @throws \Exception
@@ -22,15 +22,15 @@ class WrapRenderedContainerLegacy implements WrapRenderedContainer
 
         // @todo @bc REMOVE class: rcmContainer
         return "\n"
-        . '<div class="content-container container-fluid rcmContainer"'
-        . ' data-container-version-id="' . $container->getId() . '"'
-        . ' data-container-name="' . $container->getName() . '"'
-        . ' data-container-context="' . $container->getContext() . '"'
-        // @todo @bc These attributes below are deprecated
-        . ($isPage ? ' is-page-container="true"' : '')
-        . ($isPage ? ' data-ispage="Y"' : '')
-        . ">\n"
-        . $innerHtml
-        . "\n</div>\n";
+            . '<div class="content-container container-fluid rcmContainer"'
+            . ' data-container-id="' . $container->getId() . '"'
+            . ' data-container-name="' . $container->getName() . '"'
+            . ' data-container-context="' . $container->getContext() . '"'
+            // @todo @bc These attributes below are deprecated
+            . ($isPage ? ' is-page-container="true"' : '')
+            . ($isPage ? ' data-ispage="Y"' : '')
+            . ">\n"
+            . $innerHtml
+            . "\n</div>\n";
     }
 }
