@@ -3,6 +3,7 @@
 namespace Zrcms\CoreBlock\Api\Render;
 
 use Reliv\ArrayProperties\Property;
+use Zrcms\Acl\Api\IsAllowed;
 use Zrcms\Core\Model\Content;
 use Zrcms\CoreBlock\Model\Block;
 
@@ -31,11 +32,12 @@ class RenderBlockMissingComment implements RenderBlockMissing
             self::DEFAULT_REASON
         );
 
-        return "\n"
-            . '<!-- BLOCK COMPONENT ' . $reason . ': '
+        $message = 'BLOCK COMPONENT ' . $reason . ': '
             . $block->getBlockComponentName()
-            . ' for block: ' . $block->getId()
-            . '-->'
+            . ' for block: ' . $block->getId();
+
+        return "\n"
+            . '<!-- BLOCK COMPONENT ' . $message . '-->'
             . "\n";
     }
 }
