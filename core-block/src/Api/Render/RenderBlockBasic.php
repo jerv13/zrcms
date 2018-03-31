@@ -60,7 +60,7 @@ class RenderBlockBasic implements RenderBlock
             $block->getBlockComponentName()
         );
 
-        if (empty($blockComponent) || $blockComponent->findProperty(FieldsBlockComponent::DISABLED, false)) {
+        if (empty($blockComponent)) {
             return $this->renderBlockMissing->__invoke(
                 $block,
                 $renderTags,
