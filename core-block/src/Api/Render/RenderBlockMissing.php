@@ -7,5 +7,6 @@ namespace Zrcms\CoreBlock\Api\Render;
  */
 interface RenderBlockMissing extends RenderBlock
 {
-
+    const OPTION_REASON = 'reason';
+    const DEFAULT_REASON = 'MISSING';
 }

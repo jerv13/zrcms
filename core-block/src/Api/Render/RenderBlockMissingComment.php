@@ -2,6 +2,7 @@
 
 namespace Zrcms\CoreBlock\Api\Render;
 
+use Reliv\ArrayProperties\Property;
 use Zrcms\Core\Model\Content;
 use Zrcms\CoreBlock\Model\Block;
 
@@ -24,11 +25,17 @@ class RenderBlockMissingComment implements RenderBlockMissing
         array $renderTags,
         array $options = []
     ): string {
+        $reason = Property::getString(
+            $options,
+            self::OPTION_REASON,
+            self::DEFAULT_REASON
+        );
+
         return "\n"
-        . '<!-- BLOCK COMPONENT MISSING: '
-        . $block->getBlockComponentName()
-        . ' for block: ' . $block->getId()
-        . '-->'
-        . "\n";
+            . '<!-- BLOCK COMPONENT ' . $reason . ': '
+            . $block->getBlockComponentName()
+            . ' for block: ' . $block->getId()
+            . '-->'
+            . "\n";
     }
 }
