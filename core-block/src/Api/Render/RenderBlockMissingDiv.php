@@ -36,7 +36,7 @@ class RenderBlockMissingDiv implements RenderBlockMissing
             . ' for block: ' . $block->getId();
 
         return "\n"
-            . '<div class="block-not-rendered" style="display: none">' . $message . '</div>'
+            . '<div class="block-missing-not-rendered" style="display: none">' . $message . '</div>'
             . "\n";
     }
 }
