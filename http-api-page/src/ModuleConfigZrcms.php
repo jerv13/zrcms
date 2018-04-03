@@ -7,6 +7,7 @@ use Zrcms\Core\Api\CmsResource\CmsResourcesToArray;
 use Zrcms\Core\Api\CmsResource\CmsResourceToArray;
 use Zrcms\Core\Api\Content\ContentVersionsToArray;
 use Zrcms\Core\Api\Content\ContentVersionToArray;
+use Zrcms\CorePage\Api\CmsResource\CreatePageDraftCmsResource;
 use Zrcms\CorePage\Api\CmsResource\FindPageCmsResource;
 use Zrcms\CorePage\Api\CmsResource\FindPageCmsResourcesBy;
 use Zrcms\CorePage\Api\CmsResource\FindPageCmsResourcesPublished;
@@ -23,6 +24,7 @@ use Zrcms\CorePage\Api\Content\FindPageVersion;
 use Zrcms\CorePage\Api\Content\FindPageVersionsBy;
 use Zrcms\CorePage\Api\Content\InsertPageVersion;
 use Zrcms\CorePage\Fields\FieldsPageVersion;
+use Zrcms\ValidationRatZrcms\Api\FieldValidator\ValidateFieldsCreateCmsResourceData;
 use Zrcms\ValidationRatZrcms\Api\FieldValidator\ValidateFieldsInsertContentVersionData;
 use Zrcms\ValidationRatZrcms\Api\FieldValidator\ValidateFieldsUpdateCmsResourceData;
 
@@ -189,6 +191,26 @@ class ModuleConfigZrcms
                     /**
                      * CmsResource
                      */
+                    'create-cms-resource' => [
+                        'acl' => [
+                            'is-allowed' => IsAllowedRcmUserSitesAdmin::class,
+                            'is-allowed-options' => [],
+                            'not-allowed-status' => 401,
+                        ],
+                        'fields-validator' => [
+                            'fields-validator' => ValidateFieldsCreateCmsResourceData::class,
+                            'fields-validator-options' => [
+                                'validator-options-content-version-id' => [
+                                    'api-service-find-content-version' => FindPageVersion::class,
+                                ],
+                            ],
+                            'not-valid-status' => 400,
+                        ],
+                        'api' => [
+                            'api-service' => CreatePageDraftCmsResource::class,
+                            'to-array' => CmsResourceToArray::class,
+                        ],
+                    ],
                     'find-cms-resource' => [
                         'acl' => [
                             'is-allowed' => IsAllowedRcmUserSitesAdmin::class,

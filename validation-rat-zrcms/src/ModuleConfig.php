@@ -6,6 +6,8 @@ use Zrcms\ValidationRatZrcms\Api\FieldValidator\BuildFieldValidationResults;
 use Zrcms\ValidationRatZrcms\Api\FieldValidator\BuildFieldValidationResultsServicesFactory;
 use Zrcms\ValidationRatZrcms\Api\FieldValidator\ValidateFieldsContentVersionProperties;
 use Zrcms\ValidationRatZrcms\Api\FieldValidator\ValidateFieldsContentVersionPropertiesFactory;
+use Zrcms\ValidationRatZrcms\Api\FieldValidator\ValidateFieldsCreateCmsResourceData;
+use Zrcms\ValidationRatZrcms\Api\FieldValidator\ValidateFieldsCreateCmsResourceDataFactory;
 use Zrcms\ValidationRatZrcms\Api\FieldValidator\ValidateFieldsInsertContentVersionData;
 use Zrcms\ValidationRatZrcms\Api\FieldValidator\ValidateFieldsInsertContentVersionDataFactory;
 use Zrcms\ValidationRatZrcms\Api\FieldValidator\ValidateFieldsUpdateCmsResourceData;
@@ -38,11 +40,14 @@ class ModuleConfig
                     BuildFieldValidationResults::class => [
                         'factory' => BuildFieldValidationResultsServicesFactory::class,
                     ],
-                    ValidateFieldsInsertContentVersionData::class => [
-                        'factory' => ValidateFieldsInsertContentVersionDataFactory::class,
-                    ],
                     ValidateFieldsContentVersionProperties::class => [
                         'factory' => ValidateFieldsContentVersionPropertiesFactory::class,
+                    ],
+                    ValidateFieldsCreateCmsResourceData::class => [
+                        'factory' => ValidateFieldsCreateCmsResourceDataFactory::class,
+                    ],
+                    ValidateFieldsInsertContentVersionData::class => [
+                        'factory' => ValidateFieldsInsertContentVersionDataFactory::class,
                     ],
                     ValidateFieldsUpdateCmsResourceData::class => [
                         'factory' => ValidateFieldsUpdateCmsResourceDataFactory::class,

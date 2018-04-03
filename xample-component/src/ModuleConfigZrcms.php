@@ -16,21 +16,6 @@ class ModuleConfigZrcms
     public function __invoke()
     {
         return [
-            'zrcms-admin-tools-menu' => [
-                [
-                    "tag" => "a",
-                    "attributes" => ["href" => "https://example.com"],
-                    "content" => "Xample Menu",
-                    "children" => [
-                        [
-                            "tag" => "a",
-                            "attributes" => ["href" => "https://example.com"],
-                            "content" => "Xample Menu Item",
-                        ],
-                    ],
-                ],
-            ],
-
             'zrcms-components' => [
                 'block.zrcms-xample'
                 => 'json:' . __DIR__ . '/../block/block.json',

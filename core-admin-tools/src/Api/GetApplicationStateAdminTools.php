@@ -14,22 +14,14 @@ class GetApplicationStateAdminTools implements GetApplicationState
     const APPLICATION_STATE_KEY = 'adminTools';
 
     protected $isAllowedAdminTools;
-    protected $sortAdminToolsMenu;
-    protected $adminToolsMenuConfig;
 
     /**
      * @param IsAllowedAdminTools $isAllowedAdminTools
-     * @param SortAdminToolsMenu  $sortAdminToolsMenu
-     * @param array               $adminToolsMenuConfig
      */
     public function __construct(
-        IsAllowedAdminTools $isAllowedAdminTools,
-        SortAdminToolsMenu $sortAdminToolsMenu,
-        array $adminToolsMenuConfig
+        IsAllowedAdminTools $isAllowedAdminTools
     ) {
         $this->isAllowedAdminTools = $isAllowedAdminTools;
-        $this->sortAdminToolsMenu = $sortAdminToolsMenu;
-        $this->adminToolsMenuConfig = $adminToolsMenuConfig;
     }
 
     /**

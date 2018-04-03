@@ -27,27 +27,6 @@ class ModuleConfigZrcms
                 'basic.zrcms-admin-tools'
                 => 'json:' . __DIR__ . '/../zrcms-component.json',
             ],
-
-            /**
-             * ===== ZRCMS Admin Tools Menu =====
-             */
-            'zrcms-admin-tools-menu' => [
-                /**
-                 * Example
-                [
-                    "tag" => "a",
-                    "attributes" => ["href" => "/some/page"],
-                    "content" => "Something",
-                    "children" => [
-                        [
-                            "tag" => "a",
-                            "attributes" => ["href" => "/some/page"],
-                            "content" => "Something",
-                        ],
-                    ],
-                ],
-                 */
-            ],
         ];
     }
 }
