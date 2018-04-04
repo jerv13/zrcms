@@ -20,7 +20,7 @@ class ImportPagesFactory
         ContainerInterface $serviceContainer
     ) {
         return new ImportPages(
-            $serviceContainer->get(ImportOptions::class),
+            $serviceContainer->get(ImportUtilities::class),
             $serviceContainer->get(ImportPage::class)
         );
     }

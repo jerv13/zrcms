@@ -20,7 +20,7 @@ class ImportSitesFactory
         ContainerInterface $serviceContainer
     ) {
         return new ImportSites(
-            $serviceContainer->get(ImportOptions::class),
+            $serviceContainer->get(ImportUtilities::class),
             $serviceContainer->get(ImportSite::class)
         );
     }

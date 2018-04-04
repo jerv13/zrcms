@@ -19,12 +19,12 @@ class ImportSiteContainer
     protected $createSiteContainerCmsResource;
 
     /**
-     * @param ImportOptions                  $importOptions
+     * @param ImportUtilities                $importOptions
      * @param InsertSiteContainerVersion     $insertSiteContainerVersion
      * @param CreateSiteContainerCmsResource $createSiteContainerCmsResource
      */
     public function __construct(
-        ImportOptions $importOptions,
+        ImportUtilities $importOptions,
         InsertSiteContainerVersion $insertSiteContainerVersion,
         CreateSiteContainerCmsResource $createSiteContainerCmsResource
     ) {

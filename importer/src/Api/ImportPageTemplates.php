@@ -14,7 +14,7 @@ class ImportPageTemplates
     protected $importPageTemplate;
 
     public function __construct(
-        ImportOptions $importOptions,
+        ImportUtilities $importOptions,
         ImportPageTemplate $importPageTemplate
     ) {
         $this->importOptions = $importOptions;

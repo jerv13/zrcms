@@ -22,7 +22,7 @@ class ImportPageTemplateFactory
         ContainerInterface $serviceContainer
     ) {
         return new ImportPageTemplate(
-            $serviceContainer->get(ImportOptions::class),
+            $serviceContainer->get(ImportUtilities::class),
             $serviceContainer->get(InsertPageVersion::class),
             $serviceContainer->get(CreatePageTemplateCmsResource::class)
         );

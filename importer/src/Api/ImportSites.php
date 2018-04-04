@@ -14,7 +14,7 @@ class ImportSites
     protected $importSite;
 
     public function __construct(
-        ImportOptions $importOptions,
+        ImportUtilities $importOptions,
         ImportSite $importSite
     ) {
         $this->importOptions = $importOptions;

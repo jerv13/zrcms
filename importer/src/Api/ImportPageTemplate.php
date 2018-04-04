@@ -20,7 +20,7 @@ class ImportPageTemplate
     protected $createPageTemplateCmsResource;
 
     public function __construct(
-        ImportOptions $importOptions,
+        ImportUtilities $importOptions,
         InsertPageVersion $insertPageVersion,
         CreatePageTemplateCmsResource $createPageTemplateCmsResource
     ) {

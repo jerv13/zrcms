@@ -20,7 +20,7 @@ class ImportRedirectsFactory
         ContainerInterface $serviceContainer
     ) {
         return new ImportRedirects(
-            $serviceContainer->get(ImportOptions::class),
+            $serviceContainer->get(ImportUtilities::class),
             $serviceContainer->get(ImportRedirect::class)
         );
     }

@@ -23,7 +23,7 @@ class ImportRedirectFactory
         ContainerInterface $serviceContainer
     ) {
         return new ImportRedirect(
-            $serviceContainer->get(ImportOptions::class),
+            $serviceContainer->get(ImportUtilities::class),
             $serviceContainer->get(FindRedirectCmsResource::class),
             $serviceContainer->get(InsertRedirectVersion::class),
             $serviceContainer->get(CreateRedirectCmsResource::class)

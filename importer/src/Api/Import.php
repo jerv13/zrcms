@@ -40,7 +40,7 @@ class Import
     protected $createRedirectCmsResource;
 
     /**
-     * @param ImportOptions                  $importOptions
+     * @param ImportUtilities                $importOptions
      * @param FindSiteCmsResource            $findSiteCmsResource
      * @param InsertSiteVersion              $insertSiteVersion
      * @param CreateSiteCmsResource          $createSiteCmsResource
@@ -54,7 +54,7 @@ class Import
      * @param CreateRedirectCmsResource      $createRedirectCmsResource
      */
     public function __construct(
-        ImportOptions $importOptions,
+        ImportUtilities $importOptions,
         FindSiteCmsResource $findSiteCmsResource,
         InsertSiteVersion $insertSiteVersion,
         CreateSiteCmsResource $createSiteCmsResource,

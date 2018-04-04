@@ -21,13 +21,13 @@ class ImportRedirect
     protected $createRedirectCmsResource;
 
     /**
-     * @param ImportOptions             $importOptions
+     * @param ImportUtilities           $importOptions
      * @param FindRedirectCmsResource   $findRedirectCmsResource
      * @param InsertRedirectVersion     $insertRedirectVersion
      * @param CreateRedirectCmsResource $createRedirectCmsResource
      */
     public function __construct(
-        ImportOptions $importOptions,
+        ImportUtilities $importOptions,
         FindRedirectCmsResource $findRedirectCmsResource,
         InsertRedirectVersion $insertRedirectVersion,
         CreateRedirectCmsResource $createRedirectCmsResource

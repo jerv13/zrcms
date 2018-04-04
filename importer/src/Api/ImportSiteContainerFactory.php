@@ -22,7 +22,7 @@ class ImportSiteContainerFactory
         ContainerInterface $serviceContainer
     ) {
         return new ImportSiteContainer(
-            $serviceContainer->get(ImportOptions::class),
+            $serviceContainer->get(ImportUtilities::class),
             $serviceContainer->get(InsertSiteContainerVersion::class),
             $serviceContainer->get(CreateSiteContainerCmsResource::class)
         );

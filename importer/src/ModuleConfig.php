@@ -4,8 +4,8 @@ namespace Zrcms\Importer;
 
 use Zrcms\Importer\Api\Import;
 use Zrcms\Importer\Api\ImportFactory;
-use Zrcms\Importer\Api\ImportOptions;
-use Zrcms\Importer\Api\ImportOptionsFactory;
+use Zrcms\Importer\Api\ImportUtilities;
+use Zrcms\Importer\Api\ImportUtilitiesFactory;
 use Zrcms\Importer\Api\ImportPage;
 use Zrcms\Importer\Api\ImportPageFactory;
 use Zrcms\Importer\Api\ImportPages;
@@ -51,9 +51,6 @@ class ModuleConfig
                     Import::class => [
                         'factory' => ImportFactory::class,
                     ],
-                    ImportOptions::class => [
-                        'factory' => ImportOptionsFactory::class,
-                    ],
                     ImportPage::class => [
                         'factory' => ImportPageFactory::class,
                     ],
@@ -84,7 +81,9 @@ class ModuleConfig
                     ImportSiteContainers::class => [
                         'factory' => ImportSiteContainersFactory::class,
                     ],
-
+                    ImportUtilities::class => [
+                        'factory' => ImportUtilitiesFactory::class,
+                    ],
                     /**
                      * Cli ===========================================
                      */

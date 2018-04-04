@@ -8,7 +8,7 @@ use Reliv\ArrayProperties\Property;
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class ImportOptions
+class ImportUtilities
 {
     const OPTION_LOGGER = 'logger';
     const OPTION_SLEEP = 'sleep';

@@ -14,11 +14,11 @@ class ImportPages
     protected $importPage;
 
     /**
-     * @param ImportOptions $importOptions
-     * @param ImportPage    $importPage
+     * @param ImportUtilities $importOptions
+     * @param ImportPage      $importPage
      */
     public function __construct(
-        ImportOptions $importOptions,
+        ImportUtilities $importOptions,
         ImportPage $importPage
     ) {
         $this->importOptions = $importOptions;

@@ -19,12 +19,12 @@ class ImportPage
     protected $createPageCmsResource;
 
     /**
-     * @param ImportOptions         $importOptions
+     * @param ImportUtilities       $importOptions
      * @param InsertPageVersion     $insertPageVersion
      * @param CreatePageCmsResource $createPageCmsResource
      */
     public function __construct(
-        ImportOptions $importOptions,
+        ImportUtilities $importOptions,
         InsertPageVersion $insertPageVersion,
         CreatePageCmsResource $createPageCmsResource
     ) {

@@ -14,7 +14,7 @@ class ImportSiteContainers
     protected $importSiteContainer;
 
     public function __construct(
-        ImportOptions $importOptions,
+        ImportUtilities $importOptions,
         ImportSiteContainer $importSiteContainer
     ) {
         $this->importOptions = $importOptions;

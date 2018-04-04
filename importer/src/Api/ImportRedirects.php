@@ -14,7 +14,7 @@ class ImportRedirects
     protected $importRedirect;
 
     public function __construct(
-        ImportOptions $importOptions,
+        ImportUtilities $importOptions,
         ImportRedirect $importRedirect
     ) {
         $this->importOptions = $importOptions;
