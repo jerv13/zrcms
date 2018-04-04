@@ -72,15 +72,26 @@ class GetContainerRenderTagsBlocks implements GetContainerRenderTags
 
         $blocks = $container->getBlockVersions();
 
-        /** @var Block $block */
+        $renderOrderQueue = new \SplPriorityQueue();
         foreach ($blocks as $block) {
+            $renderOrderQueue->insert(
+                $block,
+                $renderOrder = $block->getRequiredLayoutProperty(
+                    FieldsBlock::LAYOUT_PROPERTIES_RENDER_ORDER
+                )
+            );
+        }
+        $renderOrder = 0;
+
+        /** @var Block $block */
+        foreach ($renderOrderQueue as $block) {
             $rowNumber = $block->getRequiredLayoutProperty(
                 FieldsBlock::LAYOUT_PROPERTIES_ROW_NUMBER
             );
 
-            $renderOrder = $block->getRequiredLayoutProperty(
-                FieldsBlock::LAYOUT_PROPERTIES_RENDER_ORDER
-            );
+            //$renderOrder = $block->getRequiredLayoutProperty(
+            //    FieldsBlock::LAYOUT_PROPERTIES_RENDER_ORDER
+            //);
 
             if (!array_key_exists($rowNumber, $renderedData)) {
                 $renderedData[$rowNumber] = [];
@@ -93,10 +104,10 @@ class GetContainerRenderTagsBlocks implements GetContainerRenderTags
                     . ' Block ID: ' . $block->getId()
                     . ' layout properties: ' . Json::encode($block->getLayoutProperties(), 0, 3)
                     . ' duped in: ' . Json::encode($block->getLayoutProperties(), 0, 3);
-
-                throw new \Exception(
-                    $message
-                );
+                //trigger_error ($message, E_USER_WARNING);
+                //throw new \Exception(
+                //    $message
+                //);
             }
 
             $blockRenderTags = $this->getBlockRenderTags->__invoke(
@@ -115,6 +126,7 @@ class GetContainerRenderTagsBlocks implements GetContainerRenderTags
             );
 
             $renderedData[$rowNumber][$renderOrder] = $blockOuterHtml;
+            $renderOrder++;
         }
 
         // Sort by row number

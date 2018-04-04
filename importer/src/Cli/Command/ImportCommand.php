@@ -7,6 +7,7 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Zrcms\Importer\Api\Import;
+use Zrcms\Importer\Api\ImportOptions;
 use Zrcms\Importer\Logger\CliLogger;
 
 /**
@@ -63,7 +64,8 @@ class ImportCommand extends Command
      * @param InputInterface  $input
      * @param OutputInterface $output
      *
-     * @return void
+     * @return int|null|void
+     * @throws \Exception
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
@@ -88,7 +90,7 @@ class ImportCommand extends Command
             $contents,
             $createdByUserId,
             [
-                Import::OPTION_LOGGER => $logger,
+                ImportOptions::OPTION_LOGGER => $logger,
                 'sleep' => $this->getSleep($input),
             ]
         );

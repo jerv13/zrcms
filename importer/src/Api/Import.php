@@ -2,7 +2,6 @@
 
 namespace Zrcms\Importer\Api;
 
-use Psr\Log\LoggerInterface;
 use Psr\Log\LogLevel;
 use Reliv\ArrayProperties\Property;
 use Reliv\Json\Json;
@@ -27,12 +26,7 @@ use Zrcms\CoreSiteContainer\Api\Content\InsertSiteContainerVersion;
 
 class Import
 {
-    const OPTION_LOGGER = 'logger';
-    const OPTION_SLEEP = 'sleep';
-    const OPTION_SKIP_DUPLICATES = 'skip-duplicates';
-    protected $defaultSleep = 0;
-    protected $defaultSkipDuplicates = true;
-
+    protected $importOptions;
     protected $findSiteCmsResource;
     protected $insertSiteVersion;
     protected $createSiteCmsResource;
@@ -46,6 +40,7 @@ class Import
     protected $createRedirectCmsResource;
 
     /**
+     * @param ImportOptions                  $importOptions
      * @param FindSiteCmsResource            $findSiteCmsResource
      * @param InsertSiteVersion              $insertSiteVersion
      * @param CreateSiteCmsResource          $createSiteCmsResource
@@ -59,6 +54,7 @@ class Import
      * @param CreateRedirectCmsResource      $createRedirectCmsResource
      */
     public function __construct(
+        ImportOptions $importOptions,
         FindSiteCmsResource $findSiteCmsResource,
         InsertSiteVersion $insertSiteVersion,
         CreateSiteCmsResource $createSiteCmsResource,
@@ -71,6 +67,7 @@ class Import
         InsertRedirectVersion $insertRedirectVersion,
         CreateRedirectCmsResource $createRedirectCmsResource
     ) {
+        $this->importOptions = $importOptions;
         $this->findSiteCmsResource = $findSiteCmsResource;
         $this->insertSiteVersion = $insertSiteVersion;
         $this->createSiteCmsResource = $createSiteCmsResource;
@@ -122,66 +119,11 @@ class Import
             $options
         );
 
-        $this->log(
+        $this->importOptions->log(
             LogLevel::INFO,
             'Import COMPLETE in ' . (time() - $startTime) . ' seconds',
             $options
         );
-    }
-
-    /**
-     * @param array $options
-     *
-     * @return void
-     */
-    protected function sleep(array $options)
-    {
-        $sleep = Property::getInt(
-            $options,
-            self::OPTION_SLEEP,
-            $this->defaultSleep
-        );
-
-        if ($sleep) {
-            usleep($sleep * 1000000);
-        }
-    }
-
-    /**
-     * @param array $options
-     *
-     * @return bool
-     */
-    protected function skipDuplicates(array $options): bool
-    {
-        return Property::getBool(
-            $options,
-            self::OPTION_SKIP_DUPLICATES,
-            $this->defaultSkipDuplicates
-        );
-    }
-
-    /**
-     * @param string $level
-     * @param string $message
-     * @param array  $options
-     *
-     * @return void
-     */
-    protected function log(
-        string $level,
-        string $message,
-        array $options
-    ) {
-        $logger = Property::get(
-            $options,
-            self::OPTION_LOGGER
-        );
-
-        if ($logger instanceof LoggerInterface) {
-            $logger->log($level, $message);
-            $this->sleep($options);
-        }
     }
 
     /**
@@ -201,7 +143,7 @@ class Import
         string $createdReason,
         array $options = []
     ) {
-        $this->log(
+        $this->importOptions->log(
             LogLevel::INFO,
             'Import Sites:',
             $options
@@ -212,8 +154,8 @@ class Import
                 $site['id']
             );
 
-            if (!empty($existing) && $this->skipDuplicates($options)) {
-                $this->log(
+            if (!empty($existing) && $this->importOptions->skipDuplicates($options)) {
+                $this->importOptions->log(
                     LogLevel::WARNING,
                     'SKIP Site - Already exists: ('
                     . 'siteId: ' . $site['id']
@@ -224,7 +166,7 @@ class Import
                 continue;
             }
 
-            $this->log(
+            $this->importOptions->log(
                 LogLevel::INFO,
                 'Import Site: ('
                 . 'siteId: ' . $site['id']
@@ -279,7 +221,7 @@ class Import
             );
 
             if (!$published) {
-                $this->log(
+                $this->importOptions->log(
                     LogLevel::WARNING,
                     'UNPUBLISH SiteCmsResource ID: ' . $publishedSiteCmsResource->getId(),
                     $options
@@ -306,7 +248,7 @@ class Import
         string $createdReason,
         array $options = []
     ) {
-        $this->log(
+        $this->importOptions->log(
             LogLevel::INFO,
             'Import Pages: ('
             . 'siteId: ' . $siteCmsResource->getId()
@@ -315,7 +257,7 @@ class Import
         );
 
         foreach ($pages as $page) {
-            $this->log(
+            $this->importOptions->log(
                 LogLevel::INFO,
                 'Import Page: ' . $page['properties']['path'] . ' ID: ' . $page['id'],
                 $options
@@ -345,7 +287,7 @@ class Import
             );
 
             if (!$published) {
-                $this->log(
+                $this->importOptions->log(
                     LogLevel::WARNING,
                     'UNPUBLISH PageCmsResource ID: ' . $publishedPageCmsResource->getId(),
                     $options
@@ -372,7 +314,7 @@ class Import
         string $createdReason,
         array $options = []
     ) {
-        $this->log(
+        $this->importOptions->log(
             LogLevel::INFO,
             'Import Page Templates: ('
             . 'siteId: ' . $siteCmsResource->getId()
@@ -381,7 +323,7 @@ class Import
         );
 
         foreach ($pageTemplates as $pageTemplate) {
-            $this->log(
+            $this->importOptions->log(
                 LogLevel::INFO,
                 'Import Page Template: ' . $pageTemplate['properties']['path'],
                 $options
@@ -411,7 +353,7 @@ class Import
             );
 
             if (!$published) {
-                $this->log(
+                $this->importOptions->log(
                     LogLevel::WARNING,
                     'UNPUBLISH PageTemplateCmsResource ID: ' . $publishedPageTemplateCmsResource->getId(),
                     $options
@@ -438,7 +380,7 @@ class Import
         string $createdReason,
         array $options = []
     ) {
-        $this->log(
+        $this->importOptions->log(
             LogLevel::INFO,
             'Import Containers: ('
             . 'siteId: ' . $siteCmsResource->getId()
@@ -447,7 +389,7 @@ class Import
         );
 
         foreach ($containers as $container) {
-            $this->log(
+            $this->importOptions->log(
                 LogLevel::INFO,
                 'Import Container: ' . $container['properties']['name'],
                 $options
@@ -477,7 +419,7 @@ class Import
             );
 
             if (!$published) {
-                $this->log(
+                $this->importOptions->log(
                     LogLevel::WARNING,
                     'UNPUBLISH ContainerCmsResource ID: ' . $publishedContainerCmsResource->getId(),
                     $options
@@ -521,7 +463,7 @@ class Import
         string $createdReason,
         array $options = []
     ) {
-        $this->log(
+        $this->importOptions->log(
             LogLevel::INFO,
             'Import Redirects: ',
             $options
@@ -532,8 +474,8 @@ class Import
                 $redirect['id']
             );
 
-            if (!empty($existing) && $this->skipDuplicates($options)) {
-                $this->log(
+            if (!empty($existing) && $this->importOptions->skipDuplicates($options)) {
+                $this->importOptions->log(
                     LogLevel::WARNING,
                     'SKIP redirect - Already exists: ('
                     . 'redirect Id: ' . $redirect['id']
@@ -543,7 +485,7 @@ class Import
                 continue;
             }
 
-            $this->log(
+            $this->importOptions->log(
                 LogLevel::INFO,
                 'Import Redirect: ' . $redirect['properties']['requestPath'],
                 $options
@@ -571,7 +513,7 @@ class Import
             );
 
             if (!$published) {
-                $this->log(
+                $this->importOptions->log(
                     LogLevel::WARNING,
                     'UNPUBLISH RedirectCmsResource ID: ' . $publishedRedirectCmsResource->getId(),
                     $options
