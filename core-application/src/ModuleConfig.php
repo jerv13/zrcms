@@ -22,16 +22,17 @@ use Zrcms\Core\Api\Content\ContentVersionToArray;
 use Zrcms\Core\Api\GetComponentCss;
 use Zrcms\Core\Api\GetComponentJs;
 use Zrcms\Core\Api\GetTypeValue;
+use Zrcms\Core\Api\PropertiesToArray;
 use Zrcms\Core\Model\ComponentBasic;
 use Zrcms\Core\Model\ServiceAliasComponent;
-use Zrcms\CoreApplication\Api\CmsResource\CmsResourcesToArrayBasic;
-use Zrcms\CoreApplication\Api\CmsResource\CmsResourceToArrayBasic;
-use Zrcms\CoreApplication\Api\CmsResourceHistory\CmsResourceHistoriesToArrayBasic;
-use Zrcms\CoreApplication\Api\CmsResourceHistory\CmsResourceHistoryToArrayBasic;
+use Zrcms\CoreApplication\Api\CmsResource\CmsResourcesToArrayBasicFactory;
+use Zrcms\CoreApplication\Api\CmsResource\CmsResourceToArrayBasicFactory;
+use Zrcms\CoreApplication\Api\CmsResourceHistory\CmsResourceHistoriesToArrayBasicFactory;
+use Zrcms\CoreApplication\Api\CmsResourceHistory\CmsResourceHistoryToArrayBasicFactory;
 use Zrcms\CoreApplication\Api\Component\BuildComponentObjectByType;
 use Zrcms\CoreApplication\Api\Component\BuildComponentObjectByTypeStrategyFactory;
-use Zrcms\CoreApplication\Api\Component\ComponentsToArrayBasic;
-use Zrcms\CoreApplication\Api\Component\ComponentToArrayBasic;
+use Zrcms\CoreApplication\Api\Component\ComponentsToArrayBasicFactory;
+use Zrcms\CoreApplication\Api\Component\ComponentToArrayBasicFactory;
 use Zrcms\CoreApplication\Api\Component\FindComponentBasic;
 use Zrcms\CoreApplication\Api\Component\FindComponentsByBasic;
 use Zrcms\CoreApplication\Api\Component\ReadComponentConfigApplicationConfig;
@@ -46,12 +47,14 @@ use Zrcms\CoreApplication\Api\Component\ReadComponentRegistryBasic;
 use Zrcms\CoreApplication\Api\Component\ReadComponentRegistryBasicFactory;
 use Zrcms\CoreApplication\Api\Component\ReadComponentRegistryCompositeFactory;
 use Zrcms\CoreApplication\Api\Component\SearchComponentConfigsBasic;
-use Zrcms\CoreApplication\Api\Content\ContentToArrayBasic;
+use Zrcms\CoreApplication\Api\Content\ContentToArrayBasicFactory;
 use Zrcms\CoreApplication\Api\Content\ContentVersionsToArrayBasic;
+use Zrcms\CoreApplication\Api\Content\ContentVersionsToArrayBasicFactory;
 use Zrcms\CoreApplication\Api\Content\ContentVersionToArrayBasic;
 use Zrcms\CoreApplication\Api\GetComponentCssBasic;
 use Zrcms\CoreApplication\Api\GetComponentJsBasic;
 use Zrcms\CoreApplication\Api\GetTypeValueBasicFactory;
+use Zrcms\CoreApplication\Api\PropertiesToArrayBasicFactory;
 use Zrcms\ServiceAlias\Api\GetServiceFromAlias;
 
 /**
@@ -71,33 +74,20 @@ class ModuleConfig
                      * CmsResource
                      */
                     CmsResourcesToArray::class => [
-                        'class' => CmsResourcesToArrayBasic::class,
-                        'arguments' => [
-                            CmsResourceToArray::class,
-                        ],
+                        'factory' => CmsResourcesToArrayBasicFactory::class,
                     ],
                     CmsResourceToArray::class => [
-                        'class' => CmsResourceToArrayBasic::class,
-                        'arguments' => [
-                            ContentVersionToArray::class,
-                        ],
+                        'factory' => CmsResourceToArrayBasicFactory::class,
                     ],
 
                     /**
                      * CmsResourceHistory
                      */
                     CmsResourceHistoriesToArray::class => [
-                        'class' => CmsResourceHistoriesToArrayBasic::class,
-                        'arguments' => [
-                            CmsResourceHistoryToArray::class,
-                        ],
+                        'factory' => CmsResourceHistoriesToArrayBasicFactory::class,
                     ],
                     CmsResourceHistoryToArray::class => [
-                        'class' => CmsResourceHistoryToArrayBasic::class,
-                        'arguments' => [
-                            ContentVersionToArray::class,
-                            CmsResourceToArray::class,
-                        ],
+                        'factory' => CmsResourceHistoryToArrayBasicFactory::class,
                     ],
 
                     /**
@@ -113,13 +103,10 @@ class ModuleConfig
                         ],
                     ],
                     ComponentsToArray::class => [
-                        'class' => ComponentsToArrayBasic::class,
-                        'arguments' => [
-                            ComponentToArray::class,
-                        ],
+                        'factory' => ComponentsToArrayBasicFactory::class,
                     ],
                     ComponentToArray::class => [
-                        'class' => ComponentToArrayBasic::class,
+                        'factory' => ComponentToArrayBasicFactory::class,
                     ],
                     FindComponent::class => [
                         'class' => FindComponentBasic::class,
@@ -176,13 +163,10 @@ class ModuleConfig
                      * Content
                      */
                     ContentToArray::class => [
-                        'class' => ContentToArrayBasic::class
+                        'factory' => ContentToArrayBasicFactory::class,
                     ],
                     ContentVersionsToArray::class => [
-                        'class' => ContentVersionsToArrayBasic::class,
-                        'arguments' => [
-                            ContentVersionToArray::class,
-                        ],
+                        'factory' => ContentVersionsToArrayBasicFactory::class,
                     ],
                     ContentVersionToArray::class => [
                         'class' => ContentVersionToArrayBasic::class,
@@ -191,9 +175,6 @@ class ModuleConfig
                     /**
                      * General
                      */
-                    GetTypeValue::class => [
-                        'factory' => GetTypeValueBasicFactory::class,
-                    ],
                     GetComponentCss::class => [
                         'class' => GetComponentCssBasic::class,
                         'arguments' => [
@@ -207,7 +188,13 @@ class ModuleConfig
                             Cache::class,
                             ['literal' => GetComponentJsBasic::DEFAULT_CACHE_KEY]
                         ],
-                    ]
+                    ],
+                    GetTypeValue::class => [
+                        'factory' => GetTypeValueBasicFactory::class,
+                    ],
+                    PropertiesToArray::class => [
+                        'factory' => PropertiesToArrayBasicFactory::class,
+                    ],
                 ],
             ],
         ];

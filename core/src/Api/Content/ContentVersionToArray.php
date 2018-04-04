@@ -10,6 +10,7 @@ use Zrcms\Core\Model\ContentVersion;
 interface ContentVersionToArray
 {
     const OPTION_HIDE_PROPERTIES = 'hideProperties';
+    const OPTION_PROPERTIES_OPTIONS = 'propertiesOptions';
 
     /**
      * @param ContentVersion $contentVersion

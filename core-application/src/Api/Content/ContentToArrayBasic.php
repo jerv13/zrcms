@@ -2,17 +2,28 @@
 
 namespace Zrcms\CoreApplication\Api\Content;
 
-use Zrcms\Core\Api\Content\ContentToArray;
-use Zrcms\Core\Model\Content;
-use Zrcms\CoreApplication\Api\ArrayFromGetters;
-use Zrcms\CoreApplication\Api\RemoveProperties;
 use Reliv\ArrayProperties\Property;
+use Zrcms\Core\Api\Content\ContentToArray;
+use Zrcms\Core\Api\PropertiesToArray;
+use Zrcms\Core\Model\Content;
+use Zrcms\CoreApplication\Api\RemoveProperties;
 
 /**
  * @author James Jervis - https://github.com/jerv13
  */
 class ContentToArrayBasic implements ContentToArray
 {
+    protected $propertiesToArray;
+
+    /**
+     * @param PropertiesToArray $propertiesToArray
+     */
+    public function __construct(
+        PropertiesToArray $propertiesToArray
+    ) {
+        $this->propertiesToArray = $propertiesToArray;
+    }
+
     /**
      * @param Content $content
      * @param array   $options
@@ -27,7 +38,14 @@ class ContentToArrayBasic implements ContentToArray
         $array = [];
 
         $array['id'] = $content->getId();
-        $array['properties'] = $content->getProperties();
+        $array['properties'] = $this->propertiesToArray->__invoke(
+            $content->getProperties(),
+            Property::getArray(
+                $options,
+                self::OPTION_PROPERTIES_OPTIONS,
+                []
+            )
+        );
 
         return RemoveProperties::invoke(
             $array,

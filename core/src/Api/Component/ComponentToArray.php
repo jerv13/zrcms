@@ -10,6 +10,7 @@ use Zrcms\Core\Model\Component;
 interface ComponentToArray
 {
     const OPTION_HIDE_PROPERTIES = 'hideProperties';
+    const OPTION_PROPERTIES_OPTIONS = 'propertiesOptions';
 
     /**
      * @param Component $component

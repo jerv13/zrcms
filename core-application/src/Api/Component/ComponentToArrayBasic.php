@@ -2,16 +2,28 @@
 
 namespace Zrcms\CoreApplication\Api\Component;
 
+use Reliv\ArrayProperties\Property;
 use Zrcms\Core\Api\Component\ComponentToArray;
+use Zrcms\Core\Api\PropertiesToArray;
 use Zrcms\Core\Model\Component;
 use Zrcms\CoreApplication\Api\RemoveProperties;
-use Reliv\ArrayProperties\Property;
 
 /**
  * @author James Jervis - https://github.com/jerv13
  */
 class ComponentToArrayBasic implements ComponentToArray
 {
+    protected $propertiesToArray;
+
+    /**
+     * @param PropertiesToArray $propertiesToArray
+     */
+    public function __construct(
+        PropertiesToArray $propertiesToArray
+    ) {
+        $this->propertiesToArray = $propertiesToArray;
+    }
+
     /**
      * @param Component $component
      * @param array     $options
@@ -29,7 +41,14 @@ class ComponentToArrayBasic implements ComponentToArray
         $array['name'] = $component->getName();
         $array['configUri'] = $component->getConfigUri();
         $array['moduleDirectory'] = $component->getModuleDirectory();
-        $array['properties'] = $component->getProperties();
+        $array['properties'] = $this->propertiesToArray->__invoke(
+            $component->getProperties(),
+            Property::getArray(
+                $options,
+                self::OPTION_PROPERTIES_OPTIONS,
+                []
+            )
+        );
         $array['createdByUserId'] = $component->getCreatedByUserId();
         $array['createdReason'] = $component->getCreatedReason();
         $array['createdDate'] = $component->getCreatedDate();

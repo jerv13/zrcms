@@ -3,26 +3,25 @@
 namespace Zrcms\CoreApplication\Api\Component;
 
 use Psr\Container\ContainerInterface;
-use Zrcms\Core\Api\GetTypeValue;
+use Zrcms\Core\Api\PropertiesToArray;
 
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class BuildComponentObjectByTypeStrategyFactory
+class ComponentToArrayBasicFactory
 {
     /**
      * @param ContainerInterface $serviceContainer
      *
-     * @return BuildComponentObjectByTypeStrategy
+     * @return ComponentToArrayBasic
      * @throws \Psr\Container\ContainerExceptionInterface
      * @throws \Psr\Container\NotFoundExceptionInterface
      */
     public function __invoke(
         ContainerInterface $serviceContainer
     ) {
-        return new BuildComponentObjectByTypeStrategy(
-            $serviceContainer,
-            $serviceContainer->get(GetTypeValue::class)
+        return new ComponentToArrayBasic(
+            $serviceContainer->get(PropertiesToArray::class)
         );
     }
 }

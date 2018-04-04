@@ -1,28 +1,27 @@
 <?php
 
-namespace Zrcms\CoreApplication\Api\Component;
+namespace Zrcms\CoreApplication\Api\CmsResource;
 
 use Psr\Container\ContainerInterface;
-use Zrcms\Core\Api\GetTypeValue;
+use Zrcms\Core\Api\CmsResource\CmsResourceToArray;
 
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class BuildComponentObjectByTypeStrategyFactory
+class CmsResourcesToArrayBasicFactory
 {
     /**
      * @param ContainerInterface $serviceContainer
      *
-     * @return BuildComponentObjectByTypeStrategy
+     * @return CmsResourcesToArrayBasic
      * @throws \Psr\Container\ContainerExceptionInterface
      * @throws \Psr\Container\NotFoundExceptionInterface
      */
     public function __invoke(
         ContainerInterface $serviceContainer
     ) {
-        return new BuildComponentObjectByTypeStrategy(
-            $serviceContainer,
-            $serviceContainer->get(GetTypeValue::class)
+        return new CmsResourcesToArrayBasic(
+            $serviceContainer->get(CmsResourceToArray::class)
         );
     }
 }
