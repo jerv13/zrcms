@@ -1,0 +1,25 @@
+{
+  "name": "ZrcmsHtmlBlock",
+  "type": "block",
+  "label": "HTML Block (ZRCMS)",
+  "description": "Create HTML on the page",
+  "renderer": "mustache",
+  "icon": "../public/icon.png",
+  "cache": false,
+  "editor": "ZrcmsHtmlBlockEdit",
+  "js": {
+    "xample.block.block.js": "../public/block.js",
+    "xample.block.admin-tools-block.js": "admin-tools:../public/block-admin-tools.js"
+  },
+  "fields": [
+    {
+      "name": "html",
+      "type": "text",
+      "label": "html",
+      "default": ""
+    }
+  ],
+  "createdByUserId": "James-Jervis",
+  "createdReason": "HTML block",
+  "createdDate": "2018-01-01T00:00:00+0000"
+}

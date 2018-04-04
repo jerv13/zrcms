@@ -52,6 +52,7 @@
     "psr-4": {
       "Zrcms\\": "/",
       "Zrcms\\Acl\\": "acl/src/",
+      "Zrcms\\BlockHtml\\": "zrcms-block-html/src/",
       "Zrcms\\Core\\": "core/src/",
       "Zrcms\\CoreAdminTools\\": "core-admin-tools/src/",
       "Zrcms\\CoreApplication\\": "core-application/src/",
@@ -110,6 +111,7 @@
       "Zrcms\\PageAccess\\": "page-access/src/",
       "Zrcms\\ServiceAlias\\": "service-alias/src/",
       "Zrcms\\SwaggerExpressiveZrcms\\": "swagger-expressive-zrcms/src/",
+      "Zrcms\\ThemeDefault\\": "zrcms-theme-default/src/",
       "Zrcms\\User\\": "user/src/",
       "Zrcms\\ValidationRatZrcms\\": "validation-rat-zrcms/src/",
       "Zrcms\\ValidationRatZrcmsSite\\": "validation-rat-zrcms-site/src/",

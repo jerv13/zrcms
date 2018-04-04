@@ -3,6 +3,7 @@
 namespace Zrcms\HttpAssets;
 
 use Zrcms\HttpAssets\Middleware\HttpComponentCss;
+use Zrcms\HttpAssets\Middleware\HttpComponentIcon;
 use Zrcms\HttpAssets\Middleware\HttpComponentJs;
 
 /**
@@ -31,6 +32,15 @@ class ModuleConfigRoutes
                     'path' => '/zrcms/component/{zrcms-component-type}.js',
                     'middleware' => [
                         'middleware' => HttpComponentJs::class,
+                    ],
+                    'options' => [],
+                    'allowed_methods' => ['GET'],
+                ],
+                'zrcms.component.{zrcms-component-type}.{zrcms-component-name}.icon.png' => [
+                    'name' => 'zrcms.component.{zrcms-component-type}.{zrcms-component-name}.icon.png',
+                    'path' => '/zrcms/component/{zrcms-component-type}/{zrcms-component-name}/icon.png',
+                    'middleware' => [
+                        'middleware' => HttpComponentIcon::class,
                     ],
                     'options' => [],
                     'allowed_methods' => ['GET'],

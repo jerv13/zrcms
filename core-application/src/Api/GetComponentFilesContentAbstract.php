@@ -122,25 +122,11 @@ abstract class GetComponentFilesContentAbstract
         string $moduleDirectory,
         string $filePathUri
     ) {
-        $filePath = parse_url($filePathUri, PHP_URL_PATH);
-
-        $filePath = $moduleDirectory . '/' . $filePath;
-
-        $realFilePath = realpath($filePath);
-
-        if (empty($realFilePath)) {
-            throw new \Exception(
-                'Path is not valid: ' . $filePathUri
-                . ' in: ' . get_class($this)
-            );
-        }
-
-        if (!is_file($realFilePath)) {
-            throw new \Exception(
-                'File path must be a file: ' . $filePathUri
-                . ' in: ' . get_class($this)
-            );
-        }
+        $realFilePath = GetModuleDirectoryFilePathBasic::invoke(
+            $moduleDirectory,
+            $filePathUri,
+            get_class($this)
+        );
 
         return file_get_contents($realFilePath);
     }

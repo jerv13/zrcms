@@ -15,6 +15,7 @@ class ModulesConfigZrcms
     public function __invoke()
     {
         $zrcmsModules = [
+            new \Zrcms\BlockHtml\ModuleConfigZrcms(),
             new \Zrcms\CoreAdminTools\ModuleConfigZrcms(),
             new \Zrcms\CoreApplicationState\ModuleConfigZrcms(),
             new \Zrcms\CoreApplication\ModuleConfigZrcms(),
@@ -43,6 +44,7 @@ class ModulesConfigZrcms
             new \Zrcms\HttpViewRender\ModuleConfigZrcms(),
             new \Zrcms\PageAccess\ModuleConfigZrcms(),
             new \Zrcms\ServiceAlias\ModuleConfigZrcms(),
+            new \Zrcms\ThemeDefault\ModuleConfigZrcms(),
             new \Zrcms\ViewHead\ModuleConfigZrcms(),
             // @todo XampleComponent should NOT be included by default
             new \Zrcms\XampleComponent\ModuleConfigZrcms(),

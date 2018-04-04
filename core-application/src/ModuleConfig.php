@@ -21,6 +21,7 @@ use Zrcms\Core\Api\Content\ContentVersionsToArray;
 use Zrcms\Core\Api\Content\ContentVersionToArray;
 use Zrcms\Core\Api\GetComponentCss;
 use Zrcms\Core\Api\GetComponentJs;
+use Zrcms\Core\Api\GetModuleDirectoryFilePath;
 use Zrcms\Core\Api\GetTypeValue;
 use Zrcms\Core\Api\PropertiesToArray;
 use Zrcms\Core\Model\ComponentBasic;
@@ -54,6 +55,7 @@ use Zrcms\CoreApplication\Api\Content\ContentVersionToArrayBasic;
 use Zrcms\CoreApplication\Api\Content\ContentVersionToArrayBasicFactory;
 use Zrcms\CoreApplication\Api\GetComponentCssBasic;
 use Zrcms\CoreApplication\Api\GetComponentJsBasic;
+use Zrcms\CoreApplication\Api\GetModuleDirectoryFilePathBasicFactory;
 use Zrcms\CoreApplication\Api\GetTypeValueBasicFactory;
 use Zrcms\CoreApplication\Api\PropertiesToArrayBasicFactory;
 use Zrcms\ServiceAlias\Api\GetServiceFromAlias;
@@ -189,6 +191,9 @@ class ModuleConfig
                             Cache::class,
                             ['literal' => GetComponentJsBasic::DEFAULT_CACHE_KEY]
                         ],
+                    ],
+                    GetModuleDirectoryFilePath::class => [
+                        'factory' => GetModuleDirectoryFilePathBasicFactory::class,
                     ],
                     GetTypeValue::class => [
                         'factory' => GetTypeValueBasicFactory::class,

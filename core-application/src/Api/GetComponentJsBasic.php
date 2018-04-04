@@ -20,6 +20,8 @@ class GetComponentJsBasic extends GetComponentFilesContentAbstract implements Ge
     /**
      * @param Cache  $cache
      * @param string $cacheKey
+     *
+     * @throws \Psr\SimpleCache\InvalidArgumentException
      */
     public function __construct(
         Cache $cache,

@@ -10,6 +10,8 @@ use Zrcms\HttpAssets\Api\GetCacheBreakerPhpFile;
 use Zrcms\HttpAssets\Api\Render\RenderLinkHrefTag;
 use Zrcms\HttpAssets\Api\Render\RenderScriptSrcTag;
 use Zrcms\HttpAssets\Middleware\HttpComponentCss;
+use Zrcms\HttpAssets\Middleware\HttpComponentIcon;
+use Zrcms\HttpAssets\Middleware\HttpComponentIconFactory;
 use Zrcms\HttpAssets\Middleware\HttpComponentJs;
 use Zrcms\ViewHtmlTags\Api\Render\RenderTag;
 
@@ -53,6 +55,9 @@ class ModuleConfig
                             FindComponentsBy::class,
                             GetComponentCss::class
                         ],
+                    ],
+                    HttpComponentIcon::class => [
+                        'factory' => HttpComponentIconFactory::class
                     ],
                     HttpComponentJs::class => [
                         'arguments' => [

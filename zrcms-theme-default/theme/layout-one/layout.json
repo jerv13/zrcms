@@ -1,7 +1,7 @@
 {
   "type": "theme-layout",
-  "name": "primary",
-  "themeName": "xample-theme",
+  "name": "one",
+  "themeName": "default-theme",
   "templateFile": "/template.mustache",
   "renderer": "mustache"
 }
