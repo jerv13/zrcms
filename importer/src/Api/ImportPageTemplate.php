@@ -15,16 +15,16 @@ use Zrcms\CorePage\Model\PageVersionBasic;
  */
 class ImportPageTemplate
 {
-    protected $importOptions;
+    protected $importUtilities;
     protected $insertPageVersion;
     protected $createPageTemplateCmsResource;
 
     public function __construct(
-        ImportUtilities $importOptions,
+        ImportUtilities $importUtilities,
         InsertPageVersion $insertPageVersion,
         CreatePageTemplateCmsResource $createPageTemplateCmsResource
     ) {
-        $this->importOptions = $importOptions;
+        $this->importUtilities = $importUtilities;
         $this->insertPageVersion = $insertPageVersion;
         $this->createPageTemplateCmsResource = $createPageTemplateCmsResource;
     }
@@ -71,7 +71,7 @@ class ImportPageTemplate
             'path'
         );
 
-        $this->importOptions->log(
+        $this->importUtilities->log(
             LogLevel::INFO,
             'Import Page Template: ' . $path . ' SiteID: '. $siteCmsResourceId,
             $options
@@ -97,7 +97,7 @@ class ImportPageTemplate
         );
 
         if (!$published) {
-            $this->importOptions->log(
+            $this->importUtilities->log(
                 LogLevel::WARNING,
                 'UNPUBLISH PageTemplateCmsResource ID: ' . $publishedPageTemplateCmsResource->getId(),
                 $options

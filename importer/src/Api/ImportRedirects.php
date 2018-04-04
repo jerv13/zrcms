@@ -10,14 +10,14 @@ use Zrcms\CoreRedirect\Model\RedirectCmsResource;
  */
 class ImportRedirects
 {
-    protected $importOptions;
+    protected $importUtilities;
     protected $importRedirect;
 
     public function __construct(
-        ImportUtilities $importOptions,
+        ImportUtilities $importUtilities,
         ImportRedirect $importRedirect
     ) {
-        $this->importOptions = $importOptions;
+        $this->importUtilities = $importUtilities;
         $this->importRedirect = $importRedirect;
     }
 
@@ -36,7 +36,7 @@ class ImportRedirects
         string $createdReason,
         array $options = []
     ) {
-        $this->importOptions->log(
+        $this->importUtilities->log(
             LogLevel::INFO,
             'Import Redirects:',
             $options

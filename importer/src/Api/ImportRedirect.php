@@ -15,24 +15,24 @@ use Zrcms\CoreRedirect\Model\RedirectVersionBasic;
  */
 class ImportRedirect
 {
-    protected $importOptions;
+    protected $importUtilities;
     protected $findRedirectCmsResource;
     protected $insertRedirectVersion;
     protected $createRedirectCmsResource;
 
     /**
-     * @param ImportUtilities           $importOptions
+     * @param ImportUtilities           $importUtilities
      * @param FindRedirectCmsResource   $findRedirectCmsResource
      * @param InsertRedirectVersion     $insertRedirectVersion
      * @param CreateRedirectCmsResource $createRedirectCmsResource
      */
     public function __construct(
-        ImportUtilities $importOptions,
+        ImportUtilities $importUtilities,
         FindRedirectCmsResource $findRedirectCmsResource,
         InsertRedirectVersion $insertRedirectVersion,
         CreateRedirectCmsResource $createRedirectCmsResource
     ) {
-        $this->importOptions = $importOptions;
+        $this->importUtilities = $importUtilities;
         $this->findRedirectCmsResource = $findRedirectCmsResource;
         $this->insertRedirectVersion = $insertRedirectVersion;
         $this->createRedirectCmsResource = $createRedirectCmsResource;
@@ -89,8 +89,8 @@ class ImportRedirect
             $id
         );
 
-        if (!empty($existing) && $this->importOptions->skipDuplicates($options)) {
-            $this->importOptions->log(
+        if (!empty($existing) && $this->importUtilities->skipDuplicates($options)) {
+            $this->importUtilities->log(
                 LogLevel::WARNING,
                 'SKIP redirect - Already exists: ('
                 . 'redirect Id: ' . $id . ' SiteID: ' . $siteCmsResourceId
@@ -101,7 +101,7 @@ class ImportRedirect
             return null;
         }
 
-        $this->importOptions->log(
+        $this->importUtilities->log(
             LogLevel::INFO,
             'Import Redirect: ' . $id
             . ' RequestPath' . $requestPath
@@ -130,7 +130,7 @@ class ImportRedirect
         );
 
         if (!$published) {
-            $this->importOptions->log(
+            $this->importUtilities->log(
                 LogLevel::WARNING,
                 'UNPUBLISH RedirectCmsResource ID: ' . $publishedRedirectCmsResource->getId(),
                 $options

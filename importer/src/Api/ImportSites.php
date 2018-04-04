@@ -10,14 +10,14 @@ use Zrcms\CoreSite\Model\SiteCmsResource;
  */
 class ImportSites
 {
-    protected $importOptions;
+    protected $importUtilities;
     protected $importSite;
 
     public function __construct(
-        ImportUtilities $importOptions,
+        ImportUtilities $importUtilities,
         ImportSite $importSite
     ) {
-        $this->importOptions = $importOptions;
+        $this->importUtilities = $importUtilities;
         $this->importSite = $importSite;
     }
 
@@ -36,7 +36,7 @@ class ImportSites
         string $createdReason,
         array $options = []
     ) {
-        $this->importOptions->log(
+        $this->importUtilities->log(
             LogLevel::INFO,
             'Import Sites:',
             $options

@@ -10,18 +10,18 @@ use Zrcms\CorePage\Model\PageCmsResource;
  */
 class ImportPages
 {
-    protected $importOptions;
+    protected $importUtilities;
     protected $importPage;
 
     /**
-     * @param ImportUtilities $importOptions
+     * @param ImportUtilities $importUtilities
      * @param ImportPage      $importPage
      */
     public function __construct(
-        ImportUtilities $importOptions,
+        ImportUtilities $importUtilities,
         ImportPage $importPage
     ) {
-        $this->importOptions = $importOptions;
+        $this->importUtilities = $importUtilities;
         $this->importPage = $importPage;
     }
 
@@ -40,7 +40,7 @@ class ImportPages
         string $createdReason,
         array $options = []
     ) {
-        $this->importOptions->log(
+        $this->importUtilities->log(
             LogLevel::INFO,
             'Import Pages:',
             $options

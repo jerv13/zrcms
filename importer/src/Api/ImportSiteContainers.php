@@ -10,14 +10,14 @@ use Zrcms\CoreSiteContainer\Model\SiteContainerCmsResource;
  */
 class ImportSiteContainers
 {
-    protected $importOptions;
+    protected $importUtilities;
     protected $importSiteContainer;
 
     public function __construct(
-        ImportUtilities $importOptions,
+        ImportUtilities $importUtilities,
         ImportSiteContainer $importSiteContainer
     ) {
-        $this->importOptions = $importOptions;
+        $this->importUtilities = $importUtilities;
         $this->importSiteContainer = $importSiteContainer;
     }
 
@@ -36,7 +36,7 @@ class ImportSiteContainers
         string $createdReason,
         array $options = []
     ) {
-        $this->importOptions->log(
+        $this->importUtilities->log(
             LogLevel::INFO,
             'Import SiteContainers:',
             $options

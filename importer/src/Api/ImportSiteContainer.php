@@ -14,21 +14,21 @@ use Zrcms\CoreSiteContainer\Model\SiteContainerCmsResource;
  */
 class ImportSiteContainer
 {
-    protected $importOptions;
+    protected $importUtilities;
     protected $insertSiteContainerVersion;
     protected $createSiteContainerCmsResource;
 
     /**
-     * @param ImportUtilities                $importOptions
+     * @param ImportUtilities                $importUtilities
      * @param InsertSiteContainerVersion     $insertSiteContainerVersion
      * @param CreateSiteContainerCmsResource $createSiteContainerCmsResource
      */
     public function __construct(
-        ImportUtilities $importOptions,
+        ImportUtilities $importUtilities,
         InsertSiteContainerVersion $insertSiteContainerVersion,
         CreateSiteContainerCmsResource $createSiteContainerCmsResource
     ) {
-        $this->importOptions = $importOptions;
+        $this->importUtilities = $importUtilities;
         $this->insertSiteContainerVersion = $insertSiteContainerVersion;
         $this->createSiteContainerCmsResource = $createSiteContainerCmsResource;
     }
@@ -75,7 +75,7 @@ class ImportSiteContainer
             'name'
         );
 
-        $this->importOptions->log(
+        $this->importUtilities->log(
             LogLevel::INFO,
             'Import Container: ' . $name . ' SiteID: ' . $siteCmsResourceId,
             $options
@@ -101,7 +101,7 @@ class ImportSiteContainer
         );
 
         if (!$published) {
-            $this->importOptions->log(
+            $this->importUtilities->log(
                 LogLevel::WARNING,
                 'UNPUBLISH ContainerCmsResource ID: ' . $publishedContainerCmsResource->getId(),
                 $options

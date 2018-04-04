@@ -32,17 +32,8 @@ class ImportFactory
     ) {
         return new Import(
             $serviceContainer->get(ImportUtilities::class),
-            $serviceContainer->get(FindSiteCmsResource::class),
-            $serviceContainer->get(InsertSiteVersion::class),
-            $serviceContainer->get(CreateSiteCmsResource::class),
-            $serviceContainer->get(InsertPageVersion::class),
-            $serviceContainer->get(CreatePageCmsResource::class),
-            $serviceContainer->get(CreatePageTemplateCmsResource::class),
-            $serviceContainer->get(InsertSiteContainerVersion::class),
-            $serviceContainer->get(CreateSiteContainerCmsResource::class),
-            $serviceContainer->get(FindRedirectCmsResource::class),
-            $serviceContainer->get(InsertRedirectVersion::class),
-            $serviceContainer->get(CreateRedirectCmsResource::class)
+            $serviceContainer->get(ImportSites::class),
+            $serviceContainer->get(ImportRedirects::class)
         );
     }
 }

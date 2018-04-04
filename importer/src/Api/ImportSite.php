@@ -15,7 +15,7 @@ use Zrcms\CoreSite\Model\SiteVersionBasic;
  */
 class ImportSite
 {
-    protected $importOptions;
+    protected $importUtilities;
     protected $findSiteCmsResource;
     protected $insertSiteVersion;
     protected $createSiteCmsResource;
@@ -25,7 +25,7 @@ class ImportSite
     protected $importRedirects;
 
     /**
-     * @param ImportUtilities       $importOptions
+     * @param ImportUtilities       $importUtilities
      * @param FindSiteCmsResource   $findSiteCmsResource
      * @param InsertSiteVersion     $insertSiteVersion
      * @param CreateSiteCmsResource $createSiteCmsResource
@@ -35,7 +35,7 @@ class ImportSite
      * @param ImportRedirects       $importRedirects
      */
     public function __construct(
-        ImportUtilities $importOptions,
+        ImportUtilities $importUtilities,
         FindSiteCmsResource $findSiteCmsResource,
         InsertSiteVersion $insertSiteVersion,
         CreateSiteCmsResource $createSiteCmsResource,
@@ -44,7 +44,7 @@ class ImportSite
         ImportSiteContainers $importSiteContainers,
         ImportRedirects $importRedirects
     ) {
-        $this->importOptions = $importOptions;
+        $this->importUtilities = $importUtilities;
         $this->findSiteCmsResource = $findSiteCmsResource;
         $this->insertSiteVersion = $insertSiteVersion;
         $this->createSiteCmsResource = $createSiteCmsResource;
@@ -105,7 +105,7 @@ class ImportSite
 
         $siteContainers = Property::getArray(
             $siteData,
-            'containers',
+            'siteContainers',
             []
         );
 
@@ -113,8 +113,8 @@ class ImportSite
             $id
         );
 
-        if (!empty($existing) && $this->importOptions->skipDuplicates($options)) {
-            $this->importOptions->log(
+        if (!empty($existing) && $this->importUtilities->skipDuplicates($options)) {
+            $this->importUtilities->log(
                 LogLevel::WARNING,
                 'SKIP Site - Already exists: ('
                 . 'siteId: ' . $id
@@ -126,7 +126,7 @@ class ImportSite
             return null;
         }
 
-        $this->importOptions->log(
+        $this->importUtilities->log(
             LogLevel::INFO,
             'Import Site: ('
             . 'siteId: ' . $id
@@ -179,7 +179,7 @@ class ImportSite
         );
 
         if (!$published) {
-            $this->importOptions->log(
+            $this->importUtilities->log(
                 LogLevel::WARNING,
                 'UNPUBLISH SiteCmsResource ID: ' . $publishedSiteCmsResource->getId(),
                 $options

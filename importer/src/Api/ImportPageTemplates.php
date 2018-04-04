@@ -10,14 +10,14 @@ use Zrcms\CorePage\Model\PageTemplateCmsResource;
  */
 class ImportPageTemplates
 {
-    protected $importOptions;
+    protected $importUtilities;
     protected $importPageTemplate;
 
     public function __construct(
-        ImportUtilities $importOptions,
+        ImportUtilities $importUtilities,
         ImportPageTemplate $importPageTemplate
     ) {
-        $this->importOptions = $importOptions;
+        $this->importUtilities = $importUtilities;
         $this->importPageTemplate = $importPageTemplate;
     }
 
@@ -36,7 +36,7 @@ class ImportPageTemplates
         string $createdReason,
         array $options = []
     ) {
-        $this->importOptions->log(
+        $this->importUtilities->log(
             LogLevel::INFO,
             'Import PageTemplates:',
             $options

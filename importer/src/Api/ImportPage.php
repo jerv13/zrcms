@@ -14,21 +14,21 @@ use Zrcms\CorePage\Model\PageVersionBasic;
  */
 class ImportPage
 {
-    protected $importOptions;
+    protected $importUtilities;
     protected $insertPageVersion;
     protected $createPageCmsResource;
 
     /**
-     * @param ImportUtilities       $importOptions
+     * @param ImportUtilities       $importUtilities
      * @param InsertPageVersion     $insertPageVersion
      * @param CreatePageCmsResource $createPageCmsResource
      */
     public function __construct(
-        ImportUtilities $importOptions,
+        ImportUtilities $importUtilities,
         InsertPageVersion $insertPageVersion,
         CreatePageCmsResource $createPageCmsResource
     ) {
-        $this->importOptions = $importOptions;
+        $this->importUtilities = $importUtilities;
         $this->insertPageVersion = $insertPageVersion;
         $this->createPageCmsResource = $createPageCmsResource;
     }
@@ -75,7 +75,7 @@ class ImportPage
             'path'
         );
 
-        $this->importOptions->log(
+        $this->importUtilities->log(
             LogLevel::INFO,
             'Import Page: ' . $path . ' ID: ' . $id . ' SiteID: ' . $siteCmsResourceId,
             $options
@@ -101,7 +101,7 @@ class ImportPage
         );
 
         if (!$published) {
-            $this->importOptions->log(
+            $this->importUtilities->log(
                 LogLevel::WARNING,
                 'UNPUBLISH PageCmsResource ID: ' . $publishedPageCmsResource->getId(),
                 $options
