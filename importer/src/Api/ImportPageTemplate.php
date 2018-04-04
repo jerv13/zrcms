@@ -6,7 +6,6 @@ use Psr\Log\LogLevel;
 use Reliv\ArrayProperties\Property;
 use Zrcms\CorePage\Api\CmsResource\CreatePageTemplateCmsResource;
 use Zrcms\CorePage\Api\Content\InsertPageVersion;
-use Zrcms\CorePage\Fields\FieldsPageVersion;
 use Zrcms\CorePage\Model\PageTemplateCmsResource;
 use Zrcms\CorePage\Model\PageVersionBasic;
 
@@ -73,7 +72,7 @@ class ImportPageTemplate
 
         $this->importUtilities->log(
             LogLevel::INFO,
-            'Import Page Template: ' . $path . ' SiteID: '. $siteCmsResourceId,
+            'Import Page Template: ' . $path . ' SiteID: ' . $siteCmsResourceId,
             $options
         );
 
@@ -103,6 +102,7 @@ class ImportPageTemplate
                 $options
             );
         }
+
         return $publishedPageTemplateCmsResource;
     }
 }
