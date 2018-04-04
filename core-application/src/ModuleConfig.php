@@ -51,6 +51,7 @@ use Zrcms\CoreApplication\Api\Content\ContentToArrayBasicFactory;
 use Zrcms\CoreApplication\Api\Content\ContentVersionsToArrayBasic;
 use Zrcms\CoreApplication\Api\Content\ContentVersionsToArrayBasicFactory;
 use Zrcms\CoreApplication\Api\Content\ContentVersionToArrayBasic;
+use Zrcms\CoreApplication\Api\Content\ContentVersionToArrayBasicFactory;
 use Zrcms\CoreApplication\Api\GetComponentCssBasic;
 use Zrcms\CoreApplication\Api\GetComponentJsBasic;
 use Zrcms\CoreApplication\Api\GetTypeValueBasicFactory;
@@ -169,7 +170,7 @@ class ModuleConfig
                         'factory' => ContentVersionsToArrayBasicFactory::class,
                     ],
                     ContentVersionToArray::class => [
-                        'class' => ContentVersionToArrayBasic::class,
+                        'factory' => ContentVersionToArrayBasicFactory::class,
                     ],
 
                     /**
