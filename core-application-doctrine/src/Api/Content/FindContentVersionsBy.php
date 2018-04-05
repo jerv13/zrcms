@@ -5,6 +5,7 @@ namespace Zrcms\CoreApplicationDoctrine\Api\Content;
 use Zrcms\Core\Model\ContentVersion;
 use Zrcms\CoreApplicationDoctrine\Api\ApiAbstractContentVersion;
 use Zrcms\CoreApplicationDoctrine\Api\BuildBasicContentVersions;
+use Zrcms\CoreApplicationDoctrine\Api\MutateFieldNames;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -30,6 +31,9 @@ class FindContentVersionsBy extends ApiAbstractContentVersion implements \Zrcms\
         $repository = $this->entityManager->getRepository(
             $this->entityClassContentVersion
         );
+
+        $criteria = MutateFieldNames::invoke($criteria);
+        $orderBy = MutateFieldNames::invoke($orderBy);
 
         $entities = $repository->findBy(
             $criteria,

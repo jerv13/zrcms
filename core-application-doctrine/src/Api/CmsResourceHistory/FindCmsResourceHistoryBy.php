@@ -6,6 +6,7 @@ use Zrcms\Core\Api\CmsResourceHistory\FindCmsResourceHistoryBy as CoreFindCmsRes
 use Zrcms\Core\Model\CmsResourceHistory;
 use Zrcms\CoreApplicationDoctrine\Api\ApiAbstractCmsResourceHistory;
 use Zrcms\CoreApplicationDoctrine\Api\BuildBasicCmsResourceHistoryList;
+use Zrcms\CoreApplicationDoctrine\Api\MutateFieldNames;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -32,6 +33,9 @@ class FindCmsResourceHistoryBy extends ApiAbstractCmsResourceHistory implements 
         $repository = $this->entityManager->getRepository(
             $this->entityClassCmsResourceHistory
         );
+
+        $criteria = MutateFieldNames::invoke($criteria);
+        $orderBy = MutateFieldNames::invoke($orderBy);
 
         $entities = $repository->findBy(
             $criteria,

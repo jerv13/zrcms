@@ -5,6 +5,7 @@ namespace Zrcms\CoreApplicationDoctrine\Api\CmsResource;
 use Zrcms\Core\Model\CmsResource;
 use Zrcms\CoreApplicationDoctrine\Api\ApiAbstractCmsResource;
 use Zrcms\CoreApplicationDoctrine\Api\BuildBasicCmsResources;
+use Zrcms\CoreApplicationDoctrine\Api\MutateFieldNames;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -31,6 +32,9 @@ class FindCmsResourcesBy extends ApiAbstractCmsResource implements \Zrcms\Core\A
         $repository = $this->entityManager->getRepository(
             $this->entityClassCmsResource
         );
+
+        $criteria = MutateFieldNames::invoke($criteria);
+        $orderBy = MutateFieldNames::invoke($orderBy);
 
         $entities = $repository->findBy(
             $criteria,

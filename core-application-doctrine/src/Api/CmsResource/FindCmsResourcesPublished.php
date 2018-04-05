@@ -6,6 +6,7 @@ use Zrcms\Core\Api\CmsResource\FindCmsResourcesPublished as CoreFind;
 use Zrcms\Core\Model\CmsResource;
 use Zrcms\CoreApplicationDoctrine\Api\ApiAbstractCmsResource;
 use Zrcms\CoreApplicationDoctrine\Api\BuildBasicCmsResources;
+use Zrcms\CoreApplicationDoctrine\Api\MutateFieldNames;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -32,6 +33,9 @@ class FindCmsResourcesPublished extends ApiAbstractCmsResource implements CoreFi
         $repository = $this->entityManager->getRepository(
             $this->entityClassCmsResource
         );
+
+        $criteria = MutateFieldNames::invoke($criteria);
+        $orderBy = MutateFieldNames::invoke($orderBy);
 
         $criteria['published'] = true;
 
