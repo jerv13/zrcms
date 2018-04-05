@@ -2,7 +2,7 @@
 
 namespace Zrcms\CoreApplicationDoctrine\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
+use Zrcms\Core\Api\AsUtcDataTime;
 use Zrcms\Core\Exception\TrackingInvalid;
 use Zrcms\Core\Model\Trackable;
 use Zrcms\Core\Model\TrackableTrait;
@@ -37,12 +37,10 @@ trait TrackableEntityTrait
         }
 
         // ALWAYS RETURN UTC
-        $timezone = new \DateTimeZone('UTC');
+        $utcDateTime = AsUtcDataTime::invoke(
+            $this->createdDateObject
+        );
 
-        // Clone to prevent changes
-        $dateTime =  clone($this->createdDateObject);
-        $dateTime->setTimezone($timezone);
-
-        return $dateTime->format(Trackable::DATE_FORMAT);
+        return $utcDateTime->format(Trackable::DATE_FORMAT);
     }
 }

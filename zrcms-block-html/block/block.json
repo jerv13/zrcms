@@ -6,7 +6,7 @@
   "renderer": "mustache",
   "icon": "../public/icon.png",
   "cache": false,
-  "editor": "ZrcmsHtmlBlockEdit",
+  "editor": "custom-global:ZrcmsHtmlBlockEdit",
   "js": {
     "xample.block.block.js": "../public/block.js",
     "xample.block.admin-tools-block.js": "admin-tools:../public/block-admin-tools.js"
