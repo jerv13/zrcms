@@ -2,16 +2,18 @@
 
 namespace Zrcms\HttpApi\Params;
 
+use Interop\Http\ServerMiddleware\DelegateInterface;
+use Interop\Http\ServerMiddleware\MiddlewareInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
+use Reliv\ArrayProperties\Property;
 use Zrcms\Http\Api\QueryParamValueDecode;
 use Zrcms\Http\Model\HttpOrderBy;
-use Reliv\ArrayProperties\Property;
 
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class HttpApiOrderBy
+class HttpApiOrderBy implements MiddlewareInterface
 {
     protected $queryParamValueDecode;
 
@@ -26,16 +28,13 @@ class HttpApiOrderBy
 
     /**
      * @param ServerRequestInterface $request
-     * @param ResponseInterface      $response
-     * @param callable|null          $next
+     * @param DelegateInterface      $delegate
      *
-     * @return ResponseInterface
-     * @throws \Exception
+     * @return mixed|ResponseInterface
      */
-    public function __invoke(
+    public function process(
         ServerRequestInterface $request,
-        ResponseInterface $response,
-        callable $next = null
+        DelegateInterface $delegate
     ) {
         $queryParams = $request->getQueryParams();
 
@@ -47,17 +46,16 @@ class HttpApiOrderBy
         );
 
         if (!is_array($orderBy)) {
-            return $next($request, $response);
+            return $delegate->process($request);
         }
 
         $orderBy = $this->queryParamValueDecode->__invoke($orderBy);
 
-        return $next(
+        return $delegate->process(
             $request->withAttribute(
                 HttpOrderBy::ATTRIBUTE,
                 $orderBy
-            ),
-            $response
+            )
         );
     }
 }

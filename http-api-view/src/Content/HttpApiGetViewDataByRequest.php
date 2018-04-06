@@ -17,11 +17,13 @@ use Zrcms\CoreView\Model\View;
 use Zrcms\Http\Api\BuildMessageValue;
 use Zrcms\Http\Api\BuildResponseOptions;
 use Zrcms\Http\Response\ZrcmsJsonResponse;
+use Interop\Http\ServerMiddleware\DelegateInterface;
+use Interop\Http\ServerMiddleware\MiddlewareInterface;
 
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class HttpApiGetViewDataByRequest
+class HttpApiGetViewDataByRequest implements MiddlewareInterface
 {
     const PARAM_VIEW_DATA = 'zrcms-view-data';
     const SOURCE_ACL = 'acl';
@@ -72,17 +74,16 @@ class HttpApiGetViewDataByRequest
 
     /**
      * @param ServerRequestInterface $request
-     * @param ResponseInterface      $response
-     * @param callable|null          $next
+     * @param DelegateInterface      $delegate
      *
-     * @return ZrcmsJsonResponse|JsonResponse
+     * @return ResponseInterface|ZrcmsJsonResponse
      * @throws \Exception
+     * @throws \Zrcms\CoreView\Exception\InvalidGetViewByRequest
      * @throws \Zrcms\CoreView\Exception\ViewDataNotFound
      */
-    public function __invoke(
+    public function process(
         ServerRequestInterface $request,
-        ResponseInterface $response,
-        callable $next = null
+        DelegateInterface $delegate
     ) {
         $queryParams = $request->getQueryParams();
 
@@ -93,7 +94,7 @@ class HttpApiGetViewDataByRequest
         );
 
         if (!$showViewData) {
-            return $next($request, $response);
+            return $delegate->process($request);
         }
 
         $allowed = $this->isAllowed->__invoke(

@@ -2,6 +2,8 @@
 
 namespace Zrcms\HttpApi\Content;
 
+use Interop\Http\ServerMiddleware\DelegateInterface;
+use Interop\Http\ServerMiddleware\MiddlewareInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Zend\Diactoros\Response\JsonResponse;
@@ -15,7 +17,7 @@ use Zrcms\Http\Response\ZrcmsJsonResponse;
  * @deprecated
  * @author James Jervis - https://github.com/jerv13
  */
-class HttpApiFindContentVersion
+class HttpApiFindContentVersion implements MiddlewareInterface
 {
     const SOURCE = 'zrcms-find-content-version';
 
@@ -40,16 +42,13 @@ class HttpApiFindContentVersion
 
     /**
      * @param ServerRequestInterface $request
-     * @param ResponseInterface      $response
-     * @param callable|null          $next
+     * @param DelegateInterface      $delegate
      *
-     * @return ResponseInterface
-     * @throws \Exception
+     * @return ResponseInterface|ZrcmsJsonResponse
      */
-    public function __invoke(
+    public function process(
         ServerRequestInterface $request,
-        ResponseInterface $response,
-        callable $next = null
+        DelegateInterface $delegate
     ) {
         $requestedContentVersionId = $request->getAttribute('id');
 

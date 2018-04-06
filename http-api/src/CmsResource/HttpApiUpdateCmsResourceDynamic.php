@@ -2,6 +2,8 @@
 
 namespace Zrcms\HttpApi\CmsResource;
 
+use Interop\Http\ServerMiddleware\DelegateInterface;
+use Interop\Http\ServerMiddleware\MiddlewareInterface;
 use Psr\Container\ContainerInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
@@ -17,7 +19,7 @@ use Zrcms\User\Api\GetUserIdByRequest;
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class HttpApiUpdateCmsResourceDynamic
+class HttpApiUpdateCmsResourceDynamic implements MiddlewareInterface
 {
     const SOURCE = 'http-api-update-cms-resource-dynamic';
 
@@ -47,18 +49,18 @@ class HttpApiUpdateCmsResourceDynamic
 
     /**
      * @param ServerRequestInterface $request
-     * @param ResponseInterface      $response
-     * @param callable|null          $next
+     * @param DelegateInterface      $delegate
      *
      * @return ResponseInterface|ZrcmsJsonResponse
      * @throws \Exception
      * @throws \Psr\Container\ContainerExceptionInterface
      * @throws \Psr\Container\NotFoundExceptionInterface
+     * @throws \Zrcms\Core\Exception\CmsResourceNotExists
+     * @throws \Zrcms\Core\Exception\ContentVersionNotExists
      */
-    public function __invoke(
+    public function process(
         ServerRequestInterface $request,
-        ResponseInterface $response,
-        callable $next = null
+        DelegateInterface $delegate
     ) {
         $dynamicApiConfig = $request->getAttribute(Dynamic::ATTRIBUTE_DYNAMIC_API_CONFIG);
 

@@ -2,6 +2,8 @@
 
 namespace Zrcms\HttpApi\Component;
 
+use Interop\Http\ServerMiddleware\DelegateInterface;
+use Interop\Http\ServerMiddleware\MiddlewareInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Zrcms\Core\Api\Component\ComponentsToArray;
@@ -16,7 +18,7 @@ use Zrcms\Http\Response\ZrcmsJsonResponse;
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class HttpApiFindComponentsBy
+class HttpApiFindComponentsBy implements MiddlewareInterface
 {
     const SOURCE = 'zrcms-find-components-by';
 
@@ -37,16 +39,13 @@ class HttpApiFindComponentsBy
 
     /**
      * @param ServerRequestInterface $request
-     * @param ResponseInterface      $response
-     * @param callable|null          $next
+     * @param DelegateInterface      $delegate
      *
-     * @return ResponseInterface
-     * @throws \Exception
+     * @return ResponseInterface|ZrcmsJsonResponse
      */
-    public function __invoke(
+    public function process(
         ServerRequestInterface $request,
-        ResponseInterface $response,
-        callable $next = null
+        DelegateInterface $delegate
     ) {
         $criteria = $request->getAttribute(HttpWhere::ATTRIBUTE, []);
         $orderBy = $request->getAttribute(HttpOrderBy::ATTRIBUTE);

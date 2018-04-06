@@ -2,9 +2,12 @@
 
 namespace Zrcms\HttpApi\Content;
 
+use Interop\Http\ServerMiddleware\DelegateInterface;
+use Interop\Http\ServerMiddleware\MiddlewareInterface;
 use Psr\Container\ContainerInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
+use Reliv\ArrayProperties\Property;
 use Zrcms\Core\Api\CmsResource\CmsResourcesToArray;
 use Zrcms\Core\Api\Content\ContentVersionsToArray;
 use Zrcms\Core\Api\Content\FindContentVersionsBy;
@@ -15,12 +18,11 @@ use Zrcms\Http\Model\HttpOrderBy;
 use Zrcms\Http\Model\HttpWhere;
 use Zrcms\Http\Response\ZrcmsJsonResponse;
 use Zrcms\HttpApi\Dynamic;
-use Reliv\ArrayProperties\Property;
 
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class HttpApiFindContentVersionsByDynamic
+class HttpApiFindContentVersionsByDynamic implements MiddlewareInterface
 {
     const SOURCE = 'http-api-find-content-versions-by-dynamic';
 
@@ -45,18 +47,16 @@ class HttpApiFindContentVersionsByDynamic
 
     /**
      * @param ServerRequestInterface $request
-     * @param ResponseInterface      $response
-     * @param callable|null          $next
+     * @param DelegateInterface      $delegate
      *
      * @return ResponseInterface|ZrcmsJsonResponse
      * @throws \Exception
      * @throws \Psr\Container\ContainerExceptionInterface
      * @throws \Psr\Container\NotFoundExceptionInterface
      */
-    public function __invoke(
+    public function process(
         ServerRequestInterface $request,
-        ResponseInterface $response,
-        callable $next = null
+        DelegateInterface $delegate
     ) {
         $dynamicApiConfig = $request->getAttribute(Dynamic::ATTRIBUTE_DYNAMIC_API_CONFIG);
 

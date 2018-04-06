@@ -2,6 +2,8 @@
 
 namespace Zrcms\HttpApi\Content;
 
+use Interop\Http\ServerMiddleware\DelegateInterface;
+use Interop\Http\ServerMiddleware\MiddlewareInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Zrcms\Core\Api\Content\ContentVersionToArray;
@@ -17,7 +19,7 @@ use Zrcms\User\Api\GetUserIdByRequest;
  *
  * @author James Jervis - https://github.com/jerv13
  */
-class HttpApiInsertContentVersion
+class HttpApiInsertContentVersion implements MiddlewareInterface
 {
     const SOURCE = 'zrcms-insert-content-version';
 
@@ -50,16 +52,13 @@ class HttpApiInsertContentVersion
 
     /**
      * @param ServerRequestInterface $request
-     * @param ResponseInterface      $response
-     * @param callable|null          $next
+     * @param DelegateInterface      $delegate
      *
-     * @return ResponseInterface
-     * @throws \Exception
+     * @return ResponseInterface|ZrcmsJsonResponse
      */
-    public function __invoke(
+    public function process(
         ServerRequestInterface $request,
-        ResponseInterface $response,
-        callable $next = null
+        DelegateInterface $delegate
     ) {
         $requestData = $request->getParsedBody();
 

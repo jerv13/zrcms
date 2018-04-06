@@ -2,6 +2,8 @@
 
 namespace Zrcms\HttpApi\Dynamic;
 
+use Interop\Http\ServerMiddleware\DelegateInterface;
+use Interop\Http\ServerMiddleware\MiddlewareInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Reliv\ArrayProperties\Property;
@@ -16,7 +18,7 @@ use Zrcms\HttpApi\GetDynamicApiConfig;
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class HttpApiDynamic
+class HttpApiDynamic implements MiddlewareInterface
 {
     const SOURCE = 'http-api-dynamic';
 
@@ -45,16 +47,15 @@ class HttpApiDynamic
 
     /**
      * @param ServerRequestInterface $request
-     * @param ResponseInterface      $response
-     * @param callable|null          $next
+     * @param DelegateInterface      $delegate
      *
-     * @return ResponseInterface
-     * @throws \Exception
+     * @return ResponseInterface|ZrcmsJsonResponse
+     * @throws \Reliv\ArrayProperties\Exception\ArrayPropertyException
+     * @throws \Throwable
      */
-    public function __invoke(
+    public function process(
         ServerRequestInterface $request,
-        ResponseInterface $response,
-        callable $next = null
+        DelegateInterface $delegate
     ) {
         $routeOptions = $this->getRouteOptions->__invoke($request);
 
@@ -99,7 +100,7 @@ class HttpApiDynamic
             );
         }
 
-        return $next(
+        return $delegate->process(
             $request->withAttribute(
                 Dynamic::ATTRIBUTE_DYNAMIC_API_CONFIG,
                 $dynamicApiConfig
@@ -109,8 +110,7 @@ class HttpApiDynamic
             )->withAttribute(
                 Dynamic::ATTRIBUTE_DYNAMIC_API_TYPE,
                 $dynamicApiType
-            ),
-            $response
+            )
         );
     }
 }

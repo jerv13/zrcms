@@ -2,16 +2,18 @@
 
 namespace Zrcms\HttpApi\Params;
 
+use Interop\Http\ServerMiddleware\DelegateInterface;
+use Interop\Http\ServerMiddleware\MiddlewareInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
+use Reliv\ArrayProperties\Property;
 use Zrcms\Http\Api\QueryParamValueDecode;
 use Zrcms\Http\Model\HttpWhere;
-use Reliv\ArrayProperties\Property;
 
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class HttpApiWhere
+class HttpApiWhere implements MiddlewareInterface
 {
     protected $queryParamValueDecode;
 
@@ -26,16 +28,13 @@ class HttpApiWhere
 
     /**
      * @param ServerRequestInterface $request
-     * @param ResponseInterface      $response
-     * @param callable|null          $next
+     * @param DelegateInterface      $delegate
      *
-     * @return ResponseInterface
-     * @throws \Exception
+     * @return mixed|ResponseInterface
      */
-    public function __invoke(
+    public function process(
         ServerRequestInterface $request,
-        ResponseInterface $response,
-        callable $next = null
+        DelegateInterface $delegate
     ) {
         $queryParams = $request->getQueryParams();
 
@@ -47,17 +46,16 @@ class HttpApiWhere
         );
 
         if (!is_array($where)) {
-            return $next($request, $response);
+            return $delegate->process($request);
         }
 
         $where = $this->queryParamValueDecode->__invoke($where);
 
-        return $next(
+        return $delegate->process(
             $request->withAttribute(
                 HttpWhere::ATTRIBUTE,
                 $where
-            ),
-            $response
+            )
         );
     }
 }

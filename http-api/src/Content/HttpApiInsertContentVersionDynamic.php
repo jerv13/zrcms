@@ -2,22 +2,24 @@
 
 namespace Zrcms\HttpApi\Content;
 
+use Interop\Http\ServerMiddleware\DelegateInterface;
+use Interop\Http\ServerMiddleware\MiddlewareInterface;
 use Psr\Container\ContainerInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
+use Reliv\ArrayProperties\Property;
 use Zrcms\Core\Api\Content\ContentVersionToArray;
 use Zrcms\Core\Api\Content\InsertContentVersion;
 use Zrcms\Core\Model\ContentVersionBasic;
 use Zrcms\Http\Api\BuildResponseOptions;
 use Zrcms\Http\Response\ZrcmsJsonResponse;
 use Zrcms\HttpApi\Dynamic;
-use Reliv\ArrayProperties\Property;
 use Zrcms\User\Api\GetUserIdByRequest;
 
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class HttpApiInsertContentVersionDynamic
+class HttpApiInsertContentVersionDynamic implements MiddlewareInterface
 {
     const SOURCE = 'http-api-insert-content-version-dynamic';
 
@@ -47,18 +49,16 @@ class HttpApiInsertContentVersionDynamic
 
     /**
      * @param ServerRequestInterface $request
-     * @param ResponseInterface      $response
-     * @param callable|null          $next
+     * @param DelegateInterface      $delegate
      *
      * @return ResponseInterface|ZrcmsJsonResponse
      * @throws \Exception
      * @throws \Psr\Container\ContainerExceptionInterface
      * @throws \Psr\Container\NotFoundExceptionInterface
      */
-    public function __invoke(
+    public function process(
         ServerRequestInterface $request,
-        ResponseInterface $response,
-        callable $next = null
+        DelegateInterface $delegate
     ) {
         $dynamicApiConfig = $request->getAttribute(Dynamic::ATTRIBUTE_DYNAMIC_API_CONFIG);
 

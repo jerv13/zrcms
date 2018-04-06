@@ -2,6 +2,8 @@
 
 namespace Zrcms\HttpApi\Acl;
 
+use Interop\Http\ServerMiddleware\DelegateInterface;
+use Interop\Http\ServerMiddleware\MiddlewareInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Zrcms\Acl\Api\IsAllowed;
@@ -13,7 +15,7 @@ use Zrcms\Http\Response\ZrcmsJsonResponse;
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class HttpApiIsAllowed
+class HttpApiIsAllowed implements MiddlewareInterface
 {
     const SOURCE = 'zrcms-http-is-allowed';
 
@@ -48,16 +50,13 @@ class HttpApiIsAllowed
 
     /**
      * @param ServerRequestInterface $request
-     * @param ResponseInterface      $response
-     * @param callable|null          $next
+     * @param DelegateInterface      $delegate
      *
-     * @return ResponseInterface
-     * @throws \Exception
+     * @return ResponseInterface|ZrcmsJsonResponse
      */
-    public function __invoke(
+    public function process(
         ServerRequestInterface $request,
-        ResponseInterface $response,
-        callable $next = null
+        DelegateInterface $delegate
     ) {
         if (!$this->isAllowed->__invoke($request, $this->isAllowedOptions)) {
             return new ZrcmsJsonResponse(
@@ -74,6 +73,6 @@ class HttpApiIsAllowed
             );
         }
 
-        return $next($request, $response);
+        return $delegate->process($request);
     }
 }

@@ -2,6 +2,8 @@
 
 namespace Zrcms\HttpApiBlockRender\Middleware;
 
+use Interop\Http\ServerMiddleware\DelegateInterface;
+use Interop\Http\ServerMiddleware\MiddlewareInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Reliv\ArrayProperties\Property;
@@ -19,7 +21,7 @@ use Zrcms\User\Api\GetUserIdByRequest;
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class HttpApiBlockRender
+class HttpApiBlockRender implements MiddlewareInterface
 {
     const SOURCE = 'block-render';
     const API_TYPE = 'zrcms-http-api';
@@ -62,16 +64,13 @@ class HttpApiBlockRender
 
     /**
      * @param ServerRequestInterface $request
-     * @param ResponseInterface      $response
-     * @param callable|null          $next
+     * @param DelegateInterface      $delegate
      *
-     * @return ResponseInterface
-     * @throws \Exception
+     * @return ResponseInterface|ZrcmsJsonResponse
      */
-    public function __invoke(
+    public function process(
         ServerRequestInterface $request,
-        ResponseInterface $response,
-        callable $next = null
+        DelegateInterface $delegate
     ) {
         $blockComponentName = (string)$this->getBlockComponentName($request);
 
@@ -152,8 +151,6 @@ class HttpApiBlockRender
         ServerRequestInterface $request
     ): array {
         $blockVersionProperties = $request->getParsedBody();
-
-
 
         $blockVersionData['id'] = Property::getString(
             $request->getQueryParams(),

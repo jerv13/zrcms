@@ -2,6 +2,8 @@
 
 namespace Zrcms\HttpApiInputValidationMessages\Response;
 
+use Interop\Http\ServerMiddleware\DelegateInterface;
+use Interop\Http\ServerMiddleware\MiddlewareInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Reliv\ArrayProperties\Property;
@@ -10,14 +12,13 @@ use Reliv\ValidationRat\Model\ValidationResultFields;
 use Reliv\ValidationRatMessages\Api\GetMessagesValidationResult;
 use Reliv\ValidationRatMessages\Api\GetMessagesValidationResultFields;
 use Reliv\ValidationRatMessages\Api\GetMessagesValidationResultFieldsByOption;
-use Zend\Diactoros\Response\JsonResponse;
 use Zrcms\Http\Api\IsValidContentType;
 use Zrcms\Http\Response\ZrcmsJsonResponse;
 
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class ResponseMutatorMessagesFromResults
+class ResponseMutatorMessagesFromResults implements MiddlewareInterface
 {
     const PARAM_MESSAGES_FORMAT = 'validationMessagesFormat';
 
@@ -41,20 +42,17 @@ class ResponseMutatorMessagesFromResults
     }
 
     /**
-     * @param ServerRequestInterface                           $request
-     * @param ResponseInterface|JsonResponse|ZrcmsJsonResponse $response
-     * @param callable|null                                    $next
+     * @param ServerRequestInterface $request
+     * @param DelegateInterface      $delegate
      *
-     * @return ResponseInterface
-     * @throws \Exception
+     * @return ResponseInterface|ZrcmsJsonResponse
      */
-    public function __invoke(
+    public function process(
         ServerRequestInterface $request,
-        ResponseInterface $response,
-        callable $next = null
+        DelegateInterface $delegate
     ) {
         /** @var ZrcmsJsonResponse $response */
-        $response = $next($request, $response);
+        $response = $delegate->process($request);
 
         if (!$this->canHandleResponse($response)) {
             return $response;

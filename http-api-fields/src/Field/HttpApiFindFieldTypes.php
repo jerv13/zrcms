@@ -2,6 +2,8 @@
 
 namespace Zrcms\HttpApiFields\Field;
 
+use Interop\Http\ServerMiddleware\DelegateInterface;
+use Interop\Http\ServerMiddleware\MiddlewareInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Reliv\FieldRat\Api\FieldType\FieldTypesToArray;
@@ -12,7 +14,7 @@ use Zrcms\Http\Response\ZrcmsJsonResponse;
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class HttpApiFindFieldTypes
+class HttpApiFindFieldTypes  implements MiddlewareInterface
 {
     protected $listFieldTypes;
     protected $fieldTypesToArray;
@@ -31,16 +33,13 @@ class HttpApiFindFieldTypes
 
     /**
      * @param ServerRequestInterface $request
-     * @param ResponseInterface      $response
-     * @param callable|null          $next
+     * @param DelegateInterface      $delegate
      *
-     * @return ResponseInterface
-     * @throws \Exception
+     * @return ResponseInterface|ZrcmsJsonResponse
      */
-    public function __invoke(
+    public function process(
         ServerRequestInterface $request,
-        ResponseInterface $response,
-        callable $next = null
+        DelegateInterface $delegate
     ) {
         return new ZrcmsJsonResponse(
             $this->fieldTypesToArray->__invoke(

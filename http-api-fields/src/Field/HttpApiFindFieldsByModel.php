@@ -2,7 +2,8 @@
 
 namespace Zrcms\HttpApiFields\Field;
 
-use Psr\Http\Message\ResponseInterface;
+use Interop\Http\ServerMiddleware\DelegateInterface;
+use Interop\Http\ServerMiddleware\MiddlewareInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Reliv\FieldRat\Api\Field\FieldsToArray;
 use Reliv\FieldRat\Api\Field\FindFieldsByModel;
@@ -13,7 +14,7 @@ use Zrcms\Http\Response\ZrcmsJsonResponse;
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class HttpApiFindFieldsByModel
+class HttpApiFindFieldsByModel implements MiddlewareInterface
 {
     const SOURCE = 'http-api-find-fields-by-model';
     const ATTRIBUTE_FIELDS_MODEL = 'field-rat-fields-model';
@@ -34,16 +35,14 @@ class HttpApiFindFieldsByModel
 
     /**
      * @param ServerRequestInterface $request
-     * @param ResponseInterface      $response
-     * @param callable|null          $next
+     * @param DelegateInterface      $delegate
      *
-     * @return ResponseInterface
+     * @return ZrcmsJsonResponse
      * @throws \Exception
      */
-    public function __invoke(
+    public function process(
         ServerRequestInterface $request,
-        ResponseInterface $response,
-        callable $next = null
+        DelegateInterface $delegate
     ) {
         $model = $request->getAttribute(self::ATTRIBUTE_FIELDS_MODEL);
 
