@@ -2,18 +2,20 @@
 
 namespace Zrcms\HttpTest\Middleware;
 
+use Interop\Http\ServerMiddleware\DelegateInterface;
+use Interop\Http\ServerMiddleware\MiddlewareInterface;
 use Psr\Container\ContainerInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Zend\Diactoros\Response\JsonResponse;
+use Zrcms\Core\Api\CmsResource\FindCmsResource;
 use Zrcms\Core\Api\CmsResource\UpdateCmsResource;
 use Zrcms\Core\Api\Content\ContentVersionToArray;
-use Zrcms\Core\Api\CmsResource\FindCmsResource;
 use Zrcms\Core\Api\Content\FindContentVersion;
 use Zrcms\Core\Api\Content\InsertContentVersion;
 use Zrcms\Core\Model\ContentVersion;
-use Zrcms\CoreSite\Api\CmsResource\UpdateSiteCmsResource;
 use Zrcms\CoreSite\Api\CmsResource\FindSiteCmsResource;
+use Zrcms\CoreSite\Api\CmsResource\UpdateSiteCmsResource;
 use Zrcms\CoreSite\Api\Content\FindSiteVersion;
 use Zrcms\CoreSite\Api\Content\InsertSiteVersion;
 use Zrcms\CoreSite\Fields\FieldsSiteVersion;
@@ -21,9 +23,10 @@ use Zrcms\CoreSite\Model\SiteVersionBasic;
 use Zrcms\User\Api\GetUserIdByRequest;
 
 /**
+ * @todo   Finish this
  * @author James Jervis - https://github.com/jerv13
  */
-class HttpImplementationTest
+class HttpImplementationTest implements MiddlewareInterface
 {
     const NAME = 'implementation';
 
@@ -34,9 +37,12 @@ class HttpImplementationTest
     /**
      * @param ContainerInterface $serviceContainer
      * @param array              $tests
+     *
+     * @throws \Psr\Container\ContainerExceptionInterface
+     * @throws \Psr\Container\NotFoundExceptionInterface
      */
     public function __construct(
-        $serviceContainer,
+        ContainerInterface $serviceContainer,
         array $tests = []
     ) {
         $this->serviceContainer = $serviceContainer;
@@ -97,16 +103,14 @@ class HttpImplementationTest
 
     /**
      * @param ServerRequestInterface $request
-     * @param ResponseInterface      $response
-     * @param callable|null          $next
+     * @param DelegateInterface      $delegate
      *
-     * @return ResponseInterface
+     * @return ResponseInterface|JsonResponse
      * @throws \Exception
      */
-    public function __invoke(
+    public function process(
         ServerRequestInterface $request,
-        ResponseInterface $response,
-        callable $next = null
+        DelegateInterface $delegate
     ) {
         /* @todo Write this
          * - for each content type (Container with block, Page, Site, ThemeLayout, View)
@@ -155,6 +159,8 @@ class HttpImplementationTest
      * @param string $createdReason
      *
      * @return array
+     * @throws \Psr\Container\ContainerExceptionInterface
+     * @throws \Psr\Container\NotFoundExceptionInterface
      */
     public function testInsertContentVersion(
         string $testName,

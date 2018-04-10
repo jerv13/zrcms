@@ -2,6 +2,8 @@
 
 namespace Zrcms\HttpRedirect\Middleware;
 
+use Interop\Http\ServerMiddleware\DelegateInterface;
+use Interop\Http\ServerMiddleware\MiddlewareInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Zend\Diactoros\Response\RedirectResponse;
@@ -11,7 +13,7 @@ use Zrcms\CoreSite\Api\GetSiteCmsResourceByRequest;
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class HttpContentRedirect
+class HttpContentRedirect implements MiddlewareInterface
 {
     /**
      * @var GetSiteCmsResourceByRequest
@@ -53,23 +55,22 @@ class HttpContentRedirect
 
     /**
      * @param ServerRequestInterface $request
-     * @param ResponseInterface      $response
-     * @param callable|null          $next
+     * @param DelegateInterface      $delegate
      *
-     * @return ResponseInterface
+     * @return ResponseInterface|RedirectResponse
      * @throws \Exception
+     * @throws \Psr\SimpleCache\InvalidArgumentException
      */
-    public function __invoke(
+    public function process(
         ServerRequestInterface $request,
-        ResponseInterface $response,
-        callable $next = null
+        DelegateInterface $delegate
     ) {
         $siteCmsResource = $this->getSiteCmsResourceByRequest->__invoke(
             $request
         );
 
         if (empty($siteCmsResource)) {
-            return $next($request, $response);
+            return $delegate->process($request);
         }
 
         $uri = $request->getUri();
@@ -81,7 +82,7 @@ class HttpContentRedirect
         );
 
         if (empty($redirectCmsResource)) {
-            return $next($request, $response);
+            return $delegate->process($request);
         }
 
         $redirectPath = $redirectCmsResource->getContentVersion()->getRedirectPath();

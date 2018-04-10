@@ -2,6 +2,8 @@
 
 namespace Zrcms\HttpSiteExists\Middleware;
 
+use Interop\Http\ServerMiddleware\DelegateInterface;
+use Interop\Http\ServerMiddleware\MiddlewareInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Zend\Diactoros\Response\HtmlResponse;
@@ -11,7 +13,7 @@ use Zrcms\CoreSite\Model\SiteCmsResource;
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class HttpSiteExists
+class HttpSiteExists implements MiddlewareInterface
 {
     protected $getSiteCmsResourceByRequest;
     protected $notFoundStatus;
@@ -38,15 +40,15 @@ class HttpSiteExists
 
     /**
      * @param ServerRequestInterface $request
-     * @param ResponseInterface      $response
-     * @param callable|null          $next
+     * @param DelegateInterface      $delegate
      *
-     * @return HtmlResponse
+     * @return ResponseInterface|HtmlResponse
+     * @throws \Exception
+     * @throws \Psr\SimpleCache\InvalidArgumentException
      */
-    public function __invoke(
+    public function process(
         ServerRequestInterface $request,
-        ResponseInterface $response,
-        callable $next = null
+        DelegateInterface $delegate
     ) {
         /** @var SiteCmsResource $siteCmsResource */
         $siteCmsResource = $this->getSiteCmsResourceByRequest->__invoke(
@@ -61,6 +63,6 @@ class HttpSiteExists
             );
         }
 
-        return $next($request, $response);
+        return $delegate->process($request);
     }
 }

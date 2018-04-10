@@ -2,6 +2,8 @@
 
 namespace Zrcms\HttpAssets\Middleware;
 
+use Interop\Http\ServerMiddleware\DelegateInterface;
+use Interop\Http\ServerMiddleware\MiddlewareInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Zend\Diactoros\Response;
@@ -13,7 +15,7 @@ use Zrcms\Core\Api\GetModuleDirectoryFilePath;
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class HttpComponentIcon
+class HttpComponentIcon implements MiddlewareInterface
 {
     const ATTRIBUTE_TYPE = 'zrcms-component-type';
     const ATTRIBUTE_NAME = 'zrcms-component-name';
@@ -39,16 +41,14 @@ class HttpComponentIcon
 
     /**
      * @param ServerRequestInterface $request
-     * @param ResponseInterface      $response
-     * @param callable|null          $next
+     * @param DelegateInterface      $delegate
      *
-     * @return ResponseInterface
+     * @return ResponseInterface|Response|HtmlResponse
      * @throws \Exception
      */
-    public function __invoke(
+    public function process(
         ServerRequestInterface $request,
-        ResponseInterface $response,
-        callable $next = null
+        DelegateInterface $delegate
     ) {
         $componentType = $request->getAttribute(self::ATTRIBUTE_TYPE);
         $componentName = $request->getAttribute(self::ATTRIBUTE_NAME);
@@ -77,7 +77,6 @@ class HttpComponentIcon
                 ['reason-phrase' => 'NOT FOUND: COMPONENT ICON']
             );
         }
-
 
         $realFilePath = $this->getModuleDirectoryFilePath->__invoke(
             $component->getModuleDirectory(),

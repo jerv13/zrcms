@@ -2,6 +2,8 @@
 
 namespace Zrcms\HttpApi\ZrcmsConfig;
 
+use Interop\Http\ServerMiddleware\DelegateInterface;
+use Interop\Http\ServerMiddleware\MiddlewareInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Zrcms\Http\Api\BuildResponseOptions;
@@ -10,7 +12,7 @@ use Zrcms\Http\Response\ZrcmsJsonResponse;
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class HttpApiZrcmsConfig
+class HttpApiZrcmsConfig implements MiddlewareInterface
 {
     protected $appConfig;
 
@@ -25,16 +27,13 @@ class HttpApiZrcmsConfig
 
     /**
      * @param ServerRequestInterface $request
-     * @param ResponseInterface      $response
-     * @param callable|null          $next
+     * @param DelegateInterface      $delegate
      *
-     * @return ResponseInterface
-     * @throws \Exception
+     * @return ResponseInterface|ZrcmsJsonResponse
      */
-    public function __invoke(
+    public function process(
         ServerRequestInterface $request,
-        ResponseInterface $response,
-        callable $next = null
+        DelegateInterface $delegate
     ) {
         $zrcmsConfig = array_filter(
             $this->appConfig,

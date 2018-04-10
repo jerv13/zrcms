@@ -2,6 +2,8 @@
 
 namespace Zrcms\HttpViewRender\Request;
 
+use Interop\Http\ServerMiddleware\DelegateInterface;
+use Interop\Http\ServerMiddleware\MiddlewareInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Reliv\ArrayProperties\Property;
@@ -10,7 +12,7 @@ use Zrcms\CoreView\Api\ViewBuilder\BuildViewPageVersionId;
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class RequestWithViewStrategyPageVersionId
+class RequestWithViewStrategyPageVersionId implements MiddlewareInterface
 {
     const ATTRIBUTE_VIEW_PAGE_VERSION_ID = BuildViewPageVersionId::ATTRIBUTE_VIEW_PAGE_VERSION_ID;
     // This comes from client
@@ -18,16 +20,13 @@ class RequestWithViewStrategyPageVersionId
 
     /**
      * @param ServerRequestInterface $request
-     * @param ResponseInterface      $response
-     * @param callable|null          $next
+     * @param DelegateInterface      $delegate
      *
      * @return ResponseInterface
-     * @throws \Exception
      */
-    public function __invoke(
+    public function process(
         ServerRequestInterface $request,
-        ResponseInterface $response,
-        callable $next = null
+        DelegateInterface $delegate
     ) {
         $queryParams = $request->getQueryParams();
 
@@ -37,7 +36,7 @@ class RequestWithViewStrategyPageVersionId
         );
 
         if (empty($pageVersionId)) {
-            return $next($request, $response);
+            return $delegate->process($request);
         }
 
         $request = $request->withAttribute(
@@ -45,6 +44,6 @@ class RequestWithViewStrategyPageVersionId
             $pageVersionId
         );
 
-        return $next($request, $response);
+        return $delegate->process($request);
     }
 }

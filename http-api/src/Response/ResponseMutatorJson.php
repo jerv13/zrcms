@@ -2,6 +2,8 @@
 
 namespace Zrcms\HttpApi\Response;
 
+use Interop\Http\ServerMiddleware\DelegateInterface;
+use Interop\Http\ServerMiddleware\MiddlewareInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Zend\Diactoros\Response\JsonResponse;
@@ -13,7 +15,7 @@ use Zrcms\Http\Response\ZrcmsJsonResponse;
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class ResponseMutatorJson
+class ResponseMutatorJson implements MiddlewareInterface
 {
     protected $validAcceptTypes;
     protected $statusBlackList;
@@ -36,19 +38,16 @@ class ResponseMutatorJson
 
     /**
      * @param ServerRequestInterface $request
-     * @param ResponseInterface      $response
-     * @param callable|null          $next
+     * @param DelegateInterface      $delegate
      *
-     * @return ResponseInterface
-     * @throws \Exception
+     * @return ResponseInterface|ZrcmsJsonResponse
      */
-    public function __invoke(
+    public function process(
         ServerRequestInterface $request,
-        ResponseInterface $response,
-        callable $next = null
+        DelegateInterface $delegate
     ) {
         /** @var JsonResponse $response */
-        $response = $next($request, $response);
+        $response = $delegate->process($request);
 
         if (!$this->canHandleResponse($request, $response)) {
             return $response;

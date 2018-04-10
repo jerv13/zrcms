@@ -2,19 +2,20 @@
 
 namespace Zrcms\HttpRcmApiLib\Response;
 
+use Interop\Http\ServerMiddleware\DelegateInterface;
+use Interop\Http\ServerMiddleware\MiddlewareInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Reliv\RcmApiLib\Api\ApiResponse\NewPsrResponseWithTranslatedMessages;
 use Reliv\RcmApiLib\Exception\CanNotHydrate;
 use Reliv\RcmApiLib\Http\PsrApiResponse;
-use Zend\Diactoros\Response\JsonResponse;
 use Zrcms\Http\Api\IsValidContentType;
 use Zrcms\Http\Response\ZrcmsJsonResponse;
 
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class ResponseMutatorJsonRcmApiLibFormat
+class ResponseMutatorJsonRcmApiLibFormat implements MiddlewareInterface
 {
     /**
      * @var NewPsrResponseWithTranslatedMessages
@@ -39,20 +40,17 @@ class ResponseMutatorJsonRcmApiLibFormat
     }
 
     /**
-     * @param ServerRequestInterface         $request
-     * @param ResponseInterface|JsonResponse $response
-     * @param callable|null                  $next
+     * @param ServerRequestInterface $request
+     * @param DelegateInterface      $delegate
      *
-     * @return ResponseInterface
-     * @throws \Exception
+     * @return ResponseInterface|ZrcmsJsonResponse
      */
-    public function __invoke(
+    public function process(
         ServerRequestInterface $request,
-        ResponseInterface $response,
-        callable $next = null
+        DelegateInterface $delegate
     ) {
         /** @var ZrcmsJsonResponse $response */
-        $response = $next($request, $response);
+        $response = $delegate->process($request);
 
         if (!$this->canHandleResponse($response)) {
             return $response;

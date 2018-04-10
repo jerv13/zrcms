@@ -2,16 +2,18 @@
 
 namespace Zrcms\HttpUser\Middleware;
 
+use Interop\Http\ServerMiddleware\DelegateInterface;
+use Interop\Http\ServerMiddleware\MiddlewareInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
-use Zend\Diactoros\Response\RedirectResponse;
 use Reliv\ArrayProperties\Property;
+use Zend\Diactoros\Response\RedirectResponse;
 use Zrcms\User\Api\LogOut;
 
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class HttpParamLogOut
+class HttpParamLogOut implements MiddlewareInterface
 {
     const PARAM_LOGOUT = 'logout';
 
@@ -47,16 +49,13 @@ class HttpParamLogOut
 
     /**
      * @param ServerRequestInterface $request
-     * @param ResponseInterface      $response
-     * @param callable|null          $next
+     * @param DelegateInterface      $delegate
      *
-     * @return ResponseInterface
-     * @throws \Exception
+     * @return ResponseInterface|RedirectResponse
      */
-    public function __invoke(
+    public function process(
         ServerRequestInterface $request,
-        ResponseInterface $response,
-        callable $next = null
+        DelegateInterface $delegate
     ) {
         $params = $request->getQueryParams();
 
@@ -80,6 +79,6 @@ class HttpParamLogOut
             );
         }
 
-        return $next($request, $response);
+        return $delegate->process($request);
     }
 }

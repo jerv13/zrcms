@@ -2,16 +2,18 @@
 
 namespace Zrcms\HttpApplicationState\Middleware;
 
+use Interop\Http\ServerMiddleware\DelegateInterface;
+use Interop\Http\ServerMiddleware\MiddlewareInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
+use Reliv\ArrayProperties\Property;
 use Zend\Diactoros\Response\JsonResponse;
 use Zrcms\CoreApplicationState\Api\GetApplicationState;
-use Reliv\ArrayProperties\Property;
 
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class HttpApplicationStateByRequest
+class HttpApplicationStateByRequest implements MiddlewareInterface
 {
     const PARAM_APPLICATION_STATE = 'application-state';
 
@@ -32,15 +34,13 @@ class HttpApplicationStateByRequest
 
     /**
      * @param ServerRequestInterface $request
-     * @param ResponseInterface      $response
-     * @param callable|null          $next
+     * @param DelegateInterface      $delegate
      *
-     * @return JsonResponse
+     * @return ResponseInterface|JsonResponse
      */
-    public function __invoke(
+    public function process(
         ServerRequestInterface $request,
-        ResponseInterface $response,
-        callable $next = null
+        DelegateInterface $delegate
     ) {
         $params = $request->getQueryParams();
         $returnAppState = Property::getBool(
@@ -58,6 +58,6 @@ class HttpApplicationStateByRequest
             );
         }
 
-        return $next($request, $response);
+        return $delegate->process($request);
     }
 }

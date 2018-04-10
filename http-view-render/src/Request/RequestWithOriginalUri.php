@@ -2,34 +2,33 @@
 
 namespace Zrcms\HttpViewRender\Request;
 
+use Interop\Http\ServerMiddleware\DelegateInterface;
+use Interop\Http\ServerMiddleware\MiddlewareInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class RequestWithOriginalUri
+class RequestWithOriginalUri implements MiddlewareInterface
 {
     const ATTRIBUTE_ORIGINAL_URI = 'zrcms-original-uri';
 
     /**
      * @param ServerRequestInterface $request
-     * @param ResponseInterface      $response
-     * @param callable|null          $next
+     * @param DelegateInterface      $delegate
      *
      * @return ResponseInterface
-     * @throws \Exception
      */
-    public function __invoke(
+    public function process(
         ServerRequestInterface $request,
-        ResponseInterface $response,
-        callable $next = null
+        DelegateInterface $delegate
     ) {
         $request = $request->withAttribute(
             self::ATTRIBUTE_ORIGINAL_URI,
             $request->getUri()
         );
 
-        return $next($request, $response);
+        return $delegate->process($request);
     }
 }

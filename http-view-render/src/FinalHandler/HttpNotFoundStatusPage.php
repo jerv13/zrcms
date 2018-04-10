@@ -2,16 +2,19 @@
 
 namespace Zrcms\HttpViewRender\FinalHandler;
 
+use Interop\Http\ServerMiddleware\DelegateInterface;
+use Interop\Http\ServerMiddleware\MiddlewareInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Zend\Diactoros\Response\HtmlResponse;
+use Zrcms\Http\Response\ResponseDelegate;
 use Zrcms\HttpStatusPages\Api\GetStatusPage;
 use Zrcms\HttpViewRender\Response\RenderPage;
 
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class HttpNotFoundStatusPage
+class HttpNotFoundStatusPage implements MiddlewareInterface
 {
     const DEFAULT_NOT_FOUND_STATUS = 404;
 
@@ -40,16 +43,15 @@ class HttpNotFoundStatusPage
 
     /**
      * @param ServerRequestInterface $request
-     * @param ResponseInterface      $response
-     * @param callable|null          $next
+     * @param DelegateInterface      $delegate
      *
-     * @return ResponseInterface
-     * @throws \Exception
+     * @return ResponseInterface|HtmlResponse|static
+     * @throws \Zrcms\CoreView\Exception\InvalidGetViewByRequest
+     * @throws \Zrcms\CoreView\Exception\ViewDataNotFound
      */
-    public function __invoke(
+    public function process(
         ServerRequestInterface $request,
-        ResponseInterface $response,
-        $next = null
+        DelegateInterface $delegate
     ) {
         $statusPage = $this->getStatusPage->__invoke(
             $request,
@@ -68,16 +70,17 @@ class HttpNotFoundStatusPage
 
         $uri = $requestUri->withPath($statusPage['path']);
 
-        $response = $this->renderPage->__invoke(
+        $delegate = new ResponseDelegate(
+            new HtmlResponse(
+                '',
+                $this->notFoundStatus,
+                ['reason-phrase' => 'NOT FOUND: UNHANDLED REQUEST: 404 PAGE MISSING: ' . $statusPage]
+            )
+        );
+
+        $response = $this->renderPage->process(
             $request->withUri($uri),
-            $response,
-            function ($req, $res) use ($statusPage) {
-                return new HtmlResponse(
-                    '',
-                    $this->notFoundStatus,
-                    ['reason-phrase' => 'NOT FOUND: UNHANDLED REQUEST: 404 PAGE MISSING: ' . $statusPage]
-                );
-            }
+            $delegate
         );
 
         if ($this->debug) {

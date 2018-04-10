@@ -2,6 +2,8 @@
 
 namespace Zrcms\HttpViewRender\Response;
 
+use Interop\Http\ServerMiddleware\DelegateInterface;
+use Interop\Http\ServerMiddleware\MiddlewareInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Zend\Diactoros\Response\HtmlResponse;
@@ -20,7 +22,7 @@ use Zrcms\HttpViewRender\Router\LayoutThemeRouter;
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class ResponseMutatorThemeLayoutWrapper
+class ResponseMutatorThemeLayoutWrapper implements MiddlewareInterface
 {
     protected $buildViewHtmlPage;
     protected $getViewLayoutTags;
@@ -30,10 +32,10 @@ class ResponseMutatorThemeLayoutWrapper
 
     /**
      * @param BuildViewHtmlPage $buildViewHtmlPage
-     * @param GetViewLayoutTags        $getViewLayoutTags
-     * @param RenderView               $renderView
-     * @param LayoutThemeRouter        $layoutThemeRouter
-     * @param bool                     $debug
+     * @param GetViewLayoutTags $getViewLayoutTags
+     * @param RenderView        $renderView
+     * @param LayoutThemeRouter $layoutThemeRouter
+     * @param bool              $debug
      */
     public function __construct(
         BuildViewHtmlPage $buildViewHtmlPage,
@@ -51,19 +53,17 @@ class ResponseMutatorThemeLayoutWrapper
 
     /**
      * @param ServerRequestInterface $request
-     * @param ResponseInterface      $response
-     * @param callable|null          $next
+     * @param DelegateInterface      $delegate
      *
      * @return ResponseInterface|HtmlResponse|ZrcmsHtmlResponse|static
      * @throws \Zrcms\CoreView\Exception\ViewDataNotFound
      */
-    public function __invoke(
+    public function process(
         ServerRequestInterface $request,
-        ResponseInterface $response,
-        callable $next = null
+        DelegateInterface $delegate
     ) {
         /** @var HtmlResponse|ZrcmsHtmlResponse $response */
-        $response = $next($request, $response);
+        $response = $delegate->process($request);
 
         if (!$this->canHandleResponse($request, $response)) {
             return $response;

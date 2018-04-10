@@ -2,6 +2,8 @@
 
 namespace Zrcms\HttpSiteMap\Middleware;
 
+use Interop\Http\ServerMiddleware\DelegateInterface;
+use Interop\Http\ServerMiddleware\MiddlewareInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Zend\Diactoros\Response\HtmlResponse;
@@ -13,7 +15,7 @@ use Zrcms\CoreSite\Api\GetSiteCmsResourceByRequest;
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class SiteMap
+class SiteMap implements MiddlewareInterface
 {
     protected $getSiteCmsResourceByRequest;
     protected $findPageCmsResourcesBy;
@@ -40,17 +42,15 @@ class SiteMap
 
     /**
      * @param ServerRequestInterface $request
-     * @param ResponseInterface      $response
-     * @param callable|null          $next
+     * @param DelegateInterface      $delegate
      *
      * @return ResponseInterface|HtmlResponse
      * @throws \Exception
      * @throws \Psr\SimpleCache\InvalidArgumentException
      */
-    public function __invoke(
+    public function process(
         ServerRequestInterface $request,
-        ResponseInterface $response,
-        callable $next = null
+        DelegateInterface $delegate
     ) {
         $siteCmsResource = $this->getSiteCmsResourceByRequest->__invoke(
             $request
@@ -100,6 +100,7 @@ class SiteMap
 
     /**
      * @todo Implement this logic
+     *
      * @param PageCmsResource $pageCmsResource
      *
      * @return string
@@ -111,6 +112,7 @@ class SiteMap
 
     /**
      * @todo Implement this logic
+     *
      * @param PageCmsResource $pageCmsResource
      *
      * @return string
@@ -125,7 +127,7 @@ class SiteMap
      *
      * @param ServerRequestInterface $request
      * @param                        $data
-     * @param array $options
+     * @param array                  $options
      *
      * @return string
      */

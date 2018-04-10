@@ -2,6 +2,8 @@
 
 namespace Zrcms\HttpViewRender\Request;
 
+use Interop\Http\ServerMiddleware\DelegateInterface;
+use Interop\Http\ServerMiddleware\MiddlewareInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Zrcms\CoreView\Api\GetViewByRequest;
@@ -13,7 +15,7 @@ use Zrcms\CoreView\Model\View;
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class RequestWithView
+class RequestWithView implements MiddlewareInterface
 {
     const ATTRIBUTE_VIEW = 'zrcms-view';
     const ATTRIBUTE_MESSAGE = 'zrcms-view-message';
@@ -35,16 +37,15 @@ class RequestWithView
 
     /**
      * @param ServerRequestInterface $request
-     * @param ResponseInterface      $response
-     * @param callable|null          $next
+     * @param DelegateInterface      $delegate
      *
-     * @return mixed
+     * @return mixed|ResponseInterface
      * @throws ViewDataNotFound
+     * @throws \Zrcms\CoreView\Exception\InvalidGetViewByRequest
      */
-    public function __invoke(
+    public function process(
         ServerRequestInterface $request,
-        ResponseInterface $response,
-        callable $next = null
+        DelegateInterface $delegate
     ) {
         $message = '';
 
@@ -66,6 +67,6 @@ class RequestWithView
             ->withAttribute(self::ATTRIBUTE_VIEW, $view)
             ->withAttribute(self::ATTRIBUTE_MESSAGE, $message);
 
-        return $next($request, $response);
+        return $delegate->process($request);
     }
 }

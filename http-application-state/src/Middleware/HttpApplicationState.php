@@ -2,9 +2,10 @@
 
 namespace Zrcms\HttpApplicationState\Middleware;
 
+use Interop\Http\ServerMiddleware\DelegateInterface;
+use Interop\Http\ServerMiddleware\MiddlewareInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
-use Zend\Diactoros\Response\JsonResponse;
 use Zend\Diactoros\Uri;
 use Zrcms\CoreApplicationState\Api\GetApplicationState;
 use Zrcms\Http\Api\BuildMessageValue;
@@ -14,7 +15,7 @@ use Zrcms\Http\Response\ZrcmsJsonResponse;
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class HttpApplicationState
+class HttpApplicationState implements MiddlewareInterface
 {
     const ATTRIBUTE_HOST = 'zrcms-application-state-host';
     const ATTRIBUTE_PATH = 'zrcms-application-state-path';
@@ -47,15 +48,13 @@ class HttpApplicationState
 
     /**
      * @param ServerRequestInterface $request
-     * @param ResponseInterface      $response
-     * @param callable|null          $next
+     * @param DelegateInterface      $delegate
      *
-     * @return ZrcmsJsonResponse|JsonResponse
+     * @return ResponseInterface|ZrcmsJsonResponse
      */
-    public function __invoke(
+    public function process(
         ServerRequestInterface $request,
-        ResponseInterface $response,
-        callable $next = null
+        DelegateInterface $delegate
     ) {
         $host = $request->getAttribute(static::ATTRIBUTE_HOST);
         $path = $request->getAttribute(static::ATTRIBUTE_PATH, '');

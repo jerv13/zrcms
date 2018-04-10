@@ -2,20 +2,22 @@
 
 namespace Zrcms\HttpApi\Validate;
 
+use Interop\Http\ServerMiddleware\DelegateInterface;
+use Interop\Http\ServerMiddleware\MiddlewareInterface;
 use Psr\Container\ContainerInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
+use Reliv\ArrayProperties\Property;
+use Reliv\ValidationRat\Api\Validator\Validate;
 use Zrcms\Http\Api\BuildResponseOptions;
 use Zrcms\Http\Response\ZrcmsJsonResponse;
 use Zrcms\HttpApi\Dynamic;
-use Reliv\ValidationRat\Api\Validator\Validate;
 use Zrcms\ValidationRatZrcms\Api\Validator\ValidateId;
-use Reliv\ArrayProperties\Property;
 
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class HttpApiValidateIdAttributeDynamic
+class HttpApiValidateIdAttributeDynamic implements MiddlewareInterface
 {
     const SOURCE = 'http-api-validate-id-attribute-dynamic';
 
@@ -44,18 +46,16 @@ class HttpApiValidateIdAttributeDynamic
 
     /**
      * @param ServerRequestInterface $request
-     * @param ResponseInterface      $response
-     * @param callable|null          $next
+     * @param DelegateInterface      $delegate
      *
      * @return ResponseInterface|ZrcmsJsonResponse
      * @throws \Exception
      * @throws \Psr\Container\ContainerExceptionInterface
      * @throws \Psr\Container\NotFoundExceptionInterface
      */
-    public function __invoke(
+    public function process(
         ServerRequestInterface $request,
-        ResponseInterface $response,
-        callable $next = null
+        DelegateInterface $delegate
     ) {
         $dynamicApiConfig = $request->getAttribute(Dynamic::ATTRIBUTE_DYNAMIC_API_CONFIG);
 
@@ -114,6 +114,6 @@ class HttpApiValidateIdAttributeDynamic
             );
         }
 
-        return $next($request, $response);
+        return $delegate->process($request);
     }
 }

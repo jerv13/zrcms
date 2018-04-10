@@ -2,6 +2,8 @@
 
 namespace Zrcms\HttpViewRender\Request;
 
+use Interop\Http\ServerMiddleware\DelegateInterface;
+use Interop\Http\ServerMiddleware\MiddlewareInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Reliv\ArrayProperties\Property;
@@ -10,7 +12,7 @@ use Zrcms\CoreView\Api\ViewBuilder\BuildViewDefaultPublishedAny;
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class RequestWithViewStrategyDefaultPublishedAny
+class RequestWithViewStrategyDefaultPublishedAny implements MiddlewareInterface
 {
     const ATTRIBUTE_VIEW_PUBLISHED_ANY = BuildViewDefaultPublishedAny::ATTRIBUTE_VIEW_PUBLISHED_ANY;
 
@@ -19,16 +21,13 @@ class RequestWithViewStrategyDefaultPublishedAny
 
     /**
      * @param ServerRequestInterface $request
-     * @param ResponseInterface      $response
-     * @param callable|null          $next
+     * @param DelegateInterface      $delegate
      *
      * @return ResponseInterface
-     * @throws \Exception
      */
-    public function __invoke(
+    public function process(
         ServerRequestInterface $request,
-        ResponseInterface $response,
-        callable $next = null
+        DelegateInterface $delegate
     ) {
         $queryParams = $request->getQueryParams();
 
@@ -38,7 +37,7 @@ class RequestWithViewStrategyDefaultPublishedAny
         );
 
         if (empty($publishedAny)) {
-            return $next($request, $response);
+            return $delegate->process($request);
         }
 
         $request = $request->withAttribute(
@@ -46,6 +45,6 @@ class RequestWithViewStrategyDefaultPublishedAny
             $publishedAny
         );
 
-        return $next($request, $response);
+        return $delegate->process($request);
     }
 }

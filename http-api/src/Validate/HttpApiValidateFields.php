@@ -2,6 +2,8 @@
 
 namespace Zrcms\HttpApi\Validate;
 
+use Interop\Http\ServerMiddleware\DelegateInterface;
+use Interop\Http\ServerMiddleware\MiddlewareInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Reliv\ValidationRat\Api\FieldValidator\ValidateFields;
@@ -11,7 +13,7 @@ use Zrcms\Http\Response\ZrcmsJsonResponse;
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class HttpApiValidateFields
+class HttpApiValidateFields implements MiddlewareInterface
 {
     const FIELDS_VALIDATOR = 'fields-validator';
     const FIELDS_VALIDATOR_OPTIONS = 'fields-validator-options';
@@ -41,18 +43,13 @@ class HttpApiValidateFields
 
     /**
      * @param ServerRequestInterface $request
-     * @param ResponseInterface      $response
-     * @param callable|null          $next
+     * @param DelegateInterface      $delegate
      *
      * @return ResponseInterface|ZrcmsJsonResponse
-     * @throws \Exception
-     * @throws \Psr\Container\ContainerExceptionInterface
-     * @throws \Psr\Container\NotFoundExceptionInterface
      */
-    public function __invoke(
+    public function process(
         ServerRequestInterface $request,
-        ResponseInterface $response,
-        callable $next = null
+        DelegateInterface $delegate
     ) {
         $data = $request->getParsedBody();
 
@@ -71,6 +68,6 @@ class HttpApiValidateFields
             );
         }
 
-        return $next($request, $response);
+        return $delegate->process($request);
     }
 }

@@ -2,6 +2,8 @@
 
 namespace Zrcms\HttpLocale\Middleware;
 
+use Interop\Http\ServerMiddleware\DelegateInterface;
+use Interop\Http\ServerMiddleware\MiddlewareInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Reliv\ArrayProperties\Property;
@@ -12,7 +14,7 @@ use Zrcms\CoreSite\Model\SiteCmsResource;
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class HttpLocaleFromSite
+class HttpLocaleFromSite implements MiddlewareInterface
 {
     const PARAM_LOCALE = 'site-locale';
     const ATTRIBUTE_SITE_LOCALE = 'zrcms-site-locale';
@@ -38,18 +40,16 @@ class HttpLocaleFromSite
 
     /**
      * @param ServerRequestInterface $request
-     * @param ResponseInterface      $response
-     * @param callable|null          $next
+     * @param DelegateInterface      $delegate
      *
-     * @return mixed
+     * @return mixed|ResponseInterface
      * @throws \Exception
      * @throws \Psr\SimpleCache\InvalidArgumentException
      * @throws \Reliv\Locale\Exception\LocaleException
      */
-    public function __invoke(
+    public function process(
         ServerRequestInterface $request,
-        ResponseInterface $response,
-        callable $next = null
+        DelegateInterface $delegate
     ) {
         $params = $request->getQueryParams();
 
@@ -61,7 +61,7 @@ class HttpLocaleFromSite
         if ($this->allowQueryParamLocale && !empty($requestLocale)) {
             $this->setLocale->__invoke($requestLocale);
 
-            return $next($request, $response);
+            return $delegate->process($request);
         }
 
         /** @var SiteCmsResource $siteCmsResource */
@@ -72,16 +72,15 @@ class HttpLocaleFromSite
         if (empty($siteCmsResource)) {
             $this->setLocale->__invoke(null);
 
-            return $next($request, $response);
+            return $delegate->process($request);
         }
 
         $siteLocale = $siteCmsResource->getContentVersion()->getLocale();
 
         $this->setLocale->__invoke($siteLocale);
 
-        return $next(
-            $request->withAttribute(self::ATTRIBUTE_SITE_LOCALE, $siteLocale),
-            $response
+        return $delegate->process(
+            $request->withAttribute(self::ATTRIBUTE_SITE_LOCALE, $siteLocale)
         );
     }
 }

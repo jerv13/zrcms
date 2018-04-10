@@ -2,6 +2,8 @@
 
 namespace Zrcms\HttpStatusPages\Middleware;
 
+use Interop\Http\ServerMiddleware\DelegateInterface;
+use Interop\Http\ServerMiddleware\MiddlewareInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Zend\Diactoros\Response\HtmlResponse;
@@ -13,7 +15,7 @@ use Zrcms\HttpViewRender\Response\RenderPage;
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class ResponseMutatorStatusPage
+class ResponseMutatorStatusPage implements MiddlewareInterface
 {
     const ATTRIBUTE_REQUEST_URI = 'zrcms-request-uri-status-page';
 
@@ -58,19 +60,16 @@ class ResponseMutatorStatusPage
 
     /**
      * @param ServerRequestInterface $request
-     * @param ResponseInterface      $response
-     * @param callable|null          $next
+     * @param DelegateInterface      $delegate
      *
-     * @return ResponseInterface
-     * @throws \Exception
+     * @return ResponseInterface|HtmlResponse|static
      */
-    public function __invoke(
+    public function process(
         ServerRequestInterface $request,
-        ResponseInterface $response,
-        callable $next = null
+        DelegateInterface $delegate
     ) {
         /** @var HtmlResponse $response */
-        $response = $next($request, $response);
+        $response = $delegate->process($request);
 
         if (!$this->canHandleResponse($response)) {
             return $response;

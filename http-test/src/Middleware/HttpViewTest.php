@@ -2,6 +2,8 @@
 
 namespace Zrcms\HttpTest\Middleware;
 
+use Interop\Http\ServerMiddleware\DelegateInterface;
+use Interop\Http\ServerMiddleware\MiddlewareInterface;
 use Psr\Container\ContainerInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
@@ -32,7 +34,7 @@ use Zrcms\CoreView\Model\ViewBasic;
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class HttpViewTest
+class HttpViewTest implements MiddlewareInterface
 {
     const CREATED_BY_USER_ID = 'test-user-id';
     const CREATED_REASON = 'test-reason';
@@ -50,8 +52,7 @@ class HttpViewTest
 
     /**
      * @param ServerRequestInterface $request
-     * @param ResponseInterface      $response
-     * @param callable|null          $next
+     * @param DelegateInterface      $delegate
      *
      * @return JsonResponse
      * @throws \Psr\Container\ContainerExceptionInterface
@@ -59,21 +60,12 @@ class HttpViewTest
      * @throws \Zrcms\Core\Exception\CmsResourceNotExists
      * @throws \Zrcms\Core\Exception\ContentVersionNotExists
      */
-    public function test(
+    public function processTest(
         ServerRequestInterface $request,
-        ResponseInterface $response,
-        callable $next = null
+        DelegateInterface $delegate
     ) {
         /** @var FindComponent $find */
         $find = $this->serviceContainer->get(FindComponent::class);
-        $result = $find->__invoke(
-            'basic',
-            'zrcms-countries'
-        );
-
-        ddd(
-            $result
-        );
 
         $siteVersion = new SiteVersionBasic(
             'testId',
@@ -130,27 +122,20 @@ class HttpViewTest
 
     /**
      * @param ServerRequestInterface $request
-     * @param ResponseInterface      $response
-     * @param callable|null          $next
+     * @param DelegateInterface      $delegate
      *
-     * @return HtmlResponse
+     * @return ResponseInterface|HtmlResponse
      * @throws \Psr\Container\ContainerExceptionInterface
      * @throws \Psr\Container\NotFoundExceptionInterface
      */
-    public function __invoke(
+    public function process(
         ServerRequestInterface $request,
-        ResponseInterface $response,
-        callable $next = null
+        DelegateInterface $delegate
     ) {
         /** @var RouteResult $routeResult */
         $routeResult = $request->getAttribute(RouteResult::class);
 
         $route = $routeResult->getMatchedRoute();
-
-        var_dump(
-            $route->getOptions()
-        );
-        die;
 
         $siteVersion = new SiteVersionBasic(
             'testID',

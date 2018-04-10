@@ -2,6 +2,8 @@
 
 namespace Zrcms\HttpViewRender\Response;
 
+use Interop\Http\ServerMiddleware\DelegateInterface;
+use Interop\Http\ServerMiddleware\MiddlewareInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Zend\Diactoros\Response\HtmlResponse;
@@ -15,7 +17,7 @@ use Zrcms\CoreView\Model\View;
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class RenderPage
+class RenderPage implements MiddlewareInterface
 {
     protected $getViewByRequest;
     protected $getViewLayoutTags;
@@ -42,16 +44,15 @@ class RenderPage
 
     /**
      * @param ServerRequestInterface $request
-     * @param ResponseInterface      $response
-     * @param callable|null          $next
+     * @param DelegateInterface      $delegate
      *
-     * @return ResponseInterface
-     * @throws \Exception
+     * @return ResponseInterface|HtmlResponse
+     * @throws \Zrcms\CoreView\Exception\InvalidGetViewByRequest
+     * @throws \Zrcms\CoreView\Exception\ViewDataNotFound
      */
-    public function __invoke(
+    public function process(
         ServerRequestInterface $request,
-        ResponseInterface $response,
-        callable $next = null
+        DelegateInterface $delegate
     ) {
         try {
             /** @var View $view */

@@ -2,11 +2,13 @@
 
 namespace Zrcms\Importer\Middleware;
 
+use Interop\Http\ServerMiddleware\DelegateInterface;
+use Interop\Http\ServerMiddleware\MiddlewareInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Zrcms\Importer\Api\Import;
 
-class ImportController
+class ImportController implements MiddlewareInterface
 {
     protected $import;
 
@@ -17,24 +19,23 @@ class ImportController
 
     /**
      * @param ServerRequestInterface $request
-     * @param ResponseInterface $response
-     * @param callable|null $next
+     * @param DelegateInterface      $delegate
      *
-     * @return ResponseInterface
+     * @return ResponseInterface|void
+     * @throws \Exception
      */
-    public function __invoke(
+    public function process(
         ServerRequestInterface $request,
-        ResponseInterface $response,
-        callable $next = null
+        DelegateInterface $delegate
     ) {
         throw new \Exception('This functionality has been disabled as part of security hardening.');
-//        $importData = $request->getBody()->getContents();
-//
-//        $this->import->__invoke(
-//            $importData,
-//            $createdByUser = 'import-script'//@TODO get current logged in user
-//        );
-//
-//        return new \Zend\Diactoros\Response\JsonResponse('Imported successfully');
+        //$importData = $request->getBody()->getContents();
+        //
+        //$this->import->__invoke(
+        //    $importData,
+        //    $createdByUser = 'import-script'//@TODO get current logged in user
+        //);
+        //
+        //return new \Zend\Diactoros\Response\JsonResponse('Imported successfully');
     }
 }

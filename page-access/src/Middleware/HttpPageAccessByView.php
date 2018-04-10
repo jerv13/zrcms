@@ -2,6 +2,8 @@
 
 namespace Zrcms\PageAccess\Middleware;
 
+use Interop\Http\ServerMiddleware\DelegateInterface;
+use Interop\Http\ServerMiddleware\MiddlewareInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Zend\Diactoros\Response\HtmlResponse;
@@ -13,7 +15,7 @@ use Zrcms\PageAccess\Fields\FieldsPageAccess;
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class HttpPageAccessByView
+class HttpPageAccessByView implements MiddlewareInterface
 {
     protected $isAllowedPageAccess;
 
@@ -28,16 +30,13 @@ class HttpPageAccessByView
 
     /**
      * @param ServerRequestInterface $request
-     * @param ResponseInterface      $response
-     * @param callable|null          $next
+     * @param DelegateInterface      $delegate
      *
-     * @return ResponseInterface
-     * @throws \Exception
+     * @return ResponseInterface|HtmlResponse
      */
-    public function __invoke(
+    public function process(
         ServerRequestInterface $request,
-        ResponseInterface $response,
-        callable $next = null
+        DelegateInterface $delegate
     ) {
         $view = $request->getAttribute(
             RequestWithView::ATTRIBUTE_VIEW
@@ -45,7 +44,7 @@ class HttpPageAccessByView
 
         /** @var View $view */
         if (empty($view)) {
-            return $next($request, $response);
+            return $delegate->process($request);
         }
 
         $pageCmsResource = $view->getPageCmsResource();
@@ -61,7 +60,7 @@ class HttpPageAccessByView
         );
 
         if ($allowed) {
-            return $next($request, $response);
+            return $delegate->process($request);
         }
 
         return new HtmlResponse(
