@@ -66,7 +66,7 @@
       "Zrcms\\CorePageDoctrine\\": "core-page-doctrine/src/",
       "Zrcms\\CoreRedirect\\": "core-redirect/src/",
       "Zrcms\\CoreRedirectDoctrine\\": "core-redirect-doctrine/src/",
-      "Zrcms\\CoreResourceSearchFields\\ModuleConfigZrcms\\": "core-resource-search-fields/src/",
+      "Zrcms\\CoreResourceSearchFields\\": "core-resource-search-fields/src/",
       "Zrcms\\CoreSite\\": "core-site/src/",
       "Zrcms\\CoreSiteDoctrine\\": "core-site-doctrine/src/",
       "Zrcms\\CoreSiteContainer\\": "core-site-containers/src/",

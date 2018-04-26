@@ -9,6 +9,7 @@ use Psr\Http\Message\ServerRequestInterface;
 use Zend\Diactoros\Response\HtmlResponse;
 use Zend\Diactoros\Response\RedirectResponse;
 use Zrcms\Http\Api\IsValidContentType;
+use Zrcms\Http\Response\ResponseDelegate;
 use Zrcms\HttpStatusPages\Api\GetStatusPage;
 use Zrcms\HttpViewRender\Response\RenderPage;
 
@@ -143,19 +144,17 @@ class ResponseMutatorStatusPage implements MiddlewareInterface
      * @param ServerRequestInterface $newRequest
      * @param ResponseInterface      $response
      *
-     * @return ResponseInterface
-     * @throws \Exception
+     * @return ResponseInterface|HtmlResponse
+     * @throws \Zrcms\CoreView\Exception\InvalidGetViewByRequest
+     * @throws \Zrcms\CoreView\Exception\ViewDataNotFound
      */
     protected function renderStatusPage(
         ServerRequestInterface $newRequest,
         ResponseInterface $response
     ) {
-        return $this->renderPage->__invoke(
+        return $this->renderPage->process(
             $newRequest,
-            $response,
-            function ($req, $res) use ($response) {
-                return $response;
-            }
+            new ResponseDelegate($response)
         );
     }
 
