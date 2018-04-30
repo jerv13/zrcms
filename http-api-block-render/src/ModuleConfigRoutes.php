@@ -2,7 +2,7 @@
 
 namespace Zrcms\HttpApiBlockRender;
 
-use Zend\Expressive\Helper\BodyParams\BodyParamsMiddleware;
+use Zrcms\Http\Response\JsonBodyParser;
 use Zrcms\HttpApiBlockRender\Acl\IsAllowedBlockRender;
 use Zrcms\HttpApiBlockRender\Middleware\HttpApiBlockRender;
 use Zrcms\HttpApiBlockRender\Validate\HttpApiValidateFieldsBlockVersionFieldModel;
@@ -24,7 +24,7 @@ class ModuleConfigRoutes
                     'path' => '/zrcms/api/content-version/block/render',
                     'middleware' => [
                         'acl' => IsAllowedBlockRender::class,
-                        'body-parser' => BodyParamsMiddleware::class,
+                        'body-parser' => JsonBodyParser::class,
                         'fields-validator' => HttpApiValidateFieldsBlockVersionFieldModel::class,
                         'render' => HttpApiBlockRender::class,
                     ],

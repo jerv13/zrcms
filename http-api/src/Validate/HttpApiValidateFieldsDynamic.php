@@ -110,6 +110,6 @@ class HttpApiValidateFieldsDynamic implements MiddlewareInterface
             );
         }
 
-        $delegate->process($request);
+        return $delegate->process($request);
     }
 }

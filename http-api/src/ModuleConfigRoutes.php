@@ -2,7 +2,7 @@
 
 namespace Zrcms\HttpApi;
 
-use Zend\Expressive\Helper\BodyParams\BodyParamsMiddleware;
+use Zrcms\Http\Response\JsonBodyParser;
 use Zrcms\HttpApi\Acl\HttpApiIsAllowedDynamic;
 use Zrcms\HttpApi\Acl\HttpApiIsAllowedFindComponent;
 use Zrcms\HttpApi\CmsResource\HttpApiCreateCmsResourceDynamic;
@@ -48,7 +48,7 @@ class ModuleConfigRoutes
                     'middleware' => [
                         'dynamic' => HttpApiDynamic::class,
                         'acl' => HttpApiIsAllowedDynamic::class,
-                        'body-parser' => BodyParamsMiddleware::class,
+                        'body-parser' => JsonBodyParser::class,
                         'fields-validator' => HttpApiValidateFieldsDynamic::class,
                         'api' => HttpApiCreateCmsResourceDynamic::class,
                     ],
@@ -204,7 +204,7 @@ class ModuleConfigRoutes
                     'middleware' => [
                         'dynamic' => HttpApiDynamic::class,
                         'acl' => HttpApiIsAllowedDynamic::class,
-                        'body-parser' => BodyParamsMiddleware::class,
+                        'body-parser' => JsonBodyParser::class,
                         'fields-validator' => HttpApiValidateFieldsDynamic::class,
                         'api' => HttpApiUpdateCmsResourceDynamic::class,
                     ],
@@ -525,7 +525,7 @@ class ModuleConfigRoutes
                     'middleware' => [
                         'dynamic' => HttpApiDynamic::class,
                         'acl' => HttpApiIsAllowedDynamic::class,
-                        'body-parser' => BodyParamsMiddleware::class,
+                        'body-parser' => JsonBodyParser::class,
                         'fields-validator' => HttpApiValidateFieldsDynamic::class,
                         'api' => HttpApiInsertContentVersionDynamic::class,
                     ],
