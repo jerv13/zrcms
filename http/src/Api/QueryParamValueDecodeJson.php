@@ -20,10 +20,6 @@ class QueryParamValueDecodeJson implements QueryParamValueDecode
         $paramValue,
         array $options = []
     ) {
-        if (is_array($paramValue)) {
-            return $this->prepareArray($paramValue);
-        }
-
         return $this->prepare($paramValue);
     }
 
@@ -50,6 +46,10 @@ class QueryParamValueDecodeJson implements QueryParamValueDecode
      */
     protected function prepare($paramValue)
     {
+        if (is_array($paramValue)) {
+            return $this->prepareArray($paramValue);
+        }
+
         try {
             $value = Json::decode($paramValue);
         } catch (JsonError $e) {
