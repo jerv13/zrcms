@@ -1,6 +1,6 @@
 <?php
 
-namespace Zrcms\Http\Response;
+namespace Zrcms\Http\Request;
 
 use Interop\Http\ServerMiddleware\DelegateInterface;
 use Interop\Http\ServerMiddleware\MiddlewareInterface;

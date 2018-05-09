@@ -2,7 +2,7 @@
 
 namespace Zrcms\HttpApi;
 
-use Zrcms\Http\Response\JsonBodyParser;
+use Zrcms\Http\Request\JsonBodyParser;
 use Zrcms\HttpApi\Acl\HttpApiIsAllowedDynamic;
 use Zrcms\HttpApi\Acl\HttpApiIsAllowedFindComponent;
 use Zrcms\HttpApi\CmsResource\HttpApiCreateCmsResourceDynamic;

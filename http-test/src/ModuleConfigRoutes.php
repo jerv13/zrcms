@@ -2,7 +2,7 @@
 
 namespace Zrcms\HttpTest;
 
-use Zrcms\Http\Response\JsonBodyParser;
+use Zrcms\Http\Request\JsonBodyParser;
 use Zrcms\HttpTest\Acl\IsAllowedTestIsAllowed;
 use Zrcms\HttpTest\Middleware\HttpImplementationTest;
 use Zrcms\HttpTest\Middleware\HttpViewTest;

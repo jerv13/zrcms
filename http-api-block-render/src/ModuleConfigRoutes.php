@@ -2,7 +2,7 @@
 
 namespace Zrcms\HttpApiBlockRender;
 
-use Zrcms\Http\Response\JsonBodyParser;
+use Zrcms\Http\Request\JsonBodyParser;
 use Zrcms\HttpApiBlockRender\Acl\IsAllowedBlockRender;
 use Zrcms\HttpApiBlockRender\Middleware\HttpApiBlockRender;
 use Zrcms\HttpApiBlockRender\Validate\HttpApiValidateFieldsBlockVersionFieldModel;
