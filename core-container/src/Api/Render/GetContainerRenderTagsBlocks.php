@@ -10,7 +10,6 @@ use Zrcms\CoreBlock\Api\Render\WrapRenderedBlockVersion;
 use Zrcms\CoreBlock\Fields\FieldsBlock;
 use Zrcms\CoreBlock\Model\Block;
 use Zrcms\CoreContainer\Model\Container;
-use Reliv\Json\Json;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -72,43 +71,13 @@ class GetContainerRenderTagsBlocks implements GetContainerRenderTags
 
         $blocks = $container->getBlockVersions();
 
-        $renderOrderQueue = new \SplPriorityQueue();
-        foreach ($blocks as $block) {
-            $renderOrderQueue->insert(
-                $block,
-                $renderOrder = $block->getRequiredLayoutProperty(
-                    FieldsBlock::LAYOUT_PROPERTIES_RENDER_ORDER
-                )
-            );
-        }
-        $renderOrder = 0;
+        $blocks = $this->sort($blocks);
 
         /** @var Block $block */
-        foreach ($renderOrderQueue as $block) {
+        foreach ($blocks as $block) {
             $rowNumber = $block->getRequiredLayoutProperty(
                 FieldsBlock::LAYOUT_PROPERTIES_ROW_NUMBER
             );
-
-            //$renderOrder = $block->getRequiredLayoutProperty(
-            //    FieldsBlock::LAYOUT_PROPERTIES_RENDER_ORDER
-            //);
-
-            if (!array_key_exists($rowNumber, $renderedData)) {
-                $renderedData[$rowNumber] = [];
-            }
-
-            if (array_key_exists($renderOrder, $renderedData[$rowNumber])) {
-                $message = 'Block instance has duplicate "renderOrder" in its row.'
-                    . ' Container type: ' . get_class($container)
-                    . ' Container ID: ' . $container->getId()
-                    . ' Block ID: ' . $block->getId()
-                    . ' layout properties: ' . Json::encode($block->getLayoutProperties(), 0, 3)
-                    . ' duped in: ' . Json::encode($block->getLayoutProperties(), 0, 3);
-                //trigger_error ($message, E_USER_WARNING);
-                //throw new \Exception(
-                //    $message
-                //);
-            }
 
             $blockRenderTags = $this->getBlockRenderTags->__invoke(
                 $block,
@@ -125,13 +94,97 @@ class GetContainerRenderTagsBlocks implements GetContainerRenderTags
                 $block
             );
 
-            $renderedData[$rowNumber][$renderOrder] = $blockOuterHtml;
-            $renderOrder++;
+            $renderedData[$rowNumber][] = $blockOuterHtml;
         }
 
-        // Sort by row number
-        ksort($renderedData);
-
         return $renderedData;
+    }
+
+    /**
+     * @todo There are faster ways to sort
+     *
+     * @param Block[] $blocks
+     *
+     * @return array
+     */
+    protected function sort(array $blocks)
+    {
+        $rowGroups = $this->groupRows($blocks);
+
+        return $this->sortRows($rowGroups);
+    }
+
+    /**
+     * @param Block[] $blocks
+     *
+     * @return array
+     */
+    protected function groupRows(array $blocks)
+    {
+        $rowGroups = [];
+        foreach ($blocks as $block) {
+            $rowNumber = $block->getRequiredLayoutProperty(
+                FieldsBlock::LAYOUT_PROPERTIES_ROW_NUMBER
+            );
+            if (!array_key_exists($rowNumber, $rowGroups)) {
+                $rowGroups[$rowNumber] = [];
+            }
+
+            $rowGroups[$rowNumber][] = $block;
+        }
+
+        return $rowGroups;
+    }
+
+    /**
+     * @param $rowGroups
+     *
+     * @return array
+     */
+    protected function sortRows(array $rowGroups)
+    {
+        $blocks = [];
+
+        foreach ($rowGroups as $renderRow => $rowGroup) {
+            $blocks = $this->addSortedByOrder($rowGroup, $blocks);
+        }
+
+        return $blocks;
+    }
+
+    /**
+     * @param array $rowGroup
+     * @param array $blocks
+     *
+     * @return array
+     */
+    protected function addSortedByOrder(array $rowGroup, array $blocks)
+    {
+        usort($rowGroup, [$this, 'sortOrder']);
+
+        foreach ($rowGroup as $block) {
+            $blocks[] = $block;
+        }
+
+        return $blocks;
+    }
+
+    /**
+     * @param Block $a
+     * @param Block $b
+     *
+     * @return int
+     */
+    protected function sortOrder(Block $a, Block $b)
+    {
+        $renderOrderA = $a->getRequiredLayoutProperty(
+            FieldsBlock::LAYOUT_PROPERTIES_RENDER_ORDER
+        );
+
+        $renderOrderB = $b->getRequiredLayoutProperty(
+            FieldsBlock::LAYOUT_PROPERTIES_RENDER_ORDER
+        );
+
+        return ($renderOrderA < $renderOrderB) ? -1 : 1;
     }
 }
