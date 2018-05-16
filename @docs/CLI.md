@@ -22,8 +22,11 @@ Exporting from RCM:
 #Turn RCM compat OFF first!
 ENV="local" ./bin/console rcm:export --file ./data/rcm-data.json
 
-#OR with more options:
-#ENV="local" ./bin/console rcm:export --file ./data/rcm-data.json --limit 100 --pp 1
+# OR limit to a list of siteIds:
+ENV="local" ./bin/console rcm:export --file ./data/rcm-data.json --siteIds "[1,3,10,21,1065]"
+
+# OR with more options:
+# ENV="local" ./bin/console rcm:export --file ./data/rcm-data.json --limit 100 --pp 1
 ```
 
 Importing to ZRCMS:
