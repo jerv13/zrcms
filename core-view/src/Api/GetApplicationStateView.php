@@ -54,15 +54,15 @@ class GetApplicationStateView implements GetApplicationState
         ServerRequestInterface $request,
         array $options = []
     ): array {
-        $view = null;
         try {
             $view = $this->getViewByRequest->__invoke(
                 $request,
                 $this->getViewByRequestOptions
             );
         } catch (ViewDataNotFound $exception) {
-            // null view
+            $view = null;
         }
+
         $requestedPath = $this->findOriginalPath($request);
 
         // @todo This makes extra DB call
@@ -298,16 +298,19 @@ class GetApplicationStateView implements GetApplicationState
     }
 
     /**
-     * @param View|null $view
-     * @param string    $requestedPath
+     * @param View|null   $view
+     * @param string|null $requestedPath
      *
      * @return null|PageCmsResource
      */
     protected function findNormalPageCmsResource(
         $view,
-        string $requestedPath
+        $requestedPath
     ) {
         if (empty($view)) {
+            return null;
+        }
+        if (empty($requestedPath)) {
             return null;
         }
         $siteCmsResource = $view->getSiteCmsResource();
