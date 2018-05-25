@@ -16,7 +16,7 @@
       "name": "html",
       "type": "text",
       "label": "html",
-      "default": ""
+      "default": "<p>Your content here...</p>"
     }
   ],
   "createdByUserId": "James-Jervis",
