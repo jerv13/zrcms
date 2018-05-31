@@ -5,26 +5,22 @@ namespace Zrcms\CoreBlock\Api\Component;
 use Psr\Container\ContainerInterface;
 
 /**
- * @deprecated BC only
  * @author James Jervis - https://github.com/jerv13
  */
-class ReadComponentConfigBlockBcFactory
+class ReadComponentConfigJsonFileBcFactory
 {
     /**
      * @param ContainerInterface $serviceContainer
      *
-     * @return ReadComponentConfigBlockBc
+     * @return ReadComponentConfigJsonFileBc
      * @throws \Psr\Container\ContainerExceptionInterface
      * @throws \Psr\Container\NotFoundExceptionInterface
      */
     public function __invoke(
         ContainerInterface $serviceContainer
     ) {
-        $config = $serviceContainer->get('config');
-        $pluginConfigBc = $config['rcmPlugin'];
-        return new ReadComponentConfigBlockBc(
-            $pluginConfigBc,
-            $serviceContainer->get(PrepareComponentConfigBlock::class)
+        return new ReadComponentConfigJsonFileBc(
+            $serviceContainer->get(PrepareComponentConfigBlockBc::class)
         );
     }
 }

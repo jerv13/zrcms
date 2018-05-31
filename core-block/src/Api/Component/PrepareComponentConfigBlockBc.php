@@ -13,26 +13,23 @@ use Zrcms\CoreBlock\Model\BlockComponentBasic;
  */
 class PrepareComponentConfigBlockBc implements PrepareComponentConfigBlock
 {
-    /**
-     * @var GetBlockConfigFields
-     */
     protected $getBlockConfigFields;
-
-    /**
-     * @var GetBlockConfigFieldsBcSubstitution
-     */
     protected $getBlockConfigFieldsBcSubstitution;
+    protected $prepareComponentConfigBlockFieldsToDefaultConfig;
 
     /**
-     * @param GetBlockConfigFields               $getBlockConfigFields
-     * @param GetBlockConfigFieldsBcSubstitution $getBlockConfigFieldsBcSubstitution
+     * @param GetBlockConfigFields                             $getBlockConfigFields
+     * @param GetBlockConfigFieldsBcSubstitution               $getBlockConfigFieldsBcSubstitution
+     * @param PrepareComponentConfigBlockFieldsToDefaultConfig $prepareComponentConfigBlockFieldsToDefaultConfig
      */
     public function __construct(
         GetBlockConfigFields $getBlockConfigFields,
-        GetBlockConfigFieldsBcSubstitution $getBlockConfigFieldsBcSubstitution
+        GetBlockConfigFieldsBcSubstitution $getBlockConfigFieldsBcSubstitution,
+        PrepareComponentConfigBlockFieldsToDefaultConfig $prepareComponentConfigBlockFieldsToDefaultConfig
     ) {
         $this->getBlockConfigFields = $getBlockConfigFields;
         $this->getBlockConfigFieldsBcSubstitution = $getBlockConfigFieldsBcSubstitution;
+        $this->prepareComponentConfigBlockFieldsToDefaultConfig = $prepareComponentConfigBlockFieldsToDefaultConfig;
     }
 
     /**
@@ -40,11 +37,17 @@ class PrepareComponentConfigBlockBc implements PrepareComponentConfigBlock
      * @param array $options
      *
      * @return array
+     * @throws \Exception
      */
     public function __invoke(
         array $blockConfig,
         array $options = []
     ): array {
+        // @todo Split this out an use composite for PrepareComponentConfigBlock
+        $blockConfig = $this->prepareComponentConfigBlockFieldsToDefaultConfig->__invoke(
+            $blockConfig,
+            $options
+        );
         $blockConfigFields = $this->getBlockConfigFields->__invoke();
         $blockConfigFieldsBcSubstitution = $this->getBlockConfigFieldsBcSubstitution->__invoke();
 
@@ -76,8 +79,9 @@ class PrepareComponentConfigBlockBc implements PrepareComponentConfigBlock
                 = $blockConfigBc[FieldsBlockComponentConfig::FIELDS];
         }
 
-        $componentConfig[FieldsBlockComponentConfig::COMPONENT_CLASS] = BlockComponentBasic::class;
-        $componentConfig[FieldsBlockComponentConfig::TYPE] = 'block';
+        // @todo Not used, remove it?
+        //$blockConfigBc[FieldsBlockComponentConfig::COMPONENT_CLASS] = BlockComponentBasic::class;
+        //$blockConfigBc[FieldsBlockComponentConfig::TYPE] = 'block';
 
         return $blockConfigBc;
     }

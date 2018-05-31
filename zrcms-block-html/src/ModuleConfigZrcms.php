@@ -15,7 +15,7 @@ class ModuleConfigZrcms
         return [
             'zrcms-components' => [
                 'block.html.zrcms'
-                => 'json:' . __DIR__ . '/../block/block.json',
+                => 'block-json:' . __DIR__ . '/../block/block.json',
             ],
         ];
     }

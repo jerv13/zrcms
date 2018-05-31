@@ -5,9 +5,15 @@ namespace Zrcms\CoreBlock;
 use Zrcms\Core\Api\Component\FindComponent;
 use Zrcms\CoreBlock\Api\Component\PrepareComponentConfigBlock;
 use Zrcms\CoreBlock\Api\Component\PrepareComponentConfigBlockBc;
+use Zrcms\CoreBlock\Api\Component\PrepareComponentConfigBlockBcFactory;
+use Zrcms\CoreBlock\Api\Component\PrepareComponentConfigBlockFieldsToDefaultConfig;
+use Zrcms\CoreBlock\Api\Component\PrepareComponentConfigBlockFieldsToDefaultConfigFactory;
 use Zrcms\CoreBlock\Api\Component\ReadComponentConfigBlockBc;
 use Zrcms\CoreBlock\Api\Component\ReadComponentConfigBlockBcFactory;
+use Zrcms\CoreBlock\Api\Component\ReadComponentConfigJsonFile;
 use Zrcms\CoreBlock\Api\Component\ReadComponentConfigJsonFileBc;
+use Zrcms\CoreBlock\Api\Component\ReadComponentConfigJsonFileBcFactory;
+use Zrcms\CoreBlock\Api\Component\ReadComponentConfigJsonFileFactory;
 use Zrcms\CoreBlock\Api\Component\ReadComponentRegistryRcmPluginBc;
 use Zrcms\CoreBlock\Api\Component\ReadComponentRegistryRcmPluginBcFactory;
 use Zrcms\CoreBlock\Api\GetBlockConfigFields;
@@ -49,19 +55,26 @@ class ModuleConfig
                      * Component
                      */
                     PrepareComponentConfigBlock::class => [
-                        'class' => PrepareComponentConfigBlockBc::class,
-                        'arguments' => [
-                            GetBlockConfigFields::class,
-                            GetBlockConfigFieldsBcSubstitution::class,
-                        ],
+                        'factory' => PrepareComponentConfigBlockBcFactory::class,
                     ],
+
+                    PrepareComponentConfigBlockBc::class => [
+                        'factory' => PrepareComponentConfigBlockBcFactory::class,
+                    ],
+
+                    PrepareComponentConfigBlockFieldsToDefaultConfig::class => [
+                        'factory' => PrepareComponentConfigBlockFieldsToDefaultConfigFactory::class,
+                    ],
+
                     ReadComponentConfigBlockBc::class => [
                         'factory' => ReadComponentConfigBlockBcFactory::class,
                     ],
+                    ReadComponentConfigJsonFile::class => [
+                        'factory' => ReadComponentConfigJsonFileFactory::class,
+                    ],
+
                     ReadComponentConfigJsonFileBc::class => [
-                        'arguments' => [
-                            PrepareComponentConfigBlock::class,
-                        ],
+                        'factory' => ReadComponentConfigJsonFileBcFactory::class,
                     ],
 
                     ReadComponentRegistryRcmPluginBc::class => [

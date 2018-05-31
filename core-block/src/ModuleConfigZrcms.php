@@ -5,6 +5,7 @@ namespace Zrcms\CoreBlock;
 use Zrcms\Core\Model\ServiceAliasComponent;
 use Zrcms\Core\Model\Trackable;
 use Zrcms\CoreBlock\Api\Component\ReadComponentConfigBlockBc;
+use Zrcms\CoreBlock\Api\Component\ReadComponentConfigJsonFile;
 use Zrcms\CoreBlock\Api\Component\ReadComponentConfigJsonFileBc;
 use Zrcms\CoreBlock\Api\Component\ReadComponentRegistryRcmPluginBc;
 use Zrcms\CoreBlock\Api\GetBlockDataNoop;
@@ -399,6 +400,9 @@ class ModuleConfigZrcms
                 ServiceAliasComponent::ZRCMS_COMPONENT_CONFIG_READER => [
                     ReadComponentConfigBlockBc::SERVICE_ALIAS
                     => ReadComponentConfigBlockBc::class,
+
+                    ReadComponentConfigJsonFile::SERVICE_ALIAS
+                    => ReadComponentConfigJsonFile::class,
 
                     ReadComponentConfigJsonFileBc::SERVICE_ALIAS
                     => ReadComponentConfigJsonFileBc::class,
