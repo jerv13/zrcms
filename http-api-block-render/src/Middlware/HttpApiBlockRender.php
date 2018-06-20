@@ -11,6 +11,7 @@ use Zrcms\Core\Api\Component\FindComponent;
 use Zrcms\Core\Api\Content\ContentVersionToArray;
 use Zrcms\CoreBlock\Api\Render\GetBlockRenderTags;
 use Zrcms\CoreBlock\Api\Render\RenderBlock;
+use Zrcms\CoreBlock\Api\Render\WrapRenderedBlockVersion;
 use Zrcms\CoreBlock\Fields\FieldsBlockVersion;
 use Zrcms\CoreBlock\Model\BlockVersionBasic;
 use Zrcms\Http\Api\BuildMessageValue;
@@ -30,24 +31,27 @@ class HttpApiBlockRender implements MiddlewareInterface
     protected $findComponent;
     protected $getBlockRenderTags;
     protected $renderBlock;
+    protected $wrapRenderedBlockVersion;
     protected $getUserIdByRequest;
     protected $contentVersionToArray;
     protected $notFoundStatus;
     protected $debug;
 
     /**
-     * @param FindComponent         $findComponent
-     * @param GetBlockRenderTags    $getBlockRenderTags
-     * @param RenderBlock           $renderBlock
-     * @param GetUserIdByRequest    $getUserIdByRequest
-     * @param ContentVersionToArray $contentVersionToArray
-     * @param int                   $notFoundStatus
-     * @param bool                  $debug
+     * @param FindComponent            $findComponent
+     * @param GetBlockRenderTags       $getBlockRenderTags
+     * @param RenderBlock              $renderBlock
+     * @param WrapRenderedBlockVersion $wrapRenderedBlockVersion
+     * @param GetUserIdByRequest       $getUserIdByRequest
+     * @param ContentVersionToArray    $contentVersionToArray
+     * @param int                      $notFoundStatus
+     * @param bool                     $debug
      */
     public function __construct(
         FindComponent $findComponent,
         GetBlockRenderTags $getBlockRenderTags,
         RenderBlock $renderBlock,
+        WrapRenderedBlockVersion $wrapRenderedBlockVersion,
         GetUserIdByRequest $getUserIdByRequest,
         ContentVersionToArray $contentVersionToArray,
         int $notFoundStatus = 404,
@@ -56,6 +60,7 @@ class HttpApiBlockRender implements MiddlewareInterface
         $this->findComponent = $findComponent;
         $this->getBlockRenderTags = $getBlockRenderTags;
         $this->renderBlock = $renderBlock;
+        $this->wrapRenderedBlockVersion = $wrapRenderedBlockVersion;
         $this->getUserIdByRequest = $getUserIdByRequest;
         $this->contentVersionToArray = $contentVersionToArray;
         $this->notFoundStatus = $notFoundStatus;
@@ -109,14 +114,19 @@ class HttpApiBlockRender implements MiddlewareInterface
             $request
         );
 
-        $html = $this->renderBlock->__invoke(
+        $blockInnerHtml = $this->renderBlock->__invoke(
             $blockVersion,
             $renderTags
         );
 
+        $blockOuterHtml = $this->wrapRenderedBlockVersion->__invoke(
+            $blockInnerHtml,
+            $blockVersion
+        );
+
         $result = [];
 
-        $result['renderHtml'] = $html;
+        $result['renderHtml'] = $blockOuterHtml;
         $result['renderTags'] = $renderTags;
         $result['blockVersion'] = $this->contentVersionToArray->__invoke(
             $blockVersion

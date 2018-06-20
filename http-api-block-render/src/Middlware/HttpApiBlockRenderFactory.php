@@ -7,6 +7,7 @@ use Zrcms\Core\Api\Component\FindComponent;
 use Zrcms\Core\Api\Content\ContentVersionToArray;
 use Zrcms\CoreBlock\Api\Render\GetBlockRenderTags;
 use Zrcms\CoreBlock\Api\Render\RenderBlock;
+use Zrcms\CoreBlock\Api\Render\WrapRenderedBlockVersion;
 use Zrcms\Debug\IsDebug;
 use Zrcms\User\Api\GetUserIdByRequest;
 
@@ -29,6 +30,7 @@ class HttpApiBlockRenderFactory
             $serviceContainer->get(FindComponent::class),
             $serviceContainer->get(GetBlockRenderTags::class),
             $serviceContainer->get(RenderBlock::class),
+            $serviceContainer->get(WrapRenderedBlockVersion::class),
             $serviceContainer->get(GetUserIdByRequest::class),
             $serviceContainer->get(ContentVersionToArray::class),
             404,
