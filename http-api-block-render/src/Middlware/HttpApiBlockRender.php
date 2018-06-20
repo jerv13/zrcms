@@ -114,12 +114,13 @@ class HttpApiBlockRender implements MiddlewareInterface
             $renderTags
         );
 
-        $result = $this->contentVersionToArray->__invoke(
-            $blockVersion
-        );
+        $result = [];
 
         $result['renderHtml'] = $html;
         $result['renderTags'] = $renderTags;
+        $result['blockVersion'] = $this->contentVersionToArray->__invoke(
+            $blockVersion
+        );
 
         return new ZrcmsJsonResponse(
             $result
