@@ -50,7 +50,7 @@ class LayoutThemeRouterFastRoute extends FastRouteRouter implements LayoutThemeR
                 );
             }
 
-            $spec['middleware'] = function (){
+            $spec['middleware'] = function () {
                 // do nothing - hack to avoid writing a new route object
             };
 

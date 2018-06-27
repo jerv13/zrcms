@@ -1,5 +1,5 @@
 <?php
-
+// phpcs:ignoreFile @todo Method names is not in camel caps format (no underscores allowed)
 namespace Zrcms\CoreLanguage\Model;
 
 use Zrcms\Core\Model\Component;

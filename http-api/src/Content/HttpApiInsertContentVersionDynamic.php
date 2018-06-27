@@ -44,7 +44,6 @@ class HttpApiInsertContentVersionDynamic implements MiddlewareInterface
         $this->getUserIdByRequest = $getUserIdByRequest;
         $this->contentVersionToArrayDefault = $contentVersionToArrayDefault;
         $this->debug = $debug;
-
     }
 
     /**

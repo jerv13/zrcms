@@ -14,7 +14,7 @@ use Zrcms\Http\Response\ZrcmsJsonResponse;
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class HttpApiFindFieldTypes  implements MiddlewareInterface
+class HttpApiFindFieldTypes implements MiddlewareInterface
 {
     protected $listFieldTypes;
     protected $fieldTypesToArray;

@@ -44,7 +44,6 @@ class HttpApiUpdateCmsResourceDynamic implements MiddlewareInterface
         $this->getUserIdByRequest = $getUserIdByRequest;
         $this->cmsResourceToArrayDefault = $cmsResourceToArrayDefault;
         $this->debug = $debug;
-
     }
 
     /**

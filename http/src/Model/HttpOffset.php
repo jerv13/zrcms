@@ -9,5 +9,4 @@ interface HttpOffset
 {
     const PARAM = 'offset';
     const ATTRIBUTE = 'zrcms-query-offset';
-
 }

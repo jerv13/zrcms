@@ -84,7 +84,9 @@ class WrapRenderedBlockVersionLegacy implements WrapRenderedBlockVersion
             . ' data-rcmplugindisplayname=""' //Deprecated
             . '>'
             . "\n"
-            . ' <div class="content-block-inner rcmPluginContainer" data-inner-for-block-id="' . htmlentities($id) . '">'
+            . ' <div class="content-block-inner rcmPluginContainer"'
+            . ' data-inner-for-block-id="' . htmlentities($id) . '"'
+            . '>'
             . $innerHtml
             . ' </div>'
             . "\n"
