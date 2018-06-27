@@ -35,6 +35,8 @@ class GetPageCmsResourceBasic implements GetPageCmsResource
         string $path,
         $published = true
     ): PageCmsResource {
+        // @todo @missing-containers need to get the layout tags and return a PageCmsResource for every tag in layout
+
         /** @var PageCmsResource $pageCmsResource */
         $pageCmsResource = $this->findPageCmsResourceBySitePath->__invoke(
             $siteCmsResourceId,
