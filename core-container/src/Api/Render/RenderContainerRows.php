@@ -43,7 +43,9 @@ class RenderContainerRows implements RenderContainer
         $containerInnerHtml = '';
 
         if ($this->debug) {
-            $containerInnerHtml .= '<!-- <container: ' . $container->getId() . '> -->';
+            $containerInnerHtml .= '<!-- <container: '
+                . $container->getContext() . ':' . $container->getName()
+                . '> -->';
         }
 
         foreach ($renderTags as $row) {
@@ -59,7 +61,9 @@ class RenderContainerRows implements RenderContainer
         }
 
         if ($this->debug) {
-            $containerInnerHtml .= '<!-- </container: ' . $container->getId() . '> -->';
+            $containerInnerHtml .= '<!-- </container: '
+                . $container->getContext() . ':' . $container->getName()
+                . '> -->';
         }
 
         return $this->wrapRenderedContainer->__invoke(

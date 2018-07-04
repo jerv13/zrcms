@@ -22,6 +22,7 @@ class WrapRenderedContainerLegacy implements WrapRenderedContainer
 
         // @todo @bc REMOVE class: rcmContainer
         return "\n"
+            // debug. '<div>container: ' . $container->getContext() . ':' . $container->getName() . "</div>\n"
             . '<div class="content-container container-fluid rcmContainer"'
             . ' data-container-id="' . $container->getId() . '"'
             . ' data-container-name="' . $container->getName() . '"'
