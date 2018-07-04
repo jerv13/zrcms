@@ -3,8 +3,6 @@
 namespace Zrcms\CorePage;
 
 use Zrcms\Core\Exception\IMPLEMENTATIONisREQUIRED;
-use Zrcms\CoreContainer\Api\Render\GetContainerRenderTags;
-use Zrcms\CoreContainer\Api\Render\RenderContainer;
 use Zrcms\CorePage\Api\CmsResource\CreatePageCmsResource;
 use Zrcms\CorePage\Api\CmsResource\FindPageCmsResource;
 use Zrcms\CorePage\Api\CmsResource\FindPageCmsResourceBySitePath;
@@ -23,10 +21,10 @@ use Zrcms\CorePage\Api\Content\FindPageVersion;
 use Zrcms\CorePage\Api\Content\FindPageVersionsBy;
 use Zrcms\CorePage\Api\Content\InsertPageVersion;
 use Zrcms\CorePage\Api\Render\GetPageRenderTags;
-use Zrcms\CorePage\Api\Render\GetPageRenderTagsBasic;
+use Zrcms\CorePage\Api\Render\GetPageRenderTagsBasicFactory;
 use Zrcms\CorePage\Api\Render\GetPageRenderTagsContainers;
+use Zrcms\CorePage\Api\Render\GetPageRenderTagsContainersFactory;
 use Zrcms\CorePage\Api\Render\GetPageRenderTagsHtml;
-use Zrcms\ServiceAlias\Api\GetServiceFromAlias;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -110,18 +108,12 @@ class ModuleConfig
                      * Render
                      */
                     GetPageRenderTags::class => [
-                        'class' => GetPageRenderTagsBasic::class,
-                        'arguments' => [
-                            GetServiceFromAlias::class,
-                        ],
+                        'factory' => GetPageRenderTagsBasicFactory::class,
+                    ],
+                    GetPageRenderTagsContainers::class => [
+                        'factory' => GetPageRenderTagsContainersFactory::class,
                     ],
                     GetPageRenderTagsHtml::class => [],
-                    GetPageRenderTagsContainers::class => [
-                        'arguments' => [
-                            GetContainerRenderTags::class,
-                            RenderContainer::class,
-                        ],
-                    ],
                 ],
             ],
         ];

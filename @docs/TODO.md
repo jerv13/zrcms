@@ -1,10 +1,10 @@
 @todo
 =====
 
-##### Site Containers
+##### Render Empty Containers issue
 
-- Address the naming of the Containers
-- May want new core-site-containers and core-site-containers-doctrine to extent core-containers
+- Currently we get the layout tags multiple times in order to render every tag for page-containers and site-containers
+- We need to refactor so to a better way of doing this
 
 ##### Page Version Rendering
 
@@ -35,8 +35,6 @@ Case 3: Publish old revision
 - press publish
 - find page by path
 - create page-resource with version
-
-
 
 ##### Add Request Site middleware with attribute
 

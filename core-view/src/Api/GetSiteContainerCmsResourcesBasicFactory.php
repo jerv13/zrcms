@@ -3,7 +3,6 @@
 namespace Zrcms\CoreView\Api;
 
 use Psr\Container\ContainerInterface;
-use Zrcms\CoreContainer\Api\Render\GetContainerRenderTags;
 use Zrcms\CoreSiteContainer\Api\CmsResource\FindSiteContainerCmsResourcesBy;
 use Zrcms\CoreSiteContainer\Api\CmsResource\FindSiteContainerCmsResourcesBySiteNames;
 
@@ -24,9 +23,8 @@ class GetSiteContainerCmsResourcesBasicFactory
     ) {
         return new GetSiteContainerCmsResourcesBasic(
             $serviceContainer->get(FindSiteContainerCmsResourcesBy::class),
-            $serviceContainer->get(GetTagNamesByLayout::class),
-            $serviceContainer->get(FindSiteContainerCmsResourcesBySiteNames::class),
-            $serviceContainer->get(GetContainerRenderTags::class)
+            $serviceContainer->get(GetContainerNamesByLayoutSiteContainers::class),
+            $serviceContainer->get(FindSiteContainerCmsResourcesBySiteNames::class)
         );
     }
 }

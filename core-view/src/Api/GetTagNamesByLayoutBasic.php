@@ -45,7 +45,7 @@ class GetTagNamesByLayoutBasic implements GetTagNamesByLayout
      * @param Layout $layout
      * @param array  $options
      *
-     * @return string[] ['{container-path}']
+     * @return string[] ['{container-name}']
      * @throws \Exception
      */
     public function __invoke(

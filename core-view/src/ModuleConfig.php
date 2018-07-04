@@ -17,10 +17,15 @@ use Zrcms\CoreView\Api\GetSiteContainerCmsResourcesBasicFactory;
 use Zrcms\CoreView\Api\GetTagNamesByLayout;
 use Zrcms\CoreView\Api\GetTagNamesByLayoutBasicFactory;
 use Zrcms\CoreView\Api\GetTagNamesByLayoutMustache;
+use Zrcms\CoreView\Api\GetTagNamesByLayoutMustacheFactory;
 use Zrcms\CoreView\Api\GetThemeName;
 use Zrcms\CoreView\Api\GetThemeNameBasicFactory;
 use Zrcms\CoreView\Api\GetViewByRequest;
 use Zrcms\CoreView\Api\GetViewByRequestDefaultFactory;
+use Zrcms\CoreView\Api\GetContainerNamesByLayoutPageContainers;
+use Zrcms\CoreView\Api\GetContainerNamesByLayoutPageContainersFactory;
+use Zrcms\CoreView\Api\GetContainerNamesByLayoutSiteContainers;
+use Zrcms\CoreView\Api\GetContainerNamesByLayoutSiteContainersFactory;
 use Zrcms\CoreView\Api\Render\GetViewLayoutTags;
 use Zrcms\CoreView\Api\Render\GetViewLayoutTagsBasicFactory;
 use Zrcms\CoreView\Api\Render\GetViewLayoutTagsContainers;
@@ -131,6 +136,12 @@ class ModuleConfig
                     GetApplicationStateView::class => [
                         'factory' => GetApplicationStateViewFactory::class,
                     ],
+                    GetContainerNamesByLayoutPageContainers::class => [
+                        'factory' => GetContainerNamesByLayoutPageContainersFactory::class,
+                    ],
+                    GetContainerNamesByLayoutSiteContainers::class => [
+                        'factory' => GetContainerNamesByLayoutSiteContainersFactory::class,
+                    ],
                     GetLayoutCmsResource::class => [
                         'factory' => GetLayoutCmsResourceBasicFactory::class,
                     ],
@@ -149,7 +160,9 @@ class ModuleConfig
                     GetTagNamesByLayout::class => [
                         'factory' => GetTagNamesByLayoutBasicFactory::class
                     ],
-                    GetTagNamesByLayoutMustache::class => [],
+                    GetTagNamesByLayoutMustache::class => [
+                        'factory' => GetTagNamesByLayoutMustacheFactory::class
+                    ],
                     GetThemeName::class => [
                         'factory' => GetThemeNameBasicFactory::class,
                     ],

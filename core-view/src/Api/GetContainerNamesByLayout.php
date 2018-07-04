@@ -7,7 +7,7 @@ use Zrcms\CoreTheme\Model\Layout;
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-interface GetTagNamesByLayout
+interface GetContainerNamesByLayout
 {
     /**
      * @param Layout $layout
