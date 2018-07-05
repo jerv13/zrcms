@@ -92,7 +92,6 @@ class RenderBlockMustache implements RenderBlock
             return $this->filterWithWhitelist->__invoke(
                 $config,
                 $blockComponent->getProperties()['configJsonWhitelist']
-
             );
         }
 
