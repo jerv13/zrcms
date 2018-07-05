@@ -5,6 +5,7 @@ namespace Zrcms\CoreBlock\Api\Render;
 use Phly\Mustache\Mustache;
 use Phly\Mustache\Resolver\DefaultResolver;
 use Phly\Mustache\Resolver\ResolverInterface;
+use Reliv\WhiteRat\FilterInterface;
 use Reliv\WhiteRat\Whitelist;
 use Zrcms\Core\Api\Component\FindComponent;
 use Zrcms\Core\Model\Content;
@@ -22,6 +23,7 @@ class RenderBlockMustache implements RenderBlock
 
     protected $findComponent;
     protected $resolver;
+    protected $whiteListFiler;
 
     /**
      * @param FindComponent $findComponent
@@ -29,10 +31,12 @@ class RenderBlockMustache implements RenderBlock
      */
     public function __construct(
         FindComponent $findComponent,
-        ResolverInterface $resolver
+        ResolverInterface $resolver,
+        FilterInterface $whitelistFilter
     ) {
         $this->findComponent = $findComponent;
         $this->resolver = $resolver;
+        $this->whiteListFiler = $whitelistFilter;
     }
 
     /**
@@ -81,10 +85,12 @@ class RenderBlockMustache implements RenderBlock
     protected function addConfigJsonToRenderTags($renderTags, BlockComponent $blockComponent)
     {
         if (array_key_exists('configJsonWhitelist', $blockComponent->getProperties())) {
-            $configJsonWhitelist = new Whitelist(
-                $blockComponent->getProperties()['configJsonWhitelist']
+            $renderTags['configJson'] = json_encode(
+                $this->whiteListFiler->__invoke(
+                    $renderTags['config'],
+                    $blockComponent->getProperties()['configJsonWhitelist']
+                )
             );
-            $renderTags['configJson'] = json_encode($configJsonWhitelist->filter($renderTags['config']));
         } else {
             $renderTags['configJson'] = json_encode([]);
         }

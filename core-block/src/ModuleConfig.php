@@ -2,6 +2,7 @@
 
 namespace Zrcms\CoreBlock;
 
+use Reliv\WhiteRat\Filter;
 use Zrcms\Core\Api\Component\FindComponent;
 use Zrcms\CoreBlock\Api\Component\PrepareComponentConfigBlock;
 use Zrcms\CoreBlock\Api\Component\PrepareComponentConfigBlockBc;
@@ -25,6 +26,7 @@ use Zrcms\CoreBlock\Api\GetMergedConfig;
 use Zrcms\CoreBlock\Api\GetMergedConfigBasic;
 use Zrcms\CoreBlock\Api\Render\GetBlockRenderTags;
 use Zrcms\CoreBlock\Api\Render\GetBlockRenderTagsBasic;
+use Zrcms\CoreBlock\Api\Render\JsonConfigWhitelistFilterInterface;
 use Zrcms\CoreBlock\Api\Render\RenderBlock;
 use Zrcms\CoreBlock\Api\Render\RenderBlockBasic;
 use Zrcms\CoreBlock\Api\Render\RenderBlockBc;
@@ -33,6 +35,7 @@ use Zrcms\CoreBlock\Api\Render\RenderBlockMissing;
 use Zrcms\CoreBlock\Api\Render\RenderBlockMissingComment;
 use Zrcms\CoreBlock\Api\Render\RenderBlockMissingDiv;
 use Zrcms\CoreBlock\Api\Render\RenderBlockMustache;
+use Zrcms\CoreBlock\Api\Render\WhitelistFilterInterface;
 use Zrcms\CoreBlock\Api\Render\WrapRenderedBlockVersion;
 use Zrcms\CoreBlock\Api\Render\WrapRenderedBlockVersionLegacy;
 use Reliv\Mustache\Resolver\FileResolver;
@@ -108,7 +111,8 @@ class ModuleConfig
                     RenderBlockMustache::class => [
                         'arguments' => [
                             FindComponent::class,
-                            FileResolver::class
+                            FileResolver::class,
+                            WhitelistFilterInterface::class
                         ],
                     ],
                     WrapRenderedBlockVersion::class => [
@@ -116,6 +120,9 @@ class ModuleConfig
                         'arguments' => [
                             FindComponent::class
                         ],
+                    ],
+                    WhitelistFilterInterface::class => [
+                        'class' => Filter::class
                     ],
 
                     /**
