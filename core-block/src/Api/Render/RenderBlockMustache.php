@@ -5,6 +5,7 @@ namespace Zrcms\CoreBlock\Api\Render;
 use Phly\Mustache\Mustache;
 use Phly\Mustache\Resolver\DefaultResolver;
 use Phly\Mustache\Resolver\ResolverInterface;
+use Reliv\WhiteRat\FilterInterface;
 use Reliv\WhiteRat\Whitelist;
 use Zrcms\Core\Api\Component\FindComponent;
 use Zrcms\Core\Model\Content;
@@ -22,17 +23,22 @@ class RenderBlockMustache implements RenderBlock
 
     protected $findComponent;
     protected $resolver;
+    protected $filterWithWhitelist;
 
     /**
+     * RenderBlockMustache constructor.
      * @param FindComponent $findComponent
      * @param ResolverInterface $resolver
+     * @param FilterInterface $filterWithWhitelist
      */
     public function __construct(
         FindComponent $findComponent,
-        ResolverInterface $resolver
+        ResolverInterface $resolver,
+        FilterInterface $filterWithWhitelist
     ) {
         $this->findComponent = $findComponent;
         $this->resolver = $resolver;
+        $this->filterWithWhitelist = $filterWithWhitelist;
     }
 
     /**
@@ -66,30 +72,30 @@ class RenderBlockMustache implements RenderBlock
         $mustache = new Mustache();
         $mustache->getResolver()->attach($this->resolver);
 
-        $renderTags = $this->addConfigJsonToRenderTags($renderTags, $blockComponent);
+        $renderTags['configJson'] = json_encode(
+            $this->getWhitelistedJsonConfig($renderTags['config'], $blockComponent)
+        );
 
         return $mustache->render($templateFile, $renderTags);
     }
 
     /**
-     * Note: This functionaliity could be moved higher up into the ZRCMS render-tags chain in the future.
+     * Note: This functionality could be moved higher up into the ZRCMS render-tags chain in the future.
      *
-     * @param $renderTags
+     * @param array $config
      * @param BlockComponent $blockComponent
-     * @return mixed
+     * @return array
      */
-    protected function addConfigJsonToRenderTags($renderTags, BlockComponent $blockComponent)
+    protected function getWhitelistedJsonConfig(array $config, BlockComponent $blockComponent)
     {
         if (array_key_exists('configJsonWhitelist', $blockComponent->getProperties())) {
-            $configJsonWhitelist = new Whitelist(
+            return $this->filterWithWhitelist->__invoke(
+                $config,
                 $blockComponent->getProperties()['configJsonWhitelist']
             );
-            $renderTags['configJson'] = json_encode($configJsonWhitelist->filter($renderTags['config']));
-        } else {
-            $renderTags['configJson'] = json_encode([]);
         }
 
-        return $renderTags;
+        return [];
     }
 
     /**

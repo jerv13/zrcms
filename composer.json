@@ -42,6 +42,7 @@
     "reliv/validation-rat-messages": "^0",
     "reliv/zf-config-factories": "^4",
     "reliv/zf-input-filter-service": "~0.1",
+    "reliv/white-rat": "^0.2.0",
     "zendframework/zend-expressive": "1.* || 2.*"
   },
   "require-dev": {
