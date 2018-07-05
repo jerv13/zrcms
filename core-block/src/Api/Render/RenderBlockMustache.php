@@ -72,7 +72,9 @@ class RenderBlockMustache implements RenderBlock
         $mustache = new Mustache();
         $mustache->getResolver()->attach($this->resolver);
 
-        $renderTags['configJson'] = json_encode($this->getWhitelistedJsonConfig($renderTags, $blockComponent));
+        $renderTags['configJson'] = json_encode(
+            $this->getWhitelistedJsonConfig($renderTags['config'], $blockComponent)
+        );
 
         return $mustache->render($templateFile, $renderTags);
     }
