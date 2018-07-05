@@ -24,6 +24,7 @@ use Zrcms\CoreBlock\Api\GetBlockDataBasic;
 use Zrcms\CoreBlock\Api\GetBlockDataNoop;
 use Zrcms\CoreBlock\Api\GetMergedConfig;
 use Zrcms\CoreBlock\Api\GetMergedConfigBasic;
+use Zrcms\CoreBlock\Api\Render\FilterWithWhitelistInterface;
 use Zrcms\CoreBlock\Api\Render\GetBlockRenderTags;
 use Zrcms\CoreBlock\Api\Render\GetBlockRenderTagsBasic;
 use Zrcms\CoreBlock\Api\Render\JsonConfigWhitelistFilterInterface;
@@ -112,7 +113,7 @@ class ModuleConfig
                         'arguments' => [
                             FindComponent::class,
                             FileResolver::class,
-                            WhitelistFilterInterface::class
+                            FilterWithWhitelistInterface::class
                         ],
                     ],
                     WrapRenderedBlockVersion::class => [
@@ -121,7 +122,7 @@ class ModuleConfig
                             FindComponent::class
                         ],
                     ],
-                    WhitelistFilterInterface::class => [
+                    FilterWithWhitelistInterface::class => [
                         'class' => Filter::class
                     ],
 
