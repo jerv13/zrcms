@@ -5,6 +5,7 @@ namespace Zrcms\CoreBlock\Api\Render;
 use Phly\Mustache\Mustache;
 use Phly\Mustache\Resolver\DefaultResolver;
 use Phly\Mustache\Resolver\ResolverInterface;
+use Reliv\WhiteRat\Whitelist;
 use Zrcms\Core\Api\Component\FindComponent;
 use Zrcms\Core\Model\Content;
 use Zrcms\CoreBlock\Exception\BlockComponentMissing;
@@ -18,12 +19,12 @@ use Zrcms\CoreBlock\Model\BlockComponent;
 class RenderBlockMustache implements RenderBlock
 {
     const SERVICE_ALIAS = 'mustache';
-    
+
     protected $findComponent;
     protected $resolver;
 
     /**
-     * @param FindComponent     $findComponent
+     * @param FindComponent $findComponent
      * @param ResolverInterface $resolver
      */
     public function __construct(
@@ -36,8 +37,8 @@ class RenderBlockMustache implements RenderBlock
 
     /**
      * @param Block|Content $block
-     * @param array         $renderTags ['render-tag' => '{html}']
-     * @param array         $options
+     * @param array $renderTags ['render-tag' => '{html}']
+     * @param array $options
      *
      * @return string
      * @throws BlockComponentMissing
@@ -65,7 +66,30 @@ class RenderBlockMustache implements RenderBlock
         $mustache = new Mustache();
         $mustache->getResolver()->attach($this->resolver);
 
+        $renderTags = $this->addConfigJsonToRenderTags($renderTags, $blockComponent);
+
         return $mustache->render($templateFile, $renderTags);
+    }
+
+    /**
+     * Note: This functionaliity could be moved higher up into the ZRCMS render-tags chain in the future.
+     *
+     * @param $renderTags
+     * @param BlockComponent $blockComponent
+     * @return mixed
+     */
+    protected function addConfigJsonToRenderTags($renderTags, BlockComponent $blockComponent)
+    {
+        if (array_key_exists('configJsonWhitelist', $blockComponent->getProperties())) {
+            $configJsonWhitelist = new Whitelist(
+                $blockComponent->getProperties()['configJsonWhitelist']
+            );
+            $renderTags['configJson'] = json_encode($configJsonWhitelist->filter($renderTags['config']));
+        } else {
+            $renderTags['configJson'] = json_encode([]);
+        }
+
+        return $renderTags;
     }
 
     /**
