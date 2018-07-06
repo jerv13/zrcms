@@ -18,11 +18,7 @@ class ModuleConfig
         return [
             'dependencies' => [
                 'config_factories' => [
-                    RenderBlockClientReact::class => [
-                        'arguments' => [
-                            FindComponent::class,
-                        ]
-                    ]
+                    RenderBlockClientReact::class => []
                 ]
             ],
             'zrcms-service-alias' => [

@@ -12,18 +12,6 @@ use Zrcms\CoreBlock\Model\BlockComponent;
 
 class RenderBlockClientReact implements RenderBlock
 {
-    protected $findComponent;
-
-    /**
-     * RenderBlockClientReact constructor.
-     * @param FindComponent $findComponent
-     */
-    public function __construct(
-        FindComponent $findComponent
-    ) {
-        $this->findComponent = $findComponent;
-    }
-
     /**
      * @param Block|Content $block
      * @param array $renderTags ['render-tag' => '{html}']
@@ -38,18 +26,6 @@ class RenderBlockClientReact implements RenderBlock
         array $renderTags,
         array $options = []
     ): string {
-        /** @var BlockComponent $blockComponent */
-        $blockComponent = $this->findComponent->__invoke(
-            'block',
-            $block->getBlockComponentName()
-        );
-
-        if (empty($blockComponent)) {
-            throw new BlockComponentMissing(
-                "BlockComponent not found: (" . $block->getBlockComponentName() . ")"
-            );
-        }
-
         /**
          * We do NOT send the un-whitelisted standard "config" field to the client for security reasons.
          * We instead replace it with the whitelisted "configJson"
