@@ -4,10 +4,7 @@ namespace Zrcms\BlockConfigJsonWhitelist;
 
 use Reliv\WhiteRat\Filter;
 use Zrcms\BlockConfigJsonWhitelist\Api\Render\FilterWithWhitelistInterface;
-use Zrcms\BlockConfigJsonWhitelist\Api\Render\GetBlockRenderTagsConfigJsonWhitelist;
-use Zrcms\Core\Api\Component\FindComponent;
-use Zrcms\CoreBlock\Api\GetBlockData;
-use Zrcms\CoreBlock\Api\GetMergedConfig;
+use Zrcms\BlockConfigJsonWhitelist\Api\Render\GetBlockRenderTagsConfigJsonWhitelistFactory;
 use Zrcms\CoreBlock\Api\Render\GetBlockRenderTags;
 
 /**
@@ -24,13 +21,7 @@ class ModuleConfig
             'dependencies' => [
                 'config_factories' => [
                     GetBlockRenderTags::class => [
-                        'class' => GetBlockRenderTagsConfigJsonWhitelist::class,
-                        'arguments' => [
-                            GetBlockData::class,
-                            GetMergedConfig::class,
-                            FindComponent::class,
-                            FilterWithWhitelistInterface::class
-                        ],
+                        'factory' => GetBlockRenderTagsConfigJsonWhitelistFactory::class,
                     ],
 
                     FilterWithWhitelistInterface::class => [
