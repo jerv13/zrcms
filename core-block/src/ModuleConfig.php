@@ -2,8 +2,6 @@
 
 namespace Zrcms\CoreBlock;
 
-use Reliv\Mustache\Resolver\FileResolver;
-use Zrcms\Core\Api\Component\FindComponent;
 use Zrcms\CoreBlock\Api\Component\PrepareComponentConfigBlock;
 use Zrcms\CoreBlock\Api\Component\PrepareComponentConfigBlockBc;
 use Zrcms\CoreBlock\Api\Component\PrepareComponentConfigBlockBcFactory;
@@ -20,22 +18,22 @@ use Zrcms\CoreBlock\Api\Component\ReadComponentRegistryRcmPluginBcFactory;
 use Zrcms\CoreBlock\Api\GetBlockConfigFields;
 use Zrcms\CoreBlock\Api\GetBlockConfigFieldsBcSubstitution;
 use Zrcms\CoreBlock\Api\GetBlockData;
-use Zrcms\CoreBlock\Api\GetBlockDataBasic;
+use Zrcms\CoreBlock\Api\GetBlockDataBasicFactory;
 use Zrcms\CoreBlock\Api\GetBlockDataNoop;
 use Zrcms\CoreBlock\Api\GetMergedConfig;
-use Zrcms\CoreBlock\Api\GetMergedConfigBasic;
+use Zrcms\CoreBlock\Api\GetMergedConfigBasicFactory;
 use Zrcms\CoreBlock\Api\Render\GetBlockRenderTags;
-use Zrcms\CoreBlock\Api\Render\GetBlockRenderTagsBasic;
+use Zrcms\CoreBlock\Api\Render\GetBlockRenderTagsBasicFactory;
 use Zrcms\CoreBlock\Api\Render\RenderBlock;
-use Zrcms\CoreBlock\Api\Render\RenderBlockBasic;
+use Zrcms\CoreBlock\Api\Render\RenderBlockBasicFactory;
 use Zrcms\CoreBlock\Api\Render\RenderBlockBc;
 use Zrcms\CoreBlock\Api\Render\RenderBlockBcFactory;
 use Zrcms\CoreBlock\Api\Render\RenderBlockMissing;
 use Zrcms\CoreBlock\Api\Render\RenderBlockMissingDiv;
 use Zrcms\CoreBlock\Api\Render\RenderBlockMustache;
+use Zrcms\CoreBlock\Api\Render\RenderBlockMustacheFactory;
 use Zrcms\CoreBlock\Api\Render\WrapRenderedBlockVersion;
-use Zrcms\CoreBlock\Api\Render\WrapRenderedBlockVersionLegacy;
-use Zrcms\ServiceAlias\Api\GetServiceFromAlias;
+use Zrcms\CoreBlock\Api\Render\WrapRenderedBlockVersionLegacyFactory;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -83,20 +81,10 @@ class ModuleConfig
                      * Render
                      */
                     GetBlockRenderTags::class => [
-                        'class' => GetBlockRenderTagsBasic::class,
-                        'arguments' => [
-                            GetBlockData::class,
-                            GetMergedConfig::class,
-                        ],
+                        'factory' => GetBlockRenderTagsBasicFactory::class,
                     ],
                     RenderBlock::class => [
-                        'class' => RenderBlockBasic::class,
-                        'arguments' => [
-                            GetServiceFromAlias::class,
-                            FindComponent::class,
-                            RenderBlockMissing::class,
-                            ['literal' => RenderBlockMustache::class],
-                        ],
+                        'factory' => RenderBlockBasicFactory::class,
                     ],
                     RenderBlockBc::class => [
                         'factory' => RenderBlockBcFactory::class,
@@ -105,16 +93,10 @@ class ModuleConfig
                         'class' => RenderBlockMissingDiv::class,
                     ],
                     RenderBlockMustache::class => [
-                        'arguments' => [
-                            FindComponent::class,
-                            FileResolver::class
-                        ],
+                        'factory' => RenderBlockMustacheFactory::class,
                     ],
                     WrapRenderedBlockVersion::class => [
-                        'class' => WrapRenderedBlockVersionLegacy::class,
-                        'arguments' => [
-                            FindComponent::class
-                        ],
+                        'factory' => WrapRenderedBlockVersionLegacyFactory::class,
                     ],
 
                     /**
@@ -127,18 +109,11 @@ class ModuleConfig
                         'class' => GetBlockConfigFieldsBcSubstitution::class,
                     ],
                     GetBlockData::class => [
-                        'class' => GetBlockDataBasic::class,
-                        'arguments' => [
-                            GetServiceFromAlias::class,
-                            FindComponent::class
-                        ],
+                        'factory' => GetBlockDataBasicFactory::class,
                     ],
                     GetBlockDataNoop::class => [],
                     GetMergedConfig::class => [
-                        'class' => GetMergedConfigBasic::class,
-                        'arguments' => [
-                            FindComponent::class
-                        ],
+                        'factory' => GetMergedConfigBasicFactory::class,
                     ],
                 ],
             ],
