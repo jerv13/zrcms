@@ -61,7 +61,7 @@ class RenderBlockServerReact implements RenderBlock
     /**
      * Do an HTTP post request
      *
-     * Note: This doesn't use a client library such a Guzzle in order to avoid
+     * Note: This doesn't use a client library such as Guzzle in order to avoid
      * dependency version mismatch conflicts
      *
      * @param $url
