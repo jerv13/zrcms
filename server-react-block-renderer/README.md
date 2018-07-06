@@ -1,8 +1,19 @@
 # ZRCMS Server React Block Renderer
 This renderer allows ZRCMS blocks to be ReactJS components that render on the server side on a remote nodeJS server.
 
+# Setup
+In you app, set the following config key:
+```php
+<?php
+return [
+    'zrcmsServerReactBlockRenderer' => [
+        'remoteRenderApiUrl' => 'http://HUMAN_PUT_SOMETHING_HERE/zrcms-server-react-block-renderer/render-block'
+    ],
+];
+```
+
 # Technical details
-The requests to the remote render service API will have bodys that look like:
+Remote render service request bodies will look like:
 ```json
 {
     "name": "SuggestedProducts",
@@ -18,7 +29,7 @@ The requests to the remote render service API will have bodys that look like:
     }
 }
 ```
-And responses will look like:
+Remote render service response bodies will look like:
 ```json
 {
     "html": "<h1>Helloooo There!</h1><p>This is me saying hi.</p>"
