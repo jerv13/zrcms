@@ -67,10 +67,15 @@ class GetBlockRenderTagsConfigJsonWhitelist extends GetBlockRenderTagsBasic impl
             $options
         );
 
-        $renderTags[FieldsBlockConfigJsonWhitelist::BLOCK_CONFIG_JSON] = $this->getWhitelistedJsonConfig(
-            $renderTags[FieldsBlock::RENDER_DATA_CONFIG],
-            $block
+        // This is for use with special rendering
+        $configJson = json_encode(
+            $this->getWhitelistedJsonConfig(
+                $renderTags[FieldsBlock::RENDER_DATA_CONFIG],
+                $block
+            )
         );
+
+        $renderTags[FieldsBlockConfigJsonWhitelist::BLOCK_CONFIG_JSON] = $configJson;
 
         return $renderTags;
     }
