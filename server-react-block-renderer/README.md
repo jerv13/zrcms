@@ -1,5 +1,5 @@
 # ZRCMS Server React Block Renderer
-This renderer allows ZRCMS blocks to be ReactJS components that render on the serve side on a remote nodeJS server.
+This renderer allows ZRCMS blocks to be ReactJS components that render on the server side on a remote nodeJS server.
 
 # Technical details
 The requests to the remote render service API will have bodys that look like:
