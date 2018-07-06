@@ -18,4 +18,8 @@ The requests to the remote render service API will have bodys that look like:
     }
 }
 ```
-
+And responses will look like:
+```json
+{
+    "html": "<h1>Helloooo There!</h1><p>This is me saying hi.</p>"
+}
