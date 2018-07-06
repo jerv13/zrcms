@@ -7,7 +7,7 @@ In you app, set the following config key:
 <?php
 return [
     'zrcmsServerReactBlockRenderer' => [
-        'remoteRenderApiUrl' => 'http://HUMAN_PUT_SOMETHING_HERE/zrcms-server-react-block-renderer/render-block'
+        'remoteRenderApiUrl' => 'https://HUMAN_PUT_SOMETHING_HERE/zrcms-server-react-block-renderer/render-block'
     ],
 ];
 ```
