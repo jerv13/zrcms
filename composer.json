@@ -119,7 +119,8 @@
       "Zrcms\\ViewHead\\": "view-head/src/",
       "Zrcms\\ViewHtmlTags\\": "view-html-tags/src/",
       "Zrcms\\ViewMetaPageData\\":"view-meta-page-data/src/",
-      "Zrcms\\XampleComponent\\": "xample-component/src/"
+      "Zrcms\\XampleComponent\\": "xample-component/src/",
+      "Zrcms\\BlockConfigJsonWhitelist\\": "zrcms-block-config-json-whitelist/src/"
     }
   },
   "suggest": {
