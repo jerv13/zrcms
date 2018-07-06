@@ -34,3 +34,7 @@ Remote render service response bodies will look like:
 {
     "html": "<h1>Helloooo There!</h1><p>This is me saying hi.</p>"
 }
+```
+
+# Future plans:
+- Figure out and implement PHP-side caching
