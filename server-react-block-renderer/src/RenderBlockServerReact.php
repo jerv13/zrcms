@@ -69,7 +69,6 @@ class RenderBlockServerReact implements RenderBlock
      */
     protected static function httpPost($url, $postData, $ignoreSSLErrors = false)
     {
-//      dXdXd($url, json_encode($postData, JSON_PRETTY_PRINT), $ignoreSSLErrors);
         $options = array(
             'http' => array(
                 'method' => 'POST',
