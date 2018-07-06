@@ -121,7 +121,7 @@
       "Zrcms\\ViewMetaPageData\\":"view-meta-page-data/src/",
       "Zrcms\\XampleComponent\\": "xample-component/src/",
       "Zrcms\\BlockConfigJsonWhitelist\\": "zrcms-block-config-json-whitelist/src/",
-      "Zrcms\\ClientReactBlockRenderer\\": "zrcms-client-react-block-renderer/src/"
+      "Zrcms\\ClientReactBlockRenderer\\": "client-react-block-renderer/src/"
     }
   },
   "suggest": {
