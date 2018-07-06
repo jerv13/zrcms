@@ -49,8 +49,10 @@ class RenderBlockServerReact implements RenderBlock
             $this->ignoreSSLErrors
         );
 
-        if (!array_key_exists('html', $response)) {
-            throw new InvalidResponseFromRemoteRenderServiceException();
+        if (!is_array($response) || !array_key_exists('html', $response)) {
+            throw new InvalidResponseFromRemoteRenderServiceException(
+                'Invalid response from remote render service: ' . json_encode($response)
+            );
         };
 
         return $response['html'];
