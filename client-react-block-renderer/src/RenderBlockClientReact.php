@@ -13,13 +13,10 @@ use Zrcms\CoreBlock\Model\BlockComponent;
 class RenderBlockClientReact implements RenderBlock
 {
     /**
-     * @param Block|Content $block
-     * @param array $renderTags ['render-tag' => '{html}']
+     * @param Content $block
+     * @param array $renderTags
      * @param array $options
-     *
      * @return string
-     * @throws BlockComponentMissing
-     * @throws \Exception
      */
     public function __invoke(
         Content $block,
