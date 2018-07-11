@@ -2,17 +2,12 @@
 
 namespace Zrcms\ServerReactBlockRenderer;
 
-use Reliv\WhiteRat\FilterInterface;
-use Zrcms\Core\Api\Component\FindComponent;
 use Zrcms\Core\Model\Content;
 use Zrcms\CoreBlock\Api\Render\RenderBlock;
-use Zrcms\CoreBlock\Exception\BlockComponentMissing;
-use Zrcms\CoreBlock\Model\Block;
-use Zrcms\CoreBlock\Model\BlockComponent;
 use Zrcms\ServerReactBlockRenderer\Exception\InvalidResponseFromRemoteRenderServiceException;
 
 /**
- * @TODO implement caching?
+ * @TODO    implement caching?
  *
  * Class RenderBlockServerReact
  * @package Zrcms\ServerReactBlockRenderer
@@ -30,8 +25,9 @@ class RenderBlockServerReact implements RenderBlock
 
     /**
      * @param Content $block
-     * @param array $renderTags
-     * @param array $options
+     * @param array   $renderTags
+     * @param array   $options
+     *
      * @return string
      * @throws InvalidResponseFromRemoteRenderServiceException
      */
@@ -64,9 +60,10 @@ class RenderBlockServerReact implements RenderBlock
      * Note: This doesn't use a client library such as Guzzle in order to avoid
      * dependency version mismatch conflicts
      *
-     * @param $url
-     * @param $postData
+     * @param      $url
+     * @param      $postData
      * @param bool $ignoreSSLErrors
+     *
      * @return mixed
      */
     protected static function httpPost($url, $postData, $ignoreSSLErrors = false)

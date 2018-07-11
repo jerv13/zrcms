@@ -2,20 +2,17 @@
 
 namespace Zrcms\ClientReactBlockRenderer;
 
-use Reliv\WhiteRat\FilterInterface;
-use Zrcms\Core\Api\Component\FindComponent;
 use Zrcms\Core\Model\Content;
 use Zrcms\CoreBlock\Api\Render\RenderBlock;
-use Zrcms\CoreBlock\Exception\BlockComponentMissing;
 use Zrcms\CoreBlock\Model\Block;
-use Zrcms\CoreBlock\Model\BlockComponent;
 
 class RenderBlockClientReact implements RenderBlock
 {
     /**
-     * @param Content $block
-     * @param array $renderTags
-     * @param array $options
+     * @param Content|Block $block
+     * @param array         $renderTags
+     * @param array         $options
+     *
      * @return string
      */
     public function __invoke(
