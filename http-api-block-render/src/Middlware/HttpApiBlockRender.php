@@ -27,6 +27,7 @@ class HttpApiBlockRender implements MiddlewareInterface
     const SOURCE = 'block-render';
     const API_TYPE = 'zrcms-http-api';
     const PARAM_ID = 'block-id';
+    const PARAM_CONTENT_ONLY = 'content-only';
 
     protected $findComponent;
     protected $getBlockRenderTags;
@@ -114,19 +115,27 @@ class HttpApiBlockRender implements MiddlewareInterface
             $request
         );
 
-        $blockInnerHtml = $this->renderBlock->__invoke(
+        $renderHtml = $this->renderBlock->__invoke(
             $blockVersion,
             $renderTags
         );
 
-        $blockOuterHtml = $this->wrapRenderedBlockVersion->__invoke(
-            $blockInnerHtml,
-            $blockVersion
+        $contentOnly = Property::getBool(
+            $request->getQueryParams(),
+            self::PARAM_CONTENT_ONLY,
+            false
         );
+
+        if (!$contentOnly) {
+            $renderHtml = $this->wrapRenderedBlockVersion->__invoke(
+                $renderHtml,
+                $blockVersion
+            );
+        }
 
         $result = [];
 
-        $result['renderHtml'] = $blockOuterHtml;
+        $result['renderHtml'] = $renderHtml;
         $result['renderTags'] = $renderTags;
         $result['blockVersion'] = $this->contentVersionToArray->__invoke(
             $blockVersion
