@@ -4,6 +4,7 @@ namespace Zrcms\CoreView\Api\ViewBuilder;
 
 use Psr\Http\Message\ServerRequestInterface;
 use Reliv\ArrayProperties\Property;
+use Zrcms\CoreApplication\Api\GetGuidV4;
 use Zrcms\CorePage\Api\Content\FindPageVersion;
 use Zrcms\CorePage\Model\PageCmsResourceBasic;
 use Zrcms\CoreView\Api\GetLayoutCmsResource;
@@ -103,7 +104,7 @@ class BuildViewPageVersionId implements BuildView
         $tempId = $this->buildTempPageCmsResourceId($pageVersionId);
 
         $pageCmsResource = new PageCmsResourceBasic(
-            $tempId,
+            GetGuidV4::invoke(),
             false,
             $pageVersion,
             $tempId, // @todo Use current user
