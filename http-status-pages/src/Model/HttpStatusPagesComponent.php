@@ -24,6 +24,9 @@ class HttpStatusPagesComponent extends ComponentAbstract implements Component
      * @param string      $createdByUserId
      * @param string      $createdReason
      * @param string|null $createdDate
+     *
+     * @throws \Exception
+     * @throws \Zrcms\Core\Exception\TrackingInvalid
      */
     public function __construct(
         string $type,

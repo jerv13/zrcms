@@ -6,6 +6,7 @@ use Interop\Http\ServerMiddleware\DelegateInterface;
 use Interop\Http\ServerMiddleware\MiddlewareInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
+use Psr\Http\Message\UriInterface;
 use Zend\Diactoros\Response\HtmlResponse;
 use Zend\Diactoros\Response\RedirectResponse;
 use Zrcms\Http\Api\IsValidContentType;
@@ -21,6 +22,9 @@ class ResponseMutatorStatusPage implements MiddlewareInterface
     const ATTRIBUTE_REQUEST_URI = 'zrcms-request-uri-status-page';
 
     const QUERY_PARAM_FROM = 'redirect-from';
+
+    const DEFAULT_QUERY_PARAM_BLACKLIST_PREFIX = 'PARAM-NOT-ALLOWED-';
+
     /**
      * @todo These should be config driven list of ResponseMutator services
      * @var array
@@ -36,6 +40,8 @@ class ResponseMutatorStatusPage implements MiddlewareInterface
     protected $renderPage;
     protected $validContentTypes;
     protected $statusBlackList;
+    protected $queryParamBlackList;
+    protected $queryParamBlackListPrefix;
     protected $debug;
 
     /**
@@ -43,6 +49,7 @@ class ResponseMutatorStatusPage implements MiddlewareInterface
      * @param RenderPage    $renderPage
      * @param array         $validContentTypes
      * @param array         $statusBlackList
+     * @param array         $queryParamBlackList
      * @param bool          $debug
      */
     public function __construct(
@@ -50,12 +57,16 @@ class ResponseMutatorStatusPage implements MiddlewareInterface
         RenderPage $renderPage,
         array $validContentTypes = ['text/html', 'application/xhtml+xml', 'text/xml', 'application/xml', ''],
         array $statusBlackList = [200, 201, 204, 301, 302],
+        array $queryParamBlackList = [],
+        string $queryParamBlackListPrefix = self::DEFAULT_QUERY_PARAM_BLACKLIST_PREFIX,
         bool $debug = false
     ) {
         $this->getStatusPage = $getStatusPage;
         $this->renderPage = $renderPage;
         $this->validContentTypes = $validContentTypes;
         $this->statusBlackList = $statusBlackList;
+        $this->queryParamBlackList = $queryParamBlackList;
+        $this->queryParamBlackListPrefix = $queryParamBlackListPrefix;
         $this->debug = $debug;
     }
 
@@ -87,13 +98,7 @@ class ResponseMutatorStatusPage implements MiddlewareInterface
 
         $requestUri = $request->getUri();
 
-        $originalQuery = $requestUri->getQuery();
-
-        $fromQuery = self::QUERY_PARAM_FROM . '=' . urlencode($requestUri->getPath());
-
-        if (!empty($originalQuery)) {
-            $fromQuery = $originalQuery . '&' . $fromQuery;
-        }
+        $fromQuery = $this->buildFromQuery($requestUri);
 
         $newUri = $requestUri->withPath($statusPage['path'])->withQuery($fromQuery);
         $newRequest = $request->withUri($newUri)->withAttribute(
@@ -117,6 +122,39 @@ class ResponseMutatorStatusPage implements MiddlewareInterface
         }
 
         return $response;
+    }
+
+    /**
+     * @param UriInterface $requestUri
+     *
+     * @return string
+     */
+    protected function buildFromQuery(UriInterface $requestUri)
+    {
+        $originalQuery = $requestUri->getQuery();
+
+        $fromQueryStart = self::QUERY_PARAM_FROM . '=';
+
+        $fromQuery = $fromQueryStart . urlencode($requestUri->getPath());
+
+        if (empty($originalQuery)) {
+            return $fromQuery;
+        }
+
+        // if query already exists, we should not add it again
+        if (strpos($originalQuery, $fromQueryStart) !== false) {
+            return $originalQuery;
+        }
+
+        foreach ($this->queryParamBlackList as $blacklistedParam) {
+            $originalQuery = str_replace(
+                $blacklistedParam . '=',
+                $this->queryParamBlackListPrefix . $blacklistedParam . '=',
+                $originalQuery
+            );
+        }
+
+        return $originalQuery . '&' . $fromQuery;
     }
 
     /**
@@ -164,7 +202,7 @@ class ResponseMutatorStatusPage implements MiddlewareInterface
      * @param ServerRequestInterface $newRequest
      * @param ResponseInterface      $response
      *
-     * @return RedirectResponse
+     * @return ResponseInterface|RedirectResponse
      */
     protected function redirectStatusPage(
         ServerRequestInterface $newRequest,
