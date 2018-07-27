@@ -5,6 +5,7 @@ namespace Zrcms\HttpApiView\Content;
 use Interop\Http\ServerMiddleware\DelegateInterface;
 use Interop\Http\ServerMiddleware\MiddlewareInterface;
 use Psr\Http\Message\ServerRequestInterface;
+use Reliv\ArrayProperties\Property;
 use Zend\Diactoros\Uri;
 use Zrcms\CoreView\Api\GetViewByRequest;
 use Zrcms\CoreView\Api\ViewToArray;
@@ -16,6 +17,7 @@ use Zrcms\CoreView\Model\View;
 use Zrcms\Http\Api\BuildMessageValue;
 use Zrcms\Http\Api\BuildResponseOptions;
 use Zrcms\Http\Response\ZrcmsJsonResponse;
+use Zrcms\HttpViewRender\Request\RequestWithViewStrategyPageVersionId;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -104,6 +106,8 @@ class HttpApiGetViewData implements MiddlewareInterface
             $uri
         );
 
+        $fakeRequest = $this->withRequestVersion($fakeRequest);
+
         try {
             /** @var View $view */
             $view = $this->getViewByRequest->__invoke(
@@ -170,6 +174,30 @@ class HttpApiGetViewData implements MiddlewareInterface
             200,
             [],
             BuildResponseOptions::invoke()
+        );
+    }
+
+    /**
+     * @param ServerRequestInterface $request
+     *
+     * @return ServerRequestInterface|static
+     */
+    protected function withRequestVersion(ServerRequestInterface $request): ServerRequestInterface
+    {
+        $queryParams = $request->getQueryParams();
+
+        $pageVersionId = Property::getString(
+            $queryParams,
+            RequestWithViewStrategyPageVersionId::PARAM_VIEW_PAGE_VERSION_ID
+        );
+
+        if (empty($pageVersionId)) {
+            return $request;
+        }
+
+        return $request->withAttribute(
+            RequestWithViewStrategyPageVersionId::ATTRIBUTE_VIEW_PAGE_VERSION_ID,
+            $pageVersionId
         );
     }
 }

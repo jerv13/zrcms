@@ -39,6 +39,8 @@ class GetStatusPageBasic implements GetStatusPage
      * @param int                    $status
      *
      * @return null|string
+     * @throws \Exception
+     * @throws \Psr\SimpleCache\InvalidArgumentException
      */
     public function __invoke(
         ServerRequestInterface $request,
