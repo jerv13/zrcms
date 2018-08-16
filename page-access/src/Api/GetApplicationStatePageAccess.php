@@ -4,7 +4,6 @@ namespace Zrcms\PageAccess\Api;
 
 use Psr\Http\Message\ServerRequestInterface;
 use Zrcms\CoreApplicationState\Api\GetApplicationState;
-use Zrcms\CorePage\Api\CmsResource\FindPageCmsResourceBySitePath;
 use Zrcms\CoreView\Api\GetViewByRequest;
 use Zrcms\CoreView\Exception\ViewDataNotFound;
 use Zrcms\PageAccess\Fields\FieldsPageAccess;
@@ -21,9 +20,9 @@ class GetApplicationStatePageAccess implements GetApplicationState
     protected $debug;
 
     /**
-     * @param GetViewByRequest              $getViewByRequest
-     * @param array                         $getViewByRequestOptions
-     * @param bool                          $debug
+     * @param GetViewByRequest $getViewByRequest
+     * @param array            $getViewByRequestOptions
+     * @param bool             $debug
      */
     public function __construct(
         GetViewByRequest $getViewByRequest,
@@ -45,8 +44,7 @@ class GetApplicationStatePageAccess implements GetApplicationState
     public function __invoke(
         ServerRequestInterface $request,
         array $options = []
-    ): array
-    {
+    ): array {
         try {
             $view = $this->getViewByRequest->__invoke(
                 $request,
