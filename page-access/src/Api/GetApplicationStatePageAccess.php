@@ -60,8 +60,6 @@ class GetApplicationStatePageAccess implements GetApplicationState
             FieldsPageAccess::PAGE_ACCESS_OPTIONS => $defaultPAgeAccessOptions,
         ];
 
-
-
         if ($this->debug) {
             $pageAccessState['source'] = get_class($this);
         }
