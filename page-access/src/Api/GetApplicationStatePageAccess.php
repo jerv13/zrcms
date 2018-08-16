@@ -59,7 +59,7 @@ class GetApplicationStatePageAccess implements GetApplicationState
         ];
 
         if ($this->debug) {
-            $viewState['source'] = get_class($this);
+            $pageAccessState['source'] = get_class($this);
         }
 
         if (empty($view)) {
