@@ -1,28 +1,26 @@
 <?php
 
-namespace Zrcms\CoreView\Api;
+namespace Zrcms\PageAccess\Api;
 
 use Psr\Container\ContainerInterface;
-use Zrcms\CorePage\Api\CmsResource\FindPageCmsResourceBySitePath;
+use Zrcms\CoreView\Api\GetViewByRequest;
 use Zrcms\Debug\IsDebug;
 
 /**
  * @author James Jervis - https://github.com/jerv13
  */
-class GetApplicationStateViewFactory
+class GetApplicationStatePageAccessFactory
 {
     /**
      * @param ContainerInterface $serviceContainer
      *
-     * @return GetApplicationStateView
+     * @return GetApplicationStatePageAccess
      * @throws \Psr\Container\ContainerExceptionInterface
      * @throws \Psr\Container\NotFoundExceptionInterface
      */
-    public function __invoke(
-        ContainerInterface $serviceContainer
-    ) {
-        return new GetApplicationStateView(
-            $serviceContainer->get(FindPageCmsResourceBySitePath::class),
+    public function __invoke(ContainerInterface $serviceContainer)
+    {
+        return new GetApplicationStatePageAccess(
             $serviceContainer->get(GetViewByRequest::class),
             [],
             IsDebug::invoke()

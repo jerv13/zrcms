@@ -25,26 +25,29 @@ class GetApplicationStateView implements GetApplicationState
     protected $findPageCmsResourceBySitePath;
     protected $getViewByRequest;
     protected $getViewByRequestOptions;
+    protected $debug;
 
     /**
      * @param FindPageCmsResourceBySitePath $findPageCmsResourceBySitePath
      * @param GetViewByRequest              $getViewByRequest
      * @param array                         $getViewByRequestOptions
+     * @param bool                          $debug
      */
     public function __construct(
         FindPageCmsResourceBySitePath $findPageCmsResourceBySitePath,
         GetViewByRequest $getViewByRequest,
-        array $getViewByRequestOptions = []
+        array $getViewByRequestOptions = [],
+        bool $debug = false
     ) {
         $this->findPageCmsResourceBySitePath = $findPageCmsResourceBySitePath;
         $this->getViewByRequest = $getViewByRequest;
         $this->getViewByRequestOptions = $getViewByRequestOptions;
+        $this->debug = $debug;
     }
 
     /**
      * @param ServerRequestInterface $request
      * @param array                  $options
-     *
      *
      * @return array
      * @throws \Exception
@@ -71,7 +74,7 @@ class GetApplicationStateView implements GetApplicationState
             $requestedPath
         );
 
-        return [
+        $viewState = [
             'site' => $this->buildSiteState($view),
             'page' => $this->buildPageState($view),
             'pageRequested' => $this->buildPageRequestedState($view, $requestPathPageCmsResource),
@@ -80,6 +83,12 @@ class GetApplicationStateView implements GetApplicationState
             'siteContainers' => $this->buildSiteContainersState($view),
             'viewStrategy' => $this->buildViewStrategyState($view, $requestedPath),
         ];
+
+        if ($this->debug) {
+            $viewState['source'] = get_class($this);
+        }
+
+        return $viewState;
     }
 
     /**

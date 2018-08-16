@@ -20,10 +20,12 @@ class GetApplicationStateByConfig implements GetApplicationState
      */
     public function __construct(
         array $config,
-        ContainerInterface $serviceContainer
+        ContainerInterface $serviceContainer,
+        bool $debug = false
     ) {
         $this->config = $config;
         $this->serviceContainer = $serviceContainer;
+        $this->debug = $debug;
     }
 
     /**
