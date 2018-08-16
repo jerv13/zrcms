@@ -60,9 +60,14 @@ class GetApplicationStatePageAccess implements GetApplicationState
             FieldsPageAccess::PAGE_ACCESS_OPTIONS => [],
         ];
 
+        if ($this->debug) {
+            $viewState['source'] = get_class($this);
+        }
+
         if (empty($view)) {
             return $pageAccessState;
         }
+
         $pageCmsResource = $view->getPageCmsResource();
 
         $pageState[FieldsPageAccess::PAGE_ACCESS_OPTIONS] = $pageCmsResource->getContentVersion()->findProperty(
