@@ -3,6 +3,7 @@
 namespace Zrcms\PageAccess;
 
 use Zrcms\CorePage\Fields\FieldsPageVersion;
+use Zrcms\PageAccess\Api\GetApplicationStatePageAccess;
 use Zrcms\PageAccess\Fields\FieldsPageAccess;
 
 /**
@@ -31,6 +32,11 @@ class ModuleConfigZrcms
                         'options' => [],
                     ],
                 ],
+            ],
+
+            'zrcms-application-state' => [
+                GetApplicationStatePageAccess::APPLICATION_STATE_KEY
+                => GetApplicationStatePageAccess::class,
             ],
         ];
     }

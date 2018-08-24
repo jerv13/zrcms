@@ -14,14 +14,18 @@ class GetApplicationStateAdminTools implements GetApplicationState
     const APPLICATION_STATE_KEY = 'adminTools';
 
     protected $isAllowedAdminTools;
+    protected $debug;
 
     /**
      * @param IsAllowedAdminTools $isAllowedAdminTools
+     * @param bool                $debug
      */
     public function __construct(
-        IsAllowedAdminTools $isAllowedAdminTools
+        IsAllowedAdminTools $isAllowedAdminTools,
+        bool $debug = false
     ) {
         $this->isAllowedAdminTools = $isAllowedAdminTools;
+        $this->debug = $debug;
     }
 
     /**
@@ -41,6 +45,10 @@ class GetApplicationStateAdminTools implements GetApplicationState
         );
 
         $adminToolsAppState['allowed'] = $allowed;
+
+        if ($this->debug) {
+            $adminToolsAppState['source'] = get_class($this);
+        }
 
         return $adminToolsAppState;
     }

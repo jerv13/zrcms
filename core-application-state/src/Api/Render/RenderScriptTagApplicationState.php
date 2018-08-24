@@ -3,11 +3,11 @@
 namespace Zrcms\CoreApplicationState\Api\Render;
 
 use Psr\Http\Message\ServerRequestInterface;
+use Reliv\ArrayProperties\Property;
+use Reliv\Json\Json;
 use Zrcms\Core\Api\Render\Render;
 use Zrcms\CoreApplicationState\Api\GetApplicationState;
 use Zrcms\Http\Response\ZrcmsJsonResponse;
-use Reliv\Json\Json;
-use Reliv\ArrayProperties\Property;
 use Zrcms\ViewHtmlTags\Api\Render\RenderTag;
 
 /**
@@ -71,14 +71,19 @@ class RenderScriptTagApplicationState implements Render
 
         $json = Json::encode($appState, $encodingOptions);
         $content = "{$lineBreak}{$indent}    window.zrcmsApplicationState = {$json};{$lineBreak}{$indent}";
+        $attributes = [
+            'type' => 'text/javascript'
+        ];
+
+        if ($this->debug) {
+            $attributes['data-name'] = 'zrcmsApplicationState';
+        }
 
         return $this->renderTag->__invoke(
             [
                 RenderTag::PROPERTY_TAG => 'script',
                 RenderTag::PROPERTY_CONTENT => $content,
-                RenderTag::PROPERTY_ATTRIBUTES => [
-                    'type' => 'text/javascript'
-                ],
+                RenderTag::PROPERTY_ATTRIBUTES => $attributes
             ]
         );
     }
