@@ -47,7 +47,7 @@ class GetApplicationStateAdminTools implements GetApplicationState
         $adminToolsAppState['allowed'] = $allowed;
 
         if ($this->debug) {
-            $adminToolsAppState['source'] = get_class($this);
+            $adminToolsAppState['debug-source'] = get_class($this);
         }
 
         return $adminToolsAppState;

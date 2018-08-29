@@ -54,10 +54,9 @@ class GetApplicationStatePageAccess implements GetApplicationState
             $view = null;
         }
 
-        $defaultPAgeAccessOptions = new \stdClass();
-
+        // Do to the json encoding as assoc array this must be null if no roles set
         $pageAccessState = [
-            FieldsPageAccess::PAGE_ACCESS_OPTIONS => $defaultPAgeAccessOptions,
+            FieldsPageAccess::PAGE_ACCESS_OPTIONS => null,
         ];
 
         if ($this->debug) {
@@ -70,9 +69,10 @@ class GetApplicationStatePageAccess implements GetApplicationState
 
         $pageCmsResource = $view->getPageCmsResource();
 
+        // Do to the json encoding as assoc array this must be null if no roles set
         $pageAccessState[FieldsPageAccess::PAGE_ACCESS_OPTIONS] = $pageCmsResource->getContentVersion()->findProperty(
             FieldsPageAccess::PAGE_ACCESS_OPTIONS,
-            $defaultPAgeAccessOptions
+            null
         );
 
         return $pageAccessState;
