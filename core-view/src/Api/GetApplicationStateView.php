@@ -85,7 +85,7 @@ class GetApplicationStateView implements GetApplicationState
         ];
 
         if ($this->debug) {
-            $viewState['source'] = get_class($this);
+            $viewState['debug-source'] = get_class($this);
         }
 
         return $viewState;

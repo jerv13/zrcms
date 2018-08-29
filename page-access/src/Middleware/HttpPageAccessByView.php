@@ -54,6 +54,11 @@ class HttpPageAccessByView implements MiddlewareInterface
             []
         );
 
+        // Do to the json encoding as assoc array this must be null if no roles set
+        if ($pageAccessOptions === null) {
+            $pageAccessOptions = [];
+        }
+
         $allowed = $this->isAllowedPageAccess->__invoke(
             $request,
             $pageAccessOptions
