@@ -11,4 +11,5 @@ use Reliv\FieldRat\Model\FieldsAbstract;
 class FieldsPageAccess extends FieldsAbstract implements Fields
 {
     const PAGE_ACCESS_OPTIONS = 'page-access-options';
+    const PAGE_ACCESS_OPTION_ALLOWED_ROLES = 'allowed-roles';
 }

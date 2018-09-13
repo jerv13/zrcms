@@ -5,13 +5,14 @@ namespace Zrcms\PageAccess\Api\Acl;
 use Psr\Http\Message\ServerRequestInterface;
 use RcmUser\Api\Acl\HasRoleBasedAccess;
 use Reliv\ArrayProperties\Property;
+use Zrcms\PageAccess\Fields\FieldsPageAccess;
 
 /**
  * @author James Jervis - https://github.com/jerv13
  */
 class IsAllowedPageAccessRcmUserRole implements IsAllowedPageAccess
 {
-    const OPTION_ALLOWED_ROLES = 'allowed-roles';
+    const OPTION_ALLOWED_ROLES = FieldsPageAccess::PAGE_ACCESS_OPTION_ALLOWED_ROLES;
 
     protected $hasRoleBasedAccess;
 
