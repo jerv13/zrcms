@@ -4,8 +4,10 @@ namespace Zrcms\HttpStatusPages;
 
 use Zrcms\Core\Fields\FieldsComponentConfig;
 use Zrcms\Core\Model\ComponentBasic;
+use Zrcms\Core\Model\ServiceAliasComponent;
 use Zrcms\HttpStatusPages\Fields\FieldsHttpStatusPagesComponent;
 use Zrcms\HttpStatusPages\Model\HttpStatusPagesComponent;
+use Zrcms\ServiceAlias\Api\Validator\ValidateIsZrcmsServiceAlias;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -50,7 +52,10 @@ class ModuleConfigZrcms
                         'label' => 'Component Config Reader',
                         'required' => false,
                         'default' => 'json',
-                        'options' => [],
+                        'options' => [
+                            ValidateIsZrcmsServiceAlias::OPTION_SERVICE_ALIAS_NAMESPACE
+                            => ServiceAliasComponent::ZRCMS_COMPONENT_CONFIG_READER
+                        ],
                     ],
                     [
                         'name' => FieldsHttpStatusPagesComponent::COMPONENT_CLASS,

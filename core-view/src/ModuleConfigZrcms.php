@@ -3,7 +3,9 @@
 namespace Zrcms\CoreView;
 
 use Zrcms\Core\Api\Component\BuildComponentObject;
+use Zrcms\Core\Model\ServiceAliasComponent;
 use Zrcms\CoreApplication\Api\Component\BuildComponentObjectByType;
+use Zrcms\CoreTheme\Model\ServiceAliasLayout;
 use Zrcms\CoreView\Api\GetApplicationStateView;
 use Zrcms\CoreView\Api\GetTagNamesByLayoutMustache;
 use Zrcms\CoreView\Api\Render\GetViewLayoutTagsContainers;
@@ -22,6 +24,7 @@ use Zrcms\CoreView\Fields\FieldsViewLayoutTagsComponent;
 use Zrcms\CoreView\Model\ServiceAliasView;
 use Zrcms\CoreView\Model\ViewLayoutTagsComponent;
 use Zrcms\CoreView\Model\ViewLayoutTagsComponentBasic;
+use Zrcms\ServiceAlias\Api\Validator\ValidateIsZrcmsServiceAlias;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -96,7 +99,10 @@ class ModuleConfigZrcms
                         'label' => 'Renderer (layout renderer)',
                         'required' => false,
                         'default' => 'layout',
-                        'options' => [],
+                        'options' => [
+                            ValidateIsZrcmsServiceAlias::OPTION_SERVICE_ALIAS_NAMESPACE
+                            => ServiceAliasView::ZRCMS_CONTENT_RENDERER
+                        ],
                     ],
                 ],
                 FieldsViewLayoutTagsComponent::FIELD_MODEL_NAME => [
@@ -106,7 +112,10 @@ class ModuleConfigZrcms
                         'label' => 'Render Tags Getter (GetRenderTags)',
                         'required' => false,
                         'default' => '',
-                        'options' => [],
+                        'options' => [
+                            ValidateIsZrcmsServiceAlias::OPTION_SERVICE_ALIAS_NAMESPACE
+                            => ServiceAliasView::ZRCMS_COMPONENT_VIEW_LAYOUT_TAGS_GETTER
+                        ],
                     ],
                 ],
             ],

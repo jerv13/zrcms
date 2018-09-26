@@ -17,6 +17,7 @@ use Zrcms\ServiceAlias\Api\GetServiceAliasRegistry;
 class ValidateIsZrcmsServiceAlias implements Validate
 {
     const OPTION_FIELD_CONFIG = BuildFieldRatValidationOptions::OPTION_FIELD_CONFIG;
+    const VALIDATOR_OPTION_FIELD_CONFIG = BuildFieldRatValidationOptions::VALIDATOR_OPTION_FIELD_CONFIG;
     const OPTION_SERVICE_ALIAS_NAMESPACE = 'zrcms-service-alias-namespace';
 
     const CODE_MUST_BE_STRING = 'zrcms-service-alias-must-be-string';
@@ -53,7 +54,7 @@ class ValidateIsZrcmsServiceAlias implements Validate
 
         $fieldConfig = Property::getArray(
             $options,
-            self::OPTION_FIELD_CONFIG,
+            self::VALIDATOR_OPTION_FIELD_CONFIG,
             []
         );
 
@@ -63,13 +64,14 @@ class ValidateIsZrcmsServiceAlias implements Validate
             []
         );
 
-        // Namespace might be available if this is a field type (field-rat) validation
+        // Namespace might be available from field config if this is a field type (field-rat) validation
         $fieldConfigNamespace = Property::getArray(
             $fieldConfigOptions,
             self::OPTION_SERVICE_ALIAS_NAMESPACE,
-            []
+            null
         );
 
+        // If the 'validator-options' have namespace, use them
         $namespace = Property::getString(
             $options,
             self::OPTION_SERVICE_ALIAS_NAMESPACE,
@@ -78,7 +80,8 @@ class ValidateIsZrcmsServiceAlias implements Validate
 
         if (empty($namespace)) {
             throw new \Exception(
-                'Service Alias namespace is required for options: ' . Json::encode($options)
+                'Service Alias namespace is required for validator-options or field-config options: '
+                . Json::encode($options)
             );
         }
 

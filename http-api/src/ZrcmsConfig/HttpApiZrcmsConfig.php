@@ -15,14 +15,18 @@ use Zrcms\Http\Response\ZrcmsJsonResponse;
 class HttpApiZrcmsConfig implements MiddlewareInterface
 {
     protected $appConfig;
+    protected $includeConfigs;
 
     /**
      * @param array $appConfig
+     * @param array $includeConfigs
      */
     public function __construct(
-        array $appConfig
+        array $appConfig,
+        array $includeConfigs = []
     ) {
         $this->appConfig = $appConfig;
+        $this->includeConfigs = $includeConfigs;
     }
 
     /**
@@ -38,7 +42,7 @@ class HttpApiZrcmsConfig implements MiddlewareInterface
         $zrcmsConfig = array_filter(
             $this->appConfig,
             function ($value, $key) {
-                return (substr($key, 0, 6) === "zrcms-");
+                return (substr($key, 0, 6) === "zrcms-" || in_array($key, $this->includeConfigs));
             },
             ARRAY_FILTER_USE_BOTH
         );

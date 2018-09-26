@@ -3,6 +3,7 @@
 namespace Zrcms\CoreTheme;
 
 use Zrcms\Core\Api\Component\BuildComponentObject;
+use Zrcms\Core\Model\ServiceAliasComponent;
 use Zrcms\Core\Model\Trackable;
 use Zrcms\CoreTheme\Api\Component\BuildComponentObjectThemeLayout;
 use Zrcms\CoreTheme\Api\Component\BuildComponentObjectThemeLayouts;
@@ -15,8 +16,11 @@ use Zrcms\CoreTheme\Fields\FieldsThemeComponentConfig;
 use Zrcms\CoreTheme\Model\LayoutComponent;
 use Zrcms\CoreTheme\Model\LayoutComponentBasic;
 use Zrcms\CoreTheme\Model\ServiceAliasLayout;
+use Zrcms\CoreTheme\Model\ServiceAliasTheme;
 use Zrcms\CoreTheme\Model\ThemeComponent;
 use Zrcms\CoreTheme\Model\ThemeComponentBasic;
+use Zrcms\CoreView\Model\ServiceAliasView;
+use Zrcms\ServiceAlias\Api\Validator\ValidateIsZrcmsServiceAlias;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -81,7 +85,10 @@ class ModuleConfigZrcms
                         'label' => 'Renderer',
                         'required' => false,
                         'default' => 'mustache',
-                        'options' => [],
+                        'options' => [
+                            ValidateIsZrcmsServiceAlias::OPTION_SERVICE_ALIAS_NAMESPACE
+                            => ServiceAliasLayout::ZRCMS_CONTENT_RENDERER
+                        ],
                     ],
                     [
                         'name' => FieldsLayoutComponent::RENDER_TAGS_GETTER,
@@ -89,7 +96,10 @@ class ModuleConfigZrcms
                         'label' => 'Render Tags Getter (GetRenderTags)',
                         'required' => false,
                         'default' => '',
-                        'options' => [],
+                        'options' => [
+                            ValidateIsZrcmsServiceAlias::OPTION_SERVICE_ALIAS_NAMESPACE
+                            => ServiceAliasLayout::ZRCMS_CONTENT_RENDER_TAGS_GETTER
+                        ],
                     ],
                     [
                         'name' => FieldsLayoutComponent::RENDER_TAG_NAME_PARSER,
@@ -97,7 +107,10 @@ class ModuleConfigZrcms
                         'label' => 'Tag Name Parser',
                         'required' => false,
                         'default' => 'mustache',
-                        'options' => [],
+                        'options' => [
+                            ValidateIsZrcmsServiceAlias::OPTION_SERVICE_ALIAS_NAMESPACE
+                            => ServiceAliasView::ZRCMS_LAYOUT_TAG_NAME_PARSER
+                        ],
                     ],
                 ],
                 FieldsLayoutComponentConfig::FIELD_MODEL_NAME => [
@@ -119,7 +132,7 @@ class ModuleConfigZrcms
                     ],
                     [
                         'name' => FieldsLayoutComponentConfig::CREATED_BY_USER_ID,
-                        'type' => 'zrcms-service',
+                        'type' => 'string',
                         'label' => 'Created By User ID',
                         'required' => false,
                         'default' => Trackable::UNKNOWN_USER_ID,
@@ -127,8 +140,8 @@ class ModuleConfigZrcms
                     ],
                     [
                         'name' => FieldsLayoutComponentConfig::CREATED_REASON,
-                        'type' => 'class',
-                        'label' => 'Component Class',
+                        'type' => 'string',
+                        'label' => 'Created Reason',
                         'required' => false,
                         'default' => Trackable::UNKNOWN_REASON,
                         'options' => [],
@@ -139,7 +152,10 @@ class ModuleConfigZrcms
                         'label' => 'Component Config Reader',
                         'required' => false,
                         'default' => 'json',
-                        'options' => [],
+                        'options' => [
+                            ValidateIsZrcmsServiceAlias::OPTION_SERVICE_ALIAS_NAMESPACE
+                            => ServiceAliasComponent::ZRCMS_COMPONENT_CONFIG_READER
+                        ],
                     ],
                     [
                         'name' => FieldsLayoutComponentConfig::COMPONENT_CLASS,
@@ -155,7 +171,10 @@ class ModuleConfigZrcms
                         'label' => 'Renderer',
                         'required' => false,
                         'default' => 'mustache',
-                        'options' => [],
+                        'options' => [
+                            ValidateIsZrcmsServiceAlias::OPTION_SERVICE_ALIAS_NAMESPACE
+                            => ServiceAliasComponent::ZRCMS_COMPONENT_CONFIG_READER
+                        ],
                     ],
                     [
                         'name' => FieldsLayoutComponentConfig::RENDER_TAGS_GETTER,
@@ -163,7 +182,10 @@ class ModuleConfigZrcms
                         'label' => 'Render Tags Getter (GetRenderTags)',
                         'required' => false,
                         'default' => '',
-                        'options' => [],
+                        'options' => [
+                            ValidateIsZrcmsServiceAlias::OPTION_SERVICE_ALIAS_NAMESPACE
+                            => ServiceAliasLayout::ZRCMS_CONTENT_RENDER_TAGS_GETTER
+                        ],
                     ],
                     [
                         'name' => FieldsLayoutComponentConfig::RENDER_TAG_NAME_PARSER,
@@ -171,7 +193,10 @@ class ModuleConfigZrcms
                         'label' => 'Tag Name Parser',
                         'required' => false,
                         'default' => 'mustache',
-                        'options' => [],
+                        'options' => [
+                            ValidateIsZrcmsServiceAlias::OPTION_SERVICE_ALIAS_NAMESPACE
+                            => ServiceAliasView::ZRCMS_LAYOUT_TAG_NAME_PARSER
+                        ],
                     ],
                     [
                         'name' => FieldsLayoutComponentConfig::THEME_NAME,
@@ -213,7 +238,10 @@ class ModuleConfigZrcms
                         'label' => 'Renderer',
                         'required' => false,
                         'default' => 'mustache',
-                        'options' => [],
+                        'options' => [
+                            ValidateIsZrcmsServiceAlias::OPTION_SERVICE_ALIAS_NAMESPACE
+                            => ServiceAliasLayout::ZRCMS_CONTENT_RENDERER
+                        ],
                     ],
                     [
                         'name' => FieldsLayoutVersion::RENDER_TAGS_GETTER,
@@ -221,7 +249,10 @@ class ModuleConfigZrcms
                         'label' => 'Render Tags Getter (GetRenderTags)',
                         'required' => false,
                         'default' => '',
-                        'options' => [],
+                        'options' => [
+                            ValidateIsZrcmsServiceAlias::OPTION_SERVICE_ALIAS_NAMESPACE
+                            => ServiceAliasLayout::ZRCMS_CONTENT_RENDER_TAGS_GETTER
+                        ],
                     ],
                     [
                         'name' => FieldsLayoutVersion::RENDER_TAG_NAME_PARSER,
@@ -229,7 +260,10 @@ class ModuleConfigZrcms
                         'label' => 'Tag Name Parser',
                         'required' => false,
                         'default' => 'mustache',
-                        'options' => [],
+                        'options' => [
+                            ValidateIsZrcmsServiceAlias::OPTION_SERVICE_ALIAS_NAMESPACE
+                            => ServiceAliasView::ZRCMS_LAYOUT_TAG_NAME_PARSER
+                        ],
                     ],
                     [
                         'name' => FieldsLayoutVersion::HTML,
@@ -277,7 +311,7 @@ class ModuleConfigZrcms
                     ],
                     [
                         'name' => FieldsThemeComponentConfig::CREATED_BY_USER_ID,
-                        'type' => 'zrcms-service',
+                        'type' => 'string',
                         'label' => 'Created By User ID',
                         'required' => false,
                         'default' => Trackable::UNKNOWN_USER_ID,
@@ -285,8 +319,8 @@ class ModuleConfigZrcms
                     ],
                     [
                         'name' => FieldsThemeComponentConfig::CREATED_REASON,
-                        'type' => 'class',
-                        'label' => 'Component Class',
+                        'type' => 'string',
+                        'label' => 'Created Reason',
                         'required' => false,
                         'default' => Trackable::UNKNOWN_REASON,
                         'options' => [],
@@ -297,7 +331,10 @@ class ModuleConfigZrcms
                         'label' => 'Component Config Reader',
                         'required' => false,
                         'default' => 'json',
-                        'options' => [],
+                        'options' => [
+                            ValidateIsZrcmsServiceAlias::OPTION_SERVICE_ALIAS_NAMESPACE
+                            => ServiceAliasComponent::ZRCMS_COMPONENT_CONFIG_READER
+                        ],
                     ],
                     [
                         'name' => FieldsThemeComponentConfig::COMPONENT_CLASS,
