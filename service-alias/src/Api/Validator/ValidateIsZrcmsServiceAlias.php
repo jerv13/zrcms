@@ -5,6 +5,7 @@ namespace Zrcms\ServiceAlias\Api\Validator;
 use Reliv\ArrayProperties\Property;
 use Reliv\FieldRat\Api\BuildFieldRatValidationOptions;
 use Reliv\FieldRat\Model\FieldConfig;
+use Reliv\Json\Json;
 use Reliv\ValidationRat\Api\Validator\Validate;
 use Reliv\ValidationRat\Model\ValidationResult;
 use Reliv\ValidationRat\Model\ValidationResultBasic;
@@ -77,7 +78,7 @@ class ValidateIsZrcmsServiceAlias implements Validate
 
         if (empty($namespace)) {
             throw new \Exception(
-                'Service Alias namespace is required'
+                'Service Alias namespace is required for options: ' . Json::encode($options)
             );
         }
 
