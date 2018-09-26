@@ -65,18 +65,20 @@ class ValidateIsZrcmsServiceAlias implements Validate
         );
 
         // Namespace might be available from field config if this is a field type (field-rat) validation
-        $fieldConfigNamespace = Property::getArray(
+        $namespace = Property::getArray(
             $fieldConfigOptions,
             self::OPTION_SERVICE_ALIAS_NAMESPACE,
             null
         );
 
-        // If the 'validator-options' have namespace, use them
-        $namespace = Property::getString(
-            $options,
-            self::OPTION_SERVICE_ALIAS_NAMESPACE,
-            $fieldConfigNamespace
-        );
+        if (empty($namespace)) {
+            // If the 'validator-options' have namespace, use them
+            $namespace = Property::getString(
+                $options,
+                self::OPTION_SERVICE_ALIAS_NAMESPACE,
+                null
+            );
+        }
 
         if (empty($namespace)) {
             throw new \Exception(
