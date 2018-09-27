@@ -8,6 +8,7 @@ use Zrcms\CorePage\Api\Render\GetPageRenderTagsHtml;
 use Zrcms\CorePage\Fields\FieldsPageVersion;
 use Zrcms\CorePage\Model\Page;
 use Zrcms\CorePage\Model\ServiceAliasPage;
+use Zrcms\ServiceAlias\Api\Validator\ValidateIsZrcmsServiceAlias;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -108,7 +109,10 @@ class ModuleConfigZrcms
                         'label' => 'Render Tags Getter (GetRenderTags)',
                         'required' => false,
                         'default' => FieldsPageVersion::DEFAULT_RENDER_TAGS_GETTER,
-                        'options' => [],
+                        'options' => [
+                            ValidateIsZrcmsServiceAlias::OPTION_SERVICE_ALIAS_NAMESPACE
+                            => ServiceAliasPage::ZRCMS_CONTENT_RENDER_TAGS_GETTER
+                        ],
                     ],
                     [
                         'name' => FieldsPageVersion::PAGE_CMS_RESOURCE_ID,

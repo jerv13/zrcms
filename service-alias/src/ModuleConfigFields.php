@@ -25,7 +25,7 @@ class ModuleConfigFields
                     'validator-options' => [
                         // @todo this must be set for full validation
                         // @todo it will pass if left null and value is string
-                        'zrcms-service-namespace' => null,
+                        ValidateIsZrcmsServiceAlias::OPTION_SERVICE_ALIAS_NAMESPACE => null
                     ],
                     'validator-required' => ValidateIsRealValue::class,
                     'validator-required-options' => [],

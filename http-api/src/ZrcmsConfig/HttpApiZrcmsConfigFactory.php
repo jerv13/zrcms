@@ -20,7 +20,13 @@ class HttpApiZrcmsConfigFactory
         ContainerInterface $serviceContainer
     ) {
         return new HttpApiZrcmsConfig(
-            $serviceContainer->get('config')
+            $serviceContainer->get('config'),
+            [
+                'field-rat-fields',
+                'field-rat-fields-model',
+                'field-rat-fields-model-extends',
+                'field-rat-field-types',
+            ]
         );
     }
 }

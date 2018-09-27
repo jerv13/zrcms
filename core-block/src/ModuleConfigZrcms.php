@@ -17,6 +17,7 @@ use Zrcms\CoreBlock\Fields\FieldsBlockVersion;
 use Zrcms\CoreBlock\Model\BlockComponent;
 use Zrcms\CoreBlock\Model\BlockComponentBasic;
 use Zrcms\CoreBlock\Model\ServiceAliasBlock;
+use Zrcms\ServiceAlias\Api\Validator\ValidateIsZrcmsServiceAlias;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -67,7 +68,10 @@ class ModuleConfigZrcms
                         'label' => 'Component Config Reader',
                         'required' => false,
                         'default' => 'json',
-                        'options' => [],
+                        'options' => [
+                            ValidateIsZrcmsServiceAlias::OPTION_SERVICE_ALIAS_NAMESPACE
+                            => ServiceAliasComponent::ZRCMS_COMPONENT_CONFIG_READER
+                        ],
                     ],
                     [
                         'name' => FieldsBlockComponent::COMPONENT_CLASS,
@@ -115,7 +119,10 @@ class ModuleConfigZrcms
                         'label' => 'Renderer',
                         'required' => false,
                         'default' => 'mustache',
-                        'options' => [],
+                        'options' => [
+                            ValidateIsZrcmsServiceAlias::OPTION_SERVICE_ALIAS_NAMESPACE
+                            => ServiceAliasBlock::ZRCMS_CONTENT_RENDERER
+                        ],
                     ],
                     [
                         'name' => FieldsBlockComponent::DATA_PROVIDER,
@@ -123,7 +130,10 @@ class ModuleConfigZrcms
                         'label' => 'Data Provider',
                         'required' => false,
                         'default' => 'noop',
-                        'options' => [],
+                        'options' => [
+                            ValidateIsZrcmsServiceAlias::OPTION_SERVICE_ALIAS_NAMESPACE
+                            => ServiceAliasBlock::ZRCMS_CONTENT_DATA_PROVIDER
+                        ],
                     ],
                     [
                         'name' => FieldsBlockComponent::FIELDS,
@@ -209,7 +219,7 @@ class ModuleConfigZrcms
                     ],
                     [
                         'name' => FieldsBlockComponentConfig::CREATED_BY_USER_ID,
-                        'type' => 'zrcms-service',
+                        'type' => 'string',
                         'label' => 'Created By User ID',
                         'required' => false,
                         'default' => Trackable::UNKNOWN_USER_ID,
@@ -217,8 +227,8 @@ class ModuleConfigZrcms
                     ],
                     [
                         'name' => FieldsBlockComponentConfig::CREATED_REASON,
-                        'type' => 'class',
-                        'label' => 'Component Class',
+                        'type' => 'string',
+                        'label' => 'Created Reason',
                         'required' => false,
                         'default' => Trackable::UNKNOWN_REASON,
                         'options' => [],
@@ -229,7 +239,10 @@ class ModuleConfigZrcms
                         'label' => 'Component Config Reader',
                         'required' => false,
                         'default' => 'json',
-                        'options' => [],
+                        'options' => [
+                            ValidateIsZrcmsServiceAlias::OPTION_SERVICE_ALIAS_NAMESPACE
+                            => ServiceAliasComponent::ZRCMS_COMPONENT_CONFIG_READER
+                        ],
                     ],
                     [
                         'name' => FieldsBlockComponentConfig::COMPONENT_CLASS,
@@ -261,7 +274,10 @@ class ModuleConfigZrcms
                         'label' => 'Renderer',
                         'required' => false,
                         'default' => 'mustache',
-                        'options' => [],
+                        'options' => [
+                            ValidateIsZrcmsServiceAlias::OPTION_SERVICE_ALIAS_NAMESPACE
+                            => ServiceAliasBlock::ZRCMS_CONTENT_RENDERER
+                        ],
                     ],
                     [
                         'name' => FieldsBlockComponentConfig::DATA_PROVIDER,
@@ -269,7 +285,10 @@ class ModuleConfigZrcms
                         'label' => 'Data Provider',
                         'required' => false,
                         'default' => 'noop',
-                        'options' => [],
+                        'options' => [
+                            ValidateIsZrcmsServiceAlias::OPTION_SERVICE_ALIAS_NAMESPACE
+                            => ServiceAliasBlock::ZRCMS_CONTENT_DATA_PROVIDER
+                        ],
                     ],
                     [
                         'name' => FieldsBlockComponentConfig::FIELDS,

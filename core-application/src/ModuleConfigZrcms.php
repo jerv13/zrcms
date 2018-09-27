@@ -141,8 +141,8 @@ class ModuleConfigZrcms
                     ],
                     [
                         'name' => FieldsComponentConfig::CREATED_REASON,
-                        'type' => 'class',
-                        'label' => 'Component Class',
+                        'type' => 'string',
+                        'label' => 'Created Reason',
                         'required' => false,
                         'default' => Trackable::UNKNOWN_REASON,
                         'options' => [],

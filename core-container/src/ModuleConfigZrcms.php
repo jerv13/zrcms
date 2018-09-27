@@ -6,6 +6,7 @@ use Zrcms\CoreContainer\Api\Render\GetContainerRenderTagsBlocks;
 use Zrcms\CoreContainer\Api\Render\RenderContainerRows;
 use Zrcms\CoreContainer\Fields\FieldsContainerVersion;
 use Zrcms\CoreContainer\Model\ServiceAliasContainer;
+use Zrcms\ServiceAlias\Api\Validator\ValidateIsZrcmsServiceAlias;
 
 /**
  * @author James Jervis - https://github.com/jerv13
@@ -46,7 +47,10 @@ class ModuleConfigZrcms
                         'label' => 'Render Tags Getter (GetRenderTags)',
                         'required' => false,
                         'default' => FieldsContainerVersion::DEFAULT_RENDER_TAGS_GETTER,
-                        'options' => [],
+                        'options' => [
+                            ValidateIsZrcmsServiceAlias::OPTION_SERVICE_ALIAS_NAMESPACE
+                            => ServiceAliasContainer::ZRCMS_CONTENT_RENDER_TAGS_GETTER
+                        ],
                     ],
                     [
                         'name' => FieldsContainerVersion::RENDERER,
@@ -54,7 +58,10 @@ class ModuleConfigZrcms
                         'label' => 'Renderer',
                         'required' => false,
                         'default' => FieldsContainerVersion::DEFAULT_RENDERER,
-                        'options' => [],
+                        'options' => [
+                            ValidateIsZrcmsServiceAlias::OPTION_SERVICE_ALIAS_NAMESPACE
+                            => ServiceAliasContainer::ZRCMS_CONTENT_RENDERER
+                        ],
                     ],
                     [
                         'name' => FieldsContainerVersion::BLOCK_VERSIONS,
