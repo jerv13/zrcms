@@ -11,7 +11,7 @@ interface PropertiesToArray
 {
     const OPTION_HIDE_PROPERTIES = 'hideProperties';
     const OPTION_SHOW_PRIVATE = 'showPrivate';
-    const PRIVATE_SUFFIX = Properties::PRIVATE_SUFFIX;
+    const PRIVATE_PREFIX = Properties::PRIVATE_PREFIX;
 
     /**
      * @param array $properties

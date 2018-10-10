@@ -8,7 +8,7 @@ namespace Zrcms\Core\Model;
 interface Properties
 {
     const NAME_PROPERTIES = 'properties';
-    const PRIVATE_SUFFIX = '_';
+    const PRIVATE_PREFIX = '_';
 
     /**
      * @return array

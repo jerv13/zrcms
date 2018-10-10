@@ -32,7 +32,7 @@ class PropertiesToArrayBasic implements PropertiesToArray
             false
         );
         foreach ($properties as $key => $value) {
-            if (!$showPrivate && substr($key, 0, 1) === self::PRIVATE_SUFFIX) {
+            if (!$showPrivate && substr($key, 0, 1) === self::PRIVATE_PREFIX) {
                 continue;
             }
 
